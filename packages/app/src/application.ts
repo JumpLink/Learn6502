@@ -3,6 +3,7 @@ import Gio from '@girs/gio-2.0'
 import Gdk from '@girs/gdk-4.0'
 import Gtk from '@girs/gtk-4.0'
 import Adw from '@girs/adw-1'
+import GtkSource from '@girs/gtksource-5'
 
 import { ApplicationWindow } from './widgets/application-window.ts'
 import { PreferencesDialog } from './widgets/preferences-dialog.ts'
@@ -24,6 +25,7 @@ export const Application = GObject.registerClass(
 
         protected onStartup(): void {
             this.initStyles()
+            this.initSourceView()
         }
 
         /** Load the stylesheet in a CssProvider and add it to the Gtk.StyleContext */
@@ -42,6 +44,10 @@ export const Application = GObject.registerClass(
                 provider,
                 Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
             );
+        }
+
+        protected initSourceView() {
+            GtkSource.init()
         }
 
         initActions() {

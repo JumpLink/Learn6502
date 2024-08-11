@@ -9,7 +9,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "clear": "rm -rf dist",
         "build:vite": "vite build",
-        "build:blueprints": "blueprint-compiler compile src/widgets/application-window.blp --output src/widgets/application-window.ui && blueprint-compiler compile src/widgets/preferences-dialog.blp --output src/widgets/preferences-dialog.ui && blueprint-compiler compile src/widgets/sidebar.blp --output src/widgets/sidebar.ui",
+        "build:blueprints": "blueprint-compiler compile src/widgets/application-window.blp --output src/widgets/application-window.ui && blueprint-compiler compile src/widgets/preferences-dialog.blp --output src/widgets/preferences-dialog.ui && blueprint-compiler compile src/widgets/sidebar.blp --output src/widgets/sidebar.ui && blueprint-compiler compile src/widgets/editor.blp --output src/widgets/editor.ui && blueprint-compiler compile src/widgets/game-console.blp --output src/widgets/game-console.ui",
         "build:resources": "glib-compile-resources eu.jumplink.easy6502.data.gresource.xml",
         "build": "yarn build:resources && yarn build:blueprints && yarn build:vite",
         "check": "tsc",
@@ -32,6 +32,7 @@
         "@girs/glib-2.0": "^2.80.3-4.0.0-beta.14",
         "@girs/gobject-2.0": "^2.80.3-4.0.0-beta.14",
         "@girs/gtk-4.0": "^4.14.4-4.0.0-beta.14",
+        "@girs/gtksource-5": "^5.12.0-4.0.0-beta.14",
         "@girs/javascriptcore-6.0": "^2.44.2-4.0.0-beta.14",
         "@girs/webkit-6.0": "^2.44.2-4.0.0-beta.14",
         "lightningcss": "^1.26.0"

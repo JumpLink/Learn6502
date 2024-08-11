@@ -24,7 +24,7 @@ template $ApplicationWindow: Adw.ApplicationWindow {
 
     content: Adw.ToolbarView {
       [top]
-      Adw.HeaderBar header_bar {
+      Adw.HeaderBar headerBar {
         [start]
         ToggleButton showSidebarButton {
           visible: false;
@@ -32,12 +32,68 @@ template $ApplicationWindow: Adw.ApplicationWindow {
           tooltip-text: _("Open map");
           active: bind splitView.show-sidebar;
         }
+
+        [end]
+        MenuButton {
+          primary: true;
+          icon-name: 'open-menu-symbolic';
+          tooltip-text: _('Menu');
+          menu-model: windowMenu;
+        }
       }
 
-      content: Adw.Bin {
+      content: Adw.ViewStack stack {
+        vexpand: true;
 
+        Adw.ViewStackPage {
+          name: "editor";
+          title: _("Editor");
+          icon-name: "star-filled-rounded-symbolic";
+          use-underline: true;
+
+          child: $Editor editor {};
+        }
+
+        Adw.ViewStackPage {
+          name: "gameConsole";
+          title: _("Game Console");
+          icon-name: "clock-alt-symbolic";
+          use-underline: true;
+
+          child: $GameConsole gameConsole {};
+        }
       };
+
+      [bottom]
+      Adw.ViewSwitcherBar switcherBar {
+        stack: stack;
+        reveal: true;
+      }
+
     };
   };
 }
 
+menu windowMenu {
+  section {
+    item {
+      label: _('_Preferences');
+      action: 'app.preferences';
+    }
+
+    item {
+      label: _('_Keyboard Shortcuts');
+      action: 'win.show-help-overlay';
+    }
+
+    item {
+      label: _('_About Test');
+      action: 'app.about';
+    }
+
+    item {
+      label: _('_Quit');
+      action: 'app.quit';
+    }
+  }
+}
