@@ -11,3 +11,16 @@ This (original) fork is now in a strict maintenance-only mode. Pull requests are
 Please see other active forks for further refinements and developments of the tutorial and the emulator:
 https://github.com/skilldrick/easy6502/network
 
+## Development
+
+### Installation
+
+To run the site locally, run the following commands:
+
+```
+gem install bundler jekyll
+bundle install
+bundle exec jekyll serve
+```
+
+This will serve the site at http://localhost:4000.
