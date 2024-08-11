@@ -1,0 +1,39 @@
+{
+    "name": "@easy6502/app",
+    "version": "0.0.1",
+    "description": "A one-stop accessible tutorial on 6502 assembly language programming for GNOME",
+    "main": "index.js",
+    "type": "module",
+    "private": true,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "clear": "rm -rf dist",
+        "build:vite": "vite build",
+        "build:blueprints": "blueprint-compiler compile src/widgets/application-window.blp --output src/widgets/application-window.ui && blueprint-compiler compile src/widgets/preferences-dialog.blp --output src/widgets/preferences-dialog.ui && blueprint-compiler compile src/widgets/sidebar.blp --output src/widgets/sidebar.ui",
+        "build:resources": "glib-compile-resources eu.jumplink.easy6502.data.gresource.xml",
+        "build": "yarn build:resources && yarn build:blueprints && yarn build:vite",
+        "check": "tsc",
+        "start:app": "gjs -m dist/main.js",
+        "debug:app": "GTK_DEBUG=interactive gjs -m dist/main.js",
+        "start": "yarn build:resources && yarn start:app"
+    },
+    "author": "Pascal Garber <pascal@artandcode.studio>",
+    "license": "MIT",
+    "devDependencies": {
+        "typescript": "^5.5.4",
+        "vite": "^5.4.0"
+    },
+    "dependencies": {
+        "@girs/adw-1": "^1.6.0-4.0.0-beta.14",
+        "@girs/gdk-4.0": "^4.0.0-4.0.0-beta.14",
+        "@girs/gdkpixbuf-2.0": "^2.0.0-4.0.0-beta.14",
+        "@girs/gio-2.0": "^2.80.3-4.0.0-beta.14",
+        "@girs/gjs": "^4.0.0-beta.14",
+        "@girs/glib-2.0": "^2.80.3-4.0.0-beta.14",
+        "@girs/gobject-2.0": "^2.80.3-4.0.0-beta.14",
+        "@girs/gtk-4.0": "^4.14.4-4.0.0-beta.14",
+        "@girs/javascriptcore-6.0": "^2.44.2-4.0.0-beta.14",
+        "@girs/webkit-6.0": "^2.44.2-4.0.0-beta.14",
+        "lightningcss": "^1.26.0"
+    }
+}
