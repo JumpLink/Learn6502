@@ -1841,7 +1841,7 @@ export function SimulatorWidget(node: HTMLElement) {
 
     // Returns true if label exists.
     function find(name: string) {
-      let nameAndAddr;
+      let nameAndAddr: string[];
       for (let i = 0; i < labelIndex.length; i++) {
         nameAndAddr = labelIndex[i].split("|");
         if (name === nameAndAddr[0]) {
@@ -1853,7 +1853,7 @@ export function SimulatorWidget(node: HTMLElement) {
 
     // Associates label with address
     function setPC(name: string, addr: number) {
-      let nameAndAddr;
+      let nameAndAddr: string[];
       for (let i = 0; i < labelIndex.length; i++) {
         nameAndAddr = labelIndex[i].split("|");
         if (name === nameAndAddr[0]) {
@@ -1870,7 +1870,7 @@ export function SimulatorWidget(node: HTMLElement) {
       for (let i = 0; i < labelIndex.length; i++) {
         nameAndAddr = labelIndex[i].split("|");
         if (name === nameAndAddr[0]) {
-          return Number(nameAndAddr[1]);
+          return Number(nameAndAddr[1]); //TODO: check if this is the right way to convert string to number
         }
       }
       return -1;
@@ -2084,7 +2084,7 @@ export function SimulatorWidget(node: HTMLElement) {
     // Assembles one line of code.
     // Returns true if it assembled successfully, false otherwise.
     function assembleLine(input: string, lineno: number, symbols: Symbols) {
-      let label, command, param, addr;
+      let label: string | undefined, command: string | undefined, param: string | undefined, addr: number | undefined;
 
       // Find command or label
       if (input.match(/^\w+:/)) {
