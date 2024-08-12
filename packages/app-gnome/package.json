@@ -21,7 +21,8 @@
     "license": "MIT",
     "devDependencies": {
         "typescript": "^5.5.4",
-        "vite": "^5.4.0"
+        "vite": "^5.4.0",
+        "lightningcss": "^1.26.0"
     },
     "dependencies": {
         "@girs/adw-1": "^1.6.0-4.0.0-beta.14",
@@ -34,7 +35,6 @@
         "@girs/gtk-4.0": "^4.14.4-4.0.0-beta.14",
         "@girs/gtksource-5": "^5.12.0-4.0.0-beta.14",
         "@girs/javascriptcore-6.0": "^2.44.2-4.0.0-beta.14",
-        "@girs/webkit-6.0": "^2.44.2-4.0.0-beta.14",
-        "lightningcss": "^1.26.0"
+        "@girs/webkit-6.0": "^2.44.2-4.0.0-beta.14"
     }
 }

@@ -9,9 +9,7 @@
         "clear": "rm -rf dist",
         "setup": "yarn exec 'gem install bundler jekyll' && yarn exec 'bundle install'",
         "build:vite": "vite build",
-        "build:blueprints": "blueprint-compiler compile src/widgets/application-window.blp --output src/widgets/application-window.ui && blueprint-compiler compile src/widgets/preferences-dialog.blp --output src/widgets/preferences-dialog.ui && blueprint-compiler compile src/widgets/sidebar.blp --output src/widgets/sidebar.ui && blueprint-compiler compile src/widgets/editor.blp --output src/widgets/editor.ui && blueprint-compiler compile src/widgets/game-console.blp --output src/widgets/game-console.ui",
-        "build:resources": "glib-compile-resources eu.jumplink.easy6502.data.gresource.xml",
-        "build": "yarn build:resources && yarn build:blueprints && yarn build:vite",
+        "build": "yarn build:vite",
         "check": "tsc",
         "start:app": "gjs -m dist/main.js",
         "debug:app": "GTK_DEBUG=interactive gjs -m dist/main.js",
@@ -20,10 +18,11 @@
     "author": "Pascal Garber <pascal@artandcode.studio>",
     "license": "MIT",
     "devDependencies": {
+        "lightningcss": "^1.26.0",
         "typescript": "^5.5.4",
         "vite": "^5.4.0"
     },
     "dependencies": {
-
+        "@easy6502/6502": "workspace:^"
     }
 }

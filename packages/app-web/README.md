@@ -18,7 +18,9 @@ https://github.com/skilldrick/easy6502/network
 To run the site locally, run the following commands:
 
 ```
+    yarn install
     yarn setup
+    yarn build
     yarn start
 ```
 

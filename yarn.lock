@@ -5,7 +5,7 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@easy6502/6502@workspace:packages/6502":
+"@easy6502/6502@workspace:^, @easy6502/6502@workspace:packages/6502":
   version: 0.0.0-use.local
   resolution: "@easy6502/6502@workspace:packages/6502"
   dependencies:
@@ -38,17 +38,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@easy6502/app-web@workspace:packages/app-web"
   dependencies:
-    "@girs/adw-1": "npm:^1.6.0-4.0.0-beta.14"
-    "@girs/gdk-4.0": "npm:^4.0.0-4.0.0-beta.14"
-    "@girs/gdkpixbuf-2.0": "npm:^2.0.0-4.0.0-beta.14"
-    "@girs/gio-2.0": "npm:^2.80.3-4.0.0-beta.14"
-    "@girs/gjs": "npm:^4.0.0-beta.14"
-    "@girs/glib-2.0": "npm:^2.80.3-4.0.0-beta.14"
-    "@girs/gobject-2.0": "npm:^2.80.3-4.0.0-beta.14"
-    "@girs/gtk-4.0": "npm:^4.14.4-4.0.0-beta.14"
-    "@girs/gtksource-5": "npm:^5.12.0-4.0.0-beta.14"
-    "@girs/javascriptcore-6.0": "npm:^2.44.2-4.0.0-beta.14"
-    "@girs/webkit-6.0": "npm:^2.44.2-4.0.0-beta.14"
+    "@easy6502/6502": "workspace:^"
     lightningcss: "npm:^1.26.0"
     typescript: "npm:^5.5.4"
     vite: "npm:^5.4.0"

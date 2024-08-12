@@ -9,9 +9,12 @@ export default defineConfig({
     outDir: 'dist',
     minify: false,
     rollupOptions: {
-      input: 'src/main.ts',
+      input: ['src/main.ts', 'src/main.css'],
       output: {
-        entryFileNames: 'main.js',
+        // No hash in the filenames
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name].js`,
+        assetFileNames: `assets/[name].[ext]`,
       },
     },
     cssMinify: 'lightningcss',

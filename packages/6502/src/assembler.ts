@@ -2783,9 +2783,3 @@ export function SimulatorWidget(node: HTMLElement) {
   initialize();
 }
 
-// document.addEventListener('DOMContentLoaded', function () {
-//   document.querySelectorAll<HTMLElement>('.widget').forEach(function (widget) {
-//     SimulatorWidget(widget);
-//   });
-// });
-

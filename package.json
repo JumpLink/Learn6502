@@ -4,7 +4,8 @@
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "build": "yarn workspaces foreach -v -W -t run build",
-        "start": "yarn workspace @easy6502/app run start",
+        "start:gnome": "yarn workspace @easy6502/app run start",
+        "start:web": "yarn workspace @easy6502/app-web run start",
         "clear": "yarn workspaces foreach -v --parallel -W run clear",
         "format": "yarn prettier --write .",
         "prettier": "node .yarn/sdks/prettier/index.cjs"
