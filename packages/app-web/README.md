@@ -1,4 +1,4 @@
-# easy6502
+# Easy6502 Web App
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 Easy6502 by Nick Morgan is one-stop accessible tutorial on 6502 assembly language programming,
@@ -18,9 +18,8 @@ https://github.com/skilldrick/easy6502/network
 To run the site locally, run the following commands:
 
 ```
-gem install bundler jekyll
-bundle install
-bundle exec jekyll serve
+    yarn setup
+    yarn start
 ```
 
 This will serve the site at http://localhost:4000.
