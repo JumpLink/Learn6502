@@ -5,6 +5,14 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
+"@easy6502/6502@workspace:packages/6502":
+  version: 0.0.0-use.local
+  resolution: "@easy6502/6502@workspace:packages/6502"
+  dependencies:
+    typescript: "npm:^5.5.4"
+  languageName: unknown
+  linkType: soft
+
 "@easy6502/app@workspace:packages/app":
   version: 0.0.0-use.local
   resolution: "@easy6502/app@workspace:packages/app"

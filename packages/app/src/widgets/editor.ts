@@ -19,16 +19,19 @@ class _Editor extends Adw.Bin {
 
   protected initSourceView() {
     // Get the language we want to use
-    const language_manager = GtkSource.LanguageManager.get_default();
-    const language = language_manager.get_language("js");
+    // const language_manager = GtkSource.LanguageManager.get_default();
+    // const language = language_manager.get_language("js");
 
-    if(!language) {
-      const supportedLanguages = language_manager.get_language_ids()
-      throw new Error(`Language not found, supported languages: ${supportedLanguages?.join(', ')}`)
-    }
+    // if(!language) {
+    //   const supportedLanguages = language_manager.get_language_ids()
+    //   throw new Error(`Language not found, supported languages: ${supportedLanguages?.join(', ')}`)
+    // }
 
-    // Create the buffer - this holds the text that's used in the SourceView
-    const buffer = GtkSource.Buffer.new_with_language(language);
+    // // Create the buffer - this holds the text that's used in the SourceView
+    // const buffer = GtkSource.Buffer.new_with_language(language);
+
+    const buffer = new GtkSource.Buffer();
+
     buffer.set_text('console.log("Hello World!");', -1);
 
     // Create the SourceView which displays the buffer's display
