@@ -1,119 +1,120 @@
 import { message } from './utils.js';
-
 import type { Symbols } from './types/index.js';
 import type { Assembler } from './assembler.js';
 
 /**
  * Manages labels for the 6502 assembler.
- * 
- * This function creates an object that handles label indexing, lookup, and management
- * for assembly code. It provides methods to:
- * - Index labels from assembly code lines
- * - Find existing labels
- * - Get and set program counter (PC) values for labels
- * - Display messages about found labels
- * 
- * @param {HTMLElement} node - The HTML element where messages will be displayed
- * @returns An object with methods for label management
  */
-export function Labels(node: HTMLElement) {
-    let labelIndex: string[] = [];
+export class Labels {
+  private labelIndex: string[] = [];
 
-    function indexLines(lines: string[], symbols: Symbols, assembler: ReturnType<typeof Assembler>) {
-      for (let i = 0; i < lines.length; i++) {
-        if (!indexLine(lines[i], symbols, assembler)) {
-          message(node, "**Label already defined at line " + (i + 1) + ":** " + lines[i]);
-          return false;
-        }
-      }
-      return true;
-    }
+  /**
+   * Creates a new Labels instance.
+   * @param node - The HTML element where messages will be displayed.
+   */
+  constructor(private node: HTMLElement) {}
 
-    // Extract label if line contains one and calculate position in memory.
-    // Return false if label already exists.
-    function indexLine(input: string, symbols: Symbols, assembler: ReturnType<typeof Assembler>) {
-          
-      // Figure out how many bytes this instruction takes
-      const currentPC = assembler.getCurrentPC();
-      assembler.assembleLine(input, 0, symbols); //TODO: find a better way for Labels to have access to assembler
-
-      // Find command or label
-      if (input.match(/^\w+:/)) {
-        const label = input.replace(/(^\w+):.*$/, "$1");
-        
-        if (symbols.lookup(label)) {
-          message(node, "**Label " + label + "is already used as a symbol; please rename one of them**");
-          return false;
-        }
-        
-        return push(label + "|" + currentPC);
-      }
-      return true;
-    }
-
-    // Push label to array. Return false if label already exists.
-    function push(name: string) {
-      if (find(name)) {
+  /**
+   * Indexes labels from assembly code lines.
+   * @param lines - Array of assembly code lines.
+   * @param symbols - Symbols object for lookup.
+   * @param assembler - Assembler instance.
+   * @returns True if indexing was successful, false otherwise.
+   */
+  public indexLines(lines: string[], symbols: Symbols, assembler: ReturnType<typeof Assembler>): boolean {
+    for (let i = 0; i < lines.length; i++) {
+      if (!this.indexLine(lines[i], symbols, assembler)) {
+        message(this.node, `**Label already defined at line ${i + 1}:** ${lines[i]}`);
         return false;
       }
-      labelIndex.push(name + "|");
+    }
+    return true;
+  }
+
+  /**
+   * Extracts label from a line and calculates its position in memory.
+   * @param input - Single line of assembly code.
+   * @param symbols - Symbols object for lookup.
+   * @param assembler - Assembler instance.
+   * @returns False if label already exists, true otherwise.
+   */
+  private indexLine(input: string, symbols: Symbols, assembler: ReturnType<typeof Assembler>): boolean {
+    const currentPC = assembler.getCurrentPC();
+    assembler.assembleLine(input, 0, symbols); // TODO: find a better way for Labels to have access to assembler
+
+    if (input.match(/^\w+:/)) {
+      const label = input.replace(/(^\w+):.*$/, "$1");
+      
+      if (symbols.lookup(label)) {
+        message(this.node, `**Label ${label} is already used as a symbol; please rename one of them**`);
+        return false;
+      }
+      
+      return this.push(`${label}|${currentPC}`);
+    }
+    return true;
+  }
+
+  /**
+   * Adds a label to the index.
+   * @param name - Label name and address separated by '|'.
+   * @returns False if label already exists, true otherwise.
+   */
+  private push(name: string): boolean {
+    if (this.find(name.split('|')[0])) {
+      return false;
+    }
+    this.labelIndex.push(`${name}|`);
+    return true;
+  }
+
+  /**
+   * Checks if a label exists.
+   * @param name - Label name to find.
+   * @returns True if label exists, false otherwise.
+   */
+  public find(name: string): boolean {
+    return this.labelIndex.some(label => label.split('|')[0] === name);
+  }
+
+  /**
+   * Associates a label with an address.
+   * @param name - Label name.
+   * @param addr - Address to associate with the label.
+   * @returns True if label was found and updated, false otherwise.
+   */
+  public setPC(name: string, addr: number): boolean {
+    const index = this.labelIndex.findIndex(label => label.split('|')[0] === name);
+    if (index !== -1) {
+      this.labelIndex[index] = `${name}|${addr}`;
       return true;
     }
-
-    // Returns true if label exists.
-    function find(name: string) {
-      let nameAndAddr: string[];
-      for (let i = 0; i < labelIndex.length; i++) {
-        nameAndAddr = labelIndex[i].split("|");
-        if (name === nameAndAddr[0]) {
-          return true;
-        }
-      }
-      return false;
-    }
-
-    // Associates label with address
-    function setPC(name: string, addr: number) {
-      let nameAndAddr: string[];
-      for (let i = 0; i < labelIndex.length; i++) {
-        nameAndAddr = labelIndex[i].split("|");
-        if (name === nameAndAddr[0]) {
-          labelIndex[i] = name + "|" + addr;
-          return true;
-        }
-      }
-      return false;
-    }
-
-    // Get address associated with label
-    function getPC(name: string): number {
-      let nameAndAddr: string[];
-      for (let i = 0; i < labelIndex.length; i++) {
-        nameAndAddr = labelIndex[i].split("|");
-        if (name === nameAndAddr[0]) {
-          return Number(nameAndAddr[1]);
-        }
-      }
-      return -1;
-    }
-
-    function displayMessage() {
-      let str = "Found " + labelIndex.length + " label";
-      if (labelIndex.length !== 1) {
-        str += "s";
-      }
-      message(node, str + ".");
-    }
-
-    function reset() {
-      labelIndex = [];
-    }
-
-    return {
-      indexLines: indexLines,
-      find: find,
-      getPC: getPC,
-      displayMessage: displayMessage,
-      reset: reset
-    };
+    return false;
   }
+
+  /**
+   * Gets the address associated with a label.
+   * @param name - Label name.
+   * @returns The address associated with the label, or -1 if not found.
+   */
+  public getPC(name: string): number {
+    const label = this.labelIndex.find(label => label.split('|')[0] === name);
+    return label ? Number(label.split('|')[1]) : -1;
+  }
+
+  /**
+   * Displays a message about the number of labels found.
+   */
+  public displayMessage(): void {
+    const count = this.labelIndex.length;
+    const plural = count !== 1 ? 's' : '';
+    message(this.node, `Found ${count} label${plural}.`);
+  }
+
+  /**
+   * Resets the label index.
+   */
+  public reset(): void {
+    this.labelIndex = [];
+  }
+}

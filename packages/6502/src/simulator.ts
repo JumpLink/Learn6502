@@ -4,7 +4,7 @@ import { Labels } from './labels.js';
 import { UI } from './ui.js';
 import { addr2hex, num2hex, message } from './utils.js';
 
-export function Simulator(node: HTMLElement, memory: ReturnType<typeof Memory>, display: ReturnType<typeof Display>, labels: ReturnType<typeof Labels>, ui: ReturnType<typeof UI>) {
+export function Simulator(node: HTMLElement, memory: Memory, display: Display, labels: Labels, ui: UI) {
   let regA = 0;
   let regX = 0;
   let regY = 0;
@@ -1308,7 +1308,7 @@ export function Simulator(node: HTMLElement, memory: ReturnType<typeof Memory>, 
       }
 
       if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
-        monitorNode.innerHTML = memory.format(start, length, memory);
+        monitorNode.innerHTML = memory.format(start, length);
       } else {
         monitorNode.innerHTML = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
       }

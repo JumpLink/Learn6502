@@ -1,24 +1,56 @@
 import { num2hex } from './utils.js';
 import type { Display } from './display.js';
 
-export function Memory() {
-  const memArray = new Array(0x600);
+/**
+ * Represents the memory of the 6502 emulator.
+ */
+export class Memory {
+  private memArray: number[];
 
-  function set(addr: number, val: number) {
-    return memArray[addr] = val;
+  /**
+   * Creates a new Memory instance.
+   */
+  constructor() {
+    this.memArray = new Array(0x600);
+
+    this.storeKeypress = this.storeKeypress.bind(this);
   }
 
-  function get(addr: number): number {
-    return memArray[addr];
+  /**
+   * Sets a value at a specific memory address.
+   * @param addr - The memory address.
+   * @param val - The value to set.
+   */
+  public set(addr: number, val: number): void {
+    this.memArray[addr] = val;
   }
 
-  function getWord(addr: number): number {
-    return get(addr) + (get(addr + 1) << 8);
+  /**
+   * Gets the value at a specific memory address.
+   * @param addr - The memory address.
+   * @returns The value at the specified address.
+   */
+  public get(addr: number): number {
+    return this.memArray[addr];
   }
 
-  // Poke a byte, don't touch any registers
-  function storeByte(this: ReturnType<typeof Memory>, addr: number, value: number, display?: ReturnType<typeof Display>) {
-    set(addr, value & 0xff);
+  /**
+   * Gets a 16-bit word from memory.
+   * @param addr - The starting memory address.
+   * @returns The 16-bit word value.
+   */
+  public getWord(addr: number): number {
+    return this.get(addr) + (this.get(addr + 1) << 8);
+  }
+
+  /**
+   * Stores a byte in memory and updates the display if necessary.
+   * @param addr - The memory address.
+   * @param value - The value to store.
+   * @param display - Optional Display instance for pixel updates.
+   */
+  public storeByte(addr: number, value: number, display?: Display): void {
+    this.set(addr, value & 0xff);
     if ((addr >= 0x200) && (addr <= 0x5ff)) {
       if (!display) {
         console.warn('No display found to update the pixel');
@@ -29,10 +61,13 @@ export function Memory() {
     }
   }
 
-  // Store keycode in ZP $ff
-  // Note: Used in the snake game example to control the snake with wasd keys
-  // TODO: Refactor this for a custom controller
-  function storeKeypress(this: ReturnType<typeof Memory>, e: KeyboardEvent) {
+  /**
+   * Stores a keypress in memory.
+   * Note: Used in the snake game example to control the snake with wasd keys.
+   * TODO: Refactor this for a custom controller.
+   * @param e - The keyboard event.
+   */
+  public storeKeypress(e: KeyboardEvent): void {
     let value = 0;
 
     switch (e.key) {
@@ -54,7 +89,13 @@ export function Memory() {
     this.storeByte(0xff, value);
   }
 
-  function format(start: number, length: number, memory: ReturnType<typeof Memory>) {
+  /**
+   * Formats a section of memory for display.
+   * @param start - The starting memory address.
+   * @param length - The number of bytes to format.
+   * @returns A formatted string representation of the memory section.
+   */
+  public format(start: number, length: number): string {
     let html = '';
     let n: number;
 
@@ -66,18 +107,9 @@ export function Memory() {
         html += num2hex((n & 0xff));
         html += ": ";
       }
-      html += num2hex(memory.get(start + x));
+      html += num2hex(this.get(start + x));
       html += " ";
     }
     return html;
   }
-
-  return {
-    set: set,
-    get: get,
-    getWord: getWord,
-    storeByte: storeByte,
-    storeKeypress: storeKeypress,
-    format: format
-  };
 }

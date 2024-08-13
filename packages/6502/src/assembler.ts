@@ -1,12 +1,14 @@
 import { Memory } from './memory.js';
 import { Labels } from './labels.js';
-import { Simulator } from './simulator.js';
 import { UI } from './ui.js';
 import { addr2hex, num2hex, message } from './utils.js';
 
 import type { Symbols } from './types/index.js';
 
-export function Assembler(node: HTMLElement, memory: ReturnType<typeof Memory>, labels: ReturnType<typeof Labels>, ui: ReturnType<typeof UI>) {
+/**
+ * Represents the assembler for the 6502 emulator.
+ */
+export function Assembler(node: HTMLElement, memory: Memory, labels: Labels, ui: UI) {
   let defaultCodePC: number;
   let codeLen: number;
   let codeAssembledOK = false;
@@ -74,7 +76,10 @@ export function Assembler(node: HTMLElement, memory: ReturnType<typeof Memory>, 
     ["---", null, null, null, null, null, null, null, null, null, null, null, null]
   ];
 
-  // Assembles the code into memory
+  /**
+   * Assembles the code into memory.
+   * @returns True if assembly was successful, false otherwise.
+   */
   function assembleCode(this: ReturnType<typeof Assembler>) {
     const BOOTSTRAP_ADDRESS = 0x600;
     const $messagesCode = node.querySelector<HTMLElement>('.messages code')
@@ -155,6 +160,11 @@ export function Assembler(node: HTMLElement, memory: ReturnType<typeof Memory>, 
     return no_comments.replace(/^\s+/, "").replace(/\s+$/, "");
   }
 
+  /**
+   * Preprocesses the assembly code.
+   * @param lines - The lines of code to preprocess.
+   * @returns A Symbols object containing defined symbols.
+   */
   function preprocess(lines: string[]): Symbols {
     const table: Record<string, string> = {};
     const PREFIX = "__"; // Using a prefix avoids clobbering any predefined properties
@@ -187,8 +197,13 @@ export function Assembler(node: HTMLElement, memory: ReturnType<typeof Memory>, 
     }
   }
 
-  // Assembles one line of code.
-  // Returns true if it assembled successfully, false otherwise.
+  /**
+   * Assembles a single line of code.
+   * @param input - The line of code to assemble.
+   * @param lineno - The line number (for error reporting).
+   * @param symbols - The symbols table.
+   * @returns True if assembly was successful, false otherwise.
+   */
   function assembleLine(input: string, lineno: number, symbols: Symbols) {
     let label: string | undefined, command: string | undefined, param: string | undefined, addr: number | undefined;
 
@@ -664,6 +679,11 @@ export function Assembler(node: HTMLElement, memory: ReturnType<typeof Memory>, 
     pushByte((value >> 8) & 0xff);
   }
 
+  /**
+   * Opens a popup window with the given content.
+   * @param content - The content to display in the popup.
+   * @param title - The title of the popup window.
+   */
   function openPopup(content: string, title: string) {
     const w = window.open('', title, 'width=500,height=300,resizable=yes,scrollbars=yes,toolbar=no,location=no,menubar=no,status=no');
 
@@ -684,9 +704,11 @@ export function Assembler(node: HTMLElement, memory: ReturnType<typeof Memory>, 
     w.document.close();
   }
 
-  // Dump binary as hex to new window
+  /**
+   * Generates a hexdump of the assembled code.
+   */
   function hexdump() {
-    openPopup(memory.format(0x600, codeLen, memory), 'Hexdump');
+    openPopup(memory.format(0x600, codeLen), 'Hexdump');
   }
 
   // TODO: Create separate disassembler object?
@@ -821,6 +843,9 @@ export function Assembler(node: HTMLElement, memory: ReturnType<typeof Memory>, 
     };
   }
 
+  /**
+   * Disassembles the assembled code.
+   */
   function disassemble() {
     const startAddress = 0x600;
     let currentAddress = startAddress;
@@ -856,12 +881,18 @@ export function Assembler(node: HTMLElement, memory: ReturnType<typeof Memory>, 
     openPopup(html, 'Disassembly');
   }
 
+  /**
+   * Gets the current program counter.
+   * @returns The current program counter value.
+   */
+  function getCurrentPC(): number {
+    return defaultCodePC;
+  }
+
   return {
     assembleLine: assembleLine,
     assembleCode: assembleCode,
-    getCurrentPC: function () {
-      return defaultCodePC;
-    },
+    getCurrentPC: getCurrentPC,
     hexdump: hexdump,
     disassemble: disassemble
   };
