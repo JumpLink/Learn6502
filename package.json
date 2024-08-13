@@ -3,6 +3,7 @@
     "private": true,
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
+        "setup": "yarn workspaces foreach -v -W -t run setup",
         "build": "yarn workspaces foreach -v -W -t run build",
         "start:gnome": "yarn workspace @easy6502/app run start",
         "start:web": "yarn workspace @easy6502/app-web run start",

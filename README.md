@@ -11,11 +11,15 @@ Easy6502 by Nick Morgan is one-stop accessible tutorial on 6502 assembly languag
 
 The aim is to make the simulator runtime independent so that it can also be used outside the browser.
 
-## Building
+## Development
+
+To get a initial development environment, run `yarn install && yarn setup && yarn build && yarn start:web` to install the dependencies, setup the monorepo, build the packages, and start the web app.
+
+### Building
 
 To build the packages, run `yarn build` in the root of the repository.
 
-## Running
+### Running
 
 To run the packages, run `yarn start:gnome` or `yarn start:web` in the root of the repository.
 

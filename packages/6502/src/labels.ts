@@ -21,7 +21,7 @@ export class Labels {
    * @param assembler - Assembler instance.
    * @returns True if indexing was successful, false otherwise.
    */
-  public indexLines(lines: string[], symbols: Symbols, assembler: ReturnType<typeof Assembler>): boolean {
+  public indexLines(lines: string[], symbols: Symbols, assembler: Assembler): boolean {
     for (let i = 0; i < lines.length; i++) {
       if (!this.indexLine(lines[i], symbols, assembler)) {
         message(this.node, `**Label already defined at line ${i + 1}:** ${lines[i]}`);
@@ -38,7 +38,7 @@ export class Labels {
    * @param assembler - Assembler instance.
    * @returns False if label already exists, true otherwise.
    */
-  private indexLine(input: string, symbols: Symbols, assembler: ReturnType<typeof Assembler>): boolean {
+  private indexLine(input: string, symbols: Symbols, assembler: Assembler): boolean {
     const currentPC = assembler.getCurrentPC();
     assembler.assembleLine(input, 0, symbols); // TODO: find a better way for Labels to have access to assembler
 

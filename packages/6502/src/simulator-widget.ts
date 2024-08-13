@@ -14,7 +14,7 @@ export class SimulatorWidget {
   private display: Display;
   private labels: Labels;
   private simulator: ReturnType<typeof Simulator>;
-  private assembler: ReturnType<typeof Assembler>;
+  private assembler: Assembler;
 
   /**
    * Creates a new SimulatorWidget instance.
@@ -26,7 +26,7 @@ export class SimulatorWidget {
     this.display = new Display(node);
     this.labels = new Labels(node);
     this.simulator = Simulator(node, this.memory, this.display, this.labels, this.ui);
-    this.assembler = Assembler(node, this.memory, this.labels, this.ui);
+    this.assembler = new Assembler(node, this.memory, this.labels, this.ui);
 
     this.initialize();
   }
