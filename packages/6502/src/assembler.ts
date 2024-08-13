@@ -218,8 +218,16 @@ export function SimulatorWidget(node: HTMLElement) {
       setState(assembled);
     }
 
-    function toggleMonitor (state: boolean) {
-      node.querySelector('.monitor')?.classList.toggle('hidden', !state);
+    function toggleMonitor (enable: boolean) {
+      const monitor = node.querySelector<HTMLElement>('.monitor');
+      if(!monitor) {
+        return;
+      }
+      if(enable) {
+        monitor.style.display = 'block';
+      } else {
+        monitor.style.display = 'none';
+      }
     }
 
     function showNotes() {
@@ -232,7 +240,7 @@ export function SimulatorWidget(node: HTMLElement) {
 
     function captureTabInEditor(e: KeyboardEvent) {
       // Tab Key
-      if(e.keyCode === 9) {
+      if(e.key === 'Tab' || e.keyCode === 9) {
 
         // Prevent focus loss
         e.preventDefault();
@@ -2567,7 +2575,7 @@ export function SimulatorWidget(node: HTMLElement) {
       }
 
       let html = "<html><head>";
-      html += "<link href='style.css' rel='stylesheet' type='text/css' />";
+      html += "<link href='dist/assets/main.css' rel='stylesheet' type='text/css' />";
       html += "<title>" + title + "</title></head><body>";
       html += "<pre><code>";
 

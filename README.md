@@ -5,7 +5,7 @@ Easy6502 by Nick Morgan is one-stop accessible tutorial on 6502 assembly languag
 
 ## Packages
 
-- `app-gnome`: The main application for the GNOME desktop.
+- `app-gnome`: The main application for the GNOME desktop (Not working yet).
 - `app-web`: The main application for the browser.
 - `6502`: The 6502 simulator, assembler, and disassembler.
 
