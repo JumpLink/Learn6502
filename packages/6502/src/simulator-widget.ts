@@ -13,7 +13,7 @@ export class SimulatorWidget {
   private memory: Memory;
   private display: Display;
   private labels: Labels;
-  private simulator: ReturnType<typeof Simulator>;
+  private simulator: Simulator;
   private assembler: Assembler;
 
   /**
@@ -25,7 +25,7 @@ export class SimulatorWidget {
     this.memory = new Memory();
     this.display = new Display(node);
     this.labels = new Labels(node);
-    this.simulator = Simulator(node, this.memory, this.display, this.labels, this.ui);
+    this.simulator = new Simulator(node, this.memory, this.display, this.labels, this.ui);
     this.assembler = new Assembler(node, this.memory, this.labels, this.ui);
 
     this.initialize();
@@ -87,10 +87,10 @@ export class SimulatorWidget {
       this.simulator.toggleMonitor(state);
     });
 
-    this.node.querySelector('.start, .length')?.addEventListener('blur', this.simulator.handleMonitorRangeChange);
-    this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExec);
-    this.node.querySelector('.gotoButton')?.addEventListener('click', this.simulator.gotoAddr);
-    this.node.querySelector('.notesButton')?.addEventListener('click', this.ui.showNotes);
+    this.node.querySelector('.start, .length')?.addEventListener('blur', this.simulator.handleMonitorRangeChange.bind(this.simulator));
+    this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExec.bind(this.simulator));
+    this.node.querySelector('.gotoButton')?.addEventListener('click', this.simulator.gotoAddr.bind(this.simulator));
+    this.node.querySelector('.notesButton')?.addEventListener('click', this.ui.showNotes.bind(this.ui));
 
     const editor = this.node.querySelector<HTMLTextAreaElement>('.code');
     editor?.addEventListener('keypress', this.simulator.stop);

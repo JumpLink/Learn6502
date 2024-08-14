@@ -10,7 +10,7 @@
         "setup": "yarn exec 'gem install bundler jekyll' && yarn exec 'bundle install'",
         "build:vite": "vite build",
         "build": "yarn build:vite",
-        "check": "tsc",
+        "check": "tsc --noEmit",
         "start:app": "gjs -m dist/main.js",
         "debug:app": "GTK_DEBUG=interactive gjs -m dist/main.js",
         "start": "yarn exec 'bundle exec jekyll serve'"

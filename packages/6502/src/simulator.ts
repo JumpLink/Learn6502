@@ -4,162 +4,167 @@ import { Labels } from './labels.js';
 import { UI } from './ui.js';
 import { addr2hex, num2hex, message } from './utils.js';
 
-export function Simulator(node: HTMLElement, memory: Memory, display: Display, labels: Labels, ui: UI) {
-  let regA = 0;
-  let regX = 0;
-  let regY = 0;
-  let regP = 0;
-  let regPC = 0x600;
-  let regSP = 0xff;
-  let codeRunning = false;
-  let debug = false;
-  let monitoring = false;
-  let executeId: number | undefined;
+export class Simulator {
+
+  regA = 0;
+  regX = 0;
+  regY = 0;
+  regP = 0;
+  regPC = 0x600;
+  regSP = 0xff;
+  codeRunning = false;
+  debug = false;
+  monitoring = false;
+  executeId: number | undefined;
+
+  constructor(protected node: HTMLElement, protected memory: Memory, protected display: Display, protected labels: Labels, protected ui: UI) {
+
+  }
 
   // Set zero and negative processor flags based on result
-  function setNVflags(value: number) {
+  setNVflags(value: number) {
     if (value) {
-      regP &= 0xfd;
+      this.regP &= 0xfd;
     } else {
-      regP |= 0x02;
+      this.regP |= 0x02;
     }
     if (value & 0x80) {
-      regP |= 0x80;
+      this.regP |= 0x80;
     } else {
-      regP &= 0x7f;
+      this.regP &= 0x7f;
     }
   }
 
-  function setCarryFlagFromBit0(value) {
-    regP = (regP & 0xfe) | (value & 1);
+  setCarryFlagFromBit0(value: number) {
+    this.regP = (this.regP & 0xfe) | (value & 1);
   }
 
-  function setCarryFlagFromBit7(value) {
-    regP = (regP & 0xfe) | ((value >> 7) & 1);
+  setCarryFlagFromBit7(value) {
+    this.regP = (this.regP & 0xfe) | ((value >> 7) & 1);
   }
 
-  function setNVflagsForRegA() {
-    setNVflags(regA);
+  setNVflagsForRegA() {
+    this.setNVflags(this.regA);
   }
 
-  function setNVflagsForRegX() {
-    setNVflags(regX);
+  setNVflagsForRegX() {
+    this.setNVflags(this.regX);
   }
 
-  function setNVflagsForRegY() {
-    setNVflags(regY);
+  setNVflagsForRegY() {
+    this.setNVflags(this.regY);
   }
 
-  const ORA = setNVflagsForRegA;
-  const AND = setNVflagsForRegA;
-  const EOR = setNVflagsForRegA;
-  const ASL = setNVflags;
-  const LSR = setNVflags;
-  const ROL = setNVflags;
-  const ROR = setNVflags;
-  const LDA = setNVflagsForRegA;
-  const LDX = setNVflagsForRegX;
-  const LDY = setNVflagsForRegY;
+  ORA = this.setNVflagsForRegA;
+  AND = this.setNVflagsForRegA;
+  EOR = this.setNVflagsForRegA;
+  ASL = this.setNVflags;
+  LSR = this.setNVflags;
+  ROL = this.setNVflags;
+  ROR = this.setNVflags;
+  LDA = this.setNVflagsForRegA;
+  LDX = this.setNVflagsForRegX;
+  LDY = this.setNVflagsForRegY;
 
-  function BIT(value: number) {
+  BIT(value: number) {
     if (value & 0x80) {
-      regP |= 0x80;
+      this.regP |= 0x80;
     } else {
-      regP &= 0x7f;
+      this.regP &= 0x7f;
     }
     if (value & 0x40) {
-      regP |= 0x40;
+      this.regP |= 0x40;
     } else {
-      regP &= ~0x40;
+      this.regP &= ~0x40;
     }
-    if (regA & value) {
-      regP &= 0xfd;
+    if (this.regA & value) {
+      this.regP &= 0xfd;
     } else {
-      regP |= 0x02;
+      this.regP |= 0x02;
     }
   }
 
-  function CLC() {
-    regP &= 0xfe;
+  CLC() {
+    this.regP &= 0xfe;
   }
 
-  function SEC() {
-    regP |= 1;
+  SEC() {
+    this.regP |= 1;
   }
 
 
-  function CLV() {
-    regP &= 0xbf;
+  CLV() {
+    this.regP &= 0xbf;
   }
 
-  function setOverflow() {
-    regP |= 0x40;
+  setOverflow() {
+    this.regP |= 0x40;
   }
 
-  function DEC(addr: number) {
-    let value = memory.get(addr);
+  DEC(addr: number) {
+    let value = this.memory.get(addr);
     value--;
     value &= 0xff;
-    memory.storeByte(addr, value, display);
-    setNVflags(value);
+    this.memory.storeByte(addr, value, this.display);
+    this.setNVflags(value);
   }
 
-  function INC(addr: number) {
-    let value = memory.get(addr);
+  INC(addr: number) {
+    let value = this.memory.get(addr);
     value++;
     value &= 0xff;
-    memory.storeByte(addr, value, display);
-    setNVflags(value);
+    this.memory.storeByte(addr, value, this.display);
+    this.setNVflags(value);
   }
 
-  function jumpBranch(offset: number) {
+  jumpBranch(offset: number) {
     if (offset > 0x7f) {
-      regPC = (regPC - (0x100 - offset));
+      this.regPC = (this.regPC - (0x100 - offset));
     } else {
-      regPC = (regPC + offset);
+      this.regPC = (this.regPC + offset);
     }
   }
 
-  function overflowSet() {
-    return regP & 0x40;
+  overflowSet() {
+    return this.regP & 0x40;
   }
 
-  function decimalMode() {
-    return regP & 8;
+  decimalMode() {
+    return this.regP & 8;
   }
 
-  function carrySet() {
-    return regP & 1;
+  carrySet() {
+    return this.regP & 1;
   }
 
-  function negativeSet() {
-    return regP & 0x80;
+  negativeSet() {
+    return this.regP & 0x80;
   }
 
-  function zeroSet() {
-    return regP & 0x02;
+  zeroSet() {
+    return this.regP & 0x02;
   }
 
-  function doCompare(reg: number, val: number) {
+  doCompare(reg: number, val: number) {
     if (reg >= val) {
-      SEC();
+      this.SEC();
     } else {
-      CLC();
+      this.CLC();
     }
     val = (reg - val);
-    setNVflags(val);
+    this.setNVflags(val);
   }
 
-  function testSBC(value: number) {
+  testSBC(value: number) {
     let tmp: number, w: number;
-    if ((regA ^ value) & 0x80) {
-      setOverflow();
+    if ((this.regA ^ value) & 0x80) {
+      this.setOverflow();
     } else {
-      CLV();
+      this.CLV();
     }
 
-    if (decimalMode()) {
-      tmp = 0xf + (regA & 0xf) - (value & 0xf) + carrySet();
+    if (this.decimalMode()) {
+      tmp = 0xf + (this.regA & 0xf) - (value & 0xf) + this.carrySet();
       if (tmp < 0x10) {
         w = 0;
         tmp -= 6;
@@ -167,1158 +172,1158 @@ export function Simulator(node: HTMLElement, memory: Memory, display: Display, l
         w = 0x10;
         tmp -= 0x10;
       }
-      w += 0xf0 + (regA & 0xf0) - (value & 0xf0);
+      w += 0xf0 + (this.regA & 0xf0) - (value & 0xf0);
       if (w < 0x100) {
-        CLC();
-        if (overflowSet() && w < 0x80) { CLV(); }
+        this.CLC();
+        if (this.overflowSet() && w < 0x80) { this.CLV(); }
         w -= 0x60;
       } else {
-        SEC();
-        if (overflowSet() && w >= 0x180) { CLV(); }
+        this.SEC();
+        if (this.overflowSet() && w >= 0x180) { this.CLV(); }
       }
       w += tmp;
     } else {
-      w = 0xff + regA - value + carrySet();
+      w = 0xff + this.regA - value + this.carrySet();
       if (w < 0x100) {
-        CLC();
-        if (overflowSet() && w < 0x80) { CLV(); }
+        this.CLC();
+        if (this.overflowSet() && w < 0x80) { this.CLV(); }
       } else {
-        SEC();
-        if (overflowSet() && w >= 0x180) { CLV(); }
+        this.SEC();
+        if (this.overflowSet() && w >= 0x180) { this.CLV(); }
       }
     }
-    regA = w & 0xff;
-    setNVflagsForRegA();
+    this.regA = w & 0xff;
+    this.setNVflagsForRegA();
   }
 
-  function testADC(value: number) {
+  testADC(value: number) {
     let tmp: number;
-    if ((regA ^ value) & 0x80) {
-      CLV();
+    if ((this.regA ^ value) & 0x80) {
+      this.CLV();
     } else {
-      setOverflow();
+      this.setOverflow();
     }
 
-    if (decimalMode()) {
-      tmp = (regA & 0xf) + (value & 0xf) + carrySet();
+    if (this.decimalMode()) {
+      tmp = (this.regA & 0xf) + (value & 0xf) + this.carrySet();
       if (tmp >= 10) {
         tmp = 0x10 | ((tmp + 6) & 0xf);
       }
-      tmp += (regA & 0xf0) + (value & 0xf0);
+      tmp += (this.regA & 0xf0) + (value & 0xf0);
       if (tmp >= 160) {
-        SEC();
-        if (overflowSet() && tmp >= 0x180) { CLV(); }
+        this.SEC();
+        if (this.overflowSet() && tmp >= 0x180) { this.CLV(); }
         tmp += 0x60;
       } else {
-        CLC();
-        if (overflowSet() && tmp < 0x80) { CLV(); }
+        this.CLC();
+        if (this.overflowSet() && tmp < 0x80) { this.CLV(); }
       }
     } else {
-      tmp = regA + value + carrySet();
+      tmp = this.regA + value + this.carrySet();
       if (tmp >= 0x100) {
-        SEC();
-        if (overflowSet() && tmp >= 0x180) { CLV(); }
+        this.SEC();
+        if (this.overflowSet() && tmp >= 0x180) { this.CLV(); }
       } else {
-        CLC();
-        if (overflowSet() && tmp < 0x80) { CLV(); }
+        this.CLC();
+        if (this.overflowSet() && tmp < 0x80) { this.CLV(); }
       }
     }
-    regA = tmp & 0xff;
-    setNVflagsForRegA();
+    this.regA = tmp & 0xff;
+    this.setNVflagsForRegA();
   }
 
-  const instructions = {
-    i00: function () {
-      codeRunning = false;
+  instructions = {
+    i00: () => {
+      this.codeRunning = false;
       //BRK
     },
 
-    i01: function () {
-      const zp = (popByte() + regX) & 0xff;
-      const addr = memory.getWord(zp);
-      const value = memory.get(addr);
-      regA |= value;
-      ORA();
+    i01: () => {
+      const zp = (this.popByte() + this.regX) & 0xff;
+      const addr = this.memory.getWord(zp);
+      const value = this.memory.get(addr);
+      this.regA |= value;
+      this.ORA();
     },
 
-    i05: function () {
-      const zp = popByte();
-      regA |= memory.get(zp);
-      ORA();
+    i05: () => {
+      const zp = this.popByte();
+      this.regA |= this.memory.get(zp);
+      this.ORA();
     },
 
-    i06: function () {
-      const zp = popByte();
-      let value = memory.get(zp);
-      setCarryFlagFromBit7(value);
+    i06: () => {
+      const zp = this.popByte();
+      let value = this.memory.get(zp);
+      this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
-      memory.storeByte(zp, value, display);
-      ASL(value);
+      this.memory.storeByte(zp, value, this.display);
+      this.ASL(value);
     },
 
-    i08: function () {
-      stackPush(regP | 0x30);
+    i08: () => {
+      this.stackPush(this.regP | 0x30);
       //PHP
     },
 
-    i09: function () {
-      regA |= popByte();
-      ORA();
+    i09: () => {
+      this.regA |= this.popByte();
+      this.ORA();
     },
 
-    i0a: function () {
-      setCarryFlagFromBit7(regA);
-      regA = (regA << 1) & 0xff;
-      ASL(regA);
+    i0a: () => {
+      this.setCarryFlagFromBit7(this.regA);
+      this.regA = (this.regA << 1) & 0xff;
+      this.ASL(this.regA);
     },
 
-    i0d: function () {
-      regA |= memory.get(popWord());
-      ORA();
+    i0d: () => {
+      this.regA |= this.memory.get(this.popWord());
+      this.ORA();
     },
 
-    i0e: function () {
-      const addr = popWord();
-      let value = memory.get(addr);
-      setCarryFlagFromBit7(value);
+    i0e: () => {
+      const addr = this.popWord();
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
-      memory.storeByte(addr, value, display);
-      ASL(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ASL(value);
     },
 
-    i10: function () {
-      const offset = popByte();
-      if (!negativeSet()) { jumpBranch(offset); }
+    i10: () => {
+      const offset = this.popByte();
+      if (!this.negativeSet()) { this.jumpBranch(offset); }
       //BPL
     },
 
-    i11: function () {
-      const zp = popByte();
-      const value = memory.getWord(zp) + regY;
-      regA |= memory.get(value);
-      ORA();
+    i11: () => {
+      const zp = this.popByte();
+      const value = this.memory.getWord(zp) + this.regY;
+      this.regA |= this.memory.get(value);
+      this.ORA();
     },
 
-    i15: function () {
-      const addr = (popByte() + regX) & 0xff;
-      regA |= memory.get(addr);
-      ORA();
+    i15: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      this.regA |= this.memory.get(addr);
+      this.ORA();
     },
 
-    i16: function () {
-      const addr = (popByte() + regX) & 0xff;
-      let value = memory.get(addr);
-      setCarryFlagFromBit7(value);
+    i16: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
-      memory.storeByte(addr, value, display);
-      ASL(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ASL(value);
     },
 
-    i18: function () {
-      CLC();
+    i18: () => {
+      this.CLC();
     },
 
-    i19: function () {
-      const addr = popWord() + regY;
-      regA |= memory.get(addr);
-      ORA();
+    i19: () => {
+      const addr = this.popWord() + this.regY;
+      this.regA |= this.memory.get(addr);
+      this.ORA();
     },
 
-    i1d: function () {
-      const addr = popWord() + regX;
-      regA |= memory.get(addr);
-      ORA();
+    i1d: () => {
+      const addr = this.popWord() + this.regX;
+      this.regA |= this.memory.get(addr);
+      this.ORA();
     },
 
-    i1e: function () {
-      const addr = popWord() + regX;
-      let value = memory.get(addr);
-      setCarryFlagFromBit7(value);
+    i1e: () => {
+      const addr = this.popWord() + this.regX;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
-      memory.storeByte(addr, value, display);
-      ASL(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ASL(value);
     },
 
-    i20: function () {
-      const addr = popWord();
-      const currAddr = regPC - 1;
-      stackPush(((currAddr >> 8) & 0xff));
-      stackPush((currAddr & 0xff));
-      regPC = addr;
+    i20: () => {
+      const addr = this.popWord();
+      const currAddr = this.regPC - 1;
+      this.stackPush(((currAddr >> 8) & 0xff));
+      this.stackPush((currAddr & 0xff));
+      this.regPC = addr;
       //JSR
     },
 
-    i21: function () {
-      const zp = (popByte() + regX) & 0xff;
-      const addr = memory.getWord(zp);
-      let value = memory.get(addr);
-      regA &= value;
-      AND();
+    i21: () => {
+      const zp = (this.popByte() + this.regX) & 0xff;
+      const addr = this.memory.getWord(zp);
+      let value = this.memory.get(addr);
+      this.regA &= value;
+      this.AND();
     },
 
-    i24: function () {
-      const zp = popByte();
-      const value = memory.get(zp);
-      BIT(value);
+    i24: () => {
+      const zp = this.popByte();
+      const value = this.memory.get(zp);
+      this.BIT(value);
     },
 
-    i25: function () {
-      const zp = popByte();
-      regA &= memory.get(zp);
-      AND();
+    i25: () => {
+      const zp = this.popByte();
+      this.regA &= this.memory.get(zp);
+      this.AND();
     },
 
-    i26: function () {
-      const sf = carrySet();
-      const addr = popByte();
-      let value = memory.get(addr);
-      setCarryFlagFromBit7(value);
+    i26: () => {
+      const sf = this.carrySet();
+      const addr = this.popByte();
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
       value |= sf;
-      memory.storeByte(addr, value, display);
-      ROL(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ROL(value);
     },
 
-    i28: function () {
-      regP = stackPop() | 0x30; // There is no B bit!
+    i28: () => {
+      this.regP = this.stackPop() | 0x30; // There is no B bit!
       //PLP
     },
 
-    i29: function () {
-      regA &= popByte();
-      AND();
+    i29: () => {
+      this.regA &= this.popByte();
+      this.AND();
     },
 
-    i2a: function () {
-      const sf = carrySet();
-      setCarryFlagFromBit7(regA);
-      regA = (regA << 1) & 0xff;
-      regA |= sf;
-      ROL(regA);
+    i2a: () => {
+      const sf = this.carrySet();
+      this.setCarryFlagFromBit7(this.regA);
+      this.regA = (this.regA << 1) & 0xff;
+      this.regA |= sf;
+      this.ROL(this.regA);
     },
 
-    i2c: function () {
-      const value = memory.get(popWord());
-      BIT(value);
+    i2c: () => {
+      const value = this.memory.get(this.popWord());
+      this.BIT(value);
     },
 
-    i2d: function () {
-      const value = memory.get(popWord());
-      regA &= value;
-      AND();
+    i2d: () => {
+      const value = this.memory.get(this.popWord());
+      this.regA &= value;
+      this.AND();
     },
 
-    i2e: function () {
-      const sf = carrySet();
-      const addr = popWord();
-      let value = memory.get(addr);
-      setCarryFlagFromBit7(value);
+    i2e: () => {
+      const sf = this.carrySet();
+      const addr = this.popWord();
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
       value |= sf;
-      memory.storeByte(addr, value, display);
-      ROL(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ROL(value);
     },
 
-    i30: function () {
-      const offset = popByte();
-      if (negativeSet()) { jumpBranch(offset); }
+    i30: () => {
+      const offset = this.popByte();
+      if (this.negativeSet()) { this.jumpBranch(offset); }
       //BMI
     },
 
-    i31: function () {
-      const zp = popByte();
-      const value = memory.getWord(zp) + regY;
-      regA &= memory.get(value);
-      AND();
+    i31: () => {
+      const zp = this.popByte();
+      const value = this.memory.getWord(zp) + this.regY;
+      this.regA &= this.memory.get(value);
+      this.AND();
     },
 
-    i35: function () {
-      const addr = (popByte() + regX) & 0xff;
-      regA &= memory.get(addr);
-      AND();
+    i35: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      this.regA &= this.memory.get(addr);
+      this.AND();
     },
 
-    i36: function () {
-      const sf = carrySet();
-      const addr = (popByte() + regX) & 0xff;
-      let value = memory.get(addr);
-      setCarryFlagFromBit7(value);
+    i36: () => {
+      const sf = this.carrySet();
+      const addr = (this.popByte() + this.regX) & 0xff;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
       value |= sf;
-      memory.storeByte(addr, value, display);
-      ROL(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ROL(value);
     },
 
-    i38: function () {
-      SEC();
+    i38: () => {
+      this.SEC();
     },
 
-    i39: function () {
-      const addr = popWord() + regY;
-      const value = memory.get(addr);
-      regA &= value;
-      AND();
+    i39: () => {
+      const addr = this.popWord() + this.regY;
+      const value = this.memory.get(addr);
+      this.regA &= value;
+      this.AND();
     },
 
-    i3d: function () {
-      const addr = popWord() + regX;
-      const value = memory.get(addr);
-      regA &= value;
-      AND();
+    i3d: () => {
+      const addr = this.popWord() + this.regX;
+      const value = this.memory.get(addr);
+      this.regA &= value;
+      this.AND();
     },
 
-    i3e: function () {
-      const sf = carrySet();
-      const addr = popWord() + regX;
-      let value = memory.get(addr);
-      setCarryFlagFromBit7(value);
+    i3e: () => {
+      const sf = this.carrySet();
+      const addr = this.popWord() + this.regX;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
       value |= sf;
-      memory.storeByte(addr, value, display);
-      ROL(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ROL(value);
     },
 
-    i40: function () {
-      regP = stackPop() | 0x30; // There is no B bit!
-      regPC = stackPop() | (stackPop() << 8);
+    i40: () => {
+      this.regP = this.stackPop() | 0x30; // There is no B bit!
+      this.regPC = this.stackPop() | (this.stackPop() << 8);
       //RTI
     },
 
-    i41: function () {
-      const zp = (popByte() + regX) & 0xff;
-      const value = memory.getWord(zp);
-      regA ^= memory.get(value);
-      EOR();
+    i41: () => {
+      const zp = (this.popByte() + this.regX) & 0xff;
+      const value = this.memory.getWord(zp);
+      this.regA ^= this.memory.get(value);
+      this.EOR();
     },
 
-    i45: function () {
-      const addr = popByte() & 0xff;
-      const value = memory.get(addr);
-      regA ^= value;
-      EOR();
+    i45: () => {
+      const addr = this.popByte() & 0xff;
+      const value = this.memory.get(addr);
+      this.regA ^= value;
+      this.EOR();
     },
 
-    i46: function () {
-      const addr = popByte() & 0xff;
-      let value = memory.get(addr);
-      setCarryFlagFromBit0(value);
+    i46: () => {
+      const addr = this.popByte() & 0xff;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      memory.storeByte(addr, value, display);
-      LSR(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.LSR(value);
     },
 
-    i48: function () {
-      stackPush(regA);
+    i48: () => {
+      this.stackPush(this.regA);
       //PHA
     },
 
-    i49: function () {
-      regA ^= popByte();
-      EOR();
+    i49: () => {
+      this.regA ^= this.popByte();
+      this.EOR();
     },
 
-    i4a: function () {
-      setCarryFlagFromBit0(regA);
-      regA = regA >> 1;
-      LSR(regA);
+    i4a: () => {
+      this.setCarryFlagFromBit0(this.regA);
+      this.regA = this.regA >> 1;
+      this.LSR(this.regA);
     },
 
-    i4c: function () {
-      regPC = popWord();
+    i4c: () => {
+      this.regPC = this.popWord();
       //JMP
     },
 
-    i4d: function () {
-      const addr = popWord();
-      const value = memory.get(addr);
-      regA ^= value;
-      EOR();
+    i4d: () => {
+      const addr = this.popWord();
+      const value = this.memory.get(addr);
+      this.regA ^= value;
+      this.EOR();
     },
 
-    i4e: function () {
-      const addr = popWord();
-      let value = memory.get(addr);
-      setCarryFlagFromBit0(value);
+    i4e: () => {
+      const addr = this.popWord();
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      memory.storeByte(addr, value, display);
-      LSR(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.LSR(value);
     },
 
-    i50: function () {
-      const offset = popByte();
-      if (!overflowSet()) { jumpBranch(offset); }
+    i50: () => {
+      const offset = this.popByte();
+      if (!this.overflowSet()) { this.jumpBranch(offset); }
       //BVC
     },
 
-    i51: function () {
-      const zp = popByte();
-      const value = memory.getWord(zp) + regY;
-      regA ^= memory.get(value);
-      EOR();
+    i51: () => {
+      const zp = this.popByte();
+      const value = this.memory.getWord(zp) + this.regY;
+      this.regA ^= this.memory.get(value);
+      this.EOR();
     },
 
-    i55: function () {
-      const addr = (popByte() + regX) & 0xff;
-      regA ^= memory.get(addr);
-      EOR();
+    i55: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      this.regA ^= this.memory.get(addr);
+      this.EOR();
     },
 
-    i56: function () {
-      const addr = (popByte() + regX) & 0xff;
-      let value = memory.get(addr);
-      setCarryFlagFromBit0(value);
+    i56: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      memory.storeByte(addr, value, display);
-      LSR(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.LSR(value);
     },
 
-    i58: function () {
-      regP &= ~0x04;
+    i58: () => {
+      this.regP &= ~0x04;
       throw new Error("Interrupts not implemented");
       //CLI
     },
 
-    i59: function () {
-      const addr = popWord() + regY;
-      const value = memory.get(addr);
-      regA ^= value;
-      EOR();
+    i59: () => {
+      const addr = this.popWord() + this.regY;
+      const value = this.memory.get(addr);
+      this.regA ^= value;
+      this.EOR();
     },
 
-    i5d: function () {
-      const addr = popWord() + regX;
-      const value = memory.get(addr);
-      regA ^= value;
-      EOR();
+    i5d: () => {
+      const addr = this.popWord() + this.regX;
+      const value = this.memory.get(addr);
+      this.regA ^= value;
+      this.EOR();
     },
 
-    i5e: function () {
-      const addr = popWord() + regX;
-      let value = memory.get(addr);
-      setCarryFlagFromBit0(value);
+    i5e: () => {
+      const addr = this.popWord() + this.regX;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      memory.storeByte(addr, value, display);
-      LSR(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.LSR(value);
     },
 
-    i60: function () {
-      regPC = (stackPop() | (stackPop() << 8)) + 1;
+    i60: () => {
+      this.regPC = (this.stackPop() | (this.stackPop() << 8)) + 1;
       //RTS
     },
 
-    i61: function () {
-      const zp = (popByte() + regX) & 0xff;
-      const addr = memory.getWord(zp);
-      const value = memory.get(addr);
-      testADC(value);
+    i61: () => {
+      const zp = (this.popByte() + this.regX) & 0xff;
+      const addr = this.memory.getWord(zp);
+      const value = this.memory.get(addr);
+      this.testADC(value);
       //ADC
     },
 
-    i65: function () {
-      const addr = popByte();
-      const value = memory.get(addr);
-      testADC(value);
+    i65: () => {
+      const addr = this.popByte();
+      const value = this.memory.get(addr);
+      this.testADC(value);
       //ADC
     },
 
-    i66: function () {
-      const sf = carrySet();
-      const addr = popByte();
-      let value = memory.get(addr);
-      setCarryFlagFromBit0(value);
+    i66: () => {
+      const sf = this.carrySet();
+      const addr = this.popByte();
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit0(value);
       value = value >> 1;
       if (sf) { value |= 0x80; }
-      memory.storeByte(addr, value, display);
-      ROR(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ROR(value);
     },
 
-    i68: function () {
-      regA = stackPop();
-      setNVflagsForRegA();
+    i68: () => {
+      this.regA = this.stackPop();
+      this.setNVflagsForRegA();
       //PLA
     },
 
-    i69: function () {
-      const value = popByte();
-      testADC(value);
+    i69: () => {
+      const value = this.popByte();
+      this.testADC(value);
       //ADC
     },
 
-    i6a: function () {
-      const sf = carrySet();
-      setCarryFlagFromBit0(regA);
-      regA = regA >> 1;
-      if (sf) { regA |= 0x80; }
-      ROR(regA);
+    i6a: () => {
+      const sf = this.carrySet();
+      this.setCarryFlagFromBit0(this.regA);
+      this.regA = this.regA >> 1;
+      if (sf) { this.regA |= 0x80; }
+      this.ROR(this.regA);
     },
 
-    i6c: function () {
-      regPC = memory.getWord(popWord());
+    i6c: () => {
+      this.regPC = this.memory.getWord(this.popWord());
       //JMP
     },
 
-    i6d: function () {
-      const addr = popWord();
-      const value = memory.get(addr);
-      testADC(value);
+    i6d: () => {
+      const addr = this.popWord();
+      const value = this.memory.get(addr);
+      this.testADC(value);
       //ADC
     },
 
-    i6e: function () {
-      const sf = carrySet();
-      const addr = popWord();
-      let value = memory.get(addr);
-      setCarryFlagFromBit0(value);
+    i6e: () => {
+      const sf = this.carrySet();
+      const addr = this.popWord();
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit0(value);
       value = value >> 1;
       if (sf) { value |= 0x80; }
-      memory.storeByte(addr, value, display);
-      ROR(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ROR(value);
     },
 
-    i70: function () {
-      const offset = popByte();
-      if (overflowSet()) { jumpBranch(offset); }
+    i70: () => {
+      const offset = this.popByte();
+      if (this.overflowSet()) { this.jumpBranch(offset); }
       //BVS
     },
 
-    i71: function () {
-      const zp = popByte();
-      const addr = memory.getWord(zp);
-      const value = memory.get(addr + regY);
-      testADC(value);
+    i71: () => {
+      const zp = this.popByte();
+      const addr = this.memory.getWord(zp);
+      const value = this.memory.get(addr + this.regY);
+      this.testADC(value);
       //ADC
     },
 
-    i75: function () {
-      const addr = (popByte() + regX) & 0xff;
-      const value = memory.get(addr);
-      testADC(value);
+    i75: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      const value = this.memory.get(addr);
+      this.testADC(value);
       //ADC
     },
 
-    i76: function () {
-      const sf = carrySet();
-      const addr = (popByte() + regX) & 0xff;
-      let value = memory.get(addr);
-      setCarryFlagFromBit0(value);
+    i76: () => {
+      const sf = this.carrySet();
+      const addr = (this.popByte() + this.regX) & 0xff;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit0(value);
       value = value >> 1;
       if (sf) { value |= 0x80; }
-      memory.storeByte(addr, value, display);
-      ROR(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ROR(value);
     },
 
-    i78: function () {
-      regP |= 0x04;
+    i78: () => {
+      this.regP |= 0x04;
       throw new Error("Interrupts not implemented");
       //SEI
     },
 
-    i79: function () {
-      const addr = popWord();
-      const value = memory.get(addr + regY);
-      testADC(value);
+    i79: () => {
+      const addr = this.popWord();
+      const value = this.memory.get(addr + this.regY);
+      this.testADC(value);
       //ADC
     },
 
-    i7d: function () {
-      const addr = popWord();
-      const value = memory.get(addr + regX);
-      testADC(value);
+    i7d: () => {
+      const addr = this.popWord();
+      const value = this.memory.get(addr + this.regX);
+      this.testADC(value);
       //ADC
     },
 
-    i7e: function () {
-      const sf = carrySet();
-      const addr = popWord() + regX;
-      let value = memory.get(addr);
-      setCarryFlagFromBit0(value);
+    i7e: () => {
+      const sf = this.carrySet();
+      const addr = this.popWord() + this.regX;
+      let value = this.memory.get(addr);
+      this.setCarryFlagFromBit0(value);
       value = value >> 1;
       if (sf) { value |= 0x80; }
-      memory.storeByte(addr, value, display);
-      ROR(value);
+      this.memory.storeByte(addr, value, this.display);
+      this.ROR(value);
     },
 
-    i81: function () {
-      const zp = (popByte() + regX) & 0xff;
-      const addr = memory.getWord(zp);
-      memory.storeByte(addr, regA, display);
+    i81: () => {
+      const zp = (this.popByte() + this.regX) & 0xff;
+      const addr = this.memory.getWord(zp);
+      this.memory.storeByte(addr, this.regA, this.display);
       //STA
     },
 
-    i84: function () {
-      memory.storeByte(popByte(), regY, display);
+    i84: () => {
+      this.memory.storeByte(this.popByte(), this.regY, this.display);
       //STY
     },
 
-    i85: function () {
-      memory.storeByte(popByte(), regA, display);
+    i85: () => {
+      this.memory.storeByte(this.popByte(), this.regA, this.display);
       //STA
     },
 
-    i86: function () {
-      memory.storeByte(popByte(), regX, display);
+    i86: () => {
+      this.memory.storeByte(this.popByte(), this.regX, this.display);
       //STX
     },
 
-    i88: function () {
-      regY = (regY - 1) & 0xff;
-      setNVflagsForRegY();
+    i88: () => {
+      this.regY = (this.regY - 1) & 0xff;
+      this.setNVflagsForRegY();
       //DEY
     },
 
-    i8a: function () {
-      regA = regX & 0xff;
-      setNVflagsForRegA();
+    i8a: () => {
+      this.regA = this.regX & 0xff;
+      this.setNVflagsForRegA();
       //TXA
     },
 
-    i8c: function () {
-      memory.storeByte(popWord(), regY, display);
+    i8c: () => {
+      this.memory.storeByte(this.popWord(), this.regY, this.display);
       //STY
     },
 
-    i8d: function () {
-      memory.storeByte(popWord(), regA, display);
+    i8d: () => {
+      this.memory.storeByte(this.popWord(), this.regA, this.display);
       //STA
     },
 
-    i8e: function () {
-      memory.storeByte(popWord(), regX, display);
+    i8e: () => {
+      this.memory.storeByte(this.popWord(), this.regX, this.display);
       //STX
     },
 
-    i90: function () {
-      const offset = popByte();
-      if (!carrySet()) { jumpBranch(offset); }
+    i90: () => {
+      const offset = this.popByte();
+      if (!this.carrySet()) { this.jumpBranch(offset); }
       //BCC
     },
 
-    i91: function () {
-      const zp = popByte();
-      const addr = memory.getWord(zp) + regY;
-      memory.storeByte(addr, regA, display);
+    i91: () => {
+      const zp = this.popByte();
+      const addr = this.memory.getWord(zp) + this.regY;
+      this.memory.storeByte(addr, this.regA, this.display);
       //STA
     },
 
-    i94: function () {
-      memory.storeByte((popByte() + regX) & 0xff, regY, display);
+    i94: () => {
+      this.memory.storeByte((this.popByte() + this.regX) & 0xff, this.regY, this.display);
       //STY
     },
 
-    i95: function () {
-      memory.storeByte((popByte() + regX) & 0xff, regA, display);
+    i95: () => {
+      this.memory.storeByte((this.popByte() + this.regX) & 0xff, this.regA, this.display);
       //STA
     },
 
-    i96: function () {
-      memory.storeByte((popByte() + regY) & 0xff, regX, display);
+    i96: () => {
+      this.memory.storeByte((this.popByte() + this.regY) & 0xff, this.regX, this.display);
       //STX
     },
 
-    i98: function () {
-      regA = regY & 0xff;
-      setNVflagsForRegA();
+    i98: () => {
+      this.regA = this.regY & 0xff;
+      this.setNVflagsForRegA();
       //TYA
     },
 
-    i99: function () {
-      memory.storeByte(popWord() + regY, regA, display);
+    i99: () => {
+      this.memory.storeByte(this.popWord() + this.regY, this.regA, this.display);
       //STA
     },
 
-    i9a: function () {
-      regSP = regX & 0xff;
+    i9a: () => {
+      this.regSP = this.regX & 0xff;
       //TXS
     },
 
-    i9d: function () {
-      const addr = popWord();
-      memory.storeByte(addr + regX, regA, display);
+    i9d: () => {
+      const addr = this.popWord();
+      this.memory.storeByte(addr + this.regX, this.regA, this.display);
       //STA
     },
 
-    ia0: function () {
-      regY = popByte();
-      LDY();
+    ia0: () => {
+      this.regY = this.popByte();
+      this.LDY();
     },
 
-    ia1: function () {
-      const zp = (popByte() + regX) & 0xff;
-      const addr = memory.getWord(zp);
-      regA = memory.get(addr);
-      LDA();
+    ia1: () => {
+      const zp = (this.popByte() + this.regX) & 0xff;
+      const addr = this.memory.getWord(zp);
+      this.regA = this.memory.get(addr);
+      this.LDA();
     },
 
-    ia2: function () {
-      regX = popByte();
-      LDX();
+    ia2: () => {
+      this.regX = this.popByte();
+      this.LDX();
     },
 
-    ia4: function () {
-      regY = memory.get(popByte());
-      LDY();
+    ia4: () => {
+      this.regY = this.memory.get(this.popByte());
+      this.LDY();
     },
 
-    ia5: function () {
-      regA = memory.get(popByte());
-      LDA();
+    ia5: () => {
+      this.regA = this.memory.get(this.popByte());
+      this.LDA();
     },
 
-    ia6: function () {
-      regX = memory.get(popByte());
-      LDX();
+    ia6: () => {
+      this.regX = this.memory.get(this.popByte());
+      this.LDX();
     },
 
-    ia8: function () {
-      regY = regA & 0xff;
-      setNVflagsForRegY();
+    ia8: () => {
+      this.regY = this.regA & 0xff;
+      this.setNVflagsForRegY();
       //TAY
     },
 
-    ia9: function () {
-      regA = popByte();
-      LDA();
+    ia9: () => {
+      this.regA = this.popByte();
+      this.LDA();
     },
 
-    iaa: function () {
-      regX = regA & 0xff;
-      setNVflagsForRegX();
+    iaa: () => {
+      this.regX = this.regA & 0xff;
+      this.setNVflagsForRegX();
       //TAX
     },
 
-    iac: function () {
-      regY = memory.get(popWord());
-      LDY();
+    iac: () => {
+      this.regY = this.memory.get(this.popWord());
+      this.LDY();
     },
 
-    iad: function () {
-      regA = memory.get(popWord());
-      LDA();
+    iad: () => {
+      this.regA = this.memory.get(this.popWord());
+      this.LDA();
     },
 
-    iae: function () {
-      regX = memory.get(popWord());
-      LDX();
+    iae: () => {
+      this.regX = this.memory.get(this.popWord());
+      this.LDX();
     },
 
-    ib0: function () {
-      const offset = popByte();
-      if (carrySet()) { jumpBranch(offset); }
+    ib0: () => {
+      const offset = this.popByte();
+      if (this.carrySet()) { this.jumpBranch(offset); }
       //BCS
     },
 
-    ib1: function () {
-      const zp = popByte();
-      const addr = memory.getWord(zp) + regY;
-      regA = memory.get(addr);
-      LDA();
+    ib1: () => {
+      const zp = this.popByte();
+      const addr = this.memory.getWord(zp) + this.regY;
+      this.regA = this.memory.get(addr);
+      this.LDA();
     },
 
-    ib4: function () {
-      regY = memory.get((popByte() + regX) & 0xff);
-      LDY();
+    ib4: () => {
+      this.regY = this.memory.get((this.popByte() + this.regX) & 0xff);
+      this.LDY();
     },
 
-    ib5: function () {
-      regA = memory.get((popByte() + regX) & 0xff);
-      LDA();
+    ib5: () => {
+      this.regA = this.memory.get((this.popByte() + this.regX) & 0xff);
+      this.LDA();
     },
 
-    ib6: function () {
-      regX = memory.get((popByte() + regY) & 0xff);
-      LDX();
+    ib6: () => {
+      this.regX = this.memory.get((this.popByte() + this.regY) & 0xff);
+      this.LDX();
     },
 
-    ib8: function () {
-      CLV();
+    ib8: () => {
+      this.CLV();
     },
 
-    ib9: function () {
-      const addr = popWord() + regY;
-      regA = memory.get(addr);
-      LDA();
+    ib9: () => {
+      const addr = this.popWord() + this.regY;
+      this.regA = this.memory.get(addr);
+      this.LDA();
     },
 
-    iba: function () {
-      regX = regSP & 0xff;
-      LDX();
+    iba: () => {
+      this.regX = this.regSP & 0xff;
+      this.LDX();
       //TSX
     },
 
-    ibc: function () {
-      const addr = popWord() + regX;
-      regY = memory.get(addr);
-      LDY();
+    ibc: () => {
+      const addr = this.popWord() + this.regX;
+      this.regY = this.memory.get(addr);
+      this.LDY();
     },
 
-    ibd: function () {
-      const addr = popWord() + regX;
-      regA = memory.get(addr);
-      LDA();
+    ibd: () => {
+      const addr = this.popWord() + this.regX;
+      this.regA = this.memory.get(addr);
+      this.LDA();
     },
 
-    ibe: function () {
-      const addr = popWord() + regY;
-      regX = memory.get(addr);
-      LDX();
+    ibe: () => {
+      const addr = this.popWord() + this.regY;
+      this.regX = this.memory.get(addr);
+      this.LDX();
     },
 
-    ic0: function () {
-      const value = popByte();
-      doCompare(regY, value);
+    ic0: () => {
+      const value = this.popByte();
+      this.doCompare(this.regY, value);
       //CPY
     },
 
-    ic1: function () {
-      const zp = (popByte() + regX) & 0xff;
-      const addr = memory.getWord(zp);
-      const value = memory.get(addr);
-      doCompare(regA, value);
+    ic1: () => {
+      const zp = (this.popByte() + this.regX) & 0xff;
+      const addr = this.memory.getWord(zp);
+      const value = this.memory.get(addr);
+      this.doCompare(this.regA, value);
       //CPA
     },
 
-    ic4: function () {
-      const value = memory.get(popByte());
-      doCompare(regY, value);
+    ic4: () => {
+      const value = this.memory.get(this.popByte());
+      this.doCompare(this.regY, value);
       //CPY
     },
 
-    ic5: function () {
-      const value = memory.get(popByte());
-      doCompare(regA, value);
+    ic5: () => {
+      const value = this.memory.get(this.popByte());
+      this.doCompare(this.regA, value);
       //CPA
     },
 
-    ic6: function () {
-      const zp = popByte();
-      DEC(zp);
+    ic6: () => {
+      const zp = this.popByte();
+      this.DEC(zp);
     },
 
-    ic8: function () {
-      regY = (regY + 1) & 0xff;
-      setNVflagsForRegY();
+    ic8: () => {
+      this.regY = (this.regY + 1) & 0xff;
+      this.setNVflagsForRegY();
       //INY
     },
 
-    ic9: function () {
-      const value = popByte();
-      doCompare(regA, value);
+    ic9: () => {
+      const value = this.popByte();
+      this.doCompare(this.regA, value);
       //CMP
     },
 
-    ica: function () {
-      regX = (regX - 1) & 0xff;
-      setNVflagsForRegX();
+    ica: () => {
+      this.regX = (this.regX - 1) & 0xff;
+      this.setNVflagsForRegX();
       //DEX
     },
 
-    icc: function () {
-      const value = memory.get(popWord());
-      doCompare(regY, value);
+    icc: () => {
+      const value = this.memory.get(this.popWord());
+      this.doCompare(this.regY, value);
       //CPY
     },
 
-    icd: function () {
-      const value = memory.get(popWord());
-      doCompare(regA, value);
+    icd: () => {
+      const value = this.memory.get(this.popWord());
+      this.doCompare(this.regA, value);
       //CPA
     },
 
-    ice: function () {
-      const addr = popWord();
-      DEC(addr);
+    ice: () => {
+      const addr = this.popWord();
+      this.DEC(addr);
     },
 
-    id0: function () {
-      const offset = popByte();
-      if (!zeroSet()) { jumpBranch(offset); }
+    id0: () => {
+      const offset = this.popByte();
+      if (!this.zeroSet()) { this.jumpBranch(offset); }
       //BNE
     },
 
-    id1: function () {
-      const zp = popByte();
-      const addr = memory.getWord(zp) + regY;
-      const value = memory.get(addr);
-      doCompare(regA, value);
+    id1: () => {
+      const zp = this.popByte();
+      const addr = this.memory.getWord(zp) + this.regY;
+      const value = this.memory.get(addr);
+      this.doCompare(this.regA, value);
       //CMP
     },
 
-    id5: function () {
-      const value = memory.get((popByte() + regX) & 0xff);
-      doCompare(regA, value);
+    id5: () => {
+      const value = this.memory.get((this.popByte() + this.regX) & 0xff);
+      this.doCompare(this.regA, value);
       //CMP
     },
 
-    id6: function () {
-      const addr = (popByte() + regX) & 0xff;
-      DEC(addr);
+    id6: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      this.DEC(addr);
     },
 
-    id8: function () {
-      regP &= 0xf7;
+    id8: () => {
+      this.regP &= 0xf7;
       //CLD
     },
 
-    id9: function () {
-      const addr = popWord() + regY;
-      const value = memory.get(addr);
-      doCompare(regA, value);
+    id9: () => {
+      const addr = this.popWord() + this.regY;
+      const value = this.memory.get(addr);
+      this.doCompare(this.regA, value);
       //CMP
     },
 
-    idd: function () {
-      const addr = popWord() + regX;
-      const value = memory.get(addr);
-      doCompare(regA, value);
+    idd: () => {
+      const addr = this.popWord() + this.regX;
+      const value = this.memory.get(addr);
+      this.doCompare(this.regA, value);
       //CMP
     },
 
-    ide: function () {
-      const addr = popWord() + regX;
-      DEC(addr);
+    ide: () => {
+      const addr = this.popWord() + this.regX;
+      this.DEC(addr);
     },
 
-    ie0: function () {
-      const value = popByte();
-      doCompare(regX, value);
+    ie0: () => {
+      const value = this.popByte();
+      this.doCompare(this.regX, value);
       //CPX
     },
 
-    ie1: function () {
-      const zp = (popByte() + regX) & 0xff;
-      const addr = memory.getWord(zp);
-      const value = memory.get(addr);
-      testSBC(value);
+    ie1: () => {
+      const zp = (this.popByte() + this.regX) & 0xff;
+      const addr = this.memory.getWord(zp);
+      const value = this.memory.get(addr);
+      this.doCompare(this.regA, value);
       //SBC
     },
 
-    ie4: function () {
-      const value = memory.get(popByte());
-      doCompare(regX, value);
+    ie4: () => {
+      const value = this.memory.get(this.popByte());
+      this.doCompare(this.regX, value);
       //CPX
     },
 
-    ie5: function () {
-      const addr = popByte();
-      const value = memory.get(addr);
-      testSBC(value);
+    ie5: () => {
+      const addr = this.popByte();
+      const value = this.memory.get(addr);
+      this.doCompare(this.regA, value);
       //SBC
     },
 
-    ie6: function () {
-      const zp = popByte();
-      INC(zp);
+    ie6: () => {
+      const zp = this.popByte();
+      this.INC(zp);
     },
 
-    ie8: function () {
-      regX = (regX + 1) & 0xff;
-      setNVflagsForRegX();
+    ie8: () => {
+      this.regX = (this.regX + 1) & 0xff;
+      this.setNVflagsForRegX();
       //INX
     },
 
-    ie9: function () {
-      const value = popByte();
-      testSBC(value);
+    ie9: () => {
+      const value = this.popByte();
+      this.testSBC(value);
       //SBC
     },
 
-    iea: function () {
+    iea: () => {
       //NOP
     },
 
-    i42: function () {
+    i42: () => {
       //WDM  -- pseudo op for emulator: arg 0 to output A to message box
-      const value = popByte();
+      const value = this.popByte();
       if (value == 0)
-        message(node, String.fromCharCode(regA));
+        message(this.node, String.fromCharCode(this.regA));
     },
 
-    iec: function () {
-      const value = memory.get(popWord());
-      doCompare(regX, value);
+    iec: () => {
+      const value = this.memory.get(this.popWord());
+      this.doCompare(this.regX, value);
       //CPX
     },
 
-    ied: function () {
-      const addr = popWord();
-      const value = memory.get(addr);
-      testSBC(value);
+    ied: () => {
+      const addr = this.popWord();
+      const value = this.memory.get(addr);
+      this.testSBC(value);
       //SBC
     },
 
-    iee: function () {
-      const addr = popWord();
-      INC(addr);
+    iee: () => {
+      const addr = this.popWord();
+      this.INC(addr);
     },
 
-    if0: function () {
-      const offset = popByte();
-      if (zeroSet()) { jumpBranch(offset); }
+    if0: () => {
+      const offset = this.popByte();
+      if (this.zeroSet()) { this.jumpBranch(offset); }
       //BEQ
     },
 
-    if1: function () {
-      const zp = popByte();
-      const addr = memory.getWord(zp);
-      const value = memory.get(addr + regY);
-      testSBC(value);
+    if1: () => {
+      const zp = this.popByte();
+      const addr = this.memory.getWord(zp);
+      const value = this.memory.get(addr + this.regY);
+      this.testSBC(value);
       //SBC
     },
 
-    if5: function () {
-      const addr = (popByte() + regX) & 0xff;
-      const value = memory.get(addr);
-      testSBC(value);
+    if5: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      const value = this.memory.get(addr);
+      this.testSBC(value);
       //SBC
     },
 
-    if6: function () {
-      const addr = (popByte() + regX) & 0xff;
-      INC(addr);
+    if6: () => {
+      const addr = (this.popByte() + this.regX) & 0xff;
+      this.INC(addr);
     },
 
-    if8: function () {
-      regP |= 8;
+    if8: () => {
+      this.regP |= 8;
       //SED
     },
 
-    if9: function () {
-      const addr = popWord();
-      const value = memory.get(addr + regY);
-      testSBC(value);
+    if9: () => {
+      const addr = this.popWord();
+      const value = this.memory.get(addr + this.regY);
+      this.testSBC(value);
       //SBC
     },
 
-    ifd: function () {
-      const addr = popWord();
-      const value = memory.get(addr + regX);
-      testSBC(value);
+    ifd: () => {
+      const addr = this.popWord();
+      const value = this.memory.get(addr + this.regX);
+      this.testSBC(value);
       //SBC
     },
 
-    ife: function () {
-      const addr = popWord() + regX;
-      INC(addr);
+    ife: () => {
+      const addr = this.popWord() + this.regX;
+      this.INC(addr);
     },
 
-    ierr: function () {
-      message(node, "Address $" + addr2hex(regPC) + " - unknown opcode");
-      codeRunning = false;
+    ierr: () => {
+      message(this.node, "Address $" + addr2hex(this.regPC) + " - unknown opcode");
+      this.codeRunning = false;
     }
   };
 
-  function stackPush(value: number) {
-    memory.set((regSP & 0xff) + 0x100, value & 0xff);
-    regSP--;
-    if (regSP < 0) {
-      regSP &= 0xff;
-      message(node, "6502 Stack filled! Wrapping...");
+  stackPush(value: number) {
+    this.memory.set((this.regSP & 0xff) + 0x100, value & 0xff);
+    this.regSP--;
+    if (this.regSP < 0) {
+      this.regSP &= 0xff;
+      message(this.node, "6502 Stack filled! Wrapping...");
     }
   }
 
-  function stackPop() {
+  stackPop() {
     let value: number;
-    regSP++;
-    if (regSP >= 0x100) {
-      regSP &= 0xff;
-      message(node, "6502 Stack emptied! Wrapping...");
+    this.regSP++;
+    if (this.regSP >= 0x100) {
+      this.regSP &= 0xff;
+      message(this.node, "6502 Stack emptied! Wrapping...");
     }
-    value = memory.get(regSP + 0x100);
+    value = this.memory.get(this.regSP + 0x100);
     return value;
   }
 
   // Pops a byte
-  function popByte() {
-    return (memory.get(regPC++) & 0xff);
+  popByte() {
+    return (this.memory.get(this.regPC++) & 0xff);
   }
 
   // Pops a little-endian word
-  function popWord() {
-    return popByte() + (popByte() << 8);
+  popWord() {
+    return this.popByte() + (this.popByte() << 8);
   }
 
   // Executes the assembled code
-  function runBinary() {
-    if (codeRunning) {
+  runBinary() {
+    if (this.codeRunning) {
       // Switch OFF everything
-      stop();
-      ui.stop();
+      this.stop();
+      this.ui.stop();
     } else {
-      ui.play();
-      codeRunning = true;
-      executeId = setInterval(multiExecute, 15);
+      this.ui.play();
+      this.codeRunning = true;
+      this.executeId = setInterval(this.multiExecute.bind(this), 15);
     }
   }
 
-  function multiExecute() {
-    if (!debug) {
+  multiExecute() {
+    if (!this.debug) {
       // use a prime number of iterations to avoid aliasing effects
 
       for (let w = 0; w < 97; w++) {
-        execute();
+        this.execute();
       }
     }
-    updateDebugInfo();
+    this.updateDebugInfo();
   }
 
 
-  function executeNextInstruction() {
-    let instructionName = popByte().toString(16).toLowerCase();
+  executeNextInstruction() {
+    let instructionName = this.popByte().toString(16).toLowerCase();
     if (instructionName.length === 1) {
       instructionName = '0' + instructionName;
     }
-    const instruction = instructions['i' + instructionName];
+    const instruction = this.instructions['i' + instructionName];
 
     if (instruction) {
       instruction();
     } else {
-      instructions.ierr();
+      this.instructions.ierr();
     }
   }
 
   // Executes one instruction. This is the main part of the CPU simulator.
-  function execute(debugging = false) {
-    if (!codeRunning && !debugging) { return; }
+  execute(debugging = false) {
+    if (!this.codeRunning && !debugging) { return; }
 
-    setRandomByte();
-    executeNextInstruction();
+    this.setRandomByte();
+    this.executeNextInstruction();
 
-    if ((regPC === 0) || (!codeRunning && !debugging)) {
-      stop();
-      message(node, "Program end at PC=$" + addr2hex(regPC - 1));
-      ui.stop();
+    if ((this.regPC === 0) || (!this.codeRunning && !debugging)) {
+      this.stop();
+      message(this.node, "Program end at PC=$" + addr2hex(this.regPC - 1));
+      this.ui.stop();
     }
   }
 
-  function setRandomByte() {
-    memory.set(0xfe, Math.floor(Math.random() * 256));
+  setRandomByte() {
+    this.memory.set(0xfe, Math.floor(Math.random() * 256));
   }
 
-  function updateMonitor() {
-    if (monitoring) {
-      const start = parseInt(node.querySelector<HTMLInputElement>('.start')?.value || '0', 16);
-      const length = parseInt(node.querySelector<HTMLInputElement>('.length')?.value || '0', 16);
+  updateMonitor() {
+    if (this.monitoring) {
+      const start = parseInt(this.node.querySelector<HTMLInputElement>('.start')?.value || '0', 16);
+      const length = parseInt(this.node.querySelector<HTMLInputElement>('.length')?.value || '0', 16);
 
       const end = start + length - 1;
 
-      const monitorNode = node.querySelector<HTMLElement>('.monitor code');
+      const monitorNode = this.node.querySelector<HTMLElement>('.monitor code');
 
       if (!monitorNode) {
         return;
       }
 
       if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
-        monitorNode.innerHTML = memory.format(start, length);
+        monitorNode.innerHTML = this.memory.format(start, length);
       } else {
         monitorNode.innerHTML = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
       }
     }
   }
 
-  function handleMonitorRangeChange() {
+  handleMonitorRangeChange() {
 
-    const $start = node.querySelector<HTMLInputElement>('.start'),
-      $length = node.querySelector<HTMLInputElement>('.length'),
+    const $start = this.node.querySelector<HTMLInputElement>('.start'),
+      $length = this.node.querySelector<HTMLInputElement>('.length'),
       start = parseInt($start?.value || '0', 16),
       length = parseInt($length?.value || '0', 16),
       end = start + length - 1;
@@ -1337,37 +1342,37 @@ export function Simulator(node: HTMLElement, memory: Memory, display: Display, l
   }
 
   // Execute one instruction and print values
-  function debugExec() {
-    //if (codeRunning) {
-    execute(true);
+  debugExec() {
+    //if (this.codeRunning) {
+    this.execute(true);
     //}
-    updateDebugInfo();
+    this.updateDebugInfo();
   }
 
-  function updateDebugInfo() {
-    let html = "A=$" + num2hex(regA) + " X=$" + num2hex(regX) + " Y=$" + num2hex(regY) + "<br />";
-    html += "SP=$" + num2hex(regSP) + " PC=$" + addr2hex(regPC);
+  updateDebugInfo() {
+    let html = "A=$" + num2hex(this.regA) + " X=$" + num2hex(this.regX) + " Y=$" + num2hex(this.regY) + "<br />";
+    html += "SP=$" + num2hex(this.regSP) + " PC=$" + addr2hex(this.regPC);
     html += "<br />";
     html += "NV-BDIZC<br />";
     for (let i = 7; i >= 0; i--) {
-      html += regP >> i & 1;
+      html += this.regP >> i & 1;
     }
-    const minidebugger = node.querySelector<HTMLElement>('.minidebugger');
+    const minidebugger = this.node.querySelector<HTMLElement>('.minidebugger');
     if (minidebugger) {
       minidebugger.innerHTML = html;
     }
-    updateMonitor();
+    this.updateMonitor();
   }
 
   // gotoAddr() - Set PC to address (or address of label)
-  function gotoAddr() {
+  gotoAddr() {
     let inp = prompt("Enter address or label", "");
     let addr = 0;
     if (!inp) {
       return;
     }
-    if (labels.find(inp)) {
-      addr = labels.getPC(inp);
+    if (this.labels.find(inp)) {
+      addr = this.labels.getPC(inp);
     } else {
       if (inp.match(/^0x[0-9a-f]{1,4}$/i)) {
         inp = inp.replace(/^0x/, "");
@@ -1378,57 +1383,58 @@ export function Simulator(node: HTMLElement, memory: Memory, display: Display, l
       }
     }
     if (addr === 0) {
-      message(node, "Unable to find/parse given address/label");
+      message(this.node, "Unable to find/parse given address/label");
     } else {
-      regPC = addr;
+      this.regPC = addr;
     }
-    updateDebugInfo();
+    this.updateDebugInfo();
   }
 
 
-  function stopDebugger() {
-    debug = false;
+  stopDebugger() {
+    this.debug = false;
   }
 
-  function enableDebugger() {
-    debug = true;
-    if (codeRunning) {
-      updateDebugInfo();
+  enableDebugger() {
+    this.debug = true;
+    if (this.codeRunning) {
+      this.updateDebugInfo();
     }
   }
 
-  // reset() - Reset CPU and memory.
-  function reset() {
-    display.reset();
+  // reset() - Reset CPU and this.memory.
+  reset() {
+    this.display.reset();
     for (let i = 0; i < 0x600; i++) { // clear ZP, stack and screen
-      memory.set(i, 0x00);
+      this.memory.set(i, 0x00);
     }
-    regA = regX = regY = 0;
-    regPC = 0x600;
-    regSP = 0xff;
-    regP = 0x30;
-    updateDebugInfo();
+    this.regA = this.regX = this.regY = 0;
+    this.regPC = 0x600;
+    this.regSP = 0xff;
+    this.regP = 0x30;
+    this.updateDebugInfo();
   }
 
-  function stop() {
-    codeRunning = false;
-    clearInterval(executeId);
-    message(node, "\nStopped\n");
+  stop() {
+    this.codeRunning = false;
+    clearInterval(this.executeId);
+    message(this.node, "\nStopped\n");
   }
 
-  function toggleMonitor(state: boolean) {
-    monitoring = state;
+  toggleMonitor(state: boolean) {
+    this.monitoring = state;
   }
 
-  return {
-    runBinary: runBinary,
-    enableDebugger: enableDebugger,
-    stopDebugger: stopDebugger,
-    debugExec: debugExec,
-    gotoAddr: gotoAddr,
-    reset: reset,
-    stop: stop,
-    toggleMonitor: toggleMonitor,
-    handleMonitorRangeChange: handleMonitorRangeChange
-  };
+  // public methods
+  // return {
+  //   runBinary: runBinary,
+  //   enableDebugger: enableDebugger,
+  //   stopDebugger: stopDebugger,
+  //   this.debugExec: this.debugExec,
+  //   gotoAddr: gotoAddr,
+  //   reset: reset,
+  //   stop: stop,
+  //   toggleMonitor: toggleMonitor,
+  //   handleMonitorRangeChange: handleMonitorRangeChange
+  // };
 }
