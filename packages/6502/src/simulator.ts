@@ -17,12 +17,14 @@ export class Simulator {
   monitoring = false;
   executeId: number | undefined;
 
-  constructor(protected node: HTMLElement, protected memory: Memory, protected display: Display, protected labels: Labels, protected ui: UI) {
+  constructor(protected readonly node: HTMLElement, protected readonly memory: Memory, protected readonly display: Display, protected readonly labels: Labels, protected readonly ui: UI) {
 
   }
 
-  // Set zero and negative processor flags based on result
-  setNVflags(value: number) {
+  /**
+   * Set zero and negative processor flags based on result.
+   */
+  private setNVflags(value: number) {
     if (value) {
       this.regP &= 0xfd;
     } else {
@@ -35,38 +37,38 @@ export class Simulator {
     }
   }
 
-  setCarryFlagFromBit0(value: number) {
+  private setCarryFlagFromBit0(value: number) {
     this.regP = (this.regP & 0xfe) | (value & 1);
   }
 
-  setCarryFlagFromBit7(value) {
+  private setCarryFlagFromBit7(value) {
     this.regP = (this.regP & 0xfe) | ((value >> 7) & 1);
   }
 
-  setNVflagsForRegA() {
+  private setNVflagsForRegA() {
     this.setNVflags(this.regA);
   }
 
-  setNVflagsForRegX() {
+  private setNVflagsForRegX() {
     this.setNVflags(this.regX);
   }
 
-  setNVflagsForRegY() {
+  private setNVflagsForRegY() {
     this.setNVflags(this.regY);
   }
 
-  ORA = this.setNVflagsForRegA;
-  AND = this.setNVflagsForRegA;
-  EOR = this.setNVflagsForRegA;
-  ASL = this.setNVflags;
-  LSR = this.setNVflags;
-  ROL = this.setNVflags;
-  ROR = this.setNVflags;
-  LDA = this.setNVflagsForRegA;
-  LDX = this.setNVflagsForRegX;
-  LDY = this.setNVflagsForRegY;
+  private ORA = this.setNVflagsForRegA;
+  private AND = this.setNVflagsForRegA;
+  private EOR = this.setNVflagsForRegA;
+  private ASL = this.setNVflags;
+  private LSR = this.setNVflags;
+  private ROL = this.setNVflags;
+  private ROR = this.setNVflags;
+  private LDA = this.setNVflagsForRegA;
+  private LDX = this.setNVflagsForRegX;
+  private LDY = this.setNVflagsForRegY;
 
-  BIT(value: number) {
+  private BIT(value: number) {
     if (value & 0x80) {
       this.regP |= 0x80;
     } else {
@@ -84,24 +86,24 @@ export class Simulator {
     }
   }
 
-  CLC() {
+  private CLC() {
     this.regP &= 0xfe;
   }
 
-  SEC() {
+  private SEC() {
     this.regP |= 1;
   }
 
 
-  CLV() {
+  private CLV() {
     this.regP &= 0xbf;
   }
 
-  setOverflow() {
+  private setOverflow() {
     this.regP |= 0x40;
   }
 
-  DEC(addr: number) {
+  private DEC(addr: number) {
     let value = this.memory.get(addr);
     value--;
     value &= 0xff;
@@ -109,7 +111,7 @@ export class Simulator {
     this.setNVflags(value);
   }
 
-  INC(addr: number) {
+  private INC(addr: number) {
     let value = this.memory.get(addr);
     value++;
     value &= 0xff;
@@ -117,7 +119,7 @@ export class Simulator {
     this.setNVflags(value);
   }
 
-  jumpBranch(offset: number) {
+  private jumpBranch(offset: number) {
     if (offset > 0x7f) {
       this.regPC = (this.regPC - (0x100 - offset));
     } else {
@@ -125,27 +127,27 @@ export class Simulator {
     }
   }
 
-  overflowSet() {
+  private overflowSet() {
     return this.regP & 0x40;
   }
 
-  decimalMode() {
+  private decimalMode() {
     return this.regP & 8;
   }
 
-  carrySet() {
+  private carrySet() {
     return this.regP & 1;
   }
 
-  negativeSet() {
+  private negativeSet() {
     return this.regP & 0x80;
   }
 
-  zeroSet() {
+  private zeroSet() {
     return this.regP & 0x02;
   }
 
-  doCompare(reg: number, val: number) {
+  private doCompare(reg: number, val: number) {
     if (reg >= val) {
       this.SEC();
     } else {
@@ -155,7 +157,7 @@ export class Simulator {
     this.setNVflags(val);
   }
 
-  testSBC(value: number) {
+  private testSBC(value: number) {
     let tmp: number, w: number;
     if ((this.regA ^ value) & 0x80) {
       this.setOverflow();
@@ -196,7 +198,7 @@ export class Simulator {
     this.setNVflagsForRegA();
   }
 
-  testADC(value: number) {
+  private testADC(value: number) {
     let tmp: number;
     if ((this.regA ^ value) & 0x80) {
       this.CLV();
@@ -232,7 +234,7 @@ export class Simulator {
     this.setNVflagsForRegA();
   }
 
-  instructions = {
+  private instructions = {
     i00: () => {
       this.codeRunning = false;
       //BRK
@@ -1212,7 +1214,7 @@ export class Simulator {
     }
   };
 
-  stackPush(value: number) {
+  private stackPush(value: number) {
     this.memory.set((this.regSP & 0xff) + 0x100, value & 0xff);
     this.regSP--;
     if (this.regSP < 0) {
@@ -1221,7 +1223,7 @@ export class Simulator {
     }
   }
 
-  stackPop() {
+  private stackPop() {
     let value: number;
     this.regSP++;
     if (this.regSP >= 0x100) {
@@ -1232,18 +1234,24 @@ export class Simulator {
     return value;
   }
 
-  // Pops a byte
-  popByte() {
+  /**
+   * Pops a byte.
+   */
+  private popByte() {
     return (this.memory.get(this.regPC++) & 0xff);
   }
 
-  // Pops a little-endian word
-  popWord() {
+  /**
+   * Pops a little-endian word.
+   */
+  private popWord() {
     return this.popByte() + (this.popByte() << 8);
   }
 
-  // Executes the assembled code
-  runBinary() {
+  /**
+   * Executes the assembled code.
+   */
+  public runBinary() {
     if (this.codeRunning) {
       // Switch OFF everything
       this.stop();
@@ -1255,7 +1263,7 @@ export class Simulator {
     }
   }
 
-  multiExecute() {
+  private multiExecute() {
     if (!this.debug) {
       // use a prime number of iterations to avoid aliasing effects
 
@@ -1267,7 +1275,7 @@ export class Simulator {
   }
 
 
-  executeNextInstruction() {
+  private executeNextInstruction() {
     let instructionName = this.popByte().toString(16).toLowerCase();
     if (instructionName.length === 1) {
       instructionName = '0' + instructionName;
@@ -1281,8 +1289,10 @@ export class Simulator {
     }
   }
 
-  // Executes one instruction. This is the main part of the CPU simulator.
-  execute(debugging = false) {
+  /**
+   * Executes one instruction. This is the main part of the CPU simulator.
+   */
+  private execute(debugging = false) {
     if (!this.codeRunning && !debugging) { return; }
 
     this.setRandomByte();
@@ -1295,11 +1305,11 @@ export class Simulator {
     }
   }
 
-  setRandomByte() {
+  private setRandomByte() {
     this.memory.set(0xfe, Math.floor(Math.random() * 256));
   }
 
-  updateMonitor() {
+  private updateMonitor() {
     if (this.monitoring) {
       const start = parseInt(this.node.querySelector<HTMLInputElement>('.start')?.value || '0', 16);
       const length = parseInt(this.node.querySelector<HTMLInputElement>('.length')?.value || '0', 16);
@@ -1320,7 +1330,10 @@ export class Simulator {
     }
   }
 
-  handleMonitorRangeChange() {
+  /**
+   * Handle the monitor range change.
+   */
+  public handleMonitorRangeChange() {
 
     const $start = this.node.querySelector<HTMLInputElement>('.start'),
       $length = this.node.querySelector<HTMLInputElement>('.length'),
@@ -1341,15 +1354,17 @@ export class Simulator {
     }
   }
 
-  // Execute one instruction and print values
-  debugExec() {
+  /**
+   * Execute one instruction and print values.
+   */
+  public debugExec() {
     //if (this.codeRunning) {
     this.execute(true);
     //}
     this.updateDebugInfo();
   }
 
-  updateDebugInfo() {
+  private updateDebugInfo() {
     let html = "A=$" + num2hex(this.regA) + " X=$" + num2hex(this.regX) + " Y=$" + num2hex(this.regY) + "<br />";
     html += "SP=$" + num2hex(this.regSP) + " PC=$" + addr2hex(this.regPC);
     html += "<br />";
@@ -1364,8 +1379,10 @@ export class Simulator {
     this.updateMonitor();
   }
 
-  // gotoAddr() - Set PC to address (or address of label)
-  gotoAddr() {
+  /**
+   * Set PC to address (or address of label).
+   */
+  public gotoAddr() {
     let inp = prompt("Enter address or label", "");
     let addr = 0;
     if (!inp) {
@@ -1390,20 +1407,27 @@ export class Simulator {
     this.updateDebugInfo();
   }
 
-
-  stopDebugger() {
+  /**
+   * Stop the debugger.
+   */
+  public stopDebugger() {
     this.debug = false;
   }
 
-  enableDebugger() {
+  /**
+   * Enable the debugger.
+   */
+  public enableDebugger() {
     this.debug = true;
     if (this.codeRunning) {
       this.updateDebugInfo();
     }
   }
 
-  // reset() - Reset CPU and this.memory.
-  reset() {
+  /**
+   * Reset CPU and memory.
+   */
+  public reset() {
     this.display.reset();
     for (let i = 0; i < 0x600; i++) { // clear ZP, stack and screen
       this.memory.set(i, 0x00);
@@ -1415,26 +1439,21 @@ export class Simulator {
     this.updateDebugInfo();
   }
 
-  stop() {
+  /**
+   * Stop the CPU simulator.
+   */
+  public stop() {
     this.codeRunning = false;
     clearInterval(this.executeId);
     message(this.node, "\nStopped\n");
   }
 
-  toggleMonitor(state: boolean) {
+  /**
+   * Toggle the monitor.
+   * The monitor is the part of the debugger that shows the memory.
+   * @param state - The state of the monitor.
+   */
+  public toggleMonitor(state: boolean) {
     this.monitoring = state;
   }
-
-  // public methods
-  // return {
-  //   runBinary: runBinary,
-  //   enableDebugger: enableDebugger,
-  //   stopDebugger: stopDebugger,
-  //   this.debugExec: this.debugExec,
-  //   gotoAddr: gotoAddr,
-  //   reset: reset,
-  //   stop: stop,
-  //   toggleMonitor: toggleMonitor,
-  //   handleMonitorRangeChange: handleMonitorRangeChange
-  // };
 }
