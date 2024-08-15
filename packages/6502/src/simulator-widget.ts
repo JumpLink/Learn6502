@@ -23,7 +23,7 @@ export class SimulatorWidget {
   constructor(private node: HTMLElement) {
     this.ui = new UI(node);
     this.memory = new Memory();
-    this.display = new Display(node);
+    this.display = new Display(node, this.memory);
     this.labels = new Labels(node);
     this.simulator = new Simulator(node, this.memory, this.display, this.labels, this.ui);
     this.assembler = new Assembler(node, this.memory, this.labels, this.ui);
@@ -93,10 +93,10 @@ export class SimulatorWidget {
     this.node.querySelector('.notesButton')?.addEventListener('click', this.ui.showNotes.bind(this.ui));
 
     const editor = this.node.querySelector<HTMLTextAreaElement>('.code');
-    editor?.addEventListener('keypress', this.simulator.stop);
-    editor?.addEventListener('keypress', this.ui.initialize);
+    editor?.addEventListener('keypress', this.simulator.stop.bind(this.simulator));
+    editor?.addEventListener('keypress', this.ui.initialize.bind(this.ui));
 
-    document.addEventListener('keypress', this.memory.storeKeypress);
+    document.addEventListener('keypress', this.memory.storeKeypress.bind(this.memory));
 
     this.simulator.handleMonitorRangeChange();
   }

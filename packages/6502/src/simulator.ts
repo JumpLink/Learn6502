@@ -4,6 +4,11 @@ import { Labels } from './labels.js';
 import { UI } from './ui.js';
 import { addr2hex, num2hex, message } from './utils.js';
 
+/**
+ * 6502 Simulator
+ * 
+ * This is a simulator for the 6502 processor.
+ */
 export class Simulator {
 
   regA = 0;
@@ -37,37 +42,127 @@ export class Simulator {
     }
   }
 
+  /**
+   * Sets the carry flag based on bit 0 of the given value.
+   * This is used in operations like LSR (Logical Shift Right).
+   * @param value - The value to extract the carry flag from.
+   */
   private setCarryFlagFromBit0(value: number) {
     this.regP = (this.regP & 0xfe) | (value & 1);
   }
 
+  /**
+   * Sets the carry flag based on bit 7 of the given value.
+   * This is used in operations like ASL (Arithmetic Shift Left).
+   * @param value - The value to extract the carry flag from.
+   */
   private setCarryFlagFromBit7(value) {
     this.regP = (this.regP & 0xfe) | ((value >> 7) & 1);
   }
 
+  /**
+   * Sets the **N**egative and O**v**erflow flags based on the current value in the A register.
+   * This is called after operations that modify the A register.
+   */
   private setNVflagsForRegA() {
     this.setNVflags(this.regA);
   }
 
+  /**
+   * Sets the **N**egative and O**v**erflow flags based on the current value in the X register.
+   * This is called after operations that modify the X register.
+   */
   private setNVflagsForRegX() {
     this.setNVflags(this.regX);
   }
 
+  /**
+   * Sets the **N**egative and O**v**erflow flags based on the current value in the Y register.
+   * This is called after operations that modify the Y register.
+   */
   private setNVflagsForRegY() {
     this.setNVflags(this.regY);
   }
-
+  /**
+   * ORA - "OR" Memory with Accumulator
+   * The ORA instruction performs a bitwise OR operation between the accumulator and a value from memory.
+   * It affects the Negative (N) and Zero (Z) flags.
+   */
   private ORA = this.setNVflagsForRegA;
+
+  /**
+   * AND - "AND" Memory with Accumulator
+   * The AND instruction performs a bitwise AND operation between the accumulator and a value from memory.
+   * It affects the Negative (N) and Zero (Z) flags.
+   */
   private AND = this.setNVflagsForRegA;
+
+  /**
+   * EOR - "Exclusive OR" Memory with Accumulator
+   * The EOR instruction performs a bitwise XOR operation between the accumulator and a value from memory.
+   * It affects the Negative (N) and Zero (Z) flags.
+   */
   private EOR = this.setNVflagsForRegA;
+
+  /**
+   * ASL - Arithmetic Shift Left
+   * The ASL instruction shifts all bits left one position. 0 is shifted into bit 0 and the original bit 7 is shifted into the Carry.
+   * It affects the Negative (N), Zero (Z), and Carry (C) flags.
+   */
   private ASL = this.setNVflags;
+
+  /**
+   * LSR - Logical Shift Right
+   * The LSR instruction shifts all bits right one position. 0 is shifted into bit 7 and the original bit 0 is shifted into the Carry.
+   * It affects the Negative (N), Zero (Z), and Carry (C) flags.
+   */
   private LSR = this.setNVflags;
+
+  /**
+   * ROL - Rotate Left
+   * The ROL instruction shifts all bits left one position. The Carry is shifted into bit 0 and the original bit 7 is shifted into the Carry.
+   * It affects the Negative (N), Zero (Z), and Carry (C) flags.
+   */
   private ROL = this.setNVflags;
+
+  /**
+   * ROR - Rotate Right
+   * The ROR instruction shifts all bits right one position. The Carry is shifted into bit 7 and the original bit 0 is shifted into the Carry.
+   * It affects the Negative (N), Zero (Z), and Carry (C) flags.
+   */
   private ROR = this.setNVflags;
+
+  /**
+   * LDA - Load Accumulator
+   * The LDA instruction loads a byte of memory into the accumulator setting the zero and negative flags as appropriate.
+   * It affects the Negative (N) and Zero (Z) flags.
+   */
   private LDA = this.setNVflagsForRegA;
+
+  /**
+   * LDX - Load X Register
+   * The LDX instruction loads a byte of memory into the X register setting the zero and negative flags as appropriate.
+   * It affects the Negative (N) and Zero (Z) flags.
+   */
   private LDX = this.setNVflagsForRegX;
+
+  /**
+   * LDY - Load Y Register
+   * The LDY instruction loads a byte of memory into the Y register setting the zero and negative flags as appropriate.
+   * It affects the Negative (N) and Zero (Z) flags.
+   */
   private LDY = this.setNVflagsForRegY;
 
+  /**
+   * Implements the BIT (Bit Test) instruction.
+   * This instruction performs a bitwise AND between the accumulator (A) and the specified value,
+   * but does not store the result. It affects the following flags:
+   * - Negative (N) flag: Set to bit 7 of the value.
+   * - Overflow (V) flag: Set to bit 6 of the value.
+   * - Zero (Z) flag: Set if the result of A AND value is zero.
+   * 
+   * @param value - The value to test against the accumulator.
+   */
   private BIT(value: number) {
     if (value & 0x80) {
       this.regP |= 0x80;
@@ -86,17 +181,28 @@ export class Simulator {
     }
   }
 
+  /**
+   * Clear Carry Flag
+   * Sets the carry flag to 0
+   */
   private CLC() {
-    this.regP &= 0xfe;
+    this.regP &= 0xfe; // AND with 1111 1110 to clear the least significant bit (carry flag)
   }
 
+  /**
+   * Set Carry Flag
+   * Sets the carry flag to 1
+   */
   private SEC() {
-    this.regP |= 1;
+    this.regP |= 1; // OR with 0000 0001 to set the least significant bit (carry flag)
   }
 
-
+  /**
+   * Clear Overflow Flag
+   * Sets the overflow flag to 0
+   */
   private CLV() {
-    this.regP &= 0xbf;
+    this.regP &= 0xbf; // AND with 1011 1111 to clear the 6th bit (overflow flag)
   }
 
   private setOverflow() {
@@ -107,7 +213,7 @@ export class Simulator {
     let value = this.memory.get(addr);
     value--;
     value &= 0xff;
-    this.memory.storeByte(addr, value, this.display);
+    this.memory.storeByte(addr, value);
     this.setNVflags(value);
   }
 
@@ -115,7 +221,7 @@ export class Simulator {
     let value = this.memory.get(addr);
     value++;
     value &= 0xff;
-    this.memory.storeByte(addr, value, this.display);
+    this.memory.storeByte(addr, value);
     this.setNVflags(value);
   }
 
@@ -259,7 +365,7 @@ export class Simulator {
       let value = this.memory.get(zp);
       this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
-      this.memory.storeByte(zp, value, this.display);
+      this.memory.storeByte(zp, value);
       this.ASL(value);
     },
 
@@ -289,7 +395,7 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ASL(value);
     },
 
@@ -317,7 +423,7 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ASL(value);
     },
 
@@ -342,7 +448,7 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ASL(value);
     },
 
@@ -382,7 +488,7 @@ export class Simulator {
       this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
       value |= sf;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ROL(value);
     },
 
@@ -422,7 +528,7 @@ export class Simulator {
       this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
       value |= sf;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ROL(value);
     },
 
@@ -452,7 +558,7 @@ export class Simulator {
       this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
       value |= sf;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ROL(value);
     },
 
@@ -481,7 +587,7 @@ export class Simulator {
       this.setCarryFlagFromBit7(value);
       value = (value << 1) & 0xff;
       value |= sf;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ROL(value);
     },
 
@@ -510,7 +616,7 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.LSR(value);
     },
 
@@ -547,7 +653,7 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.LSR(value);
     },
 
@@ -575,7 +681,7 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.LSR(value);
     },
 
@@ -604,7 +710,7 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.LSR(value);
     },
 
@@ -635,7 +741,7 @@ export class Simulator {
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
       if (sf) { value |= 0x80; }
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ROR(value);
     },
 
@@ -678,7 +784,7 @@ export class Simulator {
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
       if (sf) { value |= 0x80; }
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ROR(value);
     },
 
@@ -710,7 +816,7 @@ export class Simulator {
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
       if (sf) { value |= 0x80; }
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ROR(value);
     },
 
@@ -741,29 +847,29 @@ export class Simulator {
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
       if (sf) { value |= 0x80; }
-      this.memory.storeByte(addr, value, this.display);
+      this.memory.storeByte(addr, value);
       this.ROR(value);
     },
 
     i81: () => {
       const zp = (this.popByte() + this.regX) & 0xff;
       const addr = this.memory.getWord(zp);
-      this.memory.storeByte(addr, this.regA, this.display);
+      this.memory.storeByte(addr, this.regA);
       //STA
     },
 
     i84: () => {
-      this.memory.storeByte(this.popByte(), this.regY, this.display);
+      this.memory.storeByte(this.popByte(), this.regY);
       //STY
     },
 
     i85: () => {
-      this.memory.storeByte(this.popByte(), this.regA, this.display);
+      this.memory.storeByte(this.popByte(), this.regA);
       //STA
     },
 
     i86: () => {
-      this.memory.storeByte(this.popByte(), this.regX, this.display);
+      this.memory.storeByte(this.popByte(), this.regX);
       //STX
     },
 
@@ -780,17 +886,17 @@ export class Simulator {
     },
 
     i8c: () => {
-      this.memory.storeByte(this.popWord(), this.regY, this.display);
+      this.memory.storeByte(this.popWord(), this.regY);
       //STY
     },
 
     i8d: () => {
-      this.memory.storeByte(this.popWord(), this.regA, this.display);
+      this.memory.storeByte(this.popWord(), this.regA);
       //STA
     },
 
     i8e: () => {
-      this.memory.storeByte(this.popWord(), this.regX, this.display);
+      this.memory.storeByte(this.popWord(), this.regX);
       //STX
     },
 
@@ -803,22 +909,22 @@ export class Simulator {
     i91: () => {
       const zp = this.popByte();
       const addr = this.memory.getWord(zp) + this.regY;
-      this.memory.storeByte(addr, this.regA, this.display);
+      this.memory.storeByte(addr, this.regA);
       //STA
     },
 
     i94: () => {
-      this.memory.storeByte((this.popByte() + this.regX) & 0xff, this.regY, this.display);
+      this.memory.storeByte((this.popByte() + this.regX) & 0xff, this.regY);
       //STY
     },
 
     i95: () => {
-      this.memory.storeByte((this.popByte() + this.regX) & 0xff, this.regA, this.display);
+      this.memory.storeByte((this.popByte() + this.regX) & 0xff, this.regA);
       //STA
     },
 
     i96: () => {
-      this.memory.storeByte((this.popByte() + this.regY) & 0xff, this.regX, this.display);
+      this.memory.storeByte((this.popByte() + this.regY) & 0xff, this.regX);
       //STX
     },
 
@@ -829,7 +935,7 @@ export class Simulator {
     },
 
     i99: () => {
-      this.memory.storeByte(this.popWord() + this.regY, this.regA, this.display);
+      this.memory.storeByte(this.popWord() + this.regY, this.regA);
       //STA
     },
 
@@ -840,7 +946,7 @@ export class Simulator {
 
     i9d: () => {
       const addr = this.popWord();
-      this.memory.storeByte(addr + this.regX, this.regA, this.display);
+      this.memory.storeByte(addr + this.regX, this.regA);
       //STA
     },
 

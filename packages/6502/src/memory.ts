@@ -1,11 +1,15 @@
 import { num2hex } from './utils.js';
-import type { Display } from './display.js';
+import { EventDispatcher } from './event-dispatcher.js';
+
+import type { MemoryEvent } from './types/index.js';
 
 /**
  * Represents the memory of the 6502 emulator.
  */
 export class Memory {
   private memArray: number[];
+
+  private readonly events = new EventDispatcher<MemoryEvent>();
 
   /**
    * Creates a new Memory instance.
@@ -16,6 +20,18 @@ export class Memory {
     this.storeKeypress = this.storeKeypress.bind(this);
   }
 
+  public on(event: string, listener: (event: MemoryEvent) => void): void {
+    this.events.on(event, listener);
+  }
+
+  public off(event: string, listener: (event: MemoryEvent) => void): void {
+    this.events.off(event, listener);
+  }
+
+  public once(event: string, listener: () => void): void {
+    this.events.once(event, listener);
+  }
+
   /**
    * Sets a value at a specific memory address.
    * @param addr - The memory address.
@@ -23,6 +39,7 @@ export class Memory {
    */
   public set(addr: number, val: number): void {
     this.memArray[addr] = val;
+    this.events.dispatch('changed', { addr, val });
   }
 
   /**
@@ -47,18 +64,10 @@ export class Memory {
    * Stores a byte in memory and updates the display if necessary.
    * @param addr - The memory address.
    * @param value - The value to store.
-   * @param display - Optional Display instance for pixel updates.
    */
-  public storeByte(addr: number, value: number, display?: Display): void {
+  public storeByte(addr: number, value: number): void {
+    // Ensure the value is a valid byte (0-255) by masking with 0xff
     this.set(addr, value & 0xff);
-    if ((addr >= 0x200) && (addr <= 0x5ff)) {
-      if (!display) {
-        console.warn('No display found to update the pixel');
-        return;
-      }
-      // TODO: Find a better way to update the display
-      display.updatePixel(addr, this);
-    }
   }
 
   /**

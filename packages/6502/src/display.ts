@@ -1,4 +1,5 @@
 import type { Memory } from './memory.js';
+import type { MemoryEvent } from './types/index.js';
 
 /**
  * Represents the display for a 6502 emulator.
@@ -16,13 +17,19 @@ export class Display {
    * Creates a new Display instance.
    * @param node - The HTML element that will contain the display.
    */
-  constructor(private node: HTMLElement) {
+  constructor(private readonly node: HTMLElement, private readonly memory: Memory) {
     this.palette = [
       "#000000", "#ffffff", "#880000", "#aaffee",
       "#cc44cc", "#00cc55", "#0000aa", "#eeee77",
       "#dd8855", "#664400", "#ff7777", "#333333",
       "#777777", "#aaff66", "#0088ff", "#bbbbbb"
     ];
+
+    this.memory.on('changed', (event: MemoryEvent) => {
+      if ((event.addr >= 0x200) && (event.addr <= 0x5ff)) {
+        this.updatePixel(event.addr);
+      }
+    });
   }
 
   /**
@@ -57,11 +64,11 @@ export class Display {
    * @param addr - The memory address of the pixel.
    * @param memory - The Memory object containing the pixel data.
    */
-  public updatePixel(addr: number, memory: Memory): void {
+  public updatePixel(addr: number): void {
     if (!this.ctx) {
       return;
     }
-    this.ctx.fillStyle = this.palette[memory.get(addr) & 0x0f];
+    this.ctx.fillStyle = this.palette[this.memory.get(addr) & 0x0f];
     const y = Math.floor((addr - 0x200) / 32);
     const x = (addr - 0x200) % 32;
     this.ctx.fillRect(x * this.pixelSize, y * this.pixelSize, this.pixelSize, this.pixelSize);
