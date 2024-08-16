@@ -1,6 +1,6 @@
-import { message } from './utils.js';
 import type { Symbols } from './types/index.js';
 import type { Assembler } from './assembler.js';
+import type { MessageConsole } from './message-console.js';
 
 /**
  * Manages labels for the 6502 assembler.
@@ -10,9 +10,9 @@ export class Labels {
 
   /**
    * Creates a new Labels instance.
-   * @param node - The HTML element where messages will be displayed.
+   * @param console - The console where messages will be displayed.
    */
-  constructor(private node: HTMLElement) {}
+  constructor(private console: MessageConsole) {}
 
   /**
    * Indexes labels from assembly code lines.
@@ -24,7 +24,7 @@ export class Labels {
   public indexLines(lines: string[], symbols: Symbols, assembler: Assembler): boolean {
     for (let i = 0; i < lines.length; i++) {
       if (!this.indexLine(lines[i], symbols, assembler)) {
-        message(this.node, `**Label already defined at line ${i + 1}:** ${lines[i]}`);
+        this.console.log(`**Label already defined at line ${i + 1}:** ${lines[i]}`);
         return false;
       }
     }
@@ -46,7 +46,7 @@ export class Labels {
       const label = input.replace(/(^\w+):.*$/, "$1");
       
       if (symbols.lookup(label)) {
-        message(this.node, `**Label ${label} is already used as a symbol; please rename one of them**`);
+        this.console.log(`**Label ${label} is already used as a symbol; please rename one of them**`);
         return false;
       }
       
@@ -108,7 +108,7 @@ export class Labels {
   public displayMessage(): void {
     const count = this.labelIndex.length;
     const plural = count !== 1 ? 's' : '';
-    message(this.node, `Found ${count} label${plural}.`);
+    this.console.log(`Found ${count} label${plural}.`);
   }
 
   /**

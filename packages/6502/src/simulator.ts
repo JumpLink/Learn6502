@@ -2,7 +2,8 @@ import { Memory } from './memory.js';
 import { Display } from './display.js';
 import { Labels } from './labels.js';
 import { UI } from './ui.js';
-import { addr2hex, num2hex, message } from './utils.js';
+import { MessageConsole } from './message-console.js';
+import { addr2hex, num2hex } from './utils.js';
 
 /**
  * 6502 Simulator
@@ -22,7 +23,7 @@ export class Simulator {
   monitoring = false;
   executeId: number | undefined;
 
-  constructor(protected readonly node: HTMLElement, protected readonly memory: Memory, protected readonly display: Display, protected readonly labels: Labels, protected readonly ui: UI) {
+  constructor(private readonly node: HTMLElement, private readonly console: MessageConsole, private readonly memory: Memory, private readonly display: Display, private readonly labels: Labels, private readonly ui: UI) {
 
   }
 
@@ -1243,7 +1244,7 @@ export class Simulator {
       //WDM  -- pseudo op for emulator: arg 0 to output A to message box
       const value = this.popByte();
       if (value == 0)
-        message(this.node, String.fromCharCode(this.regA));
+        this.console.log(String.fromCharCode(this.regA));
     },
 
     iec: () => {
@@ -1315,7 +1316,7 @@ export class Simulator {
     },
 
     ierr: () => {
-      message(this.node, "Address $" + addr2hex(this.regPC) + " - unknown opcode");
+      this.console.log("Address $" + addr2hex(this.regPC) + " - unknown opcode");
       this.codeRunning = false;
     }
   };
@@ -1325,7 +1326,7 @@ export class Simulator {
     this.regSP--;
     if (this.regSP < 0) {
       this.regSP &= 0xff;
-      message(this.node, "6502 Stack filled! Wrapping...");
+      this.console.log("6502 Stack filled! Wrapping...");
     }
   }
 
@@ -1334,7 +1335,7 @@ export class Simulator {
     this.regSP++;
     if (this.regSP >= 0x100) {
       this.regSP &= 0xff;
-      message(this.node, "6502 Stack emptied! Wrapping...");
+      this.console.log("6502 Stack emptied! Wrapping...");
     }
     value = this.memory.get(this.regSP + 0x100);
     return value;
@@ -1406,7 +1407,7 @@ export class Simulator {
 
     if ((this.regPC === 0) || (!this.codeRunning && !debugging)) {
       this.stop();
-      message(this.node, "Program end at PC=$" + addr2hex(this.regPC - 1));
+      this.console.log("Program end at PC=$" + addr2hex(this.regPC - 1));
       this.ui.stop();
     }
   }
@@ -1506,7 +1507,7 @@ export class Simulator {
       }
     }
     if (addr === 0) {
-      message(this.node, "Unable to find/parse given address/label");
+      this.console.log("Unable to find/parse given address/label");
     } else {
       this.regPC = addr;
     }
@@ -1551,7 +1552,7 @@ export class Simulator {
   public stop() {
     this.codeRunning = false;
     clearInterval(this.executeId);
-    message(this.node, "\nStopped\n");
+    this.console.log("\nStopped\n");
   }
 
   /**

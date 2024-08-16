@@ -1,7 +1,8 @@
 import { Memory } from './memory.js';
 import { Labels } from './labels.js';
+import { MessageConsole } from './message-console.js';
 import { UI } from './ui.js';
-import { addr2hex, num2hex, message } from './utils.js';
+import { addr2hex, num2hex } from './utils.js';
 
 import type { Symbols } from './types/index.js';
 
@@ -108,7 +109,7 @@ export class Assembler {
     BRA: 2
   };
 
-  constructor(protected readonly node: HTMLElement, protected readonly memory: Memory, protected readonly labels: Labels, protected readonly ui: UI) {
+  constructor(protected readonly console: MessageConsole, protected readonly memory: Memory, protected readonly labels: Labels, protected readonly ui: UI) {
 
   }
 
@@ -116,28 +117,24 @@ export class Assembler {
    * Assembles the code into memory.
    * @returns True if assembly was successful, false otherwise.
    */
-  public assembleCode() {
+  public assembleCode(code: string) {
     const BOOTSTRAP_ADDRESS = 0x600;
-    const $messagesCode = this.node.querySelector<HTMLElement>('.messages code')
-
-    if (!$messagesCode) {
-      throw new Error("Could not find code element");
-    }
 
     this.wasOutOfRangeBranch = false;
 
     this.defaultCodePC = BOOTSTRAP_ADDRESS;
-    $messagesCode.innerHTML = "";
-
-    let code = this.node.querySelector<HTMLTextAreaElement>('.code')?.value || "";
+    
+    this.console.clear();
+    
     code += "\n\n";
     const lines = code.split("\n");
     this.codeAssembledOK = true;
 
-    message(this.node, "Preprocessing ...");
+    this.console.log("Preprocessing ...");
+
     const symbols = this.preprocess(lines);
 
-    message(this.node, "Indexing labels ...");
+    this.console.log("Indexing labels ...");
     this.defaultCodePC = BOOTSTRAP_ADDRESS;
     if (!this.labels.indexLines(lines, symbols, this)) {
       return false;
@@ -145,7 +142,7 @@ export class Assembler {
     this.labels.displayMessage();
 
     this.defaultCodePC = BOOTSTRAP_ADDRESS;
-    message(this.node, "Assembling code ...");
+    this.console.log("Assembling code ...");
 
     this.codeLen = 0;
     let i = 0;
@@ -160,7 +157,7 @@ export class Assembler {
 
     if (this.codeLen === 0) {
       this.codeAssembledOK = false;
-      message(this.node, "No code to run.");
+      this.console.log("No code to run.");
     }
 
     if (this.codeAssembledOK) {
@@ -172,9 +169,9 @@ export class Assembler {
       if (lastLine) {
         const str = lines[i].replace("<", "&lt;").replace(">", "&gt;");
         if (!this.wasOutOfRangeBranch) {
-          message(this.node, "**Syntax error line " + (i + 1) + ": " + str + "**");
+          this.console.log("**Syntax error line " + (i + 1) + ": " + str + "**");
         } else {
-          message(this.node, '**Out of range branch on line ' + (i + 1) + ' (branches are limited to -128 to +127): ' + str + '**');
+          this.console.log('**Out of range branch on line ' + (i + 1) + ' (branches are limited to -128 to +127): ' + str + '**');
         }
       }
 
@@ -183,7 +180,7 @@ export class Assembler {
       return false;
     }
 
-    message(this.node, "Code assembled successfully, " + this.codeLen + " bytes.");
+    this.console.log("Code assembled successfully, " + this.codeLen + " bytes.");
     return true;
   }
 
@@ -275,7 +272,7 @@ export class Assembler {
         addr = parseInt(param, 10);
       }
       if ((addr < 0) || (addr > 0xffff)) {
-        message(this.node, "Unable to relocate code outside 64k memory");
+        this.console.log("Unable to relocate code outside 64k memory");
         return false;
       }
       this.defaultCodePC = addr;

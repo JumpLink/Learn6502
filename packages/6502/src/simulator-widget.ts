@@ -4,11 +4,13 @@ import { Labels } from './labels.js';
 import { Simulator } from './simulator.js';
 import { Assembler } from './assembler.js';
 import { UI } from './ui.js';
+import { MessageConsole } from './message-console.js';
 
 /**
  * Represents the main widget for the 6502 simulator.
  */
 export class SimulatorWidget {
+  private console: MessageConsole;
   private ui: UI;
   private memory: Memory;
   private display: Display;
@@ -21,12 +23,14 @@ export class SimulatorWidget {
    * @param node - The root HTML element for the simulator widget.
    */
   constructor(private node: HTMLElement) {
+
+    this.console = new MessageConsole(node.querySelector('.messages code'));
     this.ui = new UI(node);
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
-    this.labels = new Labels(node);
-    this.simulator = new Simulator(node, this.memory, this.display, this.labels, this.ui);
-    this.assembler = new Assembler(node, this.memory, this.labels, this.ui);
+    this.labels = new Labels(this.console);
+    this.simulator = new Simulator(node, this.console, this.memory, this.display, this.labels, this.ui);
+    this.assembler = new Assembler(this.console, this.memory, this.labels, this.ui);
 
     this.initialize();
   }
@@ -50,7 +54,7 @@ export class SimulatorWidget {
     this.node.querySelector('.assembleButton')?.addEventListener('click', () => {
       this.simulator.reset();
       this.labels.reset();
-      this.assembler.assembleCode();
+      this.assembler.assembleCode(this.node.querySelector<HTMLTextAreaElement>('.code')?.value || "");
     });
 
     this.node.querySelector('.runButton')?.addEventListener('click', () => {

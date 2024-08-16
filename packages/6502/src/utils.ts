@@ -8,10 +8,3 @@ export function num2hex(nr: number) {
   const lo = (nr & 15);
   return str.substring(hi, hi + 1) + str.substring(lo, lo + 1);
 }
-
-// Prints text in the message window
-export function message(node: HTMLElement, text: string) {
-  if (text.length > 1)
-    text += '\n'; // allow putc operations from the simulator (WDM opcode)
-  node.querySelector('.messages code')?.append(text) // .scrollTop(10000);
-}
