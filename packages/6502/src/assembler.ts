@@ -114,125 +114,6 @@ export class Assembler {
   }
 
   /**
-   * Assembles the code into memory.
-   * @returns True if assembly was successful, false otherwise.
-   */
-  public assembleCode(code: string) {
-    const BOOTSTRAP_ADDRESS = 0x600;
-
-    this.wasOutOfRangeBranch = false;
-
-    this.defaultCodePC = BOOTSTRAP_ADDRESS;
-    
-    this.console.clear();
-    
-    code += "\n\n";
-    const lines = code.split("\n");
-    this.codeAssembledOK = true;
-
-    this.console.log("Preprocessing ...");
-
-    const symbols = this.preprocess(lines);
-
-    this.console.log("Indexing labels ...");
-    this.defaultCodePC = BOOTSTRAP_ADDRESS;
-    if (!this.labels.indexLines(lines, symbols, this)) {
-      return false;
-    }
-    this.labels.displayMessage();
-
-    this.defaultCodePC = BOOTSTRAP_ADDRESS;
-    this.console.log("Assembling code ...");
-
-    this.codeLen = 0;
-    let i = 0;
-    for (i = 0; i < lines.length; i++) {
-      if (!this.assembleLine(lines[i], i, symbols)) {
-        this.codeAssembledOK = false;
-        break;
-      }
-    }
-
-    const lastLine = lines[i];
-
-    if (this.codeLen === 0) {
-      this.codeAssembledOK = false;
-      this.console.log("No code to run.");
-    }
-
-    if (this.codeAssembledOK) {
-      // TODO: Remove ui reference
-      this.ui.assembleSuccess();
-      this.memory.set(this.defaultCodePC, 0x00); //set a null byte at the end of the code
-    } else {
-
-      if (lastLine) {
-        const str = lines[i].replace("<", "&lt;").replace(">", "&gt;");
-        if (!this.wasOutOfRangeBranch) {
-          this.console.log("**Syntax error line " + (i + 1) + ": " + str + "**");
-        } else {
-          this.console.log('**Out of range branch on line ' + (i + 1) + ' (branches are limited to -128 to +127): ' + str + '**');
-        }
-      }
-
-      // TODO: Remove ui reference
-      this.ui.initialize();
-      return false;
-    }
-
-    this.console.log("Code assembled successfully, " + this.codeLen + " bytes.");
-    return true;
-  }
-
-  /**
-   * Sanitize input: remove comments and trim leading/trailing whitespace
-   */
-  private sanitize(line: string) {
-    // remove comments
-    const no_comments = line.replace(/^(.*?);.*/, "$1");
-
-    // trim line
-    return no_comments.replace(/^\s+/, "").replace(/\s+$/, "");
-  }
-
-  /**
-   * Preprocesses the assembly code.
-   * @param lines - The lines of code to preprocess.
-   * @returns A Symbols object containing defined symbols.
-   */
-  private preprocess(lines: string[]): Symbols {
-    const table: Record<string, string> = {};
-    const PREFIX = "__"; // Using a prefix avoids clobbering any predefined properties
-
-    function lookup(key: string): string | undefined {
-      if (table.hasOwnProperty(PREFIX + key)) return table[PREFIX + key];
-      else return undefined;
-    }
-
-    function add(key: string, value: string) {
-      const valueAlreadyExists = table.hasOwnProperty(PREFIX + key)
-      if (!valueAlreadyExists) {
-        table[PREFIX + key] = value;
-      }
-    }
-
-    // Build the substitution table
-    for (let i = 0; i < lines.length; i++) {
-      lines[i] = this.sanitize(lines[i]);
-      const match_data = lines[i].match(/^define\s+(\w+)\s+(\S+)/);
-      if (match_data) {
-        add(match_data[1], this.sanitize(match_data[2]));
-        lines[i] = ""; // We're done with this preprocessor directive, so delete it
-      }
-    }
-
-    // Callers will only need the lookup function
-    return {
-      lookup: lookup
-    }
-  }
-
-  /**
    * Assembles a single line of code.
    * @param input - The line of code to assemble.
    * @param lineno - The line number (for error reporting).
@@ -310,6 +191,178 @@ export class Assembler {
     }
 
     return false; // Unknown syntax
+  }
+
+  /**
+   * Assembles the code into memory.
+   * @returns True if assembly was successful, false otherwise.
+   */
+  public assembleCode(code: string) {
+    const BOOTSTRAP_ADDRESS = 0x600;
+
+    this.wasOutOfRangeBranch = false;
+
+    this.defaultCodePC = BOOTSTRAP_ADDRESS;
+    
+    this.console.clear();
+    
+    code += "\n\n";
+    const lines = code.split("\n");
+    this.codeAssembledOK = true;
+
+    this.console.log("Preprocessing ...");
+
+    const symbols = this.preprocess(lines);
+
+    this.console.log("Indexing labels ...");
+    this.defaultCodePC = BOOTSTRAP_ADDRESS;
+    if (!this.labels.indexLines(lines, symbols, this)) {
+      return false;
+    }
+    this.labels.displayMessage();
+
+    this.defaultCodePC = BOOTSTRAP_ADDRESS;
+    this.console.log("Assembling code ...");
+
+    this.codeLen = 0;
+    let i = 0;
+    for (i = 0; i < lines.length; i++) {
+      if (!this.assembleLine(lines[i], i, symbols)) {
+        this.codeAssembledOK = false;
+        break;
+      }
+    }
+
+    const lastLine = lines[i];
+
+    if (this.codeLen === 0) {
+      this.codeAssembledOK = false;
+      this.console.log("No code to run.");
+    }
+
+    if (this.codeAssembledOK) {
+      // TODO: Remove ui reference
+      this.ui.assembleSuccess();
+      this.memory.set(this.defaultCodePC, 0x00); //set a null byte at the end of the code
+    } else {
+
+      if (lastLine) {
+        const str = lines[i].replace("<", "&lt;").replace(">", "&gt;");
+        if (!this.wasOutOfRangeBranch) {
+          this.console.log("**Syntax error line " + (i + 1) + ": " + str + "**");
+        } else {
+          this.console.log('**Out of range branch on line ' + (i + 1) + ' (branches are limited to -128 to +127): ' + str + '**');
+        }
+      }
+
+      // TODO: Remove ui reference
+      this.ui.initialize();
+      return false;
+    }
+
+    this.console.log("Code assembled successfully, " + this.codeLen + " bytes.");
+    return true;
+  }
+
+  /**
+   * Generates a hexdump of the assembled code.
+   */
+  public hexdump() {
+    this.openPopup(this.memory.format(0x600, this.codeLen), 'Hexdump');
+  }
+
+  /**
+   * Disassembles the assembled code.
+   */
+  public disassemble() {
+    const startAddress = 0x600;
+    let currentAddress = startAddress;
+    const endAddress = startAddress + this.codeLen;
+    const instructions: string[] = [];
+    let length: number;
+    let inst: any;
+    let byte: number;
+    let modeAndCode: { opCode: string; mode: string };
+
+    while (currentAddress < endAddress) {
+      inst = this.createInstruction(currentAddress);
+      byte = this.memory.get(currentAddress);
+      inst.addByte(byte);
+
+      modeAndCode = this.getModeAndCode(byte);
+      length = this.instructionLength[modeAndCode.mode];
+      inst.setModeAndCode(modeAndCode);
+
+      for (let i = 1; i < length; i++) {
+        currentAddress++;
+        byte = this.memory.get(currentAddress);
+        inst.addByte(byte);
+        inst.addArg(byte);
+      }
+      instructions.push(inst);
+      currentAddress++;
+    }
+
+    let html = 'Address  Hexdump   Dissassembly\n';
+    html += '-------------------------------\n';
+    html += instructions.join('\n');
+    this.openPopup(html, 'Disassembly');
+  }
+
+  /**
+   * Gets the current program counter.
+   * @returns The current program counter value.
+   */
+  public getCurrentPC(): number {
+    return this.defaultCodePC;
+  }
+
+  /**
+   * Sanitize input: remove comments and trim leading/trailing whitespace
+   */
+  private sanitize(line: string) {
+    // remove comments
+    const no_comments = line.replace(/^(.*?);.*/, "$1");
+
+    // trim line
+    return no_comments.replace(/^\s+/, "").replace(/\s+$/, "");
+  }
+
+  /**
+   * Preprocesses the assembly code.
+   * @param lines - The lines of code to preprocess.
+   * @returns A Symbols object containing defined symbols.
+   */
+  private preprocess(lines: string[]): Symbols {
+    const table: Record<string, string> = {};
+    const PREFIX = "__"; // Using a prefix avoids clobbering any predefined properties
+
+    function lookup(key: string): string | undefined {
+      if (table.hasOwnProperty(PREFIX + key)) return table[PREFIX + key];
+      else return undefined;
+    }
+
+    function add(key: string, value: string) {
+      const valueAlreadyExists = table.hasOwnProperty(PREFIX + key)
+      if (!valueAlreadyExists) {
+        table[PREFIX + key] = value;
+      }
+    }
+
+    // Build the substitution table
+    for (let i = 0; i < lines.length; i++) {
+      lines[i] = this.sanitize(lines[i]);
+      const match_data = lines[i].match(/^define\s+(\w+)\s+(\S+)/);
+      if (match_data) {
+        add(match_data[1], this.sanitize(match_data[2]));
+        lines[i] = ""; // We're done with this preprocessor directive, so delete it
+      }
+    }
+
+    // Callers will only need the lookup function
+    return {
+      lookup: lookup
+    }
   }
 
   /**
@@ -790,13 +843,6 @@ export class Assembler {
     w.document.close();
   }
 
-  /**
-   * Generates a hexdump of the assembled code.
-   */
-  public hexdump() {
-    this.openPopup(this.memory.format(0x600, this.codeLen), 'Hexdump');
-  }
-
   private getModeAndCode(byte: number): { opCode: string; mode: string } {
     let index: number | undefined;
     const line = this.opcodes.filter(function (line) {
@@ -895,51 +941,5 @@ export class Assembler {
           ' ' + formatArguments(args);
       }
     };
-  }
-
-  /**
-   * Disassembles the assembled code.
-   */
-  public disassemble() {
-    const startAddress = 0x600;
-    let currentAddress = startAddress;
-    const endAddress = startAddress + this.codeLen;
-    const instructions: string[] = [];
-    let length: number;
-    let inst: any;
-    let byte: number;
-    let modeAndCode: { opCode: string; mode: string };
-
-    while (currentAddress < endAddress) {
-      inst = this.createInstruction(currentAddress);
-      byte = this.memory.get(currentAddress);
-      inst.addByte(byte);
-
-      modeAndCode = this.getModeAndCode(byte);
-      length = this.instructionLength[modeAndCode.mode];
-      inst.setModeAndCode(modeAndCode);
-
-      for (let i = 1; i < length; i++) {
-        currentAddress++;
-        byte = this.memory.get(currentAddress);
-        inst.addByte(byte);
-        inst.addArg(byte);
-      }
-      instructions.push(inst);
-      currentAddress++;
-    }
-
-    let html = 'Address  Hexdump   Dissassembly\n';
-    html += '-------------------------------\n';
-    html += instructions.join('\n');
-    this.openPopup(html, 'Disassembly');
-  }
-
-  /**
-   * Gets the current program counter.
-   * @returns The current program counter value.
-   */
-  public getCurrentPC(): number {
-    return this.defaultCodePC;
   }
 }

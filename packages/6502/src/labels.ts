@@ -14,6 +14,57 @@ export class Labels {
    */
   constructor(private console: MessageConsole) {}
 
+
+  /**
+   * Checks if a label exists.
+   * @param name - Label name to find.
+   * @returns True if label exists, false otherwise.
+   */
+  public find(name: string): boolean {
+    return this.labelIndex.some(label => label.split('|')[0] === name);
+  }
+
+  /**
+   * Associates a label with an address.
+   * @param name - Label name.
+   * @param addr - Address to associate with the label.
+   * @returns True if label was found and updated, false otherwise.
+   */
+  public setPC(name: string, addr: number): boolean {
+    const index = this.labelIndex.findIndex(label => label.split('|')[0] === name);
+    if (index !== -1) {
+      this.labelIndex[index] = `${name}|${addr}`;
+      return true;
+    }
+    return false;
+  }
+
+  /**
+   * Gets the address associated with a label.
+   * @param name - Label name.
+   * @returns The address associated with the label, or -1 if not found.
+   */
+  public getPC(name: string): number {
+    const label = this.labelIndex.find(label => label.split('|')[0] === name);
+    return label ? Number(label.split('|')[1]) : -1;
+  }
+
+  /**
+   * Displays a message about the number of labels found.
+   */
+  public displayMessage(): void {
+    const count = this.labelIndex.length;
+    const plural = count !== 1 ? 's' : '';
+    this.console.log(`Found ${count} label${plural}.`);
+  }
+
+  /**
+   * Resets the label index.
+   */
+  public reset(): void {
+    this.labelIndex = [];
+  }
+
   /**
    * Indexes labels from assembly code lines.
    * @param lines - Array of assembly code lines.
@@ -66,55 +117,5 @@ export class Labels {
     }
     this.labelIndex.push(`${name}|`);
     return true;
-  }
-
-  /**
-   * Checks if a label exists.
-   * @param name - Label name to find.
-   * @returns True if label exists, false otherwise.
-   */
-  public find(name: string): boolean {
-    return this.labelIndex.some(label => label.split('|')[0] === name);
-  }
-
-  /**
-   * Associates a label with an address.
-   * @param name - Label name.
-   * @param addr - Address to associate with the label.
-   * @returns True if label was found and updated, false otherwise.
-   */
-  public setPC(name: string, addr: number): boolean {
-    const index = this.labelIndex.findIndex(label => label.split('|')[0] === name);
-    if (index !== -1) {
-      this.labelIndex[index] = `${name}|${addr}`;
-      return true;
-    }
-    return false;
-  }
-
-  /**
-   * Gets the address associated with a label.
-   * @param name - Label name.
-   * @returns The address associated with the label, or -1 if not found.
-   */
-  public getPC(name: string): number {
-    const label = this.labelIndex.find(label => label.split('|')[0] === name);
-    return label ? Number(label.split('|')[1]) : -1;
-  }
-
-  /**
-   * Displays a message about the number of labels found.
-   */
-  public displayMessage(): void {
-    const count = this.labelIndex.length;
-    const plural = count !== 1 ? 's' : '';
-    this.console.log(`Found ${count} label${plural}.`);
-  }
-
-  /**
-   * Resets the label index.
-   */
-  public reset(): void {
-    this.labelIndex = [];
   }
 }

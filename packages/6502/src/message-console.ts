@@ -1,12 +1,12 @@
 export class MessageConsole {
   constructor(private readonly node: HTMLElement) {}
 
-  log(message: string) {
+  public log(message: string) {
     message += '\n'; // allow put operations from the simulator (WDM opcode)
     this.node.innerText += message;
   }
 
-  clear() {
+  public clear() {
     this.node.innerHTML = '';
   }
 }

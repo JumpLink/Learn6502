@@ -12,19 +12,132 @@ import { addr2hex, num2hex } from './utils.js';
  */
 export class Simulator {
 
-  regA = 0;
-  regX = 0;
-  regY = 0;
-  regP = 0;
-  regPC = 0x600;
-  regSP = 0xff;
-  codeRunning = false;
-  debug = false;
-  monitoring = false;
-  executeId: number | undefined;
+  private regA = 0;
+  private regX = 0;
+  private regY = 0;
+  private regP = 0;
+  private regPC = 0x600;
+  private regSP = 0xff;
+  private codeRunning = false;
+  private debug = false;
+  private monitoring = false;
+  private executeId: number | undefined;
 
   constructor(private readonly node: HTMLElement, private readonly console: MessageConsole, private readonly memory: Memory, private readonly display: Display, private readonly labels: Labels, private readonly ui: UI) {
 
+  }
+
+  /**
+   * Handle the monitor range change.
+   */
+  public handleMonitorRangeChange() {
+
+    const $start = this.node.querySelector<HTMLInputElement>('.start'),
+      $length = this.node.querySelector<HTMLInputElement>('.length'),
+      start = parseInt($start?.value || '0', 16),
+      length = parseInt($length?.value || '0', 16),
+      end = start + length - 1;
+
+    $start?.classList.remove('monitor-invalid');
+    $length?.classList.remove('monitor-invalid');
+
+    if (isNaN(start) || start < 0 || start > 0xffff) {
+
+      $start?.classList.add('monitor-invalid');
+
+    } else if (isNaN(length) || end > 0xffff) {
+
+      $length?.classList.add('monitor-invalid');
+    }
+  }
+
+  /**
+   * Execute one instruction and print values.
+   */
+  public debugExec() {
+    //if (this.codeRunning) {
+    this.execute(true);
+    //}
+    this.updateDebugInfo();
+  }
+
+
+  /**
+   * Set PC to address (or address of label).
+   */
+  public gotoAddr() {
+    let inp = prompt("Enter address or label", "");
+    let addr = 0;
+    if (!inp) {
+      return;
+    }
+    if (this.labels.find(inp)) {
+      addr = this.labels.getPC(inp);
+    } else {
+      if (inp.match(/^0x[0-9a-f]{1,4}$/i)) {
+        inp = inp.replace(/^0x/, "");
+        addr = parseInt(inp, 16);
+      } else if (inp.match(/^\$[0-9a-f]{1,4}$/i)) {
+        inp = inp.replace(/^\$/, "");
+        addr = parseInt(inp, 16);
+      }
+    }
+    if (addr === 0) {
+      this.console.log("Unable to find/parse given address/label");
+    } else {
+      this.regPC = addr;
+    }
+    this.updateDebugInfo();
+  }
+
+  /**
+   * Stop the debugger.
+   */
+  public stopDebugger() {
+    this.debug = false;
+  }
+
+  /**
+   * Enable the debugger.
+   */
+  public enableDebugger() {
+    this.debug = true;
+    if (this.codeRunning) {
+      this.updateDebugInfo();
+    }
+  }
+
+  /**
+   * Reset CPU and memory.
+   */
+  public reset() {
+    this.display.reset();
+    for (let i = 0; i < 0x600; i++) { // clear ZP, stack and screen
+      this.memory.set(i, 0x00);
+    }
+    this.regA = this.regX = this.regY = 0;
+    this.regPC = 0x600;
+    this.regSP = 0xff;
+    this.regP = 0x30;
+    this.updateDebugInfo();
+  }
+
+  /**
+   * Stop the CPU simulator.
+   */
+  public stop() {
+    this.codeRunning = false;
+    clearInterval(this.executeId);
+    this.console.log("\nStopped\n");
+  }
+
+  /**
+   * Toggle the monitor.
+   * The monitor is the part of the debugger that shows the memory.
+   * @param state - The state of the monitor.
+   */
+  public toggleMonitor(state: boolean) {
+    this.monitoring = state;
   }
 
   /**
@@ -1437,40 +1550,6 @@ export class Simulator {
     }
   }
 
-  /**
-   * Handle the monitor range change.
-   */
-  public handleMonitorRangeChange() {
-
-    const $start = this.node.querySelector<HTMLInputElement>('.start'),
-      $length = this.node.querySelector<HTMLInputElement>('.length'),
-      start = parseInt($start?.value || '0', 16),
-      length = parseInt($length?.value || '0', 16),
-      end = start + length - 1;
-
-    $start?.classList.remove('monitor-invalid');
-    $length?.classList.remove('monitor-invalid');
-
-    if (isNaN(start) || start < 0 || start > 0xffff) {
-
-      $start?.classList.add('monitor-invalid');
-
-    } else if (isNaN(length) || end > 0xffff) {
-
-      $length?.classList.add('monitor-invalid');
-    }
-  }
-
-  /**
-   * Execute one instruction and print values.
-   */
-  public debugExec() {
-    //if (this.codeRunning) {
-    this.execute(true);
-    //}
-    this.updateDebugInfo();
-  }
-
   private updateDebugInfo() {
     let html = "A=$" + num2hex(this.regA) + " X=$" + num2hex(this.regX) + " Y=$" + num2hex(this.regY) + "<br />";
     html += "SP=$" + num2hex(this.regSP) + " PC=$" + addr2hex(this.regPC);
@@ -1484,83 +1563,5 @@ export class Simulator {
       minidebugger.innerHTML = html;
     }
     this.updateMonitor();
-  }
-
-  /**
-   * Set PC to address (or address of label).
-   */
-  public gotoAddr() {
-    let inp = prompt("Enter address or label", "");
-    let addr = 0;
-    if (!inp) {
-      return;
-    }
-    if (this.labels.find(inp)) {
-      addr = this.labels.getPC(inp);
-    } else {
-      if (inp.match(/^0x[0-9a-f]{1,4}$/i)) {
-        inp = inp.replace(/^0x/, "");
-        addr = parseInt(inp, 16);
-      } else if (inp.match(/^\$[0-9a-f]{1,4}$/i)) {
-        inp = inp.replace(/^\$/, "");
-        addr = parseInt(inp, 16);
-      }
-    }
-    if (addr === 0) {
-      this.console.log("Unable to find/parse given address/label");
-    } else {
-      this.regPC = addr;
-    }
-    this.updateDebugInfo();
-  }
-
-  /**
-   * Stop the debugger.
-   */
-  public stopDebugger() {
-    this.debug = false;
-  }
-
-  /**
-   * Enable the debugger.
-   */
-  public enableDebugger() {
-    this.debug = true;
-    if (this.codeRunning) {
-      this.updateDebugInfo();
-    }
-  }
-
-  /**
-   * Reset CPU and memory.
-   */
-  public reset() {
-    this.display.reset();
-    for (let i = 0; i < 0x600; i++) { // clear ZP, stack and screen
-      this.memory.set(i, 0x00);
-    }
-    this.regA = this.regX = this.regY = 0;
-    this.regPC = 0x600;
-    this.regSP = 0xff;
-    this.regP = 0x30;
-    this.updateDebugInfo();
-  }
-
-  /**
-   * Stop the CPU simulator.
-   */
-  public stop() {
-    this.codeRunning = false;
-    clearInterval(this.executeId);
-    this.console.log("\nStopped\n");
-  }
-
-  /**
-   * Toggle the monitor.
-   * The monitor is the part of the debugger that shows the memory.
-   * @param state - The state of the monitor.
-   */
-  public toggleMonitor(state: boolean) {
-    this.monitoring = state;
   }
 }
