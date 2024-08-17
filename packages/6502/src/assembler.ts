@@ -1,10 +1,11 @@
 import { Memory } from './memory.js';
 import { Labels } from './labels.js';
 import { MessageConsole } from './message-console.js';
+import { EventDispatcher } from './event-dispatcher.js';
 import { UI } from './ui.js';
 import { addr2hex, num2hex } from './utils.js';
 
-import type { Symbols } from './types/index.js';
+import type { Symbols, AssemblerEvent } from './types/index.js';
 
 /**
  * Represents the assembler for the 6502 emulator.
@@ -108,9 +109,23 @@ export class Assembler {
     SNGL: 1,
     BRA: 2
   };
+  
+  private readonly events = new EventDispatcher<AssemblerEvent>();
 
   constructor(protected readonly console: MessageConsole, protected readonly memory: Memory, protected readonly labels: Labels, protected readonly ui: UI) {
 
+  }
+
+  public on(event: 'assemble-success' | 'assemble-failure', listener: (event?: AssemblerEvent) => void): void {
+    this.events.on(event, listener);
+  }
+
+  public off(event: 'assemble-success' | 'assemble-failure', listener: (event?: AssemblerEvent) => void): void {
+    this.events.off(event, listener);
+  }
+
+  public once(event: 'assemble-success' | 'assemble-failure', listener: () => void): void {
+    this.events.once(event, listener);
   }
 
   /**
@@ -243,7 +258,7 @@ export class Assembler {
     if (this.codeAssembledOK) {
       // TODO: Remove ui reference
       this.ui.assembleSuccess();
-      this.memory.set(this.defaultCodePC, 0x00); //set a null byte at the end of the code
+      this.memory.set(this.defaultCodePC, 0x00); // Set a null byte at the end of the code
     } else {
 
       if (lastLine) {

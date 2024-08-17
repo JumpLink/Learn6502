@@ -1,4 +1,4 @@
-import { SimulatorWidget } from "@easy6502/6502"
+import { SimulatorWidget } from "./simulator-widget.js"
 
 document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll<HTMLElement>('.widget').forEach(function (widget) {

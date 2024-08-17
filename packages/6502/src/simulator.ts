@@ -6,7 +6,7 @@ import { MessageConsole } from './message-console.js';
 import { EventDispatcher } from './event-dispatcher.js';
 
 import type { SimulatorEvent } from './types/index.js';
-import { addr2hex, num2hex } from './utils.js';
+import { addr2hex } from './utils.js';
 
 /**
  * 6502 Simulator

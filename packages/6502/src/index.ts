@@ -5,7 +5,7 @@ export * from './display.js';
 export * from './event-dispatcher.js';
 export * from './labels.js';
 export * from './memory.js';
-export * from './simulator-widget.js';
+export * from './message-console.js';
 export * from './simulator.js';
 export * from './ui.js';
 export * from './utils.js';

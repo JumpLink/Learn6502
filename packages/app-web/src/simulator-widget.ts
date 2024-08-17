@@ -1,11 +1,4 @@
-import { Memory } from './memory.js';
-import { Display } from './display.js';
-import { Labels } from './labels.js';
-import { Simulator } from './simulator.js';
-import { Assembler } from './assembler.js';
-import { UI } from './ui.js';
-import { MessageConsole } from './message-console.js';
-import { Debugger } from './debugger.js';
+import { Memory, Display, Labels, Simulator, Assembler, UI, MessageConsole, Debugger } from '@easy6502/6502';
 
 /**
  * Represents the main widget for the 6502 simulator.
@@ -26,7 +19,7 @@ export class SimulatorWidget {
    */
   constructor(private node: HTMLElement) {
 
-    this.console = new MessageConsole(node.querySelector('.messages code'));
+    this.console = new MessageConsole(node.querySelector('.messages code')!);
     this.ui = new UI(node);
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
