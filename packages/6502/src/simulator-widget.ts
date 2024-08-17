@@ -5,6 +5,7 @@ import { Simulator } from './simulator.js';
 import { Assembler } from './assembler.js';
 import { UI } from './ui.js';
 import { MessageConsole } from './message-console.js';
+import { Debugger } from './debugger.js';
 
 /**
  * Represents the main widget for the 6502 simulator.
@@ -17,6 +18,7 @@ export class SimulatorWidget {
   private labels: Labels;
   private simulator: Simulator;
   private assembler: Assembler;
+  private debugger: Debugger;
 
   /**
    * Creates a new SimulatorWidget instance.
@@ -29,9 +31,9 @@ export class SimulatorWidget {
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
     this.labels = new Labels(this.console);
-    this.simulator = new Simulator(node, this.console, this.memory, this.display, this.labels, this.ui);
+    this.simulator = new Simulator(this.console, this.memory, this.display, this.labels, this.ui);
     this.assembler = new Assembler(this.console, this.memory, this.labels, this.ui);
-
+    this.debugger = new Debugger(node, this.simulator, this.memory);
     this.initialize();
   }
 
@@ -58,8 +60,8 @@ export class SimulatorWidget {
     });
 
     this.node.querySelector('.runButton')?.addEventListener('click', () => {
+      this.simulator.stopStepper();
       this.simulator.runBinary();
-      this.simulator.stopDebugger();
     });
 
     this.node.querySelector('.resetButton')?.addEventListener('click', () => {
@@ -78,21 +80,21 @@ export class SimulatorWidget {
       const debug = (e.target as HTMLInputElement).checked;
       if (debug) {
         this.ui.debugOn();
-        this.simulator.enableDebugger();
+        this.simulator.enableStepper();
       } else {
         this.ui.debugOff();
-        this.simulator.stopDebugger();
+        this.simulator.stopStepper();
       }
     });
 
     this.node.querySelector('.monitoring')?.addEventListener('change', (e: Event) => {
       const state = (e.target as HTMLInputElement).checked;
       this.ui.toggleMonitor(state);
-      this.simulator.toggleMonitor(state);
+      this.debugger.toggleMonitor(state);
     });
 
-    this.node.querySelector('.start, .length')?.addEventListener('blur', this.simulator.handleMonitorRangeChange.bind(this.simulator));
-    this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExec.bind(this.simulator));
+    this.node.querySelector('.start, .length')?.addEventListener('blur', this.debugger.handleMonitorRangeChange.bind(this.debugger));
+    this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExecStep.bind(this.simulator));
     this.node.querySelector('.gotoButton')?.addEventListener('click', this.simulator.gotoAddr.bind(this.simulator));
     this.node.querySelector('.notesButton')?.addEventListener('click', this.ui.showNotes.bind(this.ui));
 
@@ -102,7 +104,7 @@ export class SimulatorWidget {
 
     document.addEventListener('keypress', this.memory.storeKeypress.bind(this.memory));
 
-    this.simulator.handleMonitorRangeChange();
+    this.debugger.handleMonitorRangeChange();
   }
 
   /**

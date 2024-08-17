@@ -3,6 +3,9 @@ import { Display } from './display.js';
 import { Labels } from './labels.js';
 import { UI } from './ui.js';
 import { MessageConsole } from './message-console.js';
+import { EventDispatcher } from './event-dispatcher.js';
+
+import type { SimulatorEvent } from './types/index.js';
 import { addr2hex, num2hex } from './utils.js';
 
 /**
@@ -18,47 +21,67 @@ export class Simulator {
   private regP = 0;
   private regPC = 0x600;
   private regSP = 0xff;
-  private codeRunning = false;
-  private debug = false;
-  private monitoring = false;
+  private _codeRunning = false;
+  /** If true, the simulator will execute one instruction step by step triggered by the debugger. */
+  public stepper = false;
+  
   private executeId: number | undefined;
 
-  constructor(private readonly node: HTMLElement, private readonly console: MessageConsole, private readonly memory: Memory, private readonly display: Display, private readonly labels: Labels, private readonly ui: UI) {
+  private readonly events = new EventDispatcher<SimulatorEvent>();
+
+  constructor(private readonly console: MessageConsole, private readonly memory: Memory, private readonly display: Display, private readonly labels: Labels, private readonly ui: UI) {
 
   }
 
+  public on(event: 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event?: SimulatorEvent) => void): void {
+    this.events.on(event, listener);
+  }
+
+  public off(event: 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event?: SimulatorEvent) => void): void {
+    this.events.off(event, listener);
+  }
+
+  public once(event: 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: () => void): void {
+    this.events.once(event, listener);
+  }
+
+  public get codeRunning() {
+    return this._codeRunning;
+  }
+
+  public get info() {
+    return {
+      regA: this.regA,
+      regX: this.regX,
+      regY: this.regY,
+      regP: this.regP,
+      regPC: this.regPC,
+      regSP: this.regSP,
+    };
+  }
+
   /**
-   * Handle the monitor range change.
+   * Stop the debugger.
    */
-  public handleMonitorRangeChange() {
+  public stopStepper() {
+    this.stepper = false;
+  }
 
-    const $start = this.node.querySelector<HTMLInputElement>('.start'),
-      $length = this.node.querySelector<HTMLInputElement>('.length'),
-      start = parseInt($start?.value || '0', 16),
-      length = parseInt($length?.value || '0', 16),
-      end = start + length - 1;
-
-    $start?.classList.remove('monitor-invalid');
-    $length?.classList.remove('monitor-invalid');
-
-    if (isNaN(start) || start < 0 || start > 0xffff) {
-
-      $start?.classList.add('monitor-invalid');
-
-    } else if (isNaN(length) || end > 0xffff) {
-
-      $length?.classList.add('monitor-invalid');
+  /**
+   * Enable the debugger.
+   */
+  public enableStepper() {
+    this.stepper = true;
+    if (this.codeRunning) {
+      // this.updateDebugInfo();
     }
   }
 
   /**
    * Execute one instruction and print values.
    */
-  public debugExec() {
-    //if (this.codeRunning) {
+  public debugExecStep() {
     this.execute(true);
-    //}
-    this.updateDebugInfo();
   }
 
 
@@ -87,24 +110,7 @@ export class Simulator {
     } else {
       this.regPC = addr;
     }
-    this.updateDebugInfo();
-  }
-
-  /**
-   * Stop the debugger.
-   */
-  public stopDebugger() {
-    this.debug = false;
-  }
-
-  /**
-   * Enable the debugger.
-   */
-  public enableDebugger() {
-    this.debug = true;
-    if (this.codeRunning) {
-      this.updateDebugInfo();
-    }
+    this.dispatchGotoEvent();
   }
 
   /**
@@ -119,25 +125,37 @@ export class Simulator {
     this.regPC = 0x600;
     this.regSP = 0xff;
     this.regP = 0x30;
-    this.updateDebugInfo();
+    this.dispatchResetEvent();
   }
 
   /**
    * Stop the CPU simulator.
    */
   public stop() {
-    this.codeRunning = false;
+    this._codeRunning = false;
     clearInterval(this.executeId);
+    this.dispatchStopEvent();
     this.console.log("\nStopped\n");
   }
 
-  /**
-   * Toggle the monitor.
-   * The monitor is the part of the debugger that shows the memory.
-   * @param state - The state of the monitor.
-   */
-  public toggleMonitor(state: boolean) {
-    this.monitoring = state;
+  private dispatchStepEvent() {
+    this.events.dispatch('step', { simulator: this });
+  }
+
+  private dispatchMultiStepEvent() {
+    this.events.dispatch('multistep', { simulator: this });
+  }
+
+  private dispatchResetEvent() {
+    this.events.dispatch('reset', { simulator: this });
+  }
+
+  private dispatchStopEvent() {
+    this.events.dispatch('stop', { simulator: this });
+  }
+
+  private dispatchGotoEvent() {
+    this.events.dispatch('goto', { simulator: this });
   }
 
   /**
@@ -456,7 +474,7 @@ export class Simulator {
 
   private instructions = {
     i00: () => {
-      this.codeRunning = false;
+      this._codeRunning = false;
       //BRK
     },
 
@@ -1430,7 +1448,7 @@ export class Simulator {
 
     ierr: () => {
       this.console.log("Address $" + addr2hex(this.regPC) + " - unknown opcode");
-      this.codeRunning = false;
+      this._codeRunning = false;
     }
   };
 
@@ -1472,26 +1490,29 @@ export class Simulator {
    * Executes the assembled code.
    */
   public runBinary() {
-    if (this.codeRunning) {
+    if (this._codeRunning) {
       // Switch OFF everything
       this.stop();
       this.ui.stop();
     } else {
       this.ui.play();
-      this.codeRunning = true;
+      this._codeRunning = true;
       this.executeId = setInterval(this.multiExecute.bind(this), 15);
     }
   }
 
   private multiExecute() {
-    if (!this.debug) {
-      // use a prime number of iterations to avoid aliasing effects
-
-      for (let w = 0; w < 97; w++) {
-        this.execute();
-      }
+    // If stepper is enabled, do not execute the code automatically
+    if (this.stepper) {
+      return;
     }
-    this.updateDebugInfo();
+
+    // use a prime number of iterations to avoid aliasing effects
+    for (let w = 0; w < 97; w++) {
+      this.execute();
+    }
+  
+    this.dispatchMultiStepEvent();
   }
 
 
@@ -1513,12 +1534,13 @@ export class Simulator {
    * Executes one instruction. This is the main part of the CPU simulator.
    */
   private execute(debugging = false) {
-    if (!this.codeRunning && !debugging) { return; }
+    if (!this._codeRunning && !debugging) { return; }
 
     this.setRandomByte();
     this.executeNextInstruction();
+    this.dispatchStepEvent();
 
-    if ((this.regPC === 0) || (!this.codeRunning && !debugging)) {
+    if ((this.regPC === 0) || (!this._codeRunning && !debugging)) {
       this.stop();
       this.console.log("Program end at PC=$" + addr2hex(this.regPC - 1));
       this.ui.stop();
@@ -1527,41 +1549,5 @@ export class Simulator {
 
   private setRandomByte() {
     this.memory.set(0xfe, Math.floor(Math.random() * 256));
-  }
-
-  private updateMonitor() {
-    if (this.monitoring) {
-      const start = parseInt(this.node.querySelector<HTMLInputElement>('.start')?.value || '0', 16);
-      const length = parseInt(this.node.querySelector<HTMLInputElement>('.length')?.value || '0', 16);
-
-      const end = start + length - 1;
-
-      const monitorNode = this.node.querySelector<HTMLElement>('.monitor code');
-
-      if (!monitorNode) {
-        return;
-      }
-
-      if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
-        monitorNode.innerHTML = this.memory.format(start, length);
-      } else {
-        monitorNode.innerHTML = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
-      }
-    }
-  }
-
-  private updateDebugInfo() {
-    let html = "A=$" + num2hex(this.regA) + " X=$" + num2hex(this.regX) + " Y=$" + num2hex(this.regY) + "<br />";
-    html += "SP=$" + num2hex(this.regSP) + " PC=$" + addr2hex(this.regPC);
-    html += "<br />";
-    html += "NV-BDIZC<br />";
-    for (let i = 7; i >= 0; i--) {
-      html += this.regP >> i & 1;
-    }
-    const minidebugger = this.node.querySelector<HTMLElement>('.minidebugger');
-    if (minidebugger) {
-      minidebugger.innerHTML = html;
-    }
-    this.updateMonitor();
   }
 }
