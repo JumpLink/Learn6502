@@ -33,7 +33,12 @@ export class SimulatorWidget {
     this.labels = new Labels(this.console);
     this.simulator = new Simulator(this.console, this.memory, this.display, this.labels, this.ui);
     this.assembler = new Assembler(this.console, this.memory, this.labels, this.ui);
-    this.debugger = new Debugger(node, this.simulator, this.memory);
+    this.debugger = new Debugger(node, this.simulator, this.memory, {
+      monitor: {
+        start: 0x00,
+        length: 0xff,
+      },
+    });
     this.initialize();
   }
 
@@ -93,7 +98,7 @@ export class SimulatorWidget {
       this.debugger.toggleMonitor(state);
     });
 
-    this.node.querySelector('.start, .length')?.addEventListener('blur', this.debugger.handleMonitorRangeChange.bind(this.debugger));
+    this.node.querySelector('.start, .length')?.addEventListener('blur', this.debugger.onMonitorRangeChange.bind(this.debugger));
     this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExecStep.bind(this.simulator));
     this.node.querySelector('.gotoButton')?.addEventListener('click', this.simulator.gotoAddr.bind(this.simulator));
     this.node.querySelector('.notesButton')?.addEventListener('click', this.ui.showNotes.bind(this.ui));
@@ -104,7 +109,7 @@ export class SimulatorWidget {
 
     document.addEventListener('keypress', this.memory.storeKeypress.bind(this.memory));
 
-    this.debugger.handleMonitorRangeChange();
+    this.debugger.onMonitorRangeChange();
   }
 
   /**

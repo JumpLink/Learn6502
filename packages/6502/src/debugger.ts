@@ -2,14 +2,40 @@ import { Simulator } from './simulator.js';
 import { Memory } from './memory.js';
 import { addr2hex, num2hex } from './utils.js';
 
+import type { DebuggerOptions, MonitorOptions } from './types/index.js';
+
 export class Debugger {
 
   private monitoring = false;
 
-  constructor(private readonly node: HTMLElement, private readonly simulator: Simulator, private readonly memory: Memory) {
+  private monitor: MonitorOptions;
+
+  constructor(private readonly node: HTMLElement, private readonly simulator: Simulator, private readonly memory: Memory, options: DebuggerOptions) {
+    this.monitor = options.monitor;
+    this.setupEventListeners();
+  }
+
+  /**
+   * Toggle the monitor.
+   * The monitor is the part of the debugger that shows the memory.
+   * @param state - The state of the monitor.
+   */
+  public toggleMonitor(state: boolean) {
+    this.monitoring = state;
+  }
+
+  /**
+   * Handle the monitor range change.
+   */
+  public setMonitorRange(startAddress: number, length: number) {
+    this.monitor.start = startAddress;
+    this.monitor.length = length;
+  }
+
+  private setupEventListeners() {
     this.simulator.on('step', () => {
       // If stepper is enabled, update the debug info and the monitor every step
-      if (this.simulator.stepper) {
+      if (this.simulator.stepperEnabled) {
         this.updateDebugInfo();
         this.updateMonitor();
       }
@@ -35,35 +61,28 @@ export class Debugger {
   }
 
   /**
-   * Toggle the monitor.
-   * The monitor is the part of the debugger that shows the memory.
-   * @param state - The state of the monitor.
-   */
-  public toggleMonitor(state: boolean) {
-    this.monitoring = state;
-  }
-
-  /**
    * Handle the monitor range change.
    */
-  public handleMonitorRangeChange() {
+  public onMonitorRangeChange() {
     const $start = this.node.querySelector<HTMLInputElement>('.start'),
       $length = this.node.querySelector<HTMLInputElement>('.length'),
       start = parseInt($start?.value || '0', 16),
-      length = parseInt($length?.value || '0', 16),
-      end = start + length - 1;
+      length = parseInt($length?.value || '0', 16);
 
     $start?.classList.remove('monitor-invalid');
     $length?.classList.remove('monitor-invalid');
 
+    const end = start + length - 1;
+
     if (isNaN(start) || start < 0 || start > 0xffff) {
-
       $start?.classList.add('monitor-invalid');
-
+      return;
     } else if (isNaN(length) || end > 0xffff) {
-
       $length?.classList.add('monitor-invalid');
+      return;
     }
+
+    this.setMonitorRange(start, length);
   }
 
   private updateMonitor() {
@@ -71,10 +90,17 @@ export class Debugger {
       return;
     }
 
-    const start = parseInt(this.node.querySelector<HTMLInputElement>('.start')?.value || '0', 16);
-    const length = parseInt(this.node.querySelector<HTMLInputElement>('.length')?.value || '0', 16);
+    const start = this.monitor.start;
+    const length = this.monitor.length;
+    let content = '';
 
     const end = start + length - 1;
+
+    if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
+      content = this.memory.format(start, length);
+    } else {
+      content = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
+    }
 
     const monitorNode = this.node.querySelector<HTMLElement>('.monitor code');
 
@@ -82,11 +108,7 @@ export class Debugger {
       return;
     }
 
-    if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
-      monitorNode.innerHTML = this.memory.format(start, length);
-    } else {
-      monitorNode.innerHTML = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
-    }
+    monitorNode.innerHTML = content;
   }
 
   private updateDebugInfo() {

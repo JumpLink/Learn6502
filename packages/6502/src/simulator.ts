@@ -23,7 +23,7 @@ export class Simulator {
   private regSP = 0xff;
   private _codeRunning = false;
   /** If true, the simulator will execute one instruction step by step triggered by the debugger. */
-  public stepper = false;
+  private stepper = false;
   
   private executeId: number | undefined;
 
@@ -58,6 +58,10 @@ export class Simulator {
       regPC: this.regPC,
       regSP: this.regSP,
     };
+  }
+
+  public get stepperEnabled() {
+    return this.stepper;
   }
 
   /**
