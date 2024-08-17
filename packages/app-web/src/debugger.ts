@@ -1,8 +1,4 @@
-import { Simulator } from './simulator.js';
-import { Memory } from './memory.js';
-import { addr2hex, num2hex } from './utils.js';
-
-import type { DebuggerOptions, MonitorOptions } from './types/index.js';
+import { Simulator, Memory, addr2hex, num2hex, type DebuggerOptions, type MonitorOptions } from '@easy6502/6502';
 
 export class Debugger {
 

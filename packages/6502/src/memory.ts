@@ -20,15 +20,15 @@ export class Memory {
     this.storeKeypress = this.storeKeypress.bind(this);
   }
 
-  public on(event: 'changed', listener: (event?: MemoryEvent) => void): void {
+  public on(event: 'changed', listener: (event: MemoryEvent) => void): void {
     this.events.on(event, listener);
   }
 
-  public off(event: 'changed', listener: (event?: MemoryEvent) => void): void {
+  public off(event: 'changed', listener: (event: MemoryEvent) => void): void {
     this.events.off(event, listener);
   }
 
-  public once(event: 'changed', listener: () => void): void {
+  public once(event: 'changed', listener: (event: MemoryEvent) => void): void {
     this.events.once(event, listener);
   }
 

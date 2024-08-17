@@ -1,4 +1,7 @@
-import { Memory, Display, Labels, Simulator, Assembler, UI, MessageConsole, Debugger, AssemblerEvent, SimulatorEvent } from '@easy6502/6502';
+import { Memory, Labels, Simulator, Assembler, MessageConsole, AssemblerEvent, SimulatorEvent } from '@easy6502/6502';
+import { Debugger } from './debugger.js';
+import { Display } from './display.js';
+import { UI } from './ui.js';
 
 /**
  * Represents the main widget for the 6502 simulator.
@@ -24,7 +27,7 @@ export class SimulatorWidget {
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
     this.labels = new Labels(this.console);
-    this.simulator = new Simulator(this.console, this.memory, this.display, this.labels);
+    this.simulator = new Simulator(this.console, this.memory, this.labels);
     this.assembler = new Assembler(this.console, this.memory, this.labels);
     this.debugger = new Debugger(node, this.simulator, this.memory, {
       monitor: {
@@ -132,6 +135,10 @@ export class SimulatorWidget {
       if(event.message) {
         this.console.log(event.message);
       }
+    });
+
+    this.simulator.on('reset', (event: SimulatorEvent) => {
+      this.display.reset();
     });
 
     this.debugger.onMonitorRangeChange();

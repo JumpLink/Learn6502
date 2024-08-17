@@ -1,7 +1,5 @@
 import { Memory } from './memory.js';
-import { Display } from './display.js';
 import { Labels } from './labels.js';
-import { UI } from './ui.js';
 import { MessageConsole } from './message-console.js';
 import { EventDispatcher } from './event-dispatcher.js';
 
@@ -29,7 +27,7 @@ export class Simulator {
 
   private readonly events = new EventDispatcher<SimulatorEvent>();
 
-  constructor(private readonly console: MessageConsole, private readonly memory: Memory, private readonly display: Display, private readonly labels: Labels) {
+  constructor(private readonly console: MessageConsole, private readonly memory: Memory, private readonly labels: Labels) {
 
   }
 
@@ -121,7 +119,6 @@ export class Simulator {
    * Reset CPU and memory.
    */
   public reset() {
-    this.display.reset();
     for (let i = 0; i < 0x600; i++) { // clear ZP, stack and screen
       this.memory.set(i, 0x00);
     }

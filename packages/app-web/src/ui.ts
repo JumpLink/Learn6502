@@ -1,4 +1,4 @@
-import type { State } from './types/index.js';
+import type { State } from '@easy6502/6502';
 
 /**
  * Manages the user interface for the 6502 emulator.

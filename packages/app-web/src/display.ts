@@ -1,5 +1,4 @@
-import type { Memory } from './memory.js';
-import type { MemoryEvent } from './types/index.js';
+import type { Memory, MemoryEvent } from '@easy6502/6502';
 
 /**
  * Represents the display for a 6502 emulator.

@@ -2,7 +2,6 @@ import { Memory } from './memory.js';
 import { Labels } from './labels.js';
 import { MessageConsole } from './message-console.js';
 import { EventDispatcher } from './event-dispatcher.js';
-import { UI } from './ui.js';
 import { addr2hex, num2hex } from './utils.js';
 
 import type { Symbols, AssemblerEvent } from './types/index.js';
