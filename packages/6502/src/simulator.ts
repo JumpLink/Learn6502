@@ -29,19 +29,19 @@ export class Simulator {
 
   private readonly events = new EventDispatcher<SimulatorEvent>();
 
-  constructor(private readonly console: MessageConsole, private readonly memory: Memory, private readonly display: Display, private readonly labels: Labels, private readonly ui: UI) {
+  constructor(private readonly console: MessageConsole, private readonly memory: Memory, private readonly display: Display, private readonly labels: Labels) {
 
   }
 
-  public on(event: 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event?: SimulatorEvent) => void): void {
+  public on(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event: SimulatorEvent) => void): void {
     this.events.on(event, listener);
   }
 
-  public off(event: 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event?: SimulatorEvent) => void): void {
+  public off(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event: SimulatorEvent) => void): void {
     this.events.off(event, listener);
   }
 
-  public once(event: 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: () => void): void {
+  public once(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event: SimulatorEvent) => void): void {
     this.events.once(event, listener);
   }
 
@@ -135,31 +135,35 @@ export class Simulator {
   /**
    * Stop the CPU simulator.
    */
-  public stop() {
+  public stop(message = "") {
+    message = "\nStopped\n" + message;
     this._codeRunning = false;
     clearInterval(this.executeId);
-    this.dispatchStopEvent();
-    this.console.log("\nStopped\n");
+    this.dispatchStopEvent(message);
   }
 
-  private dispatchStepEvent() {
-    this.events.dispatch('step', { simulator: this });
+  private dispatchStepEvent(message?: string) {
+    this.events.dispatch('step', { simulator: this, message });
   }
 
-  private dispatchMultiStepEvent() {
-    this.events.dispatch('multistep', { simulator: this });
+  private dispatchMultiStepEvent(message?: string) {
+    this.events.dispatch('multistep', { simulator: this, message });
   }
 
-  private dispatchResetEvent() {
-    this.events.dispatch('reset', { simulator: this });
+  private dispatchResetEvent(message?: string) {
+    this.events.dispatch('reset', { simulator: this, message });
   }
 
-  private dispatchStopEvent() {
-    this.events.dispatch('stop', { simulator: this });
+  private dispatchStartEvent(message?: string) {
+    this.events.dispatch('start', { simulator: this, message });
   }
 
-  private dispatchGotoEvent() {
-    this.events.dispatch('goto', { simulator: this });
+  private dispatchStopEvent(message?: string) {
+    this.events.dispatch('stop', { simulator: this, message });
+  }
+
+  private dispatchGotoEvent(message?: string) {
+    this.events.dispatch('goto', { simulator: this, message });
   }
 
   /**
@@ -1497,9 +1501,8 @@ export class Simulator {
     if (this._codeRunning) {
       // Switch OFF everything
       this.stop();
-      this.ui.stop();
     } else {
-      this.ui.play();
+      this.dispatchStartEvent();
       this._codeRunning = true;
       this.executeId = setInterval(this.multiExecute.bind(this), 15);
     }
@@ -1545,9 +1548,7 @@ export class Simulator {
     this.dispatchStepEvent();
 
     if ((this.regPC === 0) || (!this._codeRunning && !debugging)) {
-      this.stop();
-      this.console.log("Program end at PC=$" + addr2hex(this.regPC - 1));
-      this.ui.stop();
+      this.stop("Program end at PC=$" + addr2hex(this.regPC - 1));
     }
   }
 

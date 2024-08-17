@@ -11,7 +11,7 @@ import type { Symbols, AssemblerEvent } from './types/index.js';
  * Represents the assembler for the 6502 emulator.
  */
 export class Assembler {
-  private defaultCodePC: number;
+  private currentPC: number;
   private codeLen: number;
   private codeAssembledOK = false;
   private wasOutOfRangeBranch = false;
@@ -112,19 +112,19 @@ export class Assembler {
   
   private readonly events = new EventDispatcher<AssemblerEvent>();
 
-  constructor(protected readonly console: MessageConsole, protected readonly memory: Memory, protected readonly labels: Labels, protected readonly ui: UI) {
+  constructor(protected readonly console: MessageConsole, protected readonly memory: Memory, protected readonly labels: Labels) {
 
   }
 
-  public on(event: 'assemble-success' | 'assemble-failure', listener: (event?: AssemblerEvent) => void): void {
+  public on(event: 'assemble-success' | 'assemble-failure', listener: (event: AssemblerEvent) => void): void {
     this.events.on(event, listener);
   }
 
-  public off(event: 'assemble-success' | 'assemble-failure', listener: (event?: AssemblerEvent) => void): void {
+  public off(event: 'assemble-success' | 'assemble-failure', listener: (event: AssemblerEvent) => void): void {
     this.events.off(event, listener);
   }
 
-  public once(event: 'assemble-success' | 'assemble-failure', listener: () => void): void {
+  public once(event: 'assemble-success' | 'assemble-failure', listener: (event: AssemblerEvent) => void): void {
     this.events.once(event, listener);
   }
 
@@ -171,7 +171,7 @@ export class Assembler {
         this.console.log("Unable to relocate code outside 64k memory");
         return false;
       }
-      this.defaultCodePC = addr;
+      this.currentPC = addr;
       return true;
     }
 
@@ -217,7 +217,7 @@ export class Assembler {
 
     this.wasOutOfRangeBranch = false;
 
-    this.defaultCodePC = BOOTSTRAP_ADDRESS;
+    this.currentPC = BOOTSTRAP_ADDRESS;
     
     this.console.clear();
     
@@ -230,13 +230,13 @@ export class Assembler {
     const symbols = this.preprocess(lines);
 
     this.console.log("Indexing labels ...");
-    this.defaultCodePC = BOOTSTRAP_ADDRESS;
+    this.currentPC = BOOTSTRAP_ADDRESS;
     if (!this.labels.indexLines(lines, symbols, this)) {
       return false;
     }
     this.labels.displayMessage();
 
-    this.defaultCodePC = BOOTSTRAP_ADDRESS;
+    this.currentPC = BOOTSTRAP_ADDRESS;
     this.console.log("Assembling code ...");
 
     this.codeLen = 0;
@@ -250,32 +250,29 @@ export class Assembler {
 
     const lastLine = lines[i];
 
+    let message = '';
+
     if (this.codeLen === 0) {
       this.codeAssembledOK = false;
-      this.console.log("No code to run.");
+      message = "No code to run.";
     }
 
-    if (this.codeAssembledOK) {
-      // TODO: Remove ui reference
-      this.ui.assembleSuccess();
-      this.memory.set(this.defaultCodePC, 0x00); // Set a null byte at the end of the code
-    } else {
-
+    if (!this.codeAssembledOK) {
       if (lastLine) {
         const str = lines[i].replace("<", "&lt;").replace(">", "&gt;");
         if (!this.wasOutOfRangeBranch) {
-          this.console.log("**Syntax error line " + (i + 1) + ": " + str + "**");
+          message = "**Syntax error line " + (i + 1) + ": " + str + "**";
         } else {
-          this.console.log('**Out of range branch on line ' + (i + 1) + ' (branches are limited to -128 to +127): ' + str + '**');
+          message = '**Out of range branch on line ' + (i + 1) + ' (branches are limited to -128 to +127): ' + str + '**';
         }
       }
 
-      // TODO: Remove ui reference
-      this.ui.initialize();
+      this.dispatchAssembleFailure(message);
       return false;
     }
 
-    this.console.log("Code assembled successfully, " + this.codeLen + " bytes.");
+    message = "Code assembled successfully, " + this.codeLen + " bytes.";
+    this.dispatchAssembleSuccess(message);
     return true;
   }
 
@@ -329,7 +326,15 @@ export class Assembler {
    * @returns The current program counter value.
    */
   public getCurrentPC(): number {
-    return this.defaultCodePC;
+    return this.currentPC;
+  }
+
+  private dispatchAssembleSuccess(message: string) {
+    this.events.dispatch('assemble-success', { assembler: this, message });
+  }
+
+  private dispatchAssembleFailure(message: string) {
+    this.events.dispatch('assemble-failure', { assembler: this, message });
   }
 
   /**
@@ -524,7 +529,7 @@ export class Assembler {
     if (addr === -1) { this.pushWord(0x00); return false; }
     this.pushByte(opcode);
 
-    const distance = addr - this.defaultCodePC - 1;
+    const distance = addr - this.currentPC - 1;
 
     if (distance < -128 || distance > 127) {
       this.wasOutOfRangeBranch = true;
@@ -820,8 +825,8 @@ export class Assembler {
    * Push a byte to memory
    */
   private pushByte(value: number) {
-    this.memory.set(this.defaultCodePC, value & 0xff);
-    this.defaultCodePC++;
+    this.memory.set(this.currentPC, value & 0xff);
+    this.currentPC++;
     this.codeLen++;
   }
 

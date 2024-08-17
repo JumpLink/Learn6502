@@ -5,60 +5,58 @@ import type { State } from './types/index.js';
  */
 export class UI {
   private _currentState: State;
-  private readonly start: State;
-  private readonly assembled: State;
-  private readonly running: State;
-  private readonly debugging: State;
-  private readonly postDebugging: State;
+
+  // Define the various UI states
+  private start: State = {
+    assemble: true,
+    run: [false, 'Run'],
+    reset: false,
+    hexdump: false,
+    disassemble: false,
+    debug: [false, false]
+  };
+
+  private assembled: State = {
+    assemble: false,
+    run: [true, 'Run'],
+    reset: true,
+    hexdump: true,
+    disassemble: true,
+    debug: [true, false]
+  };
+
+  private running: State = {
+    assemble: false,
+    run: [true, 'Stop'],
+    reset: true,
+    hexdump: false,
+    disassemble: false,
+    debug: [true, false]
+  };
+
+  private debugging: State = {
+    assemble: false,
+    reset: true,
+    hexdump: true,
+    disassemble: true,
+    debug: [true, true]
+  };
+
+  private postDebugging: State = {
+    assemble: false,
+    reset: true,
+    hexdump: true,
+    disassemble: true,
+    debug: [true, false]
+  };
 
   /**
    * Creates a new UI instance.
    * @param node - The root HTML element containing the UI components.
    */
   constructor(private node: HTMLElement) {
-    // Define the various UI states
-    this.start = {
-      assemble: true,
-      run: [false, 'Run'],
-      reset: false,
-      hexdump: false,
-      disassemble: false,
-      debug: [false, false]
-    };
-    this.assembled = {
-      assemble: false,
-      run: [true, 'Run'],
-      reset: true,
-      hexdump: true,
-      disassemble: true,
-      debug: [true, false]
-    };
-    this.running = {
-      assemble: false,
-      run: [true, 'Stop'],
-      reset: true,
-      hexdump: false,
-      disassemble: false,
-      debug: [true, false]
-    };
-    this.debugging = {
-      assemble: false,
-      reset: true,
-      hexdump: true,
-      disassemble: true,
-      debug: [true, true]
-    };
-    this.postDebugging = {
-      assemble: false,
-      reset: true,
-      hexdump: true,
-      disassemble: true,
-      debug: [true, false]
-    };
-
     this._currentState = this.start;
   }
-
 
   /**
    * Initializes the UI to its starting state.

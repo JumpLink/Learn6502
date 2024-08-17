@@ -1,4 +1,4 @@
-import { Memory, Display, Labels, Simulator, Assembler, UI, MessageConsole, Debugger } from '@easy6502/6502';
+import { Memory, Display, Labels, Simulator, Assembler, UI, MessageConsole, Debugger, AssemblerEvent, SimulatorEvent } from '@easy6502/6502';
 
 /**
  * Represents the main widget for the 6502 simulator.
@@ -24,8 +24,8 @@ export class SimulatorWidget {
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
     this.labels = new Labels(this.console);
-    this.simulator = new Simulator(this.console, this.memory, this.display, this.labels, this.ui);
-    this.assembler = new Assembler(this.console, this.memory, this.labels, this.ui);
+    this.simulator = new Simulator(this.console, this.memory, this.display, this.labels);
+    this.assembler = new Assembler(this.console, this.memory, this.labels);
     this.debugger = new Debugger(node, this.simulator, this.memory, {
       monitor: {
         start: 0x00,
@@ -97,10 +97,42 @@ export class SimulatorWidget {
     this.node.querySelector('.notesButton')?.addEventListener('click', this.ui.showNotes.bind(this.ui));
 
     const editor = this.node.querySelector<HTMLTextAreaElement>('.code');
-    editor?.addEventListener('keypress', this.simulator.stop.bind(this.simulator));
+    editor?.addEventListener('keypress', () => {
+      this.simulator.stop();
+    });
     editor?.addEventListener('keypress', this.ui.initialize.bind(this.ui));
 
     document.addEventListener('keypress', this.memory.storeKeypress.bind(this.memory));
+
+    this.assembler.on('assemble-success', (event: AssemblerEvent) => {
+      this.ui.assembleSuccess();
+      this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
+
+      if(event.message) {
+        this.console.log(event.message);
+      }
+    });
+
+    this.assembler.on('assemble-failure', (event: AssemblerEvent) => {
+      this.ui.initialize();
+      if(event.message) {
+        this.console.log(event.message);
+      }
+    });
+
+    this.simulator.on('stop', (event: SimulatorEvent) => {
+      this.ui.stop();
+      if(event.message) {
+        this.console.log(event.message);
+      }
+    });
+
+    this.simulator.on('start', (event: SimulatorEvent) => {
+      this.ui.play();
+      if(event.message) {
+        this.console.log(event.message);
+      }
+    });
 
     this.debugger.onMonitorRangeChange();
   }
