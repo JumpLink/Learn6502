@@ -6,7 +6,7 @@
         "setup": "yarn workspaces foreach -v -W -t run setup",
         "build": "yarn workspaces foreach -v -W -t run build",
         "check": "yarn workspaces foreach -v -W -t run check",
-        "start:gnome": "yarn workspace @easy6502/app run start",
+        "start:gnome": "yarn workspace @easy6502/app-gnome run start",
         "start:web": "yarn workspace @easy6502/app-web run start",
         "clear": "yarn workspaces foreach -v --parallel -W run clear",
         "format": "yarn prettier --write .",

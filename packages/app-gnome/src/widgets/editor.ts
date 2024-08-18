@@ -18,6 +18,8 @@ class _Editor extends Adw.Bin {
   }
 
   protected initSourceView() {
+    // TODO: Add 6502 assembly language support
+
     // Get the language we want to use
     // const language_manager = GtkSource.LanguageManager.get_default();
     // const language = language_manager.get_language("js");
@@ -32,7 +34,13 @@ class _Editor extends Adw.Bin {
 
     const buffer = new GtkSource.Buffer();
 
-    buffer.set_text('console.log("Hello World!");', -1);
+    buffer.set_text(`
+      LDA #$01
+      STA $0200
+      LDA #$05
+      STA $0201
+      LDA #$08
+      STA $0202`, -1);
 
     // Create the SourceView which displays the buffer's display
     const source_view = new GtkSource.View({

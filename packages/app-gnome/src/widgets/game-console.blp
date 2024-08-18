@@ -2,7 +2,14 @@ using Gtk 4.0;
 using Adw 1;
 
 template $GameConsole: Adw.Bin {
-  Adw.StatusPage {
-    title: _("Game Console");
+  Box {
+    halign: center;
+    orientation: vertical;
+
+    Adw.StatusPage {
+      title: _("Game Console");
+    }
+
+    $Display display {}
   }
 }
