@@ -1,6 +1,5 @@
-import type { Symbols } from './types/index.js';
+import type { Symbols, MessageConsole } from './types/index.js';
 import type { Assembler } from './assembler.js';
-import type { MessageConsole } from './message-console.js';
 
 /**
  * Manages labels for the 6502 assembler.

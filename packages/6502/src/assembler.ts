@@ -1,10 +1,9 @@
 import { Memory } from './memory.js';
 import { Labels } from './labels.js';
-import { MessageConsole } from './message-console.js';
 import { EventDispatcher } from './event-dispatcher.js';
 import { addr2hex, num2hex } from './utils.js';
 
-import type { Symbols, AssemblerEvent } from './types/index.js';
+import type { Symbols, AssemblerEvent, MessageConsole } from './types/index.js';
 
 /**
  * Represents the assembler for the 6502 emulator.
@@ -115,15 +114,15 @@ export class Assembler {
 
   }
 
-  public on(event: 'assemble-success' | 'assemble-failure', listener: (event: AssemblerEvent) => void): void {
+  public on(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly', listener: (event: AssemblerEvent) => void): void {
     this.events.on(event, listener);
   }
 
-  public off(event: 'assemble-success' | 'assemble-failure', listener: (event: AssemblerEvent) => void): void {
+  public off(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly', listener: (event: AssemblerEvent) => void): void {
     this.events.off(event, listener);
   }
 
-  public once(event: 'assemble-success' | 'assemble-failure', listener: (event: AssemblerEvent) => void): void {
+  public once(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly', listener: (event: AssemblerEvent) => void): void {
     this.events.once(event, listener);
   }
 
@@ -279,7 +278,7 @@ export class Assembler {
    * Generates a hexdump of the assembled code.
    */
   public hexdump() {
-    this.openPopup(this.memory.format(0x600, this.codeLen), 'Hexdump');
+    this.dispatchHexdump(this.memory.format(0x600, this.codeLen))
   }
 
   /**
@@ -317,7 +316,7 @@ export class Assembler {
     let html = 'Address  Hexdump   Dissassembly\n';
     html += '-------------------------------\n';
     html += instructions.join('\n');
-    this.openPopup(html, 'Disassembly');
+    this.dispatchDisassembly(html)
   }
 
   /**
@@ -334,6 +333,14 @@ export class Assembler {
 
   private dispatchAssembleFailure(message: string) {
     this.events.dispatch('assemble-failure', { assembler: this, message });
+  }
+
+  private dispatchHexdump(message: string) {
+    this.events.dispatch('hexdump', { assembler: this, message });
+  }
+
+  private dispatchDisassembly(message: string) {
+    this.events.dispatch('disassembly', { assembler: this, message });
   }
 
   /**
@@ -835,31 +842,6 @@ export class Assembler {
   private pushWord(value: number) {
     this.pushByte(value & 0xff);
     this.pushByte((value >> 8) & 0xff);
-  }
-
-  /**
-   * Opens a popup window with the given content.
-   * @param content - The content to display in the popup.
-   * @param title - The title of the popup window.
-   */
-  private openPopup(content: string, title: string) {
-    const w = window.open('', title, 'width=500,height=300,resizable=yes,scrollbars=yes,toolbar=no,location=no,menubar=no,status=no');
-
-    if (!w) {
-      console.error('Failed to open popup');
-      return;
-    }
-
-    let html = "<html><head>";
-    html += "<link href='dist/assets/main.css' rel='stylesheet' type='text/css' />";
-    html += "<title>" + title + "</title></head><body>";
-    html += "<pre><code>";
-
-    html += content;
-
-    html += "</code></pre></body></html>";
-    w.document.write(html);
-    w.document.close();
   }
 
   private getModeAndCode(byte: number): { opCode: string; mode: string } {

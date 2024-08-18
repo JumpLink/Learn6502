@@ -74,27 +74,9 @@ export class Memory {
    * Stores a keypress in memory.
    * Note: Used in the snake game example to control the snake with wasd keys.
    * TODO: Refactor this for a custom controller.
-   * @param e - The keyboard event.
+   * @param value - The value to store.
    */
-  public storeKeypress(e: KeyboardEvent): void {
-    let value = 0;
-
-    switch (e.key) {
-      case 'w':
-        value = 119;
-        break;
-      case 'a':
-        value = 97;
-        break;
-      case 's':
-        value = 115;
-        break;
-      case 'd':
-        value = 100;
-        break;
-      default:
-        value = e.which;
-    }
+  public storeKeypress(value: number): void {
     this.storeByte(0xff, value);
   }
 

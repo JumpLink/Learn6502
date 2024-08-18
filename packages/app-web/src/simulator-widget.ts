@@ -1,7 +1,8 @@
-import { Memory, Labels, Simulator, Assembler, MessageConsole, AssemblerEvent, SimulatorEvent } from '@easy6502/6502';
+import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole } from '@easy6502/6502';
 import { Debugger } from './debugger.js';
 import { Display } from './display.js';
 import { UI } from './ui.js';
+import { WebMessageConsole } from './web-message-console.js';
 
 /**
  * Represents the main widget for the 6502 simulator.
@@ -22,7 +23,7 @@ export class SimulatorWidget {
    */
   constructor(private node: HTMLElement) {
 
-    this.console = new MessageConsole(node.querySelector('.messages code')!);
+    this.console = new WebMessageConsole(node.querySelector('.messages code')!);
     this.ui = new UI(node);
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
@@ -105,7 +106,29 @@ export class SimulatorWidget {
     });
     editor?.addEventListener('keypress', this.ui.initialize.bind(this.ui));
 
-    document.addEventListener('keypress', this.memory.storeKeypress.bind(this.memory));
+    document.addEventListener('keypress', (e: KeyboardEvent) => {
+
+      let value = 0;
+
+      switch (e.key) {
+        case 'w':
+          value = 119;
+          break;
+        case 'a':
+          value = 97;
+          break;
+        case 's':
+          value = 115;
+          break;
+        case 'd':
+          value = 100;
+          break;
+        default:
+          value = e.which;
+      }
+
+      this.memory.storeKeypress(value);
+    });
 
     this.assembler.on('assemble-success', (event: AssemblerEvent) => {
       this.ui.assembleSuccess();
@@ -121,6 +144,14 @@ export class SimulatorWidget {
       if(event.message) {
         this.console.log(event.message);
       }
+    });
+
+    this.assembler.on('hexdump', (event: AssemblerEvent) => {
+      this.openPopup(event.message || '', 'Hexdump');
+    });
+
+    this.assembler.on('disassembly', (event: AssemblerEvent) => {
+      this.openPopup(event.message || '', 'Disassembly');
     });
 
     this.simulator.on('stop', (event: SimulatorEvent) => {
@@ -155,5 +186,30 @@ export class SimulatorWidget {
     let text = code.value;
     text = text.replace(/^\n+/, '').replace(/\s+$/, '');
     code.value = text;
+  }
+
+  /**
+   * Opens a popup window with the given content.
+   * @param content - The content to display in the popup.
+   * @param title - The title of the popup window.
+   */
+  private openPopup(content: string, title: string) {
+    const w = window.open('', title, 'width=500,height=300,resizable=yes,scrollbars=yes,toolbar=no,location=no,menubar=no,status=no');
+
+    if (!w) {
+      this.console.error('Failed to open popup');
+      return;
+    }
+
+    let html = "<html><head>";
+    html += "<link href='dist/assets/main.css' rel='stylesheet' type='text/css' />";
+    html += "<title>" + title + "</title></head><body>";
+    html += "<pre><code>";
+
+    html += content;
+
+    html += "</code></pre></body></html>";
+    w.document.write(html);
+    w.document.close();
   }
 }

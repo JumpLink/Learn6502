@@ -17,6 +17,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@easy6502/app-gnome@workspace:packages/app-gnome"
   dependencies:
+    "@easy6502/6502": "workspace:^"
     "@girs/adw-1": "npm:^1.6.0-4.0.0-beta.14"
     "@girs/gdk-4.0": "npm:^4.0.0-4.0.0-beta.14"
     "@girs/gdkpixbuf-2.0": "npm:^2.0.0-4.0.0-beta.14"

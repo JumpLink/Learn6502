@@ -1,9 +1,8 @@
 import { Memory } from './memory.js';
 import { Labels } from './labels.js';
-import { MessageConsole } from './message-console.js';
 import { EventDispatcher } from './event-dispatcher.js';
 
-import type { SimulatorEvent } from './types/index.js';
+import type { SimulatorEvent, MessageConsole } from './types/index.js';
 import { addr2hex } from './utils.js';
 
 /**
@@ -91,7 +90,7 @@ export class Simulator {
    * Set PC to address (or address of label).
    */
   public gotoAddr() {
-    let inp = prompt("Enter address or label", "");
+    let inp = this.console.prompt("Enter address or label", "");
     let addr = 0;
     if (!inp) {
       return;
