@@ -31,7 +31,7 @@ class _Display extends Adw.Bin implements IDisplay {
    * Resets the display to a black screen.
    */
   reset(): void {
-    throw new Error('Not implemented')
+    console.error('reset not implemented')
   }
 
   /**
@@ -40,7 +40,7 @@ class _Display extends Adw.Bin implements IDisplay {
    * @param memory - The Memory object containing the pixel data.
    */
   updatePixel(addr: number): void {
-    throw new Error('Not implemented')
+    console.error('updatePixel not implemented')
   }
 
   private _draw(drawingArea: Gtk.DrawingArea, cr: cairo.Context, width: number, height: number) {

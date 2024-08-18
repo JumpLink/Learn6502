@@ -13,12 +13,12 @@ template $ApplicationWindow: Adw.ApplicationWindow {
 
     setters {
       splitView.collapsed: true;
-      showSidebarButton.visible: true;
+      toggleSidebarButton.visible: true;
     }
   }
 
   content: Adw.OverlaySplitView splitView {
-    show-sidebar: bind showSidebarButton.active;
+    show-sidebar: bind toggleSidebarButton.active;
 
     sidebar: $Sidebar sidebar {};
 
@@ -26,7 +26,7 @@ template $ApplicationWindow: Adw.ApplicationWindow {
       [top]
       Adw.HeaderBar headerBar {
         [start]
-        ToggleButton showSidebarButton {
+        ToggleButton toggleSidebarButton {
           visible: false;
           icon-name: "sidebar-show-symbolic";
           tooltip-text: _("Open map");
@@ -34,11 +34,21 @@ template $ApplicationWindow: Adw.ApplicationWindow {
         }
 
         [end]
-        MenuButton {
+        MenuButton menuButton {
           primary: true;
           icon-name: 'open-menu-symbolic';
           tooltip-text: _('Menu');
-          menu-model: windowMenu;
+          menu-model: buttonWindowMenu;
+        }
+
+        [end]
+        Adw.SplitButton runButton {
+          halign: center;
+          icon-name: "media-playback-start-symbolic";
+          styles [
+            "suggested-action",
+          ]
+          menu-model: buttonRunMenu;
         }
       }
 
@@ -74,7 +84,7 @@ template $ApplicationWindow: Adw.ApplicationWindow {
   };
 }
 
-menu windowMenu {
+menu buttonWindowMenu {
   section {
     item {
       label: _('_Preferences');
@@ -95,5 +105,13 @@ menu windowMenu {
       label: _('_Quit');
       action: 'app.quit';
     }
+  }
+}
+
+menu buttonRunMenu {
+  section {
+    item ("Assemble and Run")
+    item ("Assemble")
+    item ("Run")
   }
 }

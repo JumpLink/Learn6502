@@ -3,7 +3,7 @@ import type { State } from '@easy6502/6502';
 /**
  * Manages the user interface for the 6502 emulator.
  */
-export class UI {
+export class UIState {
   private _currentState: State;
 
   // Define the various UI states

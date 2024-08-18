@@ -1,15 +1,15 @@
-import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole } from '@easy6502/6502';
+import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole as MessageConsoleInterface } from '@easy6502/6502';
 import { Debugger } from './debugger.js';
 import { Display } from './display.js';
-import { UI } from './ui.js';
-import { WebMessageConsole } from './web-message-console.js';
+import { UIState } from './ui-state.js';
+import { MessageConsole } from './message-console.js';
 
 /**
  * Represents the main widget for the 6502 simulator.
  */
-export class SimulatorWidget {
-  private console: MessageConsole;
-  private ui: UI;
+export class GameConsole {
+  private console: MessageConsoleInterface;
+  private uiState: UIState;
   private memory: Memory;
   private display: Display;
   private labels: Labels;
@@ -18,13 +18,13 @@ export class SimulatorWidget {
   private debugger: Debugger;
 
   /**
-   * Creates a new SimulatorWidget instance.
+   * Creates a new GameConsole instance.
    * @param node - The root HTML element for the simulator widget.
    */
   constructor(private node: HTMLElement) {
 
-    this.console = new WebMessageConsole(node.querySelector('.messages code')!);
-    this.ui = new UI(node);
+    this.console = new MessageConsole(node.querySelector('.messages code')!);
+    this.uiState = new UIState(node);
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
     this.labels = new Labels(this.console);
@@ -44,7 +44,7 @@ export class SimulatorWidget {
    */
   private initialize(): void {
     this.stripText();
-    this.ui.initialize();
+    this.uiState.initialize();
     this.display.initialize();
     this.simulator.reset();
 
@@ -81,30 +81,30 @@ export class SimulatorWidget {
     this.node.querySelector('.debug')?.addEventListener('change', (e: Event) => {
       const debug = (e.target as HTMLInputElement).checked;
       if (debug) {
-        this.ui.debugOn();
+        this.uiState.debugOn();
         this.simulator.enableStepper();
       } else {
-        this.ui.debugOff();
+        this.uiState.debugOff();
         this.simulator.stopStepper();
       }
     });
 
     this.node.querySelector('.monitoring')?.addEventListener('change', (e: Event) => {
       const state = (e.target as HTMLInputElement).checked;
-      this.ui.toggleMonitor(state);
+      this.uiState.toggleMonitor(state);
       this.debugger.toggleMonitor(state);
     });
 
     this.node.querySelector('.start, .length')?.addEventListener('blur', this.debugger.onMonitorRangeChange.bind(this.debugger));
     this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExecStep.bind(this.simulator));
     this.node.querySelector('.gotoButton')?.addEventListener('click', this.simulator.gotoAddr.bind(this.simulator));
-    this.node.querySelector('.notesButton')?.addEventListener('click', this.ui.showNotes.bind(this.ui));
+    this.node.querySelector('.notesButton')?.addEventListener('click', this.uiState.showNotes.bind(this.uiState));
 
     const editor = this.node.querySelector<HTMLTextAreaElement>('.code');
     editor?.addEventListener('keypress', () => {
       this.simulator.stop();
     });
-    editor?.addEventListener('keypress', this.ui.initialize.bind(this.ui));
+    editor?.addEventListener('keypress', this.uiState.initialize.bind(this.uiState));
 
     document.addEventListener('keypress', (e: KeyboardEvent) => {
 
@@ -131,7 +131,7 @@ export class SimulatorWidget {
     });
 
     this.assembler.on('assemble-success', (event: AssemblerEvent) => {
-      this.ui.assembleSuccess();
+      this.uiState.assembleSuccess();
       this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
 
       if(event.message) {
@@ -140,7 +140,7 @@ export class SimulatorWidget {
     });
 
     this.assembler.on('assemble-failure', (event: AssemblerEvent) => {
-      this.ui.initialize();
+      this.uiState.initialize();
       if(event.message) {
         this.console.log(event.message);
       }
@@ -155,14 +155,14 @@ export class SimulatorWidget {
     });
 
     this.simulator.on('stop', (event: SimulatorEvent) => {
-      this.ui.stop();
+      this.uiState.stop();
       if(event.message) {
         this.console.log(event.message);
       }
     });
 
     this.simulator.on('start', (event: SimulatorEvent) => {
-      this.ui.play();
+      this.uiState.play();
       if(event.message) {
         this.console.log(event.message);
       }

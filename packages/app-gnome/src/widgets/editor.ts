@@ -11,13 +11,13 @@ interface _Editor {
 }
 
 class _Editor extends Adw.Bin {
+
+  private _buffer: GtkSource.Buffer;
+  private _sourceView: GtkSource.View;
+
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
 
-    this._scrolledWindow.set_child(this.initSourceView())
-  }
-
-  protected initSourceView() {
     // TODO: Add 6502 assembly language support
 
     // Get the language we want to use
@@ -32,9 +32,9 @@ class _Editor extends Adw.Bin {
     // // Create the buffer - this holds the text that's used in the SourceView
     // const buffer = GtkSource.Buffer.new_with_language(language);
 
-    const buffer = new GtkSource.Buffer();
+    this._buffer = new GtkSource.Buffer();
 
-    buffer.set_text(`
+    this._buffer.set_text(`
       LDA #$01
       STA $0200
       LDA #$05
@@ -43,14 +43,18 @@ class _Editor extends Adw.Bin {
       STA $0202`, -1);
 
     // Create the SourceView which displays the buffer's display
-    const source_view = new GtkSource.View({
+    this._sourceView = new GtkSource.View({
       auto_indent: true,
       indent_width: 4,
-      buffer,
+      buffer: this._buffer,
       show_line_numbers: true,
     });
 
-    return source_view
+    this._scrolledWindow.set_child(this._sourceView)
+  }
+
+  public getBuffer(): GtkSource.Buffer {
+    return this._buffer;
   }
 }
 

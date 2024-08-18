@@ -1,6 +1,6 @@
-import type { MessageConsole } from '@easy6502/6502';
+import type { MessageConsole as MessageConsoleInterface } from '@easy6502/6502';
 
-export class WebMessageConsole implements MessageConsole {
+export class MessageConsole implements MessageConsoleInterface {
   constructor(private readonly node: HTMLElement) {}
 
   public log(message: string) {
