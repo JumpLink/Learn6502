@@ -1,9 +1,9 @@
-import type { Memory, MemoryEvent } from '@easy6502/6502';
+import type { Memory, MemoryEvent, Display as IDisplay } from '@easy6502/6502';
 
 /**
  * Represents the display for a 6502 emulator.
  */
-export class Display {
+export class Display implements IDisplay {
   private palette: string[];
   private ctx: CanvasRenderingContext2D | null = null;
   private width: number = 0;
