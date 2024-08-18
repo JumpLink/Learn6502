@@ -7,6 +7,10 @@ import type { Symbols, AssemblerEvent, MessageConsole } from './types/index.js';
 
 /**
  * Represents the assembler for the 6502 emulator.
+ * @emits assemble-success - Emitted when assembly is successful.
+ * @emits assemble-failure - Emitted when assembly fails.
+ * @emits hexdump - Emitted when a hexdump is generated.
+ * @emits disassembly - Emitted when disassembly is generated.
  */
 export class Assembler {
   private currentPC: number;
@@ -313,7 +317,7 @@ export class Assembler {
       currentAddress++;
     }
 
-    let html = 'Address  Hexdump   Dissassembly\n';
+    let html = 'Address  Hexdump   Disassembly\n';
     html += '-------------------------------\n';
     html += instructions.join('\n');
     this.dispatchDisassembly(html)
@@ -355,7 +359,7 @@ export class Assembler {
   }
 
   /**
-   * Preprocesses the assembly code.
+   * Preprocess the assembly code.
    * @param lines - The lines of code to preprocess.
    * @returns A Symbols object containing defined symbols.
    */

@@ -5,6 +5,7 @@ import type { MemoryEvent } from './types/index.js';
 
 /**
  * Represents the memory of the 6502 emulator.
+ * @emits changed - Emitted when a memory location is changed.
  */
 export class Memory {
   private memArray: number[];
@@ -72,7 +73,7 @@ export class Memory {
 
   /**
    * Stores a keypress in memory.
-   * Note: Used in the snake game example to control the snake with wasd keys.
+   * Note: Used in the snake game example to control the snake with w-a-s-d keys.
    * TODO: Refactor this for a custom controller.
    * @param value - The value to store.
    */

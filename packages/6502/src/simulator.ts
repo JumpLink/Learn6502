@@ -9,6 +9,12 @@ import { addr2hex } from './utils.js';
  * 6502 Simulator
  * 
  * This is a simulator for the 6502 processor.
+ * @emits start - Emitted when the simulator starts.
+ * @emits step - Emitted when the simulator has executed a single instruction.
+ * @emits multistep - Emitted when the simulator has executed multiple instructions.
+ * @emits reset - Emitted when the simulator resets.
+ * @emits stop - Emitted when the simulator stops.
+ * @emits goto - Emitted when the simulator jumps to a new address.
  */
 export class Simulator {
 
@@ -197,7 +203,7 @@ export class Simulator {
   }
 
   /**
-   * Sets the **N**egative and O**v**erflow flags based on the current value in the A register.
+   * Sets the Negative (N) and Overflow (V) flags based on the current value in the A register.
    * This is called after operations that modify the A register.
    */
   private setNVflagsForRegA() {
@@ -205,7 +211,7 @@ export class Simulator {
   }
 
   /**
-   * Sets the **N**egative and O**v**erflow flags based on the current value in the X register.
+   * Sets the Negative (N) and Overflow (V) flags based on the current value in the X register.
    * This is called after operations that modify the X register.
    */
   private setNVflagsForRegX() {
@@ -213,7 +219,7 @@ export class Simulator {
   }
 
   /**
-   * Sets the **N**egative and O**v**erflow flags based on the current value in the Y register.
+   * Sets the Negative (N) and Overflow (V) flags based on the current value in the Y register.
    * This is called after operations that modify the Y register.
    */
   private setNVflagsForRegY() {
