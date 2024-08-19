@@ -140,7 +140,7 @@ class _GameConsole extends Adw.Bin {
    * Initializes the simulator widget and sets up event listeners.
    */
   private initialize(): void {
-    this._display?.initialize();
+    this._display?.initialize(this.memory);
     this.simulator.reset();
 
     this.setupEventListeners();

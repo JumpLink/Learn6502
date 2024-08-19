@@ -45,7 +45,7 @@ export class GameConsole {
   private initialize(): void {
     this.stripText();
     this.uiState.initialize();
-    this.display.initialize();
+    this.display.initialize(this.memory);
     this.simulator.reset();
 
     this.setupEventListeners();
