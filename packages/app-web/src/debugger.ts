@@ -1,6 +1,6 @@
-import { Simulator, Memory, addr2hex, num2hex, type DebuggerOptions, type MonitorOptions } from '@easy6502/6502';
+import { Simulator, Memory, addr2hex, num2hex, type DebuggerOptions, type MonitorOptions, type Debugger as DebuggerInterface } from '@easy6502/6502';
 
-export class Debugger {
+export class Debugger implements DebuggerInterface {
 
   private monitoring = false;
 
@@ -21,11 +21,36 @@ export class Debugger {
   }
 
   /**
-   * Handle the monitor range change.
+   * Set the monitor address range.
    */
   public setMonitorRange(startAddress: number, length: number) {
     this.monitor.start = startAddress;
     this.monitor.length = length;
+  }
+
+  /**
+   * Handle the monitor range change.
+   */
+  public onMonitorRangeChange() {
+    const $start = this.node.querySelector<HTMLInputElement>('.start'),
+      $length = this.node.querySelector<HTMLInputElement>('.length'),
+      start = parseInt($start?.value || '0', 16),
+      length = parseInt($length?.value || '0', 16);
+
+    $start?.classList.remove('monitor-invalid');
+    $length?.classList.remove('monitor-invalid');
+
+    const end = start + length - 1;
+
+    if (isNaN(start) || start < 0 || start > 0xffff) {
+      $start?.classList.add('monitor-invalid');
+      return;
+    } else if (isNaN(length) || end > 0xffff) {
+      $length?.classList.add('monitor-invalid');
+      return;
+    }
+
+    this.setMonitorRange(start, length);
   }
 
   private setupEventListeners() {
@@ -54,31 +79,6 @@ export class Debugger {
 
     this.updateDebugInfo();
     this.updateMonitor();
-  }
-
-  /**
-   * Handle the monitor range change.
-   */
-  public onMonitorRangeChange() {
-    const $start = this.node.querySelector<HTMLInputElement>('.start'),
-      $length = this.node.querySelector<HTMLInputElement>('.length'),
-      start = parseInt($start?.value || '0', 16),
-      length = parseInt($length?.value || '0', 16);
-
-    $start?.classList.remove('monitor-invalid');
-    $length?.classList.remove('monitor-invalid');
-
-    const end = start + length - 1;
-
-    if (isNaN(start) || start < 0 || start > 0xffff) {
-      $start?.classList.add('monitor-invalid');
-      return;
-    } else if (isNaN(length) || end > 0xffff) {
-      $length?.classList.add('monitor-invalid');
-      return;
-    }
-
-    this.setMonitorRange(start, length);
   }
 
   private updateMonitor() {

@@ -1,4 +1,4 @@
-import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole as MessageConsoleInterface } from '@easy6502/6502';
+import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole as MessageConsoleInterface, LabelsEvent } from '@easy6502/6502';
 import { Debugger } from './debugger.js';
 import { Display } from './display.js';
 import { UIState } from './ui-state.js';
@@ -27,9 +27,9 @@ export class GameConsole {
     this.uiState = new UIState(node);
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
-    this.labels = new Labels(this.console);
+    this.labels = new Labels();
     this.simulator = new Simulator(this.console, this.memory, this.labels);
-    this.assembler = new Assembler(this.console, this.memory, this.labels);
+    this.assembler = new Assembler(this.memory, this.labels);
     this.debugger = new Debugger(node, this.simulator, this.memory, {
       monitor: {
         start: 0x00,
@@ -58,6 +58,7 @@ export class GameConsole {
     this.node.querySelector('.assembleButton')?.addEventListener('click', () => {
       this.simulator.reset();
       this.labels.reset();
+      this.console.clear();
       this.assembler.assembleCode(this.node.querySelector<HTMLTextAreaElement>('.code')?.value || "");
     });
 
@@ -130,6 +131,8 @@ export class GameConsole {
       this.memory.storeKeypress(value);
     });
 
+    // Assembler events
+
     this.assembler.on('assemble-success', (event: AssemblerEvent) => {
       this.uiState.assembleSuccess();
       this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
@@ -154,6 +157,14 @@ export class GameConsole {
       this.openPopup(event.message || '', 'Disassembly');
     });
 
+    this.assembler.on('assemble-info', (event: AssemblerEvent) => {
+      if(event.message) {
+        this.console.log(event.message);
+      }
+    });
+
+    // Simulator events
+
     this.simulator.on('stop', (event: SimulatorEvent) => {
       this.uiState.stop();
       if(event.message) {
@@ -170,6 +181,20 @@ export class GameConsole {
 
     this.simulator.on('reset', (event: SimulatorEvent) => {
       this.display.reset();
+    });
+
+    // Labels events
+
+    this.labels.on('labels-info', (event: LabelsEvent) => {
+      if(event.message) {
+        this.console.log(event.message);
+      }
+    });
+
+    this.labels.on('labels-failure', (event: LabelsEvent) => {
+      if(event.message) {
+        this.console.log(event.message);
+      }
     });
 
     this.debugger.onMonitorRangeChange();

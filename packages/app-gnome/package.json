@@ -9,7 +9,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "clear": "rm -rf dist",
         "build:vite": "vite build",
-        "build:blueprints": "blueprint-compiler compile src/widgets/application-window.blp --output src/widgets/application-window.ui && blueprint-compiler compile src/widgets/preferences-dialog.blp --output src/widgets/preferences-dialog.ui && blueprint-compiler compile src/widgets/sidebar.blp --output src/widgets/sidebar.ui && blueprint-compiler compile src/widgets/editor.blp --output src/widgets/editor.ui && blueprint-compiler compile src/widgets/game-console.blp --output src/widgets/game-console.ui && blueprint-compiler compile src/widgets/display.blp --output src/widgets/display.ui",
+        "build:blueprints": "blueprint-compiler compile src/widgets/application-window.blp --output src/widgets/application-window.ui && blueprint-compiler compile src/widgets/preferences-dialog.blp --output src/widgets/preferences-dialog.ui && blueprint-compiler compile src/widgets/sidebar.blp --output src/widgets/sidebar.ui && blueprint-compiler compile src/widgets/editor.blp --output src/widgets/editor.ui && blueprint-compiler compile src/widgets/game-console.blp --output src/widgets/game-console.ui && blueprint-compiler compile src/widgets/display.blp --output src/widgets/display.ui && blueprint-compiler compile src/widgets/debugger.blp --output src/widgets/debugger.ui && blueprint-compiler compile src/widgets/message-console.blp --output src/widgets/message-console.ui",
         "build:resources": "glib-compile-resources eu.jumplink.easy6502.data.gresource.xml",
         "build": "yarn build:resources && yarn build:blueprints && yarn build:vite",
         "check": "tsc",

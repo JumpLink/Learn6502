@@ -11,6 +11,7 @@ import type { Symbols, AssemblerEvent, MessageConsole } from './types/index.js';
  * @emits assemble-failure - Emitted when assembly fails.
  * @emits hexdump - Emitted when a hexdump is generated.
  * @emits disassembly - Emitted when disassembly is generated.
+ * @emits info - Emitted when the assembler has an info message.
  */
 export class Assembler {
   private currentPC: number;
@@ -114,19 +115,19 @@ export class Assembler {
   
   private readonly events = new EventDispatcher<AssemblerEvent>();
 
-  constructor(protected readonly console: MessageConsole, protected readonly memory: Memory, protected readonly labels: Labels) {
+  constructor(protected readonly memory: Memory, protected readonly labels: Labels) {
 
   }
 
-  public on(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly', listener: (event: AssemblerEvent) => void): void {
+  public on(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly' | 'assemble-info', listener: (event: AssemblerEvent) => void): void {
     this.events.on(event, listener);
   }
 
-  public off(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly', listener: (event: AssemblerEvent) => void): void {
+  public off(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly' | 'assemble-info', listener: (event: AssemblerEvent) => void): void {
     this.events.off(event, listener);
   }
 
-  public once(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly', listener: (event: AssemblerEvent) => void): void {
+  public once(event: 'assemble-success' | 'assemble-failure' | 'hexdump' | 'disassembly' | 'assemble-info', listener: (event: AssemblerEvent) => void): void {
     this.events.once(event, listener);
   }
 
@@ -170,7 +171,7 @@ export class Assembler {
         addr = parseInt(param, 10);
       }
       if ((addr < 0) || (addr > 0xffff)) {
-        this.console.log("Unable to relocate code outside 64k memory");
+        this.dispatchAssembleFailure("Unable to relocate code outside 64k memory");
         return false;
       }
       this.currentPC = addr;
@@ -221,17 +222,12 @@ export class Assembler {
 
     this.currentPC = BOOTSTRAP_ADDRESS;
     
-    this.console.clear();
-    
     code += "\n\n";
     const lines = code.split("\n");
     this.codeAssembledOK = true;
 
-    this.console.log("Preprocessing ...");
-
     const symbols = this.preprocess(lines);
 
-    this.console.log("Indexing labels ...");
     this.currentPC = BOOTSTRAP_ADDRESS;
     if (!this.labels.indexLines(lines, symbols, this)) {
       return false;
@@ -239,7 +235,7 @@ export class Assembler {
     this.labels.displayMessage();
 
     this.currentPC = BOOTSTRAP_ADDRESS;
-    this.console.log("Assembling code ...");
+    this.dispatchInfo("Assembling code ...");
 
     this.codeLen = 0;
     let i = 0;
@@ -347,6 +343,10 @@ export class Assembler {
     this.events.dispatch('disassembly', { assembler: this, message });
   }
 
+  private dispatchInfo(message: string) {
+    this.events.dispatch('assemble-info', { assembler: this, message });
+  }
+
   /**
    * Sanitize input: remove comments and trim leading/trailing whitespace
    */
@@ -364,6 +364,9 @@ export class Assembler {
    * @returns A Symbols object containing defined symbols.
    */
   private preprocess(lines: string[]): Symbols {
+
+    this.dispatchInfo("Preprocessing ...");
+
     const table: Record<string, string> = {};
     const PREFIX = "__"; // Using a prefix avoids clobbering any predefined properties
 

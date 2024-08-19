@@ -1,4 +1,5 @@
-import type { Symbols, MessageConsole } from './types/index.js';
+import { EventDispatcher } from './event-dispatcher.js';
+import type { Symbols, LabelsEvent } from './types/index.js';
 import type { Assembler } from './assembler.js';
 
 /**
@@ -6,13 +7,24 @@ import type { Assembler } from './assembler.js';
  */
 export class Labels {
   private labelIndex: string[] = [];
+  private readonly events = new EventDispatcher<LabelsEvent>();
 
   /**
    * Creates a new Labels instance.
-   * @param console - The console where messages will be displayed.
    */
-  constructor(private console: MessageConsole) {}
+  constructor() {}
 
+  public on(event: 'labels-info' | 'labels-failure', listener: (event: LabelsEvent) => void): void {
+    this.events.on(event, listener);
+  }
+
+  public off(event: 'labels-info' | 'labels-failure', listener: (event: LabelsEvent) => void): void {
+    this.events.off(event, listener);
+  }
+
+  public once(event: 'labels-info' | 'labels-failure', listener: (event: LabelsEvent) => void): void {
+    this.events.once(event, listener);
+  }
 
   /**
    * Checks if a label exists.
@@ -54,7 +66,7 @@ export class Labels {
   public displayMessage(): void {
     const count = this.labelIndex.length;
     const plural = count !== 1 ? 's' : '';
-    this.console.log(`Found ${count} label${plural}.`);
+    this.dispatchInfo(`Found ${count} label${plural}.`);
   }
 
   /**
@@ -72,13 +84,22 @@ export class Labels {
    * @returns True if indexing was successful, false otherwise.
    */
   public indexLines(lines: string[], symbols: Symbols, assembler: Assembler): boolean {
+    this.dispatchInfo('Indexing labels...');
     for (let i = 0; i < lines.length; i++) {
       if (!this.indexLine(lines[i], symbols, assembler)) {
-        this.console.log(`**Label already defined at line ${i + 1}:** ${lines[i]}`);
+        this.dispatchFailure(`**Label already defined at line ${i + 1}:** ${lines[i]}`);
         return false;
       }
     }
     return true;
+  }
+
+  private dispatchInfo(message: string) {
+    this.events.dispatch('labels-info', { labels: this, message });
+  }
+
+  private dispatchFailure(message: string) {
+    this.events.dispatch('labels-failure', { labels: this, message });
   }
 
   /**
@@ -96,7 +117,7 @@ export class Labels {
       const label = input.replace(/(^\w+):.*$/, "$1");
       
       if (symbols.lookup(label)) {
-        this.console.log(`**Label ${label} is already used as a symbol; please rename one of them**`);
+        this.dispatchFailure(`**Label ${label} is already used as a symbol; please rename one of them**`);
         return false;
       }
       

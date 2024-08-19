@@ -4,14 +4,14 @@ import Gtk from '@girs/gtk-4.0'
 import cairo from 'cairo'
 import Template from './display.ui?raw'
 
-import type { Display as IDisplay } from '@easy6502/6502'
+import type { Display as DisplayInterface } from '@easy6502/6502'
 
 interface _Display {
   // Child widgets
   _drawingArea: Gtk.DrawingArea
 }
 
-class _Display extends Adw.Bin implements IDisplay {
+class _Display extends Adw.Bin implements DisplayInterface {
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
     if (!this._drawingArea) {

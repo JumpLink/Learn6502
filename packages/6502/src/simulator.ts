@@ -11,7 +11,7 @@ import { addr2hex } from './utils.js';
  * This is a simulator for the 6502 processor.
  * @emits start - Emitted when the simulator starts.
  * @emits step - Emitted when the simulator has executed a single instruction.
- * @emits multistep - Emitted when the simulator has executed multiple instructions.
+ * @emits multistep - Emitted when the simulator has executed multiple instructions(only the case if the stepper is enabled).
  * @emits reset - Emitted when the simulator resets.
  * @emits stop - Emitted when the simulator stops.
  * @emits goto - Emitted when the simulator jumps to a new address.

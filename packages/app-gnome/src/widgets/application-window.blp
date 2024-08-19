@@ -72,6 +72,15 @@ template $ApplicationWindow: Adw.ApplicationWindow {
 
           child: $GameConsole gameConsole {};
         }
+
+        Adw.ViewStackPage {
+          name: "debugger";
+          title: _("Debugger");
+          icon-name: "clock-alt-symbolic";
+          use-underline: true;
+
+          child: $Debugger debugger {};
+        }
       };
 
       [bottom]
