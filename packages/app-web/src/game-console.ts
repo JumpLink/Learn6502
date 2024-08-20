@@ -28,7 +28,7 @@ export class GameConsole {
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
     this.labels = new Labels();
-    this.simulator = new Simulator(this.console, this.memory, this.labels);
+    this.simulator = new Simulator(this.memory, this.labels);
     this.assembler = new Assembler(this.memory, this.labels);
     this.debugger = new Debugger(node, this.simulator, this.memory, {
       monitor: {
@@ -98,7 +98,9 @@ export class GameConsole {
 
     this.node.querySelector('.start, .length')?.addEventListener('blur', this.debugger.onMonitorRangeChange.bind(this.debugger));
     this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExecStep.bind(this.simulator));
-    this.node.querySelector('.gotoButton')?.addEventListener('click', this.simulator.gotoAddr.bind(this.simulator));
+    this.node.querySelector('.gotoButton')?.addEventListener('click', () => {
+      this.simulator.gotoAddr(this.console.prompt("Enter address or label", "") || "");
+    });
     this.node.querySelector('.notesButton')?.addEventListener('click', this.uiState.showNotes.bind(this.uiState));
 
     const editor = this.node.querySelector<HTMLTextAreaElement>('.code');
@@ -181,6 +183,22 @@ export class GameConsole {
 
     this.simulator.on('reset', (event: SimulatorEvent) => {
       this.display.reset();
+    });
+
+    this.simulator.on('pseudo-op', (event: SimulatorEvent) => {
+      this.console.log(event.type + ": " + event.message);
+    });
+
+    this.simulator.on('simulator-info', (event: SimulatorEvent) => {
+      if(event.message) {
+        this.console.log(event.message);
+      }
+    });
+
+    this.simulator.on('simulator-failure', (event: SimulatorEvent) => {
+      if(event.message) {
+        this.console.log(event.message);
+      }
     });
 
     // Labels events

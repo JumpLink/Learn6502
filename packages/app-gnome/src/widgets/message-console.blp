@@ -2,9 +2,15 @@ using Gtk 4.0;
 using Adw 1;
 
 template $MessageConsole: Adw.Bin {
-  TextView textView {
-    editable: false;
+
+  ScrolledWindow scrolledWindow {
     hexpand: true;
-    hexpand-set: true;
+    vexpand: true;
+    has-frame: false;
+    TextView textView {
+      editable: false;
+      hexpand: true;
+      hexpand-set: true;
+    }
   }
 }

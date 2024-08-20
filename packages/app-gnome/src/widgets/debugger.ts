@@ -27,9 +27,13 @@ class _Debugger extends Adw.Bin implements DebuggerInterface {
     this.monitor = options.monitor
   }
 
-  setMonitorRange(startAddress: number, length: number): void {
+  public setMonitorRange(startAddress: number, length: number): void {
     this.monitor.start = startAddress;
     this.monitor.length = length;
+  }
+
+  public reset(): void {
+    this._messageConsole.clear();
   }
 }
 

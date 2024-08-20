@@ -1,7 +1,7 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 
-import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, DummyMessageConsole, MessageConsole as MessageConsoleInterface, LabelsEvent } from '@easy6502/6502';
+import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, LabelsEvent } from '@easy6502/6502';
 
 import { Display } from './display.ts'
 
@@ -60,6 +60,18 @@ interface _GameConsole {
   connect_after(signal: 'multistep', callback: (_source: this, pspec: SimulatorEvent) => void): number;
   emit(signal: 'multistep', pspec: SimulatorEvent): void;
 
+  connect(signal: 'pseudo-op', callback: (_source: this, pspec: SimulatorEvent) => void): number;
+  connect_after(signal: 'pseudo-op', callback: (_source: this, pspec: SimulatorEvent) => void): number;
+  emit(signal: 'pseudo-op', pspec: SimulatorEvent): void;
+
+  connect(signal: 'simulator-info', callback: (_source: this, pspec: SimulatorEvent) => void): number;
+  connect_after(signal: 'simulator-info', callback: (_source: this, pspec: SimulatorEvent) => void): number;
+  emit(signal: 'simulator-info', pspec: SimulatorEvent): void;
+
+  connect(signal: 'simulator-failure', callback: (_source: this, pspec: SimulatorEvent) => void): number;
+  connect_after(signal: 'simulator-failure', callback: (_source: this, pspec: SimulatorEvent) => void): number;
+  emit(signal: 'simulator-failure', pspec: SimulatorEvent): void;
+
   connect(signal: 'labels-info', callback: (_source: this, pspec: LabelsEvent) => void): number;
   connect_after(signal: 'labels-info', callback: (_source: this, pspec: LabelsEvent) => void): number;
   emit(signal: 'labels-info', pspec: LabelsEvent): void;
@@ -86,7 +98,7 @@ interface _GameConsole {
  */
 class _GameConsole extends Adw.Bin {
 
-  private console: MessageConsoleInterface;
+  // private console: MessageConsoleInterface;
   private memory: Memory;
   private labels: Labels;
   private simulator: Simulator;
@@ -95,10 +107,9 @@ class _GameConsole extends Adw.Bin {
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
 
-    this.console = new DummyMessageConsole();
     this.memory = new Memory();
     this.labels = new Labels();
-    this.simulator = new Simulator(this.console, this.memory, this.labels);
+    this.simulator = new Simulator(this.memory, this.labels);
     this.assembler = new Assembler(this.memory, this.labels);
 
     this.initialize();
@@ -107,7 +118,7 @@ class _GameConsole extends Adw.Bin {
   public assemble(code: string): void {
     this.simulator.reset();
     this.labels.reset();
-    this.console.clear();
+    this._display?.reset();
     this.assembler.assembleCode(code);
   }
 
@@ -205,6 +216,21 @@ class _GameConsole extends Adw.Bin {
       this.emit('multistep', event);
     });
 
+    this.simulator.on('pseudo-op', (event: SimulatorEvent) => {
+      // Forward the event as a signal
+      this.emit('pseudo-op', event);
+    });
+
+    this.simulator.on('simulator-info', (event: SimulatorEvent) => {
+      // Forward the event as a signal
+      this.emit('simulator-info', event);
+    });
+
+    this.simulator.on('simulator-failure', (event: SimulatorEvent) => {
+      // Forward the event as a signal
+      this.emit('simulator-failure', event);
+    });
+
     this.labels.on('labels-info', (event: LabelsEvent) => {
       // Forward the event as a signal
       this.emit('labels-info', event);
@@ -252,6 +278,15 @@ export const GameConsole = GObject.registerClass(
         param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
       },
       'multistep': {
+        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+      },
+      'pseudo-op': {
+        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+      },
+      'simulator-info': {
+        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+      },
+      'simulator-failure': {
         param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
       },
       'labels-info': {

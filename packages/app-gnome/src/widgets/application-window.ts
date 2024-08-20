@@ -32,6 +32,7 @@ class _ApplicationWindow extends Adw.ApplicationWindow {
     super({ application })
     this._runButton.connect('clicked', () => {
       console.log('runButton clicked')
+      this._debugger.reset();
       this._gameConsole.assemble(this._editor.getBuffer().text);
       this._gameConsole.run();
     })
@@ -87,6 +88,24 @@ class _ApplicationWindow extends Adw.ApplicationWindow {
     })
 
     this._gameConsole.connect('step', (_gameConsole, signal) => {
+      if(signal.message) {
+        this._debugger._messageConsole.log(signal.message);
+      }
+    })
+
+    this._gameConsole.connect('multistep', (_gameConsole, signal) => {
+      if(signal.message) {
+        this._debugger._messageConsole.log(signal.message);
+      }
+    })
+
+    this._gameConsole.connect('simulator-info', (_gameConsole, signal) => {
+      if(signal.message) {
+        this._debugger._messageConsole.log(signal.message);
+      }
+    })
+
+    this._gameConsole.connect('simulator-failure', (_gameConsole, signal) => {
       if(signal.message) {
         this._debugger._messageConsole.log(signal.message);
       }

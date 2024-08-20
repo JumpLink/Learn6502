@@ -32,19 +32,19 @@ export class Simulator {
 
   private readonly events = new EventDispatcher<SimulatorEvent>();
 
-  constructor(private readonly console: MessageConsole, private readonly memory: Memory, private readonly labels: Labels) {
+  constructor(private readonly memory: Memory, private readonly labels: Labels) {
 
   }
 
-  public on(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event: SimulatorEvent) => void): void {
+  public on(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
     this.events.on(event, listener);
   }
 
-  public off(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event: SimulatorEvent) => void): void {
+  public off(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
     this.events.off(event, listener);
   }
 
-  public once(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep', listener: (event: SimulatorEvent) => void): void {
+  public once(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
     this.events.once(event, listener);
   }
 
@@ -94,11 +94,12 @@ export class Simulator {
 
   /**
    * Set PC to address (or address of label).
+   * @param inp - The address or label to jump to.
    */
-  public gotoAddr() {
-    let inp = this.console.prompt("Enter address or label", "");
+  public gotoAddr(inp: string) {
     let addr = 0;
     if (!inp) {
+      this.dispatchSimulatorFailureEvent("No address or label provided");
       return;
     }
     if (this.labels.find(inp)) {
@@ -113,7 +114,7 @@ export class Simulator {
       }
     }
     if (addr === 0) {
-      this.console.log("Unable to find/parse given address/label");
+      this.dispatchSimulatorFailureEvent("Unable to find/parse given address/label");
     } else {
       this.regPC = addr;
     }
@@ -166,6 +167,18 @@ export class Simulator {
 
   private dispatchGotoEvent(message?: string) {
     this.events.dispatch('goto', { simulator: this, message });
+  }
+
+  private dispatchSimulatorFailureEvent(message?: string) {
+    this.events.dispatch('simulator-failure', { simulator: this, message });
+  }
+
+  private dispatchSimulatorInfoEvent(message?: string) {
+    this.events.dispatch('simulator-info', { simulator: this, message });
+  }
+
+  private dispatchPseudoOpEvent(type: string, message?: string) {
+    this.events.dispatch('pseudo-op', { simulator: this, type, message });
   }
 
   /**
@@ -1382,10 +1395,12 @@ export class Simulator {
     },
 
     i42: () => {
-      //WDM  -- pseudo op for emulator: arg 0 to output A to message box
+      // WDM -- pseudo op for emulator: arg 0 to output A as character
       const value = this.popByte();
-      if (value == 0)
-        this.console.log(String.fromCharCode(this.regA));
+      if (value === 0) {
+        const char = String.fromCharCode(this.regA);
+        this.dispatchPseudoOpEvent('wdm-output', char);
+      }
     },
 
     iec: () => {
@@ -1457,7 +1472,7 @@ export class Simulator {
     },
 
     ierr: () => {
-      this.console.log("Address $" + addr2hex(this.regPC) + " - unknown opcode");
+      this.dispatchSimulatorFailureEvent("Address $" + addr2hex(this.regPC) + " - unknown opcode");
       this._codeRunning = false;
     }
   };
@@ -1467,7 +1482,7 @@ export class Simulator {
     this.regSP--;
     if (this.regSP < 0) {
       this.regSP &= 0xff;
-      this.console.log("6502 Stack filled! Wrapping...");
+      this.dispatchSimulatorInfoEvent("6502 Stack filled! Wrapping...");
     }
   }
 
@@ -1476,7 +1491,7 @@ export class Simulator {
     this.regSP++;
     if (this.regSP >= 0x100) {
       this.regSP &= 0xff;
-      this.console.log("6502 Stack emptied! Wrapping...");
+      this.dispatchSimulatorInfoEvent("6502 Stack emptied! Wrapping...");
     }
     value = this.memory.get(this.regSP + 0x100);
     return value;
