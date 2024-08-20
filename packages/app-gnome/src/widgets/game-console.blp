@@ -2,101 +2,16 @@ using Gtk 4.0;
 using Adw 1;
 
 template $GameConsole: Adw.Bin {
+  name: "game-console";
   Box {
     halign: center;
+    valign: center;
     orientation: vertical;
-
-    Adw.StatusPage {
-      title: _("Game Console");
-    }
 
     $Display display {}
 
-    Box boxControls {
-      orientation: horizontal;
-
-      Box boxButtonDirection {
-        Button buttonLeft {
-          name: "buttonLeft";
-          icon-name: "go-previous";
-          margin-end: 0;
-          valign: center;
-
-          styles [
-            "osd",
-          ]
-        }
-        
-        Box {
-          orientation: vertical;
-
-          Button buttonUp {
-            name: "buttonUp";
-            icon-name: "go-up";
-            valign: center;
-            halign: center;
-
-            styles [
-              "osd",
-            ]
-          }
-          
-          Button buttonDown {
-            name: "buttonDown";
-            icon-name: "go-down";
-            valign: center;
-            halign: center;
-
-            styles [
-              "osd",
-            ]
-          }
-        }
-
-        Button buttonRight {
-          name: "buttonRight";
-          icon-name: "go-next";
-          valign: center;
-          halign: center;
-
-          styles [
-            "osd",
-          ]
-        }
-      }
-
-      Box boxButtonAction {
-        orientation: horizontal;
-        margin-top: 30;
-
-        Button buttonB {
-          name: "buttonB";
-          label: "B";
-          margin-top: 30;
-          margin-end: 10;
-          valign: center;
-
-          styles [
-            "circular",
-            "opaque",
-            "destructive-action"
-          ]
-        }
-
-        Button buttonA {
-          name: "buttonA";
-          label: "A";
-          margin-bottom: 30;
-          margin-start: 10;
-          valign: center;
-
-          styles [
-            "circular",
-            "opaque",
-            "suggested-action",
-          ]
-        }
-      }
+    $GamePad gamePad {
+      margin-top: 30;
     }
   }
 }

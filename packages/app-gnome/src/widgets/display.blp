@@ -2,6 +2,10 @@ using Gtk 4.0;
 using Adw 1;
 
 template $Display: Adw.Bin {
+  name: "display";
+  halign: center;
+  valign: center;
+
   DrawingArea drawingArea {
     content-width: 160;
     content-height: 160;

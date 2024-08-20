@@ -74,7 +74,6 @@ export class Memory {
   /**
    * Stores a keypress in memory.
    * Note: Used in the snake game example to control the snake with w-a-s-d keys.
-   * TODO: Refactor this for a custom controller.
    * @param value - The value to store.
    */
   public storeKeypress(value: number): void {

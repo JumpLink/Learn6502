@@ -1,24 +1,21 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
-import Gtk from '@girs/gtk-3.0'
+import Gtk from '@girs/gtk-4.0'
 
 import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, LabelsEvent } from '@easy6502/6502';
 
 import { Display } from './display.ts'
+import { GamePad } from './game-pad.ts'
 
 import Template from './game-console.ui?raw'
 
 GObject.type_ensure(Display.$gtype)
+GObject.type_ensure(GamePad.$gtype)
 
 interface _GameConsole {
   // Child widgets
   _display: InstanceType<typeof Display>
-  _buttonUp: Gtk.Button
-  _buttonDown: Gtk.Button
-  _buttonLeft: Gtk.Button
-  _buttonRight: Gtk.Button
-  _buttonA: Gtk.Button
-  _buttonB: Gtk.Button
+  _gamePad: InstanceType<typeof GamePad>
 
   // GObject signals
   connect(id: string, callback: (...args: any[]) => any): number;
@@ -26,7 +23,6 @@ interface _GameConsole {
   emit(id: string, ...args: any[]): void;
 
   // Custom signals
-
   connect(signal: 'assemble-success', callback: (_source: this, pspec: AssemblerEvent) => void): number;
   connect_after(signal: 'assemble-success', callback: (_source: this, pspec: AssemblerEvent) => void): number;
   emit(signal: 'assemble-success', pspec: AssemblerEvent): void;
@@ -86,6 +82,10 @@ interface _GameConsole {
   connect(signal: 'labels-failure', callback: (_source: this, pspec: LabelsEvent) => void): number;
   connect_after(signal: 'labels-failure', callback: (_source: this, pspec: LabelsEvent) => void): number;
   emit(signal: 'labels-failure', pspec: LabelsEvent): void;
+
+  connect(signal: 'gamepad-pressed', callback: (_source: this, pspec: number) => void): number;
+  connect_after(signal: 'gamepad-pressed', callback: (_source: this, pspec: number) => void): number;
+  emit(signal: 'gamepad-pressed', pspec: number): void;
 }
 
 /**
@@ -102,6 +102,7 @@ interface _GameConsole {
  * @emits multistep - Emitted when the simulator executes multiple steps.
  * @emits labels-info - Emitted when the labels has a info message.
  * @emits labels-failure - Emitted when the labels fail to parse.
+ * @emits gamepad-pressed - Emitted when a gamepad button is pressed.
  */
 class _GameConsole extends Adw.Bin {
 
@@ -154,6 +155,10 @@ class _GameConsole extends Adw.Bin {
     this.simulator.debugExecStep();
   }
 
+  public gamepadPress(buttonName: 'Left' | 'Right' | 'Up' | 'Down' | 'A' | 'B'): void {
+    this._gamePad.press(buttonName);
+  }
+
   /**
    * Initializes the simulator widget and sets up event listeners.
    */
@@ -168,30 +173,6 @@ class _GameConsole extends Adw.Bin {
    * Sets up event listeners for various UI elements.
    */
   private setupEventListeners(): void {
-
-    this._buttonUp.connect('clicked', () => {
-      console.log('buttonUp clicked');
-    });
-
-    this._buttonDown.connect('clicked', () => {
-      console.log('buttonDown clicked');
-    });
-
-    this._buttonLeft.connect('clicked', () => {
-      console.log('buttonLeft clicked');
-    });
-
-    this._buttonRight.connect('clicked', () => {
-      console.log('buttonRight clicked');
-    });
-
-    this._buttonA.connect('clicked', () => {
-      console.log('buttonA clicked');
-    });
-
-    this._buttonB.connect('clicked', () => {
-      console.log('buttonB clicked');
-    });
 
     this.assembler.on('assemble-success', (event: AssemblerEvent) => {
       this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
@@ -271,6 +252,11 @@ class _GameConsole extends Adw.Bin {
       // Forward the event as a signal
       this.emit('labels-failure', event);
     });
+
+    this._gamePad.connect('gamepad-pressed', (_source: InstanceType<typeof GamePad>, key: number) => {
+      this.emit('gamepad-pressed', key);
+      this.memory.storeKeypress(key);
+    });
   }
 }
 
@@ -278,7 +264,7 @@ export const GameConsole = GObject.registerClass(
   {
     GTypeName: 'GameConsole',
     Template,
-    InternalChildren: ['display', 'buttonUp', 'buttonDown', 'buttonLeft', 'buttonRight', 'buttonA', 'buttonB'],
+    InternalChildren: ['display', 'gamePad'],
     Signals: {
       'assemble-success': {
         // TODO: Fix this, see https://github.com/gjsify/ts-for-gir/pull/189
@@ -325,6 +311,9 @@ export const GameConsole = GObject.registerClass(
       },
       'labels-failure': {
         param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & LabelsEvent>],
+      },
+      'gamepad-pressed': {
+        param_types: [GObject.TYPE_INT],
       },
     },
   },

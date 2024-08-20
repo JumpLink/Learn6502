@@ -1,6 +1,7 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
+import Gdk from '@girs/gdk-4.0'
 import { Sidebar } from './sidebar.ts'
 import { Editor } from './editor.ts'
 import { GameConsole } from './game-console.ts'
@@ -30,6 +31,12 @@ interface _ApplicationWindow {
 class _ApplicationWindow extends Adw.ApplicationWindow {
   constructor(application: Adw.Application) {
     super({ application })
+    this.setupSignalListeners();
+    this.setupKeyboardListener();
+  }
+
+  private setupSignalListeners(): void {
+
     this._runButton.connect('clicked', () => {
       console.log('runButton clicked')
       this._debugger.reset();
@@ -122,6 +129,49 @@ class _ApplicationWindow extends Adw.ApplicationWindow {
         this._debugger._messageConsole.log(signal.message);
       }
     })
+
+    this._gameConsole.connect('gamepad-pressed', (_gameConsole, key) => {
+      console.log(`Gamepad key pressed: ${key}`);
+    })
+  }
+
+  private setupKeyboardListener(): void {
+    // Add a controller to handle key events
+    const keyController = new Gtk.EventControllerKey();
+    this.add_controller(keyController);
+
+    keyController.connect('key-pressed', (_controller, keyval, keycode, state) => {
+      // Handle the key press event
+      this.handleKeyPress(keyval);
+      return false;
+    });
+  }
+
+  private handleKeyPress(keyval: number): void {
+    switch (keyval) {
+      case Gdk.KEY_w:
+      case Gdk.KEY_Up:
+        this._gameConsole.gamepadPress('Up');
+        break;
+      case Gdk.KEY_s:
+      case Gdk.KEY_Down:
+        this._gameConsole.gamepadPress('Down');
+        break;
+      case Gdk.KEY_a:
+      case Gdk.KEY_Left:
+        this._gameConsole.gamepadPress('Left');
+        break;
+      case Gdk.KEY_d:
+      case Gdk.KEY_Right:
+        this._gameConsole.gamepadPress('Right');
+        break;
+      case Gdk.KEY_Return:
+        this._gameConsole.gamepadPress('A');
+        break;
+      case Gdk.KEY_space:
+        this._gameConsole.gamepadPress('B');
+        break;
+    }
   }
 }
 
