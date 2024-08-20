@@ -1,5 +1,6 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
+import Gtk from '@girs/gtk-3.0'
 
 import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, LabelsEvent } from '@easy6502/6502';
 
@@ -11,7 +12,13 @@ GObject.type_ensure(Display.$gtype)
 
 interface _GameConsole {
   // Child widgets
-  _display: InstanceType<typeof Display> | undefined
+  _display: InstanceType<typeof Display>
+  _buttonUp: Gtk.Button
+  _buttonDown: Gtk.Button
+  _buttonLeft: Gtk.Button
+  _buttonRight: Gtk.Button
+  _buttonA: Gtk.Button
+  _buttonB: Gtk.Button
 
   // GObject signals
   connect(id: string, callback: (...args: any[]) => any): number;
@@ -162,6 +169,30 @@ class _GameConsole extends Adw.Bin {
    */
   private setupEventListeners(): void {
 
+    this._buttonUp.connect('clicked', () => {
+      console.log('buttonUp clicked');
+    });
+
+    this._buttonDown.connect('clicked', () => {
+      console.log('buttonDown clicked');
+    });
+
+    this._buttonLeft.connect('clicked', () => {
+      console.log('buttonLeft clicked');
+    });
+
+    this._buttonRight.connect('clicked', () => {
+      console.log('buttonRight clicked');
+    });
+
+    this._buttonA.connect('clicked', () => {
+      console.log('buttonA clicked');
+    });
+
+    this._buttonB.connect('clicked', () => {
+      console.log('buttonB clicked');
+    });
+
     this.assembler.on('assemble-success', (event: AssemblerEvent) => {
       this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
 
@@ -247,7 +278,7 @@ export const GameConsole = GObject.registerClass(
   {
     GTypeName: 'GameConsole',
     Template,
-    InternalChildren: ['display'],
+    InternalChildren: ['display', 'buttonUp', 'buttonDown', 'buttonLeft', 'buttonRight', 'buttonA', 'buttonB'],
     Signals: {
       'assemble-success': {
         // TODO: Fix this, see https://github.com/gjsify/ts-for-gir/pull/189
