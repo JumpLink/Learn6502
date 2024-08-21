@@ -119,8 +119,17 @@ menu buttonWindowMenu {
 
 menu buttonRunMenu {
   section {
-    item ("Assemble and Run")
-    item ("Assemble")
-    item ("Run")
+    item {
+      label: "Assemble and Run";
+      action: 'win.assemble-and-run';
+    }
+    item {
+      label: "Assemble";
+      action: 'win.assemble';
+    }
+    item {
+      label: "Run";
+      action: 'win.run';
+    }
   }
 }

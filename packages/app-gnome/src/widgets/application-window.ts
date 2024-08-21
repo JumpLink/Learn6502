@@ -2,6 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import Gdk from '@girs/gdk-4.0'
+import Gio from '@girs/gio-2.0'
 import { Sidebar } from './sidebar.ts'
 import { Editor } from './editor.ts'
 import { GameConsole } from './game-console.ts'
@@ -31,102 +32,125 @@ interface _ApplicationWindow {
 class _ApplicationWindow extends Adw.ApplicationWindow {
   constructor(application: Adw.Application) {
     super({ application })
-    this.setupSignalListeners();
+    this.setupRunMenu();
+    this.setupGameConsoleSignalListeners();
     this.setupKeyboardListener();
   }
 
-  private setupSignalListeners(): void {
+  private setupRunMenu(): void {
 
-    this._runButton.connect('clicked', () => {
-      console.log('runButton clicked')
-      this._debugger.reset();
-      this._gameConsole.assemble(this._editor.getBuffer().text);
-      this._gameConsole.run();
-    })
+    // TODO: Store latest action?
+    this._runButton.connect('clicked', this.runAndAssembleGameConsole.bind(this));
 
-    // Game console signals
+    const assembleAndRunAction = new Gio.SimpleAction({ name: 'assemble-and-run' });
+    assembleAndRunAction.connect('activate', this.runAndAssembleGameConsole.bind(this));
+    this.add_action(assembleAndRunAction);
 
+    const assembleAction = new Gio.SimpleAction({ name: 'assemble' });
+    assembleAction.connect('activate', this.assembleGameConsole.bind(this));
+    this.add_action(assembleAction);
+
+    const runAction = new Gio.SimpleAction({ name: 'run' });
+    runAction.connect('activate', this.runGameConsole.bind(this));
+    this.add_action(runAction);
+  }
+
+  private runGameConsole(): void {
+    this._gameConsole.run();
+  }
+
+  private assembleGameConsole(): void {
+    this._debugger.reset();
+    this._gameConsole.assemble(this._editor.getBuffer().text);
+  }
+
+  private runAndAssembleGameConsole(): void {
+    this.assembleGameConsole();
+    this.runGameConsole();
+  }
+
+  private setupGameConsoleSignalListeners(): void {
     this._gameConsole.connect('assemble-success', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('assemble-failure', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('hexdump', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('disassembly', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('assemble-info', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('stop', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('start', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('reset', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('step', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('multistep', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('simulator-info', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('simulator-failure', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('labels-info', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('labels-failure', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger._messageConsole.log(signal.message);
+        this._debugger.log(signal.message);
       }
     })
 
