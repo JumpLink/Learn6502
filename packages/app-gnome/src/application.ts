@@ -7,6 +7,7 @@ import Adw from '@girs/adw-1'
 import { ApplicationWindow } from './widgets/application-window.ts'
 import { PreferencesDialog } from './widgets/preferences-dialog.ts'
 import { APPLICATION_ID } from './constants.ts'
+import { initResources } from './resources.ts'
 
 import mainStyle from './main.css?inline'
 
@@ -24,6 +25,7 @@ export const Application = GObject.registerClass(
 
         protected onStartup(): void {
             this.initStyles()
+            initResources()
         }
 
         /** Load the stylesheet in a CssProvider and add it to the Gtk.StyleContext */
