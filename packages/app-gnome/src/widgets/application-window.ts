@@ -116,11 +116,17 @@ class _ApplicationWindow extends Adw.ApplicationWindow {
       if(signal.message) {
         this._debugger.log(signal.message);
       }
+
+      this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
     })
 
     this._gameConsole.connect('step', (_gameConsole, signal) => {
       if(signal.message) {
         this._debugger.log(signal.message);
+      }
+
+      if (this._gameConsole.simulator.stepperEnabled) {
+        this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
       }
     })
 
@@ -128,6 +134,16 @@ class _ApplicationWindow extends Adw.ApplicationWindow {
       if(signal.message) {
         this._debugger.log(signal.message);
       }
+
+      this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
+    })
+
+    this._gameConsole.connect('goto', (_gameConsole, signal) => {
+      if(signal.message) {
+        this._debugger.log(signal.message);
+      }
+
+      this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
     })
 
     this._gameConsole.connect('simulator-info', (_gameConsole, signal) => {

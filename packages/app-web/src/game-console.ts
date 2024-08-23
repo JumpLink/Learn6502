@@ -55,6 +55,7 @@ export class GameConsole {
    * Sets up event listeners for various UI elements.
    */
   private setupEventListeners(): void {
+    console.log("setupEventListeners")
     this.node.querySelector('.assembleButton')?.addEventListener('click', () => {
       this.simulator.reset();
       this.labels.reset();
@@ -96,7 +97,9 @@ export class GameConsole {
       this.debugger.toggleMonitor(state);
     });
 
-    this.node.querySelector('.start, .length')?.addEventListener('blur', this.debugger.onMonitorRangeChange.bind(this.debugger));
+    this.node.querySelectorAll('.start, .length')?.forEach(element => {
+      element.addEventListener('blur', this.debugger.onMonitorRangeChange.bind(this.debugger));
+    });
     this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExecStep.bind(this.simulator));
     this.node.querySelector('.gotoButton')?.addEventListener('click', () => {
       this.simulator.gotoAddr(this.console.prompt("Enter address or label", "") || "");

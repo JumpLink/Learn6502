@@ -5,10 +5,22 @@ template $Debugger: Adw.Bin {
   Box {
     orientation: vertical;
 
-    Adw.StatusPage {
-      title: _("Debugger");
+    Label {
+      label: "Hex Monitor";
+      halign: start;
+      styles [
+        "heading"
+      ]
     }
+    $HexMonitor hexMonitor {}
 
+    Label {
+      label: "Output";
+      halign: start;
+      styles [
+        "heading"
+      ]
+    }
     $MessageConsole messageConsole {}
   }
 }

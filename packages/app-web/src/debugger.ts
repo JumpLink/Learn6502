@@ -9,6 +9,7 @@ export class Debugger implements DebuggerInterface {
   constructor(private readonly node: HTMLElement, private readonly simulator: Simulator, private readonly memory: Memory, options: DebuggerOptions) {
     this.monitor = options.monitor;
     this.setupEventListeners();
+    this.onMonitorRangeChange = this.onMonitorRangeChange.bind(this);
   }
 
   /**
@@ -24,6 +25,7 @@ export class Debugger implements DebuggerInterface {
    * Set the monitor address range.
    */
   public setMonitorRange(startAddress: number, length: number) {
+    console.log("setMonitorRange", startAddress, length)
     this.monitor.start = startAddress;
     this.monitor.length = length;
   }
@@ -42,11 +44,15 @@ export class Debugger implements DebuggerInterface {
 
     const end = start + length - 1;
 
+    console.log("onMonitorRangeChange", start, length, end)
+
     if (isNaN(start) || start < 0 || start > 0xffff) {
       $start?.classList.add('monitor-invalid');
+      console.error("start is invalid", start)
       return;
     } else if (isNaN(length) || end > 0xffff) {
       $length?.classList.add('monitor-invalid');
+      console.error("length is invalid", length)
       return;
     }
 

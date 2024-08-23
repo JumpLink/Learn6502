@@ -107,52 +107,72 @@ interface _GameConsole {
 class _GameConsole extends Adw.Bin {
 
   // private console: MessageConsoleInterface;
-  private memory: Memory;
-  private labels: Labels;
-  private simulator: Simulator;
-  private assembler: Assembler;
+  private _memory: Memory;
+  private _labels: Labels;
+  private _simulator: Simulator;
+  private _assembler: Assembler;
+
+  get memory() {
+    return this._memory;
+  }
+
+  get labels() {
+    return this._labels;
+  }
+
+  get simulator() {
+    return this._simulator;
+  }
+
+  get assembler() {
+    return this._assembler;
+  }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
 
-    this.memory = new Memory();
-    this.labels = new Labels();
-    this.simulator = new Simulator(this.memory, this.labels);
-    this.assembler = new Assembler(this.memory, this.labels);
+    this._memory = new Memory();
+    this._labels = new Labels();
+    this._simulator = new Simulator(this._memory, this._labels);
+    this._assembler = new Assembler(this._memory, this._labels);
 
     this.initialize();
   }
 
   public assemble(code: string): void {
-    this.simulator.reset();
-    this.labels.reset();
+    this._simulator.reset();
+    this._labels.reset();
     this._display?.reset();
-    this.assembler.assembleCode(code);
+    this._assembler.assembleCode(code);
   }
 
   public run(): void {
-    this.simulator.stopStepper();
-    this.simulator.runBinary();
+    this._simulator.stopStepper();
+    this._simulator.runBinary();
   }
 
   public hexdump(): void {
-    this.assembler.hexdump();
+    this._assembler.hexdump();
   }
 
   public disassemble(): void {
-    this.assembler.disassemble();
+    this._assembler.disassemble();
   }
 
   public stop(): void {
-    this.simulator.stop();
+    this._simulator.stop();
   }
 
   public reset(): void {
-    this.simulator.reset();
+    this._simulator.reset();
   }
 
   public step(): void {
-    this.simulator.debugExecStep();
+    this._simulator.debugExecStep();
+  }
+
+  public goto(address: string): void {
+    this._simulator.gotoAddr(address);
   }
 
   public gamepadPress(buttonName: 'Left' | 'Right' | 'Up' | 'Down' | 'A' | 'B'): void {
@@ -163,8 +183,8 @@ class _GameConsole extends Adw.Bin {
    * Initializes the simulator widget and sets up event listeners.
    */
   private initialize(): void {
-    this._display?.initialize(this.memory);
-    this.simulator.reset();
+    this._display?.initialize(this._memory);
+    this._simulator.reset();
 
     this.setupEventListeners();
   }
@@ -174,88 +194,93 @@ class _GameConsole extends Adw.Bin {
    */
   private setupEventListeners(): void {
 
-    this.assembler.on('assemble-success', (event: AssemblerEvent) => {
-      this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
+    this._assembler.on('assemble-success', (event: AssemblerEvent) => {
+      this._memory.set(this._assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
 
       // Forward the event as a signal
       this.emit('assemble-success', event);
     });
 
-    this.assembler.on('assemble-failure', (event: AssemblerEvent) => {
+    this._assembler.on('assemble-failure', (event: AssemblerEvent) => {
       // Forward the event as a signal
       this.emit('assemble-failure', event);
     });
 
-    this.assembler.on('hexdump', (event: AssemblerEvent) => {
+    this._assembler.on('hexdump', (event: AssemblerEvent) => {
       // Forward the event as a signal
       this.emit('hexdump', event);
     });
 
-    this.assembler.on('disassembly', (event: AssemblerEvent) => {
+    this._assembler.on('disassembly', (event: AssemblerEvent) => {
       // Forward the event as a signal
       this.emit('disassembly', event);
     });
 
-    this.assembler.on('assemble-info', (event: AssemblerEvent) => {
+    this._assembler.on('assemble-info', (event: AssemblerEvent) => {
       // Forward the event as a signal
       this.emit('assemble-info', event);
     });
 
-    this.simulator.on('stop', (event: SimulatorEvent) => {
+    this._simulator.on('stop', (event: SimulatorEvent) => {
       // Forward the event as a signal
       this.emit('stop', event);
     });
 
-    this.simulator.on('start', (event: SimulatorEvent) => {
+    this._simulator.on('start', (event: SimulatorEvent) => {
       // Forward the event as a signal
       this.emit('start', event);
     });
 
-    this.simulator.on('reset', (event: SimulatorEvent) => {
+    this._simulator.on('reset', (event: SimulatorEvent) => {
       this._display?.reset();
 
       // Forward the event as a signal
       this.emit('reset', event);
     });
 
-    this.simulator.on('step', (event: SimulatorEvent) => {
+    this._simulator.on('step', (event: SimulatorEvent) => {
       // Forward the event as a signal
       this.emit('step', event);
     });
 
-    this.simulator.on('multistep', (event: SimulatorEvent) => {
+    this._simulator.on('multistep', (event: SimulatorEvent) => {
       // Forward the event as a signal
       this.emit('multistep', event);
     });
 
-    this.simulator.on('pseudo-op', (event: SimulatorEvent) => {
+    this._simulator.on('goto', (event: SimulatorEvent) => {
+      // Forward the event as a signal
+      this.emit('goto', event);
+    });
+
+    this._simulator.on('pseudo-op', (event: SimulatorEvent) => {
       // Forward the event as a signal
       this.emit('pseudo-op', event);
     });
 
-    this.simulator.on('simulator-info', (event: SimulatorEvent) => {
+    this._simulator.on('simulator-info', (event: SimulatorEvent) => {
       // Forward the event as a signal
       this.emit('simulator-info', event);
     });
 
-    this.simulator.on('simulator-failure', (event: SimulatorEvent) => {
+    this._simulator.on('simulator-failure', (event: SimulatorEvent) => {
       // Forward the event as a signal
       this.emit('simulator-failure', event);
     });
 
-    this.labels.on('labels-info', (event: LabelsEvent) => {
+    this._labels.on('labels-info', (event: LabelsEvent) => {
       // Forward the event as a signal
       this.emit('labels-info', event);
     });
 
-    this.labels.on('labels-failure', (event: LabelsEvent) => {
+    this._labels.on('labels-failure', (event: LabelsEvent) => {
       // Forward the event as a signal
       this.emit('labels-failure', event);
     });
 
     this._gamePad.connect('gamepad-pressed', (_source: InstanceType<typeof GamePad>, key: number) => {
       this.emit('gamepad-pressed', key);
-      this.memory.storeKeypress(key);
+      this._memory.storeKeypress(key);
     });
   }
 }
@@ -295,6 +320,9 @@ export const GameConsole = GObject.registerClass(
         param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
       },
       'multistep': {
+        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+      },
+      'goto': {
         param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
       },
       'pseudo-op': {
