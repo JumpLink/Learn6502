@@ -8,88 +8,66 @@ template $ApplicationWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 480;
 
-  Adw.Breakpoint {
-    condition ("max-width: 400sp")
+  content: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar headerBar {
 
-    setters {
-      splitView.collapsed: true;
-      toggleSidebarButton.visible: true;
+      [end]
+      MenuButton menuButton {
+        primary: true;
+        icon-name: 'open-menu-symbolic';
+        tooltip-text: _('Menu');
+        menu-model: buttonWindowMenu;
+      }
+
+      [end]
+      Adw.SplitButton runButton {
+        halign: center;
+        icon-name: "media-playback-start-symbolic";
+        styles [
+          "suggested-action",
+        ]
+        menu-model: buttonRunMenu;
+      }
     }
-  }
 
-  content: Adw.OverlaySplitView splitView {
-    show-sidebar: bind toggleSidebarButton.active;
+    content: Adw.ViewStack stack {
+      vexpand: true;
 
-    sidebar: $Sidebar sidebar {};
+      Adw.ViewStackPage {
+        name: "editor";
+        title: _("Editor");
+        icon-name: "code-symbolic";
+        use-underline: true;
 
-    content: Adw.ToolbarView {
-      [top]
-      Adw.HeaderBar headerBar {
-        [start]
-        ToggleButton toggleSidebarButton {
-          visible: false;
-          icon-name: "sidebar-show-symbolic";
-          tooltip-text: _("Open map");
-          active: bind splitView.show-sidebar;
-        }
-
-        [end]
-        MenuButton menuButton {
-          primary: true;
-          icon-name: 'open-menu-symbolic';
-          tooltip-text: _('Menu');
-          menu-model: buttonWindowMenu;
-        }
-
-        [end]
-        Adw.SplitButton runButton {
-          halign: center;
-          icon-name: "media-playback-start-symbolic";
-          styles [
-            "suggested-action",
-          ]
-          menu-model: buttonRunMenu;
-        }
+        child: $Editor editor {};
       }
 
-      content: Adw.ViewStack stack {
-        vexpand: true;
+      Adw.ViewStackPage {
+        name: "gameConsole";
+        title: _("Game Console");
+        icon-name: "nintendo-controller-symbolic";
+        use-underline: true;
 
-        Adw.ViewStackPage {
-          name: "editor";
-          title: _("Editor");
-          icon-name: "code-symbolic";
-          use-underline: true;
-
-          child: $Editor editor {};
-        }
-
-        Adw.ViewStackPage {
-          name: "gameConsole";
-          title: _("Game Console");
-          icon-name: "nintendo-controller-symbolic";
-          use-underline: true;
-
-          child: $GameConsole gameConsole {};
-        }
-
-        Adw.ViewStackPage {
-          name: "debugger";
-          title: _("Debugger");
-          icon-name: "bug-symbolic";
-          use-underline: true;
-
-          child: $Debugger debugger {};
-        }
-      };
-
-      [bottom]
-      Adw.ViewSwitcherBar switcherBar {
-        stack: stack;
-        reveal: true;
+        child: $GameConsole gameConsole {};
       }
 
+      Adw.ViewStackPage {
+        name: "debugger";
+        title: _("Debugger");
+        icon-name: "bug-symbolic";
+        use-underline: true;
+
+        child: $Debugger debugger {};
+      }
     };
+
+    [bottom]
+    Adw.ViewSwitcherBar switcherBar {
+      stack: stack;
+      reveal: true;
+    }
+
   };
 }
 
