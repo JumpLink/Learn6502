@@ -1,20 +1,14 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $MessageConsole: Adw.Bin {
+template $DebugInfo: Adw.Bin {
   ScrolledWindow scrolledWindow {
     height-request: 200;
     vexpand: true;
     has-frame: false;
     TextView textView {
-      editable: false;
       hexpand: true;
       hexpand-set: true;
-      wrap-mode: none;
-      bottom-margin: 12;
-      left-margin: 12;
-      right-margin: 12;
-      top-margin: 12;
     }
   }
 }

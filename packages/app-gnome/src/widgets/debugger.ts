@@ -4,6 +4,7 @@ import Gtk from '@girs/gtk-4.0'
 
 import { MessageConsole } from './message-console.ts'
 import { HexMonitor } from './hex-monitor.ts'
+import { DebugInfo } from './debug-info.ts'
 
 import Template from './debugger.ui?raw'
 
@@ -11,11 +12,13 @@ import { type Debugger as DebuggerInterface, type Memory, type Simulator, num2he
 
 GObject.type_ensure(MessageConsole.$gtype)
 GObject.type_ensure(HexMonitor.$gtype)
+GObject.type_ensure(DebugInfo.$gtype)
 
 interface _Debugger {
   // Child widgets
   _messageConsole: InstanceType<typeof MessageConsole>
   _hexMonitor: InstanceType<typeof HexMonitor>
+  _debugInfo: InstanceType<typeof DebugInfo>
 }
 
 class _Debugger extends Adw.Bin implements DebuggerInterface {
@@ -30,20 +33,7 @@ class _Debugger extends Adw.Bin implements DebuggerInterface {
 
   public update(memory: Memory, simulator: Simulator): void {
     this._hexMonitor.update(memory);
-    this.updateInfo(simulator);
-  }
-
-  // TODO: Add widget to display the info
-  private updateInfo(simulator: Simulator) {
-    const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
-    let markup = "A=$" + num2hex(regA) + " X=$" + num2hex(regX) + " Y=$" + num2hex(regY) + "<br />";
-    markup += "SP=$" + num2hex(regSP) + " PC=$" + addr2hex(regPC);
-    markup += "<br />";
-    markup += "NV-BDIZC<br />";
-    for (let i = 7; i >= 0; i--) {
-      markup += regP >> i & 1;
-    }
-    // TODO: Update the markup
+    this._debugInfo.update(simulator);
   }
 
   public reset(): void {
@@ -55,7 +45,7 @@ export const Debugger = GObject.registerClass(
   {
     GTypeName: 'Debugger',
     Template,
-    InternalChildren: ['messageConsole', 'hexMonitor']
+    InternalChildren: ['messageConsole', 'hexMonitor', 'debugInfo']
   },
   _Debugger
 )

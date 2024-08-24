@@ -2,26 +2,63 @@ using Gtk 4.0;
 using Adw 1;
 
 template $Debugger: Adw.Bin {
-  
-  Box {
-    orientation: vertical;
 
-    Label {
-      label: "Hex Monitor";
-      halign: start;
-      styles [
-        "heading"
-      ]
-    }
-    $HexMonitor hexMonitor {}
+  ScrolledWindow {
+    hexpand: true;
+    vexpand: true;
 
-    Label {
-      label: "Output";
-      halign: start;
-      styles [
-        "heading"
-      ]
+    Adw.StatusPage status_page {
+      title: _("Debugger");
+      description: _("Debug your 6502 assembly code");
+      icon-name: "bug-symbolic";
+
+      Adw.Clamp {
+
+        maximum-size: 600;
+
+        child: Box {
+          orientation: vertical;
+
+          // Hex Monitor
+          Label {
+            label: "Hex Monitor";
+            halign: start;
+            styles [
+              "heading"
+            ]
+          }
+          Frame {
+            margin-bottom: 12;
+            $HexMonitor hexMonitor {}
+          }
+
+          // Information
+          Label {
+            label: "Information";
+            halign: start;
+            styles [
+              "heading"
+            ]
+          }
+          Frame {
+            margin-bottom: 12;
+            $DebugInfo debugInfo {}
+          }
+
+          // Messages
+          Label {
+            label: "Messages";
+            halign: start;
+            styles [
+              "heading"
+            ]
+          }
+          Frame {
+            margin-bottom: 12;
+            $MessageConsole messageConsole {}
+          }
+        };
+      }
     }
-    $MessageConsole messageConsole {}
   }
 }
