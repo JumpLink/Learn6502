@@ -7,5 +7,10 @@ template $Editor: Adw.Bin {
     hexpand: true;
     vexpand: true;
     has-frame: false;
+    GtkSource.View sourceView {
+      auto-indent: true;
+      indent-width: 4;
+      show-line-numbers: true;
+    }
   }
 }

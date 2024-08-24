@@ -56,7 +56,7 @@ class _ApplicationWindow extends Adw.ApplicationWindow {
 
   private assembleGameConsole(): void {
     this._debugger.reset();
-    this._gameConsole.assemble(this._editor.getBuffer().text);
+    this._gameConsole.assemble(this._editor.text);
   }
 
   private runAndAssembleGameConsole(): void {
