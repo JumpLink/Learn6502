@@ -6,12 +6,20 @@ import { type Simulator, num2hex, addr2hex } from '@easy6502/6502'
 
 import Template from './debug-info.ui?raw'
 
-interface _DebugInfo {
+export interface DebugInfo {
   // Child widgets
   _textView: Gtk.TextView
 }
 
-class _DebugInfo extends Adw.Bin {
+export class DebugInfo extends Adw.Bin {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'DebugInfo',
+      Template,
+      InternalChildren: ['textView']
+    }, this);
+  }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
@@ -29,12 +37,3 @@ class _DebugInfo extends Adw.Bin {
     this._textView.buffer.text = markup;
   }
 }
-
-export const DebugInfo = GObject.registerClass(
-  {
-    GTypeName: 'DebugInfo',
-    Template,
-    InternalChildren: ['textView']
-  },
-  _DebugInfo
-)

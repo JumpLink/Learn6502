@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="assembler" name="6502 Assembler" version="2.0" _section="Source">
+  <metadata>
+    <property name="mimetypes">text/x-asm;text/x-assembler</property>
+    <property name="globs">*.asm;*.s</property>
+    <property name="line-comment-start">;</property>
+  </metadata>
+
+  <styles>
+    <style id="comment" name="Comment" map-to="def:comment"/>
+    <style id="string" name="String" map-to="def:string"/>
+    <style id="preprocessor" name="Preprocessor" map-to="def:preprocessor"/>
+    <style id="instruction" name="Instruction" map-to="def:keyword"/>
+    <style id="number" name="Number" map-to="def:number"/>
+    <style id="constant" name="Constant" map-to="def:constant"/>
+    <style id="operator" name="Operator" map-to="def:operator"/>
+    <style id="label" name="Label" map-to="def:type"/>
+    <style id="variable" name="Variable" map-to="def:identifier"/>
+  </styles>
+  
+  <definitions>
+    <context id="assembler">
+      <include>
+        <!-- Comments -->
+        <context id="comment" style-ref="comment">
+          <start>;</start>
+          <end>$</end>
+        </context>
+  
+        <!-- Strings -->
+        <context id="string" style-ref="string" end-at-line-end="true">
+          <start>"</start>
+          <end>"</end>
+          <include>
+            <context id="escape" style-ref="def:special-char">
+              <match>\\.</match>
+            </context>
+          </include>
+        </context>
+        
+        <!-- Numbers -->
+        <context id="number" style-ref="number">
+          <match extended="true">
+            (\$[0-9a-fA-F]+\b)|
+            (\@[0-1]+\b)|
+            (\b[0-9]+\b)
+          </match>
+        </context>
+  
+        <!-- Instructions -->
+        <context id="instructions" style-ref="instruction">
+          <keyword>LDA</keyword>
+          <keyword>lda</keyword>
+          <keyword>LDX</keyword>
+          <keyword>ldx</keyword>
+          <keyword>LDY</keyword>
+          <keyword>ldy</keyword>
+          <keyword>STA</keyword>
+          <keyword>sta</keyword>
+          <keyword>STX</keyword>
+          <keyword>stx</keyword>
+          <keyword>STY</keyword>
+          <keyword>sty</keyword>
+          <keyword>TXA</keyword>
+          <keyword>txa</keyword>
+          <keyword>TAX</keyword>
+          <keyword>tax</keyword>
+          <keyword>TYA</keyword>
+          <keyword>tya</keyword>
+          <keyword>TAY</keyword>
+          <keyword>tay</keyword>
+          <keyword>TXS</keyword>
+          <keyword>txs</keyword>
+          <keyword>TSX</keyword>
+          <keyword>tsx</keyword>
+          <keyword>ADC</keyword>
+          <keyword>adc</keyword>
+          <keyword>SBC</keyword>
+          <keyword>sbc</keyword>
+          <keyword>INC</keyword>
+          <keyword>inc</keyword>
+          <keyword>DEC</keyword>
+          <keyword>dec</keyword>
+          <keyword>INX</keyword>
+          <keyword>inx</keyword>
+          <keyword>DEX</keyword>
+          <keyword>dex</keyword>
+          <keyword>INY</keyword>
+          <keyword>iny</keyword>
+          <keyword>DEY</keyword>
+          <keyword>dey</keyword>
+          <keyword>AND</keyword>
+          <keyword>and</keyword>
+          <keyword>ORA</keyword>
+          <keyword>ora</keyword>
+          <keyword>EOR</keyword>
+          <keyword>eor</keyword>
+          <keyword>CLC</keyword>
+          <keyword>clc</keyword>
+          <keyword>SEC</keyword>
+          <keyword>sec</keyword>
+          <keyword>CLD</keyword>
+          <keyword>cld</keyword>
+          <keyword>SED</keyword>
+          <keyword>sed</keyword>
+          <keyword>CLV</keyword>
+          <keyword>clv</keyword>
+          <keyword>CLI</keyword>
+          <keyword>cli</keyword>
+          <keyword>SEI</keyword>
+          <keyword>sei</keyword>
+          <keyword>CMP</keyword>
+          <keyword>cmp</keyword>
+          <keyword>CPX</keyword>
+          <keyword>cpx</keyword>
+          <keyword>CPY</keyword>
+          <keyword>cpy</keyword>
+          <keyword>BIT</keyword>
+          <keyword>bit</keyword>
+          <keyword>ASL</keyword>
+          <keyword>asl</keyword>
+          <keyword>LSR</keyword>
+          <keyword>lsr</keyword>
+          <keyword>ROL</keyword>
+          <keyword>rol</keyword>
+          <keyword>ROR</keyword>
+          <keyword>ror</keyword>
+          <keyword>PHA</keyword>
+          <keyword>pha</keyword>
+          <keyword>PLA</keyword>
+          <keyword>pla</keyword>
+          <keyword>PHP</keyword>
+          <keyword>php</keyword>
+          <keyword>PLP</keyword>
+          <keyword>plp</keyword>
+          <keyword>JMP</keyword>
+          <keyword>jmp</keyword>
+          <keyword>JSR</keyword>
+          <keyword>jsr</keyword>
+          <keyword>NOP</keyword>
+          <keyword>nop</keyword>
+          <keyword>BEQ</keyword>
+          <keyword>beq</keyword>
+          <keyword>BNE</keyword>
+          <keyword>bne</keyword>
+          <keyword>BCS</keyword>
+          <keyword>bcs</keyword>
+          <keyword>BCC</keyword>
+          <keyword>bcc</keyword>
+          <keyword>BMI</keyword>
+          <keyword>bmi</keyword>
+          <keyword>BPL</keyword>
+          <keyword>bpl</keyword>
+          <keyword>BVS</keyword>
+          <keyword>bvs</keyword>
+          <keyword>BVC</keyword>
+          <keyword>bvc</keyword>
+          <keyword>RTS</keyword>
+          <keyword>rts</keyword>
+          <keyword>RTI</keyword>
+          <keyword>rti</keyword>
+          <keyword>BRK</keyword>
+          <keyword>brk</keyword>
+        </context>
+  
+        <!-- Preprocessor directives -->
+        <context id="preprocessor" style-ref="preprocessor">
+          <prefix>^\s*\.</prefix>
+          <keyword>BASE</keyword>
+          <keyword>ORG</keyword>
+          <keyword>DEF</keyword>
+          <keyword>IF</keyword>
+          <keyword>INCLUDE</keyword>
+          <keyword>INCBIN</keyword>
+          <keyword>ELSEIF</keyword>
+          <keyword>ELSE</keyword>
+          <keyword>ENDIF</keyword>
+          <keyword>IFDEF</keyword>
+          <keyword>IFNDEF</keyword>
+          <keyword>DB</keyword>
+          <keyword>DW</keyword>
+          <keyword>DBG</keyword>
+          <keyword>DWG</keyword>
+          <keyword>ENDD</keyword>
+          <keyword>REPEAT</keyword>
+          <keyword>ENDR</keyword>
+          <keyword>MACRO</keyword>
+          <keyword>ENDM</keyword>
+          <keyword>MSG</keyword>
+          <keyword>HEX</keyword>
+        </context>
+
+        <!-- Define constants -->
+        <context id="define-constant" style-ref="constant">
+          <match>^\s*(define)\s+([a-zA-Z_][a-zA-Z0-9_]*)\s+(.+)$</match>
+          <include>
+            <context sub-pattern="1" style-ref="preprocessor"/>
+            <context sub-pattern="2" style-ref="variable"/>
+          </include>
+        </context>
+
+        <!-- Operators -->
+        <context id="operator" style-ref="operator">
+          <match>[\+\-\*\/\&gt;\&lt;\(\)\,\#\=\!\[\]]</match>
+        </context>
+
+        <!-- Labels -->
+        <context id="label" style-ref="label">
+          <match>^[a-zA-Z_][a-zA-Z0-9_]*:</match>
+        </context>
+
+        <!-- Variables -->
+        <context id="variable" style-ref="variable">
+          <match>[a-zA-Z_][a-zA-Z0-9_]*</match>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

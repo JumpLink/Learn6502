@@ -42,25 +42,20 @@ class _Editor extends Adw.Bin {
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
-
-    // TODO: Add 6502 assembly language support
-
-    // Get the language we want to use
-    // const language_manager = GtkSource.LanguageManager.get_default();
-    // const language = language_manager.get_language("js");
-
-    // if(!language) {
-    //   const supportedLanguages = language_manager.get_language_ids()
-    //   throw new Error(`Language not found, supported languages: ${supportedLanguages?.join(', ')}`)
-    // }
-
-    // // Create the buffer - this holds the text that's used in the SourceView
-    // const buffer = GtkSource.Buffer.new_with_language(language);
-
-    this.buffer.text = 'LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202';
-
+    this.setupLanguage();
     this.setupSignalListeners();
     this.updateStyle();
+    // Placeholder code
+    this.buffer.text = 'LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202';
+  }
+
+  private setupLanguage() {
+    const languageManager = GtkSource.LanguageManager.get_default();
+    const assemblyLanguage = languageManager.get_language('assembler');
+    if (!assemblyLanguage) {
+      throw new Error('Assembly language not found')
+    }
+    this.buffer.set_language(assemblyLanguage);
   }
 
   private setupSignalListeners() {

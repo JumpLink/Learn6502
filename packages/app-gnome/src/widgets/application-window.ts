@@ -13,7 +13,8 @@ import Template from './application-window.ui?raw'
 GObject.type_ensure(Editor.$gtype)
 GObject.type_ensure(GameConsole.$gtype)
 GObject.type_ensure(Debugger.$gtype)
-interface _ApplicationWindow {
+
+export interface ApplicationWindow {
   // Child widgets
   _editor: InstanceType<typeof Editor>
   _gameConsole: InstanceType<typeof GameConsole>
@@ -24,7 +25,16 @@ interface _ApplicationWindow {
   _debugger: InstanceType<typeof Debugger>
 }
 
-class _ApplicationWindow extends Adw.ApplicationWindow {
+export class ApplicationWindow extends Adw.ApplicationWindow {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'ApplicationWindow',
+      Template,
+      InternalChildren: ['editor', 'gameConsole', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger'],
+    }, this);
+  }
+
   constructor(application: Adw.Application) {
     super({ application })
     this.setupRunMenu();
@@ -209,12 +219,3 @@ class _ApplicationWindow extends Adw.ApplicationWindow {
     }
   }
 }
-
-export const ApplicationWindow = GObject.registerClass(
-  {
-    GTypeName: 'ApplicationWindow',
-    Template,
-    InternalChildren: ['editor', 'gameConsole', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger'],
-  },
-  _ApplicationWindow
-)
