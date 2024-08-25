@@ -6,12 +6,20 @@ import Template from './display.ui?raw'
 
 import type { Display as DisplayInterface, Memory, MemoryEvent } from '@easy6502/6502'
 
-interface _Display {
+export interface Display {
   // Child widgets
   _drawingArea: Gtk.DrawingArea
 }
 
-class _Display extends Adw.Bin implements DisplayInterface {
+export class Display extends Adw.Bin implements DisplayInterface {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'Display',
+      Template,
+      InternalChildren: ['drawingArea']
+    }, this);
+  }
 
   private width: number = 160;
   private height: number = 160;
@@ -113,12 +121,3 @@ class _Display extends Adw.Bin implements DisplayInterface {
     return { red, green, blue };
   }
 }
-
-export const Display = GObject.registerClass(
-  {
-    GTypeName: 'Display',
-    Template,
-    InternalChildren: ['drawingArea']
-  },
-  _Display
-)

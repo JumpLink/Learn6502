@@ -8,7 +8,7 @@ import Template from './game-pad.ui?raw'
 
 GObject.type_ensure(MessageConsole.$gtype)
 
-interface _GamePad {
+export interface GamePad {
   // Child widgets
   _buttonLeft: Gtk.Button
   _buttonRight: Gtk.Button
@@ -28,7 +28,20 @@ interface _GamePad {
   emit(signal: 'gamepad-pressed', key: number): void;
 }
 
-class _GamePad extends Adw.Bin {
+export class GamePad extends Adw.Bin {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'GamePad',
+      Template,
+      InternalChildren: ['buttonLeft', 'buttonRight', 'buttonUp', 'buttonDown', 'buttonA', 'buttonB'],
+      Signals: {
+        'gamepad-pressed': {
+          param_types: [GObject.TYPE_INT],
+        },
+      },
+    }, this);
+  }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params)
@@ -89,17 +102,3 @@ class _GamePad extends Adw.Bin {
     button.activate();
   }
 }
-
-export const GamePad = GObject.registerClass(
-  {
-    GTypeName: 'GamePad',
-    Template,
-    InternalChildren: ['buttonLeft', 'buttonRight', 'buttonUp', 'buttonDown', 'buttonA', 'buttonB'],
-    Signals: {
-      'gamepad-pressed': {
-        param_types: [GObject.TYPE_INT],
-      },
-    },
-  },
-  _GamePad
-)

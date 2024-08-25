@@ -12,10 +12,10 @@ import Template from './game-console.ui?raw'
 GObject.type_ensure(Display.$gtype)
 GObject.type_ensure(GamePad.$gtype)
 
-interface _GameConsole {
+export interface GameConsole {
   // Child widgets
-  _display: InstanceType<typeof Display>
-  _gamePad: InstanceType<typeof GamePad>
+  _display: Display
+  _gamePad: GamePad
 
   // GObject signals
   connect(id: string, callback: (...args: any[]) => any): number;
@@ -104,7 +104,69 @@ interface _GameConsole {
  * @emits labels-failure - Emitted when the labels fail to parse.
  * @emits gamepad-pressed - Emitted when a gamepad button is pressed.
  */
-class _GameConsole extends Adw.Bin {
+export class GameConsole extends Adw.Bin {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'GameConsole',
+      Template,
+      InternalChildren: ['display', 'gamePad'],
+      Signals: {
+        'assemble-success': {
+          // TODO: Fix this, see https://github.com/gjsify/ts-for-gir/pull/189
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+        },
+        'assemble-failure': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+        },
+        'hexdump': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+        },
+        'disassembly': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+        },
+        'assemble-info': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+        },
+        'stop': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'start': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'reset': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'step': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'multistep': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'goto': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'pseudo-op': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'simulator-info': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'simulator-failure': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+        },
+        'labels-info': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & LabelsEvent>],
+        },
+        'labels-failure': {
+          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & LabelsEvent>],
+        },
+        'gamepad-pressed': {
+          param_types: [GObject.TYPE_INT],
+        },
+      },
+    }, this);
+  }
 
   // private console: MessageConsoleInterface;
   private _memory: Memory;
@@ -278,72 +340,9 @@ class _GameConsole extends Adw.Bin {
       this.emit('labels-failure', event);
     });
 
-    this._gamePad.connect('gamepad-pressed', (_source: InstanceType<typeof GamePad>, key: number) => {
+    this._gamePad.connect('gamepad-pressed', (_source: GamePad, key: number) => {
       this.emit('gamepad-pressed', key);
       this._memory.storeKeypress(key);
     });
   }
 }
-
-export const GameConsole = GObject.registerClass(
-  {
-    GTypeName: 'GameConsole',
-    Template,
-    InternalChildren: ['display', 'gamePad'],
-    Signals: {
-      'assemble-success': {
-        // TODO: Fix this, see https://github.com/gjsify/ts-for-gir/pull/189
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
-      },
-      'assemble-failure': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
-      },
-      'hexdump': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
-      },
-      'disassembly': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
-      },
-      'assemble-info': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
-      },
-      'stop': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'start': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'reset': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'step': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'multistep': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'goto': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'pseudo-op': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'simulator-info': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'simulator-failure': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
-      },
-      'labels-info': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & LabelsEvent>],
-      },
-      'labels-failure': {
-        param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & LabelsEvent>],
-      },
-      'gamepad-pressed': {
-        param_types: [GObject.TYPE_INT],
-      },
-    },
-  },
-  _GameConsole
-)

@@ -14,14 +14,22 @@ GObject.type_ensure(MessageConsole.$gtype)
 GObject.type_ensure(HexMonitor.$gtype)
 GObject.type_ensure(DebugInfo.$gtype)
 
-interface _Debugger {
+export interface Debugger {
   // Child widgets
-  _messageConsole: InstanceType<typeof MessageConsole>
-  _hexMonitor: InstanceType<typeof HexMonitor>
-  _debugInfo: InstanceType<typeof DebugInfo>
+  _messageConsole: MessageConsole
+  _hexMonitor: HexMonitor
+  _debugInfo: DebugInfo
 }
 
-class _Debugger extends Adw.Bin implements DebuggerInterface {
+export class Debugger extends Adw.Bin implements DebuggerInterface {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'Debugger',
+      Template,
+      InternalChildren: ['messageConsole', 'hexMonitor', 'debugInfo']
+    }, this);
+  }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
@@ -40,12 +48,3 @@ class _Debugger extends Adw.Bin implements DebuggerInterface {
     this._messageConsole.clear();
   }
 }
-
-export const Debugger = GObject.registerClass(
-  {
-    GTypeName: 'Debugger',
-    Template,
-    InternalChildren: ['messageConsole', 'hexMonitor', 'debugInfo']
-  },
-  _Debugger
-)

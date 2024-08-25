@@ -5,7 +5,7 @@ import GtkSource from '@girs/gtksource-5'
 
 import Template from './editor.ui?raw'
 
-interface _Editor {
+export interface Editor {
   // Child widgets
   _scrolledWindow: Gtk.ScrolledWindow
   /** The SourceView that displays the buffer's display */
@@ -19,7 +19,20 @@ GtkSource.init()
  * 
  * @emits changed - Emitted when the buffer's text changes
  */
-class _Editor extends Adw.Bin {
+export class Editor extends Adw.Bin {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'Editor',
+      Template,
+      InternalChildren: ['scrolledWindow', 'sourceView'],
+      Signals: {
+        'changed': {
+          param_types: [],
+        },
+      },
+    }, this);
+  }
 
   public set text(value: string) {
     this.buffer.text = value;
@@ -78,17 +91,3 @@ class _Editor extends Adw.Bin {
     this.buffer.set_style_scheme(scheme);
   };
 }
-
-export const Editor = GObject.registerClass(
-  {
-    GTypeName: 'Editor',
-    Template,
-    InternalChildren: ['scrolledWindow', 'sourceView'],
-    Signals: {
-      'changed': {
-        param_types: [],
-      },
-    },
-  },
-  _Editor
-)

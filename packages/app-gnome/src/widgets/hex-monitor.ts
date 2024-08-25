@@ -3,38 +3,35 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import GtkSource from '@girs/gtksource-5'
 
+import { GutterRendererAddress } from '../gutter-renderer-address.ts'
+
 import type { Memory, MonitorOptions } from '@easy6502/6502'
 
 import Template from './hex-monitor.ui?raw'
 
-interface _HexMonitor {
+export interface HexMonitor {
   // Child widgets
   _sourceView: GtkSource.View
-}
-
-class AddressGutterRenderer extends GtkSource.GutterRendererText {
-  static {
-    GObject.registerClass({
-      GTypeName: 'AddressGutterRenderer',
-    }, this);
-  }
-
-  constructor(params: Partial<GtkSource.GutterRendererText.ConstructorProps> = {}) {
-    super(params);
-  }
-
-  public vfunc_query_data(gutter: GtkSource.GutterLines, line: number): void {
-    const address = line * 0x10;
-    const formattedAddress = address.toString(16).padStart(4, '0').toUpperCase();
-    this.text = formattedAddress;
-  }
 }
 
 /**
  * A widget that displays a hex monitor.
  * @emits changed - when the monitor content is updated
  */
-class _HexMonitor extends Adw.Bin {
+export class HexMonitor extends Adw.Bin {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'HexMonitor',
+      Template,
+      InternalChildren: ['sourceView'],
+      Signals: {
+        'changed': {
+          param_types: [],
+        },
+      },
+    }, this);
+  }
 
   public set text(value: string) {
     this.buffer.text = value;
@@ -101,7 +98,7 @@ class _HexMonitor extends Adw.Bin {
     const gutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
 
     // Add custom line numbers renderer
-    const customRenderer = new AddressGutterRenderer({
+    const customRenderer = new GutterRendererAddress({
       margin_start: 12,
       margin_end: 12,
       width_request: 24,
@@ -128,19 +125,4 @@ class _HexMonitor extends Adw.Bin {
     this._styleScheme = scheme;
     return this._styleScheme;
   };
-
 }
-
-export const HexMonitor = GObject.registerClass(
-  {
-    GTypeName: 'HexMonitor',
-    Template,
-    InternalChildren: ['sourceView'],
-    Signals: {
-      'changed': {
-        param_types: [],
-      },
-    },
-  },
-  _HexMonitor
-)

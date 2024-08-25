@@ -1,18 +1,25 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
-import GtkSource from '@girs/gtksource-5'
 
 import Template from './message-console.ui?raw'
 
 import type { MessageConsole as MessageConsoleInterface } from '@easy6502/6502'
 
-interface _MessageConsole {
+export interface MessageConsole {
   // Child widgets
   _textView: Gtk.TextView
 }
 
-class _MessageConsole extends Adw.Bin implements MessageConsoleInterface {
+export class MessageConsole extends Adw.Bin implements MessageConsoleInterface {
+
+  static {
+    GObject.registerClass({
+      GTypeName: 'MessageConsole',
+      Template,
+      InternalChildren: ['textView']
+    }, this);
+  }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
@@ -39,12 +46,3 @@ class _MessageConsole extends Adw.Bin implements MessageConsoleInterface {
     throw new Error('Not implemented')
   }
 }
-
-export const MessageConsole = GObject.registerClass(
-  {
-    GTypeName: 'MessageConsole',
-    Template,
-    InternalChildren: ['textView']
-  },
-  _MessageConsole
-)
