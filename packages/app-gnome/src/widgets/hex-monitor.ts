@@ -19,13 +19,14 @@ class CustomGutterRenderer extends GtkSource.GutterRendererText {
       }, this);
   }
 
-  constructor() {
-      super();
+  constructor(params: Partial<GtkSource.GutterRendererText.ConstructorProps> = {}) {
+      super(params);
   }
 
   public vfunc_query_data(gutter: GtkSource.GutterLines, line: number): void {
-      const text = `C${line + 1}`;
-      this.set_text(text, -1);
+    const address = line * 0x10;
+    const formattedAddress = address.toString(16).padStart(4, '0').toUpperCase();
+    this.text = formattedAddress;
   }
 }
 
@@ -55,7 +56,7 @@ class _HexMonitor extends Adw.Bin {
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> & MonitorOptions) {
     super(params)
-    this.setupCustomLineNumbers(this._sourceView);
+    this.setupCustomLineNumbers();
     this.setupSignalListeners();
     this.updateStyle();
   }
@@ -67,7 +68,7 @@ class _HexMonitor extends Adw.Bin {
     const end = this.start + this.length - 1;
 
     if (!isNaN(this.start) && !isNaN(this.length) && this.start >= 0 && this.length > 0 && end <= 0xffff) {
-      content = memory.format(this.start, this.length);
+      content = memory.format({ start: this.start, length: this.length, includeAddress: false, includeSpaces: true, includeNewline: true });
     } else {
       content = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
     }
@@ -89,12 +90,20 @@ class _HexMonitor extends Adw.Bin {
     this.styleManager.connect('notify::dark', this.updateStyle.bind(this));
   }
 
-  setupCustomLineNumbers(view: GtkSource.View): void {
-    const gutter = view.get_gutter(Gtk.TextWindowType.LEFT);
-    const customRenderer = new CustomGutterRenderer();
-    // TODO how to remove the existing renderer or replace it?
-    gutter.insert(customRenderer, -1);
-    view.set_gutter(Gtk.TextWindowType.LEFT, gutter);
+  setupCustomLineNumbers(): void {
+    // Hide the default line numbers
+    this._sourceView.show_line_numbers = false;
+    const gutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
+    const customRenderer = new CustomGutterRenderer({
+      margin_start: 12,
+      margin_end: 12,
+      width_request: 24,
+      focus_on_click: false,
+      focusable: false,
+    });
+    // Insert the custom line numbers renderer
+    gutter.insert(customRenderer, 0);
+    // this._sourceView.set_gutter(Gtk.TextWindowType.LEFT, gutter);
   }
 
   private onUpdate() {

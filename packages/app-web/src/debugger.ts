@@ -99,7 +99,7 @@ export class Debugger implements DebuggerInterface {
     const end = start + length - 1;
 
     if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
-      content = this.memory.format(start, length);
+      content = this.memory.format({ start, length, includeAddress: true, includeSpaces: true, includeNewline: true });
     } else {
       content = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
     }

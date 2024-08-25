@@ -278,7 +278,7 @@ export class Assembler {
    * Generates a hexdump of the assembled code.
    */
   public hexdump() {
-    this.dispatchHexdump(this.memory.format(0x600, this.codeLen))
+    this.dispatchHexdump(this.memory.format({ start: 0x600, length: this.codeLen, includeAddress: true, includeSpaces: true, includeNewline: true }))
   }
 
   /**

@@ -81,26 +81,30 @@ export class Memory {
   }
 
   /**
-   * Formats a section of memory for display.
+   * Formats a section of memory for display 
    * @param start - The starting memory address.
    * @param length - The number of bytes to format.
    * @returns A formatted string representation of the memory section.
    */
-  public format(start: number, length: number): string {
-    let html = '';
+  public format(options: { start: number, length: number, includeAddress?: boolean, includeSpaces?: boolean, includeNewline?: boolean }): string {
+    let text = '';
     let n: number;
 
-    for (let x = 0; x < length; x++) {
+    for (let x = 0; x < options.length; x++) {
       if ((x & 15) === 0) {
-        if (x > 0) { html += "\n"; }
-        n = (start + x);
-        html += num2hex(((n >> 8) & 0xff));
-        html += num2hex((n & 0xff));
-        html += ": ";
+        if (options.includeNewline && x > 0) { text += "\n"; }
+        if (options.includeAddress) {
+          n = (options.start + x);
+          text += num2hex(((n >> 8) & 0xff));
+          text += num2hex((n & 0xff));
+          text += ": ";
+        }
       }
-      html += num2hex(this.get(start + x));
-      html += " ";
+      text += num2hex(this.get(options.start + x));
+      if (options.includeSpaces) {
+        text += " ";
+      }
     }
-    return html;
+    return text;
   }
 }
