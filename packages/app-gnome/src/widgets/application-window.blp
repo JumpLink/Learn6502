@@ -31,34 +31,36 @@ template $ApplicationWindow: Adw.ApplicationWindow {
       }
     }
 
-    content: Adw.ViewStack stack {
-      vexpand: true;
+    content: Adw.ToastOverlay toastOverlay {
+      Adw.ViewStack stack {
+        vexpand: true;
 
-      Adw.ViewStackPage {
-        name: "editor";
-        title: _("Editor");
-        icon-name: "code-symbolic";
-        use-underline: true;
+        Adw.ViewStackPage {
+          name: "editor";
+          title: _("Editor");
+          icon-name: "code-symbolic";
+          use-underline: true;
 
-        child: $Editor editor {};
-      }
+          child: $Editor editor {};
+        }
 
-      Adw.ViewStackPage {
-        name: "gameConsole";
-        title: _("Game Console");
-        icon-name: "nintendo-controller-symbolic";
-        use-underline: true;
+        Adw.ViewStackPage {
+          name: "gameConsole";
+          title: _("Game Console");
+          icon-name: "nintendo-controller-symbolic";
+          use-underline: true;
 
-        child: $GameConsole gameConsole {};
-      }
+          child: $GameConsole gameConsole {};
+        }
 
-      Adw.ViewStackPage {
-        name: "debugger";
-        title: _("Debugger");
-        icon-name: "bug-symbolic";
-        use-underline: true;
+        Adw.ViewStackPage {
+          name: "debugger";
+          title: _("Debugger");
+          icon-name: "bug-symbolic";
+          use-underline: true;
 
-        child: $Debugger debugger {};
+          child: $Debugger debugger {};
+        }
       }
     };
 

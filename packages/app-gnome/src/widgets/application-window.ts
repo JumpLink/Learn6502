@@ -16,13 +16,14 @@ GObject.type_ensure(Debugger.$gtype)
 
 export interface ApplicationWindow {
   // Child widgets
-  _editor: InstanceType<typeof Editor>
-  _gameConsole: InstanceType<typeof GameConsole>
+  _editor: Editor
+  _gameConsole: GameConsole
   _menuButton: Gtk.MenuButton
   _runButton: Adw.SplitButton
   _stack: Adw.ViewStack
   _switcherBar: Adw.ViewSwitcherBar
-  _debugger: InstanceType<typeof Debugger>
+  _debugger: Debugger
+  _toastOverlay: Adw.ToastOverlay
 }
 
 export class ApplicationWindow extends Adw.ApplicationWindow {
@@ -31,7 +32,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     GObject.registerClass({
       GTypeName: 'ApplicationWindow',
       Template,
-      InternalChildren: ['editor', 'gameConsole', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger'],
+      InternalChildren: ['editor', 'gameConsole', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay'],
     }, this);
   }
 
@@ -74,17 +75,30 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.runGameConsole();
   }
 
+  private showToast(params: Partial<Adw.Toast.ConstructorProps>): void {
+    const toast = new Adw.Toast(params);
+    this._toastOverlay.add_toast(toast);
+  }
+
   private setupGameConsoleSignalListeners(): void {
     this._gameConsole.connect('assemble-success', (_gameConsole, signal) => {
       if(signal.message) {
         this._debugger.log(signal.message);
       }
+
+      this.showToast({
+        title: "Assembled successfully"
+      });
     })
 
     this._gameConsole.connect('assemble-failure', (_gameConsole, signal) => {
       if(signal.message) {
         this._debugger.log(signal.message);
       }
+
+      this.showToast({
+        title: "Assemble failed"
+      });
     })
 
     this._gameConsole.connect('hexdump', (_gameConsole, signal) => {
@@ -161,6 +175,10 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       if(signal.message) {
         this._debugger.log(signal.message);
       }
+
+      this.showToast({
+        title: "Simulator failure"
+      });
     })
 
     this._gameConsole.connect('labels-info', (_gameConsole, signal) => {
@@ -173,10 +191,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       if(signal.message) {
         this._debugger.log(signal.message);
       }
+
+      this.showToast({
+        title: "Labels failure"
+      });
     })
 
     this._gameConsole.connect('gamepad-pressed', (_gameConsole, key) => {
-      console.log(`Gamepad key pressed: ${key}`);
+      this._debugger.log(`Gamepad key pressed: ${key}`);
     })
   }
 
