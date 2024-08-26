@@ -5,7 +5,7 @@ import GtkSource from '@girs/gtksource-5'
 
 import { GutterRendererAddress } from '../gutter-renderer-address.ts'
 
-import type { Memory, HexMonitorOptions } from '@easy6502/6502'
+import type { Memory, HexMonitorOptions, HexMonitor as HexMonitorInterface } from '@easy6502/6502'
 
 import Template from './hex-monitor.ui?raw'
 
@@ -18,7 +18,7 @@ export interface HexMonitor {
  * A widget that displays a hex monitor.
  * @emits changed - when the monitor content is updated
  */
-export class HexMonitor extends Adw.Bin {
+export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
 
   static {
     GObject.registerClass({
