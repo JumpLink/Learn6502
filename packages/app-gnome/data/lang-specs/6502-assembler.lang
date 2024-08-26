@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<language id="assembler" name="6502 Assembler" version="2.0" _section="Source">
+<language id="6502-assembler" name="6502 Assembler" version="2.0" _section="Source">
   <metadata>
     <property name="mimetypes">text/x-asm;text/x-assembler</property>
     <property name="globs">*.asm;*.s</property>
@@ -19,7 +19,7 @@
   </styles>
   
   <definitions>
-    <context id="assembler">
+    <context id="6502-assembler">
       <include>
         <!-- Comments -->
         <context id="comment" style-ref="comment">

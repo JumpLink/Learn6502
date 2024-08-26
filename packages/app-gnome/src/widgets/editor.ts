@@ -64,7 +64,7 @@ export class Editor extends Adw.Bin {
 
   private setupLanguage() {
     const languageManager = GtkSource.LanguageManager.get_default();
-    const assemblyLanguage = languageManager.get_language('assembler');
+    const assemblyLanguage = languageManager.get_language('6502-assembler');
     if (!assemblyLanguage) {
       throw new Error('Assembly language not found')
     }

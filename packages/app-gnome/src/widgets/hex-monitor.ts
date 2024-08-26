@@ -68,7 +68,7 @@ export class HexMonitor extends Adw.Bin {
     const end = this.start + this.length - 1;
 
     if (!isNaN(this.start) && !isNaN(this.length) && this.start >= 0 && this.length > 0 && end <= 0xffff) {
-      content = memory.format({ start: this.start, length: this.length, includeAddress: false, includeSpaces: true, includeNewline: true });
+      content = memory.format({ start: this.start, length: this.length, includeAddress: false, includeSpaces: false, includeNewline: true });
     } else {
       content = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
     }
