@@ -1,5 +1,5 @@
-import { MonitorOptions } from './monitor-options.js';
+import type { HexMonitorOptions } from './index.js';
 
 export interface DebuggerOptions {
-  monitor: MonitorOptions;
+  monitor: HexMonitorOptions;
 }

@@ -5,7 +5,7 @@ import GtkSource from '@girs/gtksource-5'
 
 import { GutterRendererAddress } from '../gutter-renderer-address.ts'
 
-import type { Memory, MonitorOptions } from '@easy6502/6502'
+import type { Memory, HexMonitorOptions } from '@easy6502/6502'
 
 import Template from './hex-monitor.ui?raw'
 
@@ -42,9 +42,6 @@ export class HexMonitor extends Adw.Bin {
     return this._sourceView.buffer as GtkSource.Buffer;
   }
 
-  private start: number = 0x0;
-  private length: number = 0xffff;
-
   /** The style scheme manager, used to set the style scheme for the monitor */
   private schemeManager = GtkSource.StyleSchemeManager.get_default();
 
@@ -54,7 +51,12 @@ export class HexMonitor extends Adw.Bin {
   /** The style scheme for the monitor */
   private _styleScheme: GtkSource.StyleScheme | null = null;
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps> & MonitorOptions) {
+  options: HexMonitorOptions = {
+    start: 0x0,
+    length: 0xffff,
+  };
+
+  constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
     this.setupCustomLineNumbers();
     this.setupSignalListeners();
@@ -65,10 +67,10 @@ export class HexMonitor extends Adw.Bin {
 
     let content = '';
 
-    const end = this.start + this.length - 1;
+    const end = this.options.start + this.options.length - 1;
 
-    if (!isNaN(this.start) && !isNaN(this.length) && this.start >= 0 && this.length > 0 && end <= 0xffff) {
-      content = memory.format({ start: this.start, length: this.length, includeAddress: false, includeSpaces: false, includeNewline: true });
+    if (!isNaN(this.options.start) && !isNaN(this.options.length) && this.options.start >= 0 && this.options.length > 0 && end <= 0xffff) {
+      content = memory.format({ start: this.options.start, length: this.options.length, includeAddress: false, includeSpaces: false, includeNewline: true });
     } else {
       content = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
     }
@@ -76,9 +78,8 @@ export class HexMonitor extends Adw.Bin {
     this._sourceView.buffer.set_text(content, content.length);
   }
 
-  public setRange(startAddress: number, length: number): void {
-    this.start = startAddress;
-    this.length = length;
+  public setOptions(options: Partial<HexMonitorOptions>): void {
+    this.options = { ...this.options, ...options };
   }
 
   private setupSignalListeners() {

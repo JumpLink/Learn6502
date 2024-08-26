@@ -1,13 +1,9 @@
-import { Simulator, Memory, addr2hex, num2hex, type DebuggerOptions, type MonitorOptions, type Debugger as DebuggerInterface } from '@easy6502/6502';
+import { Simulator, Memory, addr2hex, num2hex, type DebuggerOptions, DebuggerState, type Debugger as DebuggerInterface } from '@easy6502/6502';
 
 export class Debugger implements DebuggerInterface {
 
-  private monitoring = false;
-
-  private monitor: MonitorOptions;
-
-  constructor(private readonly node: HTMLElement, private readonly simulator: Simulator, private readonly memory: Memory, options: DebuggerOptions) {
-    this.monitor = options.monitor;
+  public state = DebuggerState.INITIAL;
+  constructor(private readonly node: HTMLElement, private readonly simulator: Simulator, public readonly memory: Memory, public readonly options: DebuggerOptions) {
     this.setupEventListeners();
     this.onMonitorRangeChange = this.onMonitorRangeChange.bind(this);
   }
@@ -18,16 +14,15 @@ export class Debugger implements DebuggerInterface {
    * @param state - The state of the monitor.
    */
   public toggleMonitor(state: boolean) {
-    this.monitoring = state;
+    this.state = state ? DebuggerState.ACTIVE : DebuggerState.PAUSED;
   }
 
   /**
    * Set the monitor address range.
    */
   public setMonitorRange(startAddress: number, length: number) {
-    console.log("setMonitorRange", startAddress, length)
-    this.monitor.start = startAddress;
-    this.monitor.length = length;
+    this.options.monitor.start = startAddress;
+    this.options.monitor.length = length;
   }
 
   /**
@@ -63,43 +58,43 @@ export class Debugger implements DebuggerInterface {
     this.simulator.on('step', () => {
       // If stepper is enabled, update the debug info and the monitor every step
       if (this.simulator.stepperEnabled) {
-        this.updateDebugInfo();
-        this.updateMonitor();
+        this.updateDebugInfo(this.simulator);
+        this.updateMonitor(this.memory);
       }
     });
 
     this.simulator.on('multistep', () => {
-      this.updateDebugInfo();
-      this.updateMonitor();
+      this.updateDebugInfo(this.simulator);
+      this.updateMonitor(this.memory);
     });
 
     this.simulator.on('reset', () => {
-      this.updateDebugInfo();
-      this.updateMonitor();
+      this.updateDebugInfo(this.simulator);
+      this.updateMonitor(this.memory);
     });
 
     this.simulator.on('goto', () => {
-      this.updateDebugInfo();
-      this.updateMonitor();
+      this.updateDebugInfo(this.simulator);
+      this.updateMonitor(this.memory);
     });
 
-    this.updateDebugInfo();
-    this.updateMonitor();
+    this.updateDebugInfo(this.simulator);
+    this.updateMonitor(this.memory);
   }
 
-  private updateMonitor() {
-    if (!this.monitoring) {
+  public updateMonitor(memory: Memory) {
+    if (this.state !== DebuggerState.ACTIVE) {
       return;
     }
 
-    const start = this.monitor.start;
-    const length = this.monitor.length;
+    const start = this.options.monitor.start;
+    const length = this.options.monitor.length;
     let content = '';
 
     const end = start + length - 1;
 
     if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
-      content = this.memory.format({ start, length, includeAddress: true, includeSpaces: true, includeNewline: true });
+      content = memory.format({ start, length, includeAddress: true, includeSpaces: true, includeNewline: true });
     } else {
       content = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
     }
@@ -113,8 +108,8 @@ export class Debugger implements DebuggerInterface {
     monitorNode.innerHTML = content;
   }
 
-  private updateDebugInfo() {
-    const { regA, regX, regY, regP, regPC, regSP } = this.simulator.info;
+  public updateDebugInfo(simulator: Simulator) {
+    const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
     let html = "A=$" + num2hex(regA) + " X=$" + num2hex(regX) + " Y=$" + num2hex(regY) + "<br />";
     html += "SP=$" + num2hex(regSP) + " PC=$" + addr2hex(regPC);
     html += "<br />";
@@ -126,5 +121,14 @@ export class Debugger implements DebuggerInterface {
     if (minidebugger) {
       minidebugger.innerHTML = html;
     }
+  }
+
+  public update(memory: Memory, simulator: Simulator) {
+    this.updateMonitor(memory);
+    this.updateDebugInfo(simulator);
+  }
+
+  public reset() {
+    this.state = DebuggerState.RESET;
   }
 }
