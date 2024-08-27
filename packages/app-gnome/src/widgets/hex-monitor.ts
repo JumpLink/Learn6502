@@ -48,6 +48,10 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     return this._sourceView.buffer as GtkSource.Buffer;
   }
 
+  private set buffer(value: GtkSource.Buffer) {
+    this._sourceView.buffer = value;
+  }
+
   /** The style scheme manager, used to set the style scheme for the monitor */
   private schemeManager = GtkSource.StyleSchemeManager.get_default();
 
@@ -78,7 +82,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     }
 
     this.text = content;
-    // this.applyCustomFormatting();
   }
 
   public setOptions(options: Partial<HexMonitorOptions>): void {
@@ -96,8 +99,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
   }
 
   /**
-   * Copy the selected text to the clipboard without spaces
-   * FIXME: Copied text keeps the spaces
+   * Copy the selected text to the "strg+c" clipboard without spaces
    * @returns 
    */
   private onCopyClipboard() {
@@ -113,7 +115,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
         console.error('No display found')
         return false;
       }
-      const clipboard =  display.get_clipboard(); // display.get_primary_clipboard();
+      const clipboard = display.get_clipboard();
 
       const value = new GObject.Value();
       value.init(GObject.TYPE_STRING);
@@ -123,10 +125,10 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
       const success = clipboard.set_content(contentProvider)
       console.log(`Copy to clipboard: ${success ? 'success' : 'failed'}`)
 
-      return true // Prevent the default copy action
+      return true;
     }
 
-    return false // Allow the default copy action if no text is selected
+    return false
   }
 
   private setupSignalListeners() {
@@ -137,8 +139,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
 
     this.styleManager.connect('notify::dark', this.updateStyle.bind(this));
 
-    // FIXME: copy-clipboard signal is working but text in clipboard is not changed
-    // this._sourceView.connect('copy-clipboard', this.onCopyClipboard.bind(this));
+    this._sourceView.connect_after('copy-clipboard', this.onCopyClipboard.bind(this));
   }
 
   private setupCustomLineNumbers(): void {
@@ -169,7 +170,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     const scheme = this.schemeManager.get_scheme(
       this.styleManager.dark ? "Adwaita-dark" : "Adwaita",
     );
-    if(!scheme) {
+    if (!scheme) {
       throw new Error("Could not get style scheme");
     }
     this.buffer.set_style_scheme(scheme);

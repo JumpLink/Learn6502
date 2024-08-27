@@ -25,7 +25,6 @@ try {
   console.error('An error occurred:', error)
   system.exit(1)
 } finally {
-  // Stelle sicher, dass die Hauptschleife beendet wird, falls sie noch läuft
   if (loop.is_running()) {
     loop.quit()
   }
