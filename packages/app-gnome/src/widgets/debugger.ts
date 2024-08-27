@@ -1,6 +1,5 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
-import Gtk from '@girs/gtk-4.0'
 
 import { MessageConsole } from './message-console.ts'
 import { HexMonitor } from './hex-monitor.ts'
@@ -57,7 +56,17 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     }
   }
 
-  constructor(public readonly options: DebuggerOptions, binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
+  // TODO: Currently unused
+  public readonly options: DebuggerOptions = {
+    monitor: {
+      start: 0x0000,
+      length: 0xFFFF
+    }
+  }
+
+  private handlerIds: number[] = [];
+
+  constructor(binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(binParams)
     this.setupSignalHandlers();
     this.state = DebuggerState.INITIAL;
@@ -107,7 +116,16 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   private setupSignalHandlers(): void {
-    // TODO: Fix crash on exit application
-    this.connect('notify', this.onParamChanged.bind(this));
+    this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
+  }
+
+  private removeSignalHandlers(): void {
+    this.handlerIds.forEach(id => this.disconnect(id));
+    this.handlerIds = [];
+  }
+
+  vfunc_unmap(): void {
+    this.removeSignalHandlers();
+    super.vfunc_unmap();
   }
 }

@@ -8,15 +8,25 @@ import { Application } from './application.ts'
 
 const loop = GLib.MainLoop.new(null, false)
 
-export function main(argv: string[]) {
+export async function main(argv: string[]) {
   const application = new Application()
-  return application.runAsync(argv)
+  const exitCode = await application.runAsync(argv)
+  loop.quit()
+  return exitCode
 }
 
-const exit_code = await main(
-  [imports.system.programInvocationName].concat(ARGV),
-)
-log('exit_code: ' + exit_code)
-system.exit(exit_code)
-
-await loop.runAsync()
+try {
+  const exitCode = await main(
+    [imports.system.programInvocationName].concat(ARGV),
+  )
+  log('exitCode: ' + exitCode)
+  system.exit(exitCode)
+} catch (error) {
+  console.error('An error occurred:', error)
+  system.exit(1)
+} finally {
+  // Stelle sicher, dass die Hauptschleife beendet wird, falls sie noch läuft
+  if (loop.is_running()) {
+    loop.quit()
+  }
+}
