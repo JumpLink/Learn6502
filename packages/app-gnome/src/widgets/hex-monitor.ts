@@ -1,6 +1,7 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
+import Gdk from '@girs/gdk-4.0'
 import GtkSource from '@girs/gtksource-5'
 
 import { GutterRendererAddress } from '../gutter-renderer-address.ts'
@@ -38,6 +39,11 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     this.onUpdate();
   }
 
+  public options: HexMonitorOptions = {
+    start: 0x0,
+    length: 0xffff,
+  };
+
   private get buffer(): GtkSource.Buffer {
     return this._sourceView.buffer as GtkSource.Buffer;
   }
@@ -49,18 +55,14 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
   private styleManager = Adw.StyleManager.get_default();
 
   /** The style scheme for the monitor */
-  private _styleScheme: GtkSource.StyleScheme | null = null;
-
-  options: HexMonitorOptions = {
-    start: 0x0,
-    length: 0xffff,
-  };
+  private styleScheme: GtkSource.StyleScheme | null = null;
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
-    this.setupCustomLineNumbers();
     this.setupSignalListeners();
-    this._styleScheme = this.updateStyle();
+    this.setupCustomLineNumbers();
+    this.styleScheme = this.updateStyle();
+    this.setupLanguage();
   }
 
   public update(memory: Memory) {
@@ -70,16 +72,61 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     const end = this.options.start + this.options.length - 1;
 
     if (!isNaN(this.options.start) && !isNaN(this.options.length) && this.options.start >= 0 && this.options.length > 0 && end <= 0xffff) {
-      content = memory.format({ start: this.options.start, length: this.options.length, includeAddress: false, includeSpaces: false, includeNewline: true });
+      content = memory.format({ start: this.options.start, length: this.options.length, includeAddress: false, includeSpaces: true, includeNewline: true });
     } else {
       content = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
     }
 
-    this._sourceView.buffer.set_text(content, content.length);
+    this.text = content;
+    // this.applyCustomFormatting();
   }
 
   public setOptions(options: Partial<HexMonitorOptions>): void {
     this.options = { ...this.options, ...options };
+  }
+
+  private setupLanguage() {
+    const languageManager = GtkSource.LanguageManager.get_default();
+    // console.log("language_ids", languageManager.language_ids);
+    const hexLanguage = languageManager.get_language('hex');
+    if (!hexLanguage) {
+      throw new Error('Hex language not found')
+    }
+    this.buffer.set_language(hexLanguage);
+  }
+
+  /**
+   * Copy the selected text to the clipboard without spaces
+   * FIXME: Copied text keeps the spaces
+   * @returns 
+   */
+  private onCopyClipboard() {
+    const buffer = this._sourceView.buffer
+    const [hasSelection, start, end] = buffer.get_selection_bounds()
+
+    if (hasSelection) {
+      const text = buffer.get_text(start, end, false)
+      const cleanedText = text.replace(/\s/g, '')
+
+      const display = this.get_display(); // Gdk.Display.get_default(); 
+      if (!display) {
+        console.error('No display found')
+        return false;
+      }
+      const clipboard =  display.get_clipboard(); // display.get_primary_clipboard();
+
+      const value = new GObject.Value();
+      value.init(GObject.TYPE_STRING);
+      value.set_string(cleanedText);
+
+      const contentProvider = Gdk.ContentProvider.new_for_value(value)
+      const success = clipboard.set_content(contentProvider)
+      console.log(`Copy to clipboard: ${success ? 'success' : 'failed'}`)
+
+      return true // Prevent the default copy action
+    }
+
+    return false // Allow the default copy action if no text is selected
   }
 
   private setupSignalListeners() {
@@ -89,9 +136,12 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     this.buffer.connect('redo', this.onUpdate.bind(this));
 
     this.styleManager.connect('notify::dark', this.updateStyle.bind(this));
+
+    // FIXME: copy-clipboard signal is working but text in clipboard is not changed
+    // this._sourceView.connect('copy-clipboard', this.onCopyClipboard.bind(this));
   }
 
-  setupCustomLineNumbers(): void {
+  private setupCustomLineNumbers(): void {
     // Hide the default line numbers
     this._sourceView.show_line_numbers = false;
 
@@ -123,7 +173,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
       throw new Error("Could not get style scheme");
     }
     this.buffer.set_style_scheme(scheme);
-    this._styleScheme = scheme;
-    return this._styleScheme;
+    this.styleScheme = scheme;
+    return this.styleScheme;
   };
 }
