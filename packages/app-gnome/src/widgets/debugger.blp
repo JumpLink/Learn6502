@@ -7,56 +7,65 @@ template $Debugger: Adw.Bin {
     hexpand: true;
     vexpand: true;
 
-    Adw.StatusPage statusPage {
-      title: _("Debugger");
-      description: _("Debug your 6502 assembly code");
-      icon-name: "bug-symbolic";
+    Stack stack {
 
-      Adw.Clamp {
+      StackPage {
+        name: "initial";
+        child: Adw.StatusPage statusPage {
+          title: _("Debugger");
+          description: _("Debug your 6502 assembly code");
+          icon-name: "bug-symbolic";
+        };
+      }
 
-        maximum-size: 600;
+      StackPage {
+        name: "debugger";
+        child: Adw.Clamp {
 
-        child: Box {
-          orientation: vertical;
+          maximum-size: 600;
 
-          // Hex Monitor
-          Label {
-            label: "Hex Monitor";
-            halign: start;
-            styles [
-              "heading"
-            ]
-          }
-          Frame {
-            margin-bottom: 12;
-            $HexMonitor hexMonitor {}
-          }
+          child: Box {
+            orientation: vertical;
 
-          // Information
-          Label {
-            label: "Information";
-            halign: start;
-            styles [
-              "heading"
-            ]
-          }
-          Frame {
-            margin-bottom: 12;
-            $DebugInfo debugInfo {}
-          }
+            // Hex Monitor
+            Label {
+              label: "Hex Monitor";
+              halign: start;
+              styles [
+                "heading"
+              ]
+            }
+            Frame {
+              margin-bottom: 12;
+              $HexMonitor hexMonitor {}
+            }
 
-          // Messages
-          Label {
-            label: "Messages";
-            halign: start;
-            styles [
-              "heading"
-            ]
-          }
-          Frame {
-            margin-bottom: 12;
-            $MessageConsole messageConsole {}
-          }
+            // Information
+            Label {
+              label: "Information";
+              halign: start;
+              styles [
+                "heading"
+              ]
+            }
+            Frame {
+              margin-bottom: 12;
+              $DebugInfo debugInfo {}
+            }
+
+            // Messages
+            Label {
+              label: "Messages";
+              halign: start;
+              styles [
+                "heading"
+              ]
+            }
+            Frame {
+              margin-bottom: 12;
+              $MessageConsole messageConsole {}
+            }
+          };
         };
       }
     }

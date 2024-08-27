@@ -1,4 +1,5 @@
 import GObject from '@girs/gobject-2.0'
+import Gtk from '@girs/gtk-4.0'
 import Adw from '@girs/adw-1'
 
 import { MessageConsole } from './message-console.ts'
@@ -18,6 +19,7 @@ export interface Debugger {
   _state: DebuggerState
 
   // Child widgets
+  _stack: Gtk.Stack
   _messageConsole: MessageConsole
   _hexMonitor: HexMonitor
   _debugInfo: DebugInfo
@@ -30,7 +32,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     GObject.registerClass({
       GTypeName: 'Debugger',
       Template,
-      InternalChildren: ['messageConsole', 'hexMonitor', 'debugInfo', 'statusPage'],
+      InternalChildren: ['stack', 'messageConsole', 'hexMonitor', 'debugInfo', 'statusPage'],
       Properties: {
         // TypeScript enums are numbers by default
         'state': GObject.ParamSpec.uint('state', 'State', 'Debugger state', GObject.ParamFlags.READWRITE, DebuggerState.INITIAL, DebuggerState.RESET, DebuggerState.RESET)
@@ -97,13 +99,9 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   private onStateChanged(): void {
     console.log('state changed', this.state);
     if(this.state === DebuggerState.INITIAL) {
-        this._statusPage.set_title('Debugger');
-        this._statusPage.set_description('Debug your 6502 assembly code');
-        this._statusPage.set_icon_name('bug-symbolic');
+      this._stack.set_visible_child_name('initial');
     } else  {
-        this._statusPage.set_title('');
-        this._statusPage.set_description(null);
-        this._statusPage.set_icon_name(null);
+      this._stack.set_visible_child_name('debugger');
     }
   }
 
