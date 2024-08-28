@@ -15,6 +15,7 @@ template $Debugger: Adw.Bin {
           title: _("Debugger");
           description: _("Debug your 6502 assembly code, step through your program, and view memory and registers. To get started, assemble and run your program.");
           icon-name: "bug-symbolic";
+          valign: start;
         };
       }
 
@@ -23,6 +24,10 @@ template $Debugger: Adw.Bin {
         child: Adw.Clamp {
 
           maximum-size: 600;
+          margin-top: 12;
+          margin-bottom: 12;
+          margin-start: 12;
+          margin-end: 12;
 
           child: Box {
             orientation: vertical;
@@ -31,6 +36,8 @@ template $Debugger: Adw.Bin {
             Label {
               label: "Hex Monitor";
               halign: start;
+              margin-bottom: 12;
+              margin-top: 12;
               styles [
                 "heading"
               ]
@@ -44,6 +51,8 @@ template $Debugger: Adw.Bin {
             Label {
               label: "Information";
               halign: start;
+              margin-bottom: 12;
+              margin-top: 12;
               styles [
                 "heading"
               ]
@@ -57,6 +66,8 @@ template $Debugger: Adw.Bin {
             Label {
               label: "Messages";
               halign: start;
+              margin-bottom: 12;
+              margin-top: 12;
               styles [
                 "heading"
               ]

@@ -11,7 +11,9 @@ template $ApplicationWindow: Adw.ApplicationWindow {
   content: Adw.ToolbarView {
     [top]
     Adw.HeaderBar headerBar {
-
+      title-widget: Label {
+        label: _("Easy 6502");
+      };
       [end]
       MenuButton menuButton {
         primary: true;
@@ -34,6 +36,15 @@ template $ApplicationWindow: Adw.ApplicationWindow {
     content: Adw.ToastOverlay toastOverlay {
       Adw.ViewStack stack {
         vexpand: true;
+
+        Adw.ViewStackPage {
+          name: "learn";
+          title: _("Learn");
+          icon-name: "school-symbolic";
+          use-underline: true;
+
+          child: $Learn learn {};
+        }
 
         Adw.ViewStackPage {
           name: "editor";

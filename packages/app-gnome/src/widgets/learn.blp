@@ -1,0 +1,15 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $Learn: Adw.Bin {
+  ScrolledWindow scrolledWindow {
+    height-request: 200;
+    vexpand: true;
+    has-frame: false;
+    Adw.StatusPage statusPage {
+      title: _("Learn");
+      description: _("Learn how to program the 6502 microprocessor.");
+      icon-name: "school-symbolic";
+    }
+  }
+}
