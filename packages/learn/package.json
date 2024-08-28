@@ -1,0 +1,24 @@
+{
+    "name": "@easy6502/learn",
+    "version": "0.0.1",
+    "description": "Learn 6502 assembly",
+    "type": "module",
+    "main": "index.js",
+    "scripts": {
+        "build:mdx": "node esbuild.js",
+        "build:js": "node --import ./register.js dist/index.js",
+        "build": "npm run build:mdx && npm run build:js"
+    },
+    "author": "Nick Morgan, Pascal Garber",
+    "license": "CC-BY-4.0",
+    "devDependencies": {
+        "@mdx-js/esbuild": "^3.0.1",
+        "@mdx-js/node-loader": "^3.0.1",
+        "@types/react": "^18.3.4",
+        "@types/react-dom": "^18.3.0",
+        "esbuild": "^0.23.1",
+        "react": "^18.3.1",
+        "react-dom": "^18.3.1",
+        "typescript": "^5.5.4"
+    }
+}
