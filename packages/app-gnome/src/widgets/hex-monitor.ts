@@ -61,10 +61,18 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
   /** The style scheme for the monitor */
   private styleScheme: GtkSource.StyleScheme | null = null;
 
+  /** The gutter for the monitor */
+  private gutter: GtkSource.Gutter;
+
+  /** The renderer for the custom line numbers */
+  private renderer: GutterRendererAddress;
+
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
     this.setupSignalListeners();
-    this.setupCustomLineNumbers();
+    const { gutter, renderer } = this.setupCustomLineNumbers();
+    this.gutter = gutter;
+    this.renderer = renderer;
     this.styleScheme = this.updateStyle();
     this.setupLanguage();
   }
@@ -131,6 +139,12 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     return false
   }
 
+  private onCursorMoved(buffer: GtkSource.Buffer) {
+    // Redraw the gutter to update the line numbers
+    this.gutter.queue_draw();
+    this.renderer.queue_draw();
+  }
+
   private setupSignalListeners() {
     // cannot use "changed" signal as it triggers many time for pasting
     this.buffer.connect('end-user-action', this.onUpdate.bind(this));
@@ -140,9 +154,10 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     this.styleManager.connect('notify::dark', this.updateStyle.bind(this));
 
     this._sourceView.connect_after('copy-clipboard', this.onCopyClipboard.bind(this));
+    this.buffer.connect_after('cursor-moved', this.onCursorMoved.bind(this));
   }
 
-  private setupCustomLineNumbers(): void {
+  private setupCustomLineNumbers(): { gutter: GtkSource.Gutter, renderer: GutterRendererAddress } {
     // Hide the default line numbers
     this._sourceView.show_line_numbers = false;
 
@@ -150,7 +165,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     const gutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
 
     // Add custom line numbers renderer
-    const customRenderer = new GutterRendererAddress({
+    const renderer = new GutterRendererAddress({
       margin_start: 12,
       margin_end: 12,
       width_request: 24,
@@ -159,7 +174,9 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     });
 
     // Insert the custom line numbers renderer
-    gutter.insert(customRenderer, 0);
+    gutter.insert(renderer, 0);
+
+    return { gutter, renderer };
   }
 
   private onUpdate() {

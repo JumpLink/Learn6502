@@ -2,7 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import GtkSource from '@girs/gtksource-5'
 
 /**
- * A gutter renderer that displays the address of the line
+ * A gutter renderer that displays the address of the line in the hex monitor.
  */
 export class GutterRendererAddress extends GtkSource.GutterRendererText {
   static {
