@@ -6,19 +6,16 @@
     "main": "index.js",
     "scripts": {
         "build:mdx": "node esbuild.js",
-        "build:js": "node --import ./register.js dist/index.js",
-        "build": "npm run build:mdx && npm run build:js"
+        "build:js": "node dist/index.js",
+        "build": "yarn build:mdx && yarn build:js"
     },
     "author": "Nick Morgan, Pascal Garber",
     "license": "CC-BY-4.0",
     "devDependencies": {
         "@mdx-js/esbuild": "^3.0.1",
-        "@mdx-js/node-loader": "^3.0.1",
-        "@types/react": "^18.3.4",
-        "@types/react-dom": "^18.3.0",
+        "@types/mdx": "^2.0.13",
         "esbuild": "^0.23.1",
-        "react": "^18.3.1",
-        "react-dom": "^18.3.1",
+        "nano-jsx": "^0.1.0",
         "typescript": "^5.5.4"
     }
 }

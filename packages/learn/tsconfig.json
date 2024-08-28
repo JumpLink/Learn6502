@@ -1,14 +1,10 @@
 {
     "compilerOptions": {
-        "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
         "jsx": "react-jsx",
-        "jsxImportSource": "react",
-        "strict": true,
-        "esModuleInterop": true,
-        "skipLibCheck": true,
-        "forceConsistentCasingInFileNames": true
+        "jsxImportSource": "nano-jsx/esm",
+        "types": ["mdx"]
     },
-    "include": ["src/**/*.ts", "src/**/*.mdx"]
+    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx"]
 }
