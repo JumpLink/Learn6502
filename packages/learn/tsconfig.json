@@ -1,7 +1,10 @@
 {
     "compilerOptions": {
+        "target": "ESNext",
         "module": "ESNext",
         "moduleResolution": "Bundler",
+        "allowImportingTsExtensions": true,
+        "noEmit": true,
         "jsx": "react-jsx",
         "jsxImportSource": "nano-jsx/esm",
         "types": ["mdx"]

@@ -5,6 +5,10 @@ await esbuild.build({
   entryPoints: ['src/index.tsx'],
   format: 'esm',
   outdir: 'dist',
+  platform: 'node',
   plugins: [mdx({jsxImportSource: 'nano-jsx/esm'})],
+  loader: {
+    '.asm': 'text',
+  },
   bundle: true,
 })

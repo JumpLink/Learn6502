@@ -1,6 +1,4 @@
----
-layout: default
----
+import SnakeExample from './examples/snake.asm'
 
 <h2 id="intro">Introduction</h2>
 
@@ -50,14 +48,14 @@ So, let's dive in! That thing below is a little [JavaScript 6502 assembler and
 simulator](https://github.com/skilldrick/6502js) that I adapted for this book.
 Click **Assemble** then **Run** to assemble and run the snippet of assembly language.
 
-{% include start.html %}
+```6502-assembler
 LDA #$01
 STA $0200
 LDA #$05
 STA $0201
 LDA #$08
 STA $0202
-{% include end.html %}
+```
 
 Hopefully the black area on the right now has three coloured "pixels" at the
 top left. (If this doesn't work, you'll probably need to upgrade your browser to
@@ -128,13 +126,13 @@ Instructions in assembly language are like a small set of predefined functions.
 All instructions take zero or one arguments. Here's some annotated
 source code to introduce a few different instructions:
 
-{% include start.html %}
+```6502-assembler
 LDA #$c0  ;Load the hex value $c0 into the A register
 TAX       ;Transfer the value in the A register to X
 INX       ;Increment the value in the X register
 ADC #$c4  ;Add the hex value $c4 to the A register
 BRK       ;Break - we're done
-{% include end.html %}
+```
 
 Assemble the code, then turn on the debugger and step through the code, watching
 the `A` and `X` registers. Something slightly odd happens on the line `ADC #$c4`.
@@ -153,7 +151,7 @@ In the simulator below **type** (don't paste) the following code:
     STA $01
     ADC $01
 
-{% include widget.html %}
+<easy6502-page-button target="editor" />
 
 An important thing to notice here is the distinction between `ADC #$01` and
 `ADC $01`. The first one adds the value `$01` to the `A` register, but the
@@ -194,7 +192,7 @@ Let's change that.
 branch based on whether certain flags are set or not. In this example we'll be
 looking at `BNE`: "Branch on not equal".
 
-{% include start.html %}
+```6502-assembler
   LDX #$08
 decrement:
   DEX
@@ -203,7 +201,7 @@ decrement:
   BNE decrement
   STX $0201
   BRK
-{% include end.html %}
+```
 
 First we load the value `$08` into the `X` register. The next line is a label.
 Labels just mark certain points in a program so we can return to them later.
@@ -302,14 +300,14 @@ a single byte, which is used as an offset from the following instruction.
 
 Assemble the following code, then click the **Hexdump** button to see the assembled code.
 
-{% include start.html %}
+```6502-assembler
   LDA #$01
   CMP #$02
   BNE notequal
   STA $22
 notequal:
   BRK
-{% include end.html %}
+```
 
 The hex should look something like this:
 
@@ -337,13 +335,13 @@ first address gives the least significant byte of the address, and the
 following byte gives the most significant byte. That can be hard to wrap your
 head around, so here's an example:
 
-{% include start.html %}
+```6502-assembler
 LDA #$01
 STA $f0
 LDA #$cc
 STA $f1
 JMP ($00f0) ;dereferences to $cc01
-{% include end.html %}
+```
 
 In this example, `$f0` contains the value `$01` and `$f1` contains the value
 `$cc`. The instruction `JMP ($f0)` causes the processor to look up the two
@@ -358,7 +356,7 @@ This one's kinda weird. It's like a cross between zero page,X and indirect.
 Basically, you take the zero page address, add the value of the `X` register to
 it, then use that to look up a two-byte address. For example:
 
-{% include start.html %}
+```6502-assembler
 LDX #$01
 LDA #$05
 STA $01
@@ -367,7 +365,7 @@ STA $02
 LDY #$0a
 STY $0705
 LDA ($00,X)
-{% include end.html %}
+```
 
 Memory locations `$01` and `$02` contain the values `$05` and `$07`
 respectively. Think of `($00,X)` as `($00 + X)`. In this case `X` is `$01`, so
@@ -385,7 +383,7 @@ Indirect indexed is like indexed indirect but less insane. Instead of adding
 the `X` register to the address *before* dereferencing, the zero page address
 is dereferenced, and the `Y` register is added to the resulting address.
 
-{% include start.html %}
+```6502-assembler
 LDY #$01
 LDA #$03
 STA $01
@@ -394,7 +392,7 @@ STA $02
 LDX #$0a
 STX $0704
 LDA ($01),Y
-{% include end.html %}
+```
 
 In this case, `($01)` looks up the two bytes at `$01` and `$02`: `$03` and
 `$07`. These form the address `$0703`. The value of the `Y` register is added
@@ -418,7 +416,7 @@ stack pointer becomes `$fe`, or memory location `$01fe`, and so on.
 Two of the stack instructions are `PHA` and `PLA`, "push accumulator" and "pull
 accumulator". Below is an example of these two in action.
 
-{% include start.html %}
+```6502-assembler
   LDX #$00
   LDY #$00
 firstloop:
@@ -435,7 +433,7 @@ secondloop:
   INY
   CPY #$20      ;loop until Y is $20
   BNE secondloop
-{% include end.html %}
+```
 
 `X` holds the pixel colour, and `Y` holds the position of the current pixel.
 The first loop draws the current colour as a pixel (via the `A` register),
@@ -457,7 +455,7 @@ section of the code to another.
 
 `JMP` is an unconditional jump. Here's a really simple example to show it in action:
 
-{% include start.html %}
+```6502-assembler
   LDA #$03
   JMP there
   BRK
@@ -465,7 +463,7 @@ section of the code to another.
   BRK
 there:
   STA $0200
-{% include end.html %}
+```
 
 
 ### JSR/RTS ###
@@ -480,7 +478,7 @@ one of the next instruction onto the stack before jumping to the given
 location. `RTS` pops this location, adds one to it, and jumps to that location.
 An example:
 
-{% include start.html %}
+```6502-assembler
   JSR init
   JSR loop
   JSR end
@@ -497,7 +495,7 @@ loop:
 
 end:
   BRK
-{% include end.html %}
+```
 
 The first instruction causes execution to jump to the `init` label. This sets
 `X`, then returns to the next instruction, `JSR loop`. This jumps to the `loop`
@@ -525,14 +523,15 @@ literal number, which immediately makes it obvious what we're dealing with.
 You can use letters, digits and underscores in a name.
 
 Here's an example. Note that immediate operands are still prefixed with a `#`.
-{% include start.html %}
+
+```6502-assembler
   define  sysRandom  $fe ; an address
   define  a_dozen    $0c ; a constant
  
   LDA sysRandom  ; equivalent to "LDA $fe"
 
   LDX #a_dozen   ; equivalent to "LDX #$0c"
-{% include end.html %}
+```
 
 The simulator widget below contains the entire source code of the game. I'll
 explain how it works in the following sections.
@@ -541,7 +540,7 @@ explain how it works in the following sections.
 of this source code](https://gist.github.com/wkjagt/9043907), so follow along
 with that for more details.
 
-{% include snake.html %}
+<SnakeExample />
 
 
 ### Overall structure ###
