@@ -2,7 +2,11 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 
+import { Tutorial } from './tutorial.ts'
+
 import Template from './learn.ui?raw'
+
+GObject.type_ensure(Tutorial.$gtype)
 
 export interface Learn {
   // Child widgets

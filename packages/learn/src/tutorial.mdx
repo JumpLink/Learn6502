@@ -1,6 +1,9 @@
+# Tutorial
+by [Nick Morgan](https://www.skilldrick.co.uk/), licensed under CC BY 4.0
+
 import SnakeExample from './examples/snake.asm'
 
-<h2 id="intro">Introduction</h2>
+## Introduction
 
 In this tiny ebook I'm going to show you how to get started writing 6502
 assembly language. The 6502 processor was massive in the seventies and
@@ -42,13 +45,13 @@ More modern assembly languages are meant to written by compilers, so let's
 leave it to them. Plus, 6502 is *fun*. Nobody ever called x86 *fun*.
 
 
-<h2 id="first-program">Our first program</h2>
+## Our first program
 
 So, let's dive in! That thing below is a little [JavaScript 6502 assembler and
 simulator](https://github.com/skilldrick/6502js) that I adapted for this book.
 Click **Assemble** then **Run** to assemble and run the snippet of assembly language.
 
-```6502-assembler
+```assembler
 LDA #$01
 STA $0200
 LDA #$05
@@ -96,7 +99,7 @@ instructions, keeping an eye on the `A` register as it changes.
 3. Add more instructions to draw extra pixels.
 
 
-<h2 id='registers'>Registers and flags</h2>
+## Registers and flags
 
 We've already had a little look at the processor status section (the bit with
 `A`, `PC` etc.), but what does it all mean?
@@ -120,13 +123,13 @@ information about the previous instruction. More on that later. [Read more
 about the registers and flags here](https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html).
 
 
-<h2 id='instructions'>Instructions</h2>
+## Instructions
 
 Instructions in assembly language are like a small set of predefined functions.
 All instructions take zero or one arguments. Here's some annotated
 source code to introduce a few different instructions:
 
-```6502-assembler
+```assembler
 LDA #$c0  ;Load the hex value $c0 into the A register
 TAX       ;Transfer the value in the A register to X
 INX       ;Increment the value in the X register
@@ -151,7 +154,7 @@ In the simulator below **type** (don't paste) the following code:
     STA $01
     ADC $01
 
-<easy6502-page-button target="editor" />
+{/* <easy6502-page-button target="editor" /> */}
 
 An important thing to notice here is the distinction between `ADC #$01` and
 `ADC $01`. The first one adds the value `$01` to the `A` register, but the
@@ -183,7 +186,7 @@ set. They are your bible.
    uses this instruction.
 
 
-<h2 id='branching'>Branching</h2>
+## Branching
 
 So far we're only able to write basic programs without any branching logic.
 Let's change that.
@@ -192,7 +195,7 @@ Let's change that.
 branch based on whether certain flags are set or not. In this example we'll be
 looking at `BNE`: "Branch on not equal".
 
-```6502-assembler
+```assembler
   LDX #$08
 decrement:
   DEX
@@ -230,7 +233,7 @@ to use the jumping instructions.
    to branch on the carry flag. Write a program that uses one of these two.
 
 
-<h2 id='addressing'>Addressing modes</h2>
+## Addressing modes
 
 The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of
 memory available to the processor. Remember that a byte is represented by two
@@ -300,7 +303,7 @@ a single byte, which is used as an offset from the following instruction.
 
 Assemble the following code, then click the **Hexdump** button to see the assembled code.
 
-```6502-assembler
+```assembler
   LDA #$01
   CMP #$02
   BNE notequal
@@ -335,7 +338,7 @@ first address gives the least significant byte of the address, and the
 following byte gives the most significant byte. That can be hard to wrap your
 head around, so here's an example:
 
-```6502-assembler
+```assembler
 LDA #$01
 STA $f0
 LDA #$cc
@@ -356,7 +359,7 @@ This one's kinda weird. It's like a cross between zero page,X and indirect.
 Basically, you take the zero page address, add the value of the `X` register to
 it, then use that to look up a two-byte address. For example:
 
-```6502-assembler
+```assembler
 LDX #$01
 LDA #$05
 STA $01
@@ -383,7 +386,7 @@ Indirect indexed is like indexed indirect but less insane. Instead of adding
 the `X` register to the address *before* dereferencing, the zero page address
 is dereferenced, and the `Y` register is added to the resulting address.
 
-```6502-assembler
+```assembler
 LDY #$01
 LDA #$03
 STA $01
@@ -404,7 +407,7 @@ to this address to give the final address `$0704`.
    Remember, you can use the monitor to watch a section of memory.
 
 
-<h2 id='stack'>The stack</h2>
+## The stack
 
 The stack in a 6502 processor is just like any other stack - values are pushed
 onto it and popped ("pulled" in 6502 parlance) off it. The current depth of the
@@ -416,7 +419,7 @@ stack pointer becomes `$fe`, or memory location `$01fe`, and so on.
 Two of the stack instructions are `PHA` and `PLA`, "push accumulator" and "pull
 accumulator". Below is an example of these two in action.
 
-```6502-assembler
+```assembler
   LDX #$00
   LDY #$00
 firstloop:
@@ -442,7 +445,7 @@ second loop pops the stack, draws the popped colour as a pixel, then increments
 the position. As should be expected, this creates a mirrored pattern.
 
 
-<h2 id='jumping'>Jumping</h2>
+## Jumping
 
 Jumping is like branching with two main differences. First, jumps are not
 conditionally executed, and second, they take a two-byte absolute address. For
@@ -455,7 +458,7 @@ section of the code to another.
 
 `JMP` is an unconditional jump. Here's a really simple example to show it in action:
 
-```6502-assembler
+```assembler
   LDA #$03
   JMP there
   BRK
@@ -478,7 +481,7 @@ one of the next instruction onto the stack before jumping to the given
 location. `RTS` pops this location, adds one to it, and jumps to that location.
 An example:
 
-```6502-assembler
+```assembler
   JSR init
   JSR loop
   JSR end
@@ -504,7 +507,7 @@ the next instruction, `JSR end`, which jumps to the end of the file. This
 illustrates how `JSR` and `RTS` can be used together to create modular code.
 
 
-<h2 id='snake'>Creating a game</h2>
+## Creating a game
 
 Now, let's put all this knowledge to good use, and make a game! We're going to
 be making a really simple version of the classic game 'Snake'.
@@ -524,7 +527,7 @@ You can use letters, digits and underscores in a name.
 
 Here's an example. Note that immediate operands are still prefixed with a `#`.
 
-```6502-assembler
+```assembler
   define  sysRandom  $fe ; an address
   define  a_dozen    $0c ; a constant
  
@@ -540,8 +543,9 @@ explain how it works in the following sections.
 of this source code](https://gist.github.com/wkjagt/9043907), so follow along
 with that for more details.
 
-<SnakeExample />
-
+```assembler
+  {SnakeExample}
+```
 
 ### Overall structure ###
 

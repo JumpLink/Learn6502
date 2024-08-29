@@ -21,6 +21,9 @@ export default defineConfig({
     },
     esbuild: {
       external: ['jsdom', 'react'],
+      loader: {
+        '.ui': 'text',
+      },
     },
     cssMinify: false
   },
