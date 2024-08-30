@@ -6,8 +6,12 @@ export class GtkRoot extends Component {
     return <interface>
       <requires lib="gtk" version="4.0"/>
       <template class={this.props.class} parent="AdwBin">
+        <property name="vexpand">true</property>
+        <property name="vexpand-set">true</property>
         <child>
           <object class="GtkBox">
+            <property name="vexpand">true</property>
+            <property name="vexpand-set">true</property>
             <property name="orientation">1</property>
             {this.props.children}
           </object>
