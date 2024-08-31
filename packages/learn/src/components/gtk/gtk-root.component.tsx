@@ -10,7 +10,7 @@ export class GtkRoot extends Component {
       <template class={this.props.class} parent="AdwBin">
         <property name="vexpand">true</property>
         <property name="vexpand-set">true</property>
-        <GtkBox vexpand vexpand-set orientation="1">
+        <GtkBox vexpand vexpand-set orientation={1}>
           {this.props.children}
         </GtkBox>
       </template>

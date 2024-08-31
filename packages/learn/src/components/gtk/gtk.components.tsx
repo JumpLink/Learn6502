@@ -2,6 +2,8 @@ import type { MDXComponents } from 'mdx/types'
 
 import { GtkLabel } from './gtk-label.component.tsx'
 import { GtkRoot } from './gtk-root.component.tsx'
+import { GtkTextList } from './gtk-text-list.compontent.tsx'
+import { TextListType } from '../../enums/gtk.enums.ts'
 
 export const GtkComponents: MDXComponents = {
     GtkRoot,
@@ -15,8 +17,8 @@ export const GtkComponents: MDXComponents = {
     p: (props: any) => <GtkLabel use-markup wrap vexpand-set vexpand justify="fill" margin-top="12" margin-bottom="12">{props.children}</GtkLabel>,
     pre: (props: any) => <GtkLabel use-markup wrap vexpand-set vexpand justify="fill" margin-top="12" margin-bottom="12">{props.children}</GtkLabel>,
     code: (props: any) => props.children,
-    ol: (props: any) => props.children,
-    ul: (props: any) => props.children,
+    ol: (props: any) => <GtkTextList {...props} type={TextListType.ORDERED} />,
+    ul: (props: any) => <GtkTextList {...props} type={TextListType.UNORDERED} />,
     li: (props: any) => props.children,
     img: (props: any) => props.children,
     table: (props: any) => props.children,
@@ -25,5 +27,5 @@ export const GtkComponents: MDXComponents = {
     th: (props: any) => props.children,
     em: (props: any) => props.children,
     strong: (props: any) => <b>{props.children}</b>,
-    Tutorial: (props: any) => props.children
+    // Tutorial: (props: any) => props.children
 }

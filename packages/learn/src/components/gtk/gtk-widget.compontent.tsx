@@ -6,10 +6,26 @@ export class GtkWidget extends Component {
 
     static reservedPropertyNames = ['class', 'children']
 
-    render() {
+    static defaultProps = {
+        // TODO: Implement default props
+    }
+
+    constructor(props: any) {
+        super(props)
+        this.GtkTextList()
+    }
+
+    public render() {
         return <child>
             <object class="GtkWidget">
             </object>
         </child>
+    }
+
+    protected GtkTextList(): void {
+        this.props = {
+            ...GtkWidget.defaultProps,
+            ...this.props,
+        }
     }
 }
