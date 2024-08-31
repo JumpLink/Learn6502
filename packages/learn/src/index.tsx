@@ -9,7 +9,7 @@ async function generateGtkUiXml() {
 
   try {
     await writeFile('dist/tutorial.ui', output, 'utf-8')
-    console.log("Output saved to tutorial.ui", output)
+    console.log("Output saved to tutorial.ui")
   } catch (error) {
     console.error("Error saving file:", error)
   }

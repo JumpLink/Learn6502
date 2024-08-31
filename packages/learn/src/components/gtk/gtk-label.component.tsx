@@ -1,16 +1,10 @@
-import { Component, renderSSR } from 'nano-jsx/esm/index.js'
+import { Component, renderSSR, Fragment } from 'nano-jsx/esm/index.js'
+import { GtkWidget } from './gtk-widget.compontent.tsx'
 
 export class GtkLabel extends Component {
+    static propertyNames = [...GtkWidget.propertyNames, 'attributes', 'ellipsize', 'extra-menu', 'justify', 'label', 'lines', 'max-width-chars', 'mnemonic-keyval', 'mnemonic-widget', 'natural-wrap-mode', 'selectable', 'single-line-mode', 'tabs', 'use-markup', 'use-underline', 'width-chars', 'wrap', 'wrap-mode', 'xalign', 'yalign']
 
-    escapeHtml(unsafe: string): string {
-        // return unsafe
-        //     //  .replace(/&/g, "&amp;")
-        //      .replace(/</g, "&lt;")
-        //      .replace(/>/g, "&gt;")
-        //     //  .replace(/"/g, "&quot;")
-        //     //  .replace(/'/g, "&#039;");
-            return unsafe
-    }
+    static reservedPropertyNames = [...GtkWidget.reservedPropertyNames]
 
     /**
      * Cleans the text of the label by removing extra whitespace and trimming the text.
@@ -23,17 +17,20 @@ export class GtkLabel extends Component {
 
     render() {
         const classes: string[] = this.props.class ? this.props.class.split(' ') : []
-        const escapedContent = this.escapeHtml(this.cleanText(renderSSR(this.props.children)));
+        const content = this.cleanText(renderSSR(this.props.children));
+        const propKeys = Object.keys(this.props)
         return <child>
         <object class="GtkLabel">
-            {escapedContent && <property name="label" translatable="true">{escapedContent}</property>}
-            {(this.props.useMarkup || this.props['use-markup']) && <property name="use-markup">true</property>}
-            {this.props.vexpand && <property name="vexpand">true</property>}
-            {this.props.vexpand && <property name="vexpand-set">true</property>}
-            {this.props.hexpand && <property name="hexpand">true</property>}
-            {this.props.hexpand && <property name="hexpand-set">true</property>}
-            {this.props.justify && <property name="justify">{this.props.justify}</property>}
-            {this.props.wrap && <property name="wrap">true</property>}
+            {content && <property name="label" translatable="true">{content}</property>}                    
+            {propKeys.map(property => {
+                if (GtkLabel.propertyNames.includes(property)) {
+                    return <property name={property}>{this.props[property].toString()}</property>
+                }
+                if (GtkLabel.reservedPropertyNames.includes(property)) {
+                    return null
+                }
+                throw new Error(`Unknown property: ${property}`)
+            })}
             {classes.length > 0 && <style>
                 {classes.map(className => (
                     <class name={className} key={className} />
