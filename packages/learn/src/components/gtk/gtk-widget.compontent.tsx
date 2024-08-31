@@ -12,7 +12,7 @@ export class GtkWidget extends Component {
 
     constructor(props: any) {
         super(props)
-        this.GtkTextList()
+        this.setDefaultProps()
     }
 
     public render() {
@@ -22,7 +22,7 @@ export class GtkWidget extends Component {
         </child>
     }
 
-    protected GtkTextList(): void {
+    protected setDefaultProps(): void {
         this.props = {
             ...GtkWidget.defaultProps,
             ...this.props,

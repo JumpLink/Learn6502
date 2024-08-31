@@ -1,5 +1,27 @@
 // Enums copied from @girs/gtk-4.0
 
+/**
+ * Used for justifying the text inside a [class`Label]` widget.
+ */
+export enum Justification {
+    /**
+     * The text is placed at the left edge of the label.
+     */
+    LEFT,
+    /**
+     * The text is placed at the right edge of the label.
+     */
+    RIGHT,
+    /**
+     * The text is placed in the center of the label.
+     */
+    CENTER,
+    /**
+     * The text is placed is distributed across the label.
+     */
+    FILL,
+}
+
 export enum Orientation {
     /**
      * The element is in horizontal orientation.
@@ -49,3 +71,9 @@ export enum TextListType {
     ORDERED,
     UNORDERED,
 }
+
+export enum CodeType {
+    INLINE,
+    BLOCK,
+}
+

@@ -154,8 +154,6 @@ In the simulator below **type** (don't paste) the following code:
     STA $01
     ADC $01
 
-{/* <easy6502-page-button target="editor" /> */}
-
 An important thing to notice here is the distinction between `ADC #$01` and
 `ADC $01`. The first one adds the value `$01` to the `A` register, but the
 second adds the value stored at memory location `$01` to the `A` register.
@@ -197,13 +195,13 @@ looking at `BNE`: "Branch on not equal".
 
 ```assembler
   LDX #$08
-decrement:
-  DEX
-  STX $0200
-  CPX #$03
-  BNE decrement
-  STX $0201
-  BRK
+  decrement:
+    DEX
+    STX $0200
+    CPX #$03
+    BNE decrement
+    STX $0201
+    BRK
 ```
 
 First we load the value `$08` into the `X` register. The next line is a label.

@@ -4,6 +4,11 @@ import { GtkBox } from './gtk-box.component.tsx'
 import { clearExtraSpaces, filterProperties } from '../../utils.ts'
 import { Orientation, Align, TextListType } from '../../enums/gtk.enums.ts'
 
+/**
+ * GtkTextList is a component that renders a list of items.
+ * It supports both ordered and unordered lists.
+ * Used as a replacement for <ol> and <ul> tags for Gtk.
+ */
 export class GtkTextList extends Component {
     static propertyNames = [...GtkBox.propertyNames]
 
@@ -16,7 +21,7 @@ export class GtkTextList extends Component {
 
     constructor(props: any) {
         super(props)
-        this.GtkTextList()
+        this.setDefaultProps()
     }
 
     render() {
@@ -59,7 +64,7 @@ export class GtkTextList extends Component {
         );
     }
 
-    protected GtkTextList(): void {
+    protected setDefaultProps(): void {
         this.props = {
             ...GtkTextList.defaultProps,
             ...this.props,
