@@ -1,4 +1,5 @@
 import { Component } from 'nano-jsx/esm/index.js'
+import { GtkBox } from './gtk-box.component.tsx'
 
 export class GtkRoot extends Component {
   render() {
@@ -9,14 +10,9 @@ export class GtkRoot extends Component {
       <template class={this.props.class} parent="AdwBin">
         <property name="vexpand">true</property>
         <property name="vexpand-set">true</property>
-        <child>
-          <object class="GtkBox">
-            <property name="vexpand">true</property>
-            <property name="vexpand-set">true</property>
-            <property name="orientation">1</property>
-            {this.props.children}
-          </object>
-        </child>
+        <GtkBox vexpand vexpand-set orientation="1">
+          {this.props.children}
+        </GtkBox>
       </template>
     </interface>
   }

@@ -1,8 +1,9 @@
-import { Component, renderSSR } from 'nano-jsx/esm/index.js'
+import { Component } from 'nano-jsx/esm/index.js'
 import { GtkWidget } from './gtk-widget.compontent.tsx'
+import { GtkOrientable } from './gtk-orientable.compontent.tsx'
 
-export class GtkLabel extends Component {
-    static propertyNames = [...GtkWidget.propertyNames, 'attributes', 'ellipsize', 'extra-menu', 'justify', 'label', 'lines', 'max-width-chars', 'mnemonic-keyval', 'mnemonic-widget', 'natural-wrap-mode', 'selectable', 'single-line-mode', 'tabs', 'use-markup', 'use-underline', 'width-chars', 'wrap', 'wrap-mode', 'xalign', 'yalign']
+export class GtkBox extends Component {
+    static propertyNames = [...GtkWidget.propertyNames, ...GtkOrientable.propertyNames, "baseline-child", "baseline-position", "homogeneous", "spacing"]
 
     static reservedPropertyNames = [...GtkWidget.reservedPropertyNames]
 
@@ -17,16 +18,14 @@ export class GtkLabel extends Component {
 
     render() {
         const classes: string[] = this.props.class ? this.props.class.split(' ') : []
-        const content = this.cleanText(renderSSR(this.props.children));
         const propKeys = Object.keys(this.props)
         return <child>
-        <object class="GtkLabel">
-            {content && <property name="label" translatable="true">{content}</property>}                    
+        <object class="GtkBox">                 
             {propKeys.map(property => {
-                if (GtkLabel.propertyNames.includes(property)) {
+                if (GtkBox.propertyNames.includes(property)) {
                     return <property name={property}>{this.props[property].toString()}</property>
                 }
-                if (GtkLabel.reservedPropertyNames.includes(property)) {
+                if (GtkBox.reservedPropertyNames.includes(property)) {
                     return null
                 }
                 throw new Error(`Unknown property: ${property}`)
@@ -36,6 +35,7 @@ export class GtkLabel extends Component {
                     <class name={className} key={className} />
                 ))}
             </style>}
+            {this.props.children}
         </object>
       </child>
     }
