@@ -3,10 +3,11 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 
 import { Tutorial } from './tutorial.ts'
-
+import { SourceView } from './source-view.ts'
 import Template from './learn.ui?raw'
 
 GObject.type_ensure(Tutorial.$gtype)
+GObject.type_ensure(SourceView.$gtype)
 
 export interface Learn {
   // Child widgets
