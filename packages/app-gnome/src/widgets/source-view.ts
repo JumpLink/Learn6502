@@ -34,6 +34,8 @@ export class SourceView extends Adw.Bin {
         language: GObject.ParamSpec.string('language', 'Language', 'The language of the source view', GObject.ParamFlags.READWRITE, '6502-assembler'),
         readonly: GObject.ParamSpec.boolean('readonly', 'Readonly', 'Whether the source view is readonly', GObject.ParamFlags.READWRITE, false),
         editable: GObject.ParamSpec.boolean('editable', 'Editable', 'Whether the source view is editable', GObject.ParamFlags.READWRITE, true),
+        selectable: GObject.ParamSpec.boolean('selectable', 'Focusable', 'Whether the source view is selectable', GObject.ParamFlags.READWRITE, true),
+        unselectable: GObject.ParamSpec.boolean('unselectable', 'Unselectable', 'Whether the source view is unselectable', GObject.ParamFlags.READWRITE, false),
       },
     }, this);
   }
@@ -41,7 +43,7 @@ export class SourceView extends Adw.Bin {
   /** The source code of the source view */
   public set code(value: string) {
     this.buffer.text = value;
-    this.onUpdate();
+    this.emitChanged();
   }
 
   /** The source code of the source view */
@@ -113,6 +115,55 @@ export class SourceView extends Adw.Bin {
     return this.buffer.language?.id ?? '';
   }
 
+  /**
+   * Set the selectable property of the source view
+   * 
+   * @param value - Whether the source view is selectable
+   */
+  public set selectable(value: boolean) {
+    if (this._selectable === value) {
+      return;
+    }
+    if (typeof value !== 'boolean') {
+      console.warn('selectable must be a boolean, got ' + typeof value);
+      return;
+    }
+    console.log('selectable', value);
+    this._selectable = value;
+    this.selectableChanged();
+  }
+
+  /**
+   * Get the selectable property of the source view
+   * 
+   * @returns Whether the source view is selectable
+   */
+  public get selectable(): boolean {
+    return this._selectable;
+  }
+  
+  /**
+   * Set the unselectable property of the source view
+   * 
+   * @param value - Whether the source view is unselectable
+   */
+  public set unselectable(value: boolean) {
+    this.selectable = !value;
+  }
+
+  /**
+   * Get the unselectable property of the source view
+   * 
+   * @returns Whether the source view is unselectable
+   */
+  public get unselectable(): boolean {
+    return !this.selectable;
+  }
+
+  private _selectable = true;
+
+  private _selectableSignalIds: number[] = [];
+
   /** The style scheme manager */
   private schemeManager = GtkSource.StyleSchemeManager.get_default();
 
@@ -134,14 +185,41 @@ export class SourceView extends Adw.Bin {
    */
   private setupSignalListeners() {
     // cannot use "changed" signal as it triggers many time for pasting
-    this.buffer.connect('end-user-action', this.onUpdate.bind(this));
-    this.buffer.connect('undo', this.onUpdate.bind(this));
-    this.buffer.connect('redo', this.onUpdate.bind(this));
+    this.buffer.connect('end-user-action', this.emitChanged.bind(this));
+    this.buffer.connect('undo', this.emitChanged.bind(this));
+    this.buffer.connect('redo', this.emitChanged.bind(this));
 
     this.styleManager.connect('notify::dark', this.updateStyle.bind(this));
   }
 
-  private onUpdate() {
+  private selectableChanged() {
+    console.log('selectableChanged', this._selectable);
+    // Disable text selection
+    this._sourceView.set_cursor_visible(this._selectable);
+
+    // Disconnect all existing signal handlers
+    this._selectableSignalIds.forEach(id => this.disconnect(id));
+    this._selectableSignalIds = [];
+
+    // Stop here if selectable is true
+    if (this._selectable) {
+      return;
+    }
+
+    // Prevent copy 
+    this._selectableSignalIds.push(this._sourceView.connect('copy-clipboard', () => {
+      GObject.signal_stop_emission_by_name(this._sourceView, 'copy-clipboard');
+    }));
+
+    // En-/disable selection via keyboard
+    this._selectableSignalIds.push(this.buffer.connect('cursor-moved', (buffer: GtkSource.Buffer) => {
+      GObject.signal_stop_emission_by_name(this.buffer, 'cursor-moved');
+    }));
+
+    // TODO: Prevent mouse selection
+  }
+
+  private emitChanged() {
     this.emit("changed");
   };
 

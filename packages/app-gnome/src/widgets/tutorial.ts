@@ -1,6 +1,5 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
-import Gtk from '@girs/gtk-4.0'
 
 import Template from '@easy6502/learn/dist/tutorial.ui?raw'
 
