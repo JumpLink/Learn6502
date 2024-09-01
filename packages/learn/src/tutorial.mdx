@@ -51,7 +51,7 @@ So, let's dive in! That thing below is a little [JavaScript 6502 assembler and
 simulator](https://github.com/skilldrick/6502js) that I adapted for this book.
 Click **Assemble** then **Run** to assemble and run the snippet of assembly language.
 
-```assembler
+```6502-assembler
 LDA #$01
 STA $0200
 LDA #$05
@@ -129,7 +129,7 @@ Instructions in assembly language are like a small set of predefined functions.
 All instructions take zero or one arguments. Here's some annotated
 source code to introduce a few different instructions:
 
-```assembler
+```6502-assembler
 LDA #$c0  ;Load the hex value $c0 into the A register
 TAX       ;Transfer the value in the A register to X
 INX       ;Increment the value in the X register
@@ -150,9 +150,11 @@ know.
 
 In the simulator below **type** (don't paste) the following code:
 
+```6502-assembler:readonly
     LDA #$80
     STA $01
     ADC $01
+```
 
 An important thing to notice here is the distinction between `ADC #$01` and
 `ADC $01`. The first one adds the value `$01` to the `A` register, but the
@@ -193,7 +195,7 @@ Let's change that.
 branch based on whether certain flags are set or not. In this example we'll be
 looking at `BNE`: "Branch on not equal".
 
-```assembler
+```6502-assembler
   LDX #$08
   decrement:
     DEX
@@ -301,7 +303,7 @@ a single byte, which is used as an offset from the following instruction.
 
 Assemble the following code, then click the **Hexdump** button to see the assembled code.
 
-```assembler
+```6502-assembler
   LDA #$01
   CMP #$02
   BNE notequal
@@ -336,7 +338,7 @@ first address gives the least significant byte of the address, and the
 following byte gives the most significant byte. That can be hard to wrap your
 head around, so here's an example:
 
-```assembler
+```6502-assembler
 LDA #$01
 STA $f0
 LDA #$cc
@@ -357,7 +359,7 @@ This one's kinda weird. It's like a cross between zero page,X and indirect.
 Basically, you take the zero page address, add the value of the `X` register to
 it, then use that to look up a two-byte address. For example:
 
-```assembler
+```6502-assembler
 LDX #$01
 LDA #$05
 STA $01
@@ -384,7 +386,7 @@ Indirect indexed is like indexed indirect but less insane. Instead of adding
 the `X` register to the address *before* dereferencing, the zero page address
 is dereferenced, and the `Y` register is added to the resulting address.
 
-```assembler
+```6502-assembler
 LDY #$01
 LDA #$03
 STA $01
@@ -417,7 +419,7 @@ stack pointer becomes `$fe`, or memory location `$01fe`, and so on.
 Two of the stack instructions are `PHA` and `PLA`, "push accumulator" and "pull
 accumulator". Below is an example of these two in action.
 
-```assembler
+```6502-assembler
   LDX #$00
   LDY #$00
 firstloop:
@@ -456,7 +458,7 @@ section of the code to another.
 
 `JMP` is an unconditional jump. Here's a really simple example to show it in action:
 
-```assembler
+```6502-assembler
   LDA #$03
   JMP there
   BRK
@@ -479,7 +481,7 @@ one of the next instruction onto the stack before jumping to the given
 location. `RTS` pops this location, adds one to it, and jumps to that location.
 An example:
 
-```assembler
+```6502-assembler
   JSR init
   JSR loop
   JSR end
@@ -525,7 +527,7 @@ You can use letters, digits and underscores in a name.
 
 Here's an example. Note that immediate operands are still prefixed with a `#`.
 
-```assembler
+```6502-assembler
   define  sysRandom  $fe ; an address
   define  a_dozen    $0c ; a constant
  
@@ -541,7 +543,7 @@ explain how it works in the following sections.
 of this source code](https://gist.github.com/wkjagt/9043907), so follow along
 with that for more details.
 
-```assembler
+```6502-assembler
   {SnakeExample}
 ```
 

@@ -31,21 +31,86 @@ export class SourceView extends Adw.Bin {
       },
       Properties: {
         code: GObject.ParamSpec.string('code', 'Code', 'The source code of the source view', GObject.ParamFlags.READWRITE, ''),
+        language: GObject.ParamSpec.string('language', 'Language', 'The language of the source view', GObject.ParamFlags.READWRITE, '6502-assembler'),
+        readonly: GObject.ParamSpec.boolean('readonly', 'Readonly', 'Whether the source view is readonly', GObject.ParamFlags.READWRITE, false),
+        editable: GObject.ParamSpec.boolean('editable', 'Editable', 'Whether the source view is editable', GObject.ParamFlags.READWRITE, true),
       },
     }, this);
   }
 
+  /** The source code of the source view */
   public set code(value: string) {
     this.buffer.text = value;
     this.onUpdate();
   }
 
+  /** The source code of the source view */
   public get code(): string {
     return this.buffer.text;
   }
 
+  /** The buffer of the source view */
   public get buffer(): GtkSource.Buffer {
     return this._sourceView.buffer as GtkSource.Buffer;
+  }
+
+  /**
+   * Set the readonly property of the source view
+   * 
+   * @param value - Whether the source view is readonly
+   */
+  public set readonly(value: boolean) {
+    this.editable = !value;
+  }
+
+  /**
+   * Get the readonly property of the source view
+   * 
+   * @returns Whether the source view is readonly
+   */
+  public get readonly(): boolean {
+    return !this.editable;
+  }
+
+  /**
+   * Set the editable property of the source view
+   * 
+   * @param value - Whether the source view is editable
+   */
+  public set editable(value: boolean) {
+    this._sourceView.set_editable(value);
+  }
+
+  /**
+   * Get the editable property of the source view
+   * 
+   * @returns Whether the source view is editable
+   */
+  public get editable(): boolean {
+    return this._sourceView.editable;
+  }
+
+  /**
+   * Set the language of the source view
+   * 
+   * @param language - The language of the source view, e.g. '6502-assembler'
+   */
+  public set language(language: string) {
+    const languageManager = GtkSource.LanguageManager.get_default();
+    const assemblyLanguage = languageManager.get_language(language);
+    if (!assemblyLanguage) {
+      throw new Error(`Language "${language}" not found`)
+    }
+    this.buffer.set_language(assemblyLanguage);
+  }
+
+  /**
+   * Get the language of the source view
+   * 
+   * @returns The language of the source view, e.g. '6502-assembler'
+   */
+  public get language(): string {
+    return this.buffer.language?.id ?? '';
   }
 
   /** The style scheme manager */
@@ -56,21 +121,17 @@ export class SourceView extends Adw.Bin {
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
-    this.setupLanguage();
+    this.language = '6502-assembler';
     this.setupSignalListeners();
     this.updateStyle();
     this.code = 'LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202'
   }
 
-  private setupLanguage() {
-    const languageManager = GtkSource.LanguageManager.get_default();
-    const assemblyLanguage = languageManager.get_language('6502-assembler');
-    if (!assemblyLanguage) {
-      throw new Error('Assembly language not found')
-    }
-    this.buffer.set_language(assemblyLanguage);
-  }
-
+  /**
+   * Setup signal listeners
+   * 
+   * @emits changed - Emitted when the buffer's text changes
+   */
   private setupSignalListeners() {
     // cannot use "changed" signal as it triggers many time for pasting
     this.buffer.connect('end-user-action', this.onUpdate.bind(this));
@@ -84,6 +145,10 @@ export class SourceView extends Adw.Bin {
     this.emit("changed");
   };
 
+  /**
+   * Update the style of the source view.
+   * Used internally to update the style of the source view when the theme changes.
+   */
   private updateStyle() {
     const scheme = this.schemeManager.get_scheme(
       this.styleManager.dark ? "Adwaita-dark" : "Adwaita",
