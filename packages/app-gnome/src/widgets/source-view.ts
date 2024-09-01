@@ -2,7 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import GtkSource from '@girs/gtksource-5'
-
+import Gdk from '@girs/gdk-4.0'
 import Template from './source-view.ui?raw'
 
 export interface SourceView {
@@ -194,29 +194,35 @@ export class SourceView extends Adw.Bin {
 
   private selectableChanged() {
     console.log('selectableChanged', this._selectable);
-    // Disable text selection
-    this._sourceView.set_cursor_visible(this._selectable);
 
     // Disconnect all existing signal handlers
     this._selectableSignalIds.forEach(id => this.disconnect(id));
     this._selectableSignalIds = [];
 
-    // Stop here if selectable is true
-    if (this._selectable) {
+    // Enable/disable text cursor
+    this._sourceView.cursor_visible = this._selectable;
+
+    // Stop here if selection is allowed
+    if(this._selectable) {
       return;
     }
 
-    // Prevent copy 
-    this._selectableSignalIds.push(this._sourceView.connect('copy-clipboard', () => {
-      GObject.signal_stop_emission_by_name(this._sourceView, 'copy-clipboard');
+    // Prevent selection by double click
+    this._selectableSignalIds.push(this._sourceView.connect('extend-selection', (sourceView: GtkSource.View, granularity: Gtk.TextExtendSelection, location: Gtk.TextIter, start: Gtk.TextIter, end: Gtk.TextIter) => {
+      GObject.signal_stop_emission_by_name(this._sourceView, 'extend-selection');
     }));
 
-    // En-/disable selection via keyboard
-    this._selectableSignalIds.push(this.buffer.connect('cursor-moved', (buffer: GtkSource.Buffer) => {
-      GObject.signal_stop_emission_by_name(this.buffer, 'cursor-moved');
+    // Prevent selection
+    this._selectableSignalIds.push(this.buffer.connect('mark-set', (buffer: GtkSource.Buffer, location: Gtk.TextIter, mark: Gtk.TextMark) => {
+      if(mark.name === 'insert' || mark.name === 'selection_bound') {
+        const offset = location.get_offset();
+        if(offset !== 0) {
+          location.set_offset(0);
+          this.buffer.move_mark(mark, location);
+          GObject.signal_stop_emission_by_name(this.buffer, 'mark-set');
+        }
+      }
     }));
-
-    // TODO: Prevent mouse selection
   }
 
   private emitChanged() {
