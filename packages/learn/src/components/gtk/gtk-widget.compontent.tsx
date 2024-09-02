@@ -1,6 +1,6 @@
 import { Component } from 'nano-jsx/esm/index.js'
 
-export class GtkWidget extends Component {
+export class GtkWidget<P extends Object = any, S = any> extends Component<P, S> {
 
     static propertyNames = ["can-focus", "can-target", "css-classes", "css-name", "cursor", "focus-on-click", "focusable", "halign", "has-default", "has-focus", "has-tooltip", "height-request", "hexpand", "hexpand-set", "layout-manager", "margin-bottom", "margin-end", "margin-start", "margin-top", "name", "opacity", "overflow", "parent", "receives-default", "root", "scale-factor", "sensitive", "tooltip-markup", "tooltip-text", "valign", "vexpand", "vexpand-set", "visible", "width-request"]
 
@@ -10,7 +10,7 @@ export class GtkWidget extends Component {
         // TODO: Implement default props
     }
 
-    constructor(props: any) {
+    constructor(props: P) {
         super(props)
         this.setDefaultProps()
     }

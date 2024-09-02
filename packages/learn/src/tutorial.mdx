@@ -1,11 +1,9 @@
 # Tutorial
 by [Nick Morgan](https://www.skilldrick.co.uk/), licensed under CC BY 4.0
 
-import SnakeExample from './examples/snake.asm'
-
 ## Introduction
 
-In this tiny ebook I'm going to show you how to get started writing 6502
+In this tiny tutorial I'm going to show you how to get started writing 6502
 assembly language. The 6502 processor was massive in the seventies and
 eighties, powering famous computers like the
 [BBC Micro](http://en.wikipedia.org/wiki/BBC_Micro),
@@ -48,8 +46,8 @@ leave it to them. Plus, 6502 is *fun*. Nobody ever called x86 *fun*.
 ## Our first program
 
 So, let's dive in! That thing below is a little [JavaScript 6502 assembler and
-simulator](https://github.com/skilldrick/6502js) that I adapted for this book.
-Click **Assemble** then **Run** to assemble and run the snippet of assembly language.
+simulator](https://github.com/skilldrick/6502js) that I adapted for this interactive tutorial.
+Click the **Copy to editor** button to copy the code to the code editor and assemble and run the snippet of assembly language.
 
 ```6502-assembler
 LDA #$01
@@ -60,9 +58,8 @@ LDA #$08
 STA $0202
 ```
 
-Hopefully the black area on the right now has three coloured "pixels" at the
-top left. (If this doesn't work, you'll probably need to upgrade your browser to
-something more modern, like Chrome or Firefox.)
+The black game console screen now should show three coloured "pixels" at the
+top left.
 
 So, what's this program actually doing? Let's step through it with the
 debugger. Hit **Reset**, then check the **Debugger** checkbox to start the
@@ -543,8 +540,8 @@ explain how it works in the following sections.
 of this source code](https://gist.github.com/wkjagt/9043907), so follow along
 with that for more details.
 
-```6502-assembler
-  {SnakeExample}
+```6502-assembler:example-snake
+; This content will be replaced with the snake example
 ```
 
 ### Overall structure ###
