@@ -1,4 +1,4 @@
-import { Simulator, Memory, addr2hex, num2hex, type DebuggerOptions, DebuggerState, type Debugger as DebuggerInterface } from '@easy6502/6502';
+import { Simulator, Memory, addr2hex, num2hex, type DebuggerOptions, DebuggerState, type Debugger as DebuggerInterface, throttle } from '@easy6502/6502';
 
 export class Debugger implements DebuggerInterface {
 
@@ -58,28 +58,22 @@ export class Debugger implements DebuggerInterface {
     this.simulator.on('step', () => {
       // If stepper is enabled, update the debug info and the monitor every step
       if (this.simulator.stepperEnabled) {
-        this.updateDebugInfo(this.simulator);
-        this.updateMonitor(this.memory);
+        this.update(this.memory, this.simulator);
       }
     });
 
     this.simulator.on('multistep', () => {
-      this.updateDebugInfo(this.simulator);
-      this.updateMonitor(this.memory);
+      this.update(this.memory, this.simulator);
     });
 
     this.simulator.on('reset', () => {
-      this.updateDebugInfo(this.simulator);
-      this.updateMonitor(this.memory);
+      this.update(this.memory, this.simulator);
     });
-
     this.simulator.on('goto', () => {
-      this.updateDebugInfo(this.simulator);
-      this.updateMonitor(this.memory);
+      this.update(this.memory, this.simulator);
     });
 
-    this.updateDebugInfo(this.simulator);
-    this.updateMonitor(this.memory);
+    this.update(this.memory, this.simulator);
   }
 
   public updateMonitor(memory: Memory) {
@@ -123,10 +117,18 @@ export class Debugger implements DebuggerInterface {
     }
   }
 
-  public update(memory: Memory, simulator: Simulator) {
+  #update(memory: Memory, simulator: Simulator) {
     this.updateMonitor(memory);
     this.updateDebugInfo(simulator);
   }
+
+  /**
+   * Update the debugger.
+   * @note This is throttled to 349ms to prevent excessive CPU usage.
+   * @param memory - The memory to update the hex monitor.
+   * @param simulator - The simulator to update the debug info.
+   */
+  public update = throttle(this.#update.bind(this), 349); // Prime number
 
   public reset() {
     this.state = DebuggerState.RESET;

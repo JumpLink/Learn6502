@@ -148,6 +148,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._debugger.log(signal.message);
       }
 
+      // If stepper is enabled, update the debug info and the monitor every step
       if (this._gameConsole.simulator.stepperEnabled) {
         this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
       }

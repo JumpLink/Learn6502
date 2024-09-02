@@ -8,7 +8,7 @@ import { DebugInfo } from './debug-info.ts'
 
 import Template from './debugger.ui?raw'
 
-import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, type DebuggerOptions } from '@easy6502/6502'
+import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, type DebuggerOptions, throttle } from '@easy6502/6502'
 
 GObject.type_ensure(MessageConsole.$gtype)
 GObject.type_ensure(HexMonitor.$gtype)
@@ -78,10 +78,18 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     this._messageConsole.log(message);
   }
 
-  public update(memory: Memory, simulator: Simulator): void {
+  #update(memory: Memory, simulator: Simulator): void {
     this.updateMonitor(memory);
     this.updateDebugInfo(simulator);
   }
+
+  /**
+   * Update the debugger.
+   * @note This is throttled to 349ms to prevent excessive CPU usage.
+   * @param memory - The memory to update the hex monitor.
+   * @param simulator - The simulator to update the debug info.
+   */
+  public update = throttle(this.#update.bind(this), 349); // Prime number
 
   public updateMonitor(memory: Memory): void {
     this._hexMonitor.update(memory);
