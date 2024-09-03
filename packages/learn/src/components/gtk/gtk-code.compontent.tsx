@@ -78,7 +78,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
      * @returns The parsed attributes.
      */
     protected parseAttributes(props: GtkCodeProps): { language: string, readonly: boolean, unselectable: boolean, code: string } {
-      let language = props.language || '6502-assembler'
+      let language = props.language || ''
       let readonly = props.readonly || false
       let unselectable = props.unselectable || false
       // E.g. language-6502-assembler:readonly
@@ -96,6 +96,11 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
         }
       }
       const [langString, ...modifiers] = this.props.className.split(separator)
+
+      if(langString.startsWith(languagePrefix)) {
+        language = langString.slice(languagePrefix.length)
+      }
+
       if(modifiers.includes('readonly')) {
         readonly = true
       }

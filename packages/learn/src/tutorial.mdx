@@ -148,9 +148,9 @@ know.
 In the simulator below **type** (don't paste) the following code:
 
 ```6502-assembler:readonly:unselectable
-    LDA #$80
-    STA $01
-    ADC $01
+LDA #$80
+STA $01
+ADC $01
 ```
 
 An important thing to notice here is the distinction between `ADC #$01` and
@@ -193,14 +193,14 @@ branch based on whether certain flags are set or not. In this example we'll be
 looking at `BNE`: "Branch on not equal".
 
 ```6502-assembler
-  LDX #$08
-  decrement:
-    DEX
-    STX $0200
-    CPX #$03
-    BNE decrement
-    STX $0201
-    BRK
+LDX #$08
+decrement:
+  DEX
+  STX $0200
+  CPX #$03
+  BNE decrement
+  STX $0201
+  BRK
 ```
 
 First we load the value `$08` into the `X` register. The next line is a label.
@@ -261,16 +261,20 @@ and takes up less space in the assembled code as well.
 
 This is where addressing gets interesting. In this mode, a zero page address is given, and then the value of the `X` register is added. Here is an example:
 
-    LDX #$01   ;X is $01
-    LDA #$aa   ;A is $aa
-    STA $a0,X ;Store the value of A at memory location $a1
-    INX        ;Increment X
-    STA $a0,X ;Store the value of A at memory location $a2
+```6502-assembler:readonly
+LDX #$01   ;X is $01
+LDA #$aa   ;A is $aa
+STA $a0,X ;Store the value of A at memory location $a1
+INX        ;Increment X
+STA $a0,X ;Store the value of A at memory location $a2
+```
 
 If the result of the addition is larger than a single byte, the address wraps around. For example:
 
-    LDX #$05
-    STA $ff,X ;Store the value of A at memory location $04
+```6502-assembler:readonly
+LDX #$05
+STA $ff,X ;Store the value of A at memory location $04
+```
 
 ### Zero page,Y: `$c0,Y` ###
 
@@ -280,8 +284,10 @@ This is the equivalent of zero page,X, but can only be used with `LDX` and `STX`
 
 These are the absolute addressing versions of zero page,X and zero page,Y. For example:
 
-    LDX #$01
-    STA $0200,X ;Store the value of A at memory location $0201
+```6502-assembler:readonly
+LDX #$01
+STA $0200,X ;Store the value of A at memory location $0201
+```
 
 Unlike zero page,Y, absolute,Y can't be used with `STX` but can be used with `LDA` and `STA`.
 
@@ -301,17 +307,19 @@ a single byte, which is used as an offset from the following instruction.
 Assemble the following code, then click the **Hexdump** button to see the assembled code.
 
 ```6502-assembler
-  LDA #$01
-  CMP #$02
-  BNE notequal
-  STA $22
+LDA #$01
+CMP #$02
+BNE notequal
+STA $22
 notequal:
   BRK
 ```
 
 The hex should look something like this:
 
-    a9 01 c9 02 d0 02 85 22 00
+```hex
+a9 01 c9 02 d0 02 85 22 00
+```
 
 `a9` and `c9` are the processor opcodes for immediate-addressed `LDA` and `CMP`
 respectively. `01` and `02` are the arguments to these instructions. `d0` is
@@ -417,8 +425,8 @@ Two of the stack instructions are `PHA` and `PLA`, "push accumulator" and "pull
 accumulator". Below is an example of these two in action.
 
 ```6502-assembler
-  LDX #$00
-  LDY #$00
+LDX #$00
+LDY #$00
 firstloop:
   TXA
   STA $0200,Y
@@ -456,11 +464,11 @@ section of the code to another.
 `JMP` is an unconditional jump. Here's a really simple example to show it in action:
 
 ```6502-assembler
-  LDA #$03
-  JMP there
-  BRK
-  BRK
-  BRK
+LDA #$03
+JMP there
+BRK
+BRK
+BRK
 there:
   STA $0200
 ```
@@ -479,9 +487,9 @@ location. `RTS` pops this location, adds one to it, and jumps to that location.
 An example:
 
 ```6502-assembler
-  JSR init
-  JSR loop
-  JSR end
+JSR init
+JSR loop
+JSR end
 
 init:
   LDX #$00
@@ -549,8 +557,10 @@ with that for more details.
 After the initial block of comments (lines starting with semicolons), the first
 two lines are:
 
-    jsr init
-    jsr loop
+```6502-assembler:readonly
+jsr init
+jsr loop
+```
 
 `init` and `loop` are both subroutines. `init` initializes the game state, and
 `loop` is the main game loop.
@@ -558,14 +568,16 @@ two lines are:
 The `loop` subroutine itself just calls a number of subroutines sequentially,
 before looping back on itself:
 
-    loop:
-      jsr readkeys
-      jsr checkCollision
-      jsr updateSnake
-      jsr drawApple
-      jsr drawSnake
-      jsr spinwheels
-      jmp loop
+```6502-assembler:readonly
+loop:
+  jsr readkeys
+  jsr checkCollision
+  jsr updateSnake
+  jsr drawApple
+  jsr drawSnake
+  jsr spinwheels
+  jmp loop
+```
 
 First, `readkeys` checks to see if one of the direction keys (W, A, S, D) was
 pressed, and if so, sets the direction of the snake accordingly. Then,
@@ -607,22 +619,26 @@ location of the single body segment, and `$14` contains the location of the
 tail (the tail is the last segment of the body and is drawn in black to keep
 the snake moving). This happens in the following code:
 
-    lda #$11
-    sta $10
-    lda #$10
-    sta $12
-    lda #$0f
-    sta $14
-    lda #$04
-    sta $11
-    sta $13
-    sta $15
+```6502-assembler:readonly
+lda #$11
+sta $10
+lda #$10
+sta $12
+lda #$0f
+sta $14
+lda #$04
+sta $11
+sta $13
+sta $15
+```
 
 This loads the value `$11` into the memory location `$10`, the value `$10` into
 `$12`, and `$0f` into `$14`. It then loads the value `$04` into `$11`, `$13`
 and `$15`. This leads to memory like this:
 
-    0010: 11 04 10 04 0f 04
+```hex
+0010: 11 04 10 04 0f 04
+```
 
 which represents the indirectly-addressed memory locations `$0411`, `$0410` and
 `$040f` (three pixels in the middle of the display). I'm labouring this point,
@@ -674,10 +690,12 @@ As stated before, the four directions are represented internally by the numbers
 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented
 by a binary number with a single `1`:
 
-    1 => 0001 (up)
-    2 => 0010 (right)
-    4 => 0100 (down)
-    8 => 1000 (left)
+```
+1 => 0001 (up)
+2 => 0010 (right)
+4 => 0100 (down)
+8 => 1000 (left)
+```
 
 The `BIT` opcode is similar to `AND`, but the calculation is only used to set
 the zero flag - the actual result is discarded. The zero flag is set only if the
@@ -709,28 +727,32 @@ the head is out of bounds, handle it as a collision. I'll illustrate this with
 some ascii art. Each pair of brackets contains an x,y coordinate rather than a
 pair of bytes for simplicity.
 
-      0    1    2    3    4
-    Head                 Tail
-    
-    [1,5][1,4][1,3][1,2][2,2]    Starting position
+```
+  0    1    2    3    4
+Head                 Tail
 
-    [1,5][1,4][1,3][1,2][1,2]    Value of (3) is copied into (4)
-    
-    [1,5][1,4][1,3][1,3][1,2]    Value of (2) is copied into (3)
-    
-    [1,5][1,4][1,4][1,3][1,2]    Value of (1) is copied into (2)
-    
-    [1,5][1,5][1,4][1,3][1,2]    Value of (0) is copied into (1)
-    
-    [0,5][1,5][1,4][1,3][1,2]    Value of (0) is updated based on direction
+[1,5][1,4][1,3][1,2][2,2]    Starting position
+
+[1,5][1,4][1,3][1,2][1,2]    Value of (3) is copied into (4)
+
+[1,5][1,4][1,3][1,3][1,2]    Value of (2) is copied into (3)
+
+[1,5][1,4][1,4][1,3][1,2]    Value of (1) is copied into (2)
+
+[1,5][1,5][1,4][1,3][1,2]    Value of (0) is copied into (1)
+
+[0,5][1,5][1,4][1,3][1,2]    Value of (0) is updated based on direction
+```
 
 At a low level, this subroutine is slightly more complex. First, the length is
 loaded into the `X` register, which is then decremented. The snippet below
 shows the starting memory for the snake.
 
-    Memory location: $10 $11 $12 $13 $14 $15
+```
+Memory location: $10 $11 $12 $13 $14 $15
 
-    Value:           $11 $04 $10 $04 $0f $04
+Value:           $11 $04 $10 $04 $0f $04
+```
 
 The length is initialized to `4`, so `X` starts off as `3`. `LDA $10,x` loads the
 value of `$13` into `A`, then `STA $12,x` stores this value into `$15`. `X` is
@@ -777,11 +799,13 @@ is done using a bit check against the mask `$1f`. Hopefully the illustration
 below will show you how masking out the lowest 5 bits reveals whether a number
 is a multiple of `$20` or not.
 
-    $20: 0010 0000
-    $40: 0100 0000
-    $60: 0110 0000
+```
+$20: 0010 0000
+$40: 0100 0000
+$60: 0110 0000
 
-    $1f: 0001 1111
+$1f: 0001 1111
+```
 
 I won't explain in depth how each of the directions work, but the above
 explanation should give you enough to work it out with a bit of study.

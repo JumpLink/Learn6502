@@ -31,7 +31,7 @@ export class SourceView extends Adw.Bin {
       },
       Properties: {
         code: GObject.ParamSpec.string('code', 'Code', 'The source code of the source view', GObject.ParamFlags.READWRITE, ''),
-        language: GObject.ParamSpec.string('language', 'Language', 'The language of the source view', GObject.ParamFlags.READWRITE, '6502-assembler'),
+        language: GObject.ParamSpec.string('language', 'Language', 'The language of the source view', GObject.ParamFlags.READWRITE, ''),
         readonly: GObject.ParamSpec.boolean('readonly', 'Readonly', 'Whether the source view is readonly', GObject.ParamFlags.READWRITE, false),
         editable: GObject.ParamSpec.boolean('editable', 'Editable', 'Whether the source view is editable', GObject.ParamFlags.READWRITE, true),
         selectable: GObject.ParamSpec.boolean('selectable', 'Focusable', 'Whether the source view is selectable', GObject.ParamFlags.READWRITE, true),
@@ -98,6 +98,10 @@ export class SourceView extends Adw.Bin {
    * @param language - The language of the source view, e.g. '6502-assembler'
    */
   public set language(language: string) {
+    if(language === '') {
+      this.buffer.set_language(null);
+      return;
+    }
     const languageManager = GtkSource.LanguageManager.get_default();
     const assemblyLanguage = languageManager.get_language(language);
     if (!assemblyLanguage) {

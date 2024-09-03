@@ -47,15 +47,17 @@ export class GtkTextList extends Component {
                             <GtkLabel
                                 use-markup
                                 wrap
-                                xalign={Align.FILL}
+                                xalign={0}
                                 valign={Align.START}
                                 label={`${this.props.type === TextListType.ORDERED ? item.index + '.' : '•'} `}
                             />
                             <GtkLabel
                                 use-markup
                                 wrap
-                                xalign={Align.FILL}
-                                valign={Align.START}
+                                hexpand-set
+                                hexpand
+                                xalign={0}
+                                halign={Align.FILL}
                                 label={item.content}
                             />
                          </GtkBox>
