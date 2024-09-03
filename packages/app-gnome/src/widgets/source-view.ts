@@ -5,6 +5,8 @@ import GtkSource from '@girs/gtksource-5'
 import Gdk from '@girs/gdk-4.0'
 import Template from './source-view.ui?raw'
 
+import { GutterRendererAddress } from '../gutter-renderer-address.ts'
+
 export interface SourceView {
   /** The SourceView that displays the buffer's display */
   _sourceView: GtkSource.View
@@ -108,6 +110,11 @@ export class SourceView extends Adw.Bin {
       throw new Error(`Language "${language}" not found`)
     }
     this.buffer.set_language(assemblyLanguage);
+    if(language === 'hex') {
+      this.setupHexLanguage();
+    } else {
+      this.disconnectHexLanguage();
+    }
   }
 
   /**
@@ -174,11 +181,21 @@ export class SourceView extends Adw.Bin {
   /** The style manager */
   private styleManager = Adw.StyleManager.get_default();
 
+  /** The gutter for the left side */
+  private leftGutter: GtkSource.Gutter;
+
+  /** The renderer for custom line numbers, used for the hex monitor to display the address instead of line numbers */
+  private renderer?: GutterRendererAddress;
+
+  private copyClipboardSignalId?: number;
+
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
     this.language = '6502-assembler';
     this.setupSignalListeners();
     this.updateStyle();
+    // Get the existing gutter for the left side
+    this.leftGutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
     this.code = 'LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202'
   }
 
@@ -193,12 +210,84 @@ export class SourceView extends Adw.Bin {
     this.buffer.connect('undo', this.emitChanged.bind(this));
     this.buffer.connect('redo', this.emitChanged.bind(this));
 
+    this.buffer.connect_after('cursor-moved', this.onCursorMoved.bind(this));
+
     this.styleManager.connect('notify::dark', this.updateStyle.bind(this));
   }
 
-  private selectableChanged() {
-    console.log('selectableChanged', this._selectable);
+  private onCursorMoved(buffer: GtkSource.Buffer) {
+    // Redraw the gutter to update the line number highlight
+    this.leftGutter.queue_draw();
+    this.renderer?.queue_draw();
+  }
 
+  private setupHexLanguage() {
+    this.setupHexAddressLineNumbers();
+    this.copyClipboardSignalId = this._sourceView.connect_after('copy-clipboard', this.onCopyHexClipboard.bind(this));
+    this._sourceView.highlight_current_line = true;
+  }
+
+  private disconnectHexLanguage() {
+    if(this.copyClipboardSignalId) {
+      this._sourceView.disconnect(this.copyClipboardSignalId);
+    }
+    if(this.renderer) {
+      this.leftGutter.remove(this.renderer);
+    }
+    this._sourceView.highlight_current_line = false;
+  }
+
+  private setupHexAddressLineNumbers(): void {
+    // Hide the default line numbers
+    this._sourceView.show_line_numbers = false;
+
+    // Add custom line numbers renderer
+    this.renderer = new GutterRendererAddress({
+      margin_start: 12,
+      margin_end: 12,
+      width_request: 36,
+      focus_on_click: true,
+      focusable: true,
+    });
+
+    // Insert the custom line numbers renderer
+    this.leftGutter.insert(this.renderer, 0);
+  }
+
+  /**
+   * Copy the selected text to the "strg+c" clipboard without spaces
+   * @returns 
+   */
+  private onCopyHexClipboard() {
+    const buffer = this._sourceView.buffer
+    const [hasSelection, start, end] = buffer.get_selection_bounds()
+
+    if (hasSelection) {
+      const text = buffer.get_text(start, end, false)
+      const cleanedText = text.replace(/\s/g, '')
+
+      const display = this.get_display(); // Gdk.Display.get_default(); 
+      if (!display) {
+        console.error('No display found')
+        return false;
+      }
+      const clipboard = display.get_clipboard();
+
+      const value = new GObject.Value();
+      value.init(GObject.TYPE_STRING);
+      value.set_string(cleanedText);
+
+      const contentProvider = Gdk.ContentProvider.new_for_value(value)
+      const success = clipboard.set_content(contentProvider)
+      console.log(`Copy to clipboard: ${success ? 'success' : 'failed'}`)
+
+      return true;
+    }
+
+    return false
+  }
+
+  private selectableChanged() {
     // Disconnect all existing signal handlers
     this._selectableSignalIds.forEach(id => this.disconnect(id));
     this._selectableSignalIds = [];

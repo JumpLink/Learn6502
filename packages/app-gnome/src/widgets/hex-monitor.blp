@@ -7,19 +7,9 @@ template $HexMonitor: Adw.Bin {
     height-request: 200;
     vexpand: true;
     has-frame: false;
-    GtkSource.View sourceView {
+    $SourceView sourceView {
       editable: false;
-      hexpand: true;
-      hexpand-set: true;
-      wrap-mode: none;
-      auto-indent: true;
-      indent-width: 4;
-      bottom-margin: 12;
-      left-margin: 12;
-      right-margin: 12;
-      top-margin: 12;
-      monospace: true;
-      highlight-current-line: true;
+      language: 'hex';
     }
   }
 }
