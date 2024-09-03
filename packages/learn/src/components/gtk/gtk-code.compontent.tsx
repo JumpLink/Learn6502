@@ -17,6 +17,10 @@ interface GtkCodeProps extends Object {
    */
   type: CodeType
   /**
+   * The code to display.
+   */
+  code?: string
+  /**
    * The class name to use for the code.
    * @example language-6502-assembler:readonly
    */
@@ -33,6 +37,14 @@ interface GtkCodeProps extends Object {
    * The language of the code.
    */
   language?: string
+  /**
+   * The line numbers to display.
+   */
+  lineNumbers?: boolean
+  /**
+   * Whether to hide the line numbers.
+   */
+  noLineNumbers?: boolean
 }
 
 export class GtkCode extends GtkWidget<GtkCodeProps> {
@@ -51,7 +63,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     }
 
     render() {
-      let { language, readonly, unselectable, code } = this.parseAttributes(this.props)
+      let { language, readonly, unselectable, code, lineNumbers, noLineNumbers } = this.parseAttributes(this.props)
       // Use the custom editor widget for block code
       if (this.props.type === CodeType.BLOCK) {
         return <child>
@@ -60,6 +72,8 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
             <property name="language">{language}</property>
             <property name="readonly">{readonly.toString()}</property>
             <property name="unselectable">{unselectable.toString()}</property>
+            <property name="line-numbers">{lineNumbers.toString()}</property>
+            <property name="no-line-numbers">{noLineNumbers.toString()}</property>
           </object>
         </child>
       }
@@ -77,10 +91,12 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
      * @param props The props of the code component.
      * @returns The parsed attributes.
      */
-    protected parseAttributes(props: GtkCodeProps): { language: string, readonly: boolean, unselectable: boolean, code: string } {
+    protected parseAttributes(props: GtkCodeProps): Partial<GtkCodeProps> {
       let language = props.language || ''
       let readonly = props.readonly || false
       let unselectable = props.unselectable || false
+      let noLineNumbers = props.noLineNumbers || false
+      let lineNumbers = props.lineNumbers || !noLineNumbers
       // E.g. language-6502-assembler:readonly
       const separator = ':'
       const languagePrefix = 'language-'
@@ -92,6 +108,8 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
           language,
           readonly,
           unselectable,
+          lineNumbers,
+          noLineNumbers,
           code
         }
       }
@@ -107,6 +125,12 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       if(modifiers.includes('unselectable')) {
         unselectable = true
       }
+      if(modifiers.includes('no-line-numbers')) {
+        noLineNumbers = true
+      }
+      if(modifiers.includes('line-numbers')) {
+        lineNumbers = true
+      }
       const exampleModifier = modifiers.find(modifier => modifier.startsWith(examplePrefix))
       if(exampleModifier) {
         const exampleName = exampleModifier.slice(examplePrefix.length)
@@ -116,7 +140,9 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
         language,
         readonly,
         unselectable,
-        code
+        code,
+        lineNumbers,
+        noLineNumbers
       }
     }
 

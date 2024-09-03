@@ -317,7 +317,7 @@ notequal:
 
 The hex should look something like this:
 
-```hex
+```hex:readonly
 a9 01 c9 02 d0 02 85 22 00
 ```
 
@@ -636,7 +636,7 @@ This loads the value `$11` into the memory location `$10`, the value `$10` into
 `$12`, and `$0f` into `$14`. It then loads the value `$04` into `$11`, `$13`
 and `$15`. This leads to memory like this:
 
-```hex
+```hex:readonly
 0010: 11 04 10 04 0f 04
 ```
 
@@ -690,7 +690,7 @@ As stated before, the four directions are represented internally by the numbers
 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented
 by a binary number with a single `1`:
 
-```
+```:readonly:no-line-numbers
 1 => 0001 (up)
 2 => 0010 (right)
 4 => 0100 (down)
@@ -727,7 +727,7 @@ the head is out of bounds, handle it as a collision. I'll illustrate this with
 some ascii art. Each pair of brackets contains an x,y coordinate rather than a
 pair of bytes for simplicity.
 
-```
+```:readonly:no-line-numbers
   0    1    2    3    4
 Head                 Tail
 
@@ -748,7 +748,7 @@ At a low level, this subroutine is slightly more complex. First, the length is
 loaded into the `X` register, which is then decremented. The snippet below
 shows the starting memory for the snake.
 
-```
+```:readonly:no-line-numbers
 Memory location: $10 $11 $12 $13 $14 $15
 
 Value:           $11 $04 $10 $04 $0f $04
@@ -799,7 +799,7 @@ is done using a bit check against the mask `$1f`. Hopefully the illustration
 below will show you how masking out the lowest 5 bits reveals whether a number
 is a multiple of `$20` or not.
 
-```
+```:readonly:no-line-numbers
 $20: 0010 0000
 $40: 0100 0000
 $60: 0110 0000

@@ -38,6 +38,8 @@ export class SourceView extends Adw.Bin {
         editable: GObject.ParamSpec.boolean('editable', 'Editable', 'Whether the source view is editable', GObject.ParamFlags.READWRITE, true),
         selectable: GObject.ParamSpec.boolean('selectable', 'Focusable', 'Whether the source view is selectable', GObject.ParamFlags.READWRITE, true),
         unselectable: GObject.ParamSpec.boolean('unselectable', 'Unselectable', 'Whether the source view is unselectable', GObject.ParamFlags.READWRITE, false),
+        lineNumbers: GObject.ParamSpec.boolean('line-numbers', 'Line Numbers', 'Whether the source view has line numbers', GObject.ParamFlags.READWRITE, true),
+        noLineNumbers: GObject.ParamSpec.boolean('no-line-numbers', 'No Line Numbers', 'Whether the source view has no line numbers', GObject.ParamFlags.READWRITE, false),
       },
     }, this);
   }
@@ -169,6 +171,42 @@ export class SourceView extends Adw.Bin {
    */
   public get unselectable(): boolean {
     return !this.selectable;
+  }
+
+  /**
+   * Set the line numbers property of the source view
+   * 
+   * @param value - Whether the source view has line numbers
+   */
+  public set lineNumbers(value: boolean) {
+    this._sourceView.show_line_numbers = value;
+  }
+
+  /**
+   * Get the line numbers property of the source view
+   * 
+   * @returns Whether the source view has line numbers
+   */
+  public get lineNumbers(): boolean {
+    return this._sourceView.show_line_numbers;
+  }
+
+  /**
+   * Set the no line numbers property of the source view
+   * 
+   * @param value - Whether the source view has no line numbers
+   */
+  public set noLineNumbers(value: boolean) {
+    this.lineNumbers = !value;
+  }
+
+  /**
+   * Get the no line numbers property of the source view
+   * 
+   * @returns Whether the source view has no line numbers
+   */
+  public get noLineNumbers(): boolean {
+    return !this.lineNumbers;
   }
 
   private _selectable = true;
