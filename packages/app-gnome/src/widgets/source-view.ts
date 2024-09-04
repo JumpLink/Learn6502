@@ -148,7 +148,6 @@ export class SourceView extends Adw.Bin {
       console.warn('selectable must be a boolean, got ' + typeof value);
       return;
     }
-    console.log('selectable', value);
     this._selectable = value;
     this.selectableChanged();
   }

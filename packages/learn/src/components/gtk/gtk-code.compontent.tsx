@@ -85,7 +85,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       // Use the custom editor widget for block code
       if (this.props.type === CodeType.BLOCK) {
         return <child>
-          <object class="SourceView">
+          <object class="ExecutableSourceView">
             <property name="code">{code}</property>
             <property name="language">{language}</property>
             <property name="readonly">{readonly.toString()}</property>
