@@ -3,6 +3,8 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import GtkSource from '@girs/gtksource-5'
 import Gdk from '@girs/gdk-4.0'
+import GLib from '@girs/glib-2.0'
+
 import Template from './source-view.ui?raw'
 
 import { GutterRendererAddress } from '../gutter-renderer-address.ts'
@@ -47,6 +49,7 @@ export class SourceView extends Adw.Bin {
         vexpand: GObject.ParamSpec.boolean('vexpand', 'Vexpand', 'Whether the source view is vexpand', GObject.ParamFlags.READWRITE, true),
         fitContentHeight: GObject.ParamSpec.boolean('fit-content-height', 'Fit Content Height', 'Whether the source view should fit the content height', GObject.ParamFlags.READWRITE, false),
         fitContentWidth: GObject.ParamSpec.boolean('fit-content-width', 'Fit Content Width', 'Whether the source view should fit the content width', GObject.ParamFlags.READWRITE, false),
+        height: GObject.ParamSpec.uint('height', 'Height', 'The height of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
       },
     }, this);
   }
@@ -223,8 +226,11 @@ export class SourceView extends Adw.Bin {
    */
   public set fitContentHeight(value: boolean) {
     const [hPolicy] = this._scrolledWindow.get_policy();
-    this._scrolledWindow.set_policy(hPolicy || Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
-    this._scrolledWindow.set_propagate_natural_height(value);
+    if (value) {
+      this._scrolledWindow.set_policy(hPolicy || Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+    } else {
+      this._scrolledWindow.set_policy(hPolicy || Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+    }
   }
 
   /**
@@ -235,8 +241,23 @@ export class SourceView extends Adw.Bin {
    */
   public set fitContentWidth(value: boolean) {
     const [,vPolicy] = this._scrolledWindow.get_policy();
-    this._scrolledWindow.set_policy(Gtk.PolicyType.NEVER, vPolicy || Gtk.PolicyType.AUTOMATIC);
-    this._scrolledWindow.set_propagate_natural_width(value);
+    if (value) {
+      this._scrolledWindow.set_policy(Gtk.PolicyType.NEVER, vPolicy || Gtk.PolicyType.AUTOMATIC);
+    } else {
+      this._scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, vPolicy || Gtk.PolicyType.AUTOMATIC);
+    }
+  }
+
+  public set height(value: number) {
+    if(value > 0) {
+      this._scrolledWindow.height_request = value;
+    } else {
+      this._scrolledWindow.height_request = -1;
+    }
+  }
+
+  public get height(): number {
+    return this._scrolledWindow.height_request;
   }
 
   private _selectable = true;

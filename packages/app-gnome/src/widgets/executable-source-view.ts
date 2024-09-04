@@ -1,6 +1,7 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
+import GLib from '@girs/glib-2.0'
 import { SourceView } from './source-view.ts'
 
 import Template from './executable-source-view.ui?raw'
@@ -44,6 +45,7 @@ export class ExecutableSourceView extends Adw.Bin {
         vexpand: GObject.ParamSpec.boolean('vexpand', 'Vexpand', 'Whether the source view is vexpand', GObject.ParamFlags.READWRITE, true),
         fitContentHeight: GObject.ParamSpec.boolean('fit-content-height', 'Fit Content Height', 'Whether the source view should fit the content height', GObject.ParamFlags.READWRITE, false),
         fitContentWidth: GObject.ParamSpec.boolean('fit-content-width', 'Fit Content Width', 'Whether the source view should fit the content width', GObject.ParamFlags.READWRITE, false),
+        height: GObject.ParamSpec.uint('height', 'Height', 'The height of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
       },
     }, this);
   }
@@ -202,6 +204,14 @@ export class ExecutableSourceView extends Adw.Bin {
    */
   public set fitContentWidth(value: boolean) {
     this._sourceView.fitContentWidth = value;
+  }
+
+  public set height(value: number) {
+    this._sourceView.height = value;
+  }
+
+  public get height(): number {
+    return this._sourceView.height;
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {

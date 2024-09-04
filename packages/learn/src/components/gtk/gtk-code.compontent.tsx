@@ -61,6 +61,10 @@ interface GtkCodeProps extends Object {
    * The width request of the code.
    */
   widthRequest?: number
+  /**
+   * The height of the code view.
+   */
+  height: number
 }
 
 export class GtkCode extends GtkWidget<GtkCodeProps> {
@@ -71,7 +75,6 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     static defaultProps = {
         ...GtkWidget.defaultProps,
         type: CodeType.INLINE,
-        fitContentWidth: true,
         fitContentHeight: true,
     }
 
@@ -81,19 +84,20 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     }
 
     render() {
-      let { language, readonly, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight } = this.parseAttributes(this.props)
+      let { language, readonly, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight, height } = this.parseAttributes(this.props)
       // Use the custom editor widget for block code
       if (this.props.type === CodeType.BLOCK) {
         return <child>
           <object class="ExecutableSourceView">
-            <property name="code">{code}</property>
-            <property name="language">{language}</property>
-            <property name="readonly">{readonly.toString()}</property>
-            <property name="unselectable">{unselectable.toString()}</property>
-            <property name="line-numbers">{lineNumbers.toString()}</property>
-            <property name="no-line-numbers">{noLineNumbers.toString()}</property>
-            <property name="fit-content-width">{fitContentWidth.toString()}</property>
-            <property name="fit-content-height">{fitContentHeight.toString()}</property>
+            {code && <property name="code">{code}</property>}
+            {language && <property name="language">{language}</property>}
+            {readonly && <property name="readonly">{readonly.toString()}</property>}
+            {unselectable && <property name="unselectable">{unselectable.toString()}</property>}
+            {lineNumbers && <property name="line-numbers">{lineNumbers.toString()}</property>}
+            {noLineNumbers && <property name="no-line-numbers">{noLineNumbers.toString()}</property>}
+            {fitContentWidth && <property name="fit-content-width">{fitContentWidth.toString()}</property>}
+            {!height &&fitContentHeight && <property name="fit-content-height">{fitContentHeight.toString()}</property>}
+            {height && <property name="height">{height}</property>}
           </object>
         </child>
       }
@@ -119,6 +123,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       let lineNumbers = props.lineNumbers || !noLineNumbers
       let fitContentWidth = props.fitContentWidth || false
       let fitContentHeight = props.fitContentHeight || false
+      let height = props.height
       // E.g. language-6502-assembler:readonly
       const separator = ':'
       const languagePrefix = 'language-'
@@ -134,7 +139,8 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
           noLineNumbers,
           fitContentWidth,
           fitContentHeight,
-          code
+          code,
+          height,
         }
       }
       const [langString, ...modifiers] = this.props.className.split(separator)
@@ -155,6 +161,20 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       if(modifiers.includes('line-numbers')) {
         lineNumbers = true
       }
+      if(modifiers.includes('fit-content-width')) {
+        fitContentWidth = true
+      }
+      if(modifiers.includes('fit-content-height')) {
+        fitContentHeight = true
+      }
+
+      // E.g. height=600
+      const heightModifier = modifiers.find(modifier => modifier.startsWith('height='))
+      if(heightModifier) {
+        height = parseInt(heightModifier.slice(heightModifier.indexOf('=') + 1))
+      }
+
+      // E.g. example-snake
       const exampleModifier = modifiers.find(modifier => modifier.startsWith(examplePrefix))
       if(exampleModifier) {
         const exampleName = exampleModifier.slice(examplePrefix.length)
@@ -169,6 +189,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
         noLineNumbers,
         fitContentWidth,
         fitContentHeight,
+        height,
       }
     }
 
