@@ -3,14 +3,22 @@ using Adw 1;
 using GtkSource 5;
 
 template $SourceView: Adw.Bin {
-  GtkSource.View sourceView {
-    auto-indent: true;
-    indent-width: 4;
-    show-line-numbers: true;
-    monospace: true;
-    left-margin: 12;
-    right-margin: 12;
-    top-margin: 12;
-    bottom-margin: 12;
+  ScrolledWindow scrolledWindow {
+    hexpand: true;
+    vexpand: true;
+    has-frame: false;
+    GtkSource.View sourceView {
+      hexpand: true;
+      vexpand: true;
+      auto-indent: true;
+      indent-width: 4;
+      show-line-numbers: true;
+      monospace: true;
+      left-margin: 12;
+      right-margin: 12;
+      top-margin: 12;
+      bottom-margin: 12;
+    }
   }
+
 }

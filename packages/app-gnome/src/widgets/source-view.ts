@@ -8,6 +8,9 @@ import Template from './source-view.ui?raw'
 import { GutterRendererAddress } from '../gutter-renderer-address.ts'
 
 export interface SourceView {
+  // Child widgets
+  /** The ScrolledWindow that contains the SourceView */
+  _scrolledWindow: Gtk.ScrolledWindow
   /** The SourceView that displays the buffer's display */
   _sourceView: GtkSource.View
 }
@@ -25,7 +28,7 @@ export class SourceView extends Adw.Bin {
     GObject.registerClass({
       GTypeName: 'SourceView',
       Template,
-      InternalChildren: ['sourceView'],
+      InternalChildren: ['sourceView', 'scrolledWindow'],
       Signals: {
         'changed': {
           param_types: [],
@@ -40,6 +43,10 @@ export class SourceView extends Adw.Bin {
         unselectable: GObject.ParamSpec.boolean('unselectable', 'Unselectable', 'Whether the source view is unselectable', GObject.ParamFlags.READWRITE, false),
         lineNumbers: GObject.ParamSpec.boolean('line-numbers', 'Line Numbers', 'Whether the source view has line numbers', GObject.ParamFlags.READWRITE, true),
         noLineNumbers: GObject.ParamSpec.boolean('no-line-numbers', 'No Line Numbers', 'Whether the source view has no line numbers', GObject.ParamFlags.READWRITE, false),
+        hexpand: GObject.ParamSpec.boolean('hexpand', 'Hexpand', 'Whether the source view is hexpand', GObject.ParamFlags.READWRITE, true),
+        vexpand: GObject.ParamSpec.boolean('vexpand', 'Vexpand', 'Whether the source view is vexpand', GObject.ParamFlags.READWRITE, true),
+        fitContentHeight: GObject.ParamSpec.boolean('fit-content-height', 'Fit Content Height', 'Whether the source view should fit the content height', GObject.ParamFlags.READWRITE, false),
+        fitContentWidth: GObject.ParamSpec.boolean('fit-content-width', 'Fit Content Width', 'Whether the source view should fit the content width', GObject.ParamFlags.READWRITE, false),
       },
     }, this);
   }
@@ -209,6 +216,30 @@ export class SourceView extends Adw.Bin {
     return !this.lineNumbers;
   }
 
+  /**
+   * Set the fitContentHeight property of the source view.
+   * This property is used to fit the content height of the source view and to disable vertical scrolling.
+   * 
+   * @param value - Whether the source view should fit the content height
+   */
+  public set fitContentHeight(value: boolean) {
+    const [hPolicy] = this._scrolledWindow.get_policy();
+    this._scrolledWindow.set_policy(hPolicy || Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+    this._scrolledWindow.set_propagate_natural_height(value);
+  }
+
+  /**
+   * Set the fitContentWidth property of the source view.
+   * This property is used to fit the content width of the source view and to disable horizontal scrolling.
+   * 
+   * @param value - Whether the source view should fit the content width
+   */
+  public set fitContentWidth(value: boolean) {
+    const [,vPolicy] = this._scrolledWindow.get_policy();
+    this._scrolledWindow.set_policy(Gtk.PolicyType.NEVER, vPolicy || Gtk.PolicyType.AUTOMATIC);
+    this._scrolledWindow.set_propagate_natural_width(value);
+  }
+
   private _selectable = true;
 
   private _selectableSignalIds: number[] = [];
@@ -229,12 +260,19 @@ export class SourceView extends Adw.Bin {
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
+    this.setupScrolledWindow();
     this.language = '6502-assembler';
     this.setupSignalListeners();
     this.updateStyle();
     // Get the existing gutter for the left side
     this.leftGutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
     this.code = 'LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202'
+  }
+
+  private setupScrolledWindow() {
+    // Ensure the ScrolledWindow uses the SourceView's adjustments
+    this._scrolledWindow.set_vadjustment(this._sourceView.vadjustment);
+    this._scrolledWindow.set_hadjustment(this._sourceView.hadjustment);
   }
 
   /**

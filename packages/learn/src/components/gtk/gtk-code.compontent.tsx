@@ -45,6 +45,22 @@ interface GtkCodeProps extends Object {
    * Whether to hide the line numbers.
    */
   noLineNumbers?: boolean
+  /**
+   * Whether to fit the content width.
+   */
+  fitContentWidth?: boolean
+  /**
+   * Whether to fit the content height.
+   */
+  fitContentHeight?: boolean
+  /**
+   * The height request of the code.
+   */
+  heightRequest?: number
+  /**
+   * The width request of the code.
+   */
+  widthRequest?: number
 }
 
 export class GtkCode extends GtkWidget<GtkCodeProps> {
@@ -55,6 +71,8 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     static defaultProps = {
         ...GtkWidget.defaultProps,
         type: CodeType.INLINE,
+        fitContentWidth: true,
+        fitContentHeight: true,
     }
 
     constructor(props: GtkCodeProps) {
@@ -63,7 +81,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     }
 
     render() {
-      let { language, readonly, unselectable, code, lineNumbers, noLineNumbers } = this.parseAttributes(this.props)
+      let { language, readonly, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight } = this.parseAttributes(this.props)
       // Use the custom editor widget for block code
       if (this.props.type === CodeType.BLOCK) {
         return <child>
@@ -74,6 +92,8 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
             <property name="unselectable">{unselectable.toString()}</property>
             <property name="line-numbers">{lineNumbers.toString()}</property>
             <property name="no-line-numbers">{noLineNumbers.toString()}</property>
+            <property name="fit-content-width">{fitContentWidth.toString()}</property>
+            <property name="fit-content-height">{fitContentHeight.toString()}</property>
           </object>
         </child>
       }
@@ -97,6 +117,8 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       let unselectable = props.unselectable || false
       let noLineNumbers = props.noLineNumbers || false
       let lineNumbers = props.lineNumbers || !noLineNumbers
+      let fitContentWidth = props.fitContentWidth || false
+      let fitContentHeight = props.fitContentHeight || false
       // E.g. language-6502-assembler:readonly
       const separator = ':'
       const languagePrefix = 'language-'
@@ -110,6 +132,8 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
           unselectable,
           lineNumbers,
           noLineNumbers,
+          fitContentWidth,
+          fitContentHeight,
           code
         }
       }
@@ -142,7 +166,9 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
         unselectable,
         code,
         lineNumbers,
-        noLineNumbers
+        noLineNumbers,
+        fitContentWidth,
+        fitContentHeight,
       }
     }
 

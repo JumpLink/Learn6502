@@ -2,13 +2,10 @@ using Gtk 4.0;
 using Adw 1;
 
 template $HexMonitor: Adw.Bin {
-  ScrolledWindow scrolledWindow {
+  $SourceView sourceView {
+    editable: false;
+    language: 'hex';
     height-request: 200;
     vexpand: true;
-    has-frame: false;
-    $SourceView sourceView {
-      editable: false;
-      language: 'hex';
-    }
   }
 }

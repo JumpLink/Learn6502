@@ -8,8 +8,6 @@ import Template from './editor.ui?raw'
 GObject.type_ensure(SourceView.$gtype)
 
 export interface Editor {
-  // Child widgets
-  _scrolledWindow: Gtk.ScrolledWindow
   /** The SourceView that displays the buffer's display */
   _sourceView: SourceView
 }
@@ -25,7 +23,7 @@ export class Editor extends Adw.Bin {
     GObject.registerClass({
       GTypeName: 'Editor',
       Template,
-      InternalChildren: ['scrolledWindow', 'sourceView'],
+      InternalChildren: ['sourceView'],
       Signals: {
         'changed': {
           param_types: [],
