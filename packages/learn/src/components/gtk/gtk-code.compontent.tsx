@@ -1,3 +1,4 @@
+import { renderSSR } from 'nano-jsx/esm/index.js'
 import { GtkWidget } from './gtk-widget.compontent.tsx'
 import { GtkBox } from './gtk-box.component.tsx'
 import { CodeType } from '../../enums/gtk.enums.ts'
@@ -85,6 +86,12 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
 
     render() {
       let { language, readonly, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight, height } = this.parseAttributes(this.props)
+      
+      code = renderSSR(code);
+      if(code.endsWith('\n')) {
+        code = code.slice(0, -1)
+      }
+      
       // Use the custom editor widget for block code
       if (this.props.type === CodeType.BLOCK) {
         return <child>

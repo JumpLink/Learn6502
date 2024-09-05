@@ -168,7 +168,9 @@ export class GameConsole extends Adw.Bin {
     }, this);
   }
 
-  // private console: MessageConsoleInterface;
+  /** A list of handler IDs for the signals we connect to. */
+  private handlerIds: number[] = [];
+
   private _memory: Memory;
   private _labels: Labels;
   private _simulator: Simulator;
@@ -239,6 +241,12 @@ export class GameConsole extends Adw.Bin {
 
   public gamepadPress(buttonName: 'Left' | 'Right' | 'Up' | 'Down' | 'A' | 'B'): void {
     this._gamePad.press(buttonName);
+  }
+
+  /** Call this when the ApplicationWindow is closed. */
+  public close(): void {
+    this.stop();
+    this.removeSignalHandlers();
   }
 
   /**
@@ -340,9 +348,14 @@ export class GameConsole extends Adw.Bin {
       this.emit('labels-failure', event);
     });
 
-    this._gamePad.connect('gamepad-pressed', (_source: GamePad, key: number) => {
+    this.handlerIds.push(this._gamePad.connect('gamepad-pressed', (_source: GamePad, key: number) => {
       this.emit('gamepad-pressed', key);
       this._memory.storeKeypress(key);
-    });
+    }));
+  }
+
+  private removeSignalHandlers(): void {
+    this.handlerIds.forEach(id => this.disconnect(id));
+    this.handlerIds = [];    
   }
 }

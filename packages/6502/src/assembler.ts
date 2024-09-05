@@ -222,7 +222,7 @@ export class Assembler {
 
     this.currentPC = BOOTSTRAP_ADDRESS;
     
-    code += "\n\n";
+    code += "\n";
     const lines = code.split("\n");
     this.codeAssembledOK = true;
 

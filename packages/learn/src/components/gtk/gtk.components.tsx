@@ -5,7 +5,7 @@ import { GtkRoot } from './gtk-root.component.tsx'
 import { GtkPre } from './gtk-pre.compontent.tsx'
 import { GtkTextList } from './gtk-text-list.compontent.tsx'
 import { GtkCode } from './gtk-code.compontent.tsx'
-import { TextListType, Justification, Align } from '../../enums/gtk.enums.ts'
+import { TextListType, Align } from '../../enums/gtk.enums.ts'
 
 export const GtkComponents: MDXComponents = {
     GtkRoot,

@@ -45,7 +45,6 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   public set state(value: DebuggerState) {
-    console.log('set state', value, this._state);
     if (this._state !== value) {
       this._state = value;
       this.notify('state');
@@ -60,12 +59,18 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     }
   }
 
+  /** A list of handler IDs for the signals we connect to. */
   private handlerIds: number[] = [];
 
   constructor(binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(binParams)
     this.setupSignalHandlers();
     this.state = DebuggerState.INITIAL;
+  }
+
+  /** Call this when the ApplicationWindow is closed. */
+  public close(): void {
+    this.removeSignalHandlers();
   }
 
   public log(message: string): void {
@@ -94,13 +99,11 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   public reset(): void {
-    console.log('reset');
     this._messageConsole.clear();
     this.state = DebuggerState.RESET;
   }
 
   private onStateChanged(): void {
-    console.log('state changed', this.state);
     if(this.state === DebuggerState.INITIAL) {
       this._stack.set_visible_child_name('initial');
     } else  {
@@ -109,7 +112,6 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   private onParamChanged(_self: Debugger, pspec: GObject.ParamSpec): void {
-    console.log('param changed', pspec.name);
     switch (pspec.name) {
       case 'state':
         this.onStateChanged();
@@ -119,19 +121,10 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
 
   private setupSignalHandlers(): void {
     this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
-    this.handlerIds.push(this.connect_after('destroy', this.onDestroy.bind(this)));
   }
 
   private removeSignalHandlers(): void {
     this.handlerIds.forEach(id => this.disconnect(id));
     this.handlerIds = [];
-    console.log('remove signal handlers');
-  }
-
-  // TODO: Not called
-  onDestroy(): void {
-    console.log('destroy');
-    this.removeSignalHandlers();
-    this.run_dispose();
   }
 }

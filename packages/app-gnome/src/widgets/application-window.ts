@@ -42,9 +42,19 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   constructor(application: Adw.Application) {
     super({ application })
+    this.setupGeneralSignalListeners();
     this.setupRunMenu();
     this.setupGameConsoleSignalListeners();
     this.setupKeyboardListener();
+  }
+
+  private setupGeneralSignalListeners(): void {
+    this.connect('close-request', this.onCloseRequest.bind(this));
+  }
+
+  private onCloseRequest(): void {
+    this._gameConsole.close();
+    this._debugger.close();
   }
 
   private setupRunMenu(): void {
