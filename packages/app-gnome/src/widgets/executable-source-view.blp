@@ -2,5 +2,40 @@ using Gtk 4.0;
 using Adw 1;
 
 template $ExecutableSourceView: Adw.Bin {
-  $SourceView sourceView {}
+  Box {
+    orientation: vertical;
+    $SourceView sourceView {}
+    ActionBar actionBar {
+      revealed: true;
+      valign: end;
+
+      [start]
+      Adw.SplitButton runButton {
+        halign: center;
+        icon-name: "media-playback-start-symbolic";
+        styles [
+          "suggested-action",
+        ]
+        action-name: 'executable-source-view.copy-assemble-and-run';
+        menu-model: buttonRunMenu;
+      }
+    }
+  }
+}
+
+menu buttonRunMenu {
+  section {
+    item {
+      label: "Copy, Assemble and Run";
+      action: 'executable-source-view.copy-assemble-and-run';
+    }
+    item {
+      label: "Copy and Assemble";
+      action: 'executable-source-view.copy-assemble';
+    }
+    item {
+      label: "Copy";
+      action: 'executable-source-view.copy';
+    }
+  }
 }

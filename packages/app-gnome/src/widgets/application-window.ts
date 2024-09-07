@@ -3,6 +3,7 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import Gdk from '@girs/gdk-4.0'
 import Gio from '@girs/gio-2.0'
+import GLib from '@girs/glib-2.0'
 
 import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
@@ -46,6 +47,22 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.setupRunMenu();
     this.setupGameConsoleSignalListeners();
     this.setupKeyboardListener();
+    this.setupLearnTutorialSignalListeners();
+  }
+
+  private setupLearnTutorialSignalListeners(): void {
+    this._learn.connect('copy-assemble-and-run', (_learn: Learn, code: string) => {
+      this.copyGameConsole(code);
+      this.assembleGameConsole();
+      this.runGameConsole();
+    });
+    this._learn.connect('copy-assemble', (_learn: Learn, code: string) => {
+      this.copyGameConsole(code);
+      this.assembleGameConsole();
+    });
+    this._learn.connect('copy', (_learn: Learn, code: string) => {
+      this.copyGameConsole(code);
+    });
   }
 
   private setupGeneralSignalListeners(): void {
@@ -87,6 +104,10 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private runAndAssembleGameConsole(): void {
     this.assembleGameConsole();
     this.runGameConsole();
+  }
+
+  private copyGameConsole(code: string): void {
+    this._editor.code = code;
   }
 
   private showToast(params: Partial<Adw.Toast.ConstructorProps>): void {

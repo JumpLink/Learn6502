@@ -2,6 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import GLib from '@girs/glib-2.0'
+import Gio from '@girs/gio-2.0'
 import { SourceView } from './source-view.ts'
 
 import Template from './executable-source-view.ui?raw'
@@ -13,6 +14,8 @@ export interface ExecutableSourceView {
   _scrolledWindow: Gtk.ScrolledWindow
   /** The SourceView that displays the buffer's display */
   _sourceView: SourceView
+  _actionBar: Gtk.ActionBar
+  _runButton: Adw.SplitButton
 }
 
 /**
@@ -26,10 +29,19 @@ export class ExecutableSourceView extends Adw.Bin {
     GObject.registerClass({
       GTypeName: 'ExecutableSourceView',
       Template,
-      InternalChildren: ['sourceView'],
+      InternalChildren: ['sourceView', 'actionBar', 'runButton'],
       Signals: {
         'changed': {
           param_types: [],
+        },
+        'copy-assemble-and-run': {
+          param_types: [GObject.TYPE_STRING],
+        },
+        'copy-assemble': {
+          param_types: [GObject.TYPE_STRING],
+        },
+        'copy': {
+          param_types: [GObject.TYPE_STRING],
         },
       },
       Properties: {
@@ -52,7 +64,6 @@ export class ExecutableSourceView extends Adw.Bin {
 
   public set code(value: string) {
     this._sourceView.code = value;
-    this.onUpdate();
   }
 
   public get code(): string {
@@ -67,6 +78,7 @@ export class ExecutableSourceView extends Adw.Bin {
    */
   public set readonly(value: boolean) {
     this._sourceView.editable = !value;
+    this._actionBar.visible = !value;
   }
 
   /**
@@ -214,12 +226,38 @@ export class ExecutableSourceView extends Adw.Bin {
     return this._sourceView.height;
   }
 
+  private _actionGroup: Gio.SimpleActionGroup;
+
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
+    this._actionGroup = new Gio.SimpleActionGroup();
+    this.insert_action_group('executable-source-view', this._actionGroup);
+    this._setupActions();
   }
 
-  private onUpdate() {
-    this.emit("changed");
-  };
+  private _setupActions() {
+    const copyAssembleAndRunAction = new Gio.SimpleAction({ name: 'copy-assemble-and-run' });
+    copyAssembleAndRunAction.connect('activate', this._onCopyAssembleAndRun.bind(this));
+    this._actionGroup.add_action(copyAssembleAndRunAction);
 
+    const copyAndAssembleAction = new Gio.SimpleAction({ name: 'copy-assemble' });
+    copyAndAssembleAction.connect('activate', this._onCopyAndAssemble.bind(this));
+    this._actionGroup.add_action(copyAndAssembleAction);
+
+    const copyAction = new Gio.SimpleAction({ name: 'copy' });
+    copyAction.connect('activate', this._onCopy.bind(this));
+    this._actionGroup.add_action(copyAction);
+  }
+
+  private _onCopyAssembleAndRun() {
+    this.emit('copy-assemble-and-run', this.code);
+  }
+
+  private _onCopyAndAssemble() {
+    this.emit('copy-assemble', this.code);
+  }
+
+  private _onCopy() {
+    this.emit('copy', this.code);
+  }
 }

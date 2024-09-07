@@ -114,52 +114,52 @@ export class GameConsole extends Adw.Bin {
       Signals: {
         'assemble-success': {
           // TODO: Fix this, see https://github.com/gjsify/ts-for-gir/pull/189
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'assemble-failure': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'hexdump': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'disassembly': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'assemble-info': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & AssemblerEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'stop': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'start': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'reset': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'step': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'multistep': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'goto': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'pseudo-op': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'simulator-info': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'simulator-failure': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & SimulatorEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'labels-info': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & LabelsEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'labels-failure': {
-          param_types: [(GObject as any).TYPE_JSOBJECT as GObject.GType<Object & LabelsEvent>],
+          param_types: [GObject.TYPE_JSOBJECT],
         },
         'gamepad-pressed': {
           param_types: [GObject.TYPE_INT],
@@ -169,7 +169,7 @@ export class GameConsole extends Adw.Bin {
   }
 
   /** A list of handler IDs for the signals we connect to. */
-  private handlerIds: number[] = [];
+  private gamepadHandlerIds: number[] = [];
 
   private _memory: Memory;
   private _labels: Labels;
@@ -348,14 +348,14 @@ export class GameConsole extends Adw.Bin {
       this.emit('labels-failure', event);
     });
 
-    this.handlerIds.push(this._gamePad.connect('gamepad-pressed', (_source: GamePad, key: number) => {
+    this.gamepadHandlerIds.push(this._gamePad.connect('gamepad-pressed', (_source: GamePad, key: number) => {
       this.emit('gamepad-pressed', key);
       this._memory.storeKeypress(key);
     }));
   }
 
   private removeSignalHandlers(): void {
-    this.handlerIds.forEach(id => this.disconnect(id));
-    this.handlerIds = [];    
+    this.gamepadHandlerIds.forEach(id => this._gamePad.disconnect(id));
+    this.gamepadHandlerIds = [];    
   }
 }

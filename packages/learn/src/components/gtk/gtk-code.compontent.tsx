@@ -74,14 +74,16 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     static reservedPropertyNames = [...GtkBox.reservedPropertyNames, 'type', 'example']
 
     static defaultProps = {
-        ...GtkWidget.defaultProps,
-        type: CodeType.INLINE,
-        fitContentHeight: true,
+      ...GtkWidget.defaultProps,
+      type: CodeType.INLINE,
+      fitContentHeight: true,
     }
 
+    private static _codeBlockCounter = 0;
+
     constructor(props: GtkCodeProps) {
-        super(props)
-        this.setDefaultProps()
+      super(props)
+      this.setDefaultProps()
     }
 
     render() {
@@ -95,7 +97,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       // Use the custom editor widget for block code
       if (this.props.type === CodeType.BLOCK) {
         return <child>
-          <object class="ExecutableSourceView">
+          <object class="ExecutableSourceView" id={`executableSourceView${GtkCode._codeBlockCounter++}`}>
             {code && <property name="code">{code}</property>}
             {language && <property name="language">{language}</property>}
             {readonly && <property name="readonly">{readonly.toString()}</property>}
