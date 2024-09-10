@@ -1,7 +1,7 @@
 {
     "name": "@easy6502/app-gnome",
     "version": "0.0.1",
-    "description": "A one-stop accessible tutorial on 6502 assembly language programming for GNOME",
+    "description": "Learn 6502 assembly by developing games on a virtual console",
     "main": "dist/main.js",
     "type": "module",
     "private": true,
@@ -10,7 +10,7 @@
         "clear": "rm -rf dist",
         "build:vite": "vite build",
         "build:blueprints": "blueprint-compiler compile src/widgets/application-window.blp --output src/widgets/application-window.ui && blueprint-compiler compile src/widgets/preferences-dialog.blp --output src/widgets/preferences-dialog.ui && blueprint-compiler compile src/widgets/editor.blp --output src/widgets/editor.ui && blueprint-compiler compile src/widgets/game-console.blp --output src/widgets/game-console.ui && blueprint-compiler compile src/widgets/display.blp --output src/widgets/display.ui && blueprint-compiler compile src/widgets/debugger.blp --output src/widgets/debugger.ui && blueprint-compiler compile src/widgets/message-console.blp --output src/widgets/message-console.ui && blueprint-compiler compile src/widgets/game-pad.blp --output src/widgets/game-pad.ui && blueprint-compiler compile src/widgets/hex-monitor.blp --output src/widgets/hex-monitor.ui && blueprint-compiler compile src/widgets/debug-info.blp --output src/widgets/debug-info.ui && blueprint-compiler compile src/widgets/learn.blp --output src/widgets/learn.ui && blueprint-compiler compile src/widgets/source-view.blp --output src/widgets/source-view.ui && blueprint-compiler compile src/widgets/executable-source-view.blp --output src/widgets/executable-source-view.ui",
-        "build:resources": "glib-compile-resources data/eu.jumplink.easy6502.data.gresource.xml",
+        "build:resources": "glib-compile-resources data/eu.jumplink.Easy6502.data.gresource.xml",
         "build": "yarn build:resources && yarn build:blueprints && yarn build:vite",
         "check": "tsc",
         "start:app": "gjs -m dist/main.js",
@@ -18,7 +18,7 @@
         "start": "yarn build:resources && yarn start:app"
     },
     "author": "Pascal Garber <pascal@artandcode.studio>",
-    "license": "MIT",
+    "license": "GPL-3.0",
     "devDependencies": {
         "typescript": "^5.5.4",
         "vite": "^5.4.3"

@@ -1,0 +1,17 @@
+[Desktop Entry]
+Name=Easy6502
+GenericName=6502 Assembly Game Console
+Comment=Learn 6502 assembly by developing games on a virtual console
+TryExec=eu.jumplink.Easy6502
+Exec=eu.jumplink.Easy6502 %U
+Icon=eu.jumplink.Easy6502
+Terminal=false
+Type=Application
+Categories=Education;Development;Emulator;Game;
+# Translators: Search terms to find this application. Do NOT translate or localize the semicolons! The list MUST also end with a semicolon!
+Keywords=6502;assembly;simulator;retro;programming;learning;game development;
+StartupNotify=true
+X-SingleMainWindow=true
+X-Purism-FormFactor=Workstation;Mobile;
+DBusActivatable=false
+MimeType=application/x-easy6502;

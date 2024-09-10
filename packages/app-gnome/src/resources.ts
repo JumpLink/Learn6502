@@ -30,5 +30,5 @@ export const initResources = () => {
     if (!searchPath) {
       throw new Error('Search path not found')
     }
-    languageManager.set_search_path(['resource:///eu/jumplink/easy6502/data/lang-specs', ...searchPath]);
+    languageManager.set_search_path(['resource:///eu/jumplink/Easy6502/data/lang-specs', ...searchPath]);
 }
