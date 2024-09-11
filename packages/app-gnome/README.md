@@ -1,9 +1,21 @@
-# Easy6502 GNOME App
+# Easy6502 for GNOME
 
 This package contains the source code for the Easy6502 GNOME app.
 
 ## Building
 
 ```bash
-yarn build
+meson setup build
+meson compile -C build
+```
+
+```bash
+yarn install
+yarn build:with-deps
+```
+
+## Running
+
+```bash
+yarn start
 ```
