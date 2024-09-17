@@ -1,26 +1,9 @@
-/**
- * Type definition for asset content files
- * @see https://vitejs.dev/guide/assets.html#impgitorting-asset-as-string
- */
-declare module '*?raw' {
-  const textContent: string
-  export default textContent
-}
+/// <reference types="vite/client" />
 
-/**
- * Type definition for url asset strings
- * @see https://vitejs.dev/guide/assets.html#explicit-url-imports
- */
-declare module '*?url' {
-  const url: string
-  export default url
-}
-
-/**
- * Type definition for inline style strings
- * @see https://vitejs.dev/guide/assets.html#inline-assets
- */
-declare module '*.css?inline' {
-  const style: string
-  export default style
-}
+declare const __APPLICATION_ID__: string
+declare const __RESOURCES_PATH__: string
+declare const __VERSION__: string
+declare const __PREFIX__: string
+declare const __LIBDIR__: string
+declare const __DATADIR__: string
+declare const __BINDIR__: string

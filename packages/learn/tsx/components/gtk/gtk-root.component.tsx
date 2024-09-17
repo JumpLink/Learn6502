@@ -4,8 +4,6 @@ import { Orientation, Align, TextListType, Justification } from '../../enums/gtk
 
 export class GtkRoot extends Component {
   render() {
-    console.debug("this.props.children", this.props.children)
-    console.debug("this.props.children[0].component", this.props.children[0].component)
     return <interface>
       <requires lib="gtk" version="4.0"/>
       <template class={this.props.class} parent="AdwBin">

@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <gresources>
   <gresource prefix="/eu/jumplink/Easy6502">
-    <file preprocess="xml-stripblanks">data/icons/scalable/actions/code-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">data/icons/scalable/actions/nintendo-controller-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">data/icons/scalable/actions/bug-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">data/icons/scalable/actions/school-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">data/lang-specs/6502-assembler.lang</file>
-    <file preprocess="xml-stripblanks">data/lang-specs/hex.lang</file>
+    <file preprocess="xml-stripblanks">eu.jumplink.Easy6502.metainfo.xml</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/code-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/nintendo-controller-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/bug-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">icons/scalable/actions/school-symbolic.svg</file>
+    <file preprocess="xml-stripblanks">lang-specs/6502-assembler.lang</file>
+    <file preprocess="xml-stripblanks">lang-specs/hex.lang</file>
   </gresource>
-</gresources>  
+</gresources>
