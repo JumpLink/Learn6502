@@ -9,5 +9,5 @@
         "jsxImportSource": "nano-jsx/esm",
         "types": ["mdx"]
     },
-    "include": ["src/**/*.ts", "src/**/*.tsx", "src/**/*.mdx"]
+    "include": ["./*.mdx", "tsx/**/*.ts", "tsx/**/*.tsx", "tsx/**/*.mdx"]
 }

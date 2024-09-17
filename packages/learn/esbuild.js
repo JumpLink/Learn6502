@@ -2,7 +2,7 @@ import mdx from '@mdx-js/esbuild'
 import esbuild from 'esbuild'
 
 await esbuild.build({
-  entryPoints: ['src/index.tsx'],
+  entryPoints: ['tsx/index.tsx'],
   format: 'esm',
   outdir: 'dist',
   platform: 'node',

@@ -1,5 +1,5 @@
 import { renderSSR } from 'nano-jsx/esm/index.js'
-import Tutorial from './tutorial.mdx'
+import Tutorial from '../tutorial.mdx'
 import { GtkComponents, GtkRoot } from './components/gtk/index.tsx'
 // import * as HtmlComponents from './components/html/index.tsx'
 import { writeFile } from 'node:fs/promises'
