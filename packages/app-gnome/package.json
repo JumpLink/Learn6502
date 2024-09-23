@@ -14,8 +14,8 @@
         "build:with-deps": "yarn workspaces foreach -pRv --from @easy6502/app-gnome run build",
         "build": "yarn build:resources && yarn build:blueprints && yarn build:vite",
         "check": "tsc",
-        "start:app": "gjs -m bin/eu.jumplink.Easy6502",
-        "debug:app": "GTK_DEBUG=interactive gjs -m bin/eu.jumplink.Easy6502",
+        "start:app": "gjs -m src/eu.jumplink.Easy6502",
+        "debug:app": "GTK_DEBUG=interactive gjs -m src/eu.jumplink.Easy6502",
         "start": "yarn start:app"
     },
     "author": "Pascal Garber <pascal@artandcode.studio>",

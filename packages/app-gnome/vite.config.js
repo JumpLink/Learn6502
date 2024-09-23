@@ -27,7 +27,8 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     css: {},
     build: {
       assetsDir: '.',
-      outDir: 'bin',
+      outDir: 'src',
+      emptyOutDir: false,
       // target: "firefox60", // Since GJS 1.53.90
       // target: "firefox68", // Since GJS 1.63.90
       // target: "firefox78", // Since GJS 1.65.90

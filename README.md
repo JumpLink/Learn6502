@@ -19,6 +19,11 @@ To get a initial development environment, run `yarn install && yarn setup && yar
 
 To build the packages, run `yarn build` in the root of the repository.
 
+#### Meson
+
+meson setup --reconfigure _build
+meson compile -C _build
+
 ### Running
 
 To run the packages, run `yarn start:gnome` or `yarn start:web` in the root of the repository.
