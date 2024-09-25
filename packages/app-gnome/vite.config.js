@@ -1,6 +1,6 @@
 import { defineConfig } from 'vite'
 import { fileURLToPath } from 'node:url'
-import { dirname, resolve } from 'node:path'
+import { dirname } from 'node:path'
 import pkg from './package.json'
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
@@ -8,26 +8,33 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = dirname(__filename)
 
-  const applicationId = 'eu.jumplink.Easy6502'
-  const resourcesPath = '/' + applicationId.replaceAll('.', '/') // E.g. /eu/jumplink/Easy6502
-  const prefix = process.env.PREFIX || __dirname // E.g. /usr
-  const libdir = process.env.LIBDIR || `${prefix}/lib` // E.g. /usr/lib
-  const datadir = process.env.DATADIR || `${prefix}/data` // E.g. /usr/share
-  const bindir = process.env.BINDIR || `${prefix}/bin` // E.g. /usr/bin
+  const APP_ID = process.env.APP_ID || 'eu.jumplink.Easy6502'
+  const RESOURCES_PATH = '/' + APP_ID.replaceAll('.', '/') // E.g. /eu/jumplink/Easy6502
+  const PACKAGE_VERSION = process.env.PACKAGE_VERSION || pkg.version
+  const PREFIX = process.env.PREFIX || __dirname // E.g. /usr
+  const LIBDIR = process.env.LIBDIR || `${PREFIX}/lib` // E.g. /usr/lib
+  const DATADIR = process.env.DATADIR || `${PREFIX}/share` // E.g. /usr/share
+  const BINDIR = process.env.BINDIR || `${PREFIX}/bin` // E.g. /usr/bin
+  const GJS_CONSOLE = process.env.GJS_CONSOLE || `#!/usr/bin/env -S gjs`
+  const PKGDATADIR = process.env.PKGDATADIR || `${DATADIR}/${APP_ID}`
+
   return {
+    plugins: [],
     define: {
-      '__APPLICATION_ID__': JSON.stringify(applicationId),
-      '__RESOURCES_PATH__': JSON.stringify(resourcesPath),
-      '__VERSION__': JSON.stringify(pkg.version),
-      '__PREFIX__': JSON.stringify(prefix),
-      '__LIBDIR__': JSON.stringify(libdir),
-      '__DATADIR__': JSON.stringify(datadir),
-      '__BINDIR__': JSON.stringify(bindir),
+      '__APP_ID__': JSON.stringify(APP_ID),
+      '__RESOURCES_PATH__': JSON.stringify(RESOURCES_PATH),
+      '__PACKAGE_VERSION__': JSON.stringify(PACKAGE_VERSION),
+      '__PREFIX__': JSON.stringify(PREFIX),
+      '__LIBDIR__': JSON.stringify(LIBDIR),
+      '__DATADIR__': JSON.stringify(DATADIR),
+      '__BINDIR__': JSON.stringify(BINDIR),
+      '__GJS_CONSOLE__': JSON.stringify(GJS_CONSOLE),
+      '__PKGDATADIR__': JSON.stringify(PKGDATADIR),
     },
     css: {},
     build: {
       assetsDir: '.',
-      outDir: 'src',
+      outDir: 'bin',
       emptyOutDir: false,
       // target: "firefox60", // Since GJS 1.53.90
       // target: "firefox68", // Since GJS 1.63.90
@@ -39,7 +46,8 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       rollupOptions: {
         input: 'src/main.ts',
         output: {
-          entryFileNames: applicationId,
+          entryFileNames: APP_ID,
+          banner: `#!${GJS_CONSOLE} -m\n`,
         },
         external: [new RegExp('^gi://*', 'i'), 'system'],
       },

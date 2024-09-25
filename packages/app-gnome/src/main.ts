@@ -1,4 +1,3 @@
-#!/usr/bin/env -S gjs -m
 import './global.d.ts'
 import '@girs/gjs/dom'
 import '@girs/gjs'
