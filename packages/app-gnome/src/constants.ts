@@ -1,7 +1,9 @@
-export const APPLICATION_ID = __APP_ID__ || 'eu.jumplink.Easy6502'
+export const APPLICATION_ID = __APPLICATION_ID__
 export const RESOURCES_PATH = '/' + APPLICATION_ID.replaceAll('.', '/')
-export const VERSION = __PACKAGE_VERSION__ || '0.0.0'
-export const PREFIX = __PREFIX__ || '/usr'
-export const LIBDIR = __LIBDIR__ || `${PREFIX}/lib`
-export const DATADIR = __DATADIR__ || `${PREFIX}/data`
-export const BINDIR = __BINDIR__ || `${PREFIX}/bin`
+export const PACKAGE_VERSION = __PACKAGE_VERSION__
+export const PREFIX = __PREFIX__
+export const LIBDIR = __LIBDIR__
+export const DATADIR = __DATADIR__
+export const BINDIR = __BINDIR__
+export const GJS_CONSOLE = __GJS_CONSOLE__
+export const PKGDATADIR = __PKGDATADIR__

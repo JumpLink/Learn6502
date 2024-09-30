@@ -8,20 +8,20 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = dirname(__filename)
 
-  const APP_ID = process.env.APP_ID || 'eu.jumplink.Easy6502'
-  const RESOURCES_PATH = '/' + APP_ID.replaceAll('.', '/') // E.g. /eu/jumplink/Easy6502
+  const APPLICATION_ID = process.env.APPLICATION_ID || 'eu.jumplink.Easy6502'
+  const RESOURCES_PATH = '/' + APPLICATION_ID.replaceAll('.', '/') // E.g. /eu/jumplink/Easy6502
   const PACKAGE_VERSION = process.env.PACKAGE_VERSION || pkg.version
   const PREFIX = process.env.PREFIX || __dirname // E.g. /usr
   const LIBDIR = process.env.LIBDIR || `${PREFIX}/lib` // E.g. /usr/lib
   const DATADIR = process.env.DATADIR || `${PREFIX}/share` // E.g. /usr/share
   const BINDIR = process.env.BINDIR || `${PREFIX}/bin` // E.g. /usr/bin
   const GJS_CONSOLE = process.env.GJS_CONSOLE || `#!/usr/bin/env -S gjs`
-  const PKGDATADIR = process.env.PKGDATADIR || `${DATADIR}/${APP_ID}`
+  const PKGDATADIR = process.env.PKGDATADIR || `${DATADIR}/${APPLICATION_ID}`
 
   return {
     plugins: [],
     define: {
-      '__APP_ID__': JSON.stringify(APP_ID),
+      '__APPLICATION_ID__': JSON.stringify(APPLICATION_ID),
       '__RESOURCES_PATH__': JSON.stringify(RESOURCES_PATH),
       '__PACKAGE_VERSION__': JSON.stringify(PACKAGE_VERSION),
       '__PREFIX__': JSON.stringify(PREFIX),
@@ -46,7 +46,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       rollupOptions: {
         input: 'src/main.ts',
         output: {
-          entryFileNames: APP_ID,
+          entryFileNames: APPLICATION_ID,
           banner: `#!${GJS_CONSOLE} -m\n`,
         },
         external: [new RegExp('^gi://*', 'i'), 'system'],
