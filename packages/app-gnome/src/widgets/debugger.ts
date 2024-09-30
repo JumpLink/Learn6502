@@ -6,7 +6,7 @@ import { MessageConsole } from './message-console.ts'
 import { HexMonitor } from './hex-monitor.ts'
 import { DebugInfo } from './debug-info.ts'
 
-import Template from './debugger.ui?raw'
+import Template from './debugger.blp'
 
 import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, type DebuggerOptions, throttle } from '@easy6502/6502'
 

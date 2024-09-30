@@ -1,0 +1,27 @@
+{
+  "name": "@easy6502/vite-plugin-blueprint",
+  "version": "0.0.1",
+  "description": "Vite plugin for compiling Gnome Blueprint files",
+  "main": "dist/index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clear": "rm -rf dist",
+    "check": "tsc --noEmit",
+    "build": "tsc --declaration"
+  },
+  "author": "Pascal Garber <pascal@artandcode.studio>",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@types/node": "^22.7.5",
+    "typescript": "^5.5.4",
+    "vite": "^5.4.3"
+  },
+  "peerDependencies": {
+    "vite": "^5.4.3"
+  },
+  "dependencies": {
+    "minify-xml": "^4.5.2"
+  }
+}

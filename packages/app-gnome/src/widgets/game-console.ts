@@ -7,7 +7,7 @@ import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, L
 import { Display } from './display.ts'
 import { GamePad } from './game-pad.ts'
 
-import Template from './game-console.ui?raw'
+import Template from './game-console.blp'
 
 GObject.type_ensure(Display.$gtype)
 GObject.type_ensure(GamePad.$gtype)
@@ -356,6 +356,6 @@ export class GameConsole extends Adw.Bin {
 
   private removeSignalHandlers(): void {
     this.gamepadHandlerIds.forEach(id => this._gamePad.disconnect(id));
-    this.gamepadHandlerIds = [];    
+    this.gamepadHandlerIds = [];
   }
 }

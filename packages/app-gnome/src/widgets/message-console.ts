@@ -2,7 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 
-import Template from './message-console.ui?raw'
+import Template from './message-console.blp'
 
 import type { MessageConsole as MessageConsoleInterface } from '@easy6502/6502'
 

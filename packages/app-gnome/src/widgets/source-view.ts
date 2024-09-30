@@ -5,7 +5,7 @@ import GtkSource from '@girs/gtksource-5'
 import Gdk from '@girs/gdk-4.0'
 import GLib from '@girs/glib-2.0'
 
-import Template from './source-view.ui?raw'
+import Template from './source-view.blp'
 
 import { GutterRendererAddress } from '../gutter-renderer-address.ts'
 
@@ -21,7 +21,7 @@ GtkSource.init()
 
 /**
  * @class SourceView to show 6502 assembly code
- * 
+ *
  * @emits changed - Emitted when the buffer's text changes
  */
 export class SourceView extends Adw.Bin {
@@ -72,7 +72,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Set the readonly property of the source view
-   * 
+   *
    * @param value - Whether the source view is readonly
    */
   public set readonly(value: boolean) {
@@ -81,7 +81,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Get the readonly property of the source view
-   * 
+   *
    * @returns Whether the source view is readonly
    */
   public get readonly(): boolean {
@@ -90,7 +90,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Set the editable property of the source view
-   * 
+   *
    * @param value - Whether the source view is editable
    */
   public set editable(value: boolean) {
@@ -99,7 +99,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Get the editable property of the source view
-   * 
+   *
    * @returns Whether the source view is editable
    */
   public get editable(): boolean {
@@ -108,7 +108,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Set the language of the source view
-   * 
+   *
    * @param language - The language of the source view, e.g. '6502-assembler'
    */
   public set language(language: string) {
@@ -131,7 +131,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Get the language of the source view
-   * 
+   *
    * @returns The language of the source view, e.g. '6502-assembler'
    */
   public get language(): string {
@@ -140,7 +140,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Set the selectable property of the source view
-   * 
+   *
    * @param value - Whether the source view is selectable
    */
   public set selectable(value: boolean) {
@@ -157,16 +157,16 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Get the selectable property of the source view
-   * 
+   *
    * @returns Whether the source view is selectable
    */
   public get selectable(): boolean {
     return this._selectable;
   }
-  
+
   /**
    * Set the unselectable property of the source view
-   * 
+   *
    * @param value - Whether the source view is unselectable
    */
   public set unselectable(value: boolean) {
@@ -175,7 +175,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Get the unselectable property of the source view
-   * 
+   *
    * @returns Whether the source view is unselectable
    */
   public get unselectable(): boolean {
@@ -184,7 +184,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Set the line numbers property of the source view
-   * 
+   *
    * @param value - Whether the source view has line numbers
    */
   public set lineNumbers(value: boolean) {
@@ -193,7 +193,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Get the line numbers property of the source view
-   * 
+   *
    * @returns Whether the source view has line numbers
    */
   public get lineNumbers(): boolean {
@@ -202,7 +202,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Set the no line numbers property of the source view
-   * 
+   *
    * @param value - Whether the source view has no line numbers
    */
   public set noLineNumbers(value: boolean) {
@@ -211,7 +211,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Get the no line numbers property of the source view
-   * 
+   *
    * @returns Whether the source view has no line numbers
    */
   public get noLineNumbers(): boolean {
@@ -221,7 +221,7 @@ export class SourceView extends Adw.Bin {
   /**
    * Set the fitContentHeight property of the source view.
    * This property is used to fit the content height of the source view and to disable vertical scrolling.
-   * 
+   *
    * @param value - Whether the source view should fit the content height
    */
   public set fitContentHeight(value: boolean) {
@@ -236,7 +236,7 @@ export class SourceView extends Adw.Bin {
   /**
    * Set the fitContentWidth property of the source view.
    * This property is used to fit the content width of the source view and to disable horizontal scrolling.
-   * 
+   *
    * @param value - Whether the source view should fit the content width
    */
   public set fitContentWidth(value: boolean) {
@@ -297,7 +297,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Setup signal listeners
-   * 
+   *
    * @emits changed - Emitted when the buffer's text changes
    */
   private setupSignalListeners() {
@@ -352,7 +352,7 @@ export class SourceView extends Adw.Bin {
 
   /**
    * Copy the selected text to the "strg+c" clipboard without spaces
-   * @returns 
+   * @returns
    */
   private onCopyHexClipboard() {
     const buffer = this._sourceView.buffer
@@ -362,7 +362,7 @@ export class SourceView extends Adw.Bin {
       const text = buffer.get_text(start, end, false)
       const cleanedText = text.replace(/\s/g, '')
 
-      const display = this.get_display(); // Gdk.Display.get_default(); 
+      const display = this.get_display(); // Gdk.Display.get_default();
       if (!display) {
         console.error('No display found')
         return false;

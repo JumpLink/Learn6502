@@ -10,7 +10,7 @@ import { Editor } from './editor.ts'
 import { GameConsole } from './game-console.ts'
 import { Debugger } from './debugger.ts'
 
-import Template from './application-window.ui?raw'
+import Template from './application-window.blp'
 
 // Ensure widgets are loaded and can be used in the XML
 GObject.type_ensure(Learn.$gtype)

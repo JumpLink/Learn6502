@@ -2,7 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import cairo from 'cairo'
-import Template from './display.ui?raw'
+import Template from './display.blp'
 
 import type { Display as DisplayInterface, Memory, MemoryEvent } from '@easy6502/6502'
 
@@ -97,7 +97,7 @@ export class Display extends Adw.Bin implements DisplayInterface {
 
   private drawPixel(cr: cairo.Context, addr: number) {
     const color = this._getColorForAddress(addr);
-      
+
     const y = Math.floor((addr - 0x200) / this.numY);
     const x = (addr - 0x200) % this.numX;
 
@@ -117,7 +117,7 @@ export class Display extends Adw.Bin implements DisplayInterface {
     const red = parseInt(hex.slice(1, 3), 16) / 255;
     const green = parseInt(hex.slice(3, 5), 16) / 255;
     const blue = parseInt(hex.slice(5, 7), 16) / 255;
-    
+
     return { red, green, blue };
   }
 }

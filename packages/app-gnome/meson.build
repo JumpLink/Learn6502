@@ -21,7 +21,7 @@ pkgdatadir = datadir / app_id
 yarn_args = ['--cwd', meson.project_source_root()]
 
 yarn_env = environment()
-yarn_env.set('APP_ID', app_id)
+yarn_env.set('APPLICATION_ID', app_id)
 yarn_env.set('PREFIX', get_option('prefix'))
 yarn_env.set('LIBDIR', libdir)
 yarn_env.set('DATADIR', datadir)

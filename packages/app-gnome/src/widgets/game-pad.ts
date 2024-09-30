@@ -4,7 +4,7 @@ import Gtk from '@girs/gtk-4.0'
 
 import { MessageConsole } from './message-console.ts'
 
-import Template from './game-pad.ui?raw'
+import Template from './game-pad.blp'
 
 GObject.type_ensure(MessageConsole.$gtype)
 

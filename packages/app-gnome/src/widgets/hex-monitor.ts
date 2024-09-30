@@ -4,7 +4,7 @@ import { SourceView } from './source-view.ts'
 
 import type { Memory, HexMonitorOptions, HexMonitor as HexMonitorInterface } from '@easy6502/6502'
 
-import Template from './hex-monitor.ui?raw'
+import Template from './hex-monitor.blp'
 
 GObject.type_ensure(SourceView.$gtype)
 

@@ -4,7 +4,7 @@ import Gtk from '@girs/gtk-4.0'
 
 import { type Simulator, type DebugInfo as DebugInfoInterface, num2hex, addr2hex } from '@easy6502/6502'
 
-import Template from './debug-info.ui?raw'
+import Template from './debug-info.blp'
 
 export interface DebugInfo {
   // Child widgets

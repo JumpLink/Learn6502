@@ -3,7 +3,7 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import { SourceView } from './source-view.ts'
 
-import Template from './editor.ui?raw'
+import Template from './editor.blp'
 
 GObject.type_ensure(SourceView.$gtype)
 
@@ -14,7 +14,7 @@ export interface Editor {
 
 /**
  * @class Editor to edit 6502 assembly code
- * 
+ *
  * @emits changed - Emitted when the buffer's text changes
  */
 export class Editor extends Adw.Bin {

@@ -3,13 +3,13 @@ import '@girs/gjs/dom'
 import '@girs/gjs'
 import GLib from '@girs/glib-2.0'
 import { programInvocationName, exit} from 'system'
-import { APPLICATION_ID, VERSION, PREFIX, LIBDIR, DATADIR } from './constants.ts'
+import { APPLICATION_ID, PACKAGE_VERSION, PREFIX, LIBDIR, DATADIR } from './constants.ts'
 
 import { Application } from './application.ts'
 
 imports.package.init({
   name: APPLICATION_ID,
-  version: VERSION,
+  version: PACKAGE_VERSION,
   prefix: PREFIX,
   libdir: LIBDIR,
   datadir: DATADIR,
