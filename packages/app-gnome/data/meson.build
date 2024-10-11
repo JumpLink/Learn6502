@@ -34,3 +34,18 @@ test('Validate schema file',
      args: ['--strict', '--dry-run', meson.current_source_dir()])
 
 subdir('icons')
+
+
+
+data_res = gnome.compile_resources(
+  application_id + '.data',
+  configure_file(
+  	input: application_id + '.data.gresource.xml',
+  	output: application_id + '.data.gresource.xml',
+  	configuration: conf
+	),
+  gresource_bundle: true,
+  install: true,
+  install_dir: pkgdatadir,
+  # dependencies: [appstream_file, blueprints],
+)

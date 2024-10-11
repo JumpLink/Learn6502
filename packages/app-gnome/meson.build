@@ -8,19 +8,19 @@ yarn = [find_program('node'), yarn_path]
 gjs_dep = dependency('gjs-1.0', version: '>= 1.80.2')
 gjs_console = find_program('gjs-console', required: true)
 
-app_id = 'eu.jumplink.Easy6502'
+application_id = 'eu.jumplink.Easy6502'
 prefix = get_option('prefix')
 libdir = prefix / get_option('libdir')
 datadir = prefix / get_option('datadir')
 bindir = prefix / get_option('bindir')
-pkgdatadir = datadir / app_id
+pkgdatadir = datadir / application_id
 
 yarn_args = ['--cwd', meson.project_source_root()]
 
 yarn_env = environment()
 yarn_env.set('GJS_CONSOLE', gjs_console.full_path())
 yarn_env.set('PACKAGE_VERSION', meson.project_version())
-yarn_env.set('APPLICATION_ID', app_id)
+yarn_env.set('APPLICATION_ID', application_id)
 yarn_env.set('PREFIX', prefix)
 yarn_env.set('LIBDIR', libdir)
 yarn_env.set('DATADIR', datadir)
@@ -32,7 +32,7 @@ yarn_env.set('PKGDATADIR', pkgdatadir)
 conf = configuration_data()
 conf.set('GJS_CONSOLE', gjs_console.full_path())
 conf.set('PACKAGE_VERSION', meson.project_version())
-conf.set('APPLICATION_ID', app_id)
+conf.set('APPLICATION_ID', application_id)
 conf.set('prefix', prefix)
 conf.set('libdir', libdir)
 conf.set('datadir', datadir)
@@ -46,7 +46,7 @@ yarn_install = custom_target('yarn-install',
 )
 
 yarn_build = custom_target('yarn-build',
-  output: [app_id],
+  output: [application_id],
   command: [yarn, yarn_args, 'build'],
   build_by_default: true,
   env: yarn_env,

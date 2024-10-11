@@ -1,5 +1,3 @@
-application_id = 'eu.jumplink.Easy6502'
-
 scalable_dir = 'hicolor' / 'scalable' / 'apps'
 install_data(
   scalable_dir / ('@0@.svg').format(application_id),
