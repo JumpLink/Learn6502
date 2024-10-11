@@ -1,6 +1,7 @@
 import { defineConfig } from 'vite'
 import { fileURLToPath } from 'node:url'
-import { dirname } from 'node:path'
+import { dirname, resolve } from 'node:path'
+import { readFileSync, writeFileSync, chmodSync } from 'node:fs'
 import blueprintPlugin from '@easy6502/vite-plugin-blueprint'
 import pkg from './package.json'
 
@@ -10,20 +11,33 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   const __dirname = dirname(__filename)
 
   const APPLICATION_ID = process.env.APPLICATION_ID || 'eu.jumplink.Easy6502'
+  const OUTDIR = process.env.OUTDIR || __dirname + '/.'
+  const ENTRY_FILENAME = process.env.ENTRY_FILENAME || APPLICATION_ID
   const RESOURCES_PATH = '/' + APPLICATION_ID.replaceAll('.', '/') // E.g. /eu/jumplink/Easy6502
   const PACKAGE_VERSION = process.env.PACKAGE_VERSION || pkg.version
-  const PREFIX = process.env.PREFIX || __dirname // E.g. /usr
+  const PREFIX = process.env.PREFIX || OUTDIR // E.g. /usr
   const LIBDIR = process.env.LIBDIR || `${PREFIX}/lib` // E.g. /usr/lib
-  const DATADIR = process.env.DATADIR || `${PREFIX}/share` // E.g. /usr/share
-  const BINDIR = process.env.BINDIR || `${PREFIX}/bin` // E.g. /usr/bin
-  const GJS_CONSOLE = process.env.GJS_CONSOLE || `#!/usr/bin/env -S gjs`
+  const DATADIR = process.env.DATADIR || `${PREFIX}/data` // E.g. /usr/share
+  const BINDIR = process.env.BINDIR || PREFIX // E.g. /usr/bin
+  const GJS_CONSOLE = process.env.GJS_CONSOLE || '/usr/bin/env -S gjs'
   const PKGDATADIR = process.env.PKGDATADIR || `${DATADIR}/${APPLICATION_ID}`
+
 
   return {
     plugins: [
       blueprintPlugin({
         minify: true
-      })
+      }),
+      {
+        name: 'add-gjs-shebang',
+        closeBundle: () => {
+          const bundlePath = resolve(OUTDIR, `${APPLICATION_ID}`)
+          const content = readFileSync(bundlePath, 'utf-8')
+          const shebang = `#!${GJS_CONSOLE} -m\n`
+          writeFileSync(bundlePath, shebang + content)
+          chmodSync(bundlePath, '755') // Macht die Datei ausführbar
+        }
+      }
     ],
     define: {
       '__APPLICATION_ID__': JSON.stringify(APPLICATION_ID),
@@ -39,7 +53,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     css: {},
     build: {
       assetsDir: '.',
-      outDir: 'bin',
+      outDir: OUTDIR,
       emptyOutDir: false,
       // target: "firefox60", // Since GJS 1.53.90
       // target: "firefox68", // Since GJS 1.63.90
@@ -51,8 +65,8 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       rollupOptions: {
         input: 'src/main.ts',
         output: {
-          entryFileNames: APPLICATION_ID,
-          banner: `#!${GJS_CONSOLE} -m\n`,
+          entryFileNames: ENTRY_FILENAME,
+          // banner: `#!${GJS_CONSOLE} -m\n`,
         },
         external: [new RegExp('^gi://*', 'i'), 'system'],
       },

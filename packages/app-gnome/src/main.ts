@@ -11,8 +11,8 @@ imports.package.init({
   name: APPLICATION_ID,
   version: PACKAGE_VERSION,
   prefix: PREFIX,
-  libdir: LIBDIR,
-  datadir: DATADIR,
+  libdir: LIBDIR.get_path()!,
+  datadir: DATADIR.get_path()!,
 });
 
 pkg.initGettext();

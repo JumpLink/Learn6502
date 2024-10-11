@@ -3,26 +3,17 @@ import Gtk from '@girs/gtk-4.0'
 import Gdk from '@girs/gdk-4.0'
 import GtkSource from '@girs/gtksource-5'
 
-import { APPLICATION_ID, RESOURCES_PATH } from './constants.ts'
-import { rootDir } from './utils.ts'
+import { APPLICATION_ID, RESOURCES_PATH, DATADIR } from './constants.ts'
 
 export const initResources = () => {
   // Register resources
-  const resourceDataPath = rootDir.resolve_relative_path(`./data/${APPLICATION_ID}.data.gresource`).get_path()
+  const resourceDataPath = DATADIR.resolve_relative_path(`./${APPLICATION_ID}.data.gresource`).get_path()
   if (!resourceDataPath) {
     throw new Error('Resource data path not found')
   }
 
   const resourceData = Gio.Resource.load(resourceDataPath)
   Gio.resources_register(resourceData)
-
-  const resourceSrcPath = rootDir.resolve_relative_path(`./src/${APPLICATION_ID}.src.gresource`).get_path()
-  if (!resourceSrcPath) {
-    throw new Error('Resource src path not found')
-  }
-
-  const resourceSrc = Gio.Resource.load(resourceSrcPath)
-  Gio.resources_register(resourceSrc)
 
   // Register icons
   const display = Gdk.Display.get_default()
