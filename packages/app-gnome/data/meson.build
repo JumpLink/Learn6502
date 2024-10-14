@@ -39,11 +39,7 @@ subdir('icons')
 
 data_res = gnome.compile_resources(
   application_id + '.data',
-  configure_file(
-  	input: application_id + '.data.gresource.xml',
-  	output: application_id + '.data.gresource.xml',
-  	configuration: conf
-	),
+  application_id + '.data.gresource.xml',
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,

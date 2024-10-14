@@ -1,11 +1,10 @@
-yproject_root = meson.current_source_dir()
-
 i18n = import('i18n')
 gnome = import('gnome')
-yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.4.0.cjs'
+# TODO: Autodetect yarn version
+yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.5.0.cjs'
 yarn = [find_program('node'), yarn_path]
 
-gjs_dep = dependency('gjs-1.0', version: '>= 1.80.2')
+dependency('gjs-1.0', version: '>= 1.80.2')
 gjs_console = find_program('gjs-console', required: true)
 
 application_id = 'eu.jumplink.Easy6502'
@@ -29,29 +28,21 @@ yarn_env.set('OUTDIR', meson.current_build_dir())
 
 yarn_env.set('PKGDATADIR', pkgdatadir)
 
-conf = configuration_data()
-conf.set('GJS_CONSOLE', gjs_console.full_path())
-conf.set('PACKAGE_VERSION', meson.project_version())
-conf.set('APPLICATION_ID', application_id)
-conf.set('prefix', prefix)
-conf.set('libdir', libdir)
-conf.set('datadir', datadir)
-conf.set('bindir', bindir)
+run_command(yarn, yarn_args, 'install', check: true)
 
-yarn_install = custom_target('yarn-install',
-  command: [yarn, yarn_args, 'install'],
-  output: 'yarn-install-stamp',
-  build_by_default: true,
-  env: yarn_env
-)
+# Find all source files
+ts_files = run_command('sh', '-c', 'ls src/*/*.ts && ls src/*.ts', check: true).stdout().strip().split('\n')
+blueprint_files = run_command('sh', '-c', 'ls src/*/*.blp', check: true).stdout().strip().split('\n')
+src_files = files(ts_files, blueprint_files)
 
-yarn_build = custom_target('yarn-build',
-  output: [application_id],
+custom_target('yarn-build',
+  input: src_files,
   command: [yarn, yarn_args, 'build'],
+  output: application_id,
   build_by_default: true,
   env: yarn_env,
   install: true,
-  install_dir: bindir
+  install_dir: bindir,
 )
 
 subdir('data')

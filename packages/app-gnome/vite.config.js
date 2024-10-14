@@ -10,20 +10,84 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
   const __filename = fileURLToPath(import.meta.url)
   const __dirname = dirname(__filename)
 
+  /*
+   * The following environment variables are used to configure the build.
+   * They are set by the meson build system which is used to build the project for flatpak.
+   * If you do not use the meson build system, then path information points to the current
+   * project structure in order to be able to execute the project locally without flatpak.
+   */
+
+  /**
+   * flatpak+meson: eu.jumplink.Easy6502
+   * local: eu.jumplink.Easy6502
+   */
   const APPLICATION_ID = process.env.APPLICATION_ID || 'eu.jumplink.Easy6502'
-  const OUTDIR = process.env.OUTDIR || __dirname + '/.'
+  /**
+   * flatpak+meson: <project-root>/_build/packages/app-gnome
+   * local: <project-root>/packages/app-gnome/
+   */
+  const OUTDIR = process.env.OUTDIR || __dirname
+  /**
+   * flatpak and local: eu.jumplink.Easy6502
+   */
   const ENTRY_FILENAME = process.env.ENTRY_FILENAME || APPLICATION_ID
-  const RESOURCES_PATH = '/' + APPLICATION_ID.replaceAll('.', '/') // E.g. /eu/jumplink/Easy6502
+  /**
+   * flatpak and local: /eu/jumplink/Easy6502
+   */
+  const RESOURCES_PATH = '/' + APPLICATION_ID.replaceAll('.', '/')
+  /**
+   * flatpak and local: 0.1.0
+   */
   const PACKAGE_VERSION = process.env.PACKAGE_VERSION || pkg.version
-  const PREFIX = process.env.PREFIX || OUTDIR // E.g. /usr
-  const LIBDIR = process.env.LIBDIR || `${PREFIX}/lib` // E.g. /usr/lib
-  const DATADIR = process.env.DATADIR || `${PREFIX}/data` // E.g. /usr/share
-  const BINDIR = process.env.BINDIR || PREFIX // E.g. /usr/bin
+  /**
+   * flatpak+meson: /usr
+   * local: <project-root>/packages/app-gnome
+   */
+  const PREFIX = process.env.PREFIX || OUTDIR
+  /**
+   * flatpak+meson: /app/lib64
+   * local: <project-root>/packages/app-gnome/lib
+   */
+  const LIBDIR = process.env.LIBDIR || `${PREFIX}/lib`
+  /**
+   * flatpak+meson: /app/share
+   * local: <project-root>/packages/app-gnome/data
+   */
+  const DATADIR = process.env.DATADIR || `${PREFIX}/data`
+  /**
+   * flatpak+meson: /app/bin
+   * local: <project-root>/packages/app-gnome
+   */
+  const BINDIR = process.env.BINDIR || PREFIX
+  /**
+   * flatpak+meson: /usr/bin/gjs-console
+   * local: /usr/bin/env -S gjs
+   */
   const GJS_CONSOLE = process.env.GJS_CONSOLE || '/usr/bin/env -S gjs'
-  const PKGDATADIR = process.env.PKGDATADIR || `${DATADIR}/${APPLICATION_ID}`
+  /**
+   * flatpak+meson: /app/share/eu.jumplink.Easy6502
+   * local: <project-root>/packages/app-gnome/data
+   */
+  const PKGDATADIR = process.env.PKGDATADIR || DATADIR
+
+
+  console.log({
+    APPLICATION_ID,
+    OUTDIR,
+    ENTRY_FILENAME,
+    RESOURCES_PATH,
+    PACKAGE_VERSION,
+    PREFIX,
+    LIBDIR,
+    DATADIR,
+    BINDIR,
+    GJS_CONSOLE,
+    PKGDATADIR,
+  })
 
 
   return {
+    clearScreen: false,
     plugins: [
       blueprintPlugin({
         minify: true

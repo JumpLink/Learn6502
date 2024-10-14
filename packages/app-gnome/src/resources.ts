@@ -3,11 +3,11 @@ import Gtk from '@girs/gtk-4.0'
 import Gdk from '@girs/gdk-4.0'
 import GtkSource from '@girs/gtksource-5'
 
-import { APPLICATION_ID, RESOURCES_PATH, DATADIR } from './constants.ts'
+import { APPLICATION_ID, RESOURCES_PATH, PKGDATADIR } from './constants.ts'
 
 export const initResources = () => {
   // Register resources
-  const resourceDataPath = DATADIR.resolve_relative_path(`./${APPLICATION_ID}.data.gresource`).get_path()
+  const resourceDataPath = Gio.File.new_for_path(PKGDATADIR).resolve_relative_path(`./${APPLICATION_ID}.data.gresource`).get_path()
   if (!resourceDataPath) {
     throw new Error('Resource data path not found')
   }

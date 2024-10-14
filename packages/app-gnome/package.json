@@ -9,7 +9,7 @@
         "test": "echo \"Error: no test specified\" && exit 1",
         "clear": "rm -rf dist",
         "build:vite": "vite build",
-        "build:resources": "glib-compile-resources --sourcedir data data/eu.jumplink.Easy6502.data.gresource.xml && glib-compile-resources --sourcedir src src/eu.jumplink.Easy6502.src.gresource.xml",
+        "build:resources": "glib-compile-resources --sourcedir data data/eu.jumplink.Easy6502.data.gresource.xml",
         "build:with-deps": "yarn workspaces foreach -pRv --from @easy6502/app-gnome run build",
         "build": "yarn build:resources && yarn build:vite",
         "check": "tsc",
