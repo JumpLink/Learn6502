@@ -1,4 +1,4 @@
-project_root = meson.current_source_dir()
+yproject_root = meson.current_source_dir()
 
 i18n = import('i18n')
 gnome = import('gnome')
