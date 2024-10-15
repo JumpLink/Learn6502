@@ -1,17 +1,23 @@
 {
   "id": "eu.jumplink.Easy6502",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "master",
+  "runtime-version": "47",
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
-    "org.freedesktop.Sdk.Extension.node20",
-    "org.freedesktop.Sdk.Extension.typescript"
+    {
+      "name": "org.freedesktop.Sdk.Extension.node22",
+      "version": "24.08"
+    },
+    {
+      "name": "org.freedesktop.Sdk.Extension.typescript",
+      "version": "24.08"
+    }
   ],
   "tags": [
     "nightly"
   ],
   "build-options": {
-    "append-path": "/usr/lib/sdk/node20/bin:/usr/lib/sdk/typescript/bin"
+    "append-path": "/usr/lib/sdk/node22/bin:/usr/lib/sdk/typescript/bin"
   },
   "command": "eu.jumplink.Easy6502",
   "finish-args": [
