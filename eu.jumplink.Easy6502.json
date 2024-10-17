@@ -4,14 +4,8 @@
   "runtime-version": "47",
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
-    {
-      "name": "org.freedesktop.Sdk.Extension.node22",
-      "version": "24.08"
-    },
-    {
-      "name": "org.freedesktop.Sdk.Extension.typescript",
-      "version": "24.08"
-    }
+    "org.freedesktop.Sdk.Extension.node22",
+    "org.freedesktop.Sdk.Extension.typescript"
   ],
   "tags": [
     "nightly"
@@ -57,7 +51,7 @@
       "sources": [
         {
           "type": "dir",
-          "path": "../.."
+          "path": "."
         }
       ]
     }
