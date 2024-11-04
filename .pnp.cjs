@@ -27,6 +27,10 @@ const RAW_RUNTIME_STATE =
       "reference": "workspace:packages/app-web"\
     },\
     {\
+      "name": "@easy6502/art",\
+      "reference": "workspace:packages/art"\
+    },\
+    {\
       "name": "@easy6502/learn",\
       "reference": "workspace:packages/learn"\
     },\
@@ -41,6 +45,7 @@ const RAW_RUNTIME_STATE =
     ["@easy6502/6502", ["workspace:packages/6502"]],\
     ["@easy6502/app-gnome", ["workspace:packages/app-gnome"]],\
     ["@easy6502/app-web", ["workspace:packages/app-web"]],\
+    ["@easy6502/art", ["workspace:packages/art"]],\
     ["@easy6502/learn", ["workspace:packages/learn"]],\
     ["@easy6502/vite-plugin-blueprint", ["virtual:2523ce202cf4c3d85c30640feaa26a27af05e7c1a3a70e9af31349b9fcaa1681d99610c17bdb2538612064c5fccf947322ecc629acf009ad424cba79d4f783cc#workspace:packages/vite-plugin-blueprint", "workspace:packages/vite-plugin-blueprint"]],\
     ["easy6502", ["workspace:."]]\
@@ -103,6 +108,15 @@ const RAW_RUNTIME_STATE =
           ["lightningcss", "npm:1.26.0"],\
           ["typescript", "patch:typescript@npm%3A5.5.4#optional!builtin<compat/typescript>::version=5.5.4&hash=379a07"],\
           ["vite", "virtual:121755029ddf1f766113902df7c572ad3901c6ef67f284913dc7f1352f1db648336445518eb6d9a2421d4237ff1e6cf435ee0979b84ee6213d4202e502f6ba49#npm:5.4.3"]\
+        ],\
+        "linkType": "SOFT"\
+      }]\
+    ]],\
+    ["@easy6502/art", [\
+      ["workspace:packages/art", {\
+        "packageLocation": "./packages/art/",\
+        "packageDependencies": [\
+          ["@easy6502/art", "workspace:packages/art"]\
         ],\
         "linkType": "SOFT"\
       }]\
