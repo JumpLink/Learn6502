@@ -6,7 +6,7 @@ import Adw from '@girs/adw-1'
 
 import { ApplicationWindow } from './widgets/application-window.ts'
 import { PreferencesDialog } from './widgets/preferences-dialog.ts'
-import { APPLICATION_ID, RESOURCES_PATH, VERSION } from './constants.ts'
+import { APPLICATION_ID, RESOURCES_PATH } from './constants.ts'
 import { initResources } from './resources.ts'
 
 import mainStyle from './main.css?inline'

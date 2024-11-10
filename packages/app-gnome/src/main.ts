@@ -1,4 +1,4 @@
-import './global.d.ts'
+import './types/global.d.ts'
 import '@girs/gjs/dom'
 import '@girs/gjs'
 import GLib from '@girs/glib-2.0'
