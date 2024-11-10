@@ -113,7 +113,6 @@ export class GameConsole extends Adw.Bin {
       InternalChildren: ['display', 'gamePad'],
       Signals: {
         'assemble-success': {
-          // TODO: Fix this, see https://github.com/gjsify/ts-for-gir/pull/189
           param_types: [GObject.TYPE_JSOBJECT],
         },
         'assemble-failure': {

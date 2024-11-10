@@ -1,7 +1,7 @@
 i18n = import('i18n')
 gnome = import('gnome')
 # TODO: Autodetect yarn version
-yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.5.0.cjs'
+yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.5.1.cjs'
 node = find_program('node')
 yarn = [node, yarn_path]
 
