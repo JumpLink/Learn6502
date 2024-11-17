@@ -4,6 +4,11 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import type { GettextPluginOptions } from './types.js';
 
+/**
+ * Checks if msgfmt is installed and available
+ * @param verbose Enable verbose logging
+ * @throws Error if msgfmt is not found
+ */
 async function checkDependencies(verbose: boolean) {
   try {
     await execa('msgfmt', ['--version']);
@@ -21,6 +26,12 @@ async function checkDependencies(verbose: boolean) {
   }
 }
 
+/**
+ * Scans the PO directory to find available language translations
+ * @param poDirectory Directory containing PO files
+ * @param verbose Enable verbose logging
+ * @returns Array of language codes found (e.g. ['de', 'fr', 'es'])
+ */
 async function findAvailableLanguages(poDirectory: string, verbose: boolean): Promise<string[]> {
   try {
     const files = await fs.readdir(poDirectory);
@@ -41,6 +52,13 @@ async function findAvailableLanguages(poDirectory: string, verbose: boolean): Pr
   }
 }
 
+/**
+ * Creates a Vite plugin that compiles PO translation files to binary MO format
+ * The MO files are placed in the standard gettext directory structure:
+ * {moDirectory}/locale/{lang}/LC_MESSAGES/messages.mo
+ * @param options Configuration options for the plugin
+ * @returns A Vite plugin that handles PO compilation
+ */
 export function gettextPlugin(options: GettextPluginOptions): Plugin {
   const {
     poDirectory,

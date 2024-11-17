@@ -5,6 +5,11 @@ import fs from 'node:fs/promises';
 import glob from 'fast-glob';
 import type { XGettextPluginOptions } from './types.js';
 
+/**
+ * Checks if xgettext is installed and available
+ * @param verbose Enable verbose logging
+ * @throws Error if xgettext is not found
+ */
 async function checkDependencies(verbose: boolean) {
   try {
     await execa('xgettext', ['--version']);
@@ -22,6 +27,12 @@ async function checkDependencies(verbose: boolean) {
   }
 }
 
+/**
+ * Creates a Vite plugin that extracts translatable strings from source files
+ * Uses GNU xgettext to generate a POT template file that can be used as basis for translations
+ * @param options Configuration options for the plugin
+ * @returns A Vite plugin that handles string extraction
+ */
 export function xgettextPlugin(options: XGettextPluginOptions): Plugin {
   const {
     sources,

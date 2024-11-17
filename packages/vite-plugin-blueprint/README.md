@@ -17,7 +17,7 @@ npm install @easy6502/vite-plugin-blueprint --save-dev
 or if you use Yarn:
 
 ```bash
-yarn add @easy6502/vite-plugin-blueprint --dev
+yarn add @easy6502/vite-plugin-blueprint -D
 ```
 
 ## Usage
