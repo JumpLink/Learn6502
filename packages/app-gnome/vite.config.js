@@ -3,6 +3,7 @@ import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { readFileSync, writeFileSync, chmodSync } from 'node:fs'
 import blueprintPlugin from '@easy6502/vite-plugin-blueprint'
+import { xgettextPlugin, gettextPlugin } from '@easy6502/vite-plugin-gettext'
 import pkg from './package.json'
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
@@ -91,6 +92,18 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     plugins: [
       blueprintPlugin({
         minify: true
+      }),
+      xgettextPlugin({
+        sources: ['src/**/*.{ts,js,blp}'],
+        output: 'po/messages.pot',
+        domain: APPLICATION_ID,
+        keywords: ['_', 'C_', 'N_', 'NC_'],
+        verbose: true
+      }),
+      gettextPlugin({
+        poDirectory: 'po',
+        moDirectory: resolve(PKGDATADIR, 'locale'),
+        verbose: true
       }),
       {
         name: 'add-gjs-shebang',
