@@ -1,9 +1,6 @@
 import { Plugin } from 'vite';
-import { exec } from 'node:child_process';
-import { promisify } from 'node:util';
+import { execa } from 'execa';
 import minifyXML from 'minify-xml';
-
-const execAsync = promisify(exec);
 
 export interface BlueprintPluginOptions {
   minify?: boolean;
@@ -20,7 +17,7 @@ export default function blueprintPlugin(options: BlueprintPluginOptions = {}): P
       if (id.endsWith('.blp')) {
         try {
           // Compile .blp file and get XML output directly
-          const { stdout } = await execAsync(`blueprint-compiler compile ${id}`);
+          const { stdout } = await execa('blueprint-compiler', ['compile', id]);
           if (verbose) console.log(`Compiled ${id}`);
 
           let xmlContent = stdout;
