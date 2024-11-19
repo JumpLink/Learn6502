@@ -71,6 +71,11 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
    */
   const PKGDATADIR = process.env.PKGDATADIR || DATADIR
 
+  /**
+   * The build mode is used to determine if the build is a local build or a flatpak+meson build.
+   * @type {'local' | 'flatpak'}
+   */
+  const BUILD_MODE = (process.env.BUILD_MODE || 'local')
 
   console.log({
     APPLICATION_ID,
@@ -84,6 +89,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     BINDIR,
     GJS_CONSOLE,
     PKGDATADIR,
+    BUILD_MODE
   })
 
 
@@ -94,15 +100,18 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         minify: true
       }),
       xgettextPlugin({
-        sources: ['src/**/*.{ts,js,blp}'],
-        output: 'po/messages.pot',
+        sources: ['src/**/*.{ts,js,blp,xml,desktop}'],
+        output: `po/${APPLICATION_ID}.pot`,
         domain: APPLICATION_ID,
         keywords: ['_', 'C_', 'N_', 'NC_'],
         verbose: true
       }),
-      gettextPlugin({
+      // Only compile MO files for local builds
+      // For flatpak builds, the MO files are compiled by meson
+      BUILD_MODE === 'local' && gettextPlugin({
         poDirectory: 'po',
-        moDirectory: resolve(PKGDATADIR, 'locale'),
+        moDirectory: PKGDATADIR,
+        filename: `${APPLICATION_ID}.mo`,
         verbose: true
       }),
       {

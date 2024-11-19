@@ -52,6 +52,20 @@ async function findAvailableLanguages(poDirectory: string, verbose: boolean): Pr
   }
 }
 
+async function generateLinguasFile(languages: string[], poDirectory: string, verbose = false) {
+  const linguasPath = path.join(poDirectory, 'LINGUAS')
+  const content = languages.join('\n')
+
+  try {
+    await fs.writeFile(linguasPath, content)
+    if (verbose) {
+      console.log(`Generated LINGUAS file with languages: ${languages.join(', ')}`)
+    }
+  } catch (error) {
+    console.error('Error writing LINGUAS file:', error)
+  }
+}
+
 /**
  * Creates a Vite plugin that compiles PO translation files to binary MO format
  * The MO files are placed in the standard gettext directory structure:
@@ -63,6 +77,7 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
   const {
     poDirectory,
     moDirectory,
+    filename = 'messages.mo',
     verbose = false
   } = options;
 
@@ -80,7 +95,7 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
 
       // Find available languages
       const languages = await findAvailableLanguages(poDirectory, verbose);
-      
+
       if (languages.length === 0) {
         if (verbose) {
           console.log('[vite-plugin-gettext] No translation files found');
@@ -88,13 +103,16 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
         return;
       }
 
+      // Generate LINGUAS file
+      await generateLinguasFile(languages, poDirectory, verbose);
+
       // Create MO directory
       await fs.mkdir(path.join(moDirectory, 'locale'), { recursive: true });
 
       for (const lang of languages) {
         const poFile = path.join(poDirectory, `${lang}.po`);
         const moPath = path.join(moDirectory, 'locale', lang, 'LC_MESSAGES');
-        const moFile = path.join(moPath, 'messages.mo');
+        const moFile = path.join(moPath, filename);
 
         await fs.mkdir(moPath, { recursive: true });
 
@@ -114,7 +132,7 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
 
   return {
     name: 'vite-plugin-gettext',
-    
+
     async buildStart() {
       await checkDependencies(verbose);
       await compileMoFiles();
@@ -122,7 +140,7 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
 
     configureServer(server) {
       server.watcher.add(poDirectory);
-      
+
       server.watcher.on('change', async (file) => {
         if (file.endsWith('.po')) {
           if (verbose) {

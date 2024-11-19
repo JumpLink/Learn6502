@@ -16,6 +16,8 @@ imports.package.init({
 });
 
 pkg.initGettext();
+imports.gettext.bindtextdomain(APPLICATION_ID, DATADIR + '/locale');
+imports.gettext.textdomain(APPLICATION_ID);
 
 const loop = GLib.MainLoop.new(null, false)
 

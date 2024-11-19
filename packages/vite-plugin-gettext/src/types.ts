@@ -26,6 +26,8 @@ export interface GettextPluginOptions {
   poDirectory: string;
   /** Output directory for compiled MO files */
   moDirectory: string;
+  /** Filename of the MO file, defaults to 'messages.mo' */
+  filename?: string;
   /** Enable verbose logging */
   verbose?: boolean;
 }

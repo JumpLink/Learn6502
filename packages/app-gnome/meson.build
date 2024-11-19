@@ -26,6 +26,7 @@ yarn_env.set('LIBDIR', libdir)
 yarn_env.set('DATADIR', datadir)
 yarn_env.set('BINDIR', bindir)
 yarn_env.set('OUTDIR', meson.current_build_dir())
+yarn_env.set('BUILD_MODE', 'flatpak')
 
 yarn_env.set('PKGDATADIR', pkgdatadir)
 

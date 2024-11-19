@@ -1,1 +1,1 @@
-i18n.gettext('easy6502', preset: 'glib')
+i18n.gettext(application_id, preset: 'glib')
