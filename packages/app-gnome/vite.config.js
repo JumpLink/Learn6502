@@ -2,9 +2,11 @@ import { defineConfig } from 'vite'
 import { fileURLToPath } from 'node:url'
 import { dirname, resolve } from 'node:path'
 import { readFileSync, writeFileSync, chmodSync } from 'node:fs'
+import pkg from './package.json'
+
 import blueprintPlugin from '@easy6502/vite-plugin-blueprint'
 import { xgettextPlugin, gettextPlugin } from '@easy6502/vite-plugin-gettext'
-import pkg from './package.json'
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
 
@@ -99,20 +101,15 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       blueprintPlugin({
         minify: true
       }),
-      xgettextPlugin({
-        sources: ['src/**/*.{ts,js,blp,xml,desktop}'],
-        output: `po/${APPLICATION_ID}.pot`,
-        domain: APPLICATION_ID,
-        keywords: ['_', 'C_', 'N_', 'NC_'],
-        verbose: true
-      }),
-      // Only compile MO files for local builds
+      // Copy the MO files to the output directory for local builds
       // For flatpak builds, the MO files are compiled by meson
-      BUILD_MODE === 'local' && gettextPlugin({
-        poDirectory: 'po',
-        moDirectory: PKGDATADIR,
-        filename: `${APPLICATION_ID}.mo`,
-        verbose: true
+      BUILD_MODE === 'local' && viteStaticCopy({
+        targets: [
+          {
+            src: '../translations/dist/locale',
+            dest: PKGDATADIR
+          }
+        ]
       }),
       {
         name: 'add-gjs-shebang',

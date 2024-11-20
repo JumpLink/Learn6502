@@ -5,3 +5,4 @@ project('Easy6502',
 )
 
 subdir('packages/app-gnome')
+subdir('packages/translations')

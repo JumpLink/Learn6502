@@ -15,6 +15,8 @@ export interface XGettextPluginOptions {
   xgettextOptions?: string[];
   /** Enable verbose logging */
   verbose?: boolean;
+  /** Automatically update PO files after POT changes */
+  autoUpdatePo?: boolean;
 }
 
 /**

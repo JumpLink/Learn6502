@@ -1,8 +1,10 @@
+i18n = import('i18n')
+
 desktop_file = i18n.merge_file(
         input: 'eu.jumplink.Easy6502.desktop',
        output: 'eu.jumplink.Easy6502.desktop',
          type: 'desktop',
-       po_dir: '../po',
+       po_dir: '../../translations',
       install: true,
   install_dir: get_option('datadir') / 'applications'
 )
@@ -15,7 +17,7 @@ endif
 appstream_file = i18n.merge_file(
         input: 'eu.jumplink.Easy6502.metainfo.xml',
        output: 'eu.jumplink.Easy6502.metainfo.xml',
-       po_dir: '../po',
+       po_dir: '../../translations',
       install: true,
   install_dir: get_option('datadir') / 'metainfo'
 )

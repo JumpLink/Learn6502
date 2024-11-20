@@ -1,4 +1,3 @@
-i18n = import('i18n')
 gnome = import('gnome')
 # TODO: Autodetect yarn version
 yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.5.1.cjs'
@@ -48,7 +47,7 @@ custom_target('yarn-build',
 )
 
 subdir('data')
-subdir('po')
+# subdir('po')
 
 gnome.post_install(
      glib_compile_schemas: true,
