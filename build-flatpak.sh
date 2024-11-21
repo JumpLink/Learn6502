@@ -26,7 +26,3 @@ flatpak-builder --force-clean "$BUILD_DIR" "$MANIFEST_FILE" --install-deps-from=
 # Install the application locally
 echo "Installing the Flatpak application locally..."
 flatpak-builder --user --install --force-clean "$BUILD_DIR" "$MANIFEST_FILE"
-
-# Run the application
-echo "Running the application..."
-flatpak run "$APP_ID"

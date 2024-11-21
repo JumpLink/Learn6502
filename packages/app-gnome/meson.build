@@ -1,18 +1,13 @@
 gnome = import('gnome')
+
+dependency('gjs-1.0', version: '>= 1.80.2')
+gjs_console = find_program('gjs-console', required: true)
+
 # TODO: Autodetect yarn version
 yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.5.1.cjs'
 node = find_program('node')
 yarn = [node, yarn_path]
 
-dependency('gjs-1.0', version: '>= 1.80.2')
-gjs_console = find_program('gjs-console', required: true)
-
-application_id = 'eu.jumplink.Easy6502'
-prefix = get_option('prefix')
-libdir = prefix / get_option('libdir')
-datadir = prefix / get_option('datadir')
-bindir = prefix / get_option('bindir')
-pkgdatadir = datadir / application_id
 
 yarn_args = ['--cwd', meson.project_source_root()]
 

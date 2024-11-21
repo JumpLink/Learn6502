@@ -19,6 +19,7 @@ __metadata:
   dependencies:
     "@easy6502/6502": "workspace:^"
     "@easy6502/learn": "workspace:^"
+    "@easy6502/translations": "workspace:^"
     "@easy6502/vite-plugin-blueprint": "workspace:^"
     "@easy6502/vite-plugin-gettext": "workspace:^"
     "@girs/adw-1": "npm:^1.7.0-4.0.0-beta.19"
@@ -69,7 +70,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@easy6502/translations@workspace:packages/translations":
+"@easy6502/translations@workspace:^, @easy6502/translations@workspace:packages/translations":
   version: 0.0.0-use.local
   resolution: "@easy6502/translations@workspace:packages/translations"
   dependencies:

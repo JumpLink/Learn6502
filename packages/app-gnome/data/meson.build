@@ -37,8 +37,6 @@ test('Validate schema file',
 
 subdir('icons')
 
-
-
 data_res = gnome.compile_resources(
   application_id + '.data',
   application_id + '.data.gresource.xml',

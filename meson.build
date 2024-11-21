@@ -4,5 +4,12 @@ project('Easy6502',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
 
-subdir('packages/app-gnome')
+application_id = 'eu.jumplink.Easy6502'
+prefix = get_option('prefix')
+libdir = prefix / get_option('libdir')
+datadir = prefix / get_option('datadir')
+bindir = prefix / get_option('bindir')
+pkgdatadir = datadir / application_id
+
 subdir('packages/translations')
+subdir('packages/app-gnome')

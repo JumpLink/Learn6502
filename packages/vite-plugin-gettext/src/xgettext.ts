@@ -60,6 +60,20 @@ export function xgettextPlugin(options: XGettextPluginOptions): Plugin {
   };
 }
 
+async function generatePotfiles(files: string[], outputDir: string, verbose = false) {
+  const potfilesPath = path.join(outputDir, 'POTFILES')
+  const content = files.join('\n')
+
+  try {
+    await fs.writeFile(potfilesPath, content)
+    if (verbose) {
+      console.log(`[vite-plugin-xgettext] Generated POTFILES with ${files.length} source files`)
+    }
+  } catch (error) {
+    console.error('[vite-plugin-xgettext] Error writing POTFILES:', error)
+  }
+}
+
 async function extractStrings(files: string[], options: XGettextPluginOptions) {
   const {
     output,
@@ -70,16 +84,20 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
   } = options;
 
   try {
-    await fs.mkdir(path.dirname(output), { recursive: true });
+    const outputDir = path.dirname(output);
+    await fs.mkdir(outputDir, { recursive: true });
+
+    // Generate POTFILES before running xgettext
+    await generatePotfiles(files, outputDir, verbose);
 
     const args = [
       '--from-code=UTF-8',
       '--add-comments=TRANSLATORS:',
       '--package-name=' + domain,
       '--output=' + output,
+      '--files-from=' + path.join(outputDir, 'POTFILES'),
       ...keywords.map(k => `--keyword=${k}`),
       ...xgettextOptions,
-      ...files
     ];
 
     if (verbose) {

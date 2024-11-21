@@ -10,6 +10,7 @@
         "build:gnome:meson": "meson compile -C _build",
         "check": "yarn workspaces foreach -v -W -t run check",
         "start:gnome": "yarn workspace @easy6502/app-gnome run start",
+        "start:gnome:flatpak": "flatpak run eu.jumplink.Easy6502",
         "start:web": "yarn workspace @easy6502/app-web run start",
         "clear": "yarn workspaces foreach -v --parallel -W run clear",
         "format": "yarn prettier --write .",

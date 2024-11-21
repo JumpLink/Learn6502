@@ -90,6 +90,7 @@ const RAW_RUNTIME_STATE =
           ["@easy6502/app-gnome", "workspace:packages/app-gnome"],\
           ["@easy6502/6502", "workspace:packages/6502"],\
           ["@easy6502/learn", "workspace:packages/learn"],\
+          ["@easy6502/translations", "workspace:packages/translations"],\
           ["@easy6502/vite-plugin-blueprint", "virtual:2523ce202cf4c3d85c30640feaa26a27af05e7c1a3a70e9af31349b9fcaa1681d99610c17bdb2538612064c5fccf947322ecc629acf009ad424cba79d4f783cc#workspace:packages/vite-plugin-blueprint"],\
           ["@easy6502/vite-plugin-gettext", "virtual:2523ce202cf4c3d85c30640feaa26a27af05e7c1a3a70e9af31349b9fcaa1681d99610c17bdb2538612064c5fccf947322ecc629acf009ad424cba79d4f783cc#workspace:packages/vite-plugin-gettext"],\
           ["@girs/adw-1", "npm:1.7.0-4.0.0-beta.19"],\
