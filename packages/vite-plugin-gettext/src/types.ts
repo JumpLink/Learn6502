@@ -11,6 +11,8 @@ export interface XGettextPluginOptions {
   domain?: string;
   /** Keywords to look for when extracting strings, defaults to ['_', 'gettext', 'ngettext'] */
   keywords?: string[];
+  /** Languages to extract strings from, defaults to ['JavaScript', 'Glade'] */
+  language?: string[];
   /** Additional options to pass to xgettext command */
   xgettextOptions?: string[];
   /** Enable verbose logging */

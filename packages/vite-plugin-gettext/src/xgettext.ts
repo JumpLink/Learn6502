@@ -112,6 +112,7 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
     output,
     domain = 'messages',
     keywords = [],
+    language = [],
     xgettextOptions = [],
     preset,
     verbose = false
@@ -142,6 +143,7 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
     args = [
       ...args,
       ...keywords.map(k => `--keyword=${k}`),
+      ...language.map(l => `--language=${l}`),
       ...xgettextOptions,
     ];
 
