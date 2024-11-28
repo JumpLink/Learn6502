@@ -107,7 +107,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         targets: [
           {
             src: '../translations/dist/locale',
-            dest: PKGDATADIR
+            dest: DATADIR
           }
         ]
       }),

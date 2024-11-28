@@ -33,7 +33,7 @@ src_files = files(ts_files, blueprint_files)
 
 custom_target('yarn-build',
   input: src_files,
-  command: [yarn, yarn_args, 'build'],
+  command: [yarn, yarn_args, 'build:with-deps'],
   output: application_id,
   build_by_default: true,
   env: yarn_env,

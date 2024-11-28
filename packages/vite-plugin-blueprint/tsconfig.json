@@ -12,7 +12,8 @@
     "skipLibCheck": true,
     "forceConsistentCasingInFileNames": true,
     "declaration": true,
-    "sourceMap": true
+    "sourceMap": true,
+    "diagnostics": true
   },
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules", "dist"]

@@ -8,7 +8,8 @@
         "noEmit": true,
         "jsx": "react-jsx",
         "jsxImportSource": "nano-jsx/esm",
-        "types": ["mdx"]
+        "types": ["mdx"],
+        "diagnostics": true
     },
     "include": ["./*.mdx", "tsx/**/*.ts", "tsx/**/*.tsx", "tsx/**/*.mdx"]
 }

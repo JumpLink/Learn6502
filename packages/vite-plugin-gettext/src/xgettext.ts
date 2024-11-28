@@ -5,6 +5,39 @@ import fs from 'node:fs/promises';
 import glob from 'fast-glob';
 import type { XGettextPluginOptions } from './types.js';
 import { readFile } from 'node:fs/promises';
+import { version } from 'node:os';
+
+// Add GLib preset constants
+// From https://github.com/mesonbuild/meson/blob/467da051c859ba3112803b035e317bddadd756ef/mesonbuild/modules/i18n.py
+const GLIB_PRESET_ARGS = [
+  '--from-code=UTF-8',
+  '--add-comments',
+  // https://developer.gnome.org/glib/stable/glib-I18N.html
+  '--keyword=_',
+  '--keyword=N_',
+  '--keyword=C_:1c,2',
+  '--keyword=NC_:1c,2',
+  '--keyword=g_dcgettext:2',
+  '--keyword=g_dngettext:2,3',
+  '--keyword=g_dpgettext2:2c,3',
+  '--flag=N_:1:pass-c-format',
+  '--flag=C_:2:pass-c-format',
+  '--flag=NC_:2:pass-c-format',
+  '--flag=g_dngettext:2:pass-c-format',
+  '--flag=g_strdup_printf:1:c-format',
+  '--flag=g_string_printf:2:c-format',
+  '--flag=g_string_append_printf:2:c-format',
+  '--flag=g_error_new:3:c-format',
+  '--flag=g_set_error:4:c-format',
+  '--flag=g_markup_printf_escaped:1:c-format',
+  '--flag=g_log:3:c-format',
+  '--flag=g_print:1:c-format',
+  '--flag=g_printerr:1:c-format',
+  '--flag=g_printf:1:c-format',
+  '--flag=g_fprintf:2:c-format',
+  '--flag=g_sprintf:2:c-format',
+  '--flag=g_snprintf:3:c-format',
+];
 
 /**
  * Checks if xgettext is installed and available
@@ -78,8 +111,9 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
   const {
     output,
     domain = 'messages',
-    keywords = ['_', 'gettext', 'ngettext'],
+    keywords = [],
     xgettextOptions = [],
+    preset,
     verbose = false
   } = options;
 
@@ -87,15 +121,26 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
     const outputDir = path.dirname(output);
     await fs.mkdir(outputDir, { recursive: true });
 
-    // Generate POTFILES before running xgettext
     await generatePotfiles(files, outputDir, verbose);
 
-    const args = [
-      '--from-code=UTF-8',
-      '--add-comments=TRANSLATORS:',
+    // Base arguments
+    let args = [
       '--package-name=' + domain,
+      options.version ? '--package-version=' + options.version : '',
       '--output=' + output,
       '--files-from=' + path.join(outputDir, 'POTFILES'),
+      '--sort-output',
+    ];
+
+    // Add preset arguments if specified
+    if (preset === 'glib') {
+      args = [...args, ...GLIB_PRESET_ARGS];
+    }
+
+    // Add custom keywords and options after preset
+    // This allows overriding preset values if needed
+    args = [
+      ...args,
       ...keywords.map(k => `--keyword=${k}`),
       ...xgettextOptions,
     ];

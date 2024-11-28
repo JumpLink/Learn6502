@@ -11,7 +11,7 @@
     "nightly"
   ],
   "build-options": {
-    "append-path": "/usr/lib/sdk/node22/bin:/usr/lib/sdk/typescript/bin"
+    "append-path": "/usr/lib/sdk/node22/bin:/usr/lib/sdk/typescript/bin:/app/bin"
   },
   "command": "eu.jumplink.Easy6502",
   "finish-args": [
@@ -37,11 +37,12 @@
     {
       "name": "blueprint-compiler",
       "buildsystem": "meson",
+      "builddir": true,
       "sources": [
         {
-          "type": "git",
-          "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler",
-          "tag": "v0.14.0"
+          "type": "archive",
+          "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler/-/archive/v0.14.0/blueprint-compiler-v0.14.0.tar.gz",
+          "sha256": "05faf3810cb76d4e2d2382c6a7e6c8096af27e144e2260635c97f6a173d67234"
         }
       ]
     },

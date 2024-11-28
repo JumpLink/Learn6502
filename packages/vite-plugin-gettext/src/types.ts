@@ -17,6 +17,10 @@ export interface XGettextPluginOptions {
   verbose?: boolean;
   /** Automatically update PO files after POT changes */
   autoUpdatePo?: boolean;
+  /** Version of the POT file, defaults to '1.0' */
+  version?: string;
+  /** Preset to use for extracting strings, defaults to 'glib' */
+  preset?: 'glib';
 }
 
 /**

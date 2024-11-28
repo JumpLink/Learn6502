@@ -7,7 +7,8 @@
         "outDir": "./dist",
         "module": "NodeNext",
         "target": "ESNext",
-        "moduleResolution": "NodeNext"
+        "moduleResolution": "NodeNext",
+        "diagnostics": true
     },
     "include": ["src/index.ts"],
     "exclude": ["node_modules", "dist"]
