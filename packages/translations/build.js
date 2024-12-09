@@ -6,11 +6,11 @@ const VERSION = JSON.parse(readFileSync('./package.json', 'utf8')).version;
 
 // Extract translatable strings from source files to create a POT template
 const xgettext = xgettextPlugin({
-  sources: ['../app-gnome/src/**/*.{ts,js,blp,xml,desktop}', '../learn/dist/**/*.ui'],
+  sources: ['../app-gnome/src/**/*.{ts,tsx,js,blp,xml,ui,desktop}', '../learn/dist/**/*.ui'],
   output: `./${APPLICATION_ID}.pot`,
   domain: APPLICATION_ID,
   // keywords: [],
-  language: ['JavaScript', 'Glade'],
+  language: ['JavaScript'],
   preset: 'glib',
   verbose: true,
   version: VERSION,

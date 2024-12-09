@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 20:25+0100\n"
+"POT-Creation-Date: 2024-12-09 18:46+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,23 +17,17 @@ msgstr ""
 "Content-Type: text/plain; charset=CHARSET\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../app-gnome/src/widgets/preferences-dialog.blp:10
-msgid "Appearance"
-msgstr ""
-
-#: ../app-gnome/src/widgets/debugger.blp:16
-msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
-msgstr ""
-
-#: ../app-gnome/src/widgets/application-window.blp:69
-#: ../app-gnome/src/widgets/debugger.blp:15
-msgid "Debugger"
-msgstr ""
-
 #: ../app-gnome/src/widgets/application-window.blp:15
 msgid "Easy6502"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:21
+msgid "Menu"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:42
+#: ../app-gnome/src/widgets/learn.blp:10
+msgid "Learn"
 msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.blp:51
@@ -44,21 +38,47 @@ msgstr ""
 msgid "Game Console"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:42
-#: ../app-gnome/src/widgets/learn.blp:10
-msgid "Learn"
+#: ../app-gnome/src/widgets/application-window.blp:69
+#: ../app-gnome/src/widgets/debugger.blp:15
+msgid "Debugger"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:90
+msgid "_Preferences"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:95
+msgid "_Keyboard Shortcuts"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:100
+msgid "_About Test"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:105
+msgid "_Quit"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
 msgstr ""
 
 #: ../app-gnome/src/widgets/learn.blp:11
 msgid "Learn how to program the 6502 microprocessor."
 msgstr ""
 
-#: ../app-gnome/src/widgets/preferences-dialog.blp:14
-msgid "Main Settings"
-msgstr ""
-
 #: ../app-gnome/src/widgets/preferences-dialog.blp:7
 msgid "Preferences"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.blp:10
+msgid "Appearance"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.blp:14
+msgid "Main Settings"
 msgstr ""
 
 #: ../app-gnome/src/widgets/preferences-dialog.blp:15

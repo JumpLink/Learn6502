@@ -12,7 +12,7 @@ export class GtkLabel extends GtkWidget {
         const propKeys = Object.keys(this.props)
         return <child>
         <object class="GtkLabel">
-            {content && <property name="label" translatable="true">{content}</property>}                    
+            {content && <property name="label" translatable="yes">{content}</property>}                    
             {propKeys.map(property => {
                 if (GtkLabel.propertyNames.includes(property)) {
                     return <property name={property}>{this.props[property].toString()}</property>

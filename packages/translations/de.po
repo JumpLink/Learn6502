@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-11-28 19:50+0100\n"
+"POT-Creation-Date: 2024-12-09 18:31+0100\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: YOUR NAME <your.email@example.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -16,9 +16,47 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app-gnome/src/widgets/preferences-dialog.blp:10
-msgid "Appearance"
-msgstr "Erscheinungsbild"
+#: ../app-gnome/src/widgets/application-window.blp:15
+msgid "Easy6502"
+msgstr "Easy6502"
+
+#: ../app-gnome/src/widgets/application-window.blp:21
+msgid "Menu"
+msgstr "Menü"
+
+#: ../app-gnome/src/widgets/application-window.blp:42
+#: ../app-gnome/src/widgets/learn.blp:10
+msgid "Learn"
+msgstr "Lernen"
+
+#: ../app-gnome/src/widgets/application-window.blp:51
+msgid "Editor"
+msgstr "Editor"
+
+#: ../app-gnome/src/widgets/application-window.blp:60
+msgid "Game Console"
+msgstr "Spielkonsole"
+
+#: ../app-gnome/src/widgets/application-window.blp:69
+#: ../app-gnome/src/widgets/debugger.blp:15
+msgid "Debugger"
+msgstr "Debugger"
+
+#: ../app-gnome/src/widgets/application-window.blp:90
+msgid "_Preferences"
+msgstr "_Einstellungen"
+
+#: ../app-gnome/src/widgets/application-window.blp:95
+msgid "_Keyboard Shortcuts"
+msgstr "_Tastenkombinationen"
+
+#: ../app-gnome/src/widgets/application-window.blp:100
+msgid "_About Test"
+msgstr "_Über Test"
+
+#: ../app-gnome/src/widgets/application-window.blp:105
+msgid "_Quit"
+msgstr "_Beenden"
 
 #: ../app-gnome/src/widgets/debugger.blp:16
 msgid ""
@@ -29,39 +67,21 @@ msgstr ""
 "betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
 "beginnen."
 
-#: ../app-gnome/src/widgets/application-window.blp:69
-#: ../app-gnome/src/widgets/debugger.blp:15
-msgid "Debugger"
-msgstr "Debugger"
-
-#: ../app-gnome/src/widgets/application-window.blp:15
-msgid "Easy6502"
-msgstr "Easy6502"
-
-#: ../app-gnome/src/widgets/application-window.blp:51
-msgid "Editor"
-msgstr "Editor"
-
-#: ../app-gnome/src/widgets/application-window.blp:60
-msgid "Game Console"
-msgstr "Spielkonsole"
-
-#: ../app-gnome/src/widgets/application-window.blp:42
-#: ../app-gnome/src/widgets/learn.blp:10
-msgid "Learn"
-msgstr "Lernen"
-
 #: ../app-gnome/src/widgets/learn.blp:11
 msgid "Learn how to program the 6502 microprocessor."
 msgstr "Lerne, wie man den 6502-Mikroprozessor programmiert."
 
-#: ../app-gnome/src/widgets/preferences-dialog.blp:14
-msgid "Main Settings"
-msgstr "Haupteinstellungen"
-
 #: ../app-gnome/src/widgets/preferences-dialog.blp:7
 msgid "Preferences"
 msgstr "Einstellungen"
+
+#: ../app-gnome/src/widgets/preferences-dialog.blp:10
+msgid "Appearance"
+msgstr "Erscheinungsbild"
+
+#: ../app-gnome/src/widgets/preferences-dialog.blp:14
+msgid "Main Settings"
+msgstr "Haupteinstellungen"
 
 #: ../app-gnome/src/widgets/preferences-dialog.blp:15
 msgid "There are currently no settings."
@@ -108,18 +128,3 @@ msgstr "Derzeit gibt es keine Einstellungen."
 #, fuzzy
 #~ msgid "Instructions"
 #~ msgstr "Einführung"
-
-#~ msgid "Menu"
-#~ msgstr "Menü"
-
-#~ msgid "_Preferences"
-#~ msgstr "_Einstellungen"
-
-#~ msgid "_Keyboard Shortcuts"
-#~ msgstr "_Tastenkombinationen"
-
-#~ msgid "_About Test"
-#~ msgstr "_Über Test"
-
-#~ msgid "_Quit"
-#~ msgstr "_Beenden"

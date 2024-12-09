@@ -130,7 +130,7 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
       options.version ? '--package-version=' + options.version : '',
       '--output=' + output,
       '--files-from=' + path.join(outputDir, 'POTFILES'),
-      '--sort-output',
+      '--verbose'
     ];
 
     // Add preset arguments if specified
