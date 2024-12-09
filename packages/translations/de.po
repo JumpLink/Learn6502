@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-12-09 18:31+0100\n"
+"POT-Creation-Date: 2024-12-09 19:38+0100\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: YOUR NAME <your.email@example.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -87,44 +87,1014 @@ msgstr "Haupteinstellungen"
 msgid "There are currently no settings."
 msgstr "Derzeit gibt es keine Einstellungen."
 
-#~ msgid ""
-#~ "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</"
-#~ "a>, licensed under CC BY 4.0</sub>"
-#~ msgstr ""
-#~ "Tutorial <sub>von <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</"
-#~ "a>, lizenziert unter CC BY 4.0</sub>"
+#: ../learn/dist/tutorial.ui:1
+msgid ""
+"Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, "
+"licensed under CC BY 4.0</sub>"
+msgstr ""
+"Tutorial <sub>von <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, "
+"lizenziert unter CC BY 4.0</sub>"
 
-#~ msgid "Introduction"
-#~ msgstr "Einführung"
+#: ../learn/dist/tutorial.ui:2
+msgid "Introduction"
+msgstr "Einführung"
 
-#~ msgid ""
-#~ "In this tiny tutorial I'm going to show you how to get started writing "
-#~ "6502 assembly language. The 6502 processor was massive in the seventies "
-#~ "and eighties, powering famous computers like the <a href=\"http://en."
-#~ "wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://en."
-#~ "wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"http://en."
-#~ "wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"http://en."
-#~ "wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"http://en."
-#~ "wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
-#~ "System</a>. Bender in Futurama <a href=\"http://www.transbyte.org/SID/SID-"
-#~ "files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a "
-#~ "href=\"http://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the "
-#~ "Terminator was programmed in 6502</a>."
-#~ msgstr ""
-#~ "In diesem kleinen Tutorial zeige ich dir, wie du mit der 6502-"
-#~ "Assemblersprache loslegen kannst. Der 6502-Prozessor war in den "
-#~ "Siebzigern und Achtzigern riesig und trieb berühmte Computer wie den <a "
-#~ "href=\"http://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a "
-#~ "href=\"http://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a "
-#~ "href=\"http://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a "
-#~ "href=\"http://en.wikipedia.org/wiki/Apple_II\">Apple II</a> und das <a "
-#~ "href=\"http://en.wikipedia.org/wiki/"
-#~ "Nintendo_Entertainment_System\">Nintendo Entertainment System</a> an. "
-#~ "Bender aus Futurama <a href=\"http://www.transbyte.org/SID/SID-files/"
-#~ "Bender_6502.jpg\">hat einen 6502-Prozessor als Gehirn</a>. <a "
-#~ "href=\"http://www.pagetable.com/docs/terminator/00-37-23.jpg\">Sogar der "
-#~ "Terminator wurde in 6502 programmiert</a>."
+#: ../learn/dist/tutorial.ui:3
+msgid ""
+"In this tiny tutorial I'm going to show you how to get started writing 6502 "
+"assembly language. The 6502 processor was massive in the seventies and "
+"eighties, powering famous computers like the <a href=\"http://en.wikipedia."
+"org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://en.wikipedia.org/wiki/"
+"Atari_2600\">Atari 2600</a>, <a href=\"http://en.wikipedia.org/wiki/"
+"Commodore_64\">Commodore 64</a>, <a href=\"http://en.wikipedia.org/wiki/"
+"Apple_II\">Apple II</a>, and the <a href=\"http://en.wikipedia.org/wiki/"
+"Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in "
+"Futurama <a href=\"http://www.transbyte.org/SID/SID-files/Bender_6502."
+"jpg\">has a 6502 processor for a brain</a>. <a href=\"http://www.pagetable."
+"com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in "
+"6502</a>."
+msgstr ""
+"In diesem kleinen Tutorial zeige ich dir, wie du mit der 6502-"
+"Assemblersprache loslegen kannst. Der 6502-Prozessor war in den Siebzigern "
+"und Achtzigern riesig und trieb berühmte Computer wie den <a href=\"http://"
+"en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://en."
+"wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"http://en."
+"wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"http://en."
+"wikipedia.org/wiki/Apple_II\">Apple II</a> und das <a href=\"http://en."
+"wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
+"System</a> an. Bender aus Futurama <a href=\"http://www.transbyte.org/SID/"
+"SID-files/Bender_6502.jpg\">hat einen 6502-Prozessor als Gehirn</a>. <a "
+"href=\"http://www.pagetable.com/docs/terminator/00-37-23.jpg\">Sogar der "
+"Terminator wurde in 6502 programmiert</a>."
 
+#: ../learn/dist/tutorial.ui:4
+msgid ""
+"So, why would you want to learn 6502? It's a dead language isn't it? Well, "
+"so's Latin. And they still teach that. <a href=\"http://en.wikipedia.org/"
+"wiki/Q.E.D.\">Q.E.D.</a>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:5
+msgid ""
+"(Actually, I've been reliably informed that 6502 processors are still being "
+"produced by <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-chip."
+"cfm\">Western Design Center</a> and <a href=\"http://www.mouser.co.uk/Search/"
+"Refine.aspx?Keyword=65C02\">sold to hobbyists</a>, so clearly 6502 isn't a "
+"dead language! Who knew?)"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:6
+msgid ""
+"Seriously though, I think it's valuable to have an understanding of assembly "
+"language. Assembly language is the lowest level of abstraction in computers "
+"- the point at which the code is still readable. Assembly language "
+"translates directly to the bytes that are executed by your computer's "
+"processor. If you understand how it works, you've basically become a "
+"computer <a href=\"http://skilldrick.co.uk/2011/04/magic-in-software-"
+"development/\">magician</a>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:7
+msgid ""
+"Then why 6502? Why not a useful assembly language, like <a href=\"http://en."
+"wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is "
+"useful. I don't think you'll ever have to write assembly language in your "
+"day job - this is purely an academic exercise, something to expand your mind "
+"and your thinking. 6502 was originally written in a different age, a time "
+"when the majority of developers were writing assembly directly, rather than "
+"in these new-fangled high-level programming languages. So, it was designed "
+"to be written by humans. More modern assembly languages are meant to written "
+"by compilers, so let's leave it to them. Plus, 6502 is fun. Nobody ever "
+"called x86 fun."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:8
+msgid "Our first program"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:9
+msgid ""
+"So, let's dive in! That thing below is a little <a href=\"https://github.com/"
+"skilldrick/6502js\">JavaScript 6502 assembler and simulator</a> that I "
+"adapted for this interactive tutorial. Click the <b>Copy to editor</b> "
+"button to copy the code to the code editor and assemble and run the snippet "
+"of assembly language."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:16
+msgid ""
+"The black game console screen now should show three coloured \"pixels\" at "
+"the top left."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:17
+msgid ""
+"So, what's this program actually doing? Let's step through it with the "
+"debugger. Hit <b>Reset</b>, then check the <b>Debugger</b> checkbox to start "
+"the debugger. Click <b>Step</b> once. If you were watching carefully, you'll "
+"have noticed that <tt>A=</tt> changed from <tt>$00</tt> to <tt>$01</tt>, and "
+"<tt>PC=</tt> changed from <tt>$0600</tt> to <tt>$0602</tt>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:18
+msgid ""
+"Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by "
+"extension, in this book) are in hexadecimal (hex) format. If you're not "
+"familiar with hex numbers, I recommend you read <a href=\"http://en."
+"wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
+"prefixed with <tt>#</tt> is a literal number value. Any other number refers "
+"to a memory location."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:19
+msgid ""
+"Equipped with that knowledge, you should be able to see that the instruction "
+"<tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. "
+"I'll go into more detail on registers in the next section."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:20
+msgid ""
+"Press <b>Step</b> again to execute the second instruction. The top-left "
+"pixel of the simulator display should now be white. This simulator uses the "
+"memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its "
+"display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different "
+"colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the "
+"value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at "
+"the top left corner. This is simpler than how an actual computer would "
+"output video, but it'll do for now."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:21
+msgid ""
+"So, the instruction <tt>STA $0200</tt> stores the value of the <tt>A</tt> "
+"register to memory location <tt>$0200</tt>. Click <b>Step</b> four more "
+"times to execute the rest of the instructions, keeping an eye on the <tt>A</"
+"tt> register as it changes."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:22 ../learn/dist/tutorial.ui:46
+#: ../learn/dist/tutorial.ui:62
+msgid "Exercises"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:24
+msgid "Registers and flags"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:25
+msgid ""
+"We've already had a little look at the processor status section (the bit "
+"with <tt>A</tt>, <tt>PC</tt> etc.), but what does it all mean?"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:26
+msgid ""
+"The first line shows the <tt>A</tt>, <tt>X</tt> and <tt>Y</tt> registers "
+"(<tt>A</tt> is often called the \"accumulator\"). Each register holds a "
+"single byte. Most operations work on the contents of these registers."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:27
+msgid ""
+"<tt>SP</tt> is the stack pointer. I won't get into the stack yet, but "
+"basically this register is decremented every time a byte is pushed onto the "
+"stack, and incremented when a byte is popped off the stack."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:28
+msgid ""
+"<tt>PC</tt> is the program counter - it's how the processor knows at what "
+"point in the program it currently is. It's like the current line number of "
+"an executing script. In the JavaScript simulator the code is assembled "
+"starting at memory location <tt>$0600</tt>, so <tt>PC</tt> always starts "
+"there."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:29
+msgid ""
+"The last section shows the processor flags. Each flag is one bit, so all "
+"seven flags live in a single byte. The flags are set by the processor to "
+"give information about the previous instruction. More on that later. <a "
+"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me."
+"uk/6502/registers.html\">Read more about the registers and flags here</a>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:30
 #, fuzzy
-#~ msgid "Instructions"
-#~ msgstr "Einführung"
+msgid "Instructions"
+msgstr "Einführung"
+
+#: ../learn/dist/tutorial.ui:31
+msgid ""
+"Instructions in assembly language are like a small set of predefined "
+"functions. All instructions take zero or one arguments. Here's some "
+"annotated source code to introduce a few different instructions:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:37
+msgid ""
+"Assemble the code, then turn on the debugger and step through the code, "
+"watching the <tt>A</tt> and <tt>X</tt> registers. Something slightly odd "
+"happens on the line <tt>ADC #$c4</tt>. You might expect that adding <tt>$c4</"
+"tt> to <tt>$c0</tt> would give <tt>$184</tt>, but this processor gives the "
+"result as <tt>$84</tt>. What's up with that?"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:38
+msgid ""
+"The problem is, <tt>$184</tt> is too big to fit in a single byte (the max is "
+"<tt>$FF</tt>), and the registers can only hold a single byte. It's OK "
+"though; the processor isn't actually dumb. If you were looking carefully "
+"enough, you'll have noticed that the carry flag was set to <tt>1</tt> after "
+"this operation. So that's how you know."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:39
+msgid "In the simulator below <b>type</b> (don't paste) the following code:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:43
+msgid ""
+"An important thing to notice here is the distinction between <tt>ADC #$01</"
+"tt> and <tt>ADC $01</tt>. The first one adds the value <tt>$01</tt> to the "
+"<tt>A</tt> register, but the second adds the value stored at memory location "
+"<tt>$01</tt> to the <tt>A</tt> register."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:44
+msgid ""
+"Assemble, check the <b>Monitor</b> checkbox, then step through these three "
+"instructions. The monitor shows a section of memory, and can be helpful to "
+"visualise the execution of programs. <tt>STA $01</tt> stores the value of "
+"the <tt>A</tt> register at memory location <tt>$01</tt>, and <tt>ADC $01</"
+"tt> adds the value stored at the memory location <tt>$01</tt> to the <tt>A</"
+"tt> register. <tt>$80 + $80</tt> should equal <tt>$100</tt>, but because "
+"this is bigger than a byte, the <tt>A</tt> register is set to <tt>$00</tt> "
+"and the carry flag is set. As well as this though, the zero flag is set. The "
+"zero flag is set by all instructions where the result is zero."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:45
+msgid ""
+"A full list of the 6502 instruction set is <a href=\"http://www.6502.org/"
+"tutorials/6502opcodes.html\">available here</a> and <a href=\"http://www."
+"obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages "
+"as they have their strengths and weaknesses). These pages detail the "
+"arguments to each instruction, which registers they use, and which flags "
+"they set. They are your bible."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:48
+msgid "Branching"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:49
+msgid ""
+"So far we're only able to write basic programs without any branching logic. "
+"Let's change that."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:50
+msgid ""
+"6502 assembly language has a bunch of branching instructions, all of which "
+"branch based on whether certain flags are set or not. In this example we'll "
+"be looking at <tt>BNE</tt>: \"Branch on not equal\"."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:59
+msgid ""
+"First we load the value <tt>$08</tt> into the <tt>X</tt> register. The next "
+"line is a label. Labels just mark certain points in a program so we can "
+"return to them later. After the label we decrement <tt>X</tt>, store it to "
+"<tt>$0200</tt> (the top-left pixel), and then compare it to the value "
+"<tt>$03</tt>. <a href=\"http://www.obelisk.me.uk/6502/reference."
+"html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register "
+"with another value. If the two values are equal, the <tt>Z</tt> flag is set "
+"to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:60
+msgid ""
+"The next line, <tt>BNE decrement</tt>, will shift execution to the decrement "
+"label if the <tt>Z</tt> flag is set to <tt>0</tt> (meaning that the two "
+"values in the <tt>CPX</tt> comparison were not equal), otherwise it does "
+"nothing and we store <tt>X</tt> to <tt>$0201</tt>, then finish the program."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:61
+msgid ""
+"In assembly language, you'll usually use labels with branch instructions. "
+"When assembled though, this label is converted to a single-byte relative "
+"offset (a number of bytes to go backwards or forwards from the next "
+"instruction) so branch instructions can only go forward and back around 256 "
+"bytes. This means they can only be used to move around local code. For "
+"moving further you'll need to use the jumping instructions."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:64
+msgid "Addressing modes"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:65
+msgid ""
+"The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of "
+"memory available to the processor. Remember that a byte is represented by "
+"two hex characters, so the memory locations are generally represented as "
+"<tt>$0000 - $ffff</tt>. There are various ways to refer to these memory "
+"locations, as detailed below."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:66
+msgid ""
+"With all these examples you might find it helpful to use the memory monitor "
+"to watch the memory change. The monitor takes a starting memory location and "
+"a number of bytes to display from that location. Both of these are hex "
+"values. For example, to display 16 bytes of memory from <tt>$c000</tt>, "
+"enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, "
+"respectively."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:67
+msgid "Absolute: <tt>$c000</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:68
+msgid ""
+"With absolute addressing, the full memory location is used as the argument "
+"to the instruction. For example:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:69
+msgid "STA $c000 ;Store the value in the accumulator at memory location $c000"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:70
+msgid "Zero page: <tt>$c0</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:71
+msgid ""
+"All instructions that support absolute addressing (with the exception of the "
+"jump instructions) also have the option to take a single-byte address. This "
+"type of addressing is called \"zero page\" - only the first page (the first "
+"256 bytes) of memory is accessible. This is faster, as only one byte needs "
+"to be looked up, and takes up less space in the assembled code as well."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:72
+msgid "Zero page,X: <tt>$c0,X</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:73
+msgid ""
+"This is where addressing gets interesting. In this mode, a zero page address "
+"is given, and then the value of the <tt>X</tt> register is added. Here is an "
+"example:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:79
+msgid ""
+"If the result of the addition is larger than a single byte, the address "
+"wraps around. For example:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:82
+msgid "Zero page,Y: <tt>$c0,Y</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:83
+msgid ""
+"This is the equivalent of zero page,X, but can only be used with <tt>LDX</"
+"tt> and <tt>STX</tt>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:84
+msgid "Absolute,X and absolute,Y: <tt>$c000,X</tt> and <tt>$c000,Y</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:85
+msgid ""
+"These are the absolute addressing versions of zero page,X and zero page,Y. "
+"For example:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:88
+msgid ""
+"Unlike zero page,Y, absolute,Y can't be used with <tt>STX</tt> but can be "
+"used with <tt>LDA</tt> and <tt>STA</tt>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:89
+msgid "Immediate: <tt>#$c0</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:90
+msgid ""
+"Immediate addressing doesn't strictly deal with memory addresses - this is "
+"the mode where actual values are used. For example, <tt>LDX #$01</tt> loads "
+"the value <tt>$01</tt> into the <tt>X</tt> register. This is very different "
+"to the zero page instruction <tt>LDX $01</tt> which loads the value at "
+"memory location <tt>$01</tt> into the <tt>X</tt> register."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:91
+msgid "Relative: <tt>$c0</tt> (or label)"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:92
+msgid ""
+"Relative addressing is used for branching instructions. These instructions "
+"take a single byte, which is used as an offset from the following "
+"instruction."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:93
+msgid ""
+"Assemble the following code, then click the <b>Hexdump</b> button to see the "
+"assembled code."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:100
+msgid "The hex should look something like this:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:102
+msgid ""
+"<tt>a9</tt> and <tt>c9</tt> are the processor opcodes for immediate-"
+"addressed <tt>LDA</tt> and <tt>CMP</tt> respectively. <tt>01</tt> and "
+"<tt>02</tt> are the arguments to these instructions. <tt>d0</tt> is the "
+"opcode for <tt>BNE</tt>, and its argument is <tt>02</tt>. This means \"skip "
+"over the next two bytes\" (<tt>85 22</tt>, the assembled version of <tt>STA "
+"$22</tt>). Try editing the code so <tt>STA</tt> takes a two-byte absolute "
+"address rather than a single-byte zero page address (e.g. change <tt>STA "
+"$22</tt> to <tt>STA $2222</tt>). Reassemble the code and look at the hexdump "
+"again - the argument to <tt>BNE</tt> should now be <tt>03</tt>, because the "
+"instruction the processor is skipping past is now three bytes long."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:103
+msgid "Implicit"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:104
+msgid ""
+"Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - "
+"increment the <tt>X</tt> register). These are said to have implicit "
+"addressing - the argument is implied by the instruction."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:105
+msgid "Indirect: <tt>($c000)</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:106
+msgid ""
+"Indirect addressing uses an absolute address to look up another address. The "
+"first address gives the least significant byte of the address, and the "
+"following byte gives the most significant byte. That can be hard to wrap "
+"your head around, so here's an example:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:112
+msgid ""
+"In this example, <tt>$f0</tt> contains the value <tt>$01</tt> and <tt>$f1</"
+"tt> contains the value <tt>$cc</tt>. The instruction <tt>JMP ($f0)</tt> "
+"causes the processor to look up the two bytes at <tt>$f0</tt> and <tt>$f1</"
+"tt> (<tt>$01</tt> and <tt>$cc</tt>) and put them together to form the "
+"address <tt>$cc01</tt>, which becomes the new program counter. Assemble and "
+"step through the program above to see what happens. I'll talk more about "
+"<tt>JMP</tt> in the section on <a href=\"#jumping\">Jumping</a>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:113
+msgid "Indexed indirect: <tt>($c0,X)</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:114
+msgid ""
+"This one's kinda weird. It's like a cross between zero page,X and indirect. "
+"Basically, you take the zero page address, add the value of the <tt>X</tt> "
+"register to it, then use that to look up a two-byte address. For example:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:123
+msgid ""
+"Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</"
+"tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + "
+"X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to "
+"<tt>($01)</tt>. From here things proceed like standard indirect addressing - "
+"the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</"
+"tt>) are looked up to form the address <tt>$0705</tt>. This is the address "
+"that the <tt>Y</tt> register was stored into in the previous instruction, so "
+"the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a "
+"much more circuitous route. You won't see this much."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:124
+msgid "Indirect indexed: <tt>($c0),Y</tt>"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:125
+msgid ""
+"Indirect indexed is like indexed indirect but less insane. Instead of adding "
+"the <tt>X</tt> register to the address before dereferencing, the zero page "
+"address is dereferenced, and the <tt>Y</tt> register is added to the "
+"resulting address."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:134
+msgid ""
+"In this case, <tt>($01)</tt> looks up the two bytes at <tt>$01</tt> and "
+"<tt>$02</tt>: <tt>$03</tt> and <tt>$07</tt>. These form the address "
+"<tt>$0703</tt>. The value of the <tt>Y</tt> register is added to this "
+"address to give the final address <tt>$0704</tt>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:135
+msgid "Exercise"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:137
+msgid "The stack"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:138
+msgid ""
+"The stack in a 6502 processor is just like any other stack - values are "
+"pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current "
+"depth of the stack is measured by the stack pointer, a special register. The "
+"stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack "
+"pointer is initially <tt>$ff</tt>, which points to memory location "
+"<tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer "
+"becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:139
+msgid ""
+"Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push "
+"accumulator\" and \"pull accumulator\". Below is an example of these two in "
+"action."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:156
+msgid ""
+"<tt>X</tt> holds the pixel colour, and <tt>Y</tt> holds the position of the "
+"current pixel. The first loop draws the current colour as a pixel (via the "
+"<tt>A</tt> register), pushes the colour to the stack, then increments the "
+"colour and position. The second loop pops the stack, draws the popped colour "
+"as a pixel, then increments the position. As should be expected, this "
+"creates a mirrored pattern."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:157
+msgid "Jumping"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:158
+msgid ""
+"Jumping is like branching with two main differences. First, jumps are not "
+"conditionally executed, and second, they take a two-byte absolute address. "
+"For small programs, this second detail isn't very important, as you'll "
+"mostly be using labels, and the assembler works out the correct memory "
+"location from the label. For larger programs though, jumping is the only way "
+"to move from one section of the code to another."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:159
+msgid "JMP"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:160
+msgid ""
+"<tt>JMP</tt> is an unconditional jump. Here's a really simple example to "
+"show it in action:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:168
+msgid "JSR/RTS"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:169
+msgid ""
+"<tt>JSR</tt> and <tt>RTS</tt> (\"jump to subroutine\" and \"return from "
+"subroutine\") are a dynamic duo that you'll usually see used together. "
+"<tt>JSR</tt> is used to jump from the current location to another part of "
+"the code. <tt>RTS</tt> returns to the previous position. This is basically "
+"like calling a function and returning."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:170
+msgid ""
+"The processor knows where to return to because <tt>JSR</tt> pushes the "
+"address minus one of the next instruction onto the stack before jumping to "
+"the given location. <tt>RTS</tt> pops this location, adds one to it, and "
+"jumps to that location. An example:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:187
+msgid ""
+"The first instruction causes execution to jump to the <tt>init</tt> label. "
+"This sets <tt>X</tt>, then returns to the next instruction, <tt>JSR loop</"
+"tt>. This jumps to the <tt>loop</tt> label, which increments <tt>X</tt> "
+"until it is equal to <tt>$05</tt>. After that we return to the next "
+"instruction, <tt>JSR end</tt>, which jumps to the end of the file. This "
+"illustrates how <tt>JSR</tt> and <tt>RTS</tt> can be used together to create "
+"modular code."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:188
+msgid "Creating a game"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:189
+msgid ""
+"Now, let's put all this knowledge to good use, and make a game! We're going "
+"to be making a really simple version of the classic game 'Snake'."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:190
+msgid ""
+"Even though this will be a simple version, the code will be substantially "
+"larger than all the previous examples. We will need to keep track of several "
+"memory locations together for the various aspects of the game. We can still "
+"do the necessary bookkeeping throughout the program ourselves, as before, "
+"but on a larger scale that quickly becomes tedious and can also lead to bugs "
+"that are difficult to spot. Instead we'll now let the assembler do some of "
+"the mundane work for us."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:191
+msgid ""
+"In this assembler, we can define descriptive constants (or symbols) that "
+"represent numbers. The rest of the code can then simply use the constants "
+"instead of the literal number, which immediately makes it obvious what we're "
+"dealing with. You can use letters, digits and underscores in a name."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:192
+msgid ""
+"Here's an example. Note that immediate operands are still prefixed with a "
+"<tt>#</tt>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:199
+msgid ""
+"The simulator widget below contains the entire source code of the game. I'll "
+"explain how it works in the following sections."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:200
+msgid ""
+"<a href=\"https://twitter.com/wkjagt\">Willem van der Jagt</a> made a <a "
+"href=\"https://gist.github.com/wkjagt/9043907\">fully annotated gist of this "
+"source code</a>, so follow along with that for more details."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:475
+msgid "Overall structure"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:476
+msgid ""
+"After the initial block of comments (lines starting with semicolons), the "
+"first two lines are:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:479
+msgid ""
+"<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> "
+"initializes the game state, and <tt>loop</tt> is the main game loop."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:480
+msgid ""
+"The <tt>loop</tt> subroutine itself just calls a number of subroutines "
+"sequentially, before looping back on itself:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:489
+msgid ""
+"First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, "
+"S, D) was pressed, and if so, sets the direction of the snake accordingly. "
+"Then, <tt>checkCollision</tt> checks to see if the snake collided with "
+"itself or the apple. <tt>updateSnake</tt> updates the internal "
+"representation of the snake, based on its direction. Next, the apple and "
+"snake are drawn. Finally, <tt>spinWheels</tt> makes the processor do some "
+"busy work, to stop the game from running too quickly. Think of it like a "
+"sleep command. The game keeps running until the snake collides with the wall "
+"or itself."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:490
+msgid "Zero page usage"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:491
+msgid ""
+"The zero page of memory is used to store a number of game state variables, "
+"as noted in the comment block at the top of the game. Everything in <tt>$00</"
+"tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a "
+"two-byte memory location that will be looked up using indirect addressing. "
+"These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> "
+"- the section of memory corresponding to the simulator display. For example, "
+"if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and "
+"<tt>$02</tt>, they would be referring to the second pixel of the display "
+"( <tt>$0201</tt> - remember, the least significant byte comes first in "
+"indirect addressing)."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:492
+msgid ""
+"The first two bytes hold the location of the apple. This is updated every "
+"time the snake eats the apple. Byte <tt>$02</tt> contains the current "
+"direction. <tt>1</tt> means up, <tt>2</tt> right, <tt>4</tt> down, and "
+"<tt>8</tt> left. The reasoning behind these numbers will become clear later."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:493
+msgid ""
+"Finally, byte <tt>$03</tt> contains the current length of the snake, in "
+"terms of bytes in memory (so a length of 4 means 2 pixels)."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:494
+msgid "Initialization"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:495
+msgid ""
+"The <tt>init</tt> subroutine defers to two subroutines, <tt>initSnake</tt> "
+"and <tt>generateApplePosition</tt>. <tt>initSnake</tt> sets the snake "
+"direction, length, and then loads the initial memory locations of the snake "
+"head and body. The byte pair at <tt>$10</tt> contains the screen location of "
+"the head, the pair at <tt>$12</tt> contains the location of the single body "
+"segment, and <tt>$14</tt> contains the location of the tail (the tail is the "
+"last segment of the body and is drawn in black to keep the snake moving). "
+"This happens in the following code:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:506
+msgid ""
+"This loads the value <tt>$11</tt> into the memory location <tt>$10</tt>, the "
+"value <tt>$10</tt> into <tt>$12</tt>, and <tt>$0f</tt> into <tt>$14</tt>. It "
+"then loads the value <tt>$04</tt> into <tt>$11</tt>, <tt>$13</tt> and "
+"<tt>$15</tt>. This leads to memory like this:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:508
+msgid ""
+"which represents the indirectly-addressed memory locations <tt>$0411</tt>, "
+"<tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the "
+"display). I'm labouring this point, but it's important to fully grok how "
+"indirect addressing works."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:509
+msgid ""
+"The next subroutine, <tt>generateApplePosition</tt>, sets the apple location "
+"to a random position on the display. First, it loads a random byte into the "
+"accumulator (<tt>$fe</tt> is a random number generator in this simulator). "
+"This is stored into <tt>$00</tt>. Next, a different random byte is loaded "
+"into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</"
+"tt>. This part requires a bit of a detour."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:510
+msgid ""
+"The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. "
+"The <tt>AND</tt> opcode performs a bitwise AND of the argument with the "
+"accumulator. For example, if the accumulator contains the binary value "
+"<tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> "
+"will be <tt>00000010</tt>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:511
+msgid ""
+"The effect of this is to mask out the least significant two bits of the "
+"accumulator, setting the others to zero. This converts a number in the range "
+"of 0–255 to a number in the range of 0–3."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:512
+msgid ""
+"After this, the value <tt>2</tt> is added to the accumulator, to create a "
+"final random number in the range 2–5."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:513
+msgid ""
+"The result of this subroutine is to load a random byte into <tt>$00</tt>, "
+"and a random number between 2 and 5 into <tt>$01</tt>. Because the least "
+"significant byte comes first with indirect addressing, this translates into "
+"a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range "
+"used to draw the display."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:514
+msgid "The game loop"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:515
+msgid ""
+"Nearly all games have at their heart a game loop. All game loops have the "
+"same basic form: accept user input, update the game state, and render the "
+"game state. This loop is no different."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:516
+msgid "Reading the input"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:517
+msgid ""
+"The first subroutine, <tt>readKeys</tt>, takes the job of accepting user "
+"input. The memory location <tt>$ff</tt> holds the ascii code of the most "
+"recent key press in this simulator. The value is loaded into the "
+"accumulator, then compared to <tt>$77</tt> (the hex code for W), <tt>$64</"
+"tt> (D), <tt>$73</tt> (S) and <tt>$61</tt> (A). If any of these comparisons "
+"are successful, the program branches to the appropriate section. Each "
+"section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the "
+"current direction is the opposite of the new direction. This requires "
+"another little detour."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:518
+msgid ""
+"As stated before, the four directions are represented internally by the "
+"numbers 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are "
+"represented by a binary number with a single <tt>1</tt>:"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:523
+msgid ""
+"The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is "
+"only used to set the zero flag - the actual result is discarded. The zero "
+"flag is set only if the result of AND-ing the accumulator with argument is "
+"zero. When we're looking at powers of two, the zero flag will only be set if "
+"the two numbers are not the same. For example, <tt>0001 AND 0001</tt> is not "
+"zero, but <tt>0001 AND 0010</tt> is zero."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:524
+msgid ""
+"So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit "
+"test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", "
+"so in this case we'll branch to <tt>illegalMove</tt>, which just returns "
+"from the subroutine. Otherwise, the new direction (1 in this case) is stored "
+"in the appropriate memory location."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:525
+msgid "Updating the game state"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:526
+msgid ""
+"The next subroutine, <tt>checkCollision</tt>, defers to "
+"<tt>checkAppleCollision</tt> and <tt>checkSnakeCollision</tt>. "
+"<tt>checkAppleCollision</tt> just checks to see if the two bytes holding the "
+"location of the apple match the two bytes holding the location of the head. "
+"If they do, the length is increased and a new apple position is generated."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:527
+msgid ""
+"<tt>checkSnakeCollision</tt> loops through the snake's body segments, "
+"checking each byte pair against the head pair. If there is a match, then "
+"game over."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:528
+msgid ""
+"After collision detection, we update the snake's location. This is done at a "
+"high level like so: First, move each byte pair of the body up one position "
+"in memory. Second, update the head according to the current direction. "
+"Finally, if the head is out of bounds, handle it as a collision. I'll "
+"illustrate this with some ascii art. Each pair of brackets contains an x,y "
+"coordinate rather than a pair of bytes for simplicity."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:543
+msgid ""
+"At a low level, this subroutine is slightly more complex. First, the length "
+"is loaded into the <tt>X</tt> register, which is then decremented. The "
+"snippet below shows the starting memory for the snake."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:547
+msgid ""
+"The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</"
+"tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, "
+"then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is "
+"decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</"
+"tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive "
+"(<tt>BPL</tt> means \"branch if positive\")."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:548
+msgid ""
+"Once the values have been shifted down the snake, we have to work out what "
+"to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</"
+"tt> means \"logical shift right\", or \"shift all the bits one position to "
+"the right\". The least significant bit is shifted into the carry flag, so if "
+"the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the "
+"carry flag set."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:549
+msgid ""
+"To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or "
+"<tt>8</tt>, the code continually shifts right until the carry is set. One "
+"<tt>LSR</tt> means \"up\", two means \"right\", and so on."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:550
+msgid ""
+"The next bit updates the head of the snake depending on the direction. This "
+"is probably the most complicated part of the code, and it's all reliant on "
+"how memory locations map to the screen, so let's look at that in more detail."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:551
+msgid ""
+"You can think of the screen as four horizontal strips of 32 × 8 pixels. "
+"These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-"
+"$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-"
+"$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:552
+msgid ""
+"As long as you're moving within one of these horizontal strips, things are "
+"simple. For example, to move right, just increment the least significant "
+"byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</"
+"tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the "
+"reverse."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:553
+msgid ""
+"Going between sections is more complicated, as we have to take into account "
+"the most significant byte as well. For example, going down from <tt>$02e1</"
+"tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to "
+"accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and "
+"sets the carry bit. If the carry bit was set, we know we also need to "
+"increment the most significant byte."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:554
+msgid ""
+"After a move in each direction, we also need to check to see if the head "
+"would become out of bounds. This is handled differently for each direction. "
+"For left and right, we can check to see if the head has effectively "
+"\"wrapped around\". Going right from <tt>$021f</tt> by incrementing the "
+"least significant byte would lead to <tt>$0220</tt>, but this is actually "
+"jumping from the last pixel of the first row to the first pixel of the "
+"second row. So, every time we move right, we need to check if the new least "
+"significant byte is a multiple of <tt>$20</tt>. This is done using a bit "
+"check against the mask <tt>$1f</tt>. Hopefully the illustration below will "
+"show you how masking out the lowest 5 bits reveals whether a number is a "
+"multiple of <tt>$20</tt> or not."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:560
+msgid ""
+"I won't explain in depth how each of the directions work, but the above "
+"explanation should give you enough to work it out with a bit of study."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:561
+msgid "Rendering the game"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:562
+msgid ""
+"Because the game state is stored in terms of pixel locations, rendering the "
+"game is very straightforward. The first subroutine, <tt>drawApple</tt>, is "
+"extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the "
+"accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is "
+"where the location of the apple is stored, so <tt>($00),y</tt> dereferences "
+"to this memory location. Read the \"Indirect indexed\" section in <a "
+"href=\"#addressing\">Addressing modes</a> for more details."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:563
+msgid ""
+"Next comes <tt>drawSnake</tt>. This is pretty simple too - we first undraw "
+"the tail and then draw the head. <tt>X</tt> is set to the length of the "
+"snake, so we can index to the right pixel, and we set <tt>A</tt> to zero "
+"then perform the write using the indexed indirect addressing mode. Then we "
+"reload <tt>X</tt> to index to the head, set <tt>A</tt> to one and store it "
+"at <tt>($10,x)</tt>. <tt>$10</tt> stores the two-byte location of the head, "
+"so this draws a white pixel at the current head position. As only the head "
+"and the tail of the snake move, this is enough to keep the snake moving."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:564
+msgid ""
+"The last subroutine, <tt>spinWheels</tt>, is just there because the game "
+"would run too fast otherwise. All <tt>spinWheels</tt> does is count <tt>X</"
+"tt> down from zero until it hits zero again. The first <tt>dex</tt> wraps, "
+"making <tt>X</tt> <tt>#$ff</tt>."
+msgstr ""
