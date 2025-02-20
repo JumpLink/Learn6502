@@ -14,15 +14,15 @@
   "author": "Pascal Garber <pascal@artandcode.studio>",
   "license": "GPL-3.0-only",
   "devDependencies": {
-    "@types/node": "^22.9.0",
-    "typescript": "^5.6.3",
-    "vite": "^5.4.10"
+    "@types/node": "^22.13.4",
+    "typescript": "^5.7.3",
+    "vite": "^6.1.1"
   },
   "peerDependencies": {
     "vite": "*"
   },
   "dependencies": {
-    "execa": "^9.5.1",
+    "execa": "^9.5.2",
     "minify-xml": "^4.5.2"
   }
 }
