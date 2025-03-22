@@ -9,14 +9,6 @@ import Template from './game-pad.blp'
 GObject.type_ensure(MessageConsole.$gtype)
 
 export interface GamePad {
-  // Child widgets
-  _buttonLeft: Gtk.Button
-  _buttonRight: Gtk.Button
-  _buttonUp: Gtk.Button
-  _buttonDown: Gtk.Button
-  _buttonA: Gtk.Button
-  _buttonB: Gtk.Button
-
   // GObject signals
   connect(id: string, callback: (...args: any[]) => any): number;
   connect_after(id: string, callback: (...args: any[]) => any): number;
@@ -29,6 +21,14 @@ export interface GamePad {
 }
 
 export class GamePad extends Adw.Bin {
+
+  // Child widgets
+  declare private _buttonLeft: Gtk.Button
+  declare private _buttonRight: Gtk.Button
+  declare private _buttonUp: Gtk.Button
+  declare private _buttonDown: Gtk.Button
+  declare private _buttonA: Gtk.Button
+  declare private _buttonB: Gtk.Button
 
   static {
     GObject.registerClass({
@@ -102,3 +102,5 @@ export class GamePad extends Adw.Bin {
     button.activate();
   }
 }
+
+GObject.type_ensure(GamePad.$gtype)

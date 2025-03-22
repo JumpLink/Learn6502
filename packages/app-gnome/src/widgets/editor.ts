@@ -5,19 +5,17 @@ import { SourceView } from './source-view.ts'
 
 import Template from './editor.blp'
 
-GObject.type_ensure(SourceView.$gtype)
-
-export interface Editor {
-  /** The SourceView that displays the buffer's display */
-  _sourceView: SourceView
-}
-
 /**
  * @class Editor to edit 6502 assembly code
  *
  * @emits changed - Emitted when the buffer's text changes
  */
 export class Editor extends Adw.Bin {
+
+  // Child widgets
+
+  /** The SourceView that displays the buffer's display */
+  declare private _sourceView: SourceView
 
   static {
     GObject.registerClass({
@@ -53,3 +51,5 @@ export class Editor extends Adw.Bin {
   };
 
 }
+
+GObject.type_ensure(Editor.$gtype)

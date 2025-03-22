@@ -6,16 +6,12 @@ import { Tutorial } from './tutorial.ts'
 
 import Template from './learn.blp'
 
-GObject.type_ensure(Tutorial.$gtype)
-
-export interface Learn {
-  // Child widgets
-  _scrolledWindow: Gtk.ScrolledWindow
-  _statusPage: Adw.StatusPage
-  _tutorial: Tutorial
-}
-
 export class Learn extends Adw.Bin {
+
+  // Child widgets
+  declare private _scrolledWindow: Gtk.ScrolledWindow
+  declare private _statusPage: Adw.StatusPage
+  declare private _tutorial: Tutorial
 
   static {
     GObject.registerClass({
@@ -53,3 +49,5 @@ export class Learn extends Adw.Bin {
     });
   }
 }
+
+GObject.type_ensure(Learn.$gtype)

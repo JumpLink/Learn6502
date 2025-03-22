@@ -6,12 +6,10 @@ import Template from './display.blp'
 
 import type { Display as DisplayInterface, Memory, MemoryEvent } from '@easy6502/6502'
 
-export interface Display {
-  // Child widgets
-  _drawingArea: Gtk.DrawingArea
-}
-
 export class Display extends Adw.Bin implements DisplayInterface {
+
+  // Child widgets
+  declare private _drawingArea: Gtk.DrawingArea
 
   static {
     GObject.registerClass({
@@ -121,3 +119,5 @@ export class Display extends Adw.Bin implements DisplayInterface {
     return { red, green, blue };
   }
 }
+
+GObject.type_ensure(Display.$gtype)

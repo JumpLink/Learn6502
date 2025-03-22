@@ -7,23 +7,19 @@ import { SourceView } from './source-view.ts'
 
 import Template from './executable-source-view.blp'
 
-GObject.type_ensure(SourceView.$gtype)
-
-export interface ExecutableSourceView {
-  // Child widgets
-  _scrolledWindow: Gtk.ScrolledWindow
-  /** The SourceView that displays the buffer's display */
-  _sourceView: SourceView
-  _actionBar: Gtk.ActionBar
-  _runButton: Adw.SplitButton
-}
-
 /**
  * @class ExecutableSourceView to display 6502 assembly code that can be executed
  *
  * @emits changed - Emitted when the buffer's text changes
  */
 export class ExecutableSourceView extends Adw.Bin {
+
+  // Child widgets
+  declare private _scrolledWindow: Gtk.ScrolledWindow
+  /** The SourceView that displays the buffer's display */
+  declare private _sourceView: SourceView
+  declare private _actionBar: Gtk.ActionBar
+  declare private _runButton: Adw.SplitButton
 
   static {
     GObject.registerClass({
@@ -261,3 +257,5 @@ export class ExecutableSourceView extends Adw.Bin {
     this.emit('copy', this.code);
   }
 }
+
+GObject.type_ensure(ExecutableSourceView.$gtype)

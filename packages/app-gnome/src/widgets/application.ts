@@ -4,12 +4,12 @@ import Gdk from '@girs/gdk-4.0'
 import Gtk from '@girs/gtk-4.0'
 import Adw from '@girs/adw-1'
 
-import { ApplicationWindow } from './widgets/application-window.ts'
-import { PreferencesDialog } from './widgets/preferences-dialog.ts'
-import { APPLICATION_ID, RESOURCES_PATH } from './constants.ts'
-import { initResources } from './resources.ts'
+import { ApplicationWindow } from './application-window.ts'
+import { PreferencesDialog } from './preferences-dialog.ts'
+import { APPLICATION_ID, RESOURCES_PATH } from '../constants.ts'
+import { initResources } from '../resources.ts'
 
-import mainStyle from './main.css?inline'
+import applicationStyle from './application.css?inline'
 
 
 export class Application extends Adw.Application {
@@ -38,7 +38,7 @@ export class Application extends Adw.Application {
   /** Load the stylesheet in a CssProvider and add it to the Gtk.StyleContext */
   protected initStyles() {
     const provider = new Gtk.CssProvider();
-    provider.load_from_string(mainStyle);
+    provider.load_from_string(applicationStyle);
     const display = Gdk.Display.get_default()
 
     if (!display) {

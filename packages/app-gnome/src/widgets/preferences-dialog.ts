@@ -16,3 +16,5 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
         super(params)
     }
 }
+
+GObject.type_ensure(PreferencesDialog.$gtype)

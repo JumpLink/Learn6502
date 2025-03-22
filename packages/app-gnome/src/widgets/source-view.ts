@@ -9,14 +9,6 @@ import Template from './source-view.blp'
 
 import { GutterRendererAddress } from '../gutter-renderer-address.ts'
 
-export interface SourceView {
-  // Child widgets
-  /** The ScrolledWindow that contains the SourceView */
-  _scrolledWindow: Gtk.ScrolledWindow
-  /** The SourceView that displays the buffer's display */
-  _sourceView: GtkSource.View
-}
-
 GtkSource.init()
 
 /**
@@ -25,6 +17,12 @@ GtkSource.init()
  * @emits changed - Emitted when the buffer's text changes
  */
 export class SourceView extends Adw.Bin {
+
+  // Child widgets
+  /** The ScrolledWindow that contains the SourceView */
+  declare private _scrolledWindow: Gtk.ScrolledWindow
+  /** The SourceView that displays the buffer's display */
+  declare private _sourceView: GtkSource.View
 
   static {
     GObject.registerClass({
@@ -429,3 +427,5 @@ export class SourceView extends Adw.Bin {
     this.buffer.set_style_scheme(scheme);
   };
 }
+
+GObject.type_ensure(SourceView.$gtype)

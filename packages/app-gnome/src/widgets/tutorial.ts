@@ -6,17 +6,6 @@ import Template from '@easy6502/learn/dist/tutorial.ui?raw'
 
 import { ExecutableSourceView } from './executable-source-view.ts'
 
-// Custom widget used in the `tutorial.mdx`
-GObject.type_ensure(ExecutableSourceView.$gtype)
-
-export interface Tutorial {
-  // Child widgets
-  // _executableSourceView1: ExecutableSourceView
-  // _executableSourceView2: ExecutableSourceView
-  // _executableSourceView3: ExecutableSourceView
-  // _executableSourceView4: ExecutableSourceView, ...
-}
-
 // Find all the ids in the template that match the id of the ExecutableSourceView
 const executableSourceViewIds = findIdsInXml('executableSourceView', Template)
 
@@ -76,3 +65,5 @@ export class Tutorial extends Adw.Bin {
     throw new Error(`ExecutableSourceView with id ${id} not found`)
   }
 }
+
+GObject.type_ensure(Tutorial.$gtype)

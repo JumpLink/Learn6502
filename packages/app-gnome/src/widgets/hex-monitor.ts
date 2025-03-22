@@ -6,18 +6,14 @@ import type { Memory, HexMonitorOptions, HexMonitor as HexMonitorInterface } fro
 
 import Template from './hex-monitor.blp'
 
-GObject.type_ensure(SourceView.$gtype)
-
-export interface HexMonitor {
-  // Child widgets
-  _sourceView: SourceView
-}
-
 /**
  * A widget that displays a hex monitor.
  * @emits changed - when the monitor content is updated
  */
 export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
+
+  // Child widgets
+  declare private _sourceView: SourceView
 
   static {
     GObject.registerClass({
@@ -54,5 +50,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
   public setOptions(options: Partial<HexMonitorOptions>): void {
     this.options = { ...this.options, ...options };
   }
-
 }
+
+GObject.type_ensure(HexMonitor.$gtype)

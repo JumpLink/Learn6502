@@ -13,10 +13,6 @@ GObject.type_ensure(Display.$gtype)
 GObject.type_ensure(GamePad.$gtype)
 
 export interface GameConsole {
-  // Child widgets
-  _display: Display
-  _gamePad: GamePad
-
   // GObject signals
   connect(id: string, callback: (...args: any[]) => any): number;
   connect_after(id: string, callback: (...args: any[]) => any): number;
@@ -105,6 +101,10 @@ export interface GameConsole {
  * @emits gamepad-pressed - Emitted when a gamepad button is pressed.
  */
 export class GameConsole extends Adw.Bin {
+
+  // Child widgets
+  declare private _display: Display
+  declare private _gamePad: GamePad
 
   static {
     GObject.registerClass({
@@ -358,3 +358,5 @@ export class GameConsole extends Adw.Bin {
     this.gamepadHandlerIds = [];
   }
 }
+
+GObject.type_ensure(GameConsole.$gtype)

@@ -3,7 +3,6 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import Gdk from '@girs/gdk-4.0'
 import Gio from '@girs/gio-2.0'
-import GLib from '@girs/glib-2.0'
 
 import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
@@ -12,26 +11,18 @@ import { Debugger } from './debugger.ts'
 
 import Template from './application-window.blp'
 
-// Ensure widgets are loaded and can be used in the XML
-GObject.type_ensure(Learn.$gtype)
-GObject.type_ensure(Editor.$gtype)
-GObject.type_ensure(GameConsole.$gtype)
-GObject.type_ensure(Debugger.$gtype)
-
-export interface ApplicationWindow {
-  // Child widgets
-  _editor: Editor
-  _gameConsole: GameConsole
-  _learn: Learn
-  _menuButton: Gtk.MenuButton
-  _runButton: Adw.SplitButton
-  _stack: Adw.ViewStack
-  _switcherBar: Adw.ViewSwitcherBar
-  _debugger: Debugger
-  _toastOverlay: Adw.ToastOverlay
-}
-
 export class ApplicationWindow extends Adw.ApplicationWindow {
+
+  // Child widgets
+  declare private _editor: Editor
+  declare private _gameConsole: GameConsole
+  declare private _learn: Learn
+  declare private _menuButton: Gtk.MenuButton
+  declare private _runButton: Adw.SplitButton
+  declare private _stack: Adw.ViewStack
+  declare private _switcherBar: Adw.ViewSwitcherBar
+  declare private _debugger: Debugger
+  declare private _toastOverlay: Adw.ToastOverlay
 
   static {
     GObject.registerClass({
@@ -277,3 +268,5 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     }
   }
 }
+
+GObject.type_ensure(ApplicationWindow.$gtype)

@@ -6,12 +6,10 @@ import { type Simulator, type DebugInfo as DebugInfoInterface, num2hex, addr2hex
 
 import Template from './debug-info.blp'
 
-export interface DebugInfo {
-  // Child widgets
-  _textView: Gtk.TextView
-}
-
 export class DebugInfo extends Adw.Bin implements DebugInfoInterface {
+
+  // Child widgets
+  declare private _textView: Gtk.TextView
 
   static {
     GObject.registerClass({

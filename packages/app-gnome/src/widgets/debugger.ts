@@ -10,23 +10,17 @@ import Template from './debugger.blp'
 
 import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, type DebuggerOptions, throttle } from '@easy6502/6502'
 
-GObject.type_ensure(MessageConsole.$gtype)
-GObject.type_ensure(HexMonitor.$gtype)
-GObject.type_ensure(DebugInfo.$gtype)
+export class Debugger extends Adw.Bin implements DebuggerInterface {
 
-export interface Debugger {
   // Properties
-  _state: DebuggerState
+  declare private _state: DebuggerState
 
   // Child widgets
-  _stack: Gtk.Stack
-  _messageConsole: MessageConsole
-  _hexMonitor: HexMonitor
-  _debugInfo: DebugInfo
-  _statusPage: Adw.StatusPage
-}
-
-export class Debugger extends Adw.Bin implements DebuggerInterface {
+  declare private _stack: Gtk.Stack
+  declare private _messageConsole: MessageConsole
+  declare private _hexMonitor: HexMonitor
+  declare private _debugInfo: DebugInfo
+  declare private _statusPage: Adw.StatusPage
 
   static {
     GObject.registerClass({
@@ -128,3 +122,5 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     this.handlerIds = [];
   }
 }
+
+GObject.type_ensure(Debugger.$gtype)

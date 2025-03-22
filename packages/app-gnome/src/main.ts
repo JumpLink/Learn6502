@@ -5,7 +5,7 @@ import GLib from '@girs/glib-2.0'
 import { programInvocationName, exit} from 'system'
 import { APPLICATION_ID, PACKAGE_VERSION, PREFIX, LIBDIR, DATADIR } from './constants.ts'
 
-import { Application } from './application.ts'
+import { Application } from './widgets/index.ts'
 
 imports.package.init({
   name: APPLICATION_ID,

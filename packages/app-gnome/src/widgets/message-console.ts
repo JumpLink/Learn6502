@@ -6,12 +6,10 @@ import Template from './message-console.blp'
 
 import type { MessageConsole as MessageConsoleInterface } from '@easy6502/6502'
 
-export interface MessageConsole {
-  // Child widgets
-  _textView: Gtk.TextView
-}
-
 export class MessageConsole extends Adw.Bin implements MessageConsoleInterface {
+
+  // Child widgets
+  declare private _textView: Gtk.TextView
 
   static {
     GObject.registerClass({
@@ -46,3 +44,5 @@ export class MessageConsole extends Adw.Bin implements MessageConsoleInterface {
     throw new Error('Not implemented')
   }
 }
+
+GObject.type_ensure(MessageConsole.$gtype)
