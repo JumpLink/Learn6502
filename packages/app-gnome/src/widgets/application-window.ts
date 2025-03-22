@@ -84,11 +84,15 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private runGameConsole(): void {
+    // Set the game console as the visible child in the stack
+    this._stack.set_visible_child(this._gameConsole);
     this._gameConsole.run();
   }
 
   private assembleGameConsole(): void {
     this._debugger.reset();
+    // Set the debugger as the visible child in the stack
+    this._stack.set_visible_child(this._debugger);
     this._gameConsole.assemble(this._editor.code);
   }
 
@@ -99,6 +103,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private copyGameConsole(code: string): void {
     this._editor.code = code;
+    // Set the editor as the visible child in the stack
+    this._stack.set_visible_child(this._editor);
   }
 
   private showToast(params: Partial<Adw.Toast.ConstructorProps>): void {

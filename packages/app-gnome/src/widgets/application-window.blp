@@ -17,8 +17,8 @@ template $ApplicationWindow: Adw.ApplicationWindow {
       [end]
       MenuButton menuButton {
         primary: true;
-        icon-name: 'open-menu-symbolic';
-        tooltip-text: _('Menu');
+        icon-name: "open-menu-symbolic";
+        tooltip-text: _("Menu");
         menu-model: buttonWindowMenu;
       }
 
@@ -86,24 +86,26 @@ template $ApplicationWindow: Adw.ApplicationWindow {
 
 menu buttonWindowMenu {
   section {
+    // TODO: Add preferences
+    // item {
+    //   label: _("_Preferences");
+    //   action: "app.preferences";
+    // }
+
+    // TODO: Add keyboard shortcuts
+    // item {
+    //   label: _("_Keyboard Shortcuts");
+    //   action: "win.show-help-overlay";
+    // }
+
     item {
-      label: _('_Preferences');
-      action: 'app.preferences';
+      label: _("_About Easy6502");
+      action: "app.about";
     }
 
     item {
-      label: _('_Keyboard Shortcuts');
-      action: 'win.show-help-overlay';
-    }
-
-    item {
-      label: _('_About Test');
-      action: 'app.about';
-    }
-
-    item {
-      label: _('_Quit');
-      action: 'app.quit';
+      label: _("_Quit");
+      action: "app.quit";
     }
   }
 }
