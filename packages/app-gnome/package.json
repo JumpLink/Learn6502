@@ -22,25 +22,25 @@
     "devDependencies": {
         "@easy6502/vite-plugin-blueprint": "workspace:^",
         "@easy6502/vite-plugin-gettext": "workspace:^",
-        "typescript": "^5.7.3",
-        "vite": "^6.1.1",
-        "vite-plugin-static-copy": "^2.2.0"
+        "typescript": "^5.8.2",
+        "vite": "^6.2.2",
+        "vite-plugin-static-copy": "^2.3.0"
     },
     "dependencies": {
         "@easy6502/6502": "workspace:^",
         "@easy6502/learn": "workspace:^",
         "@easy6502/translations": "workspace:^",
-        "@girs/adw-1": "^1.7.0-4.0.0-beta.21",
-        "@girs/gdk-4.0": "^4.0.0-4.0.0-beta.21",
-        "@girs/gdkpixbuf-2.0": "^2.0.0-4.0.0-beta.21",
-        "@girs/gio-2.0": "^2.83.3-4.0.0-beta.21",
-        "@girs/gjs": "^4.0.0-beta.21",
-        "@girs/glib-2.0": "^2.83.3-4.0.0-beta.21",
-        "@girs/gobject-2.0": "^2.83.3-4.0.0-beta.21",
-        "@girs/gtk-4.0": "^4.17.5-4.0.0-beta.21",
-        "@girs/gtksource-5": "^5.15.1-4.0.0-beta.21",
-        "@girs/javascriptcore-6.0": "^2.47.3-4.0.0-beta.21",
-        "@girs/pango-1.0": "^1.56.0-4.0.0-beta.21",
-        "@girs/webkit-6.0": "^2.47.3-4.0.0-beta.21"
+        "@girs/adw-1": "^1.8.0-4.0.0-beta.23",
+        "@girs/gdk-4.0": "^4.0.0-4.0.0-beta.23",
+        "@girs/gdkpixbuf-2.0": "^2.0.0-4.0.0-beta.23",
+        "@girs/gio-2.0": "^2.84.0-4.0.0-beta.23",
+        "@girs/gjs": "^4.0.0-beta.23",
+        "@girs/glib-2.0": "^2.84.0-4.0.0-beta.23",
+        "@girs/gobject-2.0": "^2.84.0-4.0.0-beta.23",
+        "@girs/gtk-4.0": "^4.18.3-4.0.0-beta.23",
+        "@girs/gtksource-5": "^5.16.1-4.0.0-beta.23",
+        "@girs/javascriptcore-6.0": "^2.48.0-4.0.0-beta.23",
+        "@girs/pango-1.0": "^1.56.4-4.0.0-beta.23",
+        "@girs/webkit-6.0": "^2.48.0-4.0.0-beta.23"
     }
 }
