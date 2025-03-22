@@ -6,8 +6,6 @@ import { MessageConsole } from './message-console.ts'
 
 import Template from './game-pad.blp'
 
-GObject.type_ensure(MessageConsole.$gtype)
-
 export interface GamePad {
   // GObject signals
   connect(id: string, callback: (...args: any[]) => any): number;
