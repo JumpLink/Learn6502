@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-22 20:59+0100\n"
+"POT-Creation-Date: 2025-03-23 06:18+0100\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: YOUR NAME <your.email@example.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -78,6 +78,101 @@ msgstr "Haupteinstellungen"
 #: ../app-gnome/src/widgets/preferences-dialog.blp:15
 msgid "There are currently no settings."
 msgstr "Derzeit gibt es keine Einstellungen."
+
+#: ../app-gnome/src/widgets/application-window.ui:21
+#, fuzzy
+msgid "Easy 6502"
+msgstr "Easy6502"
+
+#: ../app-gnome/src/widgets/application-window.ui:109
+msgid "_Preferences"
+msgstr "_Einstellungen"
+
+#: ../app-gnome/src/widgets/application-window.ui:113
+msgid "_Keyboard Shortcuts"
+msgstr "_Tastenkombinationen"
+
+#: ../app-gnome/src/widgets/application-window.ui:117
+#, fuzzy
+msgid "_About Test"
+msgstr "_Über Easy6502"
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:19
+#, fuzzy
+msgid "Color Settings"
+msgstr "Haupteinstellungen"
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:20
+msgid "Change the color-scheme of the application"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:23
+msgid "Use Dark Mode"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:30
+#, fuzzy
+msgid "Text Settings"
+msgstr "Haupteinstellungen"
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:31
+msgid "Customize the appearance of text in the application"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:34
+msgid "Font Size"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:47
+msgid "Font Color"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:65
+msgid "Behavior"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:69
+#, fuzzy
+msgid "Interaction Settings"
+msgstr "Haupteinstellungen"
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:70
+msgid "Change how the app behaves during user interaction"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:80
+msgid "Run on Startup"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:85
+msgid "Show Toast"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:91
+msgid "show toast"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:101
+#, fuzzy
+msgid "Data Settings"
+msgstr "Haupteinstellungen"
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:102
+msgid "Manage user data related settings"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:105
+msgid "Enable Debug"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:110
+msgid "Check for updates"
+msgstr ""
+
+#: ../app-gnome/src/widgets/preferences-dialog.ui:115
+#, fuzzy
+msgid "Additional Preferences"
+msgstr "Einstellungen"
 
 #: ../learn/dist/tutorial.ui:1
 msgid ""
@@ -1582,9 +1677,3 @@ msgstr ""
 "sonst zu schnell laufen würde. Alles, was <tt>spinWheels</tt> tut, ist "
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
-
-#~ msgid "_Preferences"
-#~ msgstr "_Einstellungen"
-
-#~ msgid "_Keyboard Shortcuts"
-#~ msgstr "_Tastenkombinationen"
