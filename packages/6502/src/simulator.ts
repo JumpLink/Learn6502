@@ -2,56 +2,139 @@ import { Memory } from './memory.js';
 import { Labels } from './labels.js';
 import { EventDispatcher } from './event-dispatcher.js';
 
-import type { SimulatorEvent, MessageConsole } from './types/index.js';
+import { type SimulatorEvent, SimulatorState } from './types/index.js';
 import { addr2hex } from './utils.js';
 
 /**
  * 6502 Simulator
- * 
- * This is a simulator for the 6502 processor.
+ *
+ * This is a simulator for the 6502 processor, implementing CPU functionality,
+ * instruction execution, and memory management.
+ *
  * @emits start - Emitted when the simulator starts.
  * @emits step - Emitted when the simulator has executed a single instruction.
  * @emits multistep - Emitted when the simulator has executed multiple instructions(only the case if the stepper is enabled).
  * @emits reset - Emitted when the simulator resets.
  * @emits stop - Emitted when the simulator stops.
  * @emits goto - Emitted when the simulator jumps to a new address.
+ * @emits simulator-failure - Emitted when the simulator encounters a failure.
+ * @emits simulator-info - Emitted for informational messages from the simulator.
+ * @emits pseudo-op - Emitted when a pseudo-operation is executed.
  */
 export class Simulator {
-
+  /** Accumulator register */
   private regA = 0;
-  private regX = 0;
-  private regY = 0;
-  private regP = 0;
-  private regPC = 0x600;
-  private regSP = 0xff;
-  private _codeRunning = false;
-  /** If true, the simulator will execute one instruction step by step triggered by the debugger. */
-  private stepper = false;
-  
-  private executeId: number | undefined;
 
+  /** X index register */
+  private regX = 0;
+
+  /** Y index register */
+  private regY = 0;
+
+  /** Processor status register - contains flags (N, V, B, D, I, Z, C) */
+  private regP = 0;
+
+  /** Program counter - points to the next instruction to be executed */
+  private regPC = 0x600;
+
+  /** Stack pointer - points to the current top of the stack */
+  private regSP = 0xff;
+
+  /** Flag indicating whether code is currently running in the simulator */
+  private _codeRunning = false;
+
+  /**
+   * If true, the simulator will execute one instruction step by step triggered by the debugger.
+   * When enabled, automatic execution via multiExecute is disabled.
+   */
+  private stepper = false;
+
+  /**
+   * ID returned by setInterval for the automatic execution cycle.
+   * Used to stop the execution when needed.
+   */
+  private executeId: ReturnType<typeof setInterval> | undefined;
+
+  /** Event dispatcher for all simulator events */
   private readonly events = new EventDispatcher<SimulatorEvent>();
 
+  /**
+   * Returns the current state of the simulator based on stepper, codeRunning, and register states
+   * @returns The current state of the simulator as defined in SimulatorState enum
+   */
+  public get state(): SimulatorState {
+    if (this.stepper) {
+      // We're in debug mode with stepper enabled
+      if (this._codeRunning) {
+        return SimulatorState.DEBUGGING;
+      } else {
+        return SimulatorState.DEBUGGING_PAUSED;
+      }
+    }
+
+    if (this._codeRunning) {
+      return SimulatorState.RUNNING;
+    }
+
+    // If PC is at the initial address (0x600) and registers are zeroed,
+    // this indicates the simulator is in READY state (was reset or not started yet)
+    if (this.regPC === 0x600 && this.regA === 0 && this.regX === 0 && this.regY === 0) {
+      return SimulatorState.READY;
+    }
+
+    // If we're not running, not debugging, and not in initial state,
+    // then the simulator must have been stopped
+    return SimulatorState.STOPPED;
+  }
+
+  /**
+   * Creates a new simulator instance
+   * @param memory - Memory instance for the simulator to use
+   * @param labels - Labels instance for symbol lookup
+   */
   constructor(private readonly memory: Memory, private readonly labels: Labels) {
 
   }
 
+  /**
+   * Registers an event listener for a specific simulator event
+   * @param event - The event to listen for
+   * @param listener - The callback function to execute when the event occurs
+   */
   public on(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
     this.events.on(event, listener);
   }
 
+  /**
+   * Unregisters an event listener for a specific simulator event
+   * @param event - The event to stop listening for
+   * @param listener - The callback function to remove
+   */
   public off(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
     this.events.off(event, listener);
   }
 
+  /**
+   * Registers a one-time event listener for a specific simulator event
+   * @param event - The event to listen for once
+   * @param listener - The callback function to execute when the event occurs
+   */
   public once(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
     this.events.once(event, listener);
   }
 
+  /**
+   * Returns whether code is currently running in the simulator
+   * @returns True if code is running, false otherwise
+   */
   public get codeRunning() {
     return this._codeRunning;
   }
 
+  /**
+   * Returns the current state of all CPU registers
+   * @returns An object containing the current values of all registers
+   */
   public get info() {
     return {
       regA: this.regA,
@@ -63,19 +146,24 @@ export class Simulator {
     };
   }
 
+  /**
+   * Returns whether the stepper mode is enabled
+   * @returns True if stepper is enabled, false otherwise
+   */
   public get stepperEnabled() {
     return this.stepper;
   }
 
   /**
-   * Stop the debugger.
+   * Disables the stepper mode (debugging mode)
    */
   public stopStepper() {
     this.stepper = false;
   }
 
   /**
-   * Enable the debugger.
+   * Enables the stepper mode (debugging mode)
+   * When enabled, automatic execution is paused and instructions must be executed manually
    */
   public enableStepper() {
     this.stepper = true;
@@ -85,16 +173,16 @@ export class Simulator {
   }
 
   /**
-   * Execute one instruction and print values.
+   * Executes a single instruction in debug mode
+   * This allows stepping through code even when codeRunning is false
    */
   public debugExecStep() {
     this.execute(true);
   }
 
-
   /**
-   * Set PC to address (or address of label).
-   * @param inp - The address or label to jump to.
+   * Set PC to a specific address or the address of a label
+   * @param inp - The address or label to jump to (accepts 0x... or $... format for addresses)
    */
   public gotoAddr(inp: string) {
     let addr = 0;
@@ -122,7 +210,9 @@ export class Simulator {
   }
 
   /**
-   * Reset CPU and memory.
+   * Resets CPU registers and memory
+   * Clears zero page, stack, and screen memory
+   * Sets all registers to their initial values
    */
   public reset() {
     for (let i = 0; i < 0x600; i++) { // clear ZP, stack and screen
@@ -136,7 +226,8 @@ export class Simulator {
   }
 
   /**
-   * Stop the CPU simulator.
+   * Stops the CPU simulator execution
+   * @param message - Optional message describing why execution was stopped
    */
   public stop(message = "") {
     message = "\nStopped\n" + message;
@@ -182,7 +273,8 @@ export class Simulator {
   }
 
   /**
-   * Set zero and negative processor flags based on result.
+   * Sets zero and negative processor flags based on a result value
+   * @param value - The value to check for setting flags
    */
   private setNVflags(value: number) {
     if (value) {
@@ -315,7 +407,7 @@ export class Simulator {
    * - Negative (N) flag: Set to bit 7 of the value.
    * - Overflow (V) flag: Set to bit 6 of the value.
    * - Zero (Z) flag: Set if the result of A AND value is zero.
-   * 
+   *
    * @param value - The value to test against the accumulator.
    */
   private BIT(value: number) {
@@ -1512,7 +1604,9 @@ export class Simulator {
   }
 
   /**
-   * Executes the assembled code.
+   * Executes the assembled code
+   * If code is already running, stops it
+   * Otherwise, starts execution with automatic stepping via setInterval
    */
   public runBinary() {
     if (this._codeRunning) {
@@ -1525,6 +1619,11 @@ export class Simulator {
     }
   }
 
+  /**
+   * Executes multiple instructions in a single timer tick
+   * Uses a prime number of iterations to avoid aliasing effects
+   * Only runs if stepper mode is disabled
+   */
   private multiExecute() {
     // If stepper is enabled, do not execute the code automatically
     if (this.stepper) {
@@ -1535,11 +1634,14 @@ export class Simulator {
     for (let w = 0; w < 97; w++) {
       this.execute();
     }
-  
+
     this.dispatchMultiStepEvent();
   }
 
-
+  /**
+   * Executes the next instruction at the current PC
+   * Reads the opcode, converts it to a function name, and executes the corresponding instruction
+   */
   private executeNextInstruction() {
     let instructionName = this.popByte().toString(16).toLowerCase();
     if (instructionName.length === 1) {
@@ -1555,7 +1657,9 @@ export class Simulator {
   }
 
   /**
-   * Executes one instruction. This is the main part of the CPU simulator.
+   * Executes one instruction
+   * This is the main part of the CPU simulator
+   * @param debugging - If true, allows execution even when codeRunning is false
    */
   private execute(debugging = false) {
     if (!this._codeRunning && !debugging) { return; }
@@ -1569,6 +1673,10 @@ export class Simulator {
     }
   }
 
+  /**
+   * Sets a random byte at memory location 0xfe
+   * This simulates the random number generator of the 6502
+   */
   private setRandomByte() {
     this.memory.set(0xfe, Math.floor(Math.random() * 256));
   }

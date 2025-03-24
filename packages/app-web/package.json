@@ -6,7 +6,7 @@
     "private": true,
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "clear": "rm -rf dist",
+        "clear": "rm -rf dist _site",
         "setup": "yarn exec 'gem install bundler jekyll' && yarn exec 'bundle install'",
         "build:vite": "vite build",
         "build": "yarn build:vite",

@@ -11,5 +11,5 @@ export * from './message-console.js';
 export * from './hex-monitor-options.js';
 export * from './hex-monitor.js';
 export * from './simulator-event.js';
-export * from './state.js';
 export * from './symbols.js';
+export * from './simulator-state.js';
