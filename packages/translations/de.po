@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-24 15:26+0100\n"
+"POT-Creation-Date: 2025-03-24 15:36+0100\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: YOUR NAME <your.email@example.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -1579,14 +1579,36 @@ msgstr ""
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
 
-#~ msgid ""
-#~ "STA $c000 ;Store the value in the accumulator at memory location $c000"
-#~ msgstr ""
-#~ "STA $c000 ;Speichert den Wert des Akkumulators an der Speicheradresse "
-#~ "$c000"
+#, fuzzy
+#~ msgid "Easy 6502"
+#~ msgstr "Easy6502"
 
 #~ msgid "_Preferences"
 #~ msgstr "_Einstellungen"
 
 #~ msgid "_Keyboard Shortcuts"
 #~ msgstr "_Tastenkombinationen"
+
+#, fuzzy
+#~ msgid "_About Test"
+#~ msgstr "_Über Easy6502"
+
+#, fuzzy
+#~ msgid "Color Settings"
+#~ msgstr "Haupteinstellungen"
+
+#, fuzzy
+#~ msgid "Text Settings"
+#~ msgstr "Haupteinstellungen"
+
+#, fuzzy
+#~ msgid "Interaction Settings"
+#~ msgstr "Haupteinstellungen"
+
+#, fuzzy
+#~ msgid "Data Settings"
+#~ msgstr "Haupteinstellungen"
+
+#, fuzzy
+#~ msgid "Additional Preferences"
+#~ msgstr "Einstellungen"
