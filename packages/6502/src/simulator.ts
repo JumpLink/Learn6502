@@ -79,7 +79,17 @@ export class Simulator {
     // If PC is at the initial address (0x600) and registers are zeroed,
     // this indicates the simulator is in READY state (was reset or not started yet)
     if (this.regPC === 0x600 && this.regA === 0 && this.regX === 0 && this.regY === 0) {
-      return SimulatorState.READY;
+      // Check if any code is loaded in memory
+      let hasCode = false;
+      // Check if there's any code in the program memory area (typically 0x600 and above)
+      for (let addr = 0x600; addr < 0x10000; addr++) {
+        if (this.memory.get(addr) !== 0) {
+          hasCode = true;
+          break;
+        }
+      }
+
+      return hasCode ? SimulatorState.READY : SimulatorState.INITIALIZED;
     }
 
     // If we're not running, not debugging, and not in initial state,
@@ -237,39 +247,39 @@ export class Simulator {
   }
 
   private dispatchStepEvent(message?: string) {
-    this.events.dispatch('step', { simulator: this, message });
+    this.events.dispatch('step', { simulator: this, message, state: this.state });
   }
 
   private dispatchMultiStepEvent(message?: string) {
-    this.events.dispatch('multistep', { simulator: this, message });
+    this.events.dispatch('multistep', { simulator: this, message, state: this.state });
   }
 
   private dispatchResetEvent(message?: string) {
-    this.events.dispatch('reset', { simulator: this, message });
+    this.events.dispatch('reset', { simulator: this, message, state: this.state });
   }
 
   private dispatchStartEvent(message?: string) {
-    this.events.dispatch('start', { simulator: this, message });
+    this.events.dispatch('start', { simulator: this, message, state: this.state });
   }
 
   private dispatchStopEvent(message?: string) {
-    this.events.dispatch('stop', { simulator: this, message });
+    this.events.dispatch('stop', { simulator: this, message, state: this.state });
   }
 
   private dispatchGotoEvent(message?: string) {
-    this.events.dispatch('goto', { simulator: this, message });
+    this.events.dispatch('goto', { simulator: this, message, state: this.state });
   }
 
   private dispatchSimulatorFailureEvent(message?: string) {
-    this.events.dispatch('simulator-failure', { simulator: this, message });
+    this.events.dispatch('simulator-failure', { simulator: this, message, state: this.state });
   }
 
   private dispatchSimulatorInfoEvent(message?: string) {
-    this.events.dispatch('simulator-info', { simulator: this, message });
+    this.events.dispatch('simulator-info', { simulator: this, message, state: this.state });
   }
 
   private dispatchPseudoOpEvent(type: string, message?: string) {
-    this.events.dispatch('pseudo-op', { simulator: this, type, message });
+    this.events.dispatch('pseudo-op', { simulator: this, type, message, state: this.state });
   }
 
   /**

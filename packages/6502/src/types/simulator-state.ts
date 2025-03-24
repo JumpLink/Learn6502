@@ -1,7 +1,12 @@
 export enum SimulatorState {
   /**
-   * The simulator is ready but hasn't started yet, or has been reset
-   * Program is loaded but not running
+   * The simulator has been initialized but no program has been loaded yet
+   */
+  INITIALIZED = 'initialized',
+
+  /**
+   * The simulator has a program loaded but hasn't started yet, or has been reset
+   * Program is ready to run
    */
   READY = 'ready',
 

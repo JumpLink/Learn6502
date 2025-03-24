@@ -10,6 +10,7 @@ import { GameConsole } from './game-console.ts'
 import { Debugger } from './debugger.ts'
 
 import Template from './application-window.blp'
+import { SimulatorState } from '@easy6502/6502'
 
 export class ApplicationWindow extends Adw.ApplicationWindow {
 
@@ -18,7 +19,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   declare private _gameConsole: GameConsole
   declare private _learn: Learn
   declare private _menuButton: Gtk.MenuButton
-  declare private _runButton: Adw.SplitButton
+  declare private _buildButton: Gtk.MenuButton
+  declare private _runButton: Gtk.Button
   declare private _stack: Adw.ViewStack
   declare private _switcherBar: Adw.ViewSwitcherBar
   declare private _debugger: Debugger
@@ -28,17 +30,22 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     GObject.registerClass({
       GTypeName: 'ApplicationWindow',
       Template,
-      InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay'],
+      InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'buildButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay'],
     }, this);
   }
 
   constructor(application: Adw.Application) {
     super({ application })
     this.setupGeneralSignalListeners();
-    this.setupRunMenu();
+    this.setupBuildMenu();
+    this.setupRunButton();
     this.setupGameConsoleSignalListeners();
     this.setupKeyboardListener();
     this.setupLearnTutorialSignalListeners();
+  }
+
+  public get state(): SimulatorState {
+    return this._gameConsole.simulator.state;
   }
 
   private setupLearnTutorialSignalListeners(): void {
@@ -65,10 +72,9 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._debugger.close();
   }
 
-  private setupRunMenu(): void {
-
+  private setupBuildMenu(): void {
     // TODO: Store latest action?
-    this._runButton.connect('clicked', this.runAndAssembleGameConsole.bind(this));
+    this._buildButton.connect('clicked', this.runAndAssembleGameConsole.bind(this));
 
     const assembleAndRunAction = new Gio.SimpleAction({ name: 'assemble-and-run' });
     assembleAndRunAction.connect('activate', this.runAndAssembleGameConsole.bind(this));
@@ -83,10 +89,29 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.add_action(runAction);
   }
 
+  private setupRunButton(): void {
+    // Create a toggle-run action
+    const toggleRunAction = new Gio.SimpleAction({ name: 'toggle-run' });
+    toggleRunAction.connect('activate', this.toggleRunGameConsole.bind(this));
+    this.add_action(toggleRunAction);
+
+    // Connect the clicked signal for the button
+    this._runButton.connect('clicked', this.toggleRunGameConsole.bind(this));
+
+    // Initial button setup
+    this.updateRunButtonState();
+  }
+
   private runGameConsole(): void {
+    console.log("runGameConsole");
     // Set the game console as the visible child in the stack
     this._stack.set_visible_child(this._gameConsole);
     this._gameConsole.run();
+  }
+
+  private stopGameConsole(): void {
+    console.log("stopGameConsole");
+    this._gameConsole.stop();
   }
 
   private assembleGameConsole(): void {
@@ -152,18 +177,21 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     })
 
     this._gameConsole.connect('stop', (_gameConsole, signal) => {
+      this.onSimulatorStateChange();
       if(signal.message) {
         this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('start', (_gameConsole, signal) => {
+      this.onSimulatorStateChange();
       if(signal.message) {
         this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('reset', (_gameConsole, signal) => {
+      this.onSimulatorStateChange();
       if(signal.message) {
         this._debugger.log(signal.message);
       }
@@ -272,6 +300,47 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._gameConsole.gamepadPress('B');
         break;
     }
+  }
+
+  private onSimulatorStateChange(): void {
+    this.updateRunButtonState();
+  }
+
+  private updateRunButtonState(): void {
+    const state = this._gameConsole.simulator.state;
+
+    console.log("updateRunButtonState", state);
+
+    if (state === SimulatorState.RUNNING || state === SimulatorState.DEBUGGING) {
+      // Show pause button when running
+      this._runButton.set_icon_name('pause-symbolic');
+      this._runButton.set_tooltip_text(_("Pause"));
+      this._runButton.set_sensitive(true);
+    } else if (state === SimulatorState.INITIALIZED) {
+      // Show play button but disable it when no program is loaded
+      this._runButton.set_icon_name('play-symbolic');
+      this._runButton.set_tooltip_text(_("No program loaded"));
+      this._runButton.set_sensitive(false);
+    } else {
+      // Show play button when ready, stopped or paused
+      this._runButton.set_icon_name('play-symbolic');
+      this._runButton.set_tooltip_text(_("Run"));
+      this._runButton.set_sensitive(true);
+    }
+  }
+
+  private toggleRunGameConsole(): void {
+    const state = this._gameConsole.simulator.state;
+
+    console.log("toggleRunGameConsole", state);
+
+    if (state === SimulatorState.RUNNING || state === SimulatorState.DEBUGGING) {
+      // Stop the simulator if it's running
+      this.stopGameConsole();
+    }
+
+    // Set the game console as the visible child in the stack
+    this.runGameConsole();
   }
 }
 

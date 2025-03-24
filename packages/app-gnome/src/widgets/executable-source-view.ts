@@ -19,13 +19,13 @@ export class ExecutableSourceView extends Adw.Bin {
   /** The SourceView that displays the buffer's display */
   declare private _sourceView: SourceView
   declare private _actionBar: Gtk.ActionBar
-  declare private _runButton: Adw.SplitButton
+  declare private _buildButton: Adw.SplitButton
 
   static {
     GObject.registerClass({
       GTypeName: 'ExecutableSourceView',
       Template,
-      InternalChildren: ['sourceView', 'actionBar', 'runButton'],
+      InternalChildren: ['sourceView', 'actionBar', 'buildButton'],
       Signals: {
         'changed': {
           param_types: [],

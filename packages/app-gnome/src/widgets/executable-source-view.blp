@@ -10,20 +10,20 @@ template $ExecutableSourceView: Adw.Bin {
       valign: end;
 
       [start]
-      Adw.SplitButton runButton {
+      Adw.SplitButton buildButton {
         halign: center;
-        icon-name: "media-playback-start-symbolic";
+        icon-name: "build-run-symbolic";
         styles [
           "suggested-action",
         ]
         action-name: 'executable-source-view.copy-assemble-and-run';
-        menu-model: buttonRunMenu;
+        menu-model: buttonBuildMenu;
       }
     }
   }
 }
 
-menu buttonRunMenu {
+menu buttonBuildMenu {
   section {
     item {
       label: "Copy, Assemble and Run";
