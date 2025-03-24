@@ -49,6 +49,7 @@ export class ExecutableSourceView extends Adw.Bin {
         unselectable: GObject.ParamSpec.boolean('unselectable', 'Unselectable', 'Whether the source view is unselectable', GObject.ParamFlags.READWRITE, false),
         lineNumbers: GObject.ParamSpec.boolean('line-numbers', 'Line Numbers', 'Whether the source view has line numbers', GObject.ParamFlags.READWRITE, true),
         noLineNumbers: GObject.ParamSpec.boolean('no-line-numbers', 'No Line Numbers', 'Whether the source view has no line numbers', GObject.ParamFlags.READWRITE, false),
+        lineNumberStart: GObject.ParamSpec.uint('line-number-start', 'Line Number Start', 'The starting value for line numbers', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 1),
         hexpand: GObject.ParamSpec.boolean('hexpand', 'Hexpand', 'Whether the source view is hexpand', GObject.ParamFlags.READWRITE, true),
         vexpand: GObject.ParamSpec.boolean('vexpand', 'Vexpand', 'Whether the source view is vexpand', GObject.ParamFlags.READWRITE, true),
         fitContentHeight: GObject.ParamSpec.boolean('fit-content-height', 'Fit Content Height', 'Whether the source view should fit the content height', GObject.ParamFlags.READWRITE, false),
@@ -195,6 +196,24 @@ export class ExecutableSourceView extends Adw.Bin {
   }
 
   /**
+   * Set the lineNumberStart property of the source view
+   *
+   * @param value - The start value for line numbers
+   */
+  public set lineNumberStart(value: number | undefined) {
+    this._sourceView.lineNumberStart = value;
+  }
+
+  /**
+   * Get the lineNumberStart property of the source view
+   *
+   * @returns The start value for line numbers
+   */
+  public get lineNumberStart(): number | undefined {
+    return this._sourceView.lineNumberStart;
+  }
+
+  /**
    * Set the fitContentHeight property of the source view.
    * This property is used to fit the content height of the source view and to disable vertical scrolling.
    *
@@ -224,8 +243,53 @@ export class ExecutableSourceView extends Adw.Bin {
 
   private _actionGroup: Gio.SimpleActionGroup;
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps>) {
-    super(params)
+  constructor(params: SourceView.ConstructorProps = {}) {
+    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, ...rest } = params;
+    super(rest);
+
+    if(lineNumberStart !== undefined) {
+      this.lineNumberStart = lineNumberStart;
+    }
+    if(lineNumbers !== undefined) {
+      this.lineNumbers = lineNumbers;
+    }
+    if(noLineNumbers !== undefined) {
+      this.noLineNumbers = noLineNumbers;
+    }
+    if(fitContentHeight !== undefined) {
+      this.fitContentHeight = fitContentHeight;
+    }
+    if(fitContentWidth !== undefined) {
+      this.fitContentWidth = fitContentWidth;
+    }
+    if(height !== undefined) {
+      this.height = height;
+    }
+    if(hexpand !== undefined) {
+      this.hexpand = hexpand;
+    }
+    if(vexpand !== undefined) {
+      this.vexpand = vexpand;
+    }
+    if(readonly !== undefined) {
+      this.readonly = readonly;
+    }
+    if(editable !== undefined) {
+      this.editable = editable;
+    }
+    if(selectable !== undefined) {
+      this.selectable = selectable;
+    }
+    if(unselectable !== undefined) {
+      this.unselectable = unselectable;
+    }
+    if(language !== undefined) {
+      this.language = language;
+    }
+    if(code !== undefined) {
+      this.code = code;
+    }
+
     this._actionGroup = new Gio.SimpleActionGroup();
     this.insert_action_group('executable-source-view', this._actionGroup);
     this._setupActions();

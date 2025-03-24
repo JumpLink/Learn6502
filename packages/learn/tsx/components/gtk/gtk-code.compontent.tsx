@@ -47,6 +47,10 @@ interface GtkCodeProps extends Object {
    */
   noLineNumbers?: boolean
   /**
+   * The starting value for line numbers.
+   */
+  lineNumberStart?: number
+  /**
    * Whether to fit the content width.
    */
   fitContentWidth?: boolean
@@ -87,13 +91,13 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     }
 
     render() {
-      let { language, readonly, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight, height } = this.parseAttributes(this.props)
-      
+      let { language, readonly, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight, height, lineNumberStart } = this.parseAttributes(this.props)
+
       code = renderSSR(code);
       if(code.endsWith('\n')) {
         code = code.slice(0, -1)
       }
-      
+
       // Use the custom editor widget for block code
       if (this.props.type === CodeType.BLOCK) {
         return <child>
@@ -104,6 +108,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
             {unselectable && <property name="unselectable">{unselectable.toString()}</property>}
             {lineNumbers && <property name="line-numbers">{lineNumbers.toString()}</property>}
             {noLineNumbers && <property name="no-line-numbers">{noLineNumbers.toString()}</property>}
+            {lineNumberStart !== undefined && <property name="line-number-start">{lineNumberStart}</property>}
             {fitContentWidth && <property name="fit-content-width">{fitContentWidth.toString()}</property>}
             {!height &&fitContentHeight && <property name="fit-content-height">{fitContentHeight.toString()}</property>}
             {height && <property name="height">{height}</property>}
@@ -133,6 +138,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       let fitContentWidth = props.fitContentWidth || false
       let fitContentHeight = props.fitContentHeight || false
       let height = props.height
+      let lineNumberStart = props.lineNumberStart || language === 'hex' ? 0 : 1
       // E.g. language-6502-assembler:readonly
       const separator = ':'
       const languagePrefix = 'language-'
@@ -150,6 +156,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
           fitContentHeight,
           code,
           height,
+          lineNumberStart,
         }
       }
       const [langString, ...modifiers] = this.props.className.split(separator)
@@ -189,6 +196,29 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
         const exampleName = exampleModifier.slice(examplePrefix.length)
         code = (Examples as any)[exampleName]
       }
+
+      // E.g. line-start=0x0600 for 6502's $0600 start address
+      const lineStartModifier = modifiers.find(modifier => modifier.startsWith('line-start='))
+      if(lineStartModifier) {
+        let startValue: number;
+        const valueString = lineStartModifier.slice(lineStartModifier.indexOf('=') + 1).trim();
+
+        // Check if it's a hex value (0x... or $...)
+        if (valueString.startsWith('0x') || valueString.startsWith('$')) {
+          const hexString = valueString.startsWith('0x') ? valueString.slice(2) : valueString.slice(1);
+          startValue = parseInt(hexString, 16);
+        } else {
+          // Decimal value
+          startValue = parseInt(valueString, 10);
+        }
+
+        if (!isNaN(startValue) && startValue >= 0) {
+          lineNumberStart = startValue;
+        } else {
+          console.warn(`Invalid line-start value: ${valueString}`);
+        }
+      }
+
       return {
         language,
         readonly,
@@ -199,6 +229,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
         fitContentWidth,
         fitContentHeight,
         height,
+        lineNumberStart,
       }
     }
 

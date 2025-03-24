@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-22 20:59+0100\n"
+"POT-Creation-Date: 2025-03-24 15:26+0100\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: YOUR NAME <your.email@example.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -571,11 +571,6 @@ msgid ""
 msgstr ""
 "Bei der absoluten Adressierung wird die vollständige Speicheradresse als "
 "Argument für die Anweisung verwendet. Zum Beispiel:"
-
-#: ../learn/dist/tutorial.ui:69
-msgid "STA $c000 ;Store the value in the accumulator at memory location $c000"
-msgstr ""
-"STA $c000 ;Speichert den Wert des Akkumulators an der Speicheradresse $c000"
 
 #: ../learn/dist/tutorial.ui:70
 msgid "Zero page: <tt>$c0</tt>"
@@ -1144,6 +1139,7 @@ msgid "Initialization"
 msgstr "Initialisierung"
 
 #: ../learn/dist/tutorial.ui:495
+#, fuzzy
 msgid ""
 "The <tt>init</tt> subroutine defers to two subroutines, <tt>initSnake</tt> "
 "and <tt>generateApplePosition</tt>. <tt>initSnake</tt> sets the snake "
@@ -1582,6 +1578,12 @@ msgstr ""
 "sonst zu schnell laufen würde. Alles, was <tt>spinWheels</tt> tut, ist "
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
+
+#~ msgid ""
+#~ "STA $c000 ;Store the value in the accumulator at memory location $c000"
+#~ msgstr ""
+#~ "STA $c000 ;Speichert den Wert des Akkumulators an der Speicheradresse "
+#~ "$c000"
 
 #~ msgid "_Preferences"
 #~ msgstr "_Einstellungen"

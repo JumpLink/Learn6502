@@ -246,7 +246,9 @@ into **Start** and **Length**, respectively.
 
 With absolute addressing, the full memory location is used as the argument to the instruction. For example:
 
-    STA $c000 ;Store the value in the accumulator at memory location $c000
+```6502-assembler:readonly
+STA $c000 ;Store the value in the accumulator at memory location $c000
+```
 
 ### Zero page: `$c0` ###
 
@@ -316,7 +318,7 @@ notequal:
 
 The hex should look something like this:
 
-```hex:readonly
+```hex:line-start=0x0600:readonly
 a9 01 c9 02 d0 02 85 22 00
 ```
 
@@ -534,7 +536,7 @@ Here's an example. Note that immediate operands are still prefixed with a `#`.
 ```6502-assembler
   define  sysRandom  $fe ; an address
   define  a_dozen    $0c ; a constant
- 
+
   LDA sysRandom  ; equivalent to "LDA $fe"
 
   LDX #a_dozen   ; equivalent to "LDX #$0c"
@@ -618,7 +620,7 @@ location of the single body segment, and `$14` contains the location of the
 tail (the tail is the last segment of the body and is drawn in black to keep
 the snake moving). This happens in the following code:
 
-```6502-assembler:readonly
+```6502-assembler
 lda #$11
 sta $10
 lda #$10
@@ -635,8 +637,8 @@ This loads the value `$11` into the memory location `$10`, the value `$10` into
 `$12`, and `$0f` into `$14`. It then loads the value `$04` into `$11`, `$13`
 and `$15`. This leads to memory like this:
 
-```hex:readonly
-0010: 11 04 10 04 0f 04
+```hex:line-start=0x0010:readonly
+11 04 10 04 0f 04
 ```
 
 which represents the indirectly-addressed memory locations `$0411`, `$0410` and

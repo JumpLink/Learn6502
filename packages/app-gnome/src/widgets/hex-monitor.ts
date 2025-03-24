@@ -30,6 +30,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
+    console.log('HexMonitor constructor', params)
   }
 
   public update(memory: Memory) {

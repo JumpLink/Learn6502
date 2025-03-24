@@ -7,9 +7,43 @@ import GLib from '@girs/glib-2.0'
 
 import Template from './source-view.blp'
 
-import { GutterRendererAddress } from '../gutter-renderer-address.ts'
+import { GutterRendererLineNumbers } from '../gutter-renderer-line-numbers.ts'
+import { GutterRendererMode } from '../types/index.ts'
 
 GtkSource.init()
+
+export namespace SourceView {
+  export interface ConstructorProps extends Partial<Adw.Bin.ConstructorProps> {
+    /** The source code of the source view */
+    code?: string
+    /** The language of the source view */
+    language?: string
+    /** The starting line number */
+    lineNumberStart?: number
+    /** Whether to show line numbers */
+    lineNumbers?: boolean
+    /** Whether to show no line numbers */
+    noLineNumbers?: boolean
+    /** Whether to fit the content height */
+    fitContentHeight?: boolean
+    /** Whether to fit the content width */
+    fitContentWidth?: boolean
+    /** The height of the source view */
+    height?: number
+    /** Whether to expand the source view horizontally */
+    hexpand?: boolean
+    /** Whether to expand the source view vertically */
+    vexpand?: boolean
+    /** Whether to make the source view readonly */
+    readonly?: boolean
+    /** Whether to make the source view editable */
+    editable?: boolean
+    /** Whether to make the source view selectable */
+    selectable?: boolean
+    /** Whether to make the source view unselectable */
+    unselectable?: boolean
+  }
+}
 
 /**
  * @class SourceView to show 6502 assembly code
@@ -43,6 +77,7 @@ export class SourceView extends Adw.Bin {
         unselectable: GObject.ParamSpec.boolean('unselectable', 'Unselectable', 'Whether the source view is unselectable', GObject.ParamFlags.READWRITE, false),
         lineNumbers: GObject.ParamSpec.boolean('line-numbers', 'Line Numbers', 'Whether the source view has line numbers', GObject.ParamFlags.READWRITE, true),
         noLineNumbers: GObject.ParamSpec.boolean('no-line-numbers', 'No Line Numbers', 'Whether the source view has no line numbers', GObject.ParamFlags.READWRITE, false),
+        lineNumberStart: GObject.ParamSpec.uint('line-number-start', 'Line Number Start', 'The starting value for line numbers', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 1),
         hexpand: GObject.ParamSpec.boolean('hexpand', 'Hexpand', 'Whether the source view is hexpand', GObject.ParamFlags.READWRITE, true),
         vexpand: GObject.ParamSpec.boolean('vexpand', 'Vexpand', 'Whether the source view is vexpand', GObject.ParamFlags.READWRITE, true),
         fitContentHeight: GObject.ParamSpec.boolean('fit-content-height', 'Fit Content Height', 'Whether the source view should fit the content height', GObject.ParamFlags.READWRITE, false),
@@ -120,11 +155,29 @@ export class SourceView extends Adw.Bin {
       throw new Error(`Language "${language}" not found`)
     }
     this.buffer.set_language(assemblyLanguage);
-    if(language === 'hex') {
-      this.setupHexLanguage();
+
+    // Update line number renderer mode based on language
+    if (language === 'hex') {
+      // Switch to hex mode if line numbers are enabled
+      if (this.lineNumbers) {
+        this.setupLineNumbers(GutterRendererMode.HEX);
+      }
+
+      // Set up copy clipboard handling for hex mode
+      this.copyClipboardSignalId = this._sourceView.connect_after('copy-clipboard', this.onCopyHexClipboard.bind(this));
     } else {
-      this.disconnectHexLanguage();
+      // Switch to normal mode if line numbers are enabled
+      if (this.lineNumbers) {
+        this.setupLineNumbers(GutterRendererMode.NORMAL);
+      }
+
+      // Clean up hex-specific settings
+      if (this.copyClipboardSignalId) {
+        this._sourceView.disconnect(this.copyClipboardSignalId);
+        this.copyClipboardSignalId = undefined;
+      }
     }
+    this._sourceView.highlight_current_line = true;
   }
 
   /**
@@ -186,7 +239,24 @@ export class SourceView extends Adw.Bin {
    * @param value - Whether the source view has line numbers
    */
   public set lineNumbers(value: boolean) {
-    this._sourceView.show_line_numbers = value;
+
+    // Always hide GtkSourceView's built-in line numbers
+    this._sourceView.show_line_numbers = false;
+
+    if (value) {
+      // Always initialize our custom renderer for line numbers
+      if (!this.renderer) {
+        // Initialize our custom renderer with appropriate mode
+        const isHexMode = this.language === 'hex';
+        this.setupLineNumbers(isHexMode ? GutterRendererMode.HEX : GutterRendererMode.NORMAL);
+      }
+    } else {
+      // Hide line numbers by removing the renderer
+      if (this.renderer) {
+        this.leftGutter.remove(this.renderer);
+        this.renderer = undefined;
+      }
+    }
   }
 
   /**
@@ -195,7 +265,7 @@ export class SourceView extends Adw.Bin {
    * @returns Whether the source view has line numbers
    */
   public get lineNumbers(): boolean {
-    return this._sourceView.show_line_numbers;
+    return this.renderer !== undefined;
   }
 
   /**
@@ -272,18 +342,73 @@ export class SourceView extends Adw.Bin {
   private leftGutter: GtkSource.Gutter;
 
   /** The renderer for custom line numbers, used for the hex monitor to display the address instead of line numbers */
-  private renderer?: GutterRendererAddress;
+  private renderer?: GutterRendererLineNumbers;
 
   private copyClipboardSignalId?: number;
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps>) {
-    super(params)
+  /** The line number start value */
+  private _lineNumberStart?: number;
+
+  constructor(params: Partial<SourceView.ConstructorProps> = {}) {
+    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, ...rest } = params;
+    super(rest);
     this.setupScrolledWindow();
+
+    if(lineNumberStart !== undefined) {
+      this.lineNumberStart = lineNumberStart;
+    }
+    if(lineNumbers !== undefined) {
+      this.lineNumbers = lineNumbers;
+    }
+    if(noLineNumbers !== undefined) {
+      this.noLineNumbers = noLineNumbers;
+    }
+    if(fitContentHeight !== undefined) {
+      this.fitContentHeight = fitContentHeight;
+    }
+    if(fitContentWidth !== undefined) {
+      this.fitContentWidth = fitContentWidth;
+    }
+    if(height !== undefined) {
+      this.height = height;
+    }
+    if(hexpand !== undefined) {
+      this.hexpand = hexpand;
+    }
+    if(vexpand !== undefined) {
+      this.vexpand = vexpand;
+    }
+    if(readonly !== undefined) {
+      this.readonly = readonly;
+    }
+    if(editable !== undefined) {
+      this.editable = editable;
+    }
+    if(selectable !== undefined) {
+      this.selectable = selectable;
+    }
+    if(unselectable !== undefined) {
+      this.unselectable = unselectable;
+    }
+    if(language !== undefined) {
+      this.language = language;
+    }
+    if(code !== undefined) {
+      this.code = code;
+    }
+
+    // Get the existing gutter for the left side
+    this.leftGutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
+
+    // Setup line numbers if enabled
+    if (this.lineNumbers) {
+      this.setupLineNumbers(GutterRendererMode.NORMAL);
+    }
+
     this.language = '6502-assembler';
     this.setupSignalListeners();
     this.updateStyle();
-    // Get the existing gutter for the left side
-    this.leftGutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
+
     this.code = 'LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202'
   }
 
@@ -315,36 +440,39 @@ export class SourceView extends Adw.Bin {
     this.renderer?.queue_draw();
   }
 
-  private setupHexLanguage() {
-    this.setupHexAddressLineNumbers();
-    this.copyClipboardSignalId = this._sourceView.connect_after('copy-clipboard', this.onCopyHexClipboard.bind(this));
-    this._sourceView.highlight_current_line = true;
-  }
-
-  private disconnectHexLanguage() {
-    if(this.copyClipboardSignalId) {
-      this._sourceView.disconnect(this.copyClipboardSignalId);
-    }
-    if(this.renderer) {
-      this.leftGutter.remove(this.renderer);
-    }
-    this._sourceView.highlight_current_line = false;
-  }
-
-  private setupHexAddressLineNumbers(): void {
-    // Hide the default line numbers
+  /**
+   * Setup line numbers with the specified mode
+   *
+   * @param mode - The line numbering mode (HEX or NORMAL)
+   */
+  private setupLineNumbers(mode: GutterRendererMode): void {
+    // Always hide the default line numbers
     this._sourceView.show_line_numbers = false;
 
-    // Add custom line numbers renderer
-    this.renderer = new GutterRendererAddress({
-      margin_start: 12,
-      margin_end: 12,
-      width_request: 36,
+    // Remove existing renderer if it exists
+    if (this.renderer) {
+      this.leftGutter.remove(this.renderer);
+    }
+
+    // Create new renderer with appropriate settings for the mode
+    const margin = mode === GutterRendererMode.HEX ? 12 : 6;
+    const width = mode === GutterRendererMode.HEX ? 36 : 24;
+
+    this.renderer = new GutterRendererLineNumbers({
+      margin_start: margin,
+      margin_end: margin,
+      width_request: width,
       focus_on_click: true,
       focusable: true,
     });
 
-    // Insert the custom line numbers renderer
+    // Set properties
+    this.renderer.mode = mode;
+    if(this._lineNumberStart !== undefined) {
+      this.renderer.startValue = this._lineNumberStart;
+    }
+
+    // Insert the renderer
     this.leftGutter.insert(this.renderer, 0);
   }
 
@@ -426,6 +554,34 @@ export class SourceView extends Adw.Bin {
     );
     this.buffer.set_style_scheme(scheme);
   };
+
+  /**
+   * Set the line number start value
+   *
+   * @param value - The starting line number
+   */
+  public set lineNumberStart(value: number | undefined) {
+    if (this._lineNumberStart === value || value === undefined) {
+      return;
+    }
+
+    this._lineNumberStart = value;
+
+    // Update renderer with new start value if it exists
+    if (this.renderer) {
+      this.renderer.startValue = value;
+      this.leftGutter.queue_draw();
+    }
+  }
+
+  /**
+   * Get the line number start value
+   *
+   * @returns The starting line number
+   */
+  public get lineNumberStart(): number | undefined {
+    return this._lineNumberStart;
+  }
 }
 
 GObject.type_ensure(SourceView.$gtype)
