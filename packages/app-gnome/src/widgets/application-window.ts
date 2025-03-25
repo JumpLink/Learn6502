@@ -19,7 +19,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   declare private _gameConsole: GameConsole
   declare private _learn: Learn
   declare private _menuButton: Gtk.MenuButton
-  declare private _buildButton: Gtk.MenuButton
+  declare private _buildButton: Gtk.Button
   declare private _runButton: Adw.SplitButton
   declare private _stack: Adw.ViewStack
   declare private _switcherBar: Adw.ViewSwitcherBar
@@ -37,6 +37,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   constructor(application: Adw.Application) {
     super({ application })
     this.setupGeneralSignalListeners();
+    this.setupActions();
     this.setupBuildMenu();
     this.setupRunButton();
     this.setupGameConsoleSignalListeners();
@@ -72,14 +73,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._debugger.close();
   }
 
-  private setupBuildMenu(): void {
-    // TODO: Store latest action?
-    this._buildButton.connect('clicked', this.runAndAssembleGameConsole.bind(this));
-
-    const assembleAndRunAction = new Gio.SimpleAction({ name: 'assemble-and-run' });
-    assembleAndRunAction.connect('activate', this.runAndAssembleGameConsole.bind(this));
-    this.add_action(assembleAndRunAction);
-
+  private setupActions(): void {
+    // Build and assembly actions
     const assembleAction = new Gio.SimpleAction({ name: 'assemble' });
     assembleAction.connect('activate', this.assembleGameConsole.bind(this));
     this.add_action(assembleAction);
@@ -87,26 +82,30 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     const runAction = new Gio.SimpleAction({ name: 'run' });
     runAction.connect('activate', this.runGameConsole.bind(this));
     this.add_action(runAction);
+
+    // Simulator control actions
+    const runSimulatorAction = new Gio.SimpleAction({ name: 'run-simulator' });
+    runSimulatorAction.connect('activate', this.runGameConsole.bind(this));
+    this.add_action(runSimulatorAction);
+
+    const resumeSimulatorAction = new Gio.SimpleAction({ name: 'resume-simulator' });
+    resumeSimulatorAction.connect('activate', this.runGameConsole.bind(this));
+    this.add_action(resumeSimulatorAction);
+
+    const pauseSimulatorAction = new Gio.SimpleAction({ name: 'pause-simulator' });
+    pauseSimulatorAction.connect('activate', this.stopGameConsole.bind(this));
+    this.add_action(pauseSimulatorAction);
+
+    const resetSimulatorAction = new Gio.SimpleAction({ name: 'reset-simulator' });
+    resetSimulatorAction.connect('activate', this.resetAndRunGameConsole.bind(this));
+    this.add_action(resetSimulatorAction);
+  }
+
+  private setupBuildMenu(): void {
+    // Nothing to do here anymore, actions are defined centrally
   }
 
   private setupRunButton(): void {
-    // Create actions for different simulator states
-    const runAction = new Gio.SimpleAction({ name: 'run-simulator' });
-    runAction.connect('activate', this.runGameConsole.bind(this));
-    this.add_action(runAction);
-
-    const resumeAction = new Gio.SimpleAction({ name: 'resume-simulator' });
-    resumeAction.connect('activate', this.runGameConsole.bind(this));
-    this.add_action(resumeAction);
-
-    const pauseAction = new Gio.SimpleAction({ name: 'pause-simulator' });
-    pauseAction.connect('activate', this.stopGameConsole.bind(this));
-    this.add_action(pauseAction);
-
-    const resetAction = new Gio.SimpleAction({ name: 'reset-simulator' });
-    resetAction.connect('activate', this.resetAndRunGameConsole.bind(this));
-    this.add_action(resetAction);
-
     // Set up the button click handler
     this._runButton.connect('clicked', () => {
       this.handleRunButtonClick();

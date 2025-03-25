@@ -11,25 +11,17 @@ template $ApplicationWindow: Adw.ApplicationWindow {
   content: Adw.ToolbarView {
     [top]
     Adw.HeaderBar headerBar {
+
       title-widget: Label {
         label: _("Easy6502");
       };
-      [end]
+
+      [start]
       MenuButton menuButton {
         primary: true;
         icon-name: "open-menu-symbolic";
         tooltip-text: _("Menu");
         menu-model: buttonWindowMenu;
-      }
-
-      [end]
-      Adw.SplitButton buildButton {
-        halign: center;
-        icon-name: "build-run-symbolic";
-        styles [
-          "suggested-action",
-        ]
-        menu-model: buttonBuildMenu;
       }
 
       [end]
@@ -39,6 +31,17 @@ template $ApplicationWindow: Adw.ApplicationWindow {
         tooltip-text: _("No program loaded");
         sensitive: false;
         menu-model: buttonRunMenu;
+        styles [
+          "suggested-action",
+        ]
+      }
+
+      [end]
+      Button buildButton {
+        halign: center;
+        icon-name: "build-alt-symbolic";
+        action-name: "win.assemble";
+        tooltip-text: _("Assemble");
       }
     }
 
@@ -115,23 +118,6 @@ menu buttonWindowMenu {
     item {
       label: _("_Quit");
       action: "app.quit";
-    }
-  }
-}
-
-menu buttonBuildMenu {
-  section {
-    item {
-      label: "Assemble and Run";
-      action: 'win.assemble-and-run';
-    }
-    item {
-      label: "Assemble";
-      action: 'win.assemble';
-    }
-    item {
-      label: "Run";
-      action: 'win.run';
     }
   }
 }
