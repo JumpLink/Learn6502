@@ -199,9 +199,10 @@ export class GameConsole extends Adw.Bin {
   }
 
   public assemble(code: string): void {
+    console.log('[GameConsole] Assembling code...');
     this._simulator.reset();
     this._labels.reset();
-    this._display?.reset();
+    // ();
     this._assembler.assembleCode(code);
   }
 
@@ -224,6 +225,8 @@ export class GameConsole extends Adw.Bin {
 
   public reset(): void {
     this._simulator.reset();
+    this._labels.reset();
+    // ();
   }
 
   public step(): void {
@@ -297,8 +300,6 @@ export class GameConsole extends Adw.Bin {
     });
 
     this._simulator.on('reset', (event: SimulatorEvent) => {
-      this._display?.reset();
-
       // Forward the event as a signal
       this.emit('reset', event);
     });

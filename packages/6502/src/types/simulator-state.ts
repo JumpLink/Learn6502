@@ -11,9 +11,14 @@ export enum SimulatorState {
   READY = 'ready',
 
   /**
-   * The simulator was running but has been stopped
+   * The simulator was running but has been paused
    */
-  STOPPED = 'stopped',
+  PAUSED = 'paused',
+
+  /**
+   * The simulator has completed program execution
+   */
+  COMPLETED = 'completed',
 
   /**
    * The simulator is actively running code

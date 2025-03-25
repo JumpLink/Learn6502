@@ -90,28 +90,43 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private setupRunButton(): void {
-    // Create a toggle-run action
-    const toggleRunAction = new Gio.SimpleAction({ name: 'toggle-run' });
-    toggleRunAction.connect('activate', this.toggleRunGameConsole.bind(this));
-    this.add_action(toggleRunAction);
+    // Create actions for different simulator states
+    const runAction = new Gio.SimpleAction({ name: 'run-simulator' });
+    runAction.connect('activate', this.runGameConsole.bind(this));
+    this.add_action(runAction);
 
-    // Connect the clicked signal for the button
-    this._runButton.connect('clicked', this.toggleRunGameConsole.bind(this));
+    const resumeAction = new Gio.SimpleAction({ name: 'resume-simulator' });
+    resumeAction.connect('activate', this.runGameConsole.bind(this));
+    this.add_action(resumeAction);
+
+    const pauseAction = new Gio.SimpleAction({ name: 'pause-simulator' });
+    pauseAction.connect('activate', this.stopGameConsole.bind(this));
+    this.add_action(pauseAction);
+
+    const resetAction = new Gio.SimpleAction({ name: 'reset-simulator' });
+    resetAction.connect('activate', this.resetAndRunGameConsole.bind(this));
+    this.add_action(resetAction);
+
 
     // Initial button setup
-    this.updateRunButtonState();
+    this.updateRunButtonState(this._gameConsole.simulator.state);
   }
 
   private runGameConsole(): void {
-    console.log("runGameConsole");
+    console.log("[ApplicationWindow] runGameConsole");
     // Set the game console as the visible child in the stack
     this._stack.set_visible_child(this._gameConsole);
     this._gameConsole.run();
   }
 
   private stopGameConsole(): void {
-    console.log("stopGameConsole");
+    console.log("[ApplicationWindow] stopGameConsole");
     this._gameConsole.stop();
+  }
+
+  private resetGameConsole(): void {
+    console.log("[ApplicationWindow] resetGameConsole");
+    this._gameConsole.reset();
   }
 
   private assembleGameConsole(): void {
@@ -137,11 +152,17 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._toastOverlay.add_toast(toast);
   }
 
+  private updateDebugger(): void {
+    this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
+  }
+
   private setupGameConsoleSignalListeners(): void {
     this._gameConsole.connect('assemble-success', (_gameConsole, signal) => {
       if(signal.message) {
         this._debugger.log(signal.message);
       }
+
+      this.onSimulatorStateChange(this._gameConsole.simulator.state);
 
       this.showToast({
         title: "Assembled successfully"
@@ -177,26 +198,24 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     })
 
     this._gameConsole.connect('stop', (_gameConsole, signal) => {
-      this.onSimulatorStateChange();
+      this.onSimulatorStateChange(signal.state);
       if(signal.message) {
         this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('start', (_gameConsole, signal) => {
-      this.onSimulatorStateChange();
+      this.onSimulatorStateChange(signal.state);
       if(signal.message) {
         this._debugger.log(signal.message);
       }
     })
 
     this._gameConsole.connect('reset', (_gameConsole, signal) => {
-      this.onSimulatorStateChange();
+      this.onSimulatorStateChange(signal.state);
       if(signal.message) {
         this._debugger.log(signal.message);
       }
-
-      this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
     })
 
     this._gameConsole.connect('step', (_gameConsole, signal) => {
@@ -206,7 +225,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
       // If stepper is enabled, update the debug info and the monitor every step
       if (this._gameConsole.simulator.stepperEnabled) {
-        this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
+        this.updateDebugger();
       }
     })
 
@@ -215,7 +234,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._debugger.log(signal.message);
       }
 
-      this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
+      this.updateDebugger();
     })
 
     this._gameConsole.connect('goto', (_gameConsole, signal) => {
@@ -223,7 +242,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._debugger.log(signal.message);
       }
 
-      this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
+      this.updateDebugger();
     })
 
     this._gameConsole.connect('simulator-info', (_gameConsole, signal) => {
@@ -302,44 +321,76 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     }
   }
 
-  private onSimulatorStateChange(): void {
-    this.updateRunButtonState();
+  private onSimulatorStateChange(state: SimulatorState): void {
+    this.updateDebugger();
+    this.updateRunButtonState(state);
   }
 
-  private updateRunButtonState(): void {
-    const state = this._gameConsole.simulator.state;
+  private updateRunButtonState(state: SimulatorState): void {
+    console.log("[ApplicationWindow] updateRunButtonState", state);
 
-    console.log("updateRunButtonState", state);
+    // Clear the existing action
+    this._runButton.set_action_name(null);
 
-    if (state === SimulatorState.RUNNING || state === SimulatorState.DEBUGGING) {
-      // Show pause button when running
-      this._runButton.set_icon_name('pause-symbolic');
-      this._runButton.set_tooltip_text(_("Pause"));
-      this._runButton.set_sensitive(true);
-    } else if (state === SimulatorState.INITIALIZED) {
-      // Show play button but disable it when no program is loaded
-      this._runButton.set_icon_name('play-symbolic');
-      this._runButton.set_tooltip_text(_("No program loaded"));
-      this._runButton.set_sensitive(false);
-    } else {
-      // Show play button when ready, stopped or paused
-      this._runButton.set_icon_name('play-symbolic');
-      this._runButton.set_tooltip_text(_("Run"));
-      this._runButton.set_sensitive(true);
+    switch (state) {
+      case SimulatorState.INITIALIZED:
+        console.log("[ApplicationWindow] Set the inactive button");
+        // Show play button but disable it when no program is loaded
+        this._runButton.set_icon_name('play-symbolic');
+        this._runButton.set_tooltip_text(_("No program loaded"));
+        this._runButton.set_sensitive(false);
+        // No action in this state - button is disabled
+        break;
+
+      case SimulatorState.RUNNING:
+      case SimulatorState.DEBUGGING:
+        console.log("[ApplicationWindow] Set the pause button");
+        // Show pause button when running
+        this._runButton.set_icon_name('pause-symbolic');
+        this._runButton.set_tooltip_text(_("Pause"));
+        this._runButton.set_sensitive(true);
+        // Associate with pause action
+        this._runButton.set_action_name('win.pause-simulator');
+        break;
+
+      case SimulatorState.COMPLETED:
+        console.log("[ApplicationWindow] Set the reset button");
+        // Show reset button when paused
+        this._runButton.set_icon_name('reset-symbolic');
+        this._runButton.set_tooltip_text(_("Reset"));
+        this._runButton.set_sensitive(true);
+        // Associate with reset and run action
+        this._runButton.set_action_name('win.reset-simulator');
+        break;
+
+      case SimulatorState.PAUSED:
+      case SimulatorState.DEBUGGING_PAUSED:
+        console.log("[ApplicationWindow] Set the run button");
+        // Show play button when debugging is paused
+        this._runButton.set_icon_name('play-symbolic');
+        this._runButton.set_tooltip_text(_("Continue"));
+        this._runButton.set_sensitive(true);
+        // Associate with resume action
+        this._runButton.set_action_name('win.resume-simulator');
+        break;
+
+      case SimulatorState.READY:
+        console.log("[ApplicationWindow] Set the run button");
+        // Show play button when ready
+        this._runButton.set_icon_name('play-symbolic');
+        this._runButton.set_tooltip_text(_("Run"));
+        this._runButton.set_sensitive(true);
+        // Associate with run action
+        this._runButton.set_action_name('win.run-simulator');
+        break;
+
+      default:
+        throw new Error(`Unknown state: ${state}`);
     }
   }
 
-  private toggleRunGameConsole(): void {
-    const state = this._gameConsole.simulator.state;
-
-    console.log("toggleRunGameConsole", state);
-
-    if (state === SimulatorState.RUNNING || state === SimulatorState.DEBUGGING) {
-      // Stop the simulator if it's running
-      this.stopGameConsole();
-    }
-
-    // Set the game console as the visible child in the stack
+  private resetAndRunGameConsole(): void {
+    this.resetGameConsole();
     this.runGameConsole();
   }
 }

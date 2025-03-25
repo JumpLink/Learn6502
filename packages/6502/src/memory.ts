@@ -16,7 +16,7 @@ export class Memory {
    * Creates a new Memory instance.
    */
   constructor() {
-    this.memArray = new Array(0x600);
+    this.memArray = new Array(0x10000);
 
     this.storeKeypress = this.storeKeypress.bind(this);
   }
@@ -81,7 +81,7 @@ export class Memory {
   }
 
   /**
-   * Formats a section of memory for display 
+   * Formats a section of memory for display
    * @param start - The starting memory address.
    * @param length - The number of bytes to format.
    * @returns A formatted string representation of the memory section.

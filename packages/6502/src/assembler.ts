@@ -112,7 +112,7 @@ export class Assembler {
     SNGL: 1,
     BRA: 2
   };
-  
+
   private readonly events = new EventDispatcher<AssemblerEvent>();
 
   constructor(protected readonly memory: Memory, protected readonly labels: Labels) {
@@ -221,7 +221,7 @@ export class Assembler {
     this.wasOutOfRangeBranch = false;
 
     this.currentPC = BOOTSTRAP_ADDRESS;
-    
+
     code += "\n";
     const lines = code.split("\n");
     this.codeAssembledOK = true;
@@ -400,21 +400,21 @@ export class Assembler {
 
   /**
    * DCB (Define Constant Byte) method
-   * 
+   *
    * This method allows direct definition of data bytes in the assembler code.
    * It processes a comma-separated list of values and writes them to memory.
-   * 
+   *
    * @param param - A string containing comma-separated values
    * @returns true if all values were successfully processed, false otherwise
-   * 
+   *
    * Supported formats:
    * - Hexadecimal: prefixed with "$" (e.g., $FF)
    * - Binary: prefixed with "%" (e.g., %10101010)
    * - Decimal: no prefix, just numbers (e.g., 42)
-   * 
+   *
    * Usage example in 6502 assembly:
    * DCB $FF, $00, %10101010, 42
-   * 
+   *
    * This would write four bytes to memory: 255 (0xFF), 0, 170 (0xAA), and 42.
    */
   private DCB(param: string) {
@@ -838,6 +838,7 @@ export class Assembler {
    * Push a byte to memory
    */
   private pushByte(value: number) {
+    console.log(`[Assembler] Pushing byte: ${value} to address: ${this.currentPC}`);
     this.memory.set(this.currentPC, value & 0xff);
     this.currentPC++;
     this.codeLen++;

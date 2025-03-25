@@ -43,6 +43,9 @@ export class Simulator {
   /** Flag indicating whether code is currently running in the simulator */
   private _codeRunning = false;
 
+  /** Flag indicating whether the program has completed its execution */
+  private _programCompleted = false;
+
   /**
    * If true, the simulator will execute one instruction step by step triggered by the debugger.
    * When enabled, automatic execution via multiExecute is disabled.
@@ -76,14 +79,25 @@ export class Simulator {
       return SimulatorState.RUNNING;
     }
 
+    // If program has completed its execution
+    if (this._programCompleted) {
+      return SimulatorState.COMPLETED;
+    }
+
     // If PC is at the initial address (0x600) and registers are zeroed,
     // this indicates the simulator is in READY state (was reset or not started yet)
     if (this.regPC === 0x600 && this.regA === 0 && this.regX === 0 && this.regY === 0) {
       // Check if any code is loaded in memory
       let hasCode = false;
+
       // Check if there's any code in the program memory area (typically 0x600 and above)
+      // Note: In a real 6502 system, RAM would not be initialized to zero on a cold start.
+      // Instead, it would contain random values between 0-255. For this simulator, we're
+      // checking for defined memory locations (not undefined) to determine if code has been loaded.
+      // This approach allows us to distinguish between truly uninitialized memory and
+      // memory that has been explicitly set, even if it's set to zero.
       for (let addr = 0x600; addr < 0x10000; addr++) {
-        if (this.memory.get(addr) !== 0) {
+        if (this.memory.get(addr) !== undefined) {
           hasCode = true;
           break;
         }
@@ -93,8 +107,8 @@ export class Simulator {
     }
 
     // If we're not running, not debugging, and not in initial state,
-    // then the simulator must have been stopped
-    return SimulatorState.STOPPED;
+    // then the simulator must have been paused
+    return SimulatorState.PAUSED;
   }
 
   /**
@@ -187,6 +201,9 @@ export class Simulator {
    * This allows stepping through code even when codeRunning is false
    */
   public debugExecStep() {
+    if (this._programCompleted) {
+      this._programCompleted = false;
+    }
     this.execute(true);
   }
 
@@ -232,6 +249,7 @@ export class Simulator {
     this.regPC = 0x600;
     this.regSP = 0xff;
     this.regP = 0x30;
+    this._programCompleted = false;
     this.dispatchResetEvent();
   }
 
@@ -1623,9 +1641,10 @@ export class Simulator {
       // Switch OFF everything
       this.stop();
     } else {
-      this.dispatchStartEvent();
       this._codeRunning = true;
+      this._programCompleted = false;
       this.executeId = setInterval(this.multiExecute.bind(this), 15);
+      this.dispatchStartEvent();
     }
   }
 
@@ -1676,10 +1695,14 @@ export class Simulator {
 
     this.setRandomByte();
     this.executeNextInstruction();
-    this.dispatchStepEvent();
 
     if ((this.regPC === 0) || (!this._codeRunning && !debugging)) {
-      this.stop("Program end at PC=$" + addr2hex(this.regPC - 1));
+      this._codeRunning = false;
+      this._programCompleted = true;
+      clearInterval(this.executeId);
+      this.dispatchStopEvent("Program completed at PC=$" + addr2hex(this.regPC - 1));
+    } else {
+      this.dispatchStepEvent();
     }
   }
 
