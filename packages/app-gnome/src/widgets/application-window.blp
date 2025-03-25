@@ -33,12 +33,12 @@ template $ApplicationWindow: Adw.ApplicationWindow {
       }
 
       [end]
-      Button runButton {
+      Adw.SplitButton runButton {
         halign: center;
         icon-name: "play-symbolic";
-        action-name: "win.toggle-run";
-        sensitive: false;
         tooltip-text: _("No program loaded");
+        sensitive: false;
+        menu-model: buttonRunMenu;
       }
     }
 
@@ -132,6 +132,27 @@ menu buttonBuildMenu {
     item {
       label: "Run";
       action: 'win.run';
+    }
+  }
+}
+
+menu buttonRunMenu {
+  section {
+    item {
+      label: _("Run");
+      action: 'win.run-simulator';
+    }
+    item {
+      label: _("Continue");
+      action: 'win.resume-simulator';
+    }
+    item {
+      label: _("Pause");
+      action: 'win.pause-simulator';
+    }
+    item {
+      label: _("Reset");
+      action: 'win.reset-simulator';
     }
   }
 }

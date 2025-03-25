@@ -20,7 +20,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   declare private _learn: Learn
   declare private _menuButton: Gtk.MenuButton
   declare private _buildButton: Gtk.MenuButton
-  declare private _runButton: Gtk.Button
+  declare private _runButton: Adw.SplitButton
   declare private _stack: Adw.ViewStack
   declare private _switcherBar: Adw.ViewSwitcherBar
   declare private _debugger: Debugger
@@ -107,6 +107,10 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     resetAction.connect('activate', this.resetAndRunGameConsole.bind(this));
     this.add_action(resetAction);
 
+    // Set up the button click handler
+    this._runButton.connect('clicked', () => {
+      this.handleRunButtonClick();
+    });
 
     // Initial button setup
     this.updateRunButtonState(this._gameConsole.simulator.state);
@@ -329,7 +333,19 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private updateRunButtonState(state: SimulatorState): void {
     console.log("[ApplicationWindow] updateRunButtonState", state);
 
-    // Clear the existing action
+    // Get all actions
+    const runAction = this.lookup_action('run-simulator') as Gio.SimpleAction;
+    const resumeAction = this.lookup_action('resume-simulator') as Gio.SimpleAction;
+    const pauseAction = this.lookup_action('pause-simulator') as Gio.SimpleAction;
+    const resetAction = this.lookup_action('reset-simulator') as Gio.SimpleAction;
+
+    // Default: disable all actions
+    runAction.set_enabled(false);
+    resumeAction.set_enabled(false);
+    pauseAction.set_enabled(false);
+    resetAction.set_enabled(false);
+
+    // Clear the existing action for the main button
     this._runButton.set_action_name(null);
 
     switch (state) {
@@ -339,7 +355,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._runButton.set_icon_name('play-symbolic');
         this._runButton.set_tooltip_text(_("No program loaded"));
         this._runButton.set_sensitive(false);
-        // No action in this state - button is disabled
+        // All menu actions remain disabled
         break;
 
       case SimulatorState.RUNNING:
@@ -351,16 +367,24 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._runButton.set_sensitive(true);
         // Associate with pause action
         this._runButton.set_action_name('win.pause-simulator');
+
+        // Enable only pause action
+        pauseAction.set_enabled(true);
+        resetAction.set_enabled(true);
         break;
 
       case SimulatorState.COMPLETED:
         console.log("[ApplicationWindow] Set the reset button");
-        // Show reset button when paused
+        // Show reset button when program completed
         this._runButton.set_icon_name('reset-symbolic');
         this._runButton.set_tooltip_text(_("Reset"));
         this._runButton.set_sensitive(true);
         // Associate with reset and run action
         this._runButton.set_action_name('win.reset-simulator');
+
+        // Enable run and reset actions
+        runAction.set_enabled(true);
+        resetAction.set_enabled(true);
         break;
 
       case SimulatorState.PAUSED:
@@ -372,6 +396,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._runButton.set_sensitive(true);
         // Associate with resume action
         this._runButton.set_action_name('win.resume-simulator');
+
+        // Enable resume, run and reset actions
+        resumeAction.set_enabled(true);
+        runAction.set_enabled(true);
+        resetAction.set_enabled(true);
         break;
 
       case SimulatorState.READY:
@@ -382,6 +411,10 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._runButton.set_sensitive(true);
         // Associate with run action
         this._runButton.set_action_name('win.run-simulator');
+
+        // Enable run and reset actions
+        runAction.set_enabled(true);
+        resetAction.set_enabled(true);
         break;
 
       default:
@@ -392,6 +425,36 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private resetAndRunGameConsole(): void {
     this.resetGameConsole();
     this.runGameConsole();
+  }
+
+  private handleRunButtonClick(): void {
+    const state = this._gameConsole.simulator.state;
+
+    switch (state) {
+      case SimulatorState.INITIALIZED:
+        // Button should be disabled in this state
+        break;
+      case SimulatorState.READY:
+        // Run the simulator
+        this.activate_action('win.run-simulator', null);
+        break;
+      case SimulatorState.RUNNING:
+      case SimulatorState.DEBUGGING:
+        // Pause the simulator
+        this.activate_action('win.pause-simulator', null);
+        break;
+      case SimulatorState.PAUSED:
+      case SimulatorState.DEBUGGING_PAUSED:
+        // Resume the simulator
+        this.activate_action('win.resume-simulator', null);
+        break;
+      case SimulatorState.COMPLETED:
+        // Reset and run the simulator
+        this.activate_action('win.reset-simulator', null);
+        break;
+      default:
+        console.error(`Unhandled state in handleRunButtonClick: ${state}`);
+    }
   }
 }
 
