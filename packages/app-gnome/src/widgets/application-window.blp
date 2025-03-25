@@ -8,11 +8,21 @@ template $ApplicationWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 480;
 
+  // Add breakpoint for responsive design
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("max-width: 500sp")
+
+    setters {
+      title_label.visible: false;
+    }
+  }
+
   content: Adw.ToolbarView {
     [top]
     Adw.HeaderBar headerBar {
 
-      title-widget: Label {
+      title-widget: Label title_label {
         label: _("Easy6502");
       };
 
