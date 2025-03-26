@@ -328,6 +328,14 @@ export class SourceView extends Adw.Bin {
     return this._scrolledWindow.height_request;
   }
 
+  /**
+   * Get whether the source view has code
+   * @returns Whether the source view has code
+   */
+  public get hasCode(): boolean {
+    return this.code.trim().length > 0;
+  }
+
   private _selectable = true;
 
   private _selectableSignalIds: number[] = [];

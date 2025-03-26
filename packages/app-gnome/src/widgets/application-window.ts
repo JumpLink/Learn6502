@@ -19,18 +19,19 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   declare private _gameConsole: GameConsole
   declare private _learn: Learn
   declare private _menuButton: Gtk.MenuButton
-  declare private _buildButton: Gtk.Button
   declare private _runButton: Adw.SplitButton
   declare private _stack: Adw.ViewStack
   declare private _switcherBar: Adw.ViewSwitcherBar
   declare private _debugger: Debugger
   declare private _toastOverlay: Adw.ToastOverlay
 
+  private _codeChanged: boolean = false
+
   static {
     GObject.registerClass({
       GTypeName: 'ApplicationWindow',
       Template,
-      InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'buildButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay'],
+      InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay'],
     }, this);
   }
 
@@ -38,11 +39,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     super({ application })
     this.setupGeneralSignalListeners();
     this.setupActions();
-    this.setupBuildMenu();
     this.setupRunButton();
     this.setupGameConsoleSignalListeners();
     this.setupKeyboardListener();
     this.setupLearnTutorialSignalListeners();
+    this.setupEditorSignalListeners();
   }
 
   public get state(): SimulatorState {
@@ -61,6 +62,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     });
     this._learn.connect('copy', (_learn: Learn, code: string) => {
       this.copyGameConsole(code);
+    });
+  }
+
+  private setupEditorSignalListeners(): void {
+    // Connect to text buffer's changed signal
+    this._editor.buffer.connect('changed', () => {
+      this._codeChanged = true;
+      this.updateRunButtonState(this._gameConsole.simulator.state);
     });
   }
 
@@ -101,10 +110,6 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.add_action(resetSimulatorAction);
   }
 
-  private setupBuildMenu(): void {
-    // Nothing to do here anymore, actions are defined centrally
-  }
-
   private setupRunButton(): void {
     // Set up the button click handler
     this._runButton.connect('clicked', () => {
@@ -137,11 +142,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     // Set the debugger as the visible child in the stack
     this._stack.set_visible_child(this._debugger);
     this._gameConsole.assemble(this._editor.code);
-  }
-
-  private runAndAssembleGameConsole(): void {
-    this.assembleGameConsole();
-    this.runGameConsole();
+    this._codeChanged = false; // Reset the code changed flag after assembling
   }
 
   private copyGameConsole(code: string): void {
@@ -333,12 +334,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     console.log("[ApplicationWindow] updateRunButtonState", state);
 
     // Get all actions
+    const assembleAction = this.lookup_action('assemble') as Gio.SimpleAction;
     const runAction = this.lookup_action('run-simulator') as Gio.SimpleAction;
     const resumeAction = this.lookup_action('resume-simulator') as Gio.SimpleAction;
     const pauseAction = this.lookup_action('pause-simulator') as Gio.SimpleAction;
     const resetAction = this.lookup_action('reset-simulator') as Gio.SimpleAction;
 
     // Default: disable all actions
+    assembleAction.set_enabled(false);
     runAction.set_enabled(false);
     resumeAction.set_enabled(false);
     pauseAction.set_enabled(false);
@@ -347,14 +350,22 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     // Clear the existing action for the main button
     this._runButton.set_action_name(null);
 
+    // Check if editor has code
+    const hasCode = this._editor.hasCode;
+
+    // Always enable assemble if there's code
+    assembleAction.set_enabled(hasCode);
+
     switch (state) {
       case SimulatorState.INITIALIZED:
-        console.log("[ApplicationWindow] Set the inactive button");
-        // Show play button but disable it when no program is loaded
-        this._runButton.set_icon_name('play-symbolic');
-        this._runButton.set_tooltip_text(_("No program loaded"));
-        this._runButton.set_sensitive(false);
-        // All menu actions remain disabled
+        console.log("[ApplicationWindow] Set the assemble button");
+        // Show build button when no program is loaded
+        this._runButton.set_icon_name('build-alt-symbolic');
+        this._runButton.set_tooltip_text(_("Assemble"));
+        this._runButton.set_sensitive(hasCode);
+
+        // Associate with assemble action
+        this._runButton.set_action_name('win.assemble');
         break;
 
       case SimulatorState.RUNNING:
@@ -367,9 +378,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         // Associate with pause action
         this._runButton.set_action_name('win.pause-simulator');
 
-        // Enable only pause action
+        // Enable pause action
         pauseAction.set_enabled(true);
         resetAction.set_enabled(true);
+
+        // Also enable assemble if code has changed
+        if (this._codeChanged) {
+          assembleAction.set_enabled(hasCode);
+        }
         break;
 
       case SimulatorState.COMPLETED:
@@ -384,6 +400,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         // Enable run and reset actions
         runAction.set_enabled(true);
         resetAction.set_enabled(true);
+
+        // Also enable assemble if code has changed
+        if (this._codeChanged) {
+          assembleAction.set_enabled(hasCode);
+          this._runButton.set_icon_name('build-alt-symbolic');
+          this._runButton.set_tooltip_text(_("Assemble"));
+          this._runButton.set_action_name('win.assemble');
+        }
         break;
 
       case SimulatorState.PAUSED:
@@ -400,20 +424,38 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         resumeAction.set_enabled(true);
         runAction.set_enabled(true);
         resetAction.set_enabled(true);
+
+        // Also enable assemble if code has changed
+        if (this._codeChanged) {
+          assembleAction.set_enabled(hasCode);
+          this._runButton.set_sensitive(hasCode);
+          this._runButton.set_icon_name('build-alt-symbolic');
+          this._runButton.set_tooltip_text(_("Assemble"));
+          this._runButton.set_action_name('win.assemble');
+        }
         break;
 
       case SimulatorState.READY:
         console.log("[ApplicationWindow] Set the run button");
-        // Show play button when ready
-        this._runButton.set_icon_name('play-symbolic');
-        this._runButton.set_tooltip_text(_("Run"));
-        this._runButton.set_sensitive(true);
-        // Associate with run action
-        this._runButton.set_action_name('win.run-simulator');
 
         // Enable run and reset actions
         runAction.set_enabled(true);
         resetAction.set_enabled(true);
+
+        // Also enable assemble if code has changed
+        if (this._codeChanged) {
+          assembleAction.set_enabled(hasCode);
+          this._runButton.set_icon_name('build-alt-symbolic');
+          this._runButton.set_tooltip_text(_("Assemble"));
+          this._runButton.set_action_name('win.assemble');
+        } else {
+          // Show play button when ready
+          this._runButton.set_icon_name('play-symbolic');
+          this._runButton.set_tooltip_text(_("Run"));
+          this._runButton.set_sensitive(true);
+          // Associate with run action
+          this._runButton.set_action_name('win.run-simulator');
+        }
         break;
 
       default:
@@ -429,9 +471,16 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private handleRunButtonClick(): void {
     const state = this._gameConsole.simulator.state;
 
+    // If code has changed, always assemble when button is clicked
+    if (this._codeChanged && this._editor.code.trim().length > 0) {
+      this.assembleGameConsole();
+      return;
+    }
+
     switch (state) {
       case SimulatorState.INITIALIZED:
-        // Button should be disabled in this state
+        // Assemble the code
+        this.activate_action('win.assemble', null);
         break;
       case SimulatorState.READY:
         // Run the simulator

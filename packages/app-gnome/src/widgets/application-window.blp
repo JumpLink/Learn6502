@@ -45,14 +45,6 @@ template $ApplicationWindow: Adw.ApplicationWindow {
           "suggested-action",
         ]
       }
-
-      [end]
-      Button buildButton {
-        halign: center;
-        icon-name: "build-alt-symbolic";
-        action-name: "win.assemble";
-        tooltip-text: _("Assemble");
-      }
     }
 
     content: Adw.ToastOverlay toastOverlay {
@@ -134,6 +126,10 @@ menu buttonWindowMenu {
 
 menu buttonRunMenu {
   section {
+    item {
+      label: _("Assemble");
+      action: 'win.assemble';
+    }
     item {
       label: _("Run");
       action: 'win.run-simulator';

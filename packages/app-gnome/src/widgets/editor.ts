@@ -1,6 +1,7 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
+import GtkSource from '@girs/gtksource-5'
 import { SourceView } from './source-view.ts'
 
 import Template from './editor.blp'
@@ -40,6 +41,22 @@ export class Editor extends Adw.Bin {
 
   public get code(): string {
     return this._sourceView.code;
+  }
+
+  /**
+   * Get the buffer of the source view
+   * @returns The buffer of the source view
+   */
+  public get buffer(): GtkSource.Buffer {
+    return this._sourceView.buffer;
+  }
+
+  /**
+   * Get whether the editor has code
+   * @returns Whether the editor has code
+   */
+  public get hasCode(): boolean {
+    return this._sourceView.hasCode;
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {

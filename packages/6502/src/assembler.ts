@@ -838,7 +838,6 @@ export class Assembler {
    * Push a byte to memory
    */
   private pushByte(value: number) {
-    console.log(`[Assembler] Pushing byte: ${value} to address: ${this.currentPC}`);
     this.memory.set(this.currentPC, value & 0xff);
     this.currentPC++;
     this.codeLen++;
