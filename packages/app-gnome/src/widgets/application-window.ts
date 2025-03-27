@@ -11,6 +11,7 @@ import { Debugger } from './debugger.ts'
 
 import Template from './application-window.blp'
 import { SimulatorState } from '@easy6502/6502'
+import { RunButtonMode, RunButtonState } from '../types/index.ts'
 
 export class ApplicationWindow extends Adw.ApplicationWindow {
 
@@ -33,6 +34,41 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       Template,
       InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay'],
     }, this);
+  }
+
+  private assembleAction = new Gio.SimpleAction({ name: 'assemble' });
+  private runAction = new Gio.SimpleAction({ name: 'run' });
+  private runSimulatorAction = new Gio.SimpleAction({ name: 'run-simulator' });
+  private resumeSimulatorAction = new Gio.SimpleAction({ name: 'resume-simulator' });
+  private pauseSimulatorAction = new Gio.SimpleAction({ name: 'pause-simulator' });
+  private resetSimulatorAction = new Gio.SimpleAction({ name: 'reset-simulator' });
+
+  private buttonModes: Record<RunButtonState, RunButtonMode> = {
+    [RunButtonState.ASSEMBLE]: {
+      iconName: 'build-alt-symbolic',
+      tooltipText: _("Assemble"),
+      actionName: 'win.assemble',
+    },
+    [RunButtonState.RUN]: {
+      iconName: 'play-symbolic',
+      tooltipText: _("Run"),
+      actionName: 'win.run-simulator',
+    },
+    [RunButtonState.PAUSE]: {
+      iconName: 'pause-symbolic',
+      tooltipText: _("Pause"),
+      actionName: 'win.pause-simulator',
+    },
+    [RunButtonState.RESUME]: {
+      iconName: 'play-symbolic',
+      tooltipText: _("Resume"),
+      actionName: 'win.resume-simulator',
+    },
+    [RunButtonState.RESET]: {
+      iconName: 'reset-symbolic',
+      tooltipText: _("Reset"),
+      actionName: 'win.reset-simulator',
+    },
   }
 
   constructor(application: Adw.Application) {
@@ -67,9 +103,9 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private setupEditorSignalListeners(): void {
     // Connect to text buffer's changed signal
-    this._editor.buffer.connect('changed', () => {
+    this._editor.connect('changed', () => {
       this._codeChanged = true;
-      this.updateRunButtonState(this._gameConsole.simulator.state);
+      this.updateRunActions(this._gameConsole.simulator.state);
     });
   }
 
@@ -84,30 +120,24 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private setupActions(): void {
     // Build and assembly actions
-    const assembleAction = new Gio.SimpleAction({ name: 'assemble' });
-    assembleAction.connect('activate', this.assembleGameConsole.bind(this));
-    this.add_action(assembleAction);
+    this.assembleAction.connect('activate', this.assembleGameConsole.bind(this));
+    this.add_action(this.assembleAction);
 
-    const runAction = new Gio.SimpleAction({ name: 'run' });
-    runAction.connect('activate', this.runGameConsole.bind(this));
-    this.add_action(runAction);
+    this.runAction.connect('activate', this.runGameConsole.bind(this));
+    this.add_action(this.runAction);
 
     // Simulator control actions
-    const runSimulatorAction = new Gio.SimpleAction({ name: 'run-simulator' });
-    runSimulatorAction.connect('activate', this.runGameConsole.bind(this));
-    this.add_action(runSimulatorAction);
+    this.runSimulatorAction.connect('activate', this.runGameConsole.bind(this));
+    this.add_action(this.runSimulatorAction);
 
-    const resumeSimulatorAction = new Gio.SimpleAction({ name: 'resume-simulator' });
-    resumeSimulatorAction.connect('activate', this.runGameConsole.bind(this));
-    this.add_action(resumeSimulatorAction);
+    this.resumeSimulatorAction.connect('activate', this.runGameConsole.bind(this));
+    this.add_action(this.resumeSimulatorAction);
 
-    const pauseSimulatorAction = new Gio.SimpleAction({ name: 'pause-simulator' });
-    pauseSimulatorAction.connect('activate', this.stopGameConsole.bind(this));
-    this.add_action(pauseSimulatorAction);
+    this.pauseSimulatorAction.connect('activate', this.stopGameConsole.bind(this));
+    this.add_action(this.pauseSimulatorAction);
 
-    const resetSimulatorAction = new Gio.SimpleAction({ name: 'reset-simulator' });
-    resetSimulatorAction.connect('activate', this.resetAndRunGameConsole.bind(this));
-    this.add_action(resetSimulatorAction);
+    this.resetSimulatorAction.connect('activate', this.resetAndRunGameConsole.bind(this));
+    this.add_action(this.resetSimulatorAction);
   }
 
   private setupRunButton(): void {
@@ -117,7 +147,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     });
 
     // Initial button setup
-    this.updateRunButtonState(this._gameConsole.simulator.state);
+    this.updateRunActions(this._gameConsole.simulator.state);
   }
 
   private runGameConsole(): void {
@@ -149,6 +179,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._editor.code = code;
     // Set the editor as the visible child in the stack
     this._stack.set_visible_child(this._editor);
+    this._codeChanged = false; // Reset the code changed flag after setting code
   }
 
   private showToast(params: Partial<Adw.Toast.ConstructorProps>): void {
@@ -327,140 +358,96 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private onSimulatorStateChange(state: SimulatorState): void {
     this.updateDebugger();
-    this.updateRunButtonState(state);
+    this.updateRunActions(state);
   }
 
-  private updateRunButtonState(state: SimulatorState): void {
-    console.log("[ApplicationWindow] updateRunButtonState", state);
+  private setButtonMode(state: RunButtonState): void {
+    this._runButton.set_icon_name(this.buttonModes[state].iconName);
+    this._runButton.set_tooltip_text(this.buttonModes[state].tooltipText);
+    this._runButton.set_action_name(this.buttonModes[state].actionName);
+    if(state === RunButtonState.ASSEMBLE) {
+      this._runButton.set_sensitive(this._editor.hasCode);
+    } else {
+      this._runButton.set_sensitive(true);
+    }
+    console.log("[ApplicationWindow] setButtonMode", state, this._editor.hasCode, this._runButton.get_sensitive());
+  }
 
-    // Get all actions
-    const assembleAction = this.lookup_action('assemble') as Gio.SimpleAction;
-    const runAction = this.lookup_action('run-simulator') as Gio.SimpleAction;
-    const resumeAction = this.lookup_action('resume-simulator') as Gio.SimpleAction;
-    const pauseAction = this.lookup_action('pause-simulator') as Gio.SimpleAction;
-    const resetAction = this.lookup_action('reset-simulator') as Gio.SimpleAction;
-
-    // Default: disable all actions
-    assembleAction.set_enabled(false);
-    runAction.set_enabled(false);
-    resumeAction.set_enabled(false);
-    pauseAction.set_enabled(false);
-    resetAction.set_enabled(false);
-
-    // Clear the existing action for the main button
-    this._runButton.set_action_name(null);
+  private updateRunActions(state: SimulatorState): void {
+    console.log("[ApplicationWindow] updateRunActions", state);
 
     // Check if editor has code
     const hasCode = this._editor.hasCode;
 
+    // Default: disable most actions
+    this.runAction.set_enabled(false);
+    this.resumeSimulatorAction.set_enabled(false);
+    this.pauseSimulatorAction.set_enabled(false);
+    this.resetSimulatorAction.set_enabled(false);
+
     // Always enable assemble if there's code
-    assembleAction.set_enabled(hasCode);
+    this.assembleAction.set_enabled(hasCode);
+
+    // Clear the existing action for the main button
+    this._runButton.set_action_name(null);
+
+    let buttonState: RunButtonState;
+
+    if (this._codeChanged) {
+      buttonState = RunButtonState.ASSEMBLE;
+      this.setButtonMode(buttonState);
+      return;
+    }
 
     switch (state) {
       case SimulatorState.INITIALIZED:
-        console.log("[ApplicationWindow] Set the assemble button");
-        // Show build button when no program is loaded
-        this._runButton.set_icon_name('build-alt-symbolic');
-        this._runButton.set_tooltip_text(_("Assemble"));
-        this._runButton.set_sensitive(hasCode);
-
-        // Associate with assemble action
-        this._runButton.set_action_name('win.assemble');
+        buttonState = RunButtonState.ASSEMBLE;
         break;
 
       case SimulatorState.RUNNING:
       case SimulatorState.DEBUGGING:
-        console.log("[ApplicationWindow] Set the pause button");
-        // Show pause button when running
-        this._runButton.set_icon_name('pause-symbolic');
-        this._runButton.set_tooltip_text(_("Pause"));
-        this._runButton.set_sensitive(true);
-        // Associate with pause action
-        this._runButton.set_action_name('win.pause-simulator');
+        buttonState = RunButtonState.PAUSE;
 
         // Enable pause action
-        pauseAction.set_enabled(true);
-        resetAction.set_enabled(true);
+        this.pauseSimulatorAction.set_enabled(true);
+        this.resetSimulatorAction.set_enabled(true);
 
         // Also enable assemble if code has changed
-        if (this._codeChanged) {
-          assembleAction.set_enabled(hasCode);
-        }
+
         break;
 
       case SimulatorState.COMPLETED:
-        console.log("[ApplicationWindow] Set the reset button");
-        // Show reset button when program completed
-        this._runButton.set_icon_name('reset-symbolic');
-        this._runButton.set_tooltip_text(_("Reset"));
-        this._runButton.set_sensitive(true);
-        // Associate with reset and run action
-        this._runButton.set_action_name('win.reset-simulator');
+        buttonState = RunButtonState.RESET;
 
         // Enable run and reset actions
-        runAction.set_enabled(true);
-        resetAction.set_enabled(true);
-
-        // Also enable assemble if code has changed
-        if (this._codeChanged) {
-          assembleAction.set_enabled(hasCode);
-          this._runButton.set_icon_name('build-alt-symbolic');
-          this._runButton.set_tooltip_text(_("Assemble"));
-          this._runButton.set_action_name('win.assemble');
-        }
+        this.runAction.set_enabled(true);
+        this.resetSimulatorAction.set_enabled(true);
         break;
 
       case SimulatorState.PAUSED:
       case SimulatorState.DEBUGGING_PAUSED:
-        console.log("[ApplicationWindow] Set the run button");
-        // Show play button when debugging is paused
-        this._runButton.set_icon_name('play-symbolic');
-        this._runButton.set_tooltip_text(_("Continue"));
-        this._runButton.set_sensitive(true);
-        // Associate with resume action
-        this._runButton.set_action_name('win.resume-simulator');
+        buttonState = RunButtonState.RESUME;
 
         // Enable resume, run and reset actions
-        resumeAction.set_enabled(true);
-        runAction.set_enabled(true);
-        resetAction.set_enabled(true);
-
-        // Also enable assemble if code has changed
-        if (this._codeChanged) {
-          assembleAction.set_enabled(hasCode);
-          this._runButton.set_sensitive(hasCode);
-          this._runButton.set_icon_name('build-alt-symbolic');
-          this._runButton.set_tooltip_text(_("Assemble"));
-          this._runButton.set_action_name('win.assemble');
-        }
+        this.resumeSimulatorAction.set_enabled(true);
+        this.runAction.set_enabled(true);
+        this.resetSimulatorAction.set_enabled(true);
         break;
 
       case SimulatorState.READY:
-        console.log("[ApplicationWindow] Set the run button");
+        buttonState = RunButtonState.RUN;
+        this._runButton.set_action_name(`win.${this.runSimulatorAction.get_name()}`);
 
         // Enable run and reset actions
-        runAction.set_enabled(true);
-        resetAction.set_enabled(true);
-
-        // Also enable assemble if code has changed
-        if (this._codeChanged) {
-          assembleAction.set_enabled(hasCode);
-          this._runButton.set_icon_name('build-alt-symbolic');
-          this._runButton.set_tooltip_text(_("Assemble"));
-          this._runButton.set_action_name('win.assemble');
-        } else {
-          // Show play button when ready
-          this._runButton.set_icon_name('play-symbolic');
-          this._runButton.set_tooltip_text(_("Run"));
-          this._runButton.set_sensitive(true);
-          // Associate with run action
-          this._runButton.set_action_name('win.run-simulator');
-        }
+        this.runSimulatorAction.set_enabled(true);
+        this.resetSimulatorAction.set_enabled(true);
         break;
 
       default:
         throw new Error(`Unknown state: ${state}`);
     }
+
+    this.setButtonMode(buttonState);
   }
 
   private resetAndRunGameConsole(): void {
@@ -480,25 +467,25 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     switch (state) {
       case SimulatorState.INITIALIZED:
         // Assemble the code
-        this.activate_action('win.assemble', null);
+        this.activate_action(`win.${this.assembleAction.get_name()}`, null);
         break;
       case SimulatorState.READY:
         // Run the simulator
-        this.activate_action('win.run-simulator', null);
+        this.activate_action(`win.${this.runSimulatorAction.get_name()}`, null);
         break;
       case SimulatorState.RUNNING:
       case SimulatorState.DEBUGGING:
         // Pause the simulator
-        this.activate_action('win.pause-simulator', null);
+        this.activate_action(`win.${this.pauseSimulatorAction.get_name()}`, null);
         break;
       case SimulatorState.PAUSED:
       case SimulatorState.DEBUGGING_PAUSED:
         // Resume the simulator
-        this.activate_action('win.resume-simulator', null);
+        this.activate_action(`win.${this.resumeSimulatorAction.get_name()}`, null);
         break;
       case SimulatorState.COMPLETED:
         // Reset and run the simulator
-        this.activate_action('win.reset-simulator', null);
+        this.activate_action(`win.${this.resetSimulatorAction.get_name()}`, null);
         break;
       default:
         console.error(`Unhandled state in handleRunButtonClick: ${state}`);

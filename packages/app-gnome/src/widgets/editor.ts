@@ -1,6 +1,5 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
-import Gtk from '@girs/gtk-4.0'
 import GtkSource from '@girs/gtksource-5'
 import { SourceView } from './source-view.ts'
 
@@ -35,7 +34,9 @@ export class Editor extends Adw.Bin {
   }
 
   public set code(value: string) {
+    if (this.code === value) return;
     this._sourceView.code = value;
+    this.notify('code');
     this.onUpdate();
   }
 
@@ -56,11 +57,17 @@ export class Editor extends Adw.Bin {
    * @returns Whether the editor has code
    */
   public get hasCode(): boolean {
-    return this._sourceView.hasCode;
+    const hasCode = this.code.trim().length > 0;
+    console.log("[Editor] hasCode", hasCode);
+    return hasCode;
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
+
+    this.buffer.connect('changed', () => {
+      this.onUpdate();
+    });
   }
 
   private onUpdate() {

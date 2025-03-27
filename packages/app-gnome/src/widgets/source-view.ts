@@ -89,6 +89,9 @@ export class SourceView extends Adw.Bin {
 
   /** The source code of the source view */
   public set code(value: string) {
+    if(value === this.code) {
+      return;
+    }
     this.buffer.text = value;
     this.emitChanged();
   }

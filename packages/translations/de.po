@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-26 16:39+0100\n"
+"POT-Creation-Date: 2025-03-27 07:12+0100\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: YOUR NAME <your.email@example.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -16,27 +16,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: ../app-gnome/src/widgets/application-window.ts:364
-#: ../app-gnome/src/widgets/application-window.ts:408
-#: ../app-gnome/src/widgets/application-window.ts:432
-#: ../app-gnome/src/widgets/application-window.ts:448
+#: ../app-gnome/src/widgets/application-window.ts:49
 msgid "Assemble"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:376
+#: ../app-gnome/src/widgets/application-window.ts:54
+msgid "Run"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:59
 msgid "Pause"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:395
+#: ../app-gnome/src/widgets/application-window.ts:64
+msgid "Resume"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:69
 msgid "Reset"
-msgstr ""
-
-#: ../app-gnome/src/widgets/application-window.ts:418
-msgid "Continue"
-msgstr ""
-
-#: ../app-gnome/src/widgets/application-window.ts:453
-msgid "Run"
 msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.blp:26
@@ -76,6 +73,10 @@ msgstr "_Über Easy6502"
 #: ../app-gnome/src/widgets/application-window.blp:121
 msgid "_Quit"
 msgstr "_Beenden"
+
+#: ../app-gnome/src/widgets/application-window.blp:138
+msgid "Continue"
+msgstr ""
 
 #: ../app-gnome/src/widgets/debugger.blp:16
 msgid ""

@@ -6,11 +6,11 @@ import Template from './preferences-dialog.blp'
 export class PreferencesDialog extends Adw.PreferencesDialog {
 
     static {
-        GObject.registerClass({
-            GTypeName: 'PreferencesDialog',
-            Template,
-        }, this);
-      }
+      GObject.registerClass({
+          GTypeName: 'PreferencesDialog',
+          Template,
+      }, this);
+    }
 
     constructor(params: Partial<Adw.PreferencesDialog.ConstructorProps> = {}) {
         super(params)
