@@ -47,27 +47,27 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     [RunButtonState.ASSEMBLE]: {
       iconName: 'build-alt-symbolic',
       tooltipText: _("Assemble"),
-      actionName: 'win.assemble',
+      actionName: 'assemble',
     },
     [RunButtonState.RUN]: {
       iconName: 'play-symbolic',
       tooltipText: _("Run"),
-      actionName: 'win.run-simulator',
+      actionName: 'run-simulator',
     },
     [RunButtonState.PAUSE]: {
       iconName: 'pause-symbolic',
       tooltipText: _("Pause"),
-      actionName: 'win.pause-simulator',
+      actionName: 'pause-simulator',
     },
     [RunButtonState.RESUME]: {
       iconName: 'play-symbolic',
       tooltipText: _("Resume"),
-      actionName: 'win.resume-simulator',
+      actionName: 'resume-simulator',
     },
     [RunButtonState.RESET]: {
       iconName: 'reset-symbolic',
       tooltipText: _("Reset"),
-      actionName: 'win.reset-simulator',
+      actionName: 'reset-simulator',
     },
   }
 
@@ -362,18 +362,13 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private setButtonMode(state: RunButtonState): void {
+    const actionName = this.buttonModes[state].actionName;
     this._runButton.set_icon_name(this.buttonModes[state].iconName);
     this._runButton.set_tooltip_text(this.buttonModes[state].tooltipText);
-    this._runButton.set_action_name(this.buttonModes[state].actionName);
-    if(state === RunButtonState.ASSEMBLE) {
-      this._runButton.set_sensitive(this._editor.hasCode);
-    } else {
-      this._runButton.set_sensitive(true);
-    }
-    console.log("[ApplicationWindow] setButtonMode", state, this._editor.hasCode, this._runButton.get_sensitive());
+    this._runButton.set_action_name(`win.${actionName}`);
   }
 
-  private updateRunActions(state: SimulatorState): void {
+  private updateRunActions(state: SimulatorState): RunButtonState {
     console.log("[ApplicationWindow] updateRunActions", state);
 
     // Check if editor has code
@@ -396,7 +391,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     if (this._codeChanged) {
       buttonState = RunButtonState.ASSEMBLE;
       this.setButtonMode(buttonState);
-      return;
+      return buttonState;
     }
 
     switch (state) {
@@ -436,7 +431,6 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
       case SimulatorState.READY:
         buttonState = RunButtonState.RUN;
-        this._runButton.set_action_name(`win.${this.runSimulatorAction.get_name()}`);
 
         // Enable run and reset actions
         this.runSimulatorAction.set_enabled(true);
@@ -448,6 +442,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     }
 
     this.setButtonMode(buttonState);
+    return buttonState;
   }
 
   private resetAndRunGameConsole(): void {
