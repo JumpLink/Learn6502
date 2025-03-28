@@ -4,14 +4,17 @@ using Adw 1;
 template $ExecutableSourceView: Adw.Bin {
   Box {
     orientation: vertical;
-    $SourceView sourceView {}
-    ActionBar actionBar {
-      revealed: true;
-      valign: end;
 
-      [start]
+    Overlay overlay {
+
+      $SourceView sourceView {}
+
+      [overlay]
       Gtk.Button buildButton {
-        halign: center;
+        halign: end;
+        valign: start;
+        margin-end: 12;
+        margin-top: 12;
         icon-name: "move-to-window-symbolic";
         styles [
           "suggested-action",
