@@ -80,7 +80,7 @@ Equipped with that knowledge, you should be able to see that the instruction
 detail on registers in the next section.
 
 Press **Step** again to execute the second instruction. The top-left pixel of
-the simulator display should now be white. This simulator uses the memory
+the game console should now be white. This simulator uses the memory
 locations `$0200` to `$05ff` to draw pixels on its display. The values `$00` to
 `$0f` represent 16 different colours (`$00` is black and `$01` is white), so
 storing the value `$01` at memory location `$0200` draws a white pixel at the
@@ -528,7 +528,7 @@ Here's an example. Note that immediate operands are still prefixed with a `#`.
 {% include start.html %}
   define  sysRandom  $fe ; an address
   define  a_dozen    $0c ; a constant
- 
+
   LDA sysRandom  ; equivalent to "LDA $fe"
 
   LDX #a_dozen   ; equivalent to "LDX #$0c"
@@ -584,7 +584,7 @@ noted in the comment block at the top of the game. Everything in `$00`, `$01`
 and `$10` upwards is a pair of bytes representing a two-byte memory location
 that will be looked up using indirect addressing.  These memory locations will
 all be between `$0200` and `$05ff` - the section of memory corresponding to the
-simulator display. For example, if `$00` and `$01` contained the values `$01`
+game console. For example, if `$00` and `$01` contained the values `$01`
 and `$02`, they would be referring to the second pixel of the display (
 `$0201` - remember, the least significant byte comes first in indirect addressing).
 
@@ -711,17 +711,17 @@ pair of bytes for simplicity.
 
       0    1    2    3    4
     Head                 Tail
-    
+
     [1,5][1,4][1,3][1,2][2,2]    Starting position
 
     [1,5][1,4][1,3][1,2][1,2]    Value of (3) is copied into (4)
-    
+
     [1,5][1,4][1,3][1,3][1,2]    Value of (2) is copied into (3)
-    
+
     [1,5][1,4][1,4][1,3][1,2]    Value of (1) is copied into (2)
-    
+
     [1,5][1,5][1,4][1,3][1,2]    Value of (0) is copied into (1)
-    
+
     [0,5][1,5][1,4][1,3][1,2]    Value of (0) is updated based on direction
 
 At a low level, this subroutine is slightly more complex. First, the length is

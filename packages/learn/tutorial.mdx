@@ -44,9 +44,9 @@ leave it to them. Plus, 6502 is *fun*. Nobody ever called x86 *fun*.
 
 ## Our first program
 
-So, let's dive in! That thing below is a little [JavaScript 6502 assembler and
-simulator](https://github.com/skilldrick/6502js) that I adapted for this interactive tutorial.
-Click the **Copy to editor** button to copy the code to the code editor and assemble and run the snippet of assembly language.
+So, let's dive in! This application is a [JavaScript 6502 Assembler and Simulator](https://github.com/skilldrick/6502js) that I have adapted for this interactive tutorial.
+Click the **Copy to Editor** button to copy the code to the code editor tab.
+Then assemble and run the program using the button at the top right of the editor.
 
 ```6502-assembler
 LDA #$01
@@ -77,7 +77,7 @@ Equipped with that knowledge, you should be able to see that the instruction
 detail on registers in the next section.
 
 Press **Step** again to execute the second instruction. The top-left pixel of
-the simulator display should now be white. This simulator uses the memory
+the game console should now be white. This simulator uses the memory
 locations `$0200` to `$05ff` to draw pixels on its display. The values `$00` to
 `$0f` represent 16 different colours (`$00` is black and `$01` is white), so
 storing the value `$01` at memory location `$0200` draws a white pixel at the
@@ -597,7 +597,7 @@ noted in the comment block at the top of the game. Everything in `$00`, `$01`
 and `$10` upwards is a pair of bytes representing a two-byte memory location
 that will be looked up using indirect addressing.  These memory locations will
 all be between `$0200` and `$05ff` - the section of memory corresponding to the
-simulator display. For example, if `$00` and `$01` contained the values `$01`
+game console. For example, if `$00` and `$01` contained the values `$01`
 and `$02`, they would be referring to the second pixel of the display (
 `$0201` - remember, the least significant byte comes first in indirect addressing).
 

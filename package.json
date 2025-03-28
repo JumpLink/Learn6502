@@ -13,7 +13,8 @@
         "start:gnome": "yarn workspace @easy6502/app-gnome run start",
         "start:gnome:flatpak": "flatpak run eu.jumplink.Easy6502",
         "start:web": "yarn workspace @easy6502/app-web run start",
-        "clear": "yarn workspaces foreach -v --parallel -W run clear",
+        "clear": "yarn workspaces foreach -v --parallel -W run clear && yarn _clear",
+        "_clear": "rm -rf builddir build-dir .flatpak-builder flatpak-build",
         "format": "yarn prettier --write .",
         "prettier": "node .yarn/sdks/prettier/index.cjs"
     },

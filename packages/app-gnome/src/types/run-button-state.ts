@@ -4,4 +4,5 @@ export enum RunButtonState {
   PAUSE = 'pause',
   RESUME = 'resume',
   RESET = 'reset',
+  STEP = 'step',
 }

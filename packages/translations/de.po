@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 05:16+0100\n"
+"POT-Creation-Date: 2025-03-28 14:55+0100\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: YOUR NAME <your.email@example.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -18,23 +18,27 @@ msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.ts:49
 msgid "Assemble"
-msgstr ""
+msgstr "Assemblieren"
 
 #: ../app-gnome/src/widgets/application-window.ts:54
 msgid "Run"
-msgstr ""
+msgstr "Ausführen"
 
 #: ../app-gnome/src/widgets/application-window.ts:59
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: ../app-gnome/src/widgets/application-window.ts:64
 msgid "Resume"
-msgstr ""
+msgstr "Fortsetzen"
 
 #: ../app-gnome/src/widgets/application-window.ts:69
 msgid "Reset"
-msgstr ""
+msgstr "Zurücksetzen"
+
+#: ../app-gnome/src/widgets/application-window.ts:74
+msgid "Step"
+msgstr "Schritt"
 
 #: ../app-gnome/src/widgets/application-window.blp:26
 msgid "Easy6502"
@@ -72,7 +76,7 @@ msgstr "_Beenden"
 
 #: ../app-gnome/src/widgets/application-window.blp:135
 msgid "Continue"
-msgstr ""
+msgstr "Fortfahren"
 
 #: ../app-gnome/src/widgets/debugger.blp:16
 msgid ""
@@ -82,6 +86,10 @@ msgstr ""
 "Debugge deinen 6502-Assemblercode, gehe dein Programm schrittweise durch und "
 "betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
 "beginnen."
+
+#: ../app-gnome/src/widgets/executable-source-view.blp:20
+msgid "Copy to editor"
+msgstr "In Editor kopieren"
 
 #: ../app-gnome/src/widgets/learn.blp:11
 msgid "Learn how to program the 6502 microprocessor."
@@ -215,18 +223,19 @@ msgid "Our first program"
 msgstr "Unser erstes Programm"
 
 #: ../learn/dist/tutorial.ui:9
+#, fuzzy
 msgid ""
-"So, let's dive in! That thing below is a little <a href=\"https://github.com/"
-"skilldrick/6502js\">JavaScript 6502 assembler and simulator</a> that I "
-"adapted for this interactive tutorial. Click the <b>Copy to editor</b> "
-"button to copy the code to the code editor and assemble and run the snippet "
-"of assembly language."
+"So, let's dive in! This application is a <a href=\"https://github.com/"
+"skilldrick/6502js\">JavaScript 6502 Assembler and Simulator</a> that I have "
+"adapted for this interactive tutorial. Click the <b>Copy to Editor</b> "
+"button to copy the code to the code editor tab. Then assemble and run the "
+"program using the button at the top right of the editor."
 msgstr ""
-"Also, lass uns loslegen! Das da unten ist ein kleiner <a href=\"https://"
-"github.com/skilldrick/6502js\">JavaScript 6502 Assembler und Simulator</a>, "
-"den ich für dieses interaktive Tutorial angepasst habe. Klicke auf den <b>In "
-"Editor kopieren</b> Button, um den Code in den Code-Editor zu kopieren und "
-"das Assembly-Sprachfragment zu assemblieren und auszuführen."
+"Also, lass uns loslegen! Diese Anwendung ist ein <a href=\"https://github."
+"com/skilldrick/6502js\">JavaScript 6502 Assembler und Simulator</a>, den ich "
+"für dieses interaktive Tutorial angepasst habe. Klicke auf den <b>In Editor "
+"kopieren</b> Button, um den Code in den Code-Editor zu kopieren. Assembliere "
+"und führe das Programm dann über den Button oben rechts im Editor aus."
 
 #: ../learn/dist/tutorial.ui:16
 msgid ""
@@ -280,7 +289,7 @@ msgstr ""
 #: ../learn/dist/tutorial.ui:20
 msgid ""
 "Press <b>Step</b> again to execute the second instruction. The top-left "
-"pixel of the simulator display should now be white. This simulator uses the "
+"pixel of the game console should now be white. This simulator uses the "
 "memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its "
 "display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different "
 "colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the "
@@ -289,7 +298,7 @@ msgid ""
 "output video, but it'll do for now."
 msgstr ""
 "Drücke erneut <b>Step</b>, um die zweite Anweisung auszuführen. Das Pixel "
-"oben links im Simulator-Display sollte jetzt weiß sein. Dieser Simulator "
+"oben links in der Spielkonsole sollte jetzt weiß sein. Dieser Simulator "
 "verwendet die Speicheradressen von <tt>$0200</tt> bis <tt>$05ff</tt>, um "
 "Pixel auf seinem Display zu zeichnen. Die Werte von <tt>$00</tt> bis "
 "<tt>$0f</tt> repräsentieren 16 verschiedene Farben (<tt>$00</tt> ist schwarz "
@@ -1113,17 +1122,18 @@ msgid "Zero page usage"
 msgstr "Verwendung der Nullseite"
 
 #: ../learn/dist/tutorial.ui:491
+#, fuzzy
 msgid ""
 "The zero page of memory is used to store a number of game state variables, "
 "as noted in the comment block at the top of the game. Everything in <tt>$00</"
 "tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a "
 "two-byte memory location that will be looked up using indirect addressing. "
 "These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> "
-"- the section of memory corresponding to the simulator display. For example, "
-"if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and "
-"<tt>$02</tt>, they would be referring to the second pixel of the display "
-"( <tt>$0201</tt> - remember, the least significant byte comes first in "
-"indirect addressing)."
+"- the section of memory corresponding to the game console. For example, if "
+"<tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</"
+"tt>, they would be referring to the second pixel of the display ( <tt>$0201</"
+"tt> - remember, the least significant byte comes first in indirect "
+"addressing)."
 msgstr ""
 "Die Nullseite des Speichers wird verwendet, um eine Reihe von "
 "Spielzustandsvariablen zu speichern, wie im Kommentarblock am Anfang des "
@@ -1131,11 +1141,11 @@ msgstr ""
 "aufwärts ist ein Bytepaar, das eine zweibyte-Speicheradresse repräsentiert, "
 "die mittels indirekter Adressierung nachgeschlagen wird. Diese "
 "Speicheradressen werden alle zwischen <tt>$0200</tt> und <tt>$05ff</tt> "
-"liegen - dem Speicherbereich, der dem Simulator-Display entspricht. Wenn zum "
-"Beispiel <tt>$00</tt> und <tt>$01</tt> die Werte <tt>$01</tt> und <tt>$02</"
-"tt> enthielten, würden sie sich auf das zweite Pixel des Displays beziehen "
-"(<tt>$0201</tt> - denk daran, das niedrigstwertige Byte kommt bei indirekter "
-"Adressierung zuerst)."
+"liegen - dem Speicherbereich, der dem Spielkonsolen-Display entspricht. Wenn "
+"zum Beispiel <tt>$00</tt> und <tt>$01</tt> die Werte <tt>$01</tt> und "
+"<tt>$02</tt> enthielten, würden sie sich auf das zweite Pixel des Displays "
+"beziehen (<tt>$0201</tt> - denk daran, das niedrigstwertige Byte kommt bei "
+"indirekter Adressierung zuerst)."
 
 #: ../learn/dist/tutorial.ui:492
 msgid ""

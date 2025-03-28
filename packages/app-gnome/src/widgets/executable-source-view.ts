@@ -18,14 +18,14 @@ export class ExecutableSourceView extends Adw.Bin {
   declare private _scrolledWindow: Gtk.ScrolledWindow
   /** The SourceView that displays the buffer's display */
   declare private _sourceView: SourceView
-  declare private _buildButton: Gtk.Button
+  declare private _copyToEditorButton: Gtk.Button
   declare private _overlay: Gtk.Overlay
 
   static {
     GObject.registerClass({
       GTypeName: 'ExecutableSourceView',
       Template,
-      InternalChildren: ['sourceView', 'overlay', 'buildButton'],
+      InternalChildren: ['sourceView', 'overlay', 'copyToEditorButton'],
       Signals: {
         'changed': {
           param_types: [],
@@ -68,7 +68,7 @@ export class ExecutableSourceView extends Adw.Bin {
    */
   public set readonly(value: boolean) {
     this._sourceView.editable = !value;
-    this._buildButton.visible = !value;
+    this._copyToEditorButton.visible = !value;
   }
 
   /**

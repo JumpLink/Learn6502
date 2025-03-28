@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-28 05:39+0100\n"
+"POT-Creation-Date: 2025-03-28 14:55+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -35,6 +35,10 @@ msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.ts:69
 msgid "Reset"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:74
+msgid "Step"
 msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.blp:26
@@ -79,6 +83,10 @@ msgstr ""
 msgid ""
 "Debug your 6502 assembly code, step through your program, and view memory "
 "and registers. To get started, assemble and run your program."
+msgstr ""
+
+#: ../app-gnome/src/widgets/executable-source-view.blp:20
+msgid "Copy to editor"
 msgstr ""
 
 #: ../app-gnome/src/widgets/learn.blp:11
@@ -174,11 +182,11 @@ msgstr ""
 
 #: ../learn/dist/tutorial.ui:9
 msgid ""
-"So, let's dive in! That thing below is a little <a href=\"https://github.com/"
-"skilldrick/6502js\">JavaScript 6502 assembler and simulator</a> that I "
-"adapted for this interactive tutorial. Click the <b>Copy to editor</b> "
-"button to copy the code to the code editor and assemble and run the snippet "
-"of assembly language."
+"So, let's dive in! This application is a <a href=\"https://github.com/"
+"skilldrick/6502js\">JavaScript 6502 Assembler and Simulator</a> that I have "
+"adapted for this interactive tutorial. Click the <b>Copy to Editor</b> "
+"button to copy the code to the code editor tab. Then assemble and run the "
+"program using the button at the top right of the editor."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:16
@@ -216,7 +224,7 @@ msgstr ""
 #: ../learn/dist/tutorial.ui:20
 msgid ""
 "Press <b>Step</b> again to execute the second instruction. The top-left "
-"pixel of the simulator display should now be white. This simulator uses the "
+"pixel of the game console should now be white. This simulator uses the "
 "memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its "
 "display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different "
 "colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the "
@@ -792,11 +800,11 @@ msgid ""
 "tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a "
 "two-byte memory location that will be looked up using indirect addressing. "
 "These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> "
-"- the section of memory corresponding to the simulator display. For example, "
-"if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and "
-"<tt>$02</tt>, they would be referring to the second pixel of the display "
-"( <tt>$0201</tt> - remember, the least significant byte comes first in "
-"indirect addressing)."
+"- the section of memory corresponding to the game console. For example, if "
+"<tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</"
+"tt>, they would be referring to the second pixel of the display ( <tt>$0201</"
+"tt> - remember, the least significant byte comes first in indirect "
+"addressing)."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:492

@@ -10,16 +10,14 @@ template $ExecutableSourceView: Adw.Bin {
       $SourceView sourceView {}
 
       [overlay]
-      Gtk.Button buildButton {
+      Gtk.Button copyToEditorButton {
         halign: end;
         valign: start;
         margin-end: 12;
         margin-top: 12;
         icon-name: "move-to-window-symbolic";
-        styles [
-          "suggested-action",
-        ]
         action-name: 'executable-source-view.copy';
+        tooltip-text: _("Copy to editor");
       }
     }
   }

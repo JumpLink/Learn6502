@@ -37,11 +37,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private assembleAction = new Gio.SimpleAction({ name: 'assemble' });
-  private runAction = new Gio.SimpleAction({ name: 'run' });
   private runSimulatorAction = new Gio.SimpleAction({ name: 'run-simulator' });
   private resumeSimulatorAction = new Gio.SimpleAction({ name: 'resume-simulator' });
   private pauseSimulatorAction = new Gio.SimpleAction({ name: 'pause-simulator' });
   private resetSimulatorAction = new Gio.SimpleAction({ name: 'reset-simulator' });
+  private stepSimulatorAction = new Gio.SimpleAction({ name: 'step-simulator' });
 
   private buttonModes: Record<RunButtonState, RunButtonMode> = {
     [RunButtonState.ASSEMBLE]: {
@@ -69,6 +69,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       tooltipText: _("Reset"),
       actionName: 'reset-simulator',
     },
+    [RunButtonState.STEP]: {
+      iconName: 'step-over-symbolic',
+      tooltipText: _("Step"),
+      actionName: 'step-simulator',
+    }
   }
 
   constructor(application: Adw.Application) {
@@ -110,14 +115,9 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private setupActions(): void {
-    // Build and assembly actions
     this.assembleAction.connect('activate', this.assembleGameConsole.bind(this));
     this.add_action(this.assembleAction);
 
-    this.runAction.connect('activate', this.runGameConsole.bind(this));
-    this.add_action(this.runAction);
-
-    // Simulator control actions
     this.runSimulatorAction.connect('activate', this.runGameConsole.bind(this));
     this.add_action(this.runSimulatorAction);
 
@@ -127,16 +127,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.pauseSimulatorAction.connect('activate', this.stopGameConsole.bind(this));
     this.add_action(this.pauseSimulatorAction);
 
-    this.resetSimulatorAction.connect('activate', this.resetAndRunGameConsole.bind(this));
+    this.resetSimulatorAction.connect('activate', this.resetGameConsole.bind(this));
     this.add_action(this.resetSimulatorAction);
+
+    this.stepSimulatorAction.connect('activate', this.stepGameConsole.bind(this));
+    this.add_action(this.stepSimulatorAction);
   }
 
   private setupRunButton(): void {
-    // Set up the button click handler
-    this._runButton.connect('clicked', () => {
-      this.handleRunButtonClick();
-    });
-
     // Initial button setup
     this.updateRunActions(this._gameConsole.simulator.state);
   }
@@ -366,11 +364,12 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     // Check if editor has code
     const hasCode = this._editor.hasCode;
 
-    // Default: disable most actions
-    this.runAction.set_enabled(false);
+    // Default: disable all actions
+    this.runSimulatorAction.set_enabled(false);
     this.resumeSimulatorAction.set_enabled(false);
     this.pauseSimulatorAction.set_enabled(false);
     this.resetSimulatorAction.set_enabled(false);
+    this.stepSimulatorAction.set_enabled(false);
 
     // Always enable assemble if there's code
     this.assembleAction.set_enabled(hasCode);
@@ -392,40 +391,60 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         break;
 
       case SimulatorState.RUNNING:
-      case SimulatorState.DEBUGGING:
         buttonState = RunButtonState.PAUSE;
 
         // Enable pause action
         this.pauseSimulatorAction.set_enabled(true);
         this.resetSimulatorAction.set_enabled(true);
+        break;
 
-        // Also enable assemble if code has changed
+      case SimulatorState.DEBUGGING:
+        // Im Debugging-Modus verwenden wir den Step-Button als primären Button
+        buttonState = RunButtonState.STEP;
 
+        // Enable step, pause and reset actions
+        this.stepSimulatorAction.set_enabled(true);
+        this.pauseSimulatorAction.set_enabled(true);
+        this.resetSimulatorAction.set_enabled(true);
+        this.runSimulatorAction.set_enabled(true);
         break;
 
       case SimulatorState.COMPLETED:
         buttonState = RunButtonState.RESET;
 
-        // Enable run and reset actions
-        this.runAction.set_enabled(true);
+        // Enable run, step and reset actions
+        this.runSimulatorAction.set_enabled(true);
+        this.stepSimulatorAction.set_enabled(true);
         this.resetSimulatorAction.set_enabled(true);
         break;
 
       case SimulatorState.PAUSED:
-      case SimulatorState.DEBUGGING_PAUSED:
         buttonState = RunButtonState.RESUME;
 
-        // Enable resume, run and reset actions
+        // Enable resume, run, step and reset actions
         this.resumeSimulatorAction.set_enabled(true);
-        this.runAction.set_enabled(true);
+        this.runSimulatorAction.set_enabled(true);
+        this.resetSimulatorAction.set_enabled(true);
+        this.stepSimulatorAction.set_enabled(true);
+        break;
+
+      case SimulatorState.DEBUGGING_PAUSED:
+        // Im Debugging-Paused Modus verwenden wir auch den Step-Button
+        buttonState = RunButtonState.STEP;
+
+        // Enable step, resume, run, and reset actions
+        this.stepSimulatorAction.set_enabled(true);
+        this.resumeSimulatorAction.set_enabled(true);
+        this.runSimulatorAction.set_enabled(true);
         this.resetSimulatorAction.set_enabled(true);
         break;
 
       case SimulatorState.READY:
         buttonState = RunButtonState.RUN;
 
-        // Enable run and reset actions
+        // Enable run, step and reset actions
         this.runSimulatorAction.set_enabled(true);
+        this.stepSimulatorAction.set_enabled(true);
         this.resetSimulatorAction.set_enabled(true);
         break;
 
@@ -437,46 +456,21 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     return buttonState;
   }
 
-  private resetAndRunGameConsole(): void {
-    this.resetGameConsole();
-    this.runGameConsole();
-  }
+  private stepGameConsole(): void {
+    console.log("[ApplicationWindow] stepGameConsole");
+    // Set the debugger as the visible child in the stack
+    this._stack.set_visible_child(this._debugger);
 
-  private handleRunButtonClick(): void {
-    const state = this._gameConsole.simulator.state;
-
-    // If code has changed, always assemble when button is clicked
-    if (this._codeChanged && this._editor.code.trim().length > 0) {
-      this.assembleGameConsole();
-      return;
+    // Enable stepper if not already enabled
+    if (!this._gameConsole.simulator.stepperEnabled) {
+      this._gameConsole.simulator.enableStepper();
     }
 
-    switch (state) {
-      case SimulatorState.INITIALIZED:
-        // Assemble the code
-        this.activate_action(`win.${this.assembleAction.get_name()}`, null);
-        break;
-      case SimulatorState.READY:
-        // Run the simulator
-        this.activate_action(`win.${this.runSimulatorAction.get_name()}`, null);
-        break;
-      case SimulatorState.RUNNING:
-      case SimulatorState.DEBUGGING:
-        // Pause the simulator
-        this.activate_action(`win.${this.pauseSimulatorAction.get_name()}`, null);
-        break;
-      case SimulatorState.PAUSED:
-      case SimulatorState.DEBUGGING_PAUSED:
-        // Resume the simulator
-        this.activate_action(`win.${this.resumeSimulatorAction.get_name()}`, null);
-        break;
-      case SimulatorState.COMPLETED:
-        // Reset and run the simulator
-        this.activate_action(`win.${this.resetSimulatorAction.get_name()}`, null);
-        break;
-      default:
-        console.error(`Unhandled state in handleRunButtonClick: ${state}`);
-    }
+    // Execute a single step
+    this._gameConsole.simulator.debugExecStep();
+
+    // Update the UI
+    this.onSimulatorStateChange(this._gameConsole.simulator.state);
   }
 }
 
