@@ -171,8 +171,9 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._debugger.reset();
     // Set the debugger as the visible child in the stack
     this._stack.set_visible_child(this._debugger);
+    // Reset the code changed flag BEFORE assembling
+    this._codeChanged = false;
     this._gameConsole.assemble(this._editor.code);
-    this._codeChanged = false; // Reset the code changed flag after assembling
   }
 
   private copyGameConsole(code: string): void {
