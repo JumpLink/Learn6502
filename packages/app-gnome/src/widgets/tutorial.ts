@@ -23,12 +23,6 @@ export class Tutorial extends Adw.Bin {
       Template,
       InternalChildren: [...executableSourceViewIds],
       Signals: {
-        'copy-assemble-and-run': {
-          param_types: [GObject.TYPE_STRING],
-        },
-        'copy-assemble': {
-          param_types: [GObject.TYPE_STRING],
-        },
         'copy': {
           param_types: [GObject.TYPE_STRING],
         },
@@ -44,14 +38,7 @@ export class Tutorial extends Adw.Bin {
   private setupCodeBlocks() {
     for (const id of executableSourceViewIds) {
       const executableSourceView = this.getExecutableSourceView(id)
-      // Forward the signals to the parent widget
-      executableSourceView.connect('copy-assemble-and-run', (sourceView: ExecutableSourceView, code: string) => {
-        this.emit('copy-assemble-and-run', code)
-      })
-      executableSourceView.connect('copy-assemble', (sourceView: ExecutableSourceView, code: string) => {
-        this.emit('copy-assemble', code)
-      })
-      executableSourceView.connect('copy', (sourceView: ExecutableSourceView, code: string) => {
+      executableSourceView.connect('copy', (_sourceView: ExecutableSourceView, code: string) => {
         this.emit('copy', code)
       })
     }

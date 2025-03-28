@@ -87,15 +87,6 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private setupLearnTutorialSignalListeners(): void {
-    this._learn.connect('copy-assemble-and-run', (_learn: Learn, code: string) => {
-      this.copyGameConsole(code);
-      this.assembleGameConsole();
-      this.runGameConsole();
-    });
-    this._learn.connect('copy-assemble', (_learn: Learn, code: string) => {
-      this.copyGameConsole(code);
-      this.assembleGameConsole();
-    });
     this._learn.connect('copy', (_learn: Learn, code: string) => {
       this.copyGameConsole(code);
     });

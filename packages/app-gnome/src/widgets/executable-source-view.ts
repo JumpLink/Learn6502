@@ -19,7 +19,7 @@ export class ExecutableSourceView extends Adw.Bin {
   /** The SourceView that displays the buffer's display */
   declare private _sourceView: SourceView
   declare private _actionBar: Gtk.ActionBar
-  declare private _buildButton: Adw.SplitButton
+  declare private _buildButton: Gtk.Button
 
   static {
     GObject.registerClass({
@@ -29,12 +29,6 @@ export class ExecutableSourceView extends Adw.Bin {
       Signals: {
         'changed': {
           param_types: [],
-        },
-        'copy-assemble-and-run': {
-          param_types: [GObject.TYPE_STRING],
-        },
-        'copy-assemble': {
-          param_types: [GObject.TYPE_STRING],
         },
         'copy': {
           param_types: [GObject.TYPE_STRING],
@@ -66,7 +60,6 @@ export class ExecutableSourceView extends Adw.Bin {
   public get code(): string {
     return this._sourceView.code;
   }
-
 
   /**
    * Set the readonly property of the source view
@@ -296,25 +289,9 @@ export class ExecutableSourceView extends Adw.Bin {
   }
 
   private _setupActions() {
-    const copyAssembleAndRunAction = new Gio.SimpleAction({ name: 'copy-assemble-and-run' });
-    copyAssembleAndRunAction.connect('activate', this._onCopyAssembleAndRun.bind(this));
-    this._actionGroup.add_action(copyAssembleAndRunAction);
-
-    const copyAndAssembleAction = new Gio.SimpleAction({ name: 'copy-assemble' });
-    copyAndAssembleAction.connect('activate', this._onCopyAndAssemble.bind(this));
-    this._actionGroup.add_action(copyAndAssembleAction);
-
     const copyAction = new Gio.SimpleAction({ name: 'copy' });
     copyAction.connect('activate', this._onCopy.bind(this));
     this._actionGroup.add_action(copyAction);
-  }
-
-  private _onCopyAssembleAndRun() {
-    this.emit('copy-assemble-and-run', this.code);
-  }
-
-  private _onCopyAndAssemble() {
-    this.emit('copy-assemble', this.code);
   }
 
   private _onCopy() {

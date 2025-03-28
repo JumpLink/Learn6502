@@ -10,32 +10,14 @@ template $ExecutableSourceView: Adw.Bin {
       valign: end;
 
       [start]
-      Adw.SplitButton buildButton {
+      Gtk.Button buildButton {
         halign: center;
-        icon-name: "build-run-symbolic";
+        icon-name: "move-to-window-symbolic";
         styles [
           "suggested-action",
         ]
-        action-name: 'executable-source-view.copy-assemble-and-run';
-        menu-model: buttonBuildMenu;
+        action-name: 'executable-source-view.copy';
       }
-    }
-  }
-}
-
-menu buttonBuildMenu {
-  section {
-    item {
-      label: "Copy, Assemble and Run";
-      action: 'executable-source-view.copy-assemble-and-run';
-    }
-    item {
-      label: "Copy and Assemble";
-      action: 'executable-source-view.copy-assemble';
-    }
-    item {
-      label: "Copy";
-      action: 'executable-source-view.copy';
     }
   }
 }

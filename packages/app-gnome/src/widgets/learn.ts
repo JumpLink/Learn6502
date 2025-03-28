@@ -19,12 +19,6 @@ export class Learn extends Adw.Bin {
       Template,
       InternalChildren: ['scrolledWindow', 'statusPage', 'tutorial'],
       Signals: {
-        'copy-assemble-and-run': {
-          param_types: [GObject.TYPE_STRING],
-        },
-        'copy-assemble': {
-          param_types: [GObject.TYPE_STRING],
-        },
         'copy': {
           param_types: [GObject.TYPE_STRING],
         },
@@ -38,12 +32,6 @@ export class Learn extends Adw.Bin {
   }
 
   private setupTutorialSignalListeners(): void {
-    this._tutorial.connect('copy-assemble-and-run', (tutorial, code) => {
-      this.emit('copy-assemble-and-run', code);
-    });
-    this._tutorial.connect('copy-assemble', (tutorial, code) => {
-      this.emit('copy-assemble', code);
-    });
     this._tutorial.connect('copy', (tutorial, code) => {
       this.emit('copy', code);
     });

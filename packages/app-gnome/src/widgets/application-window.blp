@@ -67,21 +67,21 @@ template $ApplicationWindow: Adw.ApplicationWindow {
         }
 
         Adw.ViewStackPage {
-          name: "gameConsole";
-          title: _("Game Console");
-          icon-name: "nintendo-controller-symbolic";
-          use-underline: true;
-
-          child: $GameConsole gameConsole {};
-        }
-
-        Adw.ViewStackPage {
           name: "debugger";
           title: _("Debugger");
           icon-name: "bug-symbolic";
           use-underline: true;
 
           child: $Debugger debugger {};
+        }
+
+        Adw.ViewStackPage {
+          name: "gameConsole";
+          title: _("Game Console");
+          icon-name: "nintendo-controller-symbolic";
+          use-underline: true;
+
+          child: $GameConsole gameConsole {};
         }
       }
     };
