@@ -46,7 +46,7 @@ leave it to them. Plus, 6502 is *fun*. Nobody ever called x86 *fun*.
 
 So, let's dive in! This application is a [JavaScript 6502 Assembler and Simulator](https://github.com/skilldrick/6502js) that I have adapted for this interactive tutorial.
 Click the **Copy to Editor** button to copy the code to the code editor tab.
-Then assemble and run the program using the button at the top right of the editor.
+Then click the button in the top right to assemble the code, then click it again to run the program. You can also access these actions through the dropdown menu.
 
 ```6502-assembler
 LDA #$01
@@ -60,11 +60,10 @@ STA $0202
 The black game console screen now should show three coloured "pixels" at the
 top left.
 
-So, what's this program actually doing? Let's step through it with the
-debugger. Hit **Reset**, then check the **Debugger** checkbox to start the
-debugger. Click **Step** once. If you were watching carefully, you'll have
-noticed that `A=` changed from `$00` to `$01`, and `PC=` changed from `$0600` to
-`$0602`.
+So, what's this program actually doing? Let's step through it. Hit **Reset**,
+then select **Step** from the dropdown menu. The button will switch to step mode,
+allowing you to execute the program one instruction at a time.
+Click once and you'll notice in the debugger that `A=` changed from `$00` to `$01`, and `PC=` changed from `$0600` to `$0602`.
 
 Any numbers prefixed with `$` in 6502 assembly language (and by extension, in
 this book) are in hexadecimal (hex) format. If you're not familiar with hex
