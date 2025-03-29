@@ -49,8 +49,10 @@ export class GtkTextList extends Component {
                                 wrap
                                 xalign={0}
                                 valign={Align.START}
-                                label={`${this.props.type === TextListType.ORDERED ? item.index + '.' : '•'} `}
-                            />
+                                label={this.props.type === TextListType.ORDERED ? `${item.index}. ` : '• '}
+                            >
+                                {this.props.type === TextListType.ORDERED ? `${item.index}. ` : '• '}
+                            </GtkLabel>
                             <GtkLabel
                                 use-markup
                                 wrap
@@ -58,8 +60,9 @@ export class GtkTextList extends Component {
                                 hexpand
                                 xalign={0}
                                 halign={Align.FILL}
-                                label={item.content}
-                            />
+                            >
+                                {item.content}
+                            </GtkLabel>
                          </GtkBox>
                     ))}
             </GtkBox>

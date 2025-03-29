@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502 0.1.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-29 07:54+0100\n"
+"POT-Creation-Date: 2025-03-29 17:23+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -182,12 +182,12 @@ msgstr ""
 
 #: ../learn/dist/tutorial.ui:9
 msgid ""
-"So, let's dive in! This application is a <a href=\"https://github.com/"
+"So, let's dive in! This application contains a <a href=\"https://github.com/"
 "skilldrick/6502js\">JavaScript 6502 Assembler and Simulator</a> that I have "
-"adapted for this interactive tutorial. Click the <b>Copy to Editor</b> "
-"button to copy the code to the code editor tab. Then click the button in the "
-"top right to assemble the code, then click it again to run the program. You "
-"can also access these actions through the dropdown menu."
+"adapted for this interactive tutorial. Click the <b>Copy</b> button in the "
+"code block below to copy the example code to the editor. Then click the "
+"button in the top right to assemble the code, then click it again to run the "
+"program. You can also access these actions through the dropdown menu."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:16
@@ -246,6 +246,34 @@ msgstr ""
 #: ../learn/dist/tutorial.ui:22 ../learn/dist/tutorial.ui:46
 #: ../learn/dist/tutorial.ui:62
 msgid "Exercises"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:23 ../learn/dist/tutorial.ui:47
+#: ../learn/dist/tutorial.ui:63 ../learn/dist/tutorial.ui:136
+msgid "1."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:23
+msgid "Try changing the colour of the three pixels."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:23 ../learn/dist/tutorial.ui:47
+#: ../learn/dist/tutorial.ui:63
+msgid "2."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:23
+msgid ""
+"Change one of the pixels to draw at the bottom-right corner (memory location "
+"<tt>$05ff</tt>)."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:23 ../learn/dist/tutorial.ui:47
+msgid "3."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:23
+msgid "Add more instructions to draw extra pixels."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:24
@@ -354,6 +382,24 @@ msgid ""
 "they set. They are your bible."
 msgstr ""
 
+#: ../learn/dist/tutorial.ui:47
+msgid ""
+"You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</"
+"tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:47
+msgid ""
+"Rewrite the first example in this section to use the <tt>Y</tt> register "
+"instead of the <tt>X</tt> register."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:47
+msgid ""
+"The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a "
+"program that uses this instruction."
+msgstr ""
+
 #: ../learn/dist/tutorial.ui:48
 msgid "Branching"
 msgstr ""
@@ -399,6 +445,19 @@ msgid ""
 "instruction) so branch instructions can only go forward and back around 256 "
 "bytes. This means they can only be used to move around local code. For "
 "moving further you'll need to use the jumping instructions."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:63
+msgid ""
+"The opposite of <tt>BNE</tt> is <tt>BEQ</tt>. Try writing a program that "
+"uses <tt>BEQ</tt>."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:63
+msgid ""
+"<tt>BCC</tt> and <tt>BCS</tt> (\"branch on carry clear\" and \"branch on "
+"carry set\") are used to branch on the carry flag. Write a program that uses "
+"one of these two."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:64
@@ -618,6 +677,12 @@ msgstr ""
 
 #: ../learn/dist/tutorial.ui:135
 msgid "Exercise"
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:136
+msgid ""
+"Try to write code snippets that use each of the 6502 addressing modes. "
+"Remember, you can use the monitor to watch a section of memory."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:137

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Easy6502\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-29 07:53+0100\n"
+"POT-Creation-Date: 2025-03-29 09:23+0100\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: YOUR NAME <your.email@example.com>\n"
 "Language-Team: German <de@li.org>\n"
@@ -224,18 +224,20 @@ msgstr "Unser erstes Programm"
 
 #: ../learn/dist/tutorial.ui:9
 msgid ""
-"So, let's dive in! This application is a <a href=\"https://github.com/"
+"So, let's dive in! This application contains a <a href=\"https://github.com/"
 "skilldrick/6502js\">JavaScript 6502 Assembler and Simulator</a> that I have "
-"adapted for this interactive tutorial. Click the <b>Copy to Editor</b> "
-"button to copy the code to the code editor tab. Then click the button in the "
-"top right to assemble the code, then click it again to run the program. You "
-"can also access these actions through the dropdown menu."
+"adapted for this interactive tutorial. Click the <b>Copy</b> button in the "
+"code block below to copy the example code to the editor. Then click the "
+"button in the top right to assemble the code, then click it again to run the "
+"program. You can also access these actions through the dropdown menu."
 msgstr ""
-"Also, lass uns loslegen! Diese Anwendung ist ein <a href=\"https://github."
-"com/skilldrick/6502js\">JavaScript 6502 Assembler und Simulator</a>, den ich "
-"für dieses interaktive Tutorial angepasst habe. Klicke auf den <b>In Editor "
-"kopieren</b> Button, um den Code in den Code-Editor zu kopieren. Assembliere "
-"und führe das Programm dann über den Button oben rechts im Editor aus."
+"Also, lass uns loslegen! Diese Anwendung enthält einen <a href=\"https://"
+"github.com/skilldrick/6502js\">JavaScript 6502 Assembler und Simulator</a>, "
+"den ich für dieses interaktive Tutorial angepasst habe. Klicke auf den "
+"<b>Kopieren</b>-Button im Code-Block unten, um den Beispielcode in den "
+"Editor zu kopieren. Klicke dann auf den Button oben rechts, um den Code zu "
+"assemblieren, und klicke erneut, um das Programm auszuführen. Diese Aktionen "
+"kannst du auch über das Dropdown-Menü aufrufen."
 
 #: ../learn/dist/tutorial.ui:16
 msgid ""
@@ -255,8 +257,8 @@ msgid ""
 "to <tt>$0602</tt>."
 msgstr ""
 "Was macht dieses Programm eigentlich? Lass uns es Schritt für Schritt "
-"durchgehen. Klicke auf <b>Zurücksetzen</b> und wähle dann <b>Schritt</b> aus dem "
-"Dropdown-Menü. Der Button wechselt in den Schritt-Modus, wodurch du das "
+"durchgehen. Klicke auf <b>Zurücksetzen</b> und wähle dann <b>Schritt</b> aus "
+"dem Dropdown-Menü. Der Button wechselt in den Schritt-Modus, wodurch du das "
 "Programm Anweisung für Anweisung ausführen kannst. Nach einem Klick wirst du "
 "im Debugger sehen, dass sich <tt>A=</tt> von <tt>$00</tt> zu <tt>$01</tt> "
 "und <tt>PC=</tt> von <tt>$0600</tt> zu <tt>$0602</tt> geändert hat."
@@ -325,6 +327,36 @@ msgstr ""
 msgid "Exercises"
 msgstr "Übungen"
 
+#: ../learn/dist/tutorial.ui:23 ../learn/dist/tutorial.ui:47
+#: ../learn/dist/tutorial.ui:63 ../learn/dist/tutorial.ui:136
+msgid "1."
+msgstr "1."
+
+#: ../learn/dist/tutorial.ui:23
+msgid "Try changing the colour of the three pixels."
+msgstr "Versuche die Farbe der drei Pixel zu ändern."
+
+#: ../learn/dist/tutorial.ui:23 ../learn/dist/tutorial.ui:47
+#: ../learn/dist/tutorial.ui:63
+msgid "2."
+msgstr "2."
+
+#: ../learn/dist/tutorial.ui:23
+msgid ""
+"Change one of the pixels to draw at the bottom-right corner (memory location "
+"<tt>$05ff</tt>)."
+msgstr ""
+"Ändere eines der Pixel so, dass es in der unteren rechten Ecke gezeichnet wird "
+"(Speicheradresse <tt>$05ff</tt>)."
+
+#: ../learn/dist/tutorial.ui:23 ../learn/dist/tutorial.ui:47
+msgid "3."
+msgstr "3."
+
+#: ../learn/dist/tutorial.ui:23
+msgid "Add more instructions to draw extra pixels."
+msgstr "Füge weitere Anweisungen hinzu, um zusätzliche Pixel zu zeichnen."
+
 #: ../learn/dist/tutorial.ui:24
 msgid "Registers and flags"
 msgstr "Register und Flags"
@@ -368,11 +400,11 @@ msgid ""
 "starting at memory location <tt>$0600</tt>, so <tt>PC</tt> always starts "
 "there."
 msgstr ""
-"<tt>PC</tt> ist der Programmzähler (program counter) - damit weiß der Prozessor, an welcher "
-"Stelle im Programm er sich gerade befindet. Es ist wie die aktuelle "
-"Zeilennummer eines ausgeführten Skripts. Im JavaScript-Simulator wird der "
-"Code ab der Speicheradresse <tt>$0600</tt> assembliert, daher beginnt "
-"<tt>PC</tt> immer dort."
+"<tt>PC</tt> ist der Programmzähler (program counter) - damit weiß der "
+"Prozessor, an welcher Stelle im Programm er sich gerade befindet. Es ist wie "
+"die aktuelle Zeilennummer eines ausgeführten Skripts. Im JavaScript-"
+"Simulator wird der Code ab der Speicheradresse <tt>$0600</tt> assembliert, "
+"daher beginnt <tt>PC</tt> immer dort."
 
 #: ../learn/dist/tutorial.ui:29
 msgid ""
@@ -490,6 +522,31 @@ msgstr ""
 "beschreiben die Argumente für jede Anweisung, welche Register sie verwenden "
 "und welche Flags sie setzen. Sie sind deine Bibel."
 
+#: ../learn/dist/tutorial.ui:47
+msgid ""
+"You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</"
+"tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
+msgstr ""
+"Du hast <tt>TAX</tt> gesehen. Du kannst wahrscheinlich erraten, was <tt>TAY</tt>, "
+"<tt>TXA</tt> und <tt>TYA</tt> tun, aber schreibe etwas Code, um deine Vermutungen "
+"zu testen."
+
+#: ../learn/dist/tutorial.ui:47
+msgid ""
+"Rewrite the first example in this section to use the <tt>Y</tt> register "
+"instead of the <tt>X</tt> register."
+msgstr ""
+"Schreibe das erste Beispiel in diesem Abschnitt so um, dass es das <tt>Y</tt>-"
+"Register anstelle des <tt>X</tt>-Registers verwendet."
+
+#: ../learn/dist/tutorial.ui:47
+msgid ""
+"The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a "
+"program that uses this instruction."
+msgstr ""
+"Das Gegenteil von <tt>ADC</tt> ist <tt>SBC</tt> (subtract with carry). Schreibe "
+"ein Programm, das diese Anweisung verwendet."
+
 #: ../learn/dist/tutorial.ui:48
 msgid "Branching"
 msgstr "Verzweigungen"
@@ -565,6 +622,24 @@ msgstr ""
 "werden können. Für weitere Bewegungen musst du die Sprunganweisungen "
 "verwenden."
 
+#: ../learn/dist/tutorial.ui:63
+msgid ""
+"The opposite of <tt>BNE</tt> is <tt>BEQ</tt>. Try writing a program that "
+"uses <tt>BEQ</tt>."
+msgstr ""
+"Das Gegenteil von <tt>BNE</tt> ist <tt>BEQ</tt>. Versuche ein Programm zu "
+"schreiben, das <tt>BEQ</tt> verwendet."
+
+#: ../learn/dist/tutorial.ui:63
+msgid ""
+"<tt>BCC</tt> and <tt>BCS</tt> (\"branch on carry clear\" and \"branch on "
+"carry set\") are used to branch on the carry flag. Write a program that uses "
+"one of these two."
+msgstr ""
+"<tt>BCC</tt> und <tt>BCS</tt> (\"branch on carry clear\" und \"branch on "
+"carry set\") werden verwendet, um abhängig vom Carry-Flag zu verzweigen. "
+"Schreibe ein Programm, das eine dieser beiden Anweisungen verwendet."
+
 #: ../learn/dist/tutorial.ui:64
 msgid "Addressing modes"
 msgstr "Adressierungsmodi"
@@ -593,6 +668,12 @@ msgid ""
 "enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, "
 "respectively."
 msgstr ""
+"Bei all diesen Beispielen kann es hilfreich sein, den Speicher-Monitor zu "
+"verwenden, um die Änderungen im Speicher zu beobachten. Der Monitor benötigt "
+"eine Startadresse und die Anzahl der Bytes, die von dieser Position angezeigt "
+"werden sollen. Beide Werte sind Hexadezimalzahlen. Um zum Beispiel 16 Bytes "
+"Speicher ab <tt>$c000</tt> anzuzeigen, gib <tt>c000</tt> und <tt>10</tt> in "
+"die Felder <b>Start</b> bzw. <b>Length</b> ein."
 
 #: ../learn/dist/tutorial.ui:67
 msgid "Absolute: <tt>$c000</tt>"
@@ -867,6 +948,15 @@ msgstr ""
 #: ../learn/dist/tutorial.ui:135
 msgid "Exercise"
 msgstr "Übung"
+
+#: ../learn/dist/tutorial.ui:136
+msgid ""
+"Try to write code snippets that use each of the 6502 addressing modes. "
+"Remember, you can use the monitor to watch a section of memory."
+msgstr ""
+"Versuche Code-Beispiele zu schreiben, die jeden der 6502-Adressierungsmodi "
+"verwenden. Denk daran, dass du den Monitor verwenden kannst, um einen "
+"Speicherbereich zu beobachten."
 
 #: ../learn/dist/tutorial.ui:137
 msgid "The stack"
