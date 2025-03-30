@@ -141,8 +141,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private runGameConsole(): void {
     console.log("[ApplicationWindow] runGameConsole");
-    // Set the game console as the visible child in the stack
-    this._stack.set_visible_child(this._gameConsole);
+    const visibleChild = this._stack.get_visible_child();
+    // Set the game console as the visible child in the stack if it's not already visible or the debugger
+    if (visibleChild !== this._gameConsole && visibleChild !== this._debugger) {
+      this._stack.set_visible_child(this._gameConsole);
+    }
     this._gameConsole.run();
   }
 
@@ -158,8 +161,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private assembleGameConsole(): void {
     this._debugger.reset();
-    // Set the debugger as the visible child in the stack
-    this._stack.set_visible_child(this._debugger);
+    const visibleChild = this._stack.get_visible_child();
+    // Set the debugger as the visible child in the stack if it's not already visible or the game console
+    if (visibleChild !== this._debugger && visibleChild !== this._gameConsole) {
+      this._stack.set_visible_child(this._debugger);
+    }
     // Reset the code changed flag BEFORE assembling
     this._codeChanged = false;
     this._gameConsole.assemble(this._editor.code);
@@ -458,8 +464,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private stepGameConsole(): void {
     console.log("[ApplicationWindow] stepGameConsole");
-    // Set the debugger as the visible child in the stack
-    this._stack.set_visible_child(this._debugger);
+    const visibleChild = this._stack.get_visible_child();
+    // Set the debugger as the visible child in the stack if it's not already visible or the game console
+    if (visibleChild !== this._debugger && visibleChild !== this._gameConsole) {
+      this._stack.set_visible_child(this._debugger);
+    }
 
     // Enable stepper if not already enabled
     if (!this._gameConsole.simulator.stepperEnabled) {
