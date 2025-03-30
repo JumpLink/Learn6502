@@ -45,7 +45,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     }
   }
 
-  // TODO: Currently unused
+  // TODO: Remove this as this is part of the HexMonitor
   public readonly options: DebuggerOptions = {
     monitor: {
       start: 0x0000,
@@ -55,6 +55,9 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
 
   /** A list of handler IDs for the signals we connect to. */
   private handlerIds: number[] = [];
+
+  // Reference to the last memory update for refreshing when monitor options change
+  private memory: Memory | null = null;
 
   constructor(binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(binParams)
@@ -72,6 +75,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   #update(memory: Memory, simulator: Simulator): void {
+    this.memory = memory;
     this.updateMonitor(memory);
     this.updateDebugInfo(simulator);
   }
@@ -85,6 +89,8 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   public update = throttle(this.#update.bind(this), 349); // Prime number
 
   public updateMonitor(memory: Memory): void {
+    // Sync the HexMonitor options with the Debugger options
+    this._hexMonitor.setOptions(this.options.monitor);
     this._hexMonitor.update(memory);
   }
 
@@ -113,8 +119,21 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     }
   }
 
+  private onHexMonitorChanged(): void {
+    // Update our options from the HexMonitor
+    this.options.monitor = { ...this._hexMonitor.options };
+    
+    // Refresh the view if we have memory data
+    if (this.memory) {
+      this.updateMonitor(this.memory);
+    }
+  }
+
   private setupSignalHandlers(): void {
     this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
+    
+    // Connect to the HexMonitor's changed signal
+    this.handlerIds.push(this._hexMonitor.connect('changed', this.onHexMonitorChanged.bind(this)));
   }
 
   private removeSignalHandlers(): void {

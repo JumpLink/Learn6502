@@ -2,11 +2,45 @@ using Gtk 4.0;
 using Adw 1;
 
 template $HexMonitor: Adw.Bin {
-  $SourceView sourceView {
-    editable: false;
-    language: 'hex';
-    height-request: 200;
-    vexpand: true;
-    line-numbers: true;
+  Box {
+    orientation: vertical;
+    spacing: 8;
+
+    Box {
+      spacing: 8;
+      margin-start: 8;
+      margin-end: 8;
+      margin-top: 8;
+      
+      Label {
+        label: "Start Address (hex):";
+      }
+      
+      Entry startAddressEntry {
+        max-width-chars: 6;
+        placeholder-text: "0000";
+      }
+      
+      Label {
+        label: "Length (hex):";
+      }
+      
+      Entry lengthEntry {
+        max-width-chars: 6;
+        placeholder-text: "FFFF";
+      }
+      
+      Button applyButton {
+        label: "Apply";
+      }
+    }
+    
+    $SourceView sourceView {
+      editable: false;
+      language: 'hex';
+      height-request: 200;
+      vexpand: true;
+      line-numbers: true;
+    }
   }
 }
