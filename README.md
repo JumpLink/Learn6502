@@ -1,15 +1,30 @@
+
 # Easy6502
+
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-Easy6502 by Nick Morgan is one-stop accessible tutorial on 6502 assembly language programming, including a series of worked example programs which you can edit and run in the embedded emulator. This repository is a fork of the original repository as a monorepo to bring the project to a modern basis and divide it into smaller, more reusable packages.
+## Modern 6502 Assembly Learning Environment for GNOME
 
-The main goal of this project is to port Easy6502 to the GNOME desktop environment as a native Adwaita application while keeping the core components runtime-independent. This approach ensures that the core functionality can continue to run in browsers and other runtime environments.
+Easy6502 is a modern, native Adwaita application for the GNOME desktop environment that provides a complete learning environment for 6502 assembly language programming. Built with GJS and TypeScript, this application brings the classic Easy6502 tutorial by Nick Morgan to your desktop as a beautiful, integrated experience.
+
+![Screenshot of Easy6502 GNOME Application](./assets/1.png)
+*Screenshot of the Easy6502 GNOME application*
+
+## Features
+
+- **Interactive Tutorial**: A comprehensive step-by-step guide to learning 6502 assembly language, with explanations of all core concepts
+- **Code Editor**: Write and edit your 6502 assembly code with syntax highlighting
+- **Assembler & Debugger**: Assemble your code and debug it with a powerful built-in debugger showing registers, flags, and memory in real-time
+- **Visual Game Console**: See your code in action on a virtual display, perfect for creating simple games and graphics
+- **Built with Modern Technologies**: Developed in GJS and TypeScript with Adwaita styling for a native GNOME experience
+
+This project is a complete rewrite of the original web-based Easy6502 tutorial, transformed into a native GNOME application while preserving the core functionality that made the original so effective for learning 6502 assembly.
 
 ## Packages
 
-- `app-gnome`: The main application for the GNOME desktop (Not working yet).
-- `app-web`: The classic application for the browser as it originally looked.
-- `6502`: The 6502 simulator, assembler, and disassembler.
+- `app-gnome`: The main GNOME desktop application with Adwaita styling
+- `app-web`: The classic web application as it originally looked
+- `6502`: The core 6502 simulator, assembler, and disassembler library
 
 ## Development
 
@@ -25,4 +40,4 @@ To run the packages, run `yarn start:gnome` for the GNOME app or `yarn start:web
 
 ## Contributing
 
-Contributing are welcome :)
+Contributions are welcome :)
