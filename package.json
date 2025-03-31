@@ -9,6 +9,7 @@
         "build:gnome:flatpak": "./build-flatpak.sh",
         "build:gnome:meson": "meson compile -C _build",
         "check": "yarn workspaces foreach -v -W -t run check",
+        "check:flatpak:repo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo",
         "start": "yarn start:gnome",
         "start:gnome": "yarn workspace @easy6502/app-gnome run start",
         "start:gnome:flatpak": "flatpak run eu.jumplink.Easy6502",
