@@ -3,12 +3,13 @@
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
+<img style="vertical-align: middle;" src="./packages/app-gnome/src/data/eu.jumplink.Easy6502.Source.svg" width="120" height="120" align="left">
+
 ## Modern 6502 Assembly Learning Environment for GNOME
 
 Easy6502 is a modern, native Adwaita application for the GNOME desktop environment that provides a complete learning environment for 6502 assembly language programming. Built with GJS and TypeScript, this application brings the classic Easy6502 tutorial by Nick Morgan to your desktop as a beautiful, integrated experience.
 
-![Screenshot of Easy6502 GNOME Application](./assets/1.png)
-*Screenshot of the Easy6502 GNOME application*
+<img src="./assets/1.png" alt="Screenshot of Easy6502 GNOME Application" width="482"/>
 
 ## Features
 
