@@ -12,10 +12,12 @@
         "build:resources": "glib-compile-resources --sourcedir data data/eu.jumplink.Easy6502.data.gresource.xml",
         "build:with-deps": "yarn workspaces foreach -pRv --from @easy6502/app-gnome run build",
         "build": "yarn build:resources && yarn build:vite",
-        "check": "tsc",
+        "check": "yarn check:typescript && yarn check:metainfo",
+        "check:typescript": "tsc",
         "start:app": "gjs -m eu.jumplink.Easy6502",
         "debug:app": "GTK_DEBUG=interactive gjs -m eu.jumplink.Easy6502",
-        "start": "yarn start:app"
+        "start": "yarn start:app",
+        "check:metainfo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream data/eu.jumplink.Easy6502.metainfo.xml"
     },
     "author": "Pascal Garber <pascal@artandcode.studio>",
     "license": "GPL-3.0",

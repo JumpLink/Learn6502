@@ -23,6 +23,25 @@ rm -rf "$BUILD_DIR"
 echo "Building the Flatpak..."
 flatpak-builder --keep-build-dirs --force-clean "$BUILD_DIR" "$MANIFEST_FILE" --install-deps-from=flathub
 
+# Copy metainfo.xml to the correct location for Flathub
+echo "Copying metainfo.xml to build directory..."
+cp packages/app-gnome/data/eu.jumplink.Easy6502.metainfo.xml "$BUILD_DIR/"
+
 # Install the application locally
 echo "Installing the Flatpak application locally..."
 flatpak-builder --user --install --force-clean "$BUILD_DIR" "$MANIFEST_FILE"
+
+# Export the Flatpak for Flathub
+echo "Exporting Flatpak for Flathub..."
+flatpak-builder --repo=repo --force-clean "$BUILD_DIR" "$MANIFEST_FILE"
+
+# Create a tarball for Flathub
+echo "Creating tarball for Flathub..."
+tar -czf "$APP_ID.tar.gz" -C "$BUILD_DIR" .
+
+echo "Build complete! The Flatpak has been installed locally and exported for Flathub."
+echo "To publish to Flathub:"
+echo "1. Push your changes to GitHub"
+echo "2. Create a new release on GitHub"
+echo "3. Upload the $APP_ID.tar.gz file to the release"
+echo "4. Submit your application on Flathub"
