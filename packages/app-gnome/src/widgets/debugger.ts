@@ -8,7 +8,7 @@ import { DebugInfo } from './debug-info.ts'
 
 import Template from './debugger.blp'
 
-import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, type DebuggerOptions, throttle } from '@easy6502/6502'
+import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, throttle } from '@easy6502/6502'
 
 export class Debugger extends Adw.Bin implements DebuggerInterface {
 
@@ -45,16 +45,11 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     }
   }
 
-  // TODO: Currently unused
-  public readonly options: DebuggerOptions = {
-    monitor: {
-      start: 0x0000,
-      length: 0xFFFF
-    }
-  }
-
   /** A list of handler IDs for the signals we connect to. */
   private handlerIds: number[] = [];
+
+  // Reference to the last memory update for refreshing when monitor options change
+  private memory: Memory | null = null;
 
   constructor(binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(binParams)
@@ -72,6 +67,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   #update(memory: Memory, simulator: Simulator): void {
+    this.memory = memory;
     this.updateMonitor(memory);
     this.updateDebugInfo(simulator);
   }
@@ -113,8 +109,19 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     }
   }
 
+  private onHexMonitorChanged(): void {
+
+    // Refresh the view if we have memory data
+    if (this.memory) {
+      this.updateMonitor(this.memory);
+    }
+  }
+
   private setupSignalHandlers(): void {
     this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
+
+    // Connect to the HexMonitor's changed signal
+    this.handlerIds.push(this._hexMonitor.connect('changed', this.onHexMonitorChanged.bind(this)));
   }
 
   private removeSignalHandlers(): void {
