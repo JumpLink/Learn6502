@@ -4,7 +4,7 @@ dependency('gjs-1.0', version: '>= 1.80.2')
 gjs_console = find_program('gjs-console', required: true)
 
 # TODO: Autodetect yarn version
-yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.7.0.cjs'
+yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.8.1.cjs'
 node = find_program('node')
 yarn = [node, yarn_path]
 

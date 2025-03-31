@@ -10,7 +10,7 @@
         "clear": "rm -rf dist eu.jumplink.Easy6502 data/eu.jumplink.Easy6502.data.gresource",
         "build:vite": "vite build",
         "build:resources": "glib-compile-resources --sourcedir data data/eu.jumplink.Easy6502.data.gresource.xml",
-        "build:with-deps": "yarn workspaces foreach -pRv --from @easy6502/app-gnome run build",
+        "build:with-deps": "yarn workspaces foreach -pRv --from @easy6502/app-gnome --topological-dev run build",
         "build": "yarn build:resources && yarn build:vite",
         "check": "yarn check:typescript && yarn check:metainfo",
         "check:typescript": "tsc",
