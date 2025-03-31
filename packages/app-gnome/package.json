@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "clear": "rm -rf dist",
+        "clear": "rm -rf dist eu.jumplink.Easy6502 data/eu.jumplink.Easy6502.data.gresource",
         "build:vite": "vite build",
         "build:resources": "glib-compile-resources --sourcedir data data/eu.jumplink.Easy6502.data.gresource.xml",
         "build:with-deps": "yarn workspaces foreach -pRv --from @easy6502/app-gnome run build",

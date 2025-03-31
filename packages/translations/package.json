@@ -11,7 +11,8 @@
     "po"
   ],
   "scripts": {
-    "build": "node build.js"
+    "build": "node build.js",
+    "clear": "rm -rf dist"
   },
   "devDependencies": {
     "@easy6502/vite-plugin-gettext": "workspace:^"
