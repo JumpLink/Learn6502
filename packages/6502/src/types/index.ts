@@ -1,6 +1,5 @@
 export * from './assembler-event.js';
 export * from './debug-info.js';
-export * from './debugger-options.js';
 export * from './debugger-state.js';
 export * from './debugger.js';
 export * from './display.js';

@@ -1,9 +1,9 @@
-import { Simulator, Memory, addr2hex, num2hex, type DebuggerOptions, DebuggerState, type Debugger as DebuggerInterface, throttle } from '@easy6502/6502';
+import { Simulator, Memory, addr2hex, num2hex, DebuggerState, type Debugger as DebuggerInterface, type HexMonitorOptions, throttle } from '@easy6502/6502';
 
 export class Debugger implements DebuggerInterface {
 
   public state = DebuggerState.INITIAL;
-  constructor(private readonly node: HTMLElement, private readonly simulator: Simulator, public readonly memory: Memory, public readonly options: DebuggerOptions) {
+  constructor(private readonly node: HTMLElement, private readonly simulator: Simulator, public readonly memory: Memory, public readonly options: HexMonitorOptions) {
     this.setupEventListeners();
     this.onMonitorRangeChange = this.onMonitorRangeChange.bind(this);
   }
@@ -21,8 +21,8 @@ export class Debugger implements DebuggerInterface {
    * Set the monitor address range.
    */
   public setMonitorRange(startAddress: number, length: number) {
-    this.options.monitor.start = startAddress;
-    this.options.monitor.length = length;
+    this.options.start = startAddress;
+    this.options.length = length;
   }
 
   /**
@@ -81,8 +81,8 @@ export class Debugger implements DebuggerInterface {
       return;
     }
 
-    const start = this.options.monitor.start;
-    const length = this.options.monitor.length;
+    const start = this.options.start;
+    const length = this.options.length;
     let content = '';
 
     const end = start + length - 1;

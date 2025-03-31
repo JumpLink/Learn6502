@@ -8,7 +8,7 @@ import { DebugInfo } from './debug-info.ts'
 
 import Template from './debugger.blp'
 
-import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, type DebuggerOptions, throttle } from '@easy6502/6502'
+import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, throttle } from '@easy6502/6502'
 
 export class Debugger extends Adw.Bin implements DebuggerInterface {
 
@@ -42,14 +42,6 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     if (this._state !== value) {
       this._state = value;
       this.notify('state');
-    }
-  }
-
-  // TODO: Remove this as this is part of the HexMonitor
-  public readonly options: DebuggerOptions = {
-    monitor: {
-      start: 0x0000,
-      length: 0xFFFF
     }
   }
 
@@ -89,8 +81,6 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   public update = throttle(this.#update.bind(this), 349); // Prime number
 
   public updateMonitor(memory: Memory): void {
-    // Sync the HexMonitor options with the Debugger options
-    this._hexMonitor.setOptions(this.options.monitor);
     this._hexMonitor.update(memory);
   }
 
@@ -120,9 +110,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   private onHexMonitorChanged(): void {
-    // Update our options from the HexMonitor
-    this.options.monitor = { ...this._hexMonitor.options };
-    
+
     // Refresh the view if we have memory data
     if (this.memory) {
       this.updateMonitor(this.memory);
@@ -131,7 +119,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
 
   private setupSignalHandlers(): void {
     this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
-    
+
     // Connect to the HexMonitor's changed signal
     this.handlerIds.push(this._hexMonitor.connect('changed', this.onHexMonitorChanged.bind(this)));
   }

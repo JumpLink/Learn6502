@@ -11,30 +11,26 @@ template $HexMonitor: Adw.Bin {
       margin-start: 8;
       margin-end: 8;
       margin-top: 8;
-      
+
       Label {
-        label: "Start Address (hex):";
+        label: "Start:";
       }
-      
+
       Entry startAddressEntry {
         max-width-chars: 6;
         placeholder-text: "0000";
       }
-      
+
       Label {
-        label: "Length (hex):";
+        label: "Length:";
       }
-      
+
       Entry lengthEntry {
         max-width-chars: 6;
         placeholder-text: "FFFF";
       }
-      
-      Button applyButton {
-        label: "Apply";
-      }
     }
-    
+
     $SourceView sourceView {
       editable: false;
       language: 'hex';

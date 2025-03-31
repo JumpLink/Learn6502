@@ -4,6 +4,7 @@ import Gtk from '@girs/gtk-4.0'
 import { SourceView } from './source-view.ts'
 
 import type { Memory, HexMonitorOptions, HexMonitor as HexMonitorInterface } from '@easy6502/6502'
+import { throttle } from '@easy6502/6502'
 
 import Template from './hex-monitor.blp'
 
@@ -17,7 +18,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
   declare private _sourceView: SourceView
   declare private _startAddressEntry: Gtk.Entry
   declare private _lengthEntry: Gtk.Entry
-  declare private _applyButton: Gtk.Button
 
   // Signal handler IDs
   private _handlerIds: number[] = []
@@ -26,7 +26,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     GObject.registerClass({
       GTypeName: 'HexMonitor',
       Template,
-      InternalChildren: ['sourceView', 'startAddressEntry', 'lengthEntry', 'applyButton'],
+      InternalChildren: ['sourceView', 'startAddressEntry', 'lengthEntry'],
       Signals: {
         'changed': {},
       }
@@ -51,12 +51,14 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     // Set initial values in the entry fields
     this._startAddressEntry.set_text(this.options.start.toString(16).padStart(4, '0').toUpperCase())
     this._lengthEntry.set_text(this.options.length.toString(16).padStart(4, '0').toUpperCase())
+    this.validateAndApply();
   }
 
   private connectSignals(): void {
-    // Connect to the apply button click signal
+    // Connect to entry changed signals
     this._handlerIds.push(
-      this._applyButton.connect('clicked', this.onApplyClicked.bind(this))
+      this._startAddressEntry.connect('changed', this.onEntryChanged.bind(this)),
+      this._lengthEntry.connect('changed', this.onEntryChanged.bind(this))
     )
   }
 
@@ -74,16 +76,79 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
   private parseHexInput(hexString: string): number {
     // Remove whitespace
     let cleaned = hexString.trim();
-    
+
     // Remove hex prefixes if present
     if (cleaned.startsWith('0x') || cleaned.startsWith('0X')) {
       cleaned = cleaned.substring(2);
     } else if (cleaned.startsWith('$')) {
       cleaned = cleaned.substring(1);
     }
-    
+
     // Parse as hex
     return parseInt(cleaned, 16);
+  }
+
+  private onEntryChanged(): void {
+    // Use the throttled version of validateAndApplyValues
+    this.validateAndApply();
+  }
+
+
+  // Throttled validation method
+  private validateAndApply = throttle(this._validateAndApplyValues.bind(this), 300);
+
+  private _validateAndApplyValues(): void {
+    const startText = this._startAddressEntry.get_text();
+    const lengthText = this._lengthEntry.get_text();
+
+    // If fields are empty, wait for more input
+    if (startText === '' || lengthText === '') {
+      return;
+    }
+
+    let start = this.parseHexInput(startText);
+    let length = this.parseHexInput(lengthText);
+    let changed = false;
+
+    // Validate start address
+    if (isNaN(start)) {
+      start = 0;
+      changed = true;
+    } else if (start < 0) {
+      start = 0;
+      changed = true;
+    } else if (start > 0xffff) {
+      start = 0xffff;
+      changed = true;
+    }
+
+    // Validate length
+    if (isNaN(length)) {
+      length = 1;
+      changed = true;
+    } else if (length <= 0) {
+      length = 1;
+      changed = true;
+    }
+
+    // Adjust length if end address exceeds maximum
+    const endAddress = start + length - 1;
+    if (endAddress > 0xffff) {
+      length = 0xffff - start + 1;
+      changed = true;
+    }
+
+    // Update entry fields if values were adjusted
+    if (changed) {
+      this._startAddressEntry.set_text(start.toString(16).padStart(4, '0').toUpperCase());
+      this._lengthEntry.set_text(length.toString(16).padStart(4, '0').toUpperCase());
+    }
+
+    // Apply the values
+    if (this.options.start !== start || this.options.length !== length) {
+      this.setMonitorRange(start, length);
+      this.emit('changed');
+    }
   }
 
   private showErrorDialog(message: string): void {
@@ -94,49 +159,9 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
       transient_for: this.get_root() as Gtk.Window,
       modal: true,
     });
-    
+
     dialog.add_response('close', '_Close');
     dialog.present();
-  }
-
-  private onApplyClicked(): void {
-    const startText = this._startAddressEntry.get_text()
-    const lengthText = this._lengthEntry.get_text()
-
-    try {
-      const start = this.parseHexInput(startText)
-      const length = this.parseHexInput(lengthText)
-
-      // Validate the input
-      if (isNaN(start) || isNaN(length)) {
-        throw new Error('Invalid hex input. Please enter valid hexadecimal values.')
-      }
-
-      if (start < 0 || start > 0xffff) {
-        throw new Error('Start address must be between $0000 and $FFFF')
-      }
-
-      if (length <= 0) {
-        throw new Error('Length must be greater than 0')
-      }
-
-      if (start + length - 1 > 0xffff) {
-        throw new Error('End address exceeds $FFFF')
-      }
-      
-      // Update options and notify
-      this.setOptions({ start, length })
-      this.emit('changed')
-    } catch (error) {
-      console.error('Invalid input:', error)
-      
-      // Show error message to user
-      this.showErrorDialog((error as Error).message);
-      
-      // Reset the entry fields to the current values
-      this._startAddressEntry.set_text(this.options.start.toString(16).padStart(4, '0').toUpperCase())
-      this._lengthEntry.set_text(this.options.length.toString(16).padStart(4, '0').toUpperCase())
-    }
   }
 
   public update(memory: Memory) {
@@ -153,8 +178,10 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     this._sourceView.code = content;
   }
 
-  public setOptions(options: Partial<HexMonitorOptions>): void {
-    this.options = { ...this.options, ...options };
+  public setMonitorRange(start: number, length: number): void {
+    this.options.start = start;
+    this.options.length = length;
+    this._sourceView.lineNumberStart = start;
   }
 }
 
