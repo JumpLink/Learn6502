@@ -19,7 +19,7 @@
         "start": "yarn start:app",
         "check:metainfo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream data/eu.jumplink.Easy6502.metainfo.xml"
     },
-    "author": "Pascal Garber <pascal@artandcode.studio>",
+    "author": "Pascal Garber <pascal@mailfreun.de>",
     "license": "GPL-3.0",
     "devDependencies": {
         "@easy6502/vite-plugin-blueprint": "workspace:^",

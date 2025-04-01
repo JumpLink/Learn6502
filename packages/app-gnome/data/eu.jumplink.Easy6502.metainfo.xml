@@ -2,7 +2,7 @@
 <component type="desktop-application">
   <id>eu.jumplink.Easy6502</id>
   <metadata_license>CC0-1.0</metadata_license>
-  <project_license>CC-BY-4.0</project_license>
+  <project_license>GPL-3.0-or-later</project_license>
   <name>Easy6502</name>
   <summary>Modern 6502 Assembly Learning Environment</summary>
   <description>
@@ -20,36 +20,36 @@
   <launchable type="desktop-id">eu.jumplink.Easy6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/heads/main/misc/screenshots/1.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/1.png</image>
       <caption>Easy6502 in light Adwaita theme showing the interactive tutorial interface</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/heads/main/misc/screenshots/2.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/2.png</image>
       <caption>Easy6502 in dark Adwaita theme showing the interactive tutorial interface</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/heads/main/misc/screenshots/3.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/3.png</image>
       <caption>The code editor with syntax highlighting for 6502 assembly</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/heads/main/misc/screenshots/4.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/4.png</image>
       <caption>The built-in debugger showing registers, flags, and memory in real-time</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/heads/main/misc/screenshots/5.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/5.png</image>
       <caption>The virtual game console displaying three colored pixels</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://github.com/JumpLink/Easy6502</url>
   <url type="bugtracker">https://github.com/JumpLink/Easy6502/issues</url>
-  <url type="help">https://github.com/JumpLink/Easy6502/wiki</url>
+  <url type="repository">https://github.com/JumpLink/Easy6502.git</url>
   <developer id="eu.jumplink">
     <name translate="no">Pascal Garber</name>
     <email>pascal@mailfreund.de</email>
   </developer>
   <content_rating type="oars-1.1" />
   <releases>
-    <release version="0.1.0" date="2025-03-31">
+    <release version="0.1.0" date="2025-04-01">
       <description>
         <p>Initial release of Easy6502 for GNOME</p>
       </description>

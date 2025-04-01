@@ -15,11 +15,11 @@
         "start:gnome:flatpak": "flatpak run eu.jumplink.Easy6502",
         "start:web": "yarn workspace @easy6502/app-web run start",
         "clear": "yarn workspaces foreach -v --parallel -W run clear && yarn _clear",
-        "_clear": "rm -rf builddir build-dir .flatpak-builder flatpak-build",
+        "_clear": "rm -rf builddir build-dir .flatpak-builder flatpak-build repo eu.jumplink.Easy6502.tar.gz",
         "format": "yarn prettier --write .",
         "prettier": "node .yarn/sdks/prettier/index.cjs"
     },
-    "author": "Pascal Garber <pascal@artandcode.studio>",
+    "author": "Pascal Garber <pascal@mailfreun.de>",
     "license": "GPL-3.0",
     "workspaces": [
         "packages/*"

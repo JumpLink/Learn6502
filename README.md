@@ -1,6 +1,6 @@
-
 # Easy6502
 
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
 ## Modern 6502 Assembly Learning Environment for GNOME
@@ -42,3 +42,9 @@ To run the packages, run `yarn start:gnome` for the GNOME app or `yarn start:web
 ## Contributing
 
 Contributions are welcome :)
+
+## License
+
+- The application code is licensed under the [GNU General Public License v3](LICENSE)
+- The tutorial content is licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+- The metadata is licensed under the [Creative Commons Zero 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/)
