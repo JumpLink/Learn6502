@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <component type="desktop-application">
-  <id>eu.jumplink.Easy6502</id>
+  <id>eu.jumplink.Learn6502</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  <name>Easy6502</name>
+  <name>Learn6502</name>
   <summary>Modern 6502 Assembly Learning Environment</summary>
   <description>
     <p>
-      Easy6502 is a modern, native Adwaita application that provides a complete learning environment for 6502 assembly language programming. Built with GJS and TypeScript, this application brings the classic Easy6502 tutorial by Nick Morgan to your desktop as a beautiful, integrated experience.
+      Learn6502 is a modern, native Adwaita application that provides a complete learning environment for 6502 assembly language programming. Built with GJS and TypeScript, this application brings the classic Learn6502 tutorial by Nick Morgan to your desktop as a beautiful, integrated experience.
     </p>
     <p>Features:</p>
     <ul>
@@ -17,31 +17,31 @@
       <li>Visual Game Console: See your code in action on a virtual display, perfect for creating simple games and graphics</li>
     </ul>
   </description>
-  <launchable type="desktop-id">eu.jumplink.Easy6502.desktop</launchable>
+  <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/1.png</image>
-      <caption>Easy6502 in light Adwaita theme showing the interactive tutorial interface</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/1.png</image>
+      <caption>Learn6502 in light Adwaita theme showing the interactive tutorial interface</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/2.png</image>
-      <caption>Easy6502 in dark Adwaita theme showing the interactive tutorial interface</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/2.png</image>
+      <caption>Learn6502 in dark Adwaita theme showing the interactive tutorial interface</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/3.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/3.png</image>
       <caption>The code editor with syntax highlighting for 6502 assembly</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/4.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/4.png</image>
       <caption>The built-in debugger showing registers, flags, and memory in real-time</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Easy6502/refs/tags/v0.1.0/misc/screenshots/5.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/5.png</image>
       <caption>The virtual game console displaying three colored pixels</caption>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://github.com/JumpLink/Easy6502</url>
-  <url type="bugtracker">https://github.com/JumpLink/Easy6502/issues</url>
+  <url type="homepage">https://github.com/JumpLink/Learn6502</url>
+  <url type="bugtracker">https://github.com/JumpLink/Learn6502/issues</url>
   <developer id="eu.jumplink">
     <name translate="no">Pascal Garber</name>
     <email>pascal@mailfreund.de</email>
@@ -50,7 +50,7 @@
   <releases>
     <release version="0.1.0" date="2025-04-01">
       <description>
-        <p>Initial release of Easy6502 for GNOME</p>
+        <p>Initial release of Learn6502 for GNOME</p>
       </description>
     </release>
   </releases>

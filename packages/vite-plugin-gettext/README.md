@@ -13,13 +13,13 @@ A Vite plugin for managing GNU Gettext translations in your JavaScript/TypeScrip
 ## Installation
 
 ```bash
-npm install @easy6502/vite-plugin-gettext --save-dev
+npm install @learn6502/vite-plugin-gettext --save-dev
 ```
 
 or if you use Yarn:
 
 ```bash
-yarn add @easy6502/vite-plugin-gettext -D
+yarn add @learn6502/vite-plugin-gettext -D
 ```
 
 ## Usage
@@ -29,7 +29,7 @@ Add both plugins to your Vite configuration:
 ```javascript
 // vite.config.js / vite.config.ts
 import { defineConfig } from 'vite';
-import { xgettextPlugin, gettextPlugin } from '@easy6502/vite-plugin-gettext';
+import { xgettextPlugin, gettextPlugin } from '@learn6502/vite-plugin-gettext';
 export default defineConfig({
     plugins: [
         // Extract strings to POT file

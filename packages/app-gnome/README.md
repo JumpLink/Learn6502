@@ -1,6 +1,6 @@
-# Easy6502 for GNOME
+# Learn6502 for GNOME
 
-This package contains the source code for the Easy6502 GNOME app.
+This package contains the source code for the Learn6502 GNOME app.
 
 ## Building
 

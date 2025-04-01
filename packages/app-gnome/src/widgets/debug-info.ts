@@ -2,7 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 
-import { type Simulator, type DebugInfo as DebugInfoInterface, num2hex, addr2hex } from '@easy6502/6502'
+import { type Simulator, type DebugInfo as DebugInfoInterface, num2hex, addr2hex } from '@learn6502/6502'
 
 import Template from './debug-info.blp'
 

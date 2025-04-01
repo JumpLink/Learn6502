@@ -4,8 +4,8 @@
 set -e
 
 # Application ID and manifest file
-APP_ID="eu.jumplink.Easy6502"
-MANIFEST_FILE="eu.jumplink.Easy6502.json"
+APP_ID="eu.jumplink.Learn6502"
+MANIFEST_FILE="eu.jumplink.Learn6502.json"
 BUILD_DIR="flatpak-build"
 
 # Ensure Flatpak and Flatpak Builder are installed
@@ -25,7 +25,7 @@ flatpak-builder --keep-build-dirs --force-clean "$BUILD_DIR" "$MANIFEST_FILE" --
 
 # Copy metainfo.xml to the correct location for Flathub
 echo "Copying metainfo.xml to build directory..."
-cp packages/app-gnome/data/eu.jumplink.Easy6502.metainfo.xml "$BUILD_DIR/"
+cp packages/app-gnome/data/eu.jumplink.Learn6502.metainfo.xml "$BUILD_DIR/"
 
 # Install the application locally
 echo "Installing the Flatpak application locally..."

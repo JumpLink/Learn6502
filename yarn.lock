@@ -5,101 +5,6 @@ __metadata:
   version: 8
   cacheKey: 10c0
 
-"@easy6502/6502@workspace:^, @easy6502/6502@workspace:packages/6502":
-  version: 0.0.0-use.local
-  resolution: "@easy6502/6502@workspace:packages/6502"
-  dependencies:
-    typescript: "npm:^5.8.2"
-  languageName: unknown
-  linkType: soft
-
-"@easy6502/app-gnome@workspace:packages/app-gnome":
-  version: 0.0.0-use.local
-  resolution: "@easy6502/app-gnome@workspace:packages/app-gnome"
-  dependencies:
-    "@easy6502/6502": "workspace:^"
-    "@easy6502/learn": "workspace:^"
-    "@easy6502/translations": "workspace:^"
-    "@easy6502/vite-plugin-blueprint": "workspace:^"
-    "@easy6502/vite-plugin-gettext": "workspace:^"
-    "@girs/adw-1": "npm:^1.8.0-4.0.0-beta.23"
-    "@girs/gdk-4.0": "npm:^4.0.0-4.0.0-beta.23"
-    "@girs/gdkpixbuf-2.0": "npm:^2.0.0-4.0.0-beta.23"
-    "@girs/gio-2.0": "npm:^2.84.0-4.0.0-beta.23"
-    "@girs/gjs": "npm:^4.0.0-beta.23"
-    "@girs/glib-2.0": "npm:^2.84.0-4.0.0-beta.23"
-    "@girs/gobject-2.0": "npm:^2.84.0-4.0.0-beta.23"
-    "@girs/gtk-4.0": "npm:^4.18.3-4.0.0-beta.23"
-    "@girs/gtksource-5": "npm:^5.16.1-4.0.0-beta.23"
-    "@girs/javascriptcore-6.0": "npm:^2.48.0-4.0.0-beta.23"
-    "@girs/pango-1.0": "npm:^1.56.4-4.0.0-beta.23"
-    "@girs/webkit-6.0": "npm:^2.48.0-4.0.0-beta.23"
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.2"
-    vite-plugin-static-copy: "npm:^2.3.0"
-  languageName: unknown
-  linkType: soft
-
-"@easy6502/app-web@workspace:packages/app-web":
-  version: 0.0.0-use.local
-  resolution: "@easy6502/app-web@workspace:packages/app-web"
-  dependencies:
-    "@easy6502/6502": "workspace:^"
-    lightningcss: "npm:^1.29.3"
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.2"
-  languageName: unknown
-  linkType: soft
-
-"@easy6502/learn@workspace:^, @easy6502/learn@workspace:packages/learn":
-  version: 0.0.0-use.local
-  resolution: "@easy6502/learn@workspace:packages/learn"
-  dependencies:
-    "@mdx-js/esbuild": "npm:^3.1.0"
-    "@types/mdx": "npm:^2.0.13"
-    "@types/node": "npm:^22.13.11"
-    esbuild: "npm:^0.25.1"
-    nano-jsx: "npm:^0.1.0"
-    typescript: "npm:^5.8.2"
-  languageName: unknown
-  linkType: soft
-
-"@easy6502/translations@workspace:^, @easy6502/translations@workspace:packages/translations":
-  version: 0.0.0-use.local
-  resolution: "@easy6502/translations@workspace:packages/translations"
-  dependencies:
-    "@easy6502/vite-plugin-gettext": "workspace:^"
-  languageName: unknown
-  linkType: soft
-
-"@easy6502/vite-plugin-blueprint@workspace:^, @easy6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint":
-  version: 0.0.0-use.local
-  resolution: "@easy6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint"
-  dependencies:
-    "@types/node": "npm:^22.13.11"
-    execa: "npm:^9.5.2"
-    minify-xml: "npm:^4.5.2"
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.2"
-  peerDependencies:
-    vite: "*"
-  languageName: unknown
-  linkType: soft
-
-"@easy6502/vite-plugin-gettext@workspace:^, @easy6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext":
-  version: 0.0.0-use.local
-  resolution: "@easy6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext"
-  dependencies:
-    "@types/node": "npm:^22.13.11"
-    execa: "npm:^9.5.2"
-    fast-glob: "npm:^3.3.3"
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.2"
-  peerDependencies:
-    vite: "*"
-  languageName: unknown
-  linkType: soft
-
 "@esbuild/aix-ppc64@npm:0.25.0":
   version: 0.25.0
   resolution: "@esbuild/aix-ppc64@npm:0.25.0"
@@ -765,6 +670,101 @@ __metadata:
   checksum: 10c0/b1bf42535d49f11dc137f18d5e4e63a28c5569de438a221c369483731e9dac9fb797af554e8bf02b6192d1e5eba6e6402cf93900c3d0ac86391d00d04876789e
   languageName: node
   linkType: hard
+
+"@learn6502/6502@workspace:^, @learn6502/6502@workspace:packages/6502":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/6502@workspace:packages/6502"
+  dependencies:
+    typescript: "npm:^5.8.2"
+  languageName: unknown
+  linkType: soft
+
+"@learn6502/app-gnome@workspace:packages/app-gnome":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/app-gnome@workspace:packages/app-gnome"
+  dependencies:
+    "@girs/adw-1": "npm:^1.8.0-4.0.0-beta.23"
+    "@girs/gdk-4.0": "npm:^4.0.0-4.0.0-beta.23"
+    "@girs/gdkpixbuf-2.0": "npm:^2.0.0-4.0.0-beta.23"
+    "@girs/gio-2.0": "npm:^2.84.0-4.0.0-beta.23"
+    "@girs/gjs": "npm:^4.0.0-beta.23"
+    "@girs/glib-2.0": "npm:^2.84.0-4.0.0-beta.23"
+    "@girs/gobject-2.0": "npm:^2.84.0-4.0.0-beta.23"
+    "@girs/gtk-4.0": "npm:^4.18.3-4.0.0-beta.23"
+    "@girs/gtksource-5": "npm:^5.16.1-4.0.0-beta.23"
+    "@girs/javascriptcore-6.0": "npm:^2.48.0-4.0.0-beta.23"
+    "@girs/pango-1.0": "npm:^1.56.4-4.0.0-beta.23"
+    "@girs/webkit-6.0": "npm:^2.48.0-4.0.0-beta.23"
+    "@learn6502/6502": "workspace:^"
+    "@learn6502/learn": "workspace:^"
+    "@learn6502/translations": "workspace:^"
+    "@learn6502/vite-plugin-blueprint": "workspace:^"
+    "@learn6502/vite-plugin-gettext": "workspace:^"
+    typescript: "npm:^5.8.2"
+    vite: "npm:^6.2.2"
+    vite-plugin-static-copy: "npm:^2.3.0"
+  languageName: unknown
+  linkType: soft
+
+"@learn6502/app-web@workspace:packages/app-web":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/app-web@workspace:packages/app-web"
+  dependencies:
+    "@learn6502/6502": "workspace:^"
+    lightningcss: "npm:^1.29.3"
+    typescript: "npm:^5.8.2"
+    vite: "npm:^6.2.2"
+  languageName: unknown
+  linkType: soft
+
+"@learn6502/learn@workspace:^, @learn6502/learn@workspace:packages/learn":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/learn@workspace:packages/learn"
+  dependencies:
+    "@mdx-js/esbuild": "npm:^3.1.0"
+    "@types/mdx": "npm:^2.0.13"
+    "@types/node": "npm:^22.13.11"
+    esbuild: "npm:^0.25.1"
+    nano-jsx: "npm:^0.1.0"
+    typescript: "npm:^5.8.2"
+  languageName: unknown
+  linkType: soft
+
+"@learn6502/translations@workspace:^, @learn6502/translations@workspace:packages/translations":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/translations@workspace:packages/translations"
+  dependencies:
+    "@learn6502/vite-plugin-gettext": "workspace:^"
+  languageName: unknown
+  linkType: soft
+
+"@learn6502/vite-plugin-blueprint@workspace:^, @learn6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint"
+  dependencies:
+    "@types/node": "npm:^22.13.11"
+    execa: "npm:^9.5.2"
+    minify-xml: "npm:^4.5.2"
+    typescript: "npm:^5.8.2"
+    vite: "npm:^6.2.2"
+  peerDependencies:
+    vite: "*"
+  languageName: unknown
+  linkType: soft
+
+"@learn6502/vite-plugin-gettext@workspace:^, @learn6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext"
+  dependencies:
+    "@types/node": "npm:^22.13.11"
+    execa: "npm:^9.5.2"
+    fast-glob: "npm:^3.3.3"
+    typescript: "npm:^5.8.2"
+    vite: "npm:^6.2.2"
+  peerDependencies:
+    vite: "*"
+  languageName: unknown
+  linkType: soft
 
 "@mdx-js/esbuild@npm:^3.1.0":
   version: 3.1.0
@@ -1442,15 +1442,6 @@ __metadata:
   checksum: 10c0/26f364ebcdb6395f95124fda411f63137a4bfb5d3a06453f7f23dfe52502905bd84e0488172e0f9ec295fdc45f05c23d5d91baf16bd26f0fe9acd777a188dc39
   languageName: node
   linkType: hard
-
-"easy6502@workspace:.":
-  version: 0.0.0-use.local
-  resolution: "easy6502@workspace:."
-  dependencies:
-    prettier: "npm:^3.5.3"
-    typescript: "npm:^5.8.2"
-  languageName: unknown
-  linkType: soft
 
 "emoji-regex@npm:^8.0.0":
   version: 8.0.0
@@ -2251,6 +2242,15 @@ __metadata:
   checksum: 10c0/4f95b5e8a5622b1e9e8f33c96b7ef3158122f595998114d1e7f03985649ea99cb3cd99ce1ed1831ae94c8c8543ab45ebd044207612f31a56fd08462140e46865
   languageName: node
   linkType: hard
+
+"learn6502@workspace:.":
+  version: 0.0.0-use.local
+  resolution: "learn6502@workspace:."
+  dependencies:
+    prettier: "npm:^3.5.3"
+    typescript: "npm:^5.8.2"
+  languageName: unknown
+  linkType: soft
 
 "lightningcss-darwin-arm64@npm:1.29.3":
   version: 1.29.3

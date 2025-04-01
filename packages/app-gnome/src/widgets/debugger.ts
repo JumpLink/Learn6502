@@ -8,7 +8,7 @@ import { DebugInfo } from './debug-info.ts'
 
 import Template from './debugger.blp'
 
-import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, throttle } from '@easy6502/6502'
+import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, throttle } from '@learn6502/6502'
 
 export class Debugger extends Adw.Bin implements DebuggerInterface {
 

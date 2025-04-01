@@ -1,8 +1,8 @@
 {
-  "name": "@easy6502/translations",
+  "name": "@learn6502/translations",
   "version": "0.1.0",
   "private": true,
-  "description": "Translations for Easy6502",
+  "description": "Translations for Learn6502",
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "CC-BY-4.0",
   "type": "module",
@@ -15,6 +15,6 @@
     "clear": "rm -rf dist"
   },
   "devDependencies": {
-    "@easy6502/vite-plugin-gettext": "workspace:^"
+    "@learn6502/vite-plugin-gettext": "workspace:^"
   }
 }

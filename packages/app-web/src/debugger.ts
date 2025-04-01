@@ -1,4 +1,4 @@
-import { Simulator, Memory, addr2hex, num2hex, DebuggerState, type Debugger as DebuggerInterface, type HexMonitorOptions, throttle } from '@easy6502/6502';
+import { Simulator, Memory, addr2hex, num2hex, DebuggerState, type Debugger as DebuggerInterface, type HexMonitorOptions, throttle } from '@learn6502/6502';
 
 export class Debugger implements DebuggerInterface {
 

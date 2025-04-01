@@ -10,7 +10,7 @@ import { GameConsole } from './game-console.ts'
 import { Debugger } from './debugger.ts'
 
 import Template from './application-window.blp'
-import { SimulatorState } from '@easy6502/6502'
+import { SimulatorState } from '@learn6502/6502'
 import { RunButtonMode, RunButtonState } from '../types/index.ts'
 
 export class ApplicationWindow extends Adw.ApplicationWindow {

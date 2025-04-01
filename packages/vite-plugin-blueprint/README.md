@@ -11,13 +11,13 @@ A Vite plugin for compiling Blueprint UI files (`.blp`) to XML and importing the
 ## Installation
 
 ```bash
-npm install @easy6502/vite-plugin-blueprint --save-dev
+npm install @learn6502/vite-plugin-blueprint --save-dev
 ```
 
 or if you use Yarn:
 
 ```bash
-yarn add @easy6502/vite-plugin-blueprint -D
+yarn add @learn6502/vite-plugin-blueprint -D
 ```
 
 ## Usage
@@ -27,7 +27,7 @@ Add the plugin to your Vite configuration:
 ```javascript
 // vite.config.js / vite.config.ts
 import { defineConfig } from 'vite';
-import blueprintPlugin from '@easy6502/vite-plugin-blueprint';
+import blueprintPlugin from '@learn6502/vite-plugin-blueprint';
 
 export default defineConfig({
   plugins: [

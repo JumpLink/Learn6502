@@ -2,7 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import { findIdsInXml } from '../utils.ts'
 
-import Template from '@easy6502/learn/dist/tutorial.ui?raw'
+import Template from '@learn6502/learn/dist/tutorial.ui?raw'
 
 import { ExecutableSourceView } from './executable-source-view.ts'
 

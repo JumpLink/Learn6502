@@ -4,7 +4,7 @@ import Gtk from '@girs/gtk-4.0'
 import cairo from 'cairo'
 import Template from './display.blp'
 
-import type { Display as DisplayInterface, Memory, MemoryEvent } from '@easy6502/6502'
+import type { Display as DisplayInterface, Memory, MemoryEvent } from '@learn6502/6502'
 
 export class Display extends Adw.Bin implements DisplayInterface {
 

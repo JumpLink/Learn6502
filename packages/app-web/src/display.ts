@@ -1,4 +1,4 @@
-import type { Memory, MemoryEvent, Display as DisplayInterface } from '@easy6502/6502';
+import type { Memory, MemoryEvent, Display as DisplayInterface } from '@learn6502/6502';
 
 /**
  * Represents the display for a 6502 emulator.
