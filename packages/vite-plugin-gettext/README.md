@@ -103,8 +103,6 @@ export default defineConfig({
 - `outputDirectory`: Output directory for compiled files
 - `domain`: The gettext domain name (defaults to 'messages')
 - `format`: Output format, one of: 'mo', 'java', 'java2', 'csharp', 'csharp-resources', 'tcl', 'qt', 'desktop', 'xml', 'json' (defaults to 'mo')
-- `metainfo`: Enable support for metainfo files (defaults to false)
-- `metainfoIts`: Path to ITS rules file for metainfo (defaults to '/usr/share/gettext/its/metainfo.its')
 - `verbose`: Enable verbose logging
 - `msgfmtOptions`: Additional options to pass to msgfmt command
 - `useLocaleStructure`: Whether to use the standard locale structure (defaults to true for 'mo' format)

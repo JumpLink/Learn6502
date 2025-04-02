@@ -2,6 +2,7 @@ import { Plugin } from 'vite';
 import { execa } from 'execa';
 import path from 'node:path';
 import fs from 'node:fs/promises';
+import { existsSync } from 'node:fs';
 import glob from 'fast-glob';
 import type { XGettextPluginOptions } from './types.js';
 import { checkDependencies, ensureDirectory, processFilename } from './utils.js';
@@ -189,8 +190,15 @@ async function extractStrings(files: string[], options: XGettextPluginOptions, p
           args.push('--language=Glade');
           break;
         case 'metainfo':
-          // Add ITS rules for AppStream files
-          args.push('--its=/usr/share/gettext/its/metainfo.its');
+          // Find the first existing metainfo.its file
+          const metainfoItsPath = await findMetainfoItsPath();
+
+          if (!metainfoItsPath) {
+            console.warn('Warning: Could not find metainfo.its in any of the expected locations');
+            // Continue without the ITS file
+          } else {
+            args.push(`--its=${metainfoItsPath}`);
+          }
           break;
         case 'desktop':
           args.push('--language=Desktop');
@@ -251,5 +259,41 @@ async function updatePoFiles(potFile: string, pluginName: string, verbose: boole
     }
   } catch (error) {
     console.error(`[${pluginName}] Error updating PO files:`, error);
+  }
+}
+
+/**
+ * Finds the first existing metainfo.its file from installed gettext versions
+ * @returns The path to the metainfo.its file if found, otherwise undefined
+ */
+async function findMetainfoItsPath(): Promise<string | undefined> {
+  // Default path
+  const defaultPath = '/usr/share/gettext/its/metainfo.its';
+
+  // Check default path first
+  if (existsSync(defaultPath)) {
+    return defaultPath;
+  }
+
+  try {
+    // Use glob to find all potential gettext version directories
+    const getTextDirs = await glob('/usr/share/gettext-*');
+
+    // Sort by version (newest first) if possible
+    getTextDirs.sort((a, b) => {
+      const versionA = a.replace('/usr/share/gettext-', '');
+      const versionB = b.replace('/usr/share/gettext-', '');
+      return versionB.localeCompare(versionA);
+    });
+
+    // Add specific version paths we know about
+    const metainfoItsPaths = getTextDirs.map(dir => `${dir}/its/metainfo.its`);
+
+    // Find first existing path
+    return metainfoItsPaths.find(path => existsSync(path));
+
+  } catch (error) {
+    console.warn('Error searching for metainfo.its:', error);
+    return undefined;
   }
 }
