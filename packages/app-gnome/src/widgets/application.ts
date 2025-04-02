@@ -77,7 +77,7 @@ export class Application extends Adw.Application {
   }
 
   private onShowAboutDialog() {
-    const aboutDialog = Adw.AboutDialog.new_from_appdata(`${RESOURCES_PATH}/${pkg.name}.metainfo.xml`, pkg.version)
+    const aboutDialog = Adw.AboutDialog.new_from_appdata(`${RESOURCES_PATH}/metainfo/${pkg.name}.metainfo.xml`, pkg.version)
     aboutDialog.present(this.get_active_window());
   }
 

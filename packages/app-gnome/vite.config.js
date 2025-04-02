@@ -5,7 +5,7 @@ import { readFileSync, writeFileSync, chmodSync } from 'node:fs'
 import pkg from './package.json'
 
 import blueprintPlugin from '@learn6502/vite-plugin-blueprint'
-import { xgettextPlugin, gettextPlugin } from '@learn6502/vite-plugin-gettext'
+import { msgfmtPlugin } from '@learn6502/vite-plugin-gettext'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
@@ -100,6 +100,17 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
     plugins: [
       blueprintPlugin({
         minify: true
+      }),
+      // Compile translations for metainfo.xml
+      msgfmtPlugin({
+        poDirectory: '../translations',
+        outputDirectory: './data/metainfo',
+        domain: APPLICATION_ID,
+        format: 'xml',
+        filename: 'eu.jumplink.Learn6502.metainfo.xml',
+        templateFile: './data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in',
+        verbose: true,
+        useLocaleStructure: false
       }),
       // Copy the MO files to the output directory for local builds
       // For flatpak builds, the MO files are compiled by meson

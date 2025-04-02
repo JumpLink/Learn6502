@@ -41,3 +41,48 @@ export interface GettextPluginOptions {
   /** Enable verbose logging */
   verbose?: boolean;
 }
+
+/**
+ * Output format types for msgfmt
+ */
+export type MsgfmtFormat =
+  | 'mo'
+  | 'java'
+  | 'java2'
+  | 'csharp'
+  | 'csharp-resources'
+  | 'tcl'
+  | 'desktop'
+  | 'xml'
+  | 'json'
+  | 'qt';
+
+/**
+ * Configuration options for the msgfmt plugin
+ * Used to compile PO files to various formats including binary MO
+ */
+export interface MsgfmtPluginOptions {
+  /** Directory containing PO translation files */
+  poDirectory: string;
+  /** Output directory for compiled files */
+  outputDirectory: string;
+  /** The gettext domain name, defaults to 'messages' */
+  domain?: string;
+  /** Output filename, defaults to 'messages.mo' */
+  filename?: string;
+  /** Output format, defaults to 'mo' */
+  format?: MsgfmtFormat;
+  /** Path to template file, required for XML format */
+  templateFile?: string;
+  /** Enable verbose logging */
+  verbose?: boolean;
+  /** Additional options to pass to msgfmt command */
+  msgfmtOptions?: string[];
+  /** Whether to use the standard locale structure (locale/LANG/LC_MESSAGES/domain.mo) */
+  useLocaleStructure?: boolean;
+}
+
+export interface PluginOptions {
+  pluginName: string;
+  verbose?: boolean;
+}

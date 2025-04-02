@@ -4,6 +4,7 @@ import path from 'node:path';
 import fs from 'node:fs/promises';
 import glob from 'fast-glob';
 import type { XGettextPluginOptions } from './types.js';
+import { checkDependencies, ensureDirectory, processFilename } from './utils.js';
 
 // Add GLib preset constants
 // From https://github.com/mesonbuild/meson/blob/467da051c859ba3112803b035e317bddadd756ef/mesonbuild/modules/i18n.py
@@ -38,41 +39,21 @@ const GLIB_PRESET_ARGS = [
 ];
 
 /**
- * Checks if xgettext is installed and available
- * @param verbose Enable verbose logging
- * @throws Error if xgettext is not found
- */
-async function checkDependencies(verbose: boolean) {
-  try {
-    await execa('xgettext', ['--version']);
-    if (verbose) {
-      console.log('[vite-plugin-xgettext] Found xgettext');
-    }
-  } catch (error) {
-    throw new Error(
-      'xgettext not found. Please install gettext:\n' +
-      '  Ubuntu/Debian: sudo apt-get install gettext\n' +
-      '  Fedora: sudo dnf install gettext\n' +
-      '  Arch: sudo pacman -S gettext\n' +
-      '  macOS: brew install gettext'
-    );
-  }
-}
-
-/**
  * Creates a Vite plugin that extracts translatable strings from source files
  * Uses GNU xgettext to generate a POT template file that can be used as basis for translations
  * @param options Configuration options for the plugin
  * @returns A Vite plugin that handles string extraction
  */
 export function xgettextPlugin(options: XGettextPluginOptions): Plugin {
+  const pluginName = 'vite-plugin-xgettext';
+
   return {
-    name: 'vite-plugin-xgettext',
+    name: pluginName,
 
     async buildStart() {
-      await checkDependencies(options.verbose ?? false);
+      await checkDependencies('xgettext', pluginName, options.verbose ?? false);
       const files = await glob(options.sources);
-      await extractStrings(files, options);
+      await extractStrings(files, options, pluginName);
     },
 
     configureServer(server) {
@@ -81,24 +62,23 @@ export function xgettextPlugin(options: XGettextPluginOptions): Plugin {
       server.watcher.on('change', async (file) => {
         if (options.sources.some(pattern => file.match(pattern))) {
           if (options.verbose) {
-            console.log(`[vite-plugin-xgettext] Source file changed: ${file}, re-running extraction`);
+            console.log(`[${pluginName}] Source file changed: ${file}, re-running extraction`);
           }
           const files = await glob(options.sources);
-          await extractStrings(files, options);
+          await extractStrings(files, options, pluginName);
         }
       });
     }
   };
 }
 
-async function generatePotfiles(files: string[], outputDir: string, verbose = false) {
+async function generatePotfiles(files: string[], outputDir: string, pluginName: string, verbose = false) {
   // Group files by extension
   const fileGroups = new Map<string, string[]>();
 
   files.forEach(file => {
-    const ext = path.extname(file).toLowerCase();
     const filename = path.basename(file);
-    const group = getFileGroup(ext, filename);
+    const group = getFileGroup(filename);
     if (!fileGroups.has(group)) {
       fileGroups.set(group, []);
     }
@@ -116,17 +96,20 @@ async function generatePotfiles(files: string[], outputDir: string, verbose = fa
       await fs.writeFile(potfilePath, content);
       potFiles.push(potfilePath);
       if (verbose) {
-        console.log(`[vite-plugin-xgettext] Generated ${group}.POTFILES with ${groupFiles.length} source files`);
+        console.log(`[${pluginName}] Generated ${group}.POTFILES with ${groupFiles.length} source files`);
       }
     } catch (error) {
-      console.error(`[vite-plugin-xgettext] Error writing ${group}.POTFILES:`, error);
+      console.error(`[${pluginName}] Error writing ${group}.POTFILES:`, error);
     }
   }
 
   return potFiles;
 }
 
-function getFileGroup(extension: string, filename: string): string {
+function getFileGroup(fullFilename: string): string {
+  // Process filename to handle .in extension
+  const { filename, extension } = processFilename(fullFilename);
+
   // Special handling for metainfo.xml files
   if (filename.endsWith('.metainfo.xml') || filename.endsWith('.appdata.xml')) {
     return 'metainfo';
@@ -149,7 +132,7 @@ function getFileGroup(extension: string, filename: string): string {
   }
 }
 
-async function extractStrings(files: string[], options: XGettextPluginOptions) {
+async function extractStrings(files: string[], options: XGettextPluginOptions, pluginName: string) {
   const {
     output,
     domain = 'messages',
@@ -160,10 +143,10 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
 
   try {
     const outputDir = path.dirname(output);
-    await fs.mkdir(outputDir, { recursive: true });
+    await ensureDirectory(outputDir);
 
     // Generate grouped POTFILES
-    const potFiles = await generatePotfiles(files, outputDir, verbose);
+    const potFiles = await generatePotfiles(files, outputDir, pluginName, verbose);
 
     // Create temporary POT files for each group
     const tempPotFiles: string[] = [];
@@ -215,7 +198,7 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
       }
 
       if (verbose) {
-        console.log(`[vite-plugin-xgettext] Running xgettext for ${group}:`, args.join(' '));
+        console.log(`[${pluginName}] Running xgettext for ${group}:`, args.join(' '));
       }
 
       await execa('xgettext', args);
@@ -225,10 +208,10 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
         await fs.access(tempOutput);
         tempPotFiles.push(tempOutput);
         if (verbose) {
-          console.log(`[vite-plugin-xgettext] Successfully created temporary POT file: ${tempOutput}`);
+          console.log(`[${pluginName}] Successfully created temporary POT file: ${tempOutput}`);
         }
       } catch (error) {
-        console.warn(`[vite-plugin-xgettext] Failed to create temporary POT file: ${tempOutput}`);
+        console.warn(`[${pluginName}] Failed to create temporary POT file: ${tempOutput}`);
       }
     }
 
@@ -247,14 +230,14 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
     }
 
     if (options.autoUpdatePo) {
-      await updatePoFiles(options.output, options.verbose || false);
+      await updatePoFiles(options.output, pluginName, options.verbose || false);
     }
   } catch (error) {
     throw new Error(`Failed to extract translations: ${error}`);
   }
 }
 
-async function updatePoFiles(potFile: string, verbose: boolean) {
+async function updatePoFiles(potFile: string, pluginName: string, verbose: boolean) {
   try {
     const linguasPath = path.join(path.dirname(potFile), 'LINGUAS');
     const languages = (await fs.readFile(linguasPath, 'utf-8')).split('\n').filter(Boolean);
@@ -262,11 +245,11 @@ async function updatePoFiles(potFile: string, verbose: boolean) {
     for (const lang of languages) {
       const poFile = path.join(path.dirname(potFile), `${lang}.po`);
       if (verbose) {
-        console.log(`[vite-plugin-xgettext] Updating ${poFile}`);
+        console.log(`[${pluginName}] Updating ${poFile}`);
       }
       await execa('msgmerge', ['--update', '--backup=none', poFile, potFile]);
     }
   } catch (error) {
-    console.error('[vite-plugin-xgettext] Error updating PO files:', error);
+    console.error(`[${pluginName}] Error updating PO files:`, error);
   }
 }

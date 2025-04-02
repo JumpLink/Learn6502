@@ -1,3 +1,9 @@
-export { xgettextPlugin } from './xgettext.js';
 export { gettextPlugin } from './gettext.js';
-export type { XGettextPluginOptions, GettextPluginOptions } from './types.js';
+export { msgfmtPlugin } from './msgfmt.js';
+export { xgettextPlugin } from './xgettext.js';
+export type {
+  GettextPluginOptions,
+  MsgfmtPluginOptions,
+  MsgfmtFormat,
+  XGettextPluginOptions
+} from './types.js';

@@ -23,10 +23,6 @@ rm -rf "$BUILD_DIR"
 echo "Building the Flatpak..."
 flatpak-builder --keep-build-dirs --force-clean "$BUILD_DIR" "$MANIFEST_FILE" --install-deps-from=flathub
 
-# Copy metainfo.xml to the correct location for Flathub
-echo "Copying metainfo.xml to build directory..."
-cp packages/app-gnome/data/eu.jumplink.Learn6502.metainfo.xml "$BUILD_DIR/"
-
 # Install the application locally
 echo "Installing the Flatpak application locally..."
 flatpak-builder --user --install --force-clean "$BUILD_DIR" "$MANIFEST_FILE"

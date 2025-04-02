@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-02 07:50+0200\n"
+"POT-Creation-Date: 2025-04-02 12:33+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -44,7 +44,7 @@ msgstr "Schritt"
 
 #: ../app-gnome/src/widgets/application-window.blp:26
 msgid "Learn 6502 Assembly"
-msgstr "6502 Assembler lernen"
+msgstr "Lerne 6502 Assembler"
 
 #: ../app-gnome/src/widgets/application-window.blp:33
 msgid "Menu"
@@ -70,7 +70,7 @@ msgstr "Spielkonsole"
 
 #: ../app-gnome/src/widgets/application-window.blp:113
 msgid "_About Learn 6502 Assembly"
-msgstr "_Über 6502 Assembler lernen"
+msgstr "_Über Lerne 6502 Assembler"
 
 #: ../app-gnome/src/widgets/application-window.blp:118
 msgid "_Quit"
@@ -112,6 +112,113 @@ msgstr "Haupteinstellungen"
 #: ../app-gnome/src/widgets/preferences-dialog.blp:15
 msgid "There are currently no settings."
 msgstr "Derzeit gibt es keine Einstellungen."
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
+msgid "Modern 6502 Assembly Learning Environment"
+msgstr "Moderne Lernumgebung für 6502-Assembler"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:9
+msgid ""
+"Learn 6502 Assembly is a modern, native Adwaita application that provides a "
+"complete learning environment for 6502 assembly language programming. Built "
+"with GJS and TypeScript, this application brings the classic Learn6502 "
+"tutorial by Nick Morgan to your desktop as a beautiful, integrated "
+"experience."
+msgstr ""
+"Lerne 6502 Assembler ist eine moderne, native Adwaita-Anwendung, die eine "
+"vollständige Lernumgebung für die Programmierung in 6502-Assembler bietet. "
+"Erstellt mit GJS und TypeScript, bringt diese Anwendung das klassische "
+"Learn6502-Tutorial von Nick Morgan als schöne, integrierte Erfahrung auf "
+"Ihren Desktop."
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:12
+msgid "Features:"
+msgstr "Funktionen:"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:14
+msgid ""
+"Interactive Tutorial: A comprehensive step-by-step guide to learning 6502 "
+"assembly language, with explanations of all core concepts"
+msgstr ""
+"Interaktives Tutorial: Eine umfassende Schritt-für-Schritt-Anleitung zum "
+"Lernen der 6502-Assemblersprache mit Erklärungen aller Kernkonzepte"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:15
+msgid ""
+"Code Editor: Write and edit your 6502 assembly code with syntax highlighting"
+msgstr ""
+"Code-Editor: Schreiben und bearbeiten Sie Ihren 6502-Assemblercode mit "
+"Syntaxhervorhebung"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:16
+msgid ""
+"Assembler &amp; Debugger: Assemble your code and debug it with a powerful "
+"built-in debugger showing registers, flags, and memory in real-time"
+msgstr ""
+"Assembler &amp; Debugger: Assemblieren Sie Ihren Code und debuggen Sie ihn "
+"mit einem leistungsfähigen integrierten Debugger, der Register, Flags und "
+"Speicher in Echtzeit anzeigt"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:17
+msgid ""
+"Visual Game Console: See your code in action on a virtual display, perfect "
+"for creating simple games and graphics"
+msgstr ""
+"Visuelle Spielkonsole: Sehen Sie Ihren Code in Aktion auf einem virtuellen "
+"Display, ideal für die Erstellung einfacher Spiele und Grafiken"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:24
+msgid ""
+"Learn 6502 Assembly in light Adwaita theme showing the interactive tutorial "
+"interface"
+msgstr ""
+"Lerne 6502 Assembler im hellen Adwaita-Theme mit der interaktiven Tutorial-"
+"Oberfläche"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:28
+msgid ""
+"Learn 6502 Assembly in dark Adwaita theme showing the interactive tutorial "
+"interface"
+msgstr ""
+"Lerne 6502 Assembler im dunklen Adwaita-Theme mit der interaktiven Tutorial-"
+"Oberfläche"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:32
+msgid "The code editor with syntax highlighting for 6502 assembly"
+msgstr "Der Code-Editor mit Syntaxhervorhebung für 6502-Assembler"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:36
+msgid "The built-in debugger showing registers, flags, and memory in real-time"
+msgstr ""
+"Der integrierte Debugger zeigt Register, Flags und Speicher in Echtzeit an"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:40
+msgid "The virtual game console displaying three colored pixels"
+msgstr "Die virtuelle Spielkonsole zeigt drei farbige Pixel an"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:53
+msgid "First release of Learn 6502 Assembly for GNOME"
+msgstr "Erste Veröffentlichung von Lerne 6502 Assembler für GNOME"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:66
+msgid "6502"
+msgstr "6502"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:67
+msgid "Assembly"
+msgstr "Assembler"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:68
+msgid "Programming"
+msgstr "Programmierung"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:69
+msgid "Learning"
+msgstr "Lernen"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:70
+msgid "Emulator"
+msgstr "Emulator"
 
 #: ../learn/dist/tutorial.ui:1
 msgid ""
@@ -1704,108 +1811,3 @@ msgstr ""
 "sonst zu schnell laufen würde. Alles, was <tt>spinWheels</tt> tut, ist "
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:7
-msgid "Modern 6502 Assembly Learning Environment"
-msgstr "Moderne Lernumgebung für 6502-Assembler"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:9
-msgid ""
-"Learn 6502 Assembly is a modern, native Adwaita application that provides a "
-"complete learning environment for 6502 assembly language programming. Built "
-"with GJS and TypeScript, this application brings the classic Learn6502 "
-"tutorial by Nick Morgan to your desktop as a beautiful, integrated "
-"experience."
-msgstr ""
-"6502 Assembler lernen ist eine moderne, native Adwaita-Anwendung, die eine "
-"vollständige Lernumgebung für die Programmierung in 6502-Assembler bietet. "
-"Erstellt mit GJS und TypeScript, bringt diese Anwendung das klassische "
-"Learn6502-Tutorial von Nick Morgan als schöne, integrierte Erfahrung auf "
-"Ihren Desktop."
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:12
-msgid "Features:"
-msgstr "Funktionen:"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:14
-msgid ""
-"Interactive Tutorial: A comprehensive step-by-step guide to learning 6502 "
-"assembly language, with explanations of all core concepts"
-msgstr ""
-"Interaktives Tutorial: Eine umfassende Schritt-für-Schritt-Anleitung zum "
-"Lernen der 6502-Assemblersprache mit Erklärungen aller Kernkonzepte"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:15
-msgid ""
-"Code Editor: Write and edit your 6502 assembly code with syntax highlighting"
-msgstr ""
-"Code-Editor: Schreiben und bearbeiten Sie Ihren 6502-Assemblercode mit "
-"Syntaxhervorhebung"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:16
-msgid ""
-"Assembler &amp; Debugger: Assemble your code and debug it with a powerful "
-"built-in debugger showing registers, flags, and memory in real-time"
-msgstr ""
-"Assembler &amp; Debugger: Assemblieren Sie Ihren Code und debuggen Sie ihn "
-"mit einem leistungsfähigen integrierten Debugger, der Register, Flags und "
-"Speicher in Echtzeit anzeigt"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:17
-msgid ""
-"Visual Game Console: See your code in action on a virtual display, perfect "
-"for creating simple games and graphics"
-msgstr ""
-"Visuelle Spielkonsole: Sehen Sie Ihren Code in Aktion auf einem virtuellen "
-"Display, ideal für die Erstellung einfacher Spiele und Grafiken"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:24
-msgid "Learn 6502 Assembly in light Adwaita theme showing the interactive tutorial interface"
-msgstr "6502 Assembler lernen im hellen Adwaita-Theme mit der interaktiven Tutorial-Oberfläche"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:28
-msgid "Learn 6502 Assembly in dark Adwaita theme showing the interactive tutorial interface"
-msgstr "6502 Assembler lernen im dunklen Adwaita-Theme mit der interaktiven Tutorial-Oberfläche"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:32
-msgid "The code editor with syntax highlighting for 6502 assembly"
-msgstr "Der Code-Editor mit Syntaxhervorhebung für 6502-Assembler"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:36
-msgid "The built-in debugger showing registers, flags, and memory in real-time"
-msgstr ""
-"Der integrierte Debugger zeigt Register, Flags und Speicher in Echtzeit an"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:40
-msgid "The virtual game console displaying three colored pixels"
-msgstr "Die virtuelle Spielkonsole zeigt drei farbige Pixel an"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:53
-msgid "First release of Learn 6502 Assembly for GNOME"
-msgstr "Erste Veröffentlichung von 6502 Assembler lernen für GNOME"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:66
-msgid "6502"
-msgstr "6502"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:67
-msgid "Assembly"
-msgstr "Assembler"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:68
-msgid "Programming"
-msgstr "Programmierung"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:69
-msgid "Learning"
-msgstr "Lernen"
-
-#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:70
-msgid "Emulator"
-msgstr "Emulator"
-
-#~ msgid "_Preferences"
-#~ msgstr "_Einstellungen"
-
-#~ msgid "_Keyboard Shortcuts"
-#~ msgstr "_Tastenkombinationen"

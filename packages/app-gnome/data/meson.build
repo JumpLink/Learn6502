@@ -1,7 +1,9 @@
+subdir('metainfo')
+
 i18n = import('i18n')
 
 desktop_file = i18n.merge_file(
-        input: 'eu.jumplink.Learn6502.desktop',
+        input: 'eu.jumplink.Learn6502.desktop.in',
        output: 'eu.jumplink.Learn6502.desktop',
          type: 'desktop',
        po_dir: '../../translations',
@@ -13,18 +15,6 @@ desktop_utils = find_program('desktop-file-validate', required: false)
 if desktop_utils.found()
   test('Validate desktop file', desktop_utils, args: [desktop_file])
 endif
-
-appstream_file = i18n.merge_file(
-        input: 'eu.jumplink.Learn6502.metainfo.xml',
-       output: 'eu.jumplink.Learn6502.metainfo.xml',
-       po_dir: '../../translations',
-      install: true,
-  install_dir: get_option('datadir') / 'metainfo'
-)
-
-appstreamcli = find_program('appstreamcli', required: false, disabler: true)
-test('Validate appstream file', appstreamcli,
-     args: ['validate', '--no-net', '--explain', appstream_file])
 
 install_data('eu.jumplink.Learn6502.gschema.xml',
   install_dir: get_option('datadir') / 'glib-2.0' / 'schemas'
@@ -43,5 +33,5 @@ data_res = gnome.compile_resources(
   gresource_bundle: true,
   install: true,
   install_dir: pkgdatadir,
-  # dependencies: [appstream_file, blueprints],
+  dependencies: [],
 )
