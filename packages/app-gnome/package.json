@@ -7,7 +7,7 @@
     "private": true,
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
-        "clear": "rm -rf dist eu.jumplink.Learn6502 data/eu.jumplink.Learn6502.data.gresource data/metainfo/eu.jumplink.Learn6502.metainfo.xml",
+        "clear": "rm -rf dist eu.jumplink.Learn6502 data/eu.jumplink.Learn6502.data.gresource",
         "build:vite": "vite build",
         "build:resources": "glib-compile-resources --sourcedir data data/eu.jumplink.Learn6502.data.gresource.xml",
         "build:with-deps": "yarn workspaces foreach -pRv --from @learn6502/app-gnome --topological-dev run build",

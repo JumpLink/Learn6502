@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+  <id>eu.jumplink.Learn6502</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Learn 6502 Assembly</name>
+  <name xml:lang="de">Lerne 6502 Assembler</name>
+  <summary>Modern 6502 Assembly Learning Environment</summary>
+  <summary xml:lang="de">Moderne Lernumgebung für 6502-Assembler</summary>
+  <description>
+    <p>
+      Learn 6502 Assembly is a modern, native Adwaita application that provides a complete learning environment for 6502 assembly language programming. Built with GJS and TypeScript, this application brings the classic Learn6502 tutorial by Nick Morgan to your desktop as a beautiful, integrated experience.
+    </p>
+    <p xml:lang="de">Lerne 6502 Assembler ist eine moderne, native Adwaita-Anwendung, die eine vollständige Lernumgebung für die Programmierung in 6502-Assembler bietet. Erstellt mit GJS und TypeScript, bringt diese Anwendung das klassische Learn6502-Tutorial von Nick Morgan als schöne, integrierte Erfahrung auf Ihren Desktop.</p>
+    <p>Features:</p>
+    <p xml:lang="de">Funktionen:</p>
+    <ul>
+      <li>Interactive Tutorial: A comprehensive step-by-step guide to learning 6502 assembly language, with explanations of all core concepts</li>
+      <li xml:lang="de">Interaktives Tutorial: Eine umfassende Schritt-für-Schritt-Anleitung zum Lernen der 6502-Assemblersprache mit Erklärungen aller Kernkonzepte</li>
+      <li>Code Editor: Write and edit your 6502 assembly code with syntax highlighting</li>
+      <li xml:lang="de">Code-Editor: Schreiben und bearbeiten Sie Ihren 6502-Assemblercode mit Syntaxhervorhebung</li>
+      <li>Assembler &amp; Debugger: Assemble your code and debug it with a powerful built-in debugger showing registers, flags, and memory in real-time</li>
+      <li xml:lang="de">Assembler &amp;amp; Debugger: Assemblieren Sie Ihren Code und debuggen Sie ihn mit einem leistungsfähigen integrierten Debugger, der Register, Flags und Speicher in Echtzeit anzeigt</li>
+      <li>Visual Game Console: See your code in action on a virtual display, perfect for creating simple games and graphics</li>
+      <li xml:lang="de">Visuelle Spielkonsole: Sehen Sie Ihren Code in Aktion auf einem virtuellen Display, ideal für die Erstellung einfacher Spiele und Grafiken</li>
+    </ul>
+  </description>
+  <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/1.png</image>
+      <caption>Learn 6502 Assembly in light Adwaita theme showing the interactive tutorial interface</caption>
+      <caption xml:lang="de">Lerne 6502 Assembler im hellen Adwaita-Theme mit der interaktiven Tutorial-Oberfläche</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/2.png</image>
+      <caption>Learn 6502 Assembly in dark Adwaita theme showing the interactive tutorial interface</caption>
+      <caption xml:lang="de">Lerne 6502 Assembler im dunklen Adwaita-Theme mit der interaktiven Tutorial-Oberfläche</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/3.png</image>
+      <caption>The code editor with syntax highlighting for 6502 assembly</caption>
+      <caption xml:lang="de">Der Code-Editor mit Syntaxhervorhebung für 6502-Assembler</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/4.png</image>
+      <caption>The built-in debugger showing registers, flags, and memory in real-time</caption>
+      <caption xml:lang="de">Der integrierte Debugger zeigt Register, Flags und Speicher in Echtzeit an</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/5.png</image>
+      <caption>The virtual game console displaying three colored pixels</caption>
+      <caption xml:lang="de">Die virtuelle Spielkonsole zeigt drei farbige Pixel an</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://github.com/JumpLink/Learn6502</url>
+  <url type="bugtracker">https://github.com/JumpLink/Learn6502/issues</url>
+  <developer id="eu.jumplink">
+    <name translate="no">Pascal Garber</name>
+    <email>pascal@mailfreund.de</email>
+  </developer>
+  <content_rating type="oars-1.1"/>
+  <releases>
+    <release version="0.1.0" date="2025-04-02">
+      <description>
+        <p>First release of Learn 6502 Assembly for GNOME</p>
+        <p xml:lang="de">Erste Veröffentlichung von Lerne 6502 Assembler für GNOME</p>
+      </description>
+    </release>
+  </releases>
+  <kudos>
+    <kudo>ModernToolkit</kudo>
+    <kudo>HiDpiIcon</kudo>
+  </kudos>
+  <categories>
+    <category>Development</category>
+    <category>Education</category>
+  </categories>
+  <keywords>
+    <keyword>6502</keyword>
+    <keyword xml:lang="de">6502</keyword>
+    <keyword>Assembly</keyword>
+    <keyword xml:lang="de">Assembler</keyword>
+    <keyword>Programming</keyword>
+    <keyword xml:lang="de">Programmierung</keyword>
+    <keyword>Learning</keyword>
+    <keyword xml:lang="de">Lernen</keyword>
+    <keyword>Emulator</keyword>
+    <keyword xml:lang="de">Emulator</keyword>
+  </keywords>
+</component>
