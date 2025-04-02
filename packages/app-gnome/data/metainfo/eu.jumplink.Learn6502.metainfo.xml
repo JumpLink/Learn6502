@@ -28,27 +28,27 @@
   <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/1.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.1/misc/screenshots/1.png</image>
       <caption>Learn 6502 Assembly in light Adwaita theme showing the interactive tutorial interface</caption>
       <caption xml:lang="de">Lerne 6502 Assembler im hellen Adwaita-Theme mit der interaktiven Tutorial-Oberfläche</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/2.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.1/misc/screenshots/2.png</image>
       <caption>Learn 6502 Assembly in dark Adwaita theme showing the interactive tutorial interface</caption>
       <caption xml:lang="de">Lerne 6502 Assembler im dunklen Adwaita-Theme mit der interaktiven Tutorial-Oberfläche</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/3.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.1/misc/screenshots/3.png</image>
       <caption>The code editor with syntax highlighting for 6502 assembly</caption>
       <caption xml:lang="de">Der Code-Editor mit Syntaxhervorhebung für 6502-Assembler</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/4.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.1/misc/screenshots/4.png</image>
       <caption>The built-in debugger showing registers, flags, and memory in real-time</caption>
       <caption xml:lang="de">Der integrierte Debugger zeigt Register, Flags und Speicher in Echtzeit an</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.0/misc/screenshots/5.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.1/misc/screenshots/5.png</image>
       <caption>The virtual game console displaying three colored pixels</caption>
       <caption xml:lang="de">Die virtuelle Spielkonsole zeigt drei farbige Pixel an</caption>
     </screenshot>
@@ -61,6 +61,20 @@
   </developer>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.1.1" date="2025-04-02">
+      <description>
+        <p>Improved the performance of the game console</p>
+        <p xml:lang="de">Verbesserte Leistung der Spielekonsole</p>
+        <p>Hex monitor address range input improved</p>
+        <p xml:lang="de">Verbesserte Eingabe des Adressbereichs im Hex-Monitor</p>
+        <p>Default hex monitor address range reduced</p>
+        <p xml:lang="de">Standardmäßiger Adressbereich des Hex-Monitors reduziert</p>
+        <p>Debugger is now only updated when it is visible</p>
+        <p xml:lang="de">Debugger wird nur noch aktualisiert, wenn er sichtbar ist</p>
+        <p>Fixed build error under PostmarketOS</p>
+        <p xml:lang="de">Behebt einen Build-Fehler unter PostmarketOS</p>
+      </description>
+    </release>
     <release version="0.1.0" date="2025-04-02">
       <description>
         <p>First release of Learn 6502 Assembly for GNOME</p>
