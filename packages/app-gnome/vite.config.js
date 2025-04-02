@@ -4,8 +4,8 @@ import { dirname, resolve } from 'node:path'
 import { readFileSync, writeFileSync, chmodSync } from 'node:fs'
 import pkg from './package.json'
 
-import blueprintPlugin from '@easy6502/vite-plugin-blueprint'
-import { xgettextPlugin, gettextPlugin } from '@easy6502/vite-plugin-gettext'
+import blueprintPlugin from '@learn6502/vite-plugin-blueprint'
+import { xgettextPlugin, gettextPlugin } from '@learn6502/vite-plugin-gettext'
 import { viteStaticCopy } from 'vite-plugin-static-copy'
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
@@ -21,21 +21,21 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
    */
 
   /**
-   * flatpak+meson: eu.jumplink.Easy6502
-   * local: eu.jumplink.Easy6502
+   * flatpak+meson: eu.jumplink.Learn6502
+   * local: eu.jumplink.Learn6502
    */
-  const APPLICATION_ID = process.env.APPLICATION_ID || 'eu.jumplink.Easy6502'
+  const APPLICATION_ID = process.env.APPLICATION_ID || 'eu.jumplink.Learn6502'
   /**
    * flatpak+meson: <project-root>/_build/packages/app-gnome
    * local: <project-root>/packages/app-gnome/
    */
   const OUTDIR = process.env.OUTDIR || __dirname
   /**
-   * flatpak and local: eu.jumplink.Easy6502
+   * flatpak and local: eu.jumplink.Learn6502
    */
   const ENTRY_FILENAME = process.env.ENTRY_FILENAME || APPLICATION_ID
   /**
-   * flatpak and local: /eu/jumplink/Easy6502
+   * flatpak and local: /eu/jumplink/Learn6502
    */
   const RESOURCES_PATH = '/' + APPLICATION_ID.replaceAll('.', '/')
   /**
@@ -68,7 +68,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
    */
   const GJS_CONSOLE = process.env.GJS_CONSOLE || '/usr/bin/env -S gjs'
   /**
-   * flatpak+meson: /app/share/eu.jumplink.Easy6502
+   * flatpak+meson: /app/share/eu.jumplink.Learn6502
    * local: <project-root>/packages/app-gnome/data
    */
   const PKGDATADIR = process.env.PKGDATADIR || DATADIR

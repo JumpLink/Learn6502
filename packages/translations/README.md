@@ -1,3 +1,3 @@
-# Easy6502 Translations
+# Learn6502 Translations
 
-This package contains the translations for Easy6502.
+This package contains the translations for Learn6502.

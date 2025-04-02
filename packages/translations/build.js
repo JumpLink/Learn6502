@@ -1,7 +1,7 @@
-import { gettextPlugin, xgettextPlugin } from '@easy6502/vite-plugin-gettext';
+import { gettextPlugin, xgettextPlugin } from '@learn6502/vite-plugin-gettext';
 import { readFileSync } from 'node:fs'
 
-const APPLICATION_ID = 'eu.jumplink.Easy6502';
+const APPLICATION_ID = 'eu.jumplink.Learn6502';
 const VERSION = JSON.parse(readFileSync('./package.json', 'utf8')).version;
 
 // Extract translatable strings from source files to create a POT template

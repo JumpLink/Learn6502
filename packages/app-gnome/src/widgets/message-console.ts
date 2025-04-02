@@ -4,7 +4,7 @@ import Gtk from '@girs/gtk-4.0'
 
 import Template from './message-console.blp'
 
-import type { MessageConsole as MessageConsoleInterface } from '@easy6502/6502'
+import type { MessageConsole as MessageConsoleInterface } from '@learn6502/6502'
 
 export class MessageConsole extends Adw.Bin implements MessageConsoleInterface {
 

@@ -1,4 +1,4 @@
-import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole as MessageConsoleInterface, LabelsEvent } from '@easy6502/6502';
+import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole as MessageConsoleInterface, LabelsEvent } from '@learn6502/6502';
 import { Debugger } from './debugger.js';
 import { Display } from './display.js';
 import { UIState } from './ui-state.js';

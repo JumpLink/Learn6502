@@ -1,4 +1,4 @@
-import type { MessageConsole as MessageConsoleInterface } from '@easy6502/6502';
+import type { MessageConsole as MessageConsoleInterface } from '@learn6502/6502';
 
 export class MessageConsole implements MessageConsoleInterface {
   constructor(private readonly node: HTMLElement) {}
