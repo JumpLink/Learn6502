@@ -512,8 +512,6 @@ export class SourceView extends Adw.Bin {
 
       const contentProvider = Gdk.ContentProvider.new_for_value(value)
       const success = clipboard.set_content(contentProvider)
-      console.log(`Copy to clipboard: ${success ? 'success' : 'failed'}`)
-
       return true;
     }
 

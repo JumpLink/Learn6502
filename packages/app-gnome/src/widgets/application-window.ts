@@ -107,6 +107,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private setupGeneralSignalListeners(): void {
     this.connect('close-request', this.onCloseRequest.bind(this));
+    this._stack.connect('notify::visible-child', this.onStackVisibleChildChanged.bind(this));
+  }
+
+  private onStackVisibleChildChanged(): void {
+    this.updateDebugger();
   }
 
   private onCloseRequest(): void {
@@ -140,7 +145,6 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private runGameConsole(): void {
-    console.log("[ApplicationWindow] runGameConsole");
     const visibleChild = this._stack.get_visible_child();
     // Set the game console as the visible child in the stack if it's not already visible or the debugger
     if (visibleChild !== this._gameConsole && visibleChild !== this._debugger) {
@@ -150,12 +154,10 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private stopGameConsole(): void {
-    console.log("[ApplicationWindow] stopGameConsole");
     this._gameConsole.stop();
   }
 
   private resetGameConsole(): void {
-    console.log("[ApplicationWindow] resetGameConsole");
     this._gameConsole.reset();
   }
 
@@ -184,7 +186,10 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private updateDebugger(): void {
-    this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
+    // Only update the debugger if it's the visible child
+    if (this._stack.get_visible_child() === this._debugger) {
+      this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
+    }
   }
 
   private setupGameConsoleSignalListeners(): void {
@@ -365,8 +370,6 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private updateRunActions(state: SimulatorState): RunButtonState {
-    console.log("[ApplicationWindow] updateRunActions", state);
-
     // Check if editor has code
     const hasCode = this._editor.hasCode;
 
@@ -463,7 +466,6 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private stepGameConsole(): void {
-    console.log("[ApplicationWindow] stepGameConsole");
     const visibleChild = this._stack.get_visible_child();
     // Set the debugger as the visible child in the stack if it's not already visible or the game console
     if (visibleChild !== this._debugger && visibleChild !== this._gameConsole) {

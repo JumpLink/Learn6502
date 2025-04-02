@@ -58,7 +58,6 @@ export class Editor extends Adw.Bin {
    */
   public get hasCode(): boolean {
     const hasCode = this.code.trim().length > 0;
-    console.log("[Editor] hasCode", hasCode);
     return hasCode;
   }
 

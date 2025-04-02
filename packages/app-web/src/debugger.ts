@@ -39,8 +39,6 @@ export class Debugger implements DebuggerInterface {
 
     const end = start + length - 1;
 
-    console.log("onMonitorRangeChange", start, length, end)
-
     if (isNaN(start) || start < 0 || start > 0xffff) {
       $start?.classList.add('monitor-invalid');
       console.error("start is invalid", start)

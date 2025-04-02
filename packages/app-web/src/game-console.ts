@@ -53,7 +53,6 @@ export class GameConsole {
    * Sets up event listeners for various UI elements.
    */
   private setupEventListeners(): void {
-    console.log("setupEventListeners")
     this.node.querySelector('.assembleButton')?.addEventListener('click', () => {
       this.simulator.reset();
       this.labels.reset();

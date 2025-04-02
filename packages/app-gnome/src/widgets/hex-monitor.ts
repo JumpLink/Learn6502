@@ -35,7 +35,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
 
   public options: HexMonitorOptions = {
     start: 0x0,
-    length: 0xffff,
+    length: 0xff,
   };
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
@@ -95,7 +95,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
 
 
   // Throttled validation method
-  private validateAndApply = throttle(this._validateAndApplyValues.bind(this), 300);
+  private validateAndApply = throttle(this._validateAndApplyValues.bind(this), 349);
 
   private _validateAndApplyValues(): void {
     const startText = this._startAddressEntry.get_text();

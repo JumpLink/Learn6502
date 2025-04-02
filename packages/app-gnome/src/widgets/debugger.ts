@@ -66,7 +66,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     this._messageConsole.log(message);
   }
 
-  #update(memory: Memory, simulator: Simulator): void {
+  private _update(memory: Memory, simulator: Simulator): void {
     this.memory = memory;
     this.updateMonitor(memory);
     this.updateDebugInfo(simulator);
@@ -78,7 +78,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
    * @param memory - The memory to update the hex monitor.
    * @param simulator - The simulator to update the debug info.
    */
-  public update = throttle(this.#update.bind(this), 349); // Prime number
+  public update = throttle(this._update.bind(this), 349); // Prime number
 
   public updateMonitor(memory: Memory): void {
     this._hexMonitor.update(memory);
