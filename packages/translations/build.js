@@ -6,15 +6,18 @@ const VERSION = JSON.parse(readFileSync('./package.json', 'utf8')).version;
 
 // Extract translatable strings from source files to create a POT template
 const xgettext = xgettextPlugin({
-  sources: ['../app-gnome/src/**/*.{ts,tsx,js,blp,xml,ui,desktop}', '../learn/dist/**/*.ui'],
+  sources: [
+    '../app-gnome/src/**/*.{ts,tsx,js,blp,xml,ui,desktop}',
+    '../app-gnome/data/**/*.xml',
+    '../learn/dist/**/*.ui'
+  ],
   output: `./${APPLICATION_ID}.pot`,
   domain: APPLICATION_ID,
-  // keywords: [],
-  language: ['JavaScript'],
   preset: 'glib',
   verbose: true,
   version: VERSION,
-  autoUpdatePo: true
+  autoUpdatePo: true,
+  msgidBugsAddress: 'https://github.com/JumpLink/Learn6502/issues'
 });
 
 // Compile PO files to MO files

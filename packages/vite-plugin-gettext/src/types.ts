@@ -11,8 +11,6 @@ export interface XGettextPluginOptions {
   domain?: string;
   /** Keywords to look for when extracting strings, defaults to ['_', 'gettext', 'ngettext'] */
   keywords?: string[];
-  /** Languages to extract strings from, defaults to ['JavaScript'] */
-  language?: string[];
   /** Additional options to pass to xgettext command */
   xgettextOptions?: string[];
   /** Enable verbose logging */
@@ -23,6 +21,10 @@ export interface XGettextPluginOptions {
   version?: string;
   /** Preset to use for extracting strings, defaults to 'glib' */
   preset?: 'glib';
+  /** URL for reporting bugs in the POT file */
+  msgidBugsAddress?: string;
+  /** Copyright holder to set in the POT file */
+  copyrightHolder?: string;
 }
 
 /**

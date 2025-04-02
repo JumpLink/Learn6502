@@ -1,3 +1,3 @@
-# Learn6502 Translations
+# Learn 6502 Assembly Translations
 
-This package contains the translations for Learn6502.
+This package contains the translations for Learn 6502 Assembly.

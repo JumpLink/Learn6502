@@ -97,7 +97,8 @@ async function generatePotfiles(files: string[], outputDir: string, verbose = fa
 
   files.forEach(file => {
     const ext = path.extname(file).toLowerCase();
-    const group = getFileGroup(ext);
+    const filename = path.basename(file);
+    const group = getFileGroup(ext, filename);
     if (!fileGroups.has(group)) {
       fileGroups.set(group, []);
     }
@@ -125,7 +126,12 @@ async function generatePotfiles(files: string[], outputDir: string, verbose = fa
   return potFiles;
 }
 
-function getFileGroup(extension: string): string {
+function getFileGroup(extension: string, filename: string): string {
+  // Special handling for metainfo.xml files
+  if (filename.endsWith('.metainfo.xml') || filename.endsWith('.appdata.xml')) {
+    return 'metainfo';
+  }
+
   switch (extension) {
     case '.ts':
     case '.js':
@@ -176,6 +182,16 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
         '--add-comments'
       ];
 
+      // Add bug report address if specified
+      if (options.msgidBugsAddress) {
+        args.push('--msgid-bugs-address=' + options.msgidBugsAddress);
+      }
+
+      // Add copyright holder if specified
+      if (options.copyrightHolder) {
+        args.push('--copyright-holder=' + options.copyrightHolder);
+      }
+
       // Add language-specific settings
       switch (group) {
         case 'js':
@@ -188,6 +204,10 @@ async function extractStrings(files: string[], options: XGettextPluginOptions) {
           break;
         case 'ui':
           args.push('--language=Glade');
+          break;
+        case 'metainfo':
+          // Add ITS rules for AppStream files
+          args.push('--its=/usr/share/gettext/its/metainfo.its');
           break;
         case 'desktop':
           args.push('--language=Desktop');

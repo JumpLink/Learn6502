@@ -1,20 +1,22 @@
 # German translations for eu.jumplink.Learn6502 package
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the eu.jumplink.Learn6502 package.
+# Copyright (C) 2025 Pascal Garber
+# This file is distributed under the CC-BY-4.0 license.
+# Pascal Garber <pascal@mailfreun.de>, 2025.
 #
 msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-30 07:28+0200\n"
+"Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
+"POT-Creation-Date: 2025-04-02 07:50+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
-"Last-Translator: YOUR NAME <your.email@example.com>\n"
+"Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"License: CC-BY-4.0\n"
 
 #: ../app-gnome/src/widgets/application-window.ts:49
 msgid "Assemble"
@@ -41,8 +43,8 @@ msgid "Step"
 msgstr "Schritt"
 
 #: ../app-gnome/src/widgets/application-window.blp:26
-msgid "Learn6502"
-msgstr "Learn6502"
+msgid "Learn 6502 Assembly"
+msgstr "6502 Assembler lernen"
 
 #: ../app-gnome/src/widgets/application-window.blp:33
 msgid "Menu"
@@ -67,8 +69,8 @@ msgid "Game Console"
 msgstr "Spielkonsole"
 
 #: ../app-gnome/src/widgets/application-window.blp:113
-msgid "_About Learn6502"
-msgstr "_Über Learn6502"
+msgid "_About Learn 6502 Assembly"
+msgstr "_Über 6502 Assembler lernen"
 
 #: ../app-gnome/src/widgets/application-window.blp:118
 msgid "_Quit"
@@ -495,16 +497,17 @@ msgid ""
 "well as this though, the zero flag is set. The zero flag is set by all "
 "instructions where the result is zero."
 msgstr ""
-"Assembliere den Code und wähle <b>Schritt</b> aus dem Dropdown-Menü des Run-Buttons, "
-"um diese drei Anweisungen schrittweise durchzugehen. Der Monitor im Debugger zeigt "
-"einen Speicherbereich an und kann hilfreich sein, um die Ausführung von Programmen "
-"zu visualisieren. <tt>STA $01</tt> speichert den Wert des <tt>A</tt>-Registers "
-"an der Speicheradresse <tt>$01</tt>, und <tt>ADC $01</tt> addiert den an der "
-"Speicheradresse <tt>$01</tt> gespeicherten Wert zum <tt>A</tt>-Register. "
-"<tt>$80 + $80</tt> sollte <tt>$100</tt> ergeben, aber da dies größer als ein "
-"Byte ist, wird das <tt>A</tt>-Register auf <tt>$00</tt> gesetzt und das "
-"Carry-Flag wird gesetzt. Zusätzlich wird auch das Zero-Flag gesetzt. Das "
-"Zero-Flag wird bei allen Anweisungen gesetzt, bei denen das Ergebnis null ist."
+"Assembliere den Code und wähle <b>Schritt</b> aus dem Dropdown-Menü des Run-"
+"Buttons, um diese drei Anweisungen schrittweise durchzugehen. Der Monitor im "
+"Debugger zeigt einen Speicherbereich an und kann hilfreich sein, um die "
+"Ausführung von Programmen zu visualisieren. <tt>STA $01</tt> speichert den "
+"Wert des <tt>A</tt>-Registers an der Speicheradresse <tt>$01</tt>, und "
+"<tt>ADC $01</tt> addiert den an der Speicheradresse <tt>$01</tt> "
+"gespeicherten Wert zum <tt>A</tt>-Register. <tt>$80 + $80</tt> sollte "
+"<tt>$100</tt> ergeben, aber da dies größer als ein Byte ist, wird das <tt>A</"
+"tt>-Register auf <tt>$00</tt> gesetzt und das Carry-Flag wird gesetzt. "
+"Zusätzlich wird auch das Zero-Flag gesetzt. Das Zero-Flag wird bei allen "
+"Anweisungen gesetzt, bei denen das Ergebnis null ist."
 
 #: ../learn/dist/tutorial.ui:45
 msgid ""
@@ -956,8 +959,8 @@ msgid ""
 "memory."
 msgstr ""
 "Versuche Code-Beispiele zu schreiben, die jeden der 6502-Adressierungsmodi "
-"verwenden. Denk daran, dass du den Monitor im Debugger verwenden kannst, um einen "
-"Speicherbereich zu beobachten."
+"verwenden. Denk daran, dass du den Monitor im Debugger verwenden kannst, um "
+"einen Speicherbereich zu beobachten."
 
 #: ../learn/dist/tutorial.ui:137
 msgid "The stack"
@@ -1146,8 +1149,8 @@ msgid ""
 "The code block below contains the entire source code of the game. I'll "
 "explain how it works in the following sections."
 msgstr ""
-"Der Code-Block unten enthält den gesamten Quellcode des Spiels. Ich "
-"werde in den folgenden Abschnitten erklären, wie es funktioniert."
+"Der Code-Block unten enthält den gesamten Quellcode des Spiels. Ich werde in "
+"den folgenden Abschnitten erklären, wie es funktioniert."
 
 #: ../learn/dist/tutorial.ui:200
 msgid ""
@@ -1701,6 +1704,105 @@ msgstr ""
 "sonst zu schnell laufen würde. Alles, was <tt>spinWheels</tt> tut, ist "
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:7
+msgid "Modern 6502 Assembly Learning Environment"
+msgstr "Moderne Lernumgebung für 6502-Assembler"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:9
+msgid ""
+"Learn 6502 Assembly is a modern, native Adwaita application that provides a "
+"complete learning environment for 6502 assembly language programming. Built "
+"with GJS and TypeScript, this application brings the classic Learn6502 "
+"tutorial by Nick Morgan to your desktop as a beautiful, integrated "
+"experience."
+msgstr ""
+"6502 Assembler lernen ist eine moderne, native Adwaita-Anwendung, die eine "
+"vollständige Lernumgebung für die Programmierung in 6502-Assembler bietet. "
+"Erstellt mit GJS und TypeScript, bringt diese Anwendung das klassische "
+"Learn6502-Tutorial von Nick Morgan als schöne, integrierte Erfahrung auf "
+"Ihren Desktop."
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:12
+msgid "Features:"
+msgstr "Funktionen:"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:14
+msgid ""
+"Interactive Tutorial: A comprehensive step-by-step guide to learning 6502 "
+"assembly language, with explanations of all core concepts"
+msgstr ""
+"Interaktives Tutorial: Eine umfassende Schritt-für-Schritt-Anleitung zum "
+"Lernen der 6502-Assemblersprache mit Erklärungen aller Kernkonzepte"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:15
+msgid ""
+"Code Editor: Write and edit your 6502 assembly code with syntax highlighting"
+msgstr ""
+"Code-Editor: Schreiben und bearbeiten Sie Ihren 6502-Assemblercode mit "
+"Syntaxhervorhebung"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:16
+msgid ""
+"Assembler &amp; Debugger: Assemble your code and debug it with a powerful "
+"built-in debugger showing registers, flags, and memory in real-time"
+msgstr ""
+"Assembler &amp; Debugger: Assemblieren Sie Ihren Code und debuggen Sie ihn "
+"mit einem leistungsfähigen integrierten Debugger, der Register, Flags und "
+"Speicher in Echtzeit anzeigt"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:17
+msgid ""
+"Visual Game Console: See your code in action on a virtual display, perfect "
+"for creating simple games and graphics"
+msgstr ""
+"Visuelle Spielkonsole: Sehen Sie Ihren Code in Aktion auf einem virtuellen "
+"Display, ideal für die Erstellung einfacher Spiele und Grafiken"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:24
+msgid "Learn 6502 Assembly in light Adwaita theme showing the interactive tutorial interface"
+msgstr "6502 Assembler lernen im hellen Adwaita-Theme mit der interaktiven Tutorial-Oberfläche"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:28
+msgid "Learn 6502 Assembly in dark Adwaita theme showing the interactive tutorial interface"
+msgstr "6502 Assembler lernen im dunklen Adwaita-Theme mit der interaktiven Tutorial-Oberfläche"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:32
+msgid "The code editor with syntax highlighting for 6502 assembly"
+msgstr "Der Code-Editor mit Syntaxhervorhebung für 6502-Assembler"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:36
+msgid "The built-in debugger showing registers, flags, and memory in real-time"
+msgstr ""
+"Der integrierte Debugger zeigt Register, Flags und Speicher in Echtzeit an"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:40
+msgid "The virtual game console displaying three colored pixels"
+msgstr "Die virtuelle Spielkonsole zeigt drei farbige Pixel an"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:53
+msgid "First release of Learn 6502 Assembly for GNOME"
+msgstr "Erste Veröffentlichung von 6502 Assembler lernen für GNOME"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:66
+msgid "6502"
+msgstr "6502"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:67
+msgid "Assembly"
+msgstr "Assembler"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:68
+msgid "Programming"
+msgstr "Programmierung"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:69
+msgid "Learning"
+msgstr "Lernen"
+
+#: ../app-gnome/data/eu.jumplink.Learn6502.metainfo.xml:70
+msgid "Emulator"
+msgstr "Emulator"
 
 #~ msgid "_Preferences"
 #~ msgstr "_Einstellungen"

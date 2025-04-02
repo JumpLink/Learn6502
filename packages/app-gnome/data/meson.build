@@ -45,9 +45,3 @@ data_res = gnome.compile_resources(
   install_dir: pkgdatadir,
   # dependencies: [appstream_file, blueprints],
 )
-
-install_data(
-  'eu.jumplink.Learn6502.metainfo.xml',
-  install_dir: get_option('datadir') / 'metainfo',
-
-)
