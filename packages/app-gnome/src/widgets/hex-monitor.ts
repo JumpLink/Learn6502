@@ -140,8 +140,8 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
 
     // Update entry fields if values were adjusted
     if (changed) {
-      this._startAddressEntry.set_text(start.toString(16).padStart(4, '0').toUpperCase());
-      this._lengthEntry.set_text(length.toString(16).padStart(4, '0').toUpperCase());
+      this._startAddressEntry.set_text(start.toString(16).toUpperCase());
+      this._lengthEntry.set_text(length.toString(16).toUpperCase());
     }
 
     // Apply the values
@@ -149,19 +149,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
       this.setMonitorRange(start, length);
       this.emit('changed');
     }
-  }
-
-  private showErrorDialog(message: string): void {
-    const dialog = new Adw.MessageDialog({
-      heading: 'Input Error',
-      body: message,
-      close_response: 'close',
-      transient_for: this.get_root() as Gtk.Window,
-      modal: true,
-    });
-
-    dialog.add_response('close', '_Close');
-    dialog.present();
   }
 
   public update(memory: Memory) {
