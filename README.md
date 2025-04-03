@@ -12,7 +12,7 @@ Learn 6502 Assembly is a modern, native Adwaita application for the GNOME deskto
 
 <img src="./misc/screenshots/1.png" alt="Screenshot of Learn 6502 Assembly GNOME Application" width="482"/>
 
-<a style="padding-left: 60px;" href="https://flathub.org/apps/eu.jumplink.Learn6502">
+<a href="https://flathub.org/apps/eu.jumplink.Learn6502">
   <img width="200" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/>
 </a>
 
@@ -24,7 +24,7 @@ Learn 6502 Assembly is a modern, native Adwaita application for the GNOME deskto
 - **Visual Game Console**: See your code in action on a virtual display, perfect for creating simple games and graphics
 - **Built with Modern Technologies**: Developed in GJS and TypeScript with Adwaita styling for a native GNOME experience
 
-This project is a complete rewrite of the original web-based easy6502 tutorial, transformed into a native GNOME application while preserving the core functionality that made the original so effective for learning 6502 assembly.
+This project is a fork of the [original web-based easy6502 tutorial](https://github.com/skilldrick/easy6502), transformed into a native GNOME application while preserving the core functionality that made the original so effective for learning 6502 assembly.
 
 ## Packages
 
