@@ -9,7 +9,7 @@ declare global {
   const __APPLICATION_ID__: string
   /** /eu/jumplink/Learn6502 */
   const __RESOURCES_PATH__: string
-  /** 0.1.1 */
+  /** 0.1.2 */
   const __PACKAGE_VERSION__: string
   /** /usr */
   const __PREFIX__: string
