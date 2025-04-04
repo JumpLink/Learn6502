@@ -147,7 +147,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private runGameConsole(): void {
     const visibleChild = this._stack.get_visible_child();
     // Set the game console as the visible child in the stack if it's not already visible or the debugger
-    if (visibleChild !== this._gameConsole && visibleChild !== this._debugger) {
+    if (visibleChild !== this._gameConsole) {
       this._stack.set_visible_child(this._gameConsole);
     }
     this._gameConsole.run();
@@ -165,7 +165,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._debugger.reset();
     const visibleChild = this._stack.get_visible_child();
     // Set the debugger as the visible child in the stack if it's not already visible or the game console
-    if (visibleChild !== this._debugger && visibleChild !== this._gameConsole) {
+    if (visibleChild !== this._debugger) {
       this._stack.set_visible_child(this._debugger);
     }
     // Reset the code changed flag BEFORE assembling
