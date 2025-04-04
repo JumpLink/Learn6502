@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-03 21:54+0200\n"
+"POT-Creation-Date: 2025-04-04 07:18+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -119,12 +119,11 @@ msgstr "Lernumgebung für 6502-Assembler"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:9
 msgid ""
-"Learn 6502 Assembly is a modern application that provides a complete "
-"learning environment for programming vintage computers and game consoles."
+"A comprehensive learning environment for programming vintage computers and "
+"game consoles using 6502 assembly language."
 msgstr ""
-"Learn 6502 Assembly ist eine moderne Anwendung, die eine komplette "
-"Lernumgebung für die Programmierung von Vintage-Computern und Spielkonsolen "
-"bietet."
+"Eine umfassende Lernumgebung für die Programmierung von Retro-Computern und "
+"Spielkonsolen mit 6502-Assembler."
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:12
 msgid "Features:"
@@ -132,48 +131,40 @@ msgstr "Funktionen:"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:14
 msgid "Learn step-by-step with an interactive tutorial"
-msgstr "Schritt für Schritt mit einem interaktiven Tutorial lernen"
+msgstr "Lerne Schritt für Schritt mit einem interaktiven Tutorial"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:15
-msgid "Write code with a dedicated editor"
-msgstr "Code mit einem speziellen Editor schreiben"
+msgid "Write code with a built-in editor"
+msgstr "Schreibe Code mit einem integrierten Editor"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:16
 msgid "Debug your programs with real-time tools"
-msgstr "Programme mit Echtzeit-Tools debuggen"
+msgstr "Debugge deine Programme mit Echtzeit-Tools"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:17
 msgid "See your code run on a virtual game console"
-msgstr "Code auf einer virtuellen Spielkonsole ausführen lassen"
+msgstr "Führe deinen Code auf einer virtuellen Spielkonsole aus"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:24
-msgid ""
-"Learn 6502 Assembly in light Adwaita theme showing the interactive tutorial "
-"interface"
-msgstr ""
-"Lerne 6502 Assembler im hellen Adwaita-Theme mit der interaktiven Tutorial-"
-"Oberfläche"
+msgid "Interactive tutorial interface in light theme"
+msgstr "Interaktive Tutorial-Oberfläche im hellen Design"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:28
-msgid ""
-"Learn 6502 Assembly in dark Adwaita theme showing the interactive tutorial "
-"interface"
-msgstr ""
-"Lerne 6502 Assembler im dunklen Adwaita-Theme mit der interaktiven Tutorial-"
-"Oberfläche"
+msgid "Interactive tutorial interface in dark theme"
+msgstr "Interaktive Tutorial-Oberfläche im dunklen Design"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:32
-msgid "The code editor with syntax highlighting for 6502 assembly"
-msgstr "Der Code-Editor mit Syntaxhervorhebung für 6502-Assembler"
+msgid "Code editor with 6502 assembly syntax highlighting"
+msgstr "Code-Editor mit Syntaxhervorhebung für 6502-Assembler"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:36
-msgid "The built-in debugger showing registers, flags, and memory in real-time"
+msgid "Built-in debugger showing real-time registers, flags, and memory"
 msgstr ""
-"Der integrierte Debugger zeigt Register, Flags und Speicher in Echtzeit an"
+"Integrierter Debugger mit Echtzeit-Anzeige von Registern, Flags und Speicher"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:40
-msgid "The virtual game console displaying three colored pixels"
-msgstr "Die virtuelle Spielkonsole zeigt drei farbige Pixel an"
+msgid "Virtual game console displaying three colored pixels"
+msgstr "Virtuelle Spielkonsole mit drei farbigen Pixeln"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:53
 msgid "Enhanced app presentation and accessibility"
@@ -181,9 +172,7 @@ msgstr "Verbesserte App-Darstellung und Zugänglichkeit"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:54
 msgid "Improved descriptions to be more welcoming for non-technical users"
-msgstr ""
-"Verbesserte Beschreibungen, um einladender für nicht-technische Benutzer zu "
-"sein"
+msgstr "Verbesserte Beschreibungen für nicht-technische Benutzer"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:55
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
@@ -1830,3 +1819,17 @@ msgstr ""
 "sonst zu schnell laufen würde. Alles, was <tt>spinWheels</tt> tut, ist "
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
+
+#~ msgid ""
+#~ "Learn 6502 Assembly in light theme showing the interactive tutorial "
+#~ "interface"
+#~ msgstr ""
+#~ "Lerne 6502 Assembler im hellen Theme mit der interaktiven Tutorial-"
+#~ "Oberfläche"
+
+#~ msgid ""
+#~ "Learn 6502 Assembly in dark theme showing the interactive tutorial "
+#~ "interface"
+#~ msgstr ""
+#~ "Lerne 6502 Assembler im dunklen Theme mit der interaktiven Tutorial-"
+#~ "Oberfläche"
