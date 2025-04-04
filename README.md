@@ -28,9 +28,13 @@ This project is a fork of the [original web-based easy6502 tutorial](https://git
 
 ## Packages
 
-- `app-gnome`: The main GNOME desktop application with Adwaita styling
-- `app-web`: The classic web application as it originally looked
-- `6502`: The core 6502 simulator, assembler, and disassembler library
+- [app-gnome](./packages/app-gnome): The main GNOME desktop application with Adwaita styling
+- [app-web](./packages/app-web): The classic web application as it originally looked
+- [6502](./packages/6502): The core 6502 simulator, assembler, and disassembler library
+- [translations](./packages/translations): Translation files and build system for localization
+- [learn](./packages/learn): Tutorial content and learning materials
+- [vite-plugin-gettext](./packages/vite-plugin-gettext): Vite plugin for gettext localization support
+- [vite-plugin-blueprint](./packages/vite-plugin-blueprint): Vite plugin for GNOME Blueprint UI files
 
 ## Development
 
@@ -51,5 +55,5 @@ Contributions are welcome :)
 ## License
 
 - The application code is licensed under the [GNU General Public License v3](LICENSE)
-- The tutorial content is licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
+- The tutorial content and all translations are licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
 - The metadata is licensed under the [Creative Commons Zero 1.0 Universal License](https://creativecommons.org/publicdomain/zero/1.0/)

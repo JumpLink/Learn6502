@@ -1,0 +1,7 @@
+translations:
+  - base: packages/translations/eu.jumplink.Learn6502.pot
+    filemask: packages/translations/*.po
+    new_base: packages/translations/eu.jumplink.Learn6502.pot
+    file_format: po
+    language_code_style: posix
+    check_flags: ignore-end-colon,ignore-xml-invalid
