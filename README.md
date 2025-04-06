@@ -38,7 +38,22 @@ This project is a fork of the [original web-based easy6502 tutorial](https://git
 
 ## Development
 
-To get a initial development environment, run `yarn install && yarn setup && yarn build && yarn start` to install the dependencies, setup the monorepo, build the packages, and start the GNOME app.
+### Local Development
+
+To get started with local development:
+
+```bash
+# Install dependencies
+yarn install
+
+# Build all packages
+yarn build
+
+# Start the GNOME application
+yarn start:gnome
+```
+
+### Flatpak Build
 
 ### Building
 
