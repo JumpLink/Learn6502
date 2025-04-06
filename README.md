@@ -28,13 +28,13 @@ This project is a fork of the [original web-based easy6502 tutorial](https://git
 
 ## Packages
 
-- [app-gnome](./packages/app-gnome): The main GNOME desktop application with Adwaita styling
-- [app-web](./packages/app-web): The classic web application as it originally looked
-- [6502](./packages/6502): The core 6502 simulator, assembler, and disassembler library
-- [translations](./packages/translations): Translation files and build system for localization
-- [learn](./packages/learn): Tutorial content and learning materials
-- [vite-plugin-gettext](./packages/vite-plugin-gettext): Vite plugin for gettext localization support
-- [vite-plugin-blueprint](./packages/vite-plugin-blueprint): Vite plugin for GNOME Blueprint UI files
+- [app-gnome](./packages/app-gnome/README.md): The main GNOME desktop application with Adwaita styling
+- [app-web](./packages/app-web/README.md): The classic web application as it originally looked
+- [6502](./packages/6502/README.md): The core 6502 simulator, assembler, and disassembler library
+- [translations](./packages/translations/README.md): Translation files and build system for localization
+- [learn](./packages/learn/README.md): Tutorial content and learning materials
+- [vite-plugin-gettext](./packages/vite-plugin-gettext/README.md): Vite plugin for gettext localization support
+- [vite-plugin-blueprint](./packages/vite-plugin-blueprint/README.md): Vite plugin for GNOME Blueprint UI files
 
 ## Development
 
