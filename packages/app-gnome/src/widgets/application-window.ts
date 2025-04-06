@@ -27,6 +27,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   declare private _toastOverlay: Adw.ToastOverlay
 
   private _codeChanged: boolean = false
+  private _previousVisibleChild: Gtk.Widget | null = null
 
   static {
     GObject.registerClass({
@@ -85,6 +86,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.setupKeyboardListener();
     this.setupLearnTutorialSignalListeners();
     this.setupEditorSignalListeners();
+    // Initialize the previous visible child after all setup is done
+    this._previousVisibleChild = this._stack.get_visible_child();
   }
 
   public get state(): SimulatorState {
@@ -111,7 +114,34 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private onStackVisibleChildChanged(): void {
-    this.updateDebugger();
+    const currentChild = this._stack.get_visible_child();
+
+    // Save scroll position when navigating away from Learn view
+    if (this._previousVisibleChild === this._learn && currentChild !== this._learn) {
+      this._learn.saveScrollPosition();
+    }
+
+    // Restore scroll position when returning to Learn view
+    // Only restore if we're coming from a different view
+    if (currentChild === this._learn && this._previousVisibleChild !== this._learn) {
+      // Make sure the Learn widget is properly mapped before restoring
+      if (this._learn.get_mapped()) {
+        this._learn.restoreScrollPosition();
+      } else {
+        // Connect a one-time handler to restore after mapping
+        const handler = this._learn.connect('map', () => {
+          this._learn.restoreScrollPosition();
+          this._learn.disconnect(handler);
+        });
+      }
+    }
+
+    // Update previous child
+    this._previousVisibleChild = currentChild;
+
+    if (currentChild === this._debugger) {
+      this.updateDebugger();
+    }
   }
 
   private onCloseRequest(): void {
