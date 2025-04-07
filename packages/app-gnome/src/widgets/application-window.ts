@@ -3,6 +3,7 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import Gdk from '@girs/gdk-4.0'
 import Gio from '@girs/gio-2.0'
+import GLib from '@girs/glib-2.0'
 
 import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
@@ -25,24 +26,49 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   declare private _switcherBar: Adw.ViewSwitcherBar
   declare private _debugger: Debugger
   declare private _toastOverlay: Adw.ToastOverlay
-
-  private _codeChanged: boolean = false
-  private _previousVisibleChild: Gtk.Widget | null = null
+  declare private _unsavedChangesDialog: Adw.AlertDialog
+  declare private _titleLabel: Gtk.Label
+  declare private _unsavedChangesIndicator: Gtk.Button
 
   static {
     GObject.registerClass({
       GTypeName: 'ApplicationWindow',
       Template,
-      InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay'],
+      InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay', 'unsavedChangesDialog', 'titleLabel', 'unsavedChangesIndicator'],
     }, this);
   }
 
+  // State
+  private previousVisibleChild: Gtk.Widget | null = null
+  private currentFile: Gio.File | null = null
+  private pendingDialogAction: 'open' | 'close' | null = null
+  private codeToAssembleChanged: boolean = false
+
+  private set unsavedChanges(unsavedChanges: boolean) {
+    this._unsavedChangesIndicator.visible = unsavedChanges;
+    if(this.currentFile === null) {
+      this._unsavedChangesIndicator.tooltip_text = _("Unsaved changes");
+    } else {
+      this._unsavedChangesIndicator.tooltip_text = _("File \"%s\" has unsaved changes").format(this.getCurrentFileName());
+    }
+  }
+
+  private get unsavedChanges(): boolean {
+    return this._unsavedChangesIndicator.visible;
+  }
+
+  // Actions
   private assembleAction = new Gio.SimpleAction({ name: 'assemble' });
   private runSimulatorAction = new Gio.SimpleAction({ name: 'run-simulator' });
   private resumeSimulatorAction = new Gio.SimpleAction({ name: 'resume-simulator' });
   private pauseSimulatorAction = new Gio.SimpleAction({ name: 'pause-simulator' });
   private resetSimulatorAction = new Gio.SimpleAction({ name: 'reset-simulator' });
   private stepSimulatorAction = new Gio.SimpleAction({ name: 'step-simulator' });
+
+  // New file actions
+  private openFileAction = new Gio.SimpleAction({ name: 'open-file' });
+  private saveFileAction = new Gio.SimpleAction({ name: 'save-file' });
+  private saveAsFileAction = new Gio.SimpleAction({ name: 'save-as-file' });
 
   private buttonModes: Record<RunButtonState, RunButtonMode> = {
     [RunButtonState.ASSEMBLE]: {
@@ -81,13 +107,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     super({ application })
     this.setupGeneralSignalListeners();
     this.setupActions();
+    this.setupFileActions();
     this.setupRunButton();
     this.setupGameConsoleSignalListeners();
     this.setupKeyboardListener();
     this.setupLearnTutorialSignalListeners();
     this.setupEditorSignalListeners();
     // Initialize the previous visible child after all setup is done
-    this._previousVisibleChild = this._stack.get_visible_child();
+    this.previousVisibleChild = this._stack.get_visible_child();
   }
 
   public get state(): SimulatorState {
@@ -103,7 +130,9 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private setupEditorSignalListeners(): void {
     // Connect to text buffer's changed signal
     this._editor.connect('changed', () => {
-      this._codeChanged = true;
+      this.codeToAssembleChanged = true;
+      this.unsavedChanges = true;
+
       this.updateRunActions(this._gameConsole.simulator.state);
     });
   }
@@ -117,13 +146,13 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     const currentChild = this._stack.get_visible_child();
 
     // Save scroll position when navigating away from Learn view
-    if (this._previousVisibleChild === this._learn && currentChild !== this._learn) {
+    if (this.previousVisibleChild === this._learn && currentChild !== this._learn) {
       this._learn.saveScrollPosition();
     }
 
     // Restore scroll position when returning to Learn view
     // Only restore if we're coming from a different view
-    if (currentChild === this._learn && this._previousVisibleChild !== this._learn) {
+    if (currentChild === this._learn && this.previousVisibleChild !== this._learn) {
       // Make sure the Learn widget is properly mapped before restoring
       if (this._learn.get_mapped()) {
         this._learn.restoreScrollPosition();
@@ -137,16 +166,23 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     }
 
     // Update previous child
-    this._previousVisibleChild = currentChild;
+    this.previousVisibleChild = currentChild;
 
     if (currentChild === this._debugger) {
       this.updateDebugger();
     }
   }
 
-  private onCloseRequest(): void {
+  private onCloseRequest(): boolean {
+    // Check for unsaved changes before closing
+    if (this.unsavedChanges) {
+      this.showUnsavedChangesDialog('close');
+      return true; // Block the close and handle it in the dialog response
+    }
+
     this._gameConsole.close();
     this._debugger.close();
+    return false;
   }
 
   private setupActions(): void {
@@ -167,6 +203,31 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     this.stepSimulatorAction.connect('activate', this.stepGameConsole.bind(this));
     this.add_action(this.stepSimulatorAction);
+  }
+
+  private setupFileActions(): void {
+    // Open file action
+    this.openFileAction.connect('activate', this.openFile.bind(this));
+    this.add_action(this.openFileAction);
+
+    // Save file action
+    this.saveFileAction.connect('activate', this.saveFile.bind(this));
+    this.add_action(this.saveFileAction);
+
+    // Save as file action
+    this.saveAsFileAction.connect('activate', this.saveAsFile.bind(this));
+    this.add_action(this.saveAsFileAction);
+
+    // Set keyboard shortcuts
+    const app = this.get_application();
+    if (app) {
+      app.set_accels_for_action(`win.${this.openFileAction.get_name()}`, ['<Control>o']);
+      app.set_accels_for_action(`win.${this.saveFileAction.get_name()}`, ['<Control>s']);
+      app.set_accels_for_action(`win.${this.saveAsFileAction.get_name()}`, ['<Control><Shift>s']);
+    }
+
+    // Connect unsaved changes dialog responses
+    this._unsavedChangesDialog.connect('response', this.onUnsavedChangesResponse.bind(this));
   }
 
   private setupRunButton(): void {
@@ -199,7 +260,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       this._stack.set_visible_child(this._debugger);
     }
     // Reset the code changed flag BEFORE assembling
-    this._codeChanged = false;
+    this.codeToAssembleChanged = false;
     this._gameConsole.assemble(this._editor.code);
   }
 
@@ -207,7 +268,10 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._editor.code = code;
     // Set the editor as the visible child in the stack
     this._stack.set_visible_child(this._editor);
-    this._codeChanged = false; // Reset the code changed flag after setting code
+
+    // Reset the code changed flag after setting code
+    this.codeToAssembleChanged = false;
+    this.unsavedChanges = false;
   }
 
   private showToast(params: Partial<Adw.Toast.ConstructorProps>): void {
@@ -418,7 +482,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     let buttonState: RunButtonState;
 
-    if (this._codeChanged) {
+    if (this.codeToAssembleChanged) {
       buttonState = RunButtonState.ASSEMBLE;
       this.setButtonMode(buttonState);
       return buttonState;
@@ -512,6 +576,202 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     // Update the UI
     this.onSimulatorStateChange(this._gameConsole.simulator.state);
+  }
+
+  private async openFile(): Promise<void> {
+    // Check for unsaved changes first
+    if (this.unsavedChanges) {
+      this.showUnsavedChangesDialog('open');
+      return;
+    }
+
+    await this.openFileImpl();
+  }
+
+  private async openFileImpl(): Promise<void> {
+    try {
+      const fileDialog = new Gtk.FileDialog({
+        title: _('Open Assembly File'),
+        modal: true,
+        filters: this.createFileFilters()
+      });
+
+      const file = await fileDialog.open(this, null);
+      if (!file) return;
+
+      const [contents] = await file.load_contents_async(null);
+      if (!contents) {
+        this.showToast({
+          title: _("Failed to load file"),
+          timeout: 3
+        });
+        return;
+      }
+
+      const fileContent = new TextDecoder().decode(contents);
+
+      // Update editor with file contents
+      this._editor.code = fileContent;
+      this.currentFile = file;
+      this.codeToAssembleChanged = false;
+      this.unsavedChanges = false;
+
+      // Switch to editor view
+      this._stack.set_visible_child(this._editor);
+
+      this.showToast({
+        title: _("File loaded successfully"),
+        timeout: 3
+      });
+    } catch (error) {
+      console.error("Error opening file:", error);
+      this.showToast({
+        title: _("Error opening file"),
+        timeout: 3
+      });
+    }
+  }
+
+  private async saveFile(): Promise<boolean> {
+    this.unsavedChanges = false;
+    if (this.currentFile) {
+      return this.saveToFile(this.currentFile);
+    } else {
+      return this.saveAsFile();
+    }
+  }
+
+  private getCurrentFileName(): string {
+    if (!this.currentFile) return _("untitled") + ".asm";
+    return this.currentFile.get_basename() || _("untitled") + ".asm";
+  }
+
+  private async saveAsFile(): Promise<boolean> {
+    try {
+      const fileDialog = new Gtk.FileDialog({
+        title: _('Save Assembly File'),
+        modal: true,
+        filters: this.createFileFilters(),
+        initial_name: this.getCurrentFileName()
+      });
+
+      const file = await fileDialog.save(this, null);
+      if (!file) return false;
+
+      return this.saveToFile(file);
+    } catch (error) {
+      console.error("Error in save as:", error);
+      this.showToast({
+        title: _("Error saving file"),
+        timeout: 3
+      });
+      return false;
+    }
+  }
+
+  private async saveToFile(file: Gio.File): Promise<boolean> {
+    try {
+      const content = this._editor.code;
+
+      // Create a file output stream
+      const stream = await file.replace_async(
+        null,
+        false,
+        Gio.FileCreateFlags.NONE,
+        GLib.PRIORITY_DEFAULT,
+        null
+      );
+
+      // Convert string to bytes
+      const bytes = new TextEncoder().encode(content);
+
+      // Write the content
+      await stream.write_bytes_async(new GLib.Bytes(bytes), GLib.PRIORITY_DEFAULT, null);
+      await stream.close_async(GLib.PRIORITY_DEFAULT, null);
+
+      this.currentFile = file;
+      this.unsavedChanges = false;
+
+      this.showToast({
+        title: _("File saved successfully"),
+        timeout: 3
+      });
+      return true;
+    } catch (error) {
+      console.error("Error saving file:", error);
+      this.showToast({
+        title: _("Error saving file"),
+        timeout: 3
+      });
+      return false;
+    }
+  }
+
+  private createFileFilters(): Gio.ListStore {
+    const filters = new Gio.ListStore({ item_type: Gtk.FileFilter.$gtype });
+
+    const asmFilter = Gtk.FileFilter.new();
+    asmFilter.set_name(_("Assembly Files"));
+    asmFilter.add_pattern("*.asm");
+    asmFilter.add_pattern("*.s");
+
+    const allFilter = Gtk.FileFilter.new();
+    allFilter.set_name(_("All Files"));
+    allFilter.add_pattern("*");
+
+    filters.append(asmFilter);
+    filters.append(allFilter);
+
+    return filters;
+  }
+
+  private showUnsavedChangesDialog(action: 'open' | 'close'): void {
+    // Store the action in a class property instead of using set_data
+    this.pendingDialogAction = action;
+    this._unsavedChangesDialog.present(this);
+  }
+
+  private onUnsavedChangesResponse(dialog: Adw.AlertDialog, response: string): void {
+    // Get the action from the class property
+    const action = this.pendingDialogAction;
+    if (!action) return;
+
+    switch (response) {
+      case 'save':
+        // Save and then continue with the action
+        this.saveFile().then(success => {
+          if (success) {
+            if (action === 'open') {
+              this.openFileImpl();
+            } else if (action === 'close') {
+              this._gameConsole.close();
+              this._debugger.close();
+              this.destroy();
+            }
+          }
+        });
+        break;
+
+      case 'discard':
+        // Discard changes and continue
+        this.unsavedChanges = false;
+        if (action === 'open') {
+          this.openFileImpl();
+        } else if (action === 'close') {
+          this._gameConsole.close();
+          this._debugger.close();
+          this.destroy();
+        }
+        break;
+
+      case 'cancel':
+      default:
+        // Do nothing
+        break;
+    }
+
+    // Reset the pending action
+    this.pendingDialogAction = null;
   }
 }
 

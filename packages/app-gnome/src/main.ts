@@ -1,25 +1,9 @@
 import './types/global.d.ts'
 import '@girs/gjs/dom'
 import '@girs/gjs'
-import GLib from '@girs/glib-2.0'
+import { loop } from './bootstrap.ts'
 import { programInvocationName, exit} from 'system'
-import { APPLICATION_ID, PACKAGE_VERSION, PREFIX, LIBDIR, DATADIR } from './constants.ts'
-
 import { Application } from './widgets/index.ts'
-
-imports.package.init({
-  name: APPLICATION_ID,
-  version: PACKAGE_VERSION,
-  prefix: PREFIX,
-  libdir: LIBDIR,
-  datadir: DATADIR,
-});
-
-pkg.initGettext();
-imports.gettext.bindtextdomain(APPLICATION_ID, DATADIR + '/locale');
-imports.gettext.textdomain(APPLICATION_ID);
-
-const loop = GLib.MainLoop.new(null, false)
 
 async function main(argv: string[]) {
   const application = new Application()
@@ -28,7 +12,6 @@ async function main(argv: string[]) {
   return exitCode
 }
 
-// TODO: Use `imports.package.run` instead of `await main(argv)`?
 try {
   const exitCode = await main(
     [programInvocationName].concat(ARGV),

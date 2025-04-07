@@ -14,7 +14,7 @@ template $ApplicationWindow: Adw.ApplicationWindow {
     condition ("max-width: 500sp")
 
     setters {
-      title_label.visible: false;
+      titleLabel.visible: false;
     }
   }
 
@@ -22,7 +22,7 @@ template $ApplicationWindow: Adw.ApplicationWindow {
     [top]
     Adw.HeaderBar headerBar {
 
-      title-widget: Label title_label {
+      title-widget: Label titleLabel {
         label: _("Learn 6502 Assembly");
       };
 
@@ -32,6 +32,16 @@ template $ApplicationWindow: Adw.ApplicationWindow {
         icon-name: "open-menu-symbolic";
         tooltip-text: _("Menu");
         menu-model: buttonWindowMenu;
+      }
+
+      Button unsavedChangesIndicator {
+        icon-name: "dot-symbolic";
+        tooltip-text: _("Unsaved changes");
+        visible: false;
+        styles [
+          "flat",
+          "circular"
+        ]
       }
 
       [end]
@@ -97,6 +107,27 @@ template $ApplicationWindow: Adw.ApplicationWindow {
 
 menu buttonWindowMenu {
   section {
+
+    item {
+      label: _("About Learn 6502 Assembly");
+      action: "app.about";
+    }
+
+    item {
+      label: _("Open...");
+      action: "win.open-file";
+    }
+
+    item {
+      label: _("Save");
+      action: "win.save-file";
+    }
+
+    item {
+      label: _("Save as...");
+      action: "win.save-as-file";
+    }
+
     // TODO: Uncomment when preferences are implemented
     // item {
     //   label: _("_Preferences");
@@ -110,12 +141,7 @@ menu buttonWindowMenu {
     // }
 
     item {
-      label: _("_About Learn 6502 Assembly");
-      action: "app.about";
-    }
-
-    item {
-      label: _("_Quit");
+      label: _("Quit");
       action: "app.quit";
     }
   }
@@ -148,4 +174,17 @@ menu buttonRunMenu {
       action: 'win.reset-simulator';
     }
   }
+}
+
+// Dialog for unsaved changes
+Adw.AlertDialog unsavedChangesDialog {
+  heading: _("Save changes?");
+  body: _("Your file has unsaved changes. Changes will be lost if you don't save them.");
+  close-response: "cancel";
+
+  responses [
+    cancel: _("Cancel"),
+    discard: _("Discard") destructive,
+    save: _("Save") suggested,
+  ]
 }

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-06 17:15+0200\n"
+"POT-Creation-Date: 2025-04-07 12:42+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -19,28 +19,79 @@ msgstr ""
 "License: CC-BY-4.0\n"
 
 #: ../app-gnome/src/widgets/application-window.ts:50
+msgid "Unsaved changes"
+msgstr "Ungespeicherte Änderungen "
+
+#: ../app-gnome/src/widgets/application-window.ts:52
+#, javascript-format
+msgid "File \"%s\" has unsaved changes"
+msgstr "Datei \"%s\" enthält ungespeicherte Änderungen"
+
+#: ../app-gnome/src/widgets/application-window.ts:76
 msgid "Assemble"
 msgstr "Assemblieren"
 
-#: ../app-gnome/src/widgets/application-window.ts:55
+#: ../app-gnome/src/widgets/application-window.ts:81
 msgid "Run"
 msgstr "Ausführen"
 
-#: ../app-gnome/src/widgets/application-window.ts:60
+#: ../app-gnome/src/widgets/application-window.ts:86
 msgid "Pause"
 msgstr "Pause"
 
-#: ../app-gnome/src/widgets/application-window.ts:65
+#: ../app-gnome/src/widgets/application-window.ts:91
 msgid "Resume"
 msgstr "Fortsetzen"
 
-#: ../app-gnome/src/widgets/application-window.ts:70
+#: ../app-gnome/src/widgets/application-window.ts:96
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: ../app-gnome/src/widgets/application-window.ts:75
+#: ../app-gnome/src/widgets/application-window.ts:101
 msgid "Step"
 msgstr "Schritt"
+
+#: ../app-gnome/src/widgets/application-window.ts:594
+msgid "Open Assembly File"
+msgstr "Assembler"
+
+#: ../app-gnome/src/widgets/application-window.ts:605
+msgid "Failed to load file"
+msgstr "Datei konnte nicht geladen werden"
+
+#: ../app-gnome/src/widgets/application-window.ts:623
+msgid "File loaded successfully"
+msgstr "Datei erfolgreich geladen"
+
+#: ../app-gnome/src/widgets/application-window.ts:629
+msgid "Error opening file"
+msgstr "Fehler beim Öffnen der Datei"
+
+#: ../app-gnome/src/widgets/application-window.ts:645
+#: ../app-gnome/src/widgets/application-window.ts:646
+msgid "untitled"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:652
+msgid "Save Assembly File"
+msgstr "Assembler Datei speichern"
+
+#: ../app-gnome/src/widgets/application-window.ts:665
+#: ../app-gnome/src/widgets/application-window.ts:703
+msgid "Error saving file"
+msgstr "Fehler beim Speichern der Datei"
+
+#: ../app-gnome/src/widgets/application-window.ts:696
+msgid "File saved successfully"
+msgstr "Datei erfolgreich gespeichert"
+
+#: ../app-gnome/src/widgets/application-window.ts:714
+msgid "Assembly Files"
+msgstr "Assembler-Dateien"
+
+#: ../app-gnome/src/widgets/application-window.ts:719
+msgid "All Files"
+msgstr "Alle Dateien"
 
 #: ../app-gnome/src/widgets/application-window.blp:26
 msgid "Learn 6502 Assembly"
@@ -50,35 +101,67 @@ msgstr "Lerne 6502 Assembler"
 msgid "Menu"
 msgstr "Menü"
 
-#: ../app-gnome/src/widgets/application-window.blp:53
+#: ../app-gnome/src/widgets/application-window.blp:63
 #: ../app-gnome/src/widgets/learn.blp:8
 msgid "Learn"
 msgstr "Lernen"
 
-#: ../app-gnome/src/widgets/application-window.blp:62
+#: ../app-gnome/src/widgets/application-window.blp:72
 msgid "Editor"
 msgstr "Editor"
 
-#: ../app-gnome/src/widgets/application-window.blp:71
+#: ../app-gnome/src/widgets/application-window.blp:81
 #: ../app-gnome/src/widgets/debugger.blp:15
 msgid "Debugger"
 msgstr "Debugger"
 
-#: ../app-gnome/src/widgets/application-window.blp:80
+#: ../app-gnome/src/widgets/application-window.blp:90
 msgid "Game Console"
 msgstr "Spielkonsole"
 
-#: ../app-gnome/src/widgets/application-window.blp:113
-msgid "_About Learn 6502 Assembly"
-msgstr "_Über Lerne 6502 Assembler"
+#: ../app-gnome/src/widgets/application-window.blp:112
+msgid "About Learn 6502 Assembly"
+msgstr "Über Lerne 6502 Assembler"
 
-#: ../app-gnome/src/widgets/application-window.blp:118
-msgid "_Quit"
-msgstr "_Beenden"
+#: ../app-gnome/src/widgets/application-window.blp:117
+msgid "Open..."
+msgstr "Öffnen..."
 
-#: ../app-gnome/src/widgets/application-window.blp:135
+#: ../app-gnome/src/widgets/application-window.blp:122
+#: ../app-gnome/src/widgets/application-window.blp:188
+msgid "Save"
+msgstr "Speichern"
+
+#: ../app-gnome/src/widgets/application-window.blp:127
+msgid "Save as..."
+msgstr "Speichern unter..."
+
+#: ../app-gnome/src/widgets/application-window.blp:144
+msgid "Quit"
+msgstr "Beenden"
+
+#: ../app-gnome/src/widgets/application-window.blp:161
 msgid "Continue"
 msgstr "Fortfahren"
+
+#: ../app-gnome/src/widgets/application-window.blp:181
+msgid "Save changes?"
+msgstr "Änderungen speichern?"
+
+#: ../app-gnome/src/widgets/application-window.blp:182
+msgid ""
+"Your file has unsaved changes. Changes will be lost if you don't save them."
+msgstr ""
+"Deine Datei enthält ungespeicherte Änderungen. Die Änderungen gehen "
+"verloren, wenn du sie nicht speicherst."
+
+#: ../app-gnome/src/widgets/application-window.blp:186
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../app-gnome/src/widgets/application-window.blp:187
+msgid "Discard"
+msgstr "Verwerfen"
 
 #: ../app-gnome/src/widgets/debugger.blp:16
 msgid ""
@@ -1819,6 +1902,12 @@ msgstr ""
 "sonst zu schnell laufen würde. Alles, was <tt>spinWheels</tt> tut, ist "
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
+
+#~ msgid "_Save"
+#~ msgstr "_Speichern"
+
+#~ msgid "Failed to save file"
+#~ msgstr "Datei konnte nicht gespeichert werden"
 
 #~ msgid ""
 #~ "Learn 6502 Assembly in light theme showing the interactive tutorial "

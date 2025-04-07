@@ -1,6 +1,6 @@
 # Learn Package
 
-This package contains the core tutorial content for learning 6502 assembly language programming. The content is written in MDX format and can be transformed into various output formats to support different platforms.
+This package contains the core tutorial content for learning 6502 assembly language programming. The content is written in a Markdown [MDX](https://mdxjs.com/) format and can be transformed into various output formats to support different platforms.
 
 ## Content
 
@@ -35,4 +35,4 @@ This will generate the necessary output files in the `dist/` directory.
 ## License
 
 - The tutorial content is licensed under the [Creative Commons Attribution 4.0 International License](https://creativecommons.org/licenses/by/4.0/)
-- The transformation code and build system are licensed under the [GNU General Public License v3](../../LICENSE) 
+- The transformation code and build system are licensed under the [GNU General Public License v3](../../LICENSE)
