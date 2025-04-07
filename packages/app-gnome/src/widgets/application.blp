@@ -1,0 +1,18 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $Application : Adw.Application {
+  // Dialog for unsaved changes
+  [export]
+  Adw.AlertDialog unsavedChangesDialog {
+    heading: _("Save changes?");
+    body: _("Your file has unsaved changes. Changes will be lost if you don't save them.");
+    close-response: "cancel";
+
+    responses [
+      cancel: _("Cancel"),
+      discard: _("Discard") destructive,
+      save: _("Save") suggested,
+    ]
+  }
+}

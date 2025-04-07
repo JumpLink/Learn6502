@@ -1,3 +1,4 @@
+// Constants, replaced by vite
 export const APPLICATION_ID = __APPLICATION_ID__
 export const RESOURCES_PATH = __RESOURCES_PATH__
 export const PACKAGE_VERSION = __PACKAGE_VERSION__

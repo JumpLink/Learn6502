@@ -31,7 +31,7 @@ template $ApplicationWindow: Adw.ApplicationWindow {
         primary: true;
         icon-name: "open-menu-symbolic";
         tooltip-text: _("Menu");
-        menu-model: buttonWindowMenu;
+        menu-model: primaryMenu;
       }
 
       Button unsavedChangesIndicator {
@@ -105,40 +105,33 @@ template $ApplicationWindow: Adw.ApplicationWindow {
   };
 }
 
-menu buttonWindowMenu {
+menu primaryMenu {
   section {
+    submenu {
+      label: _("File");
+
+      section {
+        item {
+          label: _("Open...");
+          action: "app.open-file";
+        }
+
+        item {
+          label: _("Save");
+          action: "app.save-file";
+        }
+
+        item {
+          label: _("Save as...");
+          action: "app.save-as-file";
+        }
+      }
+    }
 
     item {
       label: _("About Learn 6502 Assembly");
       action: "app.about";
     }
-
-    item {
-      label: _("Open...");
-      action: "win.open-file";
-    }
-
-    item {
-      label: _("Save");
-      action: "win.save-file";
-    }
-
-    item {
-      label: _("Save as...");
-      action: "win.save-as-file";
-    }
-
-    // TODO: Uncomment when preferences are implemented
-    // item {
-    //   label: _("_Preferences");
-    //   action: "app.preferences";
-    // }
-
-    // TODO: Uncomment when keyboard shortcuts are implemented
-    // item {
-    //   label: _("_Keyboard Shortcuts");
-    //   action: "win.show-help-overlay";
-    // }
 
     item {
       label: _("Quit");
@@ -174,17 +167,4 @@ menu buttonRunMenu {
       action: 'win.reset-simulator';
     }
   }
-}
-
-// Dialog for unsaved changes
-Adw.AlertDialog unsavedChangesDialog {
-  heading: _("Save changes?");
-  body: _("Your file has unsaved changes. Changes will be lost if you don't save them.");
-  close-response: "cancel";
-
-  responses [
-    cancel: _("Cancel"),
-    discard: _("Discard") destructive,
-    save: _("Save") suggested,
-  ]
 }
