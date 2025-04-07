@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-06 17:15+0200\n"
+"POT-Creation-Date: 2025-04-07 12:43+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,27 +18,78 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 
 #: ../app-gnome/src/widgets/application-window.ts:50
+msgid "Unsaved changes"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:52
+#, javascript-format
+msgid "File \"%s\" has unsaved changes"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:76
 msgid "Assemble"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:55
+#: ../app-gnome/src/widgets/application-window.ts:81
 msgid "Run"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:60
+#: ../app-gnome/src/widgets/application-window.ts:86
 msgid "Pause"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:65
+#: ../app-gnome/src/widgets/application-window.ts:91
 msgid "Resume"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:70
+#: ../app-gnome/src/widgets/application-window.ts:96
 msgid "Reset"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:75
+#: ../app-gnome/src/widgets/application-window.ts:101
 msgid "Step"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:594
+msgid "Open Assembly File"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:605
+msgid "Failed to load file"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:623
+msgid "File loaded successfully"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:629
+msgid "Error opening file"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:645
+#: ../app-gnome/src/widgets/application-window.ts:646
+msgid "untitled"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:652
+msgid "Save Assembly File"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:665
+#: ../app-gnome/src/widgets/application-window.ts:703
+msgid "Error saving file"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:696
+msgid "File saved successfully"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:714
+msgid "Assembly Files"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:719
+msgid "All Files"
 msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.blp:26
@@ -49,34 +100,64 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:53
+#: ../app-gnome/src/widgets/application-window.blp:63
 #: ../app-gnome/src/widgets/learn.blp:8
 msgid "Learn"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:62
+#: ../app-gnome/src/widgets/application-window.blp:72
 msgid "Editor"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:71
+#: ../app-gnome/src/widgets/application-window.blp:81
 #: ../app-gnome/src/widgets/debugger.blp:15
 msgid "Debugger"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:80
+#: ../app-gnome/src/widgets/application-window.blp:90
 msgid "Game Console"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:113
-msgid "_About Learn 6502 Assembly"
+#: ../app-gnome/src/widgets/application-window.blp:112
+msgid "About Learn 6502 Assembly"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:118
-msgid "_Quit"
+#: ../app-gnome/src/widgets/application-window.blp:117
+msgid "Open..."
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:135
+#: ../app-gnome/src/widgets/application-window.blp:122
+#: ../app-gnome/src/widgets/application-window.blp:188
+msgid "Save"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:127
+msgid "Save as..."
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:144
+msgid "Quit"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:161
 msgid "Continue"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:181
+msgid "Save changes?"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:182
+msgid ""
+"Your file has unsaved changes. Changes will be lost if you don't save them."
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:186
+msgid "Cancel"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:187
+msgid "Discard"
 msgstr ""
 
 #: ../app-gnome/src/widgets/debugger.blp:16
