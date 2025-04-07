@@ -295,7 +295,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       this.onSimulatorStateChange(this._gameConsole.simulator.state);
 
       this.showToast({
-        title: "Assembled successfully"
+        title: _("Assembled successfully")
       });
     })
 
@@ -305,7 +305,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       }
 
       this.showToast({
-        title: "Assemble failed"
+        title: _("Assemble failed")
       });
     })
 
@@ -387,7 +387,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       }
 
       this.showToast({
-        title: "Simulator failure"
+        title: _("Simulator failure")
       });
     })
 
@@ -403,7 +403,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       }
 
       this.showToast({
-        title: "Labels failure"
+        title: _("Labels failure")
       });
     })
 

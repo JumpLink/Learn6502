@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-07 12:43+0200\n"
+"POT-Creation-Date: 2025-04-07 16:19+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -50,6 +50,24 @@ msgstr "Zurücksetzen"
 #: ../app-gnome/src/widgets/application-window.ts:101
 msgid "Step"
 msgstr "Schritt"
+
+#: ../app-gnome/src/widgets/application-window.ts:298
+#, fuzzy
+msgid "Assembled successfully"
+msgstr "Datei erfolgreich geladen"
+
+#: ../app-gnome/src/widgets/application-window.ts:308
+#, fuzzy
+msgid "Assemble failed"
+msgstr "Assembler-Dateien"
+
+#: ../app-gnome/src/widgets/application-window.ts:390
+msgid "Simulator failure"
+msgstr "Simulator-Fehler"
+
+#: ../app-gnome/src/widgets/application-window.ts:406
+msgid "Labels failure"
+msgstr "Label-Fehler"
 
 #: ../app-gnome/src/widgets/application-window.ts:594
 msgid "Open Assembly File"

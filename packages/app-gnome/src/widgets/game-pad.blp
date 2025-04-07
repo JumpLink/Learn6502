@@ -13,13 +13,15 @@ template $GamePad: Adw.Bin {
         icon-name: "go-previous";
         margin-end: 0;
         valign: center;
+          height-request: 50;
+          width-request: 50;
 
         styles [
           "osd",
           "rounded-e-none",
         ]
       }
-      
+
       Box {
         orientation: vertical;
 
@@ -28,21 +30,40 @@ template $GamePad: Adw.Bin {
           icon-name: "go-up";
           valign: center;
           halign: center;
+          height-request: 50;
+          width-request: 50;
 
           styles [
             "osd",
             "rounded-b-none",
           ]
         }
-        
+
+        Button buttonCenter {
+          name: "buttonCenter";
+          valign: center;
+          halign: center;
+          height-request: 50;
+          width-request: 50;
+          sensitive: false;
+
+          styles [
+            "osd",
+            "rounded-none",
+          ]
+        }
+
         Button buttonDown {
           name: "buttonDown";
           icon-name: "go-down";
           valign: center;
           halign: center;
+          height-request: 50;
+          width-request: 50;
 
           styles [
             "osd",
+
             "rounded-t-none",
           ]
         }
@@ -53,6 +74,8 @@ template $GamePad: Adw.Bin {
         icon-name: "go-next";
         valign: center;
         halign: center;
+        height-request: 50;
+        width-request: 50;
 
         styles [
           "osd",
@@ -68,8 +91,10 @@ template $GamePad: Adw.Bin {
       Button buttonB {
         name: "buttonB";
         label: "B";
-        margin-top: 30;
-        margin-end: 10;
+        margin-top: 70;
+        margin-end: 0;
+        height-request: 50;
+        width-request: 50;
         valign: center;
 
         styles [
@@ -82,8 +107,10 @@ template $GamePad: Adw.Bin {
       Button buttonA {
         name: "buttonA";
         label: "A";
-        margin-bottom: 30;
-        margin-start: 10;
+        margin-bottom: 70;
+        margin-start: 0;
+        height-request: 50;
+        width-request: 50;
         valign: center;
 
         styles [
