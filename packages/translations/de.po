@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-07 16:54+0200\n"
+"POT-Creation-Date: 2025-04-08 13:24+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -51,63 +51,69 @@ msgstr "Zurücksetzen"
 msgid "Step"
 msgstr "Schritt"
 
-#: ../app-gnome/src/widgets/application-window.ts:298
-#, fuzzy
+#: ../app-gnome/src/widgets/application-window.ts:128
+msgid "Code copied to editor"
+msgstr "Code in Editor kopiert"
+
+#: ../app-gnome/src/widgets/application-window.ts:180
+msgid "Program paused automatically"
+msgstr "Programm automatisch pausiert"
+
+#: ../app-gnome/src/widgets/application-window.ts:316
 msgid "Assembled successfully"
-msgstr "Datei erfolgreich geladen"
+msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/widgets/application-window.ts:308
-#, fuzzy
+#: ../app-gnome/src/widgets/application-window.ts:327
 msgid "Assemble failed"
-msgstr "Assembler-Dateien"
+msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/widgets/application-window.ts:390
+#: ../app-gnome/src/widgets/application-window.ts:410
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:406
+#: ../app-gnome/src/widgets/application-window.ts:427
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:594
+#: ../app-gnome/src/widgets/application-window.ts:616
 msgid "Open Assembly File"
-msgstr "Assembler"
+msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/widgets/application-window.ts:605
+#: ../app-gnome/src/widgets/application-window.ts:627
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:623
+#: ../app-gnome/src/widgets/application-window.ts:645
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../app-gnome/src/widgets/application-window.ts:629
+#: ../app-gnome/src/widgets/application-window.ts:651
 msgid "Error opening file"
 msgstr "Fehler beim Öffnen der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:645
-#: ../app-gnome/src/widgets/application-window.ts:646
+#: ../app-gnome/src/widgets/application-window.ts:667
+#: ../app-gnome/src/widgets/application-window.ts:668
 msgid "untitled"
-msgstr ""
+msgstr "unbenannt"
 
-#: ../app-gnome/src/widgets/application-window.ts:652
+#: ../app-gnome/src/widgets/application-window.ts:674
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/widgets/application-window.ts:665
-#: ../app-gnome/src/widgets/application-window.ts:703
+#: ../app-gnome/src/widgets/application-window.ts:687
+#: ../app-gnome/src/widgets/application-window.ts:725
 msgid "Error saving file"
 msgstr "Fehler beim Speichern der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:696
+#: ../app-gnome/src/widgets/application-window.ts:718
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../app-gnome/src/widgets/application-window.ts:714
+#: ../app-gnome/src/widgets/application-window.ts:736
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/widgets/application-window.ts:719
+#: ../app-gnome/src/widgets/application-window.ts:741
 msgid "All Files"
 msgstr "Alle Dateien"
 

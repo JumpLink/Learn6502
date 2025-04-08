@@ -123,7 +123,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
   private setupLearnTutorialSignalListeners(): void {
     this._learn.connect('copy', (_learn: Learn, code: string) => {
-      this.copyGameConsole(code);
+      this.setEditorCode(code);
+      this.showToast({
+        title: _("Code copied to editor"),
+        timeout: 2
+      });
     });
   }
 
@@ -165,6 +169,20 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       }
     }
 
+    // Auto-pause program when switching away from game console or debugger while program is running
+    if (this.previousVisibleChild === this._gameConsole || this.previousVisibleChild === this._debugger) {
+      // Check if simulator is in running state
+      const state = this._gameConsole.simulator.state;
+      if (state === SimulatorState.RUNNING) {
+        // Pause the program
+        this.pauseGameConsole();
+        this.showToast({
+          title: _("Program paused automatically"),
+          timeout: 2
+        });
+      }
+    }
+
     // Update previous child
     this.previousVisibleChild = currentChild;
 
@@ -195,7 +213,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.resumeSimulatorAction.connect('activate', this.runGameConsole.bind(this));
     this.add_action(this.resumeSimulatorAction);
 
-    this.pauseSimulatorAction.connect('activate', this.stopGameConsole.bind(this));
+    this.pauseSimulatorAction.connect('activate', this.pauseGameConsole.bind(this));
     this.add_action(this.pauseSimulatorAction);
 
     this.resetSimulatorAction.connect('activate', this.resetGameConsole.bind(this));
@@ -244,7 +262,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._gameConsole.run();
   }
 
-  private stopGameConsole(): void {
+  private pauseGameConsole(): void {
     this._gameConsole.stop();
   }
 
@@ -264,7 +282,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._gameConsole.assemble(this._editor.code);
   }
 
-  private copyGameConsole(code: string): void {
+  private setEditorCode(code: string): void {
     this._editor.code = code;
     // Set the editor as the visible child in the stack
     this._stack.set_visible_child(this._editor);
@@ -295,7 +313,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       this.onSimulatorStateChange(this._gameConsole.simulator.state);
 
       this.showToast({
-        title: _("Assembled successfully")
+        title: _("Assembled successfully"),
+        timeout: 2
       });
     })
 
@@ -305,7 +324,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       }
 
       this.showToast({
-        title: _("Assemble failed")
+        title: _("Assemble failed"),
+        timeout: 2
       });
     })
 
@@ -387,7 +407,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       }
 
       this.showToast({
-        title: _("Simulator failure")
+        title: _("Simulator failure"),
+        timeout: 2
       });
     })
 
@@ -403,7 +424,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       }
 
       this.showToast({
-        title: _("Labels failure")
+        title: _("Labels failure"),
+        timeout: 2
       });
     })
 
@@ -603,7 +625,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       if (!contents) {
         this.showToast({
           title: _("Failed to load file"),
-          timeout: 3
+          timeout: 2
         });
         return;
       }
@@ -621,13 +643,13 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
       this.showToast({
         title: _("File loaded successfully"),
-        timeout: 3
+        timeout: 2
       });
     } catch (error) {
       console.error("Error opening file:", error);
       this.showToast({
         title: _("Error opening file"),
-        timeout: 3
+        timeout: 2
       });
     }
   }
@@ -663,7 +685,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       console.error("Error in save as:", error);
       this.showToast({
         title: _("Error saving file"),
-        timeout: 3
+        timeout: 2
       });
       return false;
     }
@@ -694,14 +716,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
       this.showToast({
         title: _("File saved successfully"),
-        timeout: 3
+        timeout: 2
       });
       return true;
     } catch (error) {
       console.error("Error saving file:", error);
       this.showToast({
         title: _("Error saving file"),
-        timeout: 3
+        timeout: 2
       });
       return false;
     }
