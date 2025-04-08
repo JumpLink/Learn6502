@@ -2,74 +2,38 @@
 
 This package contains the translations for Learn 6502 Assembly. The project is hosted on [GitHub](https://github.com/JumpLink/Learn6502).
 
-# Translation Guide for Learn 6502 Assembly
+<a href="https://hosted.weblate.org/engage/eu-jumplink-learn6502/">
+<img src="https://hosted.weblate.org/widget/eu-jumplink-learn6502/app/multi-auto.svg" alt="translation status" />
+</a>
 
-Thanks for helping to translate **Learn 6502 Assembly**!
+## Translation Methods
 
-## Getting Started
+You can contribute translations in two ways:
 
-1. Make an account on [Weblate](https://weblate.org) or sign in with your GitHub or GitLab ID
-   - Note: Account creation is not required, but you will only be able to suggest translations without an account
+1. **Using Weblate**: Visit the [Weblate eu.jumplink.Learn6502 project page](https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/)
+2. **Direct Editing**: Clone the repository and edit the .po files directly. This allows you to test your translations immediately in the app.
 
-2. Visit the [Weblate eu.jumplink.Learn6502 project page](https://hosted.weblate.org/projects/eu-jumplink-learn6502/) which lists all components and their strings
-
-3. On the project's 'Languages' tab, you can:
-   - Choose an existing language to work on
-   - Start a new language translation by clicking "Start a new translation"
-   - Note: New languages require a reviewer to be shipped with official releases
+New language translations are always welcome! You can start a new language translation either through Weblate or by creating new .po files in the repository.
 
 ## Project Structure
 
-The project's translatable content is organized as follows:
-
-- **UI Elements & Messages**: Managed through `.po` files, automatically generated from the source code
+- **UI Elements & Messages**: Managed through `.po` files
 - **Tutorial Content**: Located in [packages/learn/tutorial.mdx](https://github.com/JumpLink/Learn6502/blob/main/packages/learn/tutorial.mdx)
-  - The tutorial is written in English (source language)
-  - Changes to English content should be made directly in the tutorial.mdx file
-  - Translations of the tutorial are managed through the .po files
 
 ## Translation Guidelines
 
-### General Rules
-
-1. **Technical Terms**: Do not translate:
-   - Technical terms like "6502", "Assembly", "CPU", "registers"
-   - Command names and mnemonics (e.g., "LDA", "STA", "BRK")
+1. **Do not translate**:
+   - Technical terms (6502, Assembly, CPU, registers)
+   - Command names and mnemonics (LDA, STA, BRK)
    - Variable names and placeholders
 
-2. **Formatting**:
-   - Preserve Markdown syntax
-   - Maintain HTML tags and their structure
-   - Keep formatting placeholders (e.g., `%s`, `{0}`)
+2. **Maintain**:
+   - Markdown syntax
+   - HTML tags
+   - Formatting placeholders
 
-3. **Consistency**:
-   - Use consistent terminology throughout translations
-   - Follow existing translations for common terms
-   - Pay attention to context notes in the PO files
+## Resources
 
-4. **Links and References**:
-   - You may replace links to English information pages (e.g., English Wikipedia articles) with equivalent pages in the target language
-   - Ensure that the replacement links contain comparable information
-   - The replacement link should be from a reliable source
-
-### Quality Assurance
-
-- Review translations for accuracy and completeness
-- Test translations in the application if possible
-- Report any issues or unclear source strings in our [issue tracker](https://github.com/JumpLink/Learn6502/issues)
-
-## Becoming a Reviewer
-
-If you're interested in becoming a reviewer for your language:
-1. Create an issue in our [issue tracker](https://github.com/JumpLink/Learn6502/issues)
-2. Mention your language expertise and translation experience
-3. We'll review your request and provide necessary permissions
-
-## Helpful Resources
-
-- [Markdown Cheatsheet](https://www.markdownguide.org/cheat-sheet/)
-- [Weblate Documentation](https://docs.weblate.org/)
-- [Flathub Page](https://flathub.org/apps/eu.jumplink.Learn6502)
 - [Project Repository](https://github.com/JumpLink/Learn6502)
 - [Issue Tracker](https://github.com/JumpLink/Learn6502/issues)
 
