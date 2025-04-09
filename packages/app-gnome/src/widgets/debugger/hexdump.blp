@@ -5,12 +5,13 @@ template $Hexdump: Adw.Bin {
   $SourceView sourceView {
     editable: false;
     copyable: true;
+    copy-button-icon: 'clipboard-symbolic';
     language: 'hex';
     vexpand: true;
     line-numbers: true;
     line-number-start: 0x0600;
     // TODO: Fix scrollable height
-    height-request: 50;
+    height-request: 60;
     fit-content-height: true;
   }
 }

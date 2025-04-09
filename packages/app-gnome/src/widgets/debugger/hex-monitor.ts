@@ -29,6 +29,9 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
       InternalChildren: ['sourceView', 'startAddressEntry', 'lengthEntry'],
       Signals: {
         'changed': {},
+        'copy': {
+          param_types: [GObject.TYPE_STRING],
+        },
       }
     }, this);
   }
@@ -42,6 +45,8 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     super(params)
     this.setupUI()
     this.connectSignals()
+
+    this._sourceView.connect('copy', this.onCopy.bind(this))
 
     // Ensure signal handlers are disconnected when widget is finalized
     this.connect('destroy', this.disconnectSignals.bind(this))
@@ -153,6 +158,12 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
       this.setMonitorRange(start, length);
       this.emit('changed');
     }
+  }
+
+  private onCopy(_sourceView: SourceView, code: string) {
+    // Remove all whitespace
+    code = code.replace(/\s/g, '');
+    this.emit('copy', code);
   }
 
   public update(memory: Memory) {

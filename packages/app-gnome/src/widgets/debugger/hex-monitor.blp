@@ -33,12 +33,14 @@ template $HexMonitor: Adw.Bin {
 
     $SourceView sourceView {
       editable: false;
+      copyable: true;
+      copy-button-icon: 'clipboard-symbolic';
       language: 'hex';
       vexpand: true;
       hexpand: false;
       line-numbers: true;
       // TODO: Fix scrollable height
-      height-request: 50;
+      height-request: 200;
       fit-content-height: true;
     }
   }

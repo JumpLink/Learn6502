@@ -45,6 +45,8 @@ export namespace SourceView {
     unselectable?: boolean
     /** Whether to show the copy button */
     copyable?: boolean
+    /** The icon name for the copy button */
+    copyButtonIcon?: string
   }
 }
 
@@ -93,6 +95,7 @@ export class SourceView extends Adw.Bin {
         fitContentWidth: GObject.ParamSpec.boolean('fit-content-width', 'Fit Content Width', 'Whether the source view should fit the content width', GObject.ParamFlags.READWRITE, false),
         height: GObject.ParamSpec.uint('height', 'Height', 'The height of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
         copyable: GObject.ParamSpec.boolean('copyable', 'Copyable', 'Whether the source view has a copy button', GObject.ParamFlags.READWRITE, false),
+        copyButtonIcon: GObject.ParamSpec.string('copy-button-icon', 'Copy Button Icon', 'The icon name for the copy button', GObject.ParamFlags.READWRITE, 'move-to-window-symbolic'),
       },
     }, this);
   }
@@ -373,7 +376,7 @@ export class SourceView extends Adw.Bin {
   private _actionGroup: Gio.SimpleActionGroup;
 
   constructor(params: Partial<SourceView.ConstructorProps> = {}) {
-    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, copyable, ...rest } = params;
+    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, copyable, copyButtonIcon, ...rest } = params;
     super(rest);
     this.setupScrolledWindow();
 
@@ -420,6 +423,9 @@ export class SourceView extends Adw.Bin {
     }
     if(copyable !== undefined) {
       this.copyable = copyable;
+    }
+    if(copyButtonIcon !== undefined) {
+      this.copyButtonIcon = copyButtonIcon;
     }
     if(language !== undefined) {
       this.language = language;
@@ -636,6 +642,28 @@ export class SourceView extends Adw.Bin {
    */
   public get copyable(): boolean {
     return this._copyButton.visible;
+  }
+
+  /**
+   * Set the copyButtonIcon property of the source view
+   *
+   * @param value - The icon name for the copy button
+   */
+  public set copyButtonIcon(value: string) {
+    if (typeof value !== 'string') {
+      console.warn('copyButtonIcon must be a string, got ' + typeof value);
+      return;
+    }
+    this._copyButton.icon_name = value;
+  }
+
+  /**
+   * Get the copyButtonIcon property of the source view
+   *
+   * @returns The icon name for the copy button
+   */
+  public get copyButtonIcon(): string {
+    return this._copyButton.icon_name;
   }
 
   /**

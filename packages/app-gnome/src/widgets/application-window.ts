@@ -5,13 +5,16 @@ import Gdk from '@girs/gdk-4.0'
 import Gio from '@girs/gio-2.0'
 import GLib from '@girs/glib-2.0'
 
+import { SimulatorState } from '@learn6502/6502'
+
 import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
 import { GameConsole } from './game-console/index.ts'
 import { Debugger } from './debugger/index.ts'
+import { copyToClipboard } from '../utils.ts'
 
 import Template from './application-window.blp'
-import { SimulatorState } from '@learn6502/6502'
+
 import { type RunButtonMode, RunButtonState } from '../types/index.ts'
 
 export class ApplicationWindow extends Adw.ApplicationWindow {
@@ -143,19 +146,21 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private setupDebuggerSignalListeners(): void {
-    this._debugger.connect('hexdump-copy-to-clipboard', this.onHexdumpCopyToClipboard.bind(this));
+    this._debugger.connect('hexdump-copy', this.onCopy.bind(this));
+    this._debugger.connect('hexmonitor-copy', this.onCopy.bind(this));
   }
 
-  private onHexdumpCopyToClipboard(success: boolean, code: string): void {
+  private onCopy(self: Debugger, code: string): void {
+    const success = copyToClipboard(code, self.get_clipboard());
     if (success) {
       this.showToast({
-        title: _("Hexdump copied to clipboard"),
+        title: _("Copied to clipboard"),
         timeout: 2
       });
     } else {
       this.showToast({
-        title: _("Failed to copy hexdump to clipboard"),
-        timeout: 2
+        title: _("Failed to copy to clipboard"),
+        timeout: 2,
       });
     }
   }

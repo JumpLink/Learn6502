@@ -30,8 +30,11 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
       Template,
       InternalChildren: ['stack', 'messageConsole', 'hexMonitor', 'hexdump', 'debugInfo', 'statusPage'],
       Signals: {
-        'hexdump-copy-to-clipboard': {
-          param_types: [GObject.TYPE_BOOLEAN, GObject.TYPE_STRING],
+        'hexdump-copy': {
+          param_types: [GObject.TYPE_STRING],
+        },
+        'hexmonitor-copy': {
+          param_types: [GObject.TYPE_STRING],
         },
       },
       Properties: {
@@ -153,15 +156,24 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     }
   }
 
-  private onCopyToClipboard(self: Debugger, success: boolean, code: string): void {
-    this.emit('hexdump-copy-to-clipboard', success, code);
+  private onCopyToClipboard(self: Hexdump | HexMonitor, code: string): void {
+    if (self instanceof Hexdump) {
+      this.emit('hexdump-copy', code);
+    } else if (self instanceof HexMonitor) {
+      this.emit('hexmonitor-copy', code);
+    } else {
+      console.error('[Debugger] Unknown widget type', self);
+    }
   }
 
   private setupSignalHandlers(): void {
     this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
 
-    // Connect to the Hexdump's copy-to-clipboard signal
-    this.handlerIds.push(this._hexdump.connect('copy-to-clipboard', this.onCopyToClipboard.bind(this)));
+    // Connect to the Hexdump's copy signal
+    this.handlerIds.push(this._hexdump.connect('copy', this.onCopyToClipboard.bind(this)));
+
+    // Connect to the HexMonitor's copy signal
+    this.handlerIds.push(this._hexMonitor.connect('copy', this.onCopyToClipboard.bind(this)));
 
     // Connect to the HexMonitor's changed signal
     this.handlerIds.push(this._hexMonitor.connect('changed', this.onHexMonitorChanged.bind(this)));
