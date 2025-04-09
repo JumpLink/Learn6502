@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-08 13:41+0200\n"
+"POT-Creation-Date: 2025-04-09 12:04+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -59,61 +59,61 @@ msgstr "Code in Editor kopiert"
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:316
+#: ../app-gnome/src/widgets/application-window.ts:318
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/widgets/application-window.ts:327
+#: ../app-gnome/src/widgets/application-window.ts:329
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/widgets/application-window.ts:410
+#: ../app-gnome/src/widgets/application-window.ts:412
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:427
+#: ../app-gnome/src/widgets/application-window.ts:429
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:616
+#: ../app-gnome/src/widgets/application-window.ts:618
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/widgets/application-window.ts:627
+#: ../app-gnome/src/widgets/application-window.ts:629
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:645
+#: ../app-gnome/src/widgets/application-window.ts:647
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../app-gnome/src/widgets/application-window.ts:651
+#: ../app-gnome/src/widgets/application-window.ts:653
 msgid "Error opening file"
 msgstr "Fehler beim Öffnen der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:667
-#: ../app-gnome/src/widgets/application-window.ts:668
+#: ../app-gnome/src/widgets/application-window.ts:669
+#: ../app-gnome/src/widgets/application-window.ts:670
 msgid "untitled"
 msgstr "unbenannt"
 
-#: ../app-gnome/src/widgets/application-window.ts:674
+#: ../app-gnome/src/widgets/application-window.ts:676
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/widgets/application-window.ts:687
-#: ../app-gnome/src/widgets/application-window.ts:725
+#: ../app-gnome/src/widgets/application-window.ts:689
+#: ../app-gnome/src/widgets/application-window.ts:727
 msgid "Error saving file"
 msgstr "Fehler beim Speichern der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:718
+#: ../app-gnome/src/widgets/application-window.ts:720
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../app-gnome/src/widgets/application-window.ts:736
+#: ../app-gnome/src/widgets/application-window.ts:738
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/widgets/application-window.ts:741
+#: ../app-gnome/src/widgets/application-window.ts:743
 msgid "All Files"
 msgstr "Alle Dateien"
 
@@ -135,7 +135,7 @@ msgid "Editor"
 msgstr "Editor"
 
 #: ../app-gnome/src/widgets/application-window.blp:81
-#: ../app-gnome/src/widgets/debugger.blp:15
+#: ../app-gnome/src/widgets/debugger/debugger.blp:15
 msgid "Debugger"
 msgstr "Debugger"
 
@@ -187,15 +187,6 @@ msgstr "Abbrechen"
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: ../app-gnome/src/widgets/debugger.blp:16
-msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
-msgstr ""
-"Debugge deinen 6502-Assemblercode, gehe dein Programm schrittweise durch und "
-"betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
-"beginnen."
-
 #: ../app-gnome/src/widgets/executable-source-view.blp:20
 msgid "Copy to editor"
 msgstr "In Editor kopieren"
@@ -219,6 +210,15 @@ msgstr "Haupteinstellungen"
 #: ../app-gnome/src/widgets/preferences-dialog.blp:15
 msgid "There are currently no settings."
 msgstr "Derzeit gibt es keine Einstellungen."
+
+#: ../app-gnome/src/widgets/debugger/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
+msgstr ""
+"Debugge deinen 6502-Assemblercode, gehe dein Programm schrittweise durch und "
+"betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
+"beginnen."
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
 msgid "6502 Assembly Learning Environment"

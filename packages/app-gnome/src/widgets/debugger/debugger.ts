@@ -4,11 +4,12 @@ import Adw from '@girs/adw-1'
 
 import { MessageConsole } from './message-console.ts'
 import { HexMonitor } from './hex-monitor.ts'
+import { Hexdump } from './hexdump.ts'
 import { DebugInfo } from './debug-info.ts'
 
 import Template from './debugger.blp'
 
-import { type Debugger as DebuggerInterface, type Memory, type Simulator, DebuggerState, throttle } from '@learn6502/6502'
+import { type Debugger as DebuggerInterface, type Memory, type Simulator, Assembler, DebuggerState, throttle } from '@learn6502/6502'
 
 export class Debugger extends Adw.Bin implements DebuggerInterface {
 
@@ -19,6 +20,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   declare private _stack: Gtk.Stack
   declare private _messageConsole: MessageConsole
   declare private _hexMonitor: HexMonitor
+  declare private _hexdump: Hexdump
   declare private _debugInfo: DebugInfo
   declare private _statusPage: Adw.StatusPage
 
@@ -26,7 +28,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     GObject.registerClass({
       GTypeName: 'Debugger',
       Template,
-      InternalChildren: ['stack', 'messageConsole', 'hexMonitor', 'debugInfo', 'statusPage'],
+      InternalChildren: ['stack', 'messageConsole', 'hexMonitor', 'hexdump', 'debugInfo', 'statusPage'],
       Properties: {
         // TypeScript enums are numbers by default
         'state': GObject.ParamSpec.uint('state', 'State', 'Debugger state', GObject.ParamFlags.READWRITE, DebuggerState.INITIAL, DebuggerState.RESET, DebuggerState.INITIAL)
@@ -66,6 +68,13 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     this._messageConsole.log(message);
   }
 
+  /**
+   * Internal update method for the debugger display.
+   * Updates only frequently changing components (memory monitor and debug info).
+   * Does not update hexdump as it only needs to change when code is reassembled.
+   * @param memory Current state of system memory
+   * @param simulator Current state of the 6502 simulator
+   */
   private _update(memory: Memory, simulator: Simulator): void {
     this.memory = memory;
     this.updateMonitor(memory);
@@ -73,19 +82,40 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   /**
-   * Update the debugger.
-   * @note This is throttled to 349ms to prevent excessive CPU usage.
-   * @param memory - The memory to update the hex monitor.
-   * @param simulator - The simulator to update the debug info.
+   * Throttled public update method for the debugger display.
+   * Called frequently during program execution but limited to once every 349ms.
+   * Only updates dynamic components (memory and debug info), not the hexdump.
+   * @param memory The memory to update the hex monitor
+   * @param simulator The simulator to update the debug info
+   * @param assembler Parameter exists for API compatibility but is not used here
    */
   public update = throttle(this._update.bind(this), 349); // Prime number
 
+  /**
+   * Updates the memory monitor display when memory content changes.
+   * Can be called frequently during program execution.
+   * @param memory Current state of system memory
+   */
   public updateMonitor(memory: Memory): void {
     this._hexMonitor.update(memory);
   }
 
+  /**
+   * Updates debug information like registers and flags.
+   * Can be called frequently during program execution.
+   * @param simulator Current state of the 6502 simulator
+   */
   public updateDebugInfo(simulator: Simulator): void {
     this._debugInfo.update(simulator);
+  }
+
+  /**
+   * Updates the hexdump display of the assembled program.
+   * Should only be called when the assembly code has been modified and reassembled.
+   * @param assembler Assembler instance containing the new program code
+   */
+  public updateHexdump(assembler: Assembler): void {
+    this._hexdump.update(assembler);
   }
 
   public reset(): void {

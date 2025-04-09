@@ -275,14 +275,24 @@ export class Assembler {
   }
 
   /**
-   * Generates a hexdump of the assembled code.
+   * Creates a hexadecimal representation of the assembled machine code.
+   * Starting at memory address $0600, converts the binary code into readable hex format.
+   * @param options Configure output format (addresses, spaces, newlines)
+   * @returns Formatted hex string of the assembled code
    */
-  public hexdump() {
-    this.dispatchHexdump(this.memory.format({ start: 0x600, length: this.codeLen, includeAddress: true, includeSpaces: true, includeNewline: true }))
+  public hexdump(options: { includeAddress: boolean, includeSpaces: boolean, includeNewline: boolean }): string {
+    const hexdump = this.memory.format({ start: 0x600, length: this.codeLen, ...options });
+    this.dispatchHexdump(hexdump);
+    return hexdump;
   }
 
   /**
-   * Disassembles the assembled code.
+   * Converts machine code back into readable assembly instructions.
+   * Starting at memory address $0600, creates a formatted output showing:
+   * - Memory addresses
+   * - Hexadecimal representation
+   * - Assembly instructions
+   * @returns Formatted string with disassembled code
    */
   public disassemble() {
     const startAddress = 0x600;

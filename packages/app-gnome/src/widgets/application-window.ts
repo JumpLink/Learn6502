@@ -8,11 +8,11 @@ import GLib from '@girs/glib-2.0'
 import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
 import { GameConsole } from './game-console.ts'
-import { Debugger } from './debugger.ts'
+import { Debugger } from './debugger/index.ts'
 
 import Template from './application-window.blp'
 import { SimulatorState } from '@learn6502/6502'
-import { RunButtonMode, RunButtonState } from '../types/index.ts'
+import { type RunButtonMode, RunButtonState } from '../types/index.ts'
 
 export class ApplicationWindow extends Adw.ApplicationWindow {
 
@@ -309,6 +309,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       if(signal.message) {
         this._debugger.log(signal.message);
       }
+
+      this._debugger.updateHexdump(this._gameConsole.assembler);
 
       this.onSimulatorStateChange(this._gameConsole.simulator.state);
 

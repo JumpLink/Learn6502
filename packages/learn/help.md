@@ -1,0 +1,58 @@
+
+# 6502 Assembly Quick Reference Guide
+
+TODO: Add this as a help dialog in the application.
+
+## Memory Map
+- **Zero Page**: $0000-$00FF (first 256 bytes, faster access)
+- **Stack**: $0100-$01FF
+- **Display Memory**: $0200-$05FF (used for screen output)
+- **Program Storage**: Starting at $0600
+
+## Display Organization
+- Screen maps to memory range $0200-$05FF
+- Values $00-$0F represent 16 different colors ($00=black, $01=white)
+- Organized as four horizontal strips of 32×8 pixels
+- First row: $0200-$021F, second row: $0220-$023F, etc.
+
+## Registers
+- **A** (Accumulator): Main register for calculations and data manipulation
+- **X, Y**: Index registers for addressing and counting
+- **SP** (Stack Pointer): Points to current stack position (starts at $FF)
+- **PC** (Program Counter): Points to the next instruction to execute
+
+## Processor Flags
+- **Z** (Zero): Set when result is zero
+- **C** (Carry): Set when arithmetic operations overflow a byte
+- **N** (Negative): Set when bit 7 of result is set
+- Used for conditional branching
+
+## Addressing Modes
+- **Immediate** (#$c0): Use the actual value
+- **Zero Page** ($c0): Access memory locations $00-$FF
+- **Absolute** ($c000): Access any memory location
+- **Zero Page,X/Y** ($c0,X): Add X/Y register to zero page address
+- **Absolute,X/Y** ($c000,X): Add X/Y register to absolute address
+- **Indirect** (($c000)): Look up address stored at given location
+- **Indexed Indirect** (($c0,X)): Add X to zero page address, then dereference
+- **Indirect Indexed** (($c0),Y): Dereference zero page address, then add Y
+
+## Common Instructions
+- **LDA/LDX/LDY**: Load registers
+- **STA/STX/STY**: Store registers to memory
+- **INX/INY/DEX/DEY**: Increment/decrement registers
+- **ADC/SBC**: Add/subtract with carry
+- **JMP**: Unconditional jump
+- **JSR/RTS**: Jump to subroutine / Return from subroutine
+- **BEQ/BNE/BCC/BCS**: Branch if equal/not equal/carry clear/carry set
+- **PHA/PLA**: Push/pull accumulator to/from stack
+
+## Special Memory Locations (in Simulator)
+- **$FE**: Random number generator
+- **$FF**: Last pressed key (ASCII code)
+
+## Snake Game Memory Usage
+- **$00-$01**: Apple position
+- **$02**: Snake direction (1=up, 2=right, 4=down, 8=left)
+- **$03**: Snake length
+- **$10-$15**: Snake position data (head, body segments, tail)

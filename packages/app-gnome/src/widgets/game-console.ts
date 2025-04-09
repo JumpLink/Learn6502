@@ -1,7 +1,7 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 
-import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, LabelsEvent } from '@learn6502/6502';
+import { Memory, Labels, Simulator, Assembler, type AssemblerEvent, type SimulatorEvent, type LabelsEvent } from '@learn6502/6502';
 
 import { Display } from './display.ts'
 import { GamePad } from './game-pad.ts'
@@ -210,7 +210,7 @@ export class GameConsole extends Adw.Bin {
   }
 
   public hexdump(): void {
-    this._assembler.hexdump();
+    this._assembler.hexdump({ includeAddress: false, includeSpaces: true, includeNewline: true });
   }
 
   public disassemble(): void {

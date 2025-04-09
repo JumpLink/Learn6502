@@ -35,3 +35,5 @@ export class DebugInfo extends Adw.Bin implements DebugInfoInterface {
     this._textView.buffer.text = markup;
   }
 }
+
+GObject.type_ensure(DebugInfo.$gtype)

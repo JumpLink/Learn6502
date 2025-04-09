@@ -8,7 +8,9 @@
         "module": "NodeNext",
         "target": "ESNext",
         "moduleResolution": "NodeNext",
-        "diagnostics": true
+        "diagnostics": true,
+        "verbatimModuleSyntax": true,
+        "isolatedModules": true
     },
     "include": ["src/index.ts"],
     "exclude": ["node_modules", "dist"]

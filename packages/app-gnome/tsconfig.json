@@ -13,7 +13,9 @@
     "strictNullChecks": true,
     "noImplicitThis": true,
     "alwaysStrict": true,
-    "diagnostics": true
+    "diagnostics": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true
   },
   "include": ["src/**/*"]
 }

@@ -1,4 +1,4 @@
-import type { DebuggerState, Memory, Simulator } from '../index.js'
+import type { DebuggerState, Memory, Simulator, Assembler } from '../index.js'
 
 export interface Debugger {
     state: DebuggerState
