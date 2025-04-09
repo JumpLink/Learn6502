@@ -4,6 +4,7 @@ import Gtk from '@girs/gtk-4.0'
 import GtkSource from '@girs/gtksource-5'
 import Gdk from '@girs/gdk-4.0'
 import GLib from '@girs/glib-2.0'
+import Gio from '@girs/gio-2.0'
 
 import Template from './source-view.blp'
 
@@ -42,6 +43,8 @@ export namespace SourceView {
     selectable?: boolean
     /** Whether to make the source view unselectable */
     unselectable?: boolean
+    /** Whether to show the copy button */
+    copyable?: boolean
   }
 }
 
@@ -49,6 +52,7 @@ export namespace SourceView {
  * @class SourceView to show 6502 assembly code
  *
  * @emits changed - Emitted when the buffer's text changes
+ * @emits copy - Emitted when the copy button is clicked with the current code
  */
 export class SourceView extends Adw.Bin {
 
@@ -57,15 +61,20 @@ export class SourceView extends Adw.Bin {
   declare private _scrolledWindow: Gtk.ScrolledWindow
   /** The SourceView that displays the buffer's display */
   declare private _sourceView: GtkSource.View
+  /** The copy button */
+  declare private _copyButton: Gtk.Button
 
   static {
     GObject.registerClass({
       GTypeName: 'SourceView',
       Template,
-      InternalChildren: ['sourceView', 'scrolledWindow'],
+      InternalChildren: ['sourceView', 'scrolledWindow', 'copyButton'],
       Signals: {
         'changed': {
           param_types: [],
+        },
+        'copy': {
+          param_types: [GObject.TYPE_STRING],
         },
       },
       Properties: {
@@ -83,6 +92,7 @@ export class SourceView extends Adw.Bin {
         fitContentHeight: GObject.ParamSpec.boolean('fit-content-height', 'Fit Content Height', 'Whether the source view should fit the content height', GObject.ParamFlags.READWRITE, false),
         fitContentWidth: GObject.ParamSpec.boolean('fit-content-width', 'Fit Content Width', 'Whether the source view should fit the content width', GObject.ParamFlags.READWRITE, false),
         height: GObject.ParamSpec.uint('height', 'Height', 'The height of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
+        copyable: GObject.ParamSpec.boolean('copyable', 'Copyable', 'Whether the source view has a copy button', GObject.ParamFlags.READWRITE, false),
       },
     }, this);
   }
@@ -360,10 +370,17 @@ export class SourceView extends Adw.Bin {
   /** The line number start value */
   private _lineNumberStart?: number;
 
+  private _actionGroup: Gio.SimpleActionGroup;
+
   constructor(params: Partial<SourceView.ConstructorProps> = {}) {
-    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, ...rest } = params;
+    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, copyable, ...rest } = params;
     super(rest);
     this.setupScrolledWindow();
+
+    // Setup action group and actions
+    this._actionGroup = new Gio.SimpleActionGroup();
+    this.insert_action_group('source-view', this._actionGroup);
+    this._setupActions();
 
     if(lineNumberStart !== undefined) {
       this.lineNumberStart = lineNumberStart;
@@ -400,6 +417,9 @@ export class SourceView extends Adw.Bin {
     }
     if(unselectable !== undefined) {
       this.unselectable = unselectable;
+    }
+    if(copyable !== undefined) {
+      this.copyable = copyable;
     }
     if(language !== undefined) {
       this.language = language;
@@ -520,7 +540,11 @@ export class SourceView extends Adw.Bin {
 
   private selectableChanged() {
     // Disconnect all existing signal handlers
-    this._selectableSignalIds.forEach(id => this.disconnect(id));
+    try {
+      this._selectableSignalIds.forEach(id => this.disconnect(id));
+    } catch (error) {
+      console.error('[SourceView] Failed to disconnect signal handlers', error)
+    }
     this._selectableSignalIds = [];
 
     // Enable/disable text cursor
@@ -590,6 +614,44 @@ export class SourceView extends Adw.Bin {
    */
   public get lineNumberStart(): number | undefined {
     return this._lineNumberStart;
+  }
+
+  /**
+   * Set the copyable property of the source view
+   *
+   * @param value - Whether the source view is copyable
+   */
+  public set copyable(value: boolean) {
+    if (typeof value !== 'boolean') {
+      console.warn('copyable must be a boolean, got ' + typeof value);
+      return;
+    }
+    this._copyButton.visible = value;
+  }
+
+  /**
+   * Get the copyable property of the source view
+   *
+   * @returns Whether the source view is copyable
+   */
+  public get copyable(): boolean {
+    return this._copyButton.visible;
+  }
+
+  /**
+   * Setup actions for this source view
+   */
+  private _setupActions() {
+    const copyAction = new Gio.SimpleAction({ name: 'copy' });
+    copyAction.connect('activate', this._onCopy.bind(this));
+    this._actionGroup.add_action(copyAction);
+  }
+
+  /**
+   * Handle the copy action
+   */
+  private _onCopy() {
+    this.emit('copy', this.code);
   }
 }
 

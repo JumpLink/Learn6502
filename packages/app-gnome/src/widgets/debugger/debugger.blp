@@ -47,6 +47,21 @@ template $Debugger: Adw.Bin {
               $HexMonitor hexMonitor {}
             }
 
+            // Hexdump
+            Label {
+              label: "Hexdump";
+              halign: start;
+              margin-bottom: 12;
+              margin-top: 12;
+              styles [
+                "heading"
+              ]
+            }
+            Frame {
+              margin-bottom: 12;
+              $Hexdump hexdump {}
+            }
+
             // Information
             Label {
               label: "Information";

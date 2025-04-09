@@ -70,7 +70,7 @@ export class GameConsole {
     });
 
     this.node.querySelector('.hexdumpButton')?.addEventListener('click', () => {
-      this.assembler.hexdump();
+      this.assembler.hexdump({ includeAddress: true, includeSpaces: true, includeNewline: true });
     });
 
     this.node.querySelector('.disassembleButton')?.addEventListener('click', () => {

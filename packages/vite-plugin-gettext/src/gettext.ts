@@ -1,4 +1,4 @@
-import { Plugin } from 'vite';
+import { type Plugin } from 'vite';
 import { execa } from 'execa';
 import path from 'node:path';
 import type { GettextPluginOptions } from './types.js';

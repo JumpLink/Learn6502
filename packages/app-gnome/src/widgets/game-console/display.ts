@@ -1,7 +1,7 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
-import cairo from 'cairo'
+import type cairo from 'cairo'
 import Template from './display.blp'
 
 import type { Display as DisplayInterface, Memory, MemoryEvent } from '@learn6502/6502'

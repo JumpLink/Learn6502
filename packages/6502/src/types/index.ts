@@ -9,6 +9,7 @@ export * from './memory-event.js';
 export * from './message-console.js';
 export * from './hex-monitor-options.js';
 export * from './hex-monitor.js';
+export * from './hexdump.js';
 export * from './simulator-event.js';
 export * from './simulator-state.js';
 export * from './symbols.js';

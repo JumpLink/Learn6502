@@ -4,10 +4,10 @@ import { findIdsInXml } from '../utils.ts'
 
 import Template from '@learn6502/learn/dist/tutorial.ui?raw'
 
-import { ExecutableSourceView } from './executable-source-view.ts'
+import { SourceView } from './source-view.ts'
 
 // Find all the ids in the template that match the id of the ExecutableSourceView
-const executableSourceViewIds = findIdsInXml('executableSourceView', Template)
+const sourceViewIds = findIdsInXml('sourceView', Template)
 
 /**
  * The tutorial widget.
@@ -21,7 +21,7 @@ export class Tutorial extends Adw.Bin {
     GObject.registerClass({
       GTypeName: 'Tutorial',
       Template,
-      InternalChildren: [...executableSourceViewIds],
+      InternalChildren: [...sourceViewIds],
       Signals: {
         'copy': {
           param_types: [GObject.TYPE_STRING],
@@ -36,20 +36,20 @@ export class Tutorial extends Adw.Bin {
   }
 
   private setupCodeBlocks() {
-    for (const id of executableSourceViewIds) {
-      const executableSourceView = this.getExecutableSourceView(id)
-      executableSourceView.connect('copy', (_sourceView: ExecutableSourceView, code: string) => {
+    for (const id of sourceViewIds) {
+      const sourceView = this.getSourceView(id)
+      sourceView.connect('copy', (_sourceView: SourceView, code: string) => {
         this.emit('copy', code)
       })
     }
   }
 
-  private getExecutableSourceView(id: string): ExecutableSourceView {
+  private getSourceView(id: string): SourceView {
     const propertyName = `_${id}` as keyof Tutorial
     if (propertyName in this) {
-      return this[propertyName] as unknown as ExecutableSourceView
+      return this[propertyName] as unknown as SourceView
     }
-    throw new Error(`ExecutableSourceView with id ${id} not found`)
+    throw new Error(`SourceView with id ${id} not found`)
   }
 }
 

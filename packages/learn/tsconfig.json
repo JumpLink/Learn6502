@@ -9,7 +9,9 @@
         "jsx": "react-jsx",
         "jsxImportSource": "nano-jsx/esm",
         "types": ["mdx"],
-        "diagnostics": true
+        "diagnostics": true,
+        "verbatimModuleSyntax": true,
+        "isolatedModules": true
     },
     "include": ["./*.mdx", "tsx/**/*.ts", "tsx/**/*.tsx", "tsx/**/*.mdx"]
 }

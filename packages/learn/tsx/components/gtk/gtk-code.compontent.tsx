@@ -31,6 +31,10 @@ interface GtkCodeProps extends Object {
    */
   readonly?: boolean
   /**
+   * Whether the code is copyable.
+   */
+  copyable?: boolean
+  /**
    * Whether the code is unselectable.
    */
   unselectable?: boolean
@@ -91,7 +95,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     }
 
     render() {
-      let { language, readonly, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight, height, lineNumberStart } = this.parseAttributes(this.props)
+      let { language, readonly, copyable, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight, height, lineNumberStart } = this.parseAttributes(this.props)
 
       code = renderSSR(code);
       if(code.endsWith('\n')) {
@@ -101,10 +105,11 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       // Use the custom editor widget for block code
       if (this.props.type === CodeType.BLOCK) {
         return <child>
-          <object class="ExecutableSourceView" id={`executableSourceView${GtkCode._codeBlockCounter++}`}>
+          <object class="SourceView" id={`sourceView${GtkCode._codeBlockCounter++}`}>
             {code && <property name="code">{code}</property>}
             {language && <property name="language">{language}</property>}
             {readonly && <property name="readonly">{readonly.toString()}</property>}
+            {copyable && <property name="copyable">{copyable.toString()}</property>}
             {unselectable && <property name="unselectable">{unselectable.toString()}</property>}
             {lineNumbers && <property name="line-numbers">{lineNumbers.toString()}</property>}
             {noLineNumbers && <property name="no-line-numbers">{noLineNumbers.toString()}</property>}
@@ -132,6 +137,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     protected parseAttributes(props: GtkCodeProps): Partial<GtkCodeProps> {
       let language = props.language || ''
       let readonly = props.readonly || false
+      let copyable = props.copyable || false
       let unselectable = props.unselectable || false
       let noLineNumbers = props.noLineNumbers || false
       let lineNumbers = props.lineNumbers || !noLineNumbers
@@ -149,6 +155,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
         return {
           language,
           readonly,
+          copyable,
           unselectable,
           lineNumbers,
           noLineNumbers,
@@ -167,6 +174,9 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
 
       if(modifiers.includes('readonly')) {
         readonly = true
+      }
+      if(modifiers.includes('copyable')) {
+        copyable = true
       }
       if(modifiers.includes('unselectable')) {
         unselectable = true
@@ -222,6 +232,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       return {
         language,
         readonly,
+        copyable,
         unselectable,
         code,
         lineNumbers,
