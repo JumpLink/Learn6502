@@ -7,7 +7,7 @@ import GLib from '@girs/glib-2.0'
 
 import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
-import { GameConsole } from './game-console.ts'
+import { GameConsole } from './game-console/index.ts'
 import { Debugger } from './debugger/index.ts'
 
 import Template from './application-window.blp'
