@@ -113,6 +113,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.setupKeyboardListener();
     this.setupLearnTutorialSignalListeners();
     this.setupEditorSignalListeners();
+    this.setupDebuggerSignalListeners();
     // Initialize the previous visible child after all setup is done
     this.previousVisibleChild = this._stack.get_visible_child();
   }
@@ -141,6 +142,24 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     });
   }
 
+  private setupDebuggerSignalListeners(): void {
+    this._debugger.connect('hexdump-copy-to-clipboard', this.onHexdumpCopyToClipboard.bind(this));
+  }
+
+  private onHexdumpCopyToClipboard(success: boolean, code: string): void {
+    if (success) {
+      this.showToast({
+        title: _("Hexdump copied to clipboard"),
+        timeout: 2
+      });
+    } else {
+      this.showToast({
+        title: _("Failed to copy hexdump to clipboard"),
+        timeout: 2
+      });
+    }
+  }
+
   private setupGeneralSignalListeners(): void {
     this.connect('close-request', this.onCloseRequest.bind(this));
     this._stack.connect('notify::visible-child', this.onStackVisibleChildChanged.bind(this));
@@ -164,7 +183,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         // Connect a one-time handler to restore after mapping
         const handler = this._learn.connect('map', () => {
           this._learn.restoreScrollPosition();
-          this._learn.disconnect(handler);
+          try {
+            this._learn.disconnect(handler);
+          } catch (error) {
+            console.error('[ApplicationWindow] Failed to disconnect handler', error)
+          }
         });
       }
     }
@@ -216,7 +239,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.pauseSimulatorAction.connect('activate', this.pauseGameConsole.bind(this));
     this.add_action(this.pauseSimulatorAction);
 
-    this.resetSimulatorAction.connect('activate', this.resetGameConsole.bind(this));
+    this.resetSimulatorAction.connect('activate', this.reset.bind(this));
     this.add_action(this.resetSimulatorAction);
 
     this.stepSimulatorAction.connect('activate', this.stepGameConsole.bind(this));
@@ -266,8 +289,9 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._gameConsole.stop();
   }
 
-  private resetGameConsole(): void {
+  private reset(): void {
     this._gameConsole.reset();
+    this._debugger.reset();
   }
 
   private assembleGameConsole(): void {

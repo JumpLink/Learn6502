@@ -2,17 +2,15 @@ using Gtk 4.0;
 using Adw 1;
 
 template $Hexdump: Adw.Bin {
-  ScrolledWindow scrolledWindow {
-    height-request: 100;
+  $SourceView sourceView {
+    editable: false;
+    copyable: true;
+    language: 'hex';
     vexpand: true;
-    has-frame: false;
-    $SourceView sourceView {
-      editable: false;
-      language: 'hex';
-      height-request: 100;
-      vexpand: true;
-      line-numbers: true;
-      line-number-start: 0x0600;
-    }
+    line-numbers: true;
+    line-number-start: 0x0600;
+    // TODO: Fix scrollable height
+    height-request: 50;
+    fit-content-height: true;
   }
 }

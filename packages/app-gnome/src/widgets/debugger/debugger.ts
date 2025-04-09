@@ -29,6 +29,11 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
       GTypeName: 'Debugger',
       Template,
       InternalChildren: ['stack', 'messageConsole', 'hexMonitor', 'hexdump', 'debugInfo', 'statusPage'],
+      Signals: {
+        'hexdump-copy-to-clipboard': {
+          param_types: [GObject.TYPE_BOOLEAN, GObject.TYPE_STRING],
+        },
+      },
       Properties: {
         // TypeScript enums are numbers by default
         'state': GObject.ParamSpec.uint('state', 'State', 'Debugger state', GObject.ParamFlags.READWRITE, DebuggerState.INITIAL, DebuggerState.RESET, DebuggerState.INITIAL)
@@ -120,6 +125,8 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
 
   public reset(): void {
     this._messageConsole.clear();
+    this._hexMonitor.clear();
+    this._hexdump.clear();
     this.state = DebuggerState.RESET;
   }
 
@@ -140,22 +147,32 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   private onHexMonitorChanged(): void {
-
     // Refresh the view if we have memory data
     if (this.memory) {
       this.updateMonitor(this.memory);
     }
   }
 
+  private onCopyToClipboard(self: Debugger, success: boolean, code: string): void {
+    this.emit('hexdump-copy-to-clipboard', success, code);
+  }
+
   private setupSignalHandlers(): void {
     this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
+
+    // Connect to the Hexdump's copy-to-clipboard signal
+    this.handlerIds.push(this._hexdump.connect('copy-to-clipboard', this.onCopyToClipboard.bind(this)));
 
     // Connect to the HexMonitor's changed signal
     this.handlerIds.push(this._hexMonitor.connect('changed', this.onHexMonitorChanged.bind(this)));
   }
 
   private removeSignalHandlers(): void {
-    this.handlerIds.forEach(id => this.disconnect(id));
+    try {
+      this.handlerIds.forEach(id => this.disconnect(id));
+    } catch (error) {
+      console.error('[Debugger] Failed to remove signal handlers', error);
+    }
     this.handlerIds = [];
   }
 }

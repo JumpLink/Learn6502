@@ -348,7 +348,11 @@ export class GameConsole extends Adw.Bin {
   }
 
   private removeSignalHandlers(): void {
-    this.gamepadHandlerIds.forEach(id => this._gamePad.disconnect(id));
+    try {
+      this.gamepadHandlerIds.forEach(id => this._gamePad.disconnect(id));
+    } catch (error) {
+      console.error('[GameConsole] Failed to remove signal handlers', error)
+    }
     this.gamepadHandlerIds = [];
   }
 }

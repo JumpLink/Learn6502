@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-09 12:04+0200\n"
+"POT-Creation-Date: 2025-04-09 14:26+0200\n"
 "PO-Revision-Date: 2025-04-05 06:04+0000\n"
 "Last-Translator: Pascal Garber <pascal@artandcode.studio>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eu-jumplink-"
@@ -51,69 +51,77 @@ msgstr ""
 msgid "Step"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:128
+#: ../app-gnome/src/widgets/application-window.ts:129
 msgid "Code copied to editor"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:180
+#: ../app-gnome/src/widgets/application-window.ts:152
+msgid "Hexdump copied to clipboard"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:157
+msgid "Failed to copy hexdump to clipboard"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:203
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:318
+#: ../app-gnome/src/widgets/application-window.ts:342
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:329
+#: ../app-gnome/src/widgets/application-window.ts:353
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:412
+#: ../app-gnome/src/widgets/application-window.ts:436
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:429
+#: ../app-gnome/src/widgets/application-window.ts:453
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:618
+#: ../app-gnome/src/widgets/application-window.ts:642
 msgid "Open Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:629
+#: ../app-gnome/src/widgets/application-window.ts:653
 msgid "Failed to load file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:647
+#: ../app-gnome/src/widgets/application-window.ts:671
 msgid "File loaded successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:653
+#: ../app-gnome/src/widgets/application-window.ts:677
 msgid "Error opening file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:669
-#: ../app-gnome/src/widgets/application-window.ts:670
+#: ../app-gnome/src/widgets/application-window.ts:693
+#: ../app-gnome/src/widgets/application-window.ts:694
 msgid "untitled"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:676
+#: ../app-gnome/src/widgets/application-window.ts:700
 msgid "Save Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:689
-#: ../app-gnome/src/widgets/application-window.ts:727
+#: ../app-gnome/src/widgets/application-window.ts:713
+#: ../app-gnome/src/widgets/application-window.ts:751
 msgid "Error saving file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:720
+#: ../app-gnome/src/widgets/application-window.ts:744
 msgid "File saved successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:738
+#: ../app-gnome/src/widgets/application-window.ts:762
 msgid "Assembly Files"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:743
+#: ../app-gnome/src/widgets/application-window.ts:767
 msgid "All Files"
 msgstr ""
 
@@ -185,10 +193,6 @@ msgstr ""
 msgid "Discard"
 msgstr ""
 
-#: ../app-gnome/src/widgets/executable-source-view.blp:20
-msgid "Copy to editor"
-msgstr ""
-
 #: ../app-gnome/src/widgets/learn.blp:9
 msgid "Learn how to program the 6502 microprocessor."
 msgstr ""
@@ -207,6 +211,10 @@ msgstr ""
 
 #: ../app-gnome/src/widgets/preferences-dialog.blp:15
 msgid "There are currently no settings."
+msgstr ""
+
+#: ../app-gnome/src/widgets/source-view.blp:33
+msgid "Copy to editor"
 msgstr ""
 
 #: ../app-gnome/src/widgets/debugger/debugger.blp:16

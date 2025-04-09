@@ -64,7 +64,11 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
 
   private disconnectSignals(): void {
     // Disconnect all signal handlers
-    this._handlerIds.forEach(id => this.disconnect(id))
+    try {
+      this._handlerIds.forEach(id => this.disconnect(id))
+    } catch (error) {
+      console.error('[HexMonitor] Failed to disconnect signal handlers', error)
+    }
     this._handlerIds = []
   }
 
@@ -169,6 +173,11 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     this.options.start = start;
     this.options.length = length;
     this._sourceView.lineNumberStart = start;
+  }
+
+  public clear(): void {
+    this._sourceView.lineNumberStart = 0;
+    this._sourceView.code = '';
   }
 }
 

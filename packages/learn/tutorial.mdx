@@ -49,7 +49,7 @@ Click the **Copy** button in the code block below to copy the example code to th
 Then click the button in the top right to assemble the code, then click it again to run the program.
 You can also access these actions through the dropdown menu.
 
-```6502-assembler
+```6502-assembler:copyable
 LDA #$01
 STA $0200
 LDA #$05
@@ -125,7 +125,7 @@ Instructions in assembly language are like a small set of predefined functions.
 All instructions take zero or one arguments. Here's some annotated
 source code to introduce a few different instructions:
 
-```6502-assembler
+```6502-assembler:copyable
 LDA #$c0  ;Load the hex value $c0 into the A register
 TAX       ;Transfer the value in the A register to X
 INX       ;Increment the value in the X register
@@ -191,7 +191,7 @@ Let's change that.
 branch based on whether certain flags are set or not. In this example we'll be
 looking at `BNE`: "Branch on not equal".
 
-```6502-assembler
+```6502-assembler:copyable
 LDX #$08
 decrement:
   DEX
@@ -307,7 +307,7 @@ a single byte, which is used as an offset from the following instruction.
 
 Assemble the following code, then click the **Hexdump** button to see the assembled code.
 
-```6502-assembler
+```6502-assembler:copyable
 LDA #$01
 CMP #$02
 BNE notequal
@@ -344,7 +344,7 @@ first address gives the least significant byte of the address, and the
 following byte gives the most significant byte. That can be hard to wrap your
 head around, so here's an example:
 
-```6502-assembler
+```6502-assembler:copyable
 LDA #$01
 STA $f0
 LDA #$cc
@@ -365,7 +365,7 @@ This one's kinda weird. It's like a cross between zero page,X and indirect.
 Basically, you take the zero page address, add the value of the `X` register to
 it, then use that to look up a two-byte address. For example:
 
-```6502-assembler
+```6502-assembler:copyable
 LDX #$01
 LDA #$05
 STA $01
@@ -392,7 +392,7 @@ Indirect indexed is like indexed indirect but less insane. Instead of adding
 the `X` register to the address *before* dereferencing, the zero page address
 is dereferenced, and the `Y` register is added to the resulting address.
 
-```6502-assembler
+```6502-assembler:copyable
 LDY #$01
 LDA #$03
 STA $01
@@ -425,7 +425,7 @@ stack pointer becomes `$fe`, or memory location `$01fe`, and so on.
 Two of the stack instructions are `PHA` and `PLA`, "push accumulator" and "pull
 accumulator". Below is an example of these two in action.
 
-```6502-assembler
+```6502-assembler:copyable
 LDX #$00
 LDY #$00
 firstloop:
@@ -464,7 +464,7 @@ section of the code to another.
 
 `JMP` is an unconditional jump. Here's a really simple example to show it in action:
 
-```6502-assembler
+```6502-assembler:copyable
 LDA #$03
 JMP there
 BRK
@@ -487,7 +487,7 @@ one of the next instruction onto the stack before jumping to the given
 location. `RTS` pops this location, adds one to it, and jumps to that location.
 An example:
 
-```6502-assembler
+```6502-assembler:copyable
 JSR init
 JSR loop
 JSR end
@@ -533,7 +533,7 @@ You can use letters, digits and underscores in a name.
 
 Here's an example. Note that immediate operands are still prefixed with a `#`.
 
-```6502-assembler
+```6502-assembler:copyable
   define  sysRandom  $fe ; an address
   define  a_dozen    $0c ; a constant
 
@@ -549,7 +549,7 @@ explain how it works in the following sections.
 of this source code](https://gist.github.com/wkjagt/9043907), so follow along
 with that for more details.
 
-```6502-assembler:example-snake:height=600
+```6502-assembler:copyable:example-snake:height=600
 ; This content will be replaced with the snake example
 ```
 
@@ -620,7 +620,7 @@ location of the single body segment, and `$14` contains the location of the
 tail (the tail is the last segment of the body and is drawn in black to keep
 the snake moving). This happens in the following code:
 
-```6502-assembler
+```6502-assembler:copyable
 lda #$11
 sta $10
 lda #$10
