@@ -11,6 +11,7 @@ import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
 import { GameConsole } from './game-console/index.ts'
 import { Debugger } from './debugger/index.ts'
+import { HelpWindow } from './help-window.ts'
 import { copyToClipboard } from '../utils.ts'
 
 import Template from './application-window.blp'
@@ -60,7 +61,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     return this._unsavedChangesIndicator.visible;
   }
 
-  // Actions
+  // Simulator actions
   private assembleAction = new Gio.SimpleAction({ name: 'assemble' });
   private runSimulatorAction = new Gio.SimpleAction({ name: 'run-simulator' });
   private resumeSimulatorAction = new Gio.SimpleAction({ name: 'resume-simulator' });
@@ -68,10 +69,13 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private resetSimulatorAction = new Gio.SimpleAction({ name: 'reset-simulator' });
   private stepSimulatorAction = new Gio.SimpleAction({ name: 'step-simulator' });
 
-  // New file actions
+  // File actions
   private openFileAction = new Gio.SimpleAction({ name: 'open-file' });
   private saveFileAction = new Gio.SimpleAction({ name: 'save-file' });
   private saveAsFileAction = new Gio.SimpleAction({ name: 'save-as-file' });
+
+  // Help actions
+  private showHelpAction = new Gio.SimpleAction({ name: 'show-help' });
 
   private buttonModes: Record<RunButtonState, RunButtonMode> = {
     [RunButtonState.ASSEMBLE]: {
@@ -117,6 +121,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this.setupLearnTutorialSignalListeners();
     this.setupEditorSignalListeners();
     this.setupDebuggerSignalListeners();
+    this.setupHelpActions();
     // Initialize the previous visible child after all setup is done
     this.previousVisibleChild = this._stack.get_visible_child();
   }
@@ -274,6 +279,16 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     // Connect unsaved changes dialog responses
     this._unsavedChangesDialog.connect('response', this.onUnsavedChangesResponse.bind(this));
+  }
+
+  private setupHelpActions(): void {
+    this.showHelpAction.connect('activate', this.showHelp.bind(this));
+    this.add_action(this.showHelpAction);
+  }
+
+  private showHelp(): void {
+    const helpWindow = new HelpWindow();
+    helpWindow.present();
   }
 
   private setupRunButton(): void {

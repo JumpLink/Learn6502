@@ -1,0 +1,10 @@
+using Gtk 4.0;
+using Adw 1;
+// This template is based on a Workbench example and just a example of how to use the Adw.Window
+template $HelpWindow: Adw.Window {
+  default-width: 800;
+  default-height: 600;
+  title: _("Help");
+
+  $QuickHelp quickHelp {}
+}

@@ -3,7 +3,7 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import GLib from '@girs/glib-2.0'
 
-import { Tutorial } from './tutorial.ts'
+import { Tutorial } from './mdx/tutorial.ts'
 
 import Template from './learn.blp'
 
@@ -52,7 +52,7 @@ export class Learn extends Adw.Bin {
   public saveScrollPosition(): void {
     const scrolledWindow = this.getScrolledWindow();
     const vadjustment = scrolledWindow.get_vadjustment();
-    
+
     // Check if adjustment is valid and scrollable content exists
     if (vadjustment && vadjustment.get_upper() > vadjustment.get_page_size()) {
       this._lastScrollPosition = vadjustment.get_value();
@@ -65,13 +65,13 @@ export class Learn extends Adw.Bin {
     GLib.idle_add(GLib.PRIORITY_DEFAULT_IDLE, () => {
       const scrolledWindow = this.getScrolledWindow();
       const vadjustment = scrolledWindow.get_vadjustment();
-      
+
       // Check if adjustment is valid and scrollable content exists
-      if (vadjustment && vadjustment.get_upper() > vadjustment.get_page_size() && 
+      if (vadjustment && vadjustment.get_upper() > vadjustment.get_page_size() &&
           this._lastScrollPosition > 0 && this._lastScrollPosition <= vadjustment.get_upper() - vadjustment.get_page_size()) {
         vadjustment.set_value(this._lastScrollPosition);
       }
-      
+
       return GLib.SOURCE_REMOVE; // Remove the source after execution
     });
   }

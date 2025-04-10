@@ -1,4 +1,4 @@
-# 6502 Assembly Quick Reference Guide
+# 6502 Assembly Quick Reference
 
 ## Memory Map
 - **Zero Page**: `$0000`-`$00FF` (first 256 bytes, faster access)
@@ -51,14 +51,16 @@
 ## Special Memory Locations (in Simulator)
 - **`$FE`**: Random number generator (reads as a random value 0-255)
 - **`$FF`**: Last pressed key (ASCII code)
-  - Directional controls:
-    - W or Up Arrow key (`$77`)
-    - A or Left Arrow key (`$61`)
-    - S or Down Arrow key (`$73`)
-    - D or Right Arrow key (`$64`)
-  - Action buttons:
-    - A or Enter/Return key (`$0D`)
-    - B or Space key (`$20`)
+
+**Directional controls**:
+- W or Up Arrow key (`$77`)
+- A or Left Arrow key (`$61`)
+- S or Down Arrow key (`$73`)
+- D or Right Arrow key (`$64`)
+
+**Action buttons**:
+- A or Enter/Return key (`$0D`)
+- B or Space key (`$20`)
 
 ## Snake Game Memory Usage
 - **`$00`-`$01`**: Apple position
