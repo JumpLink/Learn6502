@@ -73,7 +73,11 @@ interface GtkCodeProps extends Object {
   /**
    * The height of the code view.
    */
-  height: number
+  height?: number
+  /**
+   * The width of the code view.
+   */
+  width?: number
 }
 
 export class GtkCode extends GtkWidget<GtkCodeProps> {
@@ -95,7 +99,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     }
 
     render() {
-      let { language, readonly, copyable, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight, height, lineNumberStart } = this.parseAttributes(this.props)
+      let { language, readonly, copyable, unselectable, code, lineNumbers, noLineNumbers, fitContentWidth, fitContentHeight, height, width, lineNumberStart } = this.parseAttributes(this.props)
 
       code = renderSSR(code);
       if(code.endsWith('\n')) {
@@ -114,9 +118,10 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
             {lineNumbers && <property name="line-numbers">{lineNumbers.toString()}</property>}
             {noLineNumbers && <property name="no-line-numbers">{noLineNumbers.toString()}</property>}
             {lineNumberStart !== undefined && <property name="line-number-start">{lineNumberStart}</property>}
-            {fitContentWidth && <property name="fit-content-width">{fitContentWidth.toString()}</property>}
-            {!height &&fitContentHeight && <property name="fit-content-height">{fitContentHeight.toString()}</property>}
+            {!height && fitContentHeight && <property name="fit-content-height">{fitContentHeight.toString()}</property>}
+            {!width && fitContentWidth && <property name="fit-content-width">{fitContentWidth.toString()}</property>}
             {height && <property name="height">{height}</property>}
+            {width && <property name="width">{width}</property>}
           </object>
         </child>
       }
@@ -144,6 +149,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
       let fitContentWidth = props.fitContentWidth || false
       let fitContentHeight = props.fitContentHeight || false
       let height = props.height
+      let width = props.width
       let lineNumberStart = props.lineNumberStart || language === 'hex' ? 0 : 1
       // E.g. language-6502-assembler:readonly
       const separator = ':'

@@ -3,12 +3,12 @@ using Adw 1;
 using GtkSource 5;
 
 template $SourceView: Adw.Bin {
-  ScrolledWindow scrolledWindow {
-    hexpand: true;
-    vexpand: true;
-    has-frame: false;
+  Overlay {
+    ScrolledWindow scrolledWindow {
+      hexpand: true;
+      vexpand: true;
+      has-frame: false;
 
-    Overlay {
       GtkSource.View sourceView {
         hexpand: true;
         vexpand: true;
@@ -21,18 +21,18 @@ template $SourceView: Adw.Bin {
         top-margin: 12;
         bottom-margin: 12;
       }
+    }
 
-      [overlay]
-      Gtk.Button copyButton {
-        halign: end;
-        valign: start;
-        margin-end: 12;
-        margin-top: 12;
-        icon-name: "move-to-window-symbolic";
-        action-name: 'source-view.copy';
-        tooltip-text: _("Copy to editor");
-        visible: false;
-      }
+    [overlay]
+    Gtk.Button copyButton {
+      halign: end;
+      valign: start;
+      margin-end: 12;
+      margin-top: 12;
+      icon-name: "move-to-window-symbolic";
+      action-name: 'source-view.copy';
+      tooltip-text: _("Copy to editor");
+      visible: false;
     }
   }
 }

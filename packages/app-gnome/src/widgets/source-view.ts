@@ -31,6 +31,8 @@ export namespace SourceView {
     fitContentWidth?: boolean
     /** The height of the source view */
     height?: number
+    /** The width of the source view */
+    width?: number
     /** Whether to expand the source view horizontally */
     hexpand?: boolean
     /** Whether to expand the source view vertically */
@@ -94,6 +96,7 @@ export class SourceView extends Adw.Bin {
         fitContentHeight: GObject.ParamSpec.boolean('fit-content-height', 'Fit Content Height', 'Whether the source view should fit the content height', GObject.ParamFlags.READWRITE, false),
         fitContentWidth: GObject.ParamSpec.boolean('fit-content-width', 'Fit Content Width', 'Whether the source view should fit the content width', GObject.ParamFlags.READWRITE, false),
         height: GObject.ParamSpec.uint('height', 'Height', 'The height of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
+        width: GObject.ParamSpec.uint('width', 'Width', 'The width of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
         copyable: GObject.ParamSpec.boolean('copyable', 'Copyable', 'Whether the source view has a copy button', GObject.ParamFlags.READWRITE, false),
         copyButtonIcon: GObject.ParamSpec.string('copy-button-icon', 'Copy Button Icon', 'The icon name for the copy button', GObject.ParamFlags.READWRITE, 'move-to-window-symbolic'),
       },
@@ -344,6 +347,18 @@ export class SourceView extends Adw.Bin {
     return this._scrolledWindow.height_request;
   }
 
+  public set width(value: number) {
+    if(value > 0) {
+      this._scrolledWindow.width_request = value;
+    } else {
+      this._scrolledWindow.width_request = -1;
+    }
+  }
+
+  public get width(): number {
+    return this._scrolledWindow.width_request;
+  }
+
   /**
    * Get whether the source view has code
    * @returns Whether the source view has code
@@ -376,7 +391,7 @@ export class SourceView extends Adw.Bin {
   private _actionGroup: Gio.SimpleActionGroup;
 
   constructor(params: Partial<SourceView.ConstructorProps> = {}) {
-    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, copyable, copyButtonIcon, ...rest } = params;
+    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, width, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, copyable, copyButtonIcon, ...rest } = params;
     super(rest);
     this.setupScrolledWindow();
 
@@ -402,6 +417,9 @@ export class SourceView extends Adw.Bin {
     }
     if(height !== undefined) {
       this.height = height;
+    }
+    if(width !== undefined) {
+      this.width = width;
     }
     if(hexpand !== undefined) {
       this.hexpand = hexpand;
