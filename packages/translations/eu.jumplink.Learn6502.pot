@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-10 10:52+0200\n"
+"POT-Creation-Date: 2025-04-10 19:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,110 +17,110 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../app-gnome/src/widgets/application-window.ts:53
+#: ../app-gnome/src/widgets/application-window.ts:54
 msgid "Unsaved changes"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:55
+#: ../app-gnome/src/widgets/application-window.ts:56
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:79
+#: ../app-gnome/src/widgets/application-window.ts:83
 msgid "Assemble"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:84
+#: ../app-gnome/src/widgets/application-window.ts:88
 msgid "Run"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:89
+#: ../app-gnome/src/widgets/application-window.ts:93
 msgid "Pause"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:94
+#: ../app-gnome/src/widgets/application-window.ts:98
 msgid "Resume"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:99
+#: ../app-gnome/src/widgets/application-window.ts:103
 msgid "Reset"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:104
+#: ../app-gnome/src/widgets/application-window.ts:108
 msgid "Step"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:132
+#: ../app-gnome/src/widgets/application-window.ts:137
 msgid "Code copied to editor"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:157
+#: ../app-gnome/src/widgets/application-window.ts:162
 msgid "Copied to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:162
+#: ../app-gnome/src/widgets/application-window.ts:167
 msgid "Failed to copy to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:208
+#: ../app-gnome/src/widgets/application-window.ts:213
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:347
+#: ../app-gnome/src/widgets/application-window.ts:362
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:358
+#: ../app-gnome/src/widgets/application-window.ts:373
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:441
+#: ../app-gnome/src/widgets/application-window.ts:456
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:458
+#: ../app-gnome/src/widgets/application-window.ts:473
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:647
+#: ../app-gnome/src/widgets/application-window.ts:662
 msgid "Open Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:658
+#: ../app-gnome/src/widgets/application-window.ts:673
 msgid "Failed to load file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:676
+#: ../app-gnome/src/widgets/application-window.ts:691
 msgid "File loaded successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:682
+#: ../app-gnome/src/widgets/application-window.ts:697
 msgid "Error opening file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:698
-#: ../app-gnome/src/widgets/application-window.ts:699
+#: ../app-gnome/src/widgets/application-window.ts:713
+#: ../app-gnome/src/widgets/application-window.ts:714
 msgid "untitled"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:705
+#: ../app-gnome/src/widgets/application-window.ts:720
 msgid "Save Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:718
-#: ../app-gnome/src/widgets/application-window.ts:756
+#: ../app-gnome/src/widgets/application-window.ts:733
+#: ../app-gnome/src/widgets/application-window.ts:771
 msgid "Error saving file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:749
+#: ../app-gnome/src/widgets/application-window.ts:764
 msgid "File saved successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:767
+#: ../app-gnome/src/widgets/application-window.ts:782
 msgid "Assembly Files"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:772
+#: ../app-gnome/src/widgets/application-window.ts:787
 msgid "All Files"
 msgstr ""
 
@@ -155,7 +155,7 @@ msgid "Open..."
 msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.blp:117
-#: ../app-gnome/src/widgets/application-window.blp:192
+#: ../app-gnome/src/widgets/application-window.blp:197
 msgid "Save"
 msgstr ""
 
@@ -164,31 +164,36 @@ msgid "Save as..."
 msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.blp:143
-msgid "About Learn 6502 Assembly"
+#: ../app-gnome/src/widgets/help-window.blp:7
+msgid "Help"
 msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.blp:148
+msgid "About Learn 6502 Assembly"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:153
 msgid "Quit"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:165
+#: ../app-gnome/src/widgets/application-window.blp:170
 msgid "Continue"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:185
+#: ../app-gnome/src/widgets/application-window.blp:190
 msgid "Save changes?"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:186
+#: ../app-gnome/src/widgets/application-window.blp:191
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:190
+#: ../app-gnome/src/widgets/application-window.blp:195
 msgid "Cancel"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.blp:191
+#: ../app-gnome/src/widgets/application-window.blp:196
 msgid "Discard"
 msgstr ""
 
@@ -329,7 +334,7 @@ msgid "Emulator"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:1
-msgid "6502 Assembly Quick Reference Guide"
+msgid "6502 Assembly Quick Reference"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:2
@@ -340,6 +345,7 @@ msgstr ""
 #: ../learn/dist/quick-help.ui:7 ../learn/dist/quick-help.ui:9
 #: ../learn/dist/quick-help.ui:11 ../learn/dist/quick-help.ui:13
 #: ../learn/dist/quick-help.ui:15 ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:19 ../learn/dist/quick-help.ui:21
 msgid "•"
 msgstr ""
 
@@ -538,157 +544,58 @@ msgid ""
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:15
-msgid ""
-"<b><tt>$FF</tt></b>: Last pressed key (ASCII code) <child><object "
-"class=\"GtkBox\"><property name=\"orientation\">1</property><property "
-"name=\"margin-start\">24</property><child><object class=\"GtkBox\"><property "
-"name=\"orientation\">0</property><child><object class=\"GtkLabel\"><property "
-"name=\"label\" translatable=\"yes\">•</property><property name=\"use-"
-"markup\">true</property><property name=\"wrap\">true</property><property "
-"name=\"xalign\">0</property><property name=\"valign\">1</property><property "
-"name=\"label\">• </property></object></child><child><object "
-"class=\"GtkLabel\"><property name=\"label\" translatable=\"yes\">Directional "
-"controls: &lt;child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property "
-"name=&quot;orientation&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;"
-"margin-start&quot;&gt;24&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
-"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
-"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
-"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
-"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
-"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
-"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
-"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
-"translatable=&quot;yes&quot;&gt;W or Up Arrow key (&amp;lt;tt&amp;gt;$77&amp;"
-"lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-markup&quot;&gt;"
-"true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
-"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
-"&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkBox&quot;"
-"&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/property&gt;&lt;"
-"child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;"
-"label&quot; translatable=&quot;yes&quot;&gt;•&lt;/property&gt;&lt;property "
-"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
-"&gt;0&lt;/property&gt;&lt;property name=&quot;valign&quot;&gt;1&lt;/"
-"property&gt;&lt;property name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/"
-"object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;"
-"&gt;&lt;property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;A or "
-"Left Arrow key (&amp;lt;tt&amp;gt;$61&amp;lt;/tt&amp;gt;)&lt;/property&gt;"
-"&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;"
-"property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;hexpand-set&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"hexpand&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
-"&gt;0&lt;/property&gt;&lt;property name=&quot;halign&quot;&gt;0&lt;/"
-"property&gt;&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;&lt;"
-"child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property name=&quot;"
-"orientation&quot;&gt;0&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
-"GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; translatable=&quot;"
-"yes&quot;&gt;•&lt;/property&gt;&lt;property name=&quot;use-markup&quot;&gt;"
-"true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;"
-"property name=&quot;valign&quot;&gt;1&lt;/property&gt;&lt;property "
-"name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
-"&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property "
-"name=&quot;label&quot; translatable=&quot;yes&quot;&gt;S or Down Arrow key "
-"(&amp;lt;tt&amp;gt;$73&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property "
-"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;"
-"&gt;true&lt;/property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;"
-"property name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/"
-"child&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;"
-"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
-"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
-"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
-"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
-"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
-"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
-"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
-"translatable=&quot;yes&quot;&gt;D or Right Arrow key (&amp;lt;tt&amp;gt;"
-"$64&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-"
-"markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;"
-"true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
-"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
-"&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;</"
-"property><property name=\"use-markup\">true</property><property "
-"name=\"wrap\">true</property><property name=\"hexpand-set\">true</"
-"property><property name=\"hexpand\">true</property><property "
-"name=\"xalign\">0</property><property name=\"halign\">0</property></object></"
-"child></object></child><child><object class=\"GtkBox\"><property "
-"name=\"orientation\">0</property><child><object class=\"GtkLabel\"><property "
-"name=\"label\" translatable=\"yes\">•</property><property name=\"use-"
-"markup\">true</property><property name=\"wrap\">true</property><property "
-"name=\"xalign\">0</property><property name=\"valign\">1</property><property "
-"name=\"label\">• </property></object></child><child><object "
-"class=\"GtkLabel\"><property name=\"label\" translatable=\"yes\">Action "
-"buttons: &lt;child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property "
-"name=&quot;orientation&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;"
-"margin-start&quot;&gt;24&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
-"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
-"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
-"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
-"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
-"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
-"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
-"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
-"translatable=&quot;yes&quot;&gt;A or Enter/Return key (&amp;lt;tt&amp;gt;"
-"$0D&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-"
-"markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;"
-"true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
-"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
-"&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkBox&quot;"
-"&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/property&gt;&lt;"
-"child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;"
-"label&quot; translatable=&quot;yes&quot;&gt;•&lt;/property&gt;&lt;property "
-"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
-"&gt;0&lt;/property&gt;&lt;property name=&quot;valign&quot;&gt;1&lt;/"
-"property&gt;&lt;property name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/"
-"object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;"
-"&gt;&lt;property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;B or "
-"Space key (&amp;lt;tt&amp;gt;$20&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;"
-"property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"hexpand-set&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"hexpand&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
-"&gt;0&lt;/property&gt;&lt;property name=&quot;halign&quot;&gt;0&lt;/"
-"property&gt;&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;&lt;/"
-"object&gt;&lt;/child&gt;</property><property name=\"use-markup\">true</"
-"property><property name=\"wrap\">true</property><property name=\"hexpand-"
-"set\">true</property><property name=\"hexpand\">true</property><property "
-"name=\"xalign\">0</property><property name=\"halign\">0</property></object></"
-"child></object></child></object></child>"
+msgid "<b><tt>$FF</tt></b>: Last pressed key (ASCII code)"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:16
+msgid "<b>Directional controls</b>:"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:17
+msgid "W or Up Arrow key (<tt>$77</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:17
+msgid "A or Left Arrow key (<tt>$61</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:17
+msgid "S or Down Arrow key (<tt>$73</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:17
+msgid "D or Right Arrow key (<tt>$64</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:18
+msgid "<b>Action buttons</b>:"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:19
+msgid "A or Enter/Return key (<tt>$0D</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:19
+msgid "B or Space key (<tt>$20</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:20
 msgid "Snake Game Memory Usage"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:21
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:21
 msgid "<b><tt>$02</tt></b>: Snake direction (1=up, 2=right, 4=down, 8=left)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:21
 msgid "<b><tt>$03</tt></b>: Snake length"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:21
 msgid ""
 "<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position data (head, body segments, "
 "tail)"

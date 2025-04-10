@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-10 10:52+0200\n"
+"POT-Creation-Date: 2025-04-10 19:19+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -18,110 +18,110 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "License: CC-BY-4.0\n"
 
-#: ../app-gnome/src/widgets/application-window.ts:53
+#: ../app-gnome/src/widgets/application-window.ts:54
 msgid "Unsaved changes"
 msgstr "Ungespeicherte Änderungen "
 
-#: ../app-gnome/src/widgets/application-window.ts:55
+#: ../app-gnome/src/widgets/application-window.ts:56
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "Datei \"%s\" enthält ungespeicherte Änderungen"
 
-#: ../app-gnome/src/widgets/application-window.ts:79
+#: ../app-gnome/src/widgets/application-window.ts:83
 msgid "Assemble"
 msgstr "Assemblieren"
 
-#: ../app-gnome/src/widgets/application-window.ts:84
+#: ../app-gnome/src/widgets/application-window.ts:88
 msgid "Run"
 msgstr "Ausführen"
 
-#: ../app-gnome/src/widgets/application-window.ts:89
+#: ../app-gnome/src/widgets/application-window.ts:93
 msgid "Pause"
 msgstr "Pause"
 
-#: ../app-gnome/src/widgets/application-window.ts:94
+#: ../app-gnome/src/widgets/application-window.ts:98
 msgid "Resume"
 msgstr "Fortsetzen"
 
-#: ../app-gnome/src/widgets/application-window.ts:99
+#: ../app-gnome/src/widgets/application-window.ts:103
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: ../app-gnome/src/widgets/application-window.ts:104
+#: ../app-gnome/src/widgets/application-window.ts:108
 msgid "Step"
 msgstr "Schritt"
 
-#: ../app-gnome/src/widgets/application-window.ts:132
+#: ../app-gnome/src/widgets/application-window.ts:137
 msgid "Code copied to editor"
 msgstr "Code in Editor kopiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:157
+#: ../app-gnome/src/widgets/application-window.ts:162
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:162
+#: ../app-gnome/src/widgets/application-window.ts:167
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:208
+#: ../app-gnome/src/widgets/application-window.ts:213
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:347
+#: ../app-gnome/src/widgets/application-window.ts:362
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/widgets/application-window.ts:358
+#: ../app-gnome/src/widgets/application-window.ts:373
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/widgets/application-window.ts:441
+#: ../app-gnome/src/widgets/application-window.ts:456
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:458
+#: ../app-gnome/src/widgets/application-window.ts:473
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:647
+#: ../app-gnome/src/widgets/application-window.ts:662
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/widgets/application-window.ts:658
+#: ../app-gnome/src/widgets/application-window.ts:673
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:676
+#: ../app-gnome/src/widgets/application-window.ts:691
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../app-gnome/src/widgets/application-window.ts:682
+#: ../app-gnome/src/widgets/application-window.ts:697
 msgid "Error opening file"
 msgstr "Fehler beim Öffnen der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:698
-#: ../app-gnome/src/widgets/application-window.ts:699
+#: ../app-gnome/src/widgets/application-window.ts:713
+#: ../app-gnome/src/widgets/application-window.ts:714
 msgid "untitled"
 msgstr "unbenannt"
 
-#: ../app-gnome/src/widgets/application-window.ts:705
+#: ../app-gnome/src/widgets/application-window.ts:720
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/widgets/application-window.ts:718
-#: ../app-gnome/src/widgets/application-window.ts:756
+#: ../app-gnome/src/widgets/application-window.ts:733
+#: ../app-gnome/src/widgets/application-window.ts:771
 msgid "Error saving file"
 msgstr "Fehler beim Speichern der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:749
+#: ../app-gnome/src/widgets/application-window.ts:764
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../app-gnome/src/widgets/application-window.ts:767
+#: ../app-gnome/src/widgets/application-window.ts:782
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/widgets/application-window.ts:772
+#: ../app-gnome/src/widgets/application-window.ts:787
 msgid "All Files"
 msgstr "Alle Dateien"
 
@@ -156,7 +156,7 @@ msgid "Open..."
 msgstr "Öffnen..."
 
 #: ../app-gnome/src/widgets/application-window.blp:117
-#: ../app-gnome/src/widgets/application-window.blp:192
+#: ../app-gnome/src/widgets/application-window.blp:197
 msgid "Save"
 msgstr "Speichern"
 
@@ -165,33 +165,38 @@ msgid "Save as..."
 msgstr "Speichern unter..."
 
 #: ../app-gnome/src/widgets/application-window.blp:143
+#: ../app-gnome/src/widgets/help-window.blp:7
+msgid "Help"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.blp:148
 msgid "About Learn 6502 Assembly"
 msgstr "Über Lerne 6502 Assembler"
 
-#: ../app-gnome/src/widgets/application-window.blp:148
+#: ../app-gnome/src/widgets/application-window.blp:153
 msgid "Quit"
 msgstr "Beenden"
 
-#: ../app-gnome/src/widgets/application-window.blp:165
+#: ../app-gnome/src/widgets/application-window.blp:170
 msgid "Continue"
 msgstr "Fortfahren"
 
-#: ../app-gnome/src/widgets/application-window.blp:185
+#: ../app-gnome/src/widgets/application-window.blp:190
 msgid "Save changes?"
 msgstr "Änderungen speichern?"
 
-#: ../app-gnome/src/widgets/application-window.blp:186
+#: ../app-gnome/src/widgets/application-window.blp:191
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
 "Deine Datei enthält ungespeicherte Änderungen. Die Änderungen gehen "
 "verloren, wenn du sie nicht speicherst."
 
-#: ../app-gnome/src/widgets/application-window.blp:190
+#: ../app-gnome/src/widgets/application-window.blp:195
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../app-gnome/src/widgets/application-window.blp:191
+#: ../app-gnome/src/widgets/application-window.blp:196
 msgid "Discard"
 msgstr "Verwerfen"
 
@@ -344,17 +349,18 @@ msgid "Emulator"
 msgstr "Emulator"
 
 #: ../learn/dist/quick-help.ui:1
-msgid "6502 Assembly Quick Reference Guide"
-msgstr ""
+msgid "6502 Assembly Quick Reference"
+msgstr "6502-Assembler-Kurzreferenz"
 
 #: ../learn/dist/quick-help.ui:2
 msgid "Memory Map"
-msgstr ""
+msgstr "Speicherbelegung"
 
 #: ../learn/dist/quick-help.ui:3 ../learn/dist/quick-help.ui:5
 #: ../learn/dist/quick-help.ui:7 ../learn/dist/quick-help.ui:9
 #: ../learn/dist/quick-help.ui:11 ../learn/dist/quick-help.ui:13
 #: ../learn/dist/quick-help.ui:15 ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:19 ../learn/dist/quick-help.ui:21
 msgid "•"
 msgstr ""
 
@@ -363,108 +369,124 @@ msgid ""
 "<b>Zero Page</b>: <tt>$0000</tt>-<tt>$00FF</tt> (first 256 bytes, faster "
 "access)"
 msgstr ""
+"<b>Zero Page</b>: <tt>$0000</tt>-<tt>$00FF</tt> (erste 256 Bytes, "
+"schnellerer Zugriff)"
 
 #: ../learn/dist/quick-help.ui:3
 msgid "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
-msgstr ""
+msgstr "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
 
 #: ../learn/dist/quick-help.ui:3
 msgid ""
 "<b>Display Memory</b>: <tt>$0200</tt>-<tt>$05FF</tt> (used for screen output)"
 msgstr ""
+"<b>Anzeigespeicher</b>: <tt>$0200</tt>-<tt>$05FF</tt> (für Bildschirmausgabe)"
 
 #: ../learn/dist/quick-help.ui:3
 msgid "<b>Program Storage</b>: Starting at <tt>$0600</tt>"
-msgstr ""
+msgstr "<b>Programmspeicher</b>: Beginnt bei <tt>$0600</tt>"
 
 #: ../learn/dist/quick-help.ui:4
 msgid "Display Organization"
-msgstr ""
+msgstr "Bildschirmorganisation"
 
 #: ../learn/dist/quick-help.ui:5
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
 msgstr ""
+"Bildschirm wird auf Speicherbereich <tt>$0200</tt>-<tt>$05FF</tt> abgebildet"
 
 #: ../learn/dist/quick-help.ui:5
 msgid ""
 "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</"
 "tt>=black, <tt>$01</tt>=white)"
 msgstr ""
+"Werte <tt>$00</tt>-<tt>$0F</tt> stellen 16 verschiedene Farben dar (<tt>$00</"
+"tt>=schwarz, <tt>$01</tt>=weiß)"
 
 #: ../learn/dist/quick-help.ui:5
 msgid "Organized as four horizontal strips of 32×8 pixels"
-msgstr ""
+msgstr "Organisiert als vier horizontale Streifen von 32×8 Pixeln"
 
 #: ../learn/dist/quick-help.ui:5
 msgid ""
 "First row: <tt>$0200</tt>-<tt>$021F</tt>, second row: <tt>$0220</tt>-"
 "<tt>$023F</tt>, etc."
 msgstr ""
+"Erste Zeile: <tt>$0200</tt>-<tt>$021F</tt>, zweite Zeile: <tt>$0220</tt>-"
+"<tt>$023F</tt>, usw."
 
 #: ../learn/dist/quick-help.ui:6
-#, fuzzy
 msgid "Registers"
-msgstr "Register und Flags"
+msgstr "Register"
 
 #: ../learn/dist/quick-help.ui:7
 msgid ""
 "<b>A</b> (Accumulator): Main register for calculations and data manipulation"
 msgstr ""
+"<b>A</b> (Akkumulator): Hauptregister für Berechnungen und Datenmanipulation"
 
 #: ../learn/dist/quick-help.ui:7
 msgid "<b>X, Y</b>: Index registers for addressing and counting"
-msgstr ""
+msgstr "<b>X, Y</b>: Indexregister für Adressierung und Zählung"
 
 #: ../learn/dist/quick-help.ui:7
 msgid ""
 "<b>SP</b> (Stack Pointer): Points to current stack position (starts at "
 "<tt>$FF</tt>)"
 msgstr ""
+"<b>SP</b> (Stack Pointer): Zeigt auf aktuelle Stack-Position (beginnt bei "
+"<tt>$FF</tt>)"
 
 #: ../learn/dist/quick-help.ui:7
 msgid "<b>PC</b> (Program Counter): Points to the next instruction to execute"
 msgstr ""
+"<b>PC</b> (Program Counter): Zeigt auf die nächste auszuführende Anweisung"
 
 #: ../learn/dist/quick-help.ui:8
 msgid "Processor Flags"
-msgstr ""
+msgstr "Prozessor-Flags"
 
 #: ../learn/dist/quick-help.ui:9
 msgid "<b>N</b> (Negative): Set when bit 7 of result is set"
-msgstr ""
+msgstr "<b>N</b> (Negativ): Gesetzt, wenn Bit 7 des Ergebnisses gesetzt ist"
 
 #: ../learn/dist/quick-help.ui:9
 msgid ""
 "<b>V</b> (Overflow): Set when arithmetic operation causes signed overflow"
 msgstr ""
+"<b>V</b> (Überlauf): Gesetzt, wenn arithmetische Operation einen "
+"Vorzeichenüberlauf verursacht"
 
 #: ../learn/dist/quick-help.ui:9
 msgid "<b>B</b> (Break): Set when BRK instruction is executed"
-msgstr ""
+msgstr "<b>B</b> (Break): Gesetzt, wenn BRK-Anweisung ausgeführt wird"
 
 #: ../learn/dist/quick-help.ui:9
 msgid ""
 "<b>D</b> (Decimal): Set when processor is in BCD (Binary Coded Decimal) mode"
 msgstr ""
+"<b>D</b> (Dezimal): Gesetzt, wenn Prozessor im BCD-Modus (Binary Coded "
+"Decimal) ist"
 
 #: ../learn/dist/quick-help.ui:9
 msgid "<b>I</b> (Interrupt): Set when interrupts are disabled"
-msgstr ""
+msgstr "<b>I</b> (Interrupt): Gesetzt, wenn Interrupts deaktiviert sind"
 
 #: ../learn/dist/quick-help.ui:9
 msgid "<b>Z</b> (Zero): Set when result is zero"
-msgstr ""
+msgstr "<b>Z</b> (Null): Gesetzt, wenn Ergebnis null ist"
 
 #: ../learn/dist/quick-help.ui:9
 msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
 msgstr ""
+"<b>C</b> (Übertrag): Gesetzt, wenn arithmetische Operationen ein Byte "
+"überlaufen"
 
 #: ../learn/dist/quick-help.ui:9
 msgid "Used for conditional branching"
-msgstr ""
+msgstr "Wird für bedingte Verzweigungen verwendet"
 
 #: ../learn/dist/quick-help.ui:10
-#, fuzzy
 msgid "Addressing Modes"
 msgstr "Adressierungsmodi"
 
@@ -548,169 +570,75 @@ msgstr ""
 
 #: ../learn/dist/quick-help.ui:14
 msgid "Special Memory Locations (in Simulator)"
-msgstr ""
+msgstr "Spezielle Speicheradressen (im Simulator)"
 
 #: ../learn/dist/quick-help.ui:15
 msgid ""
 "<b><tt>$FE</tt></b>: Random number generator (reads as a random value 0-255)"
 msgstr ""
+"<b><tt>$FE</tt></b>: Zufallszahlengenerator (liefert einen Zufallswert 0-255)"
 
 #: ../learn/dist/quick-help.ui:15
-msgid ""
-"<b><tt>$FF</tt></b>: Last pressed key (ASCII code) <child><object "
-"class=\"GtkBox\"><property name=\"orientation\">1</property><property "
-"name=\"margin-start\">24</property><child><object class=\"GtkBox\"><property "
-"name=\"orientation\">0</property><child><object class=\"GtkLabel\"><property "
-"name=\"label\" translatable=\"yes\">•</property><property name=\"use-"
-"markup\">true</property><property name=\"wrap\">true</property><property "
-"name=\"xalign\">0</property><property name=\"valign\">1</property><property "
-"name=\"label\">• </property></object></child><child><object "
-"class=\"GtkLabel\"><property name=\"label\" translatable=\"yes\">Directional "
-"controls: &lt;child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property "
-"name=&quot;orientation&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;"
-"margin-start&quot;&gt;24&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
-"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
-"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
-"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
-"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
-"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
-"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
-"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
-"translatable=&quot;yes&quot;&gt;W or Up Arrow key (&amp;lt;tt&amp;gt;$77&amp;"
-"lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-markup&quot;&gt;"
-"true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
-"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
-"&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkBox&quot;"
-"&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/property&gt;&lt;"
-"child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;"
-"label&quot; translatable=&quot;yes&quot;&gt;•&lt;/property&gt;&lt;property "
-"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
-"&gt;0&lt;/property&gt;&lt;property name=&quot;valign&quot;&gt;1&lt;/"
-"property&gt;&lt;property name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/"
-"object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;"
-"&gt;&lt;property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;A or "
-"Left Arrow key (&amp;lt;tt&amp;gt;$61&amp;lt;/tt&amp;gt;)&lt;/property&gt;"
-"&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;"
-"property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;hexpand-set&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"hexpand&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
-"&gt;0&lt;/property&gt;&lt;property name=&quot;halign&quot;&gt;0&lt;/"
-"property&gt;&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;&lt;"
-"child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property name=&quot;"
-"orientation&quot;&gt;0&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
-"GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; translatable=&quot;"
-"yes&quot;&gt;•&lt;/property&gt;&lt;property name=&quot;use-markup&quot;&gt;"
-"true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;"
-"property name=&quot;valign&quot;&gt;1&lt;/property&gt;&lt;property "
-"name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
-"&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property "
-"name=&quot;label&quot; translatable=&quot;yes&quot;&gt;S or Down Arrow key "
-"(&amp;lt;tt&amp;gt;$73&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property "
-"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;"
-"&gt;true&lt;/property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;"
-"property name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/"
-"child&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;"
-"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
-"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
-"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
-"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
-"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
-"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
-"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
-"translatable=&quot;yes&quot;&gt;D or Right Arrow key (&amp;lt;tt&amp;gt;"
-"$64&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-"
-"markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;"
-"true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
-"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
-"&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;</"
-"property><property name=\"use-markup\">true</property><property "
-"name=\"wrap\">true</property><property name=\"hexpand-set\">true</"
-"property><property name=\"hexpand\">true</property><property "
-"name=\"xalign\">0</property><property name=\"halign\">0</property></object></"
-"child></object></child><child><object class=\"GtkBox\"><property "
-"name=\"orientation\">0</property><child><object class=\"GtkLabel\"><property "
-"name=\"label\" translatable=\"yes\">•</property><property name=\"use-"
-"markup\">true</property><property name=\"wrap\">true</property><property "
-"name=\"xalign\">0</property><property name=\"valign\">1</property><property "
-"name=\"label\">• </property></object></child><child><object "
-"class=\"GtkLabel\"><property name=\"label\" translatable=\"yes\">Action "
-"buttons: &lt;child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property "
-"name=&quot;orientation&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;"
-"margin-start&quot;&gt;24&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
-"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
-"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
-"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
-"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
-"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
-"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
-"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
-"translatable=&quot;yes&quot;&gt;A or Enter/Return key (&amp;lt;tt&amp;gt;"
-"$0D&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-"
-"markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;"
-"true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
-"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
-"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
-"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
-"&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkBox&quot;"
-"&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/property&gt;&lt;"
-"child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;"
-"label&quot; translatable=&quot;yes&quot;&gt;•&lt;/property&gt;&lt;property "
-"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
-"&gt;0&lt;/property&gt;&lt;property name=&quot;valign&quot;&gt;1&lt;/"
-"property&gt;&lt;property name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/"
-"object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;"
-"&gt;&lt;property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;B or "
-"Space key (&amp;lt;tt&amp;gt;$20&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;"
-"property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property "
-"name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"hexpand-set&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
-"hexpand&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
-"&gt;0&lt;/property&gt;&lt;property name=&quot;halign&quot;&gt;0&lt;/"
-"property&gt;&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;&lt;/"
-"object&gt;&lt;/child&gt;</property><property name=\"use-markup\">true</"
-"property><property name=\"wrap\">true</property><property name=\"hexpand-"
-"set\">true</property><property name=\"hexpand\">true</property><property "
-"name=\"xalign\">0</property><property name=\"halign\">0</property></object></"
-"child></object></child></object></child>"
-msgstr ""
+msgid "<b><tt>$FF</tt></b>: Last pressed key (ASCII code)"
+msgstr "<b><tt>$FF</tt></b>: Zuletzt gedrückte Taste (ASCII-Code)"
 
 #: ../learn/dist/quick-help.ui:16
+msgid "<b>Directional controls</b>:"
+msgstr "<b>Richtungssteuerung</b>:"
+
+#: ../learn/dist/quick-help.ui:17
+msgid "W or Up Arrow key (<tt>$77</tt>)"
+msgstr "W oder Pfeil nach oben (<tt>$77</tt>)"
+
+#: ../learn/dist/quick-help.ui:17
+msgid "A or Left Arrow key (<tt>$61</tt>)"
+msgstr "A oder Pfeil nach links (<tt>$61</tt>)"
+
+#: ../learn/dist/quick-help.ui:17
+msgid "S or Down Arrow key (<tt>$73</tt>)"
+msgstr "S oder Pfeil nach unten (<tt>$73</tt>)"
+
+#: ../learn/dist/quick-help.ui:17
+msgid "D or Right Arrow key (<tt>$64</tt>)"
+msgstr "D oder Pfeil nach rechts (<tt>$64</tt>)"
+
+#: ../learn/dist/quick-help.ui:18
+msgid "<b>Action buttons</b>:"
+msgstr "<b>Aktionstasten</b>:"
+
+#: ../learn/dist/quick-help.ui:19
+msgid "A or Enter/Return key (<tt>$0D</tt>)"
+msgstr "A oder Eingabe/Return-Taste (<tt>$0D</tt>)"
+
+#: ../learn/dist/quick-help.ui:19
+#, fuzzy
+msgid "B or Space key (<tt>$20</tt>)"
+msgstr "Nullseite: <tt>$c0</tt>"
+
+#: ../learn/dist/quick-help.ui:20
 msgid "Snake Game Memory Usage"
-msgstr ""
+msgstr "Speichernutzung im Snake-Spiel"
 
-#: ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:21
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
-msgstr ""
+msgstr "<b><tt>$00</tt>-<tt>$01</tt></b>: Apfel-Position"
 
-#: ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:21
 msgid "<b><tt>$02</tt></b>: Snake direction (1=up, 2=right, 4=down, 8=left)"
 msgstr ""
+"<b><tt>$02</tt></b>: Schlangen-Richtung (1=oben, 2=rechts, 4=unten, 8=links)"
 
-#: ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:21
 msgid "<b><tt>$03</tt></b>: Snake length"
-msgstr ""
+msgstr "<b><tt>$03</tt></b>: Schlangen-Länge"
 
-#: ../learn/dist/quick-help.ui:17
+#: ../learn/dist/quick-help.ui:21
 msgid ""
 "<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position data (head, body segments, "
 "tail)"
 msgstr ""
+"<b><tt>$10</tt>-<tt>$15</tt></b>: Schlangen-Positionsdaten (Kopf, "
+"Körpersegmente, Schwanz)"
 
 #: ../learn/dist/tutorial.ui:1
 msgid ""
