@@ -6,7 +6,7 @@ export class GtkRoot extends Component {
   render() {
     return <interface>
       <requires lib="gtk" version="4.0"/>
-      <template class={this.props.class} parent="AdwBin">
+      <template class={this.props.class} parent="MdxRenderer">
         <property name="vexpand">true</property>
         <property name="vexpand-set">true</property>
         <GtkBox vexpand vexpand-set orientation={Orientation.VERTICAL}>

@@ -6,6 +6,7 @@ import { APPLICATION_ID, PACKAGE_VERSION, PREFIX, LIBDIR, DATADIR } from './cons
 // Promisify
 Gio._promisify(Gio.OutputStream.prototype, 'write_bytes_async', 'write_bytes_finish')
 Gio._promisify(Gio.OutputStream.prototype, 'close_async', 'close_finish')
+
 Gio._promisify(Gio.File.prototype, 'load_contents_async', 'load_contents_finish')
 Gio._promisify(Gio.File.prototype, 'replace_async', 'replace_finish')
 

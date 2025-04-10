@@ -109,11 +109,6 @@ menu buttonWindowMenu {
   section {
 
     item {
-      label: _("About Learn 6502 Assembly");
-      action: "app.about";
-    }
-
-    item {
       label: _("Open...");
       action: "win.open-file";
     }
@@ -128,6 +123,10 @@ menu buttonWindowMenu {
       action: "win.save-as-file";
     }
 
+  }
+
+  section {
+
     // TODO: Uncomment when preferences are implemented
     // item {
     //   label: _("_Preferences");
@@ -139,6 +138,11 @@ menu buttonWindowMenu {
     //   label: _("_Keyboard Shortcuts");
     //   action: "win.show-help-overlay";
     // }
+
+    item {
+      label: _("About Learn 6502 Assembly");
+      action: "app.about";
+    }
 
     item {
       label: _("Quit");

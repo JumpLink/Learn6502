@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-09 20:11+0200\n"
+"POT-Creation-Date: 2025-04-10 10:52+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -152,46 +152,46 @@ msgid "Game Console"
 msgstr "Spielkonsole"
 
 #: ../app-gnome/src/widgets/application-window.blp:112
-msgid "About Learn 6502 Assembly"
-msgstr "Über Lerne 6502 Assembler"
-
-#: ../app-gnome/src/widgets/application-window.blp:117
 msgid "Open..."
 msgstr "Öffnen..."
 
-#: ../app-gnome/src/widgets/application-window.blp:122
-#: ../app-gnome/src/widgets/application-window.blp:188
+#: ../app-gnome/src/widgets/application-window.blp:117
+#: ../app-gnome/src/widgets/application-window.blp:192
 msgid "Save"
 msgstr "Speichern"
 
-#: ../app-gnome/src/widgets/application-window.blp:127
+#: ../app-gnome/src/widgets/application-window.blp:122
 msgid "Save as..."
 msgstr "Speichern unter..."
 
-#: ../app-gnome/src/widgets/application-window.blp:144
+#: ../app-gnome/src/widgets/application-window.blp:143
+msgid "About Learn 6502 Assembly"
+msgstr "Über Lerne 6502 Assembler"
+
+#: ../app-gnome/src/widgets/application-window.blp:148
 msgid "Quit"
 msgstr "Beenden"
 
-#: ../app-gnome/src/widgets/application-window.blp:161
+#: ../app-gnome/src/widgets/application-window.blp:165
 msgid "Continue"
 msgstr "Fortfahren"
 
-#: ../app-gnome/src/widgets/application-window.blp:181
+#: ../app-gnome/src/widgets/application-window.blp:185
 msgid "Save changes?"
 msgstr "Änderungen speichern?"
 
-#: ../app-gnome/src/widgets/application-window.blp:182
+#: ../app-gnome/src/widgets/application-window.blp:186
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
 "Deine Datei enthält ungespeicherte Änderungen. Die Änderungen gehen "
 "verloren, wenn du sie nicht speicherst."
 
-#: ../app-gnome/src/widgets/application-window.blp:186
+#: ../app-gnome/src/widgets/application-window.blp:190
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../app-gnome/src/widgets/application-window.blp:187
+#: ../app-gnome/src/widgets/application-window.blp:191
 msgid "Discard"
 msgstr "Verwerfen"
 
@@ -342,6 +342,375 @@ msgstr "Lernen"
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:88
 msgid "Emulator"
 msgstr "Emulator"
+
+#: ../learn/dist/quick-help.ui:1
+msgid "6502 Assembly Quick Reference Guide"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:2
+msgid "Memory Map"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:3 ../learn/dist/quick-help.ui:5
+#: ../learn/dist/quick-help.ui:7 ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:11 ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:15 ../learn/dist/quick-help.ui:17
+msgid "•"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:3
+msgid ""
+"<b>Zero Page</b>: <tt>$0000</tt>-<tt>$00FF</tt> (first 256 bytes, faster "
+"access)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:3
+msgid "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:3
+msgid ""
+"<b>Display Memory</b>: <tt>$0200</tt>-<tt>$05FF</tt> (used for screen output)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:3
+msgid "<b>Program Storage</b>: Starting at <tt>$0600</tt>"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:4
+msgid "Display Organization"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:5
+msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:5
+msgid ""
+"Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</"
+"tt>=black, <tt>$01</tt>=white)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:5
+msgid "Organized as four horizontal strips of 32×8 pixels"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:5
+msgid ""
+"First row: <tt>$0200</tt>-<tt>$021F</tt>, second row: <tt>$0220</tt>-"
+"<tt>$023F</tt>, etc."
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+#, fuzzy
+msgid "Registers"
+msgstr "Register und Flags"
+
+#: ../learn/dist/quick-help.ui:7
+msgid ""
+"<b>A</b> (Accumulator): Main register for calculations and data manipulation"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:7
+msgid "<b>X, Y</b>: Index registers for addressing and counting"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:7
+msgid ""
+"<b>SP</b> (Stack Pointer): Points to current stack position (starts at "
+"<tt>$FF</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:7
+msgid "<b>PC</b> (Program Counter): Points to the next instruction to execute"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:8
+msgid "Processor Flags"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:9
+msgid "<b>N</b> (Negative): Set when bit 7 of result is set"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:9
+msgid ""
+"<b>V</b> (Overflow): Set when arithmetic operation causes signed overflow"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:9
+msgid "<b>B</b> (Break): Set when BRK instruction is executed"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:9
+msgid ""
+"<b>D</b> (Decimal): Set when processor is in BCD (Binary Coded Decimal) mode"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:9
+msgid "<b>I</b> (Interrupt): Set when interrupts are disabled"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:9
+msgid "<b>Z</b> (Zero): Set when result is zero"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:9
+msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:9
+msgid "Used for conditional branching"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:10
+#, fuzzy
+msgid "Addressing Modes"
+msgstr "Adressierungsmodi"
+
+#: ../learn/dist/quick-help.ui:11
+msgid "<b>Immediate</b> (<tt>#$c0</tt>): Use the actual value"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:11
+msgid ""
+"<b>Zero Page</b> (<tt>$c0</tt>): Access memory locations <tt>$00</tt>-"
+"<tt>$FF</tt>"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:11
+msgid "<b>Absolute</b> (<tt>$c000</tt>): Access any memory location"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:11
+msgid ""
+"<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:11
+msgid ""
+"<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:11
+msgid ""
+"<b>Indirect</b> (<tt>($c000)</tt>): Look up address stored at given location"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:11
+msgid ""
+"<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then "
+"dereference"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:11
+msgid ""
+"<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Dereference zero page address, "
+"then add Y"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:12
+#, fuzzy
+msgid "Common Instructions"
+msgstr "Anweisungen"
+
+#: ../learn/dist/quick-help.ui:13
+msgid "<b>LDA/LDX/LDY</b>: Load registers"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:13
+msgid "<b>STA/STX/STY</b>: Store registers to memory"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:13
+msgid "<b>INX/INY/DEX/DEY</b>: Increment/decrement registers"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:13
+msgid "<b>ADC/SBC</b>: Add/subtract with carry"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:13
+msgid "<b>JMP</b>: Unconditional jump"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:13
+msgid "<b>JSR/RTS</b>: Jump to subroutine / Return from subroutine"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:13
+msgid "<b>BEQ/BNE/BCC/BCS</b>: Branch if equal/not equal/carry clear/carry set"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:13
+msgid "<b>PHA/PLA</b>: Push/pull accumulator to/from stack"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:14
+msgid "Special Memory Locations (in Simulator)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:15
+msgid ""
+"<b><tt>$FE</tt></b>: Random number generator (reads as a random value 0-255)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:15
+msgid ""
+"<b><tt>$FF</tt></b>: Last pressed key (ASCII code) <child><object "
+"class=\"GtkBox\"><property name=\"orientation\">1</property><property "
+"name=\"margin-start\">24</property><child><object class=\"GtkBox\"><property "
+"name=\"orientation\">0</property><child><object class=\"GtkLabel\"><property "
+"name=\"label\" translatable=\"yes\">•</property><property name=\"use-"
+"markup\">true</property><property name=\"wrap\">true</property><property "
+"name=\"xalign\">0</property><property name=\"valign\">1</property><property "
+"name=\"label\">• </property></object></child><child><object "
+"class=\"GtkLabel\"><property name=\"label\" translatable=\"yes\">Directional "
+"controls: &lt;child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property "
+"name=&quot;orientation&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;"
+"margin-start&quot;&gt;24&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
+"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
+"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
+"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
+"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
+"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
+"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
+"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
+"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
+"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
+"translatable=&quot;yes&quot;&gt;W or Up Arrow key (&amp;lt;tt&amp;gt;$77&amp;"
+"lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-markup&quot;&gt;"
+"true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;true&lt;/"
+"property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
+"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
+"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
+"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
+"&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkBox&quot;"
+"&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/property&gt;&lt;"
+"child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;"
+"label&quot; translatable=&quot;yes&quot;&gt;•&lt;/property&gt;&lt;property "
+"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
+"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
+"&gt;0&lt;/property&gt;&lt;property name=&quot;valign&quot;&gt;1&lt;/"
+"property&gt;&lt;property name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/"
+"object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;"
+"&gt;&lt;property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;A or "
+"Left Arrow key (&amp;lt;tt&amp;gt;$61&amp;lt;/tt&amp;gt;)&lt;/property&gt;"
+"&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;"
+"property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
+"name=&quot;hexpand-set&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
+"hexpand&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
+"&gt;0&lt;/property&gt;&lt;property name=&quot;halign&quot;&gt;0&lt;/"
+"property&gt;&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;&lt;"
+"child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property name=&quot;"
+"orientation&quot;&gt;0&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
+"GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; translatable=&quot;"
+"yes&quot;&gt;•&lt;/property&gt;&lt;property name=&quot;use-markup&quot;&gt;"
+"true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;true&lt;/"
+"property&gt;&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;"
+"property name=&quot;valign&quot;&gt;1&lt;/property&gt;&lt;property "
+"name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
+"&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property "
+"name=&quot;label&quot; translatable=&quot;yes&quot;&gt;S or Down Arrow key "
+"(&amp;lt;tt&amp;gt;$73&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property "
+"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
+"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;"
+"&gt;true&lt;/property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/"
+"property&gt;&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;"
+"property name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/"
+"child&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;"
+"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
+"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
+"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
+"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
+"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
+"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
+"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
+"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
+"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
+"translatable=&quot;yes&quot;&gt;D or Right Arrow key (&amp;lt;tt&amp;gt;"
+"$64&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-"
+"markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;"
+"true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
+"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
+"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
+"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
+"&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;</"
+"property><property name=\"use-markup\">true</property><property "
+"name=\"wrap\">true</property><property name=\"hexpand-set\">true</"
+"property><property name=\"hexpand\">true</property><property "
+"name=\"xalign\">0</property><property name=\"halign\">0</property></object></"
+"child></object></child><child><object class=\"GtkBox\"><property "
+"name=\"orientation\">0</property><child><object class=\"GtkLabel\"><property "
+"name=\"label\" translatable=\"yes\">•</property><property name=\"use-"
+"markup\">true</property><property name=\"wrap\">true</property><property "
+"name=\"xalign\">0</property><property name=\"valign\">1</property><property "
+"name=\"label\">• </property></object></child><child><object "
+"class=\"GtkLabel\"><property name=\"label\" translatable=\"yes\">Action "
+"buttons: &lt;child&gt;&lt;object class=&quot;GtkBox&quot;&gt;&lt;property "
+"name=&quot;orientation&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;"
+"margin-start&quot;&gt;24&lt;/property&gt;&lt;child&gt;&lt;object class=&quot;"
+"GtkBox&quot;&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/"
+"property&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;"
+"property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;•&lt;/"
+"property&gt;&lt;property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;"
+"&lt;property name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property "
+"name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property name=&quot;"
+"valign&quot;&gt;1&lt;/property&gt;&lt;property name=&quot;label&quot;&gt;• "
+"&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object "
+"class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;label&quot; "
+"translatable=&quot;yes&quot;&gt;A or Enter/Return key (&amp;lt;tt&amp;gt;"
+"$0D&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;property name=&quot;use-"
+"markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;wrap&quot;&gt;"
+"true&lt;/property&gt;&lt;property name=&quot;hexpand-set&quot;&gt;true&lt;/"
+"property&gt;&lt;property name=&quot;hexpand&quot;&gt;true&lt;/property&gt;"
+"&lt;property name=&quot;xalign&quot;&gt;0&lt;/property&gt;&lt;property "
+"name=&quot;halign&quot;&gt;0&lt;/property&gt;&lt;/object&gt;&lt;/child&gt;"
+"&lt;/object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkBox&quot;"
+"&gt;&lt;property name=&quot;orientation&quot;&gt;0&lt;/property&gt;&lt;"
+"child&gt;&lt;object class=&quot;GtkLabel&quot;&gt;&lt;property name=&quot;"
+"label&quot; translatable=&quot;yes&quot;&gt;•&lt;/property&gt;&lt;property "
+"name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
+"wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
+"&gt;0&lt;/property&gt;&lt;property name=&quot;valign&quot;&gt;1&lt;/"
+"property&gt;&lt;property name=&quot;label&quot;&gt;• &lt;/property&gt;&lt;/"
+"object&gt;&lt;/child&gt;&lt;child&gt;&lt;object class=&quot;GtkLabel&quot;"
+"&gt;&lt;property name=&quot;label&quot; translatable=&quot;yes&quot;&gt;B or "
+"Space key (&amp;lt;tt&amp;gt;$20&amp;lt;/tt&amp;gt;)&lt;/property&gt;&lt;"
+"property name=&quot;use-markup&quot;&gt;true&lt;/property&gt;&lt;property "
+"name=&quot;wrap&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
+"hexpand-set&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;"
+"hexpand&quot;&gt;true&lt;/property&gt;&lt;property name=&quot;xalign&quot;"
+"&gt;0&lt;/property&gt;&lt;property name=&quot;halign&quot;&gt;0&lt;/"
+"property&gt;&lt;/object&gt;&lt;/child&gt;&lt;/object&gt;&lt;/child&gt;&lt;/"
+"object&gt;&lt;/child&gt;</property><property name=\"use-markup\">true</"
+"property><property name=\"wrap\">true</property><property name=\"hexpand-"
+"set\">true</property><property name=\"hexpand\">true</property><property "
+"name=\"xalign\">0</property><property name=\"halign\">0</property></object></"
+"child></object></child></object></child>"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:16
+msgid "Snake Game Memory Usage"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:17
+msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:17
+msgid "<b><tt>$02</tt></b>: Snake direction (1=up, 2=right, 4=down, 8=left)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:17
+msgid "<b><tt>$03</tt></b>: Snake length"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:17
+msgid ""
+"<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position data (head, body segments, "
+"tail)"
+msgstr ""
 
 #: ../learn/dist/tutorial.ui:1
 msgid ""
@@ -1031,8 +1400,8 @@ msgid ""
 "Assemble the following code, then check the debugger to see the hexdump of "
 "the assembled code."
 msgstr ""
-"Assembliere den folgenden Code und schaue dann im Debugger, um den Hexdump des "
-"assemblierten Codes zu sehen."
+"Assembliere den folgenden Code und schaue dann im Debugger, um den Hexdump "
+"des assemblierten Codes zu sehen."
 
 #: ../learn/dist/tutorial.ui:100
 msgid "The hex should look something like this:"
@@ -1623,16 +1992,14 @@ msgid "Reading the input"
 msgstr "Die Eingabe lesen"
 
 #: ../learn/dist/tutorial.ui:517
+#, fuzzy
 msgid ""
 "The first subroutine, <tt>readKeys</tt>, takes the job of accepting user "
 "input. The memory location <tt>$ff</tt> holds the ascii code of the most "
 "recent key press in this simulator. The value is loaded into the "
 "accumulator, then compared to <tt>$77</tt> (the hex code for W), <tt>$64</"
 "tt> (D), <tt>$73</tt> (S) and <tt>$61</tt> (A). If any of these comparisons "
-"are successful, the program branches to the appropriate section. Each "
-"section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the "
-"current direction is the opposite of the new direction. This requires "
-"another little detour."
+"are successful, the program branches to the appropriate section."
 msgstr ""
 "Das erste Unterprogramm, <tt>readKeys</tt>, übernimmt die Aufgabe, "
 "Benutzereingaben anzunehmen. Die Speicheradresse <tt>$ff</tt> enthält den "
@@ -1646,6 +2013,21 @@ msgstr ""
 
 #: ../learn/dist/tutorial.ui:518
 msgid ""
+"Additional button inputs are also available: button A (Enter/Return key, "
+"ASCII code <tt>$0D</tt>) and button B (Space key, ASCII code <tt>$20</tt>). "
+"These can be used to add more interaction to your games. For directional "
+"controls, both WASD keys and arrow keys can be used interchangeably."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:519
+msgid ""
+"Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see "
+"if the current direction is the opposite of the new direction. This requires "
+"another little detour."
+msgstr ""
+
+#: ../learn/dist/tutorial.ui:520
+msgid ""
 "As stated before, the four directions are represented internally by the "
 "numbers 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are "
 "represented by a binary number with a single <tt>1</tt>:"
@@ -1654,7 +2036,7 @@ msgstr ""
 "2, 4 und 8 dargestellt. Jede dieser Zahlen ist eine Zweierpotenz, daher "
 "werden sie durch eine Binärzahl mit einer einzigen <tt>1</tt> dargestellt:"
 
-#: ../learn/dist/tutorial.ui:523
+#: ../learn/dist/tutorial.ui:525
 msgid ""
 "The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is "
 "only used to set the zero flag - the actual result is discarded. The zero "
@@ -1671,7 +2053,7 @@ msgstr ""
 "Zahlen nicht gleich sind. Zum Beispiel ist <tt>0001 AND 0001</tt> nicht "
 "Null, aber <tt>0001 AND 0010</tt> ist Null."
 
-#: ../learn/dist/tutorial.ui:524
+#: ../learn/dist/tutorial.ui:526
 msgid ""
 "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit "
 "test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", "
@@ -1686,11 +2068,11 @@ msgstr ""
 "zurückkehrt. Andernfalls wird die neue Richtung (in diesem Fall 1) in der "
 "entsprechenden Speicheradresse gespeichert."
 
-#: ../learn/dist/tutorial.ui:525
+#: ../learn/dist/tutorial.ui:527
 msgid "Updating the game state"
 msgstr "Den Spielzustand aktualisieren"
 
-#: ../learn/dist/tutorial.ui:526
+#: ../learn/dist/tutorial.ui:528
 msgid ""
 "The next subroutine, <tt>checkCollision</tt>, defers to "
 "<tt>checkAppleCollision</tt> and <tt>checkSnakeCollision</tt>. "
@@ -1705,7 +2087,7 @@ msgstr ""
 "Position des Kopfes enthalten. Wenn sie übereinstimmen, wird die Länge "
 "erhöht und eine neue Apfelposition generiert."
 
-#: ../learn/dist/tutorial.ui:527
+#: ../learn/dist/tutorial.ui:529
 msgid ""
 "<tt>checkSnakeCollision</tt> loops through the snake's body segments, "
 "checking each byte pair against the head pair. If there is a match, then "
@@ -1715,7 +2097,7 @@ msgstr ""
 "vergleicht jedes Bytepaar mit dem Kopfpaar. Wenn es eine Übereinstimmung "
 "gibt, dann ist das Spiel vorbei."
 
-#: ../learn/dist/tutorial.ui:528
+#: ../learn/dist/tutorial.ui:530
 msgid ""
 "After collision detection, we update the snake's location. This is done at a "
 "high level like so: First, move each byte pair of the body up one position "
@@ -1732,7 +2114,7 @@ msgstr ""
 "mit ASCII-Kunst veranschaulichen. Jedes Klammerpaar enthält der Einfachheit "
 "halber eine x,y-Koordinate anstelle eines Bytepaars."
 
-#: ../learn/dist/tutorial.ui:543
+#: ../learn/dist/tutorial.ui:545
 msgid ""
 "At a low level, this subroutine is slightly more complex. First, the length "
 "is loaded into the <tt>X</tt> register, which is then decremented. The "
@@ -1742,7 +2124,7 @@ msgstr ""
 "die Länge in das <tt>X</tt>-Register geladen, das dann dekrementiert wird. "
 "Der untenstehende Ausschnitt zeigt den Anfangsspeicher für die Schlange."
 
-#: ../learn/dist/tutorial.ui:547
+#: ../learn/dist/tutorial.ui:549
 msgid ""
 "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</"
 "tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, "
@@ -1759,7 +2141,7 @@ msgstr ""
 "Dies läuft in einer Schleife, solange <tt>X</tt> positiv ist (<tt>BPL</tt> "
 "bedeutet \"verzweige wenn positiv\")."
 
-#: ../learn/dist/tutorial.ui:548
+#: ../learn/dist/tutorial.ui:550
 msgid ""
 "Once the values have been shifted down the snake, we have to work out what "
 "to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</"
@@ -1776,7 +2158,7 @@ msgstr ""
 "Akkumulator <tt>1</tt> ist, ist er nach <tt>LSR</tt> <tt>0</tt>, wobei das "
 "Carry-Flag gesetzt ist."
 
-#: ../learn/dist/tutorial.ui:549
+#: ../learn/dist/tutorial.ui:551
 msgid ""
 "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or "
 "<tt>8</tt>, the code continually shifts right until the carry is set. One "
@@ -1787,7 +2169,7 @@ msgstr ""
 "gesetzt ist. Ein <tt>LSR</tt> bedeutet \"nach oben\", zwei bedeutet \"nach "
 "rechts\" und so weiter."
 
-#: ../learn/dist/tutorial.ui:550
+#: ../learn/dist/tutorial.ui:552
 msgid ""
 "The next bit updates the head of the snake depending on the direction. This "
 "is probably the most complicated part of the code, and it's all reliant on "
@@ -1798,7 +2180,7 @@ msgstr ""
 "hängt alles davon ab, wie Speicheradressen auf den Bildschirm abgebildet "
 "werden, also lass uns das genauer betrachten."
 
-#: ../learn/dist/tutorial.ui:551
+#: ../learn/dist/tutorial.ui:553
 msgid ""
 "You can think of the screen as four horizontal strips of 32 × 8 pixels. "
 "These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-"
@@ -1811,7 +2193,7 @@ msgstr ""
 "Pixelreihen sind <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-"
 "$025f</tt>, usw."
 
-#: ../learn/dist/tutorial.ui:552
+#: ../learn/dist/tutorial.ui:554
 msgid ""
 "As long as you're moving within one of these horizontal strips, things are "
 "simple. For example, to move right, just increment the least significant "
@@ -1825,7 +2207,7 @@ msgstr ""
 "nach unten zu gehen, addiere <tt>$20</tt> (z.B. wird aus <tt>$0200</tt> dann "
 "<tt>$0220</tt>). Links und oben sind die Umkehrung davon."
 
-#: ../learn/dist/tutorial.ui:553
+#: ../learn/dist/tutorial.ui:555
 msgid ""
 "Going between sections is more complicated, as we have to take into account "
 "the most significant byte as well. For example, going down from <tt>$02e1</"
@@ -1842,7 +2224,7 @@ msgstr ""
 "gesetzt wurde, wissen wir, dass wir auch das höchstwertige Byte erhöhen "
 "müssen."
 
-#: ../learn/dist/tutorial.ui:554
+#: ../learn/dist/tutorial.ui:556
 msgid ""
 "After a move in each direction, we also need to check to see if the head "
 "would become out of bounds. This is handled differently for each direction. "
@@ -1869,7 +2251,7 @@ msgstr ""
 "wird hoffentlich zeigen, wie das Maskieren der niedrigsten 5 Bits offenbart, "
 "ob eine Zahl ein Vielfaches von <tt>$20</tt> ist oder nicht."
 
-#: ../learn/dist/tutorial.ui:560
+#: ../learn/dist/tutorial.ui:562
 msgid ""
 "I won't explain in depth how each of the directions work, but the above "
 "explanation should give you enough to work it out with a bit of study."
@@ -1878,11 +2260,11 @@ msgstr ""
 "aber die obige Erklärung sollte dir genug geben, um es mit etwas Studium "
 "selbst herauszufinden."
 
-#: ../learn/dist/tutorial.ui:561
+#: ../learn/dist/tutorial.ui:563
 msgid "Rendering the game"
 msgstr "Das Spiel darstellen"
 
-#: ../learn/dist/tutorial.ui:562
+#: ../learn/dist/tutorial.ui:564
 msgid ""
 "Because the game state is stored in terms of pixel locations, rendering the "
 "game is very straightforward. The first subroutine, <tt>drawApple</tt>, is "
@@ -1901,7 +2283,7 @@ msgstr ""
 "Abschnitt \"Indirekt indiziert\" in <a "
 "href=\"#addressing\">Adressierungsmodi</a> für weitere Details."
 
-#: ../learn/dist/tutorial.ui:563
+#: ../learn/dist/tutorial.ui:565
 msgid ""
 "Next comes <tt>drawSnake</tt>. This is pretty simple too - we first undraw "
 "the tail and then draw the head. <tt>X</tt> is set to the length of the "
@@ -1923,7 +2305,7 @@ msgstr ""
 "Da sich nur der Kopf und der Schwanz der Schlange bewegen, reicht dies aus, "
 "um die Schlange in Bewegung zu halten."
 
-#: ../learn/dist/tutorial.ui:564
+#: ../learn/dist/tutorial.ui:566
 msgid ""
 "The last subroutine, <tt>spinWheels</tt>, is just there because the game "
 "would run too fast otherwise. All <tt>spinWheels</tt> does is count <tt>X</"
