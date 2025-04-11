@@ -27,10 +27,22 @@ export class Display extends Adw.Bin implements DisplayInterface {
   private memory: Memory | undefined;
 
   private palette = [
-    "#000000", "#ffffff", "#880000", "#aaffee",
-    "#cc44cc", "#00cc55", "#0000aa", "#eeee77",
-    "#dd8855", "#664400", "#ff7777", "#333333",
-    "#777777", "#aaff66", "#0088ff", "#bbbbbb"
+    "#000000", // $0: Black
+    "#ffffff", // $1: White
+    "#880000", // $2: Red
+    "#aaffee", // $3: Cyan
+    "#cc44cc", // $4: Purple
+    "#00cc55", // $5: Green
+    "#0000aa", // $6: Blue
+    "#eeee77", // $7: Yellow
+    "#dd8855", // $8: Orange
+    "#664400", // $9: Brown
+    "#ff7777", // $a: Light red
+    "#333333", // $b: Dark grey
+    "#777777", // $c: Grey
+    "#aaff66", // $d: Light green
+    "#0088ff", // $e: Light blue
+    "#bbbbbb"  // $f: Light grey
   ];
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
@@ -53,8 +65,11 @@ export class Display extends Adw.Bin implements DisplayInterface {
       }
     });
 
-    this.width = this._drawingArea.get_width() || 160;
-    this.height = this._drawingArea.get_height() || 160;
+    this.width = this._drawingArea.get_content_width();
+    this.height = this._drawingArea.get_content_height();
+    if (!this.width || !this.height) {
+      throw new Error('DrawingArea is required')
+    }
     this.pixelSize = this.width / this.numX;
     this.reset();
   }

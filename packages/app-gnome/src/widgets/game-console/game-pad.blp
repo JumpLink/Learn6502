@@ -8,6 +8,10 @@ template $GamePad: Adw.Bin {
 
     Box {
       name: "d-pad";
+      orientation: horizontal;
+      halign: start;
+      hexpand: true;
+
       Button buttonLeft {
         name: "buttonLeft";
         icon-name: "go-previous";
@@ -87,6 +91,8 @@ template $GamePad: Adw.Bin {
     Box {
       orientation: horizontal;
       margin-start: 30;
+      halign: end;
+      hexpand: true;
 
       Button buttonB {
         name: "buttonB";
