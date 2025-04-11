@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-11 19:37+0200\n"
+"POT-Creation-Date: 2025-04-11 19:42+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -356,19 +356,19 @@ msgstr ""
 msgid "Information"
 msgstr "Information"
 
-#: ../app-gnome/src/widgets/debugger/debugger.blp:53
+#: ../app-gnome/src/widgets/debugger/debugger.blp:52
 msgid "Messages"
 msgstr "Meldungen"
 
-#: ../app-gnome/src/widgets/debugger/debugger.blp:68
+#: ../app-gnome/src/widgets/debugger/debugger.blp:67
 msgid "Hex Monitor"
 msgstr "Hex-Monitor"
 
-#: ../app-gnome/src/widgets/debugger/debugger.blp:83
+#: ../app-gnome/src/widgets/debugger/debugger.blp:82
 msgid "Hexdump"
 msgstr "Hexdump"
 
-#: ../app-gnome/src/widgets/debugger/debugger.blp:98
+#: ../app-gnome/src/widgets/debugger/debugger.blp:97
 msgid "Disassembled"
 msgstr "Disassemblierter Code"
 
@@ -399,6 +399,11 @@ msgstr "Zufalls-/Eingabedaten ($FE-$FF)"
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:25
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Gesamter Speicher ($0000-$FFFF)"
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:35
+#: ../app-gnome/src/widgets/debugger/hexdump.blp:9
+msgid "Copy to clipboard"
+msgstr "In die Zwischenablage kopieren"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
 msgid "6502 Assembly Learning Environment"

@@ -49,6 +49,8 @@ export namespace SourceView {
     copyable?: boolean
     /** The icon name for the copy button */
     copyButtonIcon?: string
+    /** The tooltip text for the copy button */
+    copyButtonTooltip?: string
   }
 }
 
@@ -99,6 +101,7 @@ export class SourceView extends Adw.Bin {
         width: GObject.ParamSpec.uint('width', 'Width', 'The width of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
         copyable: GObject.ParamSpec.boolean('copyable', 'Copyable', 'Whether the source view has a copy button', GObject.ParamFlags.READWRITE, false),
         copyButtonIcon: GObject.ParamSpec.string('copy-button-icon', 'Copy Button Icon', 'The icon name for the copy button', GObject.ParamFlags.READWRITE, 'move-to-window-symbolic'),
+        copyButtonTooltip: GObject.ParamSpec.string('copy-button-tooltip', 'Copy Button Tooltip', 'The tooltip text for the copy button', GObject.ParamFlags.READWRITE, ''),
       },
     }, this);
   }
@@ -405,7 +408,7 @@ export class SourceView extends Adw.Bin {
   private _actionGroup: Gio.SimpleActionGroup;
 
   constructor(params: Partial<SourceView.ConstructorProps> = {}) {
-    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, width, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, copyable, copyButtonIcon, ...rest } = params;
+    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, width, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, copyable, copyButtonIcon, copyButtonTooltip, ...rest } = params;
     super(rest);
     this.setupScrolledWindow();
 
@@ -458,6 +461,9 @@ export class SourceView extends Adw.Bin {
     }
     if(copyButtonIcon !== undefined) {
       this.copyButtonIcon = copyButtonIcon;
+    }
+    if(copyButtonTooltip !== undefined) {
+      this.copyButtonTooltip = copyButtonTooltip;
     }
     if(language !== undefined) {
       this.language = language;
@@ -696,6 +702,28 @@ export class SourceView extends Adw.Bin {
    */
   public get copyButtonIcon(): string {
     return this._copyButton.icon_name;
+  }
+
+  /**
+   * Set the copyButtonTooltip property of the source view
+   *
+   * @param value - The tooltip text for the copy button
+   */
+  public set copyButtonTooltip(value: string) {
+    if (typeof value !== 'string') {
+      console.warn('copyButtonTooltip must be a string, got ' + typeof value);
+      return;
+    }
+    this._copyButton.tooltip_text = value;
+  }
+
+  /**
+   * Get the copyButtonTooltip property of the source view
+   *
+   * @returns The tooltip text for the copy button
+   */
+  public get copyButtonTooltip(): string {
+    return this._copyButton.tooltip_text || '';
   }
 
   /**
