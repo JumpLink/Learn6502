@@ -178,6 +178,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private setupGeneralSignalListeners(): void {
     this.connect('close-request', this.onCloseRequest.bind(this));
     this._stack.connect('notify::visible-child', this.onStackVisibleChildChanged.bind(this));
+    this.connect('notify::is-active', this.onFocusChanged.bind(this));
   }
 
   private onStackVisibleChildChanged(): void {
@@ -239,6 +240,22 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._gameConsole.close();
     this._debugger.close();
     return false;
+  }
+
+  private onFocusChanged(): void {
+    // Check if window has lost focus
+    if (!this.is_active) {
+      // Check if simulator is in running state
+      const state = this._gameConsole.simulator.state;
+      if (state === SimulatorState.RUNNING) {
+        // Pause the program
+        this.pauseGameConsole();
+        this.showToast({
+          title: _("Program paused automatically"),
+          timeout: 2
+        });
+      }
+    }
   }
 
   private setupActions(): void {

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-11 19:42+0200\n"
+"POT-Creation-Date: 2025-04-11 19:49+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -154,77 +154,78 @@ msgstr "In die Zwischenablage kopiert"
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:218
+#: ../app-gnome/src/widgets/application-window.ts:219
+#: ../app-gnome/src/widgets/application-window.ts:254
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:369
+#: ../app-gnome/src/widgets/application-window.ts:386
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/widgets/application-window.ts:381
+#: ../app-gnome/src/widgets/application-window.ts:398
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/widgets/application-window.ts:389
+#: ../app-gnome/src/widgets/application-window.ts:406
 msgid "Hexdump:"
 msgstr "Hexdump:"
 
-#: ../app-gnome/src/widgets/application-window.ts:396
+#: ../app-gnome/src/widgets/application-window.ts:413
 msgid "Disassembly:"
 msgstr "Disassemblierung:"
 
-#: ../app-gnome/src/widgets/application-window.ts:475
+#: ../app-gnome/src/widgets/application-window.ts:492
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:494
+#: ../app-gnome/src/widgets/application-window.ts:511
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:500
+#: ../app-gnome/src/widgets/application-window.ts:517
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
-#: ../app-gnome/src/widgets/application-window.ts:685
+#: ../app-gnome/src/widgets/application-window.ts:702
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/widgets/application-window.ts:696
+#: ../app-gnome/src/widgets/application-window.ts:713
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:714
+#: ../app-gnome/src/widgets/application-window.ts:731
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../app-gnome/src/widgets/application-window.ts:720
+#: ../app-gnome/src/widgets/application-window.ts:737
 msgid "Error opening file"
 msgstr "Fehler beim Öffnen der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:736
-#: ../app-gnome/src/widgets/application-window.ts:737
+#: ../app-gnome/src/widgets/application-window.ts:753
+#: ../app-gnome/src/widgets/application-window.ts:754
 msgid "untitled"
 msgstr "unbenannt"
 
-#: ../app-gnome/src/widgets/application-window.ts:743
+#: ../app-gnome/src/widgets/application-window.ts:760
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/widgets/application-window.ts:756
-#: ../app-gnome/src/widgets/application-window.ts:794
+#: ../app-gnome/src/widgets/application-window.ts:773
+#: ../app-gnome/src/widgets/application-window.ts:811
 msgid "Error saving file"
 msgstr "Fehler beim Speichern der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:787
+#: ../app-gnome/src/widgets/application-window.ts:804
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../app-gnome/src/widgets/application-window.ts:805
+#: ../app-gnome/src/widgets/application-window.ts:822
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/widgets/application-window.ts:810
+#: ../app-gnome/src/widgets/application-window.ts:827
 msgid "All Files"
 msgstr "Alle Dateien"
 
@@ -589,7 +590,6 @@ msgid "Color Palette"
 msgstr "Farbpalette"
 
 #: ../learn/dist/quick-help.ui:6
-#, fuzzy
 msgid "<b><tt>$0</tt></b>: Black (<tt>#000000</tt>)"
 msgstr "<b><tt>$0</tt></b>: Schwarz (<tt>#000000</tt>)"
 
@@ -602,7 +602,6 @@ msgid "<b><tt>$2</tt></b>: Red (<tt>#880000</tt>)"
 msgstr "<b><tt>$2</tt></b>: Rot (<tt>#880000</tt>)"
 
 #: ../learn/dist/quick-help.ui:6
-#, fuzzy
 msgid "<b><tt>$3</tt></b>: Cyan (<tt>#aaffee</tt>)"
 msgstr "<b><tt>$3</tt></b>: Cyan (<tt>#aaffee</tt>)"
 
@@ -840,22 +839,18 @@ msgid "<b>Directional controls</b>:"
 msgstr "<b>Richtungssteuerung</b>:"
 
 #: ../learn/dist/quick-help.ui:18
-#, fuzzy
 msgid "<b>W</b> or Up Arrow key (<tt>$77</tt>)"
 msgstr "<b>W</b> oder Pfeil nach oben (<tt>$77</tt>)"
 
 #: ../learn/dist/quick-help.ui:18
-#, fuzzy
 msgid "<b>A</b> or Left Arrow key (<tt>$61</tt>)"
 msgstr "<b>A</b> oder Pfeil nach links (<tt>$61</tt>)"
 
 #: ../learn/dist/quick-help.ui:18
-#, fuzzy
 msgid "<b>S</b> or Down Arrow key (<tt>$73</tt>)"
 msgstr "<b>S</b> oder Pfeil nach unten (<tt>$73</tt>)"
 
 #: ../learn/dist/quick-help.ui:18
-#, fuzzy
 msgid "<b>D</b> or Right Arrow key (<tt>$64</tt>)"
 msgstr "<b>D</b> oder Pfeil nach rechts (<tt>$64</tt>)"
 
@@ -864,12 +859,10 @@ msgid "<b>Action buttons</b>:"
 msgstr "<b>Aktionstasten</b>:"
 
 #: ../learn/dist/quick-help.ui:20
-#, fuzzy
 msgid "<b>Q</b> or Enter/Return key (<tt>$0D</tt>)"
 msgstr "<b>Q</b> oder Eingabe/Return-Taste (<tt>$0D</tt>)"
 
 #: ../learn/dist/quick-help.ui:20
-#, fuzzy
 msgid "<b>E</b> or Space key (<tt>$20</tt>)"
 msgstr "<b>E</b> oder Leertaste (<tt>$20</tt>)"
 
