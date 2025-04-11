@@ -24,16 +24,18 @@ export class MessageConsole extends Adw.Bin implements MessageConsoleInterface {
   }
 
   public log(message: string) {
-    message += '\n'; // allow put operations from the simulator (WDM opcode)
+    message =  this._textView.buffer.cursor_position > 0 ? '\n' + message : message;
     this._textView.buffer.insert_at_cursor(message, message.length);
   }
 
   public warn(message: string) {
-    this._textView.buffer.insert_at_cursor(`\n\n${message}`, message.length);
+    message = this._textView.buffer.cursor_position > 0 ? '\n\n' + message : message;
+    this._textView.buffer.insert_at_cursor(message, message.length);
   }
 
   public error(message: string) {
-    this._textView.buffer.insert_at_cursor(`\n\n${message}`, message.length);
+    message = this._textView.buffer.cursor_position > 0 ? '\n\n' + message : message;
+    this._textView.buffer.insert_at_cursor(message, message.length);
   }
 
   public clear() {

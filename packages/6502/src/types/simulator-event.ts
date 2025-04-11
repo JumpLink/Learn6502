@@ -10,4 +10,6 @@ export interface SimulatorEvent {
     state: SimulatorState;
     /**Only used for pseudo op events */
     type?: string;
+    /** Additional parameters for the message */
+    params?: (string | number | boolean | null | undefined)[];
 }

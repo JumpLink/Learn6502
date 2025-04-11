@@ -43,3 +43,6 @@ export const throttle = <T extends (...args: any[]) => void>(
     }
   };
 };
+
+/** Pseudo i18n function */
+export const _ = (str: string) => str;

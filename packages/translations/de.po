@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-10 19:52+0200\n"
+"POT-Creation-Date: 2025-04-11 12:13+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -17,6 +17,97 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "License: CC-BY-4.0\n"
+
+#: ../6502/src/assembler.ts:174
+msgid "Unable to relocate code outside 64k memory"
+msgstr "Code kann nicht außerhalb des 64k Speicherbereichs verschoben werden"
+
+#: ../6502/src/assembler.ts:238
+msgid "Assembling code ..."
+msgstr "Code wird assembliert..."
+
+#: ../6502/src/assembler.ts:256
+msgid "No code to run."
+msgstr "Kein Code zum Ausführen vorhanden."
+
+#: ../6502/src/assembler.ts:263
+#, javascript-format
+msgid "Syntax error line %d: %s"
+msgstr "Syntaxfehler in Zeile %d: %s"
+
+#: ../6502/src/assembler.ts:266
+#, javascript-format
+msgid ""
+"Out of range branch on line %d (branches are limited to -128 to +127): %s"
+msgstr ""
+"Sprungbefehl außerhalb des gültigen Bereichs in Zeile %d (Sprünge sind auf "
+"-128 bis +127 begrenzt): %s"
+
+#: ../6502/src/assembler.ts:275
+#, javascript-format
+msgid "Code assembled successfully, %d bytes."
+msgstr "Code erfolgreich assembliert, %d Bytes."
+
+#: ../6502/src/assembler.ts:380
+msgid "Preprocessing ..."
+msgstr "Vorverarbeitung läuft..."
+
+#: ../6502/src/labels.ts:71
+msgid "Found $d labels."
+msgstr "%d Labels gefunden."
+
+#: ../6502/src/labels.ts:73
+msgid "Found $d label."
+msgstr "%d Label gefunden."
+
+#: ../6502/src/labels.ts:92
+msgid "Indexing labels..."
+msgstr "Labels werden indiziert..."
+
+#: ../6502/src/labels.ts:95
+#, javascript-format
+msgid "Label already defined at line %s: %d"
+msgstr "Label wurde bereits in Zeile %d definiert: %s"
+
+#: ../6502/src/labels.ts:125
+msgid "Label {label} is already used as a symbol; please rename one of them"
+msgstr ""
+"Label {label} wird bereits als Symbol verwendet; bitte eines davon umbenennen"
+
+#: ../6502/src/simulator.ts:217
+msgid "No address or label provided"
+msgstr "Keine Adresse oder Label angegeben"
+
+#: ../6502/src/simulator.ts:232
+msgid "Unable to find/parse given address/label"
+msgstr ""
+"Die angegebene Adresse/Label konnte nicht gefunden oder verarbeitet werden"
+
+#: ../6502/src/simulator.ts:261
+msgid "Stopped"
+msgstr "Angehalten"
+
+#: ../6502/src/simulator.ts:1522
+msgid "wdm-output"
+msgstr "WDM-Ausgabe"
+
+#: ../6502/src/simulator.ts:1595
+#, javascript-format
+msgid "Address %s - unknown opcode"
+msgstr "Adresse %s - unbekannter Opcode"
+
+#: ../6502/src/simulator.ts:1605
+msgid "6502 Stack filled! Wrapping..."
+msgstr "6502 Stack voll! Überlauf..."
+
+#: ../6502/src/simulator.ts:1614
+msgid "6502 Stack emptied! Wrapping..."
+msgstr "6502 Stack leer! Unterlauf..."
+
+#: ../6502/src/simulator.ts:1703
+#, javascript-format
+msgid "Program completed at PC=$%s"
+msgstr "Programm beendet bei PC=$%s"
 
 #: ../app-gnome/src/widgets/application-window.ts:54
 msgid "Unsaved changes"
@@ -67,61 +158,73 @@ msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:362
+#: ../app-gnome/src/widgets/application-window.ts:363
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/widgets/application-window.ts:373
+#: ../app-gnome/src/widgets/application-window.ts:375
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/widgets/application-window.ts:456
+#: ../app-gnome/src/widgets/application-window.ts:383
+msgid "Hexdump:"
+msgstr "Hexdump:"
+
+#: ../app-gnome/src/widgets/application-window.ts:390
+msgid "Disassembly:"
+msgstr "Disassemblierung:"
+
+#: ../app-gnome/src/widgets/application-window.ts:469
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:473
+#: ../app-gnome/src/widgets/application-window.ts:488
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:662
+#: ../app-gnome/src/widgets/application-window.ts:494
+msgid "Gamepad key pressed:"
+msgstr "Gamepad-Taste gedrückt:"
+
+#: ../app-gnome/src/widgets/application-window.ts:677
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/widgets/application-window.ts:673
+#: ../app-gnome/src/widgets/application-window.ts:688
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:691
+#: ../app-gnome/src/widgets/application-window.ts:706
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../app-gnome/src/widgets/application-window.ts:697
+#: ../app-gnome/src/widgets/application-window.ts:712
 msgid "Error opening file"
 msgstr "Fehler beim Öffnen der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:713
-#: ../app-gnome/src/widgets/application-window.ts:714
+#: ../app-gnome/src/widgets/application-window.ts:728
+#: ../app-gnome/src/widgets/application-window.ts:729
 msgid "untitled"
 msgstr "unbenannt"
 
-#: ../app-gnome/src/widgets/application-window.ts:720
+#: ../app-gnome/src/widgets/application-window.ts:735
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/widgets/application-window.ts:733
-#: ../app-gnome/src/widgets/application-window.ts:771
+#: ../app-gnome/src/widgets/application-window.ts:748
+#: ../app-gnome/src/widgets/application-window.ts:786
 msgid "Error saving file"
 msgstr "Fehler beim Speichern der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:764
+#: ../app-gnome/src/widgets/application-window.ts:779
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../app-gnome/src/widgets/application-window.ts:782
+#: ../app-gnome/src/widgets/application-window.ts:797
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/widgets/application-window.ts:787
+#: ../app-gnome/src/widgets/application-window.ts:802
 msgid "All Files"
 msgstr "Alle Dateien"
 
@@ -532,9 +635,8 @@ msgid ""
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:12
-#, fuzzy
 msgid "Common Instructions"
-msgstr "Anweisungen"
+msgstr "Häufige Anweisungen"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>LDA/LDX/LDY</b>: Load registers"
@@ -611,9 +713,8 @@ msgid "A or Enter/Return key (<tt>$0D</tt>)"
 msgstr "A oder Eingabe/Return-Taste (<tt>$0D</tt>)"
 
 #: ../learn/dist/quick-help.ui:19
-#, fuzzy
 msgid "B or Space key (<tt>$20</tt>)"
-msgstr "Nullseite: <tt>$c0</tt>"
+msgstr "B oder Leertaste (<tt>$20</tt>)"
 
 #: ../learn/dist/quick-help.ui:20
 msgid "Snake Game Memory Usage"
@@ -1920,7 +2021,6 @@ msgid "Reading the input"
 msgstr "Die Eingabe lesen"
 
 #: ../learn/dist/tutorial.ui:517
-#, fuzzy
 msgid ""
 "The first subroutine, <tt>readKeys</tt>, takes the job of accepting user "
 "input. The memory location <tt>$ff</tt> holds the ascii code of the most "
@@ -1935,9 +2035,7 @@ msgstr ""
 "den Akkumulator geladen und dann mit <tt>$77</tt> (dem Hexcode für W), "
 "<tt>$64</tt> (D), <tt>$73</tt> (S) und <tt>$61</tt> (A) verglichen. Wenn "
 "einer dieser Vergleiche erfolgreich ist, verzweigt das Programm zum "
-"entsprechenden Abschnitt. Jeder Abschnitt (<tt>upKey</tt>, <tt>rightKey</"
-"tt>, usw.) überprüft zuerst, ob die aktuelle Richtung die entgegengesetzte "
-"der neuen Richtung ist. Dies erfordert einen weiteren kleinen Umweg."
+"entsprechenden Abschnitt."
 
 #: ../learn/dist/tutorial.ui:518
 msgid ""
@@ -1946,6 +2044,11 @@ msgid ""
 "These can be used to add more interaction to your games. For directional "
 "controls, both WASD keys and arrow keys can be used interchangeably."
 msgstr ""
+"Zusätzliche Tasteneingaben sind ebenfalls verfügbar: Taste A (Eingabe/Return-"
+"Taste, ASCII-Code <tt>$0D</tt>) und Taste B (Leertaste, ASCII-Code <tt>$20</"
+"tt>). Diese können genutzt werden, um mehr Interaktion zu deinen Spielen "
+"hinzuzufügen. Für die Richtungssteuerung können sowohl WASD-Tasten als auch "
+"Pfeiltasten austauschbar verwendet werden."
 
 #: ../learn/dist/tutorial.ui:519
 msgid ""
@@ -1953,6 +2056,9 @@ msgid ""
 "if the current direction is the opposite of the new direction. This requires "
 "another little detour."
 msgstr ""
+"Jeder Abschnitt (<tt>upKey</tt>, <tt>rightKey</tt>, usw.) überprüft zuerst, "
+"ob die aktuelle Richtung die entgegengesetzte der neuen Richtung ist. Dies "
+"erfordert einen weiteren kleinen Umweg."
 
 #: ../learn/dist/tutorial.ui:520
 msgid ""
@@ -2244,23 +2350,3 @@ msgstr ""
 "sonst zu schnell laufen würde. Alles, was <tt>spinWheels</tt> tut, ist "
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
-
-#~ msgid "_Save"
-#~ msgstr "_Speichern"
-
-#~ msgid "Failed to save file"
-#~ msgstr "Datei konnte nicht gespeichert werden"
-
-#~ msgid ""
-#~ "Learn 6502 Assembly in light theme showing the interactive tutorial "
-#~ "interface"
-#~ msgstr ""
-#~ "Lerne 6502 Assembler im hellen Theme mit der interaktiven Tutorial-"
-#~ "Oberfläche"
-
-#~ msgid ""
-#~ "Learn 6502 Assembly in dark theme showing the interactive tutorial "
-#~ "interface"
-#~ msgstr ""
-#~ "Lerne 6502 Assembler im dunklen Theme mit der interaktiven Tutorial-"
-#~ "Oberfläche"

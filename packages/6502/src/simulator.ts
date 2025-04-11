@@ -3,7 +3,7 @@ import { Labels } from './labels.js';
 import { EventDispatcher } from './event-dispatcher.js';
 
 import { type SimulatorEvent, SimulatorState } from './types/index.js';
-import { addr2hex } from './utils.js';
+import { addr2hex, _ } from './utils.js';
 
 /**
  * 6502 Simulator
@@ -214,7 +214,7 @@ export class Simulator {
   public gotoAddr(inp: string) {
     let addr = 0;
     if (!inp) {
-      this.dispatchSimulatorFailureEvent("No address or label provided");
+      this.dispatchSimulatorFailureEvent(_("No address or label provided"));
       return;
     }
     if (this.labels.find(inp)) {
@@ -229,7 +229,7 @@ export class Simulator {
       }
     }
     if (addr === 0) {
-      this.dispatchSimulatorFailureEvent("Unable to find/parse given address/label");
+      this.dispatchSimulatorFailureEvent(_("Unable to find/parse given address/label"));
     } else {
       this.regPC = addr;
     }
@@ -258,46 +258,46 @@ export class Simulator {
    * @param message - Optional message describing why execution was stopped
    */
   public stop(message = "") {
-    message = "\nStopped\n" + message;
+    message = "\n" + _("Stopped") + "\n" + message;
     this._codeRunning = false;
     clearInterval(this.executeId);
     this.dispatchStopEvent(message);
   }
 
-  private dispatchStepEvent(message?: string) {
-    this.events.dispatch('step', { simulator: this, message, state: this.state });
+  private dispatchStepEvent(message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('step', { simulator: this, message, params, state: this.state });
   }
 
-  private dispatchMultiStepEvent(message?: string) {
-    this.events.dispatch('multistep', { simulator: this, message, state: this.state });
+  private dispatchMultiStepEvent(message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('multistep', { simulator: this, message, params, state: this.state });
   }
 
-  private dispatchResetEvent(message?: string) {
-    this.events.dispatch('reset', { simulator: this, message, state: this.state });
+  private dispatchResetEvent(message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('reset', { simulator: this, message, params, state: this.state });
   }
 
-  private dispatchStartEvent(message?: string) {
-    this.events.dispatch('start', { simulator: this, message, state: this.state });
+  private dispatchStartEvent(message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('start', { simulator: this, message, params, state: this.state });
   }
 
-  private dispatchStopEvent(message?: string) {
-    this.events.dispatch('stop', { simulator: this, message, state: this.state });
+  private dispatchStopEvent(message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('stop', { simulator: this, message, params, state: this.state });
   }
 
-  private dispatchGotoEvent(message?: string) {
-    this.events.dispatch('goto', { simulator: this, message, state: this.state });
+  private dispatchGotoEvent(message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('goto', { simulator: this, message, params, state: this.state });
   }
 
-  private dispatchSimulatorFailureEvent(message?: string) {
-    this.events.dispatch('simulator-failure', { simulator: this, message, state: this.state });
+  private dispatchSimulatorFailureEvent(message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('simulator-failure', { simulator: this, message, params, state: this.state });
   }
 
-  private dispatchSimulatorInfoEvent(message?: string) {
-    this.events.dispatch('simulator-info', { simulator: this, message, state: this.state });
+  private dispatchSimulatorInfoEvent(message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('simulator-info', { simulator: this, message, params, state: this.state });
   }
 
-  private dispatchPseudoOpEvent(type: string, message?: string) {
-    this.events.dispatch('pseudo-op', { simulator: this, type, message, state: this.state });
+  private dispatchPseudoOpEvent(type: string, message?: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('pseudo-op', { simulator: this, type, message, params, state: this.state });
   }
 
   /**
@@ -1519,7 +1519,7 @@ export class Simulator {
       const value = this.popByte();
       if (value === 0) {
         const char = String.fromCharCode(this.regA);
-        this.dispatchPseudoOpEvent('wdm-output', char);
+        this.dispatchPseudoOpEvent(_("wdm-output"), char);
       }
     },
 
@@ -1592,7 +1592,7 @@ export class Simulator {
     },
 
     ierr: () => {
-      this.dispatchSimulatorFailureEvent("Address $" + addr2hex(this.regPC) + " - unknown opcode");
+      this.dispatchSimulatorFailureEvent(_("Address %s - unknown opcode"), [addr2hex(this.regPC)]);
       this._codeRunning = false;
     }
   };
@@ -1602,7 +1602,7 @@ export class Simulator {
     this.regSP--;
     if (this.regSP < 0) {
       this.regSP &= 0xff;
-      this.dispatchSimulatorInfoEvent("6502 Stack filled! Wrapping...");
+      this.dispatchSimulatorInfoEvent(_("6502 Stack filled! Wrapping..."));
     }
   }
 
@@ -1611,7 +1611,7 @@ export class Simulator {
     this.regSP++;
     if (this.regSP >= 0x100) {
       this.regSP &= 0xff;
-      this.dispatchSimulatorInfoEvent("6502 Stack emptied! Wrapping...");
+      this.dispatchSimulatorInfoEvent(_("6502 Stack emptied! Wrapping..."));
     }
     value = this.memory.get(this.regSP + 0x100);
     return value;
@@ -1700,7 +1700,7 @@ export class Simulator {
       this._codeRunning = false;
       this._programCompleted = true;
       clearInterval(this.executeId);
-      this.dispatchStopEvent("Program completed at PC=$" + addr2hex(this.regPC - 1));
+      this.dispatchStopEvent(_("Program completed at PC=$%s"), [addr2hex(this.regPC - 1)]);
     } else {
       this.dispatchStepEvent();
     }

@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-10 19:55+0200\n"
+"POT-Creation-Date: 2025-04-11 12:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -16,6 +16,93 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+
+#: ../6502/src/assembler.ts:174
+msgid "Unable to relocate code outside 64k memory"
+msgstr ""
+
+#: ../6502/src/assembler.ts:238
+msgid "Assembling code ..."
+msgstr ""
+
+#: ../6502/src/assembler.ts:256
+msgid "No code to run."
+msgstr ""
+
+#: ../6502/src/assembler.ts:263
+#, javascript-format
+msgid "Syntax error line %d: %s"
+msgstr ""
+
+#: ../6502/src/assembler.ts:266
+#, javascript-format
+msgid ""
+"Out of range branch on line %d (branches are limited to -128 to +127): %s"
+msgstr ""
+
+#: ../6502/src/assembler.ts:275
+#, javascript-format
+msgid "Code assembled successfully, %d bytes."
+msgstr ""
+
+#: ../6502/src/assembler.ts:380
+msgid "Preprocessing ..."
+msgstr ""
+
+#: ../6502/src/labels.ts:71
+msgid "Found $d labels."
+msgstr ""
+
+#: ../6502/src/labels.ts:73
+msgid "Found $d label."
+msgstr ""
+
+#: ../6502/src/labels.ts:92
+msgid "Indexing labels..."
+msgstr ""
+
+#: ../6502/src/labels.ts:95
+#, javascript-format
+msgid "Label already defined at line %s: %d"
+msgstr ""
+
+#: ../6502/src/labels.ts:125
+msgid "Label {label} is already used as a symbol; please rename one of them"
+msgstr ""
+
+#: ../6502/src/simulator.ts:217
+msgid "No address or label provided"
+msgstr ""
+
+#: ../6502/src/simulator.ts:232
+msgid "Unable to find/parse given address/label"
+msgstr ""
+
+#: ../6502/src/simulator.ts:261
+msgid "Stopped"
+msgstr ""
+
+#: ../6502/src/simulator.ts:1522
+msgid "wdm-output"
+msgstr ""
+
+#: ../6502/src/simulator.ts:1595
+#, javascript-format
+msgid "Address %s - unknown opcode"
+msgstr ""
+
+#: ../6502/src/simulator.ts:1605
+msgid "6502 Stack filled! Wrapping..."
+msgstr ""
+
+#: ../6502/src/simulator.ts:1614
+msgid "6502 Stack emptied! Wrapping..."
+msgstr ""
+
+#: ../6502/src/simulator.ts:1703
+#, javascript-format
+msgid "Program completed at PC=$%s"
+msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.ts:54
 msgid "Unsaved changes"
@@ -66,61 +153,73 @@ msgstr ""
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:362
+#: ../app-gnome/src/widgets/application-window.ts:363
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:373
+#: ../app-gnome/src/widgets/application-window.ts:375
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:456
+#: ../app-gnome/src/widgets/application-window.ts:383
+msgid "Hexdump:"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:390
+msgid "Disassembly:"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:469
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:473
+#: ../app-gnome/src/widgets/application-window.ts:488
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:662
+#: ../app-gnome/src/widgets/application-window.ts:494
+msgid "Gamepad key pressed:"
+msgstr ""
+
+#: ../app-gnome/src/widgets/application-window.ts:677
 msgid "Open Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:673
+#: ../app-gnome/src/widgets/application-window.ts:688
 msgid "Failed to load file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:691
+#: ../app-gnome/src/widgets/application-window.ts:706
 msgid "File loaded successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:697
+#: ../app-gnome/src/widgets/application-window.ts:712
 msgid "Error opening file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:713
-#: ../app-gnome/src/widgets/application-window.ts:714
+#: ../app-gnome/src/widgets/application-window.ts:728
+#: ../app-gnome/src/widgets/application-window.ts:729
 msgid "untitled"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:720
+#: ../app-gnome/src/widgets/application-window.ts:735
 msgid "Save Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:733
-#: ../app-gnome/src/widgets/application-window.ts:771
+#: ../app-gnome/src/widgets/application-window.ts:748
+#: ../app-gnome/src/widgets/application-window.ts:786
 msgid "Error saving file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:764
+#: ../app-gnome/src/widgets/application-window.ts:779
 msgid "File saved successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:782
+#: ../app-gnome/src/widgets/application-window.ts:797
 msgid "Assembly Files"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:787
+#: ../app-gnome/src/widgets/application-window.ts:802
 msgid "All Files"
 msgstr ""
 

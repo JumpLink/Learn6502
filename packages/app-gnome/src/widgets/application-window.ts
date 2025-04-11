@@ -5,7 +5,7 @@ import Gdk from '@girs/gdk-4.0'
 import Gio from '@girs/gio-2.0'
 import GLib from '@girs/glib-2.0'
 
-import { SimulatorState } from '@learn6502/6502'
+import { SimulatorState, num2hex } from '@learn6502/6502'
 
 import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
@@ -351,7 +351,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   private setupGameConsoleSignalListeners(): void {
     this._gameConsole.connect('assemble-success', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
 
       this._debugger.updateHexdump(this._gameConsole.assembler);
@@ -366,7 +367,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     this._gameConsole.connect('assemble-failure', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
 
       this.showToast({
@@ -377,46 +379,53 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     this._gameConsole.connect('hexdump', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_("Hexdump:") + " " + _(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('disassembly', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_("Disassembly:") + " " + _(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('assemble-info', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('stop', (_gameConsole, signal) => {
       this.onSimulatorStateChange(signal.state);
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('start', (_gameConsole, signal) => {
       this.onSimulatorStateChange(signal.state);
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('reset', (_gameConsole, signal) => {
       this.onSimulatorStateChange(signal.state);
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('step', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
 
       // If stepper is enabled, update the debug info and the monitor every step
@@ -427,7 +436,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     this._gameConsole.connect('multistep', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
 
       this.updateDebugger();
@@ -435,7 +445,8 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     this._gameConsole.connect('goto', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
 
       this.updateDebugger();
@@ -443,13 +454,15 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     this._gameConsole.connect('simulator-info', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('simulator-failure', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
 
       this.showToast({
@@ -460,13 +473,15 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
 
     this._gameConsole.connect('labels-info', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('labels-failure', (_gameConsole, signal) => {
       if(signal.message) {
-        this._debugger.log(signal.message);
+        const params = signal.params || [];
+        this._debugger.log(_(signal.message).format(...params));
       }
 
       this.showToast({
@@ -476,7 +491,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     })
 
     this._gameConsole.connect('gamepad-pressed', (_gameConsole, key) => {
-      this._debugger.log(`Gamepad key pressed: ${key}`);
+      this._debugger.log(_("Gamepad key pressed:") + " $" + num2hex(key).toUpperCase());
     })
   }
 

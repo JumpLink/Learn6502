@@ -1,9 +1,9 @@
 import { Memory } from './memory.js';
 import { Labels } from './labels.js';
 import { EventDispatcher } from './event-dispatcher.js';
-import { addr2hex, num2hex } from './utils.js';
+import { _, addr2hex, num2hex } from './utils.js';
 
-import type { Symbols, AssemblerEvent, MessageConsole } from './types/index.js';
+import type { Symbols, AssemblerEvent } from './types/index.js';
 
 /**
  * Represents the assembler for the 6502 emulator.
@@ -171,7 +171,7 @@ export class Assembler {
         addr = parseInt(param, 10);
       }
       if ((addr < 0) || (addr > 0xffff)) {
-        this.dispatchAssembleFailure("Unable to relocate code outside 64k memory");
+        this.dispatchAssembleFailure(_("Unable to relocate code outside 64k memory"));
         return false;
       }
       this.currentPC = addr;
@@ -235,7 +235,7 @@ export class Assembler {
     this.labels.displayMessage();
 
     this.currentPC = BOOTSTRAP_ADDRESS;
-    this.dispatchInfo("Assembling code ...");
+    this.dispatchInfo(_("Assembling code ..."));
 
     this.codeLen = 0;
     let i = 0;
@@ -249,28 +249,30 @@ export class Assembler {
     const lastLine = lines[i];
 
     let message = '';
+    let params: Array<string | number | boolean> = [];
 
     if (this.codeLen === 0) {
       this.codeAssembledOK = false;
-      message = "No code to run.";
+      message = _("No code to run.");
     }
 
     if (!this.codeAssembledOK) {
       if (lastLine) {
         const str = lines[i].replace("<", "&lt;").replace(">", "&gt;");
         if (!this.wasOutOfRangeBranch) {
-          message = "**Syntax error line " + (i + 1) + ": " + str + "**";
+          message = _("Syntax error line %d: %s");
+          params = [i + 1, str];
         } else {
-          message = '**Out of range branch on line ' + (i + 1) + ' (branches are limited to -128 to +127): ' + str + '**';
+          message = _("Out of range branch on line %d (branches are limited to -128 to +127): %s");
+          params = [i + 1, str];
         }
       }
 
-      this.dispatchAssembleFailure(message);
+      this.dispatchAssembleFailure(message, params);
       return false;
     }
 
-    message = "Code assembled successfully, " + this.codeLen + " bytes.";
-    this.dispatchAssembleSuccess(message);
+    this.dispatchAssembleSuccess(_("Code assembled successfully, %d bytes."), [this.codeLen]);
     return true;
   }
 
@@ -337,24 +339,24 @@ export class Assembler {
     return this.currentPC;
   }
 
-  private dispatchAssembleSuccess(message: string) {
-    this.events.dispatch('assemble-success', { assembler: this, message });
+  private dispatchAssembleSuccess(message: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('assemble-success', { assembler: this, message, params });
   }
 
-  private dispatchAssembleFailure(message: string) {
-    this.events.dispatch('assemble-failure', { assembler: this, message });
+  private dispatchAssembleFailure(message: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('assemble-failure', { assembler: this, message, params });
   }
 
-  private dispatchHexdump(message: string) {
-    this.events.dispatch('hexdump', { assembler: this, message });
+  private dispatchHexdump(message: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('hexdump', { assembler: this, message, params });
   }
 
-  private dispatchDisassembly(message: string) {
-    this.events.dispatch('disassembly', { assembler: this, message });
+  private dispatchDisassembly(message: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('disassembly', { assembler: this, message, params });
   }
 
-  private dispatchInfo(message: string) {
-    this.events.dispatch('assemble-info', { assembler: this, message });
+  private dispatchInfo(message: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('assemble-info', { assembler: this, message, params });
   }
 
   /**
@@ -375,7 +377,7 @@ export class Assembler {
    */
   private preprocess(lines: string[]): Symbols {
 
-    this.dispatchInfo("Preprocessing ...");
+    this.dispatchInfo(_("Preprocessing ..."));
 
     const table: Record<string, string> = {};
     const PREFIX = "__"; // Using a prefix avoids clobbering any predefined properties

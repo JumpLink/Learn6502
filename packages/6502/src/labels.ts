@@ -1,6 +1,7 @@
 import { EventDispatcher } from './event-dispatcher.js';
 import type { Symbols, LabelsEvent } from './types/index.js';
 import type { Assembler } from './assembler.js';
+import { _ } from './utils.js';
 
 /**
  * Manages labels for the 6502 assembler.
@@ -65,8 +66,12 @@ export class Labels {
    */
   public displayMessage(): void {
     const count = this.labelIndex.length;
-    const plural = count !== 1 ? 's' : '';
-    this.dispatchInfo(`Found ${count} label${plural}.`);
+    const plural = count !== 1;
+    if(plural) {
+      this.dispatchInfo(_("Found $d labels."), [count]);
+    } else {
+      this.dispatchInfo(_("Found $d label."), [count]);
+    }
   }
 
   /**
@@ -84,22 +89,22 @@ export class Labels {
    * @returns True if indexing was successful, false otherwise.
    */
   public indexLines(lines: string[], symbols: Symbols, assembler: Assembler): boolean {
-    this.dispatchInfo('Indexing labels...');
+    this.dispatchInfo(_("Indexing labels..."));
     for (let i = 0; i < lines.length; i++) {
       if (!this.indexLine(lines[i], symbols, assembler)) {
-        this.dispatchFailure(`**Label already defined at line ${i + 1}:** ${lines[i]}`);
+        this.dispatchFailure(_("Label already defined at line %s: %d"), [i + 1, lines[i]]);
         return false;
       }
     }
     return true;
   }
 
-  private dispatchInfo(message: string) {
-    this.events.dispatch('labels-info', { labels: this, message });
+  private dispatchInfo(message: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('labels-info', { labels: this, message, params });
   }
 
-  private dispatchFailure(message: string) {
-    this.events.dispatch('labels-failure', { labels: this, message });
+  private dispatchFailure(message: string, params: Array<string | number | boolean> = []) {
+    this.events.dispatch('labels-failure', { labels: this, message, params });
   }
 
   /**
@@ -115,12 +120,12 @@ export class Labels {
 
     if (input.match(/^\w+:/)) {
       const label = input.replace(/(^\w+):.*$/, "$1");
-      
+
       if (symbols.lookup(label)) {
-        this.dispatchFailure(`**Label ${label} is already used as a symbol; please rename one of them**`);
+        this.dispatchFailure(_("Label {label} is already used as a symbol; please rename one of them"), [label]);
         return false;
       }
-      
+
       return this.push(`${label}|${currentPC}`);
     }
     return true;
