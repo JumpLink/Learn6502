@@ -12,6 +12,7 @@ import { Editor } from './editor.ts'
 import { GameConsole } from './game-console/index.ts'
 import { Debugger } from './debugger/index.ts'
 import { HelpWindow } from './help-window.ts'
+import './theme-selector.ts' // TODO make use of this
 import { copyToClipboard } from '../utils.ts'
 
 import Template from './application-window.blp'
@@ -33,12 +34,12 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   declare private _unsavedChangesDialog: Adw.AlertDialog
   declare private _titleLabel: Gtk.Label
   declare private _unsavedChangesIndicator: Gtk.Button
-
+  declare private _buttonWindowMenu: Gio.MenuModel
   static {
     GObject.registerClass({
       GTypeName: 'ApplicationWindow',
       Template,
-      InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay', 'unsavedChangesDialog', 'titleLabel', 'unsavedChangesIndicator'],
+      InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay', 'unsavedChangesDialog', 'titleLabel', 'unsavedChangesIndicator', 'buttonWindowMenu'],
     }, this);
   }
 

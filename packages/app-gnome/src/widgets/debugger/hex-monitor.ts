@@ -8,6 +8,12 @@ import { throttle } from '@learn6502/6502'
 
 import Template from './hex-monitor.blp'
 
+interface MemoryRegion {
+  name: string,
+  start: number,
+  length: number
+}
+
 /**
  * A widget that displays a hex monitor.
  * @emits changed - when the monitor content is updated
@@ -16,17 +22,27 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
 
   // Child widgets
   declare private _sourceView: SourceView
-  declare private _startAddressEntry: Gtk.Entry
-  declare private _lengthEntry: Gtk.Entry
+  declare private _memoryRegionDropDown: Gtk.DropDown
 
   // Signal handler IDs
   private _handlerIds: number[] = []
+
+  // Memory region definitions
+  private _memoryRegions: MemoryRegion[] = [
+    { name: "Zero Page ($0000-$00FF)", start: 0x0000, length: 0x0100 },
+    { name: "Stack ($0100-$01FF)", start: 0x0100, length: 0x0100 },
+    { name: "Display Memory ($0200-$05FF)", start: 0x0200, length: 0x0400 },
+    { name: "Program Storage ($0600-$FFFF)", start: 0x0600, length: 0x9A00 },
+    { name: "Snake Game Data ($00-$15)", start: 0x0000, length: 0x0016 },
+    { name: "Random/Input ($FE-$FF)", start: 0x00FE, length: 0x0002 },
+    { name: "Full Memory ($0000-$FFFF)", start: 0x0000, length: 0x10000 }
+  ]
 
   static {
     GObject.registerClass({
       GTypeName: 'HexMonitor',
       Template,
-      InternalChildren: ['sourceView', 'startAddressEntry', 'lengthEntry'],
+      InternalChildren: ['sourceView', 'memoryRegionDropDown'],
       Signals: {
         'changed': {},
         'copy': {
@@ -53,17 +69,15 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
   }
 
   private setupUI(): void {
-    // Set initial values in the entry fields
-    this._startAddressEntry.set_text(this.options.start.toString(16).padStart(4, '0').toUpperCase())
-    this._lengthEntry.set_text(this.options.length.toString(16).padStart(4, '0').toUpperCase())
-    this.validateAndApply();
+    // Set initial selection to Zero Page
+    this._memoryRegionDropDown.set_selected(0)
+    this.applySelectedRegion()
   }
 
   private connectSignals(): void {
-    // Connect to entry changed signals
+    // Connect to dropdown changed signal
     this._handlerIds.push(
-      this._startAddressEntry.connect('changed', this.onEntryChanged.bind(this)),
-      this._lengthEntry.connect('changed', this.onEntryChanged.bind(this))
+      this._memoryRegionDropDown.connect('notify::selected', this.onRegionChanged.bind(this))
     )
   }
 
@@ -77,86 +91,16 @@ export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
     this._handlerIds = []
   }
 
-  /**
-   * Parse a hexadecimal string, handling common hex prefixes
-   * @param hexString - Hex string, possibly with 0x or $ prefix
-   * @returns Parsed number or NaN if invalid
-   */
-  private parseHexInput(hexString: string): number {
-    // Remove whitespace
-    let cleaned = hexString.trim();
-
-    // Remove hex prefixes if present
-    if (cleaned.startsWith('0x') || cleaned.startsWith('0X')) {
-      cleaned = cleaned.substring(2);
-    } else if (cleaned.startsWith('$')) {
-      cleaned = cleaned.substring(1);
-    }
-
-    // Parse as hex
-    return parseInt(cleaned, 16);
+  private onRegionChanged(): void {
+    this.applySelectedRegion()
   }
 
-  private onEntryChanged(): void {
-    // Use the throttled version of validateAndApplyValues
-    this.validateAndApply();
-  }
-
-
-  // Throttled validation method
-  private validateAndApply = throttle(this._validateAndApplyValues.bind(this), 349);
-
-  private _validateAndApplyValues(): void {
-    const startText = this._startAddressEntry.get_text();
-    const lengthText = this._lengthEntry.get_text();
-
-    // If fields are empty, wait for more input
-    if (startText === '' || lengthText === '') {
-      return;
-    }
-
-    let start = this.parseHexInput(startText);
-    let length = this.parseHexInput(lengthText);
-    let changed = false;
-
-    // Validate start address
-    if (isNaN(start)) {
-      start = 0;
-      changed = true;
-    } else if (start < 0) {
-      start = 0;
-      changed = true;
-    } else if (start > 0xffff) {
-      start = 0xffff;
-      changed = true;
-    }
-
-    // Validate length
-    if (isNaN(length)) {
-      length = 1;
-      changed = true;
-    } else if (length <= 0) {
-      length = 1;
-      changed = true;
-    }
-
-    // Adjust length if end address exceeds maximum
-    const endAddress = start + length - 1;
-    if (endAddress > 0xffff) {
-      length = 0xffff - start + 1;
-      changed = true;
-    }
-
-    // Update entry fields if values were adjusted
-    if (changed) {
-      this._startAddressEntry.set_text(start.toString(16).toUpperCase());
-      this._lengthEntry.set_text(length.toString(16).toUpperCase());
-    }
-
-    // Apply the values
-    if (this.options.start !== start || this.options.length !== length) {
-      this.setMonitorRange(start, length);
-      this.emit('changed');
+  private applySelectedRegion(): void {
+    const selectedIndex = this._memoryRegionDropDown.get_selected()
+    if (selectedIndex >= 0 && selectedIndex < this._memoryRegions.length) {
+      const region = this._memoryRegions[selectedIndex]
+      this.setMonitorRange(region.start, region.length)
+      this.emit('changed')
     }
   }
 

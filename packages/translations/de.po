@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-11 13:54+0200\n"
+"POT-Creation-Date: 2025-04-11 14:54+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -109,122 +109,122 @@ msgstr "6502 Stack leer! Unterlauf..."
 msgid "Program completed at PC=$%s"
 msgstr "Programm beendet bei PC=$%s"
 
-#: ../app-gnome/src/widgets/application-window.ts:54
+#: ../app-gnome/src/widgets/application-window.ts:55
 msgid "Unsaved changes"
 msgstr "Ungespeicherte Änderungen "
 
-#: ../app-gnome/src/widgets/application-window.ts:56
+#: ../app-gnome/src/widgets/application-window.ts:57
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "Datei \"%s\" enthält ungespeicherte Änderungen"
 
-#: ../app-gnome/src/widgets/application-window.ts:83
+#: ../app-gnome/src/widgets/application-window.ts:84
 msgid "Assemble"
 msgstr "Assemblieren"
 
-#: ../app-gnome/src/widgets/application-window.ts:88
+#: ../app-gnome/src/widgets/application-window.ts:89
 msgid "Run"
 msgstr "Ausführen"
 
-#: ../app-gnome/src/widgets/application-window.ts:93
+#: ../app-gnome/src/widgets/application-window.ts:94
 msgid "Pause"
 msgstr "Pause"
 
-#: ../app-gnome/src/widgets/application-window.ts:98
+#: ../app-gnome/src/widgets/application-window.ts:99
 msgid "Resume"
 msgstr "Fortsetzen"
 
-#: ../app-gnome/src/widgets/application-window.ts:103
+#: ../app-gnome/src/widgets/application-window.ts:104
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: ../app-gnome/src/widgets/application-window.ts:108
+#: ../app-gnome/src/widgets/application-window.ts:109
 msgid "Step"
 msgstr "Schritt"
 
-#: ../app-gnome/src/widgets/application-window.ts:137
+#: ../app-gnome/src/widgets/application-window.ts:138
 msgid "Code copied to editor"
 msgstr "Code in Editor kopiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:162
+#: ../app-gnome/src/widgets/application-window.ts:163
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:167
+#: ../app-gnome/src/widgets/application-window.ts:168
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:217
+#: ../app-gnome/src/widgets/application-window.ts:218
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:368
+#: ../app-gnome/src/widgets/application-window.ts:369
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/widgets/application-window.ts:380
+#: ../app-gnome/src/widgets/application-window.ts:381
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/widgets/application-window.ts:388
+#: ../app-gnome/src/widgets/application-window.ts:389
 msgid "Hexdump:"
 msgstr "Hexdump:"
 
-#: ../app-gnome/src/widgets/application-window.ts:395
+#: ../app-gnome/src/widgets/application-window.ts:396
 msgid "Disassembly:"
 msgstr "Disassemblierung:"
 
-#: ../app-gnome/src/widgets/application-window.ts:474
+#: ../app-gnome/src/widgets/application-window.ts:475
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:493
+#: ../app-gnome/src/widgets/application-window.ts:494
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:499
+#: ../app-gnome/src/widgets/application-window.ts:500
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
-#: ../app-gnome/src/widgets/application-window.ts:682
+#: ../app-gnome/src/widgets/application-window.ts:683
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/widgets/application-window.ts:693
+#: ../app-gnome/src/widgets/application-window.ts:694
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:711
+#: ../app-gnome/src/widgets/application-window.ts:712
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../app-gnome/src/widgets/application-window.ts:717
+#: ../app-gnome/src/widgets/application-window.ts:718
 msgid "Error opening file"
 msgstr "Fehler beim Öffnen der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:733
 #: ../app-gnome/src/widgets/application-window.ts:734
+#: ../app-gnome/src/widgets/application-window.ts:735
 msgid "untitled"
 msgstr "unbenannt"
 
-#: ../app-gnome/src/widgets/application-window.ts:740
+#: ../app-gnome/src/widgets/application-window.ts:741
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/widgets/application-window.ts:753
-#: ../app-gnome/src/widgets/application-window.ts:791
+#: ../app-gnome/src/widgets/application-window.ts:754
+#: ../app-gnome/src/widgets/application-window.ts:792
 msgid "Error saving file"
 msgstr "Fehler beim Speichern der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:784
+#: ../app-gnome/src/widgets/application-window.ts:785
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../app-gnome/src/widgets/application-window.ts:802
+#: ../app-gnome/src/widgets/application-window.ts:803
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/widgets/application-window.ts:807
+#: ../app-gnome/src/widgets/application-window.ts:808
 msgid "All Files"
 msgstr "Alle Dateien"
 
@@ -327,6 +327,21 @@ msgstr "Derzeit gibt es keine Einstellungen."
 msgid "Copy to editor"
 msgstr "In Editor kopieren"
 
+#: ../app-gnome/src/widgets/theme-selector.blp:24
+#: ../app-gnome/src/widgets/theme-selector.blp:27
+msgid "Follow system style"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:43
+#: ../app-gnome/src/widgets/theme-selector.blp:46
+msgid "Light style"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:62
+#: ../app-gnome/src/widgets/theme-selector.blp:65
+msgid "Dark style"
+msgstr ""
+
 #: ../app-gnome/src/widgets/debugger/debugger.blp:16
 msgid ""
 "Debug your 6502 assembly code, step through your program, and view memory "
@@ -355,6 +370,34 @@ msgstr "Disassemblierter Code"
 #: ../app-gnome/src/widgets/debugger/debugger.blp:97
 msgid "Messages"
 msgstr "Meldungen"
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
+msgid "Zero Page ($0000-$00FF)"
+msgstr "Nullseite ($0000-$00FF)"
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:20
+msgid "Stack ($0100-$01FF)"
+msgstr "Stack ($0100-$01FF)"
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:21
+msgid "Display Memory ($0200-$05FF)"
+msgstr "Anzeigespeicher ($0200-$05FF)"
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:22
+msgid "Program Storage ($0600-$FFFF)"
+msgstr "Programmspeicher ($0600-$FFFF)"
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:23
+msgid "Snake Game Data ($00-$15)"
+msgstr "Snake-Spieldaten ($00-$15)"
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:24
+msgid "Random/Input ($FE-$FF)"
+msgstr "Zufalls-/Eingabedaten ($FE-$FF)"
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:25
+msgid "Full Memory ($0000-$FFFF)"
+msgstr "Gesamter Speicher ($0000-$FFFF)"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
 msgid "6502 Assembly Learning Environment"

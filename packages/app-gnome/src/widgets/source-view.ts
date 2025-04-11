@@ -324,6 +324,11 @@ export class SourceView extends Adw.Bin {
     }
   }
 
+  public get fitContentHeight(): boolean {
+    const [hPolicy] = this._scrolledWindow.get_policy();
+    return hPolicy === Gtk.PolicyType.NEVER;
+  }
+
   /**
    * Set the fitContentWidth property of the source view.
    * This property is used to fit the content width of the source view and to disable horizontal scrolling.
@@ -337,6 +342,11 @@ export class SourceView extends Adw.Bin {
     } else {
       this._scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, vPolicy || Gtk.PolicyType.AUTOMATIC);
     }
+  }
+
+  public get fitContentWidth(): boolean {
+    const [,vPolicy] = this._scrolledWindow.get_policy();
+    return vPolicy === Gtk.PolicyType.NEVER;
   }
 
   public set height(value: number) {

@@ -12,22 +12,19 @@ template $HexMonitor: Adw.Bin {
       margin-end: 8;
       margin-top: 8;
 
-      Label {
-        label: "Start:";
-      }
-
-      Entry startAddressEntry {
-        max-width-chars: 6;
-        placeholder-text: "0000";
-      }
-
-      Label {
-        label: "Length:";
-      }
-
-      Entry lengthEntry {
-        max-width-chars: 6;
-        placeholder-text: "FFFF";
+      DropDown memoryRegionDropDown {
+        enable-search: true;
+        model: StringList {
+          strings [
+            _("Zero Page ($0000-$00FF)"),
+            _("Stack ($0100-$01FF)"),
+            _("Display Memory ($0200-$05FF)"),
+            _("Program Storage ($0600-$FFFF)"),
+            _("Snake Game Data ($00-$15)"),
+            _("Random/Input ($FE-$FF)"),
+            _("Full Memory ($0000-$FFFF)")
+          ]
+        };
       }
     }
 
@@ -39,9 +36,7 @@ template $HexMonitor: Adw.Bin {
       vexpand: true;
       hexpand: false;
       line-numbers: true;
-      // TODO: Fix scrollable height
-      height-request: 200;
-      fit-content-height: true;
+      height: 360;
     }
   }
 }
