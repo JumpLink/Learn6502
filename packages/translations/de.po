@@ -595,44 +595,44 @@ msgstr "Adressierungsmodi"
 
 #: ../learn/dist/quick-help.ui:11
 msgid "<b>Immediate</b> (<tt>#$c0</tt>): Use the actual value"
-msgstr ""
+msgstr "<b>Unmittelbar</b> (<tt>#$c0</tt>): Verwendet den tatsächlichen Wert"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Zero Page</b> (<tt>$c0</tt>): Access memory locations <tt>$00</tt>-"
 "<tt>$FF</tt>"
-msgstr ""
+msgstr "<b>Nullseite</b> (<tt>$c0</tt>): Greift auf Speicheradressen <tt>$00</tt>-<tt>$FF</tt> zu"
 
 #: ../learn/dist/quick-help.ui:11
 msgid "<b>Absolute</b> (<tt>$c000</tt>): Access any memory location"
-msgstr ""
+msgstr "<b>Absolut</b> (<tt>$c000</tt>): Greift auf beliebige Speicheradressen zu"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
-msgstr ""
+msgstr "<b>Nullseite,X/Y</b> (<tt>$c0,X</tt>): Addiert X/Y-Register zur Nullseitenadresse"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
-msgstr ""
+msgstr "<b>Absolut,X/Y</b> (<tt>$c000,X</tt>): Addiert X/Y-Register zur absoluten Adresse"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Indirect</b> (<tt>($c000)</tt>): Look up address stored at given location"
-msgstr ""
+msgstr "<b>Indirekt</b> (<tt>($c000)</tt>): Liest die an der angegebenen Adresse gespeicherte Adresse"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then "
 "dereference"
-msgstr ""
+msgstr "<b>Indiziert Indirekt</b> (<tt>($c0,X)</tt>): Addiert X zur Nullseitenadresse, dann dereferenzieren"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Dereference zero page address, "
 "then add Y"
-msgstr ""
+msgstr "<b>Indirekt Indiziert</b> (<tt>($c0),Y</tt>): Dereferenziert Nullseitenadresse, dann Y addieren"
 
 #: ../learn/dist/quick-help.ui:12
 msgid "Common Instructions"
@@ -640,35 +640,35 @@ msgstr "Häufige Anweisungen"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>LDA/LDX/LDY</b>: Load registers"
-msgstr ""
+msgstr "<b>LDA/LDX/LDY</b>: Register laden"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>STA/STX/STY</b>: Store registers to memory"
-msgstr ""
+msgstr "<b>STA/STX/STY</b>: Register im Speicher ablegen"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>INX/INY/DEX/DEY</b>: Increment/decrement registers"
-msgstr ""
+msgstr "<b>INX/INY/DEX/DEY</b>: Register erhöhen/verringern"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>ADC/SBC</b>: Add/subtract with carry"
-msgstr ""
+msgstr "<b>ADC/SBC</b>: Addieren/Subtrahieren mit Übertrag"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>JMP</b>: Unconditional jump"
-msgstr ""
+msgstr "<b>JMP</b>: Unbedingter Sprung"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>JSR/RTS</b>: Jump to subroutine / Return from subroutine"
-msgstr ""
+msgstr "<b>JSR/RTS</b>: Sprung zu Unterprogramm / Rückkehr aus Unterprogramm"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>BEQ/BNE/BCC/BCS</b>: Branch if equal/not equal/carry clear/carry set"
-msgstr ""
+msgstr "<b>BEQ/BNE/BCC/BCS</b>: Verzweige wenn gleich/ungleich/Übertrag gelöscht/Übertrag gesetzt"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>PHA/PLA</b>: Push/pull accumulator to/from stack"
-msgstr ""
+msgstr "<b>PHA/PLA</b>: Akkumulator auf Stack legen/vom Stack holen"
 
 #: ../learn/dist/quick-help.ui:14
 msgid "Special Memory Locations (in Simulator)"
