@@ -3,7 +3,7 @@ import { Labels } from './labels.js';
 import { EventDispatcher } from './event-dispatcher.js';
 import { _, addr2hex, num2hex } from './utils.js';
 
-import type { Symbols, AssemblerEvent } from './types/index.js';
+import type { Symbols, AssemblerEvent, DisassembledEvent, DisassembledData, InstructionData } from './types/index.js';
 
 /**
  * Represents the assembler for the 6502 emulator.
@@ -294,21 +294,26 @@ export class Assembler {
    * - Memory addresses
    * - Hexadecimal representation
    * - Assembly instructions
-   * @returns Formatted string with disassembled code
+   * @returns DisassembledData with formatted output and structured instruction data
    */
-  public disassemble() {
+  public disassemble(): DisassembledData {
     const startAddress = 0x600;
     let currentAddress = startAddress;
     const endAddress = startAddress + this.codeLen;
-    const instructions: string[] = [];
+    const instructions: InstructionData[] = [];
     let length: number;
     let inst: any;
     let byte: number;
     let modeAndCode: { opCode: string; mode: string };
 
     while (currentAddress < endAddress) {
+      const address = currentAddress;
+      const bytes: number[] = [];
+      const args: number[] = [];
+
       inst = this.createInstruction(currentAddress);
       byte = this.memory.get(currentAddress);
+      bytes.push(byte);
       inst.addByte(byte);
 
       modeAndCode = this.getModeAndCode(byte);
@@ -318,17 +323,41 @@ export class Assembler {
       for (let i = 1; i < length; i++) {
         currentAddress++;
         byte = this.memory.get(currentAddress);
+        bytes.push(byte);
         inst.addByte(byte);
         inst.addArg(byte);
+        args.push(byte);
       }
-      instructions.push(inst);
+
+      const formattedInstruction = inst.toString();
+
+      instructions.push({
+        address,
+        bytes: [...bytes],
+        hexBytes: bytes.map(num2hex).join(' '),
+        opCode: modeAndCode.opCode,
+        mode: modeAndCode.mode,
+        args: [...args],
+        formattedArgs: inst.getFormattedArgs(),
+        formattedInstruction
+      });
+
       currentAddress++;
     }
 
-    let html = 'Address  Hexdump   Disassembly\n';
-    html += '-------------------------------\n';
-    html += instructions.join('\n');
-    this.dispatchDisassembly(html)
+    let formatted = 'Address  Hexdump   Disassembly\n';
+    formatted += '-------------------------------\n';
+    formatted += instructions.map(inst => inst.formattedInstruction).join('\n');
+
+    const data: DisassembledData = {
+      formatted,
+      startAddress,
+      endAddress,
+      instructions
+    };
+
+    this.dispatchDisassembly(data);
+    return data;
   }
 
   /**
@@ -351,8 +380,9 @@ export class Assembler {
     this.events.dispatch('hexdump', { assembler: this, message, params });
   }
 
-  private dispatchDisassembly(message: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('disassembly', { assembler: this, message, params });
+  private dispatchDisassembly(data: DisassembledData) {
+    // @ts-ignore TODO: Fix this, needs a more generic event type
+    this.events.dispatch('disassembly', { assembler: this, data });
   }
 
   private dispatchInfo(message: string, params: Array<string | number | boolean> = []) {
@@ -959,6 +989,9 @@ export class Assembler {
         const padding = Array(11 - bytesString.length).join(' ');
         return '$' + addr2hex(address) + '    ' + bytesString + padding + opCode +
           ' ' + formatArguments(args);
+      },
+      getFormattedArgs: function () {
+        return formatArguments(args);
       }
     };
   }

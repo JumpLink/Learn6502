@@ -32,9 +32,24 @@ template $Debugger: Adw.Bin {
           child: Box {
             orientation: vertical;
 
+            // Information
+            Label {
+              label: _("Information");
+              halign: start;
+              margin-bottom: 12;
+              margin-top: 12;
+              styles [
+                "heading"
+              ]
+            }
+            Frame {
+              margin-bottom: 12;
+              $DebugInfo debugInfo {}
+            }
+
             // Hex Monitor
             Label {
-              label: "Hex Monitor";
+              label: _("Hex Monitor");
               halign: start;
               margin-bottom: 12;
               margin-top: 12;
@@ -49,7 +64,7 @@ template $Debugger: Adw.Bin {
 
             // Hexdump
             Label {
-              label: "Hexdump";
+              label: _("Hexdump");
               halign: start;
               margin-bottom: 12;
               margin-top: 12;
@@ -62,9 +77,9 @@ template $Debugger: Adw.Bin {
               $Hexdump hexdump {}
             }
 
-            // Information
+            // Disassembled
             Label {
-              label: "Information";
+              label: _("Disassembled");
               halign: start;
               margin-bottom: 12;
               margin-top: 12;
@@ -74,12 +89,12 @@ template $Debugger: Adw.Bin {
             }
             Frame {
               margin-bottom: 12;
-              $DebugInfo debugInfo {}
+              $Disassembled disassembled {}
             }
 
             // Messages
             Label {
-              label: "Messages";
+              label: _("Messages");
               halign: start;
               margin-bottom: 12;
               margin-top: 12;

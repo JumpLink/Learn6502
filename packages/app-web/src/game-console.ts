@@ -1,4 +1,4 @@
-import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole as MessageConsoleInterface, LabelsEvent } from '@learn6502/6502';
+import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole as MessageConsoleInterface, LabelsEvent, DisassembledEvent } from '@learn6502/6502';
 import { Debugger } from './debugger.js';
 import { Display } from './display.js';
 import { UIState } from './ui-state.js';
@@ -155,8 +155,9 @@ export class GameConsole {
       this.openPopup(event.message || '', 'Hexdump');
     });
 
-    this.assembler.on('disassembly', (event: AssemblerEvent) => {
-      this.openPopup(event.message || '', 'Disassembly');
+    // @ts-ignore TODO: Fix this, needs a more generic event type
+    this.assembler.on('disassembly', (event: DisassembledEvent) => {
+      this.openPopup(event.data.formatted || '', 'Disassembly');
     });
 
     this.assembler.on('assemble-info', (event: AssemblerEvent) => {

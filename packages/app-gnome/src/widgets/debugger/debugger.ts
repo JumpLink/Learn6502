@@ -5,6 +5,7 @@ import Adw from '@girs/adw-1'
 import { MessageConsole } from './message-console.ts'
 import { HexMonitor } from './hex-monitor.ts'
 import { Hexdump } from './hexdump.ts'
+import { Disassembled } from './disassembled.ts'
 import { DebugInfo } from './debug-info.ts'
 
 import Template from './debugger.blp'
@@ -21,6 +22,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   declare private _messageConsole: MessageConsole
   declare private _hexMonitor: HexMonitor
   declare private _hexdump: Hexdump
+  declare private _disassembled: Disassembled
   declare private _debugInfo: DebugInfo
   declare private _statusPage: Adw.StatusPage
 
@@ -28,12 +30,12 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     GObject.registerClass({
       GTypeName: 'Debugger',
       Template,
-      InternalChildren: ['stack', 'messageConsole', 'hexMonitor', 'hexdump', 'debugInfo', 'statusPage'],
+      InternalChildren: ['stack', 'messageConsole', 'hexMonitor', 'hexdump', 'disassembled', 'debugInfo', 'statusPage'],
       Signals: {
-        'hexdump-copy': {
+        'copy-to-clipboard': {
           param_types: [GObject.TYPE_STRING],
         },
-        'hexmonitor-copy': {
+        'copy-to-editor': {
           param_types: [GObject.TYPE_STRING],
         },
       },
@@ -126,10 +128,20 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     this._hexdump.update(assembler);
   }
 
+  /**
+   * Updates the disassembled display of the assembled program.
+   * Should only be called when the assembly code has been modified and reassembled.
+   * @param assembler Assembler instance containing the new program code
+   */
+  public updateDisassembled(assembler: Assembler): void {
+    this._disassembled.update(assembler);
+  }
+
   public reset(): void {
     this._messageConsole.clear();
     this._hexMonitor.clear();
-    this._hexdump.clear();
+    // this._hexdump.clear();
+    // this._disassembled.clear();
     this.state = DebuggerState.RESET;
   }
 
@@ -156,18 +168,19 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     }
   }
 
+  private onCopyToEditor(self: Disassembled, code: string): void {
+    this.emit('copy-to-editor', code);
+  }
+
   private onCopyToClipboard(self: Hexdump | HexMonitor, code: string): void {
-    if (self instanceof Hexdump) {
-      this.emit('hexdump-copy', code);
-    } else if (self instanceof HexMonitor) {
-      this.emit('hexmonitor-copy', code);
-    } else {
-      console.error('[Debugger] Unknown widget type', self);
-    }
+    this.emit('copy-to-clipboard', code);
   }
 
   private setupSignalHandlers(): void {
     this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
+
+    // Connect to the Disassembled's copy signal
+    this.handlerIds.push(this._disassembled.connect('copy', this.onCopyToEditor.bind(this)));
 
     // Connect to the Hexdump's copy signal
     this.handlerIds.push(this._hexdump.connect('copy', this.onCopyToClipboard.bind(this)));

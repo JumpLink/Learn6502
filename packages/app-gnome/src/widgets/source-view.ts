@@ -192,7 +192,11 @@ export class SourceView extends Adw.Bin {
 
       // Clean up hex-specific settings
       if (this.copyClipboardSignalId) {
-        this._sourceView.disconnect(this.copyClipboardSignalId);
+        try {
+          this._sourceView.disconnect(this.copyClipboardSignalId);
+        } catch (error) {
+          console.error('[SourceView] Failed to disconnect copy clipboard signal', error)
+        }
         this.copyClipboardSignalId = undefined;
       }
     }

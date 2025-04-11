@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-11 12:13+0200\n"
+"POT-Creation-Date: 2025-04-11 13:54+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -48,7 +48,7 @@ msgstr ""
 msgid "Code assembled successfully, %d bytes."
 msgstr "Code erfolgreich assembliert, %d Bytes."
 
-#: ../6502/src/assembler.ts:380
+#: ../6502/src/assembler.ts:410
 msgid "Preprocessing ..."
 msgstr "Vorverarbeitung läuft..."
 
@@ -154,77 +154,77 @@ msgstr "In die Zwischenablage kopiert"
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:213
+#: ../app-gnome/src/widgets/application-window.ts:217
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:363
+#: ../app-gnome/src/widgets/application-window.ts:368
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/widgets/application-window.ts:375
+#: ../app-gnome/src/widgets/application-window.ts:380
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/widgets/application-window.ts:383
+#: ../app-gnome/src/widgets/application-window.ts:388
 msgid "Hexdump:"
 msgstr "Hexdump:"
 
-#: ../app-gnome/src/widgets/application-window.ts:390
+#: ../app-gnome/src/widgets/application-window.ts:395
 msgid "Disassembly:"
 msgstr "Disassemblierung:"
 
-#: ../app-gnome/src/widgets/application-window.ts:469
+#: ../app-gnome/src/widgets/application-window.ts:474
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:488
+#: ../app-gnome/src/widgets/application-window.ts:493
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:494
+#: ../app-gnome/src/widgets/application-window.ts:499
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
-#: ../app-gnome/src/widgets/application-window.ts:677
+#: ../app-gnome/src/widgets/application-window.ts:682
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/widgets/application-window.ts:688
+#: ../app-gnome/src/widgets/application-window.ts:693
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:706
+#: ../app-gnome/src/widgets/application-window.ts:711
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../app-gnome/src/widgets/application-window.ts:712
+#: ../app-gnome/src/widgets/application-window.ts:717
 msgid "Error opening file"
 msgstr "Fehler beim Öffnen der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:728
-#: ../app-gnome/src/widgets/application-window.ts:729
+#: ../app-gnome/src/widgets/application-window.ts:733
+#: ../app-gnome/src/widgets/application-window.ts:734
 msgid "untitled"
 msgstr "unbenannt"
 
-#: ../app-gnome/src/widgets/application-window.ts:735
+#: ../app-gnome/src/widgets/application-window.ts:740
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/widgets/application-window.ts:748
-#: ../app-gnome/src/widgets/application-window.ts:786
+#: ../app-gnome/src/widgets/application-window.ts:753
+#: ../app-gnome/src/widgets/application-window.ts:791
 msgid "Error saving file"
 msgstr "Fehler beim Speichern der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:779
+#: ../app-gnome/src/widgets/application-window.ts:784
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../app-gnome/src/widgets/application-window.ts:797
+#: ../app-gnome/src/widgets/application-window.ts:802
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/widgets/application-window.ts:802
+#: ../app-gnome/src/widgets/application-window.ts:807
 msgid "All Files"
 msgstr "Alle Dateien"
 
@@ -335,6 +335,26 @@ msgstr ""
 "Debugge deinen 6502-Assemblercode, gehe dein Programm schrittweise durch und "
 "betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
 "beginnen."
+
+#: ../app-gnome/src/widgets/debugger/debugger.blp:37
+msgid "Information"
+msgstr "Information"
+
+#: ../app-gnome/src/widgets/debugger/debugger.blp:52
+msgid "Hex Monitor"
+msgstr "Hex-Monitor"
+
+#: ../app-gnome/src/widgets/debugger/debugger.blp:67
+msgid "Hexdump"
+msgstr "Hexdump"
+
+#: ../app-gnome/src/widgets/debugger/debugger.blp:82
+msgid "Disassembled"
+msgstr "Disassemblierter Code"
+
+#: ../app-gnome/src/widgets/debugger/debugger.blp:97
+msgid "Messages"
+msgstr "Meldungen"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
 msgid "6502 Assembly Learning Environment"
@@ -601,38 +621,51 @@ msgstr "<b>Unmittelbar</b> (<tt>#$c0</tt>): Verwendet den tatsächlichen Wert"
 msgid ""
 "<b>Zero Page</b> (<tt>$c0</tt>): Access memory locations <tt>$00</tt>-"
 "<tt>$FF</tt>"
-msgstr "<b>Nullseite</b> (<tt>$c0</tt>): Greift auf Speicheradressen <tt>$00</tt>-<tt>$FF</tt> zu"
+msgstr ""
+"<b>Nullseite</b> (<tt>$c0</tt>): Greift auf Speicheradressen <tt>$00</tt>-"
+"<tt>$FF</tt> zu"
 
 #: ../learn/dist/quick-help.ui:11
 msgid "<b>Absolute</b> (<tt>$c000</tt>): Access any memory location"
-msgstr "<b>Absolut</b> (<tt>$c000</tt>): Greift auf beliebige Speicheradressen zu"
+msgstr ""
+"<b>Absolut</b> (<tt>$c000</tt>): Greift auf beliebige Speicheradressen zu"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
-msgstr "<b>Nullseite,X/Y</b> (<tt>$c0,X</tt>): Addiert X/Y-Register zur Nullseitenadresse"
+msgstr ""
+"<b>Nullseite,X/Y</b> (<tt>$c0,X</tt>): Addiert X/Y-Register zur "
+"Nullseitenadresse"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
-msgstr "<b>Absolut,X/Y</b> (<tt>$c000,X</tt>): Addiert X/Y-Register zur absoluten Adresse"
+msgstr ""
+"<b>Absolut,X/Y</b> (<tt>$c000,X</tt>): Addiert X/Y-Register zur absoluten "
+"Adresse"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Indirect</b> (<tt>($c000)</tt>): Look up address stored at given location"
-msgstr "<b>Indirekt</b> (<tt>($c000)</tt>): Liest die an der angegebenen Adresse gespeicherte Adresse"
+msgstr ""
+"<b>Indirekt</b> (<tt>($c000)</tt>): Liest die an der angegebenen Adresse "
+"gespeicherte Adresse"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then "
 "dereference"
-msgstr "<b>Indiziert Indirekt</b> (<tt>($c0,X)</tt>): Addiert X zur Nullseitenadresse, dann dereferenzieren"
+msgstr ""
+"<b>Indiziert Indirekt</b> (<tt>($c0,X)</tt>): Addiert X zur "
+"Nullseitenadresse, dann dereferenzieren"
 
 #: ../learn/dist/quick-help.ui:11
 msgid ""
 "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Dereference zero page address, "
 "then add Y"
-msgstr "<b>Indirekt Indiziert</b> (<tt>($c0),Y</tt>): Dereferenziert Nullseitenadresse, dann Y addieren"
+msgstr ""
+"<b>Indirekt Indiziert</b> (<tt>($c0),Y</tt>): Dereferenziert "
+"Nullseitenadresse, dann Y addieren"
 
 #: ../learn/dist/quick-help.ui:12
 msgid "Common Instructions"
@@ -664,7 +697,9 @@ msgstr "<b>JSR/RTS</b>: Sprung zu Unterprogramm / Rückkehr aus Unterprogramm"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>BEQ/BNE/BCC/BCS</b>: Branch if equal/not equal/carry clear/carry set"
-msgstr "<b>BEQ/BNE/BCC/BCS</b>: Verzweige wenn gleich/ungleich/Übertrag gelöscht/Übertrag gesetzt"
+msgstr ""
+"<b>BEQ/BNE/BCC/BCS</b>: Verzweige wenn gleich/ungleich/Übertrag gelöscht/"
+"Übertrag gesetzt"
 
 #: ../learn/dist/quick-help.ui:13
 msgid "<b>PHA/PLA</b>: Push/pull accumulator to/from stack"

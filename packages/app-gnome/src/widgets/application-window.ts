@@ -151,11 +151,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 
   private setupDebuggerSignalListeners(): void {
-    this._debugger.connect('hexdump-copy', this.onCopy.bind(this));
-    this._debugger.connect('hexmonitor-copy', this.onCopy.bind(this));
+    this._debugger.connect('copy-to-clipboard', this.onCopyToClipboard.bind(this));
+    this._debugger.connect('copy-to-editor', this.onCopyToEditor.bind(this));
   }
 
-  private onCopy(self: Debugger, code: string): void {
+  private onCopyToClipboard(self: Debugger, code: string): void {
     const success = copyToClipboard(code, self.get_clipboard());
     if (success) {
       this.showToast({
@@ -168,6 +168,10 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         timeout: 2,
       });
     }
+  }
+
+  private onCopyToEditor(self: Debugger, code: string): void {
+    this.setEditorCode(code);
   }
 
   private setupGeneralSignalListeners(): void {
@@ -356,6 +360,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
       }
 
       this._debugger.updateHexdump(this._gameConsole.assembler);
+      this._debugger.updateDisassembled(this._gameConsole.assembler);
 
       this.onSimulatorStateChange(this._gameConsole.simulator.state);
 
@@ -380,14 +385,14 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
     this._gameConsole.connect('hexdump', (_gameConsole, signal) => {
       if(signal.message) {
         const params = signal.params || [];
-        this._debugger.log(_("Hexdump:") + " " + _(signal.message).format(...params));
+        this._debugger.log(_("Hexdump:") + "\n" + _(signal.message).format(...params));
       }
     })
 
     this._gameConsole.connect('disassembly', (_gameConsole, signal) => {
       if(signal.message) {
         const params = signal.params || [];
-        this._debugger.log(_("Disassembly:") + " " + _(signal.message).format(...params));
+        this._debugger.log(_("Disassembly:") + "\n" + _(signal.message).format(...params));
       }
     })
 
