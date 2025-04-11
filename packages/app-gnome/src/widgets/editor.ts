@@ -1,7 +1,9 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
+import Gtk from '@girs/gtk-4.0'
 import GtkSource from '@girs/gtksource-5'
 import { SourceView } from './source-view.ts'
+import { QuickHelp } from './mdx/quick-help.ts'
 
 import Template from './editor.blp'
 
@@ -17,11 +19,17 @@ export class Editor extends Adw.Bin {
   /** The SourceView that displays the buffer's display */
   declare private _sourceView: SourceView
 
+  /** The QuickHelp that displays the quick help */
+  declare private _quickHelp: QuickHelp
+
+  /** The ScrolledWindow that contains the quick help */
+  declare private _scrolledWindow: Gtk.ScrolledWindow
+
   static {
     GObject.registerClass({
       GTypeName: 'Editor',
       Template,
-      InternalChildren: ['sourceView'],
+      InternalChildren: ['sourceView', 'quickHelp', 'scrolledWindow'],
       Signals: {
         'changed': {
           param_types: [],

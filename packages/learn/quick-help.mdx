@@ -1,5 +1,3 @@
-# 6502 Assembly Quick Reference
-
 ## Memory Map
 - **Zero Page**: `$0000`-`$00FF` (first 256 bytes, faster access)
 - **Stack**: `$0100`-`$01FF`
@@ -11,6 +9,24 @@
 - Values `$00`-`$0F` represent 16 different colors (`$00`=black, `$01`=white)
 - Organized as four horizontal strips of 32×8 pixels
 - First row: `$0200`-`$021F`, second row: `$0220`-`$023F`, etc.
+
+### Color Palette
+- **`$0`**: Black (`#000000`)
+- **`$1`**: White (`#ffffff`)
+- **`$2`**: Red (`#880000`)
+- **`$3`**: Cyan (`#aaffee`)
+- **`$4`**: Purple (`#cc44cc`)
+- **`$5`**: Green (`#00cc55`)
+- **`$6`**: Blue (`#0000aa`)
+- **`$7`**: Yellow (`#eeee77`)
+- **`$8`**: Orange (`#dd8855`)
+- **`$9`**: Brown (`#664400`)
+- **`$a`**: Light red (`#ff7777`)
+- **`$b`**: Dark grey (`#333333`)
+- **`$c`**: Grey (`#777777`)
+- **`$d`**: Light green (`#aaff66`)
+- **`$e`**: Light blue (`#0088ff`)
+- **`$f`**: Light grey (`#bbbbbb`)
 
 ## Registers
 - **A** (Accumulator): Main register for calculations and data manipulation
@@ -53,14 +69,14 @@
 - **`$FF`**: Last pressed key (ASCII code)
 
 **Directional controls**:
-- W or Up Arrow key (`$77`)
-- A or Left Arrow key (`$61`)
-- S or Down Arrow key (`$73`)
-- D or Right Arrow key (`$64`)
+- **W** or Up Arrow key (`$77`)
+- **A** or Left Arrow key (`$61`)
+- **S** or Down Arrow key (`$73`)
+- **D** or Right Arrow key (`$64`)
 
 **Action buttons**:
-- A or Enter/Return key (`$0D`)
-- B or Space key (`$20`)
+- **Q** or Enter/Return key (`$0D`)
+- **E** or Space key (`$20`)
 
 ## Snake Game Memory Usage
 - **`$00`-`$01`**: Apple position

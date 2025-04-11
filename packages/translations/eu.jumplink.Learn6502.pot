@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.1.2\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-11 14:55+0200\n"
+"POT-Creation-Date: 2025-04-11 19:37+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,45 +181,45 @@ msgstr ""
 msgid "Gamepad key pressed:"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:683
+#: ../app-gnome/src/widgets/application-window.ts:685
 msgid "Open Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:694
+#: ../app-gnome/src/widgets/application-window.ts:696
 msgid "Failed to load file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:712
+#: ../app-gnome/src/widgets/application-window.ts:714
 msgid "File loaded successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:718
+#: ../app-gnome/src/widgets/application-window.ts:720
 msgid "Error opening file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:734
-#: ../app-gnome/src/widgets/application-window.ts:735
+#: ../app-gnome/src/widgets/application-window.ts:736
+#: ../app-gnome/src/widgets/application-window.ts:737
 msgid "untitled"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:741
+#: ../app-gnome/src/widgets/application-window.ts:743
 msgid "Save Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:754
-#: ../app-gnome/src/widgets/application-window.ts:792
+#: ../app-gnome/src/widgets/application-window.ts:756
+#: ../app-gnome/src/widgets/application-window.ts:794
 msgid "Error saving file"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:785
+#: ../app-gnome/src/widgets/application-window.ts:787
 msgid "File saved successfully"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:803
+#: ../app-gnome/src/widgets/application-window.ts:805
 msgid "Assembly Files"
 msgstr ""
 
-#: ../app-gnome/src/widgets/application-window.ts:808
+#: ../app-gnome/src/widgets/application-window.ts:810
 msgid "All Files"
 msgstr ""
 
@@ -263,6 +263,7 @@ msgid "Save as..."
 msgstr ""
 
 #: ../app-gnome/src/widgets/application-window.blp:143
+#: ../app-gnome/src/widgets/editor.blp:8
 #: ../app-gnome/src/widgets/help-window.blp:7
 msgid "Help"
 msgstr ""
@@ -345,20 +346,20 @@ msgstr ""
 msgid "Information"
 msgstr ""
 
-#: ../app-gnome/src/widgets/debugger/debugger.blp:52
+#: ../app-gnome/src/widgets/debugger/debugger.blp:53
+msgid "Messages"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debugger.blp:68
 msgid "Hex Monitor"
 msgstr ""
 
-#: ../app-gnome/src/widgets/debugger/debugger.blp:67
+#: ../app-gnome/src/widgets/debugger/debugger.blp:83
 msgid "Hexdump"
 msgstr ""
 
-#: ../app-gnome/src/widgets/debugger/debugger.blp:82
+#: ../app-gnome/src/widgets/debugger/debugger.blp:98
 msgid "Disassembled"
-msgstr ""
-
-#: ../app-gnome/src/widgets/debugger/debugger.blp:97
-msgid "Messages"
 msgstr ""
 
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
@@ -496,268 +497,333 @@ msgid "Emulator"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:1
-msgid "6502 Assembly Quick Reference"
-msgstr ""
-
-#: ../learn/dist/quick-help.ui:2
 msgid "Memory Map"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:3 ../learn/dist/quick-help.ui:5
-#: ../learn/dist/quick-help.ui:7 ../learn/dist/quick-help.ui:9
-#: ../learn/dist/quick-help.ui:11 ../learn/dist/quick-help.ui:13
-#: ../learn/dist/quick-help.ui:15 ../learn/dist/quick-help.ui:17
-#: ../learn/dist/quick-help.ui:19 ../learn/dist/quick-help.ui:21
+#: ../learn/dist/quick-help.ui:2 ../learn/dist/quick-help.ui:4
+#: ../learn/dist/quick-help.ui:6 ../learn/dist/quick-help.ui:8
+#: ../learn/dist/quick-help.ui:10 ../learn/dist/quick-help.ui:12
+#: ../learn/dist/quick-help.ui:14 ../learn/dist/quick-help.ui:16
+#: ../learn/dist/quick-help.ui:18 ../learn/dist/quick-help.ui:20
+#: ../learn/dist/quick-help.ui:22
 msgid "•"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:3
+#: ../learn/dist/quick-help.ui:2
 msgid ""
 "<b>Zero Page</b>: <tt>$0000</tt>-<tt>$00FF</tt> (first 256 bytes, faster "
 "access)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:3
+#: ../learn/dist/quick-help.ui:2
 msgid "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:3
+#: ../learn/dist/quick-help.ui:2
 msgid ""
 "<b>Display Memory</b>: <tt>$0200</tt>-<tt>$05FF</tt> (used for screen output)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:3
+#: ../learn/dist/quick-help.ui:2
 msgid "<b>Program Storage</b>: Starting at <tt>$0600</tt>"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:4
+#: ../learn/dist/quick-help.ui:3
 msgid "Display Organization"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:5
+#: ../learn/dist/quick-help.ui:4
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:5
+#: ../learn/dist/quick-help.ui:4
 msgid ""
 "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</"
 "tt>=black, <tt>$01</tt>=white)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:5
+#: ../learn/dist/quick-help.ui:4
 msgid "Organized as four horizontal strips of 32×8 pixels"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:5
+#: ../learn/dist/quick-help.ui:4
 msgid ""
 "First row: <tt>$0200</tt>-<tt>$021F</tt>, second row: <tt>$0220</tt>-"
 "<tt>$023F</tt>, etc."
 msgstr ""
 
+#: ../learn/dist/quick-help.ui:5
+msgid "Color Palette"
+msgstr ""
+
 #: ../learn/dist/quick-help.ui:6
-msgid "Registers"
+msgid "<b><tt>$0</tt></b>: Black (<tt>#000000</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$1</tt></b>: White (<tt>#ffffff</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$2</tt></b>: Red (<tt>#880000</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$3</tt></b>: Cyan (<tt>#aaffee</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$4</tt></b>: Purple (<tt>#cc44cc</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$5</tt></b>: Green (<tt>#00cc55</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$6</tt></b>: Blue (<tt>#0000aa</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$7</tt></b>: Yellow (<tt>#eeee77</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$8</tt></b>: Orange (<tt>#dd8855</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$9</tt></b>: Brown (<tt>#664400</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$a</tt></b>: Light red (<tt>#ff7777</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$b</tt></b>: Dark grey (<tt>#333333</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$c</tt></b>: Grey (<tt>#777777</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$d</tt></b>: Light green (<tt>#aaff66</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$e</tt></b>: Light blue (<tt>#0088ff</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:6
+msgid "<b><tt>$f</tt></b>: Light grey (<tt>#bbbbbb</tt>)"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:7
+msgid "Registers"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:8
 msgid ""
 "<b>A</b> (Accumulator): Main register for calculations and data manipulation"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:7
+#: ../learn/dist/quick-help.ui:8
 msgid "<b>X, Y</b>: Index registers for addressing and counting"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:7
+#: ../learn/dist/quick-help.ui:8
 msgid ""
 "<b>SP</b> (Stack Pointer): Points to current stack position (starts at "
 "<tt>$FF</tt>)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:7
+#: ../learn/dist/quick-help.ui:8
 msgid "<b>PC</b> (Program Counter): Points to the next instruction to execute"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:8
+#: ../learn/dist/quick-help.ui:9
 msgid "Processor Flags"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:10
 msgid "<b>N</b> (Negative): Set when bit 7 of result is set"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:10
 msgid ""
 "<b>V</b> (Overflow): Set when arithmetic operation causes signed overflow"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:10
 msgid "<b>B</b> (Break): Set when BRK instruction is executed"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:10
 msgid ""
 "<b>D</b> (Decimal): Set when processor is in BCD (Binary Coded Decimal) mode"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:10
 msgid "<b>I</b> (Interrupt): Set when interrupts are disabled"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:10
 msgid "<b>Z</b> (Zero): Set when result is zero"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:10
 msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:9
+#: ../learn/dist/quick-help.ui:10
 msgid "Used for conditional branching"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:10
+#: ../learn/dist/quick-help.ui:11
 msgid "Addressing Modes"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:11
+#: ../learn/dist/quick-help.ui:12
 msgid "<b>Immediate</b> (<tt>#$c0</tt>): Use the actual value"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:11
+#: ../learn/dist/quick-help.ui:12
 msgid ""
 "<b>Zero Page</b> (<tt>$c0</tt>): Access memory locations <tt>$00</tt>-"
 "<tt>$FF</tt>"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:11
+#: ../learn/dist/quick-help.ui:12
 msgid "<b>Absolute</b> (<tt>$c000</tt>): Access any memory location"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:11
+#: ../learn/dist/quick-help.ui:12
 msgid ""
 "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:11
+#: ../learn/dist/quick-help.ui:12
 msgid ""
 "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:11
+#: ../learn/dist/quick-help.ui:12
 msgid ""
 "<b>Indirect</b> (<tt>($c000)</tt>): Look up address stored at given location"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:11
+#: ../learn/dist/quick-help.ui:12
 msgid ""
 "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then "
 "dereference"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:11
+#: ../learn/dist/quick-help.ui:12
 msgid ""
 "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Dereference zero page address, "
 "then add Y"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:12
+#: ../learn/dist/quick-help.ui:13
 msgid "Common Instructions"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:14
 msgid "<b>LDA/LDX/LDY</b>: Load registers"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:14
 msgid "<b>STA/STX/STY</b>: Store registers to memory"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:14
 msgid "<b>INX/INY/DEX/DEY</b>: Increment/decrement registers"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:14
 msgid "<b>ADC/SBC</b>: Add/subtract with carry"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:14
 msgid "<b>JMP</b>: Unconditional jump"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:14
 msgid "<b>JSR/RTS</b>: Jump to subroutine / Return from subroutine"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:14
 msgid "<b>BEQ/BNE/BCC/BCS</b>: Branch if equal/not equal/carry clear/carry set"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:13
+#: ../learn/dist/quick-help.ui:14
 msgid "<b>PHA/PLA</b>: Push/pull accumulator to/from stack"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:14
+#: ../learn/dist/quick-help.ui:15
 msgid "Special Memory Locations (in Simulator)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:15
+#: ../learn/dist/quick-help.ui:16
 msgid ""
 "<b><tt>$FE</tt></b>: Random number generator (reads as a random value 0-255)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:15
+#: ../learn/dist/quick-help.ui:16
 msgid "<b><tt>$FF</tt></b>: Last pressed key (ASCII code)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:16
+#: ../learn/dist/quick-help.ui:17
 msgid "<b>Directional controls</b>:"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:17
-msgid "W or Up Arrow key (<tt>$77</tt>)"
-msgstr ""
-
-#: ../learn/dist/quick-help.ui:17
-msgid "A or Left Arrow key (<tt>$61</tt>)"
-msgstr ""
-
-#: ../learn/dist/quick-help.ui:17
-msgid "S or Down Arrow key (<tt>$73</tt>)"
-msgstr ""
-
-#: ../learn/dist/quick-help.ui:17
-msgid "D or Right Arrow key (<tt>$64</tt>)"
+#: ../learn/dist/quick-help.ui:18
+msgid "<b>W</b> or Up Arrow key (<tt>$77</tt>)"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:18
+msgid "<b>A</b> or Left Arrow key (<tt>$61</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:18
+msgid "<b>S</b> or Down Arrow key (<tt>$73</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:18
+msgid "<b>D</b> or Right Arrow key (<tt>$64</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:19
 msgid "<b>Action buttons</b>:"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:19
-msgid "A or Enter/Return key (<tt>$0D</tt>)"
-msgstr ""
-
-#: ../learn/dist/quick-help.ui:19
-msgid "B or Space key (<tt>$20</tt>)"
+#: ../learn/dist/quick-help.ui:20
+msgid "<b>Q</b> or Enter/Return key (<tt>$0D</tt>)"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:20
+msgid "<b>E</b> or Space key (<tt>$20</tt>)"
+msgstr ""
+
+#: ../learn/dist/quick-help.ui:21
 msgid "Snake Game Memory Usage"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:21
+#: ../learn/dist/quick-help.ui:22
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:21
+#: ../learn/dist/quick-help.ui:22
 msgid "<b><tt>$02</tt></b>: Snake direction (1=up, 2=right, 4=down, 8=left)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:21
+#: ../learn/dist/quick-help.ui:22
 msgid "<b><tt>$03</tt></b>: Snake length"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:21
+#: ../learn/dist/quick-help.ui:22
 msgid ""
 "<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position data (head, body segments, "
 "tail)"

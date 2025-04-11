@@ -47,6 +47,21 @@ template $Debugger: Adw.Bin {
               $DebugInfo debugInfo {}
             }
 
+            // Messages
+            Label {
+              label: _("Messages");
+              halign: start;
+              margin-bottom: 12;
+              margin-top: 12;
+              styles [
+                "heading"
+              ]
+            }
+            Frame {
+              margin-bottom: 12;
+              $MessageConsole messageConsole {}
+            }
+
             // Hex Monitor
             Label {
               label: _("Hex Monitor");
@@ -90,21 +105,6 @@ template $Debugger: Adw.Bin {
             Frame {
               margin-bottom: 12;
               $Disassembled disassembled {}
-            }
-
-            // Messages
-            Label {
-              label: _("Messages");
-              halign: start;
-              margin-bottom: 12;
-              margin-top: 12;
-              styles [
-                "heading"
-              ]
-            }
-            Frame {
-              margin-bottom: 12;
-              $MessageConsole messageConsole {}
             }
           };
         };

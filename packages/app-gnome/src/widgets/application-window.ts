@@ -532,9 +532,11 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
         this._gameConsole.gamepadPress('Right');
         break;
       case Gdk.KEY_Return:
+      case Gdk.KEY_q:
         this._gameConsole.gamepadPress('A');
         break;
       case Gdk.KEY_space:
+      case Gdk.KEY_e:
         this._gameConsole.gamepadPress('B');
         break;
     }
