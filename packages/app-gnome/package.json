@@ -1,6 +1,6 @@
 {
     "name": "@learn6502/app-gnome",
-    "version": "0.1.2",
+    "version": "0.2.0",
     "description": "Learn 6502 assembly by developing games on a virtual console",
     "main": "dist/main.js",
     "type": "module",
@@ -24,9 +24,9 @@
     "devDependencies": {
         "@learn6502/vite-plugin-blueprint": "workspace:^",
         "@learn6502/vite-plugin-gettext": "workspace:^",
-        "typescript": "^5.8.2",
-        "vite": "^6.2.4",
-        "vite-plugin-static-copy": "^2.3.0"
+        "typescript": "^5.8.3",
+        "vite": "^6.2.6",
+        "vite-plugin-static-copy": "^2.3.1"
     },
     "dependencies": {
         "@girs/adw-1": "^1.8.0-4.0.0-beta.23",

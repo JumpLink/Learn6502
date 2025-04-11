@@ -675,7 +675,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/6502@workspace:packages/6502"
   dependencies:
-    typescript: "npm:^5.8.2"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -700,9 +700,9 @@ __metadata:
     "@learn6502/translations": "workspace:^"
     "@learn6502/vite-plugin-blueprint": "workspace:^"
     "@learn6502/vite-plugin-gettext": "workspace:^"
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.4"
-    vite-plugin-static-copy: "npm:^2.3.0"
+    typescript: "npm:^5.8.3"
+    vite: "npm:^6.2.6"
+    vite-plugin-static-copy: "npm:^2.3.1"
   languageName: unknown
   linkType: soft
 
@@ -712,8 +712,8 @@ __metadata:
   dependencies:
     "@learn6502/6502": "workspace:^"
     lightningcss: "npm:^1.29.3"
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.4"
+    typescript: "npm:^5.8.3"
+    vite: "npm:^6.2.6"
   languageName: unknown
   linkType: soft
 
@@ -723,10 +723,10 @@ __metadata:
   dependencies:
     "@mdx-js/esbuild": "npm:^3.1.0"
     "@types/mdx": "npm:^2.0.13"
-    "@types/node": "npm:^22.13.17"
+    "@types/node": "npm:^22.14.0"
     esbuild: "npm:^0.25.2"
     nano-jsx: "npm:^0.1.0"
-    typescript: "npm:^5.8.2"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -742,11 +742,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint"
   dependencies:
-    "@types/node": "npm:^22.13.17"
+    "@types/node": "npm:^22.14.0"
     execa: "npm:^9.5.2"
     minify-xml: "npm:^4.5.2"
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.4"
+    typescript: "npm:^5.8.3"
+    vite: "npm:^6.2.6"
   peerDependencies:
     vite: "*"
   languageName: unknown
@@ -756,11 +756,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext"
   dependencies:
-    "@types/node": "npm:^22.13.17"
+    "@types/node": "npm:^22.14.0"
     execa: "npm:^9.5.2"
     fast-glob: "npm:^3.3.3"
-    typescript: "npm:^5.8.2"
-    vite: "npm:^6.2.4"
+    typescript: "npm:^5.8.3"
+    vite: "npm:^6.2.6"
   peerDependencies:
     vite: "*"
   languageName: unknown
@@ -1082,12 +1082,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.13.17":
-  version: 22.13.17
-  resolution: "@types/node@npm:22.13.17"
+"@types/node@npm:^22.14.0":
+  version: 22.14.0
+  resolution: "@types/node@npm:22.14.0"
   dependencies:
-    undici-types: "npm:~6.20.0"
-  checksum: 10c0/77a052fec0fe02f60557e1c5f3f28eb09cd9bee426be88328a94689150a3c0df5b4b6b69fad28157fb34521693dad0b311ecd7f613845d681ff973991310c20e
+    undici-types: "npm:~6.21.0"
+  checksum: 10c0/9d79f3fa1af9c2c869514f419c4a4905b34c10e12915582fd1784868ac4e74c6d306cf5eb47ef889b6750ab85a31be96618227b86739c4a3e0b1c15063f384c6
   languageName: node
   linkType: hard
 
@@ -2248,7 +2248,7 @@ __metadata:
   resolution: "learn6502@workspace:."
   dependencies:
     prettier: "npm:^3.5.3"
-    typescript: "npm:^5.8.2"
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 
@@ -3778,30 +3778,30 @@ __metadata:
   languageName: node
   linkType: hard
 
-"typescript@npm:^5.8.2":
-  version: 5.8.2
-  resolution: "typescript@npm:5.8.2"
+"typescript@npm:^5.8.3":
+  version: 5.8.3
+  resolution: "typescript@npm:5.8.3"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/5c4f6fbf1c6389b6928fe7b8fcd5dc73bb2d58cd4e3883f1d774ed5bd83b151cbac6b7ecf11723de56d4676daeba8713894b1e9af56174f2f9780ae7848ec3c6
+  checksum: 10c0/5f8bb01196e542e64d44db3d16ee0e4063ce4f3e3966df6005f2588e86d91c03e1fb131c2581baf0fb65ee79669eea6e161cd448178986587e9f6844446dbb48
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@npm%3A^5.8.2#optional!builtin<compat/typescript>":
-  version: 5.8.2
-  resolution: "typescript@patch:typescript@npm%3A5.8.2#optional!builtin<compat/typescript>::version=5.8.2&hash=5786d5"
+"typescript@patch:typescript@npm%3A^5.8.3#optional!builtin<compat/typescript>":
+  version: 5.8.3
+  resolution: "typescript@patch:typescript@npm%3A5.8.3#optional!builtin<compat/typescript>::version=5.8.3&hash=5786d5"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10c0/5448a08e595cc558ab321e49d4cac64fb43d1fa106584f6ff9a8d8e592111b373a995a1d5c7f3046211c8a37201eb6d0f1566f15cdb7a62a5e3be01d087848e2
+  checksum: 10c0/39117e346ff8ebd87ae1510b3a77d5d92dae5a89bde588c747d25da5c146603a99c8ee588c7ef80faaf123d89ed46f6dbd918d534d641083177d5fac38b8a1cb
   languageName: node
   linkType: hard
 
-"undici-types@npm:~6.20.0":
-  version: 6.20.0
-  resolution: "undici-types@npm:6.20.0"
-  checksum: 10c0/68e659a98898d6a836a9a59e6adf14a5d799707f5ea629433e025ac90d239f75e408e2e5ff086afc3cace26f8b26ee52155293564593fbb4a2f666af57fc59bf
+"undici-types@npm:~6.21.0":
+  version: 6.21.0
+  resolution: "undici-types@npm:6.21.0"
+  checksum: 10c0/c01ed51829b10aa72fc3ce64b747f8e74ae9b60eafa19a7b46ef624403508a54c526ffab06a14a26b3120d055e1104d7abe7c9017e83ced038ea5cf52f8d5e04
   languageName: node
   linkType: hard
 
@@ -3936,9 +3936,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite-plugin-static-copy@npm:^2.3.0":
-  version: 2.3.0
-  resolution: "vite-plugin-static-copy@npm:2.3.0"
+"vite-plugin-static-copy@npm:^2.3.1":
+  version: 2.3.1
+  resolution: "vite-plugin-static-copy@npm:2.3.1"
   dependencies:
     chokidar: "npm:^3.5.3"
     fast-glob: "npm:^3.2.11"
@@ -3947,13 +3947,13 @@ __metadata:
     picocolors: "npm:^1.0.0"
   peerDependencies:
     vite: ^5.0.0 || ^6.0.0
-  checksum: 10c0/fdf6bf52617eb5e3784e89cd473ef7d6551d273576c414388457346f28344042f057cfb079e532332c04da6b04f67e262557f03279fc7b48bdaf386c8b76bbc0
+  checksum: 10c0/21bc3823b70534c09c73ff272851329242fa4e307160681950883afca78b1bb4aa156c1a81431a3cb72ad1a81d49293a63b4e3c10d19e22ec3bfbc80099cae94
   languageName: node
   linkType: hard
 
-"vite@npm:^6.2.4":
-  version: 6.2.4
-  resolution: "vite@npm:6.2.4"
+"vite@npm:^6.2.6":
+  version: 6.2.6
+  resolution: "vite@npm:6.2.6"
   dependencies:
     esbuild: "npm:^0.25.0"
     fsevents: "npm:~2.3.3"
@@ -3999,7 +3999,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/5a011ee5cce91de023a22564a314f04bf64d0d02b420d92c3d539d10257448d60e98e52b491404656426fba4a50dc25f107282540d7388fc5303dc441280155e
+  checksum: 10c0/68a2ed3e61bdd654c59b817b4f3203065241c66d1739faa707499130f3007bc3a666c7a8320a4198e275e62b5e4d34d9b78a6533f69e321d366e76f5093b2071
   languageName: node
   linkType: hard
 
