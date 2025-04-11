@@ -28,27 +28,27 @@
   <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/1.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/1.png</image>
       <caption>Interactive tutorial interface in light theme</caption>
       <caption xml:lang="de">Interaktive Tutorial-Oberfläche im hellen Design</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/2.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/2.png</image>
       <caption>Interactive tutorial interface in dark theme</caption>
       <caption xml:lang="de">Interaktive Tutorial-Oberfläche im dunklen Design</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/3.png</image>
-      <caption>Code editor with 6502 assembly syntax highlighting</caption>
-      <caption xml:lang="de">Code-Editor mit Syntaxhervorhebung für 6502-Assembler</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/3.png</image>
+      <caption>Code editor with 6502 assembly syntax highlighting and visible help</caption>
+      <caption xml:lang="de">Code-Editor mit Syntaxhervorhebung für 6502-Assembler und sichtbarer Hilfe</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/4.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/4.png</image>
       <caption>Built-in debugger showing real-time registers, flags, and memory</caption>
       <caption xml:lang="de">Integrierter Debugger mit Echtzeit-Anzeige von Registern, Flags und Speicher</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/5.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/5.png</image>
       <caption>Virtual game console displaying three colored pixels</caption>
       <caption xml:lang="de">Virtuelle Spielkonsole mit drei farbigen Pixeln</caption>
     </screenshot>
@@ -63,6 +63,26 @@
   </developer>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.2.0" date="2025-04-11">
+      <description>
+        <p>Major update focusing on improved learning experience and usability</p>
+        <p xml:lang="de">Umfangreiches Update mit Fokus auf verbessertes Lernerlebnis und Benutzerfreundlichkeit</p>
+        <ul>
+          <li>Added help feature to make code editing easier for beginners</li>
+          <li xml:lang="de">Hilfefunktion hinzugefügt, um die Codebearbeitung für Anfänger zu erleichtern</li>
+          <li>Improved game screen and controls for mobile devices</li>
+          <li xml:lang="de">Verbesserte Spieloberfläche und Steuerung für mobile Geräte</li>
+          <li>New tools to examine your code, including disassembler and fast switchable memory viewer</li>
+          <li xml:lang="de">Neue Werkzeuge zur Code-Analyse, einschließlich Disassembler und schnell umschaltbarer Speicheransicht</li>
+          <li>Many minor bugs have been fixed to improve overall usability</li>
+          <li xml:lang="de">Zahlreiche kleine Fehler wurden behoben, um die allgemeine Benutzerfreundlichkeit zu verbessern</li>
+          <li>Games now automatically pause when switching between screens</li>
+          <li xml:lang="de">Spiele werden jetzt automatisch pausiert, wenn zwischen Bildschirmen gewechselt wird</li>
+          <li>Added file management to save and load your programs</li>
+          <li xml:lang="de">Dateiverwaltung zum Speichern und Laden von Programmen hinzugefügt</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.1.2" date="2025-04-03">
       <description>
         <p>Enhanced app presentation and accessibility</p>

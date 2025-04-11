@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-11 19:49+0200\n"
+"POT-Creation-Date: 2025-04-11 20:33+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -447,8 +447,8 @@ msgid "Interactive tutorial interface in dark theme"
 msgstr "Interaktive Tutorial-Oberfläche im dunklen Design"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:32
-msgid "Code editor with 6502 assembly syntax highlighting"
-msgstr "Code-Editor mit Syntaxhervorhebung für 6502-Assembler"
+msgid "Code editor with 6502 assembly syntax highlighting and visible help"
+msgstr "Code-Editor mit Syntaxhervorhebung für 6502-Assembler und sichtbarer Hilfe"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:36
 msgid "Built-in debugger showing real-time registers, flags, and memory"
@@ -460,64 +460,103 @@ msgid "Virtual game console displaying three colored pixels"
 msgstr "Virtuelle Spielkonsole mit drei farbigen Pixeln"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:55
+msgid "Major update focusing on improved learning experience and usability"
+msgstr ""
+"Umfangreiches Update mit Fokus auf verbessertes Lernerlebnis und "
+"Benutzerfreundlichkeit"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:57
+msgid "Added help feature to make code editing easier for beginners"
+msgstr ""
+"Hilfefunktion hinzugefügt, um die Codebearbeitung für Anfänger zu erleichtern"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:58
+msgid "Improved game screen and controls for mobile devices"
+msgstr "Verbesserte Spieloberfläche und Steuerung für mobile Geräte"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:59
+msgid ""
+"New tools to examine your code, including disassembler and fast switchable "
+"memory viewer"
+msgstr ""
+"Neue Werkzeuge zur Code-Analyse, einschließlich Disassembler und schnell "
+"umschaltbarer Speicheransicht"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:60
+msgid "Many minor bugs have been fixed to improve overall usability"
+msgstr ""
+"Zahlreiche kleine Fehler wurden behoben, um die allgemeine "
+"Benutzerfreundlichkeit zu verbessern"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:61
+msgid "Games now automatically pause when switching between screens"
+msgstr ""
+"Spiele werden jetzt automatisch pausiert, wenn zwischen Bildschirmen "
+"gewechselt wird"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:62
+msgid "Added file management to save and load your programs"
+msgstr "Dateiverwaltung zum Speichern und Laden von Programmen hinzugefügt"
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:68
 msgid "Enhanced app presentation and accessibility"
 msgstr "Verbesserte App-Darstellung und Zugänglichkeit"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:56
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:69
 msgid "Improved descriptions to be more welcoming for non-technical users"
 msgstr "Verbesserte Beschreibungen für nicht-technische Benutzer"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:57
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:70
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr ""
 "Optimierte Flatpak-Konfiguration durch Entfernen unnötiger Berechtigungen"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:62
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:75
 msgid "Improved the game console performance for smoother gameplay"
 msgstr "Verbesserte Leistung der Spielekonsole für flüssigeres Gameplay"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:63
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:76
 msgid "Enhanced the hex monitor address range input for easier value editing"
 msgstr "Verbesserte Eingabe des Adressbereichs im Hex-Monitor"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:64
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:77
 msgid "Reduced default hex monitor address range for better efficiency"
 msgstr ""
 "Reduzierter Standard-Adressbereich des Hex-Monitors für bessere Effizienz"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:65
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:78
 msgid "Debugger now only updates when visible, reducing unnecessary processing"
 msgstr ""
 "Debugger wird nur noch aktualisiert, wenn er sichtbar ist, reduziert "
 "unnötige Verarbeitung"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:66
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:79
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
 msgstr ""
 "Build-Fehler unter PostmarketOS behoben, verbessert Kompatibilität mit "
 "Mobilgeräten"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:71
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:84
 msgid "First release of Learn 6502 Assembly for GNOME"
 msgstr "Erste Veröffentlichung von Lerne 6502 Assembler für GNOME"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:84
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:97
 msgid "6502"
 msgstr "6502"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:85
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:98
 msgid "Assembly"
 msgstr "Assembler"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:86
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:99
 msgid "Programming"
 msgstr "Programmierung"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:87
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:100
 msgid "Learning"
 msgstr "Lernen"
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:88
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:101
 msgid "Emulator"
 msgstr "Emulator"
 

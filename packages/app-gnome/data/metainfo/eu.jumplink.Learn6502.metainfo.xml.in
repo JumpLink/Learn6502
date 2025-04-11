@@ -20,23 +20,23 @@
   <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/1.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/1.png</image>
       <caption>Interactive tutorial interface in light theme</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/2.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/2.png</image>
       <caption>Interactive tutorial interface in dark theme</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/3.png</image>
-      <caption>Code editor with 6502 assembly syntax highlighting</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/3.png</image>
+      <caption>Code editor with 6502 assembly syntax highlighting and visible help</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/4.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/4.png</image>
       <caption>Built-in debugger showing real-time registers, flags, and memory</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.1.2/misc/screenshots/5.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/5.png</image>
       <caption>Virtual game console displaying three colored pixels</caption>
     </screenshot>
   </screenshots>
@@ -50,6 +50,19 @@
   </developer>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.2.0" date="2025-04-11">
+      <description>
+        <p>Major update focusing on improved learning experience and usability</p>
+        <ul>
+          <li>Added help feature to make code editing easier for beginners</li>
+          <li>Improved game screen and controls for mobile devices</li>
+          <li>New tools to examine your code, including disassembler and fast switchable memory viewer</li>
+          <li>Many minor bugs have been fixed to improve overall usability</li>
+          <li>Games now automatically pause when switching between screens</li>
+          <li>Added file management to save and load your programs</li>
+        </ul>
+      </description>
+    </release>
     <release version="0.1.2" date="2025-04-03">
       <description>
         <p>Enhanced app presentation and accessibility</p>

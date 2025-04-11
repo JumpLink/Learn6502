@@ -39,7 +39,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
    */
   const RESOURCES_PATH = '/' + APPLICATION_ID.replaceAll('.', '/')
   /**
-   * flatpak and local: 0.1.2
+   * flatpak and local: 0.2.0
    */
   const PACKAGE_VERSION = process.env.PACKAGE_VERSION || pkg.version
   /**
