@@ -3,6 +3,7 @@
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 [![Flathub](https://img.shields.io/flathub/v/eu.jumplink.Learn6502.svg)](https://flathub.org/apps/eu.jumplink.Learn6502)
+[![Weblate](https://hosted.weblate.org/widget/eu-jumplink-learn6502/app/svg-badge.svg)](https://hosted.weblate.org/engage/eu-jumplink-learn6502/)
 
 ## Modern 6502 Assembly Learning Environment for GNOME
 
