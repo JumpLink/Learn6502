@@ -8,18 +8,16 @@
         <ActionItem
             position="left"
             icon="res://reset_symbolic"
-            class="fas"
             tap="run"
         />
 
-        <ActionItem position="right" icon="res://baseline_more_vert_24" tab="openMenu" />
+        <ActionItem position="right" icon="res://baseline_more_vert_24" tap="openMenu" />
     </ActionBar>
 
     <!-- Use GridLayout to position content and bottom navigation -->
     <GridLayout rows="*, auto" columns="*">
         <!-- Frame for content switching -->
-        <Frame id="mainFrame" row="0" defaultPage="learn-page" />
-do
+        <Frame id="mainFrame" row="0" defaultPage="pages/learn.page" />
         <!-- Bottom navigation bar positioned at the bottom -->
         <widgets:MaterialBottomNavigation row="1" height="80">
             <widgets:BottomTab title="Learn" icon="res://school_symbolic" id="learn" />

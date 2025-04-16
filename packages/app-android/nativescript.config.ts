@@ -1,9 +1,9 @@
 import { NativeScriptConfig } from '@nativescript/core';
 
 export default {
-  id: 'org.nativescript.demots',
+  id: 'eu.jumplink.Learn6502',
   appPath: 'app',
-  appResourcesPath: 'App_Resources',
+  appResourcesPath: 'data',
   android: {
     v8Flags: '--expose_gc',
     markingMode: 'none'
