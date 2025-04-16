@@ -1,8 +1,8 @@
-import { ContentView, Property, TextView } from '@nativescript/core';
+import { ContentView, Property, TextView, Builder } from '@nativescript/core';
 import { debounce } from '@learn6502/6502';
 
 export class SourceView extends ContentView {
-    nativeTextView: TextView;
+    textView: TextView;
     private debouncedHighlighting: (code: string) => void;
     private _code: string = '';
 
@@ -33,15 +33,15 @@ export class SourceView extends ContentView {
     }
 
     updateText(code: string) {
-        if (this.nativeTextView) {
+        if (this.textView) {
             this.debouncedHighlighting(code);
         }
     }
 
     private applyHighlighting(code: string) {
-        if (this.nativeTextView?.android) {
+        if (this.textView?.android) {
             // Save cursor position
-            const nativeEditText = this.nativeTextView.android as android.widget.EditText;
+            const nativeEditText = this.textView.android as android.widget.EditText;
             const selectionStart = Math.min(nativeEditText.getSelectionStart(), code.length);
             const selectionEnd = Math.min(nativeEditText.getSelectionEnd(), code.length);
 
@@ -90,7 +90,7 @@ export class SourceView extends ContentView {
 
             try {
                 // Set text and restore cursor position
-                nativeEditText.setText(spannable as any);
+                nativeEditText.setText(spannable as any); // Wrong parameter type in NativeScript?
                 // Only set selection if we have valid positions
                 if (selectionStart >= 0 && selectionEnd >= 0 && selectionStart <= code.length && selectionEnd <= code.length) {
                     nativeEditText.setSelection(selectionStart, selectionEnd);
@@ -105,22 +105,29 @@ export class SourceView extends ContentView {
     onLoaded() {
         super.onLoaded();
 
-        // Create NativeScript TextView
-        this.nativeTextView = new TextView();
-        this.nativeTextView.editable = true;
-        this.nativeTextView.fontFamily = 'monospace';
-        this.nativeTextView.fontSize = 16;
-        this.nativeTextView.padding = 40;
-        this.nativeTextView.verticalAlignment = 'top';
+        // Load the XML layout using Builder
+        const componentView = Builder.load({
+            path: '~/widgets',
+            name: 'source-view'
+        });
+
+        console.log("componentView", componentView, componentView.getViewById('textView'));
+
+        // Bind the TextView from the loaded XML
+        this.textView = componentView.getViewById<TextView>('textView');
+
+        if (!this.textView) {
+            throw new Error('Failed to find textView in source-view.xml');
+        }
 
         // Add text change listener
-        this.nativeTextView.on('textChange', () => {
-            if (this.nativeTextView) {
-                this.updateText(this.nativeTextView.text);
+        this.textView.on('textChange', () => {
+            if (this.textView) {
+                this.updateText(this.textView.text);
             }
         });
 
-        this.content = this.nativeTextView;
+        this.content = componentView;
 
         // Apply initial text if set
         if (this.code) {
