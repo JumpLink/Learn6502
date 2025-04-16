@@ -44,5 +44,34 @@ export const throttle = <T extends (...args: any[]) => void>(
   };
 };
 
+/**
+ * Debounce function that delays invoking the provided function until after
+ * the specified delay has elapsed since the last time it was invoked.
+ * Perfect for handling rapid-fire events like text input.
+ *
+ * @param func - The function to debounce.
+ * @param delay - The delay in milliseconds.
+ * @returns The debounced function.
+ */
+export const debounce = <T extends (...args: any[]) => void>(
+  func: T,
+  delay: number
+): (...args: Parameters<T>) => void => {
+  let timeoutId: ReturnType<typeof setTimeout> | null = null;
+
+  return (...args: Parameters<T>) => {
+    // Clear previous timeout
+    if (timeoutId !== null) {
+      clearTimeout(timeoutId);
+    }
+
+    // Set new timeout
+    timeoutId = setTimeout(() => {
+      func(...args);
+      timeoutId = null;
+    }, delay);
+  };
+};
+
 /** Pseudo i18n function */
 export const _ = (str: string) => str;

@@ -1,0 +1,132 @@
+import { ContentView, Property, TextView } from '@nativescript/core';
+import { debounce } from '@learn6502/6502';
+
+export class SourceView extends ContentView {
+    nativeTextView: TextView;
+    private debouncedHighlighting: (code: string) => void;
+    private _code: string = '';
+
+    public static codeProperty = new Property<SourceView, string>({
+        name: 'code',
+        defaultValue: '',
+        affectsLayout: true,
+        valueChanged(target, oldValue, newValue) {
+            target._code = newValue;
+            target.updateText(newValue);
+        },
+    });
+
+    get code(): string {
+        return this._code;
+    }
+
+    set code(value: string) {
+        this._code = value;
+    }
+
+    constructor() {
+        super();
+        // Create debounced version of the highlighting function
+        this.debouncedHighlighting = debounce((code: string) => {
+            this.applyHighlighting(code);
+        }, 150); // Reduced delay for better responsiveness
+    }
+
+    updateText(code: string) {
+        if (this.nativeTextView) {
+            this.debouncedHighlighting(code);
+        }
+    }
+
+    private applyHighlighting(code: string) {
+        if (this.nativeTextView?.android) {
+            // Save cursor position
+            const nativeEditText = this.nativeTextView.android as android.widget.EditText;
+            const selectionStart = Math.min(nativeEditText.getSelectionStart(), code.length);
+            const selectionEnd = Math.min(nativeEditText.getSelectionEnd(), code.length);
+
+            const spannable = new android.text.SpannableString(code);
+
+            // Comments (green)
+            const commentPattern = /;.*/g;
+            let match: RegExpExecArray | null;
+            while ((match = commentPattern.exec(code)) !== null) {
+                spannable.setSpan(
+                    new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor('#008000')),
+                    match.index,
+                    match.index + match[0].length,
+                    android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+            }
+
+            // Opcodes (blue)
+            const opcodePattern = /\b(LDA|LDX|LDY|STA|STX|STY|ADC|SBC|INC|DEC|JMP|JSR|RTS|BEQ|BNE)\b/gi;
+            while ((match = opcodePattern.exec(code)) !== null) {
+                spannable.setSpan(
+                    new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor('#0000FF')),
+                    match.index,
+                    match.index + match[0].length,
+                    android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+                // Bold for opcodes
+                spannable.setSpan(
+                    new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
+                    match.index,
+                    match.index + match[0].length,
+                    android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+            }
+
+            // Hex values (purple)
+            const hexPattern = /(\$[0-9A-F]+|#\$[0-9A-F]+)/gi;
+            while ((match = hexPattern.exec(code)) !== null) {
+                spannable.setSpan(
+                    new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor('#800080')),
+                    match.index,
+                    match.index + match[0].length,
+                    android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
+                );
+            }
+
+            try {
+                // Set text and restore cursor position
+                nativeEditText.setText(spannable as any);
+                // Only set selection if we have valid positions
+                if (selectionStart >= 0 && selectionEnd >= 0 && selectionStart <= code.length && selectionEnd <= code.length) {
+                    nativeEditText.setSelection(selectionStart, selectionEnd);
+                }
+            } catch (error) {
+                // Log error but don't crash
+                console.error('Error applying text highlighting:', error);
+            }
+        }
+    }
+
+    onLoaded() {
+        super.onLoaded();
+
+        // Create NativeScript TextView
+        this.nativeTextView = new TextView();
+        this.nativeTextView.editable = true;
+        this.nativeTextView.fontFamily = 'monospace';
+        this.nativeTextView.fontSize = 16;
+        this.nativeTextView.padding = 40;
+        this.nativeTextView.verticalAlignment = 'top';
+
+        // Add text change listener
+        this.nativeTextView.on('textChange', () => {
+            if (this.nativeTextView) {
+                this.updateText(this.nativeTextView.text);
+            }
+        });
+
+        this.content = this.nativeTextView;
+
+        // Apply initial text if set
+        if (this.code) {
+            this.updateText(this.code);
+        }
+    }
+}
+
+SourceView.codeProperty.register(SourceView);
