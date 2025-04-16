@@ -136,7 +136,24 @@ export class SourceView extends ContentView {
             }
         });
 
+        // Add the componentView to the content, only after that the native views (`.android`) are ready
         this.content = componentView;
+
+        const textEdit = this.textView.android as android.widget.EditText;
+
+        if (!textEdit) {
+            throw new Error('Failed to find textEdit in source-view.xml');
+        }
+
+        // Set up scroll change listener
+        textEdit.setOnScrollChangeListener(new android.view.View.OnScrollChangeListener({
+            onScrollChange: (v, scrollX, scrollY, oldScrollX, oldScrollY) => {
+                if (this.lineNumbersView && this.lineNumbersView.android) {
+                    const lineNumbersEdit = this.lineNumbersView.android as android.widget.EditText;
+                    lineNumbersEdit.scrollTo(0, scrollY);
+                }
+            }
+        }));
 
         // Apply initial text if set
         if (this.code) {
