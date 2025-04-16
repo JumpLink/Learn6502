@@ -3,9 +3,6 @@
       actionBarHidden="true"
       navigatingTo="onNavigatingTo">
     <GridLayout rows="auto,*" columns="*">
-        <StackLayout row="0" col="0" class="p-5 bg-primary">
-            <Label text="6502 Assembly Editor" class="h2 text-center text-white" />
-        </StackLayout>
         <w:SourceView row="1" col="0" id="SourceView" code="; Example 6502 assembly code&#xA;&#xA;LDA #$01&#xA;STA $0200&#xA;LDX #$00&#xA;LDY #$00" />
     </GridLayout>
 </Page>

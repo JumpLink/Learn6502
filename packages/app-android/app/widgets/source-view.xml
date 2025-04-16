@@ -1,9 +1,20 @@
-<StackLayout xmlns="http://schemas.nativescript.org/tns.xsd">
+<StackLayout xmlns="http://schemas.nativescript.org/tns.xsd" orientation="horizontal">
+    <TextView id="lineNumbersView"
+              editable="false"
+              fontFamily="monospace"
+              fontSize="16"
+              padding="0"
+              margin="0"
+              verticalAlignment="top"
+              borderWidth="0"
+              borderColor="transparent"
+              width="40" />
     <TextView id="textView"
               editable="true"
               fontFamily="monospace"
               fontSize="16"
-              padding="40"
+              padding="0"
+              margin="0"
               verticalAlignment="top"
               borderWidth="0"
               borderColor="transparent" />

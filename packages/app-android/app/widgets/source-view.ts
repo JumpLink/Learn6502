@@ -5,6 +5,7 @@ export class SourceView extends ContentView {
     textView: TextView;
     private debouncedHighlighting: (code: string) => void;
     private _code: string = '';
+    private lineNumbersView: TextView;
 
     public static codeProperty = new Property<SourceView, string>({
         name: 'code',
@@ -120,10 +121,18 @@ export class SourceView extends ContentView {
             throw new Error('Failed to find textView in source-view.xml');
         }
 
-        // Add text change listener
+        // Bind the lineNumbersView from the loaded XML
+        this.lineNumbersView = componentView.getViewById<TextView>('lineNumbersView');
+
+        if (!this.lineNumbersView) {
+            throw new Error('Failed to find lineNumbersView in source-view.xml');
+        }
+
+        // Synchronize line numbers with text changes
         this.textView.on('textChange', () => {
             if (this.textView) {
                 this.updateText(this.textView.text);
+                this.updateLineNumbers(this.textView.text);
             }
         });
 
@@ -132,6 +141,13 @@ export class SourceView extends ContentView {
         // Apply initial text if set
         if (this.code) {
             this.updateText(this.code);
+        }
+    }
+
+    private updateLineNumbers(code: string) {
+        if (this.lineNumbersView) {
+            const lines = code.split('\n').map((_, index) => (index + 1).toString()).join('\n');
+            this.lineNumbersView.text = lines;
         }
     }
 }
