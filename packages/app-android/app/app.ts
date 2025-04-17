@@ -1,17 +1,12 @@
 /*
 In NativeScript, the app.ts file is the entry point to your application.
 You can use this file to perform app-level initialization, but the primary
-purpose of the file is to pass control to the app’s first module.
+purpose of the file is to pass control to the app's first module.
 */
-import { Application, type SystemAppearanceChangedEventData } from '@nativescript/core'
+import { Application } from '@nativescript/core'
+import { initLifecycle } from './utils/lifecycle';
 
-// Not ready yet?
-// const systemAppearance = Application.systemAppearance();
-// console.log('systemAppearance', systemAppearance);
-
-Application.on(Application.systemAppearanceChangedEvent, (event: SystemAppearanceChangedEventData) => {
-  console.log('systemAppearanceChangedEvent', event.newValue);
-});
+initLifecycle();
 
 Application.run({ moduleName: 'app-root' })
 
