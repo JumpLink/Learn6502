@@ -1,10 +1,9 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
-      xmlns:widgets="~/widgets/index">
+      xmlns:w="~/widgets/index">
     <ActionBar title="MyApp">
         <!-- explicitly hide the back button -->
         <NavigationButton visibility="collapsed" />
 
-        <!-- show a Font Awesome icon on the left -->
         <ActionItem
             position="left"
             icon="res://reset_symbolic"
@@ -19,12 +18,12 @@
         <!-- Frame for content switching -->
         <Frame id="mainFrame" row="0" defaultPage="pages/learn.page" />
         <!-- Bottom navigation bar positioned at the bottom -->
-        <widgets:MaterialBottomNavigation row="1" height="80">
-            <widgets:BottomTab title="Learn" icon="res://school_symbolic" id="learn" />
-            <widgets:BottomTab title="Editor" icon="res://code_symbolic" id="editor" />
-            <widgets:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger" />
-            <widgets:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic" id="game-console" />
-        </widgets:MaterialBottomNavigation>
+        <w:BottomNavigation row="1" height="80">
+            <w:BottomTab title="Learn" icon="res://school_symbolic" id="learn" />
+            <w:BottomTab title="Editor" icon="res://code_symbolic" id="editor" />
+            <w:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger" />
+            <w:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic" id="game-console" />
+        </w:BottomNavigation>
 
     </GridLayout>
 </Page>

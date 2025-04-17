@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <!-- Generated using https://material-foundation.github.io/material-theme-builder/ -->
-    <style name="AppThemeBase" parent="Theme.Material3.Light.NoActionBar">
+    <style name="AppThemeBase" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -51,7 +50,7 @@
     </style>
 
      <!-- theme to use AFTER launch screen is loaded-->
-    <style name="AppTheme" parent="AppThemeBase"></style>
+     <style name="AppTheme" parent="AppThemeBase"></style>
 
     <!-- theme to use FOR launch screen-->
     <style name="LaunchScreenThemeBase" parent="AppThemeBase"></style>

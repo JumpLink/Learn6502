@@ -1,7 +1,7 @@
 import { ContentView, Property, View, Frame, Application } from '@nativescript/core';
 import { BottomTab } from './bottom-tab';
 
-export class MaterialBottomNavigation extends ContentView {
+export class BottomNavigation extends ContentView {
   private bottomNav: com.google.android.material.bottomnavigation.BottomNavigationView;
   private pendingTabs: BottomTab[] = [];
   private tabsById = new Map<string, BottomTab>();
@@ -11,18 +11,17 @@ export class MaterialBottomNavigation extends ContentView {
     const context = this._context;
     this.bottomNav = new com.google.android.material.bottomnavigation.BottomNavigationView(context);
 
-    // Set label visibility mode to always show labels below icons
-    this.bottomNav.setLabelVisibilityMode(com.google.android.material.bottomnavigation.BottomNavigationView.LABEL_VISIBILITY_LABELED);
+    // Set background color
+    const backgroundColor = context.getResources().getColor(context.getResources().getIdentifier("md_theme_primary", "color", context.getPackageName()));
+    this.bottomNav.setBackgroundColor(backgroundColor);
 
-    // Set a fixed height directly (80dp converted to pixels) to fix label and icon overlap
-    // const density = context.getResources().getDisplayMetrics().density;
-    // const heightInPixels = Math.round(80 * density); // 80dp to pixels
+    // Set item color
+    const itemColor = context.getResources().getColor(context.getResources().getIdentifier("md_theme_onPrimary", "color", context.getPackageName()));
+    this.bottomNav.setItemTextColor(android.content.res.ColorStateList.valueOf(itemColor));
+    this.bottomNav.setItemIconTintList(android.content.res.ColorStateList.valueOf(itemColor));
 
-    // const layoutParams = new android.widget.FrameLayout.LayoutParams(
-    //   android.view.ViewGroup.LayoutParams.MATCH_PARENT,
-    //   heightInPixels
-    // );
-    // this.bottomNav.setLayoutParams(layoutParams);
+    // Set label visibility mode
+    this.bottomNav.setLabelVisibilityMode(com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
 
     // Set up item selection listener
     this.bottomNav.setOnItemSelectedListener(new com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener({
