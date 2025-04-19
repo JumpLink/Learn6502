@@ -5,30 +5,30 @@
 <Label text-wrap="true" margin-top="8" margin-bottom="8">In this tiny tutorial I&apos;m going to show you how to get started writing 6502
 assembly language. The 6502 processor was massive in the seventies and
 eighties, powering famous computers like the
-<a href="http://en.wikipedia.org/wiki/BBC_Micro">BBC Micro</a>,
-<a href="http://en.wikipedia.org/wiki/Atari_2600">Atari 2600</a>,
-<a href="http://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a>,
-<a href="http://en.wikipedia.org/wiki/Apple_II">Apple II</a>, and the <a href="http://en.wikipedia.org/wiki/Nintendo_Entertainment_System">Nintendo Entertainment
-System</a>. Bender in
-Futurama <a href="http://www.transbyte.org/SID/SID-files/Bender_6502.jpg">has a 6502 processor for a
-brain</a>. <a href="http://www.pagetable.com/docs/terminator/00-37-23.jpg">Even the
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://en.wikipedia.org/wiki/bbc_micro">BBC Micro</Label>,
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://en.wikipedia.org/wiki/atari_2600">Atari 2600</Label>,
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://en.wikipedia.org/wiki/commodore_64">Commodore 64</Label>,
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://en.wikipedia.org/wiki/apple_ii">Apple II</Label>, and the <Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://en.wikipedia.org/wiki/nintendo_entertainment_system">Nintendo Entertainment
+System</Label>. Bender in
+Futurama <Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://www.transbyte.org/sid/sid-files/bender_6502.jpg">has a 6502 processor for a
+brain</Label>. <Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://www.pagetable.com/docs/terminator/00-37-23.jpg">Even the
 Terminator was programmed in
-6502</a>.</Label>
+6502</Label>.</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">So, why would you want to learn 6502? It&apos;s a dead language isn&apos;t it? Well,
 so&apos;s Latin. And they still teach that.
-<a href="http://en.wikipedia.org/wiki/Q.E.D.">Q.E.D.</a></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://en.wikipedia.org/wiki/q.e.d.">Q.E.D.</Label></Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">(Actually, I&apos;ve been reliably informed that 6502 processors are still being
-produced by <a href="http://www.westerndesigncenter.com/wdc/w65c02s-chip.cfm">Western Design Center</a>
-and <a href="http://www.mouser.co.uk/Search/Refine.aspx?Keyword=65C02">sold to hobbyists</a>, so clearly 6502
+produced by <Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://www.westerndesigncenter.com/wdc/w65c02s-chip.cfm">Western Design Center</Label>
+and <Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://www.mouser.co.uk/search/refine.aspx?keyword=65c02">sold to hobbyists</Label>, so clearly 6502
 <Label font-style="italic">isn&apos;t</Label> a dead language! Who knew?)</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">Seriously though, I think it&apos;s valuable to have an understanding of assembly
 language. Assembly language is the lowest level of abstraction in computers -
 the point at which the code is still readable. Assembly language translates
 directly to the bytes that are executed by your computer&apos;s processor.
 If you understand how it works, you&apos;ve basically become a computer
-<a href="http://skilldrick.co.uk/2011/04/magic-in-software-development/">magician</a>.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://skilldrick.co.uk/2011/04/magic-in-software-development/">magician</Label>.</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">Then why 6502? Why not a <Label font-style="italic">useful</Label> assembly language, like
-<a href="http://en.wikipedia.org/wiki/X86">x86</a>? Well, I don&apos;t think learning x86 is
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://en.wikipedia.org/wiki/x86">x86</Label>? Well, I don&apos;t think learning x86 is
 useful. I don&apos;t think you&apos;ll ever have to <Label font-style="italic">write</Label> assembly language in your day
 job - this is purely an academic exercise, something to expand your mind and
 your thinking. 6502 was originally written in a different age, a time when the majority of
@@ -37,7 +37,7 @@ high-level programming languages. So, it was designed to be written by humans.
 More modern assembly languages are meant to written by compilers, so let&apos;s
 leave it to them. Plus, 6502 is <Label font-style="italic">fun</Label>. Nobody ever called x86 <Label font-style="italic">fun</Label>.</Label>
 <Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Our first program</Label>
-<Label text-wrap="true" margin-top="8" margin-bottom="8">So, let&apos;s dive in! This application contains a <a href="https://github.com/skilldrick/6502js">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial.
+<Label text-wrap="true" margin-top="8" margin-bottom="8">So, let&apos;s dive in! This application contains a <Label text-wrap="true" margin-top="8" margin-bottom="8" href="https://github.com/skilldrick/6502js">JavaScript 6502 Assembler and Simulator</Label> that I have adapted for this interactive tutorial.
 Click the <Label font-weight="bold">Copy</Label> button in the code block below to copy the example code to the editor.
 Then click the button in the top right to assemble the code, then click it again to run the program.
 You can also access these actions through the dropdown menu.</Label>
@@ -56,8 +56,8 @@ allowing you to execute the program one instruction at a time.
 Click once and you&apos;ll notice in the debugger that <Label font-family="monospace" background-color="#f0f0f0">A=</Label> changed from <Label font-family="monospace" background-color="#f0f0f0">$00</Label> to <Label font-family="monospace" background-color="#f0f0f0">$01</Label>, and <Label font-family="monospace" background-color="#f0f0f0">PC=</Label> changed from <Label font-family="monospace" background-color="#f0f0f0">$0600</Label> to <Label font-family="monospace" background-color="#f0f0f0">$0602</Label>.</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">Any numbers prefixed with <Label font-family="monospace" background-color="#f0f0f0">$</Label> in 6502 assembly language (and by extension, in
 this book) are in hexadecimal (hex) format. If you&apos;re not familiar with hex
-numbers, I recommend you read <a href="http://en.wikipedia.org/wiki/Hexadecimal">the Wikipedia
-article</a>. Anything prefixed with <Label font-family="monospace" background-color="#f0f0f0">#</Label>
+numbers, I recommend you read <Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://en.wikipedia.org/wiki/hexadecimal">the Wikipedia
+article</Label>. Anything prefixed with <Label font-family="monospace" background-color="#f0f0f0">#</Label>
 is a literal number value. Any other number refers to a memory location.</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">Equipped with that knowledge, you should be able to see that the instruction
 <Label font-family="monospace" background-color="#f0f0f0">LDA #$01</Label> loads the hex value <Label font-family="monospace" background-color="#f0f0f0">$01</Label> into register <Label font-family="monospace" background-color="#f0f0f0">A</Label>. I&apos;ll go into more
@@ -93,8 +93,8 @@ script. In the JavaScript simulator the code is assembled starting at memory
 location <Label font-family="monospace" background-color="#f0f0f0">$0600</Label>, so <Label font-family="monospace" background-color="#f0f0f0">PC</Label> always starts there.</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">The last section shows the processor flags. Each flag is one bit, so all seven
 flags live in a single byte. The flags are set by the processor to give
-information about the previous instruction. More on that later. <a href="https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html">Read more
-about the registers and flags here</a>.</Label>
+information about the previous instruction. More on that later. <Label text-wrap="true" margin-top="8" margin-bottom="8" href="https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html">Read more
+about the registers and flags here</Label>.</Label>
 <Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Instructions</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">Instructions in assembly language are like a small set of predefined functions.
 All instructions take zero or one arguments. Here&apos;s some annotated
@@ -130,9 +130,9 @@ memory location <Label font-family="monospace" background-color="#f0f0f0">$01</L
 because this is bigger than a byte, the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register is set to <Label font-family="monospace" background-color="#f0f0f0">$00</Label> and the
 carry flag is set. As well as this though, the zero flag is set. The zero flag
 is set by all instructions where the result is zero.</Label>
-<Label text-wrap="true" margin-top="8" margin-bottom="8">A full list of the 6502 instruction set is <a href="http://www.6502.org/tutorials/6502opcodes.html">available
-here</a> and
-<a href="http://www.obelisk.me.uk/6502/reference.html">here</a> (I usually refer to
+<Label text-wrap="true" margin-top="8" margin-bottom="8">A full list of the 6502 instruction set is <Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://www.6502.org/tutorials/6502opcodes.html">available
+here</Label> and
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://www.obelisk.me.uk/6502/reference.html">here</Label> (I usually refer to
 both pages as they have their strengths and weaknesses). These pages detail the
 arguments to each instruction, which registers they use, and which flags they
 set. They are your bible.</Label>
@@ -167,7 +167,7 @@ decrement:
 Labels just mark certain points in a program so we can return to them later.
 After the label we decrement <Label font-family="monospace" background-color="#f0f0f0">X</Label>, store it to <Label font-family="monospace" background-color="#f0f0f0">$0200</Label> (the top-left pixel), and
 then compare it to the value <Label font-family="monospace" background-color="#f0f0f0">$03</Label>.
-<a href="http://www.obelisk.me.uk/6502/reference.html#CPX"><Label font-family="monospace" background-color="#f0f0f0">CPX</Label></a> compares the
+<Label text-wrap="true" margin-top="8" margin-bottom="8" href="http://www.obelisk.me.uk/6502/reference.html#cpx"><Label font-family="monospace" background-color="#f0f0f0">CPX</Label></Label> compares the
 value in the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register with another value. If the two values are equal, the
 <Label font-family="monospace" background-color="#f0f0f0">Z</Label> flag is set to <Label font-family="monospace" background-color="#f0f0f0">1</Label>, otherwise it is set to <Label font-family="monospace" background-color="#f0f0f0">0</Label>.</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">The next line, <Label font-family="monospace" background-color="#f0f0f0">BNE decrement</Label>, will shift execution to the decrement label if
@@ -274,7 +274,7 @@ JMP ($00f0) ;dereferences to $cc01
 bytes at <Label font-family="monospace" background-color="#f0f0f0">$f0</Label> and <Label font-family="monospace" background-color="#f0f0f0">$f1</Label> (<Label font-family="monospace" background-color="#f0f0f0">$01</Label> and <Label font-family="monospace" background-color="#f0f0f0">$cc</Label>) and put them together to form the
 address <Label font-family="monospace" background-color="#f0f0f0">$cc01</Label>, which becomes the new program counter. Assemble and step
 through the program above to see what happens. I&apos;ll talk more about <Label font-family="monospace" background-color="#f0f0f0">JMP</Label> in
-the section on <a href="#jumping">Jumping</a>.</Label>
+the section on <Label text-wrap="true" margin-top="8" margin-bottom="8" href="#jumping">Jumping</Label>.</Label>
 <Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Indexed indirect: <Label font-family="monospace" background-color="#f0f0f0">($c0,X)</Label></Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">This one&apos;s kinda weird. It&apos;s like a cross between zero page,X and indirect.
 Basically, you take the zero page address, add the value of the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register to
@@ -421,8 +421,8 @@ You can use letters, digits and underscores in a name.</Label>
 </Label></Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">The code block below contains the entire source code of the game. I&apos;ll
 explain how it works in the following sections.</Label>
-<Label text-wrap="true" margin-top="8" margin-bottom="8"><a href="https://twitter.com/wkjagt">Willem van der Jagt</a> made a <a href="https://gist.github.com/wkjagt/9043907">fully annotated gist
-of this source code</a>, so follow along
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label text-wrap="true" margin-top="8" margin-bottom="8" href="https://twitter.com/wkjagt">Willem van der Jagt</Label> made a <Label text-wrap="true" margin-top="8" margin-bottom="8" href="https://gist.github.com/wkjagt/9043907">fully annotated gist
+of this source code</Label>, so follow along
 with that for more details.</Label>
 <Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable:example-snake:height=600">; This content will be replaced with the snake example
 </Label></Label>
@@ -633,7 +633,7 @@ game is very straightforward. The first subroutine, <Label font-family="monospac
 simple. It sets <Label font-family="monospace" background-color="#f0f0f0">Y</Label> to zero, loads a random colour into the accumulator, then
 stores this value into <Label font-family="monospace" background-color="#f0f0f0">($00),y</Label>. <Label font-family="monospace" background-color="#f0f0f0">$00</Label> is where the location of the apple is
 stored, so <Label font-family="monospace" background-color="#f0f0f0">($00),y</Label> dereferences to this memory location. Read the &quot;Indirect
-indexed&quot; section in <a href="#addressing">Addressing modes</a> for more details.</Label>
+indexed&quot; section in <Label text-wrap="true" margin-top="8" margin-bottom="8" href="#addressing">Addressing modes</Label> for more details.</Label>
 <Label text-wrap="true" margin-top="8" margin-bottom="8">Next comes <Label font-family="monospace" background-color="#f0f0f0">drawSnake</Label>. This is pretty simple too - we first undraw the tail
 and then draw the head. <Label font-family="monospace" background-color="#f0f0f0">X</Label> is set to the length of the snake, so we can index
 to the right pixel, and we set <Label font-family="monospace" background-color="#f0f0f0">A</Label> to zero then perform the write using the

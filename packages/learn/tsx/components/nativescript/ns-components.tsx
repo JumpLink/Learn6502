@@ -58,7 +58,10 @@ export const components = {
     p: (props: any) => <NsLabel textWrap="true" marginTop="8" marginBottom="8" {...props} />,
     strong: (props: any) => <NsLabel fontWeight="bold" {...props} />,
     em: (props: any) => <NsLabel fontStyle="italic" {...props} />,
-    
+
+    // Links
+    a: (props: any) => <NsLabel textWrap="true" marginTop="8" marginBottom="8" {...props}/>,
+
     // Lists
     ul: (props: any) => <NsStackLayout marginTop="8" marginBottom="8" marginLeft="16" {...props} />,
     ol: (props: any) => <NsStackLayout marginTop="8" marginBottom="8" marginLeft="16" {...props} />,
