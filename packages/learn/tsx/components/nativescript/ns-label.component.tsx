@@ -1,5 +1,7 @@
-import { Component } from 'nano-jsx'
+import { Component, renderSSR } from 'nano-jsx'
 import { NsFormattedString } from './ns-formatted-string.tsx'
+import { NsSpan } from './ns-span.component.tsx'
+import { clearExtraSpaces } from '../../utils.ts'
 
 
 export class NsLabel extends Component {
@@ -19,38 +21,37 @@ export class NsLabel extends Component {
         super(props)
     }
 
+    // Wraps string children in NsSpan elements
+    processChildren(children: any) {
+        if (!children) return null;
+
+        if (typeof children === 'string') {
+          return <NsSpan text={children} />;
+        }
+        
+        if (Array.isArray(children)) {
+          return children.map(child => this.processChildren(child));
+        }
+        
+        if (typeof children === 'object' && children.props && children.props.children) {
+          const newChildren = this.processChildren(children.props.children);
+          return { ...children, props: { ...children.props, children: newChildren } };
+        }
+        
+        return children;
+      };
+
     public render() {
-      console.debug("Rendering NsLabel")
-      console.debug("Children", this.props.children)
       const props = {
         ...NsLabel.defaultProps,
         ...this.props
       }
 
-      // If children is a single string, use it as the text attribute
-      if (this.props.children.length === 1 && typeof this.props.children[0] === 'string') {
 
-        const textContent = this.props.children[0];
-
-        return (
-          <ns-label {...props} text={textContent} />
-        )
-      }
-      // Otherwise, wrap children in FormattedString
-      else if (this.props.children) {
-        return (
-          <ns-label {...props}>
+      return <ns-label {...props}>
             <NsFormattedString>
-              {this.props.children}
+                {this.processChildren(this.props.children)}
             </NsFormattedString>
-          </ns-label>
-        )
-      }
-      // No children, just render with props
-      else {
-        return (
-          <ns-label {...props} />
-        )
-      }
+        </ns-label>
     }
 }

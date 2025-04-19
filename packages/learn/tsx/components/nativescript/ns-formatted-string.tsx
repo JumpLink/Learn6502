@@ -1,4 +1,4 @@
-import { Component } from 'nano-jsx'
+import { Component, renderSSR } from 'nano-jsx'
 
 export class NsFormattedString extends Component {
 
@@ -8,7 +8,7 @@ export class NsFormattedString extends Component {
 
     public render() {
         return (
-            <ns-formatted-string {...this.props} />
+            <ns-formatted-string {...this.props}/>
         )
     }
 }
