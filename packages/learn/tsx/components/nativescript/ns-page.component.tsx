@@ -15,8 +15,6 @@ export class NsPage extends NsWidget {
     }
 
     public render() {
-        const properties = this.getPropertyElements()
-        
         // Using JSX to define the structure that will be parsed by renderSSR
         return (
             <ns-page {...this.props}>

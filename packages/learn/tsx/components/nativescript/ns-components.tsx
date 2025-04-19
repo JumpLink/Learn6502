@@ -9,43 +9,34 @@ import { NsTextField } from './ns-text-field.component'
 import { NsImage } from './ns-image.component'
 import { NsActionBar } from './ns-action-bar.component'
 
-// Custom element-to-NativeScript-XML transformer
-function customSSRTransformer(element: any): string {
-    if (!element) return '';
-    
-    if (typeof element === 'string') return element;
-    
-    const tagName = element.nodeName.replace('ns-', '');
-    const capitalizedTagName = tagName.charAt(0).toUpperCase() + tagName.slice(1);
-    
-    let attributes = '';
-    if (element.attributes) {
-        for (const [key, value] of Object.entries(element.attributes)) {
-            if (key !== 'children' && key !== 'class') {
-                attributes += ` ${key.replace(/([A-Z])/g, '-$1').toLowerCase()}="${value}"`;
-            }
-        }
-    }
-    
-    let result = `<${capitalizedTagName}${attributes}>`;
-    
-    if (element.children) {
-        for (const child of element.children) {
-            result += customSSRTransformer(child);
-        }
-    }
-    
-    result += `</${capitalizedTagName}>`;
-    
-    return result;
-}
-
-// XML generation function
+// Alternative implementation without DOM API (for server environments)
 export function generateNativeScriptXml(jsx: any): string {
     const ssrOutput = renderSSR(jsx);
+    // This is a simplification - you'd need more robust string manipulation
+    // to handle complex nested structures without a DOM parser
+    const transformedOutput = ssrOutput
+        .replace(/<ns-([a-z-]+)([^>]*)>/g, (_, name, attrs) => {
+            // Convert kebab-case to PascalCase
+            const nsName = name.split('-')
+                .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+                .join('');
+            
+            // Convert camelCase attributes to kebab-case
+            const nsAttrs = attrs.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+            
+            return `<${nsName}${nsAttrs}>`;
+        })
+        .replace(/<\/ns-([a-z-]+)>/g, (_, name) => {
+            // Convert kebab-case to PascalCase for closing tags
+            const nsName = name.split('-')
+                .map(part => part.charAt(0).toUpperCase() + part.slice(1))
+                .join('');
+            return `</${nsName}>`;
+        });
+    
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
 <NativeScript xmlns:android="http://schemas.android.com/apk/res/android">
-    ${ssrOutput}
+    ${transformedOutput}
 </NativeScript>`;
     return xml;
 }
@@ -53,7 +44,7 @@ export function generateNativeScriptXml(jsx: any): string {
 // Components map for MDX - mapping HTML elements to NativeScript components
 export const components = {
     // Root component
-    NsPage: NsPage,
+    Page: NsPage,
     
     // Heading elements
     h1: (props: any) => <NsLabel fontSize="24" fontWeight="bold" textWrap="true" marginTop="16" marginBottom="8" {...props} />,
