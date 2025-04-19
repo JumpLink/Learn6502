@@ -1,13 +1,10 @@
 import { Component } from 'nano-jsx'
-import { NsWidget } from './ns-widget.component'
 
-export class NsStackLayout extends NsWidget {
-    static propertyNames = [...NsWidget.propertyNames, "orientation"]
+export class NsStackLayout extends Component {
+    static propertyNames = ["orientation"]
 
-    static reservedPropertyNames = [...NsWidget.reservedPropertyNames]
 
     static defaultProps = {
-        ...NsWidget.defaultProps,
         orientation: "vertical"
     }
 
@@ -23,4 +20,4 @@ export class NsStackLayout extends NsWidget {
             </ns-stack-layout>
         )
     }
-} 
+}

@@ -1,10 +1,8 @@
 import { Component } from 'nano-jsx'
-import { NsWidget } from './ns-widget.component'
 
-export class NsImage extends NsWidget {
+export class NsImage extends Component {
     static propertyNames = [
-        ...NsWidget.propertyNames, 
-        "src", 
+        "src",
         "imageSource",
         "stretch",
         "loadMode",
@@ -13,10 +11,7 @@ export class NsImage extends NsWidget {
         "decodeHeight"
     ]
 
-    static reservedPropertyNames = [...NsWidget.reservedPropertyNames]
-
     static defaultProps = {
-        ...NsWidget.defaultProps,
         stretch: "aspectFit",
         loadMode: "async"
     }
@@ -26,9 +21,12 @@ export class NsImage extends NsWidget {
     }
 
     public render() {
-        // Using JSX to define the structure that will be parsed by renderSSR
+        const props = {
+            ...NsImage.defaultProps,
+            ...this.props
+        }
         return (
-            <ns-image {...this.props} />
+            <ns-image {...props} />
         )
     }
-} 
+}

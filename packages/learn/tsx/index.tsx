@@ -3,7 +3,7 @@ import Tutorial from '../tutorial.mdx'
 import QuickHelp from '../quick-help.mdx'
 import { GtkComponents, GtkRoot } from './components/gtk/index.tsx'
 // import * as HtmlComponents from './components/html/index.tsx'
-import { components as NsComponents, generateNativeScriptXml } from './components/nativescript/index.tsx'
+import { components as NsComponents, generateNativeScriptXml, NsRoot } from './components/nativescript/index.tsx'
 import { writeFile } from 'node:fs/promises'
 
 async function generateGtkUiXml(fileName: string, component: string) {
@@ -40,10 +40,10 @@ await generateGtkUiXml('tutorial', renderSSR(<GtkRoot class="Tutorial"><Tutorial
 await generateGtkUiXml('quick-help', renderSSR(<GtkRoot class="QuickHelp"><QuickHelp components={GtkComponents}/></GtkRoot>))
 
 // Generate NativeScript XML files
-const tutorialXml = generateNativeScriptXml(<Tutorial components={NsComponents}/>)
+const tutorialXml = generateNativeScriptXml(<NsRoot><Tutorial components={NsComponents}/></NsRoot>)
 await saveNativeScriptXml('tutorial', tutorialXml)
 
-const quickHelpXml = generateNativeScriptXml(<QuickHelp components={NsComponents}/>)
+const quickHelpXml = generateNativeScriptXml(<NsRoot><QuickHelp components={NsComponents}/></NsRoot>)
 await saveNativeScriptXml('quick-help', quickHelpXml)
 
 // Generate HTML files

@@ -20,10 +20,10 @@ export function generateNativeScriptXml(jsx: any): string {
             const nsName = name.split('-')
                 .map(part => part.charAt(0).toUpperCase() + part.slice(1))
                 .join('');
-            
+
             // Convert camelCase attributes to kebab-case
             const nsAttrs = attrs.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
-            
+
             return `<${nsName}${nsAttrs}>`;
         })
         .replace(/<\/ns-([a-z-]+)>/g, (_, name) => {
@@ -33,11 +33,9 @@ export function generateNativeScriptXml(jsx: any): string {
                 .join('');
             return `</${nsName}>`;
         });
-    
+
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<StackLayout xmlns="http://schemas.nativescript.org/tns.xsd">
-    ${transformedOutput}
-</StackLayout>`;
+    ${transformedOutput}`;
     return xml;
 }
 
@@ -45,7 +43,7 @@ export function generateNativeScriptXml(jsx: any): string {
 export const components = {
     // Root component
     Page: NsPage,
-    
+
     // Heading elements
     h1: (props: any) => <NsLabel fontSize="24" fontWeight="bold" textWrap="true" marginTop="16" marginBottom="8" {...props} />,
     h2: (props: any) => <NsLabel fontSize="22" fontWeight="bold" textWrap="true" marginTop="16" marginBottom="8" {...props} />,
@@ -53,11 +51,12 @@ export const components = {
     h4: (props: any) => <NsLabel fontSize="18" fontWeight="bold" textWrap="true" marginTop="14" marginBottom="8" {...props} />,
     h5: (props: any) => <NsLabel fontSize="16" fontWeight="bold" textWrap="true" marginTop="12" marginBottom="8" {...props} />,
     h6: (props: any) => <NsLabel fontSize="14" fontWeight="bold" textWrap="true" marginTop="10" marginBottom="8" {...props} />,
-    
+
     // Text elements
     p: (props: any) => <NsLabel textWrap="true" marginTop="8" marginBottom="8" {...props} />,
     strong: (props: any) => <NsLabel fontWeight="bold" {...props} />,
     em: (props: any) => <NsLabel fontStyle="italic" {...props} />,
+    sub: (props: any) => <NsLabel fontSize="12" {...props} />,
 
     // Links
     a: (props: any) => <NsLabel textWrap="true" marginTop="8" marginBottom="8" {...props}/>,
@@ -66,14 +65,14 @@ export const components = {
     ul: (props: any) => <NsStackLayout marginTop="8" marginBottom="8" marginLeft="16" {...props} />,
     ol: (props: any) => <NsStackLayout marginTop="8" marginBottom="8" marginLeft="16" {...props} />,
     li: (props: any) => <NsLabel textWrap="true" marginTop="4" marginBottom="4" text={`• ${props.children}`} {...props} />,
-    
+
     // Media
     img: (props: any) => <NsImage stretch="aspectFit" marginTop="8" marginBottom="8" {...props} />,
-    
+
     // Code
     pre: (props: any) => <NsLabel textWrap="true" fontSize="14" backgroundColor="#f0f0f0" padding="8" borderRadius="4" {...props} />,
     code: (props: any) => <NsLabel fontFamily="monospace" backgroundColor="#f0f0f0" {...props} />,
-    
+
     // Tables (simplified - could be improved with a GridLayout)
     table: (props: any) => <NsStackLayout marginTop="8" marginBottom="8" {...props} />,
     tr: (props: any) => <NsFlexboxLayout marginTop="4" marginBottom="4" {...props} />,
@@ -85,4 +84,4 @@ export const components = {
 export default {
     generateNativeScriptXml,
     components
-} 
+}

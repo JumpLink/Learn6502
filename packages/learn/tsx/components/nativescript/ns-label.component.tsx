@@ -1,20 +1,17 @@
 import { Component } from 'nano-jsx'
-import { NsWidget } from './ns-widget.component'
+import { NsFormattedString } from './ns-formatted-string.tsx'
 
-export class NsLabel extends NsWidget {
+
+export class NsLabel extends Component {
     static propertyNames = [
-        ...NsWidget.propertyNames, 
-        "text", 
-        "textWrap", 
-        "fontSize", 
-        "fontWeight", 
+        "text",
+        "textWrap",
+        "fontSize",
+        "fontWeight",
         "textAlignment"
     ]
 
-    static reservedPropertyNames = [...NsWidget.reservedPropertyNames]
-
     static defaultProps = {
-        ...NsWidget.defaultProps,
         textWrap: "true"
     }
 
@@ -23,14 +20,37 @@ export class NsLabel extends NsWidget {
     }
 
     public render() {
-        // Handle children as text if no text property is provided
-        const content = this.props.text || this.props.children;
-        
-        // Using JSX to define the structure that will be parsed by renderSSR
+      console.debug("Rendering NsLabel")
+      console.debug("Children", this.props.children)
+      const props = {
+        ...NsLabel.defaultProps,
+        ...this.props
+      }
+
+      // If children is a single string, use it as the text attribute
+      if (this.props.children.length === 1 && typeof this.props.children[0] === 'string') {
+
+        const textContent = this.props.children[0];
+
         return (
-            <ns-label {...this.props}>
-                {content}
-            </ns-label>
+          <ns-label {...props} text={textContent} />
         )
+      }
+      // Otherwise, wrap children in FormattedString
+      else if (this.props.children) {
+        return (
+          <ns-label {...props}>
+            <NsFormattedString>
+              {this.props.children}
+            </NsFormattedString>
+          </ns-label>
+        )
+      }
+      // No children, just render with props
+      else {
+        return (
+          <ns-label {...props} />
+        )
+      }
     }
-} 
+}
