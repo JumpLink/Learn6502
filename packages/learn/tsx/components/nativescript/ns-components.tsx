@@ -49,28 +49,28 @@ export const components = {
     Page: NsPage,
 
     // Heading elements
-    h1: (props: any) => <NsHtmlView {...props}><h1>${props.children}</h1></NsHtmlView>,
-    h2: (props: any) => <NsHtmlView {...props}><h2>${props.children}</h2></NsHtmlView>,
-    h3: (props: any) => <NsHtmlView {...props}><h3>${props.children}</h3></NsHtmlView>,
-    h4: (props: any) => <NsHtmlView {...props}><h4>${props.children}</h4></NsHtmlView>,
-    h5: (props: any) => <NsHtmlView {...props}><h5>${props.children}</h5></NsHtmlView>,
-    h6: (props: any) => <NsHtmlView {...props}><h6>${props.children}</h6></NsHtmlView>,
+    h1: (props: any) => <NsHtmlView {...props}><h1>{props.children}</h1></NsHtmlView>,
+    h2: (props: any) => <NsHtmlView {...props}><h2>{props.children}</h2></NsHtmlView>,
+    h3: (props: any) => <NsHtmlView {...props}><h3>{props.children}</h3></NsHtmlView>,
+    h4: (props: any) => <NsHtmlView {...props}><h4>{props.children}</h4></NsHtmlView>,
+    h5: (props: any) => <NsHtmlView {...props}><h5>{props.children}</h5></NsHtmlView>,
+    h6: (props: any) => <NsHtmlView {...props}><h6>{props.children}</h6></NsHtmlView>,
 
     // Text elements
-    p: (props: any) => <NsHtmlView {...props}><p>${props.children}</p></NsHtmlView>,
-    // strong: (props: any) => <NsHtmlView {...props}><strong>${props.children}</strong></NsHtmlView>,
-    // em: (props: any) => <NsHtmlView {...props}><em>${props.children}</em></NsHtmlView>,
-    // sub: (props: any) => <NsHtmlView {...props}><sub>${props.children}</sub></NsHtmlView>,
+    p: (props: any) => <NsHtmlView {...props}><p>{props.children}</p></NsHtmlView>,
+    // strong: (props: any) => <NsHtmlView {...props}><strong>{props.children}</strong></NsHtmlView>,
+    // em: (props: any) => <NsHtmlView {...props}><em>{props.children}</em></NsHtmlView>,
+    // sub: (props: any) => <NsHtmlView {...props}><sub>{props.children}</sub></NsHtmlView>,
 
     // Links
-    // a: (props: any) => <NsHtmlView {...props}><a href="${props.href}">${props.children}</a></NsHtmlView>,
+    // a: (props: any) => <NsHtmlView {...props}><a href="{props.href}">{props.children}</a></NsHtmlView>,
 
     // Lists
-    // ul: (props: any) => <NsHtmlView {...props}><ul>${props.children}</ul></NsHtmlView>,
-    ul: (props: any) => <NsHtmlView {...props}><ul>${props.children}</ul></NsHtmlView>,
-    // ol: (props: any) => <NsHtmlView {...props}><ol>${props.children}</ol></NsHtmlView>,
-    ol: (props: any) => <NsHtmlView {...props}><ol>${props.children}</ol></NsHtmlView>,
-    // li: (props: any) => <NsHtmlView {...props}><li>${props.children}</li></NsHtmlView>,
+    // ul: (props: any) => <NsHtmlView {...props}><ul>{props.children}</ul></NsHtmlView>,
+    ul: (props: any) => <NsHtmlView {...props}><ul>{props.children}</ul></NsHtmlView>,
+    // ol: (props: any) => <NsHtmlView {...props}><ol>{props.children}</ol></NsHtmlView>,
+    ol: (props: any) => <NsHtmlView {...props}><ol>{props.children}</ol></NsHtmlView>,
+    // li: (props: any) => <NsHtmlView {...props}><li>{props.children}</li></NsHtmlView>,
 
     // Media
     img: (props: any) => <NsImage stretch="aspectFit" marginTop="8" marginBottom="8" {...props} />,

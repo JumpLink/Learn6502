@@ -15,6 +15,7 @@ export class NsHtmlView extends Component {
 
     public render() {
         const content = clearExtraSpaces(renderSSR(this.props.children));
+        console.log("Render HTML View content:", content);
         return (
             <ns-html-view selectable="true" html={content} />
         )
