@@ -35,9 +35,9 @@ export function generateNativeScriptXml(jsx: any): string {
         });
     
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
-<NativeScript xmlns:android="http://schemas.android.com/apk/res/android">
+<StackLayout xmlns="http://schemas.nativescript.org/tns.xsd">
     ${transformedOutput}
-</NativeScript>`;
+</StackLayout>`;
     return xml;
 }
 

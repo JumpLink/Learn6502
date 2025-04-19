@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://schemas.nativescript.org/tns.xsd">
+    <Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Memory Map</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: ,[object object],-,[object object], (first 256 bytes, faster access)">• [object Object],: ,[object Object],-,[object Object], (first 256 bytes, faster access)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: ,[object object],-,[object object]">• [object Object],: ,[object Object],-,[object Object]</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: ,[object object],-,[object object], (used for screen output)">• [object Object],: ,[object Object],-,[object Object], (used for screen output)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: starting at ,[object object]">• [object Object],: Starting at ,[object Object]</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Display Organization</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• screen maps to memory range ,[object object],-,[object object]">• Screen maps to memory range ,[object Object],-,[object Object]</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• values ,[object object],-,[object object], represent 16 different colors (,[object object],=black, ,[object object],=white)">• Values ,[object Object],-,[object Object], represent 16 different colors (,[object Object],=black, ,[object Object],=white)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• organized as four horizontal strips of 32×8 pixels">• Organized as four horizontal strips of 32×8 pixels</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• first row: ,[object object],-,[object object],, second row: ,[object object],-,[object object],, etc.">• First row: ,[object Object],-,[object Object],, second row: ,[object Object],-,[object Object],, etc.</Label>
+</StackLayout>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Color Palette</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: black (,[object object],)">• [object Object],: Black (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: white (,[object object],)">• [object Object],: White (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: red (,[object object],)">• [object Object],: Red (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: cyan (,[object object],)">• [object Object],: Cyan (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: purple (,[object object],)">• [object Object],: Purple (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: green (,[object object],)">• [object Object],: Green (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: blue (,[object object],)">• [object Object],: Blue (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: yellow (,[object object],)">• [object Object],: Yellow (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: orange (,[object object],)">• [object Object],: Orange (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: brown (,[object object],)">• [object Object],: Brown (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: light red (,[object object],)">• [object Object],: Light red (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: dark grey (,[object object],)">• [object Object],: Dark grey (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: grey (,[object object],)">• [object Object],: Grey (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: light green (,[object object],)">• [object Object],: Light green (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: light blue (,[object object],)">• [object Object],: Light blue (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: light grey (,[object object],)">• [object Object],: Light grey (,[object Object],)</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Registers</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (accumulator): main register for calculations and data manipulation">• [object Object], (Accumulator): Main register for calculations and data manipulation</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: index registers for addressing and counting">• [object Object],: Index registers for addressing and counting</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (stack pointer): points to current stack position (starts at ,[object object],)">• [object Object], (Stack Pointer): Points to current stack position (starts at ,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (program counter): points to the next instruction to execute">• [object Object], (Program Counter): Points to the next instruction to execute</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Processor Flags</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (negative): set when bit 7 of result is set">• [object Object], (Negative): Set when bit 7 of result is set</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (overflow): set when arithmetic operation causes signed overflow">• [object Object], (Overflow): Set when arithmetic operation causes signed overflow</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (break): set when brk instruction is executed">• [object Object], (Break): Set when BRK instruction is executed</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (decimal): set when processor is in bcd (binary coded decimal) mode">• [object Object], (Decimal): Set when processor is in BCD (Binary Coded Decimal) mode</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (interrupt): set when interrupts are disabled">• [object Object], (Interrupt): Set when interrupts are disabled</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (zero): set when result is zero">• [object Object], (Zero): Set when result is zero</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (carry): set when arithmetic operations overflow a byte">• [object Object], (Carry): Set when arithmetic operations overflow a byte</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• used for conditional branching">• Used for conditional branching</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Addressing Modes</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (,[object object],): use the actual value">• [object Object], (,[object Object],): Use the actual value</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (,[object object],): access memory locations ,[object object],-,[object object]">• [object Object], (,[object Object],): Access memory locations ,[object Object],-,[object Object]</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (,[object object],): access any memory location">• [object Object], (,[object Object],): Access any memory location</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (,[object object],): add x/y register to zero page address">• [object Object], (,[object Object],): Add X/Y register to zero page address</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (,[object object],): add x/y register to absolute address">• [object Object], (,[object Object],): Add X/Y register to absolute address</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (,[object object],): look up address stored at given location">• [object Object], (,[object Object],): Look up address stored at given location</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (,[object object],): add x to zero page address, then dereference">• [object Object], (,[object Object],): Add X to zero page address, then dereference</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], (,[object object],): dereference zero page address, then add y">• [object Object], (,[object Object],): Dereference zero page address, then add Y</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Common Instructions</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: load registers">• [object Object],: Load registers</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: store registers to memory">• [object Object],: Store registers to memory</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: increment/decrement registers">• [object Object],: Increment/decrement registers</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: add/subtract with carry">• [object Object],: Add/subtract with carry</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: unconditional jump">• [object Object],: Unconditional jump</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: jump to subroutine / return from subroutine">• [object Object],: Jump to subroutine / Return from subroutine</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: branch if equal/not equal/carry clear/carry set">• [object Object],: Branch if equal/not equal/carry clear/carry set</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: push/pull accumulator to/from stack">• [object Object],: Push/pull accumulator to/from stack</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Special Memory Locations (in Simulator)</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: random number generator (reads as a random value 0-255)">• [object Object],: Random number generator (reads as a random value 0-255)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: last pressed key (ascii code)">• [object Object],: Last pressed key (ASCII code)</Label>
+</StackLayout>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-weight="bold">Directional controls</Label>:</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], or up arrow key (,[object object],)">• [object Object], or Up Arrow key (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], or left arrow key (,[object object],)">• [object Object], or Left Arrow key (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], or down arrow key (,[object object],)">• [object Object], or Down Arrow key (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], or right arrow key (,[object object],)">• [object Object], or Right Arrow key (,[object Object],)</Label>
+</StackLayout>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-weight="bold">Action buttons</Label>:</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], or enter/return key (,[object object],)">• [object Object], or Enter/Return key (,[object Object],)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], or space key (,[object object],)">• [object Object], or Space key (,[object Object],)</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Snake Game Memory Usage</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: apple position">• [object Object],: Apple position</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: snake direction (1=up, 2=right, 4=down, 8=left)">• [object Object],: Snake direction (1=up, 2=right, 4=down, 8=left)</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: snake length">• [object Object],: Snake length</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object],: snake position data (head, body segments, tail)">• [object Object],: Snake position data (head, body segments, tail)</Label>
+</StackLayout>
+</StackLayout>

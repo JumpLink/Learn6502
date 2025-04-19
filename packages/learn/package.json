@@ -7,7 +7,8 @@
     "scripts": {
         "build:mdx": "node esbuild.js",
         "build:js": "node dist/index.js",
-        "build": "yarn build:mdx && yarn build:js",
+        "build": "yarn build:mdx && yarn build:js && yarn build:copy",
+        "build:copy": "cp -r dist/tutorial.ns.xml ../app-android/app/mdx/tutorial.xml && cp -r dist/quick-help.ns.xml ../app-android/app/mdx/quick-help.xml",
         "clear": "rm -rf dist"
     },
     "author": "Nick Morgan, Pascal Garber",

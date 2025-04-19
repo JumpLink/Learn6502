@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<StackLayout xmlns="http://schemas.nativescript.org/tns.xsd">
+    <Label font-size="24" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Tutorial </Label>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Introduction</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">In this tiny tutorial I&apos;m going to show you how to get started writing 6502
+assembly language. The 6502 processor was massive in the seventies and
+eighties, powering famous computers like the
+<a href="http://en.wikipedia.org/wiki/BBC_Micro">BBC Micro</a>,
+<a href="http://en.wikipedia.org/wiki/Atari_2600">Atari 2600</a>,
+<a href="http://en.wikipedia.org/wiki/Commodore_64">Commodore 64</a>,
+<a href="http://en.wikipedia.org/wiki/Apple_II">Apple II</a>, and the <a href="http://en.wikipedia.org/wiki/Nintendo_Entertainment_System">Nintendo Entertainment
+System</a>. Bender in
+Futurama <a href="http://www.transbyte.org/SID/SID-files/Bender_6502.jpg">has a 6502 processor for a
+brain</a>. <a href="http://www.pagetable.com/docs/terminator/00-37-23.jpg">Even the
+Terminator was programmed in
+6502</a>.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">So, why would you want to learn 6502? It&apos;s a dead language isn&apos;t it? Well,
+so&apos;s Latin. And they still teach that.
+<a href="http://en.wikipedia.org/wiki/Q.E.D.">Q.E.D.</a></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">(Actually, I&apos;ve been reliably informed that 6502 processors are still being
+produced by <a href="http://www.westerndesigncenter.com/wdc/w65c02s-chip.cfm">Western Design Center</a>
+and <a href="http://www.mouser.co.uk/Search/Refine.aspx?Keyword=65C02">sold to hobbyists</a>, so clearly 6502
+<Label font-style="italic">isn&apos;t</Label> a dead language! Who knew?)</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Seriously though, I think it&apos;s valuable to have an understanding of assembly
+language. Assembly language is the lowest level of abstraction in computers -
+the point at which the code is still readable. Assembly language translates
+directly to the bytes that are executed by your computer&apos;s processor.
+If you understand how it works, you&apos;ve basically become a computer
+<a href="http://skilldrick.co.uk/2011/04/magic-in-software-development/">magician</a>.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Then why 6502? Why not a <Label font-style="italic">useful</Label> assembly language, like
+<a href="http://en.wikipedia.org/wiki/X86">x86</a>? Well, I don&apos;t think learning x86 is
+useful. I don&apos;t think you&apos;ll ever have to <Label font-style="italic">write</Label> assembly language in your day
+job - this is purely an academic exercise, something to expand your mind and
+your thinking. 6502 was originally written in a different age, a time when the majority of
+developers were writing assembly directly, rather than in these new-fangled
+high-level programming languages. So, it was designed to be written by humans.
+More modern assembly languages are meant to written by compilers, so let&apos;s
+leave it to them. Plus, 6502 is <Label font-style="italic">fun</Label>. Nobody ever called x86 <Label font-style="italic">fun</Label>.</Label>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Our first program</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">So, let&apos;s dive in! This application contains a <a href="https://github.com/skilldrick/6502js">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial.
+Click the <Label font-weight="bold">Copy</Label> button in the code block below to copy the example code to the editor.
+Then click the button in the top right to assemble the code, then click it again to run the program.
+You can also access these actions through the dropdown menu.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDA #$01
+STA $0200
+LDA #$05
+STA $0201
+LDA #$08
+STA $0202
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The black game console screen now should show three coloured &quot;pixels&quot; at the
+top left.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">So, what&apos;s this program actually doing? Let&apos;s step through it. Hit <Label font-weight="bold">Reset</Label>,
+then select <Label font-weight="bold">Step</Label> from the dropdown menu. The button will switch to step mode,
+allowing you to execute the program one instruction at a time.
+Click once and you&apos;ll notice in the debugger that <Label font-family="monospace" background-color="#f0f0f0">A=</Label> changed from <Label font-family="monospace" background-color="#f0f0f0">$00</Label> to <Label font-family="monospace" background-color="#f0f0f0">$01</Label>, and <Label font-family="monospace" background-color="#f0f0f0">PC=</Label> changed from <Label font-family="monospace" background-color="#f0f0f0">$0600</Label> to <Label font-family="monospace" background-color="#f0f0f0">$0602</Label>.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Any numbers prefixed with <Label font-family="monospace" background-color="#f0f0f0">$</Label> in 6502 assembly language (and by extension, in
+this book) are in hexadecimal (hex) format. If you&apos;re not familiar with hex
+numbers, I recommend you read <a href="http://en.wikipedia.org/wiki/Hexadecimal">the Wikipedia
+article</a>. Anything prefixed with <Label font-family="monospace" background-color="#f0f0f0">#</Label>
+is a literal number value. Any other number refers to a memory location.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Equipped with that knowledge, you should be able to see that the instruction
+<Label font-family="monospace" background-color="#f0f0f0">LDA #$01</Label> loads the hex value <Label font-family="monospace" background-color="#f0f0f0">$01</Label> into register <Label font-family="monospace" background-color="#f0f0f0">A</Label>. I&apos;ll go into more
+detail on registers in the next section.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Press <Label font-weight="bold">Step</Label> again to execute the second instruction. The top-left pixel of
+the game console should now be white. This simulator uses the memory
+locations <Label font-family="monospace" background-color="#f0f0f0">$0200</Label> to <Label font-family="monospace" background-color="#f0f0f0">$05ff</Label> to draw pixels on its display. The values <Label font-family="monospace" background-color="#f0f0f0">$00</Label> to
+<Label font-family="monospace" background-color="#f0f0f0">$0f</Label> represent 16 different colours (<Label font-family="monospace" background-color="#f0f0f0">$00</Label> is black and <Label font-family="monospace" background-color="#f0f0f0">$01</Label> is white), so
+storing the value <Label font-family="monospace" background-color="#f0f0f0">$01</Label> at memory location <Label font-family="monospace" background-color="#f0f0f0">$0200</Label> draws a white pixel at the
+top left corner. This is simpler than how an actual computer would output
+video, but it&apos;ll do for now.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">So, the instruction <Label font-family="monospace" background-color="#f0f0f0">STA $0200</Label> stores the value of the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register to memory
+location <Label font-family="monospace" background-color="#f0f0f0">$0200</Label>. Click <Label font-weight="bold">Step</Label> four more times to execute the rest of the
+instructions, keeping an eye on the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register as it changes.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Exercises</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• try changing the colour of the three pixels.">• Try changing the colour of the three pixels.</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• change one of the pixels to draw at the bottom-right corner (memory location ,[object object],).">• Change one of the pixels to draw at the bottom-right corner (memory location ,[object Object],).</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• add more instructions to draw extra pixels.">• Add more instructions to draw extra pixels.</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Registers and flags</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">We&apos;ve already had a little look at the processor status section (the bit with
+<Label font-family="monospace" background-color="#f0f0f0">A</Label>, <Label font-family="monospace" background-color="#f0f0f0">PC</Label> etc.), but what does it all mean?</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The first line shows the <Label font-family="monospace" background-color="#f0f0f0">A</Label>, <Label font-family="monospace" background-color="#f0f0f0">X</Label> and <Label font-family="monospace" background-color="#f0f0f0">Y</Label> registers (<Label font-family="monospace" background-color="#f0f0f0">A</Label> is often called the
+&quot;accumulator&quot;). Each register holds a single byte. Most operations work on the
+contents of these registers.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-family="monospace" background-color="#f0f0f0">SP</Label> is the stack pointer. I won&apos;t get into the stack yet, but basically this
+register is decremented every time a byte is pushed onto the stack, and
+incremented when a byte is popped off the stack.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-family="monospace" background-color="#f0f0f0">PC</Label> is the program counter - it&apos;s how the processor knows at what point in the
+program it currently is. It&apos;s like the current line number of an executing
+script. In the JavaScript simulator the code is assembled starting at memory
+location <Label font-family="monospace" background-color="#f0f0f0">$0600</Label>, so <Label font-family="monospace" background-color="#f0f0f0">PC</Label> always starts there.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The last section shows the processor flags. Each flag is one bit, so all seven
+flags live in a single byte. The flags are set by the processor to give
+information about the previous instruction. More on that later. <a href="https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html">Read more
+about the registers and flags here</a>.</Label>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Instructions</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Instructions in assembly language are like a small set of predefined functions.
+All instructions take zero or one arguments. Here&apos;s some annotated
+source code to introduce a few different instructions:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDA #$c0  ;Load the hex value $c0 into the A register
+TAX       ;Transfer the value in the A register to X
+INX       ;Increment the value in the X register
+ADC #$c4  ;Add the hex value $c4 to the A register
+BRK       ;Break - we&apos;re done
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Assemble the code, then turn on the debugger and step through the code, watching
+the <Label font-family="monospace" background-color="#f0f0f0">A</Label> and <Label font-family="monospace" background-color="#f0f0f0">X</Label> registers. Something slightly odd happens on the line <Label font-family="monospace" background-color="#f0f0f0">ADC #$c4</Label>.
+You might expect that adding <Label font-family="monospace" background-color="#f0f0f0">$c4</Label> to <Label font-family="monospace" background-color="#f0f0f0">$c0</Label> would give <Label font-family="monospace" background-color="#f0f0f0">$184</Label>, but this
+processor gives the result as <Label font-family="monospace" background-color="#f0f0f0">$84</Label>. What&apos;s up with that?</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The problem is, <Label font-family="monospace" background-color="#f0f0f0">$184</Label> is too big to fit in a single byte (the max is <Label font-family="monospace" background-color="#f0f0f0">$FF</Label>),
+and the registers can only hold a single byte.  It&apos;s OK though; the processor
+isn&apos;t actually dumb. If you were looking carefully enough, you&apos;ll have noticed
+that the carry flag was set to <Label font-family="monospace" background-color="#f0f0f0">1</Label> after this operation. So that&apos;s how you
+know.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">In the simulator below <Label font-weight="bold">type</Label> (don&apos;t paste) the following code:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:readonly:unselectable">LDA #$80
+STA $01
+ADC $01
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">An important thing to notice here is the distinction between <Label font-family="monospace" background-color="#f0f0f0">ADC #$01</Label> and
+<Label font-family="monospace" background-color="#f0f0f0">ADC $01</Label>. The first one adds the value <Label font-family="monospace" background-color="#f0f0f0">$01</Label> to the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register, but the
+second adds the value stored at memory location <Label font-family="monospace" background-color="#f0f0f0">$01</Label> to the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Assemble the code and select <Label font-weight="bold">Step</Label> from the Run button&apos;s dropdown menu to step through these three
+instructions. The monitor in the debugger shows a section of memory, and can be helpful to
+visualise the execution of programs. <Label font-family="monospace" background-color="#f0f0f0">STA $01</Label> stores the value of the <Label font-family="monospace" background-color="#f0f0f0">A</Label>
+register at memory location <Label font-family="monospace" background-color="#f0f0f0">$01</Label>, and <Label font-family="monospace" background-color="#f0f0f0">ADC $01</Label> adds the value stored at the
+memory location <Label font-family="monospace" background-color="#f0f0f0">$01</Label> to the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register. <Label font-family="monospace" background-color="#f0f0f0">$80 + $80</Label> should equal <Label font-family="monospace" background-color="#f0f0f0">$100</Label>, but
+because this is bigger than a byte, the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register is set to <Label font-family="monospace" background-color="#f0f0f0">$00</Label> and the
+carry flag is set. As well as this though, the zero flag is set. The zero flag
+is set by all instructions where the result is zero.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">A full list of the 6502 instruction set is <a href="http://www.6502.org/tutorials/6502opcodes.html">available
+here</a> and
+<a href="http://www.obelisk.me.uk/6502/reference.html">here</a> (I usually refer to
+both pages as they have their strengths and weaknesses). These pages detail the
+arguments to each instruction, which registers they use, and which flags they
+set. They are your bible.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Exercises</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• you&apos;ve seen ,[object object],. you can probably guess what ,[object object],, ,[object object], and ,[object object], do,
+but write some code to test your assumptions.">• You&apos;ve seen ,[object Object],. You can probably guess what ,[object Object],, ,[object Object], and ,[object Object], do,
+but write some code to test your assumptions.</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• rewrite the first example in this section to use the ,[object object], register instead of
+the ,[object object], register.">• Rewrite the first example in this section to use the ,[object Object], register instead of
+the ,[object Object], register.</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• the opposite of ,[object object], is ,[object object], (subtract with carry). write a program that
+uses this instruction.">• The opposite of ,[object Object], is ,[object Object], (subtract with carry). Write a program that
+uses this instruction.</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Branching</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">So far we&apos;re only able to write basic programs without any branching logic.
+Let&apos;s change that.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">6502 assembly language has a bunch of branching instructions, all of which
+branch based on whether certain flags are set or not. In this example we&apos;ll be
+looking at <Label font-family="monospace" background-color="#f0f0f0">BNE</Label>: &quot;Branch on not equal&quot;.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDX #$08
+decrement:
+  DEX
+  STX $0200
+  CPX #$03
+  BNE decrement
+  STX $0201
+  BRK
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">First we load the value <Label font-family="monospace" background-color="#f0f0f0">$08</Label> into the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register. The next line is a label.
+Labels just mark certain points in a program so we can return to them later.
+After the label we decrement <Label font-family="monospace" background-color="#f0f0f0">X</Label>, store it to <Label font-family="monospace" background-color="#f0f0f0">$0200</Label> (the top-left pixel), and
+then compare it to the value <Label font-family="monospace" background-color="#f0f0f0">$03</Label>.
+<a href="http://www.obelisk.me.uk/6502/reference.html#CPX"><Label font-family="monospace" background-color="#f0f0f0">CPX</Label></a> compares the
+value in the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register with another value. If the two values are equal, the
+<Label font-family="monospace" background-color="#f0f0f0">Z</Label> flag is set to <Label font-family="monospace" background-color="#f0f0f0">1</Label>, otherwise it is set to <Label font-family="monospace" background-color="#f0f0f0">0</Label>.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The next line, <Label font-family="monospace" background-color="#f0f0f0">BNE decrement</Label>, will shift execution to the decrement label if
+the <Label font-family="monospace" background-color="#f0f0f0">Z</Label> flag is set to <Label font-family="monospace" background-color="#f0f0f0">0</Label> (meaning that the two values in the <Label font-family="monospace" background-color="#f0f0f0">CPX</Label> comparison
+were not equal), otherwise it does nothing and we store <Label font-family="monospace" background-color="#f0f0f0">X</Label> to <Label font-family="monospace" background-color="#f0f0f0">$0201</Label>, then
+finish the program.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">In assembly language, you&apos;ll usually use labels with branch instructions. When
+assembled though, this label is converted to a single-byte relative offset (a
+number of bytes to go backwards or forwards from the next instruction) so
+branch instructions can only go forward and back around 256 bytes. This means
+they can only be used to move around local code. For moving further you&apos;ll need
+to use the jumping instructions.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Exercises</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• the opposite of ,[object object], is ,[object object],. try writing a program that uses ,[object object],.">• The opposite of ,[object Object], is ,[object Object],. Try writing a program that uses ,[object Object],.</Label>
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• [object object], and ,[object object], (&quot;branch on carry clear&quot; and &quot;branch on carry set&quot;) are used
+to branch on the carry flag. write a program that uses one of these two.">• [object Object], and ,[object Object], (&quot;branch on carry clear&quot; and &quot;branch on carry set&quot;) are used
+to branch on the carry flag. Write a program that uses one of these two.</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Addressing modes</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of
+memory available to the processor. Remember that a byte is represented by two
+hex characters, so the memory locations are generally represented as <Label font-family="monospace" background-color="#f0f0f0">$0000 - $ffff</Label>. There are various ways to refer to these memory locations, as detailed below.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">With all these examples you might find it helpful to use the memory monitor in the debugger to
+watch the memory change. The monitor takes a starting memory location and a
+number of bytes to display from that location. Both of these are hex values.
+For example, to display 16 bytes of memory from <Label font-family="monospace" background-color="#f0f0f0">$c000</Label>, enter <Label font-family="monospace" background-color="#f0f0f0">c000</Label> and <Label font-family="monospace" background-color="#f0f0f0">10</Label>
+into <Label font-weight="bold">Start</Label> and <Label font-weight="bold">Length</Label>, respectively.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Absolute: <Label font-family="monospace" background-color="#f0f0f0">$c000</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">With absolute addressing, the full memory location is used as the argument to the instruction. For example:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:readonly">STA $c000 ;Store the value in the accumulator at memory location $c000
+</Label></Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Zero page: <Label font-family="monospace" background-color="#f0f0f0">$c0</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">All instructions that support absolute addressing (with the exception of the jump
+instructions) also have the option to take a single-byte address. This type of
+addressing is called &quot;zero page&quot; - only the first page (the first 256 bytes) of
+memory is accessible. This is faster, as only one byte needs to be looked up,
+and takes up less space in the assembled code as well.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Zero page,X: <Label font-family="monospace" background-color="#f0f0f0">$c0,X</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">This is where addressing gets interesting. In this mode, a zero page address is given, and then the value of the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register is added. Here is an example:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:readonly">LDX #$01   ;X is $01
+LDA #$aa   ;A is $aa
+STA $a0,X ;Store the value of A at memory location $a1
+INX        ;Increment X
+STA $a0,X ;Store the value of A at memory location $a2
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">If the result of the addition is larger than a single byte, the address wraps around. For example:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:readonly">LDX #$05
+STA $ff,X ;Store the value of A at memory location $04
+</Label></Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Zero page,Y: <Label font-family="monospace" background-color="#f0f0f0">$c0,Y</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">This is the equivalent of zero page,X, but can only be used with <Label font-family="monospace" background-color="#f0f0f0">LDX</Label> and <Label font-family="monospace" background-color="#f0f0f0">STX</Label>.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Absolute,X and absolute,Y: <Label font-family="monospace" background-color="#f0f0f0">$c000,X</Label> and <Label font-family="monospace" background-color="#f0f0f0">$c000,Y</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">These are the absolute addressing versions of zero page,X and zero page,Y. For example:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:readonly">LDX #$01
+STA $0200,X ;Store the value of A at memory location $0201
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Unlike zero page,Y, absolute,Y can&apos;t be used with <Label font-family="monospace" background-color="#f0f0f0">STX</Label> but can be used with <Label font-family="monospace" background-color="#f0f0f0">LDA</Label> and <Label font-family="monospace" background-color="#f0f0f0">STA</Label>.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Immediate: <Label font-family="monospace" background-color="#f0f0f0">#$c0</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Immediate addressing doesn&apos;t strictly deal with memory addresses - this is the
+mode where actual values are used. For example, <Label font-family="monospace" background-color="#f0f0f0">LDX #$01</Label> loads the value
+<Label font-family="monospace" background-color="#f0f0f0">$01</Label> into the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register. This is very different to the zero page
+instruction <Label font-family="monospace" background-color="#f0f0f0">LDX $01</Label> which loads the value at memory location <Label font-family="monospace" background-color="#f0f0f0">$01</Label> into the
+<Label font-family="monospace" background-color="#f0f0f0">X</Label> register.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Relative: <Label font-family="monospace" background-color="#f0f0f0">$c0</Label> (or label)</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Relative addressing is used for branching instructions. These instructions take
+a single byte, which is used as an offset from the following instruction.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Assemble the following code, then check the debugger to see the hexdump of the assembled code.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDA #$01
+CMP #$02
+BNE notequal
+STA $22
+notequal:
+  BRK
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The hex should look something like this:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-hex:line-start=0x0600:readonly">a9 01 c9 02 d0 02 85 22 00
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-family="monospace" background-color="#f0f0f0">a9</Label> and <Label font-family="monospace" background-color="#f0f0f0">c9</Label> are the processor opcodes for immediate-addressed <Label font-family="monospace" background-color="#f0f0f0">LDA</Label> and <Label font-family="monospace" background-color="#f0f0f0">CMP</Label>
+respectively. <Label font-family="monospace" background-color="#f0f0f0">01</Label> and <Label font-family="monospace" background-color="#f0f0f0">02</Label> are the arguments to these instructions. <Label font-family="monospace" background-color="#f0f0f0">d0</Label> is
+the opcode for <Label font-family="monospace" background-color="#f0f0f0">BNE</Label>, and its argument is <Label font-family="monospace" background-color="#f0f0f0">02</Label>. This means &quot;skip over the next
+two bytes&quot; (<Label font-family="monospace" background-color="#f0f0f0">85 22</Label>, the assembled version of <Label font-family="monospace" background-color="#f0f0f0">STA $22</Label>). Try editing the code
+so <Label font-family="monospace" background-color="#f0f0f0">STA</Label> takes a two-byte absolute address rather than a single-byte zero page
+address (e.g. change <Label font-family="monospace" background-color="#f0f0f0">STA $22</Label> to <Label font-family="monospace" background-color="#f0f0f0">STA $2222</Label>). Reassemble the code and look at
+the hexdump again - the argument to <Label font-family="monospace" background-color="#f0f0f0">BNE</Label> should now be <Label font-family="monospace" background-color="#f0f0f0">03</Label>, because the
+instruction the processor is skipping past is now three bytes long.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Implicit</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Some instructions don&apos;t deal with memory locations (e.g. <Label font-family="monospace" background-color="#f0f0f0">INX</Label> - increment the
+<Label font-family="monospace" background-color="#f0f0f0">X</Label> register). These are said to have implicit addressing - the argument is
+implied by the instruction.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Indirect: <Label font-family="monospace" background-color="#f0f0f0">($c000)</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Indirect addressing uses an absolute address to look up another address. The
+first address gives the least significant byte of the address, and the
+following byte gives the most significant byte. That can be hard to wrap your
+head around, so here&apos;s an example:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDA #$01
+STA $f0
+LDA #$cc
+STA $f1
+JMP ($00f0) ;dereferences to $cc01
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">In this example, <Label font-family="monospace" background-color="#f0f0f0">$f0</Label> contains the value <Label font-family="monospace" background-color="#f0f0f0">$01</Label> and <Label font-family="monospace" background-color="#f0f0f0">$f1</Label> contains the value
+<Label font-family="monospace" background-color="#f0f0f0">$cc</Label>. The instruction <Label font-family="monospace" background-color="#f0f0f0">JMP ($f0)</Label> causes the processor to look up the two
+bytes at <Label font-family="monospace" background-color="#f0f0f0">$f0</Label> and <Label font-family="monospace" background-color="#f0f0f0">$f1</Label> (<Label font-family="monospace" background-color="#f0f0f0">$01</Label> and <Label font-family="monospace" background-color="#f0f0f0">$cc</Label>) and put them together to form the
+address <Label font-family="monospace" background-color="#f0f0f0">$cc01</Label>, which becomes the new program counter. Assemble and step
+through the program above to see what happens. I&apos;ll talk more about <Label font-family="monospace" background-color="#f0f0f0">JMP</Label> in
+the section on <a href="#jumping">Jumping</a>.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Indexed indirect: <Label font-family="monospace" background-color="#f0f0f0">($c0,X)</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">This one&apos;s kinda weird. It&apos;s like a cross between zero page,X and indirect.
+Basically, you take the zero page address, add the value of the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register to
+it, then use that to look up a two-byte address. For example:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDX #$01
+LDA #$05
+STA $01
+LDA #$07
+STA $02
+LDY #$0a
+STY $0705
+LDA ($00,X)
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Memory locations <Label font-family="monospace" background-color="#f0f0f0">$01</Label> and <Label font-family="monospace" background-color="#f0f0f0">$02</Label> contain the values <Label font-family="monospace" background-color="#f0f0f0">$05</Label> and <Label font-family="monospace" background-color="#f0f0f0">$07</Label>
+respectively. Think of <Label font-family="monospace" background-color="#f0f0f0">($00,X)</Label> as <Label font-family="monospace" background-color="#f0f0f0">($00 + X)</Label>. In this case <Label font-family="monospace" background-color="#f0f0f0">X</Label> is <Label font-family="monospace" background-color="#f0f0f0">$01</Label>, so
+this simplifies to <Label font-family="monospace" background-color="#f0f0f0">($01)</Label>. From here things proceed like standard indirect
+addressing - the two bytes at <Label font-family="monospace" background-color="#f0f0f0">$01</Label> and <Label font-family="monospace" background-color="#f0f0f0">$02</Label> (<Label font-family="monospace" background-color="#f0f0f0">$05</Label> and <Label font-family="monospace" background-color="#f0f0f0">$07</Label>) are looked up
+to form the address <Label font-family="monospace" background-color="#f0f0f0">$0705</Label>.  This is the address that the <Label font-family="monospace" background-color="#f0f0f0">Y</Label> register was
+stored into in the previous instruction, so the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register gets the same
+value as <Label font-family="monospace" background-color="#f0f0f0">Y</Label>, albeit through a much more circuitous route. You won&apos;t see this
+much.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Indirect indexed: <Label font-family="monospace" background-color="#f0f0f0">($c0),Y</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Indirect indexed is like indexed indirect but less insane. Instead of adding
+the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register to the address <Label font-style="italic">before</Label> dereferencing, the zero page address
+is dereferenced, and the <Label font-family="monospace" background-color="#f0f0f0">Y</Label> register is added to the resulting address.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDY #$01
+LDA #$03
+STA $01
+LDA #$07
+STA $02
+LDX #$0a
+STX $0704
+LDA ($01),Y
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">In this case, <Label font-family="monospace" background-color="#f0f0f0">($01)</Label> looks up the two bytes at <Label font-family="monospace" background-color="#f0f0f0">$01</Label> and <Label font-family="monospace" background-color="#f0f0f0">$02</Label>: <Label font-family="monospace" background-color="#f0f0f0">$03</Label> and
+<Label font-family="monospace" background-color="#f0f0f0">$07</Label>. These form the address <Label font-family="monospace" background-color="#f0f0f0">$0703</Label>. The value of the <Label font-family="monospace" background-color="#f0f0f0">Y</Label> register is added
+to this address to give the final address <Label font-family="monospace" background-color="#f0f0f0">$0704</Label>.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Exercise</Label>
+<StackLayout margin-top="8" margin-bottom="8" margin-left="16">
+<Label text-wrap="true" margin-top="4" margin-bottom="4" text="• try to write code snippets that use each of the 6502 addressing modes.
+remember, you can use the monitor in the debugger to watch a section of memory.">• Try to write code snippets that use each of the 6502 addressing modes.
+Remember, you can use the monitor in the debugger to watch a section of memory.</Label>
+</StackLayout>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">The stack</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The stack in a 6502 processor is just like any other stack - values are pushed
+onto it and popped (&quot;pulled&quot; in 6502 parlance) off it. The current depth of the
+stack is measured by the stack pointer, a special register. The stack lives in
+memory between <Label font-family="monospace" background-color="#f0f0f0">$0100</Label> and <Label font-family="monospace" background-color="#f0f0f0">$01ff</Label>. The stack pointer is initially <Label font-family="monospace" background-color="#f0f0f0">$ff</Label>, which
+points to memory location <Label font-family="monospace" background-color="#f0f0f0">$01ff</Label>. When a byte is pushed onto the stack, the
+stack pointer becomes <Label font-family="monospace" background-color="#f0f0f0">$fe</Label>, or memory location <Label font-family="monospace" background-color="#f0f0f0">$01fe</Label>, and so on.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Two of the stack instructions are <Label font-family="monospace" background-color="#f0f0f0">PHA</Label> and <Label font-family="monospace" background-color="#f0f0f0">PLA</Label>, &quot;push accumulator&quot; and &quot;pull
+accumulator&quot;. Below is an example of these two in action.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDX #$00
+LDY #$00
+firstloop:
+  TXA
+  STA $0200,Y
+  PHA
+  INX
+  INY
+  CPY #$10
+  BNE firstloop ;loop until Y is $10
+secondloop:
+  PLA
+  STA $0200,Y
+  INY
+  CPY #$20      ;loop until Y is $20
+  BNE secondloop
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-family="monospace" background-color="#f0f0f0">X</Label> holds the pixel colour, and <Label font-family="monospace" background-color="#f0f0f0">Y</Label> holds the position of the current pixel.
+The first loop draws the current colour as a pixel (via the <Label font-family="monospace" background-color="#f0f0f0">A</Label> register),
+pushes the colour to the stack, then increments the colour and position.  The
+second loop pops the stack, draws the popped colour as a pixel, then increments
+the position. As should be expected, this creates a mirrored pattern.</Label>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Jumping</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Jumping is like branching with two main differences. First, jumps are not
+conditionally executed, and second, they take a two-byte absolute address. For
+small programs, this second detail isn&apos;t very important, as you&apos;ll mostly be
+using labels, and the assembler works out the correct memory location from the
+label. For larger programs though, jumping is the only way to move from one
+section of the code to another.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">JMP</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-family="monospace" background-color="#f0f0f0">JMP</Label> is an unconditional jump. Here&apos;s a really simple example to show it in action:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">LDA #$03
+JMP there
+BRK
+BRK
+BRK
+there:
+  STA $0200
+</Label></Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">JSR/RTS</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-family="monospace" background-color="#f0f0f0">JSR</Label> and <Label font-family="monospace" background-color="#f0f0f0">RTS</Label> (&quot;jump to subroutine&quot; and &quot;return from subroutine&quot;) are a
+dynamic duo that you&apos;ll usually see used together. <Label font-family="monospace" background-color="#f0f0f0">JSR</Label> is used to jump from
+the current location to another part of the code. <Label font-family="monospace" background-color="#f0f0f0">RTS</Label> returns to the previous
+position. This is basically like calling a function and returning.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The processor knows where to return to because <Label font-family="monospace" background-color="#f0f0f0">JSR</Label> pushes the address minus
+one of the next instruction onto the stack before jumping to the given
+location. <Label font-family="monospace" background-color="#f0f0f0">RTS</Label> pops this location, adds one to it, and jumps to that location.
+An example:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">JSR init
+JSR loop
+JSR end
+
+init:
+  LDX #$00
+  RTS
+
+loop:
+  INX
+  CPX #$05
+  BNE loop
+  RTS
+
+end:
+  BRK
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The first instruction causes execution to jump to the <Label font-family="monospace" background-color="#f0f0f0">init</Label> label. This sets
+<Label font-family="monospace" background-color="#f0f0f0">X</Label>, then returns to the next instruction, <Label font-family="monospace" background-color="#f0f0f0">JSR loop</Label>. This jumps to the <Label font-family="monospace" background-color="#f0f0f0">loop</Label>
+label, which increments <Label font-family="monospace" background-color="#f0f0f0">X</Label> until it is equal to <Label font-family="monospace" background-color="#f0f0f0">$05</Label>. After that we return to
+the next instruction, <Label font-family="monospace" background-color="#f0f0f0">JSR end</Label>, which jumps to the end of the file. This
+illustrates how <Label font-family="monospace" background-color="#f0f0f0">JSR</Label> and <Label font-family="monospace" background-color="#f0f0f0">RTS</Label> can be used together to create modular code.</Label>
+<Label font-size="22" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Creating a game</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Now, let&apos;s put all this knowledge to good use, and make a game! We&apos;re going to
+be making a really simple version of the classic game &apos;Snake&apos;.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Even though this will be a simple version, the code will be substantially larger
+than all the previous examples. We will need to keep track of several memory
+locations together for the various aspects of the game. We can still do
+the necessary bookkeeping throughout the program ourselves, as before, but
+on a larger scale that quickly becomes tedious and can also lead to bugs that
+are difficult to spot. Instead we&apos;ll now let the assembler do some of the
+mundane work for us.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">In this assembler, we can define descriptive constants (or symbols) that represent
+numbers. The rest of the code can then simply use the constants instead of the
+literal number, which immediately makes it obvious what we&apos;re dealing with.
+You can use letters, digits and underscores in a name.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Here&apos;s an example. Note that immediate operands are still prefixed with a <Label font-family="monospace" background-color="#f0f0f0">#</Label>.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">  define  sysRandom  $fe ; an address
+  define  a_dozen    $0c ; a constant
+
+  LDA sysRandom  ; equivalent to &quot;LDA $fe&quot;
+
+  LDX #a_dozen   ; equivalent to &quot;LDX #$0c&quot;
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The code block below contains the entire source code of the game. I&apos;ll
+explain how it works in the following sections.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><a href="https://twitter.com/wkjagt">Willem van der Jagt</a> made a <a href="https://gist.github.com/wkjagt/9043907">fully annotated gist
+of this source code</a>, so follow along
+with that for more details.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable:example-snake:height=600">; This content will be replaced with the snake example
+</Label></Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Overall structure</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">After the initial block of comments (lines starting with semicolons), the first
+two lines are:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:readonly">jsr init
+jsr loop
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-family="monospace" background-color="#f0f0f0">init</Label> and <Label font-family="monospace" background-color="#f0f0f0">loop</Label> are both subroutines. <Label font-family="monospace" background-color="#f0f0f0">init</Label> initializes the game state, and
+<Label font-family="monospace" background-color="#f0f0f0">loop</Label> is the main game loop.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The <Label font-family="monospace" background-color="#f0f0f0">loop</Label> subroutine itself just calls a number of subroutines sequentially,
+before looping back on itself:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:readonly">loop:
+  jsr readkeys
+  jsr checkCollision
+  jsr updateSnake
+  jsr drawApple
+  jsr drawSnake
+  jsr spinwheels
+  jmp loop
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">First, <Label font-family="monospace" background-color="#f0f0f0">readkeys</Label> checks to see if one of the direction keys (W, A, S, D) was
+pressed, and if so, sets the direction of the snake accordingly. Then,
+<Label font-family="monospace" background-color="#f0f0f0">checkCollision</Label> checks to see if the snake collided with itself or the apple.
+<Label font-family="monospace" background-color="#f0f0f0">updateSnake</Label> updates the internal representation of the snake, based on its
+direction. Next, the apple and snake are drawn. Finally, <Label font-family="monospace" background-color="#f0f0f0">spinWheels</Label> makes the
+processor do some busy work, to stop the game from running too quickly. Think
+of it like a sleep command. The game keeps running until the snake collides
+with the wall or itself.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Zero page usage</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The zero page of memory is used to store a number of game state variables, as
+noted in the comment block at the top of the game. Everything in <Label font-family="monospace" background-color="#f0f0f0">$00</Label>, <Label font-family="monospace" background-color="#f0f0f0">$01</Label>
+and <Label font-family="monospace" background-color="#f0f0f0">$10</Label> upwards is a pair of bytes representing a two-byte memory location
+that will be looked up using indirect addressing.  These memory locations will
+all be between <Label font-family="monospace" background-color="#f0f0f0">$0200</Label> and <Label font-family="monospace" background-color="#f0f0f0">$05ff</Label> - the section of memory corresponding to the
+game console. For example, if <Label font-family="monospace" background-color="#f0f0f0">$00</Label> and <Label font-family="monospace" background-color="#f0f0f0">$01</Label> contained the values <Label font-family="monospace" background-color="#f0f0f0">$01</Label>
+and <Label font-family="monospace" background-color="#f0f0f0">$02</Label>, they would be referring to the second pixel of the display (
+<Label font-family="monospace" background-color="#f0f0f0">$0201</Label> - remember, the least significant byte comes first in indirect addressing).</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The first two bytes hold the location of the apple. This is updated every time
+the snake eats the apple. Byte <Label font-family="monospace" background-color="#f0f0f0">$02</Label> contains the current direction. <Label font-family="monospace" background-color="#f0f0f0">1</Label> means
+up, <Label font-family="monospace" background-color="#f0f0f0">2</Label> right, <Label font-family="monospace" background-color="#f0f0f0">4</Label> down, and <Label font-family="monospace" background-color="#f0f0f0">8</Label> left.  The reasoning behind these numbers will
+become clear later.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Finally, byte <Label font-family="monospace" background-color="#f0f0f0">$03</Label> contains the current length of the snake, in terms of bytes
+in memory (so a length of 4 means 2 pixels).</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">Initialization</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The <Label font-family="monospace" background-color="#f0f0f0">init</Label> subroutine defers to two subroutines, <Label font-family="monospace" background-color="#f0f0f0">initSnake</Label> and
+<Label font-family="monospace" background-color="#f0f0f0">generateApplePosition</Label>. <Label font-family="monospace" background-color="#f0f0f0">initSnake</Label> sets the snake direction, length, and then
+loads the initial memory locations of the snake head and body. The byte pair at
+<Label font-family="monospace" background-color="#f0f0f0">$10</Label> contains the screen location of the head, the pair at <Label font-family="monospace" background-color="#f0f0f0">$12</Label> contains the
+location of the single body segment, and <Label font-family="monospace" background-color="#f0f0f0">$14</Label> contains the location of the
+tail (the tail is the last segment of the body and is drawn in black to keep
+the snake moving). This happens in the following code:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-6502-assembler:copyable">lda #$11
+sta $10
+lda #$10
+sta $12
+lda #$0f
+sta $14
+lda #$04
+sta $11
+sta $13
+sta $15
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">This loads the value <Label font-family="monospace" background-color="#f0f0f0">$11</Label> into the memory location <Label font-family="monospace" background-color="#f0f0f0">$10</Label>, the value <Label font-family="monospace" background-color="#f0f0f0">$10</Label> into
+<Label font-family="monospace" background-color="#f0f0f0">$12</Label>, and <Label font-family="monospace" background-color="#f0f0f0">$0f</Label> into <Label font-family="monospace" background-color="#f0f0f0">$14</Label>. It then loads the value <Label font-family="monospace" background-color="#f0f0f0">$04</Label> into <Label font-family="monospace" background-color="#f0f0f0">$11</Label>, <Label font-family="monospace" background-color="#f0f0f0">$13</Label>
+and <Label font-family="monospace" background-color="#f0f0f0">$15</Label>. This leads to memory like this:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-hex:line-start=0x0010:readonly">11 04 10 04 0f 04
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">which represents the indirectly-addressed memory locations <Label font-family="monospace" background-color="#f0f0f0">$0411</Label>, <Label font-family="monospace" background-color="#f0f0f0">$0410</Label> and
+<Label font-family="monospace" background-color="#f0f0f0">$040f</Label> (three pixels in the middle of the display). I&apos;m labouring this point,
+but it&apos;s important to fully grok how indirect addressing works.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The next subroutine, <Label font-family="monospace" background-color="#f0f0f0">generateApplePosition</Label>, sets the apple location to a
+random position on the display. First, it loads a random byte into the
+accumulator (<Label font-family="monospace" background-color="#f0f0f0">$fe</Label> is a random number generator in this simulator). This is
+stored into <Label font-family="monospace" background-color="#f0f0f0">$00</Label>. Next, a different random byte is loaded into the
+accumulator, which is then <Label font-family="monospace" background-color="#f0f0f0">AND</Label>-ed with the value <Label font-family="monospace" background-color="#f0f0f0">$03</Label>. This part requires a
+bit of a detour.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The hex value <Label font-family="monospace" background-color="#f0f0f0">$03</Label> is represented in binary as <Label font-family="monospace" background-color="#f0f0f0">00000011</Label>. The <Label font-family="monospace" background-color="#f0f0f0">AND</Label> opcode
+performs a bitwise AND of the argument with the accumulator. For example, if
+the accumulator contains the binary value <Label font-family="monospace" background-color="#f0f0f0">10101010</Label>, then the result of <Label font-family="monospace" background-color="#f0f0f0">AND</Label>
+with <Label font-family="monospace" background-color="#f0f0f0">00000011</Label> will be <Label font-family="monospace" background-color="#f0f0f0">00000010</Label>.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The effect of this is to mask out the least significant two bits of the
+accumulator, setting the others to zero. This converts a number in the range of
+0–255 to a number in the range of 0–3.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">After this, the value <Label font-family="monospace" background-color="#f0f0f0">2</Label> is added to the accumulator, to create a final random
+number in the range 2–5.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The result of this subroutine is to load a random byte into <Label font-family="monospace" background-color="#f0f0f0">$00</Label>, and a random
+number between 2 and 5 into <Label font-family="monospace" background-color="#f0f0f0">$01</Label>. Because the least significant byte comes
+first with indirect addressing, this translates into a memory address between
+<Label font-family="monospace" background-color="#f0f0f0">$0200</Label> and <Label font-family="monospace" background-color="#f0f0f0">$05ff</Label>: the exact range used to draw the display.</Label>
+<Label font-size="20" font-weight="bold" text-wrap="true" margin-top="16" margin-bottom="8">The game loop</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Nearly all games have at their heart a game loop. All game loops have the same
+basic form: accept user input, update the game state, and render the game
+state. This loop is no different.</Label>
+<Label font-size="18" font-weight="bold" text-wrap="true" margin-top="14" margin-bottom="8">Reading the input</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The first subroutine, <Label font-family="monospace" background-color="#f0f0f0">readKeys</Label>, takes the job of accepting user input. The
+memory location <Label font-family="monospace" background-color="#f0f0f0">$ff</Label> holds the ascii code of the most recent key press in this
+simulator. The value is loaded into the accumulator, then compared to <Label font-family="monospace" background-color="#f0f0f0">$77</Label>
+(the hex code for W), <Label font-family="monospace" background-color="#f0f0f0">$64</Label> (D), <Label font-family="monospace" background-color="#f0f0f0">$73</Label> (S) and <Label font-family="monospace" background-color="#f0f0f0">$61</Label> (A). If any of these
+comparisons are successful, the program branches to the appropriate section.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Additional button inputs are also available: button A (Enter/Return key, ASCII code <Label font-family="monospace" background-color="#f0f0f0">$0D</Label>) and
+button B (Space key, ASCII code <Label font-family="monospace" background-color="#f0f0f0">$20</Label>). These can be used to add more interaction to your games.
+For directional controls, both WASD keys and arrow keys can be used interchangeably.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Each section (<Label font-family="monospace" background-color="#f0f0f0">upKey</Label>, <Label font-family="monospace" background-color="#f0f0f0">rightKey</Label>, etc.) first checks to see if the current
+direction is the opposite of the new direction. This requires another little detour.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">As stated before, the four directions are represented internally by the numbers
+1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented
+by a binary number with a single <Label font-family="monospace" background-color="#f0f0f0">1</Label>:</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-:readonly:no-line-numbers">1 =&gt; 0001 (up)
+2 =&gt; 0010 (right)
+4 =&gt; 0100 (down)
+8 =&gt; 1000 (left)
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The <Label font-family="monospace" background-color="#f0f0f0">BIT</Label> opcode is similar to <Label font-family="monospace" background-color="#f0f0f0">AND</Label>, but the calculation is only used to set
+the zero flag - the actual result is discarded. The zero flag is set only if the
+result of AND-ing the accumulator with argument is zero. When we&apos;re looking at
+powers of two, the zero flag will only be set if the two numbers are not the
+same. For example, <Label font-family="monospace" background-color="#f0f0f0">0001 AND 0001</Label> is not zero, but <Label font-family="monospace" background-color="#f0f0f0">0001 AND 0010</Label> is zero.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">So, looking at <Label font-family="monospace" background-color="#f0f0f0">upKey</Label>, if the current direction is down (4), the bit test will
+be zero. <Label font-family="monospace" background-color="#f0f0f0">BNE</Label> means &quot;branch if the zero flag is clear&quot;, so in this case we&apos;ll
+branch to <Label font-family="monospace" background-color="#f0f0f0">illegalMove</Label>, which just returns from the subroutine. Otherwise, the
+new direction (1 in this case) is stored in the appropriate memory location.</Label>
+<Label font-size="18" font-weight="bold" text-wrap="true" margin-top="14" margin-bottom="8">Updating the game state</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The next subroutine, <Label font-family="monospace" background-color="#f0f0f0">checkCollision</Label>, defers to <Label font-family="monospace" background-color="#f0f0f0">checkAppleCollision</Label> and
+<Label font-family="monospace" background-color="#f0f0f0">checkSnakeCollision</Label>. <Label font-family="monospace" background-color="#f0f0f0">checkAppleCollision</Label> just checks to see if the two
+bytes holding the location of the apple match the two bytes holding the
+location of the head. If they do, the length is increased and a new apple
+position is generated.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8"><Label font-family="monospace" background-color="#f0f0f0">checkSnakeCollision</Label> loops through the snake&apos;s body segments, checking each
+byte pair against the head pair. If there is a match, then game over.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">After collision detection, we update the snake&apos;s location. This is done at a
+high level like so: First, move each byte pair of the body up one position in
+memory. Second, update the head according to the current direction. Finally, if
+the head is out of bounds, handle it as a collision. I&apos;ll illustrate this with
+some ascii art. Each pair of brackets contains an x,y coordinate rather than a
+pair of bytes for simplicity.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-:readonly:no-line-numbers">  0    1    2    3    4
+Head                 Tail
+
+[1,5][1,4][1,3][1,2][2,2]    Starting position
+
+[1,5][1,4][1,3][1,2][1,2]    Value of (3) is copied into (4)
+
+[1,5][1,4][1,3][1,3][1,2]    Value of (2) is copied into (3)
+
+[1,5][1,4][1,4][1,3][1,2]    Value of (1) is copied into (2)
+
+[1,5][1,5][1,4][1,3][1,2]    Value of (0) is copied into (1)
+
+[0,5][1,5][1,4][1,3][1,2]    Value of (0) is updated based on direction
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">At a low level, this subroutine is slightly more complex. First, the length is
+loaded into the <Label font-family="monospace" background-color="#f0f0f0">X</Label> register, which is then decremented. The snippet below
+shows the starting memory for the snake.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-:readonly:no-line-numbers">Memory location: $10 $11 $12 $13 $14 $15
+
+Value:           $11 $04 $10 $04 $0f $04
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The length is initialized to <Label font-family="monospace" background-color="#f0f0f0">4</Label>, so <Label font-family="monospace" background-color="#f0f0f0">X</Label> starts off as <Label font-family="monospace" background-color="#f0f0f0">3</Label>. <Label font-family="monospace" background-color="#f0f0f0">LDA $10,x</Label> loads the
+value of <Label font-family="monospace" background-color="#f0f0f0">$13</Label> into <Label font-family="monospace" background-color="#f0f0f0">A</Label>, then <Label font-family="monospace" background-color="#f0f0f0">STA $12,x</Label> stores this value into <Label font-family="monospace" background-color="#f0f0f0">$15</Label>. <Label font-family="monospace" background-color="#f0f0f0">X</Label> is
+decremented, and we loop. Now <Label font-family="monospace" background-color="#f0f0f0">X</Label> is <Label font-family="monospace" background-color="#f0f0f0">2</Label>, so we load <Label font-family="monospace" background-color="#f0f0f0">$12</Label> and store it into
+<Label font-family="monospace" background-color="#f0f0f0">$14</Label>. This loops while <Label font-family="monospace" background-color="#f0f0f0">X</Label> is positive (<Label font-family="monospace" background-color="#f0f0f0">BPL</Label> means &quot;branch if positive&quot;).</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Once the values have been shifted down the snake, we have to work out what to
+do with the head. The direction is first loaded into <Label font-family="monospace" background-color="#f0f0f0">A</Label>. <Label font-family="monospace" background-color="#f0f0f0">LSR</Label> means &quot;logical
+shift right&quot;, or &quot;shift all the bits one position to the right&quot;. The least
+significant bit is shifted into the carry flag, so if the accumulator is <Label font-family="monospace" background-color="#f0f0f0">1</Label>,
+after <Label font-family="monospace" background-color="#f0f0f0">LSR</Label> it is <Label font-family="monospace" background-color="#f0f0f0">0</Label>, with the carry flag set.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">To test whether the direction is <Label font-family="monospace" background-color="#f0f0f0">1</Label>, <Label font-family="monospace" background-color="#f0f0f0">2</Label>, <Label font-family="monospace" background-color="#f0f0f0">4</Label> or <Label font-family="monospace" background-color="#f0f0f0">8</Label>, the code continually
+shifts right until the carry is set. One <Label font-family="monospace" background-color="#f0f0f0">LSR</Label> means &quot;up&quot;, two means &quot;right&quot;,
+and so on.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The next bit updates the head of the snake depending on the direction. This is
+probably the most complicated part of the code, and it&apos;s all reliant on how
+memory locations map to the screen, so let&apos;s look at that in more detail.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">You can think of the screen as four horizontal strips of 32 × 8 pixels.
+These strips map to <Label font-family="monospace" background-color="#f0f0f0">$0200-$02ff</Label>, <Label font-family="monospace" background-color="#f0f0f0">$0300-$03ff</Label>, <Label font-family="monospace" background-color="#f0f0f0">$0400-$04ff</Label> and <Label font-family="monospace" background-color="#f0f0f0">$0500-$05ff</Label>.
+The first rows of pixels are <Label font-family="monospace" background-color="#f0f0f0">$0200-$021f</Label>, <Label font-family="monospace" background-color="#f0f0f0">$0220-$023f</Label>, <Label font-family="monospace" background-color="#f0f0f0">$0240-$025f</Label>, etc.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">As long as you&apos;re moving within one of these horizontal strips, things are
+simple. For example, to move right, just increment the least significant byte
+(e.g. <Label font-family="monospace" background-color="#f0f0f0">$0200</Label> becomes <Label font-family="monospace" background-color="#f0f0f0">$0201</Label>). To go down, add <Label font-family="monospace" background-color="#f0f0f0">$20</Label> (e.g. <Label font-family="monospace" background-color="#f0f0f0">$0200</Label> becomes
+<Label font-family="monospace" background-color="#f0f0f0">$0220</Label>). Left and up are the reverse.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Going between sections is more complicated, as we have to take into account the
+most significant byte as well. For example, going down from <Label font-family="monospace" background-color="#f0f0f0">$02e1</Label> should lead
+to <Label font-family="monospace" background-color="#f0f0f0">$0301</Label>. Luckily, this is fairly easy to accomplish. Adding <Label font-family="monospace" background-color="#f0f0f0">$20</Label> to <Label font-family="monospace" background-color="#f0f0f0">$e1</Label>
+results in <Label font-family="monospace" background-color="#f0f0f0">$01</Label> and sets the carry bit. If the carry bit was set, we know we
+also need to increment the most significant byte.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">After a move in each direction, we also need to check to see if the head
+would become out of bounds. This is handled differently for each direction. For
+left and right, we can check to see if the head has effectively &quot;wrapped
+around&quot;. Going right from <Label font-family="monospace" background-color="#f0f0f0">$021f</Label> by incrementing the least significant byte
+would lead to <Label font-family="monospace" background-color="#f0f0f0">$0220</Label>, but this is actually jumping from the last pixel of the
+first row to the first pixel of the second row. So, every time we move right,
+we need to check if the new least significant byte is a multiple of <Label font-family="monospace" background-color="#f0f0f0">$20</Label>. This
+is done using a bit check against the mask <Label font-family="monospace" background-color="#f0f0f0">$1f</Label>. Hopefully the illustration
+below will show you how masking out the lowest 5 bits reveals whether a number
+is a multiple of <Label font-family="monospace" background-color="#f0f0f0">$20</Label> or not.</Label>
+<Label text-wrap="true" font-size="14" background-color="#f0f0f0" padding="8" border-radius="4"><Label font-family="monospace" background-color="#f0f0f0" class="language-:readonly:no-line-numbers">$20: 0010 0000
+$40: 0100 0000
+$60: 0110 0000
+
+$1f: 0001 1111
+</Label></Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">I won&apos;t explain in depth how each of the directions work, but the above
+explanation should give you enough to work it out with a bit of study.</Label>
+<Label font-size="18" font-weight="bold" text-wrap="true" margin-top="14" margin-bottom="8">Rendering the game</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Because the game state is stored in terms of pixel locations, rendering the
+game is very straightforward. The first subroutine, <Label font-family="monospace" background-color="#f0f0f0">drawApple</Label>, is extremely
+simple. It sets <Label font-family="monospace" background-color="#f0f0f0">Y</Label> to zero, loads a random colour into the accumulator, then
+stores this value into <Label font-family="monospace" background-color="#f0f0f0">($00),y</Label>. <Label font-family="monospace" background-color="#f0f0f0">$00</Label> is where the location of the apple is
+stored, so <Label font-family="monospace" background-color="#f0f0f0">($00),y</Label> dereferences to this memory location. Read the &quot;Indirect
+indexed&quot; section in <a href="#addressing">Addressing modes</a> for more details.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">Next comes <Label font-family="monospace" background-color="#f0f0f0">drawSnake</Label>. This is pretty simple too - we first undraw the tail
+and then draw the head. <Label font-family="monospace" background-color="#f0f0f0">X</Label> is set to the length of the snake, so we can index
+to the right pixel, and we set <Label font-family="monospace" background-color="#f0f0f0">A</Label> to zero then perform the write using the
+indexed indirect addressing mode. Then we reload <Label font-family="monospace" background-color="#f0f0f0">X</Label> to index to the head, set
+<Label font-family="monospace" background-color="#f0f0f0">A</Label> to one and store it at <Label font-family="monospace" background-color="#f0f0f0">($10,x)</Label>. <Label font-family="monospace" background-color="#f0f0f0">$10</Label> stores the two-byte location of
+the head, so this draws a white pixel at the current head position. As only
+the head and the tail of the snake move, this is enough to keep the snake
+moving.</Label>
+<Label text-wrap="true" margin-top="8" margin-bottom="8">The last subroutine, <Label font-family="monospace" background-color="#f0f0f0">spinWheels</Label>, is just there because the game would run too
+fast otherwise. All <Label font-family="monospace" background-color="#f0f0f0">spinWheels</Label> does is count <Label font-family="monospace" background-color="#f0f0f0">X</Label> down from zero until it hits
+zero again. The first <Label font-family="monospace" background-color="#f0f0f0">dex</Label> wraps, making <Label font-family="monospace" background-color="#f0f0f0">X</Label> <Label font-family="monospace" background-color="#f0f0f0">#$ff</Label>.</Label>
+</StackLayout>
