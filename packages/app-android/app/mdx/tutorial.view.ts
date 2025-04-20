@@ -1,26 +1,12 @@
-import { ContentView, Builder } from '@nativescript/core';
+import { MdxView } from './mdx.view';
 
-export class TutorialView extends ContentView {
+export class TutorialView extends MdxView {
     constructor() {
         super();
     }
 
-    onLoaded() {
-        super.onLoaded();
-
-        // Load the XML layout using Builder
-        const componentView = Builder.load({
-            path: '~/mdx',
-            name: 'tutorial'
-        });
-
-        if (!componentView) {
-            console.error('Failed to load tutorial.xml template');
-            return;
-        }
-
-        // Add the componentView to the content
-        this.content = componentView;
+    protected getViewName(): string {
+        return 'tutorial';
     }
 }
 

@@ -41,8 +41,6 @@ export function generateNativeScriptXml(jsx: any): string {
     return xml;
 }
 
-// TODO: wie bei GtkLabel machen aber statt NsLabel NsHtmlView verwenden!
-
 // Components map for MDX - mapping HTML elements to NativeScript components
 export const components = {
     // Root component
