@@ -5,7 +5,7 @@ export abstract class MdxView extends ContentView {
         super();
     }
 
-    // Abstrakte Methode, die von den Unterklassen implementiert werden muss
+    // Abstract method that must be implemented by subclasses
     protected abstract getViewName(): string;
 
     onLoaded() {
@@ -24,39 +24,39 @@ export abstract class MdxView extends ContentView {
 
         // Add the componentView to the content
         this.content = componentView;
-        
-        // Setze die Schriftgröße für alle HtmlViews
-        this.setHtmlViewsFontSize(18); // Hier die gewünschte Größe anpassen
+
+        // Set the font size for all HtmlViews
+        this.setHtmlViewsFontSize(18);
     }
 
-    // Funktion, um Schriftgröße für alle HtmlViews zu setzen
+    // Function to set the font size for all HtmlViews
     protected setHtmlViewsFontSize(fontSize: number): void {
-        // Hole alle HtmlViews rekursiv
+        // Get all HtmlViews recursively
         const htmlViews: HtmlView[] = [];
         this.findAllHtmlViews(this.content, htmlViews);
-        
-        // Schleife durch alle gefundenen HtmlViews
+
+        // Loop through all found HtmlViews
         htmlViews.forEach((htmlView) => {
             if (htmlView && htmlView.android) {
-                // Setze die Schriftgröße direkt auf dem nativen TextView
+                // Set the font size directly on the native TextView
                 htmlView.android.setTextSize(fontSize);
             }
         });
     }
 
-    // Rekursive Hilfsmethode zum Finden aller HtmlViews
+    // Recursive helper method to find all HtmlViews
     private findAllHtmlViews(view: View, results: HtmlView[]): void {
         if (!view) return;
-        
-        // Prüfe, ob die aktuelle View eine HtmlView ist
+
+        // Check if the current view is an HtmlView
         if (view instanceof HtmlView) {
             results.push(view);
         }
-        
-        // Iteriere durch alle Kind-Views mit eachChildView
+
+        // Iterate through all child views with eachChildView
         view.eachChildView((childView: View) => {
             this.findAllHtmlViews(childView, results);
-            return true; // true bedeutet, die Iteration fortzusetzen
+            return true; // true means continue the iteration
         });
     }
 }

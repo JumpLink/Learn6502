@@ -24,7 +24,12 @@ export function generateNativeScriptXml(jsx: any): string {
                 .join('');
 
             // Convert camelCase attributes to kebab-case
-            const nsAttrs = attrs.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+            // Only convert attribute names, not values
+            const nsAttrs = attrs.replace(/\s+([a-zA-Z][a-zA-Z0-9]*)="([^"]*)"/g, (match, attrName, attrValue) => {
+                // Convert camelCase attribute name to kebab-case
+                const kebabAttrName = attrName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
+                return ` ${kebabAttrName}="${attrValue}"`;
+            });
 
             return `<${nsName}${nsAttrs}>`;
         })

@@ -6,7 +6,8 @@
   "scripts": {
     "clear": "ns clean",
     "start": "ns run android --emulator",
-    "start:clean": "ns run android --clean --emulator"
+    "start:clean": "ns run android --clean --emulator",
+    "debug": "ns debug android"
   },
   "dependencies": {
     "@learn6502/6502": "workspace:^",
