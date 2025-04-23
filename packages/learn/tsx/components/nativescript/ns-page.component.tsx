@@ -1,13 +1,13 @@
 import { Component } from 'nano-jsx'
-import { NsWidget } from './ns-widget.component'
 
-export class NsPage extends NsWidget {
-    static propertyNames = [...NsWidget.propertyNames, "actionBarHidden"]
+export class NsPage extends Component {
+    static propertyNames = [
+        "actionBarHidden"
+    ]
 
-    static reservedPropertyNames = [...NsWidget.reservedPropertyNames]
+    static reservedPropertyNames = []
 
     static defaultProps = {
-        ...NsWidget.defaultProps
     }
 
     constructor(props: any) {
@@ -22,4 +22,4 @@ export class NsPage extends NsWidget {
             </ns-page>
         )
     }
-} 
+}

@@ -28,5 +28,5 @@ export const GtkComponents: MDXComponents = {
     td: (props: any) => props.children,
     th: (props: any) => props.children,
     em: (props: any) => props.children,
-    strong: (props: any) => <b>{props.children}</b>,
+    strong: (props: any) => <b {...props}>{props.children}</b>,
 }

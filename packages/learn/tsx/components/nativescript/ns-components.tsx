@@ -1,15 +1,7 @@
-import { h, Fragment, Component, renderSSR } from 'nano-jsx'
-import { NsWidget } from './ns-widget.component'
+import { renderSSR } from 'nano-jsx'
 import { NsPage } from './ns-page.component'
-import { NsStackLayout } from './ns-stack-layout.component'
-import { NsFlexboxLayout } from './ns-flexbox-layout.component'
-import { NsLabel } from './ns-label.component'
-import { NsSpan } from './ns-span.component'
 import { NsHtmlView } from './ns-html-view.component'
-import { NsButton } from './ns-button.component'
-import { NsTextField } from './ns-text-field.component'
 import { NsImage } from './ns-image.component'
-import { NsActionBar } from './ns-action-bar.component'
 
 // Alternative implementation without DOM API (for server environments)
 export function generateNativeScriptXml(jsx: any): string {
@@ -63,7 +55,7 @@ export const components = {
     p: (props: any) => <NsHtmlView {...props}><p>{props.children}</p></NsHtmlView>,
     // strong: (props: any) => <NsHtmlView {...props}><strong>{props.children}</strong></NsHtmlView>,
     // em: (props: any) => <NsHtmlView {...props}><em>{props.children}</em></NsHtmlView>,
-    // sub: (props: any) => <NsHtmlView {...props}><sub>{props.children}</sub></NsHtmlView>,
+    // sub: (props: any) => <small {...props}>{props.children}</small>,
 
     // Links
     // a: (props: any) => <NsHtmlView {...props}><a href="{props.href}">{props.children}</a></NsHtmlView>,

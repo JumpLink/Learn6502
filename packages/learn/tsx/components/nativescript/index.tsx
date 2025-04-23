@@ -1,13 +1,7 @@
-export { NsWidget } from './ns-widget.component'
 export { NsPage } from './ns-page.component'
 export { NsRoot } from './ns-root.component'
 export { NsStackLayout } from './ns-stack-layout.component'
-export { NsFlexboxLayout } from './ns-flexbox-layout.component'
-export { NsLabel } from './ns-label.component'
-export { NsButton } from './ns-button.component'
-export { NsTextField } from './ns-text-field.component'
 export { NsImage } from './ns-image.component'
-export { NsActionBar } from './ns-action-bar.component'
 
 export { generateNativeScriptXml } from './ns-components.tsx'
 export { components } from './ns-components.tsx'
