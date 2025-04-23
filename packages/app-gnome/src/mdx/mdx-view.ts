@@ -1,16 +1,16 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
-import { SourceView } from '../source-view.ts'
+import { SourceView } from '../widgets/source-view.ts'
 
 /**
  * Base class for rendering MDX content in GTK
  * Provides common functionality for handling source views and other MDX elements
  * This class is designed to be extended by concrete implementations with specific templates
  */
-export class MdxRenderer extends Adw.Bin {
+export class MdxView extends Adw.Bin {
   static {
     GObject.registerClass({
-      GTypeName: 'MdxRenderer',
+      GTypeName: 'MdxView',
       Signals: {
         'copy': {
           param_types: [GObject.TYPE_STRING],
@@ -22,8 +22,8 @@ export class MdxRenderer extends Adw.Bin {
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
     // Prevent direct instantiation of the base class
-    if (this.constructor === MdxRenderer) {
-      throw new Error('MdxRenderer is a base class and should not be instantiated directly')
+    if (this.constructor === MdxView) {
+      throw new Error('MdxView is a base class and should not be instantiated directly')
     }
   }
 
@@ -46,4 +46,4 @@ export class MdxRenderer extends Adw.Bin {
   }
 }
 
-GObject.type_ensure(MdxRenderer.$gtype)
+GObject.type_ensure(MdxView.$gtype)

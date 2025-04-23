@@ -3,15 +3,15 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import GLib from '@girs/glib-2.0'
 
-import { Tutorial } from './mdx/tutorial.ts'
+import { TutorialView } from '../mdx/tutorial-view.ts'
 
-import Template from './learn.blp'
+import Template from '../views/learn.blp'
 
 export class Learn extends Adw.Bin {
 
   // Child widgets
   declare private _statusPage: Adw.StatusPage
-  declare private _tutorial: Tutorial
+  declare private _tutorialView: TutorialView
 
   // Store the scroll position
   private _lastScrollPosition: number = 0
@@ -20,7 +20,7 @@ export class Learn extends Adw.Bin {
     GObject.registerClass({
       GTypeName: 'Learn',
       Template,
-      InternalChildren: ['statusPage', 'tutorial'],
+      InternalChildren: ['statusPage', 'tutorialView'],
       Signals: {
         'copy': {
           param_types: [GObject.TYPE_STRING],
@@ -35,7 +35,7 @@ export class Learn extends Adw.Bin {
   }
 
   private setupTutorialSignalListeners(): void {
-    this._tutorial.connect('copy', (tutorial, code) => {
+    this._tutorialView.connect('copy', (tutorialView, code) => {
       this.emit('copy', code);
     });
   }

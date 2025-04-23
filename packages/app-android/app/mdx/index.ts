@@ -1,2 +1,2 @@
-export * from './tutorial.view';
-// xport * from './quick-help.view';
+export * from './tutorial-view';
+export * from './quick-help-view';

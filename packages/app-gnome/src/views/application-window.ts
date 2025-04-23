@@ -9,10 +9,10 @@ import { SimulatorState, num2hex } from '@learn6502/6502'
 
 import { Learn } from './learn.ts'
 import { Editor } from './editor.ts'
-import { GameConsole } from './game-console/index.ts'
-import { Debugger } from './debugger/index.ts'
+import { GameConsole } from './game-console.ts'
+import { Debugger } from './debugger.ts'
 import { HelpWindow } from './help-window.ts'
-import './theme-selector.ts' // TODO make use of this
+import '../widgets/theme-selector.ts' // TODO make use of this
 import { copyToClipboard } from '../utils.ts'
 
 import Template from './application-window.blp'

@@ -36,8 +36,8 @@ async function generateHtml(fileName: string, component: string) {
 }
 
 // Generate GTK UI files
-await generateGtkUiXml('tutorial', renderSSR(<GtkRoot class="Tutorial"><Tutorial components={GtkComponents}/></GtkRoot>))
-await generateGtkUiXml('quick-help', renderSSR(<GtkRoot class="QuickHelp"><QuickHelp components={GtkComponents}/></GtkRoot>))
+await generateGtkUiXml('tutorial', renderSSR(<GtkRoot class="TutorialView"><Tutorial components={GtkComponents}/></GtkRoot>))
+await generateGtkUiXml('quick-help', renderSSR(<GtkRoot class="QuickHelpView"><QuickHelp components={GtkComponents}/></GtkRoot>))
 
 // Generate NativeScript XML files
 const tutorialXml = generateNativeScriptXml(<NsRoot><Tutorial components={NsComponents}/></NsRoot>)

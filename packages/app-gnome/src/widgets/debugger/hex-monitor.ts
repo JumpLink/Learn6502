@@ -4,7 +4,6 @@ import Gtk from '@girs/gtk-4.0'
 import { SourceView } from '../source-view.ts'
 
 import type { Memory, HexMonitorOptions, HexMonitor as HexMonitorInterface } from '@learn6502/6502'
-import { throttle } from '@learn6502/6502'
 
 import Template from './hex-monitor.blp'
 

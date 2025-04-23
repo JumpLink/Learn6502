@@ -4,10 +4,9 @@ import Gdk from '@girs/gdk-4.0'
 import Gtk from '@girs/gtk-4.0'
 import Adw from '@girs/adw-1'
 
-import { ApplicationWindow } from './application-window.ts'
-import { PreferencesDialog } from './preferences-dialog.ts'
-import { APPLICATION_ID, RESOURCES_PATH } from '../constants.ts'
-import { initResources } from '../resources.ts'
+import { ApplicationWindow, PreferencesDialog } from './views/index.ts'
+import { APPLICATION_ID, RESOURCES_PATH } from './constants.ts'
+import { initResources } from './resources.ts'
 
 import applicationStyle from './application.css?inline'
 

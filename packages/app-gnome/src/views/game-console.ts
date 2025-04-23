@@ -3,8 +3,8 @@ import Adw from '@girs/adw-1'
 
 import { Memory, Labels, Simulator, Assembler, type AssemblerEvent, type SimulatorEvent, type LabelsEvent } from '@learn6502/6502';
 
-import { Display } from './display.ts'
-import { GamePad } from './game-pad.ts'
+import { Display } from '../widgets/game-console/display.ts'
+import { GamePad } from '../widgets/game-console/game-pad.ts'
 
 import Template from './game-console.blp'
 

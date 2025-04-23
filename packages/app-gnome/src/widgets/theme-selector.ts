@@ -1,8 +1,8 @@
 // Adapted from https://github.com/sonnyp/troll/blob/8b0275948eedec9ed0378f9bdda1aa4aac3062ba/src/widgets/README.md
 
 import GObject from "gi://GObject";
-import Gtk from "gi://Gtk";
 import Adw from "gi://Adw";
+import type Gtk from "gi://Gtk";
 
 import Template from "./theme-selector.blp";
 

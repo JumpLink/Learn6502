@@ -2,11 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Gtk from '@girs/gtk-4.0'
 import Adw from '@girs/adw-1'
 
-import { MessageConsole } from './message-console.ts'
-import { HexMonitor } from './hex-monitor.ts'
-import { Hexdump } from './hexdump.ts'
-import { Disassembled } from './disassembled.ts'
-import { DebugInfo } from './debug-info.ts'
+import { MessageConsole, HexMonitor, Hexdump, Disassembled, DebugInfo } from '../widgets/debugger/index.ts'
 
 import Template from './debugger.blp'
 

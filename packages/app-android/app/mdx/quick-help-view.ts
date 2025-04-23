@@ -1,4 +1,4 @@
-import { MdxView } from './mdx.view';
+import { MdxView } from './mdx-view';
 
 export class QuickHelpView extends MdxView {
     constructor() {

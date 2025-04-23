@@ -1,18 +1,18 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
-import { QuickHelp } from './mdx/quick-help.ts'
+import { QuickHelpView } from '../mdx/quick-help-view.ts'
 
-import Template from './help-window.blp'
+import Template from '../views/help-window.blp'
 
 export class HelpWindow extends Adw.Window {
 
-  declare private _quickHelp: QuickHelp;
+  declare private _quickHelpView: QuickHelpView;
 
   static {
     GObject.registerClass({
         GTypeName: 'HelpWindow',
         Template,
-        InternalChildren: ['quickHelp'],
+        InternalChildren: ['quickHelpView'],
     }, this);
   }
 

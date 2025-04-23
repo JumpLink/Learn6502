@@ -16,7 +16,7 @@
     <!-- Use GridLayout to position content and bottom navigation -->
     <GridLayout rows="*, auto" columns="*">
         <!-- Frame for content switching -->
-        <Frame id="mainFrame" row="0" defaultPage="pages/learn.page" />
+        <Frame id="mainFrame" row="0" defaultPage="views/learn" />
         <!-- Bottom navigation bar positioned at the bottom -->
         <w:BottomNavigation row="1" height="80">
             <w:BottomTab title="Learn" icon="res://school_symbolic" id="learn" />

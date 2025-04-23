@@ -3,7 +3,7 @@ import '@girs/gjs/dom'
 import '@girs/gjs'
 import { loop } from './bootstrap.ts'
 import { programInvocationName, exit} from 'system'
-import { Application } from './widgets/index.ts'
+import { Application } from './application.ts'
 
 async function main(argv: string[]) {
   const application = new Application()

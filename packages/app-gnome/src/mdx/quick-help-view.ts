@@ -1,29 +1,29 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import QuickHelpTemplate from '@learn6502/learn/dist/quick-help.ui?raw'
-import { findIdsInXml } from '../../utils.ts'
-import { MdxRenderer } from './mdx-renderer.ts'
+import { findIdsInXml } from '../utils.ts'
+import { MdxView } from './mdx-view.ts'
 
 /**
  * Quick help widget that renders the quick help MDX content.
  * The UI is generated from the `quick-help.mdx` file from the learn package.
  */
-export class QuickHelp extends MdxRenderer {
+export class QuickHelpView extends MdxView {
   // Find all source view IDs in the template
   static SOURCE_VIEW_IDS = findIdsInXml('sourceView', QuickHelpTemplate)
 
   static {
     GObject.registerClass({
-      GTypeName: 'QuickHelp',
+      GTypeName: 'QuickHelpView',
       Template: QuickHelpTemplate,
-      InternalChildren: [...QuickHelp.SOURCE_VIEW_IDS],
+      InternalChildren: [...QuickHelpView.SOURCE_VIEW_IDS],
     }, this);
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params)
-    this.setupSourceViews(QuickHelp.SOURCE_VIEW_IDS)
+    this.setupSourceViews(QuickHelpView.SOURCE_VIEW_IDS)
   }
 }
 
-GObject.type_ensure(QuickHelp.$gtype)
+GObject.type_ensure(QuickHelpView.$gtype)

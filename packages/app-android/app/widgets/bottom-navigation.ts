@@ -94,9 +94,9 @@ export class BottomNavigation extends ContentView {
     const mainFrame = Frame.getFrameById('mainFrame');
     if (mainFrame) {
       // Navigate to page corresponding to tab ID
-      // For example, if tab ID is "home", navigate to "pages/home.page"
+      // For example, if tab ID is "home", navigate to "views/home"
       mainFrame.navigate({
-        moduleName: `pages/${tabId}.page`,
+        moduleName: `views/${tabId}`,
         clearHistory: true
       });
     }
