@@ -103,7 +103,6 @@ export interface GettextPo2JsonPluginOptions {
 
   /**
    * Default language code (default: 'en')
-   * This language will also be saved as '{lang}.default.json'
    */
   defaultLanguage?: string;
 
@@ -111,4 +110,11 @@ export interface GettextPo2JsonPluginOptions {
    * Enable verbose logging
    */
   verbose?: boolean;
+
+  /**
+   * Additional translations to include in all language files
+   * Keys are identifiers and values are the English text
+   * The English text will be translated for non-default languages if translations exist
+   */
+  additionalTranslations?: Record<string, string>;
 }

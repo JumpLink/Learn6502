@@ -34,7 +34,11 @@ const po2json = po2jsonPlugin({
   poDirectory: '.',
   jsonDirectory: '../app-android/app/i18n',
   defaultLanguage: 'en',
-  verbose: true
+  verbose: true,
+  additionalTranslations: {
+    // 'app.name' is a required key for the Android app
+    'app.name': 'Learn 6502 Assembly'
+  }
 });
 
 // Start the extraction process
