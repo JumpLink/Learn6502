@@ -48,11 +48,9 @@ export const components = {
     h2: (props: any) => <NsHtmlView {...props} className="title-2">{props.children}</NsHtmlView>,
     h3: (props: any) => <NsHtmlView {...props} className="title-3">{props.children}</NsHtmlView>,
     h4: (props: any) => <NsHtmlView {...props} className="title-4">{props.children}</NsHtmlView>,
-    h5: (props: any) => <NsHtmlView {...props} className="title-5">{props.children}</NsHtmlView>,
-    h6: (props: any) => <NsHtmlView {...props} className="title-6">{props.children}</NsHtmlView>,
 
     // Text elements
-    p: (props: any) => <NsHtmlView {...props} className="paragraph">{props.children}</NsHtmlView>,
+    p: (props: any) => <NsHtmlView {...props} className="body">{props.children}</NsHtmlView>,
     // strong: (props: any) => <NsHtmlView {...props}><strong>{props.children}</strong></NsHtmlView>,
     // em: (props: any) => <NsHtmlView {...props}><em>{props.children}</em></NsHtmlView>,
     // sub: (props: any) => <small {...props}>{props.children}</small>,
@@ -82,9 +80,9 @@ export const components = {
     // td: (props: any) => props.children,
     // th: (props: any) => props.children,
 
-    // TODO: This is working but we have removed it in GTK so the translation is not working
-    em: (props: any) => props.children,
-
+    sub: (props: any) => <small {...props}>{props.children}</small>,
+    sup: (props: any) => <small {...props}>{props.children}</small>,
+    em: (props: any) => <i {...props}>{props.children}</i>,
     strong: (props: any) => <b {...props}>{props.children}</b>,
 }
 
