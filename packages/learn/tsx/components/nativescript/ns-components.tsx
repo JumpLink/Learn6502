@@ -31,7 +31,7 @@ export function generateNativeScriptXml(jsx: any): string {
                 .map(part => part.charAt(0).toUpperCase() + part.slice(1))
                 .join('');
             return `</${nsName}>`;
-        });
+        })
 
     const xml = `<?xml version="1.0" encoding="UTF-8"?>
     ${transformedOutput}`;
@@ -44,15 +44,15 @@ export const components = {
     Page: NsPage,
 
     // Heading elements
-    h1: (props: any) => <NsHtmlView {...props}><h1>{props.children}</h1></NsHtmlView>,
-    h2: (props: any) => <NsHtmlView {...props}><h2>{props.children}</h2></NsHtmlView>,
-    h3: (props: any) => <NsHtmlView {...props}><h3>{props.children}</h3></NsHtmlView>,
-    h4: (props: any) => <NsHtmlView {...props}><h4>{props.children}</h4></NsHtmlView>,
-    h5: (props: any) => <NsHtmlView {...props}><h5>{props.children}</h5></NsHtmlView>,
-    h6: (props: any) => <NsHtmlView {...props}><h6>{props.children}</h6></NsHtmlView>,
+    h1: (props: any) => <NsHtmlView {...props} className="title-1">{props.children}</NsHtmlView>,
+    h2: (props: any) => <NsHtmlView {...props} className="title-2">{props.children}</NsHtmlView>,
+    h3: (props: any) => <NsHtmlView {...props} className="title-3">{props.children}</NsHtmlView>,
+    h4: (props: any) => <NsHtmlView {...props} className="title-4">{props.children}</NsHtmlView>,
+    h5: (props: any) => <NsHtmlView {...props} className="title-5">{props.children}</NsHtmlView>,
+    h6: (props: any) => <NsHtmlView {...props} className="title-6">{props.children}</NsHtmlView>,
 
     // Text elements
-    p: (props: any) => <NsHtmlView {...props}><p>{props.children}</p></NsHtmlView>,
+    p: (props: any) => <NsHtmlView {...props} className="paragraph">{props.children}</NsHtmlView>,
     // strong: (props: any) => <NsHtmlView {...props}><strong>{props.children}</strong></NsHtmlView>,
     // em: (props: any) => <NsHtmlView {...props}><em>{props.children}</em></NsHtmlView>,
     // sub: (props: any) => <small {...props}>{props.children}</small>,
@@ -62,9 +62,9 @@ export const components = {
 
     // Lists
     // ul: (props: any) => <NsHtmlView {...props}><ul>{props.children}</ul></NsHtmlView>,
-    ul: (props: any) => <NsHtmlView {...props}><ul>{props.children}</ul></NsHtmlView>,
+    ul: (props: any) => <NsHtmlView {...props} className="list"><ul>{props.children}</ul></NsHtmlView>,
     // ol: (props: any) => <NsHtmlView {...props}><ol>{props.children}</ol></NsHtmlView>,
-    ol: (props: any) => <NsHtmlView {...props}><ol>{props.children}</ol></NsHtmlView>,
+    ol: (props: any) => <NsHtmlView {...props} className="list"><ol>{props.children}</ol></NsHtmlView>,
     // li: (props: any) => <NsHtmlView {...props}><li>{props.children}</li></NsHtmlView>,
 
     // Media
@@ -74,13 +74,18 @@ export const components = {
     // pre: (props: any) => <NsSpan textWrap="true" fontSize="14" backgroundColor="#f0f0f0" padding="8" borderRadius="4" {...props} />,
     // code: (props: any) => <NsSpan fontFamily="monospace" backgroundColor="#f0f0f0" {...props} />,
     pre: (props: any) => null,
-    code: (props: any) => null,
+    code: (props: any) => <tt {...props}>{props.children}</tt>,
 
     // Tables (simplified - could be improved with a GridLayout)
     // table: (props: any) => <NsStackLayout marginTop="8" marginBottom="8" {...props} />,
-    // tr: (props: any) => <NsFlexboxLayout marginTop="4" marginBottom="4" {...props} />,
-    // td: (props: any) => <NsLabel padding="4" {...props} />,
-    // th: (props: any) => <NsLabel fontWeight="bold" padding="4" {...props} />
+    // tr: (props: any) => props.children,
+    // td: (props: any) => props.children,
+    // th: (props: any) => props.children,
+
+    // TODO: This is working but we have removed it in GTK so the translation is not working
+    em: (props: any) => props.children,
+
+    strong: (props: any) => <b {...props}>{props.children}</b>,
 }
 
 // Main component that combines all

@@ -1,4 +1,5 @@
-import { Application, type SystemAppearanceChangedEventData, Utils } from '@nativescript/core';
+import { Application, type SystemAppearanceChangedEventData } from '@nativescript/core';
+import { androidLaunchEventLocalizationHandler, overrideLocale } from '@nativescript/localize'
 
 let initialized = false;
 
@@ -21,6 +22,10 @@ export function onReady() {
   Application.on(Application.systemAppearanceChangedEvent, (event: SystemAppearanceChangedEventData) => {
     console.log('systemAppearanceChangedEvent', event.newValue);
   });
+
+  // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
+  const localeOverriddenSuccessfully = overrideLocale('de-DE')
+  console.log('localeOverriddenSuccessfully', localeOverriddenSuccessfully);
 }
 
 /**
@@ -37,5 +42,12 @@ export function initLifecycle() {
     //   Application.once(Application.launchEvent, onReady);
     // }
     Application.once(Application.launchEvent, onReady);
+
+    Application.on(Application.launchEvent, (args) => {
+      if (args.android) {
+        androidLaunchEventLocalizationHandler()
+      }
+    })
+
   }
 }

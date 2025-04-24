@@ -86,3 +86,29 @@ export interface PluginOptions {
   pluginName: string;
   verbose?: boolean;
 }
+
+/**
+ * Options for the PO to JSON conversion plugin
+ */
+export interface GettextPo2JsonPluginOptions {
+  /**
+   * Directory containing PO files
+   */
+  poDirectory: string;
+
+  /**
+   * Directory where JSON files will be saved
+   */
+  jsonDirectory: string;
+
+  /**
+   * Default language code (default: 'en')
+   * This language will also be saved as '{lang}.default.json'
+   */
+  defaultLanguage?: string;
+
+  /**
+   * Enable verbose logging
+   */
+  verbose?: boolean;
+}

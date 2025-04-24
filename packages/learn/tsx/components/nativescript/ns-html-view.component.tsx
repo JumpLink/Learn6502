@@ -1,28 +1,34 @@
 import { Component, renderSSR } from 'nano-jsx'
 import { clearExtraSpaces } from '../../utils';
 
-export class NsHtmlView extends Component {
-    static propertyNames = ["html"]
+interface NsHtmlViewProps {
+    children: any;
+    html: string;
+    className: string;
+}
+
+export class NsHtmlView<P extends NsHtmlViewProps = NsHtmlViewProps> extends Component<P> {
+    static propertyNames = ["html", "className"]
 
 
     static defaultProps = {
         html: ""
     }
 
-    constructor(props: any) {
+    constructor(props: P) {
         super(props)
     }
 
-    private replaceSubWithSmall(htmlContent: string, fromElement: string, toElement: string): string {
+    private replaceElement(htmlContent: string, fromElement: string, toElement: string): string {
         return htmlContent.replace(new RegExp(`<${fromElement}>(.*?)<\\/${fromElement}>`, 'g'), `<${toElement}>$1</${toElement}>`);
     }
 
     public render() {
         const rawHtmlContent = clearExtraSpaces(renderSSR(this.props.children));
-        const htmlContentStr = this.replaceSubWithSmall(rawHtmlContent, "sub", "small");
-        console.log("Render HTML View content:", htmlContentStr);
+        // const htmlContentStr = this.replaceElement(rawHtmlContent, "sub", "small");
+        console.log("Render HTML View content:", rawHtmlContent);
         return (
-            <ns-html-view selectable="true" html={htmlContentStr} />
+            <ns-html-view class={this.props.className} selectable="true" html={rawHtmlContent} />
         )
     }
 }

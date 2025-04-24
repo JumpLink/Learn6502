@@ -1,4 +1,5 @@
 import { ContentView, Builder, HtmlView, View } from '@nativescript/core';
+import { localize } from '@nativescript/localize'
 
 export abstract class MdxView extends ContentView {
     constructor() {
@@ -26,7 +27,36 @@ export abstract class MdxView extends ContentView {
         this.content = componentView;
 
         // Set the font size for all HtmlViews
-        this.setHtmlViewsFontSize(18);
+        // this.setHtmlViewsFontSize(18);
+
+        // Localize all HtmlViews
+        this.localizeHtmlViews();
+
+    }
+
+    // TODO: We do not need to translate english strings
+    protected localizeHtmlViews(): void {
+        // Get all HtmlViews recursively
+        const htmlViews: HtmlView[] = [];
+        this.findAllHtmlViews(this.content, htmlViews);
+
+        // Loop through all found HtmlViews
+        htmlViews.forEach((htmlView) => {
+          let html: string | undefined;
+          const originalHtml = htmlView.html;
+          try {
+            html = localize(htmlView.html);
+          } catch (error) {
+            console.error(`Error localizing HTML string "${originalHtml}":`, error);
+          }
+          if (html) {
+            htmlView.html = html;
+          }
+
+          if(originalHtml === html) {
+            console.log(`HTML string "${originalHtml}" is not localized`);
+          }
+        });
     }
 
     // Function to set the font size for all HtmlViews
@@ -37,9 +67,10 @@ export abstract class MdxView extends ContentView {
 
         // Loop through all found HtmlViews
         htmlViews.forEach((htmlView) => {
-            if (htmlView && htmlView.android) {
+            const androidView = htmlView.android as android.widget.TextView;
+            if (androidView) {
                 // Set the font size directly on the native TextView
-                htmlView.android.setTextSize(fontSize);
+                androidView.setTextSize(fontSize);
             }
         });
     }

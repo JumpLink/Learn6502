@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-11 20:33+0200\n"
+"POT-Creation-Date: 2025-04-24 07:01+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -110,219 +110,247 @@ msgstr "6502 Stack leer! Unterlauf..."
 msgid "Program completed at PC=$%s"
 msgstr "Programm beendet bei PC=$%s"
 
-#: ../app-gnome/src/widgets/application-window.ts:55
+#: ../app-gnome/src/views/application-window.ts:55
 msgid "Unsaved changes"
 msgstr "Uneingespeicherte Änderungen"
 
-#: ../app-gnome/src/widgets/application-window.ts:57
+#: ../app-gnome/src/views/application-window.ts:57
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "Datei \"%s\" enthält ungespeicherte Änderungen"
 
-#: ../app-gnome/src/widgets/application-window.ts:84
+#: ../app-gnome/src/views/application-window.ts:84
 msgid "Assemble"
 msgstr "Assemblieren"
 
-#: ../app-gnome/src/widgets/application-window.ts:89
+#: ../app-gnome/src/views/application-window.ts:89
 msgid "Run"
 msgstr "Ausführen"
 
-#: ../app-gnome/src/widgets/application-window.ts:94
+#: ../app-gnome/src/views/application-window.ts:94
 msgid "Pause"
 msgstr "Pause"
 
-#: ../app-gnome/src/widgets/application-window.ts:99
+#: ../app-gnome/src/views/application-window.ts:99
 msgid "Resume"
 msgstr "Fortsetzen"
 
-#: ../app-gnome/src/widgets/application-window.ts:104
+#: ../app-gnome/src/views/application-window.ts:104
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: ../app-gnome/src/widgets/application-window.ts:109
+#: ../app-gnome/src/views/application-window.ts:109
 msgid "Step"
 msgstr "Schritt"
 
-#: ../app-gnome/src/widgets/application-window.ts:138
+#: ../app-gnome/src/views/application-window.ts:138
 msgid "Code copied to editor"
 msgstr "Code in Editor kopiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:163
+#: ../app-gnome/src/views/application-window.ts:163
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:168
+#: ../app-gnome/src/views/application-window.ts:168
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:219
-#: ../app-gnome/src/widgets/application-window.ts:254
+#: ../app-gnome/src/views/application-window.ts:219
+#: ../app-gnome/src/views/application-window.ts:254
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/widgets/application-window.ts:386
+#: ../app-gnome/src/views/application-window.ts:386
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/widgets/application-window.ts:398
+#: ../app-gnome/src/views/application-window.ts:398
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/widgets/application-window.ts:406
+#: ../app-gnome/src/views/application-window.ts:406
 msgid "Hexdump:"
 msgstr "Hexdump:"
 
-#: ../app-gnome/src/widgets/application-window.ts:413
+#: ../app-gnome/src/views/application-window.ts:413
 msgid "Disassembly:"
 msgstr "Disassemblierung:"
 
-#: ../app-gnome/src/widgets/application-window.ts:492
+#: ../app-gnome/src/views/application-window.ts:492
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:511
+#: ../app-gnome/src/views/application-window.ts:511
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/widgets/application-window.ts:517
+#: ../app-gnome/src/views/application-window.ts:517
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
-#: ../app-gnome/src/widgets/application-window.ts:702
+#: ../app-gnome/src/views/application-window.ts:702
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/widgets/application-window.ts:713
+#: ../app-gnome/src/views/application-window.ts:713
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
 
-#: ../app-gnome/src/widgets/application-window.ts:731
+#: ../app-gnome/src/views/application-window.ts:731
 msgid "File loaded successfully"
 msgstr "Datei erfolgreich geladen"
 
-#: ../app-gnome/src/widgets/application-window.ts:737
+#: ../app-gnome/src/views/application-window.ts:737
 msgid "Error opening file"
 msgstr "Fehler beim Öffnen der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:753
-#: ../app-gnome/src/widgets/application-window.ts:754
+#: ../app-gnome/src/views/application-window.ts:753
+#: ../app-gnome/src/views/application-window.ts:754
 msgid "untitled"
 msgstr "unbenannt"
 
-#: ../app-gnome/src/widgets/application-window.ts:760
+#: ../app-gnome/src/views/application-window.ts:760
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/widgets/application-window.ts:773
-#: ../app-gnome/src/widgets/application-window.ts:811
+#: ../app-gnome/src/views/application-window.ts:773
+#: ../app-gnome/src/views/application-window.ts:811
 msgid "Error saving file"
 msgstr "Fehler beim Speichern der Datei"
 
-#: ../app-gnome/src/widgets/application-window.ts:804
+#: ../app-gnome/src/views/application-window.ts:804
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
 
-#: ../app-gnome/src/widgets/application-window.ts:822
+#: ../app-gnome/src/views/application-window.ts:822
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/widgets/application-window.ts:827
+#: ../app-gnome/src/views/application-window.ts:827
 msgid "All Files"
 msgstr "Alle Dateien"
 
-#: ../app-gnome/src/widgets/application-window.blp:26
+#: ../app-gnome/src/views/application-window.blp:26
 msgid "Learn 6502 Assembly"
 msgstr "Lerne 6502 Assembler"
 
-#: ../app-gnome/src/widgets/application-window.blp:33
+#: ../app-gnome/src/views/application-window.blp:33
 msgid "Menu"
 msgstr "Menü"
 
-#: ../app-gnome/src/widgets/application-window.blp:63
-#: ../app-gnome/src/widgets/learn.blp:8
+#: ../app-gnome/src/views/application-window.blp:63
+#: ../app-gnome/src/views/learn.blp:8
 msgid "Learn"
 msgstr "Lernen"
 
-#: ../app-gnome/src/widgets/application-window.blp:72
+#: ../app-gnome/src/views/application-window.blp:72
 msgid "Editor"
 msgstr "Editor"
 
-#: ../app-gnome/src/widgets/application-window.blp:81
-#: ../app-gnome/src/widgets/debugger/debugger.blp:15
+#: ../app-gnome/src/views/application-window.blp:81
+#: ../app-gnome/src/views/debugger.blp:15
 msgid "Debugger"
 msgstr "Debugger"
 
-#: ../app-gnome/src/widgets/application-window.blp:90
+#: ../app-gnome/src/views/application-window.blp:90
 msgid "Game Console"
 msgstr "Spielkonsole"
 
-#: ../app-gnome/src/widgets/application-window.blp:112
+#: ../app-gnome/src/views/application-window.blp:112
 msgid "Open..."
 msgstr "Öffnen..."
 
-#: ../app-gnome/src/widgets/application-window.blp:117
-#: ../app-gnome/src/widgets/application-window.blp:197
+#: ../app-gnome/src/views/application-window.blp:117
+#: ../app-gnome/src/views/application-window.blp:197
 msgid "Save"
 msgstr "Speichern"
 
-#: ../app-gnome/src/widgets/application-window.blp:122
+#: ../app-gnome/src/views/application-window.blp:122
 msgid "Save as..."
 msgstr "Speichern unter..."
 
-#: ../app-gnome/src/widgets/application-window.blp:143
-#: ../app-gnome/src/widgets/editor.blp:8
-#: ../app-gnome/src/widgets/help-window.blp:7
+#: ../app-gnome/src/views/application-window.blp:143
+#: ../app-gnome/src/views/editor.blp:8 ../app-gnome/src/views/help-window.blp:7
 msgid "Help"
 msgstr "Hilfe"
 
-#: ../app-gnome/src/widgets/application-window.blp:148
+#: ../app-gnome/src/views/application-window.blp:148
 msgid "About Learn 6502 Assembly"
 msgstr "Über Lerne 6502 Assembler"
 
-#: ../app-gnome/src/widgets/application-window.blp:153
+#: ../app-gnome/src/views/application-window.blp:153
 msgid "Quit"
 msgstr "Beenden"
 
-#: ../app-gnome/src/widgets/application-window.blp:170
+#: ../app-gnome/src/views/application-window.blp:170
 msgid "Continue"
 msgstr "Fortfahren"
 
-#: ../app-gnome/src/widgets/application-window.blp:190
+#: ../app-gnome/src/views/application-window.blp:190
 msgid "Save changes?"
 msgstr "Änderungen speichern?"
 
-#: ../app-gnome/src/widgets/application-window.blp:191
+#: ../app-gnome/src/views/application-window.blp:191
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
 "Deine Datei enthält ungespeicherte Änderungen. Die Änderungen gehen "
 "verloren, wenn du sie nicht speicherst."
 
-#: ../app-gnome/src/widgets/application-window.blp:195
+#: ../app-gnome/src/views/application-window.blp:195
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../app-gnome/src/widgets/application-window.blp:196
+#: ../app-gnome/src/views/application-window.blp:196
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: ../app-gnome/src/widgets/learn.blp:9
+#: ../app-gnome/src/views/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
+msgstr ""
+"Debugge deinen 6502-Assemblercode, gehe dein Programm schrittweise durch und "
+"betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
+"beginnen."
+
+#: ../app-gnome/src/views/debugger.blp:37
+msgid "Information"
+msgstr "Information"
+
+#: ../app-gnome/src/views/debugger.blp:52
+msgid "Messages"
+msgstr "Meldungen"
+
+#: ../app-gnome/src/views/debugger.blp:67
+msgid "Hex Monitor"
+msgstr "Hex-Monitor"
+
+#: ../app-gnome/src/views/debugger.blp:82
+msgid "Hexdump"
+msgstr "Hexdump"
+
+#: ../app-gnome/src/views/debugger.blp:97
+msgid "Disassembled"
+msgstr "Disassemblierter Code"
+
+#: ../app-gnome/src/views/learn.blp:9
 msgid "Learn how to program the 6502 microprocessor."
 msgstr "Lerne, wie man den 6502-Mikroprozessor programmiert."
 
-#: ../app-gnome/src/widgets/preferences-dialog.blp:7
+#: ../app-gnome/src/views/preferences-dialog.blp:7
 msgid "Preferences"
 msgstr "Einstellungen"
 
-#: ../app-gnome/src/widgets/preferences-dialog.blp:10
+#: ../app-gnome/src/views/preferences-dialog.blp:10
 msgid "Appearance"
 msgstr "Erscheinungsbild"
 
-#: ../app-gnome/src/widgets/preferences-dialog.blp:14
+#: ../app-gnome/src/views/preferences-dialog.blp:14
 msgid "Main Settings"
 msgstr "Haupteinstellungen"
 
-#: ../app-gnome/src/widgets/preferences-dialog.blp:15
+#: ../app-gnome/src/views/preferences-dialog.blp:15
 msgid "There are currently no settings."
 msgstr "Derzeit gibt es keine Einstellungen."
 
@@ -344,35 +372,6 @@ msgstr ""
 #: ../app-gnome/src/widgets/theme-selector.blp:65
 msgid "Dark style"
 msgstr ""
-
-#: ../app-gnome/src/widgets/debugger/debugger.blp:16
-msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
-msgstr ""
-"Debugge deinen 6502-Assemblercode, gehe dein Programm schrittweise durch und "
-"betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
-"beginnen."
-
-#: ../app-gnome/src/widgets/debugger/debugger.blp:37
-msgid "Information"
-msgstr "Information"
-
-#: ../app-gnome/src/widgets/debugger/debugger.blp:52
-msgid "Messages"
-msgstr "Meldungen"
-
-#: ../app-gnome/src/widgets/debugger/debugger.blp:67
-msgid "Hex Monitor"
-msgstr "Hex-Monitor"
-
-#: ../app-gnome/src/widgets/debugger/debugger.blp:82
-msgid "Hexdump"
-msgstr "Hexdump"
-
-#: ../app-gnome/src/widgets/debugger/debugger.blp:97
-msgid "Disassembled"
-msgstr "Disassemblierter Code"
 
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
 msgid "Zero Page ($0000-$00FF)"
@@ -449,7 +448,8 @@ msgstr "Interaktive Tutorial-Oberfläche im dunklen Design"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:32
 msgid "Code editor with 6502 assembly syntax highlighting and visible help"
-msgstr "Code-Editor mit Syntaxhervorhebung für 6502-Assembler und sichtbarer Hilfe"
+msgstr ""
+"Code-Editor mit Syntaxhervorhebung für 6502-Assembler und sichtbarer Hilfe"
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:36
 msgid "Built-in debugger showing real-time registers, flags, and memory"
@@ -947,25 +947,25 @@ msgstr "Einführung"
 msgid ""
 "In this tiny tutorial I'm going to show you how to get started writing 6502 "
 "assembly language. The 6502 processor was massive in the seventies and "
-"eighties, powering famous computers like the <a href=\"http://en.wikipedia."
-"org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Atari_2600\">Atari 2600</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Commodore_64\">Commodore 64</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Apple_II\">Apple II</a>, and the <a href=\"http://en.wikipedia.org/wiki/"
-"Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in "
-"Futurama <a href=\"http://www.transbyte.org/SID/SID-files/Bender_6502."
-"jpg\">has a 6502 processor for a brain</a>. <a href=\"http://www.pagetable."
-"com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in "
-"6502</a>."
+"eighties, powering famous computers like the <a href=\"http://"
+"en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"http://"
+"en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
+"System</a>. Bender in Futurama <a href=\"http://www.transbyte.org/SID/SID-"
+"files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a "
+"href=\"http://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the "
+"Terminator was programmed in 6502</a>."
 msgstr ""
 "In diesem kleinen Tutorial zeige ich dir, wie du mit der 6502-"
 "Assemblersprache loslegen kannst. Der 6502-Prozessor war in den Siebzigern "
 "und Achtzigern riesig und trieb berühmte Computer wie den <a href=\"http://"
-"en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://en."
-"wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"http://en."
-"wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"http://en."
-"wikipedia.org/wiki/Apple_II\">Apple II</a> und das <a href=\"http://en."
-"wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
+"en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Apple_II\">Apple II</a> und das <a href=\"http://"
+"en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
 "System</a> an. Bender aus Futurama <a href=\"http://www.transbyte.org/SID/"
 "SID-files/Bender_6502.jpg\">hat einen 6502-Prozessor als Gehirn</a>. <a "
 "href=\"http://www.pagetable.com/docs/terminator/00-37-23.jpg\">Sogar der "
@@ -984,16 +984,17 @@ msgstr ""
 #: ../learn/dist/tutorial.ui:5
 msgid ""
 "(Actually, I've been reliably informed that 6502 processors are still being "
-"produced by <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-chip."
-"cfm\">Western Design Center</a> and <a href=\"http://www.mouser.co.uk/Search/"
-"Refine.aspx?Keyword=65C02\">sold to hobbyists</a>, so clearly 6502 isn't a "
-"dead language! Who knew?)"
+"produced by <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-"
+"chip.cfm\">Western Design Center</a> and <a href=\"http://www.mouser.co.uk/"
+"Search/Refine.aspx?Keyword=65C02\">sold to hobbyists</a>, so clearly 6502 "
+"isn't a dead language! Who knew?)"
 msgstr ""
 "(Tatsächlich wurde mir zuverlässig mitgeteilt, dass 6502-Prozessoren immer "
-"noch von <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-chip."
-"cfm\">Western Design Center</a> hergestellt und <a href=\"http://www.mouser."
-"co.uk/Search/Refine.aspx?Keyword=65C02\">an Bastler verkauft</a> werden, "
-"also ist 6502 offensichtlich keine tote Sprache! Wer hätte das gedacht?)"
+"noch von <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-"
+"chip.cfm\">Western Design Center</a> hergestellt und <a href=\"http://"
+"www.mouser.co.uk/Search/Refine.aspx?Keyword=65C02\">an Bastler verkauft</a> "
+"werden, also ist 6502 offensichtlich keine tote Sprache! Wer hätte das "
+"gedacht?)"
 
 #: ../learn/dist/tutorial.ui:6
 msgid ""
@@ -1015,8 +1016,8 @@ msgstr ""
 
 #: ../learn/dist/tutorial.ui:7
 msgid ""
-"Then why 6502? Why not a useful assembly language, like <a href=\"http://en."
-"wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is "
+"Then why 6502? Why not a useful assembly language, like <a href=\"http://"
+"en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is "
 "useful. I don't think you'll ever have to write assembly language in your "
 "day job - this is purely an academic exercise, something to expand your mind "
 "and your thinking. 6502 was originally written in a different age, a time "
@@ -1087,17 +1088,17 @@ msgstr ""
 msgid ""
 "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by "
 "extension, in this book) are in hexadecimal (hex) format. If you're not "
-"familiar with hex numbers, I recommend you read <a href=\"http://en."
-"wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
+"familiar with hex numbers, I recommend you read <a href=\"http://"
+"en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
 "prefixed with <tt>#</tt> is a literal number value. Any other number refers "
 "to a memory location."
 msgstr ""
 "Alle Zahlen mit dem Präfix <tt>$</tt> in der 6502-Assemblersprache (und "
 "folglich auch in diesem Buch) sind im Hexadezimal-(Hex)-Format. Wenn du mit "
-"Hexadezimalzahlen nicht vertraut bist, empfehle ich dir, <a href=\"http://en."
-"wikipedia.org/wiki/Hexadecimal\">den Wikipedia-Artikel</a> zu lesen. Alles "
-"mit dem Präfix <tt>#</tt> ist ein Literalwert. Alle anderen Zahlen beziehen "
-"sich auf Speicheradressen."
+"Hexadezimalzahlen nicht vertraut bist, empfehle ich dir, <a href=\"http://"
+"en.wikipedia.org/wiki/Hexadecimal\">den Wikipedia-Artikel</a> zu lesen. "
+"Alles mit dem Präfix <tt>#</tt> ist ein Literalwert. Alle anderen Zahlen "
+"beziehen sich auf Speicheradressen."
 
 #: ../learn/dist/tutorial.ui:19
 msgid ""
@@ -1231,15 +1232,15 @@ msgid ""
 "The last section shows the processor flags. Each flag is one bit, so all "
 "seven flags live in a single byte. The flags are set by the processor to "
 "give information about the previous instruction. More on that later. <a "
-"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me."
-"uk/6502/registers.html\">Read more about the registers and flags here</a>."
+"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/"
+"6502/registers.html\">Read more about the registers and flags here</a>."
 msgstr ""
 "Der letzte Abschnitt zeigt die Prozessor-Flags. Jedes Flag ist ein Bit, "
 "sodass alle sieben Flags in einem einzigen Byte untergebracht sind. Die "
 "Flags werden vom Prozessor gesetzt, um Informationen über die vorherige "
-"Anweisung zu geben. Mehr dazu später. <a href=\"https://web.archive.org/"
-"web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Lies hier "
-"mehr über Register und Flags</a>."
+"Anweisung zu geben. Mehr dazu später. <a href=\"https://web.archive.org/web/"
+"20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Lies hier mehr "
+"über Register und Flags</a>."
 
 #: ../learn/dist/tutorial.ui:30
 msgid "Instructions"
@@ -1330,18 +1331,18 @@ msgstr ""
 #: ../learn/dist/tutorial.ui:45
 msgid ""
 "A full list of the 6502 instruction set is <a href=\"http://www.6502.org/"
-"tutorials/6502opcodes.html\">available here</a> and <a href=\"http://www."
-"obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages "
-"as they have their strengths and weaknesses). These pages detail the "
+"tutorials/6502opcodes.html\">available here</a> and <a href=\"http://"
+"www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both "
+"pages as they have their strengths and weaknesses). These pages detail the "
 "arguments to each instruction, which registers they use, and which flags "
 "they set. They are your bible."
 msgstr ""
-"Eine vollständige Liste des 6502-Befehlssatzes ist <a href=\"http://www.6502."
-"org/tutorials/6502opcodes.html\">hier</a> und <a href=\"http://www.obelisk."
-"me.uk/6502/reference.html\">hier</a> verfügbar (ich verweise normalerweise "
-"auf beide Seiten, da sie ihre Stärken und Schwächen haben). Diese Seiten "
-"beschreiben die Argumente für jede Anweisung, welche Register sie verwenden "
-"und welche Flags sie setzen. Sie sind deine Bibel."
+"Eine vollständige Liste des 6502-Befehlssatzes ist <a href=\"http://"
+"www.6502.org/tutorials/6502opcodes.html\">hier</a> und <a href=\"http://"
+"www.obelisk.me.uk/6502/reference.html\">hier</a> verfügbar (ich verweise "
+"normalerweise auf beide Seiten, da sie ihre Stärken und Schwächen haben). "
+"Diese Seiten beschreiben die Argumente für jede Anweisung, welche Register "
+"sie verwenden und welche Flags sie setzen. Sie sind deine Bibel."
 
 #: ../learn/dist/tutorial.ui:47
 msgid ""
@@ -1397,10 +1398,10 @@ msgid ""
 "line is a label. Labels just mark certain points in a program so we can "
 "return to them later. After the label we decrement <tt>X</tt>, store it to "
 "<tt>$0200</tt> (the top-left pixel), and then compare it to the value "
-"<tt>$03</tt>. <a href=\"http://www.obelisk.me.uk/6502/reference."
-"html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register "
-"with another value. If the two values are equal, the <tt>Z</tt> flag is set "
-"to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
+"<tt>$03</tt>. <a href=\"http://www.obelisk.me.uk/6502/"
+"reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> "
+"register with another value. If the two values are equal, the <tt>Z</tt> "
+"flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
 msgstr ""
 "Zuerst laden wir den Wert <tt>$08</tt> in das <tt>X</tt>-Register. Die "
 "nächste Zeile ist ein Label. Labels markieren bestimmte Stellen in einem "
@@ -1570,8 +1571,8 @@ msgid ""
 "These are the absolute addressing versions of zero page,X and zero page,Y. "
 "For example:"
 msgstr ""
-"Dies sind die absoluten Adressierungsversionen von Nullseite,X und Nullseite,"
-"Y. Zum Beispiel:"
+"Dies sind die absoluten Adressierungsversionen von Nullseite,X und "
+"Nullseite,Y. Zum Beispiel:"
 
 #: ../learn/dist/tutorial.ui:88
 msgid ""

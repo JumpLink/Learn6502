@@ -1,4 +1,4 @@
-import { gettextPlugin, xgettextPlugin } from '@learn6502/vite-plugin-gettext';
+import { gettextPlugin, xgettextPlugin, po2jsonPlugin } from '@learn6502/vite-plugin-gettext';
 import { readFileSync } from 'node:fs'
 
 const APPLICATION_ID = 'eu.jumplink.Learn6502';
@@ -29,7 +29,17 @@ const gettext = gettextPlugin({
   verbose: true
 });
 
+// Convert PO files to JSON files
+const po2json = po2jsonPlugin({
+  poDirectory: '.',
+  jsonDirectory: '../app-android/app/i18n',
+  defaultLanguage: 'en',
+  verbose: true
+});
+
 // Start the extraction process
 await xgettext.buildStart();
 // Start the compilation process
 await gettext.buildStart();
+// Start the conversion process
+await po2json.buildStart();
