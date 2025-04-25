@@ -1,17 +1,22 @@
-import { Application, type SystemAppearanceChangedEventData } from '@nativescript/core';
+import { Application, LaunchEventData, type SystemAppearanceChangedEventData } from '@nativescript/core';
 import { androidLaunchEventLocalizationHandler, overrideLocale } from '@nativescript/localize'
+import { EventDispatcher } from '@learn6502/6502'
 
 let initialized = false;
 
+export const lifecycleEvents = new EventDispatcher();
 
 /**
  * Initializes theme-related functionality when the app is ready
  */
-export function onReady() {
+export function onLaunch(event: LaunchEventData) {
+  if (!event.android) return;
   if (initialized) return;
   initialized = true;
 
-  console.log('Lifecycle: onReady called');
+  androidLaunchEventLocalizationHandler()
+
+  console.log('Lifecycle: onLaunch called');
 
   // TODO: Not ready for this yet
   // Get initial system appearance
@@ -21,11 +26,17 @@ export function onReady() {
   // Listen for theme changes
   Application.on(Application.systemAppearanceChangedEvent, (event: SystemAppearanceChangedEventData) => {
     console.log('systemAppearanceChangedEvent', event.newValue);
+    // WORKAROUND: Wait for the theme to be applied
+    setTimeout(() => {
+      lifecycleEvents.dispatch(Application.systemAppearanceChangedEvent, event);
+    }, 100);
   });
 
   // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
   const localeOverriddenSuccessfully = overrideLocale('de-DE')
   console.log('localeOverriddenSuccessfully', localeOverriddenSuccessfully);
+
+  lifecycleEvents.dispatch(Application.launchEvent, event);
 }
 
 /**
@@ -33,21 +44,6 @@ export function onReady() {
  */
 export function initLifecycle() {
   if (Application.android) {
-    // const context = Utils.android.getApplicationContext();
-    // if (context) {
-    //   console.log('Already initialized');
-    //   onReady();
-    // } else {
-    //   console.log('Not initialized, waiting for launchEvent');
-    //   Application.once(Application.launchEvent, onReady);
-    // }
-    Application.once(Application.launchEvent, onReady);
-
-    Application.on(Application.launchEvent, (args) => {
-      if (args.android) {
-        androidLaunchEventLocalizationHandler()
-      }
-    })
-
+    Application.once(Application.launchEvent, onLaunch);
   }
 }

@@ -1461,6 +1461,7 @@ __metadata:
     "@nativescript/core": "npm:~8.9.2"
     "@nativescript/localize": "npm:^5.2.0"
     "@nativescript/theme": "npm:^3.1.0"
+    "@nativescript/theme-switcher": "npm:^1.0.0"
     "@nativescript/types": "npm:~8.9.1"
     "@nativescript/webpack": "npm:^5.0.24"
     nativescript: "npm:^8.9.2"
@@ -1512,7 +1513,7 @@ __metadata:
   dependencies:
     "@mdx-js/esbuild": "npm:^3.1.0"
     "@types/mdx": "npm:^2.0.13"
-    "@types/node": "npm:^22.15.1"
+    "@types/node": "npm:^22.15.2"
     esbuild: "npm:^0.25.3"
     nano-jsx: "npm:^0.1.0"
     typescript: "npm:^5.8.3"
@@ -1531,7 +1532,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint"
   dependencies:
-    "@types/node": "npm:^22.15.1"
+    "@types/node": "npm:^22.15.2"
     execa: "npm:^9.5.2"
     minify-xml: "npm:^4.5.2"
     typescript: "npm:^5.8.3"
@@ -1546,7 +1547,7 @@ __metadata:
   resolution: "@learn6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext"
   dependencies:
     "@types/gettext-parser": "npm:^8.0.0"
-    "@types/node": "npm:^22.15.1"
+    "@types/node": "npm:^22.15.2"
     execa: "npm:^9.5.2"
     fast-glob: "npm:^3.3.3"
     gettext-parser: "npm:^8.0.0"
@@ -1662,6 +1663,13 @@ __metadata:
     simple-plist: "npm:^1.1.0"
     sprintf-js: "npm:^1.1.1"
   checksum: 10c0/71c732c2545891488da9f90d4303574f8b305ce1a5fba4c3a4538a1131d9ce23603283d0c3ab6412e308e6d9c9b3eb52df8dea492392c9c9623fad9b8bafe88d
+  languageName: node
+  linkType: hard
+
+"@nativescript/theme-switcher@npm:^1.0.0":
+  version: 1.0.0
+  resolution: "@nativescript/theme-switcher@npm:1.0.0"
+  checksum: 10c0/b384f62b422d3f71c50225dae7cdf365000304a0d15b1fa3b2bf7b4df84740d53721fe16f158d9fdaee79c310c2623402dacba85590fea09d0fa2444d089a3d6
   languageName: node
   linkType: hard
 
@@ -2661,12 +2669,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.15.1":
-  version: 22.15.1
-  resolution: "@types/node@npm:22.15.1"
+"@types/node@npm:^22.15.2":
+  version: 22.15.2
+  resolution: "@types/node@npm:22.15.2"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10c0/80bd7fff7d6f4058875feb2c980fa066266b02ffde51e794cf4b7bea5f1316c08baa135fa7cbffa677efb999b0945b2697b318e84af4563c1ab8d3392a17bf9a
+  checksum: 10c0/39da31d5fc63b14fabd217bb8a921c4a7fc3d99f233440209f9fc2d5d736e8773f7efc65223e2fd0e8db8390b0baab9c0cd2e951c2ece8b237f07313ab3cf295
   languageName: node
   linkType: hard
 

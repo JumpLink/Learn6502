@@ -5,8 +5,10 @@
 // Android types
 /// <reference path="../../node_modules/@nativescript/types-android/index.d.ts" />
 
+// Theme switcher types
+/// <reference path="../../node_modules/@nativescript/theme-switcher/shims.d.ts" />
+
 declare module '*?raw' {
     const src: string
     export default src
   }
-  

@@ -1,20 +1,15 @@
-/*
-In NativeScript, the app.ts file is the entry point to your application.
-You can use this file to perform app-level initialization, but the primary
-purpose of the file is to pass control to the app's first module.
-*/
 import { Application } from '@nativescript/core'
 import { localize } from '@nativescript/localize'
+// import { initThemes, switchTheme } from '@nativescript/theme-switcher'
 import { initLifecycle } from './utils/lifecycle';
 
+// initThemes({
+//   // default is optional - will be auto-applied after initializing (*)
+//   // default: () => import('theme-loader!./themes/default.scss'),
+//   // red: () => import('theme-loader!./themes/red.scss'),
+//   // green: () => import('theme-loader!./themes/green.scss'),
+// })
 initLifecycle();
 
 Application.setResources({ L: localize });
 Application.run({ moduleName: 'app-root' });
-const cssFileName = Application.getCssFileName()
-console.log(`cssFileName ${cssFileName}`)
-
-/*
-Do not place any code after the application has been started as it will not
-be executed on iOS.
-*/

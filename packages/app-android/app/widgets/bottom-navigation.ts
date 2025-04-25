@@ -1,24 +1,21 @@
-import { ContentView, Property, View, Frame, Application } from '@nativescript/core';
+import { ContentView, Property, View, Frame, Application, SystemAppearanceChangedEventData } from '@nativescript/core';
 import { BottomTab } from './bottom-tab';
-
+import { createColorStateList, getColor } from '../utils/color';
+import { lifecycleEvents } from '../utils/lifecycle';
 export class BottomNavigation extends ContentView {
   private bottomNav: com.google.android.material.bottomnavigation.BottomNavigationView;
   private pendingTabs: BottomTab[] = [];
   private tabsById = new Map<string, BottomTab>();
   private idToMenuId = new Map<string, number>();
 
+  constructor() {
+    super();
+    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
+  }
+
   public createNativeView(): android.view.View {
-    const context = this._context;
+    const context = this._context as android.content.Context;
     this.bottomNav = new com.google.android.material.bottomnavigation.BottomNavigationView(context);
-
-    // Set background color
-    const backgroundColor = context.getResources().getColor(context.getResources().getIdentifier("md_theme_primary", "color", context.getPackageName()));
-    this.bottomNav.setBackgroundColor(backgroundColor);
-
-    // Set item color
-    const itemColor = context.getResources().getColor(context.getResources().getIdentifier("md_theme_onPrimary", "color", context.getPackageName()));
-    this.bottomNav.setItemTextColor(android.content.res.ColorStateList.valueOf(itemColor));
-    this.bottomNav.setItemIconTintList(android.content.res.ColorStateList.valueOf(itemColor));
 
     // Set label visibility mode
     this.bottomNav.setLabelVisibilityMode(com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
@@ -38,6 +35,11 @@ export class BottomNavigation extends ContentView {
       }
     }));
 
+    // Apply current theme
+    this.applyTheme();
+
+    lifecycleEvents.on(Application.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
+
     // Process any pending tabs that were added before view creation
     if (this.pendingTabs.length > 0) {
       this.pendingTabs.forEach(tab => this.addTabToMenu(tab));
@@ -47,12 +49,42 @@ export class BottomNavigation extends ContentView {
     return this.bottomNav;
   }
 
+  private onSystemAppearanceChanged(event: SystemAppearanceChangedEventData): void {
+    this.applyTheme();
+  }
+
+  private applyTheme(): void {
+    if (!this.bottomNav) return;
+    const context = this._context as android.content.Context;
+
+    // Force the navigation view to recreate its drawable states
+    // This will make it pick up the current theme colors
+    this.bottomNav.refreshDrawableState();
+
+    // Set default material 3 colors for light and dark themes
+    const backgroundColor = getColor(context, "md_theme_surfaceContainer");
+    const activeColor = getColor(context, "md_theme_onSurface");
+    const inactiveColor = getColor(context, "md_theme_onSurfaceVariant");
+    const indicatorColor = getColor(context, "md_theme_secondaryContainer");
+
+    const itemStateList = createColorStateList(activeColor, inactiveColor);
+    const indicatorStateList = createColorStateList(indicatorColor);
+
+    this.bottomNav.setBackgroundColor(backgroundColor);
+    this.bottomNav.setItemTextColor(itemStateList);
+    this.bottomNav.setItemIconTintList(itemStateList);
+    this.bottomNav.setItemActiveIndicatorColor(indicatorStateList);
+  }
+
   public initNativeView(): void {
     super.initNativeView();
     // Additional initialization if needed
   }
 
   public disposeNativeView(): void {
+    // Remove theme change listener
+    lifecycleEvents.off(Application.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
+
     this.bottomNav = null;
     this.tabsById.clear();
     this.idToMenuId.clear();
