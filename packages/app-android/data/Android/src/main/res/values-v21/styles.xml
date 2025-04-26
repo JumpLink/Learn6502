@@ -3,8 +3,9 @@
 
     <!-- Application theme -->
     <style name="AppThemeBase21" parent="AppThemeBase">
-        <!-- Uncomment this to make the app show underneat the status bar -->
-        <!-- <item name="android:windowTranslucentStatus">true</item> -->
+        <!-- Modern edge-to-edge UI -->
+        <item name="android:windowTranslucentStatus">false</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item>
 
         <item name="android:datePickerStyle">@style/SpinnerDatePicker</item>
         <item name="android:timePickerStyle">@style/SpinnerTimePicker</item>
@@ -28,7 +29,7 @@
     <style name="NativeScriptToolbarStyle" parent="NativeScriptToolbarStyleBase">
         <item name="android:elevation">4dp</item>
 
-        <!-- Add padding to the ActionBar - useful when android:windowTranslucentStatus is set to true -->
-        <!-- <item name="android:paddingTop">24dp</item> -->
+        <!-- Add padding for status bar height -->
+        <item name="android:paddingTop">24dp</item>
     </style>
 </resources>

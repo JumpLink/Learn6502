@@ -47,6 +47,8 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:windowLightStatusBar">false</item>
     </style>
 
      <!-- theme to use AFTER launch screen is loaded-->
@@ -57,10 +59,10 @@
     <style name="LaunchScreenTheme" parent="LaunchScreenThemeBase"></style>
 
     <!-- theme for action-bar -->
-    <style name="NativeScriptToolbarStyleBase" parent="Widget.AppCompat.Toolbar">
+    <style name="NativeScriptToolbarStyleBase" parent="Widget.Material3.Toolbar">
         <item name="android:background">@color/md_theme_primary</item>
-        <item name="theme">@style/ThemeOverlay.AppCompat.ActionBar</item>
-        <item name="popupTheme">@style/ThemeOverlay.AppCompat</item>
+        <item name="theme">@style/ThemeOverlay.Material3.ActionBar</item>
+        <item name="popupTheme">@style/ThemeOverlay.Material3</item>
     </style>
 
     <style name="NativeScriptToolbarStyle" parent="NativeScriptToolbarStyleBase">
