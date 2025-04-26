@@ -62,6 +62,14 @@ export class BottomNavigation extends ContentView {
     this.bottomNav.refreshDrawableState();
 
     // Set default material 3 colors for light and dark themes
+
+    // Material Design 3 default color mappings:
+    // Container background: ?attr/colorSurfaceContainer
+    // Text/Icons active: ?attr/colorOnSurface (text), ?attr/colorOnSecondaryContainer (icons)
+    // Text/Icons inactive: ?attr/colorOnSurfaceVariant
+    // Active indicator: ?attr/colorSecondaryContainer
+    // Source: https://github.com/material-components/material-components-android/blob/4f55422744129bee5fe07fb8fb22f32876a92ff2/docs/components/BottomNavigation.md
+
     const backgroundColor = getColor(context, "md_theme_surfaceContainer");
     const activeColor = getColor(context, "md_theme_onSurface");
     const inactiveColor = getColor(context, "md_theme_onSurfaceVariant");
