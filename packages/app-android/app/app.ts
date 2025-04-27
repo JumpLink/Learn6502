@@ -1,7 +1,10 @@
 import { Application } from '@nativescript/core'
 import { localize } from '@nativescript/localize'
 // import { initThemes, switchTheme } from '@nativescript/theme-switcher'
-import { initLifecycle } from './utils/lifecycle';
+import { initLifecycle, lifecycleEvents } from './utils/lifecycle';
+import { initStatusBar } from './status-bar';
+import { initThemeColors } from './style';
+// import { initThemeManager } from './theme';
 
 // initThemes({
 //   // default is optional - will be auto-applied after initializing (*)
@@ -10,6 +13,21 @@ import { initLifecycle } from './utils/lifecycle';
 //   // green: () => import('theme-loader!./themes/green.scss'),
 // })
 initLifecycle();
+
+
+
+
+// Initialize both statusBar and themeManager after launch
+lifecycleEvents.on(Application.launchEvent, () => {
+  console.log('Application: Launch event');
+  // Initialize StatusBar first
+  initStatusBar();
+
+  // initThemeManager();
+
+  // Extrahiere Theme-Farben und stelle sie als CSS-Variablen bereit
+  initThemeColors();
+});
 
 Application.setResources({ L: localize });
 Application.run({ moduleName: 'app-root' });
