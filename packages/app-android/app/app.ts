@@ -26,7 +26,7 @@ lifecycleEvents.on(Application.launchEvent, () => {
   // initThemeManager();
 
   // Extrahiere Theme-Farben und stelle sie als CSS-Variablen bereit
-  initThemeColors();
+  initThemeColors({ forceDirectResource: true });
 });
 
 Application.setResources({ L: localize });

@@ -6,6 +6,8 @@ export default {
   appResourcesPath: 'data',
   android: {
     v8Flags: '--expose_gc',
-    markingMode: 'none'
+    markingMode: 'none',
+    minSdkVersion: 21, // Minimum Android 5.0 (Lollipop) für Material Design 3
+    targetSdkVersion: 32 // Target ist aktuelle Standard-Version (oder höher)
   }
 } as NativeScriptConfig;
