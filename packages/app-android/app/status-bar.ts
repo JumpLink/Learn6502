@@ -16,9 +16,10 @@ function updateStatusBarForTheme(isDarkMode: boolean): void {
 
         const context = Utils.android.getApplicationContext();
         const colorSurface = getColor(context, "md_theme_surface");
+        const colorSurfaceContainer = getColor(context, "md_theme_surfaceContainer");
 
         window.setStatusBarColor(colorSurface);
-        window.setNavigationBarColor(colorSurface);
+        window.setNavigationBarColor(colorSurfaceContainer);
 
         // Using WindowInsetsController for Android 11+ (API 30+)
         if (android.os.Build.VERSION.SDK_INT >= 30) {
