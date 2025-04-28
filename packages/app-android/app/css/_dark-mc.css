@@ -1,0 +1,54 @@
+@layer base {
+   /* TODO: Not implemented yet */
+  .ns-dark.medium-contrast {
+    --color-primary: rgb(174 204 255);
+    --color-surface-tint: rgb(167 200 255);
+    --color-on-primary: rgb(0 22 50);
+    --color-primary-container: rgb(113 146 198);
+    --color-on-primary-container: rgb(0 0 0);
+    --color-secondary: rgb(174 204 255);
+    --color-on-secondary: rgb(0 22 50);
+    --color-secondary-container: rgb(113 146 198);
+    --color-on-secondary-container: rgb(0 0 0);
+    --color-tertiary: rgb(235 186 245);
+    --color-on-tertiary: rgb(41 4 53);
+    --color-tertiary-container: rgb(173 129 184);
+    --color-on-tertiary-container: rgb(0 0 0);
+    --color-error: rgb(255 185 184);
+    --color-on-error: rgb(52 4 8);
+    --color-error-container: rgb(203 122 122);
+    --color-on-error-container: rgb(0 0 0);
+    --color-background: rgb(17 19 24);
+    --color-on-background: rgb(225 226 233);
+    --color-surface: rgb(17 19 24);
+    --color-on-surface: rgb(251 250 255);
+    --color-surface-variant: rgb(67 71 78);
+    --color-on-surface-variant: rgb(200 202 212);
+    --color-outline: rgb(160 163 172);
+    --color-outline-variant: rgb(128 131 139);
+    --color-shadow: rgb(0 0 0);
+    --color-scrim: rgb(0 0 0);
+    --color-inverse-surface: rgb(225 226 233);
+    --color-inverse-on-surface: rgb(40 42 47);
+    --color-inverse-primary: rgb(37 72 120);
+    --color-primary-fixed: rgb(213 227 255);
+    --color-on-primary-fixed: rgb(0 17 41);
+    --color-primary-fixed-dim: rgb(167 200 255);
+    --color-on-primary-fixed-variant: rgb(14 54 101);
+    --color-secondary-fixed: rgb(213 227 255);
+    --color-on-secondary-fixed: rgb(0 17 41);
+    --color-secondary-fixed-dim: rgb(167 200 255);
+    --color-on-secondary-fixed-variant: rgb(14 54 101);
+    --color-tertiary-fixed: rgb(250 215 255);
+    --color-on-tertiary-fixed: rgb(35 0 48);
+    --color-tertiary-fixed-dim: rgb(230 182 241);
+    --color-on-tertiary-fixed-variant: rgb(76 39 88);
+    --color-surface-dim: rgb(17 19 24);
+    --color-surface-bright: rgb(55 57 62);
+    --color-surface-container-lowest: rgb(12 14 19);
+    --color-surface-container-low: rgb(25 28 32);
+    --color-surface-container: rgb(29 32 36);
+    --color-surface-container-high: rgb(40 42 47);
+    --color-surface-container-highest: rgb(51 53 58);
+  }
+}

@@ -13,9 +13,22 @@ export class BottomNavigation extends ContentView {
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
   }
 
+  get context(): android.content.Context {
+    return this._context;
+  }
+
   public createNativeView(): android.view.View {
-    const context = this._context as android.content.Context;
-    this.bottomNav = new com.google.android.material.bottomnavigation.BottomNavigationView(context);
+
+    // Use custom style defined in styles.xml
+    const defStyleAttr = this.context
+      .getResources()
+      .getIdentifier('bottomNavigationStyle', 'attr', this.context.getPackageName());
+
+    this.bottomNav = new com.google.android.material.bottomnavigation.BottomNavigationView(
+      this.context,
+      null,
+      defStyleAttr
+    );
 
     // Set label visibility mode
     this.bottomNav.setLabelVisibilityMode(com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED);
@@ -55,11 +68,13 @@ export class BottomNavigation extends ContentView {
 
   private applyTheme(): void {
     if (!this.bottomNav) return;
-    const context = this._context as android.content.Context;
+
+    console.log('applyTheme');
 
     // Force the navigation view to recreate its drawable states
     // This will make it pick up the current theme colors
     this.bottomNav.refreshDrawableState();
+
 
     // Set default material 3 colors for light and dark themes
 
@@ -70,10 +85,10 @@ export class BottomNavigation extends ContentView {
     // Active indicator: ?attr/colorSecondaryContainer
     // Source: https://github.com/material-components/material-components-android/blob/4f55422744129bee5fe07fb8fb22f32876a92ff2/docs/components/BottomNavigation.md
 
-    const backgroundColor = getColor(context, "md_theme_surfaceContainer");
-    const activeColor = getColor(context, "md_theme_onSurface");
-    const inactiveColor = getColor(context, "md_theme_onSurfaceVariant");
-    const indicatorColor = getColor(context, "md_theme_secondaryContainer");
+    const backgroundColor = getColor(this.context, "md_theme_surfaceContainer");
+    const activeColor = getColor(this.context, "md_theme_onSurface");
+    const inactiveColor = getColor(this.context, "md_theme_onSurfaceVariant");
+    const indicatorColor = getColor(this.context, "md_theme_secondaryContainer");
 
     const itemStateList = createColorStateList(activeColor, inactiveColor);
     const indicatorStateList = createColorStateList(indicatorColor);
@@ -122,7 +137,7 @@ export class BottomNavigation extends ContentView {
 
     if (tab.icon?.startsWith('res://')) {
       const iconName = tab.icon.replace('res://', '');
-      const resId = this._context.getResources().getIdentifier(iconName, 'drawable', this._context.getPackageName());
+      const resId = this.context.getResources().getIdentifier(iconName, 'drawable', this.context.getPackageName());
       if (resId) {
         menuItem.setIcon(resId);
       }

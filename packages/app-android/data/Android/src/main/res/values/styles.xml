@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
     <!-- Generated using https://material-foundation.github.io/material-theme-builder/ -->
-    <style name="AppThemeBase" parent="Theme.Material3.Light.NoActionBar">
+    <style name="AppThemeBase" parent="Theme.Material3.DayNight.NoActionBar">
         <item name="colorPrimary">@color/md_theme_primary</item>
         <item name="colorOnPrimary">@color/md_theme_onPrimary</item>
         <item name="colorPrimaryContainer">@color/md_theme_primaryContainer</item>
@@ -48,8 +48,14 @@
         <item name="colorSurfaceContainer">@color/md_theme_surfaceContainer</item>
         <item name="colorSurfaceContainerHigh">@color/md_theme_surfaceContainerHigh</item>
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
-        <item name="android:statusBarColor">@android:color/transparent</item>
-        <item name="android:windowLightStatusBar">true</item>
+
+        <!-- bottom-navigation -->
+        <item name="bottomNavigationStyle">@style/AppBottomNavigationView</item>
+
+        <!-- status-bar -->
+        <!-- <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@color/md_theme_surface</item>
+        <item name="android:windowLightStatusBar">true</item> -->
     </style>
 
      <!-- theme to use AFTER launch screen is loaded-->
@@ -64,6 +70,11 @@
         <item name="android:background">@color/md_theme_primary</item>
         <item name="theme">@style/ThemeOverlay.Material3.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.Material3</item>
+    </style>
+
+    <!-- theme for bottom-navigation -->
+    <style name="AppBottomNavigationView" parent="Widget.Material3.BottomNavigationView">
+        <!-- Add BottomNavigation customizations here -->
     </style>
 
     <style name="NativeScriptToolbarStyle" parent="NativeScriptToolbarStyleBase">

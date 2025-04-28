@@ -1,11 +1,9 @@
-
-const { ColorStateList } = android.content.res;
-
 // Credits https://github.com/henrychavez/nativescript-bottom-navigation/blob/bec186cc2a6dbceec17d59416824207c027e169b/src/lib/android/utils.ts
 export function createColorStateList(activeColor: number, inactiveColor?: number) {
+  const ColorStateList = android.content.res.ColorStateList;
 
   if (!inactiveColor) {
-    return android.content.res.ColorStateList.valueOf(activeColor);
+    return ColorStateList.valueOf(activeColor);
   }
 
   const stateChecked = Array.create('int', 1);
@@ -26,6 +24,9 @@ export function createColorStateList(activeColor: number, inactiveColor?: number
   return new ColorStateList(states, colors);
 }
 
+/**
+ * Gets a color resource by name from Android resources
+ */
 export const getColor = (context: android.content.Context, color: string) => {
   return context.getResources().getColor(
     context.getResources().getIdentifier(color, "color", context.getPackageName()),

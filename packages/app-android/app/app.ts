@@ -1,32 +1,27 @@
-import { Application } from '@nativescript/core'
+import { Application, SystemAppearanceChangedEventData, isAndroid } from '@nativescript/core'
 import { localize } from '@nativescript/localize'
-// import { initThemes, switchTheme } from '@nativescript/theme-switcher'
 import { initLifecycle, lifecycleEvents } from './utils/lifecycle';
 import { initStatusBar } from './status-bar';
-import { initThemeColors } from './style';
-// import { initThemeManager } from './theme';
 
-// initThemes({
-//   // default is optional - will be auto-applied after initializing (*)
-//   // default: () => import('theme-loader!./themes/default.scss'),
-//   // red: () => import('theme-loader!./themes/red.scss'),
-//   // green: () => import('theme-loader!./themes/green.scss'),
-// })
+
+if (!isAndroid) {
+  throw new Error('This app is only supported on Android');
+}
+
 initLifecycle();
 
-
-
+lifecycleEvents.on(Application.systemAppearanceChangedEvent, (args: SystemAppearanceChangedEventData) => {
+  // const AppCompatDelegate = androidx.appcompat.app.AppCompatDelegate;
+  const activity = Application.android.foregroundActivity as androidx.appcompat.app.AppCompatActivity;
+  activity.getDelegate().applyDayNight();
+});
 
 // Initialize both statusBar and themeManager after launch
 lifecycleEvents.on(Application.launchEvent, () => {
   console.log('Application: Launch event');
+
   // Initialize StatusBar first
   initStatusBar();
-
-  // initThemeManager();
-
-  // Extrahiere Theme-Farben und stelle sie als CSS-Variablen bereit
-  initThemeColors({ forceDirectResource: true });
 });
 
 Application.setResources({ L: localize });

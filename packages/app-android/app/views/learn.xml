@@ -1,5 +1,5 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:mdx="~/mdx/index" actionBarHidden="true" class="learn-page">
-    <ScrollView>
-        <mdx:TutorialView />
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:mdx="~/mdx/index" actionBarHidden="true">
+    <ScrollView class="bg-surface text-on-surface">
+        <mdx:TutorialView class="mx-4" />
     </ScrollView>
 </Page>

@@ -1,5 +1,10 @@
-﻿@import '@nativescript/theme/css/core.css';
-@import '@nativescript/theme/css/default.css';
+﻿@import 'tailwindcss';
+@import 'css/_light.css';
+@import 'css/_dark.css';
+
+@source './**/*.{css,xml,html,vue,svelte,ts,tsx}';
+
+@custom-variant dark (&:is(.ns-dark *));
 
 /* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss */
 
@@ -40,4 +45,16 @@ HtmlView, .body {
 
 .list {
   font-size: 18;
+}
+
+/* Remove underline from TextViews */
+.no-underline {
+  background-color: transparent;
+  border-bottom-width: 0;
+  border-bottom-color: transparent;
+}
+
+TextView.no-underline {
+  border-width: 0;
+  background: transparent;
 }

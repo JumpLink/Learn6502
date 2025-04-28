@@ -27,9 +27,9 @@ export function onLaunch(event: LaunchEventData) {
   Application.on(Application.systemAppearanceChangedEvent, (event: SystemAppearanceChangedEventData) => {
     console.log('systemAppearanceChangedEvent', event.newValue);
     // WORKAROUND: Wait for the theme to be applied
-    setTimeout(() => {
+    // setTimeout(() => {
       lifecycleEvents.dispatch(Application.systemAppearanceChangedEvent, event);
-    }, 100);
+    // }, 100);
   });
 
   // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime

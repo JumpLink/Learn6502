@@ -1,7 +1,8 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
       xmlns:w="~/widgets/index"
       actionBarHidden="true"
-      navigatingTo="onNavigatingTo">
+      navigatingTo="onNavigatingTo"
+      class="bg-surface text-on-surface">
     <GridLayout rows="auto,*" columns="*">
         <w:SourceView row="1" col="0" id="SourceView" code="; Example 6502 assembly code&#xA;&#xA;LDA #$01&#xA;STA $0200&#xA;LDX #$00&#xA;LDY #$00" />
     </GridLayout>
