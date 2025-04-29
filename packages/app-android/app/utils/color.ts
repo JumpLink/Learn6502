@@ -1,3 +1,6 @@
+import { Utils } from "@nativescript/core";
+import { getResource } from "./resource";
+
 // Credits https://github.com/henrychavez/nativescript-bottom-navigation/blob/bec186cc2a6dbceec17d59416824207c027e169b/src/lib/android/utils.ts
 export function createColorStateList(activeColor: number, inactiveColor?: number) {
   const ColorStateList = android.content.res.ColorStateList;
@@ -25,11 +28,18 @@ export function createColorStateList(activeColor: number, inactiveColor?: number
 }
 
 /**
- * Gets a color resource by name from Android resources
+ * Returns a themed color integer associated with a particular resource ID. If the resource holds a complex ColorStateList, then the default color from the set is returned.
+ *
+ * @see https://developer.android.com/reference/android/content/res/Resources#getColor(int,%20android.content.res.Resources.Theme)
+ * @param color - The name of the color resource to retrieve
+ * @param context - The context to retrieve the color from
+ * @param theme - The theme to use for the color
+ * @param packageName - The package name of the color resource
+ * @returns The color integer
  */
-export const getColor = (context: android.content.Context, color: string) => {
+export const getColor = (color: string, context: android.content.Context = Utils.android.getApplicationContext(), theme: android.content.res.Resources.Theme = context.getTheme(), packageName: string = context.getPackageName()) => {
   return context.getResources().getColor(
-    context.getResources().getIdentifier(color, "color", context.getPackageName()),
-    context.getTheme()
+    getResource(color, "color", context, packageName),
+    theme
   );
 }

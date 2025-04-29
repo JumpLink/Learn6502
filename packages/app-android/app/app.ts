@@ -1,7 +1,7 @@
 import { Application, SystemAppearanceChangedEventData, isAndroid } from '@nativescript/core'
 import { localize } from '@nativescript/localize'
 import { initLifecycle, lifecycleEvents } from './utils/lifecycle';
-import { initStatusBar } from './status-bar';
+import { initStatusBar } from './services/status-bar';
 
 
 if (!isAndroid) {
@@ -11,7 +11,6 @@ if (!isAndroid) {
 initLifecycle();
 
 lifecycleEvents.on(Application.systemAppearanceChangedEvent, (args: SystemAppearanceChangedEventData) => {
-  // const AppCompatDelegate = androidx.appcompat.app.AppCompatDelegate;
   const activity = Application.android.foregroundActivity as androidx.appcompat.app.AppCompatActivity;
   activity.getDelegate().applyDayNight();
 });

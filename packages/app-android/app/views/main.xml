@@ -18,7 +18,14 @@
         <!-- Frame for content switching -->
         <Frame id="mainFrame" row="0" defaultPage="views/learn" />
         <!-- Bottom navigation bar positioned at the bottom -->
-        <w:BottomNavigation row="1" height="80">
+        <w:BottomNavigation
+            row="1"
+            height="80"
+            navBackgroundColor="md_theme_surfaceContainer"
+            activeColor="md_theme_onSurfaceVariant"
+            inactiveColor="md_theme_onSurfaceVariant"
+            indicatorColor="md_theme_secondaryContainer"
+        >
             <w:BottomTab title="Learn" icon="res://school_symbolic" id="learn" />
             <w:BottomTab title="Editor" icon="res://code_symbolic" id="editor" />
             <w:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger" />
