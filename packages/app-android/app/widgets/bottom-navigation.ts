@@ -64,7 +64,7 @@ const inactiveColorProperty = new Property<BottomNavigation, string>({
  */
 const indicatorColorProperty = new Property<BottomNavigation, string>({
   name: 'indicatorColor',
-  defaultValue: 'md_theme_secondaryContainer',
+  defaultValue: 'md_theme_primaryContainer',
 });
 
 export class BottomNavigation extends ContentView {
@@ -79,13 +79,13 @@ export class BottomNavigation extends ContentView {
 
   // Property backing fields
   /** Background color of the navigation bar */
-  private _navBackgroundColor: string = 'md_theme_surfaceContainer';
+  private _navBackgroundColor: string = navBackgroundColorProperty.defaultValue;
   /** Color for active items (text and icons) */
-  private _activeColor: string = 'md_theme_onSurface';
+  private _activeColor: string = activeColorProperty.defaultValue;
   /** Color for inactive items (text and icons) */
-  private _inactiveColor: string = 'md_theme_onSurfaceVariant';
+  private _inactiveColor: string = inactiveColorProperty.defaultValue;
   /** Color for the active indicator */
-  private _indicatorColor: string = 'md_theme_secondaryContainer';
+  private _indicatorColor: string = indicatorColorProperty.defaultValue;
 
   /**
    * Native property change handler for navBackgroundColor

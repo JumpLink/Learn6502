@@ -3,23 +3,24 @@ import { createColorStateList, getColor, getResource } from '../utils/index';
 import { lifecycleEvents } from '../utils/index';
 
 /**
- * Material Design 3 Floating Action Button (FAB) component for Android
+ * Material Design 3 Extended Floating Action Button (FAB) component for Android
  *
- * Provides a customizable FAB following Material Design 3 guidelines.
- * It supports customizable colors and icons.
+ * Provides a customizable FAB with an optional text label, following Material Design 3 guidelines.
+ * It supports customizable colors, icons, and text.
  *
  * ## Material Design 3 Color System
  *
  * | UI Element          | Default Material Color Token |
  * |---------------------|------------------------------|
  * | Container background| colorSecondaryContainer      |
- * | Icon color          | colorOnSecondaryContainer    |
+ * | Icon/Text color     | colorOnSecondaryContainer    |
  *
- * For more details, see the [Material Design FAB documentation](https://m3.material.io/components/floating-action-button/specs)
- * and [Android Material FAB](https://github.com/material-components/material-components-android/blob/master/docs/components/FloatingActionButton.md)
+ * For more details, see the [Material Design Extended FAB documentation](https://m3.material.io/components/extended-fab/overview)
+ * and [Android Material Extended FAB](https://github.com/material-components/material-components-android/blob/master/docs/components/ExtendedFloatingActionButton.md)
  *
  * @example
- * <Fab icon="res://ic_add" containerColor="md_theme_tertiaryContainer" contentColor="md_theme_onTertiaryContainer" />
+ * <Fab icon="res://ic_add" text="Create" containerColor="md_theme_primaryContainer" contentColor="md_theme_onPrimaryContainer" />
+ * <Fab icon="res://ic_edit" /> <!-- Standard FAB -->
  */
 
 /**
@@ -27,6 +28,14 @@ import { lifecycleEvents } from '../utils/index';
  */
 const iconProperty = new Property<Fab, string>({
   name: 'icon',
+});
+
+/**
+ * Property for setting the FAB text label.
+ * If set, the component renders as an Extended FAB.
+ */
+const textProperty = new Property<Fab, string>({
+    name: 'text',
 });
 
 /**
@@ -39,7 +48,7 @@ const containerColorProperty = new Property<Fab, string>({
 });
 
 /**
- * Property for setting the FAB icon/content color
+ * Property for setting the FAB icon and text color
  * @default 'md_theme_onSecondaryContainer'
  */
 const contentColorProperty = new Property<Fab, string>({
@@ -50,13 +59,15 @@ const contentColorProperty = new Property<Fab, string>({
 // It's important to declare the CSS type for potential future styling
 @CSSType('Fab')
 export class Fab extends ContentView {
-  /** The native Android FAB view */
-  private fab: com.google.android.material.floatingactionbutton.FloatingActionButton;
+  /** The native Android Extended FAB view */
+  // Use ExtendedFloatingActionButton to support text labels
+  private fab: com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
 
   // Property backing fields
   private _icon: string;
-  private _containerColor: string = 'md_theme_secondaryContainer';
-  private _contentColor: string = 'md_theme_onSecondaryContainer';
+  private _text: string;
+  private _containerColor: string = containerColorProperty.defaultValue;
+  private _contentColor: string = contentColorProperty.defaultValue;
 
   /**
    * Native property change handler for icon
@@ -65,6 +76,15 @@ export class Fab extends ContentView {
   [iconProperty.setNative](value: string) {
     this._icon = value;
     this.applyIcon();
+  }
+
+  /**
+   * Native property change handler for text
+   * @param value - The new text label
+   */
+  [textProperty.setNative](value: string) {
+      this._text = value;
+      this.applyText();
   }
 
   /**
@@ -102,6 +122,15 @@ export class Fab extends ContentView {
     this.applyIcon();
   }
 
+  get text(): string {
+      return this._text;
+  }
+
+  set text(value: string) {
+      this._text = value;
+      this.applyText();
+  }
+
   get containerColor(): string {
     return this._containerColor;
   }
@@ -130,8 +159,8 @@ export class Fab extends ContentView {
    * @returns The native Android view
    */
   public createNativeView(): android.view.View {
-    // Use default FAB style
-    this.fab = new com.google.android.material.floatingactionbutton.FloatingActionButton(this.context);
+    // Use ExtendedFloatingActionButton to support text
+    this.fab = new com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton(this.context);
 
     // Ensure it's clickable
     this.fab.setClickable(true);
@@ -143,9 +172,10 @@ export class Fab extends ContentView {
         }
     }));
 
-    // Apply initial theme and icon
+    // Apply initial theme, icon, and text
     this.applyTheme();
     this.applyIcon();
+    this.applyText();
 
     lifecycleEvents.on(Application.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
@@ -177,13 +207,16 @@ export class Fab extends ContentView {
     if (!this.fab) return;
 
     const backgroundColor = getColor(this._containerColor, this.context);
-    const tintColor = getColor(this._contentColor, this.context);
+    const contentColor = getColor(this._contentColor, this.context);
 
     const backgroundTintList = createColorStateList(backgroundColor);
-    const tintList = createColorStateList(tintColor);
+    // Apply content color to both icon and text
+    const contentTintList = createColorStateList(contentColor);
 
     this.fab.setBackgroundTintList(backgroundTintList);
-    this.fab.setSupportImageTintList(tintList); // Use Support version for compatibility
+    this.fab.setIconTint(contentTintList);
+    this.fab.setTextColor(contentColor); // Set text color directly
+
     this.fab.refreshDrawableState(); // Refresh to apply changes
   }
 
@@ -191,21 +224,32 @@ export class Fab extends ContentView {
    * Sets the icon drawable for the FAB
    */
   private applyIcon(): void {
-    if (!this.fab || !this._icon) return;
+    if (!this.fab) return;
 
-    if (this._icon.startsWith('res://')) {
+    if (this._icon && this._icon.startsWith('res://')) {
       const iconName = this._icon.replace('res://', '');
       const resId = getResource(iconName, 'drawable', this.context);
       if (resId) {
-        this.fab.setImageResource(resId);
+        this.fab.setIconResource(resId); // Use setIconResource for Extended FAB
       } else {
         console.error(`FAB Icon resource not found: ${iconName}`);
-        this.fab.setImageDrawable(null); // Clear icon if not found
+        this.fab.setIcon(null); // Clear icon if not found
       }
-    } else {
+    } else if (this._icon) {
          console.warn(`FAB Icon format not supported (expected res://): ${this._icon}`);
-         this.fab.setImageDrawable(null);
+         this.fab.setIcon(null);
+    } else {
+        // If no icon is provided, clear it
+        this.fab.setIcon(null);
     }
+  }
+
+  /**
+   * Sets the text label for the FAB.
+   */
+  private applyText(): void {
+      if (!this.fab) return;
+      this.fab.setText(this._text || null); // Set text or clear if null/empty
   }
 
   /**
@@ -228,5 +272,6 @@ export class Fab extends ContentView {
  * This allows the properties to be set via XML attributes
  */
 iconProperty.register(Fab);
+textProperty.register(Fab); // Register the new text property
 containerColorProperty.register(Fab);
 contentColorProperty.register(Fab); 
