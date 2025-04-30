@@ -20,6 +20,19 @@
     <GridLayout rows="*, auto" columns="*">
         <!-- Frame for content switching -->
         <Frame id="mainFrame" row="0" defaultPage="views/main/learn" />
+
+        <!-- FAB positioned in the bottom-right corner -->
+        <w:Fab
+            row="0" 
+            icon="res://nintendo_controller_symbolic"
+            tap="onFabTap"
+            containerColor="md_theme_secondaryContainer"
+            contentColor="md_theme_onSecondaryContainer"
+            horizontalAlignment="right"
+            verticalAlignment="bottom"
+            margin="16"
+         />
+
         <!-- Bottom navigation bar positioned at the bottom -->
         <w:BottomNavigation
             row="1"

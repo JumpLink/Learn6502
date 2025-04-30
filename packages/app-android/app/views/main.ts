@@ -34,3 +34,7 @@ export const run = () => {
 export const openMenu = () => {
   console.log('openMenu');
 };
+
+export const onFabTap = () => {
+  console.log('onFabTap');
+}
