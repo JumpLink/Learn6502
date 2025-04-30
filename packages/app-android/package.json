@@ -6,6 +6,7 @@
   "scripts": {
     "clear": "ns clean",
     "start": "ns run android --emulator",
+    "start:device": "ns run android",
     "start:clean": "ns run android --clean --emulator",
     "debug": "ns debug android"
   },

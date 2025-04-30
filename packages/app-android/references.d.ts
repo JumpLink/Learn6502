@@ -3,7 +3,7 @@
 //// <reference path="../../node_modules/@nativescript/types/index.d.ts" />
 
 // Android types
-/// <reference path="../../node_modules/@nativescript/types-android/index.d.ts" />
+/// <reference path="../../node_modules/@nativescript/types-android/lib/android-35.d.ts" />
 
 // Theme switcher types
 /// <reference path="../../node_modules/@nativescript/theme-switcher/shims.d.ts" />

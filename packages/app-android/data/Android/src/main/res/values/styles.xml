@@ -50,19 +50,18 @@
         <item name="colorSurfaceContainerHighest">@color/md_theme_surfaceContainerHighest</item>
 
         <!-- bottom-navigation -->
-        <item name="bottomNavigationStyle">@style/AppBottomNavigationView</item>
+        <!-- <item name="bottomNavigationStyle">@style/AppBottomNavigationView</item>
 
-        <!-- status-bar -->
-        <!-- <item name="android:statusBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@color/md_theme_surface</item>
-        <item name="android:windowLightStatusBar">true</item> -->
+        <item name="android:windowLightStatusBar">true</item> --> -->
 
         <!-- action-bar -->
         <item name="android:actionMenuTextColor">@color/md_theme_onSurface</item>
     </style>
 
      <!-- theme to use AFTER launch screen is loaded-->
-    <style name="AppTheme" parent="AppThemeBase"></style>
+    <style name="AppTheme" parent="AppThemeBase">
+    </style>
 
     <!-- theme to use FOR launch screen-->
     <style name="LaunchScreenThemeBase" parent="AppThemeBase"></style>

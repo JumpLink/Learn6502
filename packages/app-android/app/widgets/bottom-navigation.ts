@@ -1,6 +1,6 @@
-import { ContentView, Property, Frame, Application, SystemAppearanceChangedEventData } from '@nativescript/core';
+import { ContentView, Property, Frame, Application, SystemAppearanceChangedEventData, Utils, EventData } from '@nativescript/core';
 import { BottomTab } from './bottom-tab';
-import { createColorStateList, getColor, setNavigationBarAppearance } from '../utils/index';
+import { createColorStateList, getColor, getInsets, setNavigationBarAppearance } from '../utils/index';
 import { lifecycleEvents, getResource } from '../utils/index';
 
 /**
@@ -170,6 +170,7 @@ export class BottomNavigation extends ContentView {
   constructor() {
     super();
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
+    this._onLoaded = this._onLoaded.bind(this);
   }
 
   /**
@@ -222,6 +223,37 @@ export class BottomNavigation extends ContentView {
   }
 
   /**
+   * Initializes the native view
+   * Called by NativeScript after the native view is created
+   */
+  public initNativeView(): void {
+    super.initNativeView();
+
+    this.on('loaded', this._onLoaded);
+
+    // Additional initialization if needed
+  }
+
+  private _onLoaded(args: EventData): void {
+    console.log('bottomNavigation: onLoaded', this);
+    // TODO: Fix this delayed execution if possible
+    setTimeout(() => {
+      const bottomNavHeight = Utils.layout.toDeviceIndependentPixels(this.bottomNav.getMinimumHeight());
+      const paddingBottom = Utils.layout.toDeviceIndependentPixels(getInsets(this, android.view.WindowInsets.Type.systemBars()).bottom);
+
+      // Set the height of the bottom navigation container
+      this.height = bottomNavHeight + paddingBottom;
+
+      console.log(
+        'initNativeView - Desired DIPs:', bottomNavHeight,
+        '| Set Pixels:', bottomNavHeight + paddingBottom,
+        '| Padding Pixels:', paddingBottom,
+        '| NS Height (DIPs):', this.height
+      );
+    }, 1000);
+  }
+
+  /**
    * Handles system appearance (dark/light mode) changes
    * @param event - The system appearance change event
    */
@@ -257,15 +289,6 @@ export class BottomNavigation extends ContentView {
 
     // Uniform the navigation bar appearance to match the bottom navigation background color
     setNavigationBarAppearance(backgroundColor, isDarkMode);
-  }
-
-  /**
-   * Initializes the native view
-   * Called by NativeScript after the native view is created
-   */
-  public initNativeView(): void {
-    super.initNativeView();
-    // Additional initialization if needed
   }
 
   /**

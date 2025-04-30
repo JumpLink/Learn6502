@@ -2000,7 +2000,7 @@ __metadata:
     "@learn6502/vite-plugin-blueprint": "workspace:^"
     "@learn6502/vite-plugin-gettext": "workspace:^"
     typescript: "npm:^5.8.3"
-    vite: "npm:^6.3.3"
+    vite: "npm:^6.3.4"
     vite-plugin-static-copy: "npm:^2.3.1"
   languageName: unknown
   linkType: soft
@@ -2012,7 +2012,7 @@ __metadata:
     "@learn6502/6502": "workspace:^"
     lightningcss: "npm:^1.29.3"
     typescript: "npm:^5.8.3"
-    vite: "npm:^6.3.3"
+    vite: "npm:^6.3.4"
   languageName: unknown
   linkType: soft
 
@@ -2022,7 +2022,7 @@ __metadata:
   dependencies:
     "@mdx-js/esbuild": "npm:^3.1.0"
     "@types/mdx": "npm:^2.0.13"
-    "@types/node": "npm:^22.15.2"
+    "@types/node": "npm:^22.15.3"
     esbuild: "npm:^0.25.3"
     nano-jsx: "npm:^0.1.0"
     typescript: "npm:^5.8.3"
@@ -2041,11 +2041,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint"
   dependencies:
-    "@types/node": "npm:^22.15.2"
+    "@types/node": "npm:^22.15.3"
     execa: "npm:^9.5.2"
     minify-xml: "npm:^4.5.2"
     typescript: "npm:^5.8.3"
-    vite: "npm:^6.3.3"
+    vite: "npm:^6.3.4"
   peerDependencies:
     vite: "*"
   languageName: unknown
@@ -2056,12 +2056,12 @@ __metadata:
   resolution: "@learn6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext"
   dependencies:
     "@types/gettext-parser": "npm:^8.0.0"
-    "@types/node": "npm:^22.15.2"
+    "@types/node": "npm:^22.15.3"
     execa: "npm:^9.5.2"
     fast-glob: "npm:^3.3.3"
     gettext-parser: "npm:^8.0.0"
     typescript: "npm:^5.8.3"
-    vite: "npm:^6.3.3"
+    vite: "npm:^6.3.4"
   peerDependencies:
     vite: "*"
   languageName: unknown
@@ -3359,12 +3359,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^22.15.2":
-  version: 22.15.2
-  resolution: "@types/node@npm:22.15.2"
+"@types/node@npm:^22.15.3":
+  version: 22.15.3
+  resolution: "@types/node@npm:22.15.3"
   dependencies:
     undici-types: "npm:~6.21.0"
-  checksum: 10c0/39da31d5fc63b14fabd217bb8a921c4a7fc3d99f233440209f9fc2d5d736e8773f7efc65223e2fd0e8db8390b0baab9c0cd2e951c2ece8b237f07313ab3cf295
+  checksum: 10c0/2879f012d1aeba0bfdb5fed80d165f4f2cb3d1f2e1f98a24b18d4a211b4ace7d64bf2622784c78355982ffc1081ba79d0934efc2fb8353913e5871a63609661f
   languageName: node
   linkType: hard
 
@@ -12666,9 +12666,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"vite@npm:^6.3.3":
-  version: 6.3.3
-  resolution: "vite@npm:6.3.3"
+"vite@npm:^6.3.4":
+  version: 6.3.4
+  resolution: "vite@npm:6.3.4"
   dependencies:
     esbuild: "npm:^0.25.0"
     fdir: "npm:^6.4.4"
@@ -12717,7 +12717,7 @@ __metadata:
       optional: true
   bin:
     vite: bin/vite.js
-  checksum: 10c0/7ea27d2c80a9e0b7ccf6cbd6c251455501286568160e8b632984e5332440f21a6d05f9236408212ba7653f7d2d4790f848956d8a620bbf4dd2ecb792a2fe1ab1
+  checksum: 10c0/f1534a3f42d14b30e11c58e5e451903d965d5f5ba18d8c81f9df208589e3d2c65535abaa3268d3963573174b8e056ea7bc445f567622c65fcdf98eb4acc1bf4e
   languageName: node
   linkType: hard
 

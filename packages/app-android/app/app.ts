@@ -1,7 +1,6 @@
 import { Application, SystemAppearanceChangedEventData, isAndroid } from '@nativescript/core'
 import { localize } from '@nativescript/localize'
-import { initLifecycle, lifecycleEvents } from './utils/lifecycle';
-import { initStatusBar } from './services/status-bar';
+import { initLifecycle, lifecycleEvents, getContrastMode, setEdgeToEdge } from './utils/index';
 
 
 if (!isAndroid) {
@@ -13,15 +12,19 @@ initLifecycle();
 lifecycleEvents.on(Application.systemAppearanceChangedEvent, (args: SystemAppearanceChangedEventData) => {
   const activity = Application.android.foregroundActivity as androidx.appcompat.app.AppCompatActivity;
   activity.getDelegate().applyDayNight();
+
+  console.log('getContrastMode', getContrastMode());
 });
 
 // Initialize both statusBar and themeManager after launch
 lifecycleEvents.on(Application.launchEvent, () => {
   console.log('Application: Launch event');
 
-  // Initialize StatusBar first
-  initStatusBar();
+  setEdgeToEdge(true);
+
+  console.log('getContrastMode', getContrastMode());
 });
+
 
 Application.setResources({ L: localize });
 Application.run({ moduleName: 'app-root' });

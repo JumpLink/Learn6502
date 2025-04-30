@@ -1,5 +1,8 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
-      xmlns:w="~/widgets/index">
+      xmlns:w="~/widgets/index"
+      loaded="onLoaded"
+      id="main-page"
+      class="bg-surface">
     <ActionBar class="bg-surface text-on-surface">
         <!-- explicitly hide the back button -->
         <NavigationButton visibility="collapsed" />
@@ -20,7 +23,6 @@
         <!-- Bottom navigation bar positioned at the bottom -->
         <w:BottomNavigation
             row="1"
-            height="80"
             navBackgroundColor="md_theme_surfaceContainer"
             activeColor="md_theme_onSurfaceVariant"
             inactiveColor="md_theme_onSurfaceVariant"

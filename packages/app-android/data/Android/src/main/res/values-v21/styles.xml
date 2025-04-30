@@ -3,12 +3,14 @@
 
     <!-- Application theme -->
     <style name="AppThemeBase21" parent="AppThemeBase">
-        <!-- Modern edge-to-edge UI -->
-        <!--<item name="android:windowTranslucentStatus">false</item>
-        <item name="android:navigationBarColor">@android:color/transparent</item>-->
-
         <item name="android:datePickerStyle">@style/SpinnerDatePicker</item>
         <item name="android:timePickerStyle">@style/SpinnerTimePicker</item>
+
+        <!-- Ensure edge-to-edge behavior -->
+        <!-- <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+        <item name="android:navigationBarColor">@android:color/transparent</item> -->
     </style>
 
     <style name="AppTheme" parent="AppThemeBase21">

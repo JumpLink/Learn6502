@@ -23,15 +23,6 @@ export function onLaunch(event: LaunchEventData) {
   const systemAppearance = Application.systemAppearance();
   console.log('systemAppearance', systemAppearance);
 
-  // Listen for theme changes
-  Application.on(Application.systemAppearanceChangedEvent, (event: SystemAppearanceChangedEventData) => {
-    console.log('systemAppearanceChangedEvent', event.newValue);
-    // WORKAROUND: Wait for the theme to be applied
-    // setTimeout(() => {
-      lifecycleEvents.dispatch(Application.systemAppearanceChangedEvent, event);
-    // }, 100);
-  });
-
   // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
   const localeOverriddenSuccessfully = overrideLocale('de-DE')
   console.log('localeOverriddenSuccessfully', localeOverriddenSuccessfully);
@@ -46,4 +37,16 @@ export function initLifecycle() {
   if (Application.android) {
     Application.once(Application.launchEvent, onLaunch);
   }
+
+  // Listen for theme changes
+  Application.on(Application.systemAppearanceChangedEvent, (event: SystemAppearanceChangedEventData) => {
+    console.log('systemAppearanceChangedEvent', event.newValue);
+    lifecycleEvents.dispatch(Application.systemAppearanceChangedEvent, event);
+  });
+
+  // Listen for display changes
+  Application.on(Application.displayedEvent, () => {
+    console.log('displayedEvent');
+    lifecycleEvents.dispatch(Application.displayedEvent, {});
+  });
 }

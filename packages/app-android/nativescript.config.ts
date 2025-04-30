@@ -7,7 +7,7 @@ export default {
   android: {
     v8Flags: '--expose_gc',
     markingMode: 'none',
-    minSdkVersion: 21, // Minimum Android 5.0 (Lollipop) für Material Design 3
-    targetSdkVersion: 32 // Target ist aktuelle Standard-Version (oder höher)
+    minSdkVersion: 21, // Minimum Android 5.0 (Lollipop) for Material Design 3
+    targetSdkVersion: 35 // Target is the current standard version (or higher)
   }
 } as NativeScriptConfig;
