@@ -2,7 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 import { QuickHelpView } from '../mdx/quick-help-view.ts'
 
-import Template from '../views/help-window.blp'
+import Template from './help.window.blp'
 
 export class HelpWindow extends Adw.Window {
 

@@ -4,7 +4,7 @@ import Gdk from '@girs/gdk-4.0'
 import Gtk from '@girs/gtk-4.0'
 import Adw from '@girs/adw-1'
 
-import { ApplicationWindow, PreferencesDialog } from './views/index.ts'
+import { MainWindow, PreferencesDialog } from './views/index.ts'
 import { APPLICATION_ID, RESOURCES_PATH } from './constants.ts'
 import { initResources } from './resources.ts'
 
@@ -83,7 +83,7 @@ export class Application extends Adw.Application {
   vfunc_activate() {
     let { active_window } = this
 
-    if (!active_window) active_window = new ApplicationWindow(this)
+    if (!active_window) active_window = new MainWindow(this)
 
     active_window.present()
   }

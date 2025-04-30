@@ -19,7 +19,7 @@
     <!-- Use GridLayout to position content and bottom navigation -->
     <GridLayout rows="*, auto" columns="*">
         <!-- Frame for content switching -->
-        <Frame id="mainFrame" row="0" defaultPage="views/learn" />
+        <Frame id="mainFrame" row="0" defaultPage="views/main/learn" />
         <!-- Bottom navigation bar positioned at the bottom -->
         <w:BottomNavigation
             row="1"

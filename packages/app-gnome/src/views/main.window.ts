@@ -7,19 +7,15 @@ import GLib from '@girs/glib-2.0'
 
 import { SimulatorState, num2hex } from '@learn6502/6502'
 
-import { Learn } from './learn.ts'
-import { Editor } from './editor.ts'
-import { GameConsole } from './game-console.ts'
-import { Debugger } from './debugger.ts'
-import { HelpWindow } from './help-window.ts'
+import { Learn, Editor, GameConsole, Debugger } from './main'
+import { HelpWindow } from './help.window.ts'
 import '../widgets/theme-selector.ts' // TODO make use of this
 import { copyToClipboard } from '../utils.ts'
 
-import Template from './application-window.blp'
-
+import Template from './main.window.blp'
 import { type RunButtonMode, RunButtonState } from '../types/index.ts'
 
-export class ApplicationWindow extends Adw.ApplicationWindow {
+export class MainWindow extends Adw.ApplicationWindow {
 
   // Child widgets
   declare private _editor: Editor
@@ -37,7 +33,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   declare private _buttonWindowMenu: Gio.MenuModel
   static {
     GObject.registerClass({
-      GTypeName: 'ApplicationWindow',
+      GTypeName: 'MainWindow',
       Template,
       InternalChildren: ['editor', 'gameConsole', 'learn', 'menuButton', 'runButton', 'stack', 'switcherBar', 'debugger', 'toastOverlay', 'unsavedChangesDialog', 'titleLabel', 'unsavedChangesIndicator', 'buttonWindowMenu'],
     }, this);
@@ -202,7 +198,7 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
           try {
             this._learn.disconnect(handler);
           } catch (error) {
-            console.error('[ApplicationWindow] Failed to disconnect handler', error)
+            console.error('[MainWindow] Failed to disconnect handler', error)
           }
         });
       }
@@ -883,4 +879,4 @@ export class ApplicationWindow extends Adw.ApplicationWindow {
   }
 }
 
-GObject.type_ensure(ApplicationWindow.$gtype)
+GObject.type_ensure(MainWindow.$gtype)

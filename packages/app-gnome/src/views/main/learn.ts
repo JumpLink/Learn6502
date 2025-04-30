@@ -3,9 +3,9 @@ import Adw from '@girs/adw-1'
 import Gtk from '@girs/gtk-4.0'
 import GLib from '@girs/glib-2.0'
 
-import { TutorialView } from '../mdx/tutorial-view.ts'
+import { TutorialView } from '../../mdx/tutorial-view.ts'
 
-import Template from '../views/learn.blp'
+import Template from './learn.blp'
 
 export class Learn extends Adw.Bin {
 

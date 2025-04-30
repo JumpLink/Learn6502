@@ -362,7 +362,7 @@ export class BottomNavigation extends ContentView {
       // Navigate to page corresponding to tab ID
       // For example, if tab ID is "home", navigate to "views/home"
       mainFrame.navigate({
-        moduleName: `views/${tabId}`,
+        moduleName: `views/main/${tabId}`, // TODO: Make this dynamic
         clearHistory: true
       });
     }

@@ -2,7 +2,7 @@ import GObject from '@girs/gobject-2.0'
 import Gtk from '@girs/gtk-4.0'
 import Adw from '@girs/adw-1'
 
-import { MessageConsole, HexMonitor, Hexdump, Disassembled, DebugInfo } from '../widgets/debugger/index.ts'
+import { MessageConsole, HexMonitor, Hexdump, Disassembled, DebugInfo } from '../../widgets/debugger/index.ts'
 
 import Template from './debugger.blp'
 
@@ -65,7 +65,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
     this.state = DebuggerState.INITIAL;
   }
 
-  /** Call this when the ApplicationWindow is closed. */
+  /** Call this when the MainWindow is closed. */
   public close(): void {
     this.removeSignalHandlers();
   }

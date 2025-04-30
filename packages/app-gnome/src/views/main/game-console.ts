@@ -3,8 +3,8 @@ import Adw from '@girs/adw-1'
 
 import { Memory, Labels, Simulator, Assembler, type AssemblerEvent, type SimulatorEvent, type LabelsEvent } from '@learn6502/6502';
 
-import { Display } from '../widgets/game-console/display.ts'
-import { GamePad } from '../widgets/game-console/game-pad.ts'
+import { Display } from '../../widgets/game-console/display.ts'
+import { GamePad } from '../../widgets/game-console/game-pad.ts'
 
 import Template from './game-console.blp'
 
@@ -238,7 +238,7 @@ export class GameConsole extends Adw.Bin {
     this._gamePad.press(buttonName);
   }
 
-  /** Call this when the ApplicationWindow is closed. */
+  /** Call this when the MainWindow is closed. */
   public close(): void {
     this.stop();
     this.removeSignalHandlers();

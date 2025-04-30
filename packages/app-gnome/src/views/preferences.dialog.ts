@@ -1,7 +1,7 @@
 import GObject from '@girs/gobject-2.0'
 import Adw from '@girs/adw-1'
 
-import Template from './preferences-dialog.blp'
+import Template from './preferences.dialog.blp'
 
 export class PreferencesDialog extends Adw.PreferencesDialog {
 
