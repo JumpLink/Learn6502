@@ -1,4 +1,4 @@
-import { ContentView, Property, Application, SystemAppearanceChangedEventData, Utils, CSSType } from '@nativescript/core';
+import { ContentView, Property, Application, SystemAppearanceChangedEventData, Utils, CSSType, AnimationCurve } from '@nativescript/core';
 import { createColorStateList, getColor, getResource } from '../utils/index';
 import { lifecycleEvents } from '../utils/index';
 
@@ -149,6 +149,10 @@ export class Fab extends ContentView {
     this.applyTheme();
   }
 
+  get isExtended(): boolean {
+    return this.fab.isExtended();
+  }
+
   constructor() {
     super();
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
@@ -261,6 +265,27 @@ export class Fab extends ContentView {
     lifecycleEvents.off(Application.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
     this.fab = null;
     super.disposeNativeView();
+  }
+
+  /**
+   * Collapses the Extended FAB into a standard FAB (icon only).
+   * Uses the native shrink animation.
+   */
+  public collapse(): void {
+    if (!this.fab) return;
+    this.fab.shrink();
+  }
+
+  /**
+   * Extends the FAB to show the text label alongside the icon.
+   * Uses the native extend animation.
+   */
+  public extend(): void {
+    if (!this.fab) return;
+    // Only extend if there is text defined
+    if (this._text) {
+        this.fab.extend();
+    }
   }
 
   // Expose the tap event for use in XML or code

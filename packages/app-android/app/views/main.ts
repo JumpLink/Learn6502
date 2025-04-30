@@ -1,4 +1,5 @@
-import { Application, Page, SystemAppearanceChangedEventData } from "@nativescript/core";
+import { Application, Page, SystemAppearanceChangedEventData, ScrollView, ScrollEventData, AnimationCurve } from "@nativescript/core";
+import { Fab } from "~/widgets/fab";
 
 import { EventData } from "@nativescript/core";
 import { lifecycleEvents } from "~/utils/lifecycle";
@@ -24,8 +25,47 @@ export const onLoaded = (args: EventData) => {
   setStatusBarAppearance("md_theme_surface");
 
   lifecycleEvents.dispatch(`loaded:${view.id}`, view);
+  initFabScrollBehavior(view);
 }
 
+export const initFabScrollBehavior = (view: Page) => {
+  const scrollView = view.getViewById<ScrollView>('mainScrollView');
+  const fab = view.getViewById<Fab>('mainFab');
+
+  if (scrollView && fab) {
+    let lastScrollY = 0;
+    const scrollThreshold = 10;
+
+    scrollView.on(ScrollView.scrollEvent, (event: ScrollEventData) => {
+      const currentScrollY = event.scrollY;
+      const scrollDiff = currentScrollY - lastScrollY;
+
+      // Scrolled to the top and FAB is collapsed, extend it
+      if (currentScrollY <= 0 && !fab.isExtended) {
+        fab.extend();
+      }
+      // Scrolled to the bottom and FAB is collapsed, extend it
+      else if (currentScrollY >= scrollView.scrollableHeight && !fab.isExtended) {
+        fab.extend();
+      }
+      // Scroll down and FAB is extended, collapse it
+      else if (scrollDiff > scrollThreshold && fab.isExtended) {
+        fab.collapse();
+      }
+      // Scroll up and FAB is extended, collapse it
+      else if (scrollDiff < -scrollThreshold && fab.isExtended) {
+        fab.collapse();
+      }
+    
+      // Update last scroll position
+      if (Math.abs(scrollDiff) > scrollThreshold || currentScrollY <= 0 ) {
+         lastScrollY = currentScrollY;
+      }
+    });
+  } else {
+    console.error("ScrollView or FAB not found for scroll behavior setup.");
+  }
+}
 
 export const run = () => {
   console.log('run');

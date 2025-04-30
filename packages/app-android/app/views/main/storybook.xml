@@ -1,158 +1,156 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd">
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" class="bg-surface text-on-surface">
     <ActionBar title="Material Design 3 Colors" class="bg-surface text-on-surface" />
-    <ScrollView class="bg-surface text-on-surface">
-        <StackLayout class="p-4">
-            <!-- Primary Colors -->
-            <Label text="Primary Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-primary text-on-primary p-4 rounded-md m-1">
-                    <Label text="Primary" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-on-primary text-primary p-4 rounded-md m-1">
-                    <Label text="On Primary" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="0" row="1" class="h-25 bg-primary-container text-on-primary-container p-4 rounded-md m-1">
-                    <Label text="Primary Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="1" class="h-25 bg-on-primary-container text-primary-container p-4 rounded-md m-1">
-                    <Label text="On Primary Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+    <StackLayout class="p-4">
+        <!-- Primary Colors -->
+        <Label text="Primary Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-primary text-on-primary p-4 rounded-md m-1">
+                <Label text="Primary" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-on-primary text-primary p-4 rounded-md m-1">
+                <Label text="On Primary" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="0" row="1" class="h-25 bg-primary-container text-on-primary-container p-4 rounded-md m-1">
+                <Label text="Primary Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="1" class="h-25 bg-on-primary-container text-primary-container p-4 rounded-md m-1">
+                <Label text="On Primary Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Secondary Colors -->
-            <Label text="Secondary Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-secondary text-on-secondary p-4 rounded-md m-1">
-                    <Label text="Secondary" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-on-secondary text-secondary p-4 rounded-md m-1">
-                    <Label text="On Secondary" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="0" row="1" class="h-25 bg-secondary-container text-on-secondary-container p-4 rounded-md m-1">
-                    <Label text="Secondary Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="1" class="h-25 bg-on-secondary-container text-secondary-container p-4 rounded-md m-1">
-                    <Label text="On Secondary Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+        <!-- Secondary Colors -->
+        <Label text="Secondary Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-secondary text-on-secondary p-4 rounded-md m-1">
+                <Label text="Secondary" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-on-secondary text-secondary p-4 rounded-md m-1">
+                <Label text="On Secondary" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="0" row="1" class="h-25 bg-secondary-container text-on-secondary-container p-4 rounded-md m-1">
+                <Label text="Secondary Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="1" class="h-25 bg-on-secondary-container text-secondary-container p-4 rounded-md m-1">
+                <Label text="On Secondary Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Tertiary Colors -->
-            <Label text="Tertiary Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-tertiary text-on-tertiary p-4 rounded-md m-1">
-                    <Label text="Tertiary" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-on-tertiary text-tertiary p-4 rounded-md m-1">
-                    <Label text="On Tertiary" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="0" row="1" class="h-25 bg-tertiary-container text-on-tertiary-container p-4 rounded-md m-1">
-                    <Label text="Tertiary Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="1" class="h-25 bg-on-tertiary-container text-tertiary-container p-4 rounded-md m-1">
-                    <Label text="On Tertiary Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+        <!-- Tertiary Colors -->
+        <Label text="Tertiary Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-tertiary text-on-tertiary p-4 rounded-md m-1">
+                <Label text="Tertiary" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-on-tertiary text-tertiary p-4 rounded-md m-1">
+                <Label text="On Tertiary" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="0" row="1" class="h-25 bg-tertiary-container text-on-tertiary-container p-4 rounded-md m-1">
+                <Label text="Tertiary Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="1" class="h-25 bg-on-tertiary-container text-tertiary-container p-4 rounded-md m-1">
+                <Label text="On Tertiary Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Error Colors -->
-            <Label text="Error Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-error text-on-error p-4 rounded-md m-1">
-                    <Label text="Error" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-on-error text-error p-4 rounded-md m-1">
-                    <Label text="On Error" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="0" row="1" class="h-25 bg-error-container text-on-error-container p-4 rounded-md m-1">
-                    <Label text="Error Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="1" class="h-25 bg-on-error-container text-error-container p-4 rounded-md m-1">
-                    <Label text="On Error Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+        <!-- Error Colors -->
+        <Label text="Error Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-error text-on-error p-4 rounded-md m-1">
+                <Label text="Error" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-on-error text-error p-4 rounded-md m-1">
+                <Label text="On Error" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="0" row="1" class="h-25 bg-error-container text-on-error-container p-4 rounded-md m-1">
+                <Label text="Error Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="1" class="h-25 bg-on-error-container text-error-container p-4 rounded-md m-1">
+                <Label text="On Error Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Surface Colors -->
-            <Label text="Surface Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-surface text-on-surface p-4 rounded-md m-1 border border-outline">
-                    <Label text="Surface" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-on-surface text-surface p-4 rounded-md m-1">
-                    <Label text="On Surface" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="0" row="1" class="h-25 bg-surface-variant text-on-surface-variant p-4 rounded-md m-1">
-                    <Label text="Surface Variant" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="1" class="h-25 bg-on-surface-variant text-surface-variant p-4 rounded-md m-1">
-                    <Label text="On Surface Variant" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+        <!-- Surface Colors -->
+        <Label text="Surface Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto,auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-surface text-on-surface p-4 rounded-md m-1 border border-outline">
+                <Label text="Surface" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-on-surface text-surface p-4 rounded-md m-1">
+                <Label text="On Surface" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="0" row="1" class="h-25 bg-surface-variant text-on-surface-variant p-4 rounded-md m-1">
+                <Label text="Surface Variant" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="1" class="h-25 bg-on-surface-variant text-surface-variant p-4 rounded-md m-1">
+                <Label text="On Surface Variant" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Surface Container Colors -->
-            <Label text="Surface Container Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto,auto,auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-surface-container text-on-surface p-4 rounded-md m-1 border border-outline">
-                    <Label text="Surface Container" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-surface-container-lowest text-on-surface p-4 rounded-md m-1">
-                    <Label text="Surface Container Lowest" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="0" row="1" class="h-25 bg-surface-container-low text-on-surface p-4 rounded-md m-1">
-                    <Label text="Surface Container Low" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="1" class="h-25 bg-surface-container-high text-on-surface p-4 rounded-md m-1">
-                    <Label text="Surface Container High" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="0" row="2" class="h-25 bg-surface-container-highest text-on-surface p-4 rounded-md m-1">
-                    <Label text="Surface Container Highest" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="2" class="h-25 bg-surface-bright text-on-surface p-4 rounded-md m-1 border border-outline">
-                    <Label text="Surface Bright" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+        <!-- Surface Container Colors -->
+        <Label text="Surface Container Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto,auto,auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-surface-container text-on-surface p-4 rounded-md m-1 border border-outline">
+                <Label text="Surface Container" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-surface-container-lowest text-on-surface p-4 rounded-md m-1">
+                <Label text="Surface Container Lowest" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="0" row="1" class="h-25 bg-surface-container-low text-on-surface p-4 rounded-md m-1">
+                <Label text="Surface Container Low" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="1" class="h-25 bg-surface-container-high text-on-surface p-4 rounded-md m-1">
+                <Label text="Surface Container High" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="0" row="2" class="h-25 bg-surface-container-highest text-on-surface p-4 rounded-md m-1">
+                <Label text="Surface Container Highest" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="2" class="h-25 bg-surface-bright text-on-surface p-4 rounded-md m-1 border border-outline">
+                <Label text="Surface Bright" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Background Colors -->
-            <Label text="Background Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-background text-on-background p-4 rounded-md m-1 border border-outline">
-                    <Label text="Background" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-on-background text-background p-4 rounded-md m-1">
-                    <Label text="On Background" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+        <!-- Background Colors -->
+        <Label text="Background Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-background text-on-background p-4 rounded-md m-1 border border-outline">
+                <Label text="Background" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-on-background text-background p-4 rounded-md m-1">
+                <Label text="On Background" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Outline Colors -->
-            <Label text="Outline Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-outline text-background p-4 rounded-md m-1">
-                    <Label text="Outline" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-outline-variant text-on-surface p-4 rounded-md m-1">
-                    <Label text="Outline Variant" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+        <!-- Outline Colors -->
+        <Label text="Outline Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-outline text-background p-4 rounded-md m-1">
+                <Label text="Outline" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-outline-variant text-on-surface p-4 rounded-md m-1">
+                <Label text="Outline Variant" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Fixed Colors -->
-            <Label text="Fixed Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-primary-fixed text-on-primary-fixed p-4 rounded-md m-1">
-                    <Label text="Primary Fixed" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-primary-fixed-dim text-on-primary-fixed-variant p-4 rounded-md m-1">
-                    <Label text="Primary Fixed Dim" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
+        <!-- Fixed Colors -->
+        <Label text="Fixed Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-primary-fixed text-on-primary-fixed p-4 rounded-md m-1">
+                <Label text="Primary Fixed" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-primary-fixed-dim text-on-primary-fixed-variant p-4 rounded-md m-1">
+                <Label text="Primary Fixed Dim" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
 
-            <!-- Inverse Colors -->
-            <Label text="Inverse Colors" class="text-xl font-bold mb-4" />
-            <GridLayout columns="*,*" rows="auto" class="mb-8">
-                <StackLayout col="0" row="0" class="h-25 bg-inverse-surface text-inverse-on-surface p-4 rounded-md m-1">
-                    <Label text="Inverse Surface" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-                <StackLayout col="1" row="0" class="h-25 bg-inverse-primary text-on-primary-container p-4 rounded-md m-1">
-                    <Label text="Inverse Primary" class="text-sm font-medium" textWrap="true" />
-                </StackLayout>
-            </GridLayout>
-        </StackLayout>
-    </ScrollView>
+        <!-- Inverse Colors -->
+        <Label text="Inverse Colors" class="text-xl font-bold mb-4" />
+        <GridLayout columns="*,*" rows="auto" class="mb-8">
+            <StackLayout col="0" row="0" class="h-25 bg-inverse-surface text-inverse-on-surface p-4 rounded-md m-1">
+                <Label text="Inverse Surface" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+            <StackLayout col="1" row="0" class="h-25 bg-inverse-primary text-on-primary-container p-4 rounded-md m-1">
+                <Label text="Inverse Primary" class="text-sm font-medium" textWrap="true" />
+            </StackLayout>
+        </GridLayout>
+    </StackLayout>
 </Page>
