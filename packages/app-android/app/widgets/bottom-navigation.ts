@@ -1,6 +1,6 @@
 import { ContentView, Property, Frame, Application, SystemAppearanceChangedEventData, Utils, EventData, View, CoreTypes } from '@nativescript/core';
 import { BottomTab } from './bottom-tab';
-import { createColorStateList, getColor, getInsets, setNavigationBarAppearance } from '../utils/index';
+import { createColorStateList, getColor, setNavigationBarAppearance } from '../utils/index';
 import { lifecycleEvents, getResource, windowInsetsChangedEvent } from '../utils/index';
 
 // Import necessary AndroidX classes

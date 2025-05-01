@@ -24,7 +24,6 @@ export const onLoaded = (args: EventData) => {
   applySystemBarInsets(view, true, false, false, false);
   setStatusBarAppearance("md_theme_surface");
 
-  lifecycleEvents.dispatch(`loaded:${view.id}`, view);
   initFabScrollBehavior(view);
 }
 
@@ -56,7 +55,7 @@ export const initFabScrollBehavior = (view: Page) => {
       else if (scrollDiff < -scrollThreshold && fab.isExtended) {
         fab.collapse();
       }
-    
+
       // Update last scroll position
       if (Math.abs(scrollDiff) > scrollThreshold || currentScrollY <= 0 ) {
          lastScrollY = currentScrollY;
