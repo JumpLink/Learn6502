@@ -1,7 +1,10 @@
-import { ContentView, Property, Frame, Application, SystemAppearanceChangedEventData, Utils, EventData } from '@nativescript/core';
+import { ContentView, Property, Frame, Application, SystemAppearanceChangedEventData, Utils, EventData, View, CoreTypes } from '@nativescript/core';
 import { BottomTab } from './bottom-tab';
 import { createColorStateList, getColor, getInsets, setNavigationBarAppearance } from '../utils/index';
-import { lifecycleEvents, getResource } from '../utils/index';
+import { lifecycleEvents, getResource, windowInsetsChangedEvent } from '../utils/index';
+
+// Import necessary AndroidX classes
+import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
 
 /**
  * Material Design 3 Bottom Navigation component for Android
@@ -170,7 +173,7 @@ export class BottomNavigation extends ContentView {
   constructor() {
     super();
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
-    this._onLoaded = this._onLoaded.bind(this);
+    this.onWindowInsetsChanged = this.onWindowInsetsChanged.bind(this);
   }
 
   /**
@@ -229,28 +232,10 @@ export class BottomNavigation extends ContentView {
   public initNativeView(): void {
     super.initNativeView();
 
-    this.on('loaded', this._onLoaded);
+    // Subscribe to the global window insets event
+    lifecycleEvents.on(windowInsetsChangedEvent, this.onWindowInsetsChanged);
 
     // Additional initialization if needed
-  }
-
-  private _onLoaded(args: EventData): void {
-    console.log('bottomNavigation: onLoaded', this);
-    // TODO: Fix this delayed execution if possible
-    setTimeout(() => {
-      const bottomNavHeight = Utils.layout.toDeviceIndependentPixels(this.bottomNav.getMinimumHeight());
-      const paddingBottom = Utils.layout.toDeviceIndependentPixels(getInsets(this, android.view.WindowInsets.Type.systemBars()).bottom);
-
-      // Set the height of the bottom navigation container
-      this.height = bottomNavHeight + paddingBottom;
-
-      console.log(
-        'initNativeView - Desired DIPs:', bottomNavHeight,
-        '| Set Pixels:', bottomNavHeight + paddingBottom,
-        '| Padding Pixels:', paddingBottom,
-        '| NS Height (DIPs):', this.height
-      );
-    }, 1000);
   }
 
   /**
@@ -296,8 +281,9 @@ export class BottomNavigation extends ContentView {
    * Called by NativeScript when the view is no longer needed
    */
   public disposeNativeView(): void {
-    // Remove theme change listener
+    // Remove listeners
     lifecycleEvents.off(Application.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
+    lifecycleEvents.off(windowInsetsChangedEvent, this.onWindowInsetsChanged);
 
     this.bottomNav = null;
     this.tabsById.clear();
@@ -365,6 +351,49 @@ export class BottomNavigation extends ContentView {
         moduleName: `views/main/${tabId}`, // TODO: Make this dynamic
         clearHistory: true
       });
+    }
+  }
+
+  /**
+   * Handler for the global windowInsetsChanged event.
+   * Calculates and applies padding based on navigation bar insets.
+   * @param insets - The WindowInsetsCompat object received from the event.
+   */
+  private onWindowInsetsChanged(insets: androidx_core_view_WindowInsetsCompat): void {
+    if (!this.bottomNav || !insets) { // Check bottomNav and insets
+        console.log('BottomNavigation: onWindowInsetsChanged called but bottomNav or insets are null');
+        return;
+    }
+    try {
+        // Get navigation bar insets directly from WindowInsetsCompat
+        const bottomInsetPixels = insets.getInsets(androidx_core_view_WindowInsetsCompat.Type.navigationBars()).bottom;
+        // Use getMeasuredHeight which reflects the actual measured size, might be more reliable than getMinimumHeight
+        const bottomNavHeightPixels = this.bottomNav.getMinimumHeight(); // measured height not works here so we use getMinimumHeight
+        this.bottomNav.setPadding(0, 0, 0, bottomInsetPixels);
+
+        if (bottomNavHeightPixels <= 0) {
+
+            // If measured height is 0, it might mean the view hasn't been laid out yet.
+            // We might need to request layout or wait.
+            console.log('BottomNavigation: onWindowInsetsChanged - Measured height is 0. Requesting layout.');
+            // Request layout to potentially trigger a remeasure
+            return this.requestLayout();
+        }
+
+        const totalHeightPixels = bottomNavHeightPixels + bottomInsetPixels;
+        // Convert total pixels to DIPs for setting NativeScript height property
+        this.height = Utils.layout.toDeviceIndependentPixels(totalHeightPixels);
+
+        console.log(
+            'BottomNavigation: onWindowInsetsChanged - Native Measured Height (Pixels):',
+            bottomNavHeightPixels,
+            '| Padding Bottom (Pixels):',
+            bottomInsetPixels,
+            '| Total Calculated Height (DIPs):',
+            this.height
+        );
+    } catch(error) {
+        console.error("BottomNavigation: Error during onWindowInsetsChanged height calculation:", error);
     }
   }
 }
