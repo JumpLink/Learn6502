@@ -1,22 +1,28 @@
-import GObject from '@girs/gobject-2.0'
-import Adw from '@girs/adw-1'
-import Gtk from '@girs/gtk-4.0'
-import type cairo from 'cairo'
-import Template from './display.blp'
+import GObject from "@girs/gobject-2.0";
+import Adw from "@girs/adw-1";
+import Gtk from "@girs/gtk-4.0";
+import type cairo from "cairo";
+import Template from "./display.blp";
 
-import type { Display as DisplayInterface, Memory, MemoryEvent } from '@learn6502/6502'
+import type {
+  Display as DisplayInterface,
+  Memory,
+  MemoryEvent,
+} from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayInterface {
-
   // Child widgets
-  declare private _drawingArea: Gtk.DrawingArea
+  declare private _drawingArea: Gtk.DrawingArea;
 
   static {
-    GObject.registerClass({
-      GTypeName: 'Display',
-      Template,
-      InternalChildren: ['drawingArea']
-    }, this);
+    GObject.registerClass(
+      {
+        GTypeName: "Display",
+        Template,
+        InternalChildren: ["drawingArea"],
+      },
+      this
+    );
   }
 
   private width: number = 160;
@@ -42,16 +48,16 @@ export class Display extends Adw.Bin implements DisplayInterface {
     "#777777", // $c: Grey
     "#aaff66", // $d: Light green
     "#0088ff", // $e: Light blue
-    "#bbbbbb"  // $f: Light grey
+    "#bbbbbb", // $f: Light grey
   ];
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
-    super(params)
+    super(params);
     if (!this._drawingArea) {
-      throw new Error('DrawingArea is required')
+      throw new Error("DrawingArea is required");
     }
 
-    this.reset()
+    this.reset();
   }
 
   /**
@@ -59,8 +65,8 @@ export class Display extends Adw.Bin implements DisplayInterface {
    */
   public initialize(memory: Memory): void {
     this.memory = memory;
-    this.memory.on('changed', (event: MemoryEvent) => {
-      if ((event.addr >= 0x200) && (event.addr <= 0x5ff)) {
+    this.memory.on("changed", (event: MemoryEvent) => {
+      if (event.addr >= 0x200 && event.addr <= 0x5ff) {
         this.updatePixel(event.addr);
       }
     });
@@ -68,7 +74,7 @@ export class Display extends Adw.Bin implements DisplayInterface {
     this.width = this._drawingArea.get_content_width();
     this.height = this._drawingArea.get_content_height();
     if (!this.width || !this.height) {
-      throw new Error('DrawingArea is required')
+      throw new Error("DrawingArea is required");
     }
     this.pixelSize = this.width / this.numX;
     this.reset();
@@ -78,8 +84,10 @@ export class Display extends Adw.Bin implements DisplayInterface {
    * Clears the display.
    */
   public reset(): void {
-    this._drawingArea.set_draw_func(this.drawClear.bind(this) as Gtk.DrawingAreaDrawFunc)
-    this._drawingArea.queue_draw()
+    this._drawingArea.set_draw_func(
+      this.drawClear.bind(this) as Gtk.DrawingAreaDrawFunc
+    );
+    this._drawingArea.queue_draw();
   }
 
   /**
@@ -88,23 +96,35 @@ export class Display extends Adw.Bin implements DisplayInterface {
    * @param memory - The Memory object containing the pixel data.
    */
   public updatePixel(_addr: number): void {
-    this._drawingArea.set_draw_func(this.drawPixels.bind(this) as Gtk.DrawingAreaDrawFunc)
-    this._drawingArea.queue_draw()
+    this._drawingArea.set_draw_func(
+      this.drawPixels.bind(this) as Gtk.DrawingAreaDrawFunc
+    );
+    this._drawingArea.queue_draw();
   }
 
-  private drawClear(_drawingArea: Gtk.DrawingArea, cr: cairo.Context, width: number, height: number) {
-    const black = { red: 0, green: 0, blue: 0 }
-    cr.setSourceRGB(black.red, black.green, black.blue)  // Set color to white
-    cr.paint() // Paint the entire drawing area with the color above
+  private drawClear(
+    _drawingArea: Gtk.DrawingArea,
+    cr: cairo.Context,
+    width: number,
+    height: number
+  ) {
+    const black = { red: 0, green: 0, blue: 0 };
+    cr.setSourceRGB(black.red, black.green, black.blue); // Set color to white
+    cr.paint(); // Paint the entire drawing area with the color above
   }
 
-  private drawPixels(_drawingArea: Gtk.DrawingArea, cr: cairo.Context, width: number, height: number) {
+  private drawPixels(
+    _drawingArea: Gtk.DrawingArea,
+    cr: cairo.Context,
+    width: number,
+    height: number
+  ) {
     if (!this.memory) {
       return;
     }
     // Über den Adressbereich iterieren und Pixel zeichnen
-    for (let addr = 0x200; addr <= 0x5FF; addr++) {
-      this.drawPixel(cr, addr)
+    for (let addr = 0x200; addr <= 0x5ff; addr++) {
+      this.drawPixel(cr, addr);
     }
   }
 
@@ -115,11 +135,20 @@ export class Display extends Adw.Bin implements DisplayInterface {
     const x = (addr - 0x200) % this.numX;
 
     cr.setSourceRGB(color.red, color.green, color.blue);
-    cr.rectangle(x * this.pixelSize, y * this.pixelSize, this.pixelSize, this.pixelSize);
+    cr.rectangle(
+      x * this.pixelSize,
+      y * this.pixelSize,
+      this.pixelSize,
+      this.pixelSize
+    );
     cr.fill();
   }
 
-  private _getColorForAddress(addr: number): { red: number, green: number, blue: number } {
+  private _getColorForAddress(addr: number): {
+    red: number;
+    green: number;
+    blue: number;
+  } {
     if (!this.memory) {
       return { red: 0, green: 0, blue: 0 };
     }
@@ -135,4 +164,4 @@ export class Display extends Adw.Bin implements DisplayInterface {
   }
 }
 
-GObject.type_ensure(Display.$gtype)
+GObject.type_ensure(Display.$gtype);

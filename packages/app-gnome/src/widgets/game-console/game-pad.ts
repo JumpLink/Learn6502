@@ -1,8 +1,8 @@
-import GObject from '@girs/gobject-2.0'
-import Adw from '@girs/adw-1'
-import Gtk from '@girs/gtk-4.0'
+import GObject from "@girs/gobject-2.0";
+import Adw from "@girs/adw-1";
+import Gtk from "@girs/gtk-4.0";
 
-import Template from './game-pad.blp'
+import Template from "./game-pad.blp";
 
 export interface GamePad {
   // GObject signals
@@ -11,92 +11,107 @@ export interface GamePad {
   emit(id: string, ...args: any[]): void;
 
   // Custom signals
-  connect(signal: 'gamepad-pressed', callback: (_source: this, key: number) => void): number;
-  connect_after(signal: 'gamepad-pressed', callback: (_source: this, key: number) => void): number;
-  emit(signal: 'gamepad-pressed', key: number): void;
+  connect(
+    signal: "gamepad-pressed",
+    callback: (_source: this, key: number) => void
+  ): number;
+  connect_after(
+    signal: "gamepad-pressed",
+    callback: (_source: this, key: number) => void
+  ): number;
+  emit(signal: "gamepad-pressed", key: number): void;
 }
 
 export class GamePad extends Adw.Bin {
-
   // Child widgets
-  declare private _buttonLeft: Gtk.Button
-  declare private _buttonRight: Gtk.Button
-  declare private _buttonUp: Gtk.Button
-  declare private _buttonDown: Gtk.Button
-  declare private _buttonA: Gtk.Button
-  declare private _buttonB: Gtk.Button
+  declare private _buttonLeft: Gtk.Button;
+  declare private _buttonRight: Gtk.Button;
+  declare private _buttonUp: Gtk.Button;
+  declare private _buttonDown: Gtk.Button;
+  declare private _buttonA: Gtk.Button;
+  declare private _buttonB: Gtk.Button;
 
   static {
-    GObject.registerClass({
-      GTypeName: 'GamePad',
-      Template,
-      InternalChildren: ['buttonLeft', 'buttonRight', 'buttonUp', 'buttonDown', 'buttonA', 'buttonB'],
-      Signals: {
-        'gamepad-pressed': {
-          param_types: [GObject.TYPE_INT],
+    GObject.registerClass(
+      {
+        GTypeName: "GamePad",
+        Template,
+        InternalChildren: [
+          "buttonLeft",
+          "buttonRight",
+          "buttonUp",
+          "buttonDown",
+          "buttonA",
+          "buttonB",
+        ],
+        Signals: {
+          "gamepad-pressed": {
+            param_types: [GObject.TYPE_INT],
+          },
         },
       },
-    }, this);
+      this
+    );
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
-    super(params)
+    super(params);
 
-    this._buttonUp.connect('clicked', () => {
-      this.emit('gamepad-pressed', 119);
+    this._buttonUp.connect("clicked", () => {
+      this.emit("gamepad-pressed", 119);
     });
 
-    this._buttonDown.connect('clicked', () => {
-      this.emit('gamepad-pressed', 115);
+    this._buttonDown.connect("clicked", () => {
+      this.emit("gamepad-pressed", 115);
     });
 
-    this._buttonLeft.connect('clicked', () => {
-      this.emit('gamepad-pressed', 97);
+    this._buttonLeft.connect("clicked", () => {
+      this.emit("gamepad-pressed", 97);
     });
 
-    this._buttonRight.connect('clicked', () => {
-      this.emit('gamepad-pressed', 100);
+    this._buttonRight.connect("clicked", () => {
+      this.emit("gamepad-pressed", 100);
     });
 
-    this._buttonA.connect('clicked', () => {
-      this.emit('gamepad-pressed', 13);
+    this._buttonA.connect("clicked", () => {
+      this.emit("gamepad-pressed", 13);
     });
 
-    this._buttonB.connect('clicked', () => {
-      this.emit('gamepad-pressed', 32);
+    this._buttonB.connect("clicked", () => {
+      this.emit("gamepad-pressed", 32);
     });
   }
 
-  public press(buttonName: 'Left' | 'Right' | 'Up' | 'Down' | 'A' | 'B'): void {
+  public press(buttonName: "Left" | "Right" | "Up" | "Down" | "A" | "B"): void {
     let button: Gtk.Button | null = null;
 
-    switch(buttonName) {
-      case 'Left':
+    switch (buttonName) {
+      case "Left":
         button = this._buttonLeft;
         break;
-      case 'Right':
+      case "Right":
         button = this._buttonRight;
         break;
-      case 'Up':
+      case "Up":
         button = this._buttonUp;
         break;
-      case 'Down':
+      case "Down":
         button = this._buttonDown;
         break;
-      case 'A':
+      case "A":
         button = this._buttonA;
         break;
-      case 'B':
+      case "B":
         button = this._buttonB;
         break;
     }
 
-    if(!button || !(button instanceof Gtk.Button)) {
-      throw new Error('Invalid button name');
+    if (!button || !(button instanceof Gtk.Button)) {
+      throw new Error("Invalid button name");
     }
 
     button.activate();
   }
 }
 
-GObject.type_ensure(GamePad.$gtype)
+GObject.type_ensure(GamePad.$gtype);

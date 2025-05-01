@@ -1,4 +1,13 @@
-import { Application, Page, SystemAppearanceChangedEventData, ScrollView, ScrollEventData, AnimationCurve, Utils, View } from "@nativescript/core";
+import {
+  Application,
+  Page,
+  SystemAppearanceChangedEventData,
+  ScrollView,
+  ScrollEventData,
+  AnimationCurve,
+  Utils,
+  View,
+} from "@nativescript/core";
 import { Fab } from "~/widgets/fab";
 
 import { EventData } from "@nativescript/core";
@@ -13,22 +22,35 @@ import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCo
  * @param view The Page view to apply margin to.
  * @param insets The WindowInsetsCompat object containing inset data.
  */
-const handleWindowInsets = (view: Page, insets: androidx_core_view_WindowInsetsCompat) => {
-  if (!insets || !view.content || !(view.content instanceof View)) { // Check if content exists and is a View
-    console.warn(`main: handleWindowInsets - Could not apply padding. Insets: ${!!insets}, Page content: ${view.content}`);
+const handleWindowInsets = (
+  view: Page,
+  insets: androidx_core_view_WindowInsetsCompat
+) => {
+  if (!insets || !view.content || !(view.content instanceof View)) {
+    // Check if content exists and is a View
+    console.warn(
+      `main: handleWindowInsets - Could not apply padding. Insets: ${!!insets}, Page content: ${view.content}`
+    );
     return;
   }
 
-  const topInsetPixels = insets.getInsets(androidx_core_view_WindowInsetsCompat.Type.systemBars()).top;
+  const topInsetPixels = insets.getInsets(
+    androidx_core_view_WindowInsetsCompat.Type.systemBars()
+  ).top;
   const topMarginDips = Utils.layout.toDeviceIndependentPixels(topInsetPixels);
   // Apply padding to the Page's content
   view.style.marginTop = topMarginDips;
-  console.log(`main: handleWindowInsets - Applied paddingTop: ${topMarginDips} DIPs to Page content (from ${topInsetPixels}px)`);
+  console.log(
+    `main: handleWindowInsets - Applied paddingTop: ${topMarginDips} DIPs to Page content (from ${topInsetPixels}px)`
+  );
 };
 
-const onSystemAppearanceChanged = (view: Page, args: SystemAppearanceChangedEventData) => {
+const onSystemAppearanceChanged = (
+  view: Page,
+  args: SystemAppearanceChangedEventData
+) => {
   setStatusBarAppearance("md_theme_surface");
-}
+};
 
 /**
  * Event handler for the 'loaded' event of the root view.
@@ -38,7 +60,7 @@ const onSystemAppearanceChanged = (view: Page, args: SystemAppearanceChangedEven
  */
 export const onLoaded = (args: EventData) => {
   const view = args.object as Page;
-  console.log('main: loaded:', view.id);
+  console.log("main: loaded:", view.id);
 
   // Bind the handler with the current view instance
   const boundInsetsHandler = handleWindowInsets.bind(null, view);
@@ -46,11 +68,14 @@ export const onLoaded = (args: EventData) => {
   view["insetsHandler"] = boundInsetsHandler;
 
   lifecycleEvents.on(windowInsetsChangedEvent, boundInsetsHandler);
-  lifecycleEvents.on(Application.systemAppearanceChangedEvent, onSystemAppearanceChanged.bind(onSystemAppearanceChanged,view));
+  lifecycleEvents.on(
+    Application.systemAppearanceChangedEvent,
+    onSystemAppearanceChanged.bind(onSystemAppearanceChanged, view)
+  );
   setStatusBarAppearance("md_theme_surface");
 
   initFabScrollBehavior(view);
-}
+};
 
 /**
  * Event handler for the 'unloaded' event of the root view.
@@ -58,19 +83,19 @@ export const onLoaded = (args: EventData) => {
  * @param args Event arguments containing the view object.
  */
 export const onUnloaded = (args: EventData) => {
-    const view = args.object as Page;
-    console.log('main: unloaded:', view.id);
+  const view = args.object as Page;
+  console.log("main: unloaded:", view.id);
 
-    // Unsubscribe using the stored bound handler
-    if (view["insetsHandler"]) {
-        lifecycleEvents.off(windowInsetsChangedEvent, view["insetsHandler"]);
-    }
-    // TODO: Consider unsubscribing from systemAppearanceChangedEvent as well if appropriate
-}
+  // Unsubscribe using the stored bound handler
+  if (view["insetsHandler"]) {
+    lifecycleEvents.off(windowInsetsChangedEvent, view["insetsHandler"]);
+  }
+  // TODO: Consider unsubscribing from systemAppearanceChangedEvent as well if appropriate
+};
 
 export const initFabScrollBehavior = (view: Page) => {
-  const scrollView = view.getViewById<ScrollView>('mainScrollView');
-  const fab = view.getViewById<Fab>('mainFab');
+  const scrollView = view.getViewById<ScrollView>("mainScrollView");
+  const fab = view.getViewById<Fab>("mainFab");
 
   if (scrollView && fab) {
     let lastScrollY = 0;
@@ -85,7 +110,10 @@ export const initFabScrollBehavior = (view: Page) => {
         fab.extend();
       }
       // Scrolled to the bottom and FAB is collapsed, extend it
-      else if (currentScrollY >= scrollView.scrollableHeight && !fab.isExtended) {
+      else if (
+        currentScrollY >= scrollView.scrollableHeight &&
+        !fab.isExtended
+      ) {
         fab.extend();
       }
       // Scroll down and FAB is extended, collapse it
@@ -98,23 +126,23 @@ export const initFabScrollBehavior = (view: Page) => {
       }
 
       // Update last scroll position
-      if (Math.abs(scrollDiff) > scrollThreshold || currentScrollY <= 0 ) {
-         lastScrollY = currentScrollY;
+      if (Math.abs(scrollDiff) > scrollThreshold || currentScrollY <= 0) {
+        lastScrollY = currentScrollY;
       }
     });
   } else {
     console.error("ScrollView or FAB not found for scroll behavior setup.");
   }
-}
+};
 
 export const run = () => {
-  console.log('run');
+  console.log("run");
 };
 
 export const openMenu = () => {
-  console.log('openMenu');
+  console.log("openMenu");
 };
 
 export const onFabTap = () => {
-  console.log('onFabTap');
-}
+  console.log("onFabTap");
+};

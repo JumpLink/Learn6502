@@ -1,6 +1,14 @@
-import { ContentView, Property, Application, SystemAppearanceChangedEventData, Utils, CSSType, AnimationCurve } from '@nativescript/core';
-import { createColorStateList, getColor, getResource } from '../utils/index';
-import { lifecycleEvents } from '../utils/index';
+import {
+  ContentView,
+  Property,
+  Application,
+  SystemAppearanceChangedEventData,
+  Utils,
+  CSSType,
+  AnimationCurve,
+} from "@nativescript/core";
+import { createColorStateList, getColor, getResource } from "../utils/index";
+import { lifecycleEvents } from "../utils/index";
 
 /**
  * Material Design 3 Extended Floating Action Button (FAB) component for Android
@@ -27,7 +35,7 @@ import { lifecycleEvents } from '../utils/index';
  * Property for setting the FAB icon resource ID (e.g., "res://add_symbolic")
  */
 const iconProperty = new Property<Fab, string>({
-  name: 'icon',
+  name: "icon",
 });
 
 /**
@@ -35,7 +43,7 @@ const iconProperty = new Property<Fab, string>({
  * If set, the component renders as an Extended FAB.
  */
 const textProperty = new Property<Fab, string>({
-    name: 'text',
+  name: "text",
 });
 
 /**
@@ -43,8 +51,8 @@ const textProperty = new Property<Fab, string>({
  * @default 'md_theme_secondaryContainer'
  */
 const containerColorProperty = new Property<Fab, string>({
-  name: 'containerColor',
-  defaultValue: 'md_theme_secondaryContainer',
+  name: "containerColor",
+  defaultValue: "md_theme_secondaryContainer",
 });
 
 /**
@@ -52,12 +60,12 @@ const containerColorProperty = new Property<Fab, string>({
  * @default 'md_theme_onSecondaryContainer'
  */
 const contentColorProperty = new Property<Fab, string>({
-  name: 'contentColor',
-  defaultValue: 'md_theme_onSecondaryContainer',
+  name: "contentColor",
+  defaultValue: "md_theme_onSecondaryContainer",
 });
 
 // It's important to declare the CSS type for potential future styling
-@CSSType('Fab')
+@CSSType("Fab")
 export class Fab extends ContentView {
   /** The native Android Extended FAB view */
   // Use ExtendedFloatingActionButton to support text labels
@@ -83,8 +91,8 @@ export class Fab extends ContentView {
    * @param value - The new text label
    */
   [textProperty.setNative](value: string) {
-      this._text = value;
-      this.applyText();
+    this._text = value;
+    this.applyText();
   }
 
   /**
@@ -123,12 +131,12 @@ export class Fab extends ContentView {
   }
 
   get text(): string {
-      return this._text;
+    return this._text;
   }
 
   set text(value: string) {
-      this._text = value;
-      this.applyText();
+    this._text = value;
+    this.applyText();
   }
 
   get containerColor(): string {
@@ -164,24 +172,32 @@ export class Fab extends ContentView {
    */
   public createNativeView(): android.view.View {
     // Use ExtendedFloatingActionButton to support text
-    this.fab = new com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton(this.context);
+    this.fab =
+      new com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton(
+        this.context
+      );
 
     // Ensure it's clickable
     this.fab.setClickable(true);
 
     // Set up click listener to forward the event to NativeScript
-    this.fab.setOnClickListener(new android.view.View.OnClickListener({
+    this.fab.setOnClickListener(
+      new android.view.View.OnClickListener({
         onClick: (view: android.view.View) => {
-            this.notify({ eventName: Fab.tapEvent, object: this });
-        }
-    }));
+          this.notify({ eventName: Fab.tapEvent, object: this });
+        },
+      })
+    );
 
     // Apply initial theme, icon, and text
     this.applyTheme();
     this.applyIcon();
     this.applyText();
 
-    lifecycleEvents.on(Application.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
+    lifecycleEvents.on(
+      Application.systemAppearanceChangedEvent,
+      this.onSystemAppearanceChanged
+    );
 
     return this.fab;
   }
@@ -199,15 +215,19 @@ export class Fab extends ContentView {
    * Handles system appearance (dark/light mode) changes
    * @param event - The system appearance change event
    */
-  private onSystemAppearanceChanged(event: SystemAppearanceChangedEventData): void {
-    this.applyTheme(event.newValue === 'dark');
+  private onSystemAppearanceChanged(
+    event: SystemAppearanceChangedEventData
+  ): void {
+    this.applyTheme(event.newValue === "dark");
   }
 
   /**
    * Applies the current theme colors to the FAB
    * Called when colors change or system theme changes
    */
-  private applyTheme(isDarkMode = Application.systemAppearance() === 'dark'): void {
+  private applyTheme(
+    isDarkMode = Application.systemAppearance() === "dark"
+  ): void {
     if (!this.fab) return;
 
     const backgroundColor = getColor(this._containerColor, this.context);
@@ -230,9 +250,9 @@ export class Fab extends ContentView {
   private applyIcon(): void {
     if (!this.fab) return;
 
-    if (this._icon && this._icon.startsWith('res://')) {
-      const iconName = this._icon.replace('res://', '');
-      const resId = getResource(iconName, 'drawable', this.context);
+    if (this._icon && this._icon.startsWith("res://")) {
+      const iconName = this._icon.replace("res://", "");
+      const resId = getResource(iconName, "drawable", this.context);
       if (resId) {
         this.fab.setIconResource(resId); // Use setIconResource for Extended FAB
       } else {
@@ -240,11 +260,13 @@ export class Fab extends ContentView {
         this.fab.setIcon(null); // Clear icon if not found
       }
     } else if (this._icon) {
-         console.warn(`FAB Icon format not supported (expected res://): ${this._icon}`);
-         this.fab.setIcon(null);
+      console.warn(
+        `FAB Icon format not supported (expected res://): ${this._icon}`
+      );
+      this.fab.setIcon(null);
     } else {
-        // If no icon is provided, clear it
-        this.fab.setIcon(null);
+      // If no icon is provided, clear it
+      this.fab.setIcon(null);
     }
   }
 
@@ -252,8 +274,8 @@ export class Fab extends ContentView {
    * Sets the text label for the FAB.
    */
   private applyText(): void {
-      if (!this.fab) return;
-      this.fab.setText(this._text || null); // Set text or clear if null/empty
+    if (!this.fab) return;
+    this.fab.setText(this._text || null); // Set text or clear if null/empty
   }
 
   /**
@@ -262,7 +284,10 @@ export class Fab extends ContentView {
    */
   public disposeNativeView(): void {
     // Remove theme change listener
-    lifecycleEvents.off(Application.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
+    lifecycleEvents.off(
+      Application.systemAppearanceChangedEvent,
+      this.onSystemAppearanceChanged
+    );
     this.fab = null;
     super.disposeNativeView();
   }
@@ -284,7 +309,7 @@ export class Fab extends ContentView {
     if (!this.fab) return;
     // Only extend if there is text defined
     if (this._text) {
-        this.fab.extend();
+      this.fab.extend();
     }
   }
 
@@ -299,4 +324,4 @@ export class Fab extends ContentView {
 iconProperty.register(Fab);
 textProperty.register(Fab); // Register the new text property
 containerColorProperty.register(Fab);
-contentColorProperty.register(Fab); 
+contentColorProperty.register(Fab);

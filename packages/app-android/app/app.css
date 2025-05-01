@@ -1,6 +1,6 @@
-﻿@import 'tailwindcss';
-@import 'css/_light.css';
-@import 'css/_dark.css';
+﻿@import "tailwindcss";
+@import "css/_light.css";
+@import "css/_dark.css";
 
 @source './**/*.{css,xml,html,vue,svelte,ts,tsx}';
 
@@ -8,7 +8,8 @@
 
 /* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss */
 
-HtmlView, .body {
+HtmlView,
+.body {
   font-size: 18;
   font-weight: 400;
   margin-bottom: 12;

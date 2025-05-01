@@ -12,6 +12,11 @@ import { Utils } from "@nativescript/core";
  * @param packageName - The package name of the resource
  * @returns The identifier for the resource
  */
-export const getResource = (name: string, defType: "color" | "drawable", context: android.content.Context = Utils.android.getApplicationContext(), packageName: string = context.getPackageName()): number => {
+export const getResource = (
+  name: string,
+  defType: "color" | "drawable",
+  context: android.content.Context = Utils.android.getApplicationContext(),
+  packageName: string = context.getPackageName()
+): number => {
   return context.getResources().getIdentifier(name, defType, packageName);
-}
+};

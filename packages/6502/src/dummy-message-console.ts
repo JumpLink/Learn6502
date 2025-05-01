@@ -1,25 +1,25 @@
-import type { MessageConsole as MessageConsoleInterface } from './types/index.js';
+import type { MessageConsole as MessageConsoleInterface } from "./types/index.js";
 
 export class DummyMessageConsole implements MessageConsoleInterface {
   constructor() {}
 
   public log(message: string) {
-    console.log(message)
+    console.log(message);
   }
 
   public warn(message: string) {
-    console.warn(message)
+    console.warn(message);
   }
 
   public error(message: string) {
-    console.error(message)
+    console.error(message);
   }
 
   public clear() {
-    console.clear()
+    console.clear();
   }
 
   public prompt(message: string, defaultValue?: string): string | null {
-    throw new Error('Not implemented')
+    throw new Error("Not implemented");
   }
 }

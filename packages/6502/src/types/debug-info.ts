@@ -1,5 +1,5 @@
-import type { Simulator } from '../simulator.js'
+import type { Simulator } from "../simulator.js";
 
 export interface DebugInfo {
-    update(simulator: Simulator): void
+  update(simulator: Simulator): void;
 }

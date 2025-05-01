@@ -8,7 +8,7 @@
 // Theme switcher types
 /// <reference path="../../node_modules/@nativescript/theme-switcher/shims.d.ts" />
 
-declare module '*?raw' {
-    const src: string
-    export default src
-  }
+declare module "*?raw" {
+  const src: string;
+  export default src;
+}

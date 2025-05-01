@@ -1,5 +1,5 @@
-import type { Assembler } from '../assembler.js'
+import type { Assembler } from "../assembler.js";
 
 export interface Hexdump {
-    update(assembler: Assembler): void
+  update(assembler: Assembler): void;
 }

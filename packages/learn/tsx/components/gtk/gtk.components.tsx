@@ -1,32 +1,107 @@
-import type { MDXComponents } from 'mdx/types'
+import type { MDXComponents } from "mdx/types";
 
-import { GtkLabel } from './gtk-label.component.tsx'
-import { GtkRoot } from './gtk-root.component.tsx'
-import { GtkPre } from './gtk-pre.compontent.tsx'
-import { GtkTextList } from './gtk-text-list.compontent.tsx'
-import { GtkCode } from './gtk-code.compontent.tsx'
-import { TextListType, Align } from '../../enums/gtk.enums.ts'
+import { GtkLabel } from "./gtk-label.component.tsx";
+import { GtkRoot } from "./gtk-root.component.tsx";
+import { GtkPre } from "./gtk-pre.compontent.tsx";
+import { GtkTextList } from "./gtk-text-list.compontent.tsx";
+import { GtkCode } from "./gtk-code.compontent.tsx";
+import { TextListType, Align } from "../../enums/gtk.enums.ts";
 
 export const GtkComponents: MDXComponents = {
-    GtkRoot,
-    GtkLabel,
-    h1: (props: any) => <GtkLabel {...props} use-markup wrap hexpand-set hexpand halign={Align.FILL} xalign={0} margin-top={12} margin-bottom={12} class="title-1">{props.children}</GtkLabel>,
-    h2: (props: any) => <GtkLabel {...props} use-markup wrap hexpand-set hexpand halign={Align.FILL} xalign={0} margin-top={12} margin-bottom={12} class="title-2">{props.children}</GtkLabel>,
-    h3: (props: any) => <GtkLabel {...props} use-markup wrap hexpand-set hexpand halign={Align.FILL} xalign={0} margin-top={12} margin-bottom={12} class="title-3">{props.children}</GtkLabel>,
-    h4: (props: any) => <GtkLabel {...props} use-markup wrap hexpand-set hexpand halign={Align.FILL} xalign={0} margin-top={12} margin-bottom={12} class="title-4">{props.children}</GtkLabel>,
-    p: (props: any) => <GtkLabel {...props} use-markup wrap hexpand-set hexpand halign={Align.FILL} xalign={0} margin-top={12} margin-bottom={12} class="paragraph">{props.children}</GtkLabel>,
-    pre: GtkPre,
-    code: GtkCode,
-    ol: (props: any) => <GtkTextList {...props} type={TextListType.ORDERED} />,
-    ul: (props: any) => <GtkTextList {...props} type={TextListType.UNORDERED} />,
-    li: (props: any) => props.children,
-    img: (props: any) => props.children,
-    table: (props: any) => props.children,
-    tr: (props: any) => props.children,
-    td: (props: any) => props.children,
-    th: (props: any) => props.children,
-    sub: (props: any) => <small {...props}>{props.children}</small>,
-    sup: (props: any) => <small {...props}>{props.children}</small>,
-    em: (props: any) => <i {...props}>{props.children}</i>,
-    strong: (props: any) => <b {...props}>{props.children}</b>,
-}
+  GtkRoot,
+  GtkLabel,
+  h1: (props: any) => (
+    <GtkLabel
+      {...props}
+      use-markup
+      wrap
+      hexpand-set
+      hexpand
+      halign={Align.FILL}
+      xalign={0}
+      margin-top={12}
+      margin-bottom={12}
+      class="title-1"
+    >
+      {props.children}
+    </GtkLabel>
+  ),
+  h2: (props: any) => (
+    <GtkLabel
+      {...props}
+      use-markup
+      wrap
+      hexpand-set
+      hexpand
+      halign={Align.FILL}
+      xalign={0}
+      margin-top={12}
+      margin-bottom={12}
+      class="title-2"
+    >
+      {props.children}
+    </GtkLabel>
+  ),
+  h3: (props: any) => (
+    <GtkLabel
+      {...props}
+      use-markup
+      wrap
+      hexpand-set
+      hexpand
+      halign={Align.FILL}
+      xalign={0}
+      margin-top={12}
+      margin-bottom={12}
+      class="title-3"
+    >
+      {props.children}
+    </GtkLabel>
+  ),
+  h4: (props: any) => (
+    <GtkLabel
+      {...props}
+      use-markup
+      wrap
+      hexpand-set
+      hexpand
+      halign={Align.FILL}
+      xalign={0}
+      margin-top={12}
+      margin-bottom={12}
+      class="title-4"
+    >
+      {props.children}
+    </GtkLabel>
+  ),
+  p: (props: any) => (
+    <GtkLabel
+      {...props}
+      use-markup
+      wrap
+      hexpand-set
+      hexpand
+      halign={Align.FILL}
+      xalign={0}
+      margin-top={12}
+      margin-bottom={12}
+      class="paragraph"
+    >
+      {props.children}
+    </GtkLabel>
+  ),
+  pre: GtkPre,
+  code: GtkCode,
+  ol: (props: any) => <GtkTextList {...props} type={TextListType.ORDERED} />,
+  ul: (props: any) => <GtkTextList {...props} type={TextListType.UNORDERED} />,
+  li: (props: any) => props.children,
+  img: (props: any) => props.children,
+  table: (props: any) => props.children,
+  tr: (props: any) => props.children,
+  td: (props: any) => props.children,
+  th: (props: any) => props.children,
+  sub: (props: any) => <small {...props}>{props.children}</small>,
+  sup: (props: any) => <small {...props}>{props.children}</small>,
+  em: (props: any) => <i {...props}>{props.children}</i>,
+  strong: (props: any) => <b {...props}>{props.children}</b>,
+};

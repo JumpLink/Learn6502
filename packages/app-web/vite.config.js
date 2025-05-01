@@ -1,16 +1,16 @@
-import { defineConfig } from 'vite'
+import { defineConfig } from "vite";
 
 export default defineConfig({
   clearScreen: false,
   css: {
-    transformer: 'lightningcss',
+    transformer: "lightningcss",
   },
   build: {
-    assetsDir: '.',
-    outDir: 'dist',
+    assetsDir: ".",
+    outDir: "dist",
     minify: false,
     rollupOptions: {
-      input: ['src/main.ts', 'src/main.css'],
+      input: ["src/main.ts", "src/main.css"],
       output: {
         // No hash in the filenames
         entryFileNames: `assets/[name].js`,
@@ -18,6 +18,6 @@ export default defineConfig({
         assetFileNames: `assets/[name].[ext]`,
       },
     },
-    cssMinify: 'lightningcss',
+    cssMinify: "lightningcss",
   },
-})
+});

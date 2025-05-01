@@ -1,11 +1,11 @@
-import { MdxView } from './mdx-view';
+import { MdxView } from "./mdx-view";
 
 export class QuickHelpView extends MdxView {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    protected getViewName(): string {
-        return 'quick-help';
-    }
+  protected getViewName(): string {
+    return "quick-help";
+  }
 }

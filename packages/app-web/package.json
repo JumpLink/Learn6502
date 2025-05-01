@@ -1,28 +1,28 @@
 {
-    "name": "@learn6502/app-web",
-    "version": "0.2.0",
-    "description": "A one-stop accessible tutorial on 6502 assembly language programming in the browser",
-    "type": "module",
-    "private": true,
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "clear": "rm -rf dist _site",
-        "setup": "yarn exec 'gem install bundler jekyll' && yarn exec 'bundle install'",
-        "build:vite": "vite build",
-        "build": "yarn build:vite",
-        "check": "tsc --noEmit",
-        "start:app": "gjs -m dist/main.js",
-        "debug:app": "GTK_DEBUG=interactive gjs -m dist/main.js",
-        "start": "yarn exec 'bundle exec jekyll serve'"
-    },
-    "author": "Pascal Garber <pascal@mailfreun.de>",
-    "license": "GPL-3.0",
-    "devDependencies": {
-        "lightningcss": "^1.29.3",
-        "typescript": "^5.8.3",
-        "vite": "^6.3.4"
-    },
-    "dependencies": {
-        "@learn6502/6502": "workspace:^"
-    }
+  "name": "@learn6502/app-web",
+  "version": "0.2.0",
+  "description": "A one-stop accessible tutorial on 6502 assembly language programming in the browser",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clear": "rm -rf dist _site",
+    "setup": "yarn exec 'gem install bundler jekyll' && yarn exec 'bundle install'",
+    "build:vite": "vite build",
+    "build": "yarn build:vite",
+    "check": "tsc --noEmit",
+    "start:app": "gjs -m dist/main.js",
+    "debug:app": "GTK_DEBUG=interactive gjs -m dist/main.js",
+    "start": "yarn exec 'bundle exec jekyll serve'"
+  },
+  "author": "Pascal Garber <pascal@mailfreun.de>",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "lightningcss": "^1.29.3",
+    "typescript": "^5.8.3",
+    "vite": "^6.3.4"
+  },
+  "dependencies": {
+    "@learn6502/6502": "workspace:^"
+  }
 }

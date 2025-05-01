@@ -1,34 +1,35 @@
 {
-    "name": "learn6502",
-    "type": "module",
-    "private": true,
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "setup": "yarn workspaces foreach -v -W -t run setup",
-        "build": "yarn workspaces foreach -v -W -t --topological-dev run build",
-        "build:gnome:flatpak": "./build-flatpak.sh",
-        "build:gnome:meson": "meson compile -C _build",
-        "build:android": "yarn workspace @learn6502/app-android run build",
-        "check": "yarn workspaces foreach -v -W -t run check",
-        "check:flatpak:repo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo",
-        "start": "yarn start:gnome",
-        "start:gnome": "yarn workspace @learn6502/app-gnome run start",
-        "start:gnome:flatpak": "flatpak run eu.jumplink.Learn6502",
-        "start:web": "yarn workspace @learn6502/app-web run start",
-        "start:android": "yarn workspace @learn6502/app-android run start",
-        "clear": "yarn workspaces foreach -v --parallel -W run clear && yarn _clear",
-        "_clear": "rm -rf builddir build-dir .flatpak-builder flatpak-build repo eu.jumplink.Learn6502.tar.gz",
-        "format": "yarn prettier --write .",
-        "prettier": "node .yarn/sdks/prettier/index.cjs"
-    },
-    "author": "Pascal Garber <pascal@mailfreun.de>",
-    "license": "GPL-3.0",
-    "workspaces": [
-        "packages/*"
-    ],
-    "devDependencies": {
-        "prettier": "^3.5.3",
-        "typescript": "^5.8.3"
-    },
-    "packageManager": "yarn@4.9.1"
+  "name": "learn6502",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "setup": "yarn workspaces foreach -v -W -t run setup",
+    "build": "yarn workspaces foreach -v -W -t --topological-dev run build",
+    "build:gnome:flatpak": "./build-flatpak.sh",
+    "build:gnome:meson": "meson compile -C _build",
+    "build:android": "yarn workspace @learn6502/app-android run build",
+    "check": "yarn workspaces foreach -v -W -t run check",
+    "check:flatpak:repo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo",
+    "check:format": "yarn exec prettier . --check",
+    "start": "yarn start:gnome",
+    "start:gnome": "yarn workspace @learn6502/app-gnome run start",
+    "start:gnome:flatpak": "flatpak run eu.jumplink.Learn6502",
+    "start:web": "yarn workspace @learn6502/app-web run start",
+    "start:android": "yarn workspace @learn6502/app-android run start",
+    "clear": "yarn workspaces foreach -v --parallel -W run clear && yarn _clear",
+    "_clear": "rm -rf builddir build-dir .flatpak-builder flatpak-build repo eu.jumplink.Learn6502.tar.gz",
+    "format": "yarn exec prettier . --write",
+    "prettier": "node .yarn/sdks/prettier/index.cjs"
+  },
+  "author": "Pascal Garber <pascal@mailfreun.de>",
+  "license": "GPL-3.0",
+  "workspaces": [
+    "packages/*"
+  ],
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  },
+  "packageManager": "yarn@4.9.1"
 }

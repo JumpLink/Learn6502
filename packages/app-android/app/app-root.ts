@@ -1,4 +1,4 @@
-import type { EventData } from '@nativescript/core';
+import type { EventData } from "@nativescript/core";
 
 /**
  * Event handler for the 'loaded' event of the root view.
@@ -7,5 +7,5 @@ import type { EventData } from '@nativescript/core';
  * @param args Event arguments containing the view object.
  */
 export function onLoaded(args: EventData) {
-  console.log('app-root loaded');
+  console.log("app-root loaded");
 }

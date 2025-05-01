@@ -1,10 +1,10 @@
-import type { MessageConsole as MessageConsoleInterface } from '@learn6502/6502';
+import type { MessageConsole as MessageConsoleInterface } from "@learn6502/6502";
 
 export class MessageConsole implements MessageConsoleInterface {
   constructor(private readonly node: HTMLElement) {}
 
   public log(message: string) {
-    message += '\n'; // allow put operations from the simulator (WDM opcode)
+    message += "\n"; // allow put operations from the simulator (WDM opcode)
     this.node.innerText += message;
   }
 
@@ -17,7 +17,7 @@ export class MessageConsole implements MessageConsoleInterface {
   }
 
   public clear() {
-    this.node.innerHTML = '';
+    this.node.innerHTML = "";
   }
 
   public prompt(message: string, defaultValue?: string): string | null {

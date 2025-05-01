@@ -20,7 +20,7 @@ export interface XGettextPluginOptions {
   /** Version of the POT file, defaults to '1.0' */
   version?: string;
   /** Preset to use for extracting strings, defaults to 'glib' */
-  preset?: 'glib';
+  preset?: "glib";
   /** URL for reporting bugs in the POT file */
   msgidBugsAddress?: string;
   /** Copyright holder to set in the POT file */
@@ -46,16 +46,16 @@ export interface GettextPluginOptions {
  * Output format types for msgfmt
  */
 export type MsgfmtFormat =
-  | 'mo'
-  | 'java'
-  | 'java2'
-  | 'csharp'
-  | 'csharp-resources'
-  | 'tcl'
-  | 'desktop'
-  | 'xml'
-  | 'json'
-  | 'qt';
+  | "mo"
+  | "java"
+  | "java2"
+  | "csharp"
+  | "csharp-resources"
+  | "tcl"
+  | "desktop"
+  | "xml"
+  | "json"
+  | "qt";
 
 /**
  * Configuration options for the msgfmt plugin

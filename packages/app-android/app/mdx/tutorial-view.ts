@@ -1,11 +1,11 @@
-import { MdxView } from './mdx-view';
+import { MdxView } from "./mdx-view";
 
 export class TutorialView extends MdxView {
-    constructor() {
-        super();
-    }
+  constructor() {
+    super();
+  }
 
-    protected getViewName(): string {
-        return 'tutorial';
-    }
+  protected getViewName(): string {
+    return "tutorial";
+  }
 }

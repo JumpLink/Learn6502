@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-04-30 19:03+0200\n"
+"POT-Creation-Date: 2025-05-01 09:13+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,329 +17,300 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: ../6502/src/assembler.ts:174
+#: ../6502/src/assembler.ts:1021
 msgid "Unable to relocate code outside 64k memory"
 msgstr ""
 
-#: ../6502/src/assembler.ts:238
+#: ../6502/src/assembler.ts:1112
 msgid "Assembling code ..."
 msgstr ""
 
-#: ../6502/src/assembler.ts:256
+#: ../6502/src/assembler.ts:1130
 msgid "No code to run."
 msgstr ""
 
-#: ../6502/src/assembler.ts:263
+#: ../6502/src/assembler.ts:1137
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr ""
 
-#: ../6502/src/assembler.ts:266
+#: ../6502/src/assembler.ts:1141
 #, javascript-format
 msgid ""
 "Out of range branch on line %d (branches are limited to -128 to +127): %s"
 msgstr ""
 
-#: ../6502/src/assembler.ts:275
+#: ../6502/src/assembler.ts:1151
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
 msgstr ""
 
-#: ../6502/src/assembler.ts:410
+#: ../6502/src/assembler.ts:1317
 msgid "Preprocessing ..."
 msgstr ""
 
-#: ../6502/src/labels.ts:71
+#: ../6502/src/labels.ts:82
 msgid "Found $d labels."
 msgstr ""
 
-#: ../6502/src/labels.ts:73
+#: ../6502/src/labels.ts:84
 msgid "Found $d label."
 msgstr ""
 
-#: ../6502/src/labels.ts:92
+#: ../6502/src/labels.ts:107
 msgid "Indexing labels..."
 msgstr ""
 
-#: ../6502/src/labels.ts:95
+#: ../6502/src/labels.ts:110
 #, javascript-format
 msgid "Label already defined at line %s: %d"
 msgstr ""
 
-#: ../6502/src/labels.ts:125
+#: ../6502/src/labels.ts:155
 msgid "Label {label} is already used as a symbol; please rename one of them"
 msgstr ""
 
-#: ../6502/src/simulator.ts:217
+#: ../6502/src/simulator.ts:259
 msgid "No address or label provided"
 msgstr ""
 
-#: ../6502/src/simulator.ts:232
+#: ../6502/src/simulator.ts:275
 msgid "Unable to find/parse given address/label"
 msgstr ""
 
-#: ../6502/src/simulator.ts:261
+#: ../6502/src/simulator.ts:306
 msgid "Stopped"
 msgstr ""
 
-#: ../6502/src/simulator.ts:1522
+#: ../6502/src/simulator.ts:1681
 msgid "wdm-output"
 msgstr ""
 
-#: ../6502/src/simulator.ts:1595
+#: ../6502/src/simulator.ts:1756
 #, javascript-format
 msgid "Address %s - unknown opcode"
 msgstr ""
 
-#: ../6502/src/simulator.ts:1605
+#: ../6502/src/simulator.ts:1768
 msgid "6502 Stack filled! Wrapping..."
 msgstr ""
 
-#: ../6502/src/simulator.ts:1614
+#: ../6502/src/simulator.ts:1777
 msgid "6502 Stack emptied! Wrapping..."
 msgstr ""
 
-#: ../6502/src/simulator.ts:1703
+#: ../6502/src/simulator.ts:1868
 #, javascript-format
 msgid "Program completed at PC=$%s"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:55
+#: ../app-gnome/src/views/main.window.ts:67
 msgid "Unsaved changes"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:57
+#: ../app-gnome/src/views/main.window.ts:70
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:84
+#: ../app-gnome/src/views/main.window.ts:106
 msgid "Assemble"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:89
+#: ../app-gnome/src/views/main.window.ts:111
 msgid "Run"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:94
+#: ../app-gnome/src/views/main.window.ts:116
 msgid "Pause"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:99
+#: ../app-gnome/src/views/main.window.ts:121
 msgid "Resume"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:104
+#: ../app-gnome/src/views/main.window.ts:126
 msgid "Reset"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:109
+#: ../app-gnome/src/views/main.window.ts:131
 msgid "Step"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:138
+#: ../app-gnome/src/views/main.window.ts:160
 msgid "Code copied to editor"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:163
+#: ../app-gnome/src/views/main.window.ts:188
 msgid "Copied to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:168
+#: ../app-gnome/src/views/main.window.ts:193
 msgid "Failed to copy to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:219
-#: ../app-gnome/src/views/application-window.ts:254
+#: ../app-gnome/src/views/main.window.ts:256
+#: ../app-gnome/src/views/main.window.ts:291
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:386
+#: ../app-gnome/src/views/main.window.ts:447
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:398
+#: ../app-gnome/src/views/main.window.ts:459
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:406
+#: ../app-gnome/src/views/main.window.ts:468
 msgid "Hexdump:"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:413
+#: ../app-gnome/src/views/main.window.ts:477
 msgid "Disassembly:"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:492
+#: ../app-gnome/src/views/main.window.ts:557
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:511
+#: ../app-gnome/src/views/main.window.ts:576
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:517
+#: ../app-gnome/src/views/main.window.ts:583
 msgid "Gamepad key pressed:"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:702
+#: ../app-gnome/src/views/main.window.ts:772
 msgid "Open Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:713
+#: ../app-gnome/src/views/main.window.ts:783
 msgid "Failed to load file"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:731
+#: ../app-gnome/src/views/main.window.ts:801
 msgid "File loaded successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:737
+#: ../app-gnome/src/views/main.window.ts:807
 msgid "Error opening file"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:753
-#: ../app-gnome/src/views/application-window.ts:754
+#: ../app-gnome/src/views/main.window.ts:823
+#: ../app-gnome/src/views/main.window.ts:824
 msgid "untitled"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:760
+#: ../app-gnome/src/views/main.window.ts:830
 msgid "Save Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:773
-#: ../app-gnome/src/views/application-window.ts:811
+#: ../app-gnome/src/views/main.window.ts:843
+#: ../app-gnome/src/views/main.window.ts:885
 msgid "Error saving file"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:804
+#: ../app-gnome/src/views/main.window.ts:878
 msgid "File saved successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:822
+#: ../app-gnome/src/views/main.window.ts:896
 msgid "Assembly Files"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.ts:827
+#: ../app-gnome/src/views/main.window.ts:901
 msgid "All Files"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.blp:26
-msgid "Learn 6502 Assembly"
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:33
-msgid "Menu"
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:63
-#: ../app-gnome/src/views/learn.blp:8
-msgid "Learn"
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:72
-msgid "Editor"
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:81
-#: ../app-gnome/src/views/debugger.blp:15
-msgid "Debugger"
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:90
-msgid "Game Console"
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:112
-msgid "Open..."
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:117
-#: ../app-gnome/src/views/application-window.blp:197
-msgid "Save"
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:122
-msgid "Save as..."
-msgstr ""
-
-#: ../app-gnome/src/views/application-window.blp:143
-#: ../app-gnome/src/views/editor.blp:8 ../app-gnome/src/views/help-window.blp:7
+#: ../app-gnome/src/views/help.window.blp:7
+#: ../app-gnome/src/views/main.window.blp:143
+#: ../app-gnome/src/views/main/editor.blp:8
 msgid "Help"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.blp:148
+#: ../app-gnome/src/views/main.window.blp:26
+msgid "Learn 6502 Assembly"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:33
+msgid "Menu"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:63
+#: ../app-gnome/src/views/main/learn.blp:8
+msgid "Learn"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:72
+msgid "Editor"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:81
+#: ../app-gnome/src/views/main/debugger.blp:15
+msgid "Debugger"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:90
+msgid "Game Console"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:112
+msgid "Open..."
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:117
+#: ../app-gnome/src/views/main.window.blp:197
+msgid "Save"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:122
+msgid "Save as..."
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:148
 msgid "About Learn 6502 Assembly"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.blp:153
+#: ../app-gnome/src/views/main.window.blp:153
 msgid "Quit"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.blp:170
+#: ../app-gnome/src/views/main.window.blp:170
 msgid "Continue"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.blp:190
+#: ../app-gnome/src/views/main.window.blp:190
 msgid "Save changes?"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.blp:191
+#: ../app-gnome/src/views/main.window.blp:191
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.blp:195
+#: ../app-gnome/src/views/main.window.blp:195
 msgid "Cancel"
 msgstr ""
 
-#: ../app-gnome/src/views/application-window.blp:196
+#: ../app-gnome/src/views/main.window.blp:196
 msgid "Discard"
 msgstr ""
 
-#: ../app-gnome/src/views/debugger.blp:16
-msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
-msgstr ""
-
-#: ../app-gnome/src/views/debugger.blp:37
-msgid "Information"
-msgstr ""
-
-#: ../app-gnome/src/views/debugger.blp:52
-msgid "Messages"
-msgstr ""
-
-#: ../app-gnome/src/views/debugger.blp:67
-msgid "Hex Monitor"
-msgstr ""
-
-#: ../app-gnome/src/views/debugger.blp:82
-msgid "Hexdump"
-msgstr ""
-
-#: ../app-gnome/src/views/debugger.blp:97
-msgid "Disassembled"
-msgstr ""
-
-#: ../app-gnome/src/views/learn.blp:9
-msgid "Learn how to program the 6502 microprocessor."
-msgstr ""
-
-#: ../app-gnome/src/views/preferences-dialog.blp:7
+#: ../app-gnome/src/views/preferences.dialog.blp:7
 msgid "Preferences"
 msgstr ""
 
-#: ../app-gnome/src/views/preferences-dialog.blp:10
+#: ../app-gnome/src/views/preferences.dialog.blp:10
 msgid "Appearance"
 msgstr ""
 
-#: ../app-gnome/src/views/preferences-dialog.blp:14
+#: ../app-gnome/src/views/preferences.dialog.blp:14
 msgid "Main Settings"
 msgstr ""
 
-#: ../app-gnome/src/views/preferences-dialog.blp:15
+#: ../app-gnome/src/views/preferences.dialog.blp:15
 msgid "There are currently no settings."
 msgstr ""
 
@@ -360,6 +331,36 @@ msgstr ""
 #: ../app-gnome/src/widgets/theme-selector.blp:62
 #: ../app-gnome/src/widgets/theme-selector.blp:65
 msgid "Dark style"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:37
+msgid "Information"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:52
+msgid "Messages"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:67
+msgid "Hex Monitor"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:82
+msgid "Hexdump"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:97
+msgid "Disassembled"
+msgstr ""
+
+#: ../app-gnome/src/views/main/learn.blp:9
+msgid "Learn how to program the 6502 microprocessor."
 msgstr ""
 
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19

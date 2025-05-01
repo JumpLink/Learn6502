@@ -1,51 +1,77 @@
-import { renderSSR } from 'nano-jsx/esm/index.js'
-import Tutorial from '../tutorial.mdx'
-import QuickHelp from '../quick-help.mdx'
-import { GtkComponents, GtkRoot } from './components/gtk/index.tsx'
+import { renderSSR } from "nano-jsx/esm/index.js";
+import Tutorial from "../tutorial.mdx";
+import QuickHelp from "../quick-help.mdx";
+import { GtkComponents, GtkRoot } from "./components/gtk/index.tsx";
 // import * as HtmlComponents from './components/html/index.tsx'
-import { components as NsComponents, generateNativeScriptXml, NsRoot } from './components/nativescript/index.tsx'
-import { writeFile } from 'node:fs/promises'
+import {
+  components as NsComponents,
+  generateNativeScriptXml,
+  NsRoot,
+} from "./components/nativescript/index.tsx";
+import { writeFile } from "node:fs/promises";
 
 async function generateGtkUiXml(fileName: string, component: string) {
-  const output = `<?xml version="1.0" encoding="UTF-8"?>` + component
+  const output = `<?xml version="1.0" encoding="UTF-8"?>` + component;
 
   try {
-    await writeFile(`dist/${fileName}.ui`, output, 'utf-8')
-    console.log(`Output saved to ${fileName}.ui`)
+    await writeFile(`dist/${fileName}.ui`, output, "utf-8");
+    console.log(`Output saved to ${fileName}.ui`);
   } catch (error) {
-    console.error("Error saving file:", error)
+    console.error("Error saving file:", error);
   }
 }
 
 async function saveNativeScriptXml(fileName: string, component: string) {
   try {
-    await writeFile(`dist/${fileName}.ns.xml`, component, 'utf-8')
-    console.log(`Output saved to ${fileName}.ns.xml`)
+    await writeFile(`dist/${fileName}.ns.xml`, component, "utf-8");
+    console.log(`Output saved to ${fileName}.ns.xml`);
   } catch (error) {
-    console.error("Error saving NativeScript XML file:", error)
+    console.error("Error saving NativeScript XML file:", error);
   }
 }
 
 async function generateHtml(fileName: string, component: string) {
   try {
-    await writeFile(`dist/${fileName}.html`, component, 'utf-8')
-    console.log(`Output saved to ${fileName}.html`)
+    await writeFile(`dist/${fileName}.html`, component, "utf-8");
+    console.log(`Output saved to ${fileName}.html`);
   } catch (error) {
-    console.error("Error saving file:", error)
+    console.error("Error saving file:", error);
   }
 }
 
 // Generate GTK UI files
-await generateGtkUiXml('tutorial', renderSSR(<GtkRoot class="TutorialView"><Tutorial components={GtkComponents}/></GtkRoot>))
-await generateGtkUiXml('quick-help', renderSSR(<GtkRoot class="QuickHelpView"><QuickHelp components={GtkComponents}/></GtkRoot>))
+await generateGtkUiXml(
+  "tutorial",
+  renderSSR(
+    <GtkRoot class="TutorialView">
+      <Tutorial components={GtkComponents} />
+    </GtkRoot>
+  )
+);
+await generateGtkUiXml(
+  "quick-help",
+  renderSSR(
+    <GtkRoot class="QuickHelpView">
+      <QuickHelp components={GtkComponents} />
+    </GtkRoot>
+  )
+);
 
 // Generate NativeScript XML files
-const tutorialXml = generateNativeScriptXml(<NsRoot><Tutorial components={NsComponents}/></NsRoot>)
-await saveNativeScriptXml('tutorial', tutorialXml)
+const tutorialXml = generateNativeScriptXml(
+  <NsRoot>
+    <Tutorial components={NsComponents} />
+  </NsRoot>
+);
+await saveNativeScriptXml("tutorial", tutorialXml);
 
-const quickHelpXml = generateNativeScriptXml(<NsRoot><QuickHelp components={NsComponents}/></NsRoot>)
-await saveNativeScriptXml('quick-help', quickHelpXml)
+const quickHelpXml = generateNativeScriptXml(
+  <NsRoot>
+    <QuickHelp components={NsComponents} />
+  </NsRoot>
+);
+await saveNativeScriptXml("quick-help", quickHelpXml);
 
 // Generate HTML files
-await generateHtml('tutorial', renderSSR(<Tutorial/>))
-await generateHtml('quick-help', renderSSR(<QuickHelp/>))
+await generateHtml("tutorial", renderSSR(<Tutorial />));
+await generateHtml("quick-help", renderSSR(<QuickHelp />));

@@ -1,12 +1,20 @@
-import GObject from '@girs/gobject-2.0'
-import Adw from '@girs/adw-1'
+import GObject from "@girs/gobject-2.0";
+import Adw from "@girs/adw-1";
 
-import { Memory, Labels, Simulator, Assembler, type AssemblerEvent, type SimulatorEvent, type LabelsEvent } from '@learn6502/6502';
+import {
+  Memory,
+  Labels,
+  Simulator,
+  Assembler,
+  type AssemblerEvent,
+  type SimulatorEvent,
+  type LabelsEvent,
+} from "@learn6502/6502";
 
-import { Display } from '../../widgets/game-console/display.ts'
-import { GamePad } from '../../widgets/game-console/game-pad.ts'
+import { Display } from "../../widgets/game-console/display.ts";
+import { GamePad } from "../../widgets/game-console/game-pad.ts";
 
-import Template from './game-console.blp'
+import Template from "./game-console.blp";
 
 export interface GameConsole {
   // GObject signals
@@ -15,69 +23,165 @@ export interface GameConsole {
   emit(id: string, ...args: any[]): void;
 
   // Custom signals
-  connect(signal: 'assemble-success', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  connect_after(signal: 'assemble-success', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  emit(signal: 'assemble-success', pspec: AssemblerEvent): void;
+  connect(
+    signal: "assemble-success",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  connect_after(
+    signal: "assemble-success",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  emit(signal: "assemble-success", pspec: AssemblerEvent): void;
 
-  connect(signal: 'assemble-failure', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  connect_after(signal: 'assemble-failure', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  emit(signal: 'assemble-failure', pspec: AssemblerEvent): void;
+  connect(
+    signal: "assemble-failure",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  connect_after(
+    signal: "assemble-failure",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  emit(signal: "assemble-failure", pspec: AssemblerEvent): void;
 
-  connect(signal: 'hexdump', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  connect_after(signal: 'hexdump', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  emit(signal: 'hexdump', pspec: AssemblerEvent): void;
+  connect(
+    signal: "hexdump",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  connect_after(
+    signal: "hexdump",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  emit(signal: "hexdump", pspec: AssemblerEvent): void;
 
-  connect(signal: 'disassembly', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  connect_after(signal: 'disassembly', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  emit(signal: 'disassembly', pspec: AssemblerEvent): void;
+  connect(
+    signal: "disassembly",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  connect_after(
+    signal: "disassembly",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  emit(signal: "disassembly", pspec: AssemblerEvent): void;
 
-  connect(signal: 'assemble-info', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  connect_after(signal: 'assemble-info', callback: (_source: this, pspec: AssemblerEvent) => void): number;
-  emit(signal: 'assemble-info', pspec: AssemblerEvent): void;
+  connect(
+    signal: "assemble-info",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  connect_after(
+    signal: "assemble-info",
+    callback: (_source: this, pspec: AssemblerEvent) => void
+  ): number;
+  emit(signal: "assemble-info", pspec: AssemblerEvent): void;
 
-  connect(signal: 'stop', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  connect_after(signal: 'stop', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  emit(signal: 'stop', pspec: SimulatorEvent): void;
+  connect(
+    signal: "stop",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  connect_after(
+    signal: "stop",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  emit(signal: "stop", pspec: SimulatorEvent): void;
 
-  connect(signal: 'start', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  connect_after(signal: 'start', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  emit(signal: 'start', pspec: SimulatorEvent): void;
+  connect(
+    signal: "start",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  connect_after(
+    signal: "start",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  emit(signal: "start", pspec: SimulatorEvent): void;
 
-  connect(signal: 'reset', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  connect_after(signal: 'reset', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  emit(signal: 'reset', pspec: SimulatorEvent): void;
+  connect(
+    signal: "reset",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  connect_after(
+    signal: "reset",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  emit(signal: "reset", pspec: SimulatorEvent): void;
 
-  connect(signal: 'step', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  connect_after(signal: 'step', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  emit(signal: 'step', pspec: SimulatorEvent): void;
+  connect(
+    signal: "step",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  connect_after(
+    signal: "step",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  emit(signal: "step", pspec: SimulatorEvent): void;
 
-  connect(signal: 'multistep', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  connect_after(signal: 'multistep', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  emit(signal: 'multistep', pspec: SimulatorEvent): void;
+  connect(
+    signal: "multistep",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  connect_after(
+    signal: "multistep",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  emit(signal: "multistep", pspec: SimulatorEvent): void;
 
-  connect(signal: 'pseudo-op', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  connect_after(signal: 'pseudo-op', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  emit(signal: 'pseudo-op', pspec: SimulatorEvent): void;
+  connect(
+    signal: "pseudo-op",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  connect_after(
+    signal: "pseudo-op",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  emit(signal: "pseudo-op", pspec: SimulatorEvent): void;
 
-  connect(signal: 'simulator-info', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  connect_after(signal: 'simulator-info', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  emit(signal: 'simulator-info', pspec: SimulatorEvent): void;
+  connect(
+    signal: "simulator-info",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  connect_after(
+    signal: "simulator-info",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  emit(signal: "simulator-info", pspec: SimulatorEvent): void;
 
-  connect(signal: 'simulator-failure', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  connect_after(signal: 'simulator-failure', callback: (_source: this, pspec: SimulatorEvent) => void): number;
-  emit(signal: 'simulator-failure', pspec: SimulatorEvent): void;
+  connect(
+    signal: "simulator-failure",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  connect_after(
+    signal: "simulator-failure",
+    callback: (_source: this, pspec: SimulatorEvent) => void
+  ): number;
+  emit(signal: "simulator-failure", pspec: SimulatorEvent): void;
 
-  connect(signal: 'labels-info', callback: (_source: this, pspec: LabelsEvent) => void): number;
-  connect_after(signal: 'labels-info', callback: (_source: this, pspec: LabelsEvent) => void): number;
-  emit(signal: 'labels-info', pspec: LabelsEvent): void;
+  connect(
+    signal: "labels-info",
+    callback: (_source: this, pspec: LabelsEvent) => void
+  ): number;
+  connect_after(
+    signal: "labels-info",
+    callback: (_source: this, pspec: LabelsEvent) => void
+  ): number;
+  emit(signal: "labels-info", pspec: LabelsEvent): void;
 
-  connect(signal: 'labels-failure', callback: (_source: this, pspec: LabelsEvent) => void): number;
-  connect_after(signal: 'labels-failure', callback: (_source: this, pspec: LabelsEvent) => void): number;
-  emit(signal: 'labels-failure', pspec: LabelsEvent): void;
+  connect(
+    signal: "labels-failure",
+    callback: (_source: this, pspec: LabelsEvent) => void
+  ): number;
+  connect_after(
+    signal: "labels-failure",
+    callback: (_source: this, pspec: LabelsEvent) => void
+  ): number;
+  emit(signal: "labels-failure", pspec: LabelsEvent): void;
 
-  connect(signal: 'gamepad-pressed', callback: (_source: this, pspec: number) => void): number;
-  connect_after(signal: 'gamepad-pressed', callback: (_source: this, pspec: number) => void): number;
-  emit(signal: 'gamepad-pressed', pspec: number): void;
+  connect(
+    signal: "gamepad-pressed",
+    callback: (_source: this, pspec: number) => void
+  ): number;
+  connect_after(
+    signal: "gamepad-pressed",
+    callback: (_source: this, pspec: number) => void
+  ): number;
+  emit(signal: "gamepad-pressed", pspec: number): void;
 }
 
 /**
@@ -97,70 +201,72 @@ export interface GameConsole {
  * @emits gamepad-pressed - Emitted when a gamepad button is pressed.
  */
 export class GameConsole extends Adw.Bin {
-
   // Child widgets
-  declare private _display: Display
-  declare private _gamePad: GamePad
+  declare private _display: Display;
+  declare private _gamePad: GamePad;
 
   static {
-    GObject.registerClass({
-      GTypeName: 'GameConsole',
-      Template,
-      InternalChildren: ['display', 'gamePad'],
-      Signals: {
-        'assemble-success': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'assemble-failure': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'hexdump': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'disassembly': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'assemble-info': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'stop': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'start': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'reset': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'step': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'multistep': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'goto': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'pseudo-op': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'simulator-info': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'simulator-failure': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'labels-info': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'labels-failure': {
-          param_types: [GObject.TYPE_JSOBJECT],
-        },
-        'gamepad-pressed': {
-          param_types: [GObject.TYPE_INT],
+    GObject.registerClass(
+      {
+        GTypeName: "GameConsole",
+        Template,
+        InternalChildren: ["display", "gamePad"],
+        Signals: {
+          "assemble-success": {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          "assemble-failure": {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          hexdump: {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          disassembly: {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          "assemble-info": {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          stop: {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          start: {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          reset: {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          step: {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          multistep: {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          goto: {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          "pseudo-op": {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          "simulator-info": {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          "simulator-failure": {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          "labels-info": {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          "labels-failure": {
+            param_types: [GObject.TYPE_JSOBJECT],
+          },
+          "gamepad-pressed": {
+            param_types: [GObject.TYPE_INT],
+          },
         },
       },
-    }, this);
+      this
+    );
   }
 
   /** A list of handler IDs for the signals we connect to. */
@@ -188,7 +294,7 @@ export class GameConsole extends Adw.Bin {
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
-    super(params)
+    super(params);
 
     this._memory = new Memory();
     this._labels = new Labels();
@@ -210,7 +316,11 @@ export class GameConsole extends Adw.Bin {
   }
 
   public hexdump(): void {
-    this._assembler.hexdump({ includeAddress: false, includeSpaces: true, includeNewline: true });
+    this._assembler.hexdump({
+      includeAddress: false,
+      includeSpaces: true,
+      includeNewline: true,
+    });
   }
 
   public disassemble(): void {
@@ -234,7 +344,9 @@ export class GameConsole extends Adw.Bin {
     this._simulator.gotoAddr(address);
   }
 
-  public gamepadPress(buttonName: 'Left' | 'Right' | 'Up' | 'Down' | 'A' | 'B'): void {
+  public gamepadPress(
+    buttonName: "Left" | "Right" | "Up" | "Down" | "A" | "B"
+  ): void {
     this._gamePad.press(buttonName);
   }
 
@@ -258,103 +370,107 @@ export class GameConsole extends Adw.Bin {
    * Sets up event listeners for various UI elements.
    */
   private setupEventListeners(): void {
-
-    this._assembler.on('assemble-success', (event: AssemblerEvent) => {
+    this._assembler.on("assemble-success", (event: AssemblerEvent) => {
       this._memory.set(this._assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
 
       // Forward the event as a signal
-      this.emit('assemble-success', event);
+      this.emit("assemble-success", event);
     });
 
-    this._assembler.on('assemble-failure', (event: AssemblerEvent) => {
+    this._assembler.on("assemble-failure", (event: AssemblerEvent) => {
       // Forward the event as a signal
-      this.emit('assemble-failure', event);
+      this.emit("assemble-failure", event);
     });
 
-    this._assembler.on('hexdump', (event: AssemblerEvent) => {
+    this._assembler.on("hexdump", (event: AssemblerEvent) => {
       // Forward the event as a signal
-      this.emit('hexdump', event);
+      this.emit("hexdump", event);
     });
 
-    this._assembler.on('disassembly', (event: AssemblerEvent) => {
+    this._assembler.on("disassembly", (event: AssemblerEvent) => {
       // Forward the event as a signal
-      this.emit('disassembly', event);
+      this.emit("disassembly", event);
     });
 
-    this._assembler.on('assemble-info', (event: AssemblerEvent) => {
+    this._assembler.on("assemble-info", (event: AssemblerEvent) => {
       // Forward the event as a signal
-      this.emit('assemble-info', event);
+      this.emit("assemble-info", event);
     });
 
-    this._simulator.on('stop', (event: SimulatorEvent) => {
+    this._simulator.on("stop", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('stop', event);
+      this.emit("stop", event);
     });
 
-    this._simulator.on('start', (event: SimulatorEvent) => {
+    this._simulator.on("start", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('start', event);
+      this.emit("start", event);
     });
 
-    this._simulator.on('reset', (event: SimulatorEvent) => {
+    this._simulator.on("reset", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('reset', event);
+      this.emit("reset", event);
     });
 
-    this._simulator.on('step', (event: SimulatorEvent) => {
+    this._simulator.on("step", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('step', event);
+      this.emit("step", event);
     });
 
-    this._simulator.on('multistep', (event: SimulatorEvent) => {
+    this._simulator.on("multistep", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('multistep', event);
+      this.emit("multistep", event);
     });
 
-    this._simulator.on('goto', (event: SimulatorEvent) => {
+    this._simulator.on("goto", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('goto', event);
+      this.emit("goto", event);
     });
 
-    this._simulator.on('pseudo-op', (event: SimulatorEvent) => {
+    this._simulator.on("pseudo-op", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('pseudo-op', event);
+      this.emit("pseudo-op", event);
     });
 
-    this._simulator.on('simulator-info', (event: SimulatorEvent) => {
+    this._simulator.on("simulator-info", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('simulator-info', event);
+      this.emit("simulator-info", event);
     });
 
-    this._simulator.on('simulator-failure', (event: SimulatorEvent) => {
+    this._simulator.on("simulator-failure", (event: SimulatorEvent) => {
       // Forward the event as a signal
-      this.emit('simulator-failure', event);
+      this.emit("simulator-failure", event);
     });
 
-    this._labels.on('labels-info', (event: LabelsEvent) => {
+    this._labels.on("labels-info", (event: LabelsEvent) => {
       // Forward the event as a signal
-      this.emit('labels-info', event);
+      this.emit("labels-info", event);
     });
 
-    this._labels.on('labels-failure', (event: LabelsEvent) => {
+    this._labels.on("labels-failure", (event: LabelsEvent) => {
       // Forward the event as a signal
-      this.emit('labels-failure', event);
+      this.emit("labels-failure", event);
     });
 
-    this.gamepadHandlerIds.push(this._gamePad.connect('gamepad-pressed', (_source: GamePad, key: number) => {
-      this.emit('gamepad-pressed', key);
-      this._memory.storeKeypress(key);
-    }));
+    this.gamepadHandlerIds.push(
+      this._gamePad.connect(
+        "gamepad-pressed",
+        (_source: GamePad, key: number) => {
+          this.emit("gamepad-pressed", key);
+          this._memory.storeKeypress(key);
+        }
+      )
+    );
   }
 
   private removeSignalHandlers(): void {
     try {
-      this.gamepadHandlerIds.forEach(id => this._gamePad.disconnect(id));
+      this.gamepadHandlerIds.forEach((id) => this._gamePad.disconnect(id));
     } catch (error) {
-      console.error('[GameConsole] Failed to remove signal handlers', error)
+      console.error("[GameConsole] Failed to remove signal handlers", error);
     }
     this.gamepadHandlerIds = [];
   }
 }
 
-GObject.type_ensure(GameConsole.$gtype)
+GObject.type_ensure(GameConsole.$gtype);

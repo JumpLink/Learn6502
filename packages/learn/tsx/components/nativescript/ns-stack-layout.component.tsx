@@ -1,23 +1,20 @@
-import { Component } from 'nano-jsx'
+import { Component } from "nano-jsx";
 
 export class NsStackLayout extends Component {
-    static propertyNames = ["orientation"]
+  static propertyNames = ["orientation"];
 
+  static defaultProps = {
+    orientation: "vertical",
+  };
 
-    static defaultProps = {
-        orientation: "vertical"
-    }
+  constructor(props: any) {
+    super(props);
+  }
 
-    constructor(props: any) {
-        super(props)
-    }
-
-    public render() {
-        // Using JSX to define the structure that will be parsed by renderSSR
-        return (
-            <ns-stack-layout {...this.props}>
-                {this.props.children}
-            </ns-stack-layout>
-        )
-    }
+  public render() {
+    // Using JSX to define the structure that will be parsed by renderSSR
+    return (
+      <ns-stack-layout {...this.props}>{this.props.children}</ns-stack-layout>
+    );
+  }
 }

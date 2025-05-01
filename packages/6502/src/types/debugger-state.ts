@@ -1,6 +1,6 @@
 export enum DebuggerState {
-    INITIAL,
-    ACTIVE,
-    PAUSED,
-    RESET
+  INITIAL,
+  ACTIVE,
+  PAUSED,
+  RESET,
 }

@@ -1,8 +1,18 @@
-import { Memory, Labels, Simulator, Assembler, AssemblerEvent, SimulatorEvent, MessageConsole as MessageConsoleInterface, LabelsEvent, DisassembledEvent } from '@learn6502/6502';
-import { Debugger } from './debugger.js';
-import { Display } from './display.js';
-import { UIState } from './ui-state.js';
-import { MessageConsole } from './message-console.js';
+import {
+  Memory,
+  Labels,
+  Simulator,
+  Assembler,
+  AssemblerEvent,
+  SimulatorEvent,
+  MessageConsole as MessageConsoleInterface,
+  LabelsEvent,
+  DisassembledEvent,
+} from "@learn6502/6502";
+import { Debugger } from "./debugger.js";
+import { Display } from "./display.js";
+import { UIState } from "./ui-state.js";
+import { MessageConsole } from "./message-console.js";
 
 /**
  * Represents the main widget for the 6502 simulator.
@@ -22,8 +32,7 @@ export class GameConsole {
    * @param node - The root HTML element for the simulator widget.
    */
   constructor(private node: HTMLElement) {
-
-    this.console = new MessageConsole(node.querySelector('.messages code')!);
+    this.console = new MessageConsole(node.querySelector(".messages code")!);
     this.uiState = new UIState(node);
     this.memory = new Memory();
     this.display = new Display(node, this.memory);
@@ -53,77 +62,105 @@ export class GameConsole {
    * Sets up event listeners for various UI elements.
    */
   private setupEventListeners(): void {
-    this.node.querySelector('.assembleButton')?.addEventListener('click', () => {
-      this.simulator.reset();
-      this.labels.reset();
-      this.console.clear();
-      this.assembler.assembleCode(this.node.querySelector<HTMLTextAreaElement>('.code')?.value || "");
-    });
+    this.node
+      .querySelector(".assembleButton")
+      ?.addEventListener("click", () => {
+        this.simulator.reset();
+        this.labels.reset();
+        this.console.clear();
+        this.assembler.assembleCode(
+          this.node.querySelector<HTMLTextAreaElement>(".code")?.value || ""
+        );
+      });
 
-    this.node.querySelector('.runButton')?.addEventListener('click', () => {
+    this.node.querySelector(".runButton")?.addEventListener("click", () => {
       this.simulator.stopStepper();
       this.simulator.runBinary();
     });
 
-    this.node.querySelector('.resetButton')?.addEventListener('click', () => {
+    this.node.querySelector(".resetButton")?.addEventListener("click", () => {
       this.simulator.reset();
     });
 
-    this.node.querySelector('.hexdumpButton')?.addEventListener('click', () => {
-      this.assembler.hexdump({ includeAddress: true, includeSpaces: true, includeNewline: true });
+    this.node.querySelector(".hexdumpButton")?.addEventListener("click", () => {
+      this.assembler.hexdump({
+        includeAddress: true,
+        includeSpaces: true,
+        includeNewline: true,
+      });
     });
 
-    this.node.querySelector('.disassembleButton')?.addEventListener('click', () => {
-      this.assembler.disassemble();
-    });
+    this.node
+      .querySelector(".disassembleButton")
+      ?.addEventListener("click", () => {
+        this.assembler.disassemble();
+      });
 
-    this.node.querySelector('.debug')?.addEventListener('change', (e: Event) => {
-      const debug = (e.target as HTMLInputElement).checked;
-      if (debug) {
-        this.uiState.debugOn();
-        this.simulator.enableStepper();
-      } else {
-        this.uiState.debugOff();
-        this.simulator.stopStepper();
-      }
-    });
+    this.node
+      .querySelector(".debug")
+      ?.addEventListener("change", (e: Event) => {
+        const debug = (e.target as HTMLInputElement).checked;
+        if (debug) {
+          this.uiState.debugOn();
+          this.simulator.enableStepper();
+        } else {
+          this.uiState.debugOff();
+          this.simulator.stopStepper();
+        }
+      });
 
-    this.node.querySelector('.monitoring')?.addEventListener('change', (e: Event) => {
-      const state = (e.target as HTMLInputElement).checked;
-      this.uiState.toggleMonitor(state);
-      this.debugger.toggleMonitor(state);
-    });
+    this.node
+      .querySelector(".monitoring")
+      ?.addEventListener("change", (e: Event) => {
+        const state = (e.target as HTMLInputElement).checked;
+        this.uiState.toggleMonitor(state);
+        this.debugger.toggleMonitor(state);
+      });
 
-    this.node.querySelectorAll('.start, .length')?.forEach(element => {
-      element.addEventListener('blur', this.debugger.onMonitorRangeChange.bind(this.debugger));
+    this.node.querySelectorAll(".start, .length")?.forEach((element) => {
+      element.addEventListener(
+        "blur",
+        this.debugger.onMonitorRangeChange.bind(this.debugger)
+      );
     });
-    this.node.querySelector('.stepButton')?.addEventListener('click', this.simulator.debugExecStep.bind(this.simulator));
-    this.node.querySelector('.gotoButton')?.addEventListener('click', () => {
-      this.simulator.gotoAddr(this.console.prompt("Enter address or label", "") || "");
+    this.node
+      .querySelector(".stepButton")
+      ?.addEventListener(
+        "click",
+        this.simulator.debugExecStep.bind(this.simulator)
+      );
+    this.node.querySelector(".gotoButton")?.addEventListener("click", () => {
+      this.simulator.gotoAddr(
+        this.console.prompt("Enter address or label", "") || ""
+      );
     });
-    this.node.querySelector('.notesButton')?.addEventListener('click', this.uiState.showNotes.bind(this.uiState));
+    this.node
+      .querySelector(".notesButton")
+      ?.addEventListener("click", this.uiState.showNotes.bind(this.uiState));
 
-    const editor = this.node.querySelector<HTMLTextAreaElement>('.code');
-    editor?.addEventListener('keypress', () => {
+    const editor = this.node.querySelector<HTMLTextAreaElement>(".code");
+    editor?.addEventListener("keypress", () => {
       this.simulator.stop();
     });
-    editor?.addEventListener('keypress', this.uiState.initialize.bind(this.uiState));
+    editor?.addEventListener(
+      "keypress",
+      this.uiState.initialize.bind(this.uiState)
+    );
 
-    document.addEventListener('keypress', (e: KeyboardEvent) => {
-
+    document.addEventListener("keypress", (e: KeyboardEvent) => {
       let value = 0;
 
       switch (e.key) {
-        case 'w':
+        case "w":
           value = 119;
           break;
-        case 'a':
+        case "a":
           value = 97;
           break;
-        case 's':
+        case "s":
           value = 115;
           break;
-        case 'd':
+        case "d":
           value = 100;
           break;
         default:
@@ -135,83 +172,83 @@ export class GameConsole {
 
     // Assembler events
 
-    this.assembler.on('assemble-success', (event: AssemblerEvent) => {
+    this.assembler.on("assemble-success", (event: AssemblerEvent) => {
       this.uiState.assembleSuccess();
       this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
 
-      if(event.message) {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.assembler.on('assemble-failure', (event: AssemblerEvent) => {
+    this.assembler.on("assemble-failure", (event: AssemblerEvent) => {
       this.uiState.initialize();
-      if(event.message) {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.assembler.on('hexdump', (event: AssemblerEvent) => {
-      this.openPopup(event.message || '', 'Hexdump');
+    this.assembler.on("hexdump", (event: AssemblerEvent) => {
+      this.openPopup(event.message || "", "Hexdump");
     });
 
     // @ts-ignore TODO: Fix this, needs a more generic event type
-    this.assembler.on('disassembly', (event: DisassembledEvent) => {
-      this.openPopup(event.data.formatted || '', 'Disassembly');
+    this.assembler.on("disassembly", (event: DisassembledEvent) => {
+      this.openPopup(event.data.formatted || "", "Disassembly");
     });
 
-    this.assembler.on('assemble-info', (event: AssemblerEvent) => {
-      if(event.message) {
+    this.assembler.on("assemble-info", (event: AssemblerEvent) => {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
 
     // Simulator events
 
-    this.simulator.on('stop', (event: SimulatorEvent) => {
+    this.simulator.on("stop", (event: SimulatorEvent) => {
       this.uiState.stop();
-      if(event.message) {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.simulator.on('start', (event: SimulatorEvent) => {
+    this.simulator.on("start", (event: SimulatorEvent) => {
       this.uiState.play();
-      if(event.message) {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.simulator.on('reset', (event: SimulatorEvent) => {
+    this.simulator.on("reset", (event: SimulatorEvent) => {
       this.display.reset();
     });
 
-    this.simulator.on('pseudo-op', (event: SimulatorEvent) => {
+    this.simulator.on("pseudo-op", (event: SimulatorEvent) => {
       this.console.log(event.type + ": " + event.message);
     });
 
-    this.simulator.on('simulator-info', (event: SimulatorEvent) => {
-      if(event.message) {
+    this.simulator.on("simulator-info", (event: SimulatorEvent) => {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.simulator.on('simulator-failure', (event: SimulatorEvent) => {
-      if(event.message) {
+    this.simulator.on("simulator-failure", (event: SimulatorEvent) => {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
 
     // Labels events
 
-    this.labels.on('labels-info', (event: LabelsEvent) => {
-      if(event.message) {
+    this.labels.on("labels-info", (event: LabelsEvent) => {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.labels.on('labels-failure', (event: LabelsEvent) => {
-      if(event.message) {
+    this.labels.on("labels-failure", (event: LabelsEvent) => {
+      if (event.message) {
         this.console.log(event.message);
       }
     });
@@ -223,12 +260,12 @@ export class GameConsole {
    * Removes leading and trailing whitespace from the code textarea.
    */
   private stripText(): void {
-    const code = this.node.querySelector<HTMLTextAreaElement>('.code');
+    const code = this.node.querySelector<HTMLTextAreaElement>(".code");
     if (!code) {
       return;
     }
     let text = code.value;
-    text = text.replace(/^\n+/, '').replace(/\s+$/, '');
+    text = text.replace(/^\n+/, "").replace(/\s+$/, "");
     code.value = text;
   }
 
@@ -238,15 +275,20 @@ export class GameConsole {
    * @param title - The title of the popup window.
    */
   private openPopup(content: string, title: string) {
-    const w = window.open('', title, 'width=500,height=300,resizable=yes,scrollbars=yes,toolbar=no,location=no,menubar=no,status=no');
+    const w = window.open(
+      "",
+      title,
+      "width=500,height=300,resizable=yes,scrollbars=yes,toolbar=no,location=no,menubar=no,status=no"
+    );
 
     if (!w) {
-      this.console.error('Failed to open popup');
+      this.console.error("Failed to open popup");
       return;
     }
 
     let html = "<html><head>";
-    html += "<link href='dist/assets/main.css' rel='stylesheet' type='text/css' />";
+    html +=
+      "<link href='dist/assets/main.css' rel='stylesheet' type='text/css' />";
     html += "<title>" + title + "</title></head><body>";
     html += "<pre><code>";
 

@@ -1,4 +1,4 @@
-import { View } from '@nativescript/core';
+import { View } from "@nativescript/core";
 
 /**
  * Represents a tab in the bottom navigation

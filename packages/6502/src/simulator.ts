@@ -1,9 +1,9 @@
-import { Memory } from './memory.js';
-import { Labels } from './labels.js';
-import { EventDispatcher } from './event-dispatcher.js';
+import { Memory } from "./memory.js";
+import { Labels } from "./labels.js";
+import { EventDispatcher } from "./event-dispatcher.js";
 
-import { type SimulatorEvent, SimulatorState } from './types/index.js';
-import { addr2hex, _ } from './utils.js';
+import { type SimulatorEvent, SimulatorState } from "./types/index.js";
+import { addr2hex, _ } from "./utils.js";
 
 /**
  * 6502 Simulator
@@ -86,7 +86,12 @@ export class Simulator {
 
     // If PC is at the initial address (0x600) and registers are zeroed,
     // this indicates the simulator is in READY state (was reset or not started yet)
-    if (this.regPC === 0x600 && this.regA === 0 && this.regX === 0 && this.regY === 0) {
+    if (
+      this.regPC === 0x600 &&
+      this.regA === 0 &&
+      this.regX === 0 &&
+      this.regY === 0
+    ) {
       // Check if any code is loaded in memory
       let hasCode = false;
 
@@ -116,16 +121,29 @@ export class Simulator {
    * @param memory - Memory instance for the simulator to use
    * @param labels - Labels instance for symbol lookup
    */
-  constructor(private readonly memory: Memory, private readonly labels: Labels) {
-
-  }
+  constructor(
+    private readonly memory: Memory,
+    private readonly labels: Labels
+  ) {}
 
   /**
    * Registers an event listener for a specific simulator event
    * @param event - The event to listen for
    * @param listener - The callback function to execute when the event occurs
    */
-  public on(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
+  public on(
+    event:
+      | "start"
+      | "step"
+      | "reset"
+      | "stop"
+      | "goto"
+      | "multistep"
+      | "simulator-failure"
+      | "simulator-info"
+      | "pseudo-op",
+    listener: (event: SimulatorEvent) => void
+  ): void {
     this.events.on(event, listener);
   }
 
@@ -134,7 +152,19 @@ export class Simulator {
    * @param event - The event to stop listening for
    * @param listener - The callback function to remove
    */
-  public off(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
+  public off(
+    event:
+      | "start"
+      | "step"
+      | "reset"
+      | "stop"
+      | "goto"
+      | "multistep"
+      | "simulator-failure"
+      | "simulator-info"
+      | "pseudo-op",
+    listener: (event: SimulatorEvent) => void
+  ): void {
     this.events.off(event, listener);
   }
 
@@ -143,7 +173,19 @@ export class Simulator {
    * @param event - The event to listen for once
    * @param listener - The callback function to execute when the event occurs
    */
-  public once(event: 'start' | 'step' | 'reset' | 'stop' | 'goto' | 'multistep' | 'simulator-failure' | 'simulator-info' | 'pseudo-op', listener: (event: SimulatorEvent) => void): void {
+  public once(
+    event:
+      | "start"
+      | "step"
+      | "reset"
+      | "stop"
+      | "goto"
+      | "multistep"
+      | "simulator-failure"
+      | "simulator-info"
+      | "pseudo-op",
+    listener: (event: SimulatorEvent) => void
+  ): void {
     this.events.once(event, listener);
   }
 
@@ -229,7 +271,9 @@ export class Simulator {
       }
     }
     if (addr === 0) {
-      this.dispatchSimulatorFailureEvent(_("Unable to find/parse given address/label"));
+      this.dispatchSimulatorFailureEvent(
+        _("Unable to find/parse given address/label")
+      );
     } else {
       this.regPC = addr;
     }
@@ -242,7 +286,8 @@ export class Simulator {
    * Sets all registers to their initial values
    */
   public reset() {
-    for (let i = 0; i < 0x600; i++) { // clear ZP, stack and screen
+    for (let i = 0; i < 0x600; i++) {
+      // clear ZP, stack and screen
       this.memory.set(i, 0x00);
     }
     this.regA = this.regX = this.regY = 0;
@@ -264,40 +309,114 @@ export class Simulator {
     this.dispatchStopEvent(message);
   }
 
-  private dispatchStepEvent(message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('step', { simulator: this, message, params, state: this.state });
+  private dispatchStepEvent(
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("step", {
+      simulator: this,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
-  private dispatchMultiStepEvent(message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('multistep', { simulator: this, message, params, state: this.state });
+  private dispatchMultiStepEvent(
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("multistep", {
+      simulator: this,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
-  private dispatchResetEvent(message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('reset', { simulator: this, message, params, state: this.state });
+  private dispatchResetEvent(
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("reset", {
+      simulator: this,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
-  private dispatchStartEvent(message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('start', { simulator: this, message, params, state: this.state });
+  private dispatchStartEvent(
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("start", {
+      simulator: this,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
-  private dispatchStopEvent(message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('stop', { simulator: this, message, params, state: this.state });
+  private dispatchStopEvent(
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("stop", {
+      simulator: this,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
-  private dispatchGotoEvent(message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('goto', { simulator: this, message, params, state: this.state });
+  private dispatchGotoEvent(
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("goto", {
+      simulator: this,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
-  private dispatchSimulatorFailureEvent(message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('simulator-failure', { simulator: this, message, params, state: this.state });
+  private dispatchSimulatorFailureEvent(
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("simulator-failure", {
+      simulator: this,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
-  private dispatchSimulatorInfoEvent(message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('simulator-info', { simulator: this, message, params, state: this.state });
+  private dispatchSimulatorInfoEvent(
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("simulator-info", {
+      simulator: this,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
-  private dispatchPseudoOpEvent(type: string, message?: string, params: Array<string | number | boolean> = []) {
-    this.events.dispatch('pseudo-op', { simulator: this, type, message, params, state: this.state });
+  private dispatchPseudoOpEvent(
+    type: string,
+    message?: string,
+    params: Array<string | number | boolean> = []
+  ) {
+    this.events.dispatch("pseudo-op", {
+      simulator: this,
+      type,
+      message,
+      params,
+      state: this.state,
+    });
   }
 
   /**
@@ -502,9 +621,9 @@ export class Simulator {
 
   private jumpBranch(offset: number) {
     if (offset > 0x7f) {
-      this.regPC = (this.regPC - (0x100 - offset));
+      this.regPC = this.regPC - (0x100 - offset);
     } else {
-      this.regPC = (this.regPC + offset);
+      this.regPC = this.regPC + offset;
     }
   }
 
@@ -534,7 +653,7 @@ export class Simulator {
     } else {
       this.CLC();
     }
-    val = (reg - val);
+    val = reg - val;
     this.setNVflags(val);
   }
 
@@ -558,21 +677,29 @@ export class Simulator {
       w += 0xf0 + (this.regA & 0xf0) - (value & 0xf0);
       if (w < 0x100) {
         this.CLC();
-        if (this.overflowSet() && w < 0x80) { this.CLV(); }
+        if (this.overflowSet() && w < 0x80) {
+          this.CLV();
+        }
         w -= 0x60;
       } else {
         this.SEC();
-        if (this.overflowSet() && w >= 0x180) { this.CLV(); }
+        if (this.overflowSet() && w >= 0x180) {
+          this.CLV();
+        }
       }
       w += tmp;
     } else {
       w = 0xff + this.regA - value + this.carrySet();
       if (w < 0x100) {
         this.CLC();
-        if (this.overflowSet() && w < 0x80) { this.CLV(); }
+        if (this.overflowSet() && w < 0x80) {
+          this.CLV();
+        }
       } else {
         this.SEC();
-        if (this.overflowSet() && w >= 0x180) { this.CLV(); }
+        if (this.overflowSet() && w >= 0x180) {
+          this.CLV();
+        }
       }
     }
     this.regA = w & 0xff;
@@ -595,20 +722,28 @@ export class Simulator {
       tmp += (this.regA & 0xf0) + (value & 0xf0);
       if (tmp >= 160) {
         this.SEC();
-        if (this.overflowSet() && tmp >= 0x180) { this.CLV(); }
+        if (this.overflowSet() && tmp >= 0x180) {
+          this.CLV();
+        }
         tmp += 0x60;
       } else {
         this.CLC();
-        if (this.overflowSet() && tmp < 0x80) { this.CLV(); }
+        if (this.overflowSet() && tmp < 0x80) {
+          this.CLV();
+        }
       }
     } else {
       tmp = this.regA + value + this.carrySet();
       if (tmp >= 0x100) {
         this.SEC();
-        if (this.overflowSet() && tmp >= 0x180) { this.CLV(); }
+        if (this.overflowSet() && tmp >= 0x180) {
+          this.CLV();
+        }
       } else {
         this.CLC();
-        if (this.overflowSet() && tmp < 0x80) { this.CLV(); }
+        if (this.overflowSet() && tmp < 0x80) {
+          this.CLV();
+        }
       }
     }
     this.regA = tmp & 0xff;
@@ -676,7 +811,9 @@ export class Simulator {
 
     i10: () => {
       const offset = this.popByte();
-      if (!this.negativeSet()) { this.jumpBranch(offset); }
+      if (!this.negativeSet()) {
+        this.jumpBranch(offset);
+      }
       //BPL
     },
 
@@ -730,8 +867,8 @@ export class Simulator {
     i20: () => {
       const addr = this.popWord();
       const currAddr = this.regPC - 1;
-      this.stackPush(((currAddr >> 8) & 0xff));
-      this.stackPush((currAddr & 0xff));
+      this.stackPush((currAddr >> 8) & 0xff);
+      this.stackPush(currAddr & 0xff);
       this.regPC = addr;
       //JSR
     },
@@ -809,7 +946,9 @@ export class Simulator {
 
     i30: () => {
       const offset = this.popByte();
-      if (this.negativeSet()) { this.jumpBranch(offset); }
+      if (this.negativeSet()) {
+        this.jumpBranch(offset);
+      }
       //BMI
     },
 
@@ -934,7 +1073,9 @@ export class Simulator {
 
     i50: () => {
       const offset = this.popByte();
-      if (!this.overflowSet()) { this.jumpBranch(offset); }
+      if (!this.overflowSet()) {
+        this.jumpBranch(offset);
+      }
       //BVC
     },
 
@@ -1015,7 +1156,9 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      if (sf) { value |= 0x80; }
+      if (sf) {
+        value |= 0x80;
+      }
       this.memory.storeByte(addr, value);
       this.ROR(value);
     },
@@ -1036,7 +1179,9 @@ export class Simulator {
       const sf = this.carrySet();
       this.setCarryFlagFromBit0(this.regA);
       this.regA = this.regA >> 1;
-      if (sf) { this.regA |= 0x80; }
+      if (sf) {
+        this.regA |= 0x80;
+      }
       this.ROR(this.regA);
     },
 
@@ -1058,14 +1203,18 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      if (sf) { value |= 0x80; }
+      if (sf) {
+        value |= 0x80;
+      }
       this.memory.storeByte(addr, value);
       this.ROR(value);
     },
 
     i70: () => {
       const offset = this.popByte();
-      if (this.overflowSet()) { this.jumpBranch(offset); }
+      if (this.overflowSet()) {
+        this.jumpBranch(offset);
+      }
       //BVS
     },
 
@@ -1090,7 +1239,9 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      if (sf) { value |= 0x80; }
+      if (sf) {
+        value |= 0x80;
+      }
       this.memory.storeByte(addr, value);
       this.ROR(value);
     },
@@ -1121,7 +1272,9 @@ export class Simulator {
       let value = this.memory.get(addr);
       this.setCarryFlagFromBit0(value);
       value = value >> 1;
-      if (sf) { value |= 0x80; }
+      if (sf) {
+        value |= 0x80;
+      }
       this.memory.storeByte(addr, value);
       this.ROR(value);
     },
@@ -1177,7 +1330,9 @@ export class Simulator {
 
     i90: () => {
       const offset = this.popByte();
-      if (!this.carrySet()) { this.jumpBranch(offset); }
+      if (!this.carrySet()) {
+        this.jumpBranch(offset);
+      }
       //BCC
     },
 
@@ -1291,7 +1446,9 @@ export class Simulator {
 
     ib0: () => {
       const offset = this.popByte();
-      if (this.carrySet()) { this.jumpBranch(offset); }
+      if (this.carrySet()) {
+        this.jumpBranch(offset);
+      }
       //BCS
     },
 
@@ -1419,7 +1576,9 @@ export class Simulator {
 
     id0: () => {
       const offset = this.popByte();
-      if (!this.zeroSet()) { this.jumpBranch(offset); }
+      if (!this.zeroSet()) {
+        this.jumpBranch(offset);
+      }
       //BNE
     },
 
@@ -1543,7 +1702,9 @@ export class Simulator {
 
     if0: () => {
       const offset = this.popByte();
-      if (this.zeroSet()) { this.jumpBranch(offset); }
+      if (this.zeroSet()) {
+        this.jumpBranch(offset);
+      }
       //BEQ
     },
 
@@ -1592,9 +1753,11 @@ export class Simulator {
     },
 
     ierr: () => {
-      this.dispatchSimulatorFailureEvent(_("Address %s - unknown opcode"), [addr2hex(this.regPC)]);
+      this.dispatchSimulatorFailureEvent(_("Address %s - unknown opcode"), [
+        addr2hex(this.regPC),
+      ]);
       this._codeRunning = false;
-    }
+    },
   };
 
   private stackPush(value: number) {
@@ -1621,7 +1784,7 @@ export class Simulator {
    * Pops a byte.
    */
   private popByte() {
-    return (this.memory.get(this.regPC++) & 0xff);
+    return this.memory.get(this.regPC++) & 0xff;
   }
 
   /**
@@ -1674,9 +1837,9 @@ export class Simulator {
   private executeNextInstruction() {
     let instructionName = this.popByte().toString(16).toLowerCase();
     if (instructionName.length === 1) {
-      instructionName = '0' + instructionName;
+      instructionName = "0" + instructionName;
     }
-    const instruction = this.instructions['i' + instructionName];
+    const instruction = this.instructions["i" + instructionName];
 
     if (instruction) {
       instruction();
@@ -1691,16 +1854,20 @@ export class Simulator {
    * @param debugging - If true, allows execution even when codeRunning is false
    */
   private execute(debugging = false) {
-    if (!this._codeRunning && !debugging) { return; }
+    if (!this._codeRunning && !debugging) {
+      return;
+    }
 
     this.setRandomByte();
     this.executeNextInstruction();
 
-    if ((this.regPC === 0) || (!this._codeRunning && !debugging)) {
+    if (this.regPC === 0 || (!this._codeRunning && !debugging)) {
       this._codeRunning = false;
       this._programCompleted = true;
       clearInterval(this.executeId);
-      this.dispatchStopEvent(_("Program completed at PC=$%s"), [addr2hex(this.regPC - 1)]);
+      this.dispatchStopEvent(_("Program completed at PC=$%s"), [
+        addr2hex(this.regPC - 1),
+      ]);
     } else {
       this.dispatchStepEvent();
     }

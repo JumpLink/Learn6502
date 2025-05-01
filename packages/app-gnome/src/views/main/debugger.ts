@@ -1,45 +1,76 @@
-import GObject from '@girs/gobject-2.0'
-import Gtk from '@girs/gtk-4.0'
-import Adw from '@girs/adw-1'
+import GObject from "@girs/gobject-2.0";
+import Gtk from "@girs/gtk-4.0";
+import Adw from "@girs/adw-1";
 
-import { MessageConsole, HexMonitor, Hexdump, Disassembled, DebugInfo } from '../../widgets/debugger/index.ts'
+import {
+  MessageConsole,
+  HexMonitor,
+  Hexdump,
+  Disassembled,
+  DebugInfo,
+} from "../../widgets/debugger/index.ts";
 
-import Template from './debugger.blp'
+import Template from "./debugger.blp";
 
-import { type Debugger as DebuggerInterface, type Memory, type Simulator, Assembler, DebuggerState, throttle } from '@learn6502/6502'
+import {
+  type Debugger as DebuggerInterface,
+  type Memory,
+  type Simulator,
+  Assembler,
+  DebuggerState,
+  throttle,
+} from "@learn6502/6502";
 
 export class Debugger extends Adw.Bin implements DebuggerInterface {
-
   // Properties
-  declare private _state: DebuggerState
+  declare private _state: DebuggerState;
 
   // Child widgets
-  declare private _stack: Gtk.Stack
-  declare private _messageConsole: MessageConsole
-  declare private _hexMonitor: HexMonitor
-  declare private _hexdump: Hexdump
-  declare private _disassembled: Disassembled
-  declare private _debugInfo: DebugInfo
-  declare private _statusPage: Adw.StatusPage
+  declare private _stack: Gtk.Stack;
+  declare private _messageConsole: MessageConsole;
+  declare private _hexMonitor: HexMonitor;
+  declare private _hexdump: Hexdump;
+  declare private _disassembled: Disassembled;
+  declare private _debugInfo: DebugInfo;
+  declare private _statusPage: Adw.StatusPage;
 
   static {
-    GObject.registerClass({
-      GTypeName: 'Debugger',
-      Template,
-      InternalChildren: ['stack', 'messageConsole', 'hexMonitor', 'hexdump', 'disassembled', 'debugInfo', 'statusPage'],
-      Signals: {
-        'copy-to-clipboard': {
-          param_types: [GObject.TYPE_STRING],
+    GObject.registerClass(
+      {
+        GTypeName: "Debugger",
+        Template,
+        InternalChildren: [
+          "stack",
+          "messageConsole",
+          "hexMonitor",
+          "hexdump",
+          "disassembled",
+          "debugInfo",
+          "statusPage",
+        ],
+        Signals: {
+          "copy-to-clipboard": {
+            param_types: [GObject.TYPE_STRING],
+          },
+          "copy-to-editor": {
+            param_types: [GObject.TYPE_STRING],
+          },
         },
-        'copy-to-editor': {
-          param_types: [GObject.TYPE_STRING],
+        Properties: {
+          // TypeScript enums are numbers by default
+          state: GObject.ParamSpec.uint(
+            "state",
+            "State",
+            "Debugger state",
+            GObject.ParamFlags.READWRITE,
+            DebuggerState.INITIAL,
+            DebuggerState.RESET,
+            DebuggerState.INITIAL
+          ),
         },
       },
-      Properties: {
-        // TypeScript enums are numbers by default
-        'state': GObject.ParamSpec.uint('state', 'State', 'Debugger state', GObject.ParamFlags.READWRITE, DebuggerState.INITIAL, DebuggerState.RESET, DebuggerState.INITIAL)
-      },
-    }, this);
+      this
+    );
   }
 
   public get state(): DebuggerState {
@@ -49,7 +80,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   public set state(value: DebuggerState) {
     if (this._state !== value) {
       this._state = value;
-      this.notify('state');
+      this.notify("state");
     }
   }
 
@@ -60,7 +91,7 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   private memory: Memory | null = null;
 
   constructor(binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
-    super(binParams)
+    super(binParams);
     this.setupSignalHandlers();
     this.state = DebuggerState.INITIAL;
   }
@@ -142,16 +173,16 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   private onStateChanged(): void {
-    if(this.state === DebuggerState.INITIAL) {
-      this._stack.set_visible_child_name('initial');
-    } else  {
-      this._stack.set_visible_child_name('debugger');
+    if (this.state === DebuggerState.INITIAL) {
+      this._stack.set_visible_child_name("initial");
+    } else {
+      this._stack.set_visible_child_name("debugger");
     }
   }
 
   private onParamChanged(_self: Debugger, pspec: GObject.ParamSpec): void {
     switch (pspec.name) {
-      case 'state':
+      case "state":
         this.onStateChanged();
         break;
     }
@@ -165,37 +196,47 @@ export class Debugger extends Adw.Bin implements DebuggerInterface {
   }
 
   private onCopyToEditor(self: Disassembled, code: string): void {
-    this.emit('copy-to-editor', code);
+    this.emit("copy-to-editor", code);
   }
 
   private onCopyToClipboard(self: Hexdump | HexMonitor, code: string): void {
-    this.emit('copy-to-clipboard', code);
+    this.emit("copy-to-clipboard", code);
   }
 
   private setupSignalHandlers(): void {
-    this.handlerIds.push(this.connect('notify', this.onParamChanged.bind(this)));
+    this.handlerIds.push(
+      this.connect("notify", this.onParamChanged.bind(this))
+    );
 
     // Connect to the Disassembled's copy signal
-    this.handlerIds.push(this._disassembled.connect('copy', this.onCopyToEditor.bind(this)));
+    this.handlerIds.push(
+      this._disassembled.connect("copy", this.onCopyToEditor.bind(this))
+    );
 
     // Connect to the Hexdump's copy signal
-    this.handlerIds.push(this._hexdump.connect('copy', this.onCopyToClipboard.bind(this)));
+    this.handlerIds.push(
+      this._hexdump.connect("copy", this.onCopyToClipboard.bind(this))
+    );
 
     // Connect to the HexMonitor's copy signal
-    this.handlerIds.push(this._hexMonitor.connect('copy', this.onCopyToClipboard.bind(this)));
+    this.handlerIds.push(
+      this._hexMonitor.connect("copy", this.onCopyToClipboard.bind(this))
+    );
 
     // Connect to the HexMonitor's changed signal
-    this.handlerIds.push(this._hexMonitor.connect('changed', this.onHexMonitorChanged.bind(this)));
+    this.handlerIds.push(
+      this._hexMonitor.connect("changed", this.onHexMonitorChanged.bind(this))
+    );
   }
 
   private removeSignalHandlers(): void {
     try {
-      this.handlerIds.forEach(id => this.disconnect(id));
+      this.handlerIds.forEach((id) => this.disconnect(id));
     } catch (error) {
-      console.error('[Debugger] Failed to remove signal handlers', error);
+      console.error("[Debugger] Failed to remove signal handlers", error);
     }
     this.handlerIds = [];
   }
 }
 
-GObject.type_ensure(Debugger.$gtype)
+GObject.type_ensure(Debugger.$gtype);

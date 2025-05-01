@@ -1,13 +1,13 @@
-import { type Plugin } from 'vite';
-import path from 'node:path';
-import fs from 'node:fs/promises';
-import * as gettextParser from 'gettext-parser';
-import type { GettextPo2JsonPluginOptions } from './types.js';
+import { type Plugin } from "vite";
+import path from "node:path";
+import fs from "node:fs/promises";
+import * as gettextParser from "gettext-parser";
+import type { GettextPo2JsonPluginOptions } from "./types.js";
 import {
   checkDependencies,
   findAvailableLanguages,
-  ensureDirectory
-} from './utils.js';
+  ensureDirectory,
+} from "./utils.js";
 
 /**
  * Simplifies the gettext-parser output to a clean key-value object
@@ -19,12 +19,12 @@ function simplifyTranslations(translations: any): Record<string, string> {
   const result: Record<string, string> = {};
 
   // Go through all translation contexts
-  Object.keys(translations.translations).forEach(context => {
+  Object.keys(translations.translations).forEach((context) => {
     const contextTranslations = translations.translations[context];
 
     // Skip the header (empty msgid)
-    Object.keys(contextTranslations).forEach(key => {
-      if (key === '') return;
+    Object.keys(contextTranslations).forEach((key) => {
+      if (key === "") return;
 
       const translation = contextTranslations[key];
       // Get the original text (msgid)
@@ -33,7 +33,7 @@ function simplifyTranslations(translations: any): Record<string, string> {
       const translated = translation.msgstr[0];
 
       // Only add the translation if it exists and is not empty
-      if (translated && translated.trim() !== '') {
+      if (translated && translated.trim() !== "") {
         result[original] = translated;
       }
     });
@@ -65,15 +65,15 @@ async function createDefaultLanguageJson(
   const allOriginalStrings = new Set<string>();
 
   // Collect all original strings from all translations
-  Object.values(allTranslations).forEach(translations => {
-    Object.keys(translations).forEach(key => {
+  Object.values(allTranslations).forEach((translations) => {
+    Object.keys(translations).forEach((key) => {
       allOriginalStrings.add(key);
     });
   });
 
   // Create the default language JSON with keys matching values
   const defaultLanguageJson: Record<string, string> = {};
-  allOriginalStrings.forEach(str => {
+  allOriginalStrings.forEach((str) => {
     defaultLanguageJson[str] = str;
   });
 
@@ -92,10 +92,15 @@ async function createDefaultLanguageJson(
   });
 
   // Write the default language file with .default.json extension
-  const defaultLangDefaultFile = path.join(jsonDirectory, `${defaultLanguage}.default.json`);
+  const defaultLangDefaultFile = path.join(
+    jsonDirectory,
+    `${defaultLanguage}.default.json`
+  );
 
   if (verbose) {
-    console.log(`[${pluginName}] Creating default language file: ${defaultLangDefaultFile}`);
+    console.log(
+      `[${pluginName}] Creating default language file: ${defaultLangDefaultFile}`
+    );
   }
 
   await fs.writeFile(
@@ -114,12 +119,12 @@ export function po2jsonPlugin(options: GettextPo2JsonPluginOptions): Plugin {
   const {
     poDirectory,
     jsonDirectory,
-    defaultLanguage = 'en',
+    defaultLanguage = "en",
     verbose = false,
-    additionalTranslations = {}
+    additionalTranslations = {},
   } = options;
 
-  const pluginName = 'vite-plugin-gettext-po2json';
+  const pluginName = "vite-plugin-gettext-po2json";
 
   async function convertPoToJson() {
     try {
@@ -128,13 +133,19 @@ export function po2jsonPlugin(options: GettextPo2JsonPluginOptions): Plugin {
         await ensureDirectory(poDirectory);
       } catch {
         if (verbose) {
-          console.log(`[${pluginName}] PO directory ${poDirectory} does not exist yet, skipping conversion`);
+          console.log(
+            `[${pluginName}] PO directory ${poDirectory} does not exist yet, skipping conversion`
+          );
         }
         return;
       }
 
       // Find available languages
-      const languages = await findAvailableLanguages(poDirectory, pluginName, verbose);
+      const languages = await findAvailableLanguages(
+        poDirectory,
+        pluginName,
+        verbose
+      );
 
       if (languages.length === 0) {
         if (verbose) {
@@ -150,7 +161,9 @@ export function po2jsonPlugin(options: GettextPo2JsonPluginOptions): Plugin {
       const allTranslations: Record<string, Record<string, string>> = {};
 
       // Skip the default language if it exists in the list
-      const nonDefaultLanguages = languages.filter(lang => lang !== defaultLanguage);
+      const nonDefaultLanguages = languages.filter(
+        (lang) => lang !== defaultLanguage
+      );
 
       // Handle default language if it exists in the list
       if (languages.includes(defaultLanguage)) {
@@ -158,7 +171,9 @@ export function po2jsonPlugin(options: GettextPo2JsonPluginOptions): Plugin {
         const jsonFile = path.join(jsonDirectory, `${defaultLanguage}.json`);
 
         if (verbose) {
-          console.log(`[${pluginName}] Converting default language ${poFile} to ${jsonFile}`);
+          console.log(
+            `[${pluginName}] Converting default language ${poFile} to ${jsonFile}`
+          );
         }
 
         // Read and parse PO file
@@ -172,9 +187,11 @@ export function po2jsonPlugin(options: GettextPo2JsonPluginOptions): Plugin {
         const finalTranslations = { ...simplifiedTranslations };
 
         // For each additional translation, add it to the default language file
-        Object.entries(additionalTranslations).forEach(([key, originalText]) => {
-          finalTranslations[key] = originalText;
-        });
+        Object.entries(additionalTranslations).forEach(
+          ([key, originalText]) => {
+            finalTranslations[key] = originalText;
+          }
+        );
 
         // Write JSON file for default language
         await fs.writeFile(
@@ -206,15 +223,17 @@ export function po2jsonPlugin(options: GettextPo2JsonPluginOptions): Plugin {
         const finalTranslations = { ...simplifiedTranslations };
 
         // For each additional translation, try to find a translation or use the original
-        Object.entries(additionalTranslations).forEach(([key, originalText]) => {
-          // If there's a translation for the original text, use it
-          if (simplifiedTranslations[originalText]) {
-            finalTranslations[key] = simplifiedTranslations[originalText];
-          } else {
-            // Otherwise use the original text
-            finalTranslations[key] = originalText;
+        Object.entries(additionalTranslations).forEach(
+          ([key, originalText]) => {
+            // If there's a translation for the original text, use it
+            if (simplifiedTranslations[originalText]) {
+              finalTranslations[key] = simplifiedTranslations[originalText];
+            } else {
+              // Otherwise use the original text
+              finalTranslations[key] = originalText;
+            }
           }
-        });
+        );
 
         // Write JSON file
         await fs.writeFile(
@@ -224,7 +243,14 @@ export function po2jsonPlugin(options: GettextPo2JsonPluginOptions): Plugin {
       }
 
       // Create the default language file (with all original strings as both keys and values)
-      await createDefaultLanguageJson(jsonDirectory, allTranslations, defaultLanguage, verbose, pluginName, additionalTranslations);
+      await createDefaultLanguageJson(
+        jsonDirectory,
+        allTranslations,
+        defaultLanguage,
+        verbose,
+        pluginName,
+        additionalTranslations
+      );
     } catch (error) {
       throw new Error(`Failed to convert PO files to JSON: ${error}`);
     }
@@ -240,14 +266,16 @@ export function po2jsonPlugin(options: GettextPo2JsonPluginOptions): Plugin {
     configureServer(server) {
       server.watcher.add(poDirectory);
 
-      server.watcher.on('change', async (file) => {
-        if (file.endsWith('.po')) {
+      server.watcher.on("change", async (file) => {
+        if (file.endsWith(".po")) {
           if (verbose) {
-            console.log(`[${pluginName}] PO file changed: ${file}, reconverting`);
+            console.log(
+              `[${pluginName}] PO file changed: ${file}, reconverting`
+            );
           }
           await convertPoToJson();
         }
       });
-    }
+    },
   };
 }

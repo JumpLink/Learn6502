@@ -17,8 +17,8 @@ export class EventDispatcher<T = any> {
     if (!this.listeners[event]) {
       return;
     }
-    this.listeners[event] = this.listeners[event].filter((listener) =>
-      listener !== callback
+    this.listeners[event] = this.listeners[event].filter(
+      (listener) => listener !== callback
     );
   }
 
@@ -29,8 +29,8 @@ export class EventDispatcher<T = any> {
     }
     this.listeners[event].forEach((listener) => listener(data));
     // Automatically remove listeners registered with `once`
-    this.listeners[event] = this.listeners[event].filter((listener) =>
-      !listener.once
+    this.listeners[event] = this.listeners[event].filter(
+      (listener) => !listener.once
     );
   }
 
