@@ -1,12 +1,32 @@
-import { Application, Page, SystemAppearanceChangedEventData, ScrollView, ScrollEventData, AnimationCurve } from "@nativescript/core";
+import { Application, Page, SystemAppearanceChangedEventData, ScrollView, ScrollEventData, AnimationCurve, Utils, View } from "@nativescript/core";
 import { Fab } from "~/widgets/fab";
 
 import { EventData } from "@nativescript/core";
-import { lifecycleEvents } from "~/utils/lifecycle";
-import { applySystemBarInsets, setStatusBarAppearance } from "~/utils/system";
+import { lifecycleEvents, windowInsetsChangedEvent } from "~/utils/lifecycle";
+import { setStatusBarAppearance } from "~/utils/system";
+
+// Import WindowInsetsCompat
+import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
+
+/**
+ * Handles window inset changes to apply top margin dynamically.
+ * @param view The Page view to apply margin to.
+ * @param insets The WindowInsetsCompat object containing inset data.
+ */
+const handleWindowInsets = (view: Page, insets: androidx_core_view_WindowInsetsCompat) => {
+  if (!insets || !view.content || !(view.content instanceof View)) { // Check if content exists and is a View
+    console.warn(`main: handleWindowInsets - Could not apply padding. Insets: ${!!insets}, Page content: ${view.content}`);
+    return;
+  }
+
+  const topInsetPixels = insets.getInsets(androidx_core_view_WindowInsetsCompat.Type.systemBars()).top;
+  const topMarginDips = Utils.layout.toDeviceIndependentPixels(topInsetPixels);
+  // Apply padding to the Page's content
+  view.style.marginTop = topMarginDips;
+  console.log(`main: handleWindowInsets - Applied paddingTop: ${topMarginDips} DIPs to Page content (from ${topInsetPixels}px)`);
+};
 
 const onSystemAppearanceChanged = (view: Page, args: SystemAppearanceChangedEventData) => {
-  applySystemBarInsets(view, true, false, false, false);
   setStatusBarAppearance("md_theme_surface");
 }
 
@@ -20,11 +40,32 @@ export const onLoaded = (args: EventData) => {
   const view = args.object as Page;
   console.log('main: loaded:', view.id);
 
+  // Bind the handler with the current view instance
+  const boundInsetsHandler = handleWindowInsets.bind(null, view);
+  // Store the bound handler on the view to easily unbind later
+  view["insetsHandler"] = boundInsetsHandler;
+
+  lifecycleEvents.on(windowInsetsChangedEvent, boundInsetsHandler);
   lifecycleEvents.on(Application.systemAppearanceChangedEvent, onSystemAppearanceChanged.bind(onSystemAppearanceChanged,view));
-  applySystemBarInsets(view, true, false, false, false);
   setStatusBarAppearance("md_theme_surface");
 
   initFabScrollBehavior(view);
+}
+
+/**
+ * Event handler for the 'unloaded' event of the root view.
+ * Cleans up event listeners.
+ * @param args Event arguments containing the view object.
+ */
+export const onUnloaded = (args: EventData) => {
+    const view = args.object as Page;
+    console.log('main: unloaded:', view.id);
+
+    // Unsubscribe using the stored bound handler
+    if (view["insetsHandler"]) {
+        lifecycleEvents.off(windowInsetsChangedEvent, view["insetsHandler"]);
+    }
+    // TODO: Consider unsubscribing from systemAppearanceChangedEvent as well if appropriate
 }
 
 export const initFabScrollBehavior = (view: Page) => {
