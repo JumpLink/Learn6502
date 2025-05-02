@@ -5,15 +5,15 @@ import {
   SystemAppearanceChangedEventData,
   View,
   isAndroid,
-  Utils,
 } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import {
   initLifecycle,
   lifecycleEvents,
-  getContrastMode,
   setEdgeToEdge,
+  contrastChangedEvent,
 } from "./utils/index";
+import { ContrastMode } from "./constants";
 
 if (!isAndroid) {
   throw new Error("This app is only supported on Android");
@@ -30,41 +30,41 @@ lifecycleEvents.on(
   }
 );
 
-lifecycleEvents.on(
-  "loaded:app-root",
-  (event: { rootFrame: Frame; rootView: View }) => {
-    const contrastMode = getContrastMode();
+lifecycleEvents.on(contrastChangedEvent, (contrastMode: ContrastMode) => {
+  console.log("contrastChangedEvent", contrastMode);
 
-    // Enable Material You dynamic colors if available (Android 12+)
-    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.S) {
-      console.log("Applying Material You dynamic colors");
-      // Enable Material You dynamic colors
-      com.google.android.material.color.DynamicColors.applyToActivitiesIfAvailable(
-        Application.android.nativeApp
-      );
-    }
+  const rootView = Application.getRootView();
 
-    console.log("contrastMode", contrastMode);
-    // TODO: Detect contrast mode change, remove old class and add new one
-    // TODO: Apply this to native elements as well
-    event.rootView.cssClasses.add("ns-contrast-" + contrastMode);
-    // see https://github.com/NativeScript/plugins/blob/5b4822ab9dd7501259dd6e2c7ef7826ed25a7d69/packages/theme-switcher/index.ts#L94
-    event.rootView._onCssStateChange();
-    event.rootView._getRootModalViews()?.forEach((view) => {
-      view.cssClasses.add("ns-contrast-" + contrastMode);
-      view?._onCssStateChange();
-    });
+  rootView.cssClasses.delete("ns-contrast-normal");
+  rootView.cssClasses.delete("ns-contrast-medium");
+  rootView.cssClasses.delete("ns-contrast-high");
+  rootView.cssClasses.add("ns-contrast-" + contrastMode);
 
-    console.log(
-      "rootView cssClasses",
-      Array.from(event.rootView.cssClasses.values())
-    );
-  }
-);
+  rootView._onCssStateChange();
+
+  rootView._getRootModalViews()?.forEach((view) => {
+    view.cssClasses.delete("ns-contrast-normal");
+    view.cssClasses.delete("ns-contrast-medium");
+    view.cssClasses.delete("ns-contrast-high");
+    view.cssClasses.add("ns-contrast-" + contrastMode);
+
+    view?._onCssStateChange();
+  });
+
+  console.log("rootView cssClasses", Array.from(rootView.cssClasses.values()));
+});
 
 lifecycleEvents.on(Application.launchEvent, (_args: LaunchEventData) => {
   setEdgeToEdge(true);
 });
+
+lifecycleEvents.on(
+  "loaded:app-root",
+  (event: { rootFrame: Frame; rootView: View }) => {
+    const rootView = event.rootView;
+    console.log("rootView", rootView);
+  }
+);
 
 Application.setResources({ L: localize });
 Application.run({ moduleName: "app-root" });

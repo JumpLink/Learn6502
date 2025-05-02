@@ -2,12 +2,14 @@ import {
   Application,
   LaunchEventData,
   type SystemAppearanceChangedEventData,
+  Utils,
 } from "@nativescript/core";
 import {
   androidLaunchEventLocalizationHandler,
   overrideLocale,
 } from "@nativescript/localize";
 import { EventDispatcher } from "@learn6502/6502";
+import { ContrastMode } from "../constants";
 
 // Import necessary AndroidX classes
 import androidx_core_view_ViewCompat = androidx.core.view.ViewCompat;
@@ -17,16 +19,6 @@ import android_view_View = android.view.View;
 
 let initialized = false;
 
-// Define event types separately for clarity
-/*
-type LifecycleEventMap = {
-  [Application.launchEvent]: LaunchEventData;
-  [Application.systemAppearanceChangedEvent]: SystemAppearanceChangedEventData;
-  [Application.displayedEvent]: {};
-  windowInsetsChanged: androidx_core_view_WindowInsetsCompat;
-};
-*/
-
 // Use 'any' as the generic type for now, as the dispatcher doesn't support event-specific types
 export const lifecycleEvents = new EventDispatcher</*LifecycleEventMap*/ any>();
 
@@ -34,6 +26,11 @@ export const lifecycleEvents = new EventDispatcher</*LifecycleEventMap*/ any>();
  * Event name for window insets changes.
  */
 export const windowInsetsChangedEvent = "windowInsetsChanged";
+
+/**
+ * Event name for contrast mode changes.
+ */
+export const contrastChangedEvent = "contrastChanged";
 
 /**
  * Initializes theme-related functionality when the app is ready
@@ -48,7 +45,6 @@ export function onLaunch(event: LaunchEventData) {
 
   console.log("Lifecycle: onLaunch called");
 
-  // TODO: Not ready for this yet
   // Get initial system appearance
   const systemAppearance = Application.systemAppearance();
   console.log("systemAppearance", systemAppearance);
@@ -58,7 +54,122 @@ export function onLaunch(event: LaunchEventData) {
   console.log("localeOverriddenSuccessfully", localeOverriddenSuccessfully);
 
   lifecycleEvents.dispatch(Application.launchEvent, event);
+
+  listenContrastChange();
+
+  listenWindowInsetsChange();
 }
+
+const listenContrastChange = () => {
+  // Listen for contrast changes (API 34+)
+  if (android.os.Build.VERSION.SDK_INT >= 34) {
+    const context = Utils.android.getApplicationContext();
+    if (context) {
+      const uiModeManager = context.getSystemService(
+        android.content.Context.UI_MODE_SERVICE
+      ) as android.app.UiModeManager;
+
+      if (uiModeManager) {
+        // Get the main executor to run the callback on the main thread
+        const mainExecutor = context.getMainExecutor();
+
+        if (mainExecutor) {
+          const contrastListener =
+            new android.app.UiModeManager.ContrastChangeListener({
+              onContrastChanged: (contrastLevel: number) => {
+                console.log("System contrast changed:", contrastLevel);
+                let newMode: ContrastMode;
+                if (contrastLevel === 1) {
+                  newMode = ContrastMode.HIGH;
+                } else if (contrastLevel === 0.5) {
+                  newMode = ContrastMode.MEDIUM;
+                } else {
+                  newMode = ContrastMode.NORMAL;
+                }
+                lifecycleEvents.dispatch(contrastChangedEvent, newMode);
+              },
+            });
+
+          // Get initial contrast state and dispatch
+          const initialContrast = uiModeManager.getContrast();
+          console.log("Initial system contrast level:", initialContrast);
+          let initialMode: ContrastMode;
+          if (initialContrast === 1) {
+            initialMode = ContrastMode.HIGH;
+          } else if (initialContrast === 0.5) {
+            initialMode = ContrastMode.MEDIUM;
+          } else {
+            initialMode = ContrastMode.NORMAL;
+          }
+          // Dispatch initial state after a short delay to allow listeners to attach
+          setTimeout(() => {
+            lifecycleEvents.dispatch(contrastChangedEvent, initialMode);
+          }, 100);
+
+          uiModeManager.addContrastChangeListener(
+            mainExecutor,
+            contrastListener
+          );
+          console.log("ContrastChangeListener added.");
+
+          // TODO: Consider adding logic to remove the listener when the app exits
+          // Application.on(Application.exitEvent, () => {
+          //   if (uiModeManager && contrastListener) {
+          //      uiModeManager.removeContrastChangeListener(contrastListener);
+          //      console.log("ContrastChangeListener removed.");
+          //   }
+          // });
+        } else {
+          console.error(
+            "Could not get main executor for ContrastChangeListener."
+          );
+        }
+      } else {
+        console.error(
+          "Could not get UiModeManager service for contrast listener."
+        );
+      }
+    } else {
+      console.error("Could not get application context for contrast listener.");
+    }
+  } else {
+    console.warn("ContrastChangeListener requires API level 34+.");
+  }
+};
+
+const listenWindowInsetsChange = () => {
+  const activity =
+    Application.android.foregroundActivity || Application.android.startActivity;
+  if (!activity) {
+    throw new Error(
+      "Lifecycle: Could not get activity to attach WindowInsets listener."
+    );
+  }
+
+  const rootView = activity.getWindow().getDecorView().getRootView();
+  if (!rootView) {
+    throw new Error(
+      "Lifecycle: Could not get root view to attach WindowInsets listener."
+    );
+  }
+
+  androidx_core_view_ViewCompat.setOnApplyWindowInsetsListener(
+    rootView,
+    new androidx_core_view_OnApplyWindowInsetsListener({
+      onApplyWindowInsets: (
+        view: android_view_View,
+        insets: androidx_core_view_WindowInsetsCompat
+      ): androidx_core_view_WindowInsetsCompat => {
+        lifecycleEvents.dispatch(windowInsetsChangedEvent, insets);
+        // Return the insets consumed by the decor view's default listener
+        // to ensure proper handling by the system
+        return androidx_core_view_ViewCompat.onApplyWindowInsets(view, insets);
+      },
+    })
+  );
+  // Request initial insets
+  rootView.requestApplyInsets();
+};
 
 /**
  * Initializes the lifecycle hooks at the appropriate time based on platform
@@ -71,45 +182,6 @@ export function initLifecycle() {
   // This registers the onLaunch handler to the native Application event.
   // onLaunch itself will dispatch the event via lifecycleEvents.
   Application.once(Application.launchEvent, onLaunch);
-
-  // Listen for window insets *after* our onLaunch has dispatched the event.
-  lifecycleEvents.once(Application.launchEvent, () => {
-    const activity =
-      Application.android.foregroundActivity ||
-      Application.android.startActivity;
-    if (!activity) {
-      throw new Error(
-        "Lifecycle: Could not get activity to attach WindowInsets listener."
-      );
-    }
-
-    const rootView = activity.getWindow().getDecorView().getRootView();
-    if (!rootView) {
-      throw new Error(
-        "Lifecycle: Could not get root view to attach WindowInsets listener."
-      );
-    }
-
-    androidx_core_view_ViewCompat.setOnApplyWindowInsetsListener(
-      rootView,
-      new androidx_core_view_OnApplyWindowInsetsListener({
-        onApplyWindowInsets: (
-          view: android_view_View,
-          insets: androidx_core_view_WindowInsetsCompat
-        ): androidx_core_view_WindowInsetsCompat => {
-          lifecycleEvents.dispatch(windowInsetsChangedEvent, insets);
-          // Return the insets consumed by the decor view's default listener
-          // to ensure proper handling by the system
-          return androidx_core_view_ViewCompat.onApplyWindowInsets(
-            view,
-            insets
-          );
-        },
-      })
-    );
-    // Request initial insets
-    androidx_core_view_ViewCompat.requestApplyInsets(rootView);
-  });
 
   // Listen for theme changes
   Application.on(

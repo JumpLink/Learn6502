@@ -37,19 +37,17 @@ const handleWindowInsets = (
   const topInsetPixels = insets.getInsets(
     androidx_core_view_WindowInsetsCompat.Type.systemBars()
   ).top;
-  const topMarginDips = Utils.layout.toDeviceIndependentPixels(topInsetPixels);
+  const topPaddingDips = Utils.layout.toDeviceIndependentPixels(topInsetPixels);
   // Apply padding to the Page's content
-  view.style.marginTop = topMarginDips;
+  view.style.paddingTop = topPaddingDips;
+
   console.log(
-    `main: handleWindowInsets - Applied paddingTop: ${topMarginDips} DIPs to Page content (from ${topInsetPixels}px)`
+    `main: handleWindowInsets - Applied paddingTop: ${topPaddingDips} DIPs to Page content (from ${topInsetPixels}px)`
   );
 };
 
-const onSystemAppearanceChanged = (
-  view: Page,
-  args: SystemAppearanceChangedEventData
-) => {
-  setStatusBarAppearance("md_theme_surface");
+const onSystemAppearanceChanged = (event: SystemAppearanceChangedEventData) => {
+  setStatusBarAppearance("md_theme_surface", event.newValue === "dark");
 };
 
 /**
@@ -70,7 +68,7 @@ export const onLoaded = (args: EventData) => {
   lifecycleEvents.on(windowInsetsChangedEvent, boundInsetsHandler);
   lifecycleEvents.on(
     Application.systemAppearanceChangedEvent,
-    onSystemAppearanceChanged.bind(onSystemAppearanceChanged, view)
+    onSystemAppearanceChanged
   );
   setStatusBarAppearance("md_theme_surface");
 
