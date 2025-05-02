@@ -1,9 +1,10 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
       xmlns:w="~/widgets/index"
       loaded="onLoaded"
+      unloaded="onUnloaded"
       id="main-page"
       class="bg-surface">
-    <ActionBar class="bg-surface text-on-surface">
+    <ActionBar id="main-action-bar" class="bg-surface text-on-surface">
         <!-- explicitly hide the back button -->
         <NavigationButton visibility="collapsed" />
 
