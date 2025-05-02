@@ -1,11 +1,14 @@
-import type { EventData } from "@nativescript/core";
+import { Application } from "@nativescript/core";
+import { lifecycleEvents } from "./utils";
+import type { EventData, Frame } from "@nativescript/core";
 
-/**
- * Event handler for the 'loaded' event of the root view.
- * Applies system bar insets to ensure content is not drawn under system bars
- * when Edge-to-Edge is enabled.
- * @param args Event arguments containing the view object.
- */
 export function onLoaded(args: EventData) {
-  console.log("app-root loaded");
+  const rootFrame = args.object as Frame;
+  console.log("app-root loaded", rootFrame);
+
+  // TODO: Add contrast classes to rootView
+  const rootView = Application.getRootView();
+  console.log("rootView cssClasses", Array.from(rootView.cssClasses.values()));
+
+  lifecycleEvents.dispatch("loaded:app-root", { rootFrame, rootView });
 }

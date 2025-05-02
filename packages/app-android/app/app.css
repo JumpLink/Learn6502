@@ -1,10 +1,16 @@
 ﻿@import "tailwindcss";
 @import "css/_light.css";
+@import "css/_light-mc.css";
+@import "css/_light-hc.css";
 @import "css/_dark.css";
+@import "css/_dark-mc.css";
+@import "css/_dark-hc.css";
 
 @source './**/*.{css,xml,html,vue,svelte,ts,tsx}';
 
 @custom-variant dark (&:is(.ns-dark *));
+@custom-variant high (&:is(.ns-contrast-high *));
+@custom-variant medium (&:is(.ns-contrast-medium *));
 
 /* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss */
 
