@@ -232,7 +232,14 @@ export class BottomNavigation extends ContentView {
             // Find the tab with this menu ID and navigate to its page
             for (const [tabId, menuItemId] of this.idToMenuId.entries()) {
               if (menuItemId === menuId) {
-                this.navigateToTab(tabId);
+                const tab = this.tabsById.get(tabId);
+                if (!tab) {
+                  console.error(
+                    `BottomNavigation: onNavigationItemSelected - Tab with ID ${tabId} not found`
+                  );
+                  return false;
+                }
+                this.navigateToTab(tab);
                 return true;
               }
             }
@@ -292,10 +299,6 @@ export class BottomNavigation extends ContentView {
     if (!this.bottomNav) return;
 
     console.log("applyTheme");
-
-    // Force the navigation view to recreate its drawable states
-    // This will make it pick up the current theme colors
-    this.bottomNav.refreshDrawableState();
 
     const backgroundColor = getColor(this._navBackgroundColor, this.context);
     const activeColor = getColor(this._activeColor, this.context);
@@ -382,14 +385,13 @@ export class BottomNavigation extends ContentView {
    *
    * @param tabId - The ID of the tab to navigate to
    */
-  private navigateToTab(tabId: string): void {
+  private navigateToTab(tab: BottomTab): void {
     // Find the main frame to navigate
     const mainFrame = Frame.getFrameById("mainFrame");
     if (mainFrame) {
-      // Navigate to page corresponding to tab ID
-      // For example, if tab ID is "home", navigate to "views/home"
+      // Navigate to page corresponding to tab
       mainFrame.navigate({
-        moduleName: `views/main/${tabId}`, // TODO: Make this dynamic
+        moduleName: tab.moduleName,
         clearHistory: true,
       });
     }

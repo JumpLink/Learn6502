@@ -1,9 +1,9 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
-      xmlns:w="~/widgets/index"
-      loaded="onLoaded"
-      unloaded="onUnloaded"
-      id="main-page"
-      class="bg-surface">
+    xmlns:w="~/widgets/index"
+    loaded="onLoaded"
+    unloaded="onUnloaded"
+    id="main-page"
+    class="bg-surface">
     <ActionBar id="main-action-bar" class="bg-surface text-on-surface">
         <!-- explicitly hide the back button -->
         <NavigationButton visibility="collapsed" />
@@ -26,8 +26,8 @@
 
         <!-- FAB positioned in the bottom-right corner -->
         <w:Fab
-            id="mainFab" 
-            row="0" 
+            id="mainFab"
+            row="0"
             icon="res://nintendo_controller_symbolic"
             text="Play"
             tap="onFabTap"
@@ -36,7 +36,7 @@
             horizontalAlignment="right"
             verticalAlignment="bottom"
             margin="16"
-         />
+        />
 
         <!-- Bottom navigation bar positioned at the bottom -->
         <w:BottomNavigation
@@ -46,11 +46,17 @@
             inactiveColor="md_theme_onSurfaceVariant"
             indicatorColor="md_theme_secondaryContainer"
         >
-            <w:BottomTab title="Learn" icon="res://school_symbolic" id="learn" />
-            <w:BottomTab title="Editor" icon="res://code_symbolic" id="editor" />
-            <w:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger" />
-            <w:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic" id="game-console" />
-            <w:BottomTab title="Storybook" icon="res://open_book_symbolic" id="storybook" />
+            <w:BottomTab title="Learn" icon="res://school_symbolic" id="learn"
+                moduleName="views/main/learn" />
+
+            <w:BottomTab title="Editor" icon="res://code_symbolic" id="editor"
+                moduleName="views/main/editor" />
+            <w:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger"
+                moduleName="views/main/debugger" />
+            <w:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic"
+                id="game-console" moduleName="views/main/game-console" />
+            <w:BottomTab title="Storybook" icon="res://open_book_symbolic" id="storybook"
+                moduleName="views/main/storybook" />
         </w:BottomNavigation>
 
     </GridLayout>

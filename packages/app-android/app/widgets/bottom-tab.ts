@@ -6,7 +6,7 @@ import { View } from "@nativescript/core";
  * Used as a child element of the BottomNavigation component
  *
  * @example
- * <BottomTab id="home" title="Home" icon="res://ic_home" />
+ * <BottomTab id="home" title="Home" icon="res://ic_home" moduleName="views/main/home" />
  */
 export class BottomTab extends View {
   /**
@@ -22,8 +22,13 @@ export class BottomTab extends View {
 
   /**
    * The unique identifier for the tab
-   * Used for navigation to views/{id} and for internal tracking
-   * If not specified, a random ID will be generated
    */
   id: string;
+
+  /**
+   * The module name for the tab
+   * Used for navigation to views/{moduleName}
+   * If not specified, the id will be used as the module name
+   */
+  moduleName: string;
 }
