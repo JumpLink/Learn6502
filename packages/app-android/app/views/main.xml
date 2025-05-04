@@ -21,7 +21,7 @@
     <GridLayout rows="*, auto" columns="*">
         <ScrollView id="mainScrollView">
             <!-- Frame for content switching -->
-            <Frame id="mainFrame" row="0" defaultPage="views/main/learn" />
+            <Frame id="mainFrame" row="0" defaultPage="views/main/storybook" />
         </ScrollView>
 
         <!-- FAB positioned in the bottom-right corner -->
@@ -47,17 +47,16 @@
             inactiveColor="md_theme_onSurfaceVariant"
             indicatorColor="md_theme_secondaryContainer"
         >
+            <w:BottomTab title="Storybook" icon="res://open_book_symbolic" id="storybook"
+                moduleName="views/main/storybook" />
             <w:BottomTab title="Learn" icon="res://school_symbolic" id="learn"
                 moduleName="views/main/learn" />
-
             <w:BottomTab title="Editor" icon="res://code_symbolic" id="editor"
                 moduleName="views/main/editor" />
             <w:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger"
                 moduleName="views/main/debugger" />
             <w:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic"
                 id="game-console" moduleName="views/main/game-console" />
-            <w:BottomTab title="Storybook" icon="res://open_book_symbolic" id="storybook"
-                moduleName="views/main/storybook" />
         </w:BottomNavigation>
 
     </GridLayout>

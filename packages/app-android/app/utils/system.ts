@@ -189,3 +189,43 @@ export function setEdgeToEdge(enabled: boolean): void {
     console.error(`Error setting Edge-to-Edge to ${enabled}:`, error);
   }
 }
+
+/**
+ * Restarts the entire Android application.
+ * Useful when runtime adaptation to system setting changes (e.g., theme, locale) is not feasible.
+ */
+export function restartApp(): void {
+  try {
+    const context = Utils.android.getApplicationContext();
+    if (!context) {
+      console.error("Restart failed: Could not get application context.");
+      return;
+    }
+
+    const packageManager = context.getPackageManager();
+    const packageName = context.getPackageName();
+    // Intent to launch the main activity
+    const intent = packageManager.getLaunchIntentForPackage(packageName);
+    if (!intent) {
+      console.error("Restart failed: Could not get launch intent.");
+      return;
+    }
+
+    // Use flags to clear the existing task and start a new one
+    intent.addFlags(
+      android.content.Intent.FLAG_ACTIVITY_NEW_TASK |
+        android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
+    );
+
+    // Start the main activity
+    context.startActivity(intent);
+
+    console.log("Triggering app restart...");
+
+    // Terminate the current application process
+    // Use killProcess for a slightly more forceful exit than System.exit
+    android.os.Process.killProcess(android.os.Process.myPid());
+  } catch (error) {
+    console.error("Error restarting application:", error);
+  }
+}

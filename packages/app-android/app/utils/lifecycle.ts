@@ -16,6 +16,7 @@ import androidx_core_view_ViewCompat = androidx.core.view.ViewCompat;
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
 import androidx_core_view_OnApplyWindowInsetsListener = androidx.core.view.OnApplyWindowInsetsListener;
 import android_view_View = android.view.View;
+import { ContrastChangeEventData } from "~/types";
 
 let initialized = false;
 
@@ -86,7 +87,14 @@ const listenContrastChange = () => {
                 } else {
                   newMode = ContrastMode.NORMAL;
                 }
-                lifecycleEvents.dispatch(contrastChangedEvent, newMode);
+                const contrastChangeEventData: ContrastChangeEventData = {
+                  contrastMode: newMode,
+                  initial: false,
+                };
+                lifecycleEvents.dispatch(
+                  contrastChangedEvent,
+                  contrastChangeEventData
+                );
               },
             });
 
@@ -101,9 +109,18 @@ const listenContrastChange = () => {
           } else {
             initialMode = ContrastMode.NORMAL;
           }
+
           // Dispatch initial state after a short delay to allow listeners to attach
           setTimeout(() => {
-            lifecycleEvents.dispatch(contrastChangedEvent, initialMode);
+            const contrastChangeEventData: ContrastChangeEventData = {
+              contrastMode: initialMode,
+              initial: true,
+            };
+
+            lifecycleEvents.dispatch(
+              contrastChangedEvent,
+              contrastChangeEventData
+            );
           }, 100);
 
           uiModeManager.addContrastChangeListener(
@@ -194,5 +211,10 @@ export function initLifecycle() {
   // Listen for display changes
   Application.on(Application.displayedEvent, () => {
     lifecycleEvents.dispatch(Application.displayedEvent, {});
+  });
+
+  // Listen for resume events
+  Application.on(Application.resumeEvent, (args) => {
+    lifecycleEvents.dispatch(Application.resumeEvent, args);
   });
 }
