@@ -8,7 +8,7 @@ import {
   AnimationCurve,
 } from "@nativescript/core";
 import { createColorStateList, getColor, getResource } from "../utils/index";
-import { lifecycleEvents } from "../utils/index";
+import { events } from "../utils/index";
 
 /**
  * Material Design 3 Extended Floating Action Button (FAB) component for Android
@@ -194,7 +194,7 @@ export class Fab extends ContentView {
     this.applyIcon();
     this.applyText();
 
-    lifecycleEvents.on(
+    events.on(
       Application.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
@@ -284,7 +284,7 @@ export class Fab extends ContentView {
    */
   public disposeNativeView(): void {
     // Remove theme change listener
-    lifecycleEvents.off(
+    events.off(
       Application.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );

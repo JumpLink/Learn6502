@@ -8,13 +8,13 @@ import {
 } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import {
-  initLifecycle,
-  lifecycleEvents,
+  setupEvents,
+  events,
   setEdgeToEdge,
   contrastChangedEvent,
   restartApp,
+  getRootViewWhenReady,
 } from "./utils/index";
-import { ContrastMode } from "./constants";
 import { ContrastChangeEventData } from "./types";
 
 if (!isAndroid) {
@@ -23,9 +23,9 @@ if (!isAndroid) {
 
 let restartRequiredOnResume = false;
 
-initLifecycle();
+setupEvents();
 
-lifecycleEvents.on(
+events.on(
   Application.systemAppearanceChangedEvent,
   (_args: SystemAppearanceChangedEventData) => {
     const activity = Application.android
@@ -36,7 +36,7 @@ lifecycleEvents.on(
   }
 );
 
-lifecycleEvents.on(contrastChangedEvent, (event: ContrastChangeEventData) => {
+events.on(contrastChangedEvent, async (event: ContrastChangeEventData) => {
   console.log("contrastChangedEvent", event);
 
   // WORKAROUND: Flag the app for restart when the contrast mode changes
@@ -48,12 +48,7 @@ lifecycleEvents.on(contrastChangedEvent, (event: ContrastChangeEventData) => {
 
   // Remove all contrast classes and add the new one
 
-  const rootView = Application.getRootView();
-
-  if (!rootView) {
-    console.error("rootView not found");
-    return;
-  }
+  const rootView = await getRootViewWhenReady();
 
   rootView.cssClasses.delete("ns-contrast-normal");
   rootView.cssClasses.delete("ns-contrast-medium");
@@ -74,12 +69,12 @@ lifecycleEvents.on(contrastChangedEvent, (event: ContrastChangeEventData) => {
   console.log("rootView cssClasses", Array.from(rootView.cssClasses.values()));
 });
 
-lifecycleEvents.on(Application.launchEvent, (_args: LaunchEventData) => {
+events.on(Application.launchEvent, (_args: LaunchEventData) => {
   setEdgeToEdge(true);
 });
 
 // Add listener for the resume event to handle deferred restart
-lifecycleEvents.on(Application.resumeEvent, () => {
+events.on(Application.resumeEvent, () => {
   console.log("Application resumed.");
   if (restartRequiredOnResume) {
     console.log("Restart required flag is set, restarting app now.");
@@ -90,13 +85,10 @@ lifecycleEvents.on(Application.resumeEvent, () => {
   }
 });
 
-lifecycleEvents.on(
-  "loaded:app-root",
-  (event: { rootFrame: Frame; rootView: View }) => {
-    const rootView = event.rootView;
-    console.log("rootView", rootView);
-  }
-);
+events.on("loaded:app-root", (event: { rootFrame: Frame; rootView: View }) => {
+  const rootView = event.rootView;
+  console.log("rootView", rootView);
+});
 
 Application.setResources({ L: localize });
 Application.run({ moduleName: "app-root" });

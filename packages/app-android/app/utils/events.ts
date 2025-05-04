@@ -21,7 +21,7 @@ import { ContrastChangeEventData } from "~/types";
 let initialized = false;
 
 // Use 'any' as the generic type for now, as the dispatcher doesn't support event-specific types
-export const lifecycleEvents = new EventDispatcher</*LifecycleEventMap*/ any>();
+export const events = new EventDispatcher</*Events:EventMap*/ any>();
 
 /**
  * Event name for window insets changes.
@@ -38,13 +38,13 @@ export const contrastChangedEvent = "contrastChanged";
  */
 export function onLaunch(event: LaunchEventData) {
   if (!event.android)
-    throw new Error("Lifecycle: onLaunch - No Android event found");
-  if (initialized) throw new Error("Lifecycle: onLaunch - Already initialized");
+    throw new Error("Events:: onLaunch - No Android event found");
+  if (initialized) throw new Error("Events:: onLaunch - Already initialized");
   initialized = true;
 
   androidLaunchEventLocalizationHandler();
 
-  console.log("Lifecycle: onLaunch called");
+  console.log("Events:: onLaunch called");
 
   // Get initial system appearance
   const systemAppearance = Application.systemAppearance();
@@ -54,7 +54,7 @@ export function onLaunch(event: LaunchEventData) {
   const localeOverriddenSuccessfully = overrideLocale("de-DE");
   console.log("localeOverriddenSuccessfully", localeOverriddenSuccessfully);
 
-  lifecycleEvents.dispatch(Application.launchEvent, event);
+  events.dispatch(Application.launchEvent, event);
 
   listenContrastChange();
 
@@ -106,7 +106,7 @@ const listenContrastChange = () => {
           contrastMode: newMode,
           initial: false,
         };
-        lifecycleEvents.dispatch(contrastChangedEvent, contrastChangeEventData);
+        events.dispatch(contrastChangedEvent, contrastChangeEventData);
       },
     }
   );
@@ -123,15 +123,13 @@ const listenContrastChange = () => {
     initialMode = ContrastMode.NORMAL;
   }
 
-  // Dispatch initial state after a short delay to allow listeners to attach
-  setTimeout(() => {
-    const contrastChangeEventData: ContrastChangeEventData = {
-      contrastMode: initialMode,
-      initial: true,
-    };
+  // Dispatch initial state
+  const contrastChangeEventData: ContrastChangeEventData = {
+    contrastMode: initialMode,
+    initial: true,
+  };
 
-    lifecycleEvents.dispatch(contrastChangedEvent, contrastChangeEventData);
-  }, 100);
+  events.dispatch(contrastChangedEvent, contrastChangeEventData);
 
   uiModeManager.addContrastChangeListener(mainExecutor, contrastListener);
   console.log("ContrastChangeListener added.");
@@ -139,17 +137,18 @@ const listenContrastChange = () => {
 
 const listenWindowInsetsChange = () => {
   const activity =
-    Application.android.foregroundActivity || Application.android.startActivity;
+    Application.android?.foregroundActivity ||
+    Application.android?.startActivity;
   if (!activity) {
     throw new Error(
-      "Lifecycle: Could not get activity to attach WindowInsets listener."
+      "Events:: Could not get activity to attach WindowInsets listener."
     );
   }
 
   const rootView = activity.getWindow().getDecorView().getRootView();
   if (!rootView) {
     throw new Error(
-      "Lifecycle: Could not get root view to attach WindowInsets listener."
+      "Events:: Could not get root view to attach WindowInsets listener."
     );
   }
 
@@ -160,7 +159,7 @@ const listenWindowInsetsChange = () => {
         view: android_view_View,
         insets: androidx_core_view_WindowInsetsCompat
       ): androidx_core_view_WindowInsetsCompat => {
-        lifecycleEvents.dispatch(windowInsetsChangedEvent, insets);
+        events.dispatch(windowInsetsChangedEvent, insets);
         // Return the insets consumed by the decor view's default listener
         // to ensure proper handling by the system
         return androidx_core_view_ViewCompat.onApplyWindowInsets(view, insets);
@@ -172,32 +171,32 @@ const listenWindowInsetsChange = () => {
 };
 
 /**
- * Initializes the lifecycle hooks at the appropriate time based on platform
+ * Initializes the Events: hooks at the appropriate time based on platform
  */
-export function initLifecycle() {
+export function setupEvents() {
   if (!Application.android) {
-    throw new Error("Lifecycle: initLifecycle - No Android application found");
+    throw new Error("Events:: setupEvents - No Android application found");
   }
 
   // This registers the onLaunch handler to the native Application event.
-  // onLaunch itself will dispatch the event via lifecycleEvents.
+  // onLaunch itself will dispatch the event via events.
   Application.once(Application.launchEvent, onLaunch);
 
   // Listen for theme changes
   Application.on(
     Application.systemAppearanceChangedEvent,
     (event: SystemAppearanceChangedEventData) => {
-      lifecycleEvents.dispatch(Application.systemAppearanceChangedEvent, event);
+      events.dispatch(Application.systemAppearanceChangedEvent, event);
     }
   );
 
   // Listen for display changes
   Application.on(Application.displayedEvent, () => {
-    lifecycleEvents.dispatch(Application.displayedEvent, {});
+    events.dispatch(Application.displayedEvent, {});
   });
 
   // Listen for resume events
   Application.on(Application.resumeEvent, (args) => {
-    lifecycleEvents.dispatch(Application.resumeEvent, args);
+    events.dispatch(Application.resumeEvent, args);
   });
 }

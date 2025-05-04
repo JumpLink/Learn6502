@@ -1,5 +1,6 @@
 import { Application, Utils, View, CoreTypes } from "@nativescript/core";
 import { getColor } from "./color";
+import { waitForFunctionResult } from "./control";
 import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
 
 export function isDarkMode(): boolean {
@@ -227,5 +228,17 @@ export function restartApp(): void {
     android.os.Process.killProcess(android.os.Process.myPid());
   } catch (error) {
     console.error("Error restarting application:", error);
+  }
+}
+
+export async function getRootViewWhenReady() {
+  try {
+    const rootView = await waitForFunctionResult(
+      Application.getRootView.bind(Application)
+    );
+    console.log("Root view is ready:", rootView);
+    return rootView;
+  } catch (error) {
+    console.error("Failed to get root view:", error);
   }
 }

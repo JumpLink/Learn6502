@@ -1,5 +1,5 @@
 import { Application } from "@nativescript/core";
-import { lifecycleEvents } from "./utils";
+import { events } from "./utils";
 import type { EventData, Frame } from "@nativescript/core";
 
 export function onLoaded(args: EventData) {
@@ -10,5 +10,5 @@ export function onLoaded(args: EventData) {
   const rootView = Application.getRootView();
   console.log("rootView cssClasses", Array.from(rootView.cssClasses.values()));
 
-  lifecycleEvents.dispatch("loaded:app-root", { rootFrame, rootView });
+  events.dispatch("loaded:app-root", { rootFrame, rootView });
 }
