@@ -8,21 +8,21 @@ import {
   EventData,
   View,
   CoreTypes,
-} from "@nativescript/core";
-import { BottomTab } from "./bottom-tab";
+} from '@nativescript/core'
+import { BottomTab } from './bottom-tab'
 import {
   createColorStateList,
   getColor,
   setNavigationBarAppearance,
-} from "../utils/index";
+} from '../utils/index'
 import {
   lifecycleEvents,
   getResource,
   windowInsetsChangedEvent,
-} from "../utils/index";
+} from '../utils/index'
 
 // Import necessary AndroidX classes
-import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
+import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat
 
 /**
  * Material Design 3 Bottom Navigation component for Android
@@ -45,7 +45,7 @@ import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCo
  * For more details, see the [Material Design Bottom Navigation documentation](https://github.com/material-components/material-components-android/blob/master/docs/components/BottomNavigation.md)
  *
  * @example
- * <BottomNavigation navBackgroundColor="md_theme_surface" activeColor="md_theme_primary">
+ * <BottomNavigation class="bg-surface-container" activeColor="md_theme_primary">
  *   <BottomTab id="home" title="Home" icon="res://ic_home" />
  *   <BottomTab id="search" title="Search" icon="res://ic_search" />
  * </BottomNavigation>
@@ -53,77 +53,57 @@ import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCo
 
 // Define custom properties for colors
 /**
- * Property for setting the navigation bar background color
- * @default 'md_theme_surfaceContainer'
- */
-const navBackgroundColorProperty = new Property<BottomNavigation, string>({
-  name: "navBackgroundColor",
-  defaultValue: "md_theme_surfaceContainer",
-});
-
-/**
  * Property for setting the active item color (text and icons)
  * @default 'md_theme_onSurface'
  */
 const activeColorProperty = new Property<BottomNavigation, string>({
-  name: "activeColor",
-  defaultValue: "md_theme_onSurface",
-});
+  name: 'activeColor',
+  defaultValue: 'md_theme_onSurface',
+})
 
 /**
  * Property for setting the inactive item color (text and icons)
  * @default 'md_theme_onSurfaceVariant'
  */
 const inactiveColorProperty = new Property<BottomNavigation, string>({
-  name: "inactiveColor",
-  defaultValue: "md_theme_onSurfaceVariant",
-});
+  name: 'inactiveColor',
+  defaultValue: 'md_theme_onSurfaceVariant',
+})
 
 /**
  * Property for setting the active indicator color
  * @default 'md_theme_secondaryContainer'
  */
 const indicatorColorProperty = new Property<BottomNavigation, string>({
-  name: "indicatorColor",
-  defaultValue: "md_theme_primaryContainer",
-});
+  name: 'indicatorColor',
+  defaultValue: 'md_theme_primaryContainer',
+})
 
 export class BottomNavigation extends ContentView {
   /** The native Android bottom navigation view */
-  private bottomNav: com.google.android.material.bottomnavigation.BottomNavigationView;
+  private bottomNav: com.google.android.material.bottomnavigation.BottomNavigationView
   /** Tabs to be added once the native view is created */
-  private pendingTabs: BottomTab[] = [];
+  private pendingTabs: BottomTab[] = []
   /** Map of tab IDs to BottomTab instances */
-  private tabsById = new Map<string, BottomTab>();
+  private tabsById = new Map<string, BottomTab>()
   /** Map of tab IDs to menu item IDs */
-  private idToMenuId = new Map<string, number>();
+  private idToMenuId = new Map<string, number>()
 
   // Property backing fields
-  /** Background color of the navigation bar */
-  private _navBackgroundColor: string = navBackgroundColorProperty.defaultValue;
   /** Color for active items (text and icons) */
-  private _activeColor: string = activeColorProperty.defaultValue;
+  private _activeColor: string = activeColorProperty.defaultValue
   /** Color for inactive items (text and icons) */
-  private _inactiveColor: string = inactiveColorProperty.defaultValue;
+  private _inactiveColor: string = inactiveColorProperty.defaultValue
   /** Color for the active indicator */
   private _indicatorColor: string = indicatorColorProperty.defaultValue;
-
-  /**
-   * Native property change handler for navBackgroundColor
-   * @param value - The new navigation background color value
-   */
-  [navBackgroundColorProperty.setNative](value: string) {
-    this._navBackgroundColor = value;
-    this.applyTheme();
-  }
 
   /**
    * Native property change handler for activeColor
    * @param value - The new active color value
    */
   [activeColorProperty.setNative](value: string) {
-    this._activeColor = value;
-    this.applyTheme();
+    this._activeColor = value
+    this.applyTheme()
   }
 
   /**
@@ -131,8 +111,8 @@ export class BottomNavigation extends ContentView {
    * @param value - The new inactive color value
    */
   [inactiveColorProperty.setNative](value: string) {
-    this._inactiveColor = value;
-    this.applyTheme();
+    this._inactiveColor = value
+    this.applyTheme()
   }
 
   /**
@@ -140,58 +120,50 @@ export class BottomNavigation extends ContentView {
    * @param value - The new indicator color value
    */
   [indicatorColorProperty.setNative](value: string) {
-    this._indicatorColor = value;
-    this.applyTheme();
+    this._indicatorColor = value
+    this.applyTheme()
   }
 
   /**
    * Gets the Android context
    */
   get context(): android.content.Context {
-    return this._context;
+    return this._context
   }
 
   // Getters and setters for properties
-  get navBackgroundColor(): string {
-    return this._navBackgroundColor;
-  }
-
-  set navBackgroundColor(value: string) {
-    this._navBackgroundColor = value;
-    this.applyTheme();
-  }
 
   get activeColor(): string {
-    return this._activeColor;
+    return this._activeColor
   }
 
   set activeColor(value: string) {
-    this._activeColor = value;
-    this.applyTheme();
+    this._activeColor = value
+    this.applyTheme()
   }
 
   get inactiveColor(): string {
-    return this._inactiveColor;
+    return this._inactiveColor
   }
 
   set inactiveColor(value: string) {
-    this._inactiveColor = value;
-    this.applyTheme();
+    this._inactiveColor = value
+    this.applyTheme()
   }
 
   get indicatorColor(): string {
-    return this._indicatorColor;
+    return this._indicatorColor
   }
 
   set indicatorColor(value: string) {
-    this._indicatorColor = value;
-    this.applyTheme();
+    this._indicatorColor = value
+    this.applyTheme()
   }
 
   constructor() {
-    super();
-    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
-    this.onWindowInsetsChanged = this.onWindowInsetsChanged.bind(this);
+    super()
+    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this)
+    this.onWindowInsetsChanged = this.onWindowInsetsChanged.bind(this)
   }
 
   /**
@@ -203,67 +175,67 @@ export class BottomNavigation extends ContentView {
     const defStyleAttr = this.context
       .getResources()
       .getIdentifier(
-        "bottomNavigationStyle",
-        "attr",
-        this.context.getPackageName()
-      );
+        'bottomNavigationStyle',
+        'attr',
+        this.context.getPackageName(),
+      )
 
     this.bottomNav =
       new com.google.android.material.bottomnavigation.BottomNavigationView(
         this.context,
         null,
-        defStyleAttr
-      );
+        defStyleAttr,
+      )
 
     // Set label visibility mode
     this.bottomNav.setLabelVisibilityMode(
       com.google.android.material.bottomnavigation.LabelVisibilityMode
-        .LABEL_VISIBILITY_LABELED
-    );
+        .LABEL_VISIBILITY_LABELED,
+    )
 
     // Set up item selection listener
     this.bottomNav.setOnItemSelectedListener(
       new com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener(
         {
           onNavigationItemSelected: (
-            menuItem: android.view.MenuItem
+            menuItem: android.view.MenuItem,
           ): boolean => {
-            const menuId = menuItem.getItemId();
+            const menuId = menuItem.getItemId()
             // Find the tab with this menu ID and navigate to its page
             for (const [tabId, menuItemId] of this.idToMenuId.entries()) {
               if (menuItemId === menuId) {
-                const tab = this.tabsById.get(tabId);
+                const tab = this.tabsById.get(tabId)
                 if (!tab) {
                   console.error(
-                    `BottomNavigation: onNavigationItemSelected - Tab with ID ${tabId} not found`
-                  );
-                  return false;
+                    `BottomNavigation: onNavigationItemSelected - Tab with ID ${tabId} not found`,
+                  )
+                  return false
                 }
-                this.navigateToTab(tab);
-                return true;
+                this.navigateToTab(tab)
+                return true
               }
             }
-            return false;
+            return false
           },
-        }
-      )
-    );
+        },
+      ),
+    )
 
     // Apply current theme
-    this.applyTheme();
+    this.applyTheme()
 
     lifecycleEvents.on(
       Application.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+      this.onSystemAppearanceChanged,
+    )
 
     // Process any pending tabs that were added before view creation
     if (this.pendingTabs.length > 0) {
-      this.pendingTabs.forEach((tab) => this.addTabToMenu(tab));
-      this.pendingTabs = [];
+      this.pendingTabs.forEach((tab) => this.addTabToMenu(tab))
+      this.pendingTabs = []
     }
 
-    return this.bottomNav;
+    return this.bottomNav
   }
 
   /**
@@ -271,10 +243,10 @@ export class BottomNavigation extends ContentView {
    * Called by NativeScript after the native view is created
    */
   public initNativeView(): void {
-    super.initNativeView();
+    super.initNativeView()
 
     // Subscribe to the global window insets event
-    lifecycleEvents.on(windowInsetsChangedEvent, this.onWindowInsetsChanged);
+    lifecycleEvents.on(windowInsetsChangedEvent, this.onWindowInsetsChanged)
 
     // Additional initialization if needed
   }
@@ -284,9 +256,9 @@ export class BottomNavigation extends ContentView {
    * @param event - The system appearance change event
    */
   private onSystemAppearanceChanged(
-    event: SystemAppearanceChangedEventData
+    event: SystemAppearanceChangedEventData,
   ): void {
-    this.applyTheme(event.newValue === "dark");
+    this.applyTheme(event.newValue === 'dark')
   }
 
   /**
@@ -294,27 +266,25 @@ export class BottomNavigation extends ContentView {
    * Called when colors change or system theme changes
    */
   private applyTheme(
-    isDarkMode = Application.systemAppearance() === "dark"
+    isDarkMode = Application.systemAppearance() === 'dark',
   ): void {
-    if (!this.bottomNav) return;
+    if (!this.bottomNav) return
 
-    console.log("applyTheme");
+    console.log('applyTheme')
 
-    const backgroundColor = getColor(this._navBackgroundColor, this.context);
-    const activeColor = getColor(this._activeColor, this.context);
-    const inactiveColor = getColor(this._inactiveColor, this.context);
-    const indicatorColor = getColor(this._indicatorColor, this.context);
+    const activeColor = getColor(this._activeColor, this.context)
+    const inactiveColor = getColor(this._inactiveColor, this.context)
+    const indicatorColor = getColor(this._indicatorColor, this.context)
 
-    const itemStateList = createColorStateList(activeColor, inactiveColor);
-    const indicatorStateList = createColorStateList(indicatorColor);
+    const itemStateList = createColorStateList(activeColor, inactiveColor)
+    const indicatorStateList = createColorStateList(indicatorColor)
 
-    this.bottomNav.setBackgroundColor(backgroundColor);
-    this.bottomNav.setItemTextColor(itemStateList);
-    this.bottomNav.setItemIconTintList(itemStateList);
-    this.bottomNav.setItemActiveIndicatorColor(indicatorStateList);
+    this.bottomNav.setItemTextColor(itemStateList)
+    this.bottomNav.setItemIconTintList(itemStateList)
+    this.bottomNav.setItemActiveIndicatorColor(indicatorStateList)
 
     // Uniform the navigation bar appearance to match the bottom navigation background color
-    setNavigationBarAppearance(backgroundColor, isDarkMode);
+    setNavigationBarAppearance(undefined, isDarkMode)
   }
 
   /**
@@ -325,14 +295,14 @@ export class BottomNavigation extends ContentView {
     // Remove listeners
     lifecycleEvents.off(
       Application.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
-    lifecycleEvents.off(windowInsetsChangedEvent, this.onWindowInsetsChanged);
+      this.onSystemAppearanceChanged,
+    )
+    lifecycleEvents.off(windowInsetsChangedEvent, this.onWindowInsetsChanged)
 
-    this.bottomNav = null;
-    this.tabsById.clear();
-    this.idToMenuId.clear();
-    super.disposeNativeView();
+    this.bottomNav = null
+    this.tabsById.clear()
+    this.idToMenuId.clear()
+    super.disposeNativeView()
   }
 
   /**
@@ -346,13 +316,13 @@ export class BottomNavigation extends ContentView {
   public _addChildFromBuilder(name: string, value: any) {
     if (value instanceof BottomTab) {
       if (this.bottomNav) {
-        this.addTabToMenu(value);
+        this.addTabToMenu(value)
       } else {
         // Store tabs to add them once the view is created
-        this.pendingTabs.push(value);
+        this.pendingTabs.push(value)
       }
       // Store the tab by ID for later reference
-      this.tabsById.set(value.id, value);
+      this.tabsById.set(value.id, value)
     }
   }
 
@@ -363,18 +333,18 @@ export class BottomNavigation extends ContentView {
    * @param tab - The BottomTab instance to add
    */
   private addTabToMenu(tab: BottomTab): void {
-    const menuId = Math.floor(Math.random() * 10000);
-    tab.id = tab.id || `tab${menuId}`;
+    const menuId = Math.floor(Math.random() * 10000)
+    tab.id = tab.id || `tab${menuId}`
 
-    const menuItem = this.bottomNav.getMenu().add(0, menuId, 0, tab.title);
+    const menuItem = this.bottomNav.getMenu().add(0, menuId, 0, tab.title)
     // Map tab ID to menu item ID
-    this.idToMenuId.set(tab.id, menuId);
+    this.idToMenuId.set(tab.id, menuId)
 
-    if (tab.icon?.startsWith("res://")) {
-      const iconName = tab.icon.replace("res://", "");
-      const resId = getResource(iconName, "drawable", this.context);
+    if (tab.icon?.startsWith('res://')) {
+      const iconName = tab.icon.replace('res://', '')
+      const resId = getResource(iconName, 'drawable', this.context)
       if (resId) {
-        menuItem.setIcon(resId);
+        menuItem.setIcon(resId)
       }
     }
   }
@@ -387,13 +357,13 @@ export class BottomNavigation extends ContentView {
    */
   private navigateToTab(tab: BottomTab): void {
     // Find the main frame to navigate
-    const mainFrame = Frame.getFrameById("mainFrame");
+    const mainFrame = Frame.getFrameById('mainFrame')
     if (mainFrame) {
       // Navigate to page corresponding to tab
       mainFrame.navigate({
         moduleName: tab.moduleName,
         clearHistory: true,
-      });
+      })
     }
   }
 
@@ -403,51 +373,51 @@ export class BottomNavigation extends ContentView {
    * @param insets - The WindowInsetsCompat object received from the event.
    */
   private onWindowInsetsChanged(
-    insets: androidx_core_view_WindowInsetsCompat
+    insets: androidx_core_view_WindowInsetsCompat,
   ): void {
     if (!this.bottomNav || !insets) {
       // Check bottomNav and insets
       console.log(
-        "BottomNavigation: onWindowInsetsChanged called but bottomNav or insets are null"
-      );
-      return;
+        'BottomNavigation: onWindowInsetsChanged called but bottomNav or insets are null',
+      )
+      return
     }
     try {
       // Get navigation bar insets directly from WindowInsetsCompat
       const bottomInsetPixels = insets.getInsets(
-        androidx_core_view_WindowInsetsCompat.Type.navigationBars()
-      ).bottom;
+        androidx_core_view_WindowInsetsCompat.Type.navigationBars(),
+      ).bottom
       // Use getMeasuredHeight which reflects the actual measured size, might be more reliable than getMinimumHeight
-      const bottomNavHeightPixels = this.bottomNav.getMinimumHeight(); // measured height not works here so we use getMinimumHeight
-      this.bottomNav.setPadding(0, 0, 0, bottomInsetPixels);
+      const bottomNavHeightPixels = this.bottomNav.getMinimumHeight() // measured height not works here so we use getMinimumHeight
+      this.bottomNav.setPadding(0, 0, 0, bottomInsetPixels)
 
       if (bottomNavHeightPixels <= 0) {
         // If measured height is 0, it might mean the view hasn't been laid out yet.
         // We might need to request layout or wait.
         console.log(
-          "BottomNavigation: onWindowInsetsChanged - Measured height is 0. Requesting layout."
-        );
+          'BottomNavigation: onWindowInsetsChanged - Measured height is 0. Requesting layout.',
+        )
         // Request layout to potentially trigger a remeasure
-        return this.requestLayout();
+        return this.requestLayout()
       }
 
-      const totalHeightPixels = bottomNavHeightPixels + bottomInsetPixels;
+      const totalHeightPixels = bottomNavHeightPixels + bottomInsetPixels
       // Convert total pixels to DIPs for setting NativeScript height property
-      this.height = Utils.layout.toDeviceIndependentPixels(totalHeightPixels);
+      this.height = Utils.layout.toDeviceIndependentPixels(totalHeightPixels)
 
       console.log(
-        "BottomNavigation: onWindowInsetsChanged - Native Measured Height (Pixels):",
+        'BottomNavigation: onWindowInsetsChanged - Native Measured Height (Pixels):',
         bottomNavHeightPixels,
-        "| Padding Bottom (Pixels):",
+        '| Padding Bottom (Pixels):',
         bottomInsetPixels,
-        "| Total Calculated Height (DIPs):",
-        this.height
-      );
+        '| Total Calculated Height (DIPs):',
+        this.height,
+      )
     } catch (error) {
       console.error(
-        "BottomNavigation: Error during onWindowInsetsChanged height calculation:",
-        error
-      );
+        'BottomNavigation: Error during onWindowInsetsChanged height calculation:',
+        error,
+      )
     }
   }
 }
@@ -456,7 +426,6 @@ export class BottomNavigation extends ContentView {
  * Register custom properties with NativeScript
  * This allows the properties to be set via XML attributes
  */
-navBackgroundColorProperty.register(BottomNavigation);
-activeColorProperty.register(BottomNavigation);
-inactiveColorProperty.register(BottomNavigation);
-indicatorColorProperty.register(BottomNavigation);
+activeColorProperty.register(BottomNavigation)
+inactiveColorProperty.register(BottomNavigation)
+indicatorColorProperty.register(BottomNavigation)
