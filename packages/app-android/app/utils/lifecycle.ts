@@ -63,95 +63,78 @@ export function onLaunch(event: LaunchEventData) {
 
 const listenContrastChange = () => {
   // Listen for contrast changes (API 34+)
-  if (android.os.Build.VERSION.SDK_INT >= 34) {
-    const context = Utils.android.getApplicationContext();
-    if (context) {
-      const uiModeManager = context.getSystemService(
-        android.content.Context.UI_MODE_SERVICE
-      ) as android.app.UiModeManager;
-
-      if (uiModeManager) {
-        // Get the main executor to run the callback on the main thread
-        const mainExecutor = context.getMainExecutor();
-
-        if (mainExecutor) {
-          const contrastListener =
-            new android.app.UiModeManager.ContrastChangeListener({
-              onContrastChanged: (contrastLevel: number) => {
-                console.log("System contrast changed:", contrastLevel);
-                let newMode: ContrastMode;
-                if (contrastLevel === 1) {
-                  newMode = ContrastMode.HIGH;
-                } else if (contrastLevel === 0.5) {
-                  newMode = ContrastMode.MEDIUM;
-                } else {
-                  newMode = ContrastMode.NORMAL;
-                }
-                const contrastChangeEventData: ContrastChangeEventData = {
-                  contrastMode: newMode,
-                  initial: false,
-                };
-                lifecycleEvents.dispatch(
-                  contrastChangedEvent,
-                  contrastChangeEventData
-                );
-              },
-            });
-
-          // Get initial contrast state and dispatch
-          const initialContrast = uiModeManager.getContrast();
-          console.log("Initial system contrast level:", initialContrast);
-          let initialMode: ContrastMode;
-          if (initialContrast === 1) {
-            initialMode = ContrastMode.HIGH;
-          } else if (initialContrast === 0.5) {
-            initialMode = ContrastMode.MEDIUM;
-          } else {
-            initialMode = ContrastMode.NORMAL;
-          }
-
-          // Dispatch initial state after a short delay to allow listeners to attach
-          setTimeout(() => {
-            const contrastChangeEventData: ContrastChangeEventData = {
-              contrastMode: initialMode,
-              initial: true,
-            };
-
-            lifecycleEvents.dispatch(
-              contrastChangedEvent,
-              contrastChangeEventData
-            );
-          }, 100);
-
-          uiModeManager.addContrastChangeListener(
-            mainExecutor,
-            contrastListener
-          );
-          console.log("ContrastChangeListener added.");
-
-          // TODO: Consider adding logic to remove the listener when the app exits
-          // Application.on(Application.exitEvent, () => {
-          //   if (uiModeManager && contrastListener) {
-          //      uiModeManager.removeContrastChangeListener(contrastListener);
-          //      console.log("ContrastChangeListener removed.");
-          //   }
-          // });
-        } else {
-          console.error(
-            "Could not get main executor for ContrastChangeListener."
-          );
-        }
-      } else {
-        console.error(
-          "Could not get UiModeManager service for contrast listener."
-        );
-      }
-    } else {
-      console.error("Could not get application context for contrast listener.");
-    }
-  } else {
+  if (android.os.Build.VERSION.SDK_INT < 34) {
     console.warn("ContrastChangeListener requires API level 34+.");
+    return;
   }
+
+  const context = Utils.android.getApplicationContext();
+  if (!context) {
+    console.error("Could not get application context for contrast listener.");
+    return;
+  }
+
+  const uiModeManager = context.getSystemService(
+    android.content.Context.UI_MODE_SERVICE
+  ) as android.app.UiModeManager;
+
+  if (!uiModeManager) {
+    console.error("Could not get UiModeManager service for contrast listener.");
+    return;
+  }
+
+  // Get the main executor to run the callback on the main thread
+  const mainExecutor = context.getMainExecutor();
+  if (!mainExecutor) {
+    console.error("Could not get main executor for ContrastChangeListener.");
+    return;
+  }
+
+  const contrastListener = new android.app.UiModeManager.ContrastChangeListener(
+    {
+      onContrastChanged: (contrastLevel: number) => {
+        console.log("System contrast changed:", contrastLevel);
+        let newMode: ContrastMode;
+        if (contrastLevel === 1) {
+          newMode = ContrastMode.HIGH;
+        } else if (contrastLevel === 0.5) {
+          newMode = ContrastMode.MEDIUM;
+        } else {
+          newMode = ContrastMode.NORMAL;
+        }
+        const contrastChangeEventData: ContrastChangeEventData = {
+          contrastMode: newMode,
+          initial: false,
+        };
+        lifecycleEvents.dispatch(contrastChangedEvent, contrastChangeEventData);
+      },
+    }
+  );
+
+  // Get initial contrast state and dispatch
+  const initialContrast = uiModeManager.getContrast();
+  console.log("Initial system contrast level:", initialContrast);
+  let initialMode: ContrastMode;
+  if (initialContrast === 1) {
+    initialMode = ContrastMode.HIGH;
+  } else if (initialContrast === 0.5) {
+    initialMode = ContrastMode.MEDIUM;
+  } else {
+    initialMode = ContrastMode.NORMAL;
+  }
+
+  // Dispatch initial state after a short delay to allow listeners to attach
+  setTimeout(() => {
+    const contrastChangeEventData: ContrastChangeEventData = {
+      contrastMode: initialMode,
+      initial: true,
+    };
+
+    lifecycleEvents.dispatch(contrastChangedEvent, contrastChangeEventData);
+  }, 100);
+
+  uiModeManager.addContrastChangeListener(mainExecutor, contrastListener);
+  console.log("ContrastChangeListener added.");
 };
 
 const listenWindowInsetsChange = () => {
