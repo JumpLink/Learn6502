@@ -1,5 +1,5 @@
 import { Application, Utils, View, CoreTypes } from "@nativescript/core";
-import { getColor } from "./color";
+import { getMaterialColor } from "./color";
 import { waitForFunctionResult } from "./control";
 import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
 
@@ -21,7 +21,7 @@ export function setStatusBarAppearance(
     // Convert color name to color value if provided
     backgroundColor =
       typeof backgroundColor === "string"
-        ? getColor(backgroundColor, context)
+        ? getMaterialColor(backgroundColor, context)
         : backgroundColor;
     const window = Application.android.startActivity.getWindow();
     if (!window) return;
@@ -30,7 +30,7 @@ export function setStatusBarAppearance(
     if (backgroundColor !== undefined) {
       window.setStatusBarColor(backgroundColor);
     } else {
-      const colorSurface = getColor("md_theme_surface", context);
+      const colorSurface = getMaterialColor("surface", context);
       window.setStatusBarColor(colorSurface);
     }
 
@@ -87,7 +87,7 @@ export function setNavigationBarAppearance(
     // Convert color name to color value if provided
     backgroundColor =
       typeof backgroundColor === "string"
-        ? getColor(backgroundColor, context)
+        ? getMaterialColor(backgroundColor, context)
         : backgroundColor;
     const window = Application.android.startActivity.getWindow();
     if (!window) return;

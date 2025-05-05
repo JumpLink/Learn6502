@@ -12,7 +12,7 @@ import {
 import { BottomTab } from "./bottom-tab";
 import {
   createColorStateList,
-  getColor,
+  getMaterialColor,
   setNavigationBarAppearance,
 } from "../utils/index";
 import { getResource } from "../utils/index";
@@ -43,7 +43,7 @@ import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
  * For more details, see the [Material Design Bottom Navigation documentation](https://github.com/material-components/material-components-android/blob/master/docs/components/BottomNavigation.md)
  *
  * @example
- * <BottomNavigation class="bg-surface-container" activeColor="md_theme_primary">
+ * <BottomNavigation class="bg-surface-container" activeColor="primary">
  *   <BottomTab id="home" title="Home" icon="res://ic_home" />
  *   <BottomTab id="search" title="Search" icon="res://ic_search" />
  * </BottomNavigation>
@@ -51,30 +51,48 @@ import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
 
 // Define custom properties for colors
 /**
- * Property for setting the active item color (text and icons)
- * @default 'md_theme_onSurface'
+ * Property for setting the active text color
+ * @default 'onSurface'
  */
-const activeColorProperty = new Property<BottomNavigation, string>({
-  name: "activeColor",
-  defaultValue: "md_theme_onSurface",
+const activeTextColorProperty = new Property<BottomNavigation, string>({
+  name: "activeTextColor",
+  defaultValue: "onSurface",
 });
 
 /**
- * Property for setting the inactive item color (text and icons)
- * @default 'md_theme_onSurfaceVariant'
+ * Property for setting the active icon color
+ * @default 'onSecondaryContainer'
  */
-const inactiveColorProperty = new Property<BottomNavigation, string>({
-  name: "inactiveColor",
-  defaultValue: "md_theme_onSurfaceVariant",
+const activeIconColorProperty = new Property<BottomNavigation, string>({
+  name: "activeIconColor",
+  defaultValue: "onSecondaryContainer",
+});
+
+/**
+ * Property for setting the inactive text color
+ * @default 'onSurfaceVariant'
+ */
+const inactiveTextColorProperty = new Property<BottomNavigation, string>({
+  name: "inactiveTextColor",
+  defaultValue: "onSurfaceVariant",
+});
+
+/**
+ * Property for setting the inactive icon color
+ * @default 'onSurfaceVariant'
+ */
+const inactiveIconColorProperty = new Property<BottomNavigation, string>({
+  name: "inactiveIconColor",
+  defaultValue: "onSurfaceVariant",
 });
 
 /**
  * Property for setting the active indicator color
- * @default 'md_theme_secondaryContainer'
+ * @default 'secondaryContainer'
  */
 const indicatorColorProperty = new Property<BottomNavigation, string>({
   name: "indicatorColor",
-  defaultValue: "md_theme_primaryContainer",
+  defaultValue: "secondaryContainer",
 });
 
 export class BottomNavigation extends ContentView {
@@ -88,28 +106,50 @@ export class BottomNavigation extends ContentView {
   private idToMenuId = new Map<string, number>();
 
   // Property backing fields
-  /** Color for active items (text and icons) */
-  private _activeColor: string = activeColorProperty.defaultValue;
-  /** Color for inactive items (text and icons) */
-  private _inactiveColor: string = inactiveColorProperty.defaultValue;
+  /** Color for active text */
+  private _activeTextColor: string = activeTextColorProperty.defaultValue;
+  /** Color for active icons */
+  private _activeIconColor: string = activeIconColorProperty.defaultValue;
+  /** Color for inactive text */
+  private _inactiveTextColor: string = inactiveTextColorProperty.defaultValue;
+  /** Color for inactive icons */
+  private _inactiveIconColor: string = inactiveIconColorProperty.defaultValue;
   /** Color for the active indicator */
   private _indicatorColor: string = indicatorColorProperty.defaultValue;
 
   /**
-   * Native property change handler for activeColor
-   * @param value - The new active color value
+   * Native property change handler for activeTextColor
+   * @param value - The new active text color value
    */
-  [activeColorProperty.setNative](value: string) {
-    this._activeColor = value;
+  [activeTextColorProperty.setNative](value: string) {
+    this._activeTextColor = value;
     this.applyTheme();
   }
 
   /**
-   * Native property change handler for inactiveColor
-   * @param value - The new inactive color value
+   * Native property change handler for activeIconColor
+   * @param value - The new active icon color value
    */
-  [inactiveColorProperty.setNative](value: string) {
-    this._inactiveColor = value;
+  [activeIconColorProperty.setNative](value: string) {
+    this._activeIconColor = value;
+    this.applyTheme();
+  }
+
+  /**
+   * Native property change handler for inactiveTextColor
+   * @param value - The new inactive text color value
+   */
+  [inactiveTextColorProperty.setNative](value: string) {
+    this._inactiveTextColor = value;
+    this.applyTheme();
+  }
+
+  /**
+   * Native property change handler for inactiveIconColor
+   * @param value - The new inactive icon color value
+   */
+  [inactiveIconColorProperty.setNative](value: string) {
+    this._inactiveIconColor = value;
     this.applyTheme();
   }
 
@@ -131,21 +171,39 @@ export class BottomNavigation extends ContentView {
 
   // Getters and setters for properties
 
-  get activeColor(): string {
-    return this._activeColor;
+  get activeTextColor(): string {
+    return this._activeTextColor;
   }
 
-  set activeColor(value: string) {
-    this._activeColor = value;
+  set activeTextColor(value: string) {
+    this._activeTextColor = value;
     this.applyTheme();
   }
 
-  get inactiveColor(): string {
-    return this._inactiveColor;
+  get activeIconColor(): string {
+    return this._activeIconColor;
   }
 
-  set inactiveColor(value: string) {
-    this._inactiveColor = value;
+  set activeIconColor(value: string) {
+    this._activeIconColor = value;
+    this.applyTheme();
+  }
+
+  get inactiveTextColor(): string {
+    return this._inactiveTextColor;
+  }
+
+  set inactiveTextColor(value: string) {
+    this._inactiveTextColor = value;
+    this.applyTheme();
+  }
+
+  get inactiveIconColor(): string {
+    return this._inactiveIconColor;
+  }
+
+  set inactiveIconColor(value: string) {
+    this._inactiveIconColor = value;
     this.applyTheme();
   }
 
@@ -271,15 +329,39 @@ export class BottomNavigation extends ContentView {
 
     console.log("applyTheme");
 
-    const activeColor = getColor(this._activeColor, this.context);
-    const inactiveColor = getColor(this._inactiveColor, this.context);
-    const indicatorColor = getColor(this._indicatorColor, this.context);
+    // Get colors using the new properties
+    const activeTextColor = getMaterialColor(
+      this._activeTextColor,
+      this.context
+    );
+    const inactiveTextColor = getMaterialColor(
+      this._inactiveTextColor,
+      this.context
+    );
+    const activeIconColor = getMaterialColor(
+      this._activeIconColor,
+      this.context
+    );
+    const inactiveIconColor = getMaterialColor(
+      this._inactiveIconColor,
+      this.context
+    );
+    const indicatorColor = getMaterialColor(this._indicatorColor, this.context);
 
-    const itemStateList = createColorStateList(activeColor, inactiveColor);
+    // Create separate state lists for text and icons
+    const textStateList = createColorStateList(
+      activeTextColor,
+      inactiveTextColor
+    );
+    const iconStateList = createColorStateList(
+      activeIconColor,
+      inactiveIconColor
+    );
     const indicatorStateList = createColorStateList(indicatorColor);
 
-    this.bottomNav.setItemTextColor(itemStateList);
-    this.bottomNav.setItemIconTintList(itemStateList);
+    // Apply the state lists
+    this.bottomNav.setItemTextColor(textStateList);
+    this.bottomNav.setItemIconTintList(iconStateList);
     this.bottomNav.setItemActiveIndicatorColor(indicatorStateList);
 
     // Uniform the navigation bar appearance to match the bottom navigation background color
@@ -426,6 +508,8 @@ export class BottomNavigation extends ContentView {
  * Register custom properties with NativeScript
  * This allows the properties to be set via XML attributes
  */
-activeColorProperty.register(BottomNavigation);
-inactiveColorProperty.register(BottomNavigation);
+activeTextColorProperty.register(BottomNavigation);
+activeIconColorProperty.register(BottomNavigation);
+inactiveTextColorProperty.register(BottomNavigation);
+inactiveIconColorProperty.register(BottomNavigation);
 indicatorColorProperty.register(BottomNavigation);

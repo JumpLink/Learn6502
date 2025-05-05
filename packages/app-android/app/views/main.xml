@@ -31,8 +31,8 @@
             icon="res://nintendo_controller_symbolic"
             text="Play"
             tap="onFabTap"
-            containerColor="md_theme_tertiaryContainer"
-            contentColor="md_theme_onTertiaryContainer"
+            containerColor="tertiaryContainer"
+            contentColor="onTertiaryContainer"
             horizontalAlignment="right"
             verticalAlignment="bottom"
             margin="16"
@@ -42,10 +42,11 @@
         <w:BottomNavigation
             row="1"
             class="bg-surface-container"
-            navBackgroundColor="md_theme_surfaceContainer"
-            activeColor="md_theme_onSurfaceVariant"
-            inactiveColor="md_theme_onSurfaceVariant"
-            indicatorColor="md_theme_secondaryContainer"
+            activeTextColor="onSurface"
+            inactiveTextColor="onSurfaceVariant"
+            activeIconColor="onSecondaryContainer"
+            inactiveIconColor="onSurfaceVariant"
+            indicatorColor="secondaryContainer"
         >
             <w:BottomTab title="Storybook" icon="res://open_book_symbolic" id="storybook"
                 moduleName="views/main/storybook" />

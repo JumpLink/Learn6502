@@ -4,7 +4,11 @@ import {
   Application,
   CSSType,
 } from "@nativescript/core";
-import { createColorStateList, getColor, getResource } from "../utils/index";
+import {
+  createColorStateList,
+  getMaterialColor,
+  getResource,
+} from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
 
@@ -25,7 +29,7 @@ import { SystemAppearanceChangeEvent } from "~/types";
  * and [Android Material Extended FAB](https://github.com/material-components/material-components-android/blob/master/docs/components/ExtendedFloatingActionButton.md)
  *
  * @example
- * <Fab icon="res://ic_add" text="Create" containerColor="md_theme_primaryContainer" contentColor="md_theme_onPrimaryContainer" />
+ * <Fab icon="res://ic_add" text="Create" containerColor="primaryContainer" contentColor="onPrimaryContainer" />
  * <Fab icon="res://ic_edit" /> <!-- Standard FAB -->
  */
 
@@ -46,20 +50,20 @@ const textProperty = new Property<Fab, string>({
 
 /**
  * Property for setting the FAB container background color
- * @default 'md_theme_secondaryContainer'
+ * @default 'secondaryContainer'
  */
 const containerColorProperty = new Property<Fab, string>({
   name: "containerColor",
-  defaultValue: "md_theme_secondaryContainer",
+  defaultValue: "secondaryContainer",
 });
 
 /**
  * Property for setting the FAB icon and text color
- * @default 'md_theme_onSecondaryContainer'
+ * @default 'onSecondaryContainer'
  */
 const contentColorProperty = new Property<Fab, string>({
   name: "contentColor",
-  defaultValue: "md_theme_onSecondaryContainer",
+  defaultValue: "onSecondaryContainer",
 });
 
 // It's important to declare the CSS type for potential future styling
@@ -226,8 +230,11 @@ export class Fab extends ContentView {
   ): void {
     if (!this.fab) return;
 
-    const backgroundColor = getColor(this._containerColor, this.context);
-    const contentColor = getColor(this._contentColor, this.context);
+    const backgroundColor = getMaterialColor(
+      this._containerColor,
+      this.context
+    );
+    const contentColor = getMaterialColor(this._contentColor, this.context);
 
     const backgroundTintList = createColorStateList(backgroundColor);
     // Apply content color to both icon and text

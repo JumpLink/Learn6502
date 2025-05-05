@@ -59,7 +59,7 @@ export class MainController {
   }
 
   private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
-    setStatusBarAppearance("md_theme_surface", event.newValue === "dark");
+    setStatusBarAppearance("surface", event.newValue === "dark");
   }
 
   /**
@@ -84,7 +84,7 @@ export class MainController {
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
-    setStatusBarAppearance("md_theme_surface");
+    setStatusBarAppearance("surface");
 
     this.initFabScrollBehavior();
   }
