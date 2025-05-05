@@ -11,7 +11,7 @@ import {
 import { Fab } from "~/widgets/fab";
 
 import { EventData } from "@nativescript/core";
-import { events, windowInsetsChangedEvent } from "~/utils/events";
+import { systemStates, SystemStates } from "~/states";
 import { setStatusBarAppearance } from "~/utils/system";
 
 // Import WindowInsetsCompat
@@ -79,8 +79,11 @@ export class MainController {
     // Store the bound handler in our map using the view id as key
     const viewId = this.page.id;
 
-    events.on(windowInsetsChangedEvent, this.handleWindowInsets);
-    events.on(
+    systemStates.events.on(
+      SystemStates.windowInsetsChangedEvent,
+      this.handleWindowInsets
+    );
+    systemStates.events.on(
       Application.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
@@ -103,12 +106,18 @@ export class MainController {
 
     // Unsubscribe if handler exists
     if (this.handleWindowInsets) {
-      events.off(windowInsetsChangedEvent, this.handleWindowInsets);
+      systemStates.events.off(
+        SystemStates.windowInsetsChangedEvent,
+        this.handleWindowInsets
+      );
     }
 
     // Backward compatibility
     if (view["insetsHandler"]) {
-      events.off(windowInsetsChangedEvent, view["insetsHandler"]);
+      systemStates.events.off(
+        SystemStates.windowInsetsChangedEvent,
+        view["insetsHandler"]
+      );
     }
   }
 

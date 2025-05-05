@@ -15,7 +15,8 @@ import {
   getColor,
   setNavigationBarAppearance,
 } from "../utils/index";
-import { events, getResource, windowInsetsChangedEvent } from "../utils/index";
+import { getResource } from "../utils/index";
+import { systemStates, SystemStates } from "../states";
 
 // Import necessary AndroidX classes
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
@@ -220,7 +221,7 @@ export class BottomNavigation extends ContentView {
     // Apply current theme
     this.applyTheme();
 
-    events.on(
+    systemStates.events.on(
       Application.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
@@ -242,7 +243,10 @@ export class BottomNavigation extends ContentView {
     super.initNativeView();
 
     // Subscribe to the global window insets event
-    events.on(windowInsetsChangedEvent, this.onWindowInsetsChanged);
+    systemStates.events.on(
+      SystemStates.windowInsetsChangedEvent,
+      this.onWindowInsetsChanged
+    );
 
     // Additional initialization if needed
   }
@@ -289,11 +293,14 @@ export class BottomNavigation extends ContentView {
    */
   public disposeNativeView(): void {
     // Remove listeners
-    events.off(
+    systemStates.events.off(
       Application.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
-    events.off(windowInsetsChangedEvent, this.onWindowInsetsChanged);
+    systemStates.events.off(
+      SystemStates.windowInsetsChangedEvent,
+      this.onWindowInsetsChanged
+    );
 
     this.bottomNav = null;
     this.tabsById.clear();
