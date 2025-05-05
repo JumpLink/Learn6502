@@ -2,13 +2,11 @@ import {
   ContentView,
   Property,
   Application,
-  SystemAppearanceChangedEventData,
-  Utils,
   CSSType,
-  AnimationCurve,
 } from "@nativescript/core";
 import { createColorStateList, getColor, getResource } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
+import { SystemAppearanceChangeEvent } from "~/types";
 
 /**
  * Material Design 3 Extended Floating Action Button (FAB) component for Android
@@ -195,7 +193,7 @@ export class Fab extends ContentView {
     this.applyText();
 
     systemStates.events.on(
-      Application.systemAppearanceChangedEvent,
+      SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
 
@@ -215,9 +213,7 @@ export class Fab extends ContentView {
    * Handles system appearance (dark/light mode) changes
    * @param event - The system appearance change event
    */
-  private onSystemAppearanceChanged(
-    event: SystemAppearanceChangedEventData
-  ): void {
+  private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
     this.applyTheme(event.newValue === "dark");
   }
 
@@ -285,7 +281,7 @@ export class Fab extends ContentView {
   public disposeNativeView(): void {
     // Remove theme change listener
     systemStates.events.off(
-      Application.systemAppearanceChangedEvent,
+      SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
     this.fab = null;

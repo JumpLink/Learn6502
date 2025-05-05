@@ -11,36 +11,116 @@ import {
 import { EventDispatcher } from "@learn6502/6502";
 import { ContrastMode } from "../constants";
 
+import type {
+  ContrastChangeEvent,
+  SystemAppearanceChangeEvent,
+  SystemEventsMap,
+  WindowInsetsChangeEvent,
+} from "~/types";
+
 // Import necessary AndroidX classes
 import androidx_core_view_ViewCompat = androidx.core.view.ViewCompat;
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
 import androidx_core_view_OnApplyWindowInsetsListener = androidx.core.view.OnApplyWindowInsetsListener;
 import android_view_View = android.view.View;
-import { ContrastChangeEventData } from "~/types";
 
 /**
  * Class for managing system-related states and events
  */
 export class SystemStates {
   /**
-   * Event dispatcher for system events
+   * Event dispatcher for system events with type safety
    */
-  public events = new EventDispatcher<any>();
+  public events = new EventDispatcher<SystemEventsMap>();
 
   /**
-   * Event name for window insets changes.
+   * Event name for property change events
+   * These constants provide string literals for the events defined in SystemEventsMap
    */
-  public static readonly windowInsetsChangedEvent = "windowInsetsChanged";
+  public static readonly systemAppearanceChangedEvent =
+    "systemAppearance:changed";
+  public static readonly contrastChangedEvent = "contrast:changed";
+  public static readonly windowInsetsChangedEvent = "windowInsets:changed";
 
-  /**
-   * Event name for contrast mode changes.
-   */
-  public static readonly contrastChangedEvent = "contrastChanged";
+  public static readonly launchEvent = "launchEvent";
+  public static readonly resumeEvent = "resumeEvent";
 
   private initialized = false;
+  private _systemAppearance: string | null = null;
+  private _contrast: ContrastMode | null = null;
+  private _windowInsets: androidx_core_view_WindowInsetsCompat | null = null;
 
   constructor() {
     this.setupEvents();
+  }
+
+  /**
+   * Get the current system appearance
+   */
+  public get systemAppearance(): string | null {
+    return this._systemAppearance;
+  }
+
+  /**
+   * Set the system appearance and dispatch change event if changed
+   */
+  public set systemAppearance(value: string | null) {
+    if (value !== this._systemAppearance) {
+      const oldValue = this._systemAppearance;
+      this._systemAppearance = value;
+      const changeEvent: SystemAppearanceChangeEvent = {
+        newValue: value,
+        oldValue,
+        initial: oldValue === null,
+      };
+      this.events.dispatch("systemAppearance:changed", changeEvent);
+    }
+  }
+
+  /**
+   * Get the current contrast mode
+   */
+  public get contrast(): ContrastMode | null {
+    return this._contrast;
+  }
+
+  /**
+   * Set the contrast mode and dispatch change event if changed
+   */
+  public set contrast(value: ContrastMode | null) {
+    if (value !== this._contrast) {
+      const oldValue = this._contrast;
+      this._contrast = value;
+      const changeEvent: ContrastChangeEvent = {
+        newValue: value,
+        oldValue,
+        initial: oldValue === null,
+      };
+      this.events.dispatch("contrast:changed", changeEvent);
+    }
+  }
+
+  /**
+   * Get the current window insets
+   */
+  public get windowInsets(): androidx_core_view_WindowInsetsCompat | null {
+    return this._windowInsets;
+  }
+
+  /**
+   * Set the window insets and dispatch change event if changed
+   */
+  public set windowInsets(value: androidx_core_view_WindowInsetsCompat | null) {
+    if (value !== this._windowInsets) {
+      const oldValue = this._windowInsets;
+      this._windowInsets = value;
+      const changeEvent: WindowInsetsChangeEvent = {
+        newValue: value,
+        oldValue,
+        initial: oldValue === null,
+      };
+      this.events.dispatch("windowInsets:changed", changeEvent);
+    }
   }
 
   /**
@@ -60,12 +140,13 @@ export class SystemStates {
     // Get initial system appearance
     const systemAppearance = Application.systemAppearance();
     console.log("systemAppearance", systemAppearance);
+    this.systemAppearance = systemAppearance;
 
     // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
     const localeOverriddenSuccessfully = overrideLocale("de-DE");
     console.log("localeOverriddenSuccessfully", localeOverriddenSuccessfully);
 
-    this.events.dispatch(Application.launchEvent, event);
+    this.events.dispatch("launchEvent", event);
 
     this.listenContrastChange();
     this.listenWindowInsetsChange();
@@ -114,14 +195,9 @@ export class SystemStates {
           } else {
             newMode = ContrastMode.NORMAL;
           }
-          const contrastChangeEventData: ContrastChangeEventData = {
-            contrastMode: newMode,
-            initial: false,
-          };
-          this.events.dispatch(
-            SystemStates.contrastChangedEvent,
-            contrastChangeEventData
-          );
+
+          // Set the contrast property (this will trigger property change event)
+          this.contrast = newMode;
         },
       });
 
@@ -137,16 +213,8 @@ export class SystemStates {
       initialMode = ContrastMode.NORMAL;
     }
 
-    // Dispatch initial state
-    const contrastChangeEventData: ContrastChangeEventData = {
-      contrastMode: initialMode,
-      initial: true,
-    };
-
-    this.events.dispatch(
-      SystemStates.contrastChangedEvent,
-      contrastChangeEventData
-    );
+    // Set the contrast property (this will trigger property change event)
+    this.contrast = initialMode;
 
     uiModeManager.addContrastChangeListener(mainExecutor, contrastListener);
     console.log("ContrastChangeListener added.");
@@ -178,7 +246,9 @@ export class SystemStates {
           view: android_view_View,
           insets: androidx_core_view_WindowInsetsCompat
         ): androidx_core_view_WindowInsetsCompat => {
-          self.events.dispatch(SystemStates.windowInsetsChangedEvent, insets);
+          // Set the windowInsets property (this will trigger property change event)
+          self.windowInsets = insets;
+
           // Return the insets consumed by the decor view's default listener
           // to ensure proper handling by the system
           return androidx_core_view_ViewCompat.onApplyWindowInsets(
@@ -208,18 +278,14 @@ export class SystemStates {
     Application.on(
       Application.systemAppearanceChangedEvent,
       (event: SystemAppearanceChangedEventData) => {
-        this.events.dispatch(Application.systemAppearanceChangedEvent, event);
+        // Update the systemAppearance property (this will trigger property change event)
+        this.systemAppearance = event.newValue;
       }
     );
 
-    // Listen for display changes
-    Application.on(Application.displayedEvent, () => {
-      this.events.dispatch(Application.displayedEvent, {});
-    });
-
     // Listen for resume events
     Application.on(Application.resumeEvent, (args) => {
-      this.events.dispatch(Application.resumeEvent, args);
+      this.events.dispatch("resumeEvent", args);
     });
   }
 }

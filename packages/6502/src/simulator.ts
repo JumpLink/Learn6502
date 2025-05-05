@@ -2,7 +2,8 @@ import { Memory } from "./memory.js";
 import { Labels } from "./labels.js";
 import { EventDispatcher } from "./event-dispatcher.js";
 
-import { type SimulatorEvent, SimulatorState } from "./types/index.js";
+import type { SimulatorEventsMap } from "./types/index.js";
+import { SimulatorState } from "./types/index.js";
 import { addr2hex, _ } from "./utils.js";
 
 /**
@@ -59,7 +60,7 @@ export class Simulator {
   private executeId: ReturnType<typeof setInterval> | undefined;
 
   /** Event dispatcher for all simulator events */
-  private readonly events = new EventDispatcher<SimulatorEvent>();
+  private readonly events = new EventDispatcher<SimulatorEventsMap>();
 
   /**
    * Returns the current state of the simulator based on stepper, codeRunning, and register states
@@ -131,18 +132,9 @@ export class Simulator {
    * @param event - The event to listen for
    * @param listener - The callback function to execute when the event occurs
    */
-  public on(
-    event:
-      | "start"
-      | "step"
-      | "reset"
-      | "stop"
-      | "goto"
-      | "multistep"
-      | "simulator-failure"
-      | "simulator-info"
-      | "pseudo-op",
-    listener: (event: SimulatorEvent) => void
+  public on<K extends keyof SimulatorEventsMap>(
+    event: K,
+    listener: (event: SimulatorEventsMap[K]) => void
   ): void {
     this.events.on(event, listener);
   }
@@ -152,18 +144,9 @@ export class Simulator {
    * @param event - The event to stop listening for
    * @param listener - The callback function to remove
    */
-  public off(
-    event:
-      | "start"
-      | "step"
-      | "reset"
-      | "stop"
-      | "goto"
-      | "multistep"
-      | "simulator-failure"
-      | "simulator-info"
-      | "pseudo-op",
-    listener: (event: SimulatorEvent) => void
+  public off<K extends keyof SimulatorEventsMap>(
+    event: K,
+    listener: (event: SimulatorEventsMap[K]) => void
   ): void {
     this.events.off(event, listener);
   }
@@ -173,18 +156,9 @@ export class Simulator {
    * @param event - The event to listen for once
    * @param listener - The callback function to execute when the event occurs
    */
-  public once(
-    event:
-      | "start"
-      | "step"
-      | "reset"
-      | "stop"
-      | "goto"
-      | "multistep"
-      | "simulator-failure"
-      | "simulator-info"
-      | "pseudo-op",
-    listener: (event: SimulatorEvent) => void
+  public once<K extends keyof SimulatorEventsMap>(
+    event: K,
+    listener: (event: SimulatorEventsMap[K]) => void
   ): void {
     this.events.once(event, listener);
   }

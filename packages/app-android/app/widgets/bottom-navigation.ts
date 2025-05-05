@@ -20,6 +20,7 @@ import { systemStates, SystemStates } from "../states";
 
 // Import necessary AndroidX classes
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
+import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
 
 /**
  * Material Design 3 Bottom Navigation component for Android
@@ -222,7 +223,7 @@ export class BottomNavigation extends ContentView {
     this.applyTheme();
 
     systemStates.events.on(
-      Application.systemAppearanceChangedEvent,
+      SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
 
@@ -255,9 +256,7 @@ export class BottomNavigation extends ContentView {
    * Handles system appearance (dark/light mode) changes
    * @param event - The system appearance change event
    */
-  private onSystemAppearanceChanged(
-    event: SystemAppearanceChangedEventData
-  ): void {
+  private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
     this.applyTheme(event.newValue === "dark");
   }
 
@@ -294,7 +293,7 @@ export class BottomNavigation extends ContentView {
   public disposeNativeView(): void {
     // Remove listeners
     systemStates.events.off(
-      Application.systemAppearanceChangedEvent,
+      SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
     systemStates.events.off(
@@ -375,10 +374,8 @@ export class BottomNavigation extends ContentView {
    * Calculates and applies padding based on navigation bar insets.
    * @param insets - The WindowInsetsCompat object received from the event.
    */
-  private onWindowInsetsChanged(
-    insets: androidx_core_view_WindowInsetsCompat
-  ): void {
-    if (!this.bottomNav || !insets) {
+  private onWindowInsetsChanged(event: WindowInsetsChangeEvent): void {
+    if (!this.bottomNav || !event.newValue) {
       // Check bottomNav and insets
       console.log(
         "BottomNavigation: onWindowInsetsChanged called but bottomNav or insets are null"
@@ -387,7 +384,7 @@ export class BottomNavigation extends ContentView {
     }
     try {
       // Get navigation bar insets directly from WindowInsetsCompat
-      const bottomInsetPixels = insets.getInsets(
+      const bottomInsetPixels = event.newValue.getInsets(
         androidx_core_view_WindowInsetsCompat.Type.navigationBars()
       ).bottom;
       // Use getMeasuredHeight which reflects the actual measured size, might be more reliable than getMinimumHeight

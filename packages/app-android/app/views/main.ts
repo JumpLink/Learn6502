@@ -16,6 +16,7 @@ import { setStatusBarAppearance } from "~/utils/system";
 
 // Import WindowInsetsCompat
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
+import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
 
 /**
  * MainController class to handle all main page functionality
@@ -35,18 +36,16 @@ export class MainController {
    * Handles window inset changes to apply top margin dynamically.
    * @param insets The WindowInsetsCompat object containing inset data.
    */
-  private handleWindowInsets(
-    insets: androidx_core_view_WindowInsetsCompat
-  ): void {
-    if (!insets || !this.actionBar) {
+  private handleWindowInsets(event: WindowInsetsChangeEvent): void {
+    if (!event.newValue || !this.actionBar) {
       // Check if content exists and is a View
       console.warn(
-        `main: handleWindowInsets - Could not apply padding. Insets: ${!!insets}, ActionBar: ${this.actionBar}`
+        `main: handleWindowInsets - Could not apply padding. Insets: ${!!event.newValue}, ActionBar: ${this.actionBar}`
       );
       return;
     }
 
-    const topInsetPixels = insets.getInsets(
+    const topInsetPixels = event.newValue.getInsets(
       androidx_core_view_WindowInsetsCompat.Type.systemBars()
     ).top;
     const topPaddingDips =
@@ -59,9 +58,7 @@ export class MainController {
     );
   }
 
-  private onSystemAppearanceChanged(
-    event: SystemAppearanceChangedEventData
-  ): void {
+  private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
     setStatusBarAppearance("md_theme_surface", event.newValue === "dark");
   }
 
@@ -84,7 +81,7 @@ export class MainController {
       this.handleWindowInsets
     );
     systemStates.events.on(
-      Application.systemAppearanceChangedEvent,
+      SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
     setStatusBarAppearance("md_theme_surface");

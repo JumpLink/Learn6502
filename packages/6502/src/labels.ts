@@ -1,5 +1,5 @@
 import { EventDispatcher } from "./event-dispatcher.js";
-import type { Symbols, LabelsEvent } from "./types/index.js";
+import type { LabelsEventsMap, Symbols } from "./types/index.js";
 import type { Assembler } from "./assembler.js";
 import { _ } from "./utils.js";
 
@@ -8,30 +8,45 @@ import { _ } from "./utils.js";
  */
 export class Labels {
   private labelIndex: string[] = [];
-  private readonly events = new EventDispatcher<LabelsEvent>();
+  private readonly events = new EventDispatcher<LabelsEventsMap>();
 
   /**
    * Creates a new Labels instance.
    */
   constructor() {}
 
-  public on(
-    event: "labels-info" | "labels-failure",
-    listener: (event: LabelsEvent) => void
+  /**
+   * Register a listener for labels events
+   * @param event - The event name to listen for
+   * @param listener - Callback function that receives the labels event
+   */
+  public on<K extends keyof LabelsEventsMap>(
+    event: K,
+    listener: (event: LabelsEventsMap[K]) => void
   ): void {
     this.events.on(event, listener);
   }
 
-  public off(
-    event: "labels-info" | "labels-failure",
-    listener: (event: LabelsEvent) => void
+  /**
+   * Remove a listener for labels events
+   * @param event - The event name to stop listening for
+   * @param listener - Callback function to remove
+   */
+  public off<K extends keyof LabelsEventsMap>(
+    event: K,
+    listener: (event: LabelsEventsMap[K]) => void
   ): void {
     this.events.off(event, listener);
   }
 
-  public once(
-    event: "labels-info" | "labels-failure",
-    listener: (event: LabelsEvent) => void
+  /**
+   * Register a one-time listener for labels events
+   * @param event - The event name to listen for
+   * @param listener - Callback function that receives the labels event
+   */
+  public once<K extends keyof LabelsEventsMap>(
+    event: K,
+    listener: (event: LabelsEventsMap[K]) => void
   ): void {
     this.events.once(event, listener);
   }

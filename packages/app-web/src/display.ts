@@ -1,8 +1,4 @@
-import type {
-  Memory,
-  MemoryEvent,
-  Display as DisplayInterface,
-} from "@learn6502/6502";
+import type { Memory, Display as DisplayInterface } from "@learn6502/6502";
 
 /**
  * Represents the display for a 6502 emulator.
@@ -42,7 +38,7 @@ export class Display implements DisplayInterface {
     private readonly node: HTMLElement,
     private readonly memory: Memory
   ) {
-    this.memory.on("changed", (event: MemoryEvent) => {
+    this.memory.on("changed", (event) => {
       if (event.addr >= 0x200 && event.addr <= 0x5ff) {
         this.updatePixel(event.addr);
       }

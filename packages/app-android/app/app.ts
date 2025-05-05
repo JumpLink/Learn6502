@@ -9,7 +9,6 @@ import {
 import { localize } from "@nativescript/localize";
 import { setEdgeToEdge, restartApp, getRootViewWhenReady } from "./utils/index";
 import { systemStates, SystemStates } from "./states";
-import { ContrastChangeEventData } from "./types";
 
 if (!isAndroid) {
   throw new Error("This app is only supported on Android");
@@ -17,62 +16,53 @@ if (!isAndroid) {
 
 let restartRequiredOnResume = false;
 
-systemStates.events.on(
-  Application.systemAppearanceChangedEvent,
-  (_args: SystemAppearanceChangedEventData) => {
-    const activity = Application.android
-      .foregroundActivity as androidx.appcompat.app.AppCompatActivity;
-    if (activity) {
-      activity.getDelegate().applyDayNight();
-    }
+systemStates.events.on(SystemStates.systemAppearanceChangedEvent, (event) => {
+  const activity = Application.android
+    .foregroundActivity as androidx.appcompat.app.AppCompatActivity;
+  if (activity) {
+    activity.getDelegate().applyDayNight();
   }
-);
+});
 
-systemStates.events.on(
-  SystemStates.contrastChangedEvent,
-  async (event: ContrastChangeEventData) => {
-    console.log("contrastChangedEvent", event);
+systemStates.events.on(SystemStates.contrastChangedEvent, async (event) => {
+  console.log("contrastChangedEvent", event);
 
-    // WORKAROUND: Flag the app for restart when the contrast mode changes
-    //             (instead of restarting immediately)
-    if (!event.initial) {
-      console.log("Contrast changed, flagging for restart on resume.");
-      restartRequiredOnResume = true;
-    }
-
-    // Remove all contrast classes and add the new one
-
-    const rootView = await getRootViewWhenReady();
-
-    rootView.cssClasses.delete("ns-contrast-normal");
-    rootView.cssClasses.delete("ns-contrast-medium");
-    rootView.cssClasses.delete("ns-contrast-high");
-    rootView.cssClasses.add("ns-contrast-" + event.contrastMode);
-
-    rootView._onCssStateChange();
-
-    rootView._getRootModalViews()?.forEach((view) => {
-      view.cssClasses.delete("ns-contrast-normal");
-      view.cssClasses.delete("ns-contrast-medium");
-      view.cssClasses.delete("ns-contrast-high");
-      view.cssClasses.add("ns-contrast-" + event.contrastMode);
-
-      view?._onCssStateChange();
-    });
-
-    console.log(
-      "rootView cssClasses",
-      Array.from(rootView.cssClasses.values())
-    );
+  // WORKAROUND: Flag the app for restart when the contrast mode changes
+  //             (instead of restarting immediately)
+  if (!event.initial) {
+    console.log("Contrast changed, flagging for restart on resume.");
+    restartRequiredOnResume = true;
   }
-);
 
-systemStates.events.on(Application.launchEvent, (_args: LaunchEventData) => {
+  // Remove all contrast classes and add the new one
+
+  const rootView = await getRootViewWhenReady();
+
+  rootView.cssClasses.delete("ns-contrast-normal");
+  rootView.cssClasses.delete("ns-contrast-medium");
+  rootView.cssClasses.delete("ns-contrast-high");
+  rootView.cssClasses.add("ns-contrast-" + event.newValue);
+
+  rootView._onCssStateChange();
+
+  rootView._getRootModalViews()?.forEach((view) => {
+    view.cssClasses.delete("ns-contrast-normal");
+    view.cssClasses.delete("ns-contrast-medium");
+    view.cssClasses.delete("ns-contrast-high");
+    view.cssClasses.add("ns-contrast-" + event.newValue);
+
+    view?._onCssStateChange();
+  });
+
+  console.log("rootView cssClasses", Array.from(rootView.cssClasses.values()));
+});
+
+systemStates.events.on(SystemStates.launchEvent, (_args: LaunchEventData) => {
   setEdgeToEdge(true);
 });
 
 // Add listener for the resume event to handle deferred restart
-systemStates.events.on(Application.resumeEvent, () => {
+systemStates.events.on(SystemStates.resumeEvent, () => {
   console.log("Application resumed.");
   if (restartRequiredOnResume) {
     console.log("Restart required flag is set, restarting app now.");
@@ -82,14 +72,6 @@ systemStates.events.on(Application.resumeEvent, () => {
     restartApp();
   }
 });
-
-systemStates.events.on(
-  "loaded:app-root",
-  (event: { rootFrame: Frame; rootView: View }) => {
-    const rootView = event.rootView;
-    console.log("rootView", rootView);
-  }
-);
 
 Application.setResources({ L: localize });
 Application.run({ moduleName: "app-root" });

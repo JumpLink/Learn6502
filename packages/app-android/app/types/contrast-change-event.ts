@@ -1,6 +1,8 @@
 import { ContrastMode } from "../constants";
+import { PropertyChangeEvent } from "./property-change-event";
 
-export type ContrastChangeEventData = {
-  contrastMode: ContrastMode;
-  initial: boolean;
-};
+/**
+ * Interface for contrast change events
+ */
+export interface ContrastChangeEvent
+  extends PropertyChangeEvent<ContrastMode> {}

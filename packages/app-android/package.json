@@ -8,7 +8,8 @@
     "start": "ns run android --emulator",
     "start:device": "ns run android",
     "start:clean": "ns run android --clean --emulator",
-    "start:debug": "ns debug android"
+    "start:debug": "ns debug android",
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@learn6502/6502": "workspace:^",

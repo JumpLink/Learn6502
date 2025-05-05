@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-01 09:13+0200\n"
+"POT-Creation-Date: 2025-05-05 11:00+0200\n"
 "PO-Revision-Date: 2025-04-05 06:04+0000\n"
 "Last-Translator: Pascal Garber <pascal@artandcode.studio>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eu-jumplink-"
@@ -18,89 +18,89 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
 "X-Generator: Weblate 5.11-dev\n"
 
-#: ../6502/src/assembler.ts:1021
+#: ../6502/src/assembler.ts:1020
 msgid "Unable to relocate code outside 64k memory"
 msgstr ""
 
-#: ../6502/src/assembler.ts:1112
+#: ../6502/src/assembler.ts:1111
 msgid "Assembling code ..."
 msgstr ""
 
-#: ../6502/src/assembler.ts:1130
+#: ../6502/src/assembler.ts:1129
 msgid "No code to run."
 msgstr ""
 
-#: ../6502/src/assembler.ts:1137
+#: ../6502/src/assembler.ts:1136
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr ""
 
-#: ../6502/src/assembler.ts:1141
+#: ../6502/src/assembler.ts:1140
 #, javascript-format
 msgid ""
 "Out of range branch on line %d (branches are limited to -128 to +127): %s"
 msgstr ""
 
-#: ../6502/src/assembler.ts:1151
+#: ../6502/src/assembler.ts:1150
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
 msgstr ""
 
-#: ../6502/src/assembler.ts:1317
+#: ../6502/src/assembler.ts:1315
 msgid "Preprocessing ..."
 msgstr ""
 
-#: ../6502/src/labels.ts:82
+#: ../6502/src/labels.ts:97
 msgid "Found $d labels."
 msgstr ""
 
-#: ../6502/src/labels.ts:84
+#: ../6502/src/labels.ts:99
 msgid "Found $d label."
 msgstr ""
 
-#: ../6502/src/labels.ts:107
+#: ../6502/src/labels.ts:122
 msgid "Indexing labels..."
 msgstr ""
 
-#: ../6502/src/labels.ts:110
+#: ../6502/src/labels.ts:125
 #, javascript-format
 msgid "Label already defined at line %s: %d"
 msgstr ""
 
-#: ../6502/src/labels.ts:155
+#: ../6502/src/labels.ts:170
 msgid "Label {label} is already used as a symbol; please rename one of them"
 msgstr ""
 
-#: ../6502/src/simulator.ts:259
+#: ../6502/src/simulator.ts:233
 msgid "No address or label provided"
 msgstr ""
 
-#: ../6502/src/simulator.ts:275
+#: ../6502/src/simulator.ts:249
 msgid "Unable to find/parse given address/label"
 msgstr ""
 
-#: ../6502/src/simulator.ts:306
+#: ../6502/src/simulator.ts:280
 msgid "Stopped"
 msgstr ""
 
-#: ../6502/src/simulator.ts:1681
+#: ../6502/src/simulator.ts:1655
 msgid "wdm-output"
 msgstr ""
 
-#: ../6502/src/simulator.ts:1756
+#: ../6502/src/simulator.ts:1730
 #, javascript-format
 msgid "Address %s - unknown opcode"
 msgstr ""
 
-#: ../6502/src/simulator.ts:1768
+#: ../6502/src/simulator.ts:1742
 msgid "6502 Stack filled! Wrapping..."
 msgstr ""
 
-#: ../6502/src/simulator.ts:1777
+#: ../6502/src/simulator.ts:1751
 msgid "6502 Stack emptied! Wrapping..."
 msgstr ""
 
-#: ../6502/src/simulator.ts:1868
+#: ../6502/src/simulator.ts:1842
 #, javascript-format
 msgid "Program completed at PC=$%s"
 msgstr ""

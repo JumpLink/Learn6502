@@ -5,8 +5,7 @@ import { _, addr2hex, num2hex } from "./utils.js";
 
 import type {
   Symbols,
-  AssemblerEvent,
-  DisassembledEvent,
+  AssemblerEventsMap,
   DisassembledData,
   InstructionData,
 } from "./types/index.js";
@@ -931,45 +930,45 @@ export class Assembler {
     BRA: 2,
   };
 
-  private readonly events = new EventDispatcher<AssemblerEvent>();
+  private readonly events = new EventDispatcher<AssemblerEventsMap>();
 
   constructor(
     protected readonly memory: Memory,
     protected readonly labels: Labels
   ) {}
 
-  public on(
-    event:
-      | "assemble-success"
-      | "assemble-failure"
-      | "hexdump"
-      | "disassembly"
-      | "assemble-info",
-    listener: (event: AssemblerEvent) => void
+  /**
+   * Register a listener for assembler events
+   * @param event - The event name to listen for
+   * @param listener - Callback function that receives the assembler event
+   */
+  public on<K extends keyof AssemblerEventsMap>(
+    event: K,
+    listener: (event: AssemblerEventsMap[K]) => void
   ): void {
     this.events.on(event, listener);
   }
 
-  public off(
-    event:
-      | "assemble-success"
-      | "assemble-failure"
-      | "hexdump"
-      | "disassembly"
-      | "assemble-info",
-    listener: (event: AssemblerEvent) => void
+  /**
+   * Remove a listener for assembler events
+   * @param event - The event name to stop listening for
+   * @param listener - Callback function to remove
+   */
+  public off<K extends keyof AssemblerEventsMap>(
+    event: K,
+    listener: (event: AssemblerEventsMap[K]) => void
   ): void {
     this.events.off(event, listener);
   }
 
-  public once(
-    event:
-      | "assemble-success"
-      | "assemble-failure"
-      | "hexdump"
-      | "disassembly"
-      | "assemble-info",
-    listener: (event: AssemblerEvent) => void
+  /**
+   * Register a one-time listener for assembler events
+   * @param event - The event name to listen for
+   * @param listener - Callback function that receives the assembler event
+   */
+  public once<K extends keyof AssemblerEventsMap>(
+    event: K,
+    listener: (event: AssemblerEventsMap[K]) => void
   ): void {
     this.events.once(event, listener);
   }
@@ -1286,7 +1285,6 @@ export class Assembler {
   }
 
   private dispatchDisassembly(data: DisassembledData) {
-    // @ts-ignore TODO: Fix this, needs a more generic event type
     this.events.dispatch("disassembly", { assembler: this, data });
   }
 

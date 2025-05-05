@@ -4,11 +4,7 @@ import Gtk from "@girs/gtk-4.0";
 import type cairo from "cairo";
 import Template from "./display.blp";
 
-import type {
-  Display as DisplayInterface,
-  Memory,
-  MemoryEvent,
-} from "@learn6502/6502";
+import type { Display as DisplayInterface, Memory } from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayInterface {
   // Child widgets
@@ -65,7 +61,7 @@ export class Display extends Adw.Bin implements DisplayInterface {
    */
   public initialize(memory: Memory): void {
     this.memory = memory;
-    this.memory.on("changed", (event: MemoryEvent) => {
+    this.memory.on("changed", (event) => {
       if (event.addr >= 0x200 && event.addr <= 0x5ff) {
         this.updatePixel(event.addr);
       }

@@ -3,11 +3,7 @@ import {
   Labels,
   Simulator,
   Assembler,
-  AssemblerEvent,
-  SimulatorEvent,
   MessageConsole as MessageConsoleInterface,
-  LabelsEvent,
-  DisassembledEvent,
 } from "@learn6502/6502";
 import { Debugger } from "./debugger.js";
 import { Display } from "./display.js";
@@ -172,7 +168,7 @@ export class GameConsole {
 
     // Assembler events
 
-    this.assembler.on("assemble-success", (event: AssemblerEvent) => {
+    this.assembler.on("assemble-success", (event) => {
       this.uiState.assembleSuccess();
       this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
 
@@ -181,23 +177,23 @@ export class GameConsole {
       }
     });
 
-    this.assembler.on("assemble-failure", (event: AssemblerEvent) => {
+    this.assembler.on("assemble-failure", (event) => {
       this.uiState.initialize();
       if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.assembler.on("hexdump", (event: AssemblerEvent) => {
+    this.assembler.on("hexdump", (event) => {
       this.openPopup(event.message || "", "Hexdump");
     });
 
     // @ts-ignore TODO: Fix this, needs a more generic event type
-    this.assembler.on("disassembly", (event: DisassembledEvent) => {
+    this.assembler.on("disassembly", (event) => {
       this.openPopup(event.data.formatted || "", "Disassembly");
     });
 
-    this.assembler.on("assemble-info", (event: AssemblerEvent) => {
+    this.assembler.on("assemble-info", (event) => {
       if (event.message) {
         this.console.log(event.message);
       }
@@ -205,35 +201,35 @@ export class GameConsole {
 
     // Simulator events
 
-    this.simulator.on("stop", (event: SimulatorEvent) => {
+    this.simulator.on("stop", (event) => {
       this.uiState.stop();
       if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.simulator.on("start", (event: SimulatorEvent) => {
+    this.simulator.on("start", (event) => {
       this.uiState.play();
       if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.simulator.on("reset", (event: SimulatorEvent) => {
+    this.simulator.on("reset", (event) => {
       this.display.reset();
     });
 
-    this.simulator.on("pseudo-op", (event: SimulatorEvent) => {
+    this.simulator.on("pseudo-op", (event) => {
       this.console.log(event.type + ": " + event.message);
     });
 
-    this.simulator.on("simulator-info", (event: SimulatorEvent) => {
+    this.simulator.on("simulator-info", (event) => {
       if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.simulator.on("simulator-failure", (event: SimulatorEvent) => {
+    this.simulator.on("simulator-failure", (event) => {
       if (event.message) {
         this.console.log(event.message);
       }
@@ -241,13 +237,13 @@ export class GameConsole {
 
     // Labels events
 
-    this.labels.on("labels-info", (event: LabelsEvent) => {
+    this.labels.on("labels-info", (event) => {
       if (event.message) {
         this.console.log(event.message);
       }
     });
 
-    this.labels.on("labels-failure", (event: LabelsEvent) => {
+    this.labels.on("labels-failure", (event) => {
       if (event.message) {
         this.console.log(event.message);
       }
