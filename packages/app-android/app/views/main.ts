@@ -125,44 +125,45 @@ export class MainController {
     }
 
     const scrollView = this.page?.getViewById<ScrollView>("mainScrollView");
-    const fab = this.page?.getViewById<Fab>("mainFab");
+    const fab = this.page?.getViewById<Fab>("mainButton");
 
-    if (scrollView && fab) {
-      let lastScrollY = 0;
-      const scrollThreshold = 10;
-
-      scrollView.on(ScrollView.scrollEvent, (event: ScrollEventData) => {
-        const currentScrollY = event.scrollY;
-        const scrollDiff = currentScrollY - lastScrollY;
-
-        // Scrolled to the top and FAB is collapsed, extend it
-        if (currentScrollY <= 0 && !fab.isExtended) {
-          fab.extend();
-        }
-        // Scrolled to the bottom and FAB is collapsed, extend it
-        else if (
-          currentScrollY >= scrollView.scrollableHeight &&
-          !fab.isExtended
-        ) {
-          fab.extend();
-        }
-        // Scroll down and FAB is extended, collapse it
-        else if (scrollDiff > scrollThreshold && fab.isExtended) {
-          fab.collapse();
-        }
-        // Scroll up and FAB is extended, collapse it
-        else if (scrollDiff < -scrollThreshold && fab.isExtended) {
-          fab.collapse();
-        }
-
-        // Update last scroll position
-        if (Math.abs(scrollDiff) > scrollThreshold || currentScrollY <= 0) {
-          lastScrollY = currentScrollY;
-        }
-      });
-    } else {
+    if (!scrollView || !fab) {
       console.error("ScrollView or FAB not found for scroll behavior setup.");
+      return;
     }
+
+    let lastScrollY = 0;
+    const scrollThreshold = 10;
+
+    scrollView.on(ScrollView.scrollEvent, (event: ScrollEventData) => {
+      const currentScrollY = event.scrollY;
+      const scrollDiff = currentScrollY - lastScrollY;
+
+      // Scrolled to the top and FAB is collapsed, extend it
+      if (currentScrollY <= 0 && !fab.isExtended) {
+        fab.extend();
+      }
+      // Scrolled to the bottom and FAB is collapsed, extend it
+      else if (
+        currentScrollY >= scrollView.scrollableHeight &&
+        !fab.isExtended
+      ) {
+        fab.extend();
+      }
+      // Scroll down and FAB is extended, collapse it
+      else if (scrollDiff > scrollThreshold && fab.isExtended) {
+        fab.collapse();
+      }
+      // Scroll up and FAB is extended, collapse it
+      else if (scrollDiff < -scrollThreshold && fab.isExtended) {
+        fab.collapse();
+      }
+
+      // Update last scroll position
+      if (Math.abs(scrollDiff) > scrollThreshold || currentScrollY <= 0) {
+        lastScrollY = currentScrollY;
+      }
+    });
   }
 
   public run(): void {
@@ -173,8 +174,28 @@ export class MainController {
     console.log("openMenu");
   }
 
-  public onFabTap(): void {
-    console.log("onFabTap");
+  public onAssembleTap(): void {
+    console.log("onAssembleTap");
+  }
+
+  public onRunTap(): void {
+    console.log("onRunTap");
+  }
+
+  public onPauseTap(): void {
+    console.log("onPauseTap");
+  }
+
+  public onResumeTap(): void {
+    console.log("onResumeTap");
+  }
+
+  public onResetTap(): void {
+    console.log("onResetTap");
+  }
+
+  public onStepTap(): void {
+    console.log("onStepTap");
   }
 }
 
@@ -186,4 +207,9 @@ export const onLoaded = mainController.onLoaded.bind(mainController);
 export const onUnloaded = mainController.onUnloaded.bind(mainController);
 export const run = mainController.run.bind(mainController);
 export const openMenu = mainController.openMenu.bind(mainController);
-export const onFabTap = mainController.onFabTap.bind(mainController);
+export const onAssembleTap = mainController.onAssembleTap.bind(mainController);
+export const onRunTap = mainController.onRunTap.bind(mainController);
+export const onPauseTap = mainController.onPauseTap.bind(mainController);
+export const onResumeTap = mainController.onResumeTap.bind(mainController);
+export const onResetTap = mainController.onResetTap.bind(mainController);
+export const onStepTap = mainController.onStepTap.bind(mainController);

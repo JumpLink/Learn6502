@@ -605,11 +605,6 @@ export class MainWindow extends Adw.ApplicationWindow {
     this.updateRunActions(state);
   }
 
-  private setButtonMode(state: MainButtonState): void {
-    // Use the MainButton widget's setMode method
-    this._mainButton.setMode(state);
-  }
-
   private updateRunActions(state: SimulatorState): MainButtonState {
     // Check if editor has code
     const hasCode = this._editor.hasCode;

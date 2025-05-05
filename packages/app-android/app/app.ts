@@ -59,12 +59,12 @@ systemStates.events.on(SystemStates.resumeEvent, () => {
   console.log("Application resumed.");
   if (restartRequiredOnResume) {
     console.log("Restart required flag is set, restarting app now.");
-    // Setze das Flag zurück, *bevor* der Neustart ausgelöst wird,
-    // um Endlosschleifen zu vermeiden, falls der Neustart fehlschlägt.
+    // Reset the flag before triggering the restart,
+    // to avoid infinite loops if the restart fails.
     restartRequiredOnResume = false;
     restartApp();
   }
 });
 
-Application.setResources({ L: localize });
+Application.setResources({ _: localize });
 Application.run({ moduleName: "app-root" });

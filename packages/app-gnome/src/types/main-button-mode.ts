@@ -1,5 +1,5 @@
 export interface MainButtonMode {
   iconName: string;
-  tooltipText: string;
+  text: string;
   actionName: string;
 }

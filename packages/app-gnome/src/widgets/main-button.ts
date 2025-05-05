@@ -56,32 +56,32 @@ export class MainButton extends Adw.Bin {
   private buttonModes: Record<MainButtonState, MainButtonMode> = {
     [MainButtonState.ASSEMBLE]: {
       iconName: "build-alt-symbolic",
-      tooltipText: _("Assemble"),
+      text: _("Assemble"),
       actionName: this.assembleAction,
     },
     [MainButtonState.RUN]: {
       iconName: "play-symbolic",
-      tooltipText: _("Run"),
+      text: _("Run"),
       actionName: this.runSimulatorAction,
     },
     [MainButtonState.PAUSE]: {
       iconName: "pause-symbolic",
-      tooltipText: _("Pause"),
+      text: _("Pause"),
       actionName: this.pauseSimulatorAction,
     },
     [MainButtonState.RESUME]: {
       iconName: "play-symbolic",
-      tooltipText: _("Resume"),
+      text: _("Resume"),
       actionName: this.resumeSimulatorAction,
     },
     [MainButtonState.RESET]: {
       iconName: "reset-symbolic",
-      tooltipText: _("Reset"),
+      text: _("Reset"),
       actionName: this.resetSimulatorAction,
     },
     [MainButtonState.STEP]: {
       iconName: "step-over-symbolic",
-      tooltipText: _("Step"),
+      text: _("Step"),
       actionName: this.stepSimulatorAction,
     },
   };
@@ -109,7 +109,7 @@ export class MainButton extends Adw.Bin {
     const mode = this.buttonModes[state];
 
     this._button.set_icon_name(mode.iconName);
-    this._button.set_tooltip_text(mode.tooltipText);
+    this._button.set_tooltip_text(mode.text);
     this._button.set_action_name(`win.${mode.actionName}`);
 
     this._state = state;
