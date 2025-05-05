@@ -2,23 +2,7 @@ import { Property, CSSType, EventData } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 import { SimulatorState } from "@learn6502/6502"; // Import shared simulator state
 import { Fab } from "./fab"; // Import the base Fab class
-
-// Define the button states, mirroring the GNOME version
-export enum MainButtonState {
-  ASSEMBLE = "assemble",
-  RUN = "run",
-  PAUSE = "pause",
-  RESUME = "resume",
-  RESET = "reset",
-  STEP = "step",
-}
-
-// Define the structure for button modes
-export interface MainButtonMode {
-  iconName: string; // Android resource name (e.g., "res://ic_assemble")
-  text: string;
-}
-
+import { MainButtonState, type MainButtonMode } from "@learn6502/common-ui";
 // Property for the button's state
 const stateProperty = new Property<MainButton, MainButtonState>({
   name: "state",
@@ -47,32 +31,37 @@ export class MainButton extends Fab {
   // Property backing fields
   private _state: MainButtonState = stateProperty.defaultValue;
 
-  // Button modes configuration (Using placeholder Android resource names)
-  // TODO: Replace placeholder icons (res://ic_...) with actual drawable resource names
+  // Button modes configuration
   private buttonModes: Record<MainButtonState, MainButtonMode> = {
     [MainButtonState.ASSEMBLE]: {
-      iconName: "res://build_alt_symbolic", // Example: use 'ic_build' or similar
+      iconName: "res://build_alt_symbolic",
       text: _("Assemble"),
+      actionName: MainButton.assembleTapEvent,
     },
     [MainButtonState.RUN]: {
-      iconName: "res://play_symbolic", // Example: use 'ic_play_arrow'
+      iconName: "res://play_symbolic",
       text: _("Run"),
+      actionName: MainButton.runTapEvent,
     },
     [MainButtonState.PAUSE]: {
-      iconName: "res://pause_symbolic", // Example: use 'ic_pause'
+      iconName: "res://pause_symbolic",
       text: _("Pause"),
+      actionName: MainButton.pauseTapEvent,
     },
     [MainButtonState.RESUME]: {
-      iconName: "res://play_symbolic", // Example: use 'ic_play_arrow'
+      iconName: "res://play_symbolic",
       text: _("Resume"),
+      actionName: MainButton.resumeTapEvent,
     },
     [MainButtonState.RESET]: {
-      iconName: "res://reset_symbolic", // Example: use 'ic_replay'
+      iconName: "res://reset_symbolic",
       text: _("Reset"),
+      actionName: MainButton.resetTapEvent,
     },
     [MainButtonState.STEP]: {
-      iconName: "res://step_over_symbolic", // Example: use 'ic_skip_next'
+      iconName: "res://step_over_symbolic",
       text: _("Step"),
+      actionName: MainButton.stepTapEvent,
     },
   };
 

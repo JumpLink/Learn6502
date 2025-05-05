@@ -1,10 +1,9 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gio from "@girs/gio-2.0";
-import Gtk from "@girs/gtk-4.0";
 
 import { SimulatorState } from "@learn6502/6502";
-import { MainButtonState, type MainButtonMode } from "../types/index.ts";
+import { MainButtonState, type MainButtonMode } from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
 

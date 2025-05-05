@@ -1966,6 +1966,7 @@ __metadata:
   resolution: "@learn6502/app-android@workspace:packages/app-android"
   dependencies:
     "@learn6502/6502": "workspace:^"
+    "@learn6502/common-ui": "workspace:^"
     "@nativescript/android": "npm:8.9.1"
     "@nativescript/core": "npm:~8.9.2"
     "@nativescript/localize": "npm:^5.2.0"
@@ -1995,6 +1996,7 @@ __metadata:
     "@girs/pango-1.0": "npm:^1.56.4-4.0.0-beta.23"
     "@girs/webkit-6.0": "npm:^2.48.0-4.0.0-beta.23"
     "@learn6502/6502": "workspace:^"
+    "@learn6502/common-ui": "workspace:^"
     "@learn6502/learn": "workspace:^"
     "@learn6502/translations": "workspace:^"
     "@learn6502/vite-plugin-blueprint": "workspace:^"
@@ -2013,6 +2015,14 @@ __metadata:
     lightningcss: "npm:^1.29.3"
     typescript: "npm:^5.8.3"
     vite: "npm:^6.3.4"
+  languageName: unknown
+  linkType: soft
+
+"@learn6502/common-ui@workspace:^, @learn6502/common-ui@workspace:packages/common-ui":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/common-ui@workspace:packages/common-ui"
+  dependencies:
+    typescript: "npm:^5.8.3"
   languageName: unknown
   linkType: soft
 

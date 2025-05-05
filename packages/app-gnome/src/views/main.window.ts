@@ -13,7 +13,7 @@ import { MainButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 
 import Template from "./main.window.blp";
-import { MainButtonState } from "../types/index.ts";
+import { type MainButtonState } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow {
   // Child widgets

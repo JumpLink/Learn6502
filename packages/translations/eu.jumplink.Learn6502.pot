@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-05 11:00+0200\n"
+"POT-Creation-Date: 2025-05-05 22:06+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -113,119 +113,119 @@ msgstr ""
 msgid "File \"%s\" has unsaved changes"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:106
-msgid "Assemble"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:111
-msgid "Run"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:116
-msgid "Pause"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:121
-msgid "Resume"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:126
-msgid "Reset"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:131
-msgid "Step"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:160
+#: ../app-gnome/src/views/main.window.ts:127
 msgid "Code copied to editor"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:188
+#: ../app-gnome/src/views/main.window.ts:157
 msgid "Copied to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:193
+#: ../app-gnome/src/views/main.window.ts:162
 msgid "Failed to copy to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:256
-#: ../app-gnome/src/views/main.window.ts:291
+#: ../app-gnome/src/views/main.window.ts:225
+#: ../app-gnome/src/views/main.window.ts:260
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:447
+#: ../app-gnome/src/views/main.window.ts:418
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:459
+#: ../app-gnome/src/views/main.window.ts:430
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:468
+#: ../app-gnome/src/views/main.window.ts:439
 msgid "Hexdump:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:477
+#: ../app-gnome/src/views/main.window.ts:448
 msgid "Disassembly:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:557
+#: ../app-gnome/src/views/main.window.ts:528
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:576
+#: ../app-gnome/src/views/main.window.ts:547
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:583
+#: ../app-gnome/src/views/main.window.ts:554
 msgid "Gamepad key pressed:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:772
+#: ../app-gnome/src/views/main.window.ts:663
 msgid "Open Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:783
+#: ../app-gnome/src/views/main.window.ts:674
 msgid "Failed to load file"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:801
+#: ../app-gnome/src/views/main.window.ts:693
 msgid "File loaded successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:807
+#: ../app-gnome/src/views/main.window.ts:699
 msgid "Error opening file"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:823
-#: ../app-gnome/src/views/main.window.ts:824
+#: ../app-gnome/src/views/main.window.ts:715
+#: ../app-gnome/src/views/main.window.ts:716
 msgid "untitled"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:830
+#: ../app-gnome/src/views/main.window.ts:722
 msgid "Save Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:843
-#: ../app-gnome/src/views/main.window.ts:885
+#: ../app-gnome/src/views/main.window.ts:735
+#: ../app-gnome/src/views/main.window.ts:779
 msgid "Error saving file"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:878
+#: ../app-gnome/src/views/main.window.ts:772
 msgid "File saved successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:896
+#: ../app-gnome/src/views/main.window.ts:790
 msgid "Assembly Files"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:901
+#: ../app-gnome/src/views/main.window.ts:795
 msgid "All Files"
 msgstr ""
 
+#: ../app-gnome/src/widgets/main-button.ts:58
+msgid "Assemble"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:63
+msgid "Run"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:68
+msgid "Pause"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:73
+msgid "Resume"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:78
+msgid "Reset"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:83
+msgid "Step"
+msgstr ""
+
 #: ../app-gnome/src/views/help.window.blp:7
-#: ../app-gnome/src/views/main.window.blp:143
+#: ../app-gnome/src/views/main.window.blp:139
 #: ../app-gnome/src/views/main/editor.blp:8
 msgid "Help"
 msgstr ""
@@ -238,63 +238,59 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:63
+#: ../app-gnome/src/views/main.window.blp:59
 #: ../app-gnome/src/views/main/learn.blp:8
 msgid "Learn"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:72
+#: ../app-gnome/src/views/main.window.blp:68
 msgid "Editor"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:81
+#: ../app-gnome/src/views/main.window.blp:77
 #: ../app-gnome/src/views/main/debugger.blp:15
 msgid "Debugger"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:90
+#: ../app-gnome/src/views/main.window.blp:86
 msgid "Game Console"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:112
+#: ../app-gnome/src/views/main.window.blp:108
 msgid "Open..."
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:117
-#: ../app-gnome/src/views/main.window.blp:197
+#: ../app-gnome/src/views/main.window.blp:113
+#: ../app-gnome/src/views/main.window.blp:164
 msgid "Save"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:122
+#: ../app-gnome/src/views/main.window.blp:118
 msgid "Save as..."
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:148
+#: ../app-gnome/src/views/main.window.blp:144
 msgid "About Learn 6502 Assembly"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:153
+#: ../app-gnome/src/views/main.window.blp:149
 msgid "Quit"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:170
-msgid "Continue"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:190
+#: ../app-gnome/src/views/main.window.blp:157
 msgid "Save changes?"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:191
+#: ../app-gnome/src/views/main.window.blp:158
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:195
+#: ../app-gnome/src/views/main.window.blp:162
 msgid "Cancel"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:196
+#: ../app-gnome/src/views/main.window.blp:163
 msgid "Discard"
 msgstr ""
 
@@ -312,6 +308,10 @@ msgstr ""
 
 #: ../app-gnome/src/views/preferences.dialog.blp:15
 msgid "There are currently no settings."
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.blp:25
+msgid "Continue"
 msgstr ""
 
 #: ../app-gnome/src/widgets/source-view.blp:34

@@ -74,11 +74,6 @@ export const waitForFunctionResult = async <T = any>(
       return result;
     }
 
-    // Check if the result is truthy
-    if (result) {
-      return result;
-    }
-
     // Check for timeout
     if (timeout && Date.now() - startTime > timeout) {
       throw new Error(`Timeout waiting for function to return a truthy value`);
