@@ -45,12 +45,8 @@ template $MainWindow: Adw.ApplicationWindow {
       }
 
       [end]
-      Adw.SplitButton runButton {
+      $MainButton mainButton {
         halign: center;
-        menu-model: buttonRunMenu;
-        styles [
-          "suggested-action",
-        ]
       }
     }
 
@@ -152,35 +148,6 @@ menu buttonWindowMenu {
     item {
       label: _("Quit");
       action: "app.quit";
-    }
-  }
-}
-
-menu buttonRunMenu {
-  section {
-    item {
-      label: _("Assemble");
-      action: 'win.assemble';
-    }
-    item {
-      label: _("Run");
-      action: 'win.run-simulator';
-    }
-    item {
-      label: _("Continue");
-      action: 'win.resume-simulator';
-    }
-    item {
-      label: _("Pause");
-      action: 'win.pause-simulator';
-    }
-    item {
-      label: _("Step");
-      action: 'win.step-simulator';
-    }
-    item {
-      label: _("Reset");
-      action: 'win.reset-simulator';
     }
   }
 }

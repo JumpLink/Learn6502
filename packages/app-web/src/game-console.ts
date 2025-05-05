@@ -69,7 +69,7 @@ export class GameConsole {
         );
       });
 
-    this.node.querySelector(".runButton")?.addEventListener("click", () => {
+    this.node.querySelector(".mainButton")?.addEventListener("click", () => {
       this.simulator.stopStepper();
       this.simulator.runBinary();
     });

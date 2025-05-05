@@ -134,7 +134,7 @@ export class UIState {
   private setState(state: State): void {
     const assembleButton =
       this.node.querySelector<HTMLInputElement>(".assembleButton");
-    const runButton = this.node.querySelector<HTMLInputElement>(".runButton");
+    const mainButton = this.node.querySelector<HTMLInputElement>(".mainButton");
     const resetButton =
       this.node.querySelector<HTMLInputElement>(".resetButton");
     const hexdumpButton =
@@ -150,9 +150,9 @@ export class UIState {
     }
 
     if (state.run) {
-      if (runButton) {
-        runButton.disabled = !state.run[0];
-        runButton.value = state.run[1];
+      if (mainButton) {
+        mainButton.disabled = !state.run[0];
+        mainButton.value = state.run[1];
       }
     }
 

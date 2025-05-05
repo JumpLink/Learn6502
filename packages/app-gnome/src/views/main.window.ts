@@ -9,11 +9,11 @@ import { SimulatorState, num2hex } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import "../widgets/theme-selector.ts"; // TODO make use of this
+import { MainButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 
 import Template from "./main.window.blp";
-import { type RunButtonMode, RunButtonState } from "../types/index.ts";
+import { MainButtonState } from "../types/index.ts";
 
 export class MainWindow extends Adw.ApplicationWindow {
   // Child widgets
@@ -21,7 +21,7 @@ export class MainWindow extends Adw.ApplicationWindow {
   declare private _gameConsole: GameConsole;
   declare private _learn: Learn;
   declare private _menuButton: Gtk.MenuButton;
-  declare private _runButton: Adw.SplitButton;
+  declare private _mainButton: MainButton;
   declare private _stack: Adw.ViewStack;
   declare private _switcherBar: Adw.ViewSwitcherBar;
   declare private _debugger: Debugger;
@@ -40,7 +40,7 @@ export class MainWindow extends Adw.ApplicationWindow {
           "gameConsole",
           "learn",
           "menuButton",
-          "runButton",
+          "mainButton",
           "stack",
           "switcherBar",
           "debugger",
@@ -100,45 +100,12 @@ export class MainWindow extends Adw.ApplicationWindow {
   // Help actions
   private showHelpAction = new Gio.SimpleAction({ name: "show-help" });
 
-  private buttonModes: Record<RunButtonState, RunButtonMode> = {
-    [RunButtonState.ASSEMBLE]: {
-      iconName: "build-alt-symbolic",
-      tooltipText: _("Assemble"),
-      actionName: "assemble",
-    },
-    [RunButtonState.RUN]: {
-      iconName: "play-symbolic",
-      tooltipText: _("Run"),
-      actionName: "run-simulator",
-    },
-    [RunButtonState.PAUSE]: {
-      iconName: "pause-symbolic",
-      tooltipText: _("Pause"),
-      actionName: "pause-simulator",
-    },
-    [RunButtonState.RESUME]: {
-      iconName: "play-symbolic",
-      tooltipText: _("Resume"),
-      actionName: "resume-simulator",
-    },
-    [RunButtonState.RESET]: {
-      iconName: "reset-symbolic",
-      tooltipText: _("Reset"),
-      actionName: "reset-simulator",
-    },
-    [RunButtonState.STEP]: {
-      iconName: "step-over-symbolic",
-      tooltipText: _("Step"),
-      actionName: "step-simulator",
-    },
-  };
-
   constructor(application: Adw.Application) {
     super({ application });
     this.setupGeneralSignalListeners();
     this.setupActions();
     this.setupFileActions();
-    this.setupRunButton();
+    this.setupMainButton();
     this.setupGameConsoleSignalListeners();
     this.setupKeyboardListener();
     this.setupLearnTutorialSignalListeners();
@@ -169,6 +136,8 @@ export class MainWindow extends Adw.ApplicationWindow {
       this.codeToAssembleChanged = true;
       this.unsavedChanges = true;
 
+      // Update the main button to show it should be assembled
+      this._mainButton.setCodeChanged(true);
       this.updateRunActions(this._gameConsole.simulator.state);
     });
   }
@@ -371,7 +340,7 @@ export class MainWindow extends Adw.ApplicationWindow {
     helpWindow.present();
   }
 
-  private setupRunButton(): void {
+  private setupMainButton(): void {
     // Initial button setup
     this.updateRunActions(this._gameConsole.simulator.state);
   }
@@ -403,6 +372,7 @@ export class MainWindow extends Adw.ApplicationWindow {
     }
     // Reset the code changed flag BEFORE assembling
     this.codeToAssembleChanged = false;
+    this._mainButton.setCodeChanged(false);
     this._gameConsole.assemble(this._editor.code);
   }
 
@@ -413,6 +383,7 @@ export class MainWindow extends Adw.ApplicationWindow {
 
     // Reset the code changed flag after setting code
     this.codeToAssembleChanged = false;
+    this._mainButton.setCodeChanged(false);
     this.unsavedChanges = false;
   }
 
@@ -634,107 +605,32 @@ export class MainWindow extends Adw.ApplicationWindow {
     this.updateRunActions(state);
   }
 
-  private setButtonMode(state: RunButtonState): void {
-    const actionName = this.buttonModes[state].actionName;
-    this._runButton.set_icon_name(this.buttonModes[state].iconName);
-    this._runButton.set_tooltip_text(this.buttonModes[state].tooltipText);
-    this._runButton.set_action_name(`win.${actionName}`);
+  private setButtonMode(state: MainButtonState): void {
+    // Use the MainButton widget's setMode method
+    this._mainButton.setMode(state);
   }
 
-  private updateRunActions(state: SimulatorState): RunButtonState {
+  private updateRunActions(state: SimulatorState): MainButtonState {
     // Check if editor has code
     const hasCode = this._editor.hasCode;
 
-    // Default: disable all actions
-    this.runSimulatorAction.set_enabled(false);
-    this.resumeSimulatorAction.set_enabled(false);
-    this.pauseSimulatorAction.set_enabled(false);
-    this.resetSimulatorAction.set_enabled(false);
-    this.stepSimulatorAction.set_enabled(false);
+    // Get enabled states for actions from MainButton helper
+    const enabledState = MainButton.getActionEnabledState(
+      state,
+      hasCode,
+      this.codeToAssembleChanged
+    );
 
-    // Always enable assemble if there's code
-    this.assembleAction.set_enabled(hasCode);
+    // Set enabled state for all actions
+    this.assembleAction.set_enabled(enabledState.assemble);
+    this.runSimulatorAction.set_enabled(enabledState.run);
+    this.resumeSimulatorAction.set_enabled(enabledState.resume);
+    this.pauseSimulatorAction.set_enabled(enabledState.pause);
+    this.resetSimulatorAction.set_enabled(enabledState.reset);
+    this.stepSimulatorAction.set_enabled(enabledState.step);
 
-    // Clear the existing action for the main button
-    this._runButton.set_action_name(null);
-
-    let buttonState: RunButtonState;
-
-    if (this.codeToAssembleChanged) {
-      buttonState = RunButtonState.ASSEMBLE;
-      this.setButtonMode(buttonState);
-      return buttonState;
-    }
-
-    switch (state) {
-      case SimulatorState.INITIALIZED:
-        buttonState = RunButtonState.ASSEMBLE;
-        break;
-
-      case SimulatorState.RUNNING:
-        buttonState = RunButtonState.PAUSE;
-
-        // Enable pause action
-        this.pauseSimulatorAction.set_enabled(true);
-        this.resetSimulatorAction.set_enabled(true);
-        break;
-
-      case SimulatorState.DEBUGGING:
-        // Im Debugging-Modus verwenden wir den Step-Button als primären Button
-        buttonState = RunButtonState.STEP;
-
-        // Enable step, pause and reset actions
-        this.stepSimulatorAction.set_enabled(true);
-        this.pauseSimulatorAction.set_enabled(true);
-        this.resetSimulatorAction.set_enabled(true);
-        this.runSimulatorAction.set_enabled(true);
-        break;
-
-      case SimulatorState.COMPLETED:
-        buttonState = RunButtonState.RESET;
-
-        // Enable run, step and reset actions
-        this.runSimulatorAction.set_enabled(true);
-        this.stepSimulatorAction.set_enabled(true);
-        this.resetSimulatorAction.set_enabled(true);
-        break;
-
-      case SimulatorState.PAUSED:
-        buttonState = RunButtonState.RESUME;
-
-        // Enable resume, run, step and reset actions
-        this.resumeSimulatorAction.set_enabled(true);
-        this.runSimulatorAction.set_enabled(true);
-        this.resetSimulatorAction.set_enabled(true);
-        this.stepSimulatorAction.set_enabled(true);
-        break;
-
-      case SimulatorState.DEBUGGING_PAUSED:
-        // Im Debugging-Paused Modus verwenden wir auch den Step-Button
-        buttonState = RunButtonState.STEP;
-
-        // Enable step, resume, run, and reset actions
-        this.stepSimulatorAction.set_enabled(true);
-        this.resumeSimulatorAction.set_enabled(true);
-        this.runSimulatorAction.set_enabled(true);
-        this.resetSimulatorAction.set_enabled(true);
-        break;
-
-      case SimulatorState.READY:
-        buttonState = RunButtonState.RUN;
-
-        // Enable run, step and reset actions
-        this.runSimulatorAction.set_enabled(true);
-        this.stepSimulatorAction.set_enabled(true);
-        this.resetSimulatorAction.set_enabled(true);
-        break;
-
-      default:
-        throw new Error(`Unknown state: ${state}`);
-    }
-
-    this.setButtonMode(buttonState);
-    return buttonState;
+    // Update the button state based on simulator state
+    return this._mainButton.updateFromSimulatorState(state);
   }
 
   private stepGameConsole(): void {
@@ -792,6 +688,7 @@ export class MainWindow extends Adw.ApplicationWindow {
       this._editor.code = fileContent;
       this.currentFile = file;
       this.codeToAssembleChanged = false;
+      this._mainButton.setCodeChanged(false);
       this.unsavedChanges = false;
 
       // Switch to editor view
@@ -873,6 +770,8 @@ export class MainWindow extends Adw.ApplicationWindow {
 
       this.currentFile = file;
       this.unsavedChanges = false;
+      this.codeToAssembleChanged = false;
+      this._mainButton.setCodeChanged(false);
 
       this.showToast({
         title: _("File saved successfully"),

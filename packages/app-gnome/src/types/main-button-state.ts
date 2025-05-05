@@ -1,4 +1,4 @@
-export enum RunButtonState {
+export enum MainButtonState {
   ASSEMBLE = "assemble",
   RUN = "run",
   PAUSE = "pause",
