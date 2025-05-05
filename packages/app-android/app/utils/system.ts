@@ -1,10 +1,11 @@
 import { Application, Utils, View, CoreTypes } from "@nativescript/core";
 import { getMaterialColor } from "./color";
 import { waitForFunctionResult } from "./control";
+import { systemStates } from "../states/system.states";
 import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
 
 export function isDarkMode(): boolean {
-  return Application.systemAppearance() === "dark";
+  return systemStates.systemAppearance === "dark";
 }
 
 /**
@@ -36,9 +37,7 @@ export function setStatusBarAppearance(
 
     // Use parameter if provided, otherwise infer from system appearance
     const shouldUseLightIcons =
-      useLightIcons !== undefined
-        ? useLightIcons
-        : Application.systemAppearance() === "dark";
+      useLightIcons !== undefined ? useLightIcons : isDarkMode();
 
     // Using WindowInsetsController for Android 11+ (API 30+)
     if (android.os.Build.VERSION.SDK_INT >= 30) {
@@ -99,9 +98,7 @@ export function setNavigationBarAppearance(
 
     // Use parameter if provided, otherwise infer from system appearance
     const shouldUseLightIcons =
-      useLightIcons !== undefined
-        ? useLightIcons
-        : Application.systemAppearance() === "dark";
+      useLightIcons !== undefined ? useLightIcons : isDarkMode();
 
     // Using WindowInsetsController for Android 11+ (API 30+)
     if (android.os.Build.VERSION.SDK_INT >= 30) {

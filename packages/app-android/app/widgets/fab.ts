@@ -226,7 +226,7 @@ export class Fab extends ContentView {
    * Called when colors change or system theme changes
    */
   private applyTheme(
-    isDarkMode = Application.systemAppearance() === "dark"
+    isDarkMode = systemStates.systemAppearance === "dark"
   ): void {
     if (!this.fab) return;
 

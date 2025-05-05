@@ -4,4 +4,4 @@ import { PropertyChangeEvent } from "./property-change-event";
  * Interface for system appearance change events
  */
 export interface SystemAppearanceChangeEvent
-  extends PropertyChangeEvent<string> {}
+  extends PropertyChangeEvent<"light" | "dark" | null> {}

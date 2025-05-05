@@ -46,7 +46,7 @@ export class SystemStates {
   public static readonly resumeEvent = "resumeEvent";
 
   private initialized = false;
-  private _systemAppearance: string | null = null;
+  private _systemAppearance: "light" | "dark" | null = null;
   private _contrast: ContrastMode | null = null;
   private _windowInsets: androidx_core_view_WindowInsetsCompat | null = null;
 
@@ -57,14 +57,14 @@ export class SystemStates {
   /**
    * Get the current system appearance
    */
-  public get systemAppearance(): string | null {
+  public get systemAppearance(): "light" | "dark" | null {
     return this._systemAppearance;
   }
 
   /**
    * Set the system appearance and dispatch change event if changed
    */
-  public set systemAppearance(value: string | null) {
+  public set systemAppearance(value: "light" | "dark" | null) {
     if (value !== this._systemAppearance) {
       const oldValue = this._systemAppearance;
       this._systemAppearance = value;

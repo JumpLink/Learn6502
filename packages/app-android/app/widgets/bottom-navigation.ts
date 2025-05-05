@@ -1,18 +1,9 @@
-import {
-  ContentView,
-  Property,
-  Frame,
-  Application,
-  SystemAppearanceChangedEventData,
-  Utils,
-  EventData,
-  View,
-  CoreTypes,
-} from "@nativescript/core";
+import { ContentView, Property, Frame, Utils } from "@nativescript/core";
 import { BottomTab } from "./bottom-tab";
 import {
   createColorStateList,
   getMaterialColor,
+  isDarkMode,
   setNavigationBarAppearance,
 } from "../utils/index";
 import { getResource } from "../utils/index";
@@ -323,7 +314,7 @@ export class BottomNavigation extends ContentView {
    * Called when colors change or system theme changes
    */
   private applyTheme(
-    isDarkMode = Application.systemAppearance() === "dark"
+    isDarkMode = systemStates.systemAppearance === "dark"
   ): void {
     if (!this.bottomNav) return;
 
@@ -364,8 +355,7 @@ export class BottomNavigation extends ContentView {
     this.bottomNav.setItemIconTintList(iconStateList);
     this.bottomNav.setItemActiveIndicatorColor(indicatorStateList);
 
-    // Uniform the navigation bar appearance to match the bottom navigation background color
-    setNavigationBarAppearance(undefined, isDarkMode);
+    this.updateInsets(systemStates.windowInsets);
   }
 
   /**
@@ -457,7 +447,11 @@ export class BottomNavigation extends ContentView {
    * @param insets - The WindowInsetsCompat object received from the event.
    */
   private onWindowInsetsChanged(event: WindowInsetsChangeEvent): void {
-    if (!this.bottomNav || !event.newValue) {
+    this.updateInsets(event.newValue);
+  }
+
+  private updateInsets(insets: androidx_core_view_WindowInsetsCompat): void {
+    if (!this.bottomNav || !insets) {
       // Check bottomNav and insets
       console.log(
         "BottomNavigation: onWindowInsetsChanged called but bottomNav or insets are null"
@@ -466,7 +460,7 @@ export class BottomNavigation extends ContentView {
     }
     try {
       // Get navigation bar insets directly from WindowInsetsCompat
-      const bottomInsetPixels = event.newValue.getInsets(
+      const bottomInsetPixels = insets.getInsets(
         androidx_core_view_WindowInsetsCompat.Type.navigationBars()
       ).bottom;
       // Use getMeasuredHeight which reflects the actual measured size, might be more reliable than getMinimumHeight
@@ -486,6 +480,9 @@ export class BottomNavigation extends ContentView {
       const totalHeightPixels = bottomNavHeightPixels + bottomInsetPixels;
       // Convert total pixels to DIPs for setting NativeScript height property
       this.height = Utils.layout.toDeviceIndependentPixels(totalHeightPixels);
+
+      // Uniform the navigation bar appearance to match the bottom navigation background color
+      setNavigationBarAppearance(undefined, isDarkMode());
 
       console.log(
         "BottomNavigation: onWindowInsetsChanged - Native Measured Height (Pixels):",

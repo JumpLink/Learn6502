@@ -1,11 +1,4 @@
-import {
-  Application,
-  Frame,
-  LaunchEventData,
-  SystemAppearanceChangedEventData,
-  View,
-  isAndroid,
-} from "@nativescript/core";
+import { Application, LaunchEventData, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { setEdgeToEdge, restartApp, getRootViewWhenReady } from "./utils/index";
 import { systemStates, SystemStates } from "./states";
