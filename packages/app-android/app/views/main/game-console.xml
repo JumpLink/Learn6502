@@ -1,7 +1,16 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" actionBarHidden="true" class="bg-surface text-on-surface">
-    <StackLayout class="p-20">
-        <Label text="Game Console Page" class="h1 text-center" />
-        <Label text="This is the game console page content" class="text-center" textWrap="true" />
-        <Image src="res://nintendo_controller_symbolic" />
-    </StackLayout>
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:w="~/widgets/index"
+    loaded="onLoaded"
+    unloaded="onUnloaded"
+    actionBarHidden="true"
+    class="bg-surface text-on-surface">
+
+    <GridLayout rows="*, auto">
+        <!-- Display Area -->
+        <w:Display id="display" row="0" />
+
+        <!-- GamePad Area -->
+        <w:GamePad id="gamePad" row="1" />
+    </GridLayout>
+
 </Page>

@@ -1,3 +1,5 @@
+export * from "./game-console/index";
+
 export * from "./bottom-tab";
 export * from "./bottom-navigation";
 export * from "./fab";
