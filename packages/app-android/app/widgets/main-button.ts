@@ -2,7 +2,12 @@ import { Property, CSSType, EventData } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 import { SimulatorState } from "@learn6502/6502"; // Import shared simulator state
 import { Fab } from "./fab"; // Import the base Fab class
-import { MainButtonState, type MainButtonMode } from "@learn6502/common-ui";
+import {
+  MainButtonState,
+  type MainButtonMode,
+  type MainButtonInterface,
+  MainButtonHelper,
+} from "@learn6502/common-ui";
 // Property for the button's state
 const stateProperty = new Property<MainButton, MainButtonState>({
   name: "state",
@@ -15,9 +20,11 @@ const stateProperty = new Property<MainButton, MainButtonState>({
  * Mirrors the functionality of the GNOME MainButton, providing context-aware
  * actions (Assemble, Run, Pause, Resume, Reset, Step) based on simulator state.
  * Uses an Android ExtendedFloatingActionButton.
+ *
+ * Implements MainButtonInterface from common-ui
  */
 @CSSType("MainButton")
-export class MainButton extends Fab {
+export class MainButton extends Fab implements MainButtonInterface {
   // Inherit from Fab
   // Event names for specific actions
   public static assembleTapEvent = "assembleTap";
@@ -30,6 +37,7 @@ export class MainButton extends Fab {
 
   // Property backing fields
   private _state: MainButtonState = stateProperty.defaultValue;
+  private _codeChanged: boolean = false;
 
   // Button modes configuration
   private buttonModes: Record<MainButtonState, MainButtonMode> = {
@@ -187,132 +195,54 @@ export class MainButton extends Fab {
     });
   }
 
-  // --- Logic mirrored from GNOME MainButton ---
-
   /**
-   * Update button based on simulator state
-   * @param simState Current simulator state
-   * @returns The new button state
+   * Implementation of MainButtonInterface method
+   * Sets whether the code has changed since last assembly
    */
-  public updateFromSimulatorState(simState: SimulatorState): MainButtonState {
-    let newButtonState: MainButtonState;
+  public setCodeChanged(changed: boolean): void {
+    this._codeChanged = changed;
 
-    switch (simState) {
-      case SimulatorState.INITIALIZED:
-        newButtonState = MainButtonState.ASSEMBLE;
-        break;
-      case SimulatorState.RUNNING:
-        newButtonState = MainButtonState.PAUSE;
-        break;
-      case SimulatorState.DEBUGGING: // Assuming DEBUGGING implies stepping is possible
-      case SimulatorState.DEBUGGING_PAUSED:
-        newButtonState = MainButtonState.STEP; // Default to Step in debug modes
-        break;
-      case SimulatorState.COMPLETED:
-        newButtonState = MainButtonState.RESET;
-        break;
-      case SimulatorState.PAUSED:
-        newButtonState = MainButtonState.RESUME;
-        break;
-      case SimulatorState.READY:
-        newButtonState = MainButtonState.RUN;
-        break;
-      default:
-        console.warn(
-          `Unknown simulator state: ${simState}, defaulting to ASSEMBLE`
-        );
-        newButtonState = MainButtonState.ASSEMBLE; // Fallback
+    // If code has changed, automatically set to ASSEMBLE mode
+    if (changed) {
+      this.setMode(MainButtonState.ASSEMBLE);
     }
-
-    this.setMode(newButtonState);
-    return newButtonState;
   }
 
   /**
-   * Convenience method to get enabled state for actions (logic only)
-   * Note: This doesn't directly enable/disable the FAB itself, but mirrors the logic
-   *       from the GNOME component for use in the containing view/controller.
+   * Update button based on simulator state
+   * Implements MainButtonInterface
+   *
+   * @param state Current simulator state
+   * @returns The new button state
+   */
+  public updateFromSimulatorState(state: SimulatorState): MainButtonState {
+    // If code has changed, always show ASSEMBLE
+    if (this._codeChanged) {
+      const buttonState = MainButtonState.ASSEMBLE;
+      this.setMode(buttonState);
+      return buttonState;
+    }
+
+    // Use the common helper to determine button state
+    const buttonState = MainButtonHelper.getButtonState(state);
+    this.setMode(buttonState);
+    return buttonState;
+  }
+
+  /**
+   * Convenience method to get enabled state for actions
+   * Uses the common helper for consistency across platforms
    */
   public static getActionEnabledState(
     simulatorState: SimulatorState,
-    hasCode: boolean, // Does the editor have code? Passed from outside
+    hasCode: boolean,
     codeChanged: boolean
-  ): {
-    assemble: boolean;
-    run: boolean;
-    resume: boolean;
-    pause: boolean;
-    reset: boolean;
-    step: boolean;
-  } {
-    const enabledState = {
-      assemble: false,
-      run: false,
-      resume: false,
-      pause: false,
-      reset: false,
-      step: false,
-    };
-
-    // Always enable assemble if there's code
-    enabledState.assemble = hasCode;
-
-    if (codeChanged) {
-      // Only assemble is possible if code changed
-      return enabledState;
-    }
-
-    // Logic based on simulator state (when code hasn't changed)
-    switch (simulatorState) {
-      case SimulatorState.RUNNING:
-        enabledState.pause = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.DEBUGGING:
-        enabledState.step = true;
-        enabledState.pause = true; // Can pause debugging run
-        enabledState.reset = true;
-        enabledState.run = true; // Can switch to normal run
-        break;
-
-      case SimulatorState.COMPLETED:
-        // Allow re-run, step (from start), or reset
-        enabledState.run = true;
-        enabledState.step = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.PAUSED:
-        enabledState.resume = true;
-        enabledState.run = true; // Allow restart from beginning
-        enabledState.reset = true;
-        enabledState.step = true; // Allow stepping from paused state
-        break;
-
-      case SimulatorState.DEBUGGING_PAUSED:
-        enabledState.step = true;
-        enabledState.resume = true; // Resume debugging run
-        enabledState.run = true; // Allow switching to normal run
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.READY: // Assembled, ready to run or step
-        enabledState.run = true;
-        enabledState.step = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.INITIALIZED: // Not assembled yet
-        // assemble is handled by hasCode check
-        break;
-
-      default:
-        // Keep all disabled for unknown states
-        break;
-    }
-
-    return enabledState;
+  ) {
+    return MainButtonHelper.getActionEnabledState(
+      simulatorState,
+      hasCode,
+      codeChanged
+    );
   }
 }
 

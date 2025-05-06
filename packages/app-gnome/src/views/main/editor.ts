@@ -4,15 +4,17 @@ import Gtk from "@girs/gtk-4.0";
 import GtkSource from "@girs/gtksource-5";
 import { SourceView } from "../../widgets/source-view.ts";
 import { QuickHelpView } from "../../mdx/quick-help-view.ts";
+import type { EditorInterface } from "@learn6502/common-ui";
 
 import Template from "./editor.blp";
 
 /**
  * @class Editor to edit 6502 assembly code
+ * Implements EditorInterface from common-ui
  *
  * @emits changed - Emitted when the buffer's text changes
  */
-export class Editor extends Adw.Bin {
+export class Editor extends Adw.Bin implements EditorInterface {
   // Child widgets
 
   /** The SourceView that displays the buffer's display */
@@ -49,6 +51,10 @@ export class Editor extends Adw.Bin {
     );
   }
 
+  /**
+   * Set the source code
+   * Implements EditorInterface
+   */
   public set code(value: string) {
     if (this.code === value) return;
     this._sourceView.code = value;
@@ -56,6 +62,10 @@ export class Editor extends Adw.Bin {
     this.onUpdate();
   }
 
+  /**
+   * Get the source code
+   * Implements EditorInterface
+   */
   public get code(): string {
     return this._sourceView.code;
   }
@@ -70,6 +80,8 @@ export class Editor extends Adw.Bin {
 
   /**
    * Get whether the editor has code
+   * Implements EditorInterface
+   *
    * @returns Whether the editor has code
    */
   public get hasCode(): boolean {

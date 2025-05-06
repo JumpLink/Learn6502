@@ -3,7 +3,11 @@ import Adw from "@girs/adw-1";
 import Gio from "@girs/gio-2.0";
 
 import { SimulatorState } from "@learn6502/6502";
-import { MainButtonState, type MainButtonMode } from "@learn6502/common-ui";
+import {
+  MainButtonState,
+  type MainButtonMode,
+  type MainButtonInterface,
+} from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
 
@@ -12,8 +16,10 @@ import Template from "./main-button.blp";
  *
  * A button widget that changes its appearance and functionality based on
  * the current state of the simulator.
+ *
+ * Implements MainButtonInterface from common-ui
  */
-export class MainButton extends Adw.Bin {
+export class MainButton extends Adw.Bin implements MainButtonInterface {
   // Internal child widgets
   declare private _button: Adw.SplitButton;
 
@@ -125,6 +131,7 @@ export class MainButton extends Adw.Bin {
 
   /**
    * Set whether the code in the editor has changed since last assembly
+   * Implements MainButtonInterface
    */
   public setCodeChanged(changed: boolean): void {
     this._codeChanged = changed;
@@ -151,6 +158,7 @@ export class MainButton extends Adw.Bin {
 
   /**
    * Update button based on simulator state
+   * Implements MainButtonInterface
    *
    * @param state Current simulator state
    * @returns The new button state

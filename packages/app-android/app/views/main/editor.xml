@@ -1,9 +1,52 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
       xmlns:w="~/widgets/index"
-      actionBarHidden="true"
       navigatingTo="onNavigatingTo"
-      class="bg-surface text-on-surface">
-    <GridLayout rows="auto,*" columns="*">
-        <w:SourceView row="1" col="0" id="SourceView" code="; Example 6502 assembly code&#xA;&#xA;LDA #$01&#xA;STA $0200&#xA;LDX #$00&#xA;LDY #$00" />
+      class="bg-surface">
+    <ActionBar class="bg-surface text-on-surface" title="Editor" flat="true">
+        <NavigationButton visibility="collapse" />
+    </ActionBar>
+
+    <GridLayout rows="*, auto">
+        <!-- Main editor with source view -->
+        <w:SourceView id="sourceView" row="0" 
+                       code="{{ code }}" 
+                       class="w-full h-full" />
+                       
+        <!-- Bottom help section - collapsed by default -->
+        <StackLayout id="helpPanel" row="1" 
+                     class="bg-surface-container-high p-4" 
+                     visibility="collapsed">
+            <Label text="Quick Help" class="text-on-surface text-lg font-bold" />
+            <ScrollView height="200">
+                <StackLayout class="p-2">
+                    <Label textWrap="true" class="text-on-surface">
+                        <FormattedString>
+                            <Span text="Opcodes: " fontWeight="bold" />
+                            <Span text="LDA, LDX, LDY, STA, STX, STY, INX, INY, DEX, DEY, ..." />
+                        </FormattedString>
+                    </Label>
+                    <Label textWrap="true" class="text-on-surface">
+                        <FormattedString>
+                            <Span text="Addressing Modes: " fontWeight="bold" />
+                            <Span text="Immediate (#$01), Absolute ($0200), Zero Page ($00)" />
+                        </FormattedString>
+                    </Label>
+                    <Label textWrap="true" class="text-on-surface">
+                        <FormattedString>
+                            <Span text="Branching: " fontWeight="bold" />
+                            <Span text="BEQ, BNE, BCS, BCC, BMI, BPL" />
+                        </FormattedString>
+                    </Label>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+        
+        <!-- Help toggle button -->
+        <Button id="helpToggleButton" row="1" 
+                text="Show Help" 
+                class="bg-secondary text-on-secondary m-4 z-10 rounded-full"
+                horizontalAlignment="right" 
+                verticalAlignment="bottom"
+                tap="onHelpToggleTap" />
     </GridLayout>
 </Page>

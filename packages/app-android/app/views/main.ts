@@ -4,11 +4,16 @@ import {
   ScrollEventData,
   Utils,
   ActionBar,
+  Frame,
 } from "@nativescript/core";
 
 import { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
 import { setStatusBarAppearance } from "~/utils/system";
+
+// Import common interfaces and types
+import { MainViewInterface } from "@learn6502/common-ui";
+import { SimulatorState } from "@learn6502/6502";
 
 // Import WindowInsetsCompat
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
@@ -17,10 +22,22 @@ import { MainButton } from "~/widgets";
 
 /**
  * MainController class to handle all main page functionality
+ * Implements MainViewInterface from common-ui
  */
-export class MainController {
+export class MainController implements MainViewInterface {
   private page: Page | null = null;
   private actionBar: ActionBar | null = null;
+  private mainButton: MainButton | null = null;
+
+  // Current simulator state
+  private _state: SimulatorState = SimulatorState.READY;
+
+  /**
+   * Get the current simulator state
+   */
+  get state(): SimulatorState {
+    return this._state;
+  }
 
   constructor() {
     // Private constructor for singleton pattern
@@ -68,6 +85,8 @@ export class MainController {
   public onLoaded(args: EventData): void {
     this.page = args.object as Page;
     this.actionBar = this.page.getViewById<ActionBar>("main-action-bar");
+    this.mainButton = this.page.getViewById<MainButton>("mainButton");
+
     console.log("main: loaded:", this.page.id);
 
     systemStates.events.on(
@@ -107,6 +126,12 @@ export class MainController {
         view["insetsHandler"]
       );
     }
+
+    // Unsubscribe appearance change handler
+    systemStates.events.off(
+      SystemStates.systemAppearanceChangedEvent,
+      this.onSystemAppearanceChanged
+    );
   }
 
   public initFabScrollBehavior(): void {
@@ -159,36 +184,163 @@ export class MainController {
     });
   }
 
-  public run(): void {
-    console.log("run");
+  /**
+   * Implementation of MainViewInterface methods
+   */
+
+  /**
+   * Assembles the code in the editor
+   */
+  public assembleGameConsole(): void {
+    console.log("assembleGameConsole");
+
+    // Navigate to the debugger tab
+    const mainFrame = this.page?.getViewById<Frame>("mainFrame");
+    if (mainFrame) {
+      mainFrame.navigate({
+        moduleName: "views/main/debugger",
+        clearHistory: false,
+      });
+    }
+
+    // TODO: Get code from editor and assemble it
+    this._state = SimulatorState.READY;
+    this.updateMainButtonState();
   }
 
+  /**
+   * Runs the assembled code
+   */
+  public runGameConsole(): void {
+    console.log("runGameConsole");
+
+    // Navigate to the game console tab
+    const mainFrame = this.page?.getViewById<Frame>("mainFrame");
+    if (mainFrame) {
+      mainFrame.navigate({
+        moduleName: "views/main/game-console",
+        clearHistory: false,
+      });
+    }
+
+    // TODO: Start the simulator
+    this._state = SimulatorState.RUNNING;
+    this.updateMainButtonState();
+  }
+
+  /**
+   * Pauses the running code
+   */
+  public pauseGameConsole(): void {
+    console.log("pauseGameConsole");
+
+    // TODO: Pause the simulator
+    if (this._state === SimulatorState.RUNNING) {
+      this._state = SimulatorState.PAUSED;
+      this.updateMainButtonState();
+    }
+  }
+
+  /**
+   * Resets the simulator
+   */
+  public reset(): void {
+    console.log("reset");
+
+    // TODO: Reset the simulator
+    this._state = SimulatorState.READY;
+    this.updateMainButtonState();
+  }
+
+  /**
+   * Executes a single step of the program
+   */
+  public stepGameConsole(): void {
+    console.log("stepGameConsole");
+
+    // Navigate to the debugger tab
+    const mainFrame = this.page?.getViewById<Frame>("mainFrame");
+    if (mainFrame) {
+      mainFrame.navigate({
+        moduleName: "views/main/debugger",
+        clearHistory: false,
+      });
+    }
+
+    // TODO: Execute a single step
+    if (
+      this._state === SimulatorState.READY ||
+      this._state === SimulatorState.PAUSED
+    ) {
+      // Stay in PAUSED state after stepping
+      this._state = SimulatorState.PAUSED;
+      this.updateMainButtonState();
+    }
+  }
+
+  /**
+   * Sets the code in the editor
+   * @param code The code to set
+   */
+  public setEditorCode(code: string): void {
+    console.log("setEditorCode", code);
+
+    // Navigate to the editor tab
+    const mainFrame = this.page?.getViewById<Frame>("mainFrame");
+    if (mainFrame) {
+      mainFrame.navigate({
+        moduleName: "views/main/editor",
+        clearHistory: false,
+      });
+
+      // TODO: Set the code in the editor
+    }
+  }
+
+  /**
+   * Updates the main button state based on the current simulator state
+   */
+  private updateMainButtonState(): void {
+    if (this.mainButton) {
+      this.mainButton.updateFromSimulatorState(this._state);
+    }
+  }
+
+  /**
+   * Button event handlers
+   */
   public openMenu(): void {
     console.log("openMenu");
   }
 
   public onAssembleTap(): void {
     console.log("onAssembleTap");
+    this.assembleGameConsole();
   }
 
   public onRunTap(): void {
     console.log("onRunTap");
+    this.runGameConsole();
   }
 
   public onPauseTap(): void {
     console.log("onPauseTap");
+    this.pauseGameConsole();
   }
 
   public onResumeTap(): void {
     console.log("onResumeTap");
+    this.runGameConsole();
   }
 
   public onResetTap(): void {
     console.log("onResetTap");
+    this.reset();
   }
 
   public onStepTap(): void {
     console.log("onStepTap");
+    this.stepGameConsole();
   }
 }
 
@@ -198,7 +350,6 @@ const mainController = new MainController();
 // Export public functions using the instance
 export const onLoaded = mainController.onLoaded.bind(mainController);
 export const onUnloaded = mainController.onUnloaded.bind(mainController);
-export const run = mainController.run.bind(mainController);
 export const openMenu = mainController.openMenu.bind(mainController);
 export const onAssembleTap = mainController.onAssembleTap.bind(mainController);
 export const onRunTap = mainController.onRunTap.bind(mainController);
