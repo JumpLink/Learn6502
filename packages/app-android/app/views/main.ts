@@ -1,14 +1,10 @@
 import {
-  Application,
   Page,
-  SystemAppearanceChangedEventData,
   ScrollView,
   ScrollEventData,
   Utils,
-  View,
   ActionBar,
 } from "@nativescript/core";
-import { Fab } from "~/widgets/fab";
 
 import { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
@@ -17,6 +13,7 @@ import { setStatusBarAppearance } from "~/utils/system";
 // Import WindowInsetsCompat
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
 import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
+import { MainButton } from "~/widgets";
 
 /**
  * MainController class to handle all main page functionality
@@ -73,9 +70,6 @@ export class MainController {
     this.actionBar = this.page.getViewById<ActionBar>("main-action-bar");
     console.log("main: loaded:", this.page.id);
 
-    // Store the bound handler in our map using the view id as key
-    const viewId = this.page.id;
-
     systemStates.events.on(
       SystemStates.windowInsetsChangedEvent,
       this.handleWindowInsets
@@ -97,9 +91,6 @@ export class MainController {
   public onUnloaded(args: EventData): void {
     const view = args.object as Page;
     console.log("main: unloaded:", view.id);
-
-    // Get the view id
-    const viewId = view.id || "default";
 
     // Unsubscribe if handler exists
     if (this.handleWindowInsets) {
@@ -125,10 +116,12 @@ export class MainController {
     }
 
     const scrollView = this.page?.getViewById<ScrollView>("mainScrollView");
-    const fab = this.page?.getViewById<Fab>("mainButton");
+    const mainButton = this.page?.getViewById<MainButton>("mainButton");
 
-    if (!scrollView || !fab) {
-      console.error("ScrollView or FAB not found for scroll behavior setup.");
+    if (!scrollView || !mainButton) {
+      console.error(
+        "ScrollView or MainButton not found for scroll behavior setup."
+      );
       return;
     }
 
@@ -140,23 +133,23 @@ export class MainController {
       const scrollDiff = currentScrollY - lastScrollY;
 
       // Scrolled to the top and FAB is collapsed, extend it
-      if (currentScrollY <= 0 && !fab.isExtended) {
-        fab.extend();
+      if (currentScrollY <= 0 && !mainButton.isExtended) {
+        mainButton.extend();
       }
       // Scrolled to the bottom and FAB is collapsed, extend it
       else if (
         currentScrollY >= scrollView.scrollableHeight &&
-        !fab.isExtended
+        !mainButton.isExtended
       ) {
-        fab.extend();
+        mainButton.extend();
       }
       // Scroll down and FAB is extended, collapse it
-      else if (scrollDiff > scrollThreshold && fab.isExtended) {
-        fab.collapse();
+      else if (scrollDiff > scrollThreshold && mainButton.isExtended) {
+        mainButton.collapse();
       }
       // Scroll up and FAB is extended, collapse it
-      else if (scrollDiff < -scrollThreshold && fab.isExtended) {
-        fab.collapse();
+      else if (scrollDiff < -scrollThreshold && mainButton.isExtended) {
+        mainButton.collapse();
       }
 
       // Update last scroll position
