@@ -11,7 +11,7 @@ import GLib from "@girs/glib-2.0";
  */
 export class GnomeThemeManager extends BaseThemeManager {
   private styleManager: Adw.StyleManager;
-  private settings: Gio.Settings;
+  private settings: Gio.Settings | null = null;
 
   constructor() {
     super();
@@ -19,13 +19,25 @@ export class GnomeThemeManager extends BaseThemeManager {
     // Get the StyleManager singleton
     this.styleManager = Adw.StyleManager.get_default();
 
-    // Initialize GSettings for theme settings
-    this.settings = new Gio.Settings({
-      schema_id: "eu.jumplink.Learn6502",
-    });
+    try {
+      // Initialize GSettings for theme settings
+      this.settings = new Gio.Settings({
+        schema_id: "eu.jumplink.Learn6502",
+      });
 
-    // Load initial theme mode from settings
-    this.loadThemeFromSettings();
+      // Load initial theme mode from settings
+      this.loadThemeFromSettings();
+
+      // Monitor settings changes
+      this.settings.connect("changed::theme", () => {
+        this.loadThemeFromSettings();
+      });
+    } catch (error) {
+      console.error("Error initializing GSettings:", error);
+      console.log("Using system theme as fallback");
+      // Fallback to system theme and continue without settings
+      this.setTheme("system");
+    }
 
     // Monitor system appearance changes
     this.monitorSystemAppearance();
@@ -65,7 +77,9 @@ export class GnomeThemeManager extends BaseThemeManager {
    */
   private loadThemeFromSettings(): void {
     try {
-      const savedTheme = this.settings.get_string("color-scheme");
+      if (!this.settings) return;
+
+      const savedTheme = this.settings.get_string("theme");
 
       if (
         savedTheme &&
@@ -90,7 +104,9 @@ export class GnomeThemeManager extends BaseThemeManager {
    */
   private saveThemeToSettings(mode: ThemeMode): void {
     try {
-      this.settings.set_string("color-scheme", mode);
+      if (!this.settings) return;
+
+      this.settings.set_string("theme", mode);
     } catch (error) {
       console.error("Error saving theme to settings:", error);
     }
@@ -107,11 +123,6 @@ export class GnomeThemeManager extends BaseThemeManager {
         this._isDarkTheme = this.styleManager.get_dark();
         this.notifyListeners();
       }
-    });
-
-    // React to changes in settings
-    this.settings.connect("changed::color-scheme", () => {
-      this.loadThemeFromSettings();
     });
   }
 }

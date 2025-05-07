@@ -181,4 +181,11 @@ export class GnomeFileManager extends BaseFileManager {
 
     return filters;
   }
+
+  /**
+   * Get the current file
+   */
+  public getCurrentGioFile(): Gio.File | null {
+    return this.currentFile;
+  }
 }
