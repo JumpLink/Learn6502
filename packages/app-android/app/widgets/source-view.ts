@@ -1,7 +1,8 @@
 import { ContentView, Property, TextView, Builder } from "@nativescript/core";
 import { debounce } from "@learn6502/6502";
+import type { SourceViewWidget } from "@learn6502/common-ui";
 
-export class SourceView extends ContentView {
+export class SourceView extends ContentView implements SourceViewWidget {
   textView: TextView;
   private debouncedHighlighting: (code: string) => void;
   private _code: string = "";

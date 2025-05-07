@@ -1,7 +1,7 @@
 /**
  * Common interface for SourceView component across platforms
  */
-export interface SourceViewInterface {
+export interface SourceViewWidget {
   /**
    * The source code in the view
    */

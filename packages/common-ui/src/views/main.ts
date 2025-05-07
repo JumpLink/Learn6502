@@ -4,7 +4,7 @@ import type { SimulatorState } from "@learn6502/6502";
  * Common interface for MainView component across platforms
  * This represents the main application window/page
  */
-export interface MainViewInterface {
+export interface MainView {
   /**
    * Current state of the simulator
    */

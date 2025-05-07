@@ -5,7 +5,7 @@ import { Fab } from "./fab"; // Import the base Fab class
 import {
   MainButtonState,
   type MainButtonMode,
-  type MainButtonInterface,
+  type MainButtonWidget,
   MainButtonHelper,
 } from "@learn6502/common-ui";
 // Property for the button's state
@@ -21,10 +21,10 @@ const stateProperty = new Property<MainButton, MainButtonState>({
  * actions (Assemble, Run, Pause, Resume, Reset, Step) based on simulator state.
  * Uses an Android ExtendedFloatingActionButton.
  *
- * Implements MainButtonInterface from common-ui
+ * Implements MainButtonWidget from common-ui
  */
 @CSSType("MainButton")
-export class MainButton extends Fab implements MainButtonInterface {
+export class MainButton extends Fab implements MainButtonWidget {
   // Inherit from Fab
   // Event names for specific actions
   public static assembleTapEvent = "assembleTap";
@@ -196,7 +196,7 @@ export class MainButton extends Fab implements MainButtonInterface {
   }
 
   /**
-   * Implementation of MainButtonInterface method
+   * Implementation of MainButtonWidget method
    * Sets whether the code has changed since last assembly
    */
   public setCodeChanged(changed: boolean): void {
@@ -210,7 +210,7 @@ export class MainButton extends Fab implements MainButtonInterface {
 
   /**
    * Update button based on simulator state
-   * Implements MainButtonInterface
+   * Implements MainButtonWidget
    *
    * @param state Current simulator state
    * @returns The new button state

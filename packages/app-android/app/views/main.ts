@@ -12,7 +12,7 @@ import { systemStates, SystemStates } from "~/states";
 import { setStatusBarAppearance } from "~/utils/system";
 
 // Import common interfaces and types
-import { MainViewInterface } from "@learn6502/common-ui";
+import { MainView } from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
 
 // Import WindowInsetsCompat
@@ -22,9 +22,9 @@ import { MainButton } from "~/widgets";
 
 /**
  * MainController class to handle all main page functionality
- * Implements MainViewInterface from common-ui
+ * Implements MainView from common-ui
  */
-export class MainController implements MainViewInterface {
+export class MainController implements MainView {
   private page: Page | null = null;
   private actionBar: ActionBar | null = null;
   private mainButton: MainButton | null = null;
@@ -185,7 +185,7 @@ export class MainController implements MainViewInterface {
   }
 
   /**
-   * Implementation of MainViewInterface methods
+   * Implementation of MainView methods
    */
 
   /**

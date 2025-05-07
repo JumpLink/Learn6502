@@ -6,7 +6,7 @@ import { SimulatorState } from "@learn6502/6502";
 import {
   MainButtonState,
   type MainButtonMode,
-  type MainButtonInterface,
+  type MainButtonWidget,
 } from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
@@ -17,9 +17,9 @@ import Template from "./main-button.blp";
  * A button widget that changes its appearance and functionality based on
  * the current state of the simulator.
  *
- * Implements MainButtonInterface from common-ui
+ * Implements MainButtonWidget from common-ui
  */
-export class MainButton extends Adw.Bin implements MainButtonInterface {
+export class MainButton extends Adw.Bin implements MainButtonWidget {
   // Internal child widgets
   declare private _button: Adw.SplitButton;
 
@@ -131,7 +131,7 @@ export class MainButton extends Adw.Bin implements MainButtonInterface {
 
   /**
    * Set whether the code in the editor has changed since last assembly
-   * Implements MainButtonInterface
+   * Implements MainButtonWidget
    */
   public setCodeChanged(changed: boolean): void {
     this._codeChanged = changed;
@@ -158,7 +158,7 @@ export class MainButton extends Adw.Bin implements MainButtonInterface {
 
   /**
    * Update button based on simulator state
-   * Implements MainButtonInterface
+   * Implements MainButtonWidget
    *
    * @param state Current simulator state
    * @returns The new button state

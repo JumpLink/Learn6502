@@ -5,14 +5,14 @@ import {
   Button,
   StackLayout,
 } from "@nativescript/core";
-import { EditorInterface } from "@learn6502/common-ui";
+import { EditorView } from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
 
 /**
  * EditorModel class for handling editor data and operations
- * Implements the EditorInterface from common-ui
+ * Implements the EditorView from common-ui
  */
-class EditorModel extends Observable implements EditorInterface {
+class EditorModel extends Observable implements EditorView {
   private _sourceView: SourceView | null = null;
   private _code: string = "";
   private _helpPanel: StackLayout | null = null;

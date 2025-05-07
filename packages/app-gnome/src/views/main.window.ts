@@ -13,9 +13,9 @@ import { MainButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 
 import Template from "./main.window.blp";
-import { type MainButtonState } from "@learn6502/common-ui";
+import { type MainButtonState, type MainView } from "@learn6502/common-ui";
 
-export class MainWindow extends Adw.ApplicationWindow {
+export class MainWindow extends Adw.ApplicationWindow implements MainView {
   // Child widgets
   declare private _editor: Editor;
   declare private _gameConsole: GameConsole;
@@ -345,7 +345,7 @@ export class MainWindow extends Adw.ApplicationWindow {
     this.updateRunActions(this._gameConsole.simulator.state);
   }
 
-  private runGameConsole(): void {
+  public runGameConsole(): void {
     const visibleChild = this._stack.get_visible_child();
     // Set the game console as the visible child in the stack if it's not already visible or the debugger
     if (visibleChild !== this._gameConsole) {
@@ -354,16 +354,16 @@ export class MainWindow extends Adw.ApplicationWindow {
     this._gameConsole.run();
   }
 
-  private pauseGameConsole(): void {
+  public pauseGameConsole(): void {
     this._gameConsole.stop();
   }
 
-  private reset(): void {
+  public reset(): void {
     this._gameConsole.reset();
     this._debugger.reset();
   }
 
-  private assembleGameConsole(): void {
+  public assembleGameConsole(): void {
     this._debugger.reset();
     const visibleChild = this._stack.get_visible_child();
     // Set the debugger as the visible child in the stack if it's not already visible or the game console
@@ -376,7 +376,7 @@ export class MainWindow extends Adw.ApplicationWindow {
     this._gameConsole.assemble(this._editor.code);
   }
 
-  private setEditorCode(code: string): void {
+  public setEditorCode(code: string): void {
     this._editor.code = code;
     // Set the editor as the visible child in the stack
     this._stack.set_visible_child(this._editor);
@@ -628,7 +628,7 @@ export class MainWindow extends Adw.ApplicationWindow {
     return this._mainButton.updateFromSimulatorState(state);
   }
 
-  private stepGameConsole(): void {
+  public stepGameConsole(): void {
     const visibleChild = this._stack.get_visible_child();
     // Set the debugger as the visible child in the stack if it's not already visible or the game console
     if (visibleChild !== this._debugger && visibleChild !== this._gameConsole) {

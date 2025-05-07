@@ -1,22 +1,11 @@
 import { SimulatorState } from "@learn6502/6502";
 import { MainButtonState } from "../data/main-button-state";
-
-/**
- * Represents the enabled state for different button actions
- */
-export interface MainButtonActionState {
-  assemble: boolean;
-  run: boolean;
-  resume: boolean;
-  pause: boolean;
-  reset: boolean;
-  step: boolean;
-}
+import type { MainButtonActionState } from "../types";
 
 /**
  * Common interface for MainButton component across platforms
  */
-export interface MainButtonInterface {
+export interface MainButtonWidget {
   /**
    * Updates the button state based on the simulator state
    * @param state Current simulator state

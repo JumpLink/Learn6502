@@ -1,7 +1,7 @@
 /**
  * Common interface for Editor component across platforms
  */
-export interface EditorInterface {
+export interface EditorView {
   /**
    * The source code in the editor
    */
