@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-07 19:21+0200\n"
+"POT-Creation-Date: 2025-05-07 20:44+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -161,30 +161,6 @@ msgstr ""
 msgid "Save"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:64
-msgid "Assemble"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:69
-msgid "Run"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:74
-msgid "Pause"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:79
-msgid "Resume"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:84
-msgid "Reset"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:89
-msgid "Step"
-msgstr ""
-
 #: ../app-gnome/src/views/main.window.ts:129
 msgid "Code copied to editor"
 msgstr ""
@@ -240,27 +216,28 @@ msgstr ""
 msgid "Saved as %s"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.blp:25
-msgid "Continue"
+#: ../app-gnome/src/widgets/main-button.ts:64
+msgid "Assemble"
 msgstr ""
 
-#: ../app-gnome/src/widgets/source-view.blp:34
-msgid "Copy to editor"
+#: ../app-gnome/src/widgets/main-button.ts:69
+msgid "Run"
 msgstr ""
 
-#: ../app-gnome/src/widgets/theme-selector.blp:24
-#: ../app-gnome/src/widgets/theme-selector.blp:27
-msgid "Follow system style"
+#: ../app-gnome/src/widgets/main-button.ts:74
+msgid "Pause"
 msgstr ""
 
-#: ../app-gnome/src/widgets/theme-selector.blp:43
-#: ../app-gnome/src/widgets/theme-selector.blp:46
-msgid "Light style"
+#: ../app-gnome/src/widgets/main-button.ts:79
+msgid "Resume"
 msgstr ""
 
-#: ../app-gnome/src/widgets/theme-selector.blp:62
-#: ../app-gnome/src/widgets/theme-selector.blp:65
-msgid "Dark style"
+#: ../app-gnome/src/widgets/main-button.ts:84
+msgid "Reset"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:89
+msgid "Step"
 msgstr ""
 
 #: ../app-gnome/src/views/help.window.blp:7
@@ -336,6 +313,59 @@ msgstr ""
 msgid "There are currently no settings."
 msgstr ""
 
+#: ../app-gnome/src/widgets/main-button.blp:25
+msgid "Continue"
+msgstr ""
+
+#: ../app-gnome/src/widgets/source-view.blp:34
+msgid "Copy to editor"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:24
+#: ../app-gnome/src/widgets/theme-selector.blp:27
+msgid "Follow system style"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:43
+#: ../app-gnome/src/widgets/theme-selector.blp:46
+msgid "Light style"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:62
+#: ../app-gnome/src/widgets/theme-selector.blp:65
+msgid "Dark style"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:37
+msgid "Information"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:52
+msgid "Messages"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:67
+msgid "Hex Monitor"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:82
+msgid "Hexdump"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:97
+msgid "Disassembled"
+msgstr ""
+
+#: ../app-gnome/src/views/main/learn.blp:9
+msgid "Learn how to program the 6502 microprocessor."
+msgstr ""
+
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
 msgid "Zero Page ($0000-$00FF)"
 msgstr ""
@@ -367,36 +397,6 @@ msgstr ""
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:35
 #: ../app-gnome/src/widgets/debugger/hexdump.blp:9
 msgid "Copy to clipboard"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:16
-msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:37
-msgid "Information"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:52
-msgid "Messages"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:67
-msgid "Hex Monitor"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:82
-msgid "Hexdump"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:97
-msgid "Disassembled"
-msgstr ""
-
-#: ../app-gnome/src/views/main/learn.blp:9
-msgid "Learn how to program the 6502 microprocessor."
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7

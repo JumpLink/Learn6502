@@ -1,70 +1,54 @@
 import { Application, LaunchEventData, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
-import { setEdgeToEdge, restartApp, getRootViewWhenReady } from "./utils/index";
+import { setEdgeToEdge } from "./utils/index";
 import { systemStates, SystemStates } from "./states";
+import { AndroidThemeManager } from "./controllers/theme-manager";
 
 if (!isAndroid) {
   throw new Error("This app is only supported on Android");
 }
 
-let restartRequiredOnResume = false;
-
-systemStates.events.on(SystemStates.systemAppearanceChangedEvent, (event) => {
-  const activity = Application.android
-    .foregroundActivity as androidx.appcompat.app.AppCompatActivity;
-  if (activity) {
-    activity.getDelegate().applyDayNight();
+// Add global error handling
+global.__errorHandler = function (error, nativeError) {
+  console.log("GLOBAL ERROR CAUGHT:");
+  console.log("JS Error:", error && error.message);
+  if (nativeError) {
+    console.log("Native Error:", nativeError);
   }
-});
+  return true;
+};
 
-systemStates.events.on(SystemStates.contrastChangedEvent, async (event) => {
-  console.log("contrastChangedEvent", event);
+// Initial startup logging
+console.log("App.ts starting...");
+console.log("Is Android:", isAndroid);
 
-  // WORKAROUND: Flag the app for restart when the contrast mode changes
-  //             (instead of restarting immediately)
-  if (!event.initial) {
-    console.log("Contrast changed, flagging for restart on resume.");
-    restartRequiredOnResume = true;
-  }
-
-  // Remove all contrast classes and add the new one
-
-  const rootView = await getRootViewWhenReady();
-
-  rootView.cssClasses.delete("ns-contrast-normal");
-  rootView.cssClasses.delete("ns-contrast-medium");
-  rootView.cssClasses.delete("ns-contrast-high");
-  rootView.cssClasses.add("ns-contrast-" + event.newValue);
-
-  rootView._onCssStateChange();
-
-  rootView._getRootModalViews()?.forEach((view) => {
-    view.cssClasses.delete("ns-contrast-normal");
-    view.cssClasses.delete("ns-contrast-medium");
-    view.cssClasses.delete("ns-contrast-high");
-    view.cssClasses.add("ns-contrast-" + event.newValue);
-
-    view?._onCssStateChange();
-  });
-
-  console.log("rootView cssClasses", Array.from(rootView.cssClasses.values()));
-});
-
+// Handle the launch event
 systemStates.events.on(SystemStates.launchEvent, (_args: LaunchEventData) => {
-  setEdgeToEdge(true);
-});
+  console.log("Launch event received, setting up the app...");
 
-// Add listener for the resume event to handle deferred restart
-systemStates.events.on(SystemStates.resumeEvent, () => {
-  console.log("Application resumed.");
-  if (restartRequiredOnResume) {
-    console.log("Restart required flag is set, restarting app now.");
-    // Reset the flag before triggering the restart,
-    // to avoid infinite loops if the restart fails.
-    restartRequiredOnResume = false;
-    restartApp();
+  try {
+    // Set edge-to-edge display
+    setEdgeToEdge(true);
+
+    // Initialize theme manager when the app is ready
+    console.log("About to initialize theme manager...");
+
+    // TODO: Fix app freezing when initializing theme manager
+    const themeManager = AndroidThemeManager.initialize();
+    // console.log("Theme manager initialized:", themeManager !== null);
+
+    console.log("App initialization complete");
+  } catch (error) {
+    console.error("Error during app initialization:", error);
   }
 });
 
+// Log when the application is actually running
+Application.on(Application.resumeEvent, () => {
+  console.log("Application resumed (main activity is running)");
+});
+
+console.log("Setting application resources...");
 Application.setResources({ _: localize });
+console.log("Starting application...");
 Application.run({ moduleName: "app-root" });
