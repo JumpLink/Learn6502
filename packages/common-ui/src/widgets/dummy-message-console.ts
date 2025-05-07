@@ -1,6 +1,6 @@
-import type { MessageConsole as MessageConsoleInterface } from "./types/index.js";
+import type { MessageConsoleWidget } from "./index.js";
 
-export class DummyMessageConsole implements MessageConsoleInterface {
+export class DummyMessageConsole implements MessageConsoleWidget {
   constructor() {}
 
   public log(message: string) {

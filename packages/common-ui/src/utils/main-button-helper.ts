@@ -1,4 +1,4 @@
-import type { MainButtonActionState } from "../interfaces/main-button";
+import type { MainButtonActionState } from "../types";
 import { MainButtonState } from "../data/main-button-state";
 import { SimulatorState } from "@learn6502/6502";
 

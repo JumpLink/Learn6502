@@ -1,9 +1,10 @@
-import type { Memory, Display as DisplayInterface } from "@learn6502/6502";
+import type { Memory } from "@learn6502/6502";
+import type { DisplayWidget } from "@learn6502/common-ui";
 
 /**
  * Represents the display for a 6502 emulator.
  */
-export class Display implements DisplayInterface {
+export class Display implements DisplayWidget {
   private ctx: CanvasRenderingContext2D | null = null;
   private width: number = 160;
   private height: number = 160;

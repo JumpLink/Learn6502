@@ -4,9 +4,10 @@ import Gtk from "@girs/gtk-4.0";
 import type cairo from "cairo";
 import Template from "./display.blp";
 
-import type { Display as DisplayInterface, Memory } from "@learn6502/6502";
+import type { DisplayWidget } from "@learn6502/common-ui";
+import type { Memory } from "@learn6502/6502";
 
-export class Display extends Adw.Bin implements DisplayInterface {
+export class Display extends Adw.Bin implements DisplayWidget {
   // Child widgets
   declare private _drawingArea: Gtk.DrawingArea;
 

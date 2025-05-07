@@ -2,16 +2,11 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 
-import {
-  type Simulator,
-  type DebugInfo as DebugInfoInterface,
-  num2hex,
-  addr2hex,
-} from "@learn6502/6502";
-
+import { type Simulator, num2hex, addr2hex } from "@learn6502/6502";
+import { type DebugInfoWidget } from "@learn6502/common-ui";
 import Template from "./debug-info.blp";
 
-export class DebugInfo extends Adw.Bin implements DebugInfoInterface {
+export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
   // Child widgets
   declare private _textView: Gtk.TextView;
 

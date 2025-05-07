@@ -2,7 +2,8 @@
   "compilerOptions": {
     "preserveWatchOutput": true,
     "lib": ["ESNext"],
-    "types": [],
+    "typeRoots": ["./"],
+    "types": ["global"],
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",

@@ -13,21 +13,24 @@ import {
 import Template from "./debugger.blp";
 
 import {
-  type Debugger as DebuggerInterface,
   type Memory,
   type Simulator,
   Assembler,
-  DebuggerState,
   throttle,
 } from "@learn6502/6502";
+import {
+  type DebuggerWidget,
+  type MessageConsoleWidget,
+  DebuggerState,
+} from "@learn6502/common-ui";
 
-export class Debugger extends Adw.Bin implements DebuggerInterface {
+export class Debugger extends Adw.Bin implements DebuggerWidget {
   // Properties
   declare private _state: DebuggerState;
 
   // Child widgets
   declare private _stack: Gtk.Stack;
-  declare private _messageConsole: MessageConsole;
+  declare private _messageConsole: MessageConsoleWidget;
   declare private _hexMonitor: HexMonitor;
   declare private _hexdump: Hexdump;
   declare private _disassembled: Disassembled;

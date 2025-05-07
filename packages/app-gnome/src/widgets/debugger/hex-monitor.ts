@@ -3,11 +3,11 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import { SourceView } from "../source-view.ts";
 
-import type {
-  Memory,
-  HexMonitorOptions,
-  HexMonitor as HexMonitorInterface,
-} from "@learn6502/6502";
+import type { Memory } from "@learn6502/6502";
+import {
+  type HexMonitorOptions,
+  type HexMonitorWidget,
+} from "@learn6502/common-ui";
 
 import Template from "./hex-monitor.blp";
 
@@ -21,7 +21,7 @@ interface MemoryRegion {
  * A widget that displays a hex monitor.
  * @emits changed - when the monitor content is updated
  */
-export class HexMonitor extends Adw.Bin implements HexMonitorInterface {
+export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
   // Child widgets
   declare private _sourceView: SourceView;
   declare private _memoryRegionDropDown: Gtk.DropDown;

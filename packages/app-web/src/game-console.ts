@@ -1,20 +1,15 @@
-import {
-  Memory,
-  Labels,
-  Simulator,
-  Assembler,
-  MessageConsole as MessageConsoleInterface,
-} from "@learn6502/6502";
+import { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
 import { Debugger } from "./debugger.js";
 import { Display } from "./display.js";
 import { UIState } from "./ui-state.js";
 import { MessageConsole } from "./message-console.js";
+import { type MessageConsoleWidget } from "@learn6502/common-ui";
 
 /**
  * Represents the main widget for the 6502 simulator.
  */
 export class GameConsole {
-  private console: MessageConsoleInterface;
+  private console: MessageConsoleWidget;
   private uiState: UIState;
   private memory: Memory;
   private display: Display;

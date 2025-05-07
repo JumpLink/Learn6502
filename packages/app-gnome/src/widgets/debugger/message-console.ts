@@ -4,9 +4,9 @@ import Gtk from "@girs/gtk-4.0";
 
 import Template from "./message-console.blp";
 
-import type { MessageConsole as MessageConsoleInterface } from "@learn6502/6502";
+import { type MessageConsoleWidget } from "@learn6502/common-ui";
 
-export class MessageConsole extends Adw.Bin implements MessageConsoleInterface {
+export class MessageConsole extends Adw.Bin implements MessageConsoleWidget {
   // Child widgets
   declare private _textView: Gtk.TextView;
 

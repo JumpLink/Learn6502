@@ -1,6 +1,7 @@
-import type { DebuggerState, Memory, Simulator, Assembler } from "../index.js";
+import type { Memory, Simulator } from "@learn6502/6502";
+import type { DebuggerState } from "../data/index.js";
 
-export interface Debugger {
+export interface DebuggerWidget {
   state: DebuggerState;
   update(memory: Memory, simulator: Simulator): void;
   updateMonitor(memory: Memory): void;

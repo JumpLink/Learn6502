@@ -3,13 +3,16 @@ import {
   Memory,
   addr2hex,
   num2hex,
-  DebuggerState,
-  type Debugger as DebuggerInterface,
-  type HexMonitorOptions,
   throttle,
 } from "@learn6502/6502";
 
-export class Debugger implements DebuggerInterface {
+import {
+  DebuggerState,
+  type DebuggerWidget,
+  type HexMonitorOptions,
+} from "@learn6502/common-ui";
+
+export class Debugger implements DebuggerWidget {
   public state = DebuggerState.INITIAL;
   constructor(
     private readonly node: HTMLElement,

@@ -1,6 +1,6 @@
-import type { MessageConsole as MessageConsoleInterface } from "@learn6502/6502";
+import type { MessageConsoleWidget } from "@learn6502/common-ui";
 
-export class MessageConsole implements MessageConsoleInterface {
+export class MessageConsole implements MessageConsoleWidget {
   constructor(private readonly node: HTMLElement) {}
 
   public log(message: string) {
