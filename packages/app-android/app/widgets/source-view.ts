@@ -34,6 +34,16 @@ export class SourceView extends ContentView implements SourceViewWidget {
     }, 150); // Reduced delay for better responsiveness
   }
 
+  /**
+   * Focus the text editor
+   */
+  focus(): boolean {
+    if (this.textView) {
+      return this.textView.focus();
+    }
+    return false;
+  }
+
   updateText(code: string) {
     if (this.textView) {
       this.debouncedHighlighting(code);

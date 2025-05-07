@@ -18,6 +18,7 @@ class EditorModel extends Observable implements EditorView {
   private _helpPanel: StackLayout | null = null;
   private _helpToggleButton: Button | null = null;
   private _helpVisible: boolean = false;
+  private _changeHandler: (() => void) | null = null;
 
   /**
    * Get the current code in the editor
@@ -28,14 +29,61 @@ class EditorModel extends Observable implements EditorView {
   }
 
   /**
-   * Set code in the editor
+   * Set code in the editor using the setCode method
    */
   set code(value: string) {
+    this.setCode(value);
+  }
+
+  /**
+   * Set code in the editor
+   * @param value Code to set
+   */
+  setCode(value: string): void {
     this._code = value;
     if (this._sourceView) {
       this._sourceView.code = value;
     }
     this.notifyPropertyChange("code", value);
+
+    // Notify any registered change handlers
+    if (this._changeHandler) {
+      this._changeHandler();
+    }
+  }
+
+  /**
+   * Add content to the editor at current position
+   * @param content Content to add
+   */
+  addContent(content: string): void {
+    // In NativeScript, we'll just append content to the end
+    this.setCode(this.code + content);
+  }
+
+  /**
+   * Clear editor content
+   */
+  clear(): void {
+    this.setCode("");
+  }
+
+  /**
+   * Set focus to the editor
+   */
+  focus(): boolean {
+    if (this._sourceView) {
+      return this._sourceView.focus();
+    }
+    return false;
+  }
+
+  /**
+   * Handle editor change event
+   * @param handler Handler function
+   */
+  onChanged(handler: () => void): void {
+    this._changeHandler = handler;
   }
 
   /**
@@ -58,8 +106,9 @@ class EditorModel extends Observable implements EditorView {
 
     // Initialize with some sample code if none exists
     if (!this.hasCode) {
-      this.code =
-        "; Example 6502, assembly code\n\nLDA #$01\nSTA $0200\nLDX #$00\nLDY #$00";
+      this.setCode(
+        "; Example 6502, assembly code\n\nLDA #$01\nSTA $0200\nLDX #$00\nLDY #$00"
+      );
     }
 
     // Update the source view with current code

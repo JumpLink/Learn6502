@@ -26,6 +26,9 @@ export class Editor extends Adw.Bin implements EditorView {
   /** The ScrolledWindow that contains the quick help */
   declare private _scrolledWindow: Gtk.ScrolledWindow;
 
+  /** Change handler callback */
+  private _changeHandler: (() => void) | null = null;
+
   static {
     GObject.registerClass(
       {
@@ -56,6 +59,16 @@ export class Editor extends Adw.Bin implements EditorView {
    * Implements EditorView
    */
   public set code(value: string) {
+    this.setCode(value);
+  }
+
+  /**
+   * Set the source code
+   * Implements EditorView
+   *
+   * @param value The source code to set
+   */
+  public setCode(value: string): void {
     if (this.code === value) return;
     this._sourceView.code = value;
     this.notify("code");
@@ -89,6 +102,49 @@ export class Editor extends Adw.Bin implements EditorView {
     return hasCode;
   }
 
+  /**
+   * Add content to the editor at current position
+   * Implements EditorView
+   *
+   * @param content Content to add
+   */
+  public addContent(content: string): void {
+    // Get cursor position
+    const cursor = this.buffer.get_insert();
+    const iter = this.buffer.get_iter_at_mark(cursor);
+
+    // Insert text at cursor position
+    this.buffer.insert(iter, content, -1);
+  }
+
+  /**
+   * Clear editor content
+   * Implements EditorView
+   */
+  public clear(): void {
+    this.buffer.set_text("", -1);
+  }
+
+  /**
+   * Set focus to the editor
+   * Implements EditorView
+   *
+   * @returns Whether the editor was focused
+   */
+  public focus(): boolean {
+    return this._sourceView.grab_focus();
+  }
+
+  /**
+   * Handle editor change event
+   * Implements EditorView
+   *
+   * @param handler Handler function
+   */
+  public onChanged(handler: () => void): void {
+    this._changeHandler = handler;
+  }
+
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
@@ -99,6 +155,11 @@ export class Editor extends Adw.Bin implements EditorView {
 
   private onUpdate() {
     this.emit("changed");
+
+    // Call change handler if registered
+    if (this._changeHandler) {
+      this._changeHandler();
+    }
   }
 }
 

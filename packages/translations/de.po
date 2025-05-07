@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-07 07:20+0200\n"
+"POT-Creation-Date: 2025-05-07 17:44+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -110,14 +110,69 @@ msgstr "6502 Stack leer! Unterlauf..."
 msgid "Program completed at PC=$%s"
 msgstr "Programm beendet bei PC=$%s"
 
+#: ../app-gnome/src/controllers/file-manager.ts:36
+#: ../app-gnome/src/views/main.window.ts:663
+msgid "Open Assembly File"
+msgstr "Assembler-Datei öffnen"
+
+#: ../app-gnome/src/controllers/file-manager.ts:77
+#: ../app-gnome/src/views/main.window.ts:722
+msgid "Save Assembly File"
+msgstr "Assembler Datei speichern"
+
+#: ../app-gnome/src/controllers/file-manager.ts:155
 #: ../app-gnome/src/views/main.window.ts:67
 msgid "Unsaved changes"
 msgstr "Uneingespeicherte Änderungen"
 
+#: ../app-gnome/src/controllers/file-manager.ts:158
 #: ../app-gnome/src/views/main.window.ts:70
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "Datei \"%s\" enthält ungespeicherte Änderungen"
+
+#: ../app-gnome/src/controllers/file-manager.ts:171
+#: ../app-gnome/src/views/main.window.ts:790
+msgid "Assembly Files"
+msgstr "Assembler-Dateien"
+
+#: ../app-gnome/src/controllers/file-manager.ts:176
+#: ../app-gnome/src/views/main.window.ts:795
+msgid "All Files"
+msgstr "Alle Dateien"
+
+#. Add response buttons
+#. Add actions
+#: ../app-gnome/src/controllers/notification-service.ts:63
+#: ../app-gnome/src/controllers/ui-controller.ts:54
+msgid "Cancel"
+msgstr "Abbrechen"
+
+#: ../app-gnome/src/controllers/notification-service.ts:64
+msgid "Confirm"
+msgstr ""
+
+#. Add OK button
+#: ../app-gnome/src/controllers/notification-service.ts:90
+msgid "OK"
+msgstr ""
+
+#: ../app-gnome/src/controllers/ui-controller.ts:47
+#, fuzzy
+msgid "Unsaved Changes"
+msgstr "Uneingespeicherte Änderungen"
+
+#: ../app-gnome/src/controllers/ui-controller.ts:48
+msgid "Do you want to save the changes before continuing?"
+msgstr ""
+
+#: ../app-gnome/src/controllers/ui-controller.ts:55
+msgid "Discard"
+msgstr "Verwerfen"
+
+#: ../app-gnome/src/controllers/ui-controller.ts:56
+msgid "Save"
+msgstr "Speichern"
 
 #: ../app-gnome/src/views/main.window.ts:127
 msgid "Code copied to editor"
@@ -164,10 +219,6 @@ msgstr "Label-Fehler"
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
-#: ../app-gnome/src/views/main.window.ts:663
-msgid "Open Assembly File"
-msgstr "Assembler-Datei öffnen"
-
 #: ../app-gnome/src/views/main.window.ts:674
 msgid "Failed to load file"
 msgstr "Datei konnte nicht geladen werden"
@@ -185,10 +236,6 @@ msgstr "Fehler beim Öffnen der Datei"
 msgid "untitled"
 msgstr "unbenannt"
 
-#: ../app-gnome/src/views/main.window.ts:722
-msgid "Save Assembly File"
-msgstr "Assembler Datei speichern"
-
 #: ../app-gnome/src/views/main.window.ts:735
 #: ../app-gnome/src/views/main.window.ts:779
 msgid "Error saving file"
@@ -197,14 +244,6 @@ msgstr "Fehler beim Speichern der Datei"
 #: ../app-gnome/src/views/main.window.ts:772
 msgid "File saved successfully"
 msgstr "Datei erfolgreich gespeichert"
-
-#: ../app-gnome/src/views/main.window.ts:790
-msgid "Assembly Files"
-msgstr "Assembler-Dateien"
-
-#: ../app-gnome/src/views/main.window.ts:795
-msgid "All Files"
-msgstr "Alle Dateien"
 
 #: ../app-gnome/src/widgets/main-button.ts:64
 msgid "Assemble"
@@ -266,11 +305,6 @@ msgstr "Spielkonsole"
 msgid "Open..."
 msgstr "Öffnen..."
 
-#: ../app-gnome/src/views/main.window.blp:113
-#: ../app-gnome/src/views/main.window.blp:164
-msgid "Save"
-msgstr "Speichern"
-
 #: ../app-gnome/src/views/main.window.blp:118
 msgid "Save as..."
 msgstr "Speichern unter..."
@@ -293,14 +327,6 @@ msgid ""
 msgstr ""
 "Deine Datei enthält ungespeicherte Änderungen. Die Änderungen gehen "
 "verloren, wenn du sie nicht speicherst."
-
-#: ../app-gnome/src/views/main.window.blp:162
-msgid "Cancel"
-msgstr "Abbrechen"
-
-#: ../app-gnome/src/views/main.window.blp:163
-msgid "Discard"
-msgstr "Verwerfen"
 
 #: ../app-gnome/src/views/preferences.dialog.blp:7
 msgid "Preferences"

@@ -1,5 +1,3 @@
-// Export utilities
-export * from "./main-button-helper";
 export * from "./ui-controller";
 export * from "./gamepad-controller";
 export * from "./file-manager";

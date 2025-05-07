@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-07 07:24+0200\n"
+"POT-Creation-Date: 2025-05-07 18:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -104,13 +104,67 @@ msgstr ""
 msgid "Program completed at PC=$%s"
 msgstr ""
 
+#: ../app-gnome/src/controllers/file-manager.ts:36
+#: ../app-gnome/src/views/main.window.ts:663
+msgid "Open Assembly File"
+msgstr ""
+
+#: ../app-gnome/src/controllers/file-manager.ts:77
+#: ../app-gnome/src/views/main.window.ts:722
+msgid "Save Assembly File"
+msgstr ""
+
+#: ../app-gnome/src/controllers/file-manager.ts:155
 #: ../app-gnome/src/views/main.window.ts:67
 msgid "Unsaved changes"
 msgstr ""
 
+#: ../app-gnome/src/controllers/file-manager.ts:158
 #: ../app-gnome/src/views/main.window.ts:70
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
+msgstr ""
+
+#: ../app-gnome/src/controllers/file-manager.ts:171
+#: ../app-gnome/src/views/main.window.ts:790
+msgid "Assembly Files"
+msgstr ""
+
+#: ../app-gnome/src/controllers/file-manager.ts:176
+#: ../app-gnome/src/views/main.window.ts:795
+msgid "All Files"
+msgstr ""
+
+#. Add response buttons
+#. Add actions
+#: ../app-gnome/src/controllers/notification-service.ts:63
+#: ../app-gnome/src/controllers/ui-controller.ts:54
+msgid "Cancel"
+msgstr ""
+
+#: ../app-gnome/src/controllers/notification-service.ts:64
+msgid "Confirm"
+msgstr ""
+
+#. Add OK button
+#: ../app-gnome/src/controllers/notification-service.ts:90
+msgid "OK"
+msgstr ""
+
+#: ../app-gnome/src/controllers/ui-controller.ts:47
+msgid "Unsaved Changes"
+msgstr ""
+
+#: ../app-gnome/src/controllers/ui-controller.ts:48
+msgid "Do you want to save the changes before continuing?"
+msgstr ""
+
+#: ../app-gnome/src/controllers/ui-controller.ts:55
+msgid "Discard"
+msgstr ""
+
+#: ../app-gnome/src/controllers/ui-controller.ts:56
+msgid "Save"
 msgstr ""
 
 #: ../app-gnome/src/views/main.window.ts:127
@@ -158,10 +212,6 @@ msgstr ""
 msgid "Gamepad key pressed:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:663
-msgid "Open Assembly File"
-msgstr ""
-
 #: ../app-gnome/src/views/main.window.ts:674
 msgid "Failed to load file"
 msgstr ""
@@ -179,10 +229,6 @@ msgstr ""
 msgid "untitled"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:722
-msgid "Save Assembly File"
-msgstr ""
-
 #: ../app-gnome/src/views/main.window.ts:735
 #: ../app-gnome/src/views/main.window.ts:779
 msgid "Error saving file"
@@ -190,14 +236,6 @@ msgstr ""
 
 #: ../app-gnome/src/views/main.window.ts:772
 msgid "File saved successfully"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:790
-msgid "Assembly Files"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:795
-msgid "All Files"
 msgstr ""
 
 #: ../app-gnome/src/widgets/main-button.ts:64
@@ -260,11 +298,6 @@ msgstr ""
 msgid "Open..."
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:113
-#: ../app-gnome/src/views/main.window.blp:164
-msgid "Save"
-msgstr ""
-
 #: ../app-gnome/src/views/main.window.blp:118
 msgid "Save as..."
 msgstr ""
@@ -284,14 +317,6 @@ msgstr ""
 #: ../app-gnome/src/views/main.window.blp:158
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:162
-msgid "Cancel"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:163
-msgid "Discard"
 msgstr ""
 
 #: ../app-gnome/src/views/preferences.dialog.blp:7
