@@ -1,5 +1,3 @@
-import { SimulatorState } from "@learn6502/6502";
-
 /**
  * Type representing gamepad keys/directions
  */

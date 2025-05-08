@@ -5,6 +5,12 @@ import type cairo from "cairo";
 import Template from "./display.blp";
 
 import type { DisplayWidget } from "@learn6502/common-ui";
+import { DisplayService } from "@learn6502/common-ui/src/utils/display-service";
+import {
+  DEFAULT_COLOR_PALETTE,
+  DEFAULT_DISPLAY_CONFIG,
+  DisplayAddressRange,
+} from "@learn6502/common-ui/src/data/display-constants";
 import type { Memory } from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayWidget {
@@ -22,37 +28,22 @@ export class Display extends Adw.Bin implements DisplayWidget {
     );
   }
 
-  private width: number = 160;
-  private height: number = 160;
+  private canvasWidth: number = DEFAULT_DISPLAY_CONFIG.width;
+  private canvasHeight: number = DEFAULT_DISPLAY_CONFIG.height;
   private pixelSize: number = 0;
-  private numX: number = 32;
-  private numY: number = 32;
+  private numX: number = DEFAULT_DISPLAY_CONFIG.numX;
+  private numY: number = DEFAULT_DISPLAY_CONFIG.numY;
   private memory: Memory | undefined;
-
-  private palette = [
-    "#000000", // $0: Black
-    "#ffffff", // $1: White
-    "#880000", // $2: Red
-    "#aaffee", // $3: Cyan
-    "#cc44cc", // $4: Purple
-    "#00cc55", // $5: Green
-    "#0000aa", // $6: Blue
-    "#eeee77", // $7: Yellow
-    "#dd8855", // $8: Orange
-    "#664400", // $9: Brown
-    "#ff7777", // $a: Light red
-    "#333333", // $b: Dark grey
-    "#777777", // $c: Grey
-    "#aaff66", // $d: Light green
-    "#0088ff", // $e: Light blue
-    "#bbbbbb", // $f: Light grey
-  ];
+  private palette = DEFAULT_COLOR_PALETTE;
+  private displayService: DisplayService;
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
     if (!this._drawingArea) {
       throw new Error("DrawingArea is required");
     }
+
+    this.displayService = new DisplayService(this.palette);
 
     this.reset();
   }
@@ -63,17 +54,17 @@ export class Display extends Adw.Bin implements DisplayWidget {
   public initialize(memory: Memory): void {
     this.memory = memory;
     this.memory.on("changed", (event) => {
-      if (event.addr >= 0x200 && event.addr <= 0x5ff) {
+      if (this.displayService.isDisplayAddress(event.addr)) {
         this.updatePixel(event.addr);
       }
     });
 
-    this.width = this._drawingArea.get_content_width();
-    this.height = this._drawingArea.get_content_height();
-    if (!this.width || !this.height) {
+    this.canvasWidth = this._drawingArea.get_content_width();
+    this.canvasHeight = this._drawingArea.get_content_height();
+    if (!this.canvasWidth || !this.canvasHeight) {
       throw new Error("DrawingArea is required");
     }
-    this.pixelSize = this.width / this.numX;
+    this.pixelSize = this.canvasWidth / this.numX;
     this.reset();
   }
 
@@ -106,7 +97,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
     height: number
   ) {
     const black = { red: 0, green: 0, blue: 0 };
-    cr.setSourceRGB(black.red, black.green, black.blue); // Set color to white
+    cr.setSourceRGB(black.red, black.green, black.blue); // Set color to black
     cr.paint(); // Paint the entire drawing area with the color above
   }
 
@@ -119,17 +110,23 @@ export class Display extends Adw.Bin implements DisplayWidget {
     if (!this.memory) {
       return;
     }
-    // Über den Adressbereich iterieren und Pixel zeichnen
-    for (let addr = 0x200; addr <= 0x5ff; addr++) {
+    // Iterate over the address range and draw pixels
+    for (
+      let addr = DisplayAddressRange.START;
+      addr <= DisplayAddressRange.END;
+      addr++
+    ) {
       this.drawPixel(cr, addr);
     }
   }
 
   private drawPixel(cr: cairo.Context, addr: number) {
-    const color = this._getColorForAddress(addr);
+    if (!this.memory) {
+      return;
+    }
 
-    const y = Math.floor((addr - 0x200) / this.numY);
-    const x = (addr - 0x200) % this.numX;
+    const color = this.displayService.getColorForAddress(this.memory, addr);
+    const [x, y] = this.displayService.addrToCoordinates(addr, this.numX);
 
     cr.setSourceRGB(color.red, color.green, color.blue);
     cr.rectangle(
@@ -139,25 +136,6 @@ export class Display extends Adw.Bin implements DisplayWidget {
       this.pixelSize
     );
     cr.fill();
-  }
-
-  private _getColorForAddress(addr: number): {
-    red: number;
-    green: number;
-    blue: number;
-  } {
-    if (!this.memory) {
-      return { red: 0, green: 0, blue: 0 };
-    }
-    const value = this.memory.get(addr) & 0x0f;
-    const hex = this.palette[value]; // E.g. #dd8855
-
-    // hex to rgb
-    const red = parseInt(hex.slice(1, 3), 16) / 255;
-    const green = parseInt(hex.slice(3, 5), 16) / 255;
-    const blue = parseInt(hex.slice(5, 7), 16) / 255;
-
-    return { red, green, blue };
   }
 }
 

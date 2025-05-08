@@ -147,7 +147,7 @@ class GameConsoleController {
    * Initializes the simulator and sets up event listeners.
    */
   private initialize(): void {
-    this._display?.initialize(/* this._memory */); // Pass memory later
+    this._display?.initialize(this._memory); // Pass memory later
     this._simulator.reset();
     this.setupEventListeners();
     console.log("game-console.view: Initialized");
