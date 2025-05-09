@@ -559,20 +559,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         timeout: 2,
       });
     });
-
-    this._gameConsole.connect("gamepad-pressed", (_gameConsole, key) => {
-      this._debugger.log(
-        _("Gamepad key pressed:") + " $" + num2hex(key).toUpperCase()
-      );
-    });
   }
 
   private setupKeyboardListener(): void {
-    // Set simulator memory reference for gamepad controller
-    if (this._gameConsole.memory) {
-      gamepadService.setMemory(this._gameConsole.memory);
-    }
-
     // Add key controller to the window
     gamepadService.addKeyControllerTo(this);
 
@@ -593,6 +582,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
   }
 
+  // TODO: Reactivate this
   private handleKeyPress(keyval: number): void {
     // Don't handle keys if a dialog is showing
     if (this.unsavedChanges) return;

@@ -21,6 +21,7 @@ class GamepadService extends BaseGamepadService {
 
   /**
    * Set memory for gamepad inputs
+   * TODO: Move to base class
    */
   public setMemory(memory: Memory): void {
     this._memory = memory;
@@ -44,43 +45,18 @@ class GamepadService extends BaseGamepadService {
 
   /**
    * Process key press and update memory
-   * Implementation of abstract method from BaseGamepadService
+   * TODO: Move to base class
    */
-  protected onKeyPress(key: GamepadKey, address: number): void {
+  protected onKeyPress(key: GamepadKey): void {
     if (this._memory) {
-      console.debug("set memory key", key, address);
-      // Write 1 to memory at the corresponding address
-      this._memory.set(address, 1);
-
-      // Also update memory using storeKeypress for compatibility
-      // This is needed for certain games like snake
       const keyValue = this.getKeyValue(key);
       if (keyValue !== 0) {
         this._memory.storeKeypress(keyValue);
+        this.emitGamepadEvent({
+          key,
+          keyCode: keyValue,
+        });
       }
-    }
-  }
-
-  /**
-   * Get the key value for storeKeypress method
-   * This maps gamepad keys to the expected ASCII values
-   */
-  private getKeyValue(key: GamepadKey): number {
-    switch (key) {
-      case "Up":
-        return 119; // w
-      case "Down":
-        return 115; // s
-      case "Left":
-        return 97; // a
-      case "Right":
-        return 100; // d
-      case "A":
-        return 13; // Enter
-      case "B":
-        return 32; // Space
-      default:
-        return 0;
     }
   }
 
@@ -112,10 +88,7 @@ class GamepadService extends BaseGamepadService {
    * Press a gamepad key
    */
   public pressKey(key: GamepadKey): void {
-    const address = this.keyToAddressMap[key];
-    if (address !== undefined) {
-      this.onKeyPress(key, address);
-    }
+    this.onKeyPress(key);
   }
 
   /**
@@ -130,7 +103,6 @@ class GamepadService extends BaseGamepadService {
    */
   public handleKeyPress(keyCode: number): boolean {
     const key = this.mapKeyToGamepad(keyCode);
-    console.debug("handleKeyPress", key, keyCode);
     if (key) {
       this.pressKey(key);
       return true;
@@ -147,7 +119,7 @@ class GamepadService extends BaseGamepadService {
 
   /**
    * Emit gamepad event to listeners
-   * Implementation of method from BaseGamepadService
+   * TODO: Move to base class
    */
   protected emitGamepadEvent(event: GamepadEvent): void {
     // Call parent class implementation to dispatch events

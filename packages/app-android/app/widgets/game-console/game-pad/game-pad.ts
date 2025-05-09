@@ -1,4 +1,4 @@
-import { GridLayout, EventData, Observable } from "@nativescript/core";
+import { GridLayout, EventData } from "@nativescript/core";
 
 export type GamePadKey = "Left" | "Right" | "Up" | "Down" | "A" | "B";
 

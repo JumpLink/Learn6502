@@ -28,7 +28,6 @@ import {
 import { Display } from "../../widgets/game-console/display.ts";
 import { GamePad } from "../../widgets/game-console/game-pad.ts";
 import { gamepadService } from "../../services/gamepad-service.ts";
-import { type GamepadEvent } from "@learn6502/common-ui";
 
 import Template from "./game-console.blp";
 
@@ -200,17 +199,6 @@ export interface GameConsole {
     callback: (_source: this, pspec: LabelsFailureEvent) => void
   ): number;
   emit(signal: "labels-failure", pspec: LabelsFailureEvent): void;
-
-  // Custom signals for gamepad events
-  connect(
-    signal: "gamepad-pressed",
-    callback: (_source: this, pspec: number) => void
-  ): number;
-  connect_after(
-    signal: "gamepad-pressed",
-    callback: (_source: this, pspec: number) => void
-  ): number;
-  emit(signal: "gamepad-pressed", pspec: number): void;
 }
 
 /**
@@ -227,7 +215,6 @@ export interface GameConsole {
  * @emits multistep - Emitted when the simulator executes multiple steps.
  * @emits labels-info - Emitted when the labels has a info message.
  * @emits labels-failure - Emitted when the labels fail to parse.
- * @emits gamepad-pressed - Emitted when a gamepad button is pressed.
  */
 export class GameConsole extends Adw.Bin {
   // Child widgets
@@ -289,17 +276,11 @@ export class GameConsole extends Adw.Bin {
           "labels-failure": {
             param_types: [GObject.TYPE_JSOBJECT],
           },
-          "gamepad-pressed": {
-            param_types: [GObject.TYPE_INT],
-          },
         },
       },
       this
     );
   }
-
-  /** A list of handler IDs for the signals we connect to. */
-  private gamepadHandlerIds: number[] = [];
 
   private _memory: Memory;
   private _labels: Labels;
@@ -395,21 +376,7 @@ export class GameConsole extends Adw.Bin {
     // Set up gamepad service with our memory
     gamepadService.setMemory(this._memory);
 
-    // Listen for gamepad events from the service
-    gamepadService.addEventListener(
-      "keyPressed",
-      this.handleGamepadEvent.bind(this)
-    );
-
     this.setupEventListeners();
-  }
-
-  /**
-   * Handle gamepad events from the gamepad service
-   */
-  private handleGamepadEvent(event: GamepadEvent): void {
-    // Forward gamepad key press to listeners
-    this.emit("gamepad-pressed", event.keyCode);
   }
 
   /**
@@ -500,11 +467,7 @@ export class GameConsole extends Adw.Bin {
   }
 
   private removeSignalHandlers(): void {
-    // Remove gamepad event listener
-    gamepadService.removeEventListener(
-      "keyPressed",
-      this.handleGamepadEvent.bind(this)
-    );
+    // Nothing to do here now that we're using the gamepadService
   }
 }
 

@@ -62,16 +62,6 @@ export abstract class BaseGamepadService implements GamepadService {
   // Default key mappings
   protected keyMappings: Record<number, GamepadKey> = {};
 
-  // Default key to address mappings (platform-specific implementations can override)
-  protected keyToAddressMap: Record<GamepadKey, number> = {
-    Up: 0xff,
-    Down: 0xfe,
-    Left: 0xfd,
-    Right: 0xfc,
-    A: 0xfb,
-    B: 0xfa,
-  };
-
   /**
    * Register a listener for gamepad events
    * @param event Event name to listen for
@@ -103,17 +93,13 @@ export abstract class BaseGamepadService implements GamepadService {
   public pressKey(key: GamepadKey): void {
     if (!this.enabled) return;
 
-    // Get address for the key
-    const address = this.keyToAddressMap[key];
-    if (address === undefined) return;
-
     // Write to memory (platform-specific implementation)
-    this.onKeyPress(key, address);
+    this.onKeyPress(key);
 
     // Emit event for logging/UI feedback
     this.emitGamepadEvent({
       key,
-      keyCode: address,
+      keyCode: this.getKeyValue(key),
     });
   }
 
@@ -154,9 +140,8 @@ export abstract class BaseGamepadService implements GamepadService {
   /**
    * Method to actually process key press in platform-specific way
    * @param key The gamepad key that was pressed
-   * @param address Memory address to update
    */
-  protected abstract onKeyPress(key: GamepadKey, address: number): void;
+  protected abstract onKeyPress(key: GamepadKey): void;
 
   /**
    * Emit gamepad event to listeners
@@ -170,4 +155,27 @@ export abstract class BaseGamepadService implements GamepadService {
    * Initialize platform-specific key mappings
    */
   protected abstract initKeyMappings(): void;
+
+  /**
+   * Get the key value for storeKeypress method
+   * This maps gamepad keys to the expected ASCII values
+   */
+  protected getKeyValue(key: GamepadKey): number {
+    switch (key) {
+      case "Up":
+        return 119; // w
+      case "Down":
+        return 115; // s
+      case "Left":
+        return 97; // a
+      case "Right":
+        return 100; // d
+      case "A":
+        return 13; // Enter
+      case "B":
+        return 32; // Space
+      default:
+        return 0;
+    }
+  }
 }

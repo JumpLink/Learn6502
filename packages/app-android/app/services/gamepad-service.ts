@@ -4,13 +4,13 @@ import type {
   GamepadKey,
   GamepadEventMap,
 } from "@learn6502/common-ui";
-
+import type { Memory } from "@learn6502/6502";
 /**
  * Android-specific implementation of the GamepadService
  */
 export class GamepadService extends BaseGamepadService {
   // Simulator memory
-  private _memory: Uint8Array | null = null;
+  private _memory: Memory | null = null;
 
   constructor() {
     super();
@@ -42,8 +42,9 @@ export class GamepadService extends BaseGamepadService {
 
   /**
    * Set memory for gamepad inputs
+   * TODO: Move to base class
    */
-  public setMemory(memory: Uint8Array): void {
+  public setMemory(memory: Memory): void {
     this._memory = memory;
   }
 
@@ -67,11 +68,14 @@ export class GamepadService extends BaseGamepadService {
    * Process key press and write to memory
    * @param key GamepadKey that was pressed
    * @param address Memory address to update
+   * TODO: Move to base class
    */
-  protected onKeyPress(key: GamepadKey, address: number): void {
+  protected onKeyPress(key: GamepadKey): void {
     if (this._memory) {
-      // Write 1 to memory at the specified address
-      this._memory[address] = 1;
+      const keyValue = this.getKeyValue(key);
+      if (keyValue !== 0) {
+        this._memory.storeKeypress(keyValue);
+      }
     }
   }
 
