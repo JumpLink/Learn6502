@@ -7,7 +7,7 @@ import { alert, confirm } from "@nativescript/core/ui/dialogs";
  * Android-specific implementation of the NotificationService
  * Uses NativeScript dialogs for notifications
  */
-export class AndroidNotificationService extends BaseNotificationService {
+export class NotificationService extends BaseNotificationService {
   constructor() {
     super();
   }

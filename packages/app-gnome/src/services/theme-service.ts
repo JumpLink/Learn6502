@@ -1,4 +1,4 @@
-import { BaseThemeManager } from "@learn6502/common-ui";
+import { BaseThemeService } from "@learn6502/common-ui";
 import type { ThemeMode } from "@learn6502/common-ui";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
@@ -6,10 +6,10 @@ import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
 
 /**
- * GNOME-specific implementation of the ThemeManager
+ * GNOME-specific implementation of the ThemeService
  * Uses Adw.StyleManager for theming
  */
-export class GnomeThemeManager extends BaseThemeManager {
+export class ThemeService extends BaseThemeService {
   private styleManager: Adw.StyleManager;
   private settings: Gio.Settings | null = null;
 

@@ -7,7 +7,7 @@ import Gtk from "@girs/gtk-4.0";
  * GNOME-specific implementation of the NotificationService
  * Uses Adw.Toast and Adw.AlertDialog
  */
-export class GnomeNotificationService extends BaseNotificationService {
+export class NotificationService extends BaseNotificationService {
   private window: Gtk.Window;
   private toastOverlay: Adw.ToastOverlay;
 

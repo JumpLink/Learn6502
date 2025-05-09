@@ -1,4 +1,4 @@
-import { BaseThemeManager } from "@learn6502/common-ui";
+import { BaseThemeService } from "@learn6502/common-ui";
 import type { ThemeMode } from "@learn6502/common-ui";
 import { Application, ApplicationSettings } from "@nativescript/core";
 import { systemStates, SystemStates } from "../states";
@@ -10,35 +10,35 @@ import type { ContrastChangeEvent } from "~/types";
  * Android-specific implementation of the ThemeManager
  * Uses Android's AppCompatDelegate for theming
  */
-class AndroidThemeManager extends BaseThemeManager {
+export class ThemeService extends BaseThemeService {
   private static readonly THEME_SETTING_KEY = "eu.jumplink.Learn6502.theme";
   private restartRequiredOnResume = false;
 
   // Singleton instance
-  private static instance: AndroidThemeManager | null = null;
+  private static instance: ThemeService | null = null;
 
   /**
-   * Get the singleton instance of AndroidThemeManager
+   * Get the singleton instance of ThemeService
    * If the instance doesn't exist, it will NOT be created automatically.
    * Use initialize() to create the instance when the app is ready.
    */
-  public static getInstance(): AndroidThemeManager | null {
-    return AndroidThemeManager.instance;
+  public static getInstance(): ThemeService | null {
+    return ThemeService.instance;
   }
 
   /**
    * Initialize the ThemeManager singleton when the app is ready
    * @returns The singleton instance
    */
-  public static initialize(): AndroidThemeManager {
-    if (!AndroidThemeManager.instance) {
-      console.log("Initializing AndroidThemeManager...");
-      AndroidThemeManager.instance = new AndroidThemeManager();
+  public static initialize(): ThemeService {
+    if (!ThemeService.instance) {
+      console.log("Initializing ThemeService...");
+      ThemeService.instance = new ThemeService();
 
       // Now that the instance is created, perform initialization
-      AndroidThemeManager.instance.initializeManager();
+      ThemeService.instance.initializeManager();
     }
-    return AndroidThemeManager.instance;
+    return ThemeService.instance;
   }
 
   /**
@@ -136,7 +136,7 @@ class AndroidThemeManager extends BaseThemeManager {
     try {
       console.log("Loading theme from settings...");
       const savedTheme = ApplicationSettings.getString(
-        AndroidThemeManager.THEME_SETTING_KEY,
+        ThemeService.THEME_SETTING_KEY,
         "system"
       );
 
@@ -165,10 +165,7 @@ class AndroidThemeManager extends BaseThemeManager {
   private saveThemeToSettings(mode: ThemeMode): void {
     try {
       console.log("Saving theme to settings:", mode);
-      ApplicationSettings.setString(
-        AndroidThemeManager.THEME_SETTING_KEY,
-        mode
-      );
+      ApplicationSettings.setString(ThemeService.THEME_SETTING_KEY, mode);
     } catch (error) {
       console.error("Error saving theme to settings:", error);
     }
@@ -271,6 +268,3 @@ class AndroidThemeManager extends BaseThemeManager {
     }
   }
 }
-
-// Export the class
-export { AndroidThemeManager };

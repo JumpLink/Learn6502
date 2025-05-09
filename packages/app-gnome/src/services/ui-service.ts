@@ -1,4 +1,4 @@
-import { BaseUIController } from "@learn6502/common-ui";
+import { BaseUIService } from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
@@ -6,9 +6,9 @@ import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
 
 /**
- * GNOME-specific implementation of the UIController
+ * GNOME-specific implementation of the UIService
  */
-export class GnomeUIController extends BaseUIController {
+export class UIService extends BaseUIService {
   private _window: Adw.ApplicationWindow;
   private _toastOverlay: Adw.ToastOverlay;
   private _unsavedChangesIndicator: Gtk.Button | null = null;

@@ -1,12 +1,12 @@
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import {
-  GnomeThemeManager,
-  GnomeNotificationService,
-  GnomeFileManager,
-  GnomeUIController,
-  GnomeGamepadController,
-} from "./controllers";
+  ThemeService,
+  NotificationService,
+  FileService,
+  UIService,
+  GamepadService,
+} from "./services/index";
 
 /**
  * Central services class that manages controller instances
@@ -14,11 +14,11 @@ import {
  */
 export class Services {
   // Controllers
-  private _themeManager?: GnomeThemeManager;
-  private _notificationService?: GnomeNotificationService;
-  private _fileManager?: GnomeFileManager;
-  private _uiController?: GnomeUIController;
-  private _gamepadController?: GnomeGamepadController;
+  private _themeManager?: ThemeService;
+  private _notificationService?: NotificationService;
+  private _fileManager?: FileService;
+  private _uiController?: UIService;
+  private _gamepadController?: GamepadService;
 
   // Whether the services have been fully initialized
   private _initialized = false;
@@ -52,17 +52,14 @@ export class Services {
 
     try {
       // Create controllers that require UI references
-      this._notificationService = new GnomeNotificationService(
-        window,
-        toastOverlay
-      );
-      this._fileManager = new GnomeFileManager(window);
-      this._uiController = new GnomeUIController(window, toastOverlay);
+      this._notificationService = new NotificationService(window, toastOverlay);
+      this._fileManager = new FileService(window);
+      this._uiController = new UIService(window, toastOverlay);
 
       // Create controllers that access GTK/GDK APIs
       // (Now safe since GTK is initialized)
-      this._themeManager = new GnomeThemeManager();
-      this._gamepadController = new GnomeGamepadController();
+      this._themeManager = new ThemeService();
+      this._gamepadController = new GamepadService();
 
       this._initialized = true;
       console.log("Services initialized successfully");
@@ -88,7 +85,7 @@ export class Services {
   /**
    * Get theme manager
    */
-  public get themeManager(): GnomeThemeManager {
+  public get themeManager(): ThemeService {
     this.checkController(this._themeManager, "ThemeManager");
     return this._themeManager!;
   }
@@ -96,7 +93,7 @@ export class Services {
   /**
    * Get notification service
    */
-  public get notificationService(): GnomeNotificationService {
+  public get notificationService(): NotificationService {
     this.checkController(this._notificationService, "NotificationService");
     return this._notificationService!;
   }
@@ -104,7 +101,7 @@ export class Services {
   /**
    * Get file manager
    */
-  public get fileManager(): GnomeFileManager {
+  public get fileManager(): FileService {
     this.checkController(this._fileManager, "FileManager");
     return this._fileManager!;
   }
@@ -112,7 +109,7 @@ export class Services {
   /**
    * Get UI controller
    */
-  public get uiController(): GnomeUIController {
+  public get uiController(): UIService {
     this.checkController(this._uiController, "UIController");
     return this._uiController!;
   }
@@ -120,7 +117,7 @@ export class Services {
   /**
    * Get gamepad controller
    */
-  public get gamepadController(): GnomeGamepadController {
+  public get gamepadController(): GamepadService {
     this.checkController(this._gamepadController, "GamepadController");
     return this._gamepadController!;
   }

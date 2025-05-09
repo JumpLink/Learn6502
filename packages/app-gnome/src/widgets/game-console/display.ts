@@ -4,14 +4,12 @@ import Gtk from "@girs/gtk-4.0";
 import type cairo from "cairo";
 import Template from "./display.blp";
 
-import type { DisplayWidget } from "@learn6502/common-ui";
-import { DisplayService } from "@learn6502/common-ui/src/utils/display-service";
+import { type DisplayWidget, DisplayService } from "@learn6502/common-ui";
 import {
   DEFAULT_COLOR_PALETTE,
   DEFAULT_DISPLAY_CONFIG,
-  DisplayAddressRange,
 } from "@learn6502/common-ui/src/data/display-constants";
-import type { Memory } from "@learn6502/6502";
+import { type Memory, DisplayAddressRange } from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayWidget {
   // Child widgets

@@ -2,10 +2,10 @@ import { SimulatorState } from "@learn6502/6502";
 import { MainButtonState } from "../data/main-button-state";
 
 /**
- * Common UIController interface for managing UI state across platforms
+ * Common UIService interface for managing UI state across platforms
  * Provides a platform-agnostic way to manage state transitions
  */
-export interface UIController {
+export interface UIService {
   /**
    * Current state of the simulator
    */
@@ -33,10 +33,10 @@ export interface UIController {
 }
 
 /**
- * Base class with common UI controller functionality
+ * Base class with common UI service functionality
  * Platforms can extend this class for shared behavior
  */
-export abstract class BaseUIController implements UIController {
+export abstract class BaseUIService implements UIService {
   // Current state tracking
   protected _simulatorState: SimulatorState = SimulatorState.INITIALIZED;
   protected _unsavedChanges: boolean = false;

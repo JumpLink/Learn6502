@@ -3,10 +3,10 @@ import { MainButtonState } from "../data/main-button-state";
 import { SimulatorState } from "@learn6502/6502";
 
 /**
- * Helper class for MainButton implementations across platforms
+ * Service class for MainButton implementations across platforms
  * Contains shared logic that can be reused
  */
-export class MainButtonHelper {
+export class MainButtonService {
   /**
    * Determine which actions should be enabled based on current state
    *

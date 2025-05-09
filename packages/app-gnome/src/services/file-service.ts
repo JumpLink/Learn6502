@@ -1,13 +1,13 @@
-import { BaseFileManager } from "@learn6502/common-ui";
+import { BaseFileService } from "@learn6502/common-ui";
 import Gtk from "@girs/gtk-4.0";
 import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
 
 /**
- * GNOME-specific implementation of the FileManager
+ * GNOME-specific implementation of the FileService
  * Uses GTK file dialogs for file operations
  */
-export class GnomeFileManager extends BaseFileManager {
+export class FileService extends BaseFileService {
   private window: Gtk.Window;
   private unsavedChangesIndicator: Gtk.Button | null = null;
   private currentFile: Gio.File | null = null;

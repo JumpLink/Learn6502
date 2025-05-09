@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-07 20:43+0200\n"
+"POT-Creation-Date: 2025-05-09 08:03+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -110,61 +110,61 @@ msgstr "6502 Stack leer! Unterlauf..."
 msgid "Program completed at PC=$%s"
 msgstr "Programm beendet bei PC=$%s"
 
-#: ../app-gnome/src/controllers/file-manager.ts:36
+#: ../app-gnome/src/services/file-service.ts:36
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/controllers/file-manager.ts:77
+#: ../app-gnome/src/services/file-service.ts:77
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/controllers/file-manager.ts:155
+#: ../app-gnome/src/services/file-service.ts:155
 msgid "Unsaved changes"
 msgstr "Uneingespeicherte Änderungen"
 
-#: ../app-gnome/src/controllers/file-manager.ts:158
+#: ../app-gnome/src/services/file-service.ts:158
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "Datei \"%s\" enthält ungespeicherte Änderungen"
 
-#: ../app-gnome/src/controllers/file-manager.ts:171
+#: ../app-gnome/src/services/file-service.ts:171
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/controllers/file-manager.ts:176
+#: ../app-gnome/src/services/file-service.ts:176
 msgid "All Files"
 msgstr "Alle Dateien"
 
 #. Add response buttons
 #. Add actions
-#: ../app-gnome/src/controllers/notification-service.ts:63
-#: ../app-gnome/src/controllers/ui-controller.ts:54
+#: ../app-gnome/src/services/notification-service.ts:63
+#: ../app-gnome/src/services/ui-service.ts:54
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../app-gnome/src/controllers/notification-service.ts:64
+#: ../app-gnome/src/services/notification-service.ts:64
 msgid "Confirm"
 msgstr ""
 
 #. Add OK button
-#: ../app-gnome/src/controllers/notification-service.ts:90
+#: ../app-gnome/src/services/notification-service.ts:90
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/controllers/ui-controller.ts:47
+#: ../app-gnome/src/services/ui-service.ts:47
 #, fuzzy
 msgid "Unsaved Changes"
 msgstr "Uneingespeicherte Änderungen"
 
-#: ../app-gnome/src/controllers/ui-controller.ts:48
+#: ../app-gnome/src/services/ui-service.ts:48
 msgid "Do you want to save the changes before continuing?"
 msgstr ""
 
-#: ../app-gnome/src/controllers/ui-controller.ts:55
+#: ../app-gnome/src/services/ui-service.ts:55
 msgid "Discard"
 msgstr "Verwerfen"
 
-#: ../app-gnome/src/controllers/ui-controller.ts:56
+#: ../app-gnome/src/services/ui-service.ts:56
 msgid "Save"
 msgstr "Speichern"
 

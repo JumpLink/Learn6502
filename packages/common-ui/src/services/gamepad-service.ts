@@ -1,20 +1,9 @@
-/**
- * Type representing gamepad keys/directions
- */
-export type GamepadKey = "Up" | "Down" | "Left" | "Right" | "A" | "B";
+import type { GamepadKey, GamepadEvent } from "../types";
 
 /**
- * Interface for gamepad input events
+ * Common interface for gamepad services across platforms
  */
-export interface GamepadEvent {
-  key: GamepadKey;
-  keyCode: number;
-}
-
-/**
- * Common interface for gamepad controllers across platforms
- */
-export interface GamepadController {
+export interface GamepadService {
   /**
    * Press a gamepad key
    * @param key The key to press
@@ -45,7 +34,7 @@ export interface GamepadController {
 /**
  * Base class implementing common gamepad functionality
  */
-export abstract class BaseGamepadController implements GamepadController {
+export abstract class BaseGamepadService implements GamepadService {
   protected enabled: boolean = true;
 
   // Default key mappings

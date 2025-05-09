@@ -6,7 +6,7 @@ import {
   MainButtonState,
   type MainButtonMode,
   type MainButtonWidget,
-  MainButtonHelper,
+  MainButtonService,
 } from "@learn6502/common-ui";
 // Property for the button's state
 const stateProperty = new Property<MainButton, MainButtonState>({
@@ -224,7 +224,7 @@ export class MainButton extends Fab implements MainButtonWidget {
     }
 
     // Use the common helper to determine button state
-    const buttonState = MainButtonHelper.getButtonState(state);
+    const buttonState = MainButtonService.getButtonState(state);
     this.setMode(buttonState);
     return buttonState;
   }
@@ -238,7 +238,7 @@ export class MainButton extends Fab implements MainButtonWidget {
     hasCode: boolean,
     codeChanged: boolean
   ) {
-    return MainButtonHelper.getActionEnabledState(
+    return MainButtonService.getActionEnabledState(
       simulatorState,
       hasCode,
       codeChanged

@@ -32,13 +32,3 @@ export const DEFAULT_COLOR_PALETTE: string[] = [
   "#0088ff", // $e: Light blue
   "#bbbbbb", // $f: Light grey
 ];
-
-/**
- * Display pixel address range
- */
-export enum DisplayAddressRange {
-  /** Start address of display memory */
-  START = 0x200,
-  /** End address of display memory */
-  END = 0x5ff,
-}

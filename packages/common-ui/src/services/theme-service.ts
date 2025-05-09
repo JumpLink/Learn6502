@@ -11,9 +11,9 @@ export interface ThemeChangeListener {
 }
 
 /**
- * Common interface for theme managers
+ * Common interface for theme services
  */
-export interface ThemeManager {
+export interface ThemeService {
   /**
    * Current theme setting
    */
@@ -45,9 +45,9 @@ export interface ThemeManager {
 }
 
 /**
- * Base implementation of the theme manager
+ * Base implementation of the theme service
  */
-export abstract class BaseThemeManager implements ThemeManager {
+export abstract class BaseThemeService implements ThemeService {
   protected _currentTheme: ThemeMode = "system";
   protected _isDarkTheme: boolean = false;
   protected listeners: Map<string, ThemeChangeListener> = new Map();

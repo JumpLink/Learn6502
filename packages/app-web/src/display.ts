@@ -1,5 +1,5 @@
-import type { Memory } from "@learn6502/6502";
-import type { DisplayWidget } from "@learn6502/common-ui";
+import { type Memory, DisplayAddressRange } from "@learn6502/6502";
+import { type DisplayWidget } from "@learn6502/common-ui";
 
 /**
  * Represents the display for a 6502 emulator.
@@ -40,7 +40,10 @@ export class Display implements DisplayWidget {
     private readonly memory: Memory
   ) {
     this.memory.on("changed", (event) => {
-      if (event.addr >= 0x200 && event.addr <= 0x5ff) {
+      if (
+        event.addr >= DisplayAddressRange.START &&
+        event.addr <= DisplayAddressRange.END
+      ) {
         this.updatePixel(event.addr);
       }
     });
@@ -83,8 +86,8 @@ export class Display implements DisplayWidget {
       return;
     }
     this.ctx.fillStyle = this.palette[this.memory.get(addr) & 0x0f];
-    const y = Math.floor((addr - 0x200) / this.numY);
-    const x = (addr - 0x200) % this.numX;
+    const y = Math.floor((addr - DisplayAddressRange.START) / this.numY);
+    const x = (addr - DisplayAddressRange.START) % this.numX;
     this.ctx.fillRect(
       x * this.pixelSize,
       y * this.pixelSize,

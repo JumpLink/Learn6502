@@ -1,5 +1,5 @@
 import { Simulator, Assembler } from "@learn6502/6502";
-import type { GamepadKey } from "../utils/gamepad-controller";
+import type { GamepadKey } from "../types";
 
 /**
  * Signal/event data for game console events

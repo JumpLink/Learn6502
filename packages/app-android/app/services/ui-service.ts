@@ -1,12 +1,12 @@
-import { BaseUIController } from "@learn6502/common-ui";
+import { BaseUIService } from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
 import { Application, Observable, Utils } from "@nativescript/core";
 import { confirm } from "@nativescript/core/ui/dialogs";
 
 /**
- * Android-specific implementation of the UIController
+ * Android-specific implementation of the UIService
  */
-export class AndroidUIController extends BaseUIController {
+export class UIService extends BaseUIService {
   private _eventSource = new Observable();
 
   constructor() {

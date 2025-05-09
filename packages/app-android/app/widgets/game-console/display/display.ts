@@ -1,6 +1,5 @@
 import {
   DisplayWidget,
-  DisplayAddressRange,
   DisplayService,
   DEFAULT_COLOR_PALETTE,
   DEFAULT_DISPLAY_CONFIG,
@@ -12,7 +11,7 @@ import {
   Utils,
 } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core";
-import { Memory } from "@learn6502/6502";
+import { Memory, DisplayAddressRange } from "@learn6502/6502";
 
 /**
  * Android implementation of the DisplayWidget using native canvas.

@@ -1,7 +1,7 @@
 /**
  * Common interface for file operations across platforms
  */
-export interface FileManager {
+export interface FileService {
   /**
    * Open a file dialog and load the selected file's content
    * @returns Promise with the file content and name or null if canceled
@@ -44,9 +44,9 @@ export interface FileManager {
 }
 
 /**
- * Base file manager implementation with common logic
+ * Base file service implementation with common logic
  */
-export abstract class BaseFileManager implements FileManager {
+export abstract class BaseFileService implements FileService {
   protected currentFileName: string | null = null;
   protected unsavedChanges: boolean = false;
 

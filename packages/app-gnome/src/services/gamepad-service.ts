@@ -1,21 +1,21 @@
-import { BaseGamepadController } from "@learn6502/common-ui";
-import type { GamepadEvent, GamepadKey } from "@learn6502/common-ui";
+import { BaseGamepadService } from "@learn6502/common-ui";
+import type { GamepadKey } from "@learn6502/common-ui";
 import Gdk from "@girs/gdk-4.0";
 import GObject from "@girs/gobject-2.0";
 import Gtk from "@girs/gtk-4.0";
 
 /**
- * Signal interface for GamepadController
+ * Signal interface for GamepadService
  */
 export interface GamepadSignals {
   "key-pressed": [key: GamepadKey, keyCode: number];
 }
 
 /**
- * GNOME-specific implementation of the GamepadController
+ * GNOME-specific implementation of the GamepadService
  * Uses GObject signals for event handling
  */
-export class GnomeGamepadController extends GObject.Object {
+export class GamepadService extends GObject.Object {
   // For GObject signals
   declare emit: (signal: string, ...args: any[]) => void;
 
@@ -29,7 +29,7 @@ export class GnomeGamepadController extends GObject.Object {
   static {
     GObject.registerClass(
       {
-        GTypeName: "GnomeGamepadController",
+        GTypeName: "GamepadService",
         Signals: {
           "key-pressed": {
             param_types: [GObject.TYPE_STRING, GObject.TYPE_UINT],
@@ -143,7 +143,7 @@ export class GnomeGamepadController extends GObject.Object {
 }
 
 // Ensure type registration
-GObject.type_ensure(GnomeGamepadController.$gtype);
+GObject.type_ensure(GamepadService.$gtype);
 
 /**
  * Helper implementation class to handle gamepad logic without GObject

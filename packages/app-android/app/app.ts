@@ -2,7 +2,7 @@ import { Application, LaunchEventData, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { setEdgeToEdge } from "./utils/index";
 import { systemStates, SystemStates } from "./states";
-import { AndroidThemeManager } from "./controllers/theme-manager";
+import { ThemeService } from "./services";
 
 if (!isAndroid) {
   throw new Error("This app is only supported on Android");
@@ -34,8 +34,8 @@ systemStates.events.on(SystemStates.launchEvent, (_args: LaunchEventData) => {
     console.log("About to initialize theme manager...");
 
     // TODO: Fix app freezing when initializing theme manager
-    const themeManager = AndroidThemeManager.initialize();
-    // console.log("Theme manager initialized:", themeManager !== null);
+    const themeService = ThemeService.initialize();
+    // console.log("Theme manager initialized:", themeService !== null);
 
     console.log("App initialization complete");
   } catch (error) {

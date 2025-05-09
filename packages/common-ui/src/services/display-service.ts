@@ -1,8 +1,5 @@
-import type { Memory } from "@learn6502/6502";
-import {
-  DEFAULT_COLOR_PALETTE,
-  DisplayAddressRange,
-} from "../data/display-constants";
+import { type Memory, DisplayAddressRange } from "@learn6502/6502";
+import { DEFAULT_COLOR_PALETTE } from "../data/display-constants";
 import type { RGBColor } from "../types/display-config";
 
 /**

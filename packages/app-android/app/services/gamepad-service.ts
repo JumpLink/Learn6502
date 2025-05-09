@@ -1,4 +1,4 @@
-import { BaseGamepadController } from "@learn6502/common-ui";
+import { BaseGamepadService } from "@learn6502/common-ui";
 import type { GamepadEvent, GamepadKey } from "@learn6502/common-ui";
 import { Observable } from "@nativescript/core";
 import { EventData } from "@nativescript/core/data/observable";
@@ -10,9 +10,9 @@ export interface GamepadEventData extends EventData {
 }
 
 /**
- * Android-specific implementation of the GamepadController
+ * Android-specific implementation of the GamepadService
  */
-export class AndroidGamepadController extends BaseGamepadController {
+export class GamepadService extends BaseGamepadService {
   // Observable for event handling
   private _eventSource = new Observable();
   // Simulator memory
