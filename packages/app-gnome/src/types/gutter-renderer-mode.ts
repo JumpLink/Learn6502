@@ -3,7 +3,7 @@
  */
 export enum GutterRendererMode {
   /** Display line numbers as normal numbers */
-  NORMAL = 'normal',
+  NORMAL = "normal",
   /** Display line numbers as hexadecimal addresses */
-  HEX = 'hex'
+  HEX = "hex",
 }

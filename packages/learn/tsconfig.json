@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-        "preserveWatchOutput": true,
-        "target": "ESNext",
-        "module": "ESNext",
-        "moduleResolution": "Bundler",
-        "allowImportingTsExtensions": true,
-        "noEmit": true,
-        "jsx": "react-jsx",
-        "jsxImportSource": "nano-jsx/esm",
-        "types": ["mdx"],
-        "diagnostics": true,
-        "verbatimModuleSyntax": true,
-        "isolatedModules": true
-    },
-    "include": ["./*.mdx", "tsx/**/*.ts", "tsx/**/*.tsx", "tsx/**/*.mdx"]
+  "compilerOptions": {
+    "preserveWatchOutput": true,
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "jsxImportSource": "nano-jsx/esm",
+    "types": ["mdx"],
+    "diagnostics": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true
+  },
+  "include": ["./*.mdx", "tsx/**/*.ts", "tsx/**/*.tsx", "tsx/**/*.mdx"]
 }

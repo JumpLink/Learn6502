@@ -1,23 +1,25 @@
-import { type Plugin } from 'vite';
-import { execa } from 'execa';
-import minifyXML from 'minify-xml';
+import { type Plugin } from "vite";
+import { execa } from "execa";
+import minifyXML from "minify-xml";
 
 export interface BlueprintPluginOptions {
   minify?: boolean;
   verbose?: boolean;
 }
 
-export default function blueprintPlugin(options: BlueprintPluginOptions = {}): Plugin {
+export default function blueprintPlugin(
+  options: BlueprintPluginOptions = {}
+): Plugin {
   const { minify = false, verbose = false } = options;
 
   return {
-    name: 'vite-plugin-blueprint',
+    name: "vite-plugin-blueprint",
 
     async load(id) {
-      if (id.endsWith('.blp')) {
+      if (id.endsWith(".blp")) {
         try {
           // Compile .blp file and get XML output directly
-          const { stdout } = await execa('blueprint-compiler', ['compile', id]);
+          const { stdout } = await execa("blueprint-compiler", ["compile", id]);
           if (verbose) console.log(`Compiled ${id}`);
 
           let xmlContent = stdout;
@@ -35,6 +37,6 @@ export default function blueprintPlugin(options: BlueprintPluginOptions = {}): P
           throw error;
         }
       }
-    }
+    },
   };
 }

@@ -1,5 +1,5 @@
-import type { Assembler } from '../assembler.js'
+import type { Assembler } from "../assembler.js";
 
 export interface Disassembled {
-    update(assembler: Assembler): void
+  update(assembler: Assembler): void;
 }

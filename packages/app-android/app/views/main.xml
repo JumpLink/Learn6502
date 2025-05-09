@@ -1,0 +1,68 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:w="~/widgets/index"
+    loaded="onLoaded"
+    unloaded="onUnloaded"
+    id="main-page"
+    class="bg-surface">
+    <ActionBar id="main-action-bar" class="bg-surface text-on-surface">
+        <!-- explicitly hide the back button -->
+        <NavigationButton visibility="collapsed" />
+
+        <ActionItem
+            position="left"
+            icon="res://reset_symbolic"
+            tap="run"
+        />
+
+        <ActionItem position="right" icon="res://baseline_more_vert_24" tap="openMenu" />
+    </ActionBar>
+
+    <!-- Use GridLayout to position content and bottom navigation -->
+    <GridLayout rows="*, auto" columns="*">
+        <ScrollView id="mainScrollView">
+            <!-- Frame for content switching -->
+            <Frame id="mainFrame" row="0" defaultPage="views/main/storybook" />
+        </ScrollView>
+
+        <!-- FAB positioned in the bottom-right corner -->
+        <w:MainButton
+            id="mainButton"
+            row="0"
+            state="assemble"
+            assembleTap="onAssembleTap"
+            runTap="onRunTap"
+            pauseTap="onPauseTap"
+            resumeTap="onResumeTap"
+            resetTap="onResetTap"
+            stepTap="onStepTap"
+            containerColor="tertiaryContainer"
+            contentColor="onTertiaryContainer"
+            horizontalAlignment="right"
+            verticalAlignment="bottom"
+            margin="16"
+        />
+
+        <!-- Bottom navigation bar positioned at the bottom -->
+        <w:BottomNavigation
+            row="1"
+            class="bg-surface-container"
+            activeTextColor="onSurface"
+            inactiveTextColor="onSurfaceVariant"
+            activeIconColor="onSecondaryContainer"
+            inactiveIconColor="onSurfaceVariant"
+            indicatorColor="secondaryContainer"
+        >
+            <w:BottomTab title="Storybook" icon="res://open_book_symbolic" id="storybook"
+                moduleName="views/main/storybook" />
+            <w:BottomTab title="Learn" icon="res://school_symbolic" id="learn"
+                moduleName="views/main/learn" />
+            <w:BottomTab title="Editor" icon="res://code_symbolic" id="editor"
+                moduleName="views/main/editor" />
+            <w:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger"
+                moduleName="views/main/debugger" />
+            <w:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic"
+                id="game-console" moduleName="views/main/game-console" />
+        </w:BottomNavigation>
+
+    </GridLayout>
+</Page>

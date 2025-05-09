@@ -1,0 +1,67 @@
+﻿@import "tailwindcss";
+@import "css/_light.css";
+@import "css/_light-mc.css";
+@import "css/_light-hc.css";
+@import "css/_dark.css";
+@import "css/_dark-mc.css";
+@import "css/_dark-hc.css";
+
+@source './**/*.{css,xml,html,vue,svelte,ts,tsx}';
+
+@custom-variant dark (&:is(.ns-dark *));
+@custom-variant high (&:is(.ns-contrast-high *));
+@custom-variant medium (&:is(.ns-contrast-medium *));
+
+/* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss */
+
+HtmlView,
+.body {
+  font-size: 18;
+  font-weight: 400;
+  margin-bottom: 12;
+  margin-top: 12;
+}
+
+.title-1 {
+  font-weight: 800;
+  font-size: 30;
+  margin-bottom: 12;
+  margin-top: 12;
+}
+
+.title-2 {
+  font-weight: 800;
+  font-size: 28;
+  margin-bottom: 12;
+  margin-top: 12;
+}
+
+.title-3 {
+  font-weight: 700;
+  font-size: 26;
+  margin-bottom: 12;
+  margin-top: 12;
+}
+
+.title-4 {
+  font-size: 24;
+  font-weight: 700;
+  margin-bottom: 12;
+  margin-top: 12;
+}
+
+.list {
+  font-size: 18;
+}
+
+/* Remove underline from TextViews */
+.no-underline {
+  background-color: transparent;
+  border-bottom-width: 0;
+  border-bottom-color: transparent;
+}
+
+TextView.no-underline {
+  border-width: 0;
+  background: transparent;
+}
