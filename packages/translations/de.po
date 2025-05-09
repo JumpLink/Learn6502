@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-09 08:03+0200\n"
+"POT-Creation-Date: 2025-05-09 11:47+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -110,115 +110,97 @@ msgstr "6502 Stack leer! Unterlauf..."
 msgid "Program completed at PC=$%s"
 msgstr "Programm beendet bei PC=$%s"
 
-#: ../app-gnome/src/services/file-service.ts:36
+#: ../app-gnome/src/services/file-service.ts:39
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
-#: ../app-gnome/src/services/file-service.ts:77
+#: ../app-gnome/src/services/file-service.ts:80
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
-#: ../app-gnome/src/services/file-service.ts:155
+#: ../app-gnome/src/services/file-service.ts:158
 msgid "Unsaved changes"
 msgstr "Uneingespeicherte Änderungen"
 
-#: ../app-gnome/src/services/file-service.ts:158
+#: ../app-gnome/src/services/file-service.ts:161
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "Datei \"%s\" enthält ungespeicherte Änderungen"
 
-#: ../app-gnome/src/services/file-service.ts:171
+#: ../app-gnome/src/services/file-service.ts:174
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
-#: ../app-gnome/src/services/file-service.ts:176
+#: ../app-gnome/src/services/file-service.ts:179
 msgid "All Files"
 msgstr "Alle Dateien"
 
 #. Add response buttons
-#. Add actions
-#: ../app-gnome/src/services/notification-service.ts:63
-#: ../app-gnome/src/services/ui-service.ts:54
+#: ../app-gnome/src/services/notification-service.ts:66
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#: ../app-gnome/src/services/notification-service.ts:64
+#: ../app-gnome/src/services/notification-service.ts:67
 msgid "Confirm"
 msgstr ""
 
 #. Add OK button
-#: ../app-gnome/src/services/notification-service.ts:90
+#: ../app-gnome/src/services/notification-service.ts:93
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/services/ui-service.ts:47
-#, fuzzy
-msgid "Unsaved Changes"
-msgstr "Uneingespeicherte Änderungen"
-
-#: ../app-gnome/src/services/ui-service.ts:48
-msgid "Do you want to save the changes before continuing?"
-msgstr ""
-
-#: ../app-gnome/src/services/ui-service.ts:55
-msgid "Discard"
-msgstr "Verwerfen"
-
-#: ../app-gnome/src/services/ui-service.ts:56
-msgid "Save"
-msgstr "Speichern"
-
-#: ../app-gnome/src/views/main.window.ts:129
+#: ../app-gnome/src/views/main.window.ts:136
 msgid "Code copied to editor"
 msgstr "Code in Editor kopiert"
 
-#: ../app-gnome/src/views/main.window.ts:159
+#: ../app-gnome/src/views/main.window.ts:166
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
-#: ../app-gnome/src/views/main.window.ts:164
+#: ../app-gnome/src/views/main.window.ts:171
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
-#: ../app-gnome/src/views/main.window.ts:227
-#: ../app-gnome/src/views/main.window.ts:262
+#: ../app-gnome/src/views/main.window.ts:234
+#: ../app-gnome/src/views/main.window.ts:269
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/views/main.window.ts:422
+#: ../app-gnome/src/views/main.window.ts:429
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/views/main.window.ts:434
+#: ../app-gnome/src/views/main.window.ts:441
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/views/main.window.ts:443
+#: ../app-gnome/src/views/main.window.ts:450
 msgid "Hexdump:"
 msgstr "Hexdump:"
 
-#: ../app-gnome/src/views/main.window.ts:452
+#: ../app-gnome/src/views/main.window.ts:459
 msgid "Disassembly:"
 msgstr "Disassemblierung:"
 
-#: ../app-gnome/src/views/main.window.ts:532
+#: ../app-gnome/src/views/main.window.ts:539
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/views/main.window.ts:551
+#: ../app-gnome/src/views/main.window.ts:558
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/views/main.window.ts:558
+#: ../app-gnome/src/views/main.window.ts:565
+#: ../app-gnome/src/views/main.window.ts:588
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
-#: ../app-gnome/src/views/main.window.ts:667
+#: ../app-gnome/src/views/main.window.ts:686
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:694
+#: ../app-gnome/src/views/main.window.ts:713
 #, fuzzy, javascript-format
 msgid "Saved as %s"
 msgstr "Speichern unter..."
@@ -283,6 +265,11 @@ msgstr "Spielkonsole"
 msgid "Open..."
 msgstr "Öffnen..."
 
+#: ../app-gnome/src/views/main.window.blp:113
+#: ../app-gnome/src/views/main.window.blp:164
+msgid "Save"
+msgstr "Speichern"
+
 #: ../app-gnome/src/views/main.window.blp:118
 msgid "Save as..."
 msgstr "Speichern unter..."
@@ -305,6 +292,10 @@ msgid ""
 msgstr ""
 "Deine Datei enthält ungespeicherte Änderungen. Die Änderungen gehen "
 "verloren, wenn du sie nicht speicherst."
+
+#: ../app-gnome/src/views/main.window.blp:163
+msgid "Discard"
+msgstr "Verwerfen"
 
 #: ../app-gnome/src/views/preferences.dialog.blp:7
 msgid "Preferences"
@@ -2546,6 +2537,10 @@ msgstr ""
 "sonst zu schnell laufen würde. Alles, was <tt>spinWheels</tt> tut, ist "
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
+
+#, fuzzy
+#~ msgid "Unsaved Changes"
+#~ msgstr "Uneingespeicherte Änderungen"
 
 #~ msgid "Failed to load file"
 #~ msgstr "Datei konnte nicht geladen werden"

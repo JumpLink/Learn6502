@@ -1,20 +1,14 @@
 import { BaseGamepadService } from "@learn6502/common-ui";
-import type { GamepadEvent, GamepadKey } from "@learn6502/common-ui";
-import { Observable } from "@nativescript/core";
-import { EventData } from "@nativescript/core/data/observable";
-
-// Create custom event type for gamepad events
-export interface GamepadEventData extends EventData {
-  key: GamepadKey;
-  keyCode: number;
-}
+import type {
+  GamepadEvent,
+  GamepadKey,
+  GamepadEventMap,
+} from "@learn6502/common-ui";
 
 /**
  * Android-specific implementation of the GamepadService
  */
 export class GamepadService extends BaseGamepadService {
-  // Observable for event handling
-  private _eventSource = new Observable();
   // Simulator memory
   private _memory: Uint8Array | null = null;
 
@@ -54,20 +48,6 @@ export class GamepadService extends BaseGamepadService {
   }
 
   /**
-   * Add key event listener
-   */
-  public addEventListener(callback: (args: GamepadEventData) => void): void {
-    this._eventSource.on("keyPressed", callback);
-  }
-
-  /**
-   * Remove key event listener
-   */
-  public removeEventListener(callback: (args: GamepadEventData) => void): void {
-    this._eventSource.off("keyPressed", callback);
-  }
-
-  /**
    * Android-specific key event handler
    * This can be attached to an Android view's key event
    */
@@ -96,43 +76,41 @@ export class GamepadService extends BaseGamepadService {
   }
 
   /**
-   * Emit gamepad event to listeners
-   */
-  protected emitGamepadEvent(event: GamepadEvent): void {
-    this._eventSource.notify({
-      eventName: "keyPressed",
-      object: this._eventSource,
-      key: event.key,
-      keyCode: event.keyCode,
-    } as GamepadEventData);
-  }
-
-  /**
    * Attach this controller to an Android view to receive key events
+   * @param nativeView The NativeScript native view to attach to
    */
-  public attachToView(view: android.view.View): void {
+  // TODO: Fix any type
+  public attachToView(nativeView: any): void {
+    // Only proceed on Android
+    if (!global.isAndroid) return;
+
     const controller = this;
 
-    // Create key listener
-    const keyListener = new android.view.View.OnKeyListener({
-      onKey: function (
-        v: android.view.View,
-        keyCode: number,
-        event: android.view.KeyEvent
-      ): boolean {
-        // Only process key down events
-        if (event.getAction() === android.view.KeyEvent.ACTION_DOWN) {
-          return controller.onKeyDown(keyCode);
-        }
-        return false;
-      },
-    });
+    // Get the native Android view
+    const androidView = nativeView.android;
+    if (!androidView) return;
 
-    // Set the key listener on the view
-    view.setOnKeyListener(keyListener);
+    try {
+      // In NativeScript, access the global android namespace
+      const androidKeyEvent = android.view.KeyEvent.ACTION_DOWN;
 
-    // Make sure the view can receive key events
-    view.setFocusable(true);
-    view.setFocusableInTouchMode(true);
+      // Create key listener using Android native API
+      const keyListener = new android.view.View.OnKeyListener({
+        onKey: function (v: any, keyCode: number, event: any): boolean {
+          // Only process key down events
+          if (event.getAction() === androidKeyEvent) {
+            return controller.onKeyDown(keyCode);
+          }
+          return false;
+        },
+      });
+
+      // Set the key listener on the native Android view
+      androidView.setOnKeyListener(keyListener);
+      androidView.setFocusable(true);
+      androidView.setFocusableInTouchMode(true);
+    } catch (e) {
+      console.error("Failed to attach gamepad controller to view:", e);
+    }
   }
 }

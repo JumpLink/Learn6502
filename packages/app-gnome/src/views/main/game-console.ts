@@ -27,6 +27,8 @@ import {
 
 import { Display } from "../../widgets/game-console/display.ts";
 import { GamePad } from "../../widgets/game-console/game-pad.ts";
+import { gamepadService } from "../../services/gamepad-service.ts";
+import { type GamepadEvent } from "@learn6502/common-ui";
 
 import Template from "./game-console.blp";
 
@@ -390,7 +392,24 @@ export class GameConsole extends Adw.Bin {
     this._display?.initialize(this._memory);
     this._simulator.reset();
 
+    // Set up gamepad service with our memory
+    gamepadService.setMemory(this._memory);
+
+    // Listen for gamepad events from the service
+    gamepadService.addEventListener(
+      "keyPressed",
+      this.handleGamepadEvent.bind(this)
+    );
+
     this.setupEventListeners();
+  }
+
+  /**
+   * Handle gamepad events from the gamepad service
+   */
+  private handleGamepadEvent(event: GamepadEvent): void {
+    // Forward gamepad key press to listeners
+    this.emit("gamepad-pressed", event.keyCode);
   }
 
   /**
@@ -478,25 +497,14 @@ export class GameConsole extends Adw.Bin {
       // Forward the event as a signal
       this.emit("labels-failure", event);
     });
-
-    this.gamepadHandlerIds.push(
-      this._gamePad.connect(
-        "gamepad-pressed",
-        (_source: GamePad, key: number) => {
-          this.emit("gamepad-pressed", key);
-          this._memory.storeKeypress(key);
-        }
-      )
-    );
   }
 
   private removeSignalHandlers(): void {
-    try {
-      this.gamepadHandlerIds.forEach((id) => this._gamePad.disconnect(id));
-    } catch (error) {
-      console.error("[GameConsole] Failed to remove signal handlers", error);
-    }
-    this.gamepadHandlerIds = [];
+    // Remove gamepad event listener
+    gamepadService.removeEventListener(
+      "keyPressed",
+      this.handleGamepadEvent.bind(this)
+    );
   }
 }
 

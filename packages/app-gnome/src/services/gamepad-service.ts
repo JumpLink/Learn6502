@@ -1,78 +1,28 @@
-import { BaseGamepadService } from "@learn6502/common-ui";
-import type { GamepadKey } from "@learn6502/common-ui";
+import {
+  type GamepadKey,
+  BaseGamepadService,
+  type GamepadEvent,
+} from "@learn6502/common-ui";
 import Gdk from "@girs/gdk-4.0";
-import GObject from "@girs/gobject-2.0";
 import Gtk from "@girs/gtk-4.0";
+import { Memory } from "@learn6502/6502";
 
 /**
- * Signal interface for GamepadService
+ * GNOME implementation of GamepadService
  */
-export interface GamepadSignals {
-  "key-pressed": [key: GamepadKey, keyCode: number];
-}
-
-/**
- * GNOME-specific implementation of the GamepadService
- * Uses GObject signals for event handling
- */
-export class GamepadService extends GObject.Object {
-  // For GObject signals
-  declare emit: (signal: string, ...args: any[]) => void;
-
+class GamepadService extends BaseGamepadService {
   // Simulator memory
-  private _memory: Uint8Array | null = null;
-
-  // Delegation to BaseGamepadController implementation
-  private _impl: GamepadControllerImpl;
-
-  // Register GObject class
-  static {
-    GObject.registerClass(
-      {
-        GTypeName: "GamepadService",
-        Signals: {
-          "key-pressed": {
-            param_types: [GObject.TYPE_STRING, GObject.TYPE_UINT],
-          },
-        },
-      },
-      this
-    );
-  }
+  private _memory: Memory | null = null;
 
   constructor() {
     super();
-    this._impl = new GamepadControllerImpl();
     this.initKeyMappings();
-  }
-
-  /**
-   * Initialize default key mappings for GNOME
-   */
-  public initKeyMappings(): void {
-    // WASD controls
-    this._impl.setKeyMapping(Gdk.KEY_w, "Up");
-    this._impl.setKeyMapping(Gdk.KEY_s, "Down");
-    this._impl.setKeyMapping(Gdk.KEY_a, "Left");
-    this._impl.setKeyMapping(Gdk.KEY_d, "Right");
-
-    // Arrow keys
-    this._impl.setKeyMapping(Gdk.KEY_Up, "Up");
-    this._impl.setKeyMapping(Gdk.KEY_Down, "Down");
-    this._impl.setKeyMapping(Gdk.KEY_Left, "Left");
-    this._impl.setKeyMapping(Gdk.KEY_Right, "Right");
-
-    // Action keys
-    this._impl.setKeyMapping(Gdk.KEY_Return, "A"); // Enter
-    this._impl.setKeyMapping(Gdk.KEY_q, "A");
-    this._impl.setKeyMapping(Gdk.KEY_space, "B"); // Space
-    this._impl.setKeyMapping(Gdk.KEY_e, "B");
   }
 
   /**
    * Set memory for gamepad inputs
    */
-  public setMemory(memory: Uint8Array): void {
+  public setMemory(memory: Memory): void {
     this._memory = memory;
   }
 
@@ -93,12 +43,78 @@ export class GamepadService extends GObject.Object {
   }
 
   /**
+   * Process key press and update memory
+   * Implementation of abstract method from BaseGamepadService
+   */
+  protected onKeyPress(key: GamepadKey, address: number): void {
+    if (this._memory) {
+      console.debug("set memory key", key, address);
+      // Write 1 to memory at the corresponding address
+      this._memory.set(address, 1);
+
+      // Also update memory using storeKeypress for compatibility
+      // This is needed for certain games like snake
+      const keyValue = this.getKeyValue(key);
+      if (keyValue !== 0) {
+        this._memory.storeKeypress(keyValue);
+      }
+    }
+  }
+
+  /**
+   * Get the key value for storeKeypress method
+   * This maps gamepad keys to the expected ASCII values
+   */
+  private getKeyValue(key: GamepadKey): number {
+    switch (key) {
+      case "Up":
+        return 119; // w
+      case "Down":
+        return 115; // s
+      case "Left":
+        return 97; // a
+      case "Right":
+        return 100; // d
+      case "A":
+        return 13; // Enter
+      case "B":
+        return 32; // Space
+      default:
+        return 0;
+    }
+  }
+
+  /**
+   * Initialize default key mappings for GNOME
+   * Implementation of abstract method from BaseGamepadService
+   */
+  protected initKeyMappings(): void {
+    // WASD controls
+    this.keyMappings[Gdk.KEY_w] = "Up";
+    this.keyMappings[Gdk.KEY_s] = "Down";
+    this.keyMappings[Gdk.KEY_a] = "Left";
+    this.keyMappings[Gdk.KEY_d] = "Right";
+
+    // Arrow keys
+    this.keyMappings[Gdk.KEY_Up] = "Up";
+    this.keyMappings[Gdk.KEY_Down] = "Down";
+    this.keyMappings[Gdk.KEY_Left] = "Left";
+    this.keyMappings[Gdk.KEY_Right] = "Right";
+
+    // Action keys
+    this.keyMappings[Gdk.KEY_Return] = "A"; // Enter
+    this.keyMappings[Gdk.KEY_q] = "A";
+    this.keyMappings[Gdk.KEY_space] = "B"; // Space
+    this.keyMappings[Gdk.KEY_e] = "B";
+  }
+
+  /**
    * Press a gamepad key
    */
   public pressKey(key: GamepadKey): void {
-    const address = this._impl.getKeyAddress(key);
+    const address = this.keyToAddressMap[key];
     if (address !== undefined) {
-      this.processKeyPress(key, address);
+      this.onKeyPress(key, address);
     }
   }
 
@@ -106,7 +122,7 @@ export class GamepadService extends GObject.Object {
    * Map a physical key to a gamepad key
    */
   public mapKeyToGamepad(keyCode: number): GamepadKey | undefined {
-    return this._impl.getKeyForCode(keyCode);
+    return this.keyMappings[keyCode];
   }
 
   /**
@@ -114,6 +130,7 @@ export class GamepadService extends GObject.Object {
    */
   public handleKeyPress(keyCode: number): boolean {
     const key = this.mapKeyToGamepad(keyCode);
+    console.debug("handleKeyPress", key, keyCode);
     if (key) {
       this.pressKey(key);
       return true;
@@ -125,59 +142,17 @@ export class GamepadService extends GObject.Object {
    * Enable or disable gamepad input
    */
   public setEnabled(enabled: boolean): void {
-    this._impl.enabled = enabled;
+    this.enabled = enabled;
   }
 
   /**
-   * Process key press and update memory
+   * Emit gamepad event to listeners
+   * Implementation of method from BaseGamepadService
    */
-  private processKeyPress(key: GamepadKey, address: number): void {
-    if (this._memory) {
-      // Write 1 to memory at the corresponding address
-      this._memory[address] = 1;
-    }
-
-    // Emit signal for notification
-    this.emit("key-pressed", key, address);
+  protected emitGamepadEvent(event: GamepadEvent): void {
+    // Call parent class implementation to dispatch events
+    this.events.dispatch("keyPressed", event);
   }
 }
 
-// Ensure type registration
-GObject.type_ensure(GamepadService.$gtype);
-
-/**
- * Helper implementation class to handle gamepad logic without GObject
- */
-class GamepadControllerImpl {
-  public enabled = true;
-  private keyMappings: Record<number, GamepadKey> = {};
-  private keyAddresses: Record<GamepadKey, number> = {
-    Up: 0xff,
-    Down: 0xfe,
-    Left: 0xfd,
-    Right: 0xfc,
-    A: 0xfb,
-    B: 0xfa,
-  };
-
-  /**
-   * Set a key mapping
-   */
-  public setKeyMapping(keyCode: number, gamepadKey: GamepadKey): void {
-    this.keyMappings[keyCode] = gamepadKey;
-  }
-
-  /**
-   * Get gamepad key for a key code
-   */
-  public getKeyForCode(keyCode: number): GamepadKey | undefined {
-    return this.keyMappings[keyCode];
-  }
-
-  /**
-   * Get memory address for a gamepad key
-   */
-  public getKeyAddress(key: GamepadKey): number | undefined {
-    return this.keyAddresses[key];
-  }
-}
+export const gamepadService = new GamepadService();

@@ -1,14 +1,4 @@
-/**
- * Type for theme options
- */
-export type ThemeMode = "light" | "dark" | "system";
-
-/**
- * Interface for event handlers on theme changes
- */
-export interface ThemeChangeListener {
-  (mode: ThemeMode, isDark: boolean): void;
-}
+import type { ThemeChangeListener, ThemeMode } from "../types";
 
 /**
  * Common interface for theme services

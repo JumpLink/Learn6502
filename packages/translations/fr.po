@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-09 08:03+0200\n"
+"POT-Creation-Date: 2025-05-09 11:47+0200\n"
 "PO-Revision-Date: 2025-04-05 06:04+0000\n"
 "Last-Translator: Pascal Garber <pascal@artandcode.studio>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eu-jumplink-"
@@ -105,114 +105,97 @@ msgstr ""
 msgid "Program completed at PC=$%s"
 msgstr ""
 
-#: ../app-gnome/src/services/file-service.ts:36
+#: ../app-gnome/src/services/file-service.ts:39
 msgid "Open Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/services/file-service.ts:77
+#: ../app-gnome/src/services/file-service.ts:80
 msgid "Save Assembly File"
 msgstr ""
 
-#: ../app-gnome/src/services/file-service.ts:155
+#: ../app-gnome/src/services/file-service.ts:158
 msgid "Unsaved changes"
 msgstr ""
 
-#: ../app-gnome/src/services/file-service.ts:158
+#: ../app-gnome/src/services/file-service.ts:161
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr ""
 
-#: ../app-gnome/src/services/file-service.ts:171
+#: ../app-gnome/src/services/file-service.ts:174
 msgid "Assembly Files"
 msgstr ""
 
-#: ../app-gnome/src/services/file-service.ts:176
+#: ../app-gnome/src/services/file-service.ts:179
 msgid "All Files"
 msgstr ""
 
 #. Add response buttons
-#. Add actions
-#: ../app-gnome/src/services/notification-service.ts:63
-#: ../app-gnome/src/services/ui-service.ts:54
+#: ../app-gnome/src/services/notification-service.ts:66
 msgid "Cancel"
 msgstr ""
 
-#: ../app-gnome/src/services/notification-service.ts:64
+#: ../app-gnome/src/services/notification-service.ts:67
 msgid "Confirm"
 msgstr ""
 
 #. Add OK button
-#: ../app-gnome/src/services/notification-service.ts:90
+#: ../app-gnome/src/services/notification-service.ts:93
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/services/ui-service.ts:47
-msgid "Unsaved Changes"
-msgstr ""
-
-#: ../app-gnome/src/services/ui-service.ts:48
-msgid "Do you want to save the changes before continuing?"
-msgstr ""
-
-#: ../app-gnome/src/services/ui-service.ts:55
-msgid "Discard"
-msgstr ""
-
-#: ../app-gnome/src/services/ui-service.ts:56
-msgid "Save"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:129
+#: ../app-gnome/src/views/main.window.ts:136
 msgid "Code copied to editor"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:159
+#: ../app-gnome/src/views/main.window.ts:166
 msgid "Copied to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:164
+#: ../app-gnome/src/views/main.window.ts:171
 msgid "Failed to copy to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:227
-#: ../app-gnome/src/views/main.window.ts:262
+#: ../app-gnome/src/views/main.window.ts:234
+#: ../app-gnome/src/views/main.window.ts:269
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:422
+#: ../app-gnome/src/views/main.window.ts:429
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:434
+#: ../app-gnome/src/views/main.window.ts:441
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:443
+#: ../app-gnome/src/views/main.window.ts:450
 msgid "Hexdump:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:452
+#: ../app-gnome/src/views/main.window.ts:459
 msgid "Disassembly:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:532
+#: ../app-gnome/src/views/main.window.ts:539
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:551
+#: ../app-gnome/src/views/main.window.ts:558
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:558
+#: ../app-gnome/src/views/main.window.ts:565
+#: ../app-gnome/src/views/main.window.ts:588
 msgid "Gamepad key pressed:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:667
+#: ../app-gnome/src/views/main.window.ts:686
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:694
+#: ../app-gnome/src/views/main.window.ts:713
 #, javascript-format
 msgid "Saved as %s"
 msgstr ""
@@ -277,6 +260,11 @@ msgstr ""
 msgid "Open..."
 msgstr ""
 
+#: ../app-gnome/src/views/main.window.blp:113
+#: ../app-gnome/src/views/main.window.blp:164
+msgid "Save"
+msgstr ""
+
 #: ../app-gnome/src/views/main.window.blp:118
 msgid "Save as..."
 msgstr ""
@@ -296,6 +284,10 @@ msgstr ""
 #: ../app-gnome/src/views/main.window.blp:158
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:163
+msgid "Discard"
 msgstr ""
 
 #: ../app-gnome/src/views/preferences.dialog.blp:7

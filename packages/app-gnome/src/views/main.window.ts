@@ -11,10 +11,13 @@ import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
 import { MainButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
-import { services } from "../services";
+import { gamepadService } from "../services/gamepad-service";
+import { themeService } from "../services/theme-service";
 
 import Template from "./main.window.blp";
 import { type MainButtonState, type MainView } from "@learn6502/common-ui";
+import { notificationService } from "../services/notification-service.ts";
+import { fileService } from "../services/file-service.ts";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
   // Child widgets
@@ -63,7 +66,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private codeToAssembleChanged: boolean = false;
 
   private set unsavedChanges(unsavedChanges: boolean) {
-    services.fileManager.setUnsavedChanges(unsavedChanges);
+    fileService?.setUnsavedChanges(unsavedChanges);
   }
 
   private get unsavedChanges(): boolean {
@@ -98,8 +101,12 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     super({ application });
 
     // Initialize services
-    services.init(this, this._toastOverlay);
-    services.setUnsavedChangesIndicator(this._unsavedChangesIndicator);
+    fileService.init(this);
+    fileService.setUnsavedChangesIndicator(this._unsavedChangesIndicator);
+
+    themeService.init();
+
+    notificationService.init(this, this._toastOverlay);
 
     // Initialize controllers and services
     this.setupGeneralSignalListeners();
@@ -390,7 +397,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private showToast(params: Partial<Adw.Toast.ConstructorProps>): void {
-    services.notificationService.showNotification({
+    notificationService.showNotification({
       title: params.title || "",
       timeout: params.timeout || 2,
     });
@@ -562,15 +569,28 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private setupKeyboardListener(): void {
     // Set simulator memory reference for gamepad controller
-    if (this._gameConsole.memory instanceof Uint8Array) {
-      services.gamepadController.setMemory(this._gameConsole.memory);
+    if (this._gameConsole.memory) {
+      gamepadService.setMemory(this._gameConsole.memory);
     }
 
     // Add key controller to the window
-    services.gamepadController.addKeyControllerTo(this);
+    gamepadService.addKeyControllerTo(this);
 
-    // We don't need to connect to key-pressed events directly,
-    // as they are handled by the controller and memory directly
+    // Add gamepad event listener
+    gamepadService.addEventListener("keyPressed", (event) => {
+      // If we're in the game console or debugger view, log the key press
+      const visibleChild = this._stack.get_visible_child();
+      if (
+        visibleChild === this._gameConsole ||
+        visibleChild === this._debugger
+      ) {
+        this._debugger.log(
+          _("Gamepad key pressed:") +
+            " $" +
+            num2hex(event.keyCode).toUpperCase()
+        );
+      }
+    });
   }
 
   private handleKeyPress(keyval: number): void {
@@ -598,6 +618,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         this.stepGameConsole();
         return;
     }
+
+    // Let the gamepad service handle other keys
+    // This is already handled by the key controller added in setupKeyboardListener
   }
 
   private onSimulatorStateChange(state: SimulatorState): void {
@@ -654,14 +677,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       return;
     }
 
-    await this.openFileImpl();
-  }
-
-  private async openFileImpl(): Promise<void> {
-    const result = await services.fileManager.openFile();
+    const result = await fileService.openFile();
     if (result) {
       this.setEditorCode(result.content);
-      this.currentFile = services.fileManager.getCurrentGioFile();
+      this.currentFile = fileService.getCurrentGioFile() || null;
       this._titleLabel.label = result.filename;
       this.showToast({
         title: _("Opened %s").format(result.filename),
@@ -672,30 +691,30 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private async saveFile(): Promise<boolean> {
     if (this.currentFile) {
-      return await services.fileManager.saveFile(this._editor.code);
+      return (await fileService.saveFile(this._editor.code)) || false;
     } else {
       return await this.saveAsFile();
     }
   }
 
   private getCurrentFileName(): string {
-    return services.fileManager.getCurrentFileName();
+    return fileService.getCurrentFileName() || "";
   }
 
   private async saveAsFile(): Promise<boolean> {
-    const success = await services.fileManager.saveFileAs(
+    const success = await fileService.saveFileAs(
       this._editor.code,
       this.currentFile ? this.getCurrentFileName() : "untitled.asm"
     );
     if (success) {
-      this.currentFile = services.fileManager.getCurrentGioFile();
+      this.currentFile = fileService.getCurrentGioFile() || null;
       this._titleLabel.label = this.getCurrentFileName();
       this.showToast({
         title: _("Saved as %s").format(this.getCurrentFileName()),
         timeout: 2,
       });
     }
-    return success;
+    return success || false;
   }
 
   private showUnsavedChangesDialog(action: "open" | "close"): void {
@@ -713,7 +732,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         this.saveFile().then((success) => {
           if (success && this.pendingDialogAction === "open") {
             // After saving, continue with opening new file
-            this.openFileImpl();
+            this.openFile();
           } else if (success && this.pendingDialogAction === "close") {
             // After saving, continue with closing
             this.close();
@@ -724,7 +743,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         // Discard changes and continue with pending action
         this.unsavedChanges = false;
         if (this.pendingDialogAction === "open") {
-          this.openFileImpl();
+          this.openFile();
         } else if (this.pendingDialogAction === "close") {
           this.close();
         }
@@ -739,7 +758,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private setupThemeManagement(): void {
     // Add theme listener to update UI when theme changes
-    services.themeManager.addThemeChangeListener((mode, isDark) => {
+    themeService.addThemeChangeListener((mode, isDark) => {
       // Update UI elements that need to change with theme
       // For example, adjust code editor theme, etc.
       console.log(`Theme changed to ${mode}, isDark: ${isDark}`);

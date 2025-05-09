@@ -1,4 +1,5 @@
-import type { GamepadKey, GamepadEvent } from "../types";
+import type { GamepadKey, GamepadEvent, GamepadEventMap } from "../types";
+import { EventDispatcher } from "@learn6502/6502";
 
 /**
  * Common interface for gamepad services across platforms
@@ -29,6 +30,24 @@ export interface GamepadService {
    * @param enabled Whether gamepad input should be enabled
    */
   setEnabled(enabled: boolean): void;
+
+  /**
+   * Register a listener for gamepad key press events
+   * @param callback Function to call when a key is pressed
+   */
+  addEventListener(
+    event: keyof GamepadEventMap,
+    callback: (event: GamepadEvent) => void
+  ): void;
+
+  /**
+   * Remove a listener for gamepad key press events
+   * @param callback Function to remove from listeners
+   */
+  removeEventListener(
+    event: keyof GamepadEventMap,
+    callback: (event: GamepadEvent) => void
+  ): void;
 }
 
 /**
@@ -36,6 +55,9 @@ export interface GamepadService {
  */
 export abstract class BaseGamepadService implements GamepadService {
   protected enabled: boolean = true;
+
+  // Event dispatcher for gamepad events
+  protected events = new EventDispatcher<GamepadEventMap>();
 
   // Default key mappings
   protected keyMappings: Record<number, GamepadKey> = {};
@@ -49,6 +71,30 @@ export abstract class BaseGamepadService implements GamepadService {
     A: 0xfb,
     B: 0xfa,
   };
+
+  /**
+   * Register a listener for gamepad events
+   * @param event Event name to listen for
+   * @param callback Function to call when the event occurs
+   */
+  public addEventListener(
+    event: keyof GamepadEventMap,
+    callback: (event: GamepadEvent) => void
+  ): void {
+    this.events.on(event, callback);
+  }
+
+  /**
+   * Remove a listener for gamepad events
+   * @param event Event name to remove listener from
+   * @param callback Function to remove from listeners
+   */
+  public removeEventListener(
+    event: keyof GamepadEventMap,
+    callback: (event: GamepadEvent) => void
+  ): void {
+    this.events.off(event, callback);
+  }
 
   /**
    * Press a gamepad key and write to simulated memory
@@ -113,10 +159,12 @@ export abstract class BaseGamepadService implements GamepadService {
   protected abstract onKeyPress(key: GamepadKey, address: number): void;
 
   /**
-   * Emit gamepad event to listeners (platform-specific)
+   * Emit gamepad event to listeners
    * @param event Gamepad event data
    */
-  protected abstract emitGamepadEvent(event: GamepadEvent): void;
+  protected emitGamepadEvent(event: GamepadEvent): void {
+    this.events.dispatch("keyPressed", event);
+  }
 
   /**
    * Initialize platform-specific key mappings

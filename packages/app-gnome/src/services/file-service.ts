@@ -7,13 +7,16 @@ import GLib from "@girs/glib-2.0";
  * GNOME-specific implementation of the FileService
  * Uses GTK file dialogs for file operations
  */
-export class FileService extends BaseFileService {
-  private window: Gtk.Window;
+class FileService extends BaseFileService {
+  private window: Gtk.Window | null = null;
   private unsavedChangesIndicator: Gtk.Button | null = null;
   private currentFile: Gio.File | null = null;
 
-  constructor(window: Gtk.Window) {
+  constructor() {
     super();
+  }
+
+  public init(window: Gtk.Window): void {
     this.window = window;
   }
 
@@ -189,3 +192,5 @@ export class FileService extends BaseFileService {
     return this.currentFile;
   }
 }
+
+export const fileService = new FileService();

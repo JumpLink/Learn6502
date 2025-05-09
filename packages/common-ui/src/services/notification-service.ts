@@ -1,32 +1,4 @@
-/**
- * Types for different notification types
- */
-export type NotificationType = "info" | "success" | "warning" | "error";
-
-/**
- * Options for notifications
- */
-export interface NotificationOptions {
-  title: string;
-  message?: string;
-  type?: NotificationType;
-  timeout?: number;
-  action?: {
-    label: string;
-    callback: () => void;
-  };
-}
-
-/**
- * Options for dialogs
- */
-export interface DialogOptions {
-  title: string;
-  message: string;
-  confirmLabel?: string;
-  cancelLabel?: string;
-  type?: NotificationType;
-}
+import type { DialogOptions, NotificationOptions } from "../types";
 
 /**
  * Common interface for notification services

@@ -9,13 +9,15 @@ import GLib from "@girs/glib-2.0";
  * GNOME-specific implementation of the ThemeService
  * Uses Adw.StyleManager for theming
  */
-export class ThemeService extends BaseThemeService {
-  private styleManager: Adw.StyleManager;
+class ThemeService extends BaseThemeService {
+  private styleManager: Adw.StyleManager | null = null;
   private settings: Gio.Settings | null = null;
 
   constructor() {
     super();
+  }
 
+  public init(): void {
     // Get the StyleManager singleton
     this.styleManager = Adw.StyleManager.get_default();
 
@@ -47,7 +49,7 @@ export class ThemeService extends BaseThemeService {
    * Check if the dark theme is currently active
    */
   protected isCurrentlyDarkTheme(): boolean {
-    return this.styleManager.get_dark();
+    return this.styleManager?.get_dark() || false;
   }
 
   /**
@@ -57,14 +59,14 @@ export class ThemeService extends BaseThemeService {
     // Apply theme according to mode
     switch (mode) {
       case "light":
-        this.styleManager.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT);
+        this.styleManager?.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT);
         break;
       case "dark":
-        this.styleManager.set_color_scheme(Adw.ColorScheme.FORCE_DARK);
+        this.styleManager?.set_color_scheme(Adw.ColorScheme.FORCE_DARK);
         break;
       case "system":
       default:
-        this.styleManager.set_color_scheme(Adw.ColorScheme.DEFAULT);
+        this.styleManager?.set_color_scheme(Adw.ColorScheme.DEFAULT);
         break;
     }
 
@@ -117,12 +119,14 @@ export class ThemeService extends BaseThemeService {
    */
   private monitorSystemAppearance(): void {
     // React to changes in StyleManager
-    this.styleManager.connect("notify::dark", () => {
+    this.styleManager?.connect("notify::dark", () => {
       // Only update if we're in system mode
       if (this._currentTheme === "system") {
-        this._isDarkTheme = this.styleManager.get_dark();
+        this._isDarkTheme = this.styleManager?.get_dark() || false;
         this.notifyListeners();
       }
     });
   }
 }
+
+export const themeService = new ThemeService();

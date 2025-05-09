@@ -7,12 +7,15 @@ import Gtk from "@girs/gtk-4.0";
  * GNOME-specific implementation of the NotificationService
  * Uses Adw.Toast and Adw.AlertDialog
  */
-export class NotificationService extends BaseNotificationService {
-  private window: Gtk.Window;
-  private toastOverlay: Adw.ToastOverlay;
+class NotificationService extends BaseNotificationService {
+  private window: Gtk.Window | null = null;
+  private toastOverlay: Adw.ToastOverlay | null = null;
 
-  constructor(window: Gtk.Window, toastOverlay: Adw.ToastOverlay) {
+  constructor() {
     super();
+  }
+
+  public init(window: Gtk.Window, toastOverlay: Adw.ToastOverlay): void {
     this.window = window;
     this.toastOverlay = toastOverlay;
   }
@@ -22,7 +25,7 @@ export class NotificationService extends BaseNotificationService {
    */
   protected displayNotification(options: NotificationOptions): void {
     // Configure toast properties
-    const toastProperties: any = {
+    const toastProperties: Partial<Adw.Toast.ConstructorProps> = {
       title: options.title,
       timeout: options.timeout || 2,
     };
@@ -41,7 +44,7 @@ export class NotificationService extends BaseNotificationService {
     }
 
     // Add toast to overlay
-    this.toastOverlay.add_toast(toast);
+    this.toastOverlay?.add_toast(toast);
   }
 
   /**
@@ -99,3 +102,5 @@ export class NotificationService extends BaseNotificationService {
     });
   }
 }
+
+export const notificationService = new NotificationService();
