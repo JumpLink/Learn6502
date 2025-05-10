@@ -35,7 +35,7 @@ export interface GamepadService {
    * Register a listener for gamepad key press events
    * @param callback Function to call when a key is pressed
    */
-  addEventListener(
+  on(
     event: keyof GamepadEventMap,
     callback: (event: GamepadEvent) => void
   ): void;
@@ -44,7 +44,7 @@ export interface GamepadService {
    * Remove a listener for gamepad key press events
    * @param callback Function to remove from listeners
    */
-  removeEventListener(
+  off(
     event: keyof GamepadEventMap,
     callback: (event: GamepadEvent) => void
   ): void;
@@ -67,7 +67,7 @@ export abstract class BaseGamepadService implements GamepadService {
    * @param event Event name to listen for
    * @param callback Function to call when the event occurs
    */
-  public addEventListener(
+  public on(
     event: keyof GamepadEventMap,
     callback: (event: GamepadEvent) => void
   ): void {
@@ -79,7 +79,7 @@ export abstract class BaseGamepadService implements GamepadService {
    * @param event Event name to remove listener from
    * @param callback Function to remove from listeners
    */
-  public removeEventListener(
+  public off(
     event: keyof GamepadEventMap,
     callback: (event: GamepadEvent) => void
   ): void {
@@ -97,7 +97,7 @@ export abstract class BaseGamepadService implements GamepadService {
     this.onKeyPress(key);
 
     // Emit event for logging/UI feedback
-    this.emitGamepadEvent({
+    this.dispatch({
       key,
       keyCode: this.getKeyValue(key),
     });
@@ -147,7 +147,7 @@ export abstract class BaseGamepadService implements GamepadService {
    * Emit gamepad event to listeners
    * @param event Gamepad event data
    */
-  protected emitGamepadEvent(event: GamepadEvent): void {
+  protected dispatch(event: GamepadEvent): void {
     this.events.dispatch("keyPressed", event);
   }
 

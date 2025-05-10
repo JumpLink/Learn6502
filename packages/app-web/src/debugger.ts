@@ -11,16 +11,66 @@ import {
   DebuggerState,
   type DebuggerWidget,
   type HexMonitorOptions,
+  type MessageConsoleWidget,
+  type DebugInfoWidget,
 } from "@learn6502/common-ui";
+
+import { debuggerService } from "./services";
+import { MessageConsole } from "./message-console";
+
+// Create a DebugInfoWidget implementation for web
+class DebugInfo implements DebugInfoWidget {
+  constructor(private readonly element: HTMLElement) {}
+
+  public update(simulator: Simulator): void {
+    const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
+    let html =
+      "A=$" +
+      num2hex(regA) +
+      " X=$" +
+      num2hex(regX) +
+      " Y=$" +
+      num2hex(regY) +
+      "<br />";
+    html += "SP=$" + num2hex(regSP) + " PC=$" + addr2hex(regPC);
+    html += "<br />";
+    html += "NV-BDIZC<br />";
+    for (let i = 7; i >= 0; i--) {
+      html += (regP >> i) & 1;
+    }
+    this.element.innerHTML = html;
+  }
+}
 
 export class Debugger implements DebuggerWidget {
   public state = DebuggerState.INITIAL;
+  private messageConsole: MessageConsoleWidget;
+  private debugInfo: DebugInfoWidget;
+
   constructor(
     private readonly node: HTMLElement,
     private readonly simulator: Simulator,
     public readonly memory: Memory,
     public readonly options: HexMonitorOptions
   ) {
+    // Initialize widgets
+    const consoleElement = node.querySelector<HTMLElement>(".console");
+    const minidebugger = node.querySelector<HTMLElement>(".minidebugger");
+
+    if (!consoleElement) {
+      throw new Error("Console element not found in debugger node");
+    }
+
+    if (!minidebugger) {
+      throw new Error("Debug info element not found in debugger node");
+    }
+
+    this.messageConsole = new MessageConsole(consoleElement);
+    this.debugInfo = new DebugInfo(minidebugger);
+
+    // Initialize service with widgets
+    debuggerService.init(this.messageConsole, this.debugInfo);
+
     this.setupEventListeners();
     this.onMonitorRangeChange = this.onMonitorRangeChange.bind(this);
   }
@@ -131,25 +181,7 @@ export class Debugger implements DebuggerWidget {
   }
 
   public updateDebugInfo(simulator: Simulator) {
-    const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
-    let html =
-      "A=$" +
-      num2hex(regA) +
-      " X=$" +
-      num2hex(regX) +
-      " Y=$" +
-      num2hex(regY) +
-      "<br />";
-    html += "SP=$" + num2hex(regSP) + " PC=$" + addr2hex(regPC);
-    html += "<br />";
-    html += "NV-BDIZC<br />";
-    for (let i = 7; i >= 0; i--) {
-      html += (regP >> i) & 1;
-    }
-    const minidebugger = this.node.querySelector<HTMLElement>(".minidebugger");
-    if (minidebugger) {
-      minidebugger.innerHTML = html;
-    }
+    debuggerService.updateDebugInfo(simulator);
   }
 
   #update(memory: Memory, simulator: Simulator) {
@@ -166,21 +198,19 @@ export class Debugger implements DebuggerWidget {
   public update = throttle(this.#update.bind(this), 349); // Prime number
 
   /**
-   * Update the hexdump view
+   * Updates the hexdump view
    * @param assembler Assembler with assembled code
    */
   public updateHexdump(assembler: Assembler): void {
-    // Placeholder for future implementation
-    console.log("updateHexdump not yet implemented in web version");
+    debuggerService.updateHexdump(assembler);
   }
 
   /**
-   * Update the disassembled view
+   * Updates the disassembled view
    * @param assembler Assembler with assembled code
    */
   public updateDisassembled(assembler: Assembler): void {
-    // Placeholder for future implementation
-    console.log("updateDisassembled not yet implemented in web version");
+    debuggerService.updateDisassembled(assembler);
   }
 
   /**
@@ -188,11 +218,13 @@ export class Debugger implements DebuggerWidget {
    * @param message Message to log
    */
   public log(message: string): void {
-    // Placeholder for future implementation
-    console.log(`Debugger log: ${message}`);
+    debuggerService.log(message);
   }
 
   public reset() {
+    if (this.messageConsole) {
+      this.messageConsole.clear();
+    }
     this.state = DebuggerState.RESET;
   }
 
@@ -201,6 +233,5 @@ export class Debugger implements DebuggerWidget {
    */
   public close(): void {
     // Remove event listeners or perform any cleanup
-    // This is a placeholder for now, as web version may not need explicit cleanup
   }
 }

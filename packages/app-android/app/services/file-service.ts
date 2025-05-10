@@ -295,20 +295,14 @@ export class AndroidFileService extends BaseFileService {
   /**
    * Add event listener for file events
    */
-  public addEventListener(
-    eventName: string,
-    callback: (args: any) => void
-  ): void {
+  public on(eventName: string, callback: (args: any) => void): void {
     this._eventSource.on(eventName, callback);
   }
 
   /**
    * Remove event listener
    */
-  public removeEventListener(
-    eventName: string,
-    callback: (args: any) => void
-  ): void {
+  public off(eventName: string, callback: (args: any) => void): void {
     this._eventSource.off(eventName, callback);
   }
 

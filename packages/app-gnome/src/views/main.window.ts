@@ -11,13 +11,16 @@ import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
 import { MainButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
-import { gamepadService } from "../services/gamepad-service";
-import { themeService } from "../services/theme-service";
+import {
+  gamepadService,
+  themeService,
+  notificationService,
+  fileService,
+  debuggerService,
+} from "../services";
 
 import Template from "./main.window.blp";
 import { type MainButtonState, type MainView } from "@learn6502/common-ui";
-import { notificationService } from "../services/notification-service.ts";
-import { fileService } from "../services/file-service.ts";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
   // Child widgets
@@ -152,15 +155,12 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupDebuggerSignalListeners(): void {
-    this._debugger.connect(
-      "copy-to-clipboard",
-      this.onCopyToClipboard.bind(this)
-    );
-    this._debugger.connect("copy-to-editor", this.onCopyToEditor.bind(this));
+    debuggerService.on("copyToClipboard", this.onCopyToClipboard.bind(this));
+    debuggerService.on("copyToEditor", this.onCopyToEditor.bind(this));
   }
 
-  private onCopyToClipboard(self: Debugger, code: string): void {
-    const success = copyToClipboard(code, self.get_clipboard());
+  private onCopyToClipboard(code: string): void {
+    const success = copyToClipboard(code, this.get_clipboard());
     if (success) {
       this.showToast({
         title: _("Copied to clipboard"),
@@ -174,7 +174,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     }
   }
 
-  private onCopyToEditor(self: Debugger, code: string): void {
+  private onCopyToEditor(code: string): void {
     this.setEditorCode(code);
   }
 
@@ -566,7 +566,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     gamepadService.addKeyControllerTo(this);
 
     // Add gamepad event listener
-    gamepadService.addEventListener("keyPressed", (event) => {
+    gamepadService.on("keyPressed", (event) => {
       // If we're in the game console or debugger view, log the key press
       const visibleChild = this._stack.get_visible_child();
       if (

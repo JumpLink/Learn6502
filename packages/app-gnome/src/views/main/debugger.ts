@@ -21,8 +21,10 @@ import {
 import {
   type DebuggerWidget,
   type MessageConsoleWidget,
+  type DebugInfoWidget,
   DebuggerState,
 } from "@learn6502/common-ui";
+import { debuggerService } from "../../services/debugger-service.ts";
 
 export class Debugger extends Adw.Bin implements DebuggerWidget {
   // Properties
@@ -34,7 +36,7 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
   declare private _hexMonitor: HexMonitor;
   declare private _hexdump: Hexdump;
   declare private _disassembled: Disassembled;
-  declare private _debugInfo: DebugInfo;
+  declare private _debugInfo: DebugInfoWidget;
   declare private _statusPage: Adw.StatusPage;
 
   static {
@@ -51,14 +53,6 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
           "debugInfo",
           "statusPage",
         ],
-        Signals: {
-          "copy-to-clipboard": {
-            param_types: [GObject.TYPE_STRING],
-          },
-          "copy-to-editor": {
-            param_types: [GObject.TYPE_STRING],
-          },
-        },
         Properties: {
           // TypeScript enums are numbers by default
           state: GObject.ParamSpec.uint(
@@ -96,6 +90,7 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
   constructor(binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(binParams);
     this.setupSignalHandlers();
+    this.setupServiceHandlers();
     this.state = DebuggerState.INITIAL;
   }
 
@@ -105,7 +100,7 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
   }
 
   public log(message: string): void {
-    this._messageConsole.log(message);
+    debuggerService.log(message);
   }
 
   /**
@@ -146,7 +141,7 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
    * @param simulator Current state of the 6502 simulator
    */
   public updateDebugInfo(simulator: Simulator): void {
-    this._debugInfo.update(simulator);
+    debuggerService.updateDebugInfo(simulator);
   }
 
   /**
@@ -155,6 +150,7 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
    * @param assembler Assembler instance containing the new program code
    */
   public updateHexdump(assembler: Assembler): void {
+    debuggerService.updateHexdump(assembler);
     this._hexdump.update(assembler);
   }
 
@@ -164,6 +160,7 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
    * @param assembler Assembler instance containing the new program code
    */
   public updateDisassembled(assembler: Assembler): void {
+    debuggerService.updateDisassembled(assembler);
     this._disassembled.update(assembler);
   }
 
@@ -173,6 +170,11 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
     // this._hexdump.clear();
     // this._disassembled.clear();
     this.state = DebuggerState.RESET;
+  }
+
+  private setupServiceHandlers(): void {
+    // Initialize the debugger service with widgets
+    debuggerService.init(this._messageConsole, this._debugInfo);
   }
 
   private onStateChanged(): void {
@@ -199,11 +201,11 @@ export class Debugger extends Adw.Bin implements DebuggerWidget {
   }
 
   private onCopyToEditor(self: Disassembled, code: string): void {
-    this.emit("copy-to-editor", code);
+    debuggerService.copyToEditor(code);
   }
 
   private onCopyToClipboard(self: Hexdump | HexMonitor, code: string): void {
-    this.emit("copy-to-clipboard", code);
+    debuggerService.copyToClipboard(code);
   }
 
   private setupSignalHandlers(): void {
