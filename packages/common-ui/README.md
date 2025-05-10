@@ -13,7 +13,6 @@ The purpose of this package is to provide a consistent API and reusable code acr
 - **MainView**: Common interface for the main application window/view
 - **EditorView**: Interface for code editor component
 - **GameConsoleView**: Interface for the 6502 game console/emulator view
-- **DebuggerView**: Interface for the debugger view
 
 ### Widgets
 
@@ -21,6 +20,7 @@ The purpose of this package is to provide a consistent API and reusable code acr
 - **DisplayWidget**: Interface for the display canvas/component
 - **MessageConsole**: Interface for the console output
 - **SourceView**: Interface for displaying source code
+- **DebuggerWidget**: Interface for the debugger component
 
 ### Utilities
 

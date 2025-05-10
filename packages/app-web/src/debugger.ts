@@ -4,6 +4,7 @@ import {
   addr2hex,
   num2hex,
   throttle,
+  Assembler,
 } from "@learn6502/6502";
 
 import {
@@ -164,7 +165,42 @@ export class Debugger implements DebuggerWidget {
    */
   public update = throttle(this.#update.bind(this), 349); // Prime number
 
+  /**
+   * Update the hexdump view
+   * @param assembler Assembler with assembled code
+   */
+  public updateHexdump(assembler: Assembler): void {
+    // Placeholder for future implementation
+    console.log("updateHexdump not yet implemented in web version");
+  }
+
+  /**
+   * Update the disassembled view
+   * @param assembler Assembler with assembled code
+   */
+  public updateDisassembled(assembler: Assembler): void {
+    // Placeholder for future implementation
+    console.log("updateDisassembled not yet implemented in web version");
+  }
+
+  /**
+   * Log a message to the debugger console
+   * @param message Message to log
+   */
+  public log(message: string): void {
+    // Placeholder for future implementation
+    console.log(`Debugger log: ${message}`);
+  }
+
   public reset() {
     this.state = DebuggerState.RESET;
+  }
+
+  /**
+   * Clean up resources when closing
+   */
+  public close(): void {
+    // Remove event listeners or perform any cleanup
+    // This is a placeholder for now, as web version may not need explicit cleanup
   }
 }
