@@ -4,7 +4,8 @@ import Gtk from "@girs/gtk-4.0";
 import GtkSource from "@girs/gtksource-5";
 import { SourceView } from "../../widgets/source-view.ts";
 import { QuickHelpView } from "../../mdx/quick-help-view.ts";
-import type { EditorView } from "@learn6502/common-ui";
+import { EventDispatcher } from "@learn6502/6502";
+import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
 
 import Template from "./editor.blp";
 
@@ -15,6 +16,8 @@ import Template from "./editor.blp";
  * @emits changed - Emitted when the buffer's text changes
  */
 export class Editor extends Adw.Bin implements EditorView {
+  readonly events = new EventDispatcher<EditorEventMap>();
+
   // Child widgets
 
   /** The SourceView that displays the buffer's display */
@@ -154,7 +157,8 @@ export class Editor extends Adw.Bin implements EditorView {
   }
 
   private onUpdate() {
-    this.emit("changed");
+    this.emit("changed"); // Deprecated
+    this.events.dispatch("changed", { code: this.code });
 
     // Call change handler if registered
     if (this._changeHandler) {

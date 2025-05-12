@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-12 17:43+0200\n"
+"POT-Creation-Date: 2025-05-12 21:12+0200\n"
 "PO-Revision-Date: 2025-04-05 06:04+0000\n"
 "Last-Translator: Pascal Garber <pascal@artandcode.studio>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eu-jumplink-"
@@ -144,30 +144,6 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:64
-msgid "Assemble"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:69
-msgid "Run"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:74
-msgid "Pause"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:79
-msgid "Resume"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:84
-msgid "Reset"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:89
-msgid "Step"
-msgstr ""
-
 #: ../app-gnome/src/views/main.window.ts:138
 msgid "Code copied to editor"
 msgstr ""
@@ -223,27 +199,28 @@ msgstr ""
 msgid "Saved as %s"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.blp:25
-msgid "Continue"
+#: ../app-gnome/src/widgets/main-button.ts:64
+msgid "Assemble"
 msgstr ""
 
-#: ../app-gnome/src/widgets/source-view.blp:34
-msgid "Copy to editor"
+#: ../app-gnome/src/widgets/main-button.ts:69
+msgid "Run"
 msgstr ""
 
-#: ../app-gnome/src/widgets/theme-selector.blp:24
-#: ../app-gnome/src/widgets/theme-selector.blp:27
-msgid "Follow system style"
+#: ../app-gnome/src/widgets/main-button.ts:74
+msgid "Pause"
 msgstr ""
 
-#: ../app-gnome/src/widgets/theme-selector.blp:43
-#: ../app-gnome/src/widgets/theme-selector.blp:46
-msgid "Light style"
+#: ../app-gnome/src/widgets/main-button.ts:79
+msgid "Resume"
 msgstr ""
 
-#: ../app-gnome/src/widgets/theme-selector.blp:62
-#: ../app-gnome/src/widgets/theme-selector.blp:65
-msgid "Dark style"
+#: ../app-gnome/src/widgets/main-button.ts:84
+msgid "Reset"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:89
+msgid "Step"
 msgstr ""
 
 #: ../app-gnome/src/views/help.window.blp:7
@@ -328,37 +305,27 @@ msgstr ""
 msgid "There are currently no settings."
 msgstr ""
 
-#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
-msgid "Zero Page ($0000-$00FF)"
+#: ../app-gnome/src/widgets/main-button.blp:25
+msgid "Continue"
 msgstr ""
 
-#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:20
-msgid "Stack ($0100-$01FF)"
+#: ../app-gnome/src/widgets/source-view.blp:34
+msgid "Copy to editor"
 msgstr ""
 
-#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:21
-msgid "Display Memory ($0200-$05FF)"
+#: ../app-gnome/src/widgets/theme-selector.blp:24
+#: ../app-gnome/src/widgets/theme-selector.blp:27
+msgid "Follow system style"
 msgstr ""
 
-#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:22
-msgid "Program Storage ($0600-$FFFF)"
+#: ../app-gnome/src/widgets/theme-selector.blp:43
+#: ../app-gnome/src/widgets/theme-selector.blp:46
+msgid "Light style"
 msgstr ""
 
-#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:23
-msgid "Snake Game Data ($00-$15)"
-msgstr ""
-
-#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:24
-msgid "Random/Input ($FE-$FF)"
-msgstr ""
-
-#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:25
-msgid "Full Memory ($0000-$FFFF)"
-msgstr ""
-
-#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:35
-#: ../app-gnome/src/widgets/debugger/hexdump.blp:9
-msgid "Copy to clipboard"
+#: ../app-gnome/src/widgets/theme-selector.blp:62
+#: ../app-gnome/src/widgets/theme-selector.blp:65
+msgid "Dark style"
 msgstr ""
 
 #: ../app-gnome/src/views/main/debugger.blp:16
@@ -392,6 +359,39 @@ msgstr ""
 
 #: ../app-gnome/src/views/main/learn.blp:9
 msgid "Learn how to program the 6502 microprocessor."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
+msgid "Zero Page ($0000-$00FF)"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:20
+msgid "Stack ($0100-$01FF)"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:21
+msgid "Display Memory ($0200-$05FF)"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:22
+msgid "Program Storage ($0600-$FFFF)"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:23
+msgid "Snake Game Data ($00-$15)"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:24
+msgid "Random/Input ($FE-$FF)"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:25
+msgid "Full Memory ($0000-$FFFF)"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/hex-monitor.blp:35
+#: ../app-gnome/src/widgets/debugger/hexdump.blp:9
+msgid "Copy to clipboard"
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7

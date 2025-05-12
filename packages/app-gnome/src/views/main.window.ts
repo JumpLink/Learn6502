@@ -132,7 +132,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupLearnTutorialSignalListeners(): void {
-    this._learn.connect("copy", (_learn: Learn, code: string) => {
+    this._learn.events.on("copy", ({ code }) => {
       this.setEditorCode(code);
       this.showToast({
         title: _("Code copied to editor"),
@@ -143,7 +143,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private setupEditorSignalListeners(): void {
     // Connect to text buffer's changed signal
-    this._editor.connect("changed", () => {
+    this._editor.events.on("changed", () => {
       this.codeToAssembleChanged = true;
       this.unsavedChanges = true;
 
