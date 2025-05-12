@@ -16,11 +16,14 @@ import {
   themeService,
   notificationService,
   fileService,
-  debuggerService,
 } from "../services";
 
 import Template from "./main.window.blp";
-import { type MainButtonState, type MainView } from "@learn6502/common-ui";
+import {
+  type MainButtonState,
+  type MainView,
+  debuggerService,
+} from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
   // Child widgets

@@ -9,13 +9,13 @@ import {
 
 import {
   DebuggerState,
+  debuggerService,
   type DebuggerView,
   type HexMonitorOptions,
   type MessageConsoleWidget,
   type DebugInfoWidget,
 } from "@learn6502/common-ui";
 
-import { debuggerService } from "./services";
 import { MessageConsole } from "./message-console";
 
 // Create a DebugInfoWidget implementation for web

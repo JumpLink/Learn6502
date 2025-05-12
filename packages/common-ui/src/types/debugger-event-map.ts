@@ -6,4 +6,5 @@ import type { Memory, Simulator, Assembler } from "@learn6502/6502";
 export interface DebuggerEventMap {
   copyToClipboard: string;
   copyToEditor: string;
+  reset: void;
 }

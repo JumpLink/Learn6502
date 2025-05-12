@@ -5,99 +5,44 @@ import {
   EventDispatcher,
 } from "@learn6502/6502";
 import type { DebuggerEventMap } from "../types";
-import type { MessageConsoleWidget, DebugInfoWidget } from "../widgets/index";
+import {
+  type MessageConsoleWidget,
+  type DebugInfoWidget,
+  type HexMonitorWidget,
+  type DisassembledWidget,
+  DummyMessageConsole,
+} from "../widgets/index";
 
 /**
- * Common interface for debugger services across platforms
+ * Platform-independent debugger service
  */
-export interface DebuggerService {
-  /**
-   * Initialize the debugger service with widgets
-   * @param console Message console widget for logging output
-   * @param debugInfo Debug info widget for displaying CPU state
-   */
-  init(console: MessageConsoleWidget, debugInfo?: DebugInfoWidget): void;
-
-  /**
-   * Update the debugger with current simulator state
-   * @param simulator Simulator instance for state information
-   */
-  updateDebugInfo(simulator: Simulator): void;
-
-  /**
-   * Update the hexdump view
-   * @param assembler Assembler with assembled code
-   */
-  updateHexdump(assembler: Assembler): void;
-
-  /**
-   * Update the disassembled view
-   * @param assembler Assembler with assembled code
-   */
-  updateDisassembled(assembler: Assembler): void;
-
-  /**
-   * Log a message to the debugger console
-   * @param message Message to log
-   */
-  log(message: string): void;
-
-  /**
-   * Copy code to clipboard
-   * @param code Code to copy
-   */
-  copyToClipboard(code: string): void;
-
-  /**
-   * Copy code to editor
-   * @param code Code to copy to editor
-   */
-  copyToEditor(code: string): void;
-
-  /**
-   * Register a listener for debugger events
-   * @param event Event name
-   * @param callback Function to call when the event occurs
-   */
-  on(
-    event: keyof DebuggerEventMap,
-    callback: (data: DebuggerEventMap[typeof event]) => void
-  ): void;
-
-  /**
-   * Remove a listener for debugger events
-   * @param event Event name
-   * @param callback Function to remove
-   */
-  off(
-    event: keyof DebuggerEventMap,
-    callback: (data: DebuggerEventMap[typeof event]) => void
-  ): void;
-}
-
-/**
- * Base class implementing common debugger functionality
- */
-export abstract class BaseDebuggerService implements DebuggerService {
+export class DebuggerService {
   // Event dispatcher for debugger events
-  protected events = new EventDispatcher<DebuggerEventMap>();
+  readonly events = new EventDispatcher<DebuggerEventMap>();
 
   // Widgets for output and display
-  protected console: MessageConsoleWidget | null = null;
+  protected console: MessageConsoleWidget = new DummyMessageConsole();
   protected debugInfo: DebugInfoWidget | null = null;
+  protected hexMonitor: HexMonitorWidget | null = null;
+  protected disassembled: DisassembledWidget | null = null;
 
   /**
    * Initialize the debugger service with widgets
    * @param console Message console widget for logging output
    * @param debugInfo Debug info widget for displaying CPU state
+   * @param hexMonitor Hex monitor widget for displaying memory
+   * @param disassembled Disassembled widget for displaying disassembled code
    */
   public init(
     console: MessageConsoleWidget,
-    debugInfo?: DebugInfoWidget
+    debugInfo?: DebugInfoWidget,
+    hexMonitor?: HexMonitorWidget,
+    disassembled?: DisassembledWidget
   ): void {
     this.console = console;
     this.debugInfo = debugInfo || null;
-    this.flushPendingLogs();
+    this.hexMonitor = hexMonitor || null;
+    this.disassembled = disassembled || null;
   }
 
   /**
@@ -115,9 +60,9 @@ export abstract class BaseDebuggerService implements DebuggerService {
    * @param event Event name to listen for
    * @param callback Function to call when the event occurs
    */
-  public on(
-    event: keyof DebuggerEventMap,
-    callback: (data: DebuggerEventMap[typeof event]) => void
+  public on<K extends keyof DebuggerEventMap>(
+    event: K,
+    callback: (data: DebuggerEventMap[K]) => void
   ): void {
     this.events.on(event, callback);
   }
@@ -127,9 +72,9 @@ export abstract class BaseDebuggerService implements DebuggerService {
    * @param event Event name to remove listener from
    * @param callback Function to remove from listeners
    */
-  public off(
-    event: keyof DebuggerEventMap,
-    callback: (data: DebuggerEventMap[typeof event]) => void
+  public off<K extends keyof DebuggerEventMap>(
+    event: K,
+    callback: (data: DebuggerEventMap[K]) => void
   ): void {
     this.events.off(event, callback);
   }
@@ -154,23 +99,66 @@ export abstract class BaseDebuggerService implements DebuggerService {
    * Update the hexdump view
    * @param assembler Assembler with assembled code
    */
-  public abstract updateHexdump(assembler: Assembler): void;
+  public updateHexdump(assembler: Assembler): void {
+    // Implementation delegated to widgets when available
+    if (this.hexMonitor) {
+      // Access memory directly from the assembler
+      // Based on codebase, assembler directly updates memory
+      const memory = assembler["memory"] as Memory;
+      if (memory) {
+        this.hexMonitor.update(memory);
+      }
+    }
+  }
+
+  /**
+   * Update the memory monitor with current memory state
+   * @param memory Current memory state
+   */
+  public updateMemory(memory: Memory): void {
+    if (this.hexMonitor) {
+      this.hexMonitor.update(memory);
+    }
+  }
 
   /**
    * Update the disassembled view
    * @param assembler Assembler with assembled code
    */
-  public abstract updateDisassembled(assembler: Assembler): void;
+  public updateDisassembled(assembler: Assembler): void {
+    // Implementation delegated to widgets when available
+    if (this.disassembled) {
+      this.disassembled.update(assembler);
+    }
+  }
 
   /**
    * Log a message to the debugger console
    * @param message Message to log
    */
-  public abstract log(message: string): void;
+  public log(message: string): void {
+    // Console is always available
+    this.console?.log(message);
+  }
 
   /**
-   * Flush any pending logs to the console widget
-   * To be implemented by platform-specific services
+   * Clear all stored console logs
    */
-  protected abstract flushPendingLogs(): void;
+  public clearConsole(): void {
+    if (this.console) {
+      this.console.clear();
+    }
+  }
+
+  /**
+   * Reset all debugger components
+   */
+  public reset(): void {
+    this.clearConsole();
+    // Reset other components as needed
+    this.events.dispatch("reset", undefined);
+  }
 }
+
+// Export singleton instance
+export const debuggerService = new DebuggerService();

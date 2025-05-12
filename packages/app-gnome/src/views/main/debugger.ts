@@ -21,8 +21,8 @@ import {
   type MessageConsoleWidget,
   type DebugInfoWidget,
   DebuggerState,
+  debuggerService,
 } from "@learn6502/common-ui";
-import { debuggerService } from "../../services/debugger-service.ts";
 
 export class Debugger extends Adw.Bin implements DebuggerView {
   // Properties
@@ -130,7 +130,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
    * @param memory Current state of system memory
    */
   public updateMonitor(memory: Memory): void {
-    this._hexMonitor.update(memory);
+    debuggerService.updateMemory(memory);
   }
 
   /**
@@ -149,7 +149,6 @@ export class Debugger extends Adw.Bin implements DebuggerView {
    */
   public updateHexdump(assembler: Assembler): void {
     debuggerService.updateHexdump(assembler);
-    this._hexdump.update(assembler);
   }
 
   /**
@@ -159,20 +158,21 @@ export class Debugger extends Adw.Bin implements DebuggerView {
    */
   public updateDisassembled(assembler: Assembler): void {
     debuggerService.updateDisassembled(assembler);
-    this._disassembled.update(assembler);
   }
 
   public reset(): void {
-    this._messageConsole.clear();
-    this._hexMonitor.clear();
-    // this._hexdump.clear();
-    // this._disassembled.clear();
+    debuggerService.reset();
     this.state = DebuggerState.RESET;
   }
 
   private setupServiceHandlers(): void {
     // Initialize the debugger service with widgets
-    debuggerService.init(this._messageConsole, this._debugInfo);
+    debuggerService.init(
+      this._messageConsole,
+      this._debugInfo,
+      this._hexMonitor,
+      this._disassembled
+    );
   }
 
   private onStateChanged(): void {
