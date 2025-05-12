@@ -9,7 +9,7 @@ import {
 
 import {
   DebuggerState,
-  type DebuggerWidget,
+  type DebuggerView,
   type HexMonitorOptions,
   type MessageConsoleWidget,
   type DebugInfoWidget,
@@ -42,7 +42,7 @@ class DebugInfo implements DebugInfoWidget {
   }
 }
 
-export class Debugger implements DebuggerWidget {
+export class Debugger implements DebuggerView {
   public state = DebuggerState.INITIAL;
   private messageConsole: MessageConsoleWidget;
   private debugInfo: DebugInfoWidget;

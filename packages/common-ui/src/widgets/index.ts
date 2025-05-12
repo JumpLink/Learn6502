@@ -1,10 +1,5 @@
-export * from "./debug-info";
-export * from "./debugger";
-export * from "./disassembled";
-export * from "./display";
-export * from "./dummy-message-console";
-export * from "./hex-monitor";
-export * from "./hexdump";
-export * from "./main-button";
-export * from "./message-console";
-export * from "./source-view";
+export * from "./debugger/index.ts";
+export * from "./game-console/index.ts";
+
+export * from "./main-button.ts";
+export * from "./source-view.ts";

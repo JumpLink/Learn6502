@@ -1,7 +1,7 @@
 import type { Memory, Simulator } from "@learn6502/6502";
 import type { DebuggerState } from "../data/index.js";
 
-export interface DebuggerWidget {
+export interface DebuggerView {
   state: DebuggerState;
 
   /**

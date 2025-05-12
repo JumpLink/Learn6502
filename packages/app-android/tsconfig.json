@@ -2,9 +2,11 @@
   "compilerOptions": {
     "module": "esnext",
     "target": "ES2020",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
+    "allowImportingTsExtensions": true,
+    "noEmit": true,
     "noEmitHelpers": true,
     "noEmitOnError": true,
     "skipLibCheck": true,

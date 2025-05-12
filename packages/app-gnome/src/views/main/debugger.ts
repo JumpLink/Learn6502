@@ -3,11 +3,9 @@ import Gtk from "@girs/gtk-4.0";
 import Adw from "@girs/adw-1";
 
 import {
-  MessageConsole,
   HexMonitor,
   Hexdump,
   Disassembled,
-  DebugInfo,
 } from "../../widgets/debugger/index.ts";
 
 import Template from "./debugger.blp";
@@ -19,14 +17,14 @@ import {
   throttle,
 } from "@learn6502/6502";
 import {
-  type DebuggerWidget,
+  type DebuggerView,
   type MessageConsoleWidget,
   type DebugInfoWidget,
   DebuggerState,
 } from "@learn6502/common-ui";
 import { debuggerService } from "../../services/debugger-service.ts";
 
-export class Debugger extends Adw.Bin implements DebuggerWidget {
+export class Debugger extends Adw.Bin implements DebuggerView {
   // Properties
   declare private _state: DebuggerState;
 

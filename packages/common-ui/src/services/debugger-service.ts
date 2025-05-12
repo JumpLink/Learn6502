@@ -5,8 +5,7 @@ import {
   EventDispatcher,
 } from "@learn6502/6502";
 import type { DebuggerEventMap } from "../types";
-import type { MessageConsoleWidget } from "../widgets/message-console";
-import type { DebugInfoWidget } from "../widgets/debug-info";
+import type { MessageConsoleWidget, DebugInfoWidget } from "../widgets/index";
 
 /**
  * Common interface for debugger services across platforms
