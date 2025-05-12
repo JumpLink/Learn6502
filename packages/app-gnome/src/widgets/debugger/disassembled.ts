@@ -2,13 +2,12 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import { SourceView } from "../source-view.ts";
 
-import {
-  type Assembler,
-  type Disassembled as DisassembledInterface,
-} from "@learn6502/6502";
+import type { Assembler } from "@learn6502/6502";
+import type { DisassembledWidget } from "@learn6502/common-ui";
 
 import Template from "./disassembled.blp";
-export class Disassembled extends Adw.Bin implements DisassembledInterface {
+
+export class Disassembled extends Adw.Bin implements DisassembledWidget {
   // Child widgets
   declare private _sourceView: SourceView;
 

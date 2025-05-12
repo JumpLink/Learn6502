@@ -1,5 +1,5 @@
 import type { Assembler } from "../assembler.js";
-import type { DisassembledData } from "./disassembled-data.js";
+import type { DisassembledEvent } from "./disassembled-event.js";
 
 /**
  * Base interface for all assembler events
@@ -36,7 +36,6 @@ export interface AssemblerInfoEvent extends AssemblerBaseEvent {}
 /**
  * Event emitted when disassembly is generated
  */
-export interface AssemblerDisassemblyEvent extends AssemblerBaseEvent {
-  /** The disassembled data */
-  data: DisassembledData;
-}
+export interface AssemblerDisassemblyEvent
+  extends AssemblerBaseEvent,
+    DisassembledEvent {}

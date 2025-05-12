@@ -1,7 +1,7 @@
 import { num2hex } from "./utils.js";
 import { EventDispatcher } from "./event-dispatcher.js";
 
-import type { MemoryChangedEvent, MemoryEventsMap } from "./types/index.js";
+import type { MemoryEventsMap } from "./types/index.js";
 
 /**
  * Represents the memory of the 6502 emulator.
