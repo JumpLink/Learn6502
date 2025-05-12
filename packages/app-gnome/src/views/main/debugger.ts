@@ -22,6 +22,9 @@ import {
   type DebugInfoWidget,
   DebuggerState,
   debuggerService,
+  type DisassembledCopyEvent,
+  type HexdumpCopyEvent,
+  type HexMonitorCopyEvent,
 } from "@learn6502/common-ui";
 
 export class Debugger extends Adw.Bin implements DebuggerView {
@@ -87,6 +90,13 @@ export class Debugger extends Adw.Bin implements DebuggerView {
 
   constructor(binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(binParams);
+
+    this.onCopyToClipboard = this.onCopyToClipboard.bind(this);
+    this.onCopyToEditor = this.onCopyToEditor.bind(this);
+    this.onHexMonitorChanged = this.onHexMonitorChanged.bind(this);
+    this.onStateChanged = this.onStateChanged.bind(this);
+    this.onParamChanged = this.onParamChanged.bind(this);
+
     this.setupSignalHandlers();
     this.setupServiceHandlers();
     this.state = DebuggerState.INITIAL;
@@ -171,7 +181,8 @@ export class Debugger extends Adw.Bin implements DebuggerView {
       this._messageConsole,
       this._debugInfo,
       this._hexMonitor,
-      this._disassembled
+      this._disassembled,
+      this._hexdump
     );
   }
 
@@ -198,38 +209,26 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     }
   }
 
-  private onCopyToEditor(self: Disassembled, code: string): void {
-    debuggerService.copyToEditor(code);
+  private onCopyToEditor(event: DisassembledCopyEvent): void {
+    debuggerService.copyToEditor(event.code);
   }
 
-  private onCopyToClipboard(self: Hexdump | HexMonitor, code: string): void {
-    debuggerService.copyToClipboard(code);
+  private onCopyToClipboard(
+    event: HexdumpCopyEvent | HexMonitorCopyEvent
+  ): void {
+    debuggerService.copyToClipboard(event.content);
   }
 
   private setupSignalHandlers(): void {
-    this.handlerIds.push(
-      this.connect("notify", this.onParamChanged.bind(this))
-    );
+    this.handlerIds.push(this.connect("notify", this.onParamChanged));
 
-    // Connect to the Disassembled's copy signal
-    this.handlerIds.push(
-      this._disassembled.connect("copy", this.onCopyToEditor.bind(this))
-    );
+    this._disassembled.events.on("copy", this.onCopyToEditor);
 
-    // Connect to the Hexdump's copy signal
-    this.handlerIds.push(
-      this._hexdump.connect("copy", this.onCopyToClipboard.bind(this))
-    );
+    this._hexdump.events.on("copy", this.onCopyToClipboard);
 
-    // Connect to the HexMonitor's copy signal
-    this.handlerIds.push(
-      this._hexMonitor.connect("copy", this.onCopyToClipboard.bind(this))
-    );
+    this._hexMonitor.events.on("copy", this.onCopyToClipboard);
 
-    // Connect to the HexMonitor's changed signal
-    this.handlerIds.push(
-      this._hexMonitor.connect("changed", this.onHexMonitorChanged.bind(this))
-    );
+    this._hexMonitor.events.on("changed", this.onHexMonitorChanged);
   }
 
   private removeSignalHandlers(): void {
@@ -238,6 +237,12 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     } catch (error) {
       console.error("[Debugger] Failed to remove signal handlers", error);
     }
+
+    this._disassembled.events.off("copy", this.onCopyToEditor);
+    this._hexdump.events.off("copy", this.onCopyToClipboard);
+    this._hexMonitor.events.off("copy", this.onCopyToClipboard);
+    this._hexMonitor.events.off("changed", this.onHexMonitorChanged);
+
     this.handlerIds = [];
   }
 }

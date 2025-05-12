@@ -10,6 +10,7 @@ import {
   type DebugInfoWidget,
   type HexMonitorWidget,
   type DisassembledWidget,
+  type HexdumpWidget,
   DummyMessageConsole,
 } from "../widgets/index";
 
@@ -25,7 +26,7 @@ export class DebuggerService {
   protected debugInfo: DebugInfoWidget | null = null;
   protected hexMonitor: HexMonitorWidget | null = null;
   protected disassembled: DisassembledWidget | null = null;
-
+  protected hexdump: HexdumpWidget | null = null;
   /**
    * Initialize the debugger service with widgets
    * @param console Message console widget for logging output
@@ -35,14 +36,16 @@ export class DebuggerService {
    */
   public init(
     console: MessageConsoleWidget,
-    debugInfo?: DebugInfoWidget,
+    debugInfo: DebugInfoWidget,
     hexMonitor?: HexMonitorWidget,
-    disassembled?: DisassembledWidget
+    disassembled?: DisassembledWidget,
+    hexdump?: HexdumpWidget
   ): void {
     this.console = console;
     this.debugInfo = debugInfo || null;
     this.hexMonitor = hexMonitor || null;
     this.disassembled = disassembled || null;
+    this.hexdump = hexdump || null;
   }
 
   /**
@@ -100,14 +103,8 @@ export class DebuggerService {
    * @param assembler Assembler with assembled code
    */
   public updateHexdump(assembler: Assembler): void {
-    // Implementation delegated to widgets when available
-    if (this.hexMonitor) {
-      // Access memory directly from the assembler
-      // Based on codebase, assembler directly updates memory
-      const memory = assembler["memory"] as Memory;
-      if (memory) {
-        this.hexMonitor.update(memory);
-      }
+    if (this.hexdump) {
+      this.hexdump.update(assembler);
     }
   }
 

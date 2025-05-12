@@ -23,11 +23,6 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
         GTypeName: "Disassembled",
         Template,
         InternalChildren: ["sourceView"],
-        Signals: {
-          copy: {
-            param_types: [GObject.TYPE_STRING],
-          },
-        },
       },
       this
     );
@@ -51,7 +46,6 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
   }
 
   private onCopy(_sourceView: SourceView, code: string) {
-    this.emit("copy", code); // Deprecated
     this.events.dispatch("copy", { code });
   }
 

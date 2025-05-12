@@ -40,12 +40,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
         GTypeName: "HexMonitor",
         Template,
         InternalChildren: ["sourceView", "memoryRegionDropDown"],
-        Signals: {
-          changed: {},
-          copy: {
-            param_types: [GObject.TYPE_STRING],
-          },
-        },
       },
       this
     );
@@ -102,7 +96,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
     if (selectedIndex >= 0 && selectedIndex < this.memoryRegions.length) {
       const region = this.memoryRegions[selectedIndex];
       this.setMonitorRange(region.start, region.length);
-      this.emit("changed"); // Deprecated
       this.events.dispatch("changed", {
         content: this._sourceView.code,
         region,
@@ -113,7 +106,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
   private onCopy(_sourceView: SourceView, content: string) {
     // Remove all whitespace
     content = content.replace(/\s/g, "");
-    this.emit("copy", content); // Deprecated
     this.events.dispatch("copy", { content: content });
   }
 

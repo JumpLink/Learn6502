@@ -19,11 +19,6 @@ export class Hexdump extends Adw.Bin implements HexdumpWidget {
         GTypeName: "Hexdump",
         Template,
         InternalChildren: ["sourceView"],
-        Signals: {
-          copy: {
-            param_types: [GObject.TYPE_STRING],
-          },
-        },
       },
       this
     );
@@ -46,7 +41,6 @@ export class Hexdump extends Adw.Bin implements HexdumpWidget {
   private onCopy(_sourceView: SourceView, content: string) {
     // Remove all whitespace
     content = content.replace(/\s/g, "");
-    this.emit("copy", content); // Deprecated
     this.events.dispatch("copy", { content });
   }
 
