@@ -2,13 +2,32 @@ import {
   EventDispatcher,
   type Memory,
   DisplayAddressRange,
+  type Simulator,
+  type Assembler,
+  type Labels,
+  type AssemblerSuccessEvent,
+  type AssemblerFailureEvent,
+  type AssemblerHexdumpEvent,
+  type AssemblerDisassemblyEvent,
+  type AssemblerInfoEvent,
+  type SimulatorStartEvent,
+  type SimulatorStepEvent,
+  type SimulatorMultiStepEvent,
+  type SimulatorResetEvent,
+  type SimulatorStopEvent,
+  type SimulatorGotoEvent,
+  type SimulatorFailureEvent,
+  type SimulatorInfoEvent,
+  type SimulatorPseudoOpEvent,
+  type LabelsInfoEvent,
+  type LabelsFailureEvent,
 } from "@learn6502/6502";
 import { DEFAULT_COLOR_PALETTE } from "../data/display-constants";
 import { hexToRgb } from "@learn6502/6502/src/utils";
 import type {
   GamepadKey,
   GamepadEvent,
-  GamepadEventMap,
+  GameConsoleEventMap,
   RGBColor,
 } from "../types";
 import type { DisplayWidget, GamepadWidget } from "../widgets/game-console";
@@ -20,11 +39,14 @@ import type { DisplayWidget, GamepadWidget } from "../widgets/game-console";
 export class GameConsoleService {
   // Core properties
   private memory: Memory | null = null;
+  private simulator: Simulator | null = null;
+  private assembler: Assembler | null = null;
+  private labels: Labels | null = null;
   private displayWidget: DisplayWidget | null = null;
   private gamepadWidget: GamepadWidget | null = null;
 
   // Event handling
-  readonly events = new EventDispatcher<GamepadEventMap>();
+  readonly events = new EventDispatcher<GameConsoleEventMap>();
 
   // Configuration properties
   private colorPalette: string[] = DEFAULT_COLOR_PALETTE;
@@ -57,6 +79,9 @@ export class GameConsoleService {
     displayWidget: DisplayWidget;
     gamepadWidget: GamepadWidget;
     memory: Memory;
+    simulator?: Simulator;
+    assembler?: Assembler;
+    labels?: Labels;
   }): void {
     // Set up display
     this.displayWidget = options.displayWidget;
@@ -77,8 +102,11 @@ export class GameConsoleService {
       this.events.dispatch("keyPressed", event);
     });
 
-    // Set up memory
+    // Set up memory and other components
     this.memory = options.memory;
+    this.simulator = options.simulator || null;
+    this.assembler = options.assembler || null;
+    this.labels = options.labels || null;
 
     if (!this.displayWidget || !this.gamepadWidget || !this.memory) {
       throw new Error("Missing required components");
@@ -86,6 +114,88 @@ export class GameConsoleService {
 
     // Initialize display widget with memory
     this.displayWidget.initialize(this.memory);
+
+    // Setup event listeners for simulator, assembler, and labels if available
+    this.setupEventListeners();
+  }
+
+  /**
+   * Set up event listeners for assembler, simulator, and labels
+   */
+  private setupEventListeners(): void {
+    if (this.assembler) {
+      this.assembler.on("assemble-success", (event: AssemblerSuccessEvent) => {
+        if (this.memory && this.assembler) {
+          this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
+        }
+        // Forward the event
+        this.events.dispatch("assemble-success", event);
+      });
+
+      this.assembler.on("assemble-failure", (event: AssemblerFailureEvent) => {
+        this.events.dispatch("assemble-failure", event);
+      });
+
+      this.assembler.on("hexdump", (event: AssemblerHexdumpEvent) => {
+        this.events.dispatch("hexdump", event);
+      });
+
+      this.assembler.on("disassembly", (event: AssemblerDisassemblyEvent) => {
+        this.events.dispatch("disassembly", event);
+      });
+
+      this.assembler.on("assemble-info", (event: AssemblerInfoEvent) => {
+        this.events.dispatch("assemble-info", event);
+      });
+    }
+
+    if (this.simulator) {
+      this.simulator.on("stop", (event: SimulatorStopEvent) => {
+        this.events.dispatch("stop", event);
+      });
+
+      this.simulator.on("start", (event: SimulatorStartEvent) => {
+        this.events.dispatch("start", event);
+      });
+
+      this.simulator.on("reset", (event: SimulatorResetEvent) => {
+        this.events.dispatch("reset", event);
+      });
+
+      this.simulator.on("step", (event: SimulatorStepEvent) => {
+        this.events.dispatch("step", event);
+      });
+
+      this.simulator.on("multistep", (event: SimulatorMultiStepEvent) => {
+        this.events.dispatch("multistep", event);
+      });
+
+      this.simulator.on("goto", (event: SimulatorGotoEvent) => {
+        this.events.dispatch("goto", event);
+      });
+
+      this.simulator.on("pseudo-op", (event: SimulatorPseudoOpEvent) => {
+        this.events.dispatch("pseudo-op", event);
+      });
+
+      this.simulator.on("simulator-info", (event: SimulatorInfoEvent) => {
+        this.events.dispatch("simulator-info", event);
+      });
+
+      this.simulator.on("simulator-failure", (event: SimulatorFailureEvent) => {
+        this.events.dispatch("simulator-failure", event);
+      });
+    }
+
+    if (this.labels) {
+      this.labels.on("labels-info", (event: LabelsInfoEvent) => {
+        this.events.dispatch("labels-info", event);
+      });
+
+      this.labels.on("labels-failure", (event: LabelsFailureEvent) => {
+        this.events.dispatch("labels-failure", event);
+      });
+    }
   }
 
   /**
@@ -108,35 +218,27 @@ export class GameConsoleService {
   //
 
   /**
-   * Register a listener for gamepad events
+   * Register a listener for any game console event
    * @param event Event name to listen for
    * @param callback Function to call when the event occurs
    */
-  public on(
-    event: keyof GamepadEventMap,
-    callback: (event: GamepadEvent) => void
+  public on<K extends keyof GameConsoleEventMap>(
+    event: K,
+    callback: (event: GameConsoleEventMap[K]) => void
   ): void {
     this.events.on(event, callback);
   }
 
   /**
-   * Remove a listener for gamepad events
+   * Remove a listener for any game console event
    * @param event Event name to remove listener from
    * @param callback Function to remove from listeners
    */
-  public off(
-    event: keyof GamepadEventMap,
-    callback: (event: GamepadEvent) => void
+  public off<K extends keyof GameConsoleEventMap>(
+    event: K,
+    callback: (event: GameConsoleEventMap[K]) => void
   ): void {
     this.events.off(event, callback);
-  }
-
-  /**
-   * Emit a gamepad event to all registered listeners
-   * @param event Event data to dispatch
-   */
-  private emitEvent(event: GamepadEvent): void {
-    this.events.dispatch("keyPressed", event);
   }
 
   //
@@ -151,20 +253,18 @@ export class GameConsoleService {
     if (!this.inputEnabled) return;
 
     // Update gamepad widget if available
-    // Dies löst das keyPressed-Event aus, das wir oben abonniert haben
-    // und führt automatisch zur Aktualisierung des Speichers
     if (this.gamepadWidget) {
       this.gamepadWidget.press(key);
     } else {
-      // Fallback, wenn kein Gamepad-Widget vorhanden ist
-      // Aktualisiere den Speicher direkt
+      // Fallback if no gamepad widget is available
+      // Update memory directly
       if (this.memory) {
         const keyCode = this.getKeyCodeForButton(key);
         this.memory.set(0xff, keyCode);
       }
 
-      // Emittiere das Event direkt
-      this.emitEvent({
+      // Emit the event directly
+      this.events.dispatch("keyPressed", {
         key,
         keyCode: this.getKeyCodeForButton(key),
       });
@@ -236,6 +336,98 @@ export class GameConsoleService {
         return 32; // Space
       default:
         return 0;
+    }
+  }
+
+  //
+  // Game Console Actions
+  //
+
+  /**
+   * Assemble code
+   * @param code The code to assemble
+   */
+  public assemble(code: string): void {
+    if (this.simulator) {
+      this.simulator.reset();
+    }
+    if (this.labels) {
+      this.labels.reset();
+    }
+    if (this.assembler) {
+      this.assembler.assembleCode(code);
+    }
+  }
+
+  /**
+   * Run the simulator
+   */
+  public run(): void {
+    if (this.simulator) {
+      this.simulator.stopStepper();
+      this.simulator.runBinary();
+    }
+  }
+
+  /**
+   * Generate hexdump
+   */
+  public hexdump(): void {
+    if (this.assembler) {
+      this.assembler.hexdump({
+        includeAddress: false,
+        includeSpaces: true,
+        includeNewline: true,
+      });
+    }
+  }
+
+  /**
+   * Disassemble code
+   */
+  public disassemble(): void {
+    if (this.assembler) {
+      this.assembler.disassemble();
+    }
+  }
+
+  /**
+   * Stop the simulator
+   */
+  public stop(): void {
+    if (this.simulator) {
+      this.simulator.stop();
+    }
+  }
+
+  /**
+   * Reset the simulator and labels
+   */
+  public reset(): void {
+    if (this.simulator) {
+      this.simulator.reset();
+    }
+    if (this.labels) {
+      this.labels.reset();
+    }
+  }
+
+  /**
+   * Execute a single step
+   */
+  public step(): void {
+    if (this.simulator) {
+      this.simulator.debugExecStep();
+    }
+  }
+
+  /**
+   * Go to a specific address
+   * @param address The address to go to
+   */
+  public goto(address: string): void {
+    if (this.simulator) {
+      this.simulator.gotoAddr(address);
     }
   }
 

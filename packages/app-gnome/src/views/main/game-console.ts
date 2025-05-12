@@ -314,43 +314,35 @@ export class GameConsole extends Adw.Bin {
   }
 
   public assemble(code: string): void {
-    this._simulator.reset();
-    this._labels.reset();
-    this._assembler.assembleCode(code);
+    gameConsoleService.assemble(code);
   }
 
   public run(): void {
-    this._simulator.stopStepper();
-    this._simulator.runBinary();
+    gameConsoleService.run();
   }
 
   public hexdump(): void {
-    this._assembler.hexdump({
-      includeAddress: false,
-      includeSpaces: true,
-      includeNewline: true,
-    });
+    gameConsoleService.hexdump();
   }
 
   public disassemble(): void {
-    this._assembler.disassemble();
+    gameConsoleService.disassemble();
   }
 
   public stop(): void {
-    this._simulator.stop();
+    gameConsoleService.stop();
   }
 
   public reset(): void {
-    this._simulator.reset();
-    this._labels.reset();
+    gameConsoleService.reset();
   }
 
   public step(): void {
-    this._simulator.debugExecStep();
+    gameConsoleService.step();
   }
 
   public goto(address: string): void {
-    this._simulator.gotoAddr(address);
+    gameConsoleService.goto(address);
   }
 
   public gamepadPress(
@@ -372,105 +364,91 @@ export class GameConsole extends Adw.Bin {
     this._display?.initialize(this._memory);
     this._simulator.reset();
 
-    // Set up game console service with our memory, display and gamepad
+    // Set up game console service with all components
     gameConsoleService.init({
       memory: this._memory,
       displayWidget: this._display,
       gamepadWidget: this._gamePad,
+      simulator: this._simulator,
+      assembler: this._assembler,
+      labels: this._labels,
     });
 
     this.setupEventListeners();
   }
 
   /**
-   * Sets up event listeners for various UI elements.
+   * Sets up event listeners to forward events from service to GObject signals.
    */
   private setupEventListeners(): void {
-    this._assembler.on("assemble-success", (event: AssemblerSuccessEvent) => {
-      this._memory.set(this._assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
-
-      // Forward the event as a signal
+    // Forward events from service to GObject signals
+    gameConsoleService.on("assemble-success", (event) => {
       this.emit("assemble-success", event);
     });
 
-    this._assembler.on("assemble-failure", (event: AssemblerFailureEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("assemble-failure", (event) => {
       this.emit("assemble-failure", event);
     });
 
-    this._assembler.on("hexdump", (event: AssemblerHexdumpEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("hexdump", (event) => {
       this.emit("hexdump", event);
     });
 
-    this._assembler.on("disassembly", (event: AssemblerDisassemblyEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("disassembly", (event) => {
       this.emit("disassembly", event);
     });
 
-    this._assembler.on("assemble-info", (event: AssemblerInfoEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("assemble-info", (event) => {
       this.emit("assemble-info", event);
     });
 
-    this._simulator.on("stop", (event: SimulatorStopEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("stop", (event) => {
       this.emit("stop", event);
     });
 
-    this._simulator.on("start", (event: SimulatorStartEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("start", (event) => {
       this.emit("start", event);
     });
 
-    this._simulator.on("reset", (event: SimulatorResetEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("reset", (event) => {
       this.emit("reset", event);
     });
 
-    this._simulator.on("step", (event: SimulatorStepEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("step", (event) => {
       this.emit("step", event);
     });
 
-    this._simulator.on("multistep", (event: SimulatorMultiStepEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("multistep", (event) => {
       this.emit("multistep", event);
     });
 
-    this._simulator.on("goto", (event: SimulatorGotoEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("goto", (event) => {
       this.emit("goto", event);
     });
 
-    this._simulator.on("pseudo-op", (event: SimulatorPseudoOpEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("pseudo-op", (event) => {
       this.emit("pseudo-op", event);
     });
 
-    this._simulator.on("simulator-info", (event: SimulatorInfoEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("simulator-info", (event) => {
       this.emit("simulator-info", event);
     });
 
-    this._simulator.on("simulator-failure", (event: SimulatorFailureEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("simulator-failure", (event) => {
       this.emit("simulator-failure", event);
     });
 
-    this._labels.on("labels-info", (event: LabelsInfoEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("labels-info", (event) => {
       this.emit("labels-info", event);
     });
 
-    this._labels.on("labels-failure", (event: LabelsFailureEvent) => {
-      // Forward the event as a signal
+    gameConsoleService.on("labels-failure", (event) => {
       this.emit("labels-failure", event);
     });
   }
 
   private removeSignalHandlers(): void {
-    // Nothing to do here now that we're using the gamepadService
+    // Nothing to do here as event handlers are managed by the service
   }
 }
 
