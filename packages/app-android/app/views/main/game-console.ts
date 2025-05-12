@@ -26,9 +26,9 @@ import {
 // Import child widgets
 import {
   Display,
-  GamePad,
-  GamePadPressEventData,
-  GamePadKey,
+  Gamepad,
+  GamepadPressEventData,
+  GamepadKey,
   gamepadPressedEvent as gamePadPressedEventName,
 } from "~/widgets/game-console";
 
@@ -38,7 +38,7 @@ import {
 class GameConsoleController {
   private page: Page | null = null;
   private _display: Display | null = null;
-  private _gamePad: GamePad | null = null;
+  private _gamePad: Gamepad | null = null;
 
   private _memory: Memory;
   private _labels: Labels;
@@ -90,7 +90,7 @@ class GameConsoleController {
     this.page = args.object as Page;
     console.log("game-console.view: onLoaded");
     this._display = this.page.getViewById<Display>("display");
-    this._gamePad = this.page.getViewById<GamePad>("gamePad");
+    this._gamePad = this.page.getViewById<Gamepad>("gamePad");
     this.initialize();
   }
 
@@ -132,7 +132,7 @@ class GameConsoleController {
     this._simulator.gotoAddr(address);
   }
 
-  public gamepadPress(buttonName: GamePadKey): void {
+  public gamepadPress(buttonName: GamepadKey): void {
     this._gamePad?.press(buttonName);
   }
 
@@ -154,7 +154,7 @@ class GameConsoleController {
   }
 
   /**
-   * Sets up event listeners for internal components (Simulator, Assembler, GamePad).
+   * Sets up event listeners for internal components (Simulator, Assembler, Gamepad).
    */
   private setupEventListeners(): void {
     console.log("game-console.view: Setting up event listeners");
@@ -183,7 +183,7 @@ class GameConsoleController {
     this._labels.on("labels-info", this.handleLabelsInfo);
     this._labels.on("labels-failure", this.handleLabelsFailure);
 
-    // --- GamePad Events ---
+    // --- Gamepad Events ---
     if (this._gamePad) {
       this._gamePad.on(gamePadPressedEventName, this.handleGamepadPress);
     }
@@ -216,7 +216,7 @@ class GameConsoleController {
     this._labels.off("labels-info", this.handleLabelsInfo);
     this._labels.off("labels-failure", this.handleLabelsFailure);
 
-    // --- GamePad Events ---
+    // --- Gamepad Events ---
     if (this._gamePad) {
       this._gamePad.off(gamePadPressedEventName, this.handleGamepadPress);
     }
@@ -294,7 +294,7 @@ class GameConsoleController {
     this.notifyParent(labelsFailureEvent, event);
   };
 
-  private handleGamepadPress = (data: GamePadPressEventData): void => {
+  private handleGamepadPress = (data: GamepadPressEventData): void => {
     console.log(`game-console.view: Gamepad key ${data.keyName} pressed`);
     this._memory.storeKeypress(data.key);
     // Forward the event if needed by parent view

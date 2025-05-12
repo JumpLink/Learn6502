@@ -11,6 +11,9 @@ import type {
 import Template from "./disassembled.blp";
 
 export class Disassembled extends Adw.Bin implements DisassembledWidget {
+  readonly events: EventDispatcher<DisassembledEventMap> =
+    new EventDispatcher<DisassembledEventMap>();
+
   // Child widgets
   declare private _sourceView: SourceView;
 
@@ -28,12 +31,6 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
       },
       this
     );
-  }
-
-  private _events = new EventDispatcher<DisassembledEventMap>();
-
-  get events(): EventDispatcher<DisassembledEventMap> {
-    return this._events;
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {

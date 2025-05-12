@@ -25,8 +25,7 @@ import {
   type LabelsFailureEvent,
 } from "@learn6502/6502";
 
-import { Display } from "../../widgets/game-console/display.ts";
-import { GamePad } from "../../widgets/game-console/game-pad.ts";
+import { Display, Gamepad } from "../../widgets/game-console/index.ts";
 import { gamepadService } from "../../services/gamepad-service.ts";
 
 import Template from "./game-console.blp";
@@ -219,7 +218,7 @@ export interface GameConsole {
 export class GameConsole extends Adw.Bin {
   // Child widgets
   declare private _display: Display;
-  declare private _gamePad: GamePad;
+  declare private _gamePad: Gamepad;
 
   static {
     GObject.registerClass(

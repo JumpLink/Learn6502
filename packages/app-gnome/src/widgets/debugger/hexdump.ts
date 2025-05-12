@@ -7,12 +7,8 @@ import { type HexdumpWidget, type HexdumpEventMap } from "@learn6502/common-ui";
 
 import Template from "./hexdump.blp";
 export class Hexdump extends Adw.Bin implements HexdumpWidget {
-  readonly _events: EventDispatcher<HexdumpEventMap> =
+  readonly events: EventDispatcher<HexdumpEventMap> =
     new EventDispatcher<HexdumpEventMap>();
-
-  get events(): EventDispatcher<HexdumpEventMap> {
-    return this._events;
-  }
 
   // Child widgets
   declare private _sourceView: SourceView;

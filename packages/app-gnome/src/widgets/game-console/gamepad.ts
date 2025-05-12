@@ -1,12 +1,20 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
-import { type GamepadKey } from "@learn6502/common-ui";
+import {
+  type GamepadKey,
+  type Gamepad as IGamepad,
+  type GamepadEventMap,
+} from "@learn6502/common-ui";
 import { gamepadService } from "../../services/gamepad-service";
 
-import Template from "./game-pad.blp";
+import Template from "./gamepad.blp";
+import { EventDispatcher } from "@learn6502/6502";
 
-export class GamePad extends Adw.Bin {
+export class Gamepad extends Adw.Bin implements IGamepad {
+  readonly events: EventDispatcher<GamepadEventMap> =
+    new EventDispatcher<GamepadEventMap>();
+
   // Child widgets
   declare private _buttonLeft: Gtk.Button;
   declare private _buttonRight: Gtk.Button;
@@ -18,7 +26,7 @@ export class GamePad extends Adw.Bin {
   static {
     GObject.registerClass(
       {
-        GTypeName: "GamePad",
+        GTypeName: "Gamepad",
         Template,
         InternalChildren: [
           "buttonLeft",
@@ -63,8 +71,9 @@ export class GamePad extends Adw.Bin {
 
   public press(buttonName: GamepadKey): void {
     // Use the gamepad service to handle button presses
-    gamepadService.pressKey(buttonName);
+    gamepadService.pressKey(buttonName); // TODO: Remove this
+    this.events.dispatch("keyPressed", { key: buttonName, keyCode: 0 });
   }
 }
 
-GObject.type_ensure(GamePad.$gtype);
+GObject.type_ensure(Gamepad.$gtype);

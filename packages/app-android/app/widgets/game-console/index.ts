@@ -1,2 +1,2 @@
 export * from "./display";
-export * from "./game-pad";
+export * from "./gamepad";

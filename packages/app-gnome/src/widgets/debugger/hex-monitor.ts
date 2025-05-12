@@ -19,12 +19,8 @@ import Template from "./hex-monitor.blp";
  * @emits changed - when the monitor content is updated
  */
 export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
-  readonly _events: EventDispatcher<HexMonitorEventMap> =
+  readonly events: EventDispatcher<HexMonitorEventMap> =
     new EventDispatcher<HexMonitorEventMap>();
-
-  get events(): EventDispatcher<HexMonitorEventMap> {
-    return this._events;
-  }
 
   // Child widgets
   declare private _sourceView: SourceView;
