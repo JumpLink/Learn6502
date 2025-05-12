@@ -10,6 +10,34 @@ export function num2hex(nr: number) {
 }
 
 /**
+ * Converts a hex color string to RGB components
+ * @param hex Hex color string (e.g. "#ff0000")
+ * @returns RGB components as {red, green, blue} with values 0-1
+ */
+export function hexToRgb(hex: string): {
+  red: number;
+  green: number;
+  blue: number;
+} {
+  // Expand shorthand form (e.g. "#03F") to full form (e.g. "#0033FF")
+  const shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+  const fullHex = hex.replace(shorthandRegex, (m, r, g, b) => {
+    return r + r + g + g + b + b;
+  });
+
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(fullHex);
+  if (!result) {
+    return { red: 0, green: 0, blue: 0 };
+  }
+
+  return {
+    red: parseInt(result[1], 16) / 255,
+    green: parseInt(result[2], 16) / 255,
+    blue: parseInt(result[3], 16) / 255,
+  };
+}
+
+/**
  * Throttle function to limit the rate of function calls.
  * @param func - The function to throttle.
  * @param delay - The delay in milliseconds.

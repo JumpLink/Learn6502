@@ -5,6 +5,7 @@ import {
   Utils,
   ActionBar,
   Frame,
+  Application,
 } from "@nativescript/core";
 
 import { EventData } from "@nativescript/core";
@@ -12,8 +13,9 @@ import { systemStates, SystemStates } from "~/states";
 import { setStatusBarAppearance } from "~/utils/system";
 
 // Import common interfaces and types
-import { MainView } from "@learn6502/common-ui";
+import { MainView, gameConsoleService } from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
+import type { GamepadKey } from "@learn6502/common-ui";
 
 // Import WindowInsetsCompat
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
@@ -44,6 +46,54 @@ export class MainController implements MainView {
     console.log("MainController: initialized");
     this.handleWindowInsets = this.handleWindowInsets.bind(this);
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
+    this.setupAndroidKeyHandling = this.setupAndroidKeyHandling.bind(this);
+  }
+
+  /**
+   * Sets up Android key handling and registers key mappings
+   */
+  private setupAndroidKeyHandling(): void {
+    // Android key codes
+    const KEY_UP = 19; // KEYCODE_DPAD_UP
+    const KEY_DOWN = 20; // KEYCODE_DPAD_DOWN
+    const KEY_LEFT = 21; // KEYCODE_DPAD_LEFT
+    const KEY_RIGHT = 22; // KEYCODE_DPAD_RIGHT
+    const KEY_ENTER = 66; // KEYCODE_ENTER
+    const KEY_SPACE = 62; // KEYCODE_SPACE
+
+    // Register Android-specific key mappings
+    gameConsoleService.registerKeyMappings({
+      [KEY_UP]: "Up",
+      [KEY_DOWN]: "Down",
+      [KEY_LEFT]: "Left",
+      [KEY_RIGHT]: "Right",
+      [KEY_ENTER]: "A",
+      [KEY_SPACE]: "B",
+    });
+
+    // Set up global key handler if possible
+    if (Application.android) {
+      try {
+        const activity = Application.android.foregroundActivity;
+        if (activity) {
+          activity.onKeyDown = function (keyCode: number, event: any) {
+            if (gameConsoleService.handleKeyPress(keyCode)) {
+              return true;
+            }
+            // Let native Android handle other keys
+            return false;
+          };
+        }
+      } catch (error) {
+        console.error("Error setting up key handling:", error);
+      }
+    }
+
+    // Set up game console service event listener
+    gameConsoleService.on("keyPressed", (event) => {
+      console.log("Gamepad key pressed:", event.key, event.keyCode);
+      // Add any additional UI feedback or logging here
+    });
   }
 
   /**
@@ -100,6 +150,9 @@ export class MainController implements MainView {
     setStatusBarAppearance("surface");
 
     this.initFabScrollBehavior();
+
+    // Set up Android key handling
+    this.setupAndroidKeyHandling();
   }
 
   /**

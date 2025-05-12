@@ -4,7 +4,7 @@ import Gtk from "@girs/gtk-4.0";
 import type cairo from "cairo";
 import Template from "./display.blp";
 
-import { type DisplayWidget, DisplayService } from "@learn6502/common-ui";
+import { type DisplayWidget, gameConsoleService } from "@learn6502/common-ui";
 import {
   DEFAULT_COLOR_PALETTE,
   DEFAULT_DISPLAY_CONFIG,
@@ -33,15 +33,12 @@ export class Display extends Adw.Bin implements DisplayWidget {
   private numY: number = DEFAULT_DISPLAY_CONFIG.numY;
   private memory: Memory | undefined;
   private palette = DEFAULT_COLOR_PALETTE;
-  private displayService: DisplayService;
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
     if (!this._drawingArea) {
       throw new Error("DrawingArea is required");
     }
-
-    this.displayService = new DisplayService(this.palette);
 
     this.reset();
   }
@@ -52,7 +49,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
   public initialize(memory: Memory): void {
     this.memory = memory;
     this.memory.on("changed", (event) => {
-      if (this.displayService.isDisplayAddress(event.addr)) {
+      if (gameConsoleService.isDisplayAddress(event.addr)) {
         this.updatePixel(event.addr);
       }
     });
@@ -123,8 +120,8 @@ export class Display extends Adw.Bin implements DisplayWidget {
       return;
     }
 
-    const color = this.displayService.getColorForAddress(this.memory, addr);
-    const [x, y] = this.displayService.addrToCoordinates(addr, this.numX);
+    const color = gameConsoleService.getColorForAddress(this.memory, addr);
+    const [x, y] = gameConsoleService.addrToCoordinates(addr, this.numX);
 
     cr.setSourceRGB(color.red, color.green, color.blue);
     cr.rectangle(

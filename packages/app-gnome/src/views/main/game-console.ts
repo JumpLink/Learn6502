@@ -26,7 +26,7 @@ import {
 } from "@learn6502/6502";
 
 import { Display, Gamepad } from "../../widgets/game-console/index.ts";
-import { gamepadService } from "../../services/gamepad-service.ts";
+import { gameConsoleService } from "@learn6502/common-ui";
 
 import Template from "./game-console.blp";
 
@@ -372,8 +372,12 @@ export class GameConsole extends Adw.Bin {
     this._display?.initialize(this._memory);
     this._simulator.reset();
 
-    // Set up gamepad service with our memory
-    gamepadService.setMemory(this._memory);
+    // Set up game console service with our memory, display and gamepad
+    gameConsoleService.init({
+      memory: this._memory,
+      displayWidget: this._display,
+      gamepadWidget: this._gamePad,
+    });
 
     this.setupEventListeners();
   }

@@ -27,10 +27,12 @@ import {
 import {
   Display,
   Gamepad,
-  GamepadPressEventData,
   GamepadKey,
   gamepadPressedEvent as gamePadPressedEventName,
 } from "~/widgets/game-console";
+
+// Import gameConsoleService
+import { gameConsoleService, type GamepadEvent } from "@learn6502/common-ui";
 
 // Re-export event names and interfaces for consumers of this view/controller
 // export * from "~/widgets/game-console/game-console"; // Assuming event defs were there, will move if needed
@@ -151,6 +153,13 @@ class GameConsoleController {
     this._simulator.reset();
     this.setupEventListeners();
     console.log("game-console.view: Initialized");
+
+    // Initialize gameConsoleService
+    gameConsoleService.init({
+      memory: this._memory,
+      displayWidget: this._display,
+      gamepadWidget: this._gamePad,
+    });
   }
 
   /**
@@ -185,7 +194,7 @@ class GameConsoleController {
 
     // --- Gamepad Events ---
     if (this._gamePad) {
-      this._gamePad.on(gamePadPressedEventName, this.handleGamepadPress);
+      this._gamePad.events.on("keyPressed", this.handleGamepadPress);
     }
   }
 
@@ -218,7 +227,7 @@ class GameConsoleController {
 
     // --- Gamepad Events ---
     if (this._gamePad) {
-      this._gamePad.off(gamePadPressedEventName, this.handleGamepadPress);
+      this._gamePad.events.off("keyPressed", this.handleGamepadPress);
     }
   }
 
@@ -294,9 +303,9 @@ class GameConsoleController {
     this.notifyParent(labelsFailureEvent, event);
   };
 
-  private handleGamepadPress = (data: GamepadPressEventData): void => {
-    console.log(`game-console.view: Gamepad key ${data.keyName} pressed`);
-    this._memory.storeKeypress(data.key);
+  private handleGamepadPress = (data: GamepadEvent): void => {
+    console.log(`game-console.view: Gamepad key ${data.key} pressed`);
+    this._memory.storeKeypress(data.keyCode);
     // Forward the event if needed by parent view
     this.notifyParent(gamepadPressedEvent, data);
   };
@@ -345,3 +354,6 @@ export const simulatorFailureEvent = "simulator-failure";
 export const labelsInfoEvent = "labels-info";
 export const labelsFailureEvent = "labels-failure";
 export const gamepadPressedEvent = "gamepad-pressed";
+
+// Initialization function for gameConsoleService
+const initializeGameConsole = (memory, displayWidget, gamepadWidget) => {};

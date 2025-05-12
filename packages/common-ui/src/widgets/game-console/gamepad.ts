@@ -4,7 +4,7 @@ import type { GamepadKey, GamepadEventMap } from "../../types/index.js";
 /**
  * Interface for a platform-independent Gamepad widget
  */
-export interface Gamepad {
+export interface GamepadWidget {
   readonly events: EventDispatcher<GamepadEventMap>;
 
   /**

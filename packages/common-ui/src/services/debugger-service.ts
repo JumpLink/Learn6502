@@ -18,7 +18,7 @@ import {
  */
 export class DebuggerService {
   // Event dispatcher for debugger events
-  readonly events = new EventDispatcher<DebuggerEventMap>();
+  protected events = new EventDispatcher<DebuggerEventMap>();
 
   // Widgets for output and display
   protected console: MessageConsoleWidget = new DummyMessageConsole();

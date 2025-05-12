@@ -3,15 +3,14 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import {
   type GamepadKey,
-  type Gamepad as IGamepad,
+  type GamepadWidget,
   type GamepadEventMap,
 } from "@learn6502/common-ui";
-import { gamepadService } from "../../services/gamepad-service";
 
 import Template from "./gamepad.blp";
 import { EventDispatcher } from "@learn6502/6502";
 
-export class Gamepad extends Adw.Bin implements IGamepad {
+export class Gamepad extends Adw.Bin implements GamepadWidget {
   readonly events: EventDispatcher<GamepadEventMap> =
     new EventDispatcher<GamepadEventMap>();
 
@@ -70,9 +69,32 @@ export class Gamepad extends Adw.Bin implements IGamepad {
   }
 
   public press(buttonName: GamepadKey): void {
-    // Use the gamepad service to handle button presses
-    gamepadService.pressKey(buttonName); // TODO: Remove this
-    this.events.dispatch("keyPressed", { key: buttonName, keyCode: 0 });
+    this.events.dispatch("keyPressed", {
+      key: buttonName,
+      keyCode: this.getKeyCodeForButton(buttonName),
+    });
+  }
+
+  /**
+   * Returns the ASCII value for a Gamepad button, primarily for logging
+   */
+  private getKeyCodeForButton(key: GamepadKey): number {
+    switch (key) {
+      case "Up":
+        return 119; // w
+      case "Down":
+        return 115; // s
+      case "Left":
+        return 97; // a
+      case "Right":
+        return 100; // d
+      case "A":
+        return 13; // Enter
+      case "B":
+        return 32; // Space
+      default:
+        return 0;
+    }
   }
 }
 

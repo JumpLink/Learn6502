@@ -3,7 +3,7 @@
     "preserveWatchOutput": true,
     "lib": ["ESNext"],
     "typeRoots": ["./"],
-    "types": ["global"],
+    "types": ["./global.d.ts"],
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",

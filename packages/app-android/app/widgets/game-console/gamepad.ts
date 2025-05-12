@@ -1,20 +1,17 @@
-import { GridLayout, EventData } from "@nativescript/core";
-
+import { GridLayout } from "@nativescript/core";
+import type { GamepadEventMap, GamepadWidget } from "@learn6502/common-ui";
+import { EventDispatcher } from "@learn6502/6502";
 export type GamepadKey = "Left" | "Right" | "Up" | "Down" | "A" | "B";
 
 export const gamepadPressedEvent = "gamepad-pressed";
 
-export interface GamepadPressEventData extends EventData {
-  eventName: typeof gamepadPressedEvent;
-  object: Gamepad;
-  keyName: GamepadKey;
-  key: number; // The actual key code value (0x01, 0x02, 0x04, 0x08, 0x10, 0x20)
-}
-
 /**
  * Placeholder Gamepad widget for the GameConsole.
  */
-export class Gamepad extends GridLayout {
+export class Gamepad extends GridLayout implements GamepadWidget {
+  readonly events: EventDispatcher<GamepadEventMap> =
+    new EventDispatcher<GamepadEventMap>();
+
   public static gamepadPressedEvent = gamepadPressedEvent;
 
   private keyMap: { [key in GamepadKey]: number } = {
@@ -41,11 +38,9 @@ export class Gamepad extends GridLayout {
     );
 
     // Notify listeners about the button press
-    this.notify(<GamepadPressEventData>{
-      eventName: gamepadPressedEvent,
-      object: this,
-      keyName: keyName,
-      key: keyCode,
+    this.events.dispatch("keyPressed", {
+      key: keyName,
+      keyCode,
     });
   }
 }

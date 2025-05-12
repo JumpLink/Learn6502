@@ -11,18 +11,14 @@ import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
 import { MainButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
-import {
-  gamepadService,
-  themeService,
-  notificationService,
-  fileService,
-} from "../services";
+import { themeService, notificationService, fileService } from "../services";
 
 import Template from "./main.window.blp";
 import {
   type MainButtonState,
   type MainView,
   debuggerService,
+  gameConsoleService,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -565,11 +561,35 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupKeyboardListener(): void {
-    // Add key controller to the window
-    gamepadService.addKeyControllerTo(this);
+    // Plattformspezifischer Key-Controller für Gnome
+    const keyController = new Gtk.EventControllerKey();
+    this.add_controller(keyController);
 
-    // Add gamepad event listener
-    gamepadService.on("keyPressed", (event) => {
+    keyController.connect(
+      "key-pressed",
+      (_controller: any, keyval: number, keycode: number, state: any) => {
+        return gameConsoleService.handleKeyPress(keyval);
+      }
+    );
+
+    // Plattformspezifische Keycodes registrieren
+    gameConsoleService.registerKeyMappings({
+      [Gdk.KEY_w]: "Up",
+      [Gdk.KEY_s]: "Down",
+      [Gdk.KEY_a]: "Left",
+      [Gdk.KEY_d]: "Right",
+      [Gdk.KEY_Up]: "Up",
+      [Gdk.KEY_Down]: "Down",
+      [Gdk.KEY_Left]: "Left",
+      [Gdk.KEY_Right]: "Right",
+      [Gdk.KEY_Return]: "A",
+      [Gdk.KEY_q]: "A",
+      [Gdk.KEY_space]: "B",
+      [Gdk.KEY_e]: "B",
+    });
+
+    // Event-Listener für Gamepad-Eingaben
+    gameConsoleService.on("keyPressed", (event) => {
       // If we're in the game console or debugger view, log the key press
       const visibleChild = this._stack.get_visible_child();
       if (
@@ -585,7 +605,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
   }
 
-  // TODO: Reactivate this
+  // TODO: Migrate or make use of it
   private handleKeyPress(keyval: number): void {
     // Don't handle keys if a dialog is showing
     if (this.unsavedChanges) return;

@@ -1,6 +1,6 @@
 import {
   DisplayWidget,
-  DisplayService,
+  gameConsoleService,
   DEFAULT_COLOR_PALETTE,
   DEFAULT_DISPLAY_CONFIG,
 } from "@learn6502/common-ui";
@@ -30,7 +30,6 @@ export class Display extends GridLayout implements DisplayWidget {
   private numY: number = DEFAULT_DISPLAY_CONFIG.numY;
   private pixelSize: number = 0;
   private palette = DEFAULT_COLOR_PALETTE;
-  private displayService: DisplayService;
 
   constructor() {
     super();
@@ -38,8 +37,6 @@ export class Display extends GridLayout implements DisplayWidget {
     if (!isAndroid) {
       throw new Error("This implementation is for Android only");
     }
-
-    this.displayService = new DisplayService(this.palette);
 
     // Create placeholder for the native canvas view
     this.placeholder = new Placeholder();
@@ -98,7 +95,7 @@ export class Display extends GridLayout implements DisplayWidget {
 
     // Listen for memory changes
     this.memory.on("changed", (event) => {
-      if (this.displayService.isDisplayAddress(event.addr)) {
+      if (gameConsoleService.isDisplayAddress(event.addr)) {
         this.updatePixel(event.addr);
       }
     });
@@ -174,8 +171,8 @@ export class Display extends GridLayout implements DisplayWidget {
       return;
     }
 
-    // Get color from memory using the DisplayService
-    const color = this.displayService.getColorForAddress(this.memory, addr);
+    // Get color from memory using the service
+    const color = gameConsoleService.getColorForAddress(this.memory, addr);
 
     // Use RGB color values (0-255) for Android
     const red = Math.round(color.red * 255);
@@ -185,8 +182,8 @@ export class Display extends GridLayout implements DisplayWidget {
     // Set the paint color
     this.paintObj.setARGB(255, red, green, blue);
 
-    // Calculate coordinates using the DisplayService
-    const [x, y] = this.displayService.addrToCoordinates(addr, this.numX);
+    // Calculate coordinates
+    const [x, y] = gameConsoleService.addrToCoordinates(addr, this.numX);
 
     // Draw rectangle for the pixel
     this.canvas.drawRect(

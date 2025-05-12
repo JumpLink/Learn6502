@@ -1,3 +1,5 @@
+/// <reference types="@learn6502/6502/global" />
+
 // We don't want to use the DOM types in the common-ui package to make it cross-platform,
 // but we need the console types.
 

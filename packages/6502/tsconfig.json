@@ -3,7 +3,7 @@
     "preserveWatchOutput": true,
     "lib": ["ESNext"],
     "typeRoots": ["./"],
-    "types": ["global"],
+    "types": ["./global.d.ts"],
     "outDir": "./dist",
     "module": "NodeNext",
     "target": "ESNext",
