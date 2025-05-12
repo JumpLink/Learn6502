@@ -2,11 +2,18 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import { SourceView } from "../source-view.ts";
 
-import type { Assembler } from "@learn6502/6502";
-import type { HexdumpWidget } from "@learn6502/common-ui";
+import { type Assembler, EventDispatcher } from "@learn6502/6502";
+import { type HexdumpWidget, type HexdumpEventMap } from "@learn6502/common-ui";
 
 import Template from "./hexdump.blp";
 export class Hexdump extends Adw.Bin implements HexdumpWidget {
+  readonly _events: EventDispatcher<HexdumpEventMap> =
+    new EventDispatcher<HexdumpEventMap>();
+
+  get events(): EventDispatcher<HexdumpEventMap> {
+    return this._events;
+  }
+
   // Child widgets
   declare private _sourceView: SourceView;
 
@@ -40,10 +47,11 @@ export class Hexdump extends Adw.Bin implements HexdumpWidget {
     });
   }
 
-  private onCopy(_sourceView: SourceView, code: string) {
+  private onCopy(_sourceView: SourceView, content: string) {
     // Remove all whitespace
-    code = code.replace(/\s/g, "");
-    this.emit("copy", code);
+    content = content.replace(/\s/g, "");
+    this.emit("copy", content); // Deprecated
+    this.events.dispatch("copy", { content });
   }
 
   public clear(): void {

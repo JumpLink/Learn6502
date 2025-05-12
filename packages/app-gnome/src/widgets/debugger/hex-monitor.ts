@@ -3,12 +3,13 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import { SourceView } from "../source-view.ts";
 
-import type { Memory } from "@learn6502/6502";
+import { EventDispatcher, type Memory } from "@learn6502/6502";
 import {
   type HexMonitorOptions,
   type HexMonitorWidget,
   type MemoryRegion,
   memoryRegions,
+  type HexMonitorEventMap,
 } from "@learn6502/common-ui";
 
 import Template from "./hex-monitor.blp";
@@ -18,6 +19,13 @@ import Template from "./hex-monitor.blp";
  * @emits changed - when the monitor content is updated
  */
 export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
+  readonly _events: EventDispatcher<HexMonitorEventMap> =
+    new EventDispatcher<HexMonitorEventMap>();
+
+  get events(): EventDispatcher<HexMonitorEventMap> {
+    return this._events;
+  }
+
   // Child widgets
   declare private _sourceView: SourceView;
   declare private _memoryRegionDropDown: Gtk.DropDown;
@@ -98,14 +106,19 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
     if (selectedIndex >= 0 && selectedIndex < this.memoryRegions.length) {
       const region = this.memoryRegions[selectedIndex];
       this.setMonitorRange(region.start, region.length);
-      this.emit("changed");
+      this.emit("changed"); // Deprecated
+      this.events.dispatch("changed", {
+        content: this._sourceView.code,
+        region,
+      });
     }
   }
 
-  private onCopy(_sourceView: SourceView, code: string) {
+  private onCopy(_sourceView: SourceView, content: string) {
     // Remove all whitespace
-    code = code.replace(/\s/g, "");
-    this.emit("copy", code);
+    content = content.replace(/\s/g, "");
+    this.emit("copy", content); // Deprecated
+    this.events.dispatch("copy", { content: content });
   }
 
   public update(memory: Memory) {

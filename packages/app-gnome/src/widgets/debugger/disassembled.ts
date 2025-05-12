@@ -54,7 +54,7 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
   }
 
   private onCopy(_sourceView: SourceView, code: string) {
-    this.emit("copy", code);
+    this.emit("copy", code); // Deprecated
     this.events.dispatch("copy", { code });
   }
 
