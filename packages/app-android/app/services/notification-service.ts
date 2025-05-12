@@ -1,4 +1,4 @@
-import { BaseNotificationService } from "@learn6502/common-ui";
+import { NotificationService as BaseNotificationService } from "@learn6502/common-ui";
 import type { NotificationOptions, DialogOptions } from "@learn6502/common-ui";
 import { Application } from "@nativescript/core";
 import { alert, confirm } from "@nativescript/core/ui/dialogs";

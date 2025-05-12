@@ -1,4 +1,4 @@
-import { BaseNotificationService } from "@learn6502/common-ui";
+import { NotificationService as BaseNotificationService } from "@learn6502/common-ui";
 import type { NotificationOptions, DialogOptions } from "@learn6502/common-ui";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";

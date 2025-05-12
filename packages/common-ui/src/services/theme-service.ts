@@ -1,64 +1,30 @@
 import type { ThemeChangeListener, ThemeMode } from "../types";
 
 /**
- * Common interface for theme services
+ * Abstract class for theme services
  */
-export interface ThemeService {
-  /**
-   * Current theme setting
-   */
-  readonly currentTheme: ThemeMode;
-
-  /**
-   * Indicates whether dark theme is currently active
-   */
-  readonly isDarkTheme: boolean;
-
-  /**
-   * Set theme to a specific mode
-   * @param mode The theme mode to use
-   */
-  setTheme(mode: ThemeMode): void;
-
-  /**
-   * Add theme change listener
-   * @param listener Callback function for theme changes
-   * @returns ID of the listener for removal
-   */
-  addThemeChangeListener(listener: ThemeChangeListener): string;
-
-  /**
-   * Remove theme change listener
-   * @param id ID of the listener to remove
-   */
-  removeThemeChangeListener(id: string): boolean;
-}
-
-/**
- * Base implementation of the theme service
- */
-export abstract class BaseThemeService implements ThemeService {
+export abstract class ThemeService {
   protected _currentTheme: ThemeMode = "system";
   protected _isDarkTheme: boolean = false;
   protected listeners: Map<string, ThemeChangeListener> = new Map();
 
   /**
-   * Returns the current theme setting
+   * Current theme setting
    */
   public get currentTheme(): ThemeMode {
     return this._currentTheme;
   }
 
   /**
-   * Returns whether dark theme is active
+   * Indicates whether dark theme is currently active
    */
   public get isDarkTheme(): boolean {
     return this._isDarkTheme;
   }
 
   /**
-   * Sets the theme to the specified mode
-   * @param mode The mode to use
+   * Set theme to a specific mode
+   * @param mode The theme mode to use
    */
   public setTheme(mode: ThemeMode): void {
     if (this._currentTheme === mode) return;
@@ -74,9 +40,9 @@ export abstract class BaseThemeService implements ThemeService {
   }
 
   /**
-   * Adds a listener for theme changes
-   * @param listener Callback function
-   * @returns ID for removing the listener
+   * Add theme change listener
+   * @param listener Callback function for theme changes
+   * @returns ID of the listener for removal
    */
   public addThemeChangeListener(listener: ThemeChangeListener): string {
     const id = this.generateListenerId();
@@ -89,9 +55,8 @@ export abstract class BaseThemeService implements ThemeService {
   }
 
   /**
-   * Removes a listener for theme changes
+   * Remove theme change listener
    * @param id ID of the listener to remove
-   * @returns true if the listener was found and removed
    */
   public removeThemeChangeListener(id: string): boolean {
     return this.listeners.delete(id);

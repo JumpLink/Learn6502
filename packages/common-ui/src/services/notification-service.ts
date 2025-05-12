@@ -1,36 +1,11 @@
 import type { DialogOptions, NotificationOptions } from "../types";
 
 /**
- * Common interface for notification services
+ * Abstract class for notification services
  */
-export interface NotificationService {
+export abstract class NotificationService {
   /**
    * Shows a temporary notification/toast
-   * @param options Options for the notification
-   */
-  showNotification(options: NotificationOptions): void;
-
-  /**
-   * Shows a confirmation dialog
-   * @param options Options for the dialog
-   * @returns Promise, resolved to true if the user confirms
-   */
-  showConfirmDialog(options: DialogOptions): Promise<boolean>;
-
-  /**
-   * Shows an information dialog
-   * @param options Options for the dialog
-   * @returns Promise, resolved when the dialog is closed
-   */
-  showInfoDialog(options: DialogOptions): Promise<void>;
-}
-
-/**
- * Base implementation of the NotificationService
- */
-export abstract class BaseNotificationService implements NotificationService {
-  /**
-   * Shows a notification
    * @param options Options for the notification
    */
   public showNotification(options: NotificationOptions): void {

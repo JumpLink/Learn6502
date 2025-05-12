@@ -1,4 +1,4 @@
-import { BaseFileService } from "@learn6502/common-ui";
+import { FileService as BaseFileService } from "@learn6502/common-ui";
 import Gtk from "@girs/gtk-4.0";
 import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";

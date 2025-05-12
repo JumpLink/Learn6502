@@ -1,58 +1,13 @@
 /**
- * Common interface for file operations across platforms
+ * Abstract class for file operations across platforms
  */
-export interface FileService {
-  /**
-   * Open a file dialog and load the selected file's content
-   * @returns Promise with the file content and name or null if canceled
-   */
-  openFile(): Promise<{ content: string; filename: string } | null>;
-
-  /**
-   * Save content to a file, showing a file dialog if needed
-   * @param content Content to save
-   * @param suggestedName Suggested filename
-   * @returns Promise that resolves to true if save succeeded
-   */
-  saveFile(content: string, suggestedName?: string): Promise<boolean>;
-
-  /**
-   * Save content to a new file, always showing the file dialog
-   * @param content Content to save
-   * @param suggestedName Suggested filename
-   * @returns Promise that resolves to true if save succeeded
-   */
-  saveFileAs(content: string, suggestedName?: string): Promise<boolean>;
-
-  /**
-   * Get the current filename if a file is open
-   * @returns Current filename or a default name
-   */
-  getCurrentFileName(): string;
-
-  /**
-   * Check if there are unsaved changes
-   * @returns True if there are unsaved changes
-   */
-  hasUnsavedChanges(): boolean;
-
-  /**
-   * Set the unsaved changes flag
-   * @param hasChanges Whether there are unsaved changes
-   */
-  setUnsavedChanges(hasChanges: boolean): void;
-}
-
-/**
- * Base file service implementation with common logic
- */
-export abstract class BaseFileService implements FileService {
+export abstract class FileService {
   protected currentFileName: string | null = null;
   protected unsavedChanges: boolean = false;
 
   /**
    * Open a file dialog and load the selected file's content
-   * Platform-specific implementation required
+   * @returns Promise with the file content and name or null if canceled
    */
   public abstract openFile(): Promise<{
     content: string;
@@ -81,7 +36,9 @@ export abstract class BaseFileService implements FileService {
 
   /**
    * Save content to a new file, showing the file dialog
-   * Platform-specific implementation required
+   * @param content Content to save
+   * @param suggestedName Suggested filename
+   * @returns Promise that resolves to true if save succeeded
    */
   public abstract saveFileAs(
     content: string,
@@ -95,6 +52,7 @@ export abstract class BaseFileService implements FileService {
 
   /**
    * Get the current filename or a default
+   * @returns Current filename or a default name
    */
   public getCurrentFileName(): string {
     return this.currentFileName || "untitled.asm";
@@ -102,6 +60,7 @@ export abstract class BaseFileService implements FileService {
 
   /**
    * Check if there are unsaved changes
+   * @returns True if there are unsaved changes
    */
   public hasUnsavedChanges(): boolean {
     return this.unsavedChanges;
@@ -109,6 +68,7 @@ export abstract class BaseFileService implements FileService {
 
   /**
    * Set the unsaved changes flag
+   * @param hasChanges Whether there are unsaved changes
    */
   public setUnsavedChanges(hasChanges: boolean): void {
     this.unsavedChanges = hasChanges;

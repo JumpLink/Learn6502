@@ -1,4 +1,4 @@
-import { BaseFileService } from "@learn6502/common-ui";
+import { FileService as BaseFileService } from "@learn6502/common-ui";
 import {
   Application,
   Folder,
@@ -12,7 +12,7 @@ import { Observable } from "@nativescript/core/data/observable";
  * Android-specific implementation of the FileService
  * Uses NativeScript file system APIs for file operations
  */
-export class AndroidFileService extends BaseFileService {
+export class FileService extends BaseFileService {
   // Event source for file change notifications
   private _eventSource = new Observable();
   private currentFilePath: string | null = null;

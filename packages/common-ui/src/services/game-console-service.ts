@@ -24,7 +24,7 @@ export class GameConsoleService {
   private gamepadWidget: GamepadWidget | null = null;
 
   // Event handling
-  private eventDispatcher = new EventDispatcher<GamepadEventMap>();
+  readonly events = new EventDispatcher<GamepadEventMap>();
 
   // Configuration properties
   private colorPalette: string[] = DEFAULT_COLOR_PALETTE;
@@ -74,7 +74,7 @@ export class GameConsoleService {
       }
 
       // Forward event to listeners
-      this.eventDispatcher.dispatch("keyPressed", event);
+      this.events.dispatch("keyPressed", event);
     });
 
     // Set up memory
@@ -116,7 +116,7 @@ export class GameConsoleService {
     event: keyof GamepadEventMap,
     callback: (event: GamepadEvent) => void
   ): void {
-    this.eventDispatcher.on(event, callback);
+    this.events.on(event, callback);
   }
 
   /**
@@ -128,7 +128,7 @@ export class GameConsoleService {
     event: keyof GamepadEventMap,
     callback: (event: GamepadEvent) => void
   ): void {
-    this.eventDispatcher.off(event, callback);
+    this.events.off(event, callback);
   }
 
   /**
@@ -136,7 +136,7 @@ export class GameConsoleService {
    * @param event Event data to dispatch
    */
   private emitEvent(event: GamepadEvent): void {
-    this.eventDispatcher.dispatch("keyPressed", event);
+    this.events.dispatch("keyPressed", event);
   }
 
   //

@@ -1,4 +1,4 @@
-import { BaseThemeService } from "@learn6502/common-ui";
+import { ThemeService as BaseThemeService } from "@learn6502/common-ui";
 import type { ThemeMode } from "@learn6502/common-ui";
 import { Application, ApplicationSettings } from "@nativescript/core";
 import { systemStates, SystemStates } from "../states";

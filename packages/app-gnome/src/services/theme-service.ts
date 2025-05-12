@@ -1,4 +1,4 @@
-import { BaseThemeService } from "@learn6502/common-ui";
+import { ThemeService as BaseThemeService } from "@learn6502/common-ui";
 import type { ThemeMode } from "@learn6502/common-ui";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
