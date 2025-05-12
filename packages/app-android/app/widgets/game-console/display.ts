@@ -93,6 +93,10 @@ export class Display extends GridLayout implements DisplayWidget {
   public initialize(memory: Memory): void {
     this.memory = memory;
 
+    if (!this.memory) {
+      throw new Error("Memory not initialized");
+    }
+
     // Listen for memory changes
     this.memory.on("changed", (event) => {
       if (gameConsoleService.isDisplayAddress(event.addr)) {
@@ -167,12 +171,12 @@ export class Display extends GridLayout implements DisplayWidget {
    * Draw a single pixel to the canvas.
    */
   private drawPixel(addr: number): void {
-    if (!this.canvas || !this.memory || !this.paintObj) {
+    if (!this.canvas || !this.paintObj) {
       return;
     }
 
     // Get color from memory using the service
-    const color = gameConsoleService.getColorForAddress(this.memory, addr);
+    const color = gameConsoleService.getColorForAddress(addr);
 
     // Use RGB color values (0-255) for Android
     const red = Math.round(color.red * 255);

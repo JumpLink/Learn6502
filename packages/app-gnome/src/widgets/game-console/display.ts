@@ -116,11 +116,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
   }
 
   private drawPixel(cr: cairo.Context, addr: number) {
-    if (!this.memory) {
-      return;
-    }
-
-    const color = gameConsoleService.getColorForAddress(this.memory, addr);
+    const color = gameConsoleService.getColorForAddress(addr);
     const [x, y] = gameConsoleService.addrToCoordinates(addr, this.numX);
 
     cr.setSourceRGB(color.red, color.green, color.blue);

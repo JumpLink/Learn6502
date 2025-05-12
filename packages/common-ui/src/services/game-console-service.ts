@@ -54,42 +54,38 @@ export class GameConsoleService {
    * @param options Configuration options including widgets and memory
    */
   public init(options: {
-    displayWidget?: DisplayWidget;
-    gamepadWidget?: GamepadWidget;
-    memory?: Memory;
+    displayWidget: DisplayWidget;
+    gamepadWidget: GamepadWidget;
+    memory: Memory;
   }): void {
     // Set up display
-    if (options.displayWidget) {
-      this.displayWidget = options.displayWidget;
-    }
+    this.displayWidget = options.displayWidget;
 
     // Set up gamepad
-    if (options.gamepadWidget) {
-      this.gamepadWidget = options.gamepadWidget;
+    this.gamepadWidget = options.gamepadWidget;
 
-      // Listen to gamepad events and process them
-      this.gamepadWidget.events.on("keyPressed", (event) => {
-        // Handle keyPressed event from gamepad widget
-        // Update memory if available
-        if (this.memory) {
-          const keyCode = event.keyCode || this.getKeyCodeForButton(event.key);
-          this.memory.set(0xff, keyCode);
-        }
+    // Listen to gamepad events and process them
+    this.gamepadWidget.events.on("keyPressed", (event) => {
+      // Handle keyPressed event from gamepad widget
+      // Update memory if available
+      if (this.memory) {
+        const keyCode = event.keyCode || this.getKeyCodeForButton(event.key);
+        this.memory.set(0xff, keyCode);
+      }
 
-        // Forward event to listeners
-        this.eventDispatcher.dispatch("keyPressed", event);
-      });
-    }
+      // Forward event to listeners
+      this.eventDispatcher.dispatch("keyPressed", event);
+    });
 
     // Set up memory
-    if (options.memory) {
-      this.memory = options.memory;
+    this.memory = options.memory;
 
-      // Initialize display widget with memory
-      if (this.displayWidget && this.memory) {
-        this.displayWidget.initialize(this.memory);
-      }
+    if (!this.displayWidget || !this.gamepadWidget || !this.memory) {
+      throw new Error("Missing required components");
     }
+
+    // Initialize display widget with memory
+    this.displayWidget.initialize(this.memory);
   }
 
   /**
@@ -276,12 +272,14 @@ export class GameConsoleService {
 
   /**
    * Get the color for a specific memory address
-   * @param memory Memory object
    * @param addr Memory address
    * @returns RGB color object with values in 0-1 range
    */
-  public getColorForAddress(memory: Memory, addr: number): RGBColor {
-    const value = memory.get(addr) & 0x0f;
+  public getColorForAddress(addr: number): RGBColor {
+    if (!this.memory) {
+      throw new Error("Memory not initialized");
+    }
+    const value = this.memory.get(addr) & 0x0f;
     const hex = this.colorPalette[value];
     return hexToRgb(hex);
   }

@@ -149,10 +149,9 @@ class GameConsoleController {
    * Initializes the simulator and sets up event listeners.
    */
   private initialize(): void {
-    this._display?.initialize(this._memory); // Pass memory later
-    this._simulator.reset();
-    this.setupEventListeners();
-    console.log("game-console.view: Initialized");
+    if (!this._display || !this._gamePad || !this._memory) {
+      throw new Error("Missing required components");
+    }
 
     // Initialize gameConsoleService
     gameConsoleService.init({
@@ -160,6 +159,12 @@ class GameConsoleController {
       displayWidget: this._display,
       gamepadWidget: this._gamePad,
     });
+
+    this._display.initialize(this._memory);
+    this._simulator.reset();
+    this.setupEventListeners();
+
+    console.log("game-console.view: Initialized");
   }
 
   /**
