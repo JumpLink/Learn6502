@@ -7,15 +7,11 @@ import type { Memory } from "@learn6502/6502";
 import {
   type HexMonitorOptions,
   type HexMonitorWidget,
+  type MemoryRegion,
+  memoryRegions,
 } from "@learn6502/common-ui";
 
 import Template from "./hex-monitor.blp";
-
-interface MemoryRegion {
-  name: string;
-  start: number;
-  length: number;
-}
 
 /**
  * A widget that displays a hex monitor.
@@ -30,15 +26,9 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
   private _handlerIds: number[] = [];
 
   // Memory region definitions
-  private _memoryRegions: MemoryRegion[] = [
-    { name: "Zero Page ($0000-$00FF)", start: 0x0000, length: 0x0100 },
-    { name: "Stack ($0100-$01FF)", start: 0x0100, length: 0x0100 },
-    { name: "Display Memory ($0200-$05FF)", start: 0x0200, length: 0x0400 },
-    { name: "Program Storage ($0600-$FFFF)", start: 0x0600, length: 0x9a00 },
-    { name: "Snake Game Data ($00-$15)", start: 0x0000, length: 0x0016 },
-    { name: "Random/Input ($FE-$FF)", start: 0x00fe, length: 0x0002 },
-    { name: "Full Memory ($0000-$FFFF)", start: 0x0000, length: 0x10000 },
-  ];
+  get memoryRegions(): MemoryRegion[] {
+    return memoryRegions;
+  }
 
   static {
     GObject.registerClass(
@@ -105,8 +95,8 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
 
   private applySelectedRegion(): void {
     const selectedIndex = this._memoryRegionDropDown.get_selected();
-    if (selectedIndex >= 0 && selectedIndex < this._memoryRegions.length) {
-      const region = this._memoryRegions[selectedIndex];
+    if (selectedIndex >= 0 && selectedIndex < this.memoryRegions.length) {
+      const region = this.memoryRegions[selectedIndex];
       this.setMonitorRange(region.start, region.length);
       this.emit("changed");
     }

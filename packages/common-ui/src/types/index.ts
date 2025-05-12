@@ -7,6 +7,7 @@ export * from "./gamepad-key";
 export * from "./hex-monitor-options";
 export * from "./main-button-action-state";
 export * from "./main-button-mode";
+export * from "./memory-region";
 export * from "./notification-options";
 export * from "./notification-type";
 export * from "./theme-change-listener";
