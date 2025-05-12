@@ -1,6 +1,7 @@
 export * from "./debugger-event-map";
 export * from "./dialog-options";
 export * from "./display-config";
+export * from "./dissembled-event-map";
 export * from "./gamepad-event-map";
 export * from "./gamepad-event";
 export * from "./gamepad-key";

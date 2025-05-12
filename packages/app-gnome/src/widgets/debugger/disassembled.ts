@@ -2,8 +2,11 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import { SourceView } from "../source-view.ts";
 
-import type { Assembler } from "@learn6502/6502";
-import type { DisassembledWidget } from "@learn6502/common-ui";
+import { type Assembler, EventDispatcher } from "@learn6502/6502";
+import type {
+  DisassembledEventMap,
+  DisassembledWidget,
+} from "@learn6502/common-ui";
 
 import Template from "./disassembled.blp";
 
@@ -27,6 +30,12 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
     );
   }
 
+  private _events = new EventDispatcher<DisassembledEventMap>();
+
+  get events(): EventDispatcher<DisassembledEventMap> {
+    return this._events;
+  }
+
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
@@ -46,6 +55,7 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
 
   private onCopy(_sourceView: SourceView, code: string) {
     this.emit("copy", code);
+    this.events.dispatch("copy", { code });
   }
 
   public clear(): void {
