@@ -413,7 +413,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupGameConsoleSignalListeners(): void {
-    this._gameConsole.connect("assemble-success", (_gameConsole, signal) => {
+    gameConsoleService.on("assemble-success", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -430,7 +430,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       });
     });
 
-    this._gameConsole.connect("assemble-failure", (_gameConsole, signal) => {
+    gameConsoleService.on("assemble-failure", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -442,7 +442,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       });
     });
 
-    this._gameConsole.connect("hexdump", (_gameConsole, signal) => {
+    gameConsoleService.on("hexdump", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(
@@ -451,7 +451,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    this._gameConsole.connect("disassembly", (_gameConsole, signal) => {
+    gameConsoleService.on("disassembly", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(
@@ -460,14 +460,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    this._gameConsole.connect("assemble-info", (_gameConsole, signal) => {
+    gameConsoleService.on("assemble-info", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
       }
     });
 
-    this._gameConsole.connect("stop", (_gameConsole, signal) => {
+    gameConsoleService.on("stop", (signal) => {
       this.onSimulatorStateChange(signal.state);
       if (signal.message) {
         const params = signal.params || [];
@@ -475,7 +475,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    this._gameConsole.connect("start", (_gameConsole, signal) => {
+    gameConsoleService.on("start", (signal) => {
       this.onSimulatorStateChange(signal.state);
       if (signal.message) {
         const params = signal.params || [];
@@ -483,7 +483,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    this._gameConsole.connect("reset", (_gameConsole, signal) => {
+    gameConsoleService.on("reset", (signal) => {
       this.onSimulatorStateChange(signal.state);
       if (signal.message) {
         const params = signal.params || [];
@@ -491,7 +491,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    this._gameConsole.connect("step", (_gameConsole, signal) => {
+    gameConsoleService.on("step", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -503,7 +503,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    this._gameConsole.connect("multistep", (_gameConsole, signal) => {
+    gameConsoleService.on("multistep", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -512,7 +512,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.updateDebugger();
     });
 
-    this._gameConsole.connect("goto", (_gameConsole, signal) => {
+    gameConsoleService.on("goto", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -521,14 +521,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.updateDebugger();
     });
 
-    this._gameConsole.connect("simulator-info", (_gameConsole, signal) => {
+    gameConsoleService.on("simulator-info", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
       }
     });
 
-    this._gameConsole.connect("simulator-failure", (_gameConsole, signal) => {
+    gameConsoleService.on("simulator-failure", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -540,14 +540,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       });
     });
 
-    this._gameConsole.connect("labels-info", (_gameConsole, signal) => {
+    gameConsoleService.on("labels-info", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
       }
     });
 
-    this._gameConsole.connect("labels-failure", (_gameConsole, signal) => {
+    gameConsoleService.on("labels-failure", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
