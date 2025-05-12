@@ -54,7 +54,7 @@ export class Debugger implements DebuggerWidget {
     public readonly options: HexMonitorOptions
   ) {
     // Initialize widgets
-    const consoleElement = node.querySelector<HTMLElement>(".console");
+    const consoleElement = node.querySelector<HTMLElement>(".messages");
     const minidebugger = node.querySelector<HTMLElement>(".minidebugger");
 
     if (!consoleElement) {
