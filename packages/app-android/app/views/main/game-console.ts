@@ -32,12 +32,16 @@ import {
 } from "~/widgets/game-console";
 
 // Import gameConsoleService
-import { gameConsoleService, type GamepadEvent } from "@learn6502/common-ui";
+import {
+  gameConsoleService,
+  type GamepadEvent,
+  type GameConsoleView,
+} from "@learn6502/common-ui";
 
 // Re-export event names and interfaces for consumers of this view/controller
 // export * from "~/widgets/game-console/game-console"; // Assuming event defs were there, will move if needed
 
-class GameConsoleController {
+class GameConsoleController implements GameConsoleView {
   private page: Page | null = null;
   private _display: Display | null = null;
   private _gamePad: Gamepad | null = null;
@@ -106,32 +110,35 @@ class GameConsoleController {
 
   // --- Public Methods (API for external interaction) ---
   public assemble(code: string): void {
-    this._simulator.reset();
-    this._labels.reset();
-    this._assembler.assembleCode(code);
+    gameConsoleService.assemble(code);
   }
 
   public run(): void {
-    this._simulator.stopStepper();
-    this._simulator.runBinary();
+    gameConsoleService.run();
+  }
+
+  public hexdump(): void {
+    gameConsoleService.hexdump();
+  }
+
+  public disassemble(): void {
+    gameConsoleService.disassemble();
   }
 
   public stop(): void {
-    this._simulator.stop();
+    gameConsoleService.stop();
   }
 
   public reset(): void {
-    this._simulator.reset();
-    this._labels.reset();
-    // Potentially reset display/gamepad state if needed
+    gameConsoleService.reset();
   }
 
   public step(): void {
-    this._simulator.debugExecStep();
+    gameConsoleService.step();
   }
 
   public goto(address: string): void {
-    this._simulator.gotoAddr(address);
+    gameConsoleService.goto(address);
   }
 
   public gamepadPress(buttonName: GamepadKey): void {
@@ -158,49 +165,15 @@ class GameConsoleController {
       memory: this._memory,
       displayWidget: this._display,
       gamepadWidget: this._gamePad,
+      simulator: this._simulator,
+      assembler: this._assembler,
+      labels: this._labels,
     });
 
     this._display.initialize(this._memory);
     this._simulator.reset();
-    this.setupEventListeners();
 
     console.log("game-console.view: Initialized");
-  }
-
-  /**
-   * Sets up event listeners for internal components (Simulator, Assembler, Gamepad).
-   */
-  private setupEventListeners(): void {
-    console.log("game-console.view: Setting up event listeners");
-    // Remove existing listeners first to prevent duplicates on HMR
-    this.removeEventListeners();
-
-    // --- Assembler Events ---
-    this._assembler.on("assemble-success", this.handleAssembleSuccess);
-    this._assembler.on("assemble-failure", this.handleAssembleFailure);
-    this._assembler.on("hexdump", this.handleHexdump);
-    this._assembler.on("disassembly", this.handleDisassembly);
-    this._assembler.on("assemble-info", this.handleAssembleInfo);
-
-    // --- Simulator Events ---
-    this._simulator.on("stop", this.handleSimulatorStop);
-    this._simulator.on("start", this.handleSimulatorStart);
-    this._simulator.on("reset", this.handleSimulatorReset);
-    this._simulator.on("step", this.handleSimulatorStep);
-    this._simulator.on("multistep", this.handleSimulatorMultiStep);
-    this._simulator.on("goto", this.handleSimulatorGoto);
-    this._simulator.on("pseudo-op", this.handleSimulatorPseudoOp);
-    this._simulator.on("simulator-info", this.handleSimulatorInfo);
-    this._simulator.on("simulator-failure", this.handleSimulatorFailure);
-
-    // --- Labels Events ---
-    this._labels.on("labels-info", this.handleLabelsInfo);
-    this._labels.on("labels-failure", this.handleLabelsFailure);
-
-    // --- Gamepad Events ---
-    if (this._gamePad) {
-      this._gamePad.events.on("keyPressed", this.handleGamepadPress);
-    }
   }
 
   /**
@@ -208,112 +181,8 @@ class GameConsoleController {
    */
   private removeEventListeners(): void {
     console.log("game-console.view: Removing event listeners");
-    // --- Assembler Events ---
-    this._assembler.off("assemble-success", this.handleAssembleSuccess);
-    this._assembler.off("assemble-failure", this.handleAssembleFailure);
-    this._assembler.off("hexdump", this.handleHexdump);
-    this._assembler.off("disassembly", this.handleDisassembly);
-    this._assembler.off("assemble-info", this.handleAssembleInfo);
-
-    // --- Simulator Events ---
-    this._simulator.off("stop", this.handleSimulatorStop);
-    this._simulator.off("start", this.handleSimulatorStart);
-    this._simulator.off("reset", this.handleSimulatorReset);
-    this._simulator.off("step", this.handleSimulatorStep);
-    this._simulator.off("multistep", this.handleSimulatorMultiStep);
-    this._simulator.off("goto", this.handleSimulatorGoto);
-    this._simulator.off("pseudo-op", this.handleSimulatorPseudoOp);
-    this._simulator.off("simulator-info", this.handleSimulatorInfo);
-    this._simulator.off("simulator-failure", this.handleSimulatorFailure);
-
-    // --- Labels Events ---
-    this._labels.off("labels-info", this.handleLabelsInfo);
-    this._labels.off("labels-failure", this.handleLabelsFailure);
-
-    // --- Gamepad Events ---
-    if (this._gamePad) {
-      this._gamePad.events.off("keyPressed", this.handleGamepadPress);
-    }
+    // No need to manually remove event listeners as they're now handled by the service
   }
-
-  // --- Event Handler Methods (Bound in constructor or use arrow functions) ---
-  private handleAssembleSuccess = (event: AssemblerSuccessEvent): void => {
-    this._memory.set(this._assembler.getCurrentPC(), 0x00); // Set null byte
-    this.notifyParent(assembleSuccessEvent, event);
-  };
-
-  private handleAssembleFailure = (event: AssemblerFailureEvent): void => {
-    this.notifyParent(assembleFailureEvent, event);
-  };
-
-  private handleHexdump = (event: AssemblerHexdumpEvent): void => {
-    this.notifyParent(hexdumpEvent, event);
-  };
-
-  private handleDisassembly = (event: AssemblerDisassemblyEvent): void => {
-    this.notifyParent(disassemblyEvent, event);
-  };
-
-  private handleAssembleInfo = (event: AssemblerInfoEvent): void => {
-    this.notifyParent(assembleInfoEvent, event);
-  };
-
-  private handleSimulatorStop = (event: SimulatorStopEvent): void => {
-    this.notifyParent(stopEvent, event);
-    // Maybe update UI state here
-  };
-
-  private handleSimulatorStart = (event: SimulatorStartEvent): void => {
-    this.notifyParent(startEvent, event);
-    // Maybe update UI state here
-  };
-
-  private handleSimulatorReset = (event: SimulatorResetEvent): void => {
-    this.notifyParent(resetEvent, event);
-    // Maybe update UI state here
-  };
-
-  private handleSimulatorStep = (event: SimulatorStepEvent): void => {
-    this.notifyParent(stepEvent, event);
-    // Maybe update UI (debugger?) state here
-  };
-
-  private handleSimulatorMultiStep = (event: SimulatorMultiStepEvent): void => {
-    this.notifyParent(multistepEvent, event);
-    // Maybe update UI (debugger?) state here
-  };
-
-  private handleSimulatorGoto = (event: SimulatorGotoEvent): void => {
-    this.notifyParent(gotoEvent, event);
-  };
-
-  private handleSimulatorPseudoOp = (event: SimulatorPseudoOpEvent): void => {
-    this.notifyParent(pseudoOpEvent, event);
-    // Handle specific pseudo ops, e.g., update display
-  };
-
-  private handleSimulatorInfo = (event: SimulatorInfoEvent): void => {
-    this.notifyParent(simulatorInfoEvent, event);
-  };
-
-  private handleSimulatorFailure = (event: SimulatorFailureEvent): void => {
-    this.notifyParent(simulatorFailureEvent, event);
-  };
-
-  private handleLabelsInfo = (event: LabelsInfoEvent): void => {
-    this.notifyParent(labelsInfoEvent, event);
-  };
-
-  private handleLabelsFailure = (event: LabelsFailureEvent): void => {
-    this.notifyParent(labelsFailureEvent, event);
-  };
-
-  private handleGamepadPress = (data: GamepadEvent): void => {
-    console.log(`game-console.view: Gamepad key ${data.key} pressed`);
-    this._memory.storeKeypress(data.keyCode);
-    // Forward the event if needed by parent view
-    this.notifyParent(gamepadPressedEvent, data);
-  };
 
   // Helper to notify parent component/view
   private notifyParent(eventName: string, detail: any): void {

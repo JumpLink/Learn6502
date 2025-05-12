@@ -1,4 +1,4 @@
-import { Simulator, Assembler } from "@learn6502/6502";
+import { Memory, Simulator, Assembler, Labels } from "@learn6502/6502";
 import type { GamepadKey } from "../types";
 
 /**
@@ -16,9 +16,14 @@ export interface GameConsoleView {
   readonly assembler: Assembler;
 
   /**
-   * The memory array
+   * The memory instance
    */
-  readonly memory: Uint8Array;
+  readonly memory: Memory;
+
+  /**
+   * The labels instance
+   */
+  readonly labels: Labels;
 
   /**
    * Assemble code using the assembler
@@ -32,6 +37,16 @@ export interface GameConsoleView {
   run(): void;
 
   /**
+   * Generate a hexdump of the current memory state
+   */
+  hexdump(): void;
+
+  /**
+   * Disassemble the current code in memory
+   */
+  disassemble(): void;
+
+  /**
    * Stop/pause the simulator
    */
   stop(): void;
@@ -40,6 +55,17 @@ export interface GameConsoleView {
    * Reset the simulator and memory
    */
   reset(): void;
+
+  /**
+   * Execute a single step in the simulator
+   */
+  step(): void;
+
+  /**
+   * Go to a specific memory address
+   * @param address The address to go to in string format
+   */
+  goto(address: string): void;
 
   /**
    * Handle gamepad key press

@@ -4,14 +4,14 @@ import Adw from "@girs/adw-1";
 import { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
 
 import { Display, Gamepad } from "../../widgets/game-console/index.ts";
-import { gameConsoleService } from "@learn6502/common-ui";
+import { gameConsoleService, type GameConsoleView } from "@learn6502/common-ui";
 
 import Template from "./game-console.blp";
 
 /**
  * The GameConsole widget.
  */
-export class GameConsole extends Adw.Bin {
+export class GameConsole extends Adw.Bin implements GameConsoleView {
   // Child widgets
   declare private _display: Display;
   declare private _gamePad: Gamepad;
@@ -32,19 +32,19 @@ export class GameConsole extends Adw.Bin {
   private _simulator: Simulator;
   private _assembler: Assembler;
 
-  get memory() {
+  get memory(): Memory {
     return this._memory;
   }
 
-  get labels() {
+  get labels(): Labels {
     return this._labels;
   }
 
-  get simulator() {
+  get simulator(): Simulator {
     return this._simulator;
   }
 
-  get assembler() {
+  get assembler(): Assembler {
     return this._assembler;
   }
 
