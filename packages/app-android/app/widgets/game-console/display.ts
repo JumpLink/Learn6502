@@ -9,6 +9,7 @@ import {
   GridLayout,
   Placeholder,
   Utils,
+  Builder,
 } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core";
 import { Memory, DisplayAddressRange } from "@learn6502/6502";
@@ -18,7 +19,7 @@ import { Memory, DisplayAddressRange } from "@learn6502/6502";
  */
 export class Display extends GridLayout implements DisplayWidget {
   private memory: Memory | undefined;
-  private placeholder: Placeholder;
+  private placeholder: Placeholder | undefined;
   private canvasImageView: android.widget.ImageView | undefined;
   private bitmap: android.graphics.Bitmap | undefined;
   private canvas: android.graphics.Canvas | undefined;
@@ -38,18 +39,32 @@ export class Display extends GridLayout implements DisplayWidget {
       throw new Error("This implementation is for Android only");
     }
 
-    // Create placeholder for the native canvas view
-    this.placeholder = new Placeholder();
-    this.placeholder.on("creatingView", this.onCreatingView, this);
+    // Load the XML layout when the component is loaded
+    this.on("loaded", () => {
+      const componentView = Builder.load({
+        path: "~/widgets/game-console",
+        name: "display",
+      });
 
-    // Add placeholder to the layout
-    this.addChild(this.placeholder);
+      // Add the loaded view hierarchy (the Placeholder)
+      this.addChild(componentView);
+
+      // Get the Placeholder from the loaded view
+      this.placeholder =
+        componentView.getViewById<Placeholder>("displayPlaceholder");
+
+      if (!this.placeholder) {
+        console.error("Failed to find displayPlaceholder in display.xml");
+        return;
+      }
+    });
   }
 
   /**
    * Initialize the native canvas view when the placeholder is created.
+   * This method is now called automatically via the creatingView attribute in XML.
    */
-  private onCreatingView(args: CreateViewEventData): void {
+  public onCreatingView(args: CreateViewEventData): void {
     // Create an ImageView to host our bitmap canvas
     const context = Utils.android.getApplicationContext();
     this.canvasImageView = new android.widget.ImageView(context);

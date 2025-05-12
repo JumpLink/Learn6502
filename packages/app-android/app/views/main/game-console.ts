@@ -1,45 +1,21 @@
-import { EventData, Page, GridLayout } from "@nativescript/core";
+import { EventData, Page } from "@nativescript/core";
 import {
   Memory,
   Labels,
   Simulator,
   Assembler,
   SimulatorState,
-  type AssemblerSuccessEvent,
-  type AssemblerFailureEvent,
-  type AssemblerHexdumpEvent,
-  type AssemblerDisassemblyEvent,
-  type AssemblerInfoEvent,
-  type SimulatorStartEvent,
-  type SimulatorStepEvent,
-  type SimulatorMultiStepEvent,
-  type SimulatorResetEvent,
-  type SimulatorStopEvent,
-  type SimulatorGotoEvent,
-  type SimulatorFailureEvent,
-  type SimulatorInfoEvent,
-  type SimulatorPseudoOpEvent,
-  type LabelsInfoEvent,
-  type LabelsFailureEvent,
 } from "@learn6502/6502";
 
 // Import child widgets
-import {
-  Display,
-  Gamepad,
-  GamepadKey,
-  gamepadPressedEvent as gamePadPressedEventName,
-} from "~/widgets/game-console";
+import { Display, Gamepad } from "~/widgets/game-console";
 
 // Import gameConsoleService
 import {
   gameConsoleService,
-  type GamepadEvent,
   type GameConsoleView,
+  type GamepadKey,
 } from "@learn6502/common-ui";
-
-// Re-export event names and interfaces for consumers of this view/controller
-// export * from "~/widgets/game-console/game-console"; // Assuming event defs were there, will move if needed
 
 class GameConsoleController implements GameConsoleView {
   private page: Page | null = null;
