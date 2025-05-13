@@ -1,7 +1,11 @@
+import type { EventDispatcher } from "@learn6502/6502";
+import type { EditorEventMap } from "../types/editor-event-map";
+
 /**
  * Interface for editor views across platforms
  */
 export interface EditorView {
+  readonly events: EventDispatcher<EditorEventMap>;
   /**
    * Get the current code in the editor
    */
@@ -34,30 +38,4 @@ export interface EditorView {
    * @returns Whether focus was successfully set
    */
   focus(): boolean;
-
-  /**
-   * Handle editor change event
-   * @param handler Handler function
-   */
-  onChanged(handler: () => void): void;
-}
-
-/**
- * Interface for editor events
- */
-export interface EditorEvents {
-  /**
-   * Event when code in editor changes
-   */
-  onCodeChanged(): void;
-
-  /**
-   * Event when code is assembled via keyboard shortcut
-   */
-  onAssembleRequested(): void;
-
-  /**
-   * Event when run is requested via keyboard shortcut
-   */
-  onRunRequested(): void;
 }

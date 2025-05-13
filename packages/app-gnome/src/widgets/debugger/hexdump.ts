@@ -3,7 +3,11 @@ import Adw from "@girs/adw-1";
 import { SourceView } from "../source-view.ts";
 
 import { type Assembler, EventDispatcher } from "@learn6502/6502";
-import { type HexdumpWidget, type HexdumpEventMap } from "@learn6502/common-ui";
+import {
+  type HexdumpWidget,
+  type HexdumpEventMap,
+  type SourceViewCopyEvent,
+} from "@learn6502/common-ui";
 
 import Template from "./hexdump.blp";
 export class Hexdump extends Adw.Bin implements HexdumpWidget {
@@ -27,7 +31,9 @@ export class Hexdump extends Adw.Bin implements HexdumpWidget {
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
-    this._sourceView.connect("copy", this.onCopy.bind(this));
+    this.onCopy = this.onCopy.bind(this);
+
+    this._sourceView.events.on("copy", this.onCopy);
   }
 
   public update(assembler: Assembler) {
@@ -38,10 +44,10 @@ export class Hexdump extends Adw.Bin implements HexdumpWidget {
     });
   }
 
-  private onCopy(_sourceView: SourceView, content: string) {
+  private onCopy(event: SourceViewCopyEvent) {
     // Remove all whitespace
-    content = content.replace(/\s/g, "");
-    this.events.dispatch("copy", { content });
+    event.code = event.code.replace(/\s/g, "");
+    this.events.dispatch("copy", { content: event.code });
   }
 
   public clear(): void {

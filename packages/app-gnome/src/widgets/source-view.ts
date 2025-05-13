@@ -10,7 +10,11 @@ import Template from "./source-view.blp";
 
 import { GutterRendererLineNumbers } from "../gutter-renderer-line-numbers.ts";
 import { GutterRendererMode } from "../types/index.ts";
-import type { SourceViewWidget } from "@learn6502/common-ui";
+import type {
+  SourceViewWidget,
+  SourceViewEventMap,
+} from "@learn6502/common-ui";
+import { EventDispatcher } from "@learn6502/6502";
 
 GtkSource.init();
 
@@ -62,6 +66,9 @@ export namespace SourceView {
  * @emits copy - Emitted when the copy button is clicked with the current code
  */
 export class SourceView extends Adw.Bin implements SourceViewWidget {
+  readonly events: EventDispatcher<SourceViewEventMap> =
+    new EventDispatcher<SourceViewEventMap>();
+
   // Child widgets
   /** The ScrolledWindow that contains the SourceView */
   declare private _scrolledWindow: Gtk.ScrolledWindow;
@@ -76,14 +83,6 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
         GTypeName: "SourceView",
         Template,
         InternalChildren: ["sourceView", "scrolledWindow", "copyButton"],
-        Signals: {
-          changed: {
-            param_types: [],
-          },
-          copy: {
-            param_types: [GObject.TYPE_STRING],
-          },
-        },
         Properties: {
           code: GObject.ParamSpec.string(
             "code",
@@ -797,7 +796,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
   }
 
   private emitChanged() {
-    this.emit("changed");
+    this.events.dispatch("changed", { code: this.code });
   }
 
   /**
@@ -918,7 +917,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
    * Handle the copy action
    */
   private _onCopy() {
-    this.emit("copy", this.code);
+    this.events.dispatch("copy", { code: this.code });
   }
 }
 

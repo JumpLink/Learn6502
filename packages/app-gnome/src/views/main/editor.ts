@@ -5,7 +5,11 @@ import GtkSource from "@girs/gtksource-5";
 import { SourceView } from "../../widgets/source-view.ts";
 import { QuickHelpView } from "../../mdx/quick-help-view.ts";
 import { EventDispatcher } from "@learn6502/6502";
-import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
+import type {
+  EditorView,
+  EditorEventMap,
+  SourceViewChangedEvent,
+} from "@learn6502/common-ui";
 
 import Template from "./editor.blp";
 
@@ -29,20 +33,12 @@ export class Editor extends Adw.Bin implements EditorView {
   /** The ScrolledWindow that contains the quick help */
   declare private _scrolledWindow: Gtk.ScrolledWindow;
 
-  /** Change handler callback */
-  private _changeHandler: (() => void) | null = null;
-
   static {
     GObject.registerClass(
       {
         GTypeName: "Editor",
         Template,
         InternalChildren: ["sourceView", "quickHelpView", "scrolledWindow"],
-        Signals: {
-          changed: {
-            param_types: [],
-          },
-        },
         Properties: {
           code: GObject.ParamSpec.string(
             "code",
@@ -75,7 +71,6 @@ export class Editor extends Adw.Bin implements EditorView {
     if (this.code === value) return;
     this._sourceView.code = value;
     this.notify("code");
-    this.onUpdate();
   }
 
   /**
@@ -144,26 +139,18 @@ export class Editor extends Adw.Bin implements EditorView {
    *
    * @param handler Handler function
    */
-  public onChanged(handler: () => void): void {
-    this._changeHandler = handler;
+  protected onChanged(event: SourceViewChangedEvent): void {
+    // Forward the code change event to our own events
+    this.events.dispatch("changed", event);
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
-    this.buffer.connect("changed", () => {
-      this.onUpdate();
-    });
-  }
+    this.onChanged = this.onChanged.bind(this);
 
-  private onUpdate() {
-    this.emit("changed"); // Deprecated
-    this.events.dispatch("changed", { code: this.code });
-
-    // Call change handler if registered
-    if (this._changeHandler) {
-      this._changeHandler();
-    }
+    // Subscribe to the SourceView's events
+    this._sourceView.events.on("changed", this.onChanged);
   }
 }
 

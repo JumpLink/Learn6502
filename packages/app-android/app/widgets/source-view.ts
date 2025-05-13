@@ -1,8 +1,14 @@
 import { ContentView, Property, TextView, Builder } from "@nativescript/core";
-import { debounce } from "@learn6502/6502";
-import type { SourceViewWidget } from "@learn6502/common-ui";
+import { debounce, EventDispatcher } from "@learn6502/6502";
+import type {
+  SourceViewEventMap,
+  SourceViewWidget,
+} from "@learn6502/common-ui";
 
 export class SourceView extends ContentView implements SourceViewWidget {
+  readonly events: EventDispatcher<SourceViewEventMap> =
+    new EventDispatcher<SourceViewEventMap>();
+
   textView: TextView;
   private debouncedHighlighting: (code: string) => void;
   private _code: string = "";

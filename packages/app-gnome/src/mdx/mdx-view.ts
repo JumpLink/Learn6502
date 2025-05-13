@@ -1,6 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import { SourceView } from "../widgets/source-view.ts";
+import type { SourceViewCopyEvent } from "@learn6502/common-ui";
 
 /**
  * Base class for rendering MDX content in GTK
@@ -36,8 +37,8 @@ export class MdxView extends Adw.Bin {
     for (const id of sourceViewIds) {
       const sourceView = this.getSourceView(id);
       // TODO: Disconnect the signal when the source view is destroyed
-      sourceView.connect("copy", (_sourceView: SourceView, code: string) => {
-        this.emit("copy", code);
+      sourceView.events.on("copy", (event: SourceViewCopyEvent) => {
+        this.emit("copy", event.code);
       });
     }
   }

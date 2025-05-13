@@ -6,6 +6,7 @@ import { type Assembler, EventDispatcher } from "@learn6502/6502";
 import type {
   DisassembledEventMap,
   DisassembledWidget,
+  SourceViewCopyEvent,
 } from "@learn6502/common-ui";
 
 import Template from "./disassembled.blp";
@@ -31,7 +32,9 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
-    this._sourceView.connect("copy", this.onCopy.bind(this));
+    this.onCopy = this.onCopy.bind(this);
+
+    this._sourceView.events.on("copy", this.onCopy);
   }
 
   public update(assembler: Assembler) {
@@ -45,8 +48,8 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
     this._sourceView.buffer.text = assemblyCode;
   }
 
-  private onCopy(_sourceView: SourceView, code: string) {
-    this.events.dispatch("copy", { code });
+  private onCopy(event: SourceViewCopyEvent) {
+    this.events.dispatch("copy", event);
   }
 
   public clear(): void {

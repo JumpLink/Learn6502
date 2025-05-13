@@ -10,6 +10,7 @@ import {
   type MemoryRegion,
   memoryRegions,
   type HexMonitorEventMap,
+  type SourceViewCopyEvent,
 } from "@learn6502/common-ui";
 
 import Template from "./hex-monitor.blp";
@@ -55,7 +56,9 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
     this.setupUI();
     this.connectSignals();
 
-    this._sourceView.connect("copy", this.onCopy.bind(this));
+    this.onCopy = this.onCopy.bind(this);
+
+    this._sourceView.events.on("copy", this.onCopy);
 
     // Ensure signal handlers are disconnected when widget is finalized
     this.connect("destroy", this.disconnectSignals.bind(this));
@@ -103,10 +106,10 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
     }
   }
 
-  private onCopy(_sourceView: SourceView, content: string) {
+  private onCopy(event: SourceViewCopyEvent) {
     // Remove all whitespace
-    content = content.replace(/\s/g, "");
-    this.events.dispatch("copy", { content: content });
+    event.code = event.code.replace(/\s/g, "");
+    this.events.dispatch("copy", { content: event.code });
   }
 
   public update(memory: Memory) {
