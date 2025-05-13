@@ -1,12 +1,17 @@
 <StackLayout xmlns="http://schemas.nativescript.org/tns.xsd"
              orientation="horizontal"
-             class="bg-surface text-on-surface">
+             height="100%" width="100%"
+             class="bg-surface">
     <TextView id="lineNumbersView"
               editable="false"
               fontFamily="monospace"
+              color="#888888"
+              height="100%"
               class="text-base p-0 m-0 vertical-top w-10 no-underline" />
     <TextView id="textView"
               editable="true"
               fontFamily="monospace"
+              color="#ffffff"
+              height="100%"
               class="text-base p-0 m-0 vertical-top no-underline" />
 </StackLayout>

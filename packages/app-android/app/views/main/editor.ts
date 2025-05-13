@@ -5,20 +5,23 @@ import {
   Button,
   StackLayout,
 } from "@nativescript/core";
-import { EditorView } from "@learn6502/common-ui";
+import { EditorView, EditorEventMap } from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
+import { EventDispatcher } from "@learn6502/6502";
 
 /**
  * EditorModel class for handling editor data and operations
  * Implements the EditorView from common-ui
  */
 class EditorModel extends Observable implements EditorView {
+  readonly events: EventDispatcher<EditorEventMap> =
+    new EventDispatcher<EditorEventMap>();
+
   private _sourceView: SourceView | null = null;
   private _code: string = "";
   private _helpPanel: StackLayout | null = null;
   private _helpToggleButton: Button | null = null;
   private _helpVisible: boolean = false;
-  private _changeHandler: (() => void) | null = null;
 
   /**
    * Get the current code in the editor
@@ -40,15 +43,16 @@ class EditorModel extends Observable implements EditorView {
    * @param value Code to set
    */
   setCode(value: string): void {
-    this._code = value;
+    const oldModelCode = this._code;
+    this._code = value; // Always update internal cache
+
     if (this._sourceView) {
       this._sourceView.code = value;
     }
-    this.notifyPropertyChange("code", value);
 
-    // Notify any registered change handlers
-    if (this._changeHandler) {
-      this._changeHandler();
+    // Notify if code actually changed for NativeScript bindings
+    if (oldModelCode !== value) {
+      this.notifyPropertyChange("code", value);
     }
   }
 
@@ -79,14 +83,6 @@ class EditorModel extends Observable implements EditorView {
   }
 
   /**
-   * Handle editor change event
-   * @param handler Handler function
-   */
-  onChanged(handler: () => void): void {
-    this._changeHandler = handler;
-  }
-
-  /**
    * Check if the editor has any code
    */
   get hasCode(): boolean {
@@ -98,26 +94,42 @@ class EditorModel extends Observable implements EditorView {
    */
   onNavigatingTo(args: EventData): void {
     const page = args.object as Page;
+    page.bindingContext = this;
 
-    // Get references to UI elements
     this._sourceView = page.getViewById<SourceView>("sourceView");
     this._helpPanel = page.getViewById<StackLayout>("helpPanel");
     this._helpToggleButton = page.getViewById<Button>("helpToggleButton");
 
-    // Initialize with some sample code if none exists
-    if (!this.hasCode) {
-      this.setCode(
-        "; Example 6502, assembly code\n\nLDA #$01\nSTA $0200\nLDX #$00\nLDY #$00"
+    if (this._sourceView) {
+      // Subscribe to SourceView's 'changed' event
+      this._sourceView.events.on("changed", (event) => {
+        const newCodeFromSourceView = event.code;
+        const oldModelCode = this._code;
+        this._code = newCodeFromSourceView; // Sync internal model code
+
+        // Notify NativeScript UI bindings if the code actually changed from the model's perspective
+        if (oldModelCode !== newCodeFromSourceView) {
+          this.notifyPropertyChange("code", newCodeFromSourceView);
+        }
+
+        // Dispatch EditorView's changed event
+        this.events.dispatch("changed", { code: newCodeFromSourceView });
+      });
+
+      // If no code is set yet, set default code
+      // Otherwise, ensure SourceView has the current model code
+      if (!this.hasCode) {
+        const defaultCode =
+          "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
+        this.setCode(defaultCode);
+      } else if (this._sourceView.code !== this._code) {
+        this._sourceView.code = this._code;
+      }
+    } else {
+      console.error(
+        "[EditorModel] SourceView (sourceView) not found on page. Editor will not function correctly."
       );
     }
-
-    // Update the source view with current code
-    if (this._sourceView) {
-      this._sourceView.code = this._code;
-    }
-
-    // Set the page bindingContext to this model
-    page.bindingContext = this;
   }
 
   /**

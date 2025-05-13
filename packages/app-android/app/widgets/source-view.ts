@@ -1,4 +1,11 @@
-import { ContentView, Property, TextView, Builder } from "@nativescript/core";
+import {
+  ContentView,
+  Property,
+  TextView,
+  Builder,
+  booleanConverter,
+  Color,
+} from "@nativescript/core";
 import { debounce, EventDispatcher } from "@learn6502/6502";
 import type {
   SourceViewEventMap,
@@ -9,10 +16,14 @@ export class SourceView extends ContentView implements SourceViewWidget {
   readonly events: EventDispatcher<SourceViewEventMap> =
     new EventDispatcher<SourceViewEventMap>();
 
-  textView: TextView;
   private debouncedHighlighting: (code: string) => void;
   private _code: string = "";
+  private textView: TextView;
   private lineNumbersView: TextView;
+  private _editable: boolean = true;
+  private _lineNumbers: boolean = true;
+  private _lineNumberStart: number = 1;
+  private _selectable: boolean = true;
 
   public static codeProperty = new Property<SourceView, string>({
     name: "code",
@@ -20,7 +31,63 @@ export class SourceView extends ContentView implements SourceViewWidget {
     affectsLayout: true,
     valueChanged(target, oldValue, newValue) {
       target._code = newValue;
-      target.updateText(newValue);
+      if (target.textView && target.textView.text !== newValue) {
+        target.textView.text = newValue;
+      }
+    },
+  });
+
+  public static lineNumbersProperty = new Property<SourceView, boolean>({
+    name: "lineNumbers",
+    defaultValue: true,
+    affectsLayout: true,
+    valueConverter: booleanConverter,
+    valueChanged(target, oldValue, newValue) {
+      target._lineNumbers = newValue;
+      if (target.lineNumbersView) {
+        target.lineNumbersView.visibility = newValue ? "visible" : "collapse";
+      }
+    },
+  });
+
+  public static editableProperty = new Property<SourceView, boolean>({
+    name: "editable",
+    defaultValue: true,
+    valueConverter: booleanConverter,
+    valueChanged(target, oldValue, newValue) {
+      target._editable = newValue;
+      if (target.textView) {
+        target.textView.editable = newValue;
+      }
+    },
+  });
+
+  public static lineNumberStartProperty = new Property<SourceView, number>({
+    name: "lineNumberStart",
+    defaultValue: 1,
+    valueConverter: (v) => parseInt(v, 10),
+    valueChanged(target, oldValue, newValue) {
+      target._lineNumberStart = newValue;
+      if (target.textView) {
+        target.updateLineNumbers(target.textView.text);
+      }
+    },
+  });
+
+  public static selectableProperty = new Property<SourceView, boolean>({
+    name: "selectable",
+    defaultValue: true,
+    valueConverter: booleanConverter,
+    valueChanged(target, oldValue, newValue) {
+      target._selectable = newValue;
+      if (target.textView && target.textView.android) {
+        const nativeEditText = target.textView
+          .android as android.widget.EditText;
+        nativeEditText.setTextIsSelectable(newValue);
+        nativeEditText.setCursorVisible(newValue);
+        nativeEditText.setFocusable(newValue);
+        nativeEditText.setFocusableInTouchMode(newValue);
+      }
     },
   });
 
@@ -29,20 +96,72 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set code(value: string) {
-    this._code = value;
+    const codeActuallyChanged = this._code !== value;
+
+    if (codeActuallyChanged) {
+      this._code = value;
+      if (this.textView && this.textView.text !== value) {
+        this.textView.text = value;
+      }
+      this.notifyPropertyChange("code", value);
+    }
+  }
+
+  get lineNumbers(): boolean {
+    return this._lineNumbers;
+  }
+
+  set lineNumbers(value: boolean) {
+    this._lineNumbers = value;
+  }
+
+  get editable(): boolean {
+    return this._editable;
+  }
+
+  set editable(value: boolean) {
+    this._editable = value;
+  }
+
+  get readonly(): boolean {
+    return !this.editable;
+  }
+
+  set readonly(value: boolean) {
+    this.editable = !value;
+  }
+
+  get lineNumberStart(): number {
+    return this._lineNumberStart;
+  }
+
+  set lineNumberStart(value: number) {
+    this._lineNumberStart = value;
+  }
+
+  get selectable(): boolean {
+    return this._selectable;
+  }
+
+  set selectable(value: boolean) {
+    this._selectable = value;
+    if (this.textView && this.textView.android) {
+      const nativeEditText = this.textView.android as android.widget.EditText;
+      nativeEditText.setTextIsSelectable(value);
+      nativeEditText.setCursorVisible(value);
+      nativeEditText.setFocusable(value);
+      nativeEditText.setFocusableInTouchMode(value);
+    }
+    this.notifyPropertyChange("selectable", value);
   }
 
   constructor() {
     super();
-    // Create debounced version of the highlighting function
     this.debouncedHighlighting = debounce((code: string) => {
       this.applyHighlighting(code);
-    }, 150); // Reduced delay for better responsiveness
+    }, 150);
   }
 
-  /**
-   * Focus the text editor
-   */
   focus(): boolean {
     if (this.textView) {
       return this.textView.focus();
@@ -50,28 +169,95 @@ export class SourceView extends ContentView implements SourceViewWidget {
     return false;
   }
 
-  updateText(code: string) {
-    if (this.textView) {
-      this.debouncedHighlighting(code);
+  onLoaded() {
+    super.onLoaded();
+
+    const componentView = Builder.load({
+      path: "~/widgets",
+      name: "source-view",
+    });
+
+    this.textView = componentView.getViewById<TextView>("textView");
+    this.lineNumbersView =
+      componentView.getViewById<TextView>("lineNumbersView");
+
+    if (!this.textView) {
+      throw new Error("Failed to find textView in source-view.xml");
+    }
+    this.textView.color = new Color("white");
+    this.textView.backgroundColor = new Color("transparent");
+    this.textView.editable = this.editable;
+
+    if (this.textView.android) {
+      const nativeEditText = this.textView.android as android.widget.EditText;
+      nativeEditText.setTextIsSelectable(this.selectable);
+      nativeEditText.setCursorVisible(this.selectable);
+      nativeEditText.setFocusable(this.selectable);
+      nativeEditText.setFocusableInTouchMode(this.selectable);
+    }
+
+    if (!this.lineNumbersView) {
+      throw new Error("Failed to find lineNumbersView in source-view.xml");
+    }
+    this.lineNumbersView.color = new Color("lightgray");
+    this.lineNumbersView.backgroundColor = new Color("transparent");
+    this.lineNumbersView.visibility = this.lineNumbers ? "visible" : "collapse";
+
+    this.textView.on("textChange", (args: any) => {
+      if (this.textView) {
+        const newText = args.value as string;
+        const modelNeedsUpdate = this._code !== newText;
+        if (modelNeedsUpdate) {
+          this._code = newText;
+          this.notifyPropertyChange("code", this._code);
+        }
+
+        this.debouncedHighlighting(newText);
+        this.updateLineNumbers(newText);
+        this.events.dispatch("changed", { code: newText });
+      }
+    });
+
+    this.content = componentView;
+
+    const textEdit = this.textView.android as android.widget.EditText;
+    if (textEdit) {
+      textEdit.setOnScrollChangeListener(
+        new android.view.View.OnScrollChangeListener({
+          onScrollChange: (v, scrollX, scrollY, oldScrollX, oldScrollY) => {
+            if (this.lineNumbersView && this.lineNumbersView.android) {
+              const lineNumbersEdit = this.lineNumbersView
+                .android as android.widget.EditText;
+              lineNumbersEdit.scrollTo(0, scrollY);
+            }
+          },
+        })
+      );
+    } else {
+      console.error(
+        "[SourceView] textEdit (native) is null, couldn't set scroll listener. This may affect line number scrolling synchronization."
+      );
+    }
+
+    if (this._code && this.textView.text !== this._code) {
+      this.textView.text = this._code;
     }
   }
 
   private applyHighlighting(code: string) {
     if (this.textView?.android) {
-      // Save cursor position
       const nativeEditText = this.textView.android as android.widget.EditText;
-      const selectionStart = Math.min(
-        nativeEditText.getSelectionStart(),
-        code.length
-      );
-      const selectionEnd = Math.min(
-        nativeEditText.getSelectionEnd(),
-        code.length
-      );
+      let selectionStart = 0;
+      let selectionEnd = 0;
+      if (nativeEditText.isFocused()) {
+        selectionStart = Math.min(
+          nativeEditText.getSelectionStart(),
+          code.length
+        );
+        selectionEnd = Math.min(nativeEditText.getSelectionEnd(), code.length);
+      }
 
       const spannable = new android.text.SpannableString(code);
-
-      // Comments (green)
       const commentPattern = /;.*/g;
       let match: RegExpExecArray | null;
       while ((match = commentPattern.exec(code)) !== null) {
@@ -85,7 +271,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
         );
       }
 
-      // Opcodes (blue)
       const opcodePattern =
         /\b(LDA|LDX|LDY|STA|STX|STY|ADC|SBC|INC|DEC|JMP|JSR|RTS|BEQ|BNE)\b/gi;
       while ((match = opcodePattern.exec(code)) !== null) {
@@ -97,7 +282,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
           match.index + match[0].length,
           android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
         );
-        // Bold for opcodes
         spannable.setSpan(
           new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
           match.index,
@@ -106,7 +290,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
         );
       }
 
-      // Hex values (purple)
       const hexPattern = /(\$[0-9A-F]+|#\$[0-9A-F]+)/gi;
       while ((match = hexPattern.exec(code)) !== null) {
         spannable.setSpan(
@@ -120,10 +303,9 @@ export class SourceView extends ContentView implements SourceViewWidget {
       }
 
       try {
-        // Set text and restore cursor position
-        nativeEditText.setText(spannable as any); // Wrong parameter type in NativeScript?
-        // Only set selection if we have valid positions
+        nativeEditText.setText(spannable as any);
         if (
+          nativeEditText.isFocused() &&
           selectionStart >= 0 &&
           selectionEnd >= 0 &&
           selectionStart <= code.length &&
@@ -132,87 +314,24 @@ export class SourceView extends ContentView implements SourceViewWidget {
           nativeEditText.setSelection(selectionStart, selectionEnd);
         }
       } catch (error) {
-        // Log error but don't crash
-        console.error("Error applying text highlighting:", error);
+        console.error("[SourceView] Error applying text highlighting:", error);
       }
-    }
-  }
-
-  onLoaded() {
-    super.onLoaded();
-
-    // Load the XML layout using Builder
-    const componentView = Builder.load({
-      path: "~/widgets",
-      name: "source-view",
-    });
-
-    console.log(
-      "componentView",
-      componentView,
-      componentView.getViewById("textView")
-    );
-
-    // Bind the TextView from the loaded XML
-    this.textView = componentView.getViewById<TextView>("textView");
-
-    if (!this.textView) {
-      throw new Error("Failed to find textView in source-view.xml");
-    }
-
-    // Bind the lineNumbersView from the loaded XML
-    this.lineNumbersView =
-      componentView.getViewById<TextView>("lineNumbersView");
-
-    if (!this.lineNumbersView) {
-      throw new Error("Failed to find lineNumbersView in source-view.xml");
-    }
-
-    // Synchronize line numbers with text changes
-    this.textView.on("textChange", () => {
-      if (this.textView) {
-        this.updateText(this.textView.text);
-        this.updateLineNumbers(this.textView.text);
-      }
-    });
-
-    // Add the componentView to the content, only after that the native views (`.android`) are ready
-    this.content = componentView;
-
-    const textEdit = this.textView.android as android.widget.EditText;
-
-    if (!textEdit) {
-      throw new Error("Failed to find textEdit in source-view.xml");
-    }
-
-    // Set up scroll change listener
-    textEdit.setOnScrollChangeListener(
-      new android.view.View.OnScrollChangeListener({
-        onScrollChange: (v, scrollX, scrollY, oldScrollX, oldScrollY) => {
-          if (this.lineNumbersView && this.lineNumbersView.android) {
-            const lineNumbersEdit = this.lineNumbersView
-              .android as android.widget.EditText;
-            lineNumbersEdit.scrollTo(0, scrollY);
-          }
-        },
-      })
-    );
-
-    // Apply initial text if set
-    if (this.code) {
-      this.updateText(this.code);
     }
   }
 
   private updateLineNumbers(code: string) {
     if (this.lineNumbersView) {
-      const lines = code
-        .split("\n")
-        .map((_, index) => (index + 1).toString())
+      const lines = code.split("\n");
+      const lineNumbersText = lines
+        .map((_, index) => (index + this.lineNumberStart).toString())
         .join("\n");
-      this.lineNumbersView.text = lines;
+      this.lineNumbersView.text = lineNumbersText;
     }
   }
 }
 
 SourceView.codeProperty.register(SourceView);
+SourceView.lineNumbersProperty.register(SourceView);
+SourceView.editableProperty.register(SourceView);
+SourceView.lineNumberStartProperty.register(SourceView);
+SourceView.selectableProperty.register(SourceView);
