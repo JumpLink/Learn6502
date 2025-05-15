@@ -24,7 +24,11 @@ export class NsRoot extends Component {
       ...this.props,
     };
     return (
-      <NsStackLayout xmlns="http://schemas.nativescript.org/tns.xsd" {...props}>
+      <NsStackLayout
+        xmlns="http://schemas.nativescript.org/tns.xsd"
+        xmlns:w="~/widgets/index"
+        {...props}
+      >
         {this.props.children}
       </NsStackLayout>
     );
