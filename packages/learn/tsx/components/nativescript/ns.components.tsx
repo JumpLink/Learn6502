@@ -2,6 +2,8 @@ import { renderSSR } from "nano-jsx";
 import { NsPage } from "./ns-page.component";
 import { NsHtmlView } from "./ns-html-view.component";
 import { NsImage } from "./ns-image.component";
+import { NsCode } from "./ns-code.compontent";
+import { NsPre } from "./ns-pre.compontent";
 
 // Alternative implementation without DOM API (for server environments)
 export function generateNativeScriptXml(jsx: any): string {
@@ -108,8 +110,8 @@ export const components = {
   // Code
   // pre: (props: any) => <NsSpan textWrap="true" fontSize="14" backgroundColor="#f0f0f0" padding="8" borderRadius="4" {...props} />,
   // code: (props: any) => <NsSpan fontFamily="monospace" backgroundColor="#f0f0f0" {...props} />,
-  pre: (props: any) => null,
-  code: (props: any) => <tt {...props}>{props.children}</tt>,
+  pre: NsPre,
+  code: NsCode,
 
   // Tables (simplified - could be improved with a GridLayout)
   // table: (props: any) => <NsStackLayout marginTop="8" marginBottom="8" {...props} />,
