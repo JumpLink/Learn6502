@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-12 21:12+0200\n"
+"POT-Creation-Date: 2025-05-15 20:43+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -335,39 +335,6 @@ msgstr ""
 msgid "Dark style"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:16
-msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
-msgstr ""
-"Debugge deinen 6502-Assemblercode, gehe dein Programm schrittweise durch und "
-"betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
-"beginnen."
-
-#: ../app-gnome/src/views/main/debugger.blp:37
-msgid "Information"
-msgstr "Information"
-
-#: ../app-gnome/src/views/main/debugger.blp:52
-msgid "Messages"
-msgstr "Meldungen"
-
-#: ../app-gnome/src/views/main/debugger.blp:67
-msgid "Hex Monitor"
-msgstr "Hex-Monitor"
-
-#: ../app-gnome/src/views/main/debugger.blp:82
-msgid "Hexdump"
-msgstr "Hexdump"
-
-#: ../app-gnome/src/views/main/debugger.blp:97
-msgid "Disassembled"
-msgstr "Disassemblierter Code"
-
-#: ../app-gnome/src/views/main/learn.blp:9
-msgid "Learn how to program the 6502 microprocessor."
-msgstr "Lerne, wie man den 6502-Mikroprozessor programmiert."
-
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
 msgid "Zero Page ($0000-$00FF)"
 msgstr "Nullseite ($0000-$00FF)"
@@ -400,6 +367,39 @@ msgstr "Gesamter Speicher ($0000-$FFFF)"
 #: ../app-gnome/src/widgets/debugger/hexdump.blp:9
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
+
+#: ../app-gnome/src/views/main/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
+msgstr ""
+"Debugge deinen 6502-Assemblercode, gehe dein Programm schrittweise durch und "
+"betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
+"beginnen."
+
+#: ../app-gnome/src/views/main/debugger.blp:37
+msgid "Information"
+msgstr "Information"
+
+#: ../app-gnome/src/views/main/debugger.blp:52
+msgid "Messages"
+msgstr "Meldungen"
+
+#: ../app-gnome/src/views/main/debugger.blp:67
+msgid "Hex Monitor"
+msgstr "Hex-Monitor"
+
+#: ../app-gnome/src/views/main/debugger.blp:82
+msgid "Hexdump"
+msgstr "Hexdump"
+
+#: ../app-gnome/src/views/main/debugger.blp:97
+msgid "Disassembled"
+msgstr "Disassemblierter Code"
+
+#: ../app-gnome/src/views/main/learn.blp:9
+msgid "Learn how to program the 6502 microprocessor."
+msgstr "Lerne, wie man den 6502-Mikroprozessor programmiert."
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
 msgid "6502 Assembly Learning Environment"
