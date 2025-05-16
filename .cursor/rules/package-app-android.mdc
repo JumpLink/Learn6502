@@ -1,0 +1,17 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+## Package: `app-android`
+
+- **Purpose:** The Android application version aiming for deep platform integration.
+- **Primary Technologies:** TypeScript and NativeScript (without an additional framework like Angular/Vue).
+- **UI:**
+    - Utilizes custom components written in TypeScript to wrap native Android widgets (e.g., `fab.ts` for `com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton`).
+    - Adheres to Material Design 3 principles.
+    - Focus on a native look and feel.
+- **Event Handling:** Prefers the custom `event-dispatcher.ts` from `packages/6502` over platform-specific event mechanisms to promote consistent event handling logic across platforms.
+- **Key Focus:** Android platform integration, touch-friendly UI, performance on mobile devices, leveraging `6502` core and `common-ui` components.
+- **Platform APIs:** Directly utilizes Android SDK via NativeScript for native features.
+- **Build:** Standard NativeScript and Android build tools (Gradle).

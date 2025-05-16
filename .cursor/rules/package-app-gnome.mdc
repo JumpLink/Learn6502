@@ -1,0 +1,16 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+## Package: `app-gnome`
+
+- **Purpose:** The GNOME desktop application, aiming for a highly integrated native user experience.
+- **Primary Technologies:** GJS (JavaScript for GNOME), TypeScript, GTK, Adwaita styling, and Blueprint (`.blp`) for UI definitions.
+- **UI:**
+    - Leverages native GNOME libraries and Adwaita for a consistent look and feel.
+    - UI logic primarily in GJS/TypeScript.
+- **Event Handling:** Prefers the custom `event-dispatcher.ts` from `packages/6502/` over raw GNOME signals where appropriate, to maintain consistency with other platforms.
+- **Key Focus:** Deep native GNOME integration, adherence to GNOME HIG, leveraging `6502` core and `common-ui` components.
+- **Platform APIs:** Directly utilizes native GNOME platform APIs through GJS for all system interactions.
+- **Build:** Typically involves Meson. If Vite is used, it's likely for specific web-technology parts within GJS.

@@ -1,0 +1,13 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+## Package: `app-web`
+
+- **Purpose:** The web application version.
+- **Primary Technologies:** TypeScript, HTML, CSS. Potentially a modern web framework (e.g., React, Vue, Svelte, or Lit for Web Components). Vite is likely used as a build tool.
+- **Key Focus:** Browser compatibility, responsive design, leveraging `6502` core and `common-ui` components.
+- **UI:** Standard web technologies. If a framework is used, adhere to its best practices.
+- **Styling:** Standard CSS, CSS-in-JS, or utility CSS, depending on the chosen stack. Should adapt `common-ui` styles if necessary.
+- **Build:** Likely uses Vite, as suggested by `vite-plugin-gettext` and `vite-plugin-blueprint` (though blueprint might be more for GNOME, its presence suggests Vite usage in the workspace).
