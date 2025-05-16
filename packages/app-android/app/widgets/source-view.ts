@@ -5,6 +5,7 @@ import {
   Builder,
   booleanConverter,
   Color,
+  Button,
 } from "@nativescript/core";
 import { debounce, EventDispatcher } from "@learn6502/6502";
 import type {
@@ -20,10 +21,14 @@ export class SourceView extends ContentView implements SourceViewWidget {
   private _code: string = "";
   private textView: TextView;
   private lineNumbersView: TextView;
+  private copyButton: Button;
   private _editable: boolean = true;
   private _lineNumbers: boolean = true;
   private _lineNumberStart: number = 1;
   private _selectable: boolean = true;
+  private _copyable: boolean = false;
+  private _copyButtonIcon: string = "";
+  private _copyButtonTooltip: string = "";
 
   public static codeProperty = new Property<SourceView, string>({
     name: "code",
@@ -44,9 +49,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._lineNumbers = newValue;
-      if (target.lineNumbersView) {
-        target.lineNumbersView.visibility = newValue ? "visible" : "collapse";
-      }
     },
   });
 
@@ -56,9 +58,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._editable = newValue;
-      if (target.textView) {
-        target.textView.editable = newValue;
-      }
     },
   });
 
@@ -91,6 +90,40 @@ export class SourceView extends ContentView implements SourceViewWidget {
     },
   });
 
+  public static copyableProperty = new Property<SourceView, boolean>({
+    name: "copyable",
+    defaultValue: false,
+    valueConverter: booleanConverter,
+    valueChanged(target, oldValue, newValue) {
+      target._copyable = newValue;
+    },
+  });
+
+  public static copyButtonIconProperty = new Property<SourceView, string>({
+    name: "copyButtonIcon",
+    defaultValue: "",
+    valueChanged(target, oldValue, newValue) {
+      target._copyButtonIcon = newValue;
+      if (target.copyButton && newValue) {
+        // TODO: Implement icon setting for the button if desired
+        // For now, we'll rely on text or a fixed icon in XML
+        // Example: if using font icons
+        // target.copyButton.text = String.fromCharCode(parseInt(newValue, 16));
+      }
+    },
+  });
+
+  public static copyButtonTooltipProperty = new Property<SourceView, string>({
+    name: "copyButtonTooltip",
+    defaultValue: "",
+    valueChanged(target, oldValue, newValue) {
+      target._copyButtonTooltip = newValue;
+      if (target.copyButton) {
+        target.copyButton.accessibilityLabel = newValue;
+      }
+    },
+  });
+
   get code(): string {
     return this._code;
   }
@@ -112,7 +145,11 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set lineNumbers(value: boolean) {
+    const changed = this._lineNumbers !== value;
     this._lineNumbers = value;
+    if (changed) {
+      this.notifyPropertyChange("lineNumbers", value);
+    }
   }
 
   get editable(): boolean {
@@ -120,7 +157,11 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set editable(value: boolean) {
+    const changed = this._editable !== value;
     this._editable = value;
+    if (changed) {
+      this.notifyPropertyChange("editable", value);
+    }
   }
 
   get readonly(): boolean {
@@ -155,6 +196,39 @@ export class SourceView extends ContentView implements SourceViewWidget {
     this.notifyPropertyChange("selectable", value);
   }
 
+  get copyable(): boolean {
+    return this._copyable;
+  }
+
+  set copyable(value: boolean) {
+    const changed = this._copyable !== value;
+    this._copyable = value;
+    if (changed) {
+      this.notifyPropertyChange("copyable", value);
+    }
+  }
+
+  get copyButtonIcon(): string {
+    return this._copyButtonIcon;
+  }
+
+  set copyButtonIcon(value: string) {
+    this._copyButtonIcon = value;
+    this.notifyPropertyChange("copyButtonIcon", value);
+  }
+
+  get copyButtonTooltip(): string {
+    return this._copyButtonTooltip;
+  }
+
+  set copyButtonTooltip(value: string) {
+    this._copyButtonTooltip = value;
+    if (this.copyButton) {
+      this.copyButton.accessibilityLabel = value;
+    }
+    this.notifyPropertyChange("copyButtonTooltip", value);
+  }
+
   constructor() {
     super();
     this.debouncedHighlighting = debounce((code: string) => {
@@ -180,13 +254,13 @@ export class SourceView extends ContentView implements SourceViewWidget {
     this.textView = componentView.getViewById<TextView>("textView");
     this.lineNumbersView =
       componentView.getViewById<TextView>("lineNumbersView");
+    this.copyButton = componentView.getViewById<Button>("copyButton");
 
     if (!this.textView) {
       throw new Error("Failed to find textView in source-view.xml");
     }
     this.textView.color = new Color("white");
     this.textView.backgroundColor = new Color("transparent");
-    this.textView.editable = this.editable;
 
     if (this.textView.android) {
       const nativeEditText = this.textView.android as android.widget.EditText;
@@ -201,7 +275,17 @@ export class SourceView extends ContentView implements SourceViewWidget {
     }
     this.lineNumbersView.color = new Color("lightgray");
     this.lineNumbersView.backgroundColor = new Color("transparent");
-    this.lineNumbersView.visibility = this.lineNumbers ? "visible" : "collapse";
+
+    if (this.copyButton) {
+      if (this.copyButtonTooltip) {
+        this.copyButton.accessibilityLabel = this.copyButtonTooltip;
+      }
+      this.copyButton.on("tap", () => {
+        this.events.dispatch("copy", { code: this.code });
+      });
+    } else {
+      console.warn("[SourceView] copyButton not found in source-view.xml");
+    }
 
     this.textView.on("textChange", (args: any) => {
       if (this.textView) {
@@ -242,6 +326,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     if (this._code && this.textView.text !== this._code) {
       this.textView.text = this._code;
     }
+    this.selectable = this._selectable;
   }
 
   private applyHighlighting(code: string) {
@@ -335,3 +420,6 @@ SourceView.lineNumbersProperty.register(SourceView);
 SourceView.editableProperty.register(SourceView);
 SourceView.lineNumberStartProperty.register(SourceView);
 SourceView.selectableProperty.register(SourceView);
+SourceView.copyableProperty.register(SourceView);
+SourceView.copyButtonIconProperty.register(SourceView);
+SourceView.copyButtonTooltipProperty.register(SourceView);
