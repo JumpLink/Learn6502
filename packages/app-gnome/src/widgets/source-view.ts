@@ -1,56 +1,61 @@
-import GObject from '@girs/gobject-2.0'
-import Adw from '@girs/adw-1'
-import Gtk from '@girs/gtk-4.0'
-import GtkSource from '@girs/gtksource-5'
-import Gdk from '@girs/gdk-4.0'
-import GLib from '@girs/glib-2.0'
-import Gio from '@girs/gio-2.0'
+import GObject from "@girs/gobject-2.0";
+import Adw from "@girs/adw-1";
+import Gtk from "@girs/gtk-4.0";
+import GtkSource from "@girs/gtksource-5";
+import Gdk from "@girs/gdk-4.0";
+import GLib from "@girs/glib-2.0";
+import Gio from "@girs/gio-2.0";
 
-import Template from './source-view.blp'
+import Template from "./source-view.blp";
 
-import { GutterRendererLineNumbers } from '../gutter-renderer-line-numbers.ts'
-import { GutterRendererMode } from '../types/index.ts'
+import { GutterRendererLineNumbers } from "../gutter-renderer-line-numbers.ts";
+import { GutterRendererMode } from "../types/index.ts";
+import type {
+  SourceViewWidget,
+  SourceViewEventMap,
+} from "@learn6502/common-ui";
+import { EventDispatcher } from "@learn6502/6502";
 
-GtkSource.init()
+GtkSource.init();
 
 export namespace SourceView {
   export interface ConstructorProps extends Partial<Adw.Bin.ConstructorProps> {
     /** The source code of the source view */
-    code?: string
+    code?: string;
     /** The language of the source view */
-    language?: string
+    language?: string;
     /** The starting line number */
-    lineNumberStart?: number
+    lineNumberStart?: number;
     /** Whether to show line numbers */
-    lineNumbers?: boolean
+    lineNumbers?: boolean;
     /** Whether to show no line numbers */
-    noLineNumbers?: boolean
+    noLineNumbers?: boolean;
     /** Whether to fit the content height */
-    fitContentHeight?: boolean
+    fitContentHeight?: boolean;
     /** Whether to fit the content width */
-    fitContentWidth?: boolean
+    fitContentWidth?: boolean;
     /** The height of the source view */
-    height?: number
+    height?: number;
     /** The width of the source view */
-    width?: number
+    width?: number;
     /** Whether to expand the source view horizontally */
-    hexpand?: boolean
+    hexpand?: boolean;
     /** Whether to expand the source view vertically */
-    vexpand?: boolean
+    vexpand?: boolean;
     /** Whether to make the source view readonly */
-    readonly?: boolean
+    readonly?: boolean;
     /** Whether to make the source view editable */
-    editable?: boolean
+    editable?: boolean;
     /** Whether to make the source view selectable */
-    selectable?: boolean
+    selectable?: boolean;
     /** Whether to make the source view unselectable */
-    unselectable?: boolean
+    unselectable?: boolean;
     /** Whether to show the copy button */
-    copyable?: boolean
+    copyable?: boolean;
     /** The icon name for the copy button */
-    copyButtonIcon?: string
+    copyButtonIcon?: string;
     /** The tooltip text for the copy button */
-    copyButtonTooltip?: string
+    copyButtonTooltip?: string;
   }
 }
 
@@ -60,55 +65,166 @@ export namespace SourceView {
  * @emits changed - Emitted when the buffer's text changes
  * @emits copy - Emitted when the copy button is clicked with the current code
  */
-export class SourceView extends Adw.Bin {
+export class SourceView extends Adw.Bin implements SourceViewWidget {
+  readonly events: EventDispatcher<SourceViewEventMap> =
+    new EventDispatcher<SourceViewEventMap>();
 
   // Child widgets
   /** The ScrolledWindow that contains the SourceView */
-  declare private _scrolledWindow: Gtk.ScrolledWindow
+  declare private _scrolledWindow: Gtk.ScrolledWindow;
   /** The SourceView that displays the buffer's display */
-  declare private _sourceView: GtkSource.View
+  declare private _sourceView: GtkSource.View;
   /** The copy button */
-  declare private _copyButton: Gtk.Button
+  declare private _copyButton: Gtk.Button;
 
   static {
-    GObject.registerClass({
-      GTypeName: 'SourceView',
-      Template,
-      InternalChildren: ['sourceView', 'scrolledWindow', 'copyButton'],
-      Signals: {
-        'changed': {
-          param_types: [],
-        },
-        'copy': {
-          param_types: [GObject.TYPE_STRING],
+    GObject.registerClass(
+      {
+        GTypeName: "SourceView",
+        Template,
+        InternalChildren: ["sourceView", "scrolledWindow", "copyButton"],
+        Properties: {
+          code: GObject.ParamSpec.string(
+            "code",
+            "Code",
+            "The source code of the source view",
+            GObject.ParamFlags.READWRITE,
+            ""
+          ),
+          language: GObject.ParamSpec.string(
+            "language",
+            "Language",
+            "The language of the source view",
+            GObject.ParamFlags.READWRITE,
+            ""
+          ),
+          readonly: GObject.ParamSpec.boolean(
+            "readonly",
+            "Readonly",
+            "Whether the source view is readonly",
+            GObject.ParamFlags.READWRITE,
+            false
+          ),
+          editable: GObject.ParamSpec.boolean(
+            "editable",
+            "Editable",
+            "Whether the source view is editable",
+            GObject.ParamFlags.READWRITE,
+            true
+          ),
+          selectable: GObject.ParamSpec.boolean(
+            "selectable",
+            "Focusable",
+            "Whether the source view is selectable",
+            GObject.ParamFlags.READWRITE,
+            true
+          ),
+          unselectable: GObject.ParamSpec.boolean(
+            "unselectable",
+            "Unselectable",
+            "Whether the source view is unselectable",
+            GObject.ParamFlags.READWRITE,
+            false
+          ),
+          lineNumbers: GObject.ParamSpec.boolean(
+            "line-numbers",
+            "Line Numbers",
+            "Whether the source view has line numbers",
+            GObject.ParamFlags.READWRITE,
+            true
+          ),
+          noLineNumbers: GObject.ParamSpec.boolean(
+            "no-line-numbers",
+            "No Line Numbers",
+            "Whether the source view has no line numbers",
+            GObject.ParamFlags.READWRITE,
+            false
+          ),
+          lineNumberStart: GObject.ParamSpec.uint(
+            "line-number-start",
+            "Line Number Start",
+            "The starting value for line numbers",
+            GObject.ParamFlags.READWRITE,
+            0,
+            GLib.MAXUINT32,
+            1
+          ),
+          hexpand: GObject.ParamSpec.boolean(
+            "hexpand",
+            "Hexpand",
+            "Whether the source view is hexpand",
+            GObject.ParamFlags.READWRITE,
+            true
+          ),
+          vexpand: GObject.ParamSpec.boolean(
+            "vexpand",
+            "Vexpand",
+            "Whether the source view is vexpand",
+            GObject.ParamFlags.READWRITE,
+            true
+          ),
+          fitContentHeight: GObject.ParamSpec.boolean(
+            "fit-content-height",
+            "Fit Content Height",
+            "Whether the source view should fit the content height",
+            GObject.ParamFlags.READWRITE,
+            false
+          ),
+          fitContentWidth: GObject.ParamSpec.boolean(
+            "fit-content-width",
+            "Fit Content Width",
+            "Whether the source view should fit the content width",
+            GObject.ParamFlags.READWRITE,
+            false
+          ),
+          height: GObject.ParamSpec.uint(
+            "height",
+            "Height",
+            "The height of the source view",
+            GObject.ParamFlags.READWRITE,
+            0,
+            GLib.MAXUINT32,
+            0
+          ),
+          width: GObject.ParamSpec.uint(
+            "width",
+            "Width",
+            "The width of the source view",
+            GObject.ParamFlags.READWRITE,
+            0,
+            GLib.MAXUINT32,
+            0
+          ),
+          copyable: GObject.ParamSpec.boolean(
+            "copyable",
+            "Copyable",
+            "Whether the source view has a copy button",
+            GObject.ParamFlags.READWRITE,
+            false
+          ),
+          copyButtonIcon: GObject.ParamSpec.string(
+            "copy-button-icon",
+            "Copy Button Icon",
+            "The icon name for the copy button",
+            GObject.ParamFlags.READWRITE,
+            "move-to-window-symbolic"
+          ),
+          copyButtonTooltip: GObject.ParamSpec.string(
+            "copy-button-tooltip",
+            "Copy Button Tooltip",
+            "The tooltip text for the copy button",
+            GObject.ParamFlags.READWRITE,
+            ""
+          ),
         },
       },
-      Properties: {
-        code: GObject.ParamSpec.string('code', 'Code', 'The source code of the source view', GObject.ParamFlags.READWRITE, ''),
-        language: GObject.ParamSpec.string('language', 'Language', 'The language of the source view', GObject.ParamFlags.READWRITE, ''),
-        readonly: GObject.ParamSpec.boolean('readonly', 'Readonly', 'Whether the source view is readonly', GObject.ParamFlags.READWRITE, false),
-        editable: GObject.ParamSpec.boolean('editable', 'Editable', 'Whether the source view is editable', GObject.ParamFlags.READWRITE, true),
-        selectable: GObject.ParamSpec.boolean('selectable', 'Focusable', 'Whether the source view is selectable', GObject.ParamFlags.READWRITE, true),
-        unselectable: GObject.ParamSpec.boolean('unselectable', 'Unselectable', 'Whether the source view is unselectable', GObject.ParamFlags.READWRITE, false),
-        lineNumbers: GObject.ParamSpec.boolean('line-numbers', 'Line Numbers', 'Whether the source view has line numbers', GObject.ParamFlags.READWRITE, true),
-        noLineNumbers: GObject.ParamSpec.boolean('no-line-numbers', 'No Line Numbers', 'Whether the source view has no line numbers', GObject.ParamFlags.READWRITE, false),
-        lineNumberStart: GObject.ParamSpec.uint('line-number-start', 'Line Number Start', 'The starting value for line numbers', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 1),
-        hexpand: GObject.ParamSpec.boolean('hexpand', 'Hexpand', 'Whether the source view is hexpand', GObject.ParamFlags.READWRITE, true),
-        vexpand: GObject.ParamSpec.boolean('vexpand', 'Vexpand', 'Whether the source view is vexpand', GObject.ParamFlags.READWRITE, true),
-        fitContentHeight: GObject.ParamSpec.boolean('fit-content-height', 'Fit Content Height', 'Whether the source view should fit the content height', GObject.ParamFlags.READWRITE, false),
-        fitContentWidth: GObject.ParamSpec.boolean('fit-content-width', 'Fit Content Width', 'Whether the source view should fit the content width', GObject.ParamFlags.READWRITE, false),
-        height: GObject.ParamSpec.uint('height', 'Height', 'The height of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
-        width: GObject.ParamSpec.uint('width', 'Width', 'The width of the source view', GObject.ParamFlags.READWRITE, 0, GLib.MAXUINT32, 0),
-        copyable: GObject.ParamSpec.boolean('copyable', 'Copyable', 'Whether the source view has a copy button', GObject.ParamFlags.READWRITE, false),
-        copyButtonIcon: GObject.ParamSpec.string('copy-button-icon', 'Copy Button Icon', 'The icon name for the copy button', GObject.ParamFlags.READWRITE, 'move-to-window-symbolic'),
-        copyButtonTooltip: GObject.ParamSpec.string('copy-button-tooltip', 'Copy Button Tooltip', 'The tooltip text for the copy button', GObject.ParamFlags.READWRITE, ''),
-      },
-    }, this);
+      this
+    );
   }
 
   /** The source code of the source view */
   public set code(value: string) {
-    if(value === this.code) {
+    if (value === this.code) {
       return;
     }
     this.buffer.text = value;
@@ -167,26 +283,29 @@ export class SourceView extends Adw.Bin {
    * @param language - The language of the source view, e.g. '6502-assembler'
    */
   public set language(language: string) {
-    if(language === '') {
+    if (language === "") {
       this.buffer.set_language(null);
       return;
     }
     const languageManager = GtkSource.LanguageManager.get_default();
     const assemblyLanguage = languageManager.get_language(language);
     if (!assemblyLanguage) {
-      throw new Error(`Language "${language}" not found`)
+      throw new Error(`Language "${language}" not found`);
     }
     this.buffer.set_language(assemblyLanguage);
 
     // Update line number renderer mode based on language
-    if (language === 'hex') {
+    if (language === "hex") {
       // Switch to hex mode if line numbers are enabled
       if (this.lineNumbers) {
         this.setupLineNumbers(GutterRendererMode.HEX);
       }
 
       // Set up copy clipboard handling for hex mode
-      this.copyClipboardSignalId = this._sourceView.connect_after('copy-clipboard', this.onCopyHexClipboard.bind(this));
+      this.copyClipboardSignalId = this._sourceView.connect_after(
+        "copy-clipboard",
+        this.onCopyHexClipboard.bind(this)
+      );
     } else {
       // Switch to normal mode if line numbers are enabled
       if (this.lineNumbers) {
@@ -198,7 +317,10 @@ export class SourceView extends Adw.Bin {
         try {
           this._sourceView.disconnect(this.copyClipboardSignalId);
         } catch (error) {
-          console.error('[SourceView] Failed to disconnect copy clipboard signal', error)
+          console.error(
+            "[SourceView] Failed to disconnect copy clipboard signal",
+            error
+          );
         }
         this.copyClipboardSignalId = undefined;
       }
@@ -212,7 +334,7 @@ export class SourceView extends Adw.Bin {
    * @returns The language of the source view, e.g. '6502-assembler'
    */
   public get language(): string {
-    return this.buffer.language?.id ?? '';
+    return this.buffer.language?.id ?? "";
   }
 
   /**
@@ -224,8 +346,8 @@ export class SourceView extends Adw.Bin {
     if (this._selectable === value) {
       return;
     }
-    if (typeof value !== 'boolean') {
-      console.warn('selectable must be a boolean, got ' + typeof value);
+    if (typeof value !== "boolean") {
+      console.warn("selectable must be a boolean, got " + typeof value);
       return;
     }
     this._selectable = value;
@@ -265,7 +387,6 @@ export class SourceView extends Adw.Bin {
    * @param value - Whether the source view has line numbers
    */
   public set lineNumbers(value: boolean) {
-
     // Always hide GtkSourceView's built-in line numbers
     this._sourceView.show_line_numbers = false;
 
@@ -273,8 +394,10 @@ export class SourceView extends Adw.Bin {
       // Always initialize our custom renderer for line numbers
       if (!this.renderer) {
         // Initialize our custom renderer with appropriate mode
-        const isHexMode = this.language === 'hex';
-        this.setupLineNumbers(isHexMode ? GutterRendererMode.HEX : GutterRendererMode.NORMAL);
+        const isHexMode = this.language === "hex";
+        this.setupLineNumbers(
+          isHexMode ? GutterRendererMode.HEX : GutterRendererMode.NORMAL
+        );
       }
     } else {
       // Hide line numbers by removing the renderer
@@ -321,9 +444,15 @@ export class SourceView extends Adw.Bin {
   public set fitContentHeight(value: boolean) {
     const [hPolicy] = this._scrolledWindow.get_policy();
     if (value) {
-      this._scrolledWindow.set_policy(hPolicy || Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
+      this._scrolledWindow.set_policy(
+        hPolicy || Gtk.PolicyType.AUTOMATIC,
+        Gtk.PolicyType.NEVER
+      );
     } else {
-      this._scrolledWindow.set_policy(hPolicy || Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
+      this._scrolledWindow.set_policy(
+        hPolicy || Gtk.PolicyType.AUTOMATIC,
+        Gtk.PolicyType.AUTOMATIC
+      );
     }
   }
 
@@ -339,21 +468,27 @@ export class SourceView extends Adw.Bin {
    * @param value - Whether the source view should fit the content width
    */
   public set fitContentWidth(value: boolean) {
-    const [,vPolicy] = this._scrolledWindow.get_policy();
+    const [, vPolicy] = this._scrolledWindow.get_policy();
     if (value) {
-      this._scrolledWindow.set_policy(Gtk.PolicyType.NEVER, vPolicy || Gtk.PolicyType.AUTOMATIC);
+      this._scrolledWindow.set_policy(
+        Gtk.PolicyType.NEVER,
+        vPolicy || Gtk.PolicyType.AUTOMATIC
+      );
     } else {
-      this._scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, vPolicy || Gtk.PolicyType.AUTOMATIC);
+      this._scrolledWindow.set_policy(
+        Gtk.PolicyType.AUTOMATIC,
+        vPolicy || Gtk.PolicyType.AUTOMATIC
+      );
     }
   }
 
   public get fitContentWidth(): boolean {
-    const [,vPolicy] = this._scrolledWindow.get_policy();
+    const [, vPolicy] = this._scrolledWindow.get_policy();
     return vPolicy === Gtk.PolicyType.NEVER;
   }
 
   public set height(value: number) {
-    if(value > 0) {
+    if (value > 0) {
       this._scrolledWindow.height_request = value;
     } else {
       this._scrolledWindow.height_request = -1;
@@ -365,7 +500,7 @@ export class SourceView extends Adw.Bin {
   }
 
   public set width(value: number) {
-    if(value > 0) {
+    if (value > 0) {
       this._scrolledWindow.width_request = value;
     } else {
       this._scrolledWindow.width_request = -1;
@@ -408,67 +543,87 @@ export class SourceView extends Adw.Bin {
   private _actionGroup: Gio.SimpleActionGroup;
 
   constructor(params: Partial<SourceView.ConstructorProps> = {}) {
-    const { lineNumberStart, lineNumbers, noLineNumbers, fitContentHeight, fitContentWidth, height, width, hexpand, vexpand, readonly, editable, selectable, unselectable, language, code, copyable, copyButtonIcon, copyButtonTooltip, ...rest } = params;
+    const {
+      lineNumberStart,
+      lineNumbers,
+      noLineNumbers,
+      fitContentHeight,
+      fitContentWidth,
+      height,
+      width,
+      hexpand,
+      vexpand,
+      readonly,
+      editable,
+      selectable,
+      unselectable,
+      language,
+      code,
+      copyable,
+      copyButtonIcon,
+      copyButtonTooltip,
+      ...rest
+    } = params;
     super(rest);
     this.setupScrolledWindow();
 
     // Setup action group and actions
     this._actionGroup = new Gio.SimpleActionGroup();
-    this.insert_action_group('source-view', this._actionGroup);
+    this.insert_action_group("source-view", this._actionGroup);
     this._setupActions();
 
-    if(lineNumberStart !== undefined) {
+    if (lineNumberStart !== undefined) {
       this.lineNumberStart = lineNumberStart;
     }
-    if(lineNumbers !== undefined) {
+    if (lineNumbers !== undefined) {
       this.lineNumbers = lineNumbers;
     }
-    if(noLineNumbers !== undefined) {
+    if (noLineNumbers !== undefined) {
       this.noLineNumbers = noLineNumbers;
     }
-    if(fitContentHeight !== undefined) {
+    if (fitContentHeight !== undefined) {
       this.fitContentHeight = fitContentHeight;
     }
-    if(fitContentWidth !== undefined) {
+    if (fitContentWidth !== undefined) {
       this.fitContentWidth = fitContentWidth;
     }
-    if(height !== undefined) {
+    if (height !== undefined) {
       this.height = height;
     }
-    if(width !== undefined) {
+    if (width !== undefined) {
       this.width = width;
     }
-    if(hexpand !== undefined) {
+    if (hexpand !== undefined) {
       this.hexpand = hexpand;
     }
-    if(vexpand !== undefined) {
+    if (vexpand !== undefined) {
       this.vexpand = vexpand;
     }
-    if(readonly !== undefined) {
+    if (readonly !== undefined) {
       this.readonly = readonly;
     }
-    if(editable !== undefined) {
+    if (editable !== undefined) {
       this.editable = editable;
     }
-    if(selectable !== undefined) {
+    if (selectable !== undefined) {
       this.selectable = selectable;
     }
-    if(unselectable !== undefined) {
+    if (unselectable !== undefined) {
       this.unselectable = unselectable;
     }
-    if(copyable !== undefined) {
+    if (copyable !== undefined) {
       this.copyable = copyable;
     }
-    if(copyButtonIcon !== undefined) {
+    if (copyButtonIcon !== undefined) {
       this.copyButtonIcon = copyButtonIcon;
     }
-    if(copyButtonTooltip !== undefined) {
+    if (copyButtonTooltip !== undefined) {
       this.copyButtonTooltip = copyButtonTooltip;
     }
-    if(language !== undefined) {
+    if (language !== undefined) {
       this.language = language;
     }
-    if(code !== undefined) {
+    if (code !== undefined) {
       this.code = code;
     }
 
@@ -480,11 +635,11 @@ export class SourceView extends Adw.Bin {
       this.setupLineNumbers(GutterRendererMode.NORMAL);
     }
 
-    this.language = '6502-assembler';
+    this.language = "6502-assembler";
     this.setupSignalListeners();
     this.updateStyle();
 
-    this.code = 'LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202'
+    this.code = "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
   }
 
   private setupScrolledWindow() {
@@ -500,13 +655,13 @@ export class SourceView extends Adw.Bin {
    */
   private setupSignalListeners() {
     // cannot use "changed" signal as it triggers many time for pasting
-    this.buffer.connect('end-user-action', this.emitChanged.bind(this));
-    this.buffer.connect('undo', this.emitChanged.bind(this));
-    this.buffer.connect('redo', this.emitChanged.bind(this));
+    this.buffer.connect("end-user-action", this.emitChanged.bind(this));
+    this.buffer.connect("undo", this.emitChanged.bind(this));
+    this.buffer.connect("redo", this.emitChanged.bind(this));
 
-    this.buffer.connect_after('cursor-moved', this.onCursorMoved.bind(this));
+    this.buffer.connect_after("cursor-moved", this.onCursorMoved.bind(this));
 
-    this.styleManager.connect('notify::dark', this.updateStyle.bind(this));
+    this.styleManager.connect("notify::dark", this.updateStyle.bind(this));
   }
 
   private onCursorMoved(buffer: GtkSource.Buffer) {
@@ -543,7 +698,7 @@ export class SourceView extends Adw.Bin {
 
     // Set properties
     this.renderer.mode = mode;
-    if(this._lineNumberStart !== undefined) {
+    if (this._lineNumberStart !== undefined) {
       this.renderer.startValue = this._lineNumberStart;
     }
 
@@ -556,16 +711,16 @@ export class SourceView extends Adw.Bin {
    * @returns
    */
   private onCopyHexClipboard() {
-    const buffer = this._sourceView.buffer
-    const [hasSelection, start, end] = buffer.get_selection_bounds()
+    const buffer = this._sourceView.buffer;
+    const [hasSelection, start, end] = buffer.get_selection_bounds();
 
     if (hasSelection) {
-      const text = buffer.get_text(start, end, false)
-      const cleanedText = text.replace(/\s/g, '')
+      const text = buffer.get_text(start, end, false);
+      const cleanedText = text.replace(/\s/g, "");
 
       const display = this.get_display(); // Gdk.Display.get_default();
       if (!display) {
-        console.error('No display found')
+        console.error("No display found");
         return false;
       }
       const clipboard = display.get_clipboard();
@@ -574,20 +729,20 @@ export class SourceView extends Adw.Bin {
       value.init(GObject.TYPE_STRING);
       value.set_string(cleanedText);
 
-      const contentProvider = Gdk.ContentProvider.new_for_value(value)
-      const success = clipboard.set_content(contentProvider)
+      const contentProvider = Gdk.ContentProvider.new_for_value(value);
+      const success = clipboard.set_content(contentProvider);
       return true;
     }
 
-    return false
+    return false;
   }
 
   private selectableChanged() {
     // Disconnect all existing signal handlers
     try {
-      this._selectableSignalIds.forEach(id => this.disconnect(id));
+      this._selectableSignalIds.forEach((id) => this.disconnect(id));
     } catch (error) {
-      console.error('[SourceView] Failed to disconnect signal handlers', error)
+      console.error("[SourceView] Failed to disconnect signal handlers", error);
     }
     this._selectableSignalIds = [];
 
@@ -595,31 +750,54 @@ export class SourceView extends Adw.Bin {
     this._sourceView.cursor_visible = this._selectable;
 
     // Stop here if selection is allowed
-    if(this._selectable) {
+    if (this._selectable) {
       return;
     }
 
     // Prevent selection by double click
-    this._selectableSignalIds.push(this._sourceView.connect('extend-selection', (sourceView: GtkSource.View, granularity: Gtk.TextExtendSelection, location: Gtk.TextIter, start: Gtk.TextIter, end: Gtk.TextIter) => {
-      GObject.signal_stop_emission_by_name(this._sourceView, 'extend-selection');
-    }));
+    this._selectableSignalIds.push(
+      this._sourceView.connect(
+        "extend-selection",
+        (
+          sourceView: GtkSource.View,
+          granularity: Gtk.TextExtendSelection,
+          location: Gtk.TextIter,
+          start: Gtk.TextIter,
+          end: Gtk.TextIter
+        ) => {
+          GObject.signal_stop_emission_by_name(
+            this._sourceView,
+            "extend-selection"
+          );
+        }
+      )
+    );
 
     // Prevent selection
-    this._selectableSignalIds.push(this.buffer.connect('mark-set', (buffer: GtkSource.Buffer, location: Gtk.TextIter, mark: Gtk.TextMark) => {
-      if(mark.name === 'insert' || mark.name === 'selection_bound') {
-        const offset = location.get_offset();
-        if(offset !== 0) {
-          location.set_offset(0);
-          this.buffer.move_mark(mark, location);
-          GObject.signal_stop_emission_by_name(this.buffer, 'mark-set');
+    this._selectableSignalIds.push(
+      this.buffer.connect(
+        "mark-set",
+        (
+          buffer: GtkSource.Buffer,
+          location: Gtk.TextIter,
+          mark: Gtk.TextMark
+        ) => {
+          if (mark.name === "insert" || mark.name === "selection_bound") {
+            const offset = location.get_offset();
+            if (offset !== 0) {
+              location.set_offset(0);
+              this.buffer.move_mark(mark, location);
+              GObject.signal_stop_emission_by_name(this.buffer, "mark-set");
+            }
+          }
         }
-      }
-    }));
+      )
+    );
   }
 
   private emitChanged() {
-    this.emit("changed");
-  };
+    this.events.dispatch("changed", { code: this.code });
+  }
 
   /**
    * Update the style of the source view.
@@ -627,10 +805,10 @@ export class SourceView extends Adw.Bin {
    */
   private updateStyle() {
     const scheme = this.schemeManager.get_scheme(
-      this.styleManager.dark ? "Adwaita-dark" : "Adwaita",
+      this.styleManager.dark ? "Adwaita-dark" : "Adwaita"
     );
     this.buffer.set_style_scheme(scheme);
-  };
+  }
 
   /**
    * Set the line number start value
@@ -666,8 +844,8 @@ export class SourceView extends Adw.Bin {
    * @param value - Whether the source view is copyable
    */
   public set copyable(value: boolean) {
-    if (typeof value !== 'boolean') {
-      console.warn('copyable must be a boolean, got ' + typeof value);
+    if (typeof value !== "boolean") {
+      console.warn("copyable must be a boolean, got " + typeof value);
       return;
     }
     this._copyButton.visible = value;
@@ -688,8 +866,8 @@ export class SourceView extends Adw.Bin {
    * @param value - The icon name for the copy button
    */
   public set copyButtonIcon(value: string) {
-    if (typeof value !== 'string') {
-      console.warn('copyButtonIcon must be a string, got ' + typeof value);
+    if (typeof value !== "string") {
+      console.warn("copyButtonIcon must be a string, got " + typeof value);
       return;
     }
     this._copyButton.icon_name = value;
@@ -710,8 +888,8 @@ export class SourceView extends Adw.Bin {
    * @param value - The tooltip text for the copy button
    */
   public set copyButtonTooltip(value: string) {
-    if (typeof value !== 'string') {
-      console.warn('copyButtonTooltip must be a string, got ' + typeof value);
+    if (typeof value !== "string") {
+      console.warn("copyButtonTooltip must be a string, got " + typeof value);
       return;
     }
     this._copyButton.tooltip_text = value;
@@ -723,15 +901,15 @@ export class SourceView extends Adw.Bin {
    * @returns The tooltip text for the copy button
    */
   public get copyButtonTooltip(): string {
-    return this._copyButton.tooltip_text || '';
+    return this._copyButton.tooltip_text || "";
   }
 
   /**
    * Setup actions for this source view
    */
   private _setupActions() {
-    const copyAction = new Gio.SimpleAction({ name: 'copy' });
-    copyAction.connect('activate', this._onCopy.bind(this));
+    const copyAction = new Gio.SimpleAction({ name: "copy" });
+    copyAction.connect("activate", this._onCopy.bind(this));
     this._actionGroup.add_action(copyAction);
   }
 
@@ -739,8 +917,8 @@ export class SourceView extends Adw.Bin {
    * Handle the copy action
    */
   private _onCopy() {
-    this.emit('copy', this.code);
+    this.events.dispatch("copy", { code: this.code });
   }
 }
 
-GObject.type_ensure(SourceView.$gtype)
+GObject.type_ensure(SourceView.$gtype);

@@ -1,0 +1,5 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo"
+    xmlns:mdx="~/mdx/index" actionBarHidden="true"
+    class="bg-surface text-on-surface">
+    <mdx:TutorialView id="tutorialView" class="mx-4" />
+</Page>

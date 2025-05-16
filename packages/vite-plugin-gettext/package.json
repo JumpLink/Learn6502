@@ -14,15 +14,17 @@
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0-only",
   "devDependencies": {
-    "@types/node": "^22.14.1",
+    "@types/gettext-parser": "^8.0.0",
+    "@types/node": "^22.15.18",
+    "gettext-parser": "^8.0.0",
     "typescript": "^5.8.3",
-    "vite": "^6.2.6"
+    "vite": "^6.3.5"
   },
   "peerDependencies": {
     "vite": "*"
   },
   "dependencies": {
-    "execa": "^9.5.2",
+    "execa": "^9.5.3",
     "fast-glob": "^3.3.3"
   }
 }

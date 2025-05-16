@@ -1,0 +1,53 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+      xmlns:w="~/widgets/index"
+      navigatingTo="onNavigatingTo"
+      class="bg-surface">
+    <ActionBar class="bg-surface text-on-surface" title="Editor" flat="true">
+        <NavigationButton visibility="collapse" />
+    </ActionBar>
+
+    <GridLayout rows="*, auto">
+        <!-- Main editor with source view - explicit height/width and styleClass to ensure visibility -->
+        <w:SourceView id="sourceView" row="0" 
+                     code="{{ code }}" 
+                     height="100%" width="100%"
+                     class="w-full h-full" />
+                       
+        <!-- Bottom help section - collapsed by default -->
+        <StackLayout id="helpPanel" row="1" 
+                     class="bg-surface-container-high p-4" 
+                     visibility="collapsed">
+            <Label text="Quick Help" class="text-on-surface text-lg font-bold" />
+            <ScrollView height="200">
+                <StackLayout class="p-2">
+                    <Label textWrap="true" class="text-on-surface">
+                        <FormattedString>
+                            <Span text="Opcodes: " fontWeight="bold" />
+                            <Span text="LDA, LDX, LDY, STA, STX, STY, INX, INY, DEX, DEY, ..." />
+                        </FormattedString>
+                    </Label>
+                    <Label textWrap="true" class="text-on-surface">
+                        <FormattedString>
+                            <Span text="Addressing Modes: " fontWeight="bold" />
+                            <Span text="Immediate (#$01), Absolute ($0200), Zero Page ($00)" />
+                        </FormattedString>
+                    </Label>
+                    <Label textWrap="true" class="text-on-surface">
+                        <FormattedString>
+                            <Span text="Branching: " fontWeight="bold" />
+                            <Span text="BEQ, BNE, BCS, BCC, BMI, BPL" />
+                        </FormattedString>
+                    </Label>
+                </StackLayout>
+            </ScrollView>
+        </StackLayout>
+        
+        <!-- Help toggle button -->
+        <Button id="helpToggleButton" row="1" 
+                text="Show Help" 
+                class="bg-secondary text-on-secondary m-4 z-10 rounded-full"
+                horizontalAlignment="right" 
+                verticalAlignment="bottom"
+                tap="onHelpToggleTap" />
+    </GridLayout>
+</Page>

@@ -1,16 +1,19 @@
 ## Memory Map
+
 - **Zero Page**: `$0000`-`$00FF` (first 256 bytes, faster access)
 - **Stack**: `$0100`-`$01FF`
 - **Display Memory**: `$0200`-`$05FF` (used for screen output)
 - **Program Storage**: Starting at `$0600`
 
 ## Display Organization
+
 - Screen maps to memory range `$0200`-`$05FF`
 - Values `$00`-`$0F` represent 16 different colors (`$00`=black, `$01`=white)
 - Organized as four horizontal strips of 32×8 pixels
 - First row: `$0200`-`$021F`, second row: `$0220`-`$023F`, etc.
 
 ### Color Palette
+
 - **`$0`**: Black (`#000000`)
 - **`$1`**: White (`#ffffff`)
 - **`$2`**: Red (`#880000`)
@@ -29,12 +32,14 @@
 - **`$f`**: Light grey (`#bbbbbb`)
 
 ## Registers
+
 - **A** (Accumulator): Main register for calculations and data manipulation
 - **X, Y**: Index registers for addressing and counting
 - **SP** (Stack Pointer): Points to current stack position (starts at `$FF`)
 - **PC** (Program Counter): Points to the next instruction to execute
 
 ## Processor Flags
+
 - **N** (Negative): Set when bit 7 of result is set
 - **V** (Overflow): Set when arithmetic operation causes signed overflow
 - **B** (Break): Set when BRK instruction is executed
@@ -45,6 +50,7 @@
 - Used for conditional branching
 
 ## Addressing Modes
+
 - **Immediate** (`#$c0`): Use the actual value
 - **Zero Page** (`$c0`): Access memory locations `$00`-`$FF`
 - **Absolute** (`$c000`): Access any memory location
@@ -55,6 +61,7 @@
 - **Indirect Indexed** (`($c0),Y`): Dereference zero page address, then add Y
 
 ## Common Instructions
+
 - **LDA/LDX/LDY**: Load registers
 - **STA/STX/STY**: Store registers to memory
 - **INX/INY/DEX/DEY**: Increment/decrement registers
@@ -65,20 +72,24 @@
 - **PHA/PLA**: Push/pull accumulator to/from stack
 
 ## Special Memory Locations (in Simulator)
+
 - **`$FE`**: Random number generator (reads as a random value 0-255)
 - **`$FF`**: Last pressed key (ASCII code)
 
 **Directional controls**:
+
 - **W** or Up Arrow key (`$77`)
 - **A** or Left Arrow key (`$61`)
 - **S** or Down Arrow key (`$73`)
 - **D** or Right Arrow key (`$64`)
 
 **Action buttons**:
+
 - **Q** or Enter/Return key (`$0D`)
 - **E** or Space key (`$20`)
 
 ## Snake Game Memory Usage
+
 - **`$00`-`$01`**: Apple position
 - **`$02`**: Snake direction (1=up, 2=right, 4=down, 8=left)
 - **`$03`**: Snake length

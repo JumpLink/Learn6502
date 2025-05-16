@@ -125,6 +125,10 @@ dist
 # https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
 .yarn/*
 !.yarn/cache
+# Ignore all nativescript cached package files, we only need the cache for Flatpak, not for Android
+.yarn/cache/@nativescript-*
+.yarn/cache/@ionic-*
+
 !.yarn/patches
 !.yarn/plugins
 !.yarn/releases
@@ -139,3 +143,6 @@ vite.config.js.timestamp*
 flatpak-build/
 repo/
 eu.jumplink.Learn6502.tar.gz
+
+# Android Studio
+.idea/

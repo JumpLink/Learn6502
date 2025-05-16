@@ -1,3 +1,3 @@
 export interface Symbols {
-    lookup(name: string): string | undefined;
+  lookup(name: string): string | undefined;
 }

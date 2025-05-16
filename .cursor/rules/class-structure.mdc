@@ -1,0 +1,47 @@
+---
+description: Defines the preferred order of class members in TypeScript/JavaScript classes
+globs: ["**/*.ts", "**/*.tsx"]
+alwaysApply: true
+---
+
+Class member ordering (top to bottom):
+1. Static properties (public, protected, private)
+2. Instance properties (public, protected, private)
+3. Constructor
+4. Static methods (public, protected, private)
+5. Instance methods (public, protected, private)
+
+Within each category, order by:
+- Public members first
+- Protected members second
+- Private members last
+
+Example:
+```typescript
+class Example {
+  // 1. Static properties
+  public static readonly PUBLIC_STATIC = 'public';
+  protected static PROTECTED_STATIC = 'protected';
+  private static PRIVATE_STATIC = 'private';
+
+  // 2. Instance properties
+  public readonly publicProp: string;
+  protected protectedProp: string;
+  private privateProp: string;
+
+  // 3. Constructor
+  constructor() {
+    // initialization
+  }
+
+  // 4. Static methods
+  public static publicStaticMethod() {}
+  protected static protectedStaticMethod() {}
+  private static privateStaticMethod() {}
+
+  // 5. Instance methods
+  public publicMethod() {}
+  protected protectedMethod() {}
+  private privateMethod() {}
+}
+```

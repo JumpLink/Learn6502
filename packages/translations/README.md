@@ -23,6 +23,7 @@ New language translations are always welcome! You can start a new language trans
 ## Translation Guidelines
 
 1. **Do not translate**:
+
    - Technical terms (6502, Assembly, CPU, registers)
    - Command names and mnemonics (LDA, STA, BRK)
    - Variable names and placeholders

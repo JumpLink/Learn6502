@@ -26,14 +26,14 @@ Add the plugin to your Vite configuration:
 
 ```javascript
 // vite.config.js / vite.config.ts
-import { defineConfig } from 'vite';
-import blueprintPlugin from '@learn6502/vite-plugin-blueprint';
+import { defineConfig } from "vite";
+import blueprintPlugin from "@learn6502/vite-plugin-blueprint";
 
 export default defineConfig({
   plugins: [
     blueprintPlugin({
-      minify: true // optional, defaults to false
-    })
+      minify: true, // optional, defaults to false
+    }),
   ],
   // ... other configurations
 });
@@ -42,7 +42,7 @@ export default defineConfig({
 Then, you can import `.blp` files directly in your code:
 
 ```javascript
-import myUIXML from './path/to/my-ui.blp';
+import myUIXML from "./path/to/my-ui.blp";
 console.log(myUIXML); // This will log the compiled XML content as a string
 ```
 
@@ -51,16 +51,16 @@ console.log(myUIXML); // This will log the compiled XML content as a string
 To use the plugin with TypeScript, you need to declare the module for `.blp` files in a `.d.ts` file:
 
 ```typescript
-declare module '*.blp' {
-  const content: string
-  export default content
+declare module "*.blp" {
+  const content: string;
+  export default content;
 }
 ```
 
 Then, you can import `.blp` files in your TypeScript code:
 
 ```typescript
-import myUIXML from './path/to/my-ui.blp';
+import myUIXML from "./path/to/my-ui.blp";
 console.log(myUIXML); // This will log the compiled XML content as a string
 ```
 

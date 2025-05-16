@@ -1,19 +1,19 @@
 {
-    "name": "@learn6502/6502",
-    "version": "0.2.0",
-    "description": "6502 assembler and simulator in Javascript",
-    "main": "dist/index.js",
-    "type": "module",
-    "private": true,
-    "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
-        "clear": "rm -rf dist",
-        "check": "tsc --noEmit",
-        "build": "echo \"tsc\" && tsc --declaration"
-    },
-    "author": "Stian Soreng, Nick Morgan, Pascal Garber",
-    "license": "GPL-3.0-only",
-    "devDependencies": {
-        "typescript": "^5.8.3"
-    }
+  "name": "@learn6502/6502",
+  "version": "0.2.0",
+  "description": "6502 assembler and simulator in Javascript",
+  "main": "dist/index.js",
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clear": "rm -rf dist",
+    "check": "tsc --noEmit",
+    "build": "echo \"tsc\" && tsc --declaration"
+  },
+  "author": "Stian Soreng, Nick Morgan, Pascal Garber",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "typescript": "^5.8.3"
+  }
 }
