@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-16 14:56+0200\n"
+"POT-Creation-Date: 2025-05-16 16:02+0200\n"
 "PO-Revision-Date: 2025-04-05 06:04+0000\n"
 "Last-Translator: Pascal Garber <pascal@artandcode.studio>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eu-jumplink-"
@@ -1058,9 +1058,8 @@ msgstr ""
 msgid ""
 "<tt>PC</tt> is the program counter - it's how the processor knows at what "
 "point in the program it currently is. It's like the current line number of "
-"an executing script. In the JavaScript simulator the code is assembled "
-"starting at memory location <tt>$0600</tt>, so <tt>PC</tt> always starts "
-"there."
+"an executing script. In the simulator the code is assembled starting at "
+"memory location <tt>$0600</tt>, so <tt>PC</tt> always starts there."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:29
@@ -1102,7 +1101,7 @@ msgid ""
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:39
-msgid "In the simulator below <b>type</b> (don't paste) the following code:"
+msgid "In the editor <b>type</b> (don't paste) the following code:"
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:43

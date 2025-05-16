@@ -108,7 +108,7 @@ incremented when a byte is popped off the stack.
 
 `PC` is the program counter - it's how the processor knows at what point in the
 program it currently is. It's like the current line number of an executing
-script. In the JavaScript simulator the code is assembled starting at memory
+script. In the simulator the code is assembled starting at memory
 location `$0600`, so `PC` always starts there.
 
 The last section shows the processor flags. Each flag is one bit, so all seven
@@ -141,7 +141,7 @@ isn't actually dumb. If you were looking carefully enough, you'll have noticed
 that the carry flag was set to `1` after this operation. So that's how you
 know.
 
-In the simulator below **type** (don't paste) the following code:
+In the editor **type** (don't paste) the following code:
 
 ```6502-assembler:readonly:unselectable
 LDA #$80

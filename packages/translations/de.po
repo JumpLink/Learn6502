@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-16 14:56+0200\n"
+"POT-Creation-Date: 2025-05-16 16:02+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -200,9 +200,9 @@ msgid "Opened %s"
 msgstr ""
 
 #: ../app-gnome/src/views/main.window.ts:726
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Saved as %s"
-msgstr "Speichern unter..."
+msgstr "Gespeichert unter %s"
 
 #: ../app-gnome/src/widgets/main-button.ts:64
 msgid "Assemble"
@@ -1212,13 +1212,12 @@ msgstr ""
 msgid ""
 "<tt>PC</tt> is the program counter - it's how the processor knows at what "
 "point in the program it currently is. It's like the current line number of "
-"an executing script. In the JavaScript simulator the code is assembled "
-"starting at memory location <tt>$0600</tt>, so <tt>PC</tt> always starts "
-"there."
+"an executing script. In the simulator the code is assembled starting at "
+"memory location <tt>$0600</tt>, so <tt>PC</tt> always starts there."
 msgstr ""
 "<tt>PC</tt> ist der Programmzähler (program counter) - damit weiß der "
 "Prozessor, an welcher Stelle im Programm er sich gerade befindet. Es ist wie "
-"die aktuelle Zeilennummer eines ausgeführten Skripts. Im JavaScript-"
+"die aktuelle Zeilennummer eines ausgeführten Skripts. Im "
 "Simulator wird der Code ab der Speicheradresse <tt>$0600</tt> assembliert, "
 "daher beginnt <tt>PC</tt> immer dort."
 
@@ -1283,8 +1282,8 @@ msgstr ""
 "Bescheid."
 
 #: ../learn/dist/tutorial.ui:39
-msgid "In the simulator below <b>type</b> (don't paste) the following code:"
-msgstr "Tippe (nicht einfügen) den folgenden Code in den Simulator ein:"
+msgid "In the editor <b>type</b> (don't paste) the following code:"
+msgstr "Tippe (nicht einfügen) den folgenden Code in den Editor:"
 
 #: ../learn/dist/tutorial.ui:43
 msgid ""
@@ -2537,9 +2536,8 @@ msgstr ""
 "<tt>X</tt> von Null herunterzuzählen, bis es wieder Null erreicht. Das erste "
 "<tt>dex</tt> überläuft, wodurch <tt>X</tt> zu <tt>#$ff</tt> wird."
 
-#, fuzzy
 #~ msgid "Unsaved Changes"
-#~ msgstr "Uneingespeicherte Änderungen"
+#~ msgstr "Ungespeicherte Änderungen"
 
 #~ msgid "Failed to load file"
 #~ msgstr "Datei konnte nicht geladen werden"
