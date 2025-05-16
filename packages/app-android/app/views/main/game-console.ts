@@ -204,6 +204,3 @@ export const simulatorFailureEvent = "simulator-failure";
 export const labelsInfoEvent = "labels-info";
 export const labelsFailureEvent = "labels-failure";
 export const gamepadPressedEvent = "gamepad-pressed";
-
-// Initialization function for gameConsoleService
-const initializeGameConsole = (memory, displayWidget, gamepadWidget) => {};

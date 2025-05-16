@@ -25,11 +25,6 @@ export class Learn extends Adw.Bin implements LearnView {
         GTypeName: "Learn",
         Template,
         InternalChildren: ["statusPage", "tutorialView"],
-        Signals: {
-          copy: {
-            param_types: [GObject.TYPE_STRING],
-          },
-        },
       },
       this
     );
@@ -42,7 +37,6 @@ export class Learn extends Adw.Bin implements LearnView {
 
   private setupTutorialSignalListeners(): void {
     this._tutorialView.connect("copy", (tutorialView, code) => {
-      this.emit("copy", code); // Deprecated
       this.events.dispatch("copy", { code });
     });
   }
