@@ -19,8 +19,8 @@ export class Gamepad extends GridLayout implements GamepadWidget {
     Left: 0x02,
     Down: 0x04,
     Up: 0x08,
-    A: 0x10, // Corresponds to Button A
-    B: 0x20, // Corresponds to Button B
+    A: 0x10,
+    B: 0x20,
   };
 
   constructor() {
