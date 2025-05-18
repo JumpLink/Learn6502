@@ -1,11 +1,5 @@
 import { FileService as BaseFileService } from "@learn6502/common-ui";
-import {
-  Application,
-  Folder,
-  File,
-  knownFolders,
-  path,
-} from "@nativescript/core";
+import { Application } from "@nativescript/core";
 import { Observable } from "@nativescript/core/data/observable";
 
 /**

@@ -9,7 +9,7 @@ import {
 
 import {
   DebuggerState,
-  debuggerService,
+  debuggerController,
   type DebuggerView,
   type HexMonitorOptions,
   type MessageConsoleWidget,
@@ -69,7 +69,7 @@ export class Debugger implements DebuggerView {
     this.debugInfo = new DebugInfo(minidebugger);
 
     // Initialize service with widgets
-    debuggerService.init(this.messageConsole, this.debugInfo);
+    debuggerController.init(this.messageConsole, this.debugInfo);
 
     this.setupEventListeners();
     this.onMonitorRangeChange = this.onMonitorRangeChange.bind(this);
@@ -181,7 +181,7 @@ export class Debugger implements DebuggerView {
   }
 
   public updateDebugInfo(simulator: Simulator) {
-    debuggerService.updateDebugInfo(simulator);
+    debuggerController.updateDebugInfo(simulator);
   }
 
   #update(memory: Memory, simulator: Simulator) {
@@ -202,7 +202,7 @@ export class Debugger implements DebuggerView {
    * @param assembler Assembler with assembled code
    */
   public updateHexdump(assembler: Assembler): void {
-    debuggerService.updateHexdump(assembler);
+    debuggerController.updateHexdump(assembler);
   }
 
   /**
@@ -210,7 +210,7 @@ export class Debugger implements DebuggerView {
    * @param assembler Assembler with assembled code
    */
   public updateDisassembled(assembler: Assembler): void {
-    debuggerService.updateDisassembled(assembler);
+    debuggerController.updateDisassembled(assembler);
   }
 
   /**
@@ -218,7 +218,7 @@ export class Debugger implements DebuggerView {
    * @param message Message to log
    */
   public log(message: string): void {
-    debuggerService.log(message);
+    debuggerController.log(message);
   }
 
   public reset() {

@@ -7,6 +7,7 @@ import {
   MainButtonState,
   type MainButtonMode,
   type MainButtonWidget,
+  mainButtonController,
 } from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
@@ -93,7 +94,6 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
 
   // Current state property
   private _state: MainButtonState = MainButtonState.ASSEMBLE;
-  private _codeChanged: boolean = false;
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
@@ -134,7 +134,8 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
    * Implements MainButtonWidget
    */
   public setCodeChanged(changed: boolean): void {
-    this._codeChanged = changed;
+    // Update controller state
+    mainButtonController.setCodeChanged(changed);
 
     // If code has changed, automatically set to ASSEMBLE mode
     if (changed) {
@@ -143,10 +144,17 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
   }
 
   /**
-   * Check if code has changed
+   * Check if code has changed - delegated to controller
    */
   public hasCodeChanged(): boolean {
-    return this._codeChanged;
+    // We can't directly access controller's _codeChanged private property,
+    // but we can infer the state by checking if updateFromSimulatorState
+    // returns ASSEMBLE for a non-ASSEMBLE simulator state
+    const testState = SimulatorState.RUNNING; // This should return PAUSE normally
+    return (
+      mainButtonController.updateFromSimulatorState(testState) ===
+      MainButtonState.ASSEMBLE
+    );
   }
 
   /**
@@ -158,131 +166,32 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
 
   /**
    * Update button based on simulator state
-   * Implements MainButtonWidget
+   * Implements MainButtonWidget - delegates to controller
    *
    * @param state Current simulator state
    * @returns The new button state
    */
   public updateFromSimulatorState(state: SimulatorState): MainButtonState {
-    // If code has changed, always show ASSEMBLE
-    if (this._codeChanged) {
-      const buttonState = MainButtonState.ASSEMBLE;
-      this.setMode(buttonState);
-      return buttonState;
-    }
-
-    let buttonState: MainButtonState;
-
-    switch (state) {
-      case SimulatorState.INITIALIZED:
-        buttonState = MainButtonState.ASSEMBLE;
-        break;
-
-      case SimulatorState.RUNNING:
-        buttonState = MainButtonState.PAUSE;
-        break;
-
-      case SimulatorState.DEBUGGING:
-        buttonState = MainButtonState.STEP;
-        break;
-
-      case SimulatorState.COMPLETED:
-        buttonState = MainButtonState.RESET;
-        break;
-
-      case SimulatorState.PAUSED:
-        buttonState = MainButtonState.RESUME;
-        break;
-
-      case SimulatorState.DEBUGGING_PAUSED:
-        buttonState = MainButtonState.STEP;
-        break;
-
-      case SimulatorState.READY:
-        buttonState = MainButtonState.RUN;
-        break;
-
-      default:
-        throw new Error(`Unknown simulator state: ${state}`);
-    }
-
+    // Use the mainButtonController to determine button state
+    const buttonState = mainButtonController.updateFromSimulatorState(state);
     this.setMode(buttonState);
     return buttonState;
   }
 
   /**
    * Convenience method to get enabled state for an action
+   * Uses the common controller for consistency
    */
   public static getActionEnabledState(
     simulatorState: SimulatorState,
     hasCode: boolean,
     codeChanged: boolean
-  ): {
-    assemble: boolean;
-    run: boolean;
-    resume: boolean;
-    pause: boolean;
-    reset: boolean;
-    step: boolean;
-  } {
-    // Default: disable all actions
-    const enabledState = {
-      assemble: false,
-      run: false,
-      resume: false,
-      pause: false,
-      reset: false,
-      step: false,
-    };
-
-    // Always enable assemble if there's code
-    enabledState.assemble = hasCode;
-
-    if (codeChanged) {
-      return enabledState;
-    }
-
-    switch (simulatorState) {
-      case SimulatorState.RUNNING:
-        enabledState.pause = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.DEBUGGING:
-        enabledState.step = true;
-        enabledState.pause = true;
-        enabledState.reset = true;
-        enabledState.run = true;
-        break;
-
-      case SimulatorState.COMPLETED:
-        enabledState.run = true;
-        enabledState.step = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.PAUSED:
-        enabledState.resume = true;
-        enabledState.run = true;
-        enabledState.reset = true;
-        enabledState.step = true;
-        break;
-
-      case SimulatorState.DEBUGGING_PAUSED:
-        enabledState.step = true;
-        enabledState.resume = true;
-        enabledState.run = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.READY:
-        enabledState.run = true;
-        enabledState.step = true;
-        enabledState.reset = true;
-        break;
-    }
-
-    return enabledState;
+  ) {
+    return mainButtonController.getActionEnabledState(
+      simulatorState,
+      hasCode,
+      codeChanged
+    );
   }
 }
 

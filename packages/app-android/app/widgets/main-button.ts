@@ -6,7 +6,7 @@ import {
   MainButtonState,
   type MainButtonMode,
   type MainButtonWidget,
-  MainButtonService,
+  mainButtonController,
 } from "@learn6502/common-ui";
 // Property for the button's state
 const stateProperty = new Property<MainButton, MainButtonState>({
@@ -37,7 +37,6 @@ export class MainButton extends Fab implements MainButtonWidget {
 
   // Property backing fields
   private _state: MainButtonState = stateProperty.defaultValue;
-  private _codeChanged: boolean = false;
 
   // Button modes configuration
   private buttonModes: Record<MainButtonState, MainButtonMode> = {
@@ -200,7 +199,8 @@ export class MainButton extends Fab implements MainButtonWidget {
    * Sets whether the code has changed since last assembly
    */
   public setCodeChanged(changed: boolean): void {
-    this._codeChanged = changed;
+    // Update controller state
+    mainButtonController.setCodeChanged(changed);
 
     // If code has changed, automatically set to ASSEMBLE mode
     if (changed) {
@@ -216,15 +216,8 @@ export class MainButton extends Fab implements MainButtonWidget {
    * @returns The new button state
    */
   public updateFromSimulatorState(state: SimulatorState): MainButtonState {
-    // If code has changed, always show ASSEMBLE
-    if (this._codeChanged) {
-      const buttonState = MainButtonState.ASSEMBLE;
-      this.setMode(buttonState);
-      return buttonState;
-    }
-
-    // Use the common helper to determine button state
-    const buttonState = MainButtonService.getButtonState(state);
+    // Use the mainButtonController to determine button state
+    const buttonState = mainButtonController.updateFromSimulatorState(state);
     this.setMode(buttonState);
     return buttonState;
   }
@@ -238,7 +231,7 @@ export class MainButton extends Fab implements MainButtonWidget {
     hasCode: boolean,
     codeChanged: boolean
   ) {
-    return MainButtonService.getActionEnabledState(
+    return mainButtonController.getActionEnabledState(
       simulatorState,
       hasCode,
       codeChanged

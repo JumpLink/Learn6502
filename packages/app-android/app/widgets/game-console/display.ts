@@ -1,6 +1,6 @@
 import {
   DisplayWidget,
-  gameConsoleService,
+  gameConsoleController,
   DEFAULT_COLOR_PALETTE,
   DEFAULT_DISPLAY_CONFIG,
 } from "@learn6502/common-ui";
@@ -114,7 +114,7 @@ export class Display extends GridLayout implements DisplayWidget {
 
     // Listen for memory changes
     this.memory.on("changed", (event) => {
-      if (gameConsoleService.isDisplayAddress(event.addr)) {
+      if (gameConsoleController.isDisplayAddress(event.addr)) {
         this.updatePixel(event.addr);
       }
     });
@@ -191,7 +191,7 @@ export class Display extends GridLayout implements DisplayWidget {
     }
 
     // Get color from memory using the service
-    const color = gameConsoleService.getColorForAddress(addr);
+    const color = gameConsoleController.getColorForAddress(addr);
 
     // Use RGB color values (0-255) for Android
     const red = Math.round(color.red * 255);
@@ -202,7 +202,7 @@ export class Display extends GridLayout implements DisplayWidget {
     this.paintObj.setARGB(255, red, green, blue);
 
     // Calculate coordinates
-    const [x, y] = gameConsoleService.addrToCoordinates(addr, this.numX);
+    const [x, y] = gameConsoleController.addrToCoordinates(addr, this.numX);
 
     // Draw rectangle for the pixel
     this.canvas.drawRect(

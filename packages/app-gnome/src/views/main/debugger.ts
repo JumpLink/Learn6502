@@ -10,21 +10,16 @@ import {
 
 import Template from "./debugger.blp";
 
-import {
-  type Memory,
-  type Simulator,
-  Assembler,
-  throttle,
-} from "@learn6502/6502";
+import { type Memory, type Simulator, Assembler } from "@learn6502/6502";
 import {
   type DebuggerView,
   type MessageConsoleWidget,
   type DebugInfoWidget,
   DebuggerState,
-  debuggerService,
   type DisassembledCopyEvent,
   type HexdumpCopyEvent,
   type HexMonitorCopyEvent,
+  debuggerController,
 } from "@learn6502/common-ui";
 
 export class Debugger extends Adw.Bin implements DebuggerView {
@@ -96,6 +91,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this.onHexMonitorChanged = this.onHexMonitorChanged.bind(this);
     this.onStateChanged = this.onStateChanged.bind(this);
     this.onParamChanged = this.onParamChanged.bind(this);
+    this.onServiceStateChanged = this.onServiceStateChanged.bind(this);
 
     this.setupSignalHandlers();
     this.setupServiceHandlers();
@@ -105,85 +101,77 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   /** Call this when the MainWindow is closed. */
   public close(): void {
     this.removeSignalHandlers();
+    debuggerController.close();
   }
 
   public log(message: string): void {
-    debuggerService.log(message);
+    debuggerController.log(message);
   }
 
   /**
-   * Internal update method for the debugger display.
-   * Updates only frequently changing components (memory monitor and debug info).
-   * Does not update hexdump as it only needs to change when code is reassembled.
+   * Update the debugger display.
    * @param memory Current state of system memory
    * @param simulator Current state of the 6502 simulator
    */
-  private _update(memory: Memory, simulator: Simulator): void {
+  public update(memory: Memory, simulator: Simulator): void {
     this.memory = memory;
-    this.updateMonitor(memory);
-    this.updateDebugInfo(simulator);
+    debuggerController.update(memory, simulator);
   }
 
   /**
-   * Throttled public update method for the debugger display.
-   * Called frequently during program execution but limited to once every 349ms.
-   * Only updates dynamic components (memory and debug info), not the hexdump.
-   * @param memory The memory to update the hex monitor
-   * @param simulator The simulator to update the debug info
-   * @param assembler Parameter exists for API compatibility but is not used here
-   */
-  public update = throttle(this._update.bind(this), 349); // Prime number
-
-  /**
    * Updates the memory monitor display when memory content changes.
-   * Can be called frequently during program execution.
    * @param memory Current state of system memory
    */
   public updateMonitor(memory: Memory): void {
-    debuggerService.updateMemory(memory);
+    debuggerController.updateMonitor(memory);
   }
 
   /**
    * Updates debug information like registers and flags.
-   * Can be called frequently during program execution.
    * @param simulator Current state of the 6502 simulator
    */
   public updateDebugInfo(simulator: Simulator): void {
-    debuggerService.updateDebugInfo(simulator);
+    debuggerController.updateDebugInfo(simulator);
   }
 
   /**
    * Updates the hexdump display of the assembled program.
-   * Should only be called when the assembly code has been modified and reassembled.
    * @param assembler Assembler instance containing the new program code
    */
   public updateHexdump(assembler: Assembler): void {
-    debuggerService.updateHexdump(assembler);
+    debuggerController.updateHexdump(assembler);
   }
 
   /**
    * Updates the disassembled display of the assembled program.
-   * Should only be called when the assembly code has been modified and reassembled.
    * @param assembler Assembler instance containing the new program code
    */
   public updateDisassembled(assembler: Assembler): void {
-    debuggerService.updateDisassembled(assembler);
+    debuggerController.updateDisassembled(assembler);
   }
 
   public reset(): void {
-    debuggerService.reset();
+    debuggerController.reset();
     this.state = DebuggerState.RESET;
   }
 
   private setupServiceHandlers(): void {
     // Initialize the debugger service with widgets
-    debuggerService.init(
+    debuggerController.init(
       this._messageConsole,
       this._debugInfo,
       this._hexMonitor,
       this._disassembled,
       this._hexdump
     );
+
+    // Listen for state changes from the service
+    debuggerController.on("stateChanged", this.onServiceStateChanged);
+  }
+
+  private onServiceStateChanged(newState: DebuggerState): void {
+    // Update UI component state when service state changes
+    this.state = newState;
   }
 
   private onStateChanged(): void {
@@ -210,13 +198,13 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private onCopyToEditor(event: DisassembledCopyEvent): void {
-    debuggerService.copyToEditor(event.code);
+    debuggerController.copyToEditor(event.code);
   }
 
   private onCopyToClipboard(
     event: HexdumpCopyEvent | HexMonitorCopyEvent
   ): void {
-    debuggerService.copyToClipboard(event.content);
+    debuggerController.copyToClipboard(event.content);
   }
 
   private setupSignalHandlers(): void {
@@ -242,6 +230,9 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this._hexdump.events.off("copy", this.onCopyToClipboard);
     this._hexMonitor.events.off("copy", this.onCopyToClipboard);
     this._hexMonitor.events.off("changed", this.onHexMonitorChanged);
+
+    // Remove service event listener
+    debuggerController.off("stateChanged", this.onServiceStateChanged);
 
     this.handlerIds = [];
   }

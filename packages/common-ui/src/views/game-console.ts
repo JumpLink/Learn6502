@@ -8,22 +8,22 @@ export interface GameConsoleView {
   /**
    * The simulator instance
    */
-  readonly simulator: Simulator;
+  readonly simulator: Simulator | null;
 
   /**
    * The assembler instance
    */
-  readonly assembler: Assembler;
+  readonly assembler: Assembler | null;
 
   /**
    * The memory instance
    */
-  readonly memory: Memory;
+  readonly memory: Memory | null;
 
   /**
    * The labels instance
    */
-  readonly labels: Labels;
+  readonly labels: Labels | null;
 
   /**
    * Assemble code using the assembler

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-05-16 16:02+0200\n"
+"POT-Creation-Date: 2025-05-18 08:09+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -149,82 +149,82 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:138
+#: ../app-gnome/src/views/main.window.ts:137
 msgid "Code copied to editor"
 msgstr "Code in Editor kopiert"
 
-#: ../app-gnome/src/views/main.window.ts:165
+#: ../app-gnome/src/views/main.window.ts:164
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
-#: ../app-gnome/src/views/main.window.ts:170
+#: ../app-gnome/src/views/main.window.ts:169
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
-#: ../app-gnome/src/views/main.window.ts:233
-#: ../app-gnome/src/views/main.window.ts:268
+#: ../app-gnome/src/views/main.window.ts:232
+#: ../app-gnome/src/views/main.window.ts:267
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/views/main.window.ts:428
+#: ../app-gnome/src/views/main.window.ts:427
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/views/main.window.ts:440
+#: ../app-gnome/src/views/main.window.ts:439
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/views/main.window.ts:449
+#: ../app-gnome/src/views/main.window.ts:448
 msgid "Hexdump:"
 msgstr "Hexdump:"
 
-#: ../app-gnome/src/views/main.window.ts:458
+#: ../app-gnome/src/views/main.window.ts:457
 msgid "Disassembly:"
 msgstr "Disassemblierung:"
 
-#: ../app-gnome/src/views/main.window.ts:538
+#: ../app-gnome/src/views/main.window.ts:537
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/views/main.window.ts:557
+#: ../app-gnome/src/views/main.window.ts:556
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/views/main.window.ts:600
+#: ../app-gnome/src/views/main.window.ts:599
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
-#: ../app-gnome/src/views/main.window.ts:699
+#: ../app-gnome/src/views/main.window.ts:698
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:726
+#: ../app-gnome/src/views/main.window.ts:725
 #, javascript-format
 msgid "Saved as %s"
 msgstr "Gespeichert unter %s"
 
-#: ../app-gnome/src/widgets/main-button.ts:64
+#: ../app-gnome/src/widgets/main-button.ts:65
 msgid "Assemble"
 msgstr "Assemblieren"
 
-#: ../app-gnome/src/widgets/main-button.ts:69
+#: ../app-gnome/src/widgets/main-button.ts:70
 msgid "Run"
 msgstr "Ausführen"
 
-#: ../app-gnome/src/widgets/main-button.ts:74
+#: ../app-gnome/src/widgets/main-button.ts:75
 msgid "Pause"
 msgstr "Pause"
 
-#: ../app-gnome/src/widgets/main-button.ts:79
+#: ../app-gnome/src/widgets/main-button.ts:80
 msgid "Resume"
 msgstr "Fortsetzen"
 
-#: ../app-gnome/src/widgets/main-button.ts:84
+#: ../app-gnome/src/widgets/main-button.ts:85
 msgid "Reset"
 msgstr "Zurücksetzen"
 
-#: ../app-gnome/src/widgets/main-button.ts:89
+#: ../app-gnome/src/widgets/main-button.ts:90
 msgid "Step"
 msgstr "Schritt"
 
@@ -1217,9 +1217,9 @@ msgid ""
 msgstr ""
 "<tt>PC</tt> ist der Programmzähler (program counter) - damit weiß der "
 "Prozessor, an welcher Stelle im Programm er sich gerade befindet. Es ist wie "
-"die aktuelle Zeilennummer eines ausgeführten Skripts. Im "
-"Simulator wird der Code ab der Speicheradresse <tt>$0600</tt> assembliert, "
-"daher beginnt <tt>PC</tt> immer dort."
+"die aktuelle Zeilennummer eines ausgeführten Skripts. Im Simulator wird der "
+"Code ab der Speicheradresse <tt>$0600</tt> assembliert, daher beginnt "
+"<tt>PC</tt> immer dort."
 
 #: ../learn/dist/tutorial.ui:29
 msgid ""

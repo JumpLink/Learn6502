@@ -3,8 +3,12 @@ import {
   type Simulator,
   type Assembler,
   EventDispatcher,
+  throttle,
 } from "@learn6502/6502";
-import type { DebuggerEventMap } from "../types";
+
+import { DebuggerState } from "../data/index.ts";
+import type { DebuggerEventMap } from "../types/index.ts";
+import type { DebuggerView } from "../views/index.ts";
 import {
   type MessageConsoleWidget,
   type DebugInfoWidget,
@@ -12,12 +16,18 @@ import {
   type DisassembledWidget,
   type HexdumpWidget,
   DummyMessageConsole,
-} from "../widgets/index";
+} from "../widgets/index.ts";
 
 /**
  * Platform-independent debugger service
  */
-export class DebuggerService {
+class DebuggerController implements DebuggerView {
+  // State
+  protected _state: DebuggerState = DebuggerState.INITIAL;
+
+  // Reference to the last memory update for refreshing when monitor options change
+  protected memory: Memory | null = null;
+
   // Event dispatcher for debugger events
   protected events = new EventDispatcher<DebuggerEventMap>();
 
@@ -27,12 +37,31 @@ export class DebuggerService {
   protected hexMonitor: HexMonitorWidget | null = null;
   protected disassembled: DisassembledWidget | null = null;
   protected hexdump: HexdumpWidget | null = null;
+
+  /**
+   * Get the current state of the debugger
+   */
+  public get state(): DebuggerState {
+    return this._state;
+  }
+
+  /**
+   * Set the current state of the debugger
+   */
+  public set state(value: DebuggerState) {
+    if (this._state !== value) {
+      this._state = value;
+      this.events.dispatch("stateChanged", value);
+    }
+  }
+
   /**
    * Initialize the debugger service with widgets
    * @param console Message console widget for logging output
    * @param debugInfo Debug info widget for displaying CPU state
    * @param hexMonitor Hex monitor widget for displaying memory
    * @param disassembled Disassembled widget for displaying disassembled code
+   * @param hexdump Hexdump widget for displaying hexdump of the code
    */
   public init(
     console: MessageConsoleWidget,
@@ -49,12 +78,63 @@ export class DebuggerService {
   }
 
   /**
+   * Internal update method for the debugger display.
+   * Updates only frequently changing components (memory monitor and debug info).
+   * @param memory Current state of system memory
+   * @param simulator Current state of the 6502 simulator
+   */
+  private _update(memory: Memory, simulator: Simulator): void {
+    this.memory = memory;
+    this.updateMonitor(memory);
+    this.updateDebugInfo(simulator);
+  }
+
+  /**
+   * Throttled public update method for the debugger display.
+   * Called frequently during program execution but limited to update rate.
+   * Only updates dynamic components (memory and debug info).
+   * @param memory The memory to update the hex monitor
+   * @param simulator The simulator to update the debug info
+   */
+  public update = throttle(this._update.bind(this), 349); // Prime number for throttling
+
+  /**
+   * Update the memory monitor with current memory state
+   * @param memory Current memory state
+   */
+  public updateMonitor(memory: Memory): void {
+    if (this.hexMonitor) {
+      this.hexMonitor.update(memory);
+    }
+  }
+
+  /**
    * Update the debugger with current simulator state
    * @param simulator Simulator instance for state information
    */
   public updateDebugInfo(simulator: Simulator): void {
     if (this.debugInfo) {
       this.debugInfo.update(simulator);
+    }
+  }
+
+  /**
+   * Update the hexdump view
+   * @param assembler Assembler with assembled code
+   */
+  public updateHexdump(assembler: Assembler): void {
+    if (this.hexdump) {
+      this.hexdump.update(assembler);
+    }
+  }
+
+  /**
+   * Update the disassembled view
+   * @param assembler Assembler with assembled code
+   */
+  public updateDisassembled(assembler: Assembler): void {
+    if (this.disassembled) {
+      this.disassembled.update(assembler);
     }
   }
 
@@ -99,42 +179,10 @@ export class DebuggerService {
   }
 
   /**
-   * Update the hexdump view
-   * @param assembler Assembler with assembled code
-   */
-  public updateHexdump(assembler: Assembler): void {
-    if (this.hexdump) {
-      this.hexdump.update(assembler);
-    }
-  }
-
-  /**
-   * Update the memory monitor with current memory state
-   * @param memory Current memory state
-   */
-  public updateMemory(memory: Memory): void {
-    if (this.hexMonitor) {
-      this.hexMonitor.update(memory);
-    }
-  }
-
-  /**
-   * Update the disassembled view
-   * @param assembler Assembler with assembled code
-   */
-  public updateDisassembled(assembler: Assembler): void {
-    // Implementation delegated to widgets when available
-    if (this.disassembled) {
-      this.disassembled.update(assembler);
-    }
-  }
-
-  /**
    * Log a message to the debugger console
    * @param message Message to log
    */
   public log(message: string): void {
-    // Console is always available
     this.console?.log(message);
   }
 
@@ -152,10 +200,16 @@ export class DebuggerService {
    */
   public reset(): void {
     this.clearConsole();
-    // Reset other components as needed
+    this.state = DebuggerState.RESET;
     this.events.dispatch("reset", undefined);
+  }
+
+  /**
+   * Clean up resources when closing
+   */
+  public close(): void {
+    // Cleanup code here
   }
 }
 
-// Export singleton instance
-export const debuggerService = new DebuggerService();
+export const debuggerController = new DebuggerController();

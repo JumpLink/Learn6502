@@ -3,7 +3,6 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import Gio from "@girs/gio-2.0";
-import GLib from "@girs/glib-2.0";
 
 import { SimulatorState, num2hex } from "@learn6502/6502";
 
@@ -17,8 +16,8 @@ import Template from "./main.window.blp";
 import {
   type MainButtonState,
   type MainView,
-  debuggerService,
-  gameConsoleService,
+  debuggerController,
+  gameConsoleController,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -154,8 +153,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupDebuggerSignalListeners(): void {
-    debuggerService.on("copyToClipboard", this.onCopyToClipboard.bind(this));
-    debuggerService.on("copyToEditor", this.onCopyToEditor.bind(this));
+    debuggerController.on("copyToClipboard", this.onCopyToClipboard.bind(this));
+    debuggerController.on("copyToEditor", this.onCopyToEditor.bind(this));
   }
 
   private onCopyToClipboard(code: string): void {
@@ -413,7 +412,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupGameConsoleSignalListeners(): void {
-    gameConsoleService.on("assemble-success", (signal) => {
+    gameConsoleController.on("assemble-success", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -430,7 +429,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       });
     });
 
-    gameConsoleService.on("assemble-failure", (signal) => {
+    gameConsoleController.on("assemble-failure", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -442,7 +441,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       });
     });
 
-    gameConsoleService.on("hexdump", (signal) => {
+    gameConsoleController.on("hexdump", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(
@@ -451,7 +450,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    gameConsoleService.on("disassembly", (signal) => {
+    gameConsoleController.on("disassembly", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(
@@ -460,14 +459,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    gameConsoleService.on("assemble-info", (signal) => {
+    gameConsoleController.on("assemble-info", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
       }
     });
 
-    gameConsoleService.on("stop", (signal) => {
+    gameConsoleController.on("stop", (signal) => {
       this.onSimulatorStateChange(signal.state);
       if (signal.message) {
         const params = signal.params || [];
@@ -475,7 +474,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    gameConsoleService.on("start", (signal) => {
+    gameConsoleController.on("start", (signal) => {
       this.onSimulatorStateChange(signal.state);
       if (signal.message) {
         const params = signal.params || [];
@@ -483,7 +482,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    gameConsoleService.on("reset", (signal) => {
+    gameConsoleController.on("reset", (signal) => {
       this.onSimulatorStateChange(signal.state);
       if (signal.message) {
         const params = signal.params || [];
@@ -491,7 +490,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    gameConsoleService.on("step", (signal) => {
+    gameConsoleController.on("step", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -503,7 +502,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     });
 
-    gameConsoleService.on("multistep", (signal) => {
+    gameConsoleController.on("multistep", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -512,7 +511,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.updateDebugger();
     });
 
-    gameConsoleService.on("goto", (signal) => {
+    gameConsoleController.on("goto", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -521,14 +520,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.updateDebugger();
     });
 
-    gameConsoleService.on("simulator-info", (signal) => {
+    gameConsoleController.on("simulator-info", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
       }
     });
 
-    gameConsoleService.on("simulator-failure", (signal) => {
+    gameConsoleController.on("simulator-failure", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -540,14 +539,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       });
     });
 
-    gameConsoleService.on("labels-info", (signal) => {
+    gameConsoleController.on("labels-info", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
       }
     });
 
-    gameConsoleService.on("labels-failure", (signal) => {
+    gameConsoleController.on("labels-failure", (signal) => {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -568,12 +567,12 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     keyController.connect(
       "key-pressed",
       (_controller: any, keyval: number, keycode: number, state: any) => {
-        return gameConsoleService.handleKeyPress(keyval);
+        return gameConsoleController.handleKeyPress(keyval);
       }
     );
 
     // Plattformspezifische Keycodes registrieren
-    gameConsoleService.registerKeyMappings({
+    gameConsoleController.registerKeyMappings({
       [Gdk.KEY_w]: "Up",
       [Gdk.KEY_s]: "Down",
       [Gdk.KEY_a]: "Left",
@@ -589,7 +588,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
 
     // Event-Listener für Gamepad-Eingaben
-    gameConsoleService.on("keyPressed", (event) => {
+    gameConsoleController.on("keyPressed", (event) => {
       // If we're in the game console or debugger view, log the key press
       const visibleChild = this._stack.get_visible_child();
       if (

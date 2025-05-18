@@ -1,12 +1,38 @@
 import type { MainButtonActionState } from "../types";
 import { MainButtonState } from "../data/main-button-state";
 import { SimulatorState } from "@learn6502/6502";
+import type { MainButtonWidget } from "../widgets";
 
 /**
- * Service class for MainButton implementations across platforms
+ * Controller class for MainButton implementations across platforms
  * Contains shared logic that can be reused
  */
-export class MainButtonService {
+class MainButtonController implements MainButtonWidget {
+  // State tracking
+  private _codeChanged: boolean = false;
+
+  /**
+   * Updates the button state based on the simulator state
+   * @param state Current simulator state
+   * @returns The updated button state
+   */
+  public updateFromSimulatorState(state: SimulatorState): MainButtonState {
+    // If code has changed, always show ASSEMBLE
+    if (this._codeChanged) {
+      return MainButtonState.ASSEMBLE;
+    }
+
+    return this.getButtonState(state);
+  }
+
+  /**
+   * Updates the button to indicate code has changed and needs to be assembled
+   * @param changed Whether code has changed
+   */
+  public setCodeChanged(changed: boolean): void {
+    this._codeChanged = changed;
+  }
+
   /**
    * Determine which actions should be enabled based on current state
    *
@@ -15,7 +41,7 @@ export class MainButtonService {
    * @param codeChanged Whether the code has changed since last assembly
    * @returns Action enablement state object
    */
-  static getActionEnabledState(
+  getActionEnabledState(
     state: SimulatorState,
     hasCode: boolean,
     codeChanged: boolean
@@ -51,7 +77,7 @@ export class MainButtonService {
    * @param state Current simulator state
    * @returns The button state to display
    */
-  static getButtonState(state: SimulatorState): MainButtonState {
+  getButtonState(state: SimulatorState): MainButtonState {
     switch (state) {
       case SimulatorState.INITIALIZED:
       case SimulatorState.READY:
@@ -70,3 +96,5 @@ export class MainButtonService {
     }
   }
 }
+
+export const mainButtonController = new MainButtonController();

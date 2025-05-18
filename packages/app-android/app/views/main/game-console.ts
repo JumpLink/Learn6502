@@ -10,14 +10,14 @@ import {
 // Import child widgets
 import { Display, Gamepad } from "~/widgets/game-console";
 
-// Import gameConsoleService
+// Import common controller
 import {
-  gameConsoleService,
+  gameConsoleController,
   type GameConsoleView,
   type GamepadKey,
 } from "@learn6502/common-ui";
 
-class GameConsoleController implements GameConsoleView {
+class GameConsole implements GameConsoleView {
   private page: Page | null = null;
   private _display: Display | null = null;
   private _gamePad: Gamepad | null = null;
@@ -86,45 +86,50 @@ class GameConsoleController implements GameConsoleView {
 
   // --- Public Methods (API for external interaction) ---
   public assemble(code: string): void {
-    gameConsoleService.assemble(code);
+    gameConsoleController.assemble(code);
   }
 
   public run(): void {
-    gameConsoleService.run();
+    gameConsoleController.run();
   }
 
   public hexdump(): void {
-    gameConsoleService.hexdump();
+    gameConsoleController.hexdump();
   }
 
   public disassemble(): void {
-    gameConsoleService.disassemble();
+    gameConsoleController.disassemble();
   }
 
   public stop(): void {
-    gameConsoleService.stop();
+    gameConsoleController.stop();
   }
 
   public reset(): void {
-    gameConsoleService.reset();
+    gameConsoleController.reset();
   }
 
   public step(): void {
-    gameConsoleService.step();
+    gameConsoleController.step();
   }
 
   public goto(address: string): void {
-    gameConsoleService.goto(address);
+    gameConsoleController.goto(address);
   }
 
   public gamepadPress(buttonName: GamepadKey): void {
-    this._gamePad?.press(buttonName);
+    if (this._gamePad) {
+      this._gamePad.press(buttonName);
+    } else {
+      gameConsoleController.gamepadPress(buttonName);
+    }
   }
 
   /** Call this when the view is about to be destroyed. */
   public close(): void {
     this.stop();
     this.removeEventListeners();
+    gameConsoleController.close();
   }
 
   // --- Private Methods ---
@@ -136,8 +141,8 @@ class GameConsoleController implements GameConsoleView {
       throw new Error("Missing required components");
     }
 
-    // Initialize gameConsoleService
-    gameConsoleService.init({
+    // Initialize common controller
+    gameConsoleController.init({
       memory: this._memory,
       displayWidget: this._display,
       gamepadWidget: this._gamePad,
@@ -165,7 +170,7 @@ class GameConsoleController implements GameConsoleView {
     if (this.page) {
       this.page.notify({
         eventName: eventName,
-        object: this.page, // Or maybe 'this' controller?
+        object: this.page,
         detail: detail,
       });
     } else {
@@ -176,17 +181,17 @@ class GameConsoleController implements GameConsoleView {
   }
 }
 
-// Create singleton instance of the controller
-const gameConsoleController = new GameConsoleController();
+// Create singleton instance of the view controller
+const gameConsoleView = new GameConsole();
 
 // Export bound public methods for XML binding
-export const onLoaded = gameConsoleController.onLoaded;
-export const onUnloaded = gameConsoleController.onUnloaded;
+export const onLoaded = gameConsoleView.onLoaded;
+export const onUnloaded = gameConsoleView.onUnloaded;
 
 // You might expose other methods needed directly from XML if necessary,
 // but typically interaction goes through the main page's controller.
 
-// --- Re-export event names --- Need to define them here now
+// --- Re-export event names ---
 export const assembleSuccessEvent = "assemble-success";
 export const assembleFailureEvent = "assemble-failure";
 export const hexdumpEvent = "hexdump";

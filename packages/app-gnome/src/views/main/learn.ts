@@ -7,10 +7,10 @@ import { TutorialView } from "../../mdx/tutorial-view.ts";
 
 import Template from "./learn.blp";
 import type { LearnView, LearnEventMap } from "@learn6502/common-ui";
-import { EventDispatcher } from "@learn6502/6502";
+import { learnController } from "@learn6502/common-ui/src/controller";
 
 export class Learn extends Adw.Bin implements LearnView {
-  readonly events = new EventDispatcher<LearnEventMap>();
+  readonly events = learnController.events;
 
   // Child widgets
   declare private _statusPage: Adw.StatusPage;
@@ -37,7 +37,11 @@ export class Learn extends Adw.Bin implements LearnView {
 
   private setupTutorialSignalListeners(): void {
     this._tutorialView.connect("copy", (tutorialView, code) => {
+      // Dispatch to both local events and controller
       this.events.dispatch("copy", { code });
+
+      // Use controller to broadcast event
+      learnController.dispatch("copy", { code });
     });
   }
 
@@ -58,6 +62,10 @@ export class Learn extends Adw.Bin implements LearnView {
     // Check if adjustment is valid and scrollable content exists
     if (vadjustment && vadjustment.get_upper() > vadjustment.get_page_size()) {
       this._lastScrollPosition = vadjustment.get_value();
+
+      // Optionally update the controller if we want to share scroll position
+      // between platform views
+      // learnController.saveScrollPosition(this._lastScrollPosition);
     }
   }
 

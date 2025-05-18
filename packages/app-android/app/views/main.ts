@@ -13,9 +13,16 @@ import { systemStates, SystemStates } from "~/states";
 import { setStatusBarAppearance } from "~/utils/system";
 
 // Import common interfaces and types
-import { MainView, gameConsoleService } from "@learn6502/common-ui";
+import {
+  MainView,
+  gameConsoleController,
+  learnController,
+} from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
 import type { GamepadKey } from "@learn6502/common-ui";
+
+// Import services
+import { notificationService } from "~/services";
 
 // Import WindowInsetsCompat
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
@@ -47,6 +54,8 @@ export class MainController implements MainView {
     this.handleWindowInsets = this.handleWindowInsets.bind(this);
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
     this.setupAndroidKeyHandling = this.setupAndroidKeyHandling.bind(this);
+    this.setupLearnTutorialSignalListeners =
+      this.setupLearnTutorialSignalListeners.bind(this);
   }
 
   /**
@@ -62,7 +71,7 @@ export class MainController implements MainView {
     const KEY_SPACE = 62; // KEYCODE_SPACE
 
     // Register Android-specific key mappings
-    gameConsoleService.registerKeyMappings({
+    gameConsoleController.registerKeyMappings({
       [KEY_UP]: "Up",
       [KEY_DOWN]: "Down",
       [KEY_LEFT]: "Left",
@@ -77,7 +86,7 @@ export class MainController implements MainView {
         const activity = Application.android.foregroundActivity;
         if (activity) {
           activity.onKeyDown = function (keyCode: number, event: any) {
-            if (gameConsoleService.handleKeyPress(keyCode)) {
+            if (gameConsoleController.handleKeyPress(keyCode)) {
               return true;
             }
             // Let native Android handle other keys
@@ -90,7 +99,7 @@ export class MainController implements MainView {
     }
 
     // Set up game console service event listener
-    gameConsoleService.on("keyPressed", (event) => {
+    gameConsoleController.on("keyPressed", (event) => {
       console.log("Gamepad key pressed:", event.key, event.keyCode);
       // Add any additional UI feedback or logging here
     });
@@ -127,6 +136,21 @@ export class MainController implements MainView {
   }
 
   /**
+   * Sets up learn tutorial signal listeners
+   */
+  private setupLearnTutorialSignalListeners(): void {
+    learnController.on("copy", ({ code }) => {
+      this.setEditorCode(code);
+      // Show notification using notification service
+      notificationService.showNotification({
+        title: "Code copied to editor",
+        timeout: 2,
+      });
+      console.log("Learn: Code copied to editor", code);
+    });
+  }
+
+  /**
    * Event handler for the 'loaded' event of the root view.
    * Applies system bar insets to ensure content is not drawn under system bars
    * when Edge-to-Edge is enabled.
@@ -153,6 +177,9 @@ export class MainController implements MainView {
 
     // Set up Android key handling
     this.setupAndroidKeyHandling();
+
+    // Set up Learn tutorial signal listeners
+    this.setupLearnTutorialSignalListeners();
   }
 
   /**

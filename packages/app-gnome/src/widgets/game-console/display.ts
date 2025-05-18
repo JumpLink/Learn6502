@@ -4,7 +4,10 @@ import Gtk from "@girs/gtk-4.0";
 import type cairo from "cairo";
 import Template from "./display.blp";
 
-import { type DisplayWidget, gameConsoleService } from "@learn6502/common-ui";
+import {
+  type DisplayWidget,
+  gameConsoleController,
+} from "@learn6502/common-ui";
 import {
   DEFAULT_COLOR_PALETTE,
   DEFAULT_DISPLAY_CONFIG,
@@ -49,7 +52,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
   public initialize(memory: Memory): void {
     this.memory = memory;
     this.memory.on("changed", (event) => {
-      if (gameConsoleService.isDisplayAddress(event.addr)) {
+      if (gameConsoleController.isDisplayAddress(event.addr)) {
         this.updatePixel(event.addr);
       }
     });
@@ -116,8 +119,8 @@ export class Display extends Adw.Bin implements DisplayWidget {
   }
 
   private drawPixel(cr: cairo.Context, addr: number) {
-    const color = gameConsoleService.getColorForAddress(addr);
-    const [x, y] = gameConsoleService.addrToCoordinates(addr, this.numX);
+    const color = gameConsoleController.getColorForAddress(addr);
+    const [x, y] = gameConsoleController.addrToCoordinates(addr, this.numX);
 
     cr.setSourceRGB(color.red, color.green, color.blue);
     cr.rectangle(

@@ -2,7 +2,7 @@ import { EventData } from "@nativescript/core";
 
 import { Page } from "@nativescript/core";
 
-class StorybookController {
+class Storybook {
   private page: Page | null = null;
 
   public onNavigatingTo(args: EventData) {
@@ -13,7 +13,7 @@ class StorybookController {
   }
 }
 
-const storybookController = new StorybookController();
+const storybookController = new Storybook();
 
 export const onNavigatingTo =
   storybookController.onNavigatingTo.bind(storybookController);

@@ -1,9 +1,4 @@
-import {
-  ContentView,
-  Property,
-  Application,
-  CSSType,
-} from "@nativescript/core";
+import { ContentView, Property, CSSType } from "@nativescript/core";
 import {
   createColorStateList,
   getMaterialColor,

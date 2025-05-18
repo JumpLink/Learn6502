@@ -4,7 +4,10 @@ import Adw from "@girs/adw-1";
 import { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
 
 import { Display, Gamepad } from "../../widgets/game-console/index.ts";
-import { gameConsoleService, type GameConsoleView } from "@learn6502/common-ui";
+import {
+  gameConsoleController,
+  type GameConsoleView,
+} from "@learn6502/common-ui";
 
 import Template from "./game-console.blp";
 
@@ -60,35 +63,35 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
   }
 
   public assemble(code: string): void {
-    gameConsoleService.assemble(code);
+    gameConsoleController.assemble(code);
   }
 
   public run(): void {
-    gameConsoleService.run();
+    gameConsoleController.run();
   }
 
   public hexdump(): void {
-    gameConsoleService.hexdump();
+    gameConsoleController.hexdump();
   }
 
   public disassemble(): void {
-    gameConsoleService.disassemble();
+    gameConsoleController.disassemble();
   }
 
   public stop(): void {
-    gameConsoleService.stop();
+    gameConsoleController.stop();
   }
 
   public reset(): void {
-    gameConsoleService.reset();
+    gameConsoleController.reset();
   }
 
   public step(): void {
-    gameConsoleService.step();
+    gameConsoleController.step();
   }
 
   public goto(address: string): void {
-    gameConsoleService.goto(address);
+    gameConsoleController.goto(address);
   }
 
   public gamepadPress(
@@ -111,7 +114,7 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
     this._simulator.reset();
 
     // Set up game console service with all components
-    gameConsoleService.init({
+    gameConsoleController.init({
       memory: this._memory,
       displayWidget: this._display,
       gamepadWidget: this._gamePad,

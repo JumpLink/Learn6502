@@ -10,10 +10,10 @@ import { SourceView } from "~/widgets/source-view";
 import { EventDispatcher } from "@learn6502/6502";
 
 /**
- * EditorModel class for handling editor data and operations
+ * Editor class for handling editor data and operations
  * Implements the EditorView from common-ui
  */
-class EditorModel extends Observable implements EditorView {
+class Editor extends Observable implements EditorView {
   readonly events: EventDispatcher<EditorEventMap> =
     new EventDispatcher<EditorEventMap>();
 
@@ -127,7 +127,7 @@ class EditorModel extends Observable implements EditorView {
       }
     } else {
       console.error(
-        "[EditorModel] SourceView (sourceView) not found on page. Editor will not function correctly."
+        "[Editor] SourceView (sourceView) not found on page. Editor will not function correctly."
       );
     }
   }
@@ -145,7 +145,7 @@ class EditorModel extends Observable implements EditorView {
 }
 
 // Create singleton instance
-const editorModel = new EditorModel();
+const editorModel = new Editor();
 
 // Export the functions for XML binding
 export const onNavigatingTo = editorModel.onNavigatingTo.bind(editorModel);

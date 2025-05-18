@@ -1,17 +1,12 @@
 import { EventData, Page, ContentView, View } from "@nativescript/core";
 import { TutorialView } from "../../mdx/tutorial-view"; // Adjusted path if necessary
-import type {
-  LearnView,
-  LearnEventMap,
-  SourceViewCopyEvent,
-} from "@learn6502/common-ui";
-import { EventDispatcher } from "@learn6502/6502";
+import type { LearnView, SourceViewCopyEvent } from "@learn6502/common-ui";
+import { learnController } from "@learn6502/common-ui/src/controller";
 
-class LearnController implements LearnView {
-  readonly events = new EventDispatcher<LearnEventMap>();
+class Learn implements LearnView {
+  readonly events = learnController.events;
   private page: Page | null = null;
   private tutorialView: TutorialView | null = null;
-  private _lastScrollPosition: number = 0; // For LearnView interface
 
   public onNavigatingTo(args: EventData) {
     const page = args.object as Page;
@@ -30,7 +25,11 @@ class LearnController implements LearnView {
     }
 
     this.tutorialView.events.on("copy", (event: SourceViewCopyEvent) => {
+      // Dispatch to both the local events and the common controller
       this.events.dispatch("copy", { code: event.code });
+
+      // Use the common controller to communicate with other components
+      learnController.dispatch("copy", { code: event.code });
     });
 
     // this.page.off(Page.loadedEvent, this.onPageLoaded, this);
@@ -65,6 +64,9 @@ class LearnController implements LearnView {
     console.log(
       "LearnView (Android): saveScrollPosition() called (placeholder)."
     );
+
+    // Optionally update common controller if we want to share scroll position
+    // learnController.saveScrollPosition();
   }
 
   public restoreScrollPosition(): void {
@@ -82,7 +84,7 @@ class LearnController implements LearnView {
   }
 }
 
-const learnController = new LearnController();
+// Create singleton instance of our view controller
+const learnView = new Learn();
 
-export const onNavigatingTo =
-  learnController.onNavigatingTo.bind(learnController);
+export const onNavigatingTo = learnView.onNavigatingTo.bind(learnView);
