@@ -120,6 +120,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
     this._state = state;
     this.notify("state");
     this.emit("state-changed", state);
+    console.log("[MainButton] setMode", state);
   }
 
   /**
@@ -182,7 +183,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
    * Convenience method to get enabled state for an action
    * Uses the common controller for consistency
    */
-  public static getActionEnabledState(
+  public getActionEnabledState(
     simulatorState: SimulatorState,
     hasCode: boolean,
     codeChanged: boolean

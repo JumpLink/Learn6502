@@ -636,6 +636,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private onSimulatorStateChange(state: SimulatorState): void {
+    console.log("onSimulatorStateChange", state);
     this.updateDebugger();
     this.updateRunActions(state);
   }
@@ -645,7 +646,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     const hasCode = this._editor.hasCode;
 
     // Get enabled states for actions from MainButton helper
-    const enabledState = MainButton.getActionEnabledState(
+    const enabledState = this._mainButton.getActionEnabledState(
       state,
       hasCode,
       this.codeToAssembleChanged

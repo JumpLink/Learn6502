@@ -46,29 +46,64 @@ class MainButtonController implements MainButtonWidget {
     hasCode: boolean,
     codeChanged: boolean
   ): MainButtonActionState {
-    return {
-      assemble:
-        hasCode &&
-        (codeChanged ||
-          state === SimulatorState.INITIALIZED ||
-          state === SimulatorState.READY),
-      run:
-        hasCode &&
-        (state === SimulatorState.READY || state === SimulatorState.PAUSED),
-      resume: hasCode && state === SimulatorState.PAUSED,
-      pause: hasCode && state === SimulatorState.RUNNING,
-      reset:
-        hasCode &&
-        (state === SimulatorState.READY ||
-          state === SimulatorState.RUNNING ||
-          state === SimulatorState.PAUSED),
-      step:
-        hasCode &&
-        (state === SimulatorState.READY ||
-          state === SimulatorState.PAUSED ||
-          state === SimulatorState.DEBUGGING ||
-          state === SimulatorState.DEBUGGING_PAUSED),
+    // Default: disable all actions
+    const enabledState: MainButtonActionState = {
+      assemble: false,
+      run: false,
+      resume: false,
+      pause: false,
+      reset: false,
+      step: false,
     };
+
+    // Always enable assemble if there's code
+    enabledState.assemble = hasCode;
+
+    if (codeChanged) {
+      return enabledState;
+    }
+
+    switch (state) {
+      case SimulatorState.RUNNING:
+        enabledState.pause = true;
+        enabledState.reset = true;
+        break;
+
+      case SimulatorState.DEBUGGING:
+        enabledState.step = true;
+        enabledState.pause = true;
+        enabledState.reset = true;
+        enabledState.run = true;
+        break;
+
+      case SimulatorState.COMPLETED:
+        enabledState.run = true;
+        enabledState.step = true;
+        enabledState.reset = true;
+        break;
+
+      case SimulatorState.PAUSED:
+        enabledState.resume = true;
+        enabledState.run = true;
+        enabledState.reset = true;
+        enabledState.step = true;
+        break;
+
+      case SimulatorState.DEBUGGING_PAUSED:
+        enabledState.step = true;
+        enabledState.resume = true;
+        enabledState.run = true;
+        enabledState.reset = true;
+        break;
+
+      case SimulatorState.READY:
+        enabledState.run = true;
+        enabledState.step = true;
+        enabledState.reset = true;
+        break;
+    }
+
+    return enabledState;
   }
 
   /**
@@ -78,22 +113,41 @@ class MainButtonController implements MainButtonWidget {
    * @returns The button state to display
    */
   getButtonState(state: SimulatorState): MainButtonState {
+    let buttonState: MainButtonState;
     switch (state) {
       case SimulatorState.INITIALIZED:
-      case SimulatorState.READY:
-        return MainButtonState.ASSEMBLE;
+        buttonState = MainButtonState.ASSEMBLE;
+        break;
+
       case SimulatorState.RUNNING:
-        return MainButtonState.PAUSE;
-      case SimulatorState.PAUSED:
-        return MainButtonState.RESUME;
-      case SimulatorState.COMPLETED:
-        return MainButtonState.RESET;
+        buttonState = MainButtonState.PAUSE;
+        break;
+
       case SimulatorState.DEBUGGING:
+        buttonState = MainButtonState.STEP;
+        break;
+
+      case SimulatorState.COMPLETED:
+        buttonState = MainButtonState.RESET;
+        break;
+
+      case SimulatorState.PAUSED:
+        buttonState = MainButtonState.RESUME;
+        break;
+
       case SimulatorState.DEBUGGING_PAUSED:
-        return MainButtonState.STEP;
+        buttonState = MainButtonState.STEP;
+        break;
+
+      case SimulatorState.READY:
+        buttonState = MainButtonState.RUN;
+        break;
+
       default:
-        return MainButtonState.ASSEMBLE;
+        throw new Error(`Unknown simulator state: ${state}`);
     }
+
+    return buttonState;
   }
 }
 
