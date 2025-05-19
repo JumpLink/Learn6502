@@ -34,8 +34,8 @@ import type { DisplayWidget, GamepadWidget } from "../widgets/game-console";
 import type { GameConsoleView } from "../views";
 
 /**
- * Platform-independent service that manages the entire game console functionality.
- * Combines display rendering and gamepad input handling into a single cohesive service.
+ * Platform-independent controller that manages the entire game console functionality.
+ * Combines display rendering and gamepad input handling into a single cohesive controller.
  */
 class GameConsoleController implements GameConsoleView {
   // Core properties
@@ -90,7 +90,7 @@ class GameConsoleController implements GameConsoleView {
   };
 
   /**
-   * Initialize the service with required components
+   * Initialize the controller with required components
    * @param options Configuration options including widgets and memory
    */
   public init(options: {

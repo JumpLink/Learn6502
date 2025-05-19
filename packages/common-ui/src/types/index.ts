@@ -13,6 +13,7 @@ export * from "./hexdump-event-map";
 export * from "./learn-event-map";
 export * from "./main-button-action-state";
 export * from "./main-button-mode";
+export * from "./main-ui-state-event-map";
 export * from "./memory-region";
 export * from "./notification-options";
 export * from "./notification-type";

@@ -1,6 +1,5 @@
 import { SimulatorState } from "@learn6502/6502";
-import { MainButtonState } from "../data/main-button-state";
-import type { MainButtonActionState } from "../types";
+import { MainUiState } from "../data/index";
 
 /**
  * Common interface for MainButton component across platforms
@@ -11,11 +10,29 @@ export interface MainButtonWidget {
    * @param state Current simulator state
    * @returns The updated button state
    */
-  updateFromSimulatorState(state: SimulatorState): MainButtonState;
+  updateFromSimulatorState(state: SimulatorState): MainUiState;
 
   /**
    * Updates the button to indicate code has changed and needs to be assembled
    * @param changed Whether code has changed
    */
   setCodeChanged(changed: boolean): void;
+
+  /**
+   * Get the code changed state
+   * @returns Whether code has changed
+   */
+  getCodeChanged(): boolean;
+
+  /**
+   * Gets the current button state
+   * @returns Current UI state
+   */
+  getState(): MainUiState;
+
+  /**
+   * Sets the button state and updates UI accordingly
+   * @param state The new button state
+   */
+  setState(state: MainUiState): void;
 }

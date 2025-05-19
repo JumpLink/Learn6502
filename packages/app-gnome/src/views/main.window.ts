@@ -14,7 +14,7 @@ import { themeService, notificationService, fileService } from "../services";
 
 import Template from "./main.window.blp";
 import {
-  type MainButtonState,
+  type MainUiState,
   type MainView,
   debuggerController,
   gameConsoleController,
@@ -641,7 +641,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.updateRunActions(state);
   }
 
-  private updateRunActions(state: SimulatorState): MainButtonState {
+  private updateRunActions(state: SimulatorState): MainUiState {
     // Check if editor has code
     const hasCode = this._editor.hasCode;
 

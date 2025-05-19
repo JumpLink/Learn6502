@@ -1,28 +1,52 @@
-import type { MainButtonActionState } from "../types";
-import { MainButtonState } from "../data/main-button-state";
-import { SimulatorState } from "@learn6502/6502";
+import type { MainButtonActionState, MainUiStateEventMap } from "../types";
+import { MainUiState } from "../data/index";
+import { EventDispatcher, SimulatorState } from "@learn6502/6502";
 import type { MainButtonWidget } from "../widgets";
 
 /**
- * Controller class for MainButton implementations across platforms
+ * Controller class for main state implementations across platforms
  * Contains shared logic that can be reused
  */
-class MainButtonController implements MainButtonWidget {
+class MainUiStateController implements MainButtonWidget {
   // State tracking
-  private _codeChanged: boolean = false;
+  protected _codeChanged: boolean = false;
+
+  readonly events = new EventDispatcher<MainUiStateEventMap>();
+
+  // Current state property
+  private _state: MainUiState = MainUiState.INITIAL;
+
+  public setState(state: MainUiState): void {
+    if (this._state == state) {
+      return;
+    }
+    this._state = state;
+    this.events.dispatch("state-changed", state);
+  }
+
+  public getState(): MainUiState {
+    return this._state;
+  }
+
+  public init(): void {
+    // Initialize with default state
+    this.setState(MainUiState.ASSEMBLE);
+  }
 
   /**
    * Updates the button state based on the simulator state
    * @param state Current simulator state
    * @returns The updated button state
    */
-  public updateFromSimulatorState(state: SimulatorState): MainButtonState {
+  public updateFromSimulatorState(state: SimulatorState): MainUiState {
     // If code has changed, always show ASSEMBLE
     if (this._codeChanged) {
-      return MainButtonState.ASSEMBLE;
+      return MainUiState.ASSEMBLE;
     }
 
-    return this.getButtonState(state);
+    const buttonState = this.getButtonState(state);
+    this.setState(buttonState);
+    return buttonState;
   }
 
   /**
@@ -31,6 +55,15 @@ class MainButtonController implements MainButtonWidget {
    */
   public setCodeChanged(changed: boolean): void {
     this._codeChanged = changed;
+
+    // If code has changed, automatically set to ASSEMBLE mode
+    if (changed) {
+      this.setState(MainUiState.ASSEMBLE);
+    }
+  }
+
+  public getCodeChanged(): boolean {
+    return this._codeChanged;
   }
 
   /**
@@ -41,7 +74,7 @@ class MainButtonController implements MainButtonWidget {
    * @param codeChanged Whether the code has changed since last assembly
    * @returns Action enablement state object
    */
-  getActionEnabledState(
+  public getActionEnabledState(
     state: SimulatorState,
     hasCode: boolean,
     codeChanged: boolean
@@ -112,35 +145,35 @@ class MainButtonController implements MainButtonWidget {
    * @param state Current simulator state
    * @returns The button state to display
    */
-  getButtonState(state: SimulatorState): MainButtonState {
-    let buttonState: MainButtonState;
+  public getButtonState(state: SimulatorState): MainUiState {
+    let buttonState: MainUiState;
     switch (state) {
       case SimulatorState.INITIALIZED:
-        buttonState = MainButtonState.ASSEMBLE;
+        buttonState = MainUiState.ASSEMBLE;
         break;
 
       case SimulatorState.RUNNING:
-        buttonState = MainButtonState.PAUSE;
+        buttonState = MainUiState.PAUSE;
         break;
 
       case SimulatorState.DEBUGGING:
-        buttonState = MainButtonState.STEP;
+        buttonState = MainUiState.STEP;
         break;
 
       case SimulatorState.COMPLETED:
-        buttonState = MainButtonState.RESET;
+        buttonState = MainUiState.RESET;
         break;
 
       case SimulatorState.PAUSED:
-        buttonState = MainButtonState.RESUME;
+        buttonState = MainUiState.RESUME;
         break;
 
       case SimulatorState.DEBUGGING_PAUSED:
-        buttonState = MainButtonState.STEP;
+        buttonState = MainUiState.STEP;
         break;
 
       case SimulatorState.READY:
-        buttonState = MainButtonState.RUN;
+        buttonState = MainUiState.RUN;
         break;
 
       default:
@@ -151,4 +184,4 @@ class MainButtonController implements MainButtonWidget {
   }
 }
 
-export const mainButtonController = new MainButtonController();
+export const mainStateController = new MainUiStateController();

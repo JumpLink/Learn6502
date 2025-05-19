@@ -4,10 +4,10 @@ import Gio from "@girs/gio-2.0";
 
 import { SimulatorState } from "@learn6502/6502";
 import {
-  MainButtonState,
+  MainUiState,
   type MainButtonMode,
   type MainButtonWidget,
-  mainButtonController,
+  mainStateController,
 } from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
@@ -37,13 +37,8 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
             "State",
             "Current button state",
             GObject.ParamFlags.READWRITE,
-            MainButtonState.ASSEMBLE
+            MainUiState.ASSEMBLE
           ),
-        },
-        Signals: {
-          "state-changed": {
-            param_types: [GObject.TYPE_STRING],
-          },
         },
       },
       this
@@ -59,140 +54,125 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
   private stepSimulatorAction = "step-simulator";
 
   // Button modes configuration
-  private buttonModes: Record<MainButtonState, MainButtonMode> = {
-    [MainButtonState.ASSEMBLE]: {
+  private buttonModes: Record<MainUiState, MainButtonMode> = {
+    [MainUiState.INITIAL]: {
       iconName: "build-alt-symbolic",
       text: _("Assemble"),
       actionName: this.assembleAction,
     },
-    [MainButtonState.RUN]: {
+    [MainUiState.ASSEMBLE]: {
+      iconName: "build-alt-symbolic",
+      text: _("Assemble"),
+      actionName: this.assembleAction,
+    },
+    [MainUiState.RUN]: {
       iconName: "play-symbolic",
       text: _("Run"),
       actionName: this.runSimulatorAction,
     },
-    [MainButtonState.PAUSE]: {
+    [MainUiState.PAUSE]: {
       iconName: "pause-symbolic",
       text: _("Pause"),
       actionName: this.pauseSimulatorAction,
     },
-    [MainButtonState.RESUME]: {
+    [MainUiState.RESUME]: {
       iconName: "play-symbolic",
       text: _("Resume"),
       actionName: this.resumeSimulatorAction,
     },
-    [MainButtonState.RESET]: {
+    [MainUiState.RESET]: {
       iconName: "reset-symbolic",
       text: _("Reset"),
       actionName: this.resetSimulatorAction,
     },
-    [MainButtonState.STEP]: {
+    [MainUiState.STEP]: {
       iconName: "step-over-symbolic",
       text: _("Step"),
       actionName: this.stepSimulatorAction,
     },
   };
 
-  // Current state property
-  private _state: MainButtonState = MainButtonState.ASSEMBLE;
-
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
+    this.onStateChanged = this.onStateChanged.bind(this);
     this.init();
   }
 
   private init(): void {
-    // Initialize with default state
-    this.setMode(MainButtonState.ASSEMBLE);
+    this.addEventListeners();
+    mainStateController.init();
   }
 
   /**
    * Set the button mode/state
+   * Updates the UI with the appropriate visual representation
    *
    * @param state The new button state
    */
-  public setMode(state: MainButtonState): void {
-    const mode = this.buttonModes[state];
-
-    this._button.set_icon_name(mode.iconName);
-    this._button.set_tooltip_text(mode.text);
-    this._button.set_action_name(`win.${mode.actionName}`);
-
-    this._state = state;
-    this.notify("state");
-    this.emit("state-changed", state);
-    console.log("[MainButton] setMode", state);
+  public setState(state: MainUiState): void {
+    mainStateController.setState(state);
   }
 
   /**
    * Get the current button state
+   * Delegates to the controller
    */
-  public getState(): MainButtonState {
-    return this._state;
+  public getState(): MainUiState {
+    return mainStateController.getState();
   }
 
   /**
    * Set whether the code in the editor has changed since last assembly
-   * Implements MainButtonWidget
+   * Implements MainButtonWidget, delegates to controller
    */
   public setCodeChanged(changed: boolean): void {
-    // Update controller state
-    mainButtonController.setCodeChanged(changed);
-
-    // If code has changed, automatically set to ASSEMBLE mode
-    if (changed) {
-      this.setMode(MainButtonState.ASSEMBLE);
-    }
+    mainStateController.setCodeChanged(changed);
   }
 
   /**
    * Check if code has changed - delegated to controller
    */
-  public hasCodeChanged(): boolean {
-    // We can't directly access controller's _codeChanged private property,
-    // but we can infer the state by checking if updateFromSimulatorState
-    // returns ASSEMBLE for a non-ASSEMBLE simulator state
-    const testState = SimulatorState.RUNNING; // This should return PAUSE normally
-    return (
-      mainButtonController.updateFromSimulatorState(testState) ===
-      MainButtonState.ASSEMBLE
-    );
-  }
-
-  /**
-   * Set the menu model for the button
-   */
-  public set_menu_model(menu_model: Gio.MenuModel): void {
-    this._button.set_menu_model(menu_model);
+  public getCodeChanged(): boolean {
+    return mainStateController.getCodeChanged();
   }
 
   /**
    * Update button based on simulator state
-   * Implements MainButtonWidget - delegates to controller
+   * Implements MainButtonWidget
    *
    * @param state Current simulator state
    * @returns The new button state
    */
-  public updateFromSimulatorState(state: SimulatorState): MainButtonState {
-    // Use the mainButtonController to determine button state
-    const buttonState = mainButtonController.updateFromSimulatorState(state);
-    this.setMode(buttonState);
-    return buttonState;
+  public updateFromSimulatorState(state: SimulatorState): MainUiState {
+    return mainStateController.updateFromSimulatorState(state);
   }
 
   /**
-   * Convenience method to get enabled state for an action
-   * Uses the common controller for consistency
+   * Convenience method to get enabled state for actions
+   * Delegates to the controller for platform-independent logic
    */
   public getActionEnabledState(
     simulatorState: SimulatorState,
     hasCode: boolean,
     codeChanged: boolean
   ) {
-    return mainButtonController.getActionEnabledState(
+    return mainStateController.getActionEnabledState(
       simulatorState,
       hasCode,
       codeChanged
     );
+  }
+
+  protected addEventListeners(): void {
+    mainStateController.events.on("state-changed", this.onStateChanged);
+  }
+
+  protected onStateChanged(state: MainUiState): void {
+    // Update the button icon, tooltip, and action name
+    const mode = this.buttonModes[state];
+    this._button.set_icon_name(mode.iconName);
+    this._button.set_tooltip_text(mode.text);
+    this._button.set_action_name(`win.${mode.actionName}`);
   }
 }
 

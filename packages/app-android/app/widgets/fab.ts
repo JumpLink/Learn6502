@@ -66,7 +66,13 @@ const contentColorProperty = new Property<Fab, string>({
 export class Fab extends ContentView {
   /** The native Android Extended FAB view */
   // Use ExtendedFloatingActionButton to support text labels
-  private fab: com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton;
+
+  private _nativeFab: com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton | null =
+    null;
+
+  public get nativeFab(): com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton | null {
+    return this._nativeFab;
+  }
 
   // Property backing fields
   private _icon: string;
@@ -155,7 +161,7 @@ export class Fab extends ContentView {
   }
 
   get isExtended(): boolean {
-    return this.fab.isExtended();
+    return this.nativeFab.isExtended();
   }
 
   constructor() {
@@ -169,16 +175,16 @@ export class Fab extends ContentView {
    */
   public createNativeView(): android.view.View {
     // Use ExtendedFloatingActionButton to support text
-    this.fab =
+    this._nativeFab =
       new com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton(
         this.context
       );
 
     // Ensure it's clickable
-    this.fab.setClickable(true);
+    this.nativeFab.setClickable(true);
 
     // Set up click listener to forward the event to NativeScript
-    this.fab.setOnClickListener(
+    this.nativeFab.setOnClickListener(
       new android.view.View.OnClickListener({
         onClick: (view: android.view.View) => {
           this.notify({ eventName: Fab.tapEvent, object: this });
@@ -196,7 +202,7 @@ export class Fab extends ContentView {
       this.onSystemAppearanceChanged
     );
 
-    return this.fab;
+    return this.nativeFab;
   }
 
   /**
@@ -223,7 +229,7 @@ export class Fab extends ContentView {
   private applyTheme(
     isDarkMode = systemStates.systemAppearance === "dark"
   ): void {
-    if (!this.fab) return;
+    if (!this.nativeFab) return;
 
     const backgroundColor = getMaterialColor(
       this._containerColor,
@@ -235,36 +241,36 @@ export class Fab extends ContentView {
     // Apply content color to both icon and text
     const contentTintList = createColorStateList(contentColor);
 
-    this.fab.setBackgroundTintList(backgroundTintList);
-    this.fab.setIconTint(contentTintList);
-    this.fab.setTextColor(contentColor); // Set text color directly
+    this.nativeFab.setBackgroundTintList(backgroundTintList);
+    this.nativeFab.setIconTint(contentTintList);
+    this.nativeFab.setTextColor(contentColor); // Set text color directly
 
-    this.fab.refreshDrawableState(); // Refresh to apply changes
+    this.nativeFab.refreshDrawableState(); // Refresh to apply changes
   }
 
   /**
    * Sets the icon drawable for the FAB
    */
   private applyIcon(): void {
-    if (!this.fab) return;
+    if (!this.nativeFab) return;
 
     if (this._icon && this._icon.startsWith("res://")) {
       const iconName = this._icon.replace("res://", "");
       const resId = getResource(iconName, "drawable", this.context);
       if (resId) {
-        this.fab.setIconResource(resId); // Use setIconResource for Extended FAB
+        this.nativeFab.setIconResource(resId); // Use setIconResource for Extended FAB
       } else {
         console.error(`FAB Icon resource not found: ${iconName}`);
-        this.fab.setIcon(null); // Clear icon if not found
+        this.nativeFab.setIcon(null); // Clear icon if not found
       }
     } else if (this._icon) {
       console.warn(
         `FAB Icon format not supported (expected res://): ${this._icon}`
       );
-      this.fab.setIcon(null);
+      this.nativeFab.setIcon(null);
     } else {
       // If no icon is provided, clear it
-      this.fab.setIcon(null);
+      this.nativeFab.setIcon(null);
     }
   }
 
@@ -272,8 +278,8 @@ export class Fab extends ContentView {
    * Sets the text label for the FAB.
    */
   private applyText(): void {
-    if (!this.fab) return;
-    this.fab.setText(this._text || null); // Set text or clear if null/empty
+    if (!this.nativeFab) return;
+    this.nativeFab.setText(this._text || null); // Set text or clear if null/empty
   }
 
   /**
@@ -286,7 +292,7 @@ export class Fab extends ContentView {
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
-    this.fab = null;
+    this._nativeFab = null;
     super.disposeNativeView();
   }
 
@@ -295,8 +301,8 @@ export class Fab extends ContentView {
    * Uses the native shrink animation.
    */
   public collapse(): void {
-    if (!this.fab) return;
-    this.fab.shrink();
+    if (!this.nativeFab) return;
+    this.nativeFab.shrink();
   }
 
   /**
@@ -304,10 +310,10 @@ export class Fab extends ContentView {
    * Uses the native extend animation.
    */
   public extend(): void {
-    if (!this.fab) return;
+    if (!this.nativeFab) return;
     // Only extend if there is text defined
     if (this._text) {
-      this.fab.extend();
+      this.nativeFab.extend();
     }
   }
 

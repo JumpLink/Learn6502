@@ -285,7 +285,7 @@ export class MainController implements MainView {
 
     // TODO: Get code from editor and assemble it
     this._state = SimulatorState.READY;
-    this.updateMainButtonState();
+    this.updateMainUiState();
   }
 
   /**
@@ -305,7 +305,7 @@ export class MainController implements MainView {
 
     // TODO: Start the simulator
     this._state = SimulatorState.RUNNING;
-    this.updateMainButtonState();
+    this.updateMainUiState();
   }
 
   /**
@@ -317,7 +317,7 @@ export class MainController implements MainView {
     // TODO: Pause the simulator
     if (this._state === SimulatorState.RUNNING) {
       this._state = SimulatorState.PAUSED;
-      this.updateMainButtonState();
+      this.updateMainUiState();
     }
   }
 
@@ -329,7 +329,7 @@ export class MainController implements MainView {
 
     // TODO: Reset the simulator
     this._state = SimulatorState.READY;
-    this.updateMainButtonState();
+    this.updateMainUiState();
   }
 
   /**
@@ -354,7 +354,7 @@ export class MainController implements MainView {
     ) {
       // Stay in PAUSED state after stepping
       this._state = SimulatorState.PAUSED;
-      this.updateMainButtonState();
+      this.updateMainUiState();
     }
   }
 
@@ -380,7 +380,7 @@ export class MainController implements MainView {
   /**
    * Updates the main button state based on the current simulator state
    */
-  private updateMainButtonState(): void {
+  private updateMainUiState(): void {
     if (this.mainButton) {
       this.mainButton.updateFromSimulatorState(this._state);
     }

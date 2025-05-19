@@ -19,7 +19,7 @@ import {
 } from "../widgets/index.ts";
 
 /**
- * Platform-independent debugger service
+ * Platform-independent debugger controller
  */
 class DebuggerController implements DebuggerView {
   // State
@@ -56,7 +56,7 @@ class DebuggerController implements DebuggerView {
   }
 
   /**
-   * Initialize the debugger service with widgets
+   * Initialize the debugger controller with widgets
    * @param console Message console widget for logging output
    * @param debugInfo Debug info widget for displaying CPU state
    * @param hexMonitor Hex monitor widget for displaying memory
