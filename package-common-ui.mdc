@@ -1,0 +1,23 @@
+---
+description: 
+globs: 
+alwaysApply: false
+---
+## Component Architecture Pattern
+
+When implementing views or widgets in the common-ui package:
+
+1. Each component follows a three-part architecture:
+   - **Interface file** (`component-name.ts`) - Defines the component API
+   - **Controller** (`component-name-controller.ts`) - Implements shared logic
+   - **Event map** (`component-name-event-map.ts`) - Defines event types (if needed)
+
+2. Controllers should:
+   - Implement their corresponding interface
+   - Use EventDispatcher for event handling
+   - Export a singleton instance
+   - Remain platform/framework-agnostic
+
+3. Follow existing patterns:
+   - See `debugger.ts`/`debugger-controller.ts`/`debugger-event-map.ts` 
+   - See `main-button.ts`/`main-ui-state-controller.ts`/`main-ui-state-event-map.ts`
