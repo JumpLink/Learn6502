@@ -1,17 +1,17 @@
 {
-    "compilerOptions": {
-       "preserveWatchOutput": true,
-        "lib": ["ESNext"],
-        "typeRoots": ["./"],
-        "types": ["global"],
-        "outDir": "./dist",
-        "module": "NodeNext",
-        "target": "ESNext",
-        "moduleResolution": "NodeNext",
-        "diagnostics": true,
-        "verbatimModuleSyntax": true,
-        "isolatedModules": true
-    },
-    "include": ["src/index.ts"],
-    "exclude": ["node_modules", "dist"]
+  "compilerOptions": {
+    "preserveWatchOutput": true,
+    "lib": ["ESNext"],
+    "typeRoots": ["./"],
+    "types": ["./global.d.ts"],
+    "outDir": "./dist",
+    "module": "NodeNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
+    "diagnostics": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true
+  },
+  "include": ["src/index.ts"],
+  "exclude": ["node_modules", "dist"]
 }

@@ -1,0 +1,29 @@
+{
+  "name": "@learn6502/app-android",
+  "main": "app/app.ts",
+  "version": "0.2.0",
+  "private": true,
+  "scripts": {
+    "clear": "ns clean",
+    "start": "ns run android --emulator",
+    "start:device": "ns run android",
+    "start:clean": "ns run android --clean --emulator",
+    "start:debug": "ns debug android",
+    "check": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@learn6502/6502": "workspace:^",
+    "@learn6502/common-ui": "workspace:^",
+    "@nativescript/core": "~8.9.2",
+    "@nativescript/localize": "^5.2.0",
+    "@nativescript/tailwind": "^4.0.3",
+    "tailwindcss": "^4.1.7"
+  },
+  "devDependencies": {
+    "@nativescript/android": "8.9.1",
+    "@nativescript/types": "~8.9.1",
+    "@nativescript/webpack": "^5.0.24",
+    "nativescript": "^8.9.2",
+    "typescript": "~5.8.3"
+  }
+}

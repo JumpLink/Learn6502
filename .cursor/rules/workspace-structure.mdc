@@ -1,0 +1,60 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+## Learn 6502 Workspace Overview
+
+This project is a Yarn 4 monorepo. The primary goal is to provide a learning environment for 6502 assembly, with applications for GNOME, Web, and Android.
+
+### Guiding Principles:
+- **Code Sharing:** Maximize code reuse across `app-gnome`, `app-web`, and `app-android` by leveraging the `common-ui` and `6502` (core) packages.
+- **Maintainability:** Write clean, maintainable, consistent, and well-documented code.
+- **Flexibility:** You are encouraged to refactor and adapt code across all packages if it improves code cleanliness, elegance, or maintainability. Do not hesitate to move files or responsibilities between packages if it makes sense for a better architecture.
+
+### Package Structure (located in `packages/`):
+
+- **`6502` (core):**
+    - **Purpose:** Contains the platform-independent 6502 assembler, simulator, and disassembler. This is the heart of the 6502 emulation.
+    - **Code:** Core emulation logic, assembly parsing, CPU state management.
+    - **Usage:** Consumed by `app-gnome`, `app-web`, and `app-android`.
+
+- **`common-ui`:**
+    - **Purpose:** Houses shared UI components, styles, and potentially common interfaces/types used by the different application frontends.
+    - **Code:** Reusable UI elements (e.g., buttons, editors, views), shared styling, type definitions for shared data structures if not in a dedicated `common` package.
+    - **Usage:** Consumed by `app-gnome`, `app-web`, and `app-android`.
+
+- **`app-gnome`:**
+    - **Purpose:** The GNOME desktop application.
+    - **Code:** GNOME-specific UI (Adwaita, GJS, Blueprint), application logic, and integration with `6502` and `common-ui`.
+    - **Note:** Uses GJS and TypeScript.
+
+- **`app-web`:**
+    - **Purpose:** The web application version.
+    - **Code:** Web-specific UI (HTML, CSS, potentially a web framework), application logic, and integration with `6502` and `common-ui`.
+
+- **`app-android`:**
+    - **Purpose:** The Android application version.
+    - **Code:** Android-specific UI (e.g., using a framework like React Native or native development), application logic, and integration with `6502` and `common-ui`.
+
+- **`learn`:**
+    - **Purpose:** Contains the tutorial content and learning materials presented in the applications.
+    - **Code:** Markdown files, images, or other assets related to the 6502 tutorial.
+
+- **`translations`:**
+    - **Purpose:** Manages localization and internationalization (i18n).
+    - **Code:** Translation files (e.g., `.po`, `.json`), scripts or configurations for the translation workflow.
+
+- **`vite-plugin-gettext`:**
+    - **Purpose:** A Vite plugin to integrate gettext for localization, likely used by `app-web` or other Vite-based packages.
+    - **Code:** Plugin logic for Vite.
+
+- **`vite-plugin-blueprint`:**
+    - **Purpose:** A Vite plugin to handle GNOME Blueprint UI files, likely used by `app-gnome` if it uses Vite for its web-based GJS parts, or by `app-web` if it adopts Blueprint.
+    - **Code:** Plugin logic for Vite.
+
+### General Code Guidelines:
+- **Interfaces/Types:** If a dedicated `common` package for non-UI interfaces and types doesn't exist, consider placing widely shared interfaces and types within `common-ui` or directly within the `6502` core package if they are tightly coupled to its functionality. The goal is to have a single source of truth for shared data structures.
+- **Code Cleanliness:** Prioritize readability, consistency, and simplicity. Adhere to general TypeScript/JavaScript best practices. Specific formatting and linting rules are likely enforced by Prettier and ESLint (check project configurations).
+- **Modularity:** Design components and modules to be as self-contained and reusable as possible.
+- **Platform-Specific Code:** Keep platform-specific code (GNOME, Web, Android) within their respective `app-*` packages. Abstract shared logic into `common-ui` or `6502`.

@@ -1,9 +1,76 @@
-import { Simulator, Memory, addr2hex, num2hex, DebuggerState, type Debugger as DebuggerInterface, type HexMonitorOptions, throttle } from '@learn6502/6502';
+import {
+  Simulator,
+  Memory,
+  addr2hex,
+  num2hex,
+  throttle,
+  Assembler,
+} from "@learn6502/6502";
 
-export class Debugger implements DebuggerInterface {
+import {
+  DebuggerState,
+  debuggerController,
+  type DebuggerView,
+  type HexMonitorOptions,
+  type MessageConsoleWidget,
+  type DebugInfoWidget,
+} from "@learn6502/common-ui";
 
+import { MessageConsole } from "./message-console";
+
+// Create a DebugInfoWidget implementation for web
+class DebugInfo implements DebugInfoWidget {
+  constructor(private readonly element: HTMLElement) {}
+
+  public update(simulator: Simulator): void {
+    const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
+    let html =
+      "A=$" +
+      num2hex(regA) +
+      " X=$" +
+      num2hex(regX) +
+      " Y=$" +
+      num2hex(regY) +
+      "<br />";
+    html += "SP=$" + num2hex(regSP) + " PC=$" + addr2hex(regPC);
+    html += "<br />";
+    html += "NV-BDIZC<br />";
+    for (let i = 7; i >= 0; i--) {
+      html += (regP >> i) & 1;
+    }
+    this.element.innerHTML = html;
+  }
+}
+
+export class Debugger implements DebuggerView {
   public state = DebuggerState.INITIAL;
-  constructor(private readonly node: HTMLElement, private readonly simulator: Simulator, public readonly memory: Memory, public readonly options: HexMonitorOptions) {
+  private messageConsole: MessageConsoleWidget;
+  private debugInfo: DebugInfoWidget;
+
+  constructor(
+    private readonly node: HTMLElement,
+    private readonly simulator: Simulator,
+    public readonly memory: Memory,
+    public readonly options: HexMonitorOptions
+  ) {
+    // Initialize widgets
+    const consoleElement = node.querySelector<HTMLElement>(".messages");
+    const minidebugger = node.querySelector<HTMLElement>(".minidebugger");
+
+    if (!consoleElement) {
+      throw new Error("Console element not found in debugger node");
+    }
+
+    if (!minidebugger) {
+      throw new Error("Debug info element not found in debugger node");
+    }
+
+    this.messageConsole = new MessageConsole(consoleElement);
+    this.debugInfo = new DebugInfo(minidebugger);
+
+    // Initialize service with widgets
+    debuggerController.init(this.messageConsole, this.debugInfo);
+
     this.setupEventListeners();
     this.onMonitorRangeChange = this.onMonitorRangeChange.bind(this);
   }
@@ -29,23 +96,23 @@ export class Debugger implements DebuggerInterface {
    * Handle the monitor range change.
    */
   public onMonitorRangeChange() {
-    const $start = this.node.querySelector<HTMLInputElement>('.start'),
-      $length = this.node.querySelector<HTMLInputElement>('.length'),
-      start = parseInt($start?.value || '0', 16),
-      length = parseInt($length?.value || '0', 16);
+    const $start = this.node.querySelector<HTMLInputElement>(".start"),
+      $length = this.node.querySelector<HTMLInputElement>(".length"),
+      start = parseInt($start?.value || "0", 16),
+      length = parseInt($length?.value || "0", 16);
 
-    $start?.classList.remove('monitor-invalid');
-    $length?.classList.remove('monitor-invalid');
+    $start?.classList.remove("monitor-invalid");
+    $length?.classList.remove("monitor-invalid");
 
     const end = start + length - 1;
 
     if (isNaN(start) || start < 0 || start > 0xffff) {
-      $start?.classList.add('monitor-invalid');
-      console.error("start is invalid", start)
+      $start?.classList.add("monitor-invalid");
+      console.error("start is invalid", start);
       return;
     } else if (isNaN(length) || end > 0xffff) {
-      $length?.classList.add('monitor-invalid');
-      console.error("length is invalid", length)
+      $length?.classList.add("monitor-invalid");
+      console.error("length is invalid", length);
       return;
     }
 
@@ -53,21 +120,21 @@ export class Debugger implements DebuggerInterface {
   }
 
   private setupEventListeners() {
-    this.simulator.on('step', () => {
+    this.simulator.on("step", () => {
       // If stepper is enabled, update the debug info and the monitor every step
       if (this.simulator.stepperEnabled) {
         this.update(this.memory, this.simulator);
       }
     });
 
-    this.simulator.on('multistep', () => {
+    this.simulator.on("multistep", () => {
       this.update(this.memory, this.simulator);
     });
 
-    this.simulator.on('reset', () => {
+    this.simulator.on("reset", () => {
       this.update(this.memory, this.simulator);
     });
-    this.simulator.on('goto', () => {
+    this.simulator.on("goto", () => {
       this.update(this.memory, this.simulator);
     });
 
@@ -81,17 +148,30 @@ export class Debugger implements DebuggerInterface {
 
     const start = this.options.start;
     const length = this.options.length;
-    let content = '';
+    let content = "";
 
     const end = start + length - 1;
 
-    if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
-      content = memory.format({ start, length, includeAddress: true, includeSpaces: true, includeNewline: true });
+    if (
+      !isNaN(start) &&
+      !isNaN(length) &&
+      start >= 0 &&
+      length > 0 &&
+      end <= 0xffff
+    ) {
+      content = memory.format({
+        start,
+        length,
+        includeAddress: true,
+        includeSpaces: true,
+        includeNewline: true,
+      });
     } else {
-      content = 'Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.';
+      content =
+        "Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.";
     }
 
-    const monitorNode = this.node.querySelector<HTMLElement>('.monitor code');
+    const monitorNode = this.node.querySelector<HTMLElement>(".monitor code");
 
     if (!monitorNode) {
       return;
@@ -101,18 +181,7 @@ export class Debugger implements DebuggerInterface {
   }
 
   public updateDebugInfo(simulator: Simulator) {
-    const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
-    let html = "A=$" + num2hex(regA) + " X=$" + num2hex(regX) + " Y=$" + num2hex(regY) + "<br />";
-    html += "SP=$" + num2hex(regSP) + " PC=$" + addr2hex(regPC);
-    html += "<br />";
-    html += "NV-BDIZC<br />";
-    for (let i = 7; i >= 0; i--) {
-      html += regP >> i & 1;
-    }
-    const minidebugger = this.node.querySelector<HTMLElement>('.minidebugger');
-    if (minidebugger) {
-      minidebugger.innerHTML = html;
-    }
+    debuggerController.updateDebugInfo(simulator);
   }
 
   #update(memory: Memory, simulator: Simulator) {
@@ -128,7 +197,41 @@ export class Debugger implements DebuggerInterface {
    */
   public update = throttle(this.#update.bind(this), 349); // Prime number
 
+  /**
+   * Updates the hexdump view
+   * @param assembler Assembler with assembled code
+   */
+  public updateHexdump(assembler: Assembler): void {
+    debuggerController.updateHexdump(assembler);
+  }
+
+  /**
+   * Updates the disassembled view
+   * @param assembler Assembler with assembled code
+   */
+  public updateDisassembled(assembler: Assembler): void {
+    debuggerController.updateDisassembled(assembler);
+  }
+
+  /**
+   * Log a message to the debugger console
+   * @param message Message to log
+   */
+  public log(message: string): void {
+    debuggerController.log(message);
+  }
+
   public reset() {
+    if (this.messageConsole) {
+      this.messageConsole.clear();
+    }
     this.state = DebuggerState.RESET;
+  }
+
+  /**
+   * Clean up resources when closing
+   */
+  public close(): void {
+    // Remove event listeners or perform any cleanup
   }
 }

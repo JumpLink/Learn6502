@@ -1,0 +1,16 @@
+---
+description: 
+globs: packages/common-ui/**/*
+alwaysApply: false
+---
+## Package: `common-ui`
+
+- **Purpose:** Provides platform-independent and framework-agnostic UI building blocks, styles, and potentially shared non-core interfaces/types for all applications (`app-gnome`, `app-web`, `app-android`).
+- **Primary Technologies:** TypeScript. Must not include any platform-specific or UI-framework-specific code.
+- **Key Focus:**
+    - Maximizing code reuse for UI logic and presentation structure where possible.
+    - Defining clear, abstract component APIs that platform-specific packages can implement or adapt.
+    - Maintaining structural consistency across platforms. For example, if using patterns like the custom `event-dispatcher.ts`, `common-ui` components should be designed to integrate with such patterns smoothly.
+- **Styling:** Base styles or styling utilities should be platform-agnostic (e.g., logical properties, theming variables). Platform-specific packages will adapt these to their native styling systems (Adwaita, Material Design 3, Web CSS).
+- **Interfaces:** Can define shared view models, data structures for UI components, or abstract interfaces for services that UI components might need, provided they are not tied to the `6502` core logic.
+- **Dependencies:** Strictly avoid platform-specific (Android, GTK/GJS) or specific UI framework (React, Vue) dependencies. All dependencies must be universally usable in vanilla TypeScript/JavaScript environments.

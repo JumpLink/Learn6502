@@ -1,5 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <schemalist gettext-domain="eu.jumplink.Learn6502">
 	<schema id="eu.jumplink.Learn6502" path="/eu/jumplink/Learn6502/">
+        <!-- Theme settings -->
+        <key name="theme" type="s">
+            <default>'system'</default>
+            <summary>Application theme</summary>
+            <description>The theme preference for the application (system, light, dark)</description>
+        </key>
+        
+        <!-- UI settings -->
+        <key name="window-width" type="i">
+            <default>900</default>
+            <summary>Window width</summary>
+            <description>Width of the application window</description>
+        </key>
+        
+        <key name="window-height" type="i">
+            <default>600</default>
+            <summary>Window height</summary>
+            <description>Height of the application window</description>
+        </key>
+        
+        <key name="is-maximized" type="b">
+            <default>false</default>
+            <summary>Window maximized state</summary>
+            <description>Whether the window is maximized</description>
+        </key>
+        
+        <!-- Editor settings -->
+        <key name="font-name" type="s">
+            <default>'Monospace 12'</default>
+            <summary>Editor font</summary>
+            <description>Font used in the code editor</description>
+        </key>
+        
+        <key name="show-line-numbers" type="b">
+            <default>true</default>
+            <summary>Show line numbers</summary>
+            <description>Whether to show line numbers in the editor</description>
+        </key>
+        
+        <key name="auto-indent" type="b">
+            <default>true</default>
+            <summary>Auto indent</summary>
+            <description>Whether to enable auto indentation in the editor</description>
+        </key>
 	</schema>
 </schemalist>

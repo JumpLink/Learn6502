@@ -1,13 +1,13 @@
-import { type Plugin } from 'vite';
-import { execa } from 'execa';
-import path from 'node:path';
-import type { GettextPluginOptions } from './types.js';
+import { type Plugin } from "vite";
+import { execa } from "execa";
+import path from "node:path";
+import type { GettextPluginOptions } from "./types.js";
 import {
   checkDependencies,
   findAvailableLanguages,
   generateLinguasFile,
-  ensureDirectory
-} from './utils.js';
+  ensureDirectory,
+} from "./utils.js";
 
 /**
  * Creates a Vite plugin that compiles PO translation files to binary MO format
@@ -20,11 +20,11 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
   const {
     poDirectory,
     moDirectory,
-    filename = 'messages.mo',
-    verbose = false
+    filename = "messages.mo",
+    verbose = false,
   } = options;
 
-  const pluginName = 'vite-plugin-gettext';
+  const pluginName = "vite-plugin-gettext";
 
   async function compileMoFiles() {
     try {
@@ -33,13 +33,19 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
         await ensureDirectory(poDirectory);
       } catch {
         if (verbose) {
-          console.log(`[${pluginName}] PO directory ${poDirectory} does not exist yet, skipping compilation`);
+          console.log(
+            `[${pluginName}] PO directory ${poDirectory} does not exist yet, skipping compilation`
+          );
         }
         return;
       }
 
       // Find available languages
-      const languages = await findAvailableLanguages(poDirectory, pluginName, verbose);
+      const languages = await findAvailableLanguages(
+        poDirectory,
+        pluginName,
+        verbose
+      );
 
       if (languages.length === 0) {
         if (verbose) {
@@ -52,11 +58,11 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
       await generateLinguasFile(languages, poDirectory, verbose);
 
       // Create MO directory
-      await ensureDirectory(path.join(moDirectory, 'locale'));
+      await ensureDirectory(path.join(moDirectory, "locale"));
 
       for (const lang of languages) {
         const poFile = path.join(poDirectory, `${lang}.po`);
-        const moPath = path.join(moDirectory, 'locale', lang, 'LC_MESSAGES');
+        const moPath = path.join(moDirectory, "locale", lang, "LC_MESSAGES");
         const moFile = path.join(moPath, filename);
 
         await ensureDirectory(moPath);
@@ -65,10 +71,7 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
           console.log(`[${pluginName}] Compiling ${poFile} to ${moFile}`);
         }
 
-        await execa('msgfmt', [
-          '--output-file=' + moFile,
-          poFile
-        ]);
+        await execa("msgfmt", ["--output-file=" + moFile, poFile]);
       }
     } catch (error) {
       throw new Error(`Failed to compile MO files: ${error}`);
@@ -79,21 +82,23 @@ export function gettextPlugin(options: GettextPluginOptions): Plugin {
     name: pluginName,
 
     async buildStart() {
-      await checkDependencies('msgfmt', pluginName, verbose);
+      await checkDependencies("msgfmt", pluginName, verbose);
       await compileMoFiles();
     },
 
     configureServer(server) {
       server.watcher.add(poDirectory);
 
-      server.watcher.on('change', async (file) => {
-        if (file.endsWith('.po')) {
+      server.watcher.on("change", async (file) => {
+        if (file.endsWith(".po")) {
           if (verbose) {
-            console.log(`[${pluginName}] PO file changed: ${file}, recompiling`);
+            console.log(
+              `[${pluginName}] PO file changed: ${file}, recompiling`
+            );
           }
           await compileMoFiles();
         }
       });
-    }
+    },
   };
 }

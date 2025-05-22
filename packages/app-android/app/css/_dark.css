@@ -1,0 +1,57 @@
+/*
+ * Dark Theme
+ * Keep in sync with ./data/Android/src/main/res/values-night/colors.xml
+ */
+@layer base {
+  .ns-dark {
+    --color-primary: rgb(167, 200, 255);
+    --color-surface-tint: rgb(167, 200, 255);
+    --color-on-primary: rgb(4, 48, 95);
+    --color-primary-container: rgb(36, 71, 119);
+    --color-on-primary-container: rgb(213, 227, 255);
+    --color-secondary: rgb(167, 200, 255);
+    --color-on-secondary: rgb(4, 48, 95);
+    --color-secondary-container: rgb(36, 71, 119);
+    --color-on-secondary-container: rgb(213, 227, 255);
+    --color-tertiary: rgb(230, 182, 241);
+    --color-on-tertiary: rgb(70, 33, 82);
+    --color-tertiary-container: rgb(94, 56, 106);
+    --color-on-tertiary-container: rgb(250, 215, 255);
+    --color-error: rgb(255, 179, 178);
+    --color-on-error: rgb(86, 29, 31);
+    --color-error-container: rgb(115, 51, 52);
+    --color-on-error-container: rgb(255, 218, 216);
+    --color-background: rgb(17, 19, 24);
+    --color-on-background: rgb(225, 226, 233);
+    --color-surface: rgb(17, 19, 24);
+    --color-on-surface: rgb(225, 226, 233);
+    --color-surface-variant: rgb(67, 71, 78);
+    --color-on-surface-variant: rgb(196, 198, 207);
+    --color-outline: rgb(142, 145, 153);
+    --color-outline-variant: rgb(67, 71, 78);
+    --color-shadow: rgb(0, 0, 0);
+    --color-scrim: rgb(0, 0, 0);
+    --color-inverse-surface: rgb(225, 226, 233);
+    --color-inverse-on-surface: rgb(46, 48, 53);
+    --color-inverse-primary: rgb(62, 95, 144);
+    --color-primary-fixed: rgb(213, 227, 255);
+    --color-on-primary-fixed: rgb(0, 27, 60);
+    --color-primary-fixed-dim: rgb(167, 200, 255);
+    --color-on-primary-fixed-variant: rgb(36, 71, 119);
+    --color-secondary-fixed: rgb(213, 227, 255);
+    --color-on-secondary-fixed: rgb(0, 27, 60);
+    --color-secondary-fixed-dim: rgb(167, 200, 255);
+    --color-on-secondary-fixed-variant: rgb(36, 71, 119);
+    --color-tertiary-fixed: rgb(250, 215, 255);
+    --color-on-tertiary-fixed: rgb(47, 10, 59);
+    --color-tertiary-fixed-dim: rgb(230, 182, 241);
+    --color-on-tertiary-fixed-variant: rgb(94, 56, 106);
+    --color-surface-dim: rgb(17, 19, 24);
+    --color-surface-bright: rgb(55, 57, 62);
+    --color-surface-container-lowest: rgb(12, 14, 19);
+    --color-surface-container-low: rgb(25, 28, 32);
+    --color-surface-container: rgb(29, 32, 36);
+    --color-surface-container-high: rgb(40, 42, 47);
+    --color-surface-container-highest: rgb(51, 53, 58);
+  }
+}

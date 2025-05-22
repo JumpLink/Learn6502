@@ -1,4 +1,4 @@
-import type { State } from './types/state.js';
+import type { State } from "./types/state.js";
 
 /**
  * Manages the user interface for the 6502 emulator.
@@ -9,29 +9,29 @@ export class UIState {
   // Define the various UI states
   private start: State = {
     assemble: true,
-    run: [false, 'Run'],
+    run: [false, "Run"],
     reset: false,
     hexdump: false,
     disassemble: false,
-    debug: [false, false]
+    debug: [false, false],
   };
 
   private assembled: State = {
     assemble: false,
-    run: [true, 'Run'],
+    run: [true, "Run"],
     reset: true,
     hexdump: true,
     disassemble: true,
-    debug: [true, false]
+    debug: [true, false],
   };
 
   private running: State = {
     assemble: false,
-    run: [true, 'Stop'],
+    run: [true, "Stop"],
     reset: true,
     hexdump: false,
     disassemble: false,
-    debug: [true, false]
+    debug: [true, false],
   };
 
   private debugging: State = {
@@ -39,7 +39,7 @@ export class UIState {
     reset: true,
     hexdump: true,
     disassemble: true,
-    debug: [true, true]
+    debug: [true, true],
   };
 
   private postDebugging: State = {
@@ -47,7 +47,7 @@ export class UIState {
     reset: true,
     hexdump: true,
     disassemble: true,
-    debug: [true, false]
+    debug: [true, false],
   };
 
   /**
@@ -105,19 +105,19 @@ export class UIState {
    * @param enable - Whether to show or hide the monitor.
    */
   public toggleMonitor(enable: boolean): void {
-    const monitor = this.node.querySelector<HTMLElement>('.monitor');
+    const monitor = this.node.querySelector<HTMLElement>(".monitor");
     if (!monitor) {
       return;
     }
-    monitor.style.display = enable ? 'block' : 'none';
+    monitor.style.display = enable ? "block" : "none";
   }
 
   /**
    * Displays notes in the messages area.
    */
   public showNotes(): void {
-    const messagesCode = this.node.querySelector('.messages code');
-    const notes = this.node.querySelector('.notes');
+    const messagesCode = this.node.querySelector(".messages code");
+    const notes = this.node.querySelector(".notes");
     if (messagesCode && notes) {
       messagesCode.innerHTML = notes.innerHTML;
     }
@@ -132,23 +132,27 @@ export class UIState {
    * @param state - The new state to apply to the UI.
    */
   private setState(state: State): void {
-    const assembleButton = this.node.querySelector<HTMLInputElement>('.assembleButton');
-    const runButton = this.node.querySelector<HTMLInputElement>('.runButton');
-    const resetButton = this.node.querySelector<HTMLInputElement>('.resetButton');
-    const hexdumpButton = this.node.querySelector<HTMLInputElement>('.hexdumpButton');
-    const disassembleButton = this.node.querySelector<HTMLInputElement>('.disassembleButton');
-    const debug = this.node.querySelector<HTMLInputElement>('.debug');
-    const stepButton = this.node.querySelector<HTMLInputElement>('.stepButton');
-    const gotoButton = this.node.querySelector<HTMLInputElement>('.gotoButton');
+    const assembleButton =
+      this.node.querySelector<HTMLInputElement>(".assembleButton");
+    const mainButton = this.node.querySelector<HTMLInputElement>(".mainButton");
+    const resetButton =
+      this.node.querySelector<HTMLInputElement>(".resetButton");
+    const hexdumpButton =
+      this.node.querySelector<HTMLInputElement>(".hexdumpButton");
+    const disassembleButton =
+      this.node.querySelector<HTMLInputElement>(".disassembleButton");
+    const debug = this.node.querySelector<HTMLInputElement>(".debug");
+    const stepButton = this.node.querySelector<HTMLInputElement>(".stepButton");
+    const gotoButton = this.node.querySelector<HTMLInputElement>(".gotoButton");
 
     if (assembleButton) {
       assembleButton.disabled = !state.assemble;
     }
 
     if (state.run) {
-      if (runButton) {
-        runButton.disabled = !state.run[0];
-        runButton.value = state.run[1];
+      if (mainButton) {
+        mainButton.disabled = !state.run[0];
+        mainButton.value = state.run[1];
       }
     }
 

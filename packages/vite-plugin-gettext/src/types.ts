@@ -20,7 +20,7 @@ export interface XGettextPluginOptions {
   /** Version of the POT file, defaults to '1.0' */
   version?: string;
   /** Preset to use for extracting strings, defaults to 'glib' */
-  preset?: 'glib';
+  preset?: "glib";
   /** URL for reporting bugs in the POT file */
   msgidBugsAddress?: string;
   /** Copyright holder to set in the POT file */
@@ -46,16 +46,16 @@ export interface GettextPluginOptions {
  * Output format types for msgfmt
  */
 export type MsgfmtFormat =
-  | 'mo'
-  | 'java'
-  | 'java2'
-  | 'csharp'
-  | 'csharp-resources'
-  | 'tcl'
-  | 'desktop'
-  | 'xml'
-  | 'json'
-  | 'qt';
+  | "mo"
+  | "java"
+  | "java2"
+  | "csharp"
+  | "csharp-resources"
+  | "tcl"
+  | "desktop"
+  | "xml"
+  | "json"
+  | "qt";
 
 /**
  * Configuration options for the msgfmt plugin
@@ -85,4 +85,36 @@ export interface MsgfmtPluginOptions {
 export interface PluginOptions {
   pluginName: string;
   verbose?: boolean;
+}
+
+/**
+ * Options for the PO to JSON conversion plugin
+ */
+export interface GettextPo2JsonPluginOptions {
+  /**
+   * Directory containing PO files
+   */
+  poDirectory: string;
+
+  /**
+   * Directory where JSON files will be saved
+   */
+  jsonDirectory: string;
+
+  /**
+   * Default language code (default: 'en')
+   */
+  defaultLanguage?: string;
+
+  /**
+   * Enable verbose logging
+   */
+  verbose?: boolean;
+
+  /**
+   * Additional translations to include in all language files
+   * Keys are identifiers and values are the English text
+   * The English text will be translated for non-default languages if translations exist
+   */
+  additionalTranslations?: Record<string, string>;
 }

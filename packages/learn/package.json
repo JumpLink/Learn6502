@@ -1,23 +1,24 @@
 {
-    "name": "@learn6502/learn",
-    "version": "0.2.0",
-    "description": "Learn 6502 assembly",
-    "type": "module",
-    "main": "index.js",
-    "scripts": {
-        "build:mdx": "node esbuild.js",
-        "build:js": "node dist/index.js",
-        "build": "yarn build:mdx && yarn build:js",
-        "clear": "rm -rf dist"
-    },
-    "author": "Nick Morgan, Pascal Garber",
-    "license": "CC-BY-4.0",
-    "devDependencies": {
-        "@mdx-js/esbuild": "^3.1.0",
-        "@types/mdx": "^2.0.13",
-        "@types/node": "^22.14.1",
-        "esbuild": "^0.25.2",
-        "nano-jsx": "^0.1.0",
-        "typescript": "^5.8.3"
-    }
+  "name": "@learn6502/learn",
+  "version": "0.2.0",
+  "description": "Learn 6502 assembly",
+  "type": "module",
+  "main": "index.js",
+  "scripts": {
+    "build:mdx": "node esbuild.js",
+    "build:js": "node dist/index.js",
+    "build": "yarn build:mdx && yarn build:js && yarn build:copy",
+    "build:copy": "cp -r dist/tutorial.ns.xml ../app-android/app/mdx/tutorial.xml && cp -r dist/quick-help.ns.xml ../app-android/app/mdx/quick-help.xml",
+    "clear": "rm -rf dist"
+  },
+  "author": "Nick Morgan, Pascal Garber",
+  "license": "CC-BY-4.0",
+  "devDependencies": {
+    "@mdx-js/esbuild": "^3.1.0",
+    "@types/mdx": "^2.0.13",
+    "@types/node": "^22.15.18",
+    "esbuild": "^0.25.4",
+    "nano-jsx": "^0.1.0",
+    "typescript": "^5.8.3"
+  }
 }

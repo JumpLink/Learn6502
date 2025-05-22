@@ -1,0 +1,16 @@
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:w="~/widgets/index"
+    loaded="onLoaded"
+    unloaded="onUnloaded"
+    actionBarHidden="true"
+    class="bg-surface text-on-surface">
+
+    <GridLayout rows="*, auto">
+        <!-- Display Area -->
+        <w:Display id="display" row="0" />
+
+        <!-- Gamepad Area -->
+        <w:Gamepad id="gamePad" row="1" />
+    </GridLayout>
+
+</Page>
