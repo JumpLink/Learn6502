@@ -110,9 +110,6 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
    * Initializes the simulator widget and sets up event listeners.
    */
   private initialize(): void {
-    this._display?.initialize(this._memory);
-    this._simulator.reset();
-
     // Set up game console service with all components
     gameConsoleController.init({
       memory: this._memory,
@@ -122,6 +119,18 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
       assembler: this._assembler,
       labels: this._labels,
     });
+
+    // Add a test pattern to memory to test the display
+    // This should be the same pattern as on Android for comparison
+    gameConsoleController.initializeMemoryWithTestPattern("colorChart");
+
+    // Now we can initialize the display component with the initialized memory
+    this._display?.initialize(this._memory);
+
+    // Reset simulator
+    this._simulator.reset();
+
+    console.log("GNOME GameConsole: Initialization complete");
   }
 
   private removeSignalHandlers(): void {

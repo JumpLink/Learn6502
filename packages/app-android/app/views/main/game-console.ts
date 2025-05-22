@@ -17,7 +17,10 @@ import {
   type GamepadKey,
 } from "@learn6502/common-ui";
 
-class GameConsole implements GameConsoleView {
+/**
+ * Android implementation of the Game Console view
+ */
+export class GameConsole implements GameConsoleView {
   private page: Page | null = null;
   private _display: Display | null = null;
   private _gamePad: Gamepad | null = null;
@@ -36,14 +39,6 @@ class GameConsole implements GameConsoleView {
     // Bind methods
     this.onLoaded = this.onLoaded.bind(this);
     this.onUnloaded = this.onUnloaded.bind(this);
-    this.assemble = this.assemble.bind(this);
-    this.run = this.run.bind(this);
-    this.stop = this.stop.bind(this);
-    this.reset = this.reset.bind(this);
-    this.step = this.step.bind(this);
-    this.goto = this.goto.bind(this);
-    this.gamepadPress = this.gamepadPress.bind(this);
-    this.close = this.close.bind(this);
   }
 
   // --- Public Properties (Read-only access) ---
@@ -70,15 +65,20 @@ class GameConsole implements GameConsoleView {
   // --- Lifecycle Handlers ---
   public onLoaded(args: EventData): void {
     this.page = args.object as Page;
-    console.log("game-console.view: onLoaded");
+
     this._display = this.page.getViewById<Display>("display");
     this._gamePad = this.page.getViewById<Gamepad>("gamePad");
+
+    if (!this._display || !this._gamePad) {
+      console.error("Failed to find required components in game-console view");
+      return;
+    }
+
     this.initialize();
   }
 
   public onUnloaded(args: EventData): void {
-    console.log("game-console.view: onUnloaded");
-    this.close(); // Clean up simulator and listeners
+    this.close();
     this.page = null;
     this._display = null;
     this._gamePad = null;
@@ -128,7 +128,6 @@ class GameConsole implements GameConsoleView {
   /** Call this when the view is about to be destroyed. */
   public close(): void {
     this.stop();
-    this.removeEventListeners();
     gameConsoleController.close();
   }
 
@@ -137,11 +136,13 @@ class GameConsole implements GameConsoleView {
    * Initializes the simulator and sets up event listeners.
    */
   private initialize(): void {
-    if (!this._display || !this._gamePad || !this._memory) {
+    if (!this._display || !this._gamePad) {
       throw new Error("Missing required components");
     }
 
-    // Initialize common controller
+    console.log("GameConsole: Initializing game console components");
+
+    // Initialize common controller first
     gameConsoleController.init({
       memory: this._memory,
       displayWidget: this._display,
@@ -151,33 +152,24 @@ class GameConsole implements GameConsoleView {
       labels: this._labels,
     });
 
+    // Debug output for memory and controller
+    console.log(
+      `GameConsole: Memory initialized (${this._memory ? "ok" : "failed"})`
+    );
+    console.log(
+      `GameConsole: Controller memory initialized (${gameConsoleController.memory ? "ok" : "failed"})`
+    );
+
+    // Add test pattern to memory via shared controller
+    gameConsoleController.initializeMemoryWithTestPattern("colorChart");
+
+    // Initialize display with memory
     this._display.initialize(this._memory);
+
+    // Reset simulator to initial state
     this._simulator.reset();
 
-    console.log("game-console.view: Initialized");
-  }
-
-  /**
-   * Removes event listeners previously set up.
-   */
-  private removeEventListeners(): void {
-    console.log("game-console.view: Removing event listeners");
-    // No need to manually remove event listeners as they're now handled by the service
-  }
-
-  // Helper to notify parent component/view
-  private notifyParent(eventName: string, detail: any): void {
-    if (this.page) {
-      this.page.notify({
-        eventName: eventName,
-        object: this.page,
-        detail: detail,
-      });
-    } else {
-      console.warn(
-        `game-console.view: Cannot notify parent, page is null for event: ${eventName}`
-      );
-    }
+    console.log("GameConsole: Initialization complete");
   }
 }
 
@@ -188,24 +180,5 @@ const gameConsoleView = new GameConsole();
 export const onLoaded = gameConsoleView.onLoaded;
 export const onUnloaded = gameConsoleView.onUnloaded;
 
-// You might expose other methods needed directly from XML if necessary,
-// but typically interaction goes through the main page's controller.
-
-// --- Re-export event names ---
-export const assembleSuccessEvent = "assemble-success";
-export const assembleFailureEvent = "assemble-failure";
-export const hexdumpEvent = "hexdump";
-export const disassemblyEvent = "disassembly";
-export const assembleInfoEvent = "assemble-info";
-export const stopEvent = "stop";
-export const startEvent = "start";
-export const resetEvent = "reset";
-export const stepEvent = "step";
-export const multistepEvent = "multistep";
-export const gotoEvent = "goto";
-export const pseudoOpEvent = "pseudo-op";
-export const simulatorInfoEvent = "simulator-info";
-export const simulatorFailureEvent = "simulator-failure";
-export const labelsInfoEvent = "labels-info";
-export const labelsFailureEvent = "labels-failure";
-export const gamepadPressedEvent = "gamepad-pressed";
+// Re-export the controller for external components
+export { gameConsoleController };

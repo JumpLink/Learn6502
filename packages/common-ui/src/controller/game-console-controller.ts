@@ -471,30 +471,51 @@ class GameConsoleController implements GameConsoleView {
   }
 
   /**
-   * Convert a memory address to pixel coordinates
-   * @param addr Memory address (0x200-0x5ff)
-   * @param numX Number of pixels in x direction
-   * @returns [x, y] coordinates
-   */
-  public addrToCoordinates(addr: number, numX: number): [number, number] {
-    const offset = addr - DisplayAddressRange.START;
-    const y = Math.floor(offset / numX);
-    const x = offset % numX;
-    return [x, y];
-  }
-
-  /**
    * Get the color for a specific memory address
    * @param addr Memory address
    * @returns RGB color object with values in 0-1 range
    */
   public getColorForAddress(addr: number): RGBColor {
     if (!this._memory) {
-      throw new Error("Memory not initialized");
+      console.error("Memory not initialized when getting color for address");
+      // Return black as fallback
+      return { red: 0, green: 0, blue: 0 };
     }
-    const value = this._memory.get(addr) & 0x0f;
-    const hex = this.colorPalette[value];
-    return hexToRgb(hex);
+
+    try {
+      const value = this._memory.get(addr) & 0x0f;
+      const hex = this.colorPalette[value];
+      return hexToRgb(hex);
+    } catch (error) {
+      console.error(
+        `Error getting color for address 0x${addr.toString(16)}: ${error}`
+      );
+      // Return fallback color
+      return { red: 1, green: 0, blue: 1 }; // Magenta to indicate error
+    }
+  }
+
+  /**
+   * Convert a memory address to pixel coordinates
+   * @param addr Memory address (0x200-0x5ff)
+   * @param numX Number of pixels in x direction
+   * @returns [x, y] coordinates
+   */
+  public addrToCoordinates(addr: number, numX: number): [number, number] {
+    if (!this.isDisplayAddress(addr)) {
+      console.error(`Invalid display address: 0x${addr.toString(16)}`);
+      return [0, 0]; // Return default coordinates
+    }
+
+    try {
+      const offset = addr - DisplayAddressRange.START;
+      const y = Math.floor(offset / numX);
+      const x = offset % numX;
+      return [x, y];
+    } catch (error) {
+      console.error(`Error converting address to coordinates: ${error}`);
+      return [0, 0];
+    }
   }
 
   /**
@@ -507,12 +528,30 @@ class GameConsoleController implements GameConsoleView {
   }
 
   /**
-   * Update a pixel in the display
+   * Update a pixel in the display - enhanced with error logging
    * @param addr Memory address for the pixel
    */
   public updatePixel(addr: number): void {
-    if (this.isDisplayAddress(addr) && this.displayWidget) {
+    if (!this.isDisplayAddress(addr)) {
+      console.error(
+        `updatePixel called with invalid address: 0x${addr.toString(16)}`
+      );
+      return;
+    }
+
+    if (!this.displayWidget) {
+      console.error("Display widget not initialized in updatePixel");
+      return;
+    }
+
+    console.log(
+      `GameConsoleController: Updating pixel at 0x${addr.toString(16)}`
+    );
+
+    try {
       this.displayWidget.updatePixel(addr);
+    } catch (error) {
+      console.error(`Error updating pixel at 0x${addr.toString(16)}: ${error}`);
     }
   }
 
@@ -538,6 +577,123 @@ class GameConsoleController implements GameConsoleView {
     this._labels = null;
     this.displayWidget = null;
     this.gamepadWidget = null;
+  }
+
+  /**
+   * Initialize memory with test patterns to verify display functionality
+   * @param pattern The pattern type to initialize
+   */
+  public initializeMemoryWithTestPattern(
+    pattern: "gradient" | "colorChart" | "simple" = "simple"
+  ): void {
+    if (!this._memory) {
+      console.error("Cannot initialize test pattern: Memory not initialized");
+      return;
+    }
+
+    console.log(
+      `GameConsoleController: Initializing memory with '${pattern}' test pattern`
+    );
+
+    switch (pattern) {
+      case "gradient":
+        this.initializeGradientPattern();
+        break;
+      case "colorChart":
+        this.initializeColorChartPattern();
+        break;
+      case "simple":
+      default:
+        this.initializeSimplePattern();
+        break;
+    }
+  }
+
+  /**
+   * Initialize a simple test pattern with a color gradient
+   */
+  private initializeSimplePattern(): void {
+    if (!this._memory) return;
+
+    // Make sure the display area is clear
+    for (
+      let addr = DisplayAddressRange.START;
+      addr <= DisplayAddressRange.END;
+      addr++
+    ) {
+      this._memory.set(addr, 0);
+    }
+
+    // Rectangle in the upper left corner with different colors
+    for (let i = 0; i < 8; i++) {
+      for (let j = 0; j < 8; j++) {
+        const addr = DisplayAddressRange.START + i * 32 + j;
+        const color = (i + j) % 16;
+        this._memory.set(addr, color);
+      }
+    }
+
+    // Set some specific pixels
+    this._memory.set(0x300, 1); // White pixel
+    this._memory.set(0x310, 2); // Red pixel
+    this._memory.set(0x320, 3); // Cyan pixel
+    this._memory.set(0x330, 4); // Purple pixel
+
+    console.log("GameConsoleController: Simple test pattern initialized");
+  }
+
+  /**
+   * Initialize a gradient pattern that shows all colors
+   */
+  private initializeGradientPattern(): void {
+    if (!this._memory) return;
+
+    const numX = 32; // Standard display width in pixels
+
+    // Fill the display area with a gradient
+    for (let y = 0; y < 32; y++) {
+      for (let x = 0; x < numX; x++) {
+        const addr = DisplayAddressRange.START + y * numX + x;
+        const color = (x + y) % 16; // Use all 16 colors in a gradient
+        this._memory.set(addr, color);
+      }
+    }
+
+    console.log("GameConsoleController: Gradient test pattern initialized");
+  }
+
+  /**
+   * Initialize a color chart showing all 16 colors
+   */
+  private initializeColorChartPattern(): void {
+    if (!this._memory) return;
+
+    const numX = 32; // Standard display width in pixels
+
+    // Clear the display area
+    for (
+      let addr = DisplayAddressRange.START;
+      addr <= DisplayAddressRange.END;
+      addr++
+    ) {
+      this._memory.set(addr, 0);
+    }
+
+    // Draw 4x4 blocks of each color (0-15)
+    for (let colorIndex = 0; colorIndex < 16; colorIndex++) {
+      const startX = (colorIndex % 4) * 8;
+      const startY = Math.floor(colorIndex / 4) * 8;
+
+      for (let y = 0; y < 8; y++) {
+        for (let x = 0; x < 8; x++) {
+          const addr =
+            DisplayAddressRange.START + (startY + y) * numX + (startX + x);
+          this._memory.set(addr, colorIndex);
+        }
+      }
+    }
+
+    console.log("GameConsoleController: Color chart test pattern initialized");
   }
 }
 
