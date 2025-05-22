@@ -44,6 +44,7 @@
 
         <!-- Bottom navigation bar positioned at the bottom -->
         <w:BottomNavigation
+            id="bottomNavigation"
             row="1"
             class="bg-surface-container"
             activeTextColor="onSurface"
@@ -61,7 +62,7 @@
             <w:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger"
                 moduleName="views/main/debugger" />
             <w:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic"
-                id="game-console" moduleName="views/main/game-console" />
+                id="gameConsole" moduleName="views/main/game-console" />
         </w:BottomNavigation>
 
     </GridLayout>

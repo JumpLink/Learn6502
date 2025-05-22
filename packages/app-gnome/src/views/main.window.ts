@@ -16,6 +16,7 @@ import Template from "./main.window.blp";
 import {
   type MainUiState,
   type MainView,
+  ViewType,
   debuggerController,
   gameConsoleController,
 } from "@learn6502/common-ui";
@@ -66,6 +67,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private pendingDialogAction: "open" | "close" | null = null;
   private codeToAssembleChanged: boolean = false;
 
+  // Map from ViewType to widget
+  private viewWidgetMap = new Map<ViewType, Gtk.Widget>();
+
   private set unsavedChanges(unsavedChanges: boolean) {
     fileService?.setUnsavedChanges(unsavedChanges);
   }
@@ -109,6 +113,12 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     notificationService.init(this, this._toastOverlay);
 
+    // Setup view to widget mapping
+    this.viewWidgetMap.set(ViewType.LEARN, this._learn);
+    this.viewWidgetMap.set(ViewType.EDITOR, this._editor);
+    this.viewWidgetMap.set(ViewType.DEBUGGER, this._debugger);
+    this.viewWidgetMap.set(ViewType.GAME_CONSOLE, this._gameConsole);
+
     // Initialize controllers and services
     this.setupGeneralSignalListeners();
     this.setupActions();
@@ -128,6 +138,30 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   public get state(): SimulatorState {
     return this._gameConsole.simulator.state;
+  }
+
+  public get activeView(): ViewType {
+    // Get current visible child and return the corresponding ViewType
+    const visibleChild = this._stack.get_visible_child();
+    for (const [viewType, widget] of this.viewWidgetMap.entries()) {
+      if (widget === visibleChild) {
+        return viewType;
+      }
+    }
+    return ViewType.LEARN; // Default to LEARN if not found
+  }
+
+  /**
+   * Navigates to a specific view/tab
+   * @param viewType The view to navigate to
+   */
+  public navigateToView(viewType: ViewType): void {
+    const widget = this.viewWidgetMap.get(viewType);
+    if (widget) {
+      this._stack.set_visible_child(widget);
+    } else {
+      console.error(`navigateToView: Widget not found for view ${viewType}`);
+    }
   }
 
   private setupLearnTutorialSignalListeners(): void {
@@ -353,11 +387,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   public runGameConsole(): void {
-    const visibleChild = this._stack.get_visible_child();
-    // Set the game console as the visible child in the stack if it's not already visible or the debugger
-    if (visibleChild !== this._gameConsole) {
-      this._stack.set_visible_child(this._gameConsole);
-    }
+    this.navigateToView(ViewType.GAME_CONSOLE);
     this._gameConsole.run();
   }
 
@@ -372,11 +402,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   public assembleGameConsole(): void {
     this._debugger.reset();
-    const visibleChild = this._stack.get_visible_child();
-    // Set the debugger as the visible child in the stack if it's not already visible or the game console
-    if (visibleChild !== this._debugger) {
-      this._stack.set_visible_child(this._debugger);
-    }
+    this.navigateToView(ViewType.DEBUGGER);
+
     // Reset the code changed flag BEFORE assembling
     this.codeToAssembleChanged = false;
     this._mainButton.setCodeChanged(false);
@@ -386,7 +413,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   public setEditorCode(code: string): void {
     this._editor.code = code;
     // Set the editor as the visible child in the stack
-    this._stack.set_visible_child(this._editor);
+    this.navigateToView(ViewType.EDITOR);
 
     // Reset the code changed flag after setting code
     this.codeToAssembleChanged = false;
@@ -665,11 +692,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   public stepGameConsole(): void {
-    const visibleChild = this._stack.get_visible_child();
-    // Set the debugger as the visible child in the stack if it's not already visible or the game console
-    if (visibleChild !== this._debugger && visibleChild !== this._gameConsole) {
-      this._stack.set_visible_child(this._debugger);
-    }
+    // Navigate to the debugger view
+    this.navigateToView(ViewType.DEBUGGER);
 
     // Enable stepper if not already enabled
     if (!this._gameConsole.simulator.stepperEnabled) {

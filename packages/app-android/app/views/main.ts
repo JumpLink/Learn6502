@@ -15,6 +15,7 @@ import { setStatusBarAppearance } from "~/utils/system";
 // Import common interfaces and types
 import {
   MainView,
+  ViewType,
   gameConsoleController,
   learnController,
 } from "@learn6502/common-ui";
@@ -28,6 +29,7 @@ import { notificationService } from "~/services";
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
 import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
 import { MainButton } from "~/widgets";
+import { BottomNavigation } from "~/widgets/bottom-navigation";
 
 /**
  * MainController class to handle all main page functionality
@@ -37,15 +39,27 @@ export class MainController implements MainView {
   private page: Page | null = null;
   private actionBar: ActionBar | null = null;
   private mainButton: MainButton | null = null;
+  private bottomNavigation: BottomNavigation | null = null;
+  private mainFrame: Frame | null = null;
 
   // Current simulator state
   private _state: SimulatorState = SimulatorState.READY;
+
+  // Current active view
+  private _activeView: ViewType = ViewType.LEARN;
 
   /**
    * Get the current simulator state
    */
   get state(): SimulatorState {
     return this._state;
+  }
+
+  /**
+   * Get the current active view
+   */
+  get activeView(): ViewType {
+    return this._activeView;
   }
 
   constructor() {
@@ -160,6 +174,9 @@ export class MainController implements MainView {
     this.page = args.object as Page;
     this.actionBar = this.page.getViewById<ActionBar>("main-action-bar");
     this.mainButton = this.page.getViewById<MainButton>("mainButton");
+    this.bottomNavigation =
+      this.page.getViewById<BottomNavigation>("bottomNavigation");
+    this.mainFrame = this.page.getViewById<Frame>("mainFrame");
 
     console.log("main: loaded:", this.page.id);
 
@@ -265,6 +282,25 @@ export class MainController implements MainView {
   }
 
   /**
+   * Navigates to a specific view/tab
+   * @param viewType The view to navigate to
+   */
+  public navigateToView(viewType: ViewType): void {
+    console.log("navigateToView", viewType);
+
+    if (!this.mainFrame || !this.bottomNavigation) {
+      console.error("navigateToView: MainFrame or BottomNavigation not found");
+      return;
+    }
+
+    // Then update the bottom navigation
+    this.bottomNavigation.selectTab(viewType);
+
+    // Update active view
+    this._activeView = viewType;
+  }
+
+  /**
    * Implementation of MainView methods
    */
 
@@ -275,13 +311,7 @@ export class MainController implements MainView {
     console.log("assembleGameConsole");
 
     // Navigate to the debugger tab
-    const mainFrame = this.page?.getViewById<Frame>("mainFrame");
-    if (mainFrame) {
-      mainFrame.navigate({
-        moduleName: "views/main/debugger",
-        clearHistory: false,
-      });
-    }
+    this.navigateToView(ViewType.DEBUGGER);
 
     // TODO: Get code from editor and assemble it
     this._state = SimulatorState.READY;
@@ -295,13 +325,7 @@ export class MainController implements MainView {
     console.log("runGameConsole");
 
     // Navigate to the game console tab
-    const mainFrame = this.page?.getViewById<Frame>("mainFrame");
-    if (mainFrame) {
-      mainFrame.navigate({
-        moduleName: "views/main/game-console",
-        clearHistory: false,
-      });
-    }
+    this.navigateToView(ViewType.GAME_CONSOLE);
 
     // TODO: Start the simulator
     this._state = SimulatorState.RUNNING;
@@ -339,13 +363,7 @@ export class MainController implements MainView {
     console.log("stepGameConsole");
 
     // Navigate to the debugger tab
-    const mainFrame = this.page?.getViewById<Frame>("mainFrame");
-    if (mainFrame) {
-      mainFrame.navigate({
-        moduleName: "views/main/debugger",
-        clearHistory: false,
-      });
-    }
+    this.navigateToView(ViewType.DEBUGGER);
 
     // TODO: Execute a single step
     if (
@@ -366,15 +384,9 @@ export class MainController implements MainView {
     console.log("setEditorCode", code);
 
     // Navigate to the editor tab
-    const mainFrame = this.page?.getViewById<Frame>("mainFrame");
-    if (mainFrame) {
-      mainFrame.navigate({
-        moduleName: "views/main/editor",
-        clearHistory: false,
-      });
+    this.navigateToView(ViewType.EDITOR);
 
-      // TODO: Set the code in the editor
-    }
+    // TODO: Set the code in the editor
   }
 
   /**

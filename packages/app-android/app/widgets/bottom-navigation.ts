@@ -499,6 +499,27 @@ export class BottomNavigation extends ContentView {
       );
     }
   }
+
+  /**
+   * Programmatically selects a tab by ID without triggering navigation
+   * @param tabId The ID of the tab to select
+   * @returns True if the tab was found and selected, false otherwise
+   */
+  public selectTab(tabId: string): boolean {
+    if (!this.bottomNav || !this.idToMenuId.has(tabId)) {
+      console.log(
+        `BottomNavigation: selectTab - Tab with ID ${tabId} not found`
+      );
+      return false;
+    }
+
+    const menuItemId = this.idToMenuId.get(tabId);
+    if (!menuItemId) return false;
+
+    // Select the menu item without triggering the listener
+    this.bottomNav.setSelectedItemId(menuItemId);
+    return true;
+  }
 }
 
 /**
