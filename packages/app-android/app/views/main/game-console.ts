@@ -160,14 +160,15 @@ export class GameConsole implements GameConsoleView {
       `GameConsole: Controller memory initialized (${gameConsoleController.memory ? "ok" : "failed"})`
     );
 
-    // Add test pattern to memory via shared controller
-    gameConsoleController.initializeMemoryWithTestPattern("colorChart");
-
-    // Initialize display with memory
+    // Initialize display with memory FIRST
     this._display.initialize(this._memory);
 
     // Reset simulator to initial state
     this._simulator.reset();
+
+    // Add test pattern to memory via shared controller AFTER display initialization
+    // This ensures the display is ready to receive and show the pattern
+    gameConsoleController.initializeMemoryWithTestPattern("colorChart");
 
     console.log("GameConsole: Initialization complete");
   }

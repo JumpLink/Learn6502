@@ -63,7 +63,12 @@ export class Display extends Adw.Bin implements DisplayWidget {
       throw new Error("DrawingArea is required");
     }
     this.pixelSize = this.canvasWidth / this.numX;
-    this.reset();
+
+    // Don't automatically reset here - let the controller decide when to draw
+    // this.reset();
+
+    // Instead, draw the current memory content
+    this.drawAllPixels();
   }
 
   /**
@@ -79,9 +84,15 @@ export class Display extends Adw.Bin implements DisplayWidget {
   /**
    * Updates a single pixel on the display.
    * @param addr - The memory address of the pixel.
-   * @param memory - The Memory object containing the pixel data.
    */
   public updatePixel(_addr: number): void {
+    this.drawAllPixels();
+  }
+
+  /**
+   * Force redraw of all pixels
+   */
+  public drawAllPixels(): void {
     this._drawingArea.set_draw_func(
       this.drawPixels.bind(this) as Gtk.DrawingAreaDrawFunc
     );

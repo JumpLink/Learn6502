@@ -20,4 +20,9 @@ export interface DisplayWidget {
    * @param addr - The memory address of the pixel.
    */
   updatePixel(addr: number): void;
+
+  /**
+   * Force redraw of all pixels on the display.
+   */
+  drawAllPixels(): void;
 }

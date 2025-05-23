@@ -607,6 +607,27 @@ class GameConsoleController implements GameConsoleView {
         this.initializeSimplePattern();
         break;
     }
+
+    // Force display refresh after setting test pattern
+    this.refreshDisplay();
+  }
+
+  /**
+   * Force the display to refresh/redraw
+   */
+  public refreshDisplay(): void {
+    if (!this.displayWidget) {
+      console.log(
+        "GameConsoleController: Display widget not initialized, cannot refresh"
+      );
+      return;
+    }
+
+    console.log("GameConsoleController: Forcing display refresh");
+
+    // Force an update by calling updatePixel with the first display address
+    // This will trigger a full redraw in most implementations
+    this.displayWidget.updatePixel(DisplayAddressRange.START);
   }
 
   /**

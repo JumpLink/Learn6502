@@ -1,6 +1,9 @@
-<GridLayout horizontalAlignment="center" verticalAlignment="center" backgroundColor="black" width="320" height="320">
-    <!-- All display content is drawn via the placeholder and native canvas -->
-    <Placeholder xmlns="http://schemas.nativescript.org/tns.xsd"
-                 id="displayPlaceholder"
-                 creatingView="onCreatingView" />
+<!-- This XML is now simplified since we create the canvas directly in code -->
+<GridLayout 
+    horizontalAlignment="center" 
+    verticalAlignment="center" 
+    backgroundColor="black" 
+    width="320" 
+    height="320">
+    <!-- Canvas is created directly in the TypeScript code -->
 </GridLayout> 

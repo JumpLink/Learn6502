@@ -10,6 +10,8 @@ import {
   Placeholder,
   Utils,
   Builder,
+  ContentView,
+  CoreTypes,
 } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core";
 import { Memory, DisplayAddressRange } from "@learn6502/6502";
@@ -19,7 +21,6 @@ import { Memory, DisplayAddressRange } from "@learn6502/6502";
  */
 export class Display extends GridLayout implements DisplayWidget {
   private memory: Memory | null = null;
-  private placeholder: Placeholder | null = null;
   private canvasImageView: android.widget.ImageView | null = null;
   private bitmap: android.graphics.Bitmap | null = null;
   private canvas: android.graphics.Canvas | null = null;
@@ -37,6 +38,7 @@ export class Display extends GridLayout implements DisplayWidget {
   private pendingPixelUpdates: Set<number> = new Set<number>();
   private initializationTimeout: any = null;
   private memoryListenerActive: boolean = false;
+  private isInitialized: boolean = false;
 
   constructor() {
     super();
@@ -45,71 +47,29 @@ export class Display extends GridLayout implements DisplayWidget {
       throw new Error("This implementation is for Android only");
     }
 
-    // Bind onCreatingView method to this instance
-    // This is needed because the XML attribute will call this method
-    this.onCreatingView = this.onCreatingView.bind(this);
+    // Set basic layout properties
+    this.horizontalAlignment = CoreTypes.HorizontalAlignment.center;
+    this.verticalAlignment = CoreTypes.VerticalAlignment.middle;
+    this.backgroundColor = "#000000";
+    this.width = this.canvasWidth;
+    this.height = this.canvasHeight;
 
-    // Start manual initialization early with a timeout
-    this.initializeCanvasManually(50);
-
-    // Load the XML layout when the component is loaded
-    this.on("loaded", () => {
-      console.log("Display: loaded event triggered");
-
-      try {
-        // Load the display.xml using Builder
-        const componentView = Builder.load({
-          path: "~/widgets/game-console",
-          name: "display",
-        });
-
-        if (!componentView) {
-          console.error("Display: Failed to load display.xml");
-          return;
-        }
-
-        // Add the loaded view hierarchy (the Placeholder)
-        this.addChild(componentView);
-
-        // Get the Placeholder from the loaded view
-        this.placeholder =
-          componentView.getViewById<Placeholder>("displayPlaceholder");
-
-        if (!this.placeholder) {
-          console.error(
-            "Display: Failed to find displayPlaceholder in display.xml"
-          );
-          return;
-        }
-
-        // Note: We don't need to manually bind the creatingView event here
-        // as it's already defined in the XML via the creatingView attribute
-
-        console.log("Display: Successfully loaded and set up XML layout");
-      } catch (error) {
-        console.error(
-          `Display: Error in loaded event handler - ${error instanceof Error ? error.message : String(error)}`
-        );
-      }
-    });
+    // Initialize canvas immediately in constructor
+    this.initializeCanvas();
   }
 
   /**
-   * Initialize the native canvas view when the placeholder is created.
-   * This method is called automatically via the creatingView attribute in XML.
+   * Initialize the canvas and ImageView directly as a child
    */
-  public onCreatingView(args: CreateViewEventData): void {
-    console.log("Display: onCreatingView called");
-
+  private initializeCanvas(): void {
     try {
-      // Create an ImageView to host our bitmap canvas
       const context = Utils.android.getApplicationContext();
       if (!context) {
         console.error("Display: Failed to get application context");
         return;
       }
 
-      console.log("Display: Creating canvas components");
+      console.log("Display: Creating native ImageView directly");
 
       // Create the ImageView for our canvas
       this.canvasImageView = new android.widget.ImageView(context);
@@ -117,7 +77,7 @@ export class Display extends GridLayout implements DisplayWidget {
         android.widget.ImageView.ScaleType.FIT_XY
       );
 
-      // Create a bitmap and canvas with specific dimensions
+      // Create a bitmap and canvas
       console.log(
         `Display: Creating bitmap with dimensions ${this.canvasWidth}x${this.canvasHeight}`
       );
@@ -146,118 +106,37 @@ export class Display extends GridLayout implements DisplayWidget {
       // Set the bitmap to the ImageView
       this.canvasImageView.setImageBitmap(this.bitmap);
 
-      // Attach native view to placeholder
-      args.view = this.canvasImageView;
-
       // Calculate pixel size based on display dimensions
       this.pixelSize = this.canvasWidth / this.numX;
       console.log(`Display: Pixel size calculated as ${this.pixelSize}`);
 
+      // Add the ImageView as a direct child using ContentView wrapper
+      const imageViewWrapper = new ContentView();
+      imageViewWrapper.width = this.canvasWidth;
+      imageViewWrapper.height = this.canvasHeight;
+
+      // Override createNativeView to return our ImageView
+      imageViewWrapper.createNativeView = () => this.canvasImageView;
+
+      this.addChild(imageViewWrapper);
+
       // Initial clear
       this.clearCanvas();
 
-      // Clear any pending timeout as the view was created normally
-      if (this.initializationTimeout) {
-        clearTimeout(this.initializationTimeout);
-        this.initializationTimeout = null;
-      }
+      console.log("Display: Successfully initialized canvas directly");
 
-      // If memory was set before view creation, redraw
-      if (this.memory) {
-        console.log("Display: Memory already initialized, drawing pixels");
+      // If memory was already set, draw it now
+      if (this.memory && this.pendingDraw) {
         this.setupMemoryListener();
         this.drawAllPixels();
         this.processPendingUpdates();
-      } else if (this.pendingDraw) {
-        console.log("Display: Canvas ready but memory not yet initialized");
+        this.pendingDraw = false;
       }
-
-      console.log("Display: onCreatingView completed successfully");
     } catch (error) {
       console.error(
-        `Display: Error in onCreatingView - ${error instanceof Error ? error.message : String(error)}`
+        `Display: Error in canvas initialization - ${error instanceof Error ? error.message : String(error)}`
       );
     }
-  }
-
-  /**
-   * Attempts to manually initialize the canvas if the normal initialization fails
-   */
-  private initializeCanvasManually(delay: number): void {
-    if (this.initializationTimeout) {
-      clearTimeout(this.initializationTimeout);
-    }
-
-    this.initializationTimeout = setTimeout(() => {
-      if (!this.canvas || !this.bitmap) {
-        console.log(
-          `Display: Canvas still not initialized after ${delay}ms, attempting manual initialization`
-        );
-
-        try {
-          // Fetch the application context
-          const context = Utils.android.getApplicationContext();
-          if (!context) {
-            console.error(
-              "Display: Failed to get application context for manual initialization"
-            );
-            // Retry with increasing delay
-            this.initializeCanvasManually(delay * 2);
-            return;
-          }
-
-          // Create bitmap manually
-          this.bitmap = android.graphics.Bitmap.createBitmap(
-            this.canvasWidth,
-            this.canvasHeight,
-            android.graphics.Bitmap.Config.ARGB_8888
-          );
-
-          if (!this.bitmap) {
-            console.error(
-              "Display: Failed to create bitmap in manual initialization"
-            );
-            this.initializeCanvasManually(delay * 2);
-            return;
-          }
-
-          this.canvas = new android.graphics.Canvas(this.bitmap);
-          this.canvasImageView = new android.widget.ImageView(context);
-          this.canvasImageView.setScaleType(
-            android.widget.ImageView.ScaleType.FIT_XY
-          );
-          this.canvasImageView.setImageBitmap(this.bitmap);
-          this.paintObj = new android.graphics.Paint();
-          this.paintObj.setAntiAlias(true);
-
-          // Calculate pixel size
-          this.pixelSize = this.canvasWidth / this.numX;
-
-          // Set view to placeholder if available
-          if (this.placeholder) {
-            this.placeholder.nativeView = this.canvasImageView;
-          }
-
-          // Now try to draw
-          this.clearCanvas();
-
-          if (this.memory) {
-            this.setupMemoryListener();
-            this.drawAllPixels();
-            this.processPendingUpdates();
-          }
-
-          this.pendingDraw = false;
-          console.log("Display: Successfully initialized canvas manually");
-        } catch (error) {
-          console.error(
-            `Display: Error in manual initialization - ${error instanceof Error ? error.message : String(error)}`
-          );
-          // Try again with longer delay
-          this.initializeCanvasManually(delay * 2);
-        }
-      }
-    }, delay);
   }
 
   /**
@@ -276,10 +155,6 @@ export class Display extends GridLayout implements DisplayWidget {
     this.memory.on("changed", (event) => {
       const addrHex = event.addr.toString(16);
       const valHex = event.val.toString(16);
-      console.log(
-        `Memory changed at address: 0x${addrHex}, new value: 0x${valHex}`
-      );
-
       // Only respond to display address changes
       if (gameConsoleController.isDisplayAddress(event.addr)) {
         if (this.canvas && this.bitmap && this.paintObj) {
@@ -342,13 +217,6 @@ export class Display extends GridLayout implements DisplayWidget {
       const red = Math.round(color.red * 255);
       const green = Math.round(color.green * 255);
       const blue = Math.round(color.blue * 255);
-
-      // Log detailed info for debugging
-      if (memValue > 0) {
-        console.log(
-          `Drawing single pixel at address 0x${addr.toString(16)} with memory value ${memValue} and color RGB(${red},${green},${blue})`
-        );
-      }
 
       // Set the paint color
       this.paintObj.setARGB(255, red, green, blue);
@@ -413,8 +281,16 @@ export class Display extends GridLayout implements DisplayWidget {
    * Initializes the display with memory access.
    */
   public initialize(memory: Memory): void {
+    if (this.isInitialized) {
+      console.log(
+        "Display: Already initialized, skipping duplicate initialization"
+      );
+      return;
+    }
+
     console.log("Display: Initializing with memory");
     this.memory = memory;
+    this.isInitialized = true;
 
     if (!this.memory) {
       console.error("Display: Memory initialization failed");
@@ -423,16 +299,8 @@ export class Display extends GridLayout implements DisplayWidget {
 
     // Check if our bitmap and canvas are ready
     if (!this.bitmap || !this.canvas) {
-      console.log(
-        "Display: Bitmap/Canvas not yet created, marking pending draw"
-      );
+      console.log("Display: Canvas not yet ready, marking pending draw");
       this.pendingDraw = true;
-
-      // Start manual initialization if not already done
-      if (!this.initializationTimeout) {
-        this.initializeCanvasManually(50);
-      }
-
       return;
     }
 
@@ -453,11 +321,17 @@ export class Display extends GridLayout implements DisplayWidget {
   }
 
   /**
-   * Draw all pixels from memory to the canvas.
+   * Force redraw of all pixels (for compatibility with GNOME implementation)
    */
-  private drawAllPixels(): void {
+  public drawAllPixels(): void {
+    console.log("Display: drawAllPixels called");
+
     if (!this.canvas) {
-      console.error("drawAllPixels: Canvas is not initialized");
+      console.log(
+        "drawAllPixels: Canvas is not initialized, will draw when ready"
+      );
+      // Mark that we need to draw when canvas becomes available
+      this.pendingDraw = true;
       return;
     }
 
@@ -524,13 +398,6 @@ export class Display extends GridLayout implements DisplayWidget {
       const red = Math.round(color.red * 255);
       const green = Math.round(color.green * 255);
       const blue = Math.round(color.blue * 255);
-
-      // Log detailed info for debugging
-      if (memValue > 0) {
-        console.log(
-          `Drawing pixel at address 0x${addr.toString(16)} with memory value ${memValue} and color RGB(${red},${green},${blue})`
-        );
-      }
 
       // Set the paint color
       this.paintObj.setARGB(255, red, green, blue);

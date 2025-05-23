@@ -120,15 +120,15 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
       labels: this._labels,
     });
 
-    // Add a test pattern to memory to test the display
-    // This should be the same pattern as on Android for comparison
-    gameConsoleController.initializeMemoryWithTestPattern("colorChart");
-
-    // Now we can initialize the display component with the initialized memory
+    // Now we can initialize the display component with the memory
     this._display?.initialize(this._memory);
 
     // Reset simulator
     this._simulator.reset();
+
+    // Add a test pattern to memory to test the display
+    // This should be done AFTER display initialization to ensure it's visible
+    gameConsoleController.initializeMemoryWithTestPattern("colorChart");
 
     console.log("GNOME GameConsole: Initialization complete");
   }
