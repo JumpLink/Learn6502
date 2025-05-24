@@ -1,0 +1,38 @@
+<GridLayout xmlns="http://schemas.nativescript.org/tns.xsd"
+    rows="auto,auto,auto,auto"
+    columns="auto,*,auto,*"
+    padding="12"
+    class="debug-info">
+
+    <!-- Registers row 1 -->
+    <Label text="A:" row="0" col="0" class="text-sm font-medium text-on-surface-variant"
+        marginRight="8" />
+    <Label id="regA" text="$00" row="0" col="1" class="text-sm font-mono text-on-surface"
+        marginRight="16" />
+    <Label text="X:" row="0" col="2" class="text-sm font-medium text-on-surface-variant"
+        marginRight="8" />
+    <Label id="regX" text="$00" row="0" col="3" class="text-sm font-mono text-on-surface"
+        marginRight="16" />
+
+    <!-- Registers row 2 -->
+    <Label text="Y:" row="1" col="0" class="text-sm font-medium text-on-surface-variant"
+        marginRight="8" />
+    <Label id="regY" text="$00" row="1" col="1" class="text-sm font-mono text-on-surface"
+        marginRight="16" />
+    <Label text="SP:" row="1" col="2" class="text-sm font-medium text-on-surface-variant"
+        marginRight="8" />
+    <Label id="regSP" text="$00" row="1" col="3" class="text-sm font-mono text-on-surface"
+        marginRight="16" />
+
+    <!-- PC row -->
+    <Label text="PC:" row="2" col="0" class="text-sm font-medium text-on-surface-variant"
+        marginRight="8" />
+    <Label id="regPC" text="$0000" row="2" col="1" colSpan="3"
+        class="text-sm font-mono text-on-surface" marginRight="16" />
+
+    <!-- Flags row -->
+    <Label text="Flags:" row="3" col="0" class="text-sm font-medium text-on-surface-variant"
+        marginRight="8" />
+    <Label id="flags" text="00000000" row="3" col="1" colSpan="3"
+        class="text-sm font-mono text-on-surface" marginRight="16" />
+</GridLayout>

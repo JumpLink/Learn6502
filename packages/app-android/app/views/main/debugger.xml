@@ -1,8 +1,48 @@
-<Page xmlns="http://schemas.nativescript.org/tns.xsd" navigatingTo="onNavigatingTo"
+<Page xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:w="~/widgets/index"
+    navigatingTo="onNavigatingTo"
     actionBarHidden="true" class="bg-surface text-on-surface">
-    <StackLayout class="p-20">
-        <Label text="Debugger Page" class="h1 text-center" />
-        <Label text="This is the debugger page content" class="text-center" textWrap="true" />
-        <Image src="res://bug_symbolic" tintColor="#ff0000" />
-    </StackLayout>
+
+    <ScrollView>
+        <StackLayout class="p-16">
+            <!-- Debugger Header -->
+            <Label text="Debugger" class="h2 text-center mb-16" />
+
+            <!-- Information Section -->
+            <Label text="Information" class="h3 mb-8" />
+            <StackLayout class="bg-surface-container mb-16 p-8">
+                <w:DebugInfo id="debugInfo" />
+            </StackLayout>
+
+            <!-- Messages Section -->
+            <Label text="Messages" class="h3 mb-8" />
+            <StackLayout class="bg-surface-container mb-16 p-8" height="200">
+                <ScrollView>
+                    <w:MessageConsole id="messageConsole" />
+                </ScrollView>
+            </StackLayout>
+
+            <!-- Hex Monitor Section -->
+            <Label text="Hex Monitor" class="h3 mb-8" />
+            <StackLayout class="bg-surface-container mb-16 p-8" height="300">
+                <w:HexMonitor id="hexMonitor" />
+            </StackLayout>
+
+            <!-- Hexdump Section -->
+            <Label text="Hexdump" class="h3 mb-8" />
+            <StackLayout class="bg-surface-container mb-16 p-8" height="200">
+                <ScrollView>
+                    <w:Hexdump id="hexdump" />
+                </ScrollView>
+            </StackLayout>
+
+            <!-- Disassembled Section -->
+            <Label text="Disassembled" class="h3 mb-8" />
+            <StackLayout class="bg-surface-container mb-16 p-8" height="200">
+                <ScrollView>
+                    <w:Disassembled id="disassembled" />
+                </ScrollView>
+            </StackLayout>
+        </StackLayout>
+    </ScrollView>
 </Page>

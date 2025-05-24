@@ -1,13 +1,36 @@
-import { EventData, Page } from "@nativescript/core";
+import {
+  EventData,
+  Page,
+  GridLayout,
+  ScrollView,
+  TextView,
+  LayoutBase,
+} from "@nativescript/core";
 import {
   debuggerController,
   DebuggerView,
   DebuggerState,
 } from "@learn6502/common-ui";
-import type { Memory, Simulator } from "@learn6502/6502";
+import type { Memory, Simulator, Assembler } from "@learn6502/6502";
+
+// Import custom widgets
+import {
+  MessageConsole,
+  DebugInfo,
+  HexMonitor,
+  Hexdump,
+  Disassembled,
+} from "~/widgets/debugger";
 
 class Debugger implements DebuggerView {
   private page: Page | null = null;
+
+  // Widget instances
+  private messageConsole: MessageConsole | null = null;
+  private debugInfo: DebugInfo | null = null;
+  private hexMonitor: HexMonitor | null = null;
+  private hexdump: Hexdump | null = null;
+  private disassembled: Disassembled | null = null;
 
   // Implement required properties from DebuggerView interface
   public get state(): DebuggerState {
@@ -23,6 +46,35 @@ class Debugger implements DebuggerView {
     this.page = page;
 
     console.log("debugger: onNavigatingTo", this.page);
+
+    // Get widget references from XML
+    this.messageConsole =
+      this.page.getViewById<MessageConsole>("messageConsole");
+    this.debugInfo = this.page.getViewById<DebugInfo>("debugInfo");
+    this.hexMonitor = this.page.getViewById<HexMonitor>("hexMonitor");
+    this.hexdump = this.page.getViewById<Hexdump>("hexdump");
+    this.disassembled = this.page.getViewById<Disassembled>("disassembled");
+
+    if (
+      !this.messageConsole ||
+      !this.debugInfo ||
+      !this.hexMonitor ||
+      !this.hexdump ||
+      !this.disassembled
+    ) {
+      console.error("Failed to find required components in debugger view");
+      return;
+    }
+
+    // Initialize the debugger controller with widgets
+    debuggerController.init(
+      this.messageConsole,
+      this.debugInfo,
+      this.hexMonitor,
+      this.disassembled,
+      this.hexdump
+    );
+
     // Set state to active when navigating to this view
     debuggerController.state = DebuggerState.ACTIVE;
   }
@@ -40,6 +92,14 @@ class Debugger implements DebuggerView {
     debuggerController.updateDebugInfo(simulator);
   }
 
+  public updateHexdump(assembler: Assembler): void {
+    debuggerController.updateHexdump(assembler);
+  }
+
+  public updateDisassembled(assembler: Assembler): void {
+    debuggerController.updateDisassembled(assembler);
+  }
+
   public reset(): void {
     debuggerController.reset();
   }
@@ -47,6 +107,13 @@ class Debugger implements DebuggerView {
   public close(): void {
     debuggerController.close();
     this.page = null;
+
+    // Clear widget references
+    this.messageConsole = null;
+    this.debugInfo = null;
+    this.hexMonitor = null;
+    this.hexdump = null;
+    this.disassembled = null;
   }
 }
 

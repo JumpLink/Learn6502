@@ -18,6 +18,7 @@ import {
   ViewType,
   gameConsoleController,
   learnController,
+  debuggerController,
 } from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
 import type { GamepadKey } from "@learn6502/common-ui";
@@ -30,6 +31,9 @@ import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCo
 import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
 import { MainButton } from "~/widgets";
 import { BottomNavigation } from "~/widgets/bottom-navigation";
+
+// Import debugger view
+import { debuggerView } from "./main/debugger";
 
 /**
  * MainController class to handle all main page functionality
@@ -70,6 +74,8 @@ export class MainController implements MainView {
     this.setupAndroidKeyHandling = this.setupAndroidKeyHandling.bind(this);
     this.setupLearnTutorialSignalListeners =
       this.setupLearnTutorialSignalListeners.bind(this);
+    this.setupGameConsoleSignalListeners =
+      this.setupGameConsoleSignalListeners.bind(this);
   }
 
   /**
@@ -116,6 +122,153 @@ export class MainController implements MainView {
     gameConsoleController.on("keyPressed", (event) => {
       console.log("Gamepad key pressed:", event.key, event.keyCode);
       // Add any additional UI feedback or logging here
+    });
+  }
+
+  /**
+   * Sets up game console signal listeners for debugger integration
+   */
+  private setupGameConsoleSignalListeners(): void {
+    // Listen for assemble success to update debugger
+    gameConsoleController.on("assemble-success", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+
+      // Update debugger with assembled code
+      if (signal.assembler) {
+        debuggerView.updateHexdump(signal.assembler);
+        debuggerView.updateDisassembled(signal.assembler);
+      }
+
+      // Note: SimulatorState update should come from simulator events, not assembler events
+      notificationService.showNotification({
+        title: "Assembled successfully",
+        timeout: 2,
+      });
+    });
+
+    gameConsoleController.on("assemble-failure", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+
+      notificationService.showNotification({
+        title: "Assemble failed",
+        timeout: 2,
+      });
+    });
+
+    gameConsoleController.on("hexdump", (signal) => {
+      if (signal.message) {
+        debuggerController.log("Hexdump:\n" + signal.message);
+      }
+    });
+
+    gameConsoleController.on("disassembly", (signal) => {
+      if (signal.message) {
+        debuggerController.log("Disassembly:\n" + signal.message);
+      }
+    });
+
+    gameConsoleController.on("assemble-info", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+    });
+
+    gameConsoleController.on("stop", (signal) => {
+      this.onSimulatorStateChange(signal.state);
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+    });
+
+    gameConsoleController.on("start", (signal) => {
+      this.onSimulatorStateChange(signal.state);
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+    });
+
+    gameConsoleController.on("reset", (signal) => {
+      this.onSimulatorStateChange(signal.state);
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+    });
+
+    gameConsoleController.on("step", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+
+      // Update debugger with current state from simulator
+      if (signal.simulator) {
+        // We need to get memory from the simulator or game console controller
+        // For now, we'll update debug info only
+        debuggerView.updateDebugInfo(signal.simulator);
+      }
+    });
+
+    gameConsoleController.on("multistep", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+
+      // Update debugger with current state from simulator
+      if (signal.simulator) {
+        // We need to get memory from the simulator or game console controller
+        // For now, we'll update debug info only
+        debuggerView.updateDebugInfo(signal.simulator);
+      }
+    });
+
+    gameConsoleController.on("goto", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+
+      // Update debugger with current state from simulator
+      if (signal.simulator) {
+        // We need to get memory from the simulator or game console controller
+        // For now, we'll update debug info only
+        debuggerView.updateDebugInfo(signal.simulator);
+      }
+    });
+
+    gameConsoleController.on("simulator-info", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+    });
+
+    gameConsoleController.on("simulator-failure", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+
+      notificationService.showNotification({
+        title: "Simulator failure",
+        timeout: 2,
+      });
+    });
+
+    gameConsoleController.on("labels-info", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+    });
+
+    gameConsoleController.on("labels-failure", (signal) => {
+      if (signal.message) {
+        debuggerController.log(signal.message);
+      }
+
+      notificationService.showNotification({
+        title: "Labels failure",
+        timeout: 2,
+      });
     });
   }
 
@@ -197,6 +350,9 @@ export class MainController implements MainView {
 
     // Set up Learn tutorial signal listeners
     this.setupLearnTutorialSignalListeners();
+
+    // Set up Game Console signal listeners for debugger integration
+    this.setupGameConsoleSignalListeners();
   }
 
   /**
@@ -314,6 +470,9 @@ export class MainController implements MainView {
     this.navigateToView(ViewType.DEBUGGER);
 
     // TODO: Get code from editor and assemble it
+    // This would normally call gameConsoleController.assemble(code)
+    // which triggers the assemble-success event handled above
+
     this._state = SimulatorState.READY;
     this.updateMainUiState();
   }
@@ -350,6 +509,9 @@ export class MainController implements MainView {
    */
   public reset(): void {
     console.log("reset");
+
+    // Reset debugger
+    debuggerView.reset();
 
     // TODO: Reset the simulator
     this._state = SimulatorState.READY;
@@ -396,6 +558,15 @@ export class MainController implements MainView {
     if (this.mainButton) {
       this.mainButton.updateFromSimulatorState(this._state);
     }
+  }
+
+  /**
+   * Handle simulator state changes
+   */
+  private onSimulatorStateChange(state: SimulatorState): void {
+    console.log("onSimulatorStateChange", state);
+    this._state = state;
+    this.updateMainUiState();
   }
 
   /**
