@@ -1,5 +1,8 @@
 import { type Memory, DisplayAddressRange } from "@learn6502/6502";
-import { type DisplayWidget } from "@learn6502/common-ui";
+import {
+  type DisplayWidget,
+  DEFAULT_COLOR_PALETTE,
+} from "@learn6502/common-ui";
 
 /**
  * Represents the display for a 6502 emulator.
@@ -12,24 +15,7 @@ export class Display implements DisplayWidget {
   private numX: number = 32;
   private numY: number = 32;
 
-  private palette = [
-    "#000000",
-    "#ffffff",
-    "#880000",
-    "#aaffee",
-    "#cc44cc",
-    "#00cc55",
-    "#0000aa",
-    "#eeee77",
-    "#dd8855",
-    "#664400",
-    "#ff7777",
-    "#333333",
-    "#777777",
-    "#aaff66",
-    "#0088ff",
-    "#bbbbbb",
-  ];
+  private palette = DEFAULT_COLOR_PALETTE;
 
   /**
    * Creates a new Display instance.
