@@ -95,4 +95,17 @@ export class Display implements DisplayWidget {
       this.pixelSize
     );
   }
+
+  /**
+   * Redraws all pixels on the display based on current memory state.
+   */
+  public drawAllPixels(): void {
+    for (
+      let addr = DisplayAddressRange.START;
+      addr <= DisplayAddressRange.END;
+      addr++
+    ) {
+      this.updatePixel(addr);
+    }
+  }
 }
