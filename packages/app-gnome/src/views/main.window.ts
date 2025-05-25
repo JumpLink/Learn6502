@@ -449,7 +449,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this._debugger.updateHexdump(this._gameConsole.assembler);
       this._debugger.updateDisassembled(this._gameConsole.assembler);
 
-      this.onSimulatorStateChange(this._gameConsole.simulator.state);
+      this.updateDebugger();
+      this.updateRunActions(this._gameConsole.simulator.state);
 
       this.showToast({
         title: _("Assembled successfully"),
@@ -495,7 +496,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
 
     gameConsoleController.on("stop", (signal) => {
-      this.onSimulatorStateChange(signal.state);
+      this.updateDebugger();
+      this.updateRunActions(signal.state);
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -503,7 +505,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
 
     gameConsoleController.on("start", (signal) => {
-      this.onSimulatorStateChange(signal.state);
+      this.updateDebugger();
+      this.updateRunActions(signal.state);
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -511,7 +514,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
 
     gameConsoleController.on("reset", (signal) => {
-      this.onSimulatorStateChange(signal.state);
+      this.updateDebugger();
+      this.updateRunActions(signal.state);
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(_(signal.message).format(...params));
@@ -663,12 +667,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // This is already handled by the key controller added in setupKeyboardListener
   }
 
-  private onSimulatorStateChange(state: SimulatorState): void {
-    console.log("onSimulatorStateChange", state);
-    this.updateDebugger();
-    this.updateRunActions(state);
-  }
-
   private updateRunActions(state: SimulatorState): MainUiState {
     // Check if editor has code
     const hasCode = this._editor.hasCode;
@@ -705,7 +703,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this._gameConsole.simulator.debugExecStep();
 
     // Update the UI
-    this.onSimulatorStateChange(this._gameConsole.simulator.state);
+    this.updateDebugger();
+    this.updateRunActions(this._gameConsole.simulator.state);
   }
 
   private async openFile(): Promise<void> {

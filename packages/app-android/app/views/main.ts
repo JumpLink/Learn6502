@@ -53,20 +53,14 @@ export class MainController implements MainView {
   private bottomNavigation: BottomNavigation | null = null;
   private mainFrame: Frame | null = null;
 
-  // Current simulator state
-  private _state: SimulatorState = SimulatorState.READY;
-
   // Current active view
   private _activeView: ViewType = ViewType.LEARN;
 
-  // Track if code has changed
-  private _codeChanged: boolean = false;
-
   /**
-   * Get the current simulator state
+   * Get the current simulator state - delegate to gameConsoleView like GNOME
    */
   get state(): SimulatorState {
-    return this._state;
+    return gameConsoleView.simulator.state;
   }
 
   /**
@@ -154,7 +148,9 @@ export class MainController implements MainView {
         debuggerView.updateDisassembled(signal.assembler);
       }
 
-      // Note: SimulatorState update should come from simulator events, not assembler events
+      // Update UI state
+      this.updateMainUiState();
+
       notificationService.showNotification({
         title: "Assembled successfully",
         timeout: 2,
@@ -191,21 +187,21 @@ export class MainController implements MainView {
     });
 
     gameConsoleController.on("stop", (signal) => {
-      this.onSimulatorStateChange(signal.state);
+      this.updateMainUiState();
       if (signal.message) {
         debuggerController.log(signal.message);
       }
     });
 
     gameConsoleController.on("start", (signal) => {
-      this.onSimulatorStateChange(signal.state);
+      this.updateMainUiState();
       if (signal.message) {
         debuggerController.log(signal.message);
       }
     });
 
     gameConsoleController.on("reset", (signal) => {
-      this.onSimulatorStateChange(signal.state);
+      this.updateMainUiState();
       if (signal.message) {
         debuggerController.log(signal.message);
       }
@@ -222,6 +218,11 @@ export class MainController implements MainView {
         // For now, we'll update debug info only
         debuggerView.updateDebugInfo(signal.simulator);
       }
+
+      // If stepper is enabled, update the UI
+      if (gameConsoleView.simulator.stepperEnabled) {
+        this.updateMainUiState();
+      }
     });
 
     gameConsoleController.on("multistep", (signal) => {
@@ -235,6 +236,8 @@ export class MainController implements MainView {
         // For now, we'll update debug info only
         debuggerView.updateDebugInfo(signal.simulator);
       }
+
+      this.updateMainUiState();
     });
 
     gameConsoleController.on("goto", (signal) => {
@@ -248,6 +251,8 @@ export class MainController implements MainView {
         // For now, we'll update debug info only
         debuggerView.updateDebugInfo(signal.simulator);
       }
+
+      this.updateMainUiState();
     });
 
     gameConsoleController.on("simulator-info", (signal) => {
@@ -342,7 +347,6 @@ export class MainController implements MainView {
 
     // Listen for code changed events
     mainStateController.events.on("code-changed", (changed) => {
-      this._codeChanged = changed;
       this.updateMainUiState();
     });
 
@@ -550,7 +554,7 @@ export class MainController implements MainView {
     // Get code from editor and assemble it
     const code = editorView.code;
 
-    // Reset the code changed flag BEFORE assembling
+    // Reset the code changed flag BEFORE assembling using mainStateController
     mainStateController.setCodeChanged(false);
 
     // Assemble the code
@@ -611,7 +615,7 @@ export class MainController implements MainView {
     gameConsoleView.simulator.debugExecStep();
 
     // Update the UI
-    this.onSimulatorStateChange(gameConsoleView.simulator.state);
+    this.updateMainUiState();
   }
 
   /**
@@ -627,7 +631,7 @@ export class MainController implements MainView {
     // Set the code in the editor
     editorView.setCode(code);
 
-    // Reset code changed flag
+    // Reset code changed flag using mainStateController
     mainStateController.setCodeChanged(false);
   }
 
@@ -636,30 +640,21 @@ export class MainController implements MainView {
    */
   private updateMainUiState(): void {
     if (this.mainButton) {
-      // Get the current state from mainStateController
-      const state = mainStateController.getState();
-      this.mainButton.setState(state);
-
       // Update button enabled states
       const hasCode = editorView.hasCode;
+      const codeChanged = mainStateController.getCodeChanged();
       const enabledState = mainStateController.getActionEnabledState(
-        this._state,
+        this.state,
         hasCode,
-        this._codeChanged
+        codeChanged
       );
 
       // Apply enabled states to button actions
       this.mainButton.setActionEnabledStates(enabledState);
-    }
-  }
 
-  /**
-   * Handle simulator state changes
-   */
-  private onSimulatorStateChange(state: SimulatorState): void {
-    console.log("onSimulatorStateChange", state);
-    this._state = state;
-    this.updateMainUiState();
+      // Update the button state based on simulator state - this is the key part!
+      this.mainButton.updateFromSimulatorState(this.state);
+    }
   }
 
   /**
