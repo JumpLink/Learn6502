@@ -175,7 +175,7 @@ export class GameConsole implements GameConsoleView {
 }
 
 // Create singleton instance of the view controller
-const gameConsoleView = new GameConsole();
+export const gameConsoleView = new GameConsole();
 
 // Export bound public methods for XML binding
 export const onLoaded = gameConsoleView.onLoaded;

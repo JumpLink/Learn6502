@@ -19,6 +19,7 @@ import {
   ViewType,
   debuggerController,
   gameConsoleController,
+  mainStateController,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -131,6 +132,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.setupDebuggerSignalListeners();
     this.setupHelpActions();
     this.setupThemeManagement();
+    this.setupMainStateEventListeners();
+
+    // Initialize main state controller
+    mainStateController.init();
 
     // Initialize the previous visible child after all setup is done
     this.previousVisibleChild = this._stack.get_visible_child();
@@ -177,12 +182,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private setupEditorSignalListeners(): void {
     // Connect to text buffer's changed signal
     this._editor.events.on("changed", () => {
-      this.codeToAssembleChanged = true;
       this.unsavedChanges = true;
 
-      // Update the main button to show it should be assembled
-      this._mainButton.setCodeChanged(true);
-      this.updateRunActions(this._gameConsole.simulator.state);
+      // Use mainStateController to handle code changed state
+      mainStateController.setCodeChanged(true);
     });
   }
 
@@ -404,9 +407,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this._debugger.reset();
     this.navigateToView(ViewType.DEBUGGER);
 
-    // Reset the code changed flag BEFORE assembling
-    this.codeToAssembleChanged = false;
-    this._mainButton.setCodeChanged(false);
+    // Reset the code changed flag BEFORE assembling using mainStateController
+    mainStateController.setCodeChanged(false);
     this._gameConsole.assemble(this._editor.code);
   }
 
@@ -415,9 +417,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Set the editor as the visible child in the stack
     this.navigateToView(ViewType.EDITOR);
 
-    // Reset the code changed flag after setting code
-    this.codeToAssembleChanged = false;
-    this._mainButton.setCodeChanged(false);
+    // Reset the code changed flag after setting code using mainStateController
+    mainStateController.setCodeChanged(false);
     this.unsavedChanges = false;
   }
 
@@ -673,7 +674,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     const hasCode = this._editor.hasCode;
 
     // Get enabled states for actions from MainButton helper
-    const enabledState = this._mainButton.getActionEnabledState(
+    const enabledState = mainStateController.getActionEnabledState(
       state,
       hasCode,
       this.codeToAssembleChanged
@@ -799,6 +800,20 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       // Update UI elements that need to change with theme
       // For example, adjust code editor theme, etc.
       console.log(`Theme changed to ${mode}, isDark: ${isDark}`);
+    });
+  }
+
+  private setupMainStateEventListeners(): void {
+    // Listen for state changes
+    mainStateController.events.on("state-changed", (state) => {
+      console.log("Main state changed:", state);
+      this.updateRunActions(this._gameConsole.simulator.state);
+    });
+
+    // Listen for code changed events
+    mainStateController.events.on("code-changed", (changed) => {
+      this.codeToAssembleChanged = changed;
+      this.updateRunActions(this._gameConsole.simulator.state);
     });
   }
 }

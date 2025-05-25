@@ -195,6 +195,40 @@ export class MainButton extends Fab implements MainButtonWidget {
     );
   }
 
+  /**
+   * Instance method to get enabled state for actions
+   * Uses the common helper for consistency across platforms
+   */
+  public getActionEnabledState(
+    simulatorState: SimulatorState,
+    hasCode: boolean,
+    codeChanged: boolean
+  ) {
+    return mainStateController.getActionEnabledState(
+      simulatorState,
+      hasCode,
+      codeChanged
+    );
+  }
+
+  /**
+   * Set action enabled states
+   * @param enabledState Object containing enabled states for each action
+   */
+  public setActionEnabledStates(enabledState: {
+    assemble: boolean;
+    run: boolean;
+    resume: boolean;
+    pause: boolean;
+    reset: boolean;
+    step: boolean;
+  }): void {
+    // In Android, we don't disable the FAB itself, but we could
+    // store this state if needed for visual feedback
+    // For now, just log it for debugging
+    console.log("[MainButton] Action enabled states:", enabledState);
+  }
+
   protected addEventListeners(): void {
     mainStateController.events.on("state-changed", this.onStateChanged);
   }

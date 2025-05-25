@@ -1,8 +1,16 @@
 import { MainUiState } from "../data/index.ts";
 
 /**
- * Event map for debugger events
+ * Event map for main UI state events
  */
 export interface MainUiStateEventMap {
   "state-changed": MainUiState;
+  assemble: void;
+  run: void;
+  pause: void;
+  resume: void;
+  reset: void;
+  step: void;
+  "code-changed": boolean;
+  "navigate-to-view": { viewType: string };
 }

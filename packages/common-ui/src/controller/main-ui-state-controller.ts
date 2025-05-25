@@ -60,6 +60,9 @@ class MainUiStateController implements MainButtonWidget {
     if (changed) {
       this.setState(MainUiState.ASSEMBLE);
     }
+
+    // Emit code-changed event
+    this.events.dispatch("code-changed", changed);
   }
 
   public getCodeChanged(): boolean {
@@ -181,6 +184,55 @@ class MainUiStateController implements MainButtonWidget {
     }
 
     return buttonState;
+  }
+
+  /**
+   * Emit assemble event
+   */
+  public emitAssemble(): void {
+    this.events.dispatch("assemble", undefined);
+  }
+
+  /**
+   * Emit run event
+   */
+  public emitRun(): void {
+    this.events.dispatch("run", undefined);
+  }
+
+  /**
+   * Emit pause event
+   */
+  public emitPause(): void {
+    this.events.dispatch("pause", undefined);
+  }
+
+  /**
+   * Emit resume event
+   */
+  public emitResume(): void {
+    this.events.dispatch("resume", undefined);
+  }
+
+  /**
+   * Emit reset event
+   */
+  public emitReset(): void {
+    this.events.dispatch("reset", undefined);
+  }
+
+  /**
+   * Emit step event
+   */
+  public emitStep(): void {
+    this.events.dispatch("step", undefined);
+  }
+
+  /**
+   * Emit navigate-to-view event
+   */
+  public emitNavigateToView(viewType: string): void {
+    this.events.dispatch("navigate-to-view", { viewType });
   }
 }
 

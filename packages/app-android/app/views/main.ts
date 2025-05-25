@@ -19,6 +19,7 @@ import {
   gameConsoleController,
   learnController,
   debuggerController,
+  mainStateController,
 } from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
 import type { GamepadKey } from "@learn6502/common-ui";
@@ -34,6 +35,12 @@ import { BottomNavigation } from "~/widgets/bottom-navigation";
 
 // Import debugger view
 import { debuggerView } from "./main/debugger";
+
+// Import editor view
+import { editorView } from "./main/editor";
+
+// Import game console view
+import { gameConsoleView } from "./main/game-console";
 
 /**
  * MainController class to handle all main page functionality
@@ -51,6 +58,9 @@ export class MainController implements MainView {
 
   // Current active view
   private _activeView: ViewType = ViewType.LEARN;
+
+  // Track if code has changed
+  private _codeChanged: boolean = false;
 
   /**
    * Get the current simulator state
@@ -76,6 +86,9 @@ export class MainController implements MainView {
       this.setupLearnTutorialSignalListeners.bind(this);
     this.setupGameConsoleSignalListeners =
       this.setupGameConsoleSignalListeners.bind(this);
+    this.setupMainStateEventListeners =
+      this.setupMainStateEventListeners.bind(this);
+    this.setupEditorEventListeners = this.setupEditorEventListeners.bind(this);
   }
 
   /**
@@ -318,6 +331,62 @@ export class MainController implements MainView {
   }
 
   /**
+   * Sets up main state event listeners for platform-independent control
+   */
+  private setupMainStateEventListeners(): void {
+    // Listen for state changes
+    mainStateController.events.on("state-changed", (state) => {
+      console.log("Main state changed:", state);
+      this.updateMainUiState();
+    });
+
+    // Listen for code changed events
+    mainStateController.events.on("code-changed", (changed) => {
+      this._codeChanged = changed;
+      this.updateMainUiState();
+    });
+
+    // Listen for action events
+    mainStateController.events.on("assemble", () => {
+      this.assembleGameConsole();
+    });
+
+    mainStateController.events.on("run", () => {
+      this.runGameConsole();
+    });
+
+    mainStateController.events.on("pause", () => {
+      this.pauseGameConsole();
+    });
+
+    mainStateController.events.on("resume", () => {
+      this.runGameConsole();
+    });
+
+    mainStateController.events.on("reset", () => {
+      this.reset();
+    });
+
+    mainStateController.events.on("step", () => {
+      this.stepGameConsole();
+    });
+
+    mainStateController.events.on("navigate-to-view", ({ viewType }) => {
+      this.navigateToView(viewType as ViewType);
+    });
+  }
+
+  /**
+   * Sets up editor event listeners
+   */
+  private setupEditorEventListeners(): void {
+    // Listen for editor text changes
+    editorView.events.on("changed", () => {
+      mainStateController.setCodeChanged(true);
+    });
+  }
+
+  /**
    * Event handler for the 'loaded' event of the root view.
    * Applies system bar insets to ensure content is not drawn under system bars
    * when Edge-to-Edge is enabled.
@@ -353,6 +422,15 @@ export class MainController implements MainView {
 
     // Set up Game Console signal listeners for debugger integration
     this.setupGameConsoleSignalListeners();
+
+    // Set up main state event listeners
+    this.setupMainStateEventListeners();
+
+    // Set up editor event listeners
+    this.setupEditorEventListeners();
+
+    // Initialize main state controller
+    mainStateController.init();
   }
 
   /**
@@ -469,12 +547,14 @@ export class MainController implements MainView {
     // Navigate to the debugger tab
     this.navigateToView(ViewType.DEBUGGER);
 
-    // TODO: Get code from editor and assemble it
-    // This would normally call gameConsoleController.assemble(code)
-    // which triggers the assemble-success event handled above
+    // Get code from editor and assemble it
+    const code = editorView.code;
 
-    this._state = SimulatorState.READY;
-    this.updateMainUiState();
+    // Reset the code changed flag BEFORE assembling
+    mainStateController.setCodeChanged(false);
+
+    // Assemble the code
+    gameConsoleController.assemble(code);
   }
 
   /**
@@ -486,9 +566,8 @@ export class MainController implements MainView {
     // Navigate to the game console tab
     this.navigateToView(ViewType.GAME_CONSOLE);
 
-    // TODO: Start the simulator
-    this._state = SimulatorState.RUNNING;
-    this.updateMainUiState();
+    // Start the simulator
+    gameConsoleView.run();
   }
 
   /**
@@ -497,11 +576,8 @@ export class MainController implements MainView {
   public pauseGameConsole(): void {
     console.log("pauseGameConsole");
 
-    // TODO: Pause the simulator
-    if (this._state === SimulatorState.RUNNING) {
-      this._state = SimulatorState.PAUSED;
-      this.updateMainUiState();
-    }
+    // Pause the simulator
+    gameConsoleView.stop();
   }
 
   /**
@@ -513,9 +589,8 @@ export class MainController implements MainView {
     // Reset debugger
     debuggerView.reset();
 
-    // TODO: Reset the simulator
-    this._state = SimulatorState.READY;
-    this.updateMainUiState();
+    // Reset the simulator
+    gameConsoleView.reset();
   }
 
   /**
@@ -527,15 +602,16 @@ export class MainController implements MainView {
     // Navigate to the debugger tab
     this.navigateToView(ViewType.DEBUGGER);
 
-    // TODO: Execute a single step
-    if (
-      this._state === SimulatorState.READY ||
-      this._state === SimulatorState.PAUSED
-    ) {
-      // Stay in PAUSED state after stepping
-      this._state = SimulatorState.PAUSED;
-      this.updateMainUiState();
+    // Enable stepper if not already enabled
+    if (!gameConsoleView.simulator.stepperEnabled) {
+      gameConsoleView.simulator.enableStepper();
     }
+
+    // Execute a single step
+    gameConsoleView.simulator.debugExecStep();
+
+    // Update the UI
+    this.onSimulatorStateChange(gameConsoleView.simulator.state);
   }
 
   /**
@@ -548,7 +624,11 @@ export class MainController implements MainView {
     // Navigate to the editor tab
     this.navigateToView(ViewType.EDITOR);
 
-    // TODO: Set the code in the editor
+    // Set the code in the editor
+    editorView.setCode(code);
+
+    // Reset code changed flag
+    mainStateController.setCodeChanged(false);
   }
 
   /**
@@ -556,7 +636,20 @@ export class MainController implements MainView {
    */
   private updateMainUiState(): void {
     if (this.mainButton) {
-      this.mainButton.updateFromSimulatorState(this._state);
+      // Get the current state from mainStateController
+      const state = mainStateController.getState();
+      this.mainButton.setState(state);
+
+      // Update button enabled states
+      const hasCode = editorView.hasCode;
+      const enabledState = mainStateController.getActionEnabledState(
+        this._state,
+        hasCode,
+        this._codeChanged
+      );
+
+      // Apply enabled states to button actions
+      this.mainButton.setActionEnabledStates(enabledState);
     }
   }
 
@@ -574,36 +667,37 @@ export class MainController implements MainView {
    */
   public openMenu(): void {
     console.log("openMenu");
+    // TODO: Implement menu functionality
   }
 
   public onAssembleTap(): void {
     console.log("onAssembleTap");
-    this.assembleGameConsole();
+    mainStateController.emitAssemble();
   }
 
   public onRunTap(): void {
     console.log("onRunTap");
-    this.runGameConsole();
+    mainStateController.emitRun();
   }
 
   public onPauseTap(): void {
     console.log("onPauseTap");
-    this.pauseGameConsole();
+    mainStateController.emitPause();
   }
 
   public onResumeTap(): void {
     console.log("onResumeTap");
-    this.runGameConsole();
+    mainStateController.emitResume();
   }
 
   public onResetTap(): void {
     console.log("onResetTap");
-    this.reset();
+    mainStateController.emitReset();
   }
 
   public onStepTap(): void {
     console.log("onStepTap");
-    this.stepGameConsole();
+    mainStateController.emitStep();
   }
 }
 

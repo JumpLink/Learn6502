@@ -145,8 +145,12 @@ class Editor extends Observable implements EditorView {
 }
 
 // Create singleton instance
-const editorModel = new Editor();
+export const editorView = new Editor();
 
 // Export the functions for XML binding
-export const onNavigatingTo = editorModel.onNavigatingTo.bind(editorModel);
-export const onHelpToggleTap = editorModel.onHelpToggleTap.bind(editorModel);
+export const onNavigatingTo = editorView.onNavigatingTo.bind(editorView);
+export const onHelpToggleTap = editorView.onHelpToggleTap.bind(editorView);
+
+// Helper methods for main controller
+export const getCode = (): string => editorView.code;
+export const hasCode = (): boolean => editorView.hasCode;
