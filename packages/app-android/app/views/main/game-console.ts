@@ -142,15 +142,32 @@ export class GameConsole implements GameConsoleView {
 
     console.log("GameConsole: Initializing game console components");
 
-    // Initialize common controller first
-    gameConsoleController.init({
-      memory: this._memory,
-      displayWidget: this._display,
-      gamepadWidget: this._gamePad,
-      simulator: this._simulator,
-      assembler: this._assembler,
-      labels: this._labels,
-    });
+    // Check if controller is already partially initialized (from main controller)
+    if (gameConsoleController.memory) {
+      console.log(
+        "GameConsole: Controller already partially initialized, doing full initialization"
+      );
+      // Do full initialization with display and gamepad widgets
+      gameConsoleController.init({
+        memory: this._memory,
+        displayWidget: this._display,
+        gamepadWidget: this._gamePad,
+        simulator: this._simulator,
+        assembler: this._assembler,
+        labels: this._labels,
+      });
+    } else {
+      console.log("GameConsole: Full controller initialization from scratch");
+      // Initialize common controller first
+      gameConsoleController.init({
+        memory: this._memory,
+        displayWidget: this._display,
+        gamepadWidget: this._gamePad,
+        simulator: this._simulator,
+        assembler: this._assembler,
+        labels: this._labels,
+      });
+    }
 
     // Debug output for memory and controller
     console.log(

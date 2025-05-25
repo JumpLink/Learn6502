@@ -107,18 +107,20 @@ class GameConsoleController implements GameConsoleView {
     // Set up gamepad
     this.gamepadWidget = options.gamepadWidget;
 
-    // Listen to gamepad events and process them
-    this.gamepadWidget.events.on("keyPressed", (event) => {
-      // Handle keyPressed event from gamepad widget
-      // Update memory if available
-      if (this._memory) {
-        const keyCode = event.keyCode || this.getKeyCodeForButton(event.key);
-        this._memory.set(0xff, keyCode);
-      }
+    // Listen to gamepad events and process them only if gamepadWidget is available
+    if (this.gamepadWidget && this.gamepadWidget.events) {
+      this.gamepadWidget.events.on("keyPressed", (event) => {
+        // Handle keyPressed event from gamepad widget
+        // Update memory if available
+        if (this._memory) {
+          const keyCode = event.keyCode || this.getKeyCodeForButton(event.key);
+          this._memory.set(0xff, keyCode);
+        }
 
-      // Forward event to listeners
-      this.events.dispatch("keyPressed", event);
-    });
+        // Forward event to listeners
+        this.events.dispatch("keyPressed", event);
+      });
+    }
 
     // Set up memory and other components
     this._memory = options.memory;
@@ -135,6 +137,36 @@ class GameConsoleController implements GameConsoleView {
 
     // Setup event listeners for simulator, assembler, and labels if available
     this.setupEventListeners();
+  }
+
+  /**
+   * Partial initialization for assembler-only functionality
+   * This allows using the controller for assembling without display/gamepad widgets
+   */
+  public initPartial(options: {
+    memory: Memory;
+    simulator?: Simulator;
+    assembler?: Assembler;
+    labels?: Labels;
+  }): void {
+    console.log(
+      "GameConsoleController: Partial initialization (assembler-only)"
+    );
+
+    // Set up memory and other components
+    this._memory = options.memory;
+    this._simulator = options.simulator || null;
+    this._assembler = options.assembler || null;
+    this._labels = options.labels || null;
+
+    if (!this._memory) {
+      throw new Error("Memory is required for partial initialization");
+    }
+
+    // Setup event listeners for simulator, assembler, and labels if available
+    this.setupEventListeners();
+
+    console.log("GameConsoleController: Partial initialization complete");
   }
 
   /**

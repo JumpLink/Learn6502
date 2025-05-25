@@ -23,6 +23,13 @@ class Editor extends Observable implements EditorView {
   private _helpToggleButton: Button | null = null;
   private _helpVisible: boolean = false;
 
+  constructor() {
+    super();
+    // Initialize with default code so hasCode returns true from the start
+    this._code =
+      "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
+  }
+
   /**
    * Get the current code in the editor
    */
@@ -116,13 +123,8 @@ class Editor extends Observable implements EditorView {
         this.events.dispatch("changed", { code: newCodeFromSourceView });
       });
 
-      // If no code is set yet, set default code
-      // Otherwise, ensure SourceView has the current model code
-      if (!this.hasCode) {
-        const defaultCode =
-          "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
-        this.setCode(defaultCode);
-      } else if (this._sourceView.code !== this._code) {
+      // Ensure SourceView has the current model code (which is set in constructor)
+      if (this._sourceView.code !== this._code) {
         this._sourceView.code = this._code;
       }
     } else {

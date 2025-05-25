@@ -136,8 +136,11 @@ export class MainController implements MainView {
    * Sets up game console signal listeners for debugger integration
    */
   private setupGameConsoleSignalListeners(): void {
+    console.log("Setting up game console signal listeners");
+
     // Listen for assemble success to update debugger
     gameConsoleController.on("assemble-success", (signal) => {
+      console.log("assemble-success event received:", signal);
       if (signal.message) {
         debuggerController.log(signal.message);
       }
@@ -158,6 +161,7 @@ export class MainController implements MainView {
     });
 
     gameConsoleController.on("assemble-failure", (signal) => {
+      console.log("assemble-failure event received:", signal);
       if (signal.message) {
         debuggerController.log(signal.message);
       }
@@ -424,6 +428,9 @@ export class MainController implements MainView {
     // Set up Learn tutorial signal listeners
     this.setupLearnTutorialSignalListeners();
 
+    // Initialize game console controller early - this was missing!
+    this.initializeGameConsoleController();
+
     // Set up Game Console signal listeners for debugger integration
     this.setupGameConsoleSignalListeners();
 
@@ -435,6 +442,9 @@ export class MainController implements MainView {
 
     // Initialize main state controller
     mainStateController.init();
+
+    // Set up main button - this was missing!
+    this.setupMainButton();
   }
 
   /**
@@ -553,12 +563,15 @@ export class MainController implements MainView {
 
     // Get code from editor and assemble it
     const code = editorView.code;
+    console.log("Code to assemble:", code);
 
     // Reset the code changed flag BEFORE assembling using mainStateController
     mainStateController.setCodeChanged(false);
 
     // Assemble the code
+    console.log("Calling gameConsoleController.assemble...");
     gameConsoleController.assemble(code);
+    console.log("gameConsoleController.assemble called");
   }
 
   /**
@@ -643,17 +656,30 @@ export class MainController implements MainView {
       // Update button enabled states
       const hasCode = editorView.hasCode;
       const codeChanged = mainStateController.getCodeChanged();
+      const currentState = this.state;
+
+      console.log(
+        "updateMainUiState - hasCode:",
+        hasCode,
+        "codeChanged:",
+        codeChanged,
+        "state:",
+        currentState
+      );
+
       const enabledState = mainStateController.getActionEnabledState(
-        this.state,
+        currentState,
         hasCode,
         codeChanged
       );
+
+      console.log("updateMainUiState - enabledState:", enabledState);
 
       // Apply enabled states to button actions
       this.mainButton.setActionEnabledStates(enabledState);
 
       // Update the button state based on simulator state - this is the key part!
-      this.mainButton.updateFromSimulatorState(this.state);
+      this.mainButton.updateFromSimulatorState(currentState);
     }
   }
 
@@ -693,6 +719,32 @@ export class MainController implements MainView {
   public onStepTap(): void {
     console.log("onStepTap");
     mainStateController.emitStep();
+  }
+
+  /**
+   * Sets up the main button with initial state
+   */
+  private setupMainButton(): void {
+    console.log("setupMainButton called");
+    // Initial button setup
+    this.updateMainUiState();
+  }
+
+  /**
+   * Initialize the game console controller early so it's available for assembling
+   */
+  private initializeGameConsoleController(): void {
+    console.log("Initializing gameConsoleController early");
+
+    // Use partial initialization to set up assembler functionality without widgets
+    gameConsoleController.initPartial({
+      memory: gameConsoleView.memory,
+      simulator: gameConsoleView.simulator,
+      assembler: gameConsoleView.assembler,
+      labels: gameConsoleView.labels,
+    });
+
+    console.log("gameConsoleController partial initialization complete");
   }
 }
 
