@@ -89,7 +89,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._copyable = newValue;
-      // Visibility is handled by template binding: visibility="{{ copyable ? 'visible' : 'collapsed' }}"
     },
   });
 
@@ -98,12 +97,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
     defaultValue: "",
     valueChanged(target, oldValue, newValue) {
       target._copyButtonIcon = newValue;
-      if (target.copyButton && newValue) {
-        // TODO: Implement icon setting for the button if desired
-        // For now, we'll rely on text or a fixed icon in XML
-        // Example: if using font icons
-        // target.copyButton.text = String.fromCharCode(parseInt(newValue, 16));
-      }
     },
   });
 

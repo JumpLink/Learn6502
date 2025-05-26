@@ -32,6 +32,9 @@ class Debugger implements DebuggerView {
   private hexdump: Hexdump | null = null;
   private disassembled: Disassembled | null = null;
 
+  // State preservation
+  private _isInitialized: boolean = false;
+
   // Implement required properties from DebuggerView interface
   public get state(): DebuggerState {
     return debuggerController.state;
@@ -45,7 +48,9 @@ class Debugger implements DebuggerView {
     const page = args.object as Page;
     this.page = page;
 
-    console.log("debugger: onNavigatingTo", this.page);
+    console.log(
+      `[Debugger] onNavigatingTo - isInitialized: ${this._isInitialized}`
+    );
 
     // Get widget references from XML
     this.messageConsole =
@@ -66,7 +71,15 @@ class Debugger implements DebuggerView {
       return;
     }
 
-    // Initialize the debugger controller with widgets
+    // Initialize or re-initialize the debugger controller with widgets
+    if (!this._isInitialized) {
+      console.log("[Debugger] First initialization");
+      this._isInitialized = true;
+    } else {
+      console.log("[Debugger] Re-initializing with existing state");
+    }
+
+    // Always re-initialize with current widgets (debuggerController handles state preservation)
     debuggerController.init(
       this.messageConsole,
       this.debugInfo,
@@ -77,6 +90,12 @@ class Debugger implements DebuggerView {
 
     // Set state to active when navigating to this view
     debuggerController.state = DebuggerState.ACTIVE;
+  }
+
+  public onNavigatingFrom(): void {
+    console.log("[Debugger] onNavigatingFrom - preserving state");
+    // The debuggerController maintains its state, we just disconnect the widgets
+    // but keep the controller alive
   }
 
   // Implement required methods from DebuggerView interface
@@ -108,12 +127,27 @@ class Debugger implements DebuggerView {
     debuggerController.close();
     this.page = null;
 
-    // Clear widget references
+    // Clear widget references but don't reset initialization state
     this.messageConsole = null;
     this.debugInfo = null;
     this.hexMonitor = null;
     this.hexdump = null;
     this.disassembled = null;
+  }
+
+  /**
+   * Get initialization status
+   */
+  get isInitialized(): boolean {
+    return this._isInitialized;
+  }
+
+  /**
+   * Force re-initialization (useful for testing or reset scenarios)
+   */
+  resetInitialization(): void {
+    this._isInitialized = false;
+    debuggerController.reset();
   }
 }
 
@@ -122,5 +156,7 @@ const debuggerView = new Debugger();
 
 // Export the instance methods for view binding
 export const onNavigatingTo = debuggerView.onNavigatingTo.bind(debuggerView);
+export const onNavigatingFrom =
+  debuggerView.onNavigatingFrom.bind(debuggerView);
 // Export the instance for external access if needed
 export { debuggerView };

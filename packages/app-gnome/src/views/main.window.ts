@@ -20,6 +20,7 @@ import {
   debuggerController,
   gameConsoleController,
   mainStateController,
+  editorController,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -409,11 +410,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     // Reset the code changed flag BEFORE assembling using mainStateController
     mainStateController.setCodeChanged(false);
-    this._gameConsole.assemble(this._editor.code);
+    this._gameConsole.assemble(editorController.code);
   }
 
   public setEditorCode(code: string): void {
-    this._editor.code = code;
+    editorController.setCode(code);
     // Set the editor as the visible child in the stack
     this.navigateToView(ViewType.EDITOR);
 
@@ -669,7 +670,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private updateRunActions(state: SimulatorState): MainUiState {
     // Check if editor has code
-    const hasCode = this._editor.hasCode;
+    const hasCode = editorController.hasCode;
 
     // Get enabled states for actions from MainButton helper
     const enabledState = mainStateController.getActionEnabledState(
@@ -728,7 +729,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private async saveFile(): Promise<boolean> {
     if (this.currentFile) {
-      return (await fileService.saveFile(this._editor.code)) || false;
+      return (await fileService.saveFile(editorController.code)) || false;
     } else {
       return await this.saveAsFile();
     }
@@ -740,7 +741,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private async saveAsFile(): Promise<boolean> {
     const success = await fileService.saveFileAs(
-      this._editor.code,
+      editorController.code,
       this.currentFile ? this.getCurrentFileName() : "untitled.asm"
     );
     if (success) {

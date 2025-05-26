@@ -1,6 +1,7 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
     xmlns:w="~/widgets/index"
     navigatingTo="onNavigatingTo"
+    navigatingFrom="onNavigatingFrom"
     actionBarHidden="true" class="bg-surface text-on-surface">
 
     <ScrollView>

@@ -5,7 +5,11 @@ import {
   Button,
   StackLayout,
 } from "@nativescript/core";
-import { EditorView, EditorEventMap } from "@learn6502/common-ui";
+import {
+  EditorView,
+  EditorEventMap,
+  editorController,
+} from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
 import { EventDispatcher } from "@learn6502/6502";
 
@@ -22,12 +26,15 @@ class Editor extends Observable implements EditorView {
   private _helpToggleButton: Button | null = null;
   private _helpVisible: boolean = false;
 
+  // State preservation - now handled by editorController
+  private _isInitialized: boolean = false;
+
   /**
    * Get the current code in the editor
    * Implements EditorView
    */
   get code(): string {
-    return this._sourceView ? this._sourceView.code : "";
+    return editorController.code;
   }
 
   /**
@@ -45,12 +52,7 @@ class Editor extends Observable implements EditorView {
    * @param value Code to set
    */
   setCode(value: string): void {
-    if (this.code === value) return;
-
-    if (this._sourceView) {
-      this._sourceView.code = value;
-    }
-
+    editorController.setCode(value);
     // Notify NativeScript UI bindings
     this.notifyPropertyChange("code", value);
   }
@@ -60,7 +62,7 @@ class Editor extends Observable implements EditorView {
    * Implements EditorView
    */
   get hasCode(): boolean {
-    return this.code.trim().length > 0;
+    return editorController.hasCode;
   }
 
   /**
@@ -70,8 +72,7 @@ class Editor extends Observable implements EditorView {
    * @param content Content to add
    */
   addContent(content: string): void {
-    // In NativeScript, we'll just append content to the end
-    this.setCode(this.code + content);
+    editorController.addContent(content);
   }
 
   /**
@@ -79,7 +80,7 @@ class Editor extends Observable implements EditorView {
    * Implements EditorView
    */
   clear(): void {
-    this.setCode("");
+    editorController.clear();
   }
 
   /**
@@ -96,18 +97,50 @@ class Editor extends Observable implements EditorView {
   }
 
   /**
-   * Handle editor change event
-   * Implements EditorView
-   *
-   * @param event The source view changed event
+   * Handle controller code changes (from external sources)
+   * @param event The controller changed event
    */
-  private onChanged = (event: { code: string }): void => {
-    // Notify NativeScript UI bindings if the code actually changed
+  private onControllerCodeChanged = (event: { code: string }): void => {
+    // Update NativeScript UI bindings when code changes externally
     this.notifyPropertyChange("code", event.code);
 
     // Forward the code change event to our own events
     this.events.dispatch("changed", event);
   };
+
+  /**
+   * Handle controller help visibility changes
+   * @param event The help visibility changed event
+   */
+  private onControllerHelpVisibilityChanged = (event: {
+    visible: boolean;
+  }): void => {
+    this._helpVisible = event.visible;
+    this.updateHelpPanelUI();
+  };
+
+  /**
+   * Update help panel UI based on current state
+   */
+  private updateHelpPanelUI(): void {
+    if (this._helpPanel && this._helpToggleButton) {
+      this._helpPanel.visibility = this._helpVisible ? "visible" : "collapsed";
+      this._helpToggleButton.text = this._helpVisible
+        ? "Hide Help"
+        : "Show Help";
+    }
+  }
+
+  /**
+   * Restore the UI state from controller
+   */
+  private restoreState(): void {
+    this._helpVisible = editorController.helpVisible;
+    this.updateHelpPanelUI();
+
+    // Notify about current code
+    this.notifyPropertyChange("code", editorController.code);
+  }
 
   /**
    * Initialize the editor model when navigating to the page
@@ -116,19 +149,32 @@ class Editor extends Observable implements EditorView {
     const page = args.object as Page;
     page.bindingContext = this;
 
+    console.log(
+      `[Editor] onNavigatingTo - isInitialized: ${this._isInitialized}`
+    );
+
     this._sourceView = page.getViewById<SourceView>("sourceView");
     this._helpPanel = page.getViewById<StackLayout>("helpPanel");
     this._helpToggleButton = page.getViewById<Button>("helpToggleButton");
 
     if (this._sourceView) {
-      // Subscribe to SourceView's 'changed' event
-      this._sourceView.events.on("changed", this.onChanged);
+      // Initialize controller with SourceView
+      if (!this._isInitialized) {
+        console.log("[Editor] First initialization with controller");
+        editorController.init(this._sourceView);
 
-      // Set default code if SourceView doesn't have any
-      if (!this._sourceView.code) {
-        this._sourceView.code =
-          "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
+        // Subscribe to controller events
+        editorController.events.on("changed", this.onControllerCodeChanged);
+        editorController.events.on(
+          "helpVisibilityChanged",
+          this.onControllerHelpVisibilityChanged
+        );
+
+        this._isInitialized = true;
       }
+
+      // Always restore state when navigating to the view
+      this.restoreState();
     } else {
       console.error(
         "[Editor] SourceView (sourceView) not found on page. Editor will not function correctly."
@@ -137,14 +183,31 @@ class Editor extends Observable implements EditorView {
   }
 
   /**
+   * Clean up when navigating away
+   */
+  onNavigatingFrom(): void {
+    // Save current state to controller before navigation
+    editorController.saveState();
+
+    console.log("[Editor] State saved to controller before navigation");
+  }
+
+  /**
    * Toggle the visibility of the help panel
    */
   onHelpToggleTap(): void {
     if (!this._helpPanel || !this._helpToggleButton) return;
 
-    this._helpVisible = !this._helpVisible;
-    this._helpPanel.visibility = this._helpVisible ? "visible" : "collapsed";
-    this._helpToggleButton.text = this._helpVisible ? "Hide Help" : "Show Help";
+    // Update through controller to keep state synchronized
+    editorController.setHelpVisible(!this._helpVisible);
+  }
+
+  /**
+   * Force re-initialization (useful for testing or reset scenarios)
+   */
+  resetInitialization(): void {
+    this._isInitialized = false;
+    editorController.resetInitialization();
   }
 }
 
@@ -153,8 +216,5 @@ export const editorView = new Editor();
 
 // Export the functions for XML binding
 export const onNavigatingTo = editorView.onNavigatingTo.bind(editorView);
+export const onNavigatingFrom = editorView.onNavigatingFrom.bind(editorView);
 export const onHelpToggleTap = editorView.onHelpToggleTap.bind(editorView);
-
-// Helper methods for main controller
-export const getCode = (): string => editorView.code;
-export const hasCode = (): boolean => editorView.hasCode;

@@ -20,6 +20,7 @@ import {
   learnController,
   debuggerController,
   mainStateController,
+  editorController,
 } from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
 import type { GamepadKey } from "@learn6502/common-ui";
@@ -388,8 +389,8 @@ export class MainController implements MainView {
    * Sets up editor event listeners
    */
   private setupEditorEventListeners(): void {
-    // Listen for editor text changes
-    editorView.events.on("changed", () => {
+    // Listen for editor text changes via the controller
+    editorController.events.on("changed", () => {
       mainStateController.setCodeChanged(true);
     });
   }
@@ -561,8 +562,8 @@ export class MainController implements MainView {
     // Navigate to the debugger tab
     this.navigateToView(ViewType.DEBUGGER);
 
-    // Get code from editor and assemble it
-    const code = editorView.code;
+    // Get code from editor controller and assemble it
+    const code = editorController.code;
     console.log("Code to assemble:", code);
 
     // Reset the code changed flag BEFORE assembling using mainStateController
@@ -641,8 +642,8 @@ export class MainController implements MainView {
     // Navigate to the editor tab
     this.navigateToView(ViewType.EDITOR);
 
-    // Set the code in the editor
-    editorView.setCode(code);
+    // Set the code in the editor via controller
+    editorController.setCode(code);
 
     // Reset code changed flag using mainStateController
     mainStateController.setCodeChanged(false);
@@ -654,7 +655,7 @@ export class MainController implements MainView {
   private updateMainUiState(): void {
     if (this.mainButton) {
       // Update button enabled states
-      const hasCode = editorView.hasCode;
+      const hasCode = editorController.hasCode;
       const codeChanged = mainStateController.getCodeChanged();
       const currentState = this.state;
 

@@ -5,11 +5,8 @@ import GtkSource from "@girs/gtksource-5";
 import { SourceView } from "../../widgets/source-view.ts";
 import { QuickHelpView } from "../../mdx/quick-help-view.ts";
 import { EventDispatcher } from "@learn6502/6502";
-import type {
-  EditorView,
-  EditorEventMap,
-  SourceViewChangedEvent,
-} from "@learn6502/common-ui";
+import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
+import { editorController } from "@learn6502/common-ui";
 
 import Template from "./editor.blp";
 
@@ -32,6 +29,9 @@ export class Editor extends Adw.Bin implements EditorView {
 
   /** The ScrolledWindow that contains the quick help */
   declare private _scrolledWindow: Gtk.ScrolledWindow;
+
+  // State preservation - now handled by editorController
+  private _isInitialized: boolean = false;
 
   static {
     GObject.registerClass(
@@ -68,8 +68,7 @@ export class Editor extends Adw.Bin implements EditorView {
    * @param value The source code to set
    */
   public setCode(value: string): void {
-    if (this.code === value) return;
-    this._sourceView.code = value;
+    editorController.setCode(value);
     this.notify("code");
   }
 
@@ -78,7 +77,7 @@ export class Editor extends Adw.Bin implements EditorView {
    * Implements EditorView
    */
   public get code(): string {
-    return this._sourceView.code;
+    return editorController.code;
   }
 
   /**
@@ -96,8 +95,7 @@ export class Editor extends Adw.Bin implements EditorView {
    * @returns Whether the editor has code
    */
   public get hasCode(): boolean {
-    const hasCode = this.code.trim().length > 0;
-    return hasCode;
+    return editorController.hasCode;
   }
 
   /**
@@ -107,12 +105,7 @@ export class Editor extends Adw.Bin implements EditorView {
    * @param content Content to add
    */
   public addContent(content: string): void {
-    // Get cursor position
-    const cursor = this.buffer.get_insert();
-    const iter = this.buffer.get_iter_at_mark(cursor);
-
-    // Insert text at cursor position
-    this.buffer.insert(iter, content, -1);
+    editorController.addContent(content);
   }
 
   /**
@@ -120,7 +113,7 @@ export class Editor extends Adw.Bin implements EditorView {
    * Implements EditorView
    */
   public clear(): void {
-    this.buffer.set_text("", -1);
+    editorController.clear();
   }
 
   /**
@@ -134,23 +127,63 @@ export class Editor extends Adw.Bin implements EditorView {
   }
 
   /**
-   * Handle editor change event
-   * Implements EditorView
-   *
-   * @param handler Handler function
+   * Handle controller code changes (from external sources)
+   * @param event The controller changed event
    */
-  protected onChanged(event: SourceViewChangedEvent): void {
+  private onControllerCodeChanged = (event: { code: string }): void => {
+    // Update the GObject property to trigger UI updates
+    this.notify("code");
+
     // Forward the code change event to our own events
     this.events.dispatch("changed", event);
+  };
+
+  /**
+   * Initialize the editor with the controller
+   */
+  private initializeWithController(): void {
+    if (!this._isInitialized) {
+      console.log("[Editor] First initialization with controller");
+      editorController.init(this._sourceView);
+
+      // Subscribe to controller events
+      editorController.events.on("changed", this.onControllerCodeChanged);
+
+      this._isInitialized = true;
+    }
+
+    // Always restore state from controller
+    this.restoreState();
+  }
+
+  /**
+   * Restore state from controller
+   */
+  private restoreState(): void {
+    // Notify about current code to update UI bindings
+    this.notify("code");
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
-    this.onChanged = this.onChanged.bind(this);
+    // Initialize with controller after construction
+    this.initializeWithController();
+  }
 
-    // Subscribe to the SourceView's events
-    this._sourceView.events.on("changed", this.onChanged);
+  /**
+   * Force re-initialization (useful for testing or reset scenarios)
+   */
+  resetInitialization(): void {
+    this._isInitialized = false;
+    editorController.resetInitialization();
+  }
+
+  /**
+   * Save current state to controller (called before navigation/close)
+   */
+  saveState(): void {
+    editorController.saveState();
   }
 }
 

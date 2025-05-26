@@ -30,6 +30,9 @@ export class GameConsole implements GameConsoleView {
   private _simulator: Simulator;
   private _assembler: Assembler;
 
+  // State preservation
+  private _isInitialized: boolean = false;
+
   constructor() {
     this._memory = new Memory();
     this._labels = new Labels();
@@ -39,6 +42,8 @@ export class GameConsole implements GameConsoleView {
     // Bind methods
     this.onLoaded = this.onLoaded.bind(this);
     this.onUnloaded = this.onUnloaded.bind(this);
+    this.onNavigatingTo = this.onNavigatingTo.bind(this);
+    this.onNavigatingFrom = this.onNavigatingFrom.bind(this);
   }
 
   // --- Public Properties (Read-only access) ---
@@ -63,6 +68,18 @@ export class GameConsole implements GameConsoleView {
   }
 
   // --- Lifecycle Handlers ---
+  public onNavigatingTo(args: EventData): void {
+    console.log(
+      `[GameConsole] onNavigatingTo - isInitialized: ${this._isInitialized}`
+    );
+    // Navigation handling is separate from loading
+  }
+
+  public onNavigatingFrom(): void {
+    console.log("[GameConsole] onNavigatingFrom - preserving state");
+    // State is preserved in the singleton instance and gameConsoleController
+  }
+
   public onLoaded(args: EventData): void {
     this.page = args.object as Page;
 
@@ -74,11 +91,20 @@ export class GameConsole implements GameConsoleView {
       return;
     }
 
-    this.initialize();
+    if (!this._isInitialized) {
+      console.log("[GameConsole] First initialization");
+      this.initialize();
+      this._isInitialized = true;
+    } else {
+      console.log("[GameConsole] Re-connecting widgets to existing state");
+      this.reconnectWidgets();
+    }
   }
 
   public onUnloaded(args: EventData): void {
-    this.close();
+    console.log("[GameConsole] onUnloaded - preserving state");
+    // Don't call close() here as it would reset the state
+    // Just clear the widget references
     this.page = null;
     this._display = null;
     this._gamePad = null;
@@ -129,9 +155,51 @@ export class GameConsole implements GameConsoleView {
   public close(): void {
     this.stop();
     gameConsoleController.close();
+    this._isInitialized = false;
+  }
+
+  /**
+   * Get initialization status
+   */
+  get isInitialized(): boolean {
+    return this._isInitialized;
+  }
+
+  /**
+   * Force re-initialization (useful for testing or reset scenarios)
+   */
+  resetInitialization(): void {
+    this._isInitialized = false;
+    this.close();
   }
 
   // --- Private Methods ---
+  /**
+   * Reconnect widgets to existing controller state
+   */
+  private reconnectWidgets(): void {
+    if (!this._display || !this._gamePad) {
+      throw new Error("Missing required components for reconnection");
+    }
+
+    console.log("GameConsole: Reconnecting widgets to existing state");
+
+    // Re-initialize display with existing memory
+    this._display.initialize(this._memory);
+
+    // Re-initialize the controller with existing state and new widgets
+    gameConsoleController.init({
+      memory: this._memory,
+      displayWidget: this._display,
+      gamepadWidget: this._gamePad,
+      simulator: this._simulator,
+      assembler: this._assembler,
+      labels: this._labels,
+    });
+
+    console.log("GameConsole: Widget reconnection complete");
+  }
+
   /**
    * Initializes the simulator and sets up event listeners.
    */
@@ -197,6 +265,8 @@ export const gameConsoleView = new GameConsole();
 // Export bound public methods for XML binding
 export const onLoaded = gameConsoleView.onLoaded;
 export const onUnloaded = gameConsoleView.onUnloaded;
+export const onNavigatingTo = gameConsoleView.onNavigatingTo;
+export const onNavigatingFrom = gameConsoleView.onNavigatingFrom;
 
 // Re-export the controller for external components
 export { gameConsoleController };

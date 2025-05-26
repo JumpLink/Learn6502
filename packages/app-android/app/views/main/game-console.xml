@@ -2,6 +2,8 @@
     xmlns:w="~/widgets/index"
     loaded="onLoaded"
     unloaded="onUnloaded"
+    navigatingTo="onNavigatingTo"
+    navigatingFrom="onNavigatingFrom"
     actionBarHidden="true"
     class="bg-surface text-on-surface">
 
