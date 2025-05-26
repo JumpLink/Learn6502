@@ -9,7 +9,7 @@
         fontFamily="monospace"
         color="#888888"
         height="100%"
-        visibility="{{ lineNumbers ? 'visible' : 'collapse' }}"
+        visibility="{{ lineNumbers ? 'visible' : 'collapsed' }}"
         class="text-base p-0 m-0 vertical-top w-10 no-underline" />
     <TextView id="textView"
         row="0" col="1" rowSpan="2"
@@ -23,6 +23,6 @@
         horizontalAlignment="right"
         verticalAlignment="top"
         text="COPY"
-        visibility="{{ copyable ? 'visible' : 'collapse' }}"
+        visibility="{{ copyable ? 'visible' : 'collapsed' }}"
         class="m-2 p-2" />
 </GridLayout>

@@ -14,31 +14,17 @@ import type {
 } from "@learn6502/common-ui";
 
 export class SourceView extends ContentView implements SourceViewWidget {
-  readonly events: EventDispatcher<SourceViewEventMap> =
-    new EventDispatcher<SourceViewEventMap>();
-
-  private debouncedHighlighting: (code: string) => void;
-  private _code: string = "";
-  private textView: TextView;
-  private lineNumbersView: TextView;
-  private copyButton: Button;
-  private _editable: boolean = true;
-  private _lineNumbers: boolean = true;
-  private _lineNumberStart: number = 1;
-  private _selectable: boolean = true;
-  private _copyable: boolean = false;
-  private _copyButtonIcon: string = "";
-  private _copyButtonTooltip: string = "";
-
+  // Static properties
   public static codeProperty = new Property<SourceView, string>({
     name: "code",
     defaultValue: "",
     affectsLayout: true,
     valueChanged(target, oldValue, newValue) {
-      target._code = newValue;
       if (target.textView && target.textView.text !== newValue) {
         target.textView.text = newValue;
       }
+      // Store the code value for later use when textView is loaded
+      target._pendingCode = newValue;
     },
   });
 
@@ -58,6 +44,13 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._editable = newValue;
+      // Editable state is handled by template binding: editable="{{ editable }}"
+      // But we still need to handle native Android-specific properties
+      if (target.textView && target.textView.android) {
+        const nativeEditText = target.textView
+          .android as android.widget.EditText;
+        nativeEditText.setEnabled(newValue);
+      }
     },
   });
 
@@ -96,6 +89,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._copyable = newValue;
+      // Visibility is handled by template binding: visibility="{{ copyable ? 'visible' : 'collapsed' }}"
     },
   });
 
@@ -124,20 +118,58 @@ export class SourceView extends ContentView implements SourceViewWidget {
     },
   });
 
-  get code(): string {
-    return this._code;
+  // Instance properties - public
+  readonly events: EventDispatcher<SourceViewEventMap> =
+    new EventDispatcher<SourceViewEventMap>();
+
+  // Instance properties - private
+  private debouncedHighlighting: (code: string) => void;
+  private textView: TextView;
+  private lineNumbersView: TextView;
+  private copyButton: Button;
+  private _editable: boolean = true;
+  private _lineNumbers: boolean = true;
+  private _lineNumberStart: number = 1;
+  private _selectable: boolean = true;
+  private _copyable: boolean = false;
+  private _copyButtonIcon: string = "";
+  private _copyButtonTooltip: string = "";
+  private _pendingCode: string = "";
+
+  // Constructor
+  constructor() {
+    super();
+    this.debouncedHighlighting = debounce((code: string) => {
+      this.applyHighlighting(code);
+    }, 150);
   }
 
-  set code(value: string) {
-    const codeActuallyChanged = this._code !== value;
+  // Instance methods - public
+  /**
+   * Get the source code
+   */
+  get code(): string {
+    return this.textView ? this.textView.text : this._pendingCode;
+  }
 
-    if (codeActuallyChanged) {
-      this._code = value;
-      if (this.textView && this.textView.text !== value) {
-        this.textView.text = value;
-      }
-      this.notifyPropertyChange("code", value);
+  /**
+   * Set the source code
+   */
+  set code(value: string) {
+    if (this.code === value) return;
+
+    this._pendingCode = value;
+    if (this.textView && this.textView.text !== value) {
+      this.textView.text = value;
     }
+    this.notifyPropertyChange("code", value);
+  }
+
+  /**
+   * Get whether the source view has code
+   */
+  get hasCode(): boolean {
+    return this.code.trim().length > 0;
   }
 
   get lineNumbers(): boolean {
@@ -145,11 +177,23 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set lineNumbers(value: boolean) {
-    const changed = this._lineNumbers !== value;
+    if (this._lineNumbers === value) return;
     this._lineNumbers = value;
-    if (changed) {
-      this.notifyPropertyChange("lineNumbers", value);
-    }
+    this.notifyPropertyChange("lineNumbers", value);
+  }
+
+  /**
+   * Set the no line numbers property of the source view
+   */
+  get noLineNumbers(): boolean {
+    return !this.lineNumbers;
+  }
+
+  /**
+   * Get the no line numbers property of the source view
+   */
+  set noLineNumbers(value: boolean) {
+    this.lineNumbers = !value;
   }
 
   get editable(): boolean {
@@ -157,11 +201,15 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set editable(value: boolean) {
-    const changed = this._editable !== value;
+    if (this._editable === value) return;
     this._editable = value;
-    if (changed) {
-      this.notifyPropertyChange("editable", value);
+    // Editable state is handled by template binding: editable="{{ editable }}"
+    // But we still need to handle native Android-specific properties
+    if (this.textView && this.textView.android) {
+      const nativeEditText = this.textView.android as android.widget.EditText;
+      nativeEditText.setEnabled(value);
     }
+    this.notifyPropertyChange("editable", value);
   }
 
   get readonly(): boolean {
@@ -177,7 +225,12 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set lineNumberStart(value: number) {
+    if (this._lineNumberStart === value) return;
     this._lineNumberStart = value;
+    if (this.textView) {
+      this.updateLineNumbers(this.textView.text);
+    }
+    this.notifyPropertyChange("lineNumberStart", value);
   }
 
   get selectable(): boolean {
@@ -185,6 +238,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set selectable(value: boolean) {
+    if (this._selectable === value) return;
     this._selectable = value;
     if (this.textView && this.textView.android) {
       const nativeEditText = this.textView.android as android.widget.EditText;
@@ -196,16 +250,29 @@ export class SourceView extends ContentView implements SourceViewWidget {
     this.notifyPropertyChange("selectable", value);
   }
 
+  /**
+   * Set the unselectable property of the source view
+   */
+  get unselectable(): boolean {
+    return !this.selectable;
+  }
+
+  /**
+   * Get the unselectable property of the source view
+   */
+  set unselectable(value: boolean) {
+    this.selectable = !value;
+  }
+
   get copyable(): boolean {
     return this._copyable;
   }
 
   set copyable(value: boolean) {
-    const changed = this._copyable !== value;
+    if (this._copyable === value) return;
     this._copyable = value;
-    if (changed) {
-      this.notifyPropertyChange("copyable", value);
-    }
+    // Visibility is handled by template binding: visibility="{{ copyable ? 'visible' : 'collapsed' }}"
+    this.notifyPropertyChange("copyable", value);
   }
 
   get copyButtonIcon(): string {
@@ -213,6 +280,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set copyButtonIcon(value: string) {
+    if (this._copyButtonIcon === value) return;
     this._copyButtonIcon = value;
     this.notifyPropertyChange("copyButtonIcon", value);
   }
@@ -222,18 +290,12 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   set copyButtonTooltip(value: string) {
+    if (this._copyButtonTooltip === value) return;
     this._copyButtonTooltip = value;
     if (this.copyButton) {
       this.copyButton.accessibilityLabel = value;
     }
     this.notifyPropertyChange("copyButtonTooltip", value);
-  }
-
-  constructor() {
-    super();
-    this.debouncedHighlighting = debounce((code: string) => {
-      this.applyHighlighting(code);
-    }, 150);
   }
 
   focus(): boolean {
@@ -264,10 +326,12 @@ export class SourceView extends ContentView implements SourceViewWidget {
 
     if (this.textView.android) {
       const nativeEditText = this.textView.android as android.widget.EditText;
+      // These native Android properties are not covered by template binding
       nativeEditText.setTextIsSelectable(this.selectable);
       nativeEditText.setCursorVisible(this.selectable);
       nativeEditText.setFocusable(this.selectable);
       nativeEditText.setFocusableInTouchMode(this.selectable);
+      nativeEditText.setEnabled(this.editable);
     }
 
     if (!this.lineNumbersView) {
@@ -275,11 +339,13 @@ export class SourceView extends ContentView implements SourceViewWidget {
     }
     this.lineNumbersView.color = new Color("lightgray");
     this.lineNumbersView.backgroundColor = new Color("transparent");
+    // Visibility is handled by template binding: visibility="{{ lineNumbers ? 'visible' : 'collapsed' }}"
 
     if (this.copyButton) {
       if (this.copyButtonTooltip) {
         this.copyButton.accessibilityLabel = this.copyButtonTooltip;
       }
+      // Visibility is handled by template binding: visibility="{{ copyable ? 'visible' : 'collapsed' }}"
       this.copyButton.on("tap", () => {
         this.events.dispatch("copy", { code: this.code });
       });
@@ -290,11 +356,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
     this.textView.on("textChange", (args: any) => {
       if (this.textView) {
         const newText = args.value as string;
-        const modelNeedsUpdate = this._code !== newText;
-        if (modelNeedsUpdate) {
-          this._code = newText;
-          this.notifyPropertyChange("code", this._code);
-        }
 
         this.debouncedHighlighting(newText);
         this.updateLineNumbers(newText);
@@ -303,6 +364,16 @@ export class SourceView extends ContentView implements SourceViewWidget {
     });
 
     this.content = componentView;
+
+    // Apply pending code if it was set before textView was loaded
+    if (this._pendingCode && this.textView.text !== this._pendingCode) {
+      this.textView.text = this._pendingCode;
+      this.debouncedHighlighting(this._pendingCode);
+      this.updateLineNumbers(this._pendingCode);
+    } else if (this.textView.text) {
+      // Update line numbers for any existing text
+      this.updateLineNumbers(this.textView.text);
+    }
 
     const textEdit = this.textView.android as android.widget.EditText;
     if (textEdit) {
@@ -323,12 +394,11 @@ export class SourceView extends ContentView implements SourceViewWidget {
       );
     }
 
-    if (this._code && this.textView.text !== this._code) {
-      this.textView.text = this._code;
-    }
+    // Apply current selectable state
     this.selectable = this._selectable;
   }
 
+  // Instance methods - private
   private applyHighlighting(code: string) {
     if (this.textView?.android) {
       const nativeEditText = this.textView.android as android.widget.EditText;

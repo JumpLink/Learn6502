@@ -1,7 +1,6 @@
 import {
   DisplayWidget,
   gameConsoleController,
-  DEFAULT_COLOR_PALETTE,
   DEFAULT_DISPLAY_CONFIG,
 } from "@learn6502/common-ui";
 import {
@@ -31,7 +30,6 @@ export class Display extends GridLayout implements DisplayWidget {
   private numX: number = DEFAULT_DISPLAY_CONFIG.numX;
   private numY: number = DEFAULT_DISPLAY_CONFIG.numY;
   private pixelSize: number = 0;
-  private palette = DEFAULT_COLOR_PALETTE;
   private pendingDraw: boolean = false;
 
   // Queue for pending pixel updates

@@ -297,6 +297,6 @@ export class NsCode extends Component<NsCodeProps> {
     // This assumes the 'w' namespace is correctly set up in the NativeScript XML context
     // where this component's output will be used.
 
-    return <w:source-view {...attributes} />;
+    return <w:SourceView {...attributes} />;
   }
 }

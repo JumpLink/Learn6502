@@ -8,10 +8,7 @@ import {
   type DisplayWidget,
   gameConsoleController,
 } from "@learn6502/common-ui";
-import {
-  DEFAULT_COLOR_PALETTE,
-  DEFAULT_DISPLAY_CONFIG,
-} from "@learn6502/common-ui/src/data/display-constants";
+import { DEFAULT_DISPLAY_CONFIG } from "@learn6502/common-ui/src/data/display-constants";
 import { type Memory, DisplayAddressRange } from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayWidget {
@@ -35,7 +32,6 @@ export class Display extends Adw.Bin implements DisplayWidget {
   private numX: number = DEFAULT_DISPLAY_CONFIG.numX;
   private numY: number = DEFAULT_DISPLAY_CONFIG.numY;
   private memory: Memory | undefined;
-  private palette = DEFAULT_COLOR_PALETTE;
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
@@ -64,10 +60,6 @@ export class Display extends Adw.Bin implements DisplayWidget {
     }
     this.pixelSize = this.canvasWidth / this.numX;
 
-    // Don't automatically reset here - let the controller decide when to draw
-    // this.reset();
-
-    // Instead, draw the current memory content
     this.drawAllPixels();
   }
 
