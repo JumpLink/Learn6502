@@ -5,11 +5,15 @@ import {
   ScrollView,
   TextView,
   LayoutBase,
+  Application,
 } from "@nativescript/core";
 import {
   debuggerController,
   DebuggerView,
   DebuggerState,
+  mainStateController,
+  editorController,
+  ViewType,
 } from "@learn6502/common-ui";
 import type { Memory, Simulator, Assembler } from "@learn6502/6502";
 
@@ -21,6 +25,9 @@ import {
   Hexdump,
   Disassembled,
 } from "~/widgets/debugger";
+
+import { notificationService } from "~/services";
+import { gameConsoleView } from "./game-console";
 
 class Debugger implements DebuggerView {
   private page: Page | null = null;
@@ -34,6 +41,10 @@ class Debugger implements DebuggerView {
 
   // State preservation
   private _isInitialized: boolean = false;
+
+  // Event handlers bound to this instance
+  private onCopyToClipboard = this.handleCopyToClipboard.bind(this);
+  private onCopyToEditor = this.handleCopyToEditor.bind(this);
 
   // Implement required properties from DebuggerView interface
   public get state(): DebuggerState {
@@ -71,10 +82,16 @@ class Debugger implements DebuggerView {
       return;
     }
 
+    // Set up event listeners for widgets
+    this.setupWidgetEventListeners();
+
     // Initialize or re-initialize the debugger controller with widgets
     if (!this._isInitialized) {
       console.log("[Debugger] First initialization");
       this._isInitialized = true;
+
+      // Set up controller event listeners only once
+      this.setupControllerEventListeners();
     } else {
       console.log("[Debugger] Re-initializing with existing state");
     }
@@ -83,6 +100,8 @@ class Debugger implements DebuggerView {
     debuggerController.init(
       this.messageConsole,
       this.debugInfo,
+      gameConsoleView.assembler,
+      gameConsoleView.simulator,
       this.hexMonitor,
       this.disassembled,
       this.hexdump
@@ -94,8 +113,96 @@ class Debugger implements DebuggerView {
 
   public onNavigatingFrom(): void {
     console.log("[Debugger] onNavigatingFrom - preserving state");
+
+    // Remove widget event listeners to prevent memory leaks
+    this.removeWidgetEventListeners();
+
     // The debuggerController maintains its state, we just disconnect the widgets
     // but keep the controller alive
+  }
+
+  private setupControllerEventListeners(): void {
+    // Listen for copy events from the controller
+    debuggerController.on("copyToClipboard", this.onCopyToClipboard);
+    debuggerController.on("copyToEditor", this.onCopyToEditor);
+  }
+
+  private setupWidgetEventListeners(): void {
+    // Set up event listeners for widget interactions
+    if (this.disassembled) {
+      this.disassembled.on("copy", (args: any) => {
+        debuggerController.copyToEditor(args.code);
+      });
+    }
+
+    if (this.hexdump) {
+      this.hexdump.on("copy", (args: any) => {
+        debuggerController.copyToClipboard(args.content);
+      });
+    }
+
+    if (this.hexMonitor) {
+      this.hexMonitor.on("copy", (args: any) => {
+        debuggerController.copyToClipboard(args.content);
+      });
+
+      this.hexMonitor.on("changed", () => {
+        // Refresh the hex monitor when settings change
+        const memory = (debuggerController as any).memory;
+        if (memory) {
+          debuggerController.updateMonitor(memory);
+        }
+      });
+    }
+  }
+
+  private removeWidgetEventListeners(): void {
+    // Remove all widget event listeners
+    if (this.disassembled) {
+      this.disassembled.off("copy");
+    }
+
+    if (this.hexdump) {
+      this.hexdump.off("copy");
+    }
+
+    if (this.hexMonitor) {
+      this.hexMonitor.off("copy");
+      this.hexMonitor.off("changed");
+    }
+  }
+
+  private handleCopyToClipboard(content: string): void {
+    // Implement clipboard functionality for Android
+    if (Application.android) {
+      const context = Application.android.context;
+      const clipboardManager = context.getSystemService(
+        android.content.Context.CLIPBOARD_SERVICE
+      ) as android.content.ClipboardManager;
+
+      const clip = android.content.ClipData.newPlainText("6502 Code", content);
+      clipboardManager.setPrimaryClip(clip);
+
+      // Show notification
+      notificationService.showNotification({
+        title: "Copied to clipboard",
+        timeout: 2,
+      });
+    }
+  }
+
+  private handleCopyToEditor(code: string): void {
+    // Navigate to editor and set the code
+    mainStateController.events.dispatch("navigate-to-view", {
+      viewType: ViewType.EDITOR,
+    });
+    editorController.setCode(code);
+
+    // Show notification
+    notificationService.showNotification({
+      title: "Code copied to editor",
+      timeout: 2,
+    });
   }
 
   // Implement required methods from DebuggerView interface
@@ -124,6 +231,13 @@ class Debugger implements DebuggerView {
   }
 
   public close(): void {
+    // Remove controller event listeners
+    debuggerController.off("copyToClipboard", this.onCopyToClipboard);
+    debuggerController.off("copyToEditor", this.onCopyToEditor);
+
+    // Remove widget event listeners
+    this.removeWidgetEventListeners();
+
     debuggerController.close();
     this.page = null;
 

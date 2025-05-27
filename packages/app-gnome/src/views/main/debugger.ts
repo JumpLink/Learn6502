@@ -21,6 +21,7 @@ import {
   type HexMonitorCopyEvent,
   debuggerController,
 } from "@learn6502/common-ui";
+import type { GameConsole } from "./game-console.ts";
 
 export class Debugger extends Adw.Bin implements DebuggerView {
   // Properties
@@ -34,6 +35,9 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   declare private _disassembled: Disassembled;
   declare private _debugInfo: DebugInfoWidget;
   declare private _statusPage: Adw.StatusPage;
+
+  // Reference to game console
+  private gameConsole: GameConsole | null = null;
 
   static {
     GObject.registerClass(
@@ -94,8 +98,15 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this.onServiceStateChanged = this.onServiceStateChanged.bind(this);
 
     this.setupSignalHandlers();
-    this.setupServiceHandlers();
     this.state = DebuggerState.INITIAL;
+  }
+
+  /**
+   * Set the game console reference for accessing assembler and simulator
+   */
+  public setGameConsole(gameConsole: GameConsole): void {
+    this.gameConsole = gameConsole;
+    this.setupServiceHandlers();
   }
 
   /** Call this when the MainWindow is closed. */
@@ -156,10 +167,19 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private setupServiceHandlers(): void {
+    if (!this.gameConsole) {
+      console.warn(
+        "[Debugger] GameConsole not set, skipping service initialization"
+      );
+      return;
+    }
+
     // Initialize the debugger service with widgets
     debuggerController.init(
       this._messageConsole,
       this._debugInfo,
+      this.gameConsole.assembler,
+      this.gameConsole.simulator,
       this._hexMonitor,
       this._disassembled,
       this._hexdump

@@ -138,6 +138,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Initialize main state controller
     mainStateController.init();
 
+    // Set game console reference in debugger
+    this._debugger.setGameConsole(this._gameConsole);
+
     // Initialize the previous visible child after all setup is done
     this.previousVisibleChild = this._stack.get_visible_child();
   }

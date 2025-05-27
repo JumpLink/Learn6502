@@ -2,29 +2,38 @@ import { TextView, EventData } from "@nativescript/core";
 import type { MessageConsoleWidget } from "@learn6502/common-ui";
 
 export class MessageConsole extends TextView implements MessageConsoleWidget {
-  private messages: string[] = [];
-
   constructor() {
     super();
   }
 
   public log(message: string): void {
-    this.messages.push(message);
-    this.updateText();
+    const currentText = this.text || "";
+    const newText = currentText ? `${currentText}\n${message}` : message;
+    this.text = newText;
+    this.scrollToBottom();
   }
 
   public warn(message: string): void {
-    this.messages.push(`⚠️ ${message}`);
-    this.updateText();
+    const currentText = this.text || "";
+    const warningMessage = `⚠️ ${message}`;
+    const newText = currentText
+      ? `${currentText}\n${warningMessage}`
+      : warningMessage;
+    this.text = newText;
+    this.scrollToBottom();
   }
 
   public error(message: string): void {
-    this.messages.push(`❌ ${message}`);
-    this.updateText();
+    const currentText = this.text || "";
+    const errorMessage = `❌ ${message}`;
+    const newText = currentText
+      ? `${currentText}\n${errorMessage}`
+      : errorMessage;
+    this.text = newText;
+    this.scrollToBottom();
   }
 
   public clear(): void {
-    this.messages = [];
     this.text = "";
   }
 
@@ -34,9 +43,7 @@ export class MessageConsole extends TextView implements MessageConsoleWidget {
     return null;
   }
 
-  private updateText(): void {
-    this.text = this.messages.join("\n");
-
+  private scrollToBottom(): void {
     // Scroll to bottom after text update
     setTimeout(() => {
       if (this.android) {

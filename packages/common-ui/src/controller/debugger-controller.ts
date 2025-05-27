@@ -38,6 +38,13 @@ class DebuggerController implements DebuggerView {
   protected disassembled: DisassembledWidget | null = null;
   protected hexdump: HexdumpWidget | null = null;
 
+  // Persistent state for widgets
+  protected consoleMessages: string[] = [];
+
+  // Core references (set once during init)
+  protected assembler: Assembler | null = null;
+  protected simulator: Simulator | null = null;
+
   /**
    * Get the current state of the debugger
    */
@@ -56,9 +63,11 @@ class DebuggerController implements DebuggerView {
   }
 
   /**
-   * Initialize the debugger controller with widgets
+   * Initialize the debugger controller with widgets and core references
    * @param console Message console widget for logging output
    * @param debugInfo Debug info widget for displaying CPU state
+   * @param assembler Assembler instance
+   * @param simulator Simulator instance
    * @param hexMonitor Hex monitor widget for displaying memory
    * @param disassembled Disassembled widget for displaying disassembled code
    * @param hexdump Hexdump widget for displaying hexdump of the code
@@ -66,6 +75,8 @@ class DebuggerController implements DebuggerView {
   public init(
     console: MessageConsoleWidget,
     debugInfo: DebugInfoWidget,
+    assembler: Assembler,
+    simulator: Simulator,
     hexMonitor?: HexMonitorWidget,
     disassembled?: DisassembledWidget,
     hexdump?: HexdumpWidget
@@ -75,6 +86,55 @@ class DebuggerController implements DebuggerView {
     this.hexMonitor = hexMonitor || null;
     this.disassembled = disassembled || null;
     this.hexdump = hexdump || null;
+
+    // Set core references (only once)
+    if (!this.assembler) {
+      this.assembler = assembler;
+    }
+    if (!this.simulator) {
+      this.simulator = simulator;
+    }
+
+    // Restore persistent state to widgets
+    this.restoreWidgetState();
+  }
+
+  /**
+   * Restore widget state from persistent storage
+   */
+  protected restoreWidgetState(): void {
+    // Restore console messages
+    if (this.console && this.consoleMessages.length > 0) {
+      this.console.clear();
+      for (const message of this.consoleMessages) {
+        this.console.log(message);
+      }
+    }
+
+    // Restore assembler data
+    if (this.assembler) {
+      if (this.hexdump) {
+        this.hexdump.update(this.assembler);
+      }
+      if (this.disassembled) {
+        this.disassembled.update(this.assembler);
+      }
+    }
+
+    // Restore simulator and memory state
+    if (this.simulator && this.debugInfo) {
+      this.debugInfo.update(this.simulator);
+    }
+    if (this.memory && this.hexMonitor) {
+      this.hexMonitor.update(this.memory);
+    }
+  }
+
+  /**
+   * Get the stored console messages
+   */
+  public getConsoleMessages(): string[] {
+    return [...this.consoleMessages];
   }
 
   /**
@@ -183,6 +243,7 @@ class DebuggerController implements DebuggerView {
    * @param message Message to log
    */
   public log(message: string): void {
+    this.consoleMessages.push(message);
     this.console?.log(message);
   }
 
@@ -190,6 +251,7 @@ class DebuggerController implements DebuggerView {
    * Clear all stored console logs
    */
   public clearConsole(): void {
+    this.consoleMessages = [];
     if (this.console) {
       this.console.clear();
     }
@@ -200,6 +262,7 @@ class DebuggerController implements DebuggerView {
    */
   public reset(): void {
     this.clearConsole();
+    this.memory = null;
     this.state = DebuggerState.RESET;
     this.events.dispatch("reset", undefined);
   }
