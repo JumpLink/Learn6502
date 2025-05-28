@@ -50,6 +50,7 @@ export class Debugger implements DebuggerView {
   constructor(
     private readonly node: HTMLElement,
     private readonly simulator: Simulator,
+    private readonly assembler: Assembler,
     public readonly memory: Memory,
     public readonly options: HexMonitorOptions
   ) {
@@ -68,8 +69,13 @@ export class Debugger implements DebuggerView {
     this.messageConsole = new MessageConsole(consoleElement);
     this.debugInfo = new DebugInfo(minidebugger);
 
-    // Initialize service with widgets
-    debuggerController.init(this.messageConsole, this.debugInfo);
+    // Initialize service with widgets and core references
+    debuggerController.init(
+      this.messageConsole,
+      this.debugInfo,
+      this.assembler,
+      this.simulator
+    );
 
     this.setupEventListeners();
     this.onMonitorRangeChange = this.onMonitorRangeChange.bind(this);

@@ -30,10 +30,16 @@ export class GameConsole {
     this.labels = new Labels();
     this.simulator = new Simulator(this.memory, this.labels);
     this.assembler = new Assembler(this.memory, this.labels);
-    this.debugger = new Debugger(node, this.simulator, this.memory, {
-      start: 0x00,
-      length: 0xff,
-    });
+    this.debugger = new Debugger(
+      node,
+      this.simulator,
+      this.assembler,
+      this.memory,
+      {
+        start: 0x00,
+        length: 0xff,
+      }
+    );
     this.initialize();
   }
 
