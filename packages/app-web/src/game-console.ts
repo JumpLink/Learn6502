@@ -3,7 +3,10 @@ import { Debugger } from "./debugger.js";
 import { Display } from "./display.js";
 import { UIState } from "./ui-state.js";
 import { MessageConsole } from "./message-console.js";
-import { type MessageConsoleWidget } from "@learn6502/common-ui";
+import {
+  type MessageConsoleWidget,
+  mapKeyboardToGamepadKeyCode,
+} from "@learn6502/common-ui";
 
 /**
  * Represents the main widget for the 6502 simulator.
@@ -147,22 +150,7 @@ export class GameConsole {
     document.addEventListener("keypress", (e: KeyboardEvent) => {
       let value = 0;
 
-      switch (e.key) {
-        case "w":
-          value = 119;
-          break;
-        case "a":
-          value = 97;
-          break;
-        case "s":
-          value = 115;
-          break;
-        case "d":
-          value = 100;
-          break;
-        default:
-          value = e.which;
-      }
+      value = mapKeyboardToGamepadKeyCode(e.key, e.which);
 
       this.memory.storeKeypress(value);
     });
