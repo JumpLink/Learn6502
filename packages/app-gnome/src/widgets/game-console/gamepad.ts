@@ -5,6 +5,7 @@ import {
   type GamepadKey,
   type GamepadWidget,
   type GamepadEventMap,
+  getGamepadKeyCode,
 } from "@learn6502/common-ui";
 
 import Template from "./gamepad.blp";
@@ -71,30 +72,8 @@ export class Gamepad extends Adw.Bin implements GamepadWidget {
   public press(buttonName: GamepadKey): void {
     this.events.dispatch("keyPressed", {
       key: buttonName,
-      keyCode: this.getKeyCodeForButton(buttonName),
+      keyCode: getGamepadKeyCode(buttonName),
     });
-  }
-
-  /**
-   * Returns the ASCII value for a Gamepad button, primarily for logging
-   */
-  private getKeyCodeForButton(key: GamepadKey): number {
-    switch (key) {
-      case "Up":
-        return 119; // w
-      case "Down":
-        return 115; // s
-      case "Left":
-        return 97; // a
-      case "Right":
-        return 100; // d
-      case "A":
-        return 13; // Enter
-      case "B":
-        return 32; // Space
-      default:
-        return 0;
-    }
   }
 }
 
