@@ -22,7 +22,7 @@ import {
   type LabelsInfoEvent,
   type LabelsFailureEvent,
 } from "@learn6502/6502";
-import { DEFAULT_COLOR_PALETTE } from "../data/display-constants";
+import { DEFAULT_COLOR_PALETTE, getGamepadKeyCode } from "../data";
 import { hexToRgb } from "@learn6502/6502/src/utils";
 import type {
   GamepadKey,
@@ -110,14 +110,11 @@ class GameConsoleController implements GameConsoleView {
     // Listen to gamepad events and process them only if gamepadWidget is available
     if (this.gamepadWidget && this.gamepadWidget.events) {
       this.gamepadWidget.events.on("keyPressed", (event) => {
-        // Handle keyPressed event from gamepad widget
-        // Update memory if available
         if (this._memory) {
-          const keyCode = event.keyCode || this.getKeyCodeForButton(event.key);
+          const keyCode = event.keyCode || getGamepadKeyCode(event.key);
           this._memory.set(0xff, keyCode);
         }
 
-        // Forward event to listeners
         this.events.dispatch("keyPressed", event);
       });
     }
@@ -309,17 +306,14 @@ class GameConsoleController implements GameConsoleView {
     if (this.gamepadWidget) {
       this.gamepadWidget.press(key);
     } else {
-      // Fallback if no gamepad widget is available
-      // Update memory directly
       if (this._memory) {
-        const keyCode = this.getKeyCodeForButton(key);
+        const keyCode = getGamepadKeyCode(key);
         this._memory.set(0xff, keyCode);
       }
 
-      // Emit the event directly
       this.events.dispatch("keyPressed", {
         key,
-        keyCode: this.getKeyCodeForButton(key),
+        keyCode: getGamepadKeyCode(key),
       });
     }
   }
@@ -366,30 +360,6 @@ class GameConsoleController implements GameConsoleView {
   public addKeyControllerTo(component: any): void {
     // This is a placeholder for platform-specific implementations
     console.warn("addKeyControllerTo not implemented for this platform");
-  }
-
-  /**
-   * Get the ASCII value for a gamepad button
-   * @param key The gamepad button
-   * @returns ASCII code corresponding to the button
-   */
-  private getKeyCodeForButton(key: GamepadKey): number {
-    switch (key) {
-      case "Up":
-        return 119; // w
-      case "Down":
-        return 115; // s
-      case "Left":
-        return 97; // a
-      case "Right":
-        return 100; // d
-      case "A":
-        return 13; // Enter
-      case "B":
-        return 32; // Space
-      default:
-        return 0;
-    }
   }
 
   //
