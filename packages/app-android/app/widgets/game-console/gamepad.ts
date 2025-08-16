@@ -4,6 +4,7 @@ import type {
   GamepadEventMap,
   GamepadWidget,
 } from "@learn6502/common-ui";
+import { getGamepadKeyCode, getGamepadKeyChar } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/6502";
 
 /**
@@ -20,39 +21,23 @@ export class Gamepad extends GridLayout implements GamepadWidget {
   private buttonA: Button | null = null;
   private buttonB: Button | null = null;
 
-  // Key codes mapping for the emulator (ASCII values to match GNOME implementation)
-  private keyMap: { [key in GamepadKey]: number } = {
-    Up: 119, // w
-    Down: 115, // s
-    Left: 97, // a
-    Right: 100, // d
-    A: 13, // Enter
-    B: 32, // Space
-  };
-
   constructor() {
     super();
 
-    // Load the XML layout when the component is loaded
     this.on("loaded", () => {
-      // Load the XML layout using Builder
       const componentView = Builder.load({
         path: "~/widgets/game-console",
         name: "gamepad",
       });
 
-      // Add the loaded view hierarchy as a child of this GridLayout
       this.addChild(componentView);
 
-      // Find buttons within the loaded component view
       this.buttonUp = componentView.getViewById<Button>("buttonUp");
       this.buttonDown = componentView.getViewById<Button>("buttonDown");
       this.buttonLeft = componentView.getViewById<Button>("buttonLeft");
       this.buttonRight = componentView.getViewById<Button>("buttonRight");
       this.buttonA = componentView.getViewById<Button>("buttonA");
       this.buttonB = componentView.getViewById<Button>("buttonB");
-
-      // Attach tap listeners
       this.buttonUp?.on("tap", () => this.press("Up"));
       this.buttonDown?.on("tap", () => this.press("Down"));
       this.buttonLeft?.on("tap", () => this.press("Left"));
@@ -62,39 +47,21 @@ export class Gamepad extends GridLayout implements GamepadWidget {
     });
   }
 
-  /**
-   * Handles button press logic and dispatches the event.
-   * @param keyName The gamepad key that was pressed
-   */
   public press(keyName: GamepadKey): void {
-    const keyCode = this.getKeyCodeForButton(keyName);
+    const keyCode = getGamepadKeyCode(keyName);
+    const keyChar = getGamepadKeyChar(keyName);
     console.log(
-      `Gamepad: Button ${keyName} pressed, keyCode=${keyCode} (ASCII: ${String.fromCharCode(keyCode)})`
+      `Gamepad: Button ${keyName} pressed, keyCode=${keyCode} (ASCII: ${keyChar})`
     );
 
-    // Add visual feedback by applying a CSS class temporarily
     this.applyPressEffectToButton(keyName);
 
-    // Notify listeners about the button press using the shared interface event
     this.events.dispatch("keyPressed", {
       key: keyName,
       keyCode,
     });
   }
 
-  /**
-   * Returns the ASCII value for a Gamepad button
-   * @param key The gamepad button
-   * @returns ASCII code corresponding to the button
-   */
-  private getKeyCodeForButton(key: GamepadKey): number {
-    return this.keyMap[key] || 0;
-  }
-
-  /**
-   * Apply a visual effect to indicate button press
-   * @param keyName The button that was pressed
-   */
   private applyPressEffectToButton(keyName: GamepadKey): void {
     let button: Button | null = null;
 
