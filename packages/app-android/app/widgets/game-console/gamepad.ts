@@ -20,14 +20,14 @@ export class Gamepad extends GridLayout implements GamepadWidget {
   private buttonA: Button | null = null;
   private buttonB: Button | null = null;
 
-  // Key codes mapping for the emulator
+  // Key codes mapping for the emulator (ASCII values to match GNOME implementation)
   private keyMap: { [key in GamepadKey]: number } = {
-    Right: 0x01,
-    Left: 0x02,
-    Down: 0x04,
-    Up: 0x08,
-    A: 0x10,
-    B: 0x20,
+    Up: 119, // w
+    Down: 115, // s
+    Left: 97, // a
+    Right: 100, // d
+    A: 13, // Enter
+    B: 32, // Space
   };
 
   constructor() {
@@ -67,8 +67,10 @@ export class Gamepad extends GridLayout implements GamepadWidget {
    * @param keyName The gamepad key that was pressed
    */
   public press(keyName: GamepadKey): void {
-    const keyCode = this.keyMap[keyName];
-    console.log(`Gamepad: Button ${keyName} (${keyCode}) pressed`);
+    const keyCode = this.getKeyCodeForButton(keyName);
+    console.log(
+      `Gamepad: Button ${keyName} pressed, keyCode=${keyCode} (ASCII: ${String.fromCharCode(keyCode)})`
+    );
 
     // Add visual feedback by applying a CSS class temporarily
     this.applyPressEffectToButton(keyName);
@@ -78,6 +80,15 @@ export class Gamepad extends GridLayout implements GamepadWidget {
       key: keyName,
       keyCode,
     });
+  }
+
+  /**
+   * Returns the ASCII value for a Gamepad button
+   * @param key The gamepad button
+   * @returns ASCII code corresponding to the button
+   */
+  private getKeyCodeForButton(key: GamepadKey): number {
+    return this.keyMap[key] || 0;
   }
 
   /**
