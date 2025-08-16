@@ -1,0 +1,13 @@
+---
+description: 
+globs: packages/6502/**/*
+alwaysApply: false
+---
+## Package: `6502` (Core Emulator)
+
+- **Purpose:** Provides the core 6502 CPU emulation, assembler, and disassembler.
+- **Primary Language:** TypeScript.
+- **Key Focus:** Accuracy of emulation, performance, and platform independence.
+- **Interfaces:** Defines core interfaces for CPU state, memory access, and instruction set. Other packages will consume these.
+- **Dependencies:** Should have minimal dependencies, especially no UI or platform-specific ones.
+- **Code Style:** Prioritize clarity and correctness of the emulation logic. Ensure comprehensive comments for complex algorithms or 6502-specific behaviors.

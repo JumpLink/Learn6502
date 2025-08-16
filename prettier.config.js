@@ -2,10 +2,11 @@
 
 /** @type {import("prettier").Config} */
 const config = {
-  parser: 'typescript',
+  trailingComma: "es5",
   tabWidth: 2,
-  semi: false,
-  singleQuote: true,
-}
+  semi: true,
+  singleQuote: false,
+  // Add other options as needed
+};
 
-export default config
+export default config;

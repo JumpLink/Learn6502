@@ -1,0 +1,34 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $Editor: Adw.Bin {
+
+  Adw.BottomSheet bottomSheet {
+    bottom-bar: Label {
+      label: _("Help");
+      margin-bottom: 12;
+      margin-end: 12;
+      margin-start: 12;
+      margin-top: 12;
+    };
+
+    content: $SourceView sourceView {
+      hexpand: true;
+      vexpand: true;
+    };
+
+    sheet: ScrolledWindow scrolledWindow {
+      vexpand: true;
+      height-request: 300;
+      Adw.Clamp {
+        maximum-size: 600;
+        margin-top: 12;
+        margin-bottom: 12;
+        margin-start: 12;
+        margin-end: 12;
+
+        child: $QuickHelpView quickHelpView {};
+      }
+    };
+  }
+}

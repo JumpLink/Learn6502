@@ -1,0 +1,33 @@
+# Build artifacts & dependencies
+builddir/
+flatpak-build/
+.flatpak-builder/
+repo/
+.yarn/
+node_modules/
+dist/
+**/dist/
+packages/*/dist/
+
+# Caches & metadata
+.idea/
+.vscode/
+.flatpak-builder/cache/
+.flatpak-builder/ccache/
+
+# Generated files
+eu.jumplink.Learn6502.tar.gz
+
+# Specific file types to ignore (as requested)
+*.blp
+
+# Ignore specific configuration files if needed
+# .env
+
+# Ignore specific generated folders
+packages/app-android/platforms/
+packages/app-web/_site/
+packages/app-web/_includes/
+
+# Ignore large data files if any
+# *.bin

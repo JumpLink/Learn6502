@@ -1,7 +1,7 @@
-import { num2hex } from './utils.js';
-import { EventDispatcher } from './event-dispatcher.js';
+import { num2hex } from "./utils.js";
+import { EventDispatcher } from "./event-dispatcher.js";
 
-import type { MemoryEvent } from './types/index.js';
+import type { MemoryEventsMap } from "./types/index.js";
 
 /**
  * Represents the memory of the 6502 emulator.
@@ -10,7 +10,7 @@ import type { MemoryEvent } from './types/index.js';
 export class Memory {
   private memArray: number[];
 
-  private readonly events = new EventDispatcher<MemoryEvent>();
+  private readonly events = new EventDispatcher<MemoryEventsMap>();
 
   /**
    * Creates a new Memory instance.
@@ -21,15 +21,39 @@ export class Memory {
     this.storeKeypress = this.storeKeypress.bind(this);
   }
 
-  public on(event: 'changed', listener: (event: MemoryEvent) => void): void {
+  /**
+   * Register a listener for the changed event
+   * @param event - The event name ("changed")
+   * @param listener - Callback function that receives the memory change event
+   */
+  public on<K extends keyof MemoryEventsMap>(
+    event: K,
+    listener: (event: MemoryEventsMap[K]) => void
+  ): void {
     this.events.on(event, listener);
   }
 
-  public off(event: 'changed', listener: (event: MemoryEvent) => void): void {
+  /**
+   * Remove a listener for the changed event
+   * @param event - The event name ("changed")
+   * @param listener - Callback function that was previously registered
+   */
+  public off<K extends keyof MemoryEventsMap>(
+    event: K,
+    listener: (event: MemoryEventsMap[K]) => void
+  ): void {
     this.events.off(event, listener);
   }
 
-  public once(event: 'changed', listener: (event: MemoryEvent) => void): void {
+  /**
+   * Register a one-time listener for the changed event
+   * @param event - The event name ("changed")
+   * @param listener - Callback function that receives the memory change event
+   */
+  public once<K extends keyof MemoryEventsMap>(
+    event: K,
+    listener: (event: MemoryEventsMap[K]) => void
+  ): void {
     this.events.once(event, listener);
   }
 
@@ -40,7 +64,7 @@ export class Memory {
    */
   public set(addr: number, val: number): void {
     this.memArray[addr] = val;
-    this.events.dispatch('changed', { addr, val });
+    this.events.dispatch("changed", { addr, val });
   }
 
   /**
@@ -86,17 +110,25 @@ export class Memory {
    * @param length - The number of bytes to format.
    * @returns A formatted string representation of the memory section.
    */
-  public format(options: { start: number, length: number, includeAddress?: boolean, includeSpaces?: boolean, includeNewline?: boolean }): string {
-    let text = '';
+  public format(options: {
+    start: number;
+    length: number;
+    includeAddress?: boolean;
+    includeSpaces?: boolean;
+    includeNewline?: boolean;
+  }): string {
+    let text = "";
     let n: number;
 
     for (let x = 0; x < options.length; x++) {
       if ((x & 15) === 0) {
-        if (options.includeNewline && x > 0) { text += "\n"; }
+        if (options.includeNewline && x > 0) {
+          text += "\n";
+        }
         if (options.includeAddress) {
-          n = (options.start + x);
-          text += num2hex(((n >> 8) & 0xff));
-          text += num2hex((n & 0xff));
+          n = options.start + x;
+          text += num2hex((n >> 8) & 0xff);
+          text += num2hex(n & 0xff);
           text += ": ";
         }
       }

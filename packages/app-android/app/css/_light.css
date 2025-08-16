@@ -1,0 +1,68 @@
+/*
+ * Light Theme
+ * Keep in sync with ./data/Android/src/main/res/values/colors.xml
+ */
+@theme {
+  /* Disable default Tailwind CSS colors */
+  --color-*: initial;
+  /* Adwaita Colors, see https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/_colors.scss */
+  --color-blue: rgb(53, 132, 228);
+  --color-teal: rgb(33, 144, 164);
+  --color-green: rgb(58, 148, 74);
+  --color-yellow: rgb(200, 136, 0);
+  --color-orange: rgb(237, 91, 0);
+  --color-red: rgb(224, 27, 36);
+  --color-pink: rgb(213, 97, 153);
+  --color-purple: rgb(145, 65, 172);
+  --color-slate: rgb(111, 131, 150);
+  /* Material Theme Colors exported from https://www.figma.com/design/wexzUWRk8QyDAo0JFSBTsK/Material-Design-Blue?node-id=0-1&t=v9bsKBpDvKS2gfss-1 */
+  --color-primary: rgb(62, 95, 144);
+  --color-surface-tint: rgb(62, 95, 144);
+  --color-on-primary: rgb(255, 255, 255);
+  --color-primary-container: rgb(213, 227, 255);
+  --color-on-primary-container: rgb(0, 27, 60);
+  --color-secondary: rgb(62, 95, 144);
+  --color-on-secondary: rgb(255, 255, 255);
+  --color-secondary-container: rgb(213, 227, 255);
+  --color-on-secondary-container: rgb(0, 27, 60);
+  --color-tertiary: rgb(120, 79, 131);
+  --color-on-tertiary: rgb(255, 255, 255);
+  --color-tertiary-container: rgb(250, 215, 255);
+  --color-on-tertiary-container: rgb(47, 10, 59);
+  --color-error: rgb(144, 74, 74);
+  --color-on-error: rgb(255, 255, 255);
+  --color-error-container: rgb(255, 218, 216);
+  --color-on-error-container: rgb(59, 8, 12);
+  --color-background: rgb(249, 249, 255);
+  --color-on-background: rgb(25, 28, 32);
+  --color-surface: rgb(249, 249, 255);
+  --color-on-surface: rgb(25, 28, 32);
+  --color-surface-variant: rgb(224, 226, 236);
+  --color-on-surface-variant: rgb(67, 71, 78);
+  --color-outline: rgb(116, 119, 127);
+  --color-outline-variant: rgb(196, 198, 207);
+  --color-shadow: rgb(0, 0, 0);
+  --color-scrim: rgb(0, 0, 0);
+  --color-inverse-surface: rgb(46, 48, 53);
+  --color-inverse-on-surface: rgb(240, 240, 247);
+  --color-inverse-primary: rgb(167, 200, 255);
+  --color-primary-fixed: rgb(213, 227, 255);
+  --color-on-primary-fixed: rgb(0, 27, 60);
+  --color-primary-fixed-dim: rgb(167, 200, 255);
+  --color-on-primary-fixed-variant: rgb(36, 71, 119);
+  --color-secondary-fixed: rgb(213, 227, 255);
+  --color-on-secondary-fixed: rgb(0, 27, 60);
+  --color-secondary-fixed-dim: rgb(167, 200, 255);
+  --color-on-secondary-fixed-variant: rgb(36, 71, 119);
+  --color-tertiary-fixed: rgb(250, 215, 255);
+  --color-on-tertiary-fixed: rgb(47, 10, 59);
+  --color-tertiary-fixed-dim: rgb(230, 182, 241);
+  --color-on-tertiary-fixed-variant: rgb(94, 56, 106);
+  --color-surface-dim: rgb(217, 218, 224);
+  --color-surface-bright: rgb(249, 249, 255);
+  --color-surface-container-lowest: rgb(255, 255, 255);
+  --color-surface-container-low: rgb(243, 243, 250);
+  --color-surface-container: rgb(237, 237, 244);
+  --color-surface-container-high: rgb(231, 232, 238);
+  --color-surface-container-highest: rgb(225, 226, 233);
+}

@@ -30,34 +30,38 @@ Add both plugins to your Vite configuration:
 
 ```javascript
 // vite.config.js / vite.config.ts
-import { defineConfig } from 'vite';
-import { xgettextPlugin, gettextPlugin, msgfmtPlugin } from '@learn6502/vite-plugin-gettext';
+import { defineConfig } from "vite";
+import {
+  xgettextPlugin,
+  gettextPlugin,
+  msgfmtPlugin,
+} from "@learn6502/vite-plugin-gettext";
 export default defineConfig({
-    plugins: [
-        // Extract strings to POT file
-        xgettextPlugin({
-            sources: ['src/**/*.{ts,js}'],
-            output: 'po/messages.pot',
-            domain: 'myapp',
-            keywords: ['_', 'gettext', 'ngettext'],
-            verbose: true
-        }),
-        // Compile PO files to MO format (standard approach)
-        gettextPlugin({
-            poDirectory: 'po',
-            moDirectory: 'public',
-            verbose: true
-        }),
-        // Optionally use msgfmtPlugin for advanced use cases
-        msgfmtPlugin({
-            poDirectory: 'po',
-            outputDirectory: 'public',
-            domain: 'myapp',
-            format: 'xml',          // Output format, e.g. 'xml' for metainfo
-            metainfo: true,         // Enable metainfo support with ITS rules
-            verbose: true
-        })
-    ]
+  plugins: [
+    // Extract strings to POT file
+    xgettextPlugin({
+      sources: ["src/**/*.{ts,js}"],
+      output: "po/messages.pot",
+      domain: "myapp",
+      keywords: ["_", "gettext", "ngettext"],
+      verbose: true,
+    }),
+    // Compile PO files to MO format (standard approach)
+    gettextPlugin({
+      poDirectory: "po",
+      moDirectory: "public",
+      verbose: true,
+    }),
+    // Optionally use msgfmtPlugin for advanced use cases
+    msgfmtPlugin({
+      poDirectory: "po",
+      outputDirectory: "public",
+      domain: "myapp",
+      format: "xml", // Output format, e.g. 'xml' for metainfo
+      metainfo: true, // Enable metainfo support with ITS rules
+      verbose: true,
+    }),
+  ],
 });
 ```
 
@@ -113,25 +117,25 @@ export default defineConfig({
 
 ```javascript
 msgfmtPlugin({
-    poDirectory: 'po',
-    outputDirectory: 'public/metainfo',
-    domain: 'myapp',
-    format: 'xml',
-    metainfo: true,
-    useLocaleStructure: false // Output will be public/metainfo/LANG/myapp.xml
-})
+  poDirectory: "po",
+  outputDirectory: "public/metainfo",
+  domain: "myapp",
+  format: "xml",
+  metainfo: true,
+  useLocaleStructure: false, // Output will be public/metainfo/LANG/myapp.xml
+});
 ```
 
 ### Generating JSON translations for web applications
 
 ```javascript
 msgfmtPlugin({
-    poDirectory: 'po',
-    outputDirectory: 'public/i18n',
-    domain: 'myapp',
-    format: 'json',
-    useLocaleStructure: false // Output will be public/i18n/LANG/myapp.json
-})
+  poDirectory: "po",
+  outputDirectory: "public/i18n",
+  domain: "myapp",
+  format: "json",
+  useLocaleStructure: false, // Output will be public/i18n/LANG/myapp.json
+});
 ```
 
 ## Development

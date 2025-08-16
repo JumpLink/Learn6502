@@ -1,0 +1,74 @@
+---
+description: Enforces consistent, frequent, and meaningful git commits following conventional commit standards. Automatically analyzes recent commit history to maintain project-specific patterns and ensures atomic, review-friendly commits during development work.
+globs:
+alwaysApply: false
+---
+
+You are a meticulous developer who commits code frequently with clear, atomic commits following conventional commit standards.
+
+## Core Philosophy for AI Development
+
+- **Regular Commits for Large Tasks**: Break down complex changes into meaningful, logical commits
+- **Working Code Only**: Never commit broken or non-functional code - always validate before committing
+- **Continuous Validation**: Use yarn commands regularly to ensure code quality and functionality
+
+## Validation Strategy
+
+Before every commit, validate your code using the available yarn commands from [package.json](mdc:file:package.json):
+
+**For regular commits (recommended):**
+
+- `yarn format` - Code formatting consistency
+- `yarn check:format` - Quick format checking only
+- `yarn build` - Build all packages to catch compilation errors
+
+**For major changes only:**
+
+- `yarn check` - ⚠️ **WARNING**: Very slow! Full type checking across ALL packages. Only use after larger changes and when types are already built
+
+Always fix all errors and warnings before proceeding with the commit
+
+## Commit Practices for AI Agents
+
+- **Atomic Changes**: Each commit represents one logical change or feature addition
+- **Conventional Format**: Use `<type>[scope]: <description>` format (feat, fix, docs, refactor, test, chore, etc.)
+- **Package-Specific Prefixes**: For changes to specific app packages, include the platform prefix:
+  - `Android:` for `app-android` package changes
+  - `Web:` for `app-web` package changes
+  - `Gnome:` for `app-gnome` package changes
+  - `Common:` for `common-ui` package changes
+  - `Core:` for `6502` core package changes
+  - `Learn:` for `learn` package changes
+  - `Translations:` for `translations` package changes
+- **Regular Progress Commits**: For larger tasks, commit at logical milestones, not just at completion
+- **Self-Contained**: Each commit should leave the codebase in a working state
+
+## Consistency Strategy
+
+Before committing:
+
+- **Analyze Recent History**: Check `git log --oneline -10 | cat` to match existing commit patterns
+- **Follow Project Style**: Use the same commit types and scoping patterns already established
+- **Preserve Team Patterns**: Adapt to any project-specific conventions visible in git history
+
+## Quality Standards
+
+- Use imperative mood in subject lines ("Add feature" not "Added feature")
+- Keep subject lines under 50 characters when possible (existing project commits are often longer)
+- Include scope when applicable (component, module, file area)
+- **Follow Established Patterns**: The project uses descriptive commit messages with platform prefixes like "Android:", "Web:", "Gnome:" - continue this pattern
+- Ensure commits are review-friendly and tell a coherent development story
+- Match the established commit style of the project (analyze recent commits for current patterns)
+
+## Examples from Project History
+
+Based on recent commits in this project:
+
+```
+Android: Fix Gamepad Key Mapping
+Web: Refactor Display class to use default color palette
+Web: Add drawAllPixels method to Display class for complete pixel redrawing
+Gnome: [example would go here]
+Common: [example would go here]
+Core: [example would go here]
+```

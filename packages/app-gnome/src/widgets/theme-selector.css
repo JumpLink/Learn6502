@@ -22,8 +22,8 @@ themeselector checkbutton.dark:checked {
 themeselector checkbutton.follow {
   background-image: linear-gradient(
     to bottom right,
-      #fff 49.99%,
-      #202020 50.01%
+    #fff 49.99%,
+    #202020 50.01%
   );
 }
 
@@ -51,4 +51,3 @@ checkbutton.theme-selector radio:checked {
   background-color: @theme_selected_bg_color;
   color: @theme_selected_fg_color;
 }
-

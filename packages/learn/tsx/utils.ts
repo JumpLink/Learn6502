@@ -4,11 +4,14 @@
  * @returns The cleaned text.
  */
 export function clearExtraSpaces(text: string): string {
-    return text.replace(/\s+/g, ' ').trim();
+  return text.replace(/\s+/g, " ").trim();
 }
 
-export function filterProperties(obj: Record<string, any>, propertyNames: string[]): Record<string, any> {
-    return Object.fromEntries(
-        Object.entries(obj).filter(([key]) => propertyNames.includes(key))
-    );
+export function filterProperties(
+  obj: Record<string, any>,
+  propertyNames: string[]
+): Record<string, any> {
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key]) => propertyNames.includes(key))
+  );
 }

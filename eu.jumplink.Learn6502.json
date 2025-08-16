@@ -36,9 +36,7 @@
       "name": "blueprint-compiler",
       "buildsystem": "meson",
       "builddir": true,
-      "cleanup": [
-        "*"
-      ],
+      "cleanup": ["*"],
       "sources": [
         {
           "type": "archive",

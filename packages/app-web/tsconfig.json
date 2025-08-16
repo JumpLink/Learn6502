@@ -1,5 +1,5 @@
 {
-  "compilerOptions": {   
+  "compilerOptions": {
     "lib": ["ESNext", "DOM"],
     "types": [],
     "target": "ESNext",
@@ -14,7 +14,5 @@
     "alwaysStrict": true,
     "diagnostics": true
   },
-  "files": [
-    "src/main.ts",
-  ],
+  "files": ["src/main.ts"]
 }

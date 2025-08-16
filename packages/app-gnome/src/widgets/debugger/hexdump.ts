@@ -1,47 +1,58 @@
-import GObject from '@girs/gobject-2.0'
-import Adw from '@girs/adw-1'
-import { SourceView } from '../source-view.ts'
+import GObject from "@girs/gobject-2.0";
+import Adw from "@girs/adw-1";
+import { SourceView } from "../source-view.ts";
 
-import { type Assembler, type Hexdump as HexdumpInterface } from '@learn6502/6502'
+import { type Assembler, EventDispatcher } from "@learn6502/6502";
+import {
+  type HexdumpWidget,
+  type HexdumpEventMap,
+  type SourceViewCopyEvent,
+} from "@learn6502/common-ui";
 
-import Template from './hexdump.blp'
-export class Hexdump extends Adw.Bin implements HexdumpInterface {
+import Template from "./hexdump.blp";
+export class Hexdump extends Adw.Bin implements HexdumpWidget {
+  readonly events: EventDispatcher<HexdumpEventMap> =
+    new EventDispatcher<HexdumpEventMap>();
 
   // Child widgets
-  declare private _sourceView: SourceView
+  declare private _sourceView: SourceView;
 
   static {
-    GObject.registerClass({
-      GTypeName: 'Hexdump',
-      Template,
-      InternalChildren: ['sourceView'],
-      Signals: {
-        'copy': {
-          param_types: [GObject.TYPE_STRING],
-        },
+    GObject.registerClass(
+      {
+        GTypeName: "Hexdump",
+        Template,
+        InternalChildren: ["sourceView"],
       },
-    }, this);
+      this
+    );
   }
 
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
-    super(params)
+    super(params);
 
-    this._sourceView.connect('copy', this.onCopy.bind(this))
+    this.onCopy = this.onCopy.bind(this);
+
+    this._sourceView.events.on("copy", this.onCopy);
   }
 
   public update(assembler: Assembler) {
-    this._sourceView.buffer.text = assembler.hexdump({ includeAddress: false, includeSpaces: true, includeNewline: true });
+    this._sourceView.buffer.text = assembler.hexdump({
+      includeAddress: false,
+      includeSpaces: true,
+      includeNewline: true,
+    });
   }
 
-  private onCopy(_sourceView: SourceView, code: string) {
+  private onCopy(event: SourceViewCopyEvent) {
     // Remove all whitespace
-    code = code.replace(/\s/g, '');
-    this.emit('copy', code);
+    event.code = event.code.replace(/\s/g, "");
+    this.events.dispatch("copy", { content: event.code });
   }
 
   public clear(): void {
-    this._sourceView.buffer.text = '';
+    this._sourceView.buffer.text = "";
   }
 }
 
-GObject.type_ensure(Hexdump.$gtype)
+GObject.type_ensure(Hexdump.$gtype);

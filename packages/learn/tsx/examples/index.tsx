@@ -1,1 +1,1 @@
-export { default as snake } from './snake.asm'
+export { default as snake } from "./snake.asm";
