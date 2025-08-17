@@ -2,7 +2,7 @@ import {
   gettextPlugin,
   xgettextPlugin,
   po2jsonPlugin,
-} from "@learn6502/vite-plugin-gettext";
+} from "@gjsify/vite-plugin-gettext";
 import { readFileSync } from "node:fs";
 
 const APPLICATION_ID = "eu.jumplink.Learn6502";

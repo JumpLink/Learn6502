@@ -1,7 +1,7 @@
 /// <reference path="./vite-env.d.ts" />
 /// <reference types="vite/client" />
 
-import "@learn6502/vite-plugin-blueprint/src/type.d.ts";
+import "@gjsify/vite-plugin-blueprint/src/type.d.ts";
 
 // Declare global variables defined by vite.config.js
 declare global {
