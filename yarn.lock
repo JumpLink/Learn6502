@@ -1420,6 +1420,31 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gjsify/vite-plugin-blueprint@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@gjsify/vite-plugin-blueprint@npm:0.2.2"
+  dependencies:
+    execa: "npm:^9.6.0"
+    minify-xml: "npm:^4.5.2"
+  peerDependencies:
+    vite: "*"
+  checksum: 10c0/16d77e0d482ec9fc27c9e7ffdd31ef18f31a61a45a90e0c05f478da2e0ffe62dfbe154ece3af591ebced393a451ef4b8493780dbbfea74bd719e723cfd28466d
+  languageName: node
+  linkType: hard
+
+"@gjsify/vite-plugin-gettext@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "@gjsify/vite-plugin-gettext@npm:0.2.2"
+  dependencies:
+    execa: "npm:^9.6.0"
+    fast-glob: "npm:^3.3.3"
+    gettext-parser: "npm:^8.0.0"
+  peerDependencies:
+    vite: "*"
+  checksum: 10c0/0e7efd0847132a251b1deab852b2d499ab1232540bfd27afbf7697c44e152218610ff300540318da1351104d7da79ca03a8b30da41b44ae9d4e76627eb616130
+  languageName: node
+  linkType: hard
+
 "@hookun/parse-animation-shorthand@npm:^0.1.4":
   version: 0.1.5
   resolution: "@hookun/parse-animation-shorthand@npm:0.1.5"
@@ -2002,12 +2027,12 @@ __metadata:
     "@girs/javascriptcore-6.0": "npm:^2.48.5-4.0.0-beta.34"
     "@girs/pango-1.0": "npm:^1.56.4-4.0.0-beta.34"
     "@girs/webkit-6.0": "npm:^2.48.5-4.0.0-beta.34"
+    "@gjsify/vite-plugin-blueprint": "npm:^0.2.2"
+    "@gjsify/vite-plugin-gettext": "npm:^0.2.2"
     "@learn6502/6502": "workspace:^"
     "@learn6502/common-ui": "workspace:^"
     "@learn6502/learn": "workspace:^"
     "@learn6502/translations": "workspace:^"
-    "@learn6502/vite-plugin-blueprint": "workspace:^"
-    "@learn6502/vite-plugin-gettext": "workspace:^"
     typescript: "npm:^5.9.2"
     vite: "npm:^7.1.2"
     vite-plugin-static-copy: "npm:^3.1.1"
@@ -2051,37 +2076,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/translations@workspace:packages/translations"
   dependencies:
-    "@learn6502/vite-plugin-gettext": "workspace:^"
-  languageName: unknown
-  linkType: soft
-
-"@learn6502/vite-plugin-blueprint@workspace:^, @learn6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint":
-  version: 0.0.0-use.local
-  resolution: "@learn6502/vite-plugin-blueprint@workspace:packages/vite-plugin-blueprint"
-  dependencies:
-    "@types/node": "npm:^24.3.0"
-    execa: "npm:^9.6.0"
-    minify-xml: "npm:^4.5.2"
-    typescript: "npm:^5.9.2"
-    vite: "npm:^7.1.2"
-  peerDependencies:
-    vite: "*"
-  languageName: unknown
-  linkType: soft
-
-"@learn6502/vite-plugin-gettext@workspace:^, @learn6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext":
-  version: 0.0.0-use.local
-  resolution: "@learn6502/vite-plugin-gettext@workspace:packages/vite-plugin-gettext"
-  dependencies:
-    "@types/gettext-parser": "npm:^8.0.0"
-    "@types/node": "npm:^24.3.0"
-    execa: "npm:^9.6.0"
-    fast-glob: "npm:^3.3.3"
-    gettext-parser: "npm:^8.0.0"
-    typescript: "npm:^5.9.2"
-    vite: "npm:^7.1.2"
-  peerDependencies:
-    vite: "*"
+    "@gjsify/vite-plugin-gettext": "npm:^0.2.2"
   languageName: unknown
   linkType: soft
 
@@ -3313,16 +3308,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/gettext-parser@npm:^8.0.0":
-  version: 8.0.0
-  resolution: "@types/gettext-parser@npm:8.0.0"
-  dependencies:
-    "@types/node": "npm:*"
-    "@types/readable-stream": "npm:*"
-  checksum: 10c0/0e47b6c3a997b3572944dbe91c91c5f094c3cdefe4ba14ca20d209190778709f58e55adc60e50f3dbda8cc0ed313213ce1d3c173d42381b0782d8cb46395084b
-  languageName: node
-  linkType: hard
-
 "@types/hast@npm:^3.0.0":
   version: 3.0.4
   resolution: "@types/hast@npm:3.0.4"
@@ -3405,16 +3390,6 @@ __metadata:
   version: 4.0.2
   resolution: "@types/parse-json@npm:4.0.2"
   checksum: 10c0/b1b863ac34a2c2172fbe0807a1ec4d5cb684e48d422d15ec95980b81475fac4fdb3768a8b13eef39130203a7c04340fc167bae057c7ebcafd7dec9fe6c36aeb1
-  languageName: node
-  linkType: hard
-
-"@types/readable-stream@npm:*":
-  version: 4.0.18
-  resolution: "@types/readable-stream@npm:4.0.18"
-  dependencies:
-    "@types/node": "npm:*"
-    safe-buffer: "npm:~5.1.1"
-  checksum: 10c0/641e0e91b9ecfeed72f7509089f25923e06e19e79ed36f962785c41c07b0c9ecb2ecfdf6d290a101b9b5a669a3b89ee3aff0cad57b66a05e2a30cd199052e3e1
   languageName: node
   linkType: hard
 

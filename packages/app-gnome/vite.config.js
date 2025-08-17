@@ -4,8 +4,8 @@ import { dirname, resolve } from "node:path";
 import { readFileSync, writeFileSync, chmodSync } from "node:fs";
 import pkg from "./package.json";
 
-import blueprintPlugin from "@learn6502/vite-plugin-blueprint";
-import { msgfmtPlugin } from "@learn6502/vite-plugin-gettext";
+import blueprintPlugin from "@gjsify/vite-plugin-blueprint";
+import { msgfmtPlugin } from "@gjsify/vite-plugin-gettext";
 import { viteStaticCopy } from "vite-plugin-static-copy";
 
 export default defineConfig(({ command, mode, ssrBuild }) => {
