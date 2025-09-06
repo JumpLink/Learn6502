@@ -5,10 +5,12 @@
   "private": true,
   "scripts": {
     "clear": "ns clean",
-    "start": "ns run android --emulator",
+    "start": "concurrently 'yarn:start:emulator' 'yarn:start:emulator-self'",
+    "start:emulator": "ns run android --emulator",
     "start:device": "ns run android",
     "start:clean": "ns run android --clean --emulator",
     "start:debug": "ns debug android",
+    "start:emulator-self": "$HOME/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36",
     "check": "tsc --noEmit"
   },
   "dependencies": {
@@ -23,6 +25,7 @@
     "@nativescript/android": "8.9.1",
     "@nativescript/types": "~8.9.1",
     "@nativescript/webpack": "^5.0.24",
+    "concurrently": "^9.2.1",
     "nativescript": "^8.9.3",
     "typescript": "^5.9.2"
   }
