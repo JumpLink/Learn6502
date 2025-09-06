@@ -1,16 +1,8 @@
 using Gtk 4.0;
 using Adw 1;
 
-template $MainButton : Adw.Bin {
-  // Adw.SplitButton button {
-  //   halign: center;
-  //   menu-model: buttonRunMenu;
-  //   styles [
-  //     "circular",
-  //     "suggested-action",
-  //   ]
-  // }
-
+template $MainButton  : Adw.Bin {
+  name: "main-button";
   // TODO: With revealer we can remove / show the button with animation
   Gtk.Revealer revealer {
     transition-type: slide_up;
@@ -20,39 +12,8 @@ template $MainButton : Adw.Bin {
       hexpand: true;
       halign: center;
       styles [
-        "circular",
-        "suggested-action",
-        "main-button-fab",
+        "suggested-action"
       ]
     };
   }
 }
-
-// menu buttonRunMenu {
-//   section {
-//     item {
-//       label: _("Assemble");
-//       action: 'win.assemble';
-//     }
-//     item {
-//       label: _("Run");
-//       action: 'win.run-simulator';
-//     }
-//     item {
-//       label: _("Continue");
-//       action: 'win.resume-simulator';
-//     }
-//     item {
-//       label: _("Pause");
-//       action: 'win.pause-simulator';
-//     }
-//     item {
-//       label: _("Step");
-//       action: 'win.step-simulator';
-//     }
-//     item {
-//       label: _("Reset");
-//       action: 'win.reset-simulator';
-//     }
-//   }
-// }

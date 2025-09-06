@@ -172,7 +172,8 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
     const mode = this.buttonModes[state];
     this._button.set_icon_name(mode.iconName);
     this._button.set_tooltip_text(mode.text);
-    // Default Gtk.Button doesn't support labels and icons at the same time
+    // Default Gtk.Button doesn't support labels and icons at the same time,
+    // but we could create a box containing both icon and label
     // this._button.set_label(mode.text);
     this._button.set_action_name(`win.${mode.actionName}`);
   }
