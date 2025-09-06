@@ -326,6 +326,6 @@ export class Fab extends ContentView {
  * This allows the properties to be set via XML attributes
  */
 iconProperty.register(Fab);
-textProperty.register(Fab); // Register the new text property
+textProperty.register(Fab);
 containerColorProperty.register(Fab);
 contentColorProperty.register(Fab);

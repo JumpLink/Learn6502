@@ -1,6 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import Gio from "@girs/gio-2.0";
+import Gtk from "@girs/gtk-4.0";
 
 import { SimulatorState } from "@learn6502/6502";
 import {
@@ -22,7 +22,7 @@ import Template from "./main-button.blp";
  */
 export class MainButton extends Adw.Bin implements MainButtonWidget {
   // Internal child widgets
-  declare private _button: Adw.SplitButton;
+  declare private _button: Gtk.Button;
 
   // Signals
   static {
@@ -172,6 +172,8 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
     const mode = this.buttonModes[state];
     this._button.set_icon_name(mode.iconName);
     this._button.set_tooltip_text(mode.text);
+    // Default Gtk.Button doesn't support labels and icons at the same time
+    // this._button.set_label(mode.text);
     this._button.set_action_name(`win.${mode.actionName}`);
   }
 }

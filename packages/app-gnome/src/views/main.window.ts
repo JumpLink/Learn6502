@@ -8,7 +8,7 @@ import { SimulatorState, num2hex } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import { MainButton } from "../widgets";
+import { MainButton, RunMenuButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 
@@ -30,6 +30,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _learn: Learn;
   declare private _menuButton: Gtk.MenuButton;
   declare private _mainButton: MainButton;
+  declare private _runMenuButton: RunMenuButton;
   declare private _stack: Adw.ViewStack;
   declare private _switcherBar: Adw.ViewSwitcherBar;
   declare private _debugger: Debugger;
