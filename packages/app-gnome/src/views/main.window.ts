@@ -14,7 +14,7 @@ import { themeService, notificationService, fileService } from "../services";
 
 import Template from "./main.window.blp";
 import {
-  type MainUiState,
+  type MainButtonState,
   type MainView,
   ViewType,
   debuggerController,
@@ -672,7 +672,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // This is already handled by the key controller added in setupKeyboardListener
   }
 
-  private updateRunActions(state: SimulatorState): MainUiState {
+  private updateRunActions(state: SimulatorState): MainButtonState {
     // Check if editor has code
     const hasCode = editorController.hasCode;
 

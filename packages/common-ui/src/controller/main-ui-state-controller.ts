@@ -1,5 +1,5 @@
 import type { MainButtonActionState, MainUiStateEventMap } from "../types";
-import { MainUiState } from "../data/index";
+import { MainButtonState } from "../data/index";
 import { EventDispatcher, SimulatorState } from "@learn6502/6502";
 import type { MainButtonWidget } from "../widgets";
 
@@ -14,9 +14,9 @@ class MainUiStateController implements MainButtonWidget {
   readonly events = new EventDispatcher<MainUiStateEventMap>();
 
   // Current state property
-  private _state: MainUiState = MainUiState.INITIAL;
+  private _state: MainButtonState = MainButtonState.INITIAL;
 
-  public setState(state: MainUiState): void {
+  public setState(state: MainButtonState): void {
     if (this._state == state) {
       return;
     }
@@ -24,13 +24,13 @@ class MainUiStateController implements MainButtonWidget {
     this.events.dispatch("state-changed", state);
   }
 
-  public getState(): MainUiState {
+  public getState(): MainButtonState {
     return this._state;
   }
 
   public init(): void {
     // Initialize with default state
-    this.setState(MainUiState.ASSEMBLE);
+    this.setState(MainButtonState.ASSEMBLE);
   }
 
   /**
@@ -38,10 +38,10 @@ class MainUiStateController implements MainButtonWidget {
    * @param state Current simulator state
    * @returns The updated button state
    */
-  public updateFromSimulatorState(state: SimulatorState): MainUiState {
+  public updateFromSimulatorState(state: SimulatorState): MainButtonState {
     // If code has changed, always show ASSEMBLE
     if (this._codeChanged) {
-      return MainUiState.ASSEMBLE;
+      return MainButtonState.ASSEMBLE;
     }
 
     const buttonState = this.getButtonState(state);
@@ -58,7 +58,7 @@ class MainUiStateController implements MainButtonWidget {
 
     // If code has changed, automatically set to ASSEMBLE mode
     if (changed) {
-      this.setState(MainUiState.ASSEMBLE);
+      this.setState(MainButtonState.ASSEMBLE);
     }
 
     // Emit code-changed event
@@ -148,35 +148,35 @@ class MainUiStateController implements MainButtonWidget {
    * @param state Current simulator state
    * @returns The button state to display
    */
-  public getButtonState(state: SimulatorState): MainUiState {
-    let buttonState: MainUiState;
+  public getButtonState(state: SimulatorState): MainButtonState {
+    let buttonState: MainButtonState;
     switch (state) {
       case SimulatorState.INITIALIZED:
-        buttonState = MainUiState.ASSEMBLE;
+        buttonState = MainButtonState.ASSEMBLE;
         break;
 
       case SimulatorState.RUNNING:
-        buttonState = MainUiState.PAUSE;
+        buttonState = MainButtonState.PAUSE;
         break;
 
       case SimulatorState.DEBUGGING:
-        buttonState = MainUiState.STEP;
+        buttonState = MainButtonState.STEP;
         break;
 
       case SimulatorState.COMPLETED:
-        buttonState = MainUiState.RESET;
+        buttonState = MainButtonState.RESET;
         break;
 
       case SimulatorState.PAUSED:
-        buttonState = MainUiState.RESUME;
+        buttonState = MainButtonState.RESUME;
         break;
 
       case SimulatorState.DEBUGGING_PAUSED:
-        buttonState = MainUiState.STEP;
+        buttonState = MainButtonState.STEP;
         break;
 
       case SimulatorState.READY:
-        buttonState = MainUiState.RUN;
+        buttonState = MainButtonState.RUN;
         break;
 
       default:

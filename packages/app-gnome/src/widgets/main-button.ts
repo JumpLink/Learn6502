@@ -4,7 +4,7 @@ import Gtk from "@girs/gtk-4.0";
 
 import { SimulatorState } from "@learn6502/6502";
 import {
-  MainUiState,
+  MainButtonState,
   type MainButtonMode,
   type MainButtonWidget,
   mainStateController,
@@ -37,7 +37,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
             "State",
             "Current button state",
             GObject.ParamFlags.READWRITE,
-            MainUiState.ASSEMBLE
+            MainButtonState.ASSEMBLE
           ),
         },
       },
@@ -54,38 +54,38 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
   private stepSimulatorAction = "step-simulator";
 
   // Button modes configuration
-  private buttonModes: Record<MainUiState, MainButtonMode> = {
-    [MainUiState.INITIAL]: {
+  private buttonModes: Record<MainButtonState, MainButtonMode> = {
+    [MainButtonState.INITIAL]: {
       iconName: "build-alt-symbolic",
       text: _("Assemble"),
       actionName: this.assembleAction,
     },
-    [MainUiState.ASSEMBLE]: {
+    [MainButtonState.ASSEMBLE]: {
       iconName: "build-alt-symbolic",
       text: _("Assemble"),
       actionName: this.assembleAction,
     },
-    [MainUiState.RUN]: {
+    [MainButtonState.RUN]: {
       iconName: "play-symbolic",
       text: _("Run"),
       actionName: this.runSimulatorAction,
     },
-    [MainUiState.PAUSE]: {
+    [MainButtonState.PAUSE]: {
       iconName: "pause-symbolic",
       text: _("Pause"),
       actionName: this.pauseSimulatorAction,
     },
-    [MainUiState.RESUME]: {
+    [MainButtonState.RESUME]: {
       iconName: "play-symbolic",
       text: _("Resume"),
       actionName: this.resumeSimulatorAction,
     },
-    [MainUiState.RESET]: {
+    [MainButtonState.RESET]: {
       iconName: "reset-symbolic",
       text: _("Reset"),
       actionName: this.resetSimulatorAction,
     },
-    [MainUiState.STEP]: {
+    [MainButtonState.STEP]: {
       iconName: "step-over-symbolic",
       text: _("Step"),
       actionName: this.stepSimulatorAction,
@@ -109,7 +109,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
    *
    * @param state The new button state
    */
-  public setState(state: MainUiState): void {
+  public setState(state: MainButtonState): void {
     mainStateController.setState(state);
   }
 
@@ -117,7 +117,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
    * Get the current button state
    * Delegates to the controller
    */
-  public getState(): MainUiState {
+  public getState(): MainButtonState {
     return mainStateController.getState();
   }
 
@@ -143,7 +143,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
    * @param state Current simulator state
    * @returns The new button state
    */
-  public updateFromSimulatorState(state: SimulatorState): MainUiState {
+  public updateFromSimulatorState(state: SimulatorState): MainButtonState {
     return mainStateController.updateFromSimulatorState(state);
   }
 
@@ -167,7 +167,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
     mainStateController.events.on("state-changed", this.onStateChanged);
   }
 
-  protected onStateChanged(state: MainUiState): void {
+  protected onStateChanged(state: MainButtonState): void {
     // Update the button icon, tooltip, and action name
     const mode = this.buttonModes[state];
     this._button.set_icon_name(mode.iconName);

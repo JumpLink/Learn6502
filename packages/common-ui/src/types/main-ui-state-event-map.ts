@@ -1,10 +1,10 @@
-import { MainUiState } from "../data/index.ts";
+import { MainButtonState } from "../data/index.ts";
 
 /**
  * Event map for main UI state events
  */
 export interface MainUiStateEventMap {
-  "state-changed": MainUiState;
+  "state-changed": MainButtonState;
   assemble: void;
   run: void;
   pause: void;
