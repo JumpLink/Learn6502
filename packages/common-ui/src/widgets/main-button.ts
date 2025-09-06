@@ -1,12 +1,13 @@
 import { SimulatorState } from "@learn6502/6502";
 import { MainButtonState } from "../data/index";
+import { ViewType } from "../views/main";
 
 /**
  * Common interface for MainButton component across platforms
  */
 export interface MainButtonWidget {
   /**
-   * Updates the button state based on the simulator state
+   * Updates the button state based on the simulator state and current view
    * @param state Current simulator state
    * @returns The updated button state
    */

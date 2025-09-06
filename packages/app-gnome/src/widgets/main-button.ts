@@ -8,6 +8,7 @@ import {
   type MainButtonMode,
   type MainButtonWidget,
   mainStateController,
+  ViewType,
 } from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
@@ -23,6 +24,7 @@ import Template from "./main-button.blp";
 export class MainButton extends Adw.Bin implements MainButtonWidget {
   // Internal child widgets
   declare private _button: Gtk.Button;
+  declare private _revealer: Gtk.Revealer;
 
   // Signals
   static {
@@ -30,7 +32,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
       {
         GTypeName: "MainButton",
         Template,
-        InternalChildren: ["button"],
+        InternalChildren: ["button", "revealer"],
         Properties: {
           state: GObject.ParamSpec.string(
             "state",
@@ -90,6 +92,11 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
       text: _("Step"),
       actionName: this.stepSimulatorAction,
     },
+    [MainButtonState.HIDDEN]: {
+      iconName: "build-alt-symbolic", // Fallback icon, won't be shown
+      text: _("Hidden"),
+      actionName: this.assembleAction, // Fallback action, won't be used
+    },
   };
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
@@ -137,7 +144,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
   }
 
   /**
-   * Update button based on simulator state
+   * Update button based on simulator state and current view
    * Implements MainButtonWidget
    *
    * @param state Current simulator state
@@ -168,6 +175,16 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
   }
 
   protected onStateChanged(state: MainButtonState): void {
+    console.log("onStateChanged", state);
+    if (state === MainButtonState.HIDDEN) {
+      // Hide the button with animation
+      this._revealer.set_reveal_child(false);
+      return;
+    }
+
+    // Show the button with animation
+    this._revealer.set_reveal_child(true);
+
     // Update the button icon, tooltip, and action name
     const mode = this.buttonModes[state];
     this._button.set_icon_name(mode.iconName);

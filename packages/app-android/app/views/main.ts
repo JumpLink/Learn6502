@@ -547,6 +547,9 @@ export class MainController implements MainView {
 
     // Update active view
     this._activeView = viewType;
+
+    // Update main state controller with current view type
+    mainStateController.setViewType(viewType);
   }
 
   /**
@@ -679,7 +682,7 @@ export class MainController implements MainView {
       // Apply enabled states to button actions
       this.mainButton.setActionEnabledStates(enabledState);
 
-      // Update the button state based on simulator state - this is the key part!
+      // Update the button state based on simulator state and current view - this is the key part!
       this.mainButton.updateFromSimulatorState(currentState);
     }
   }

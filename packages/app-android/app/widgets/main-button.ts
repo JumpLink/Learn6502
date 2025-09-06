@@ -7,6 +7,7 @@ import {
   type MainButtonMode,
   type MainButtonWidget,
   mainStateController,
+  ViewType,
 } from "@learn6502/common-ui";
 // Property for the button's state
 const stateProperty = new Property<MainButton, MainButtonState>({
@@ -71,6 +72,11 @@ export class MainButton extends Fab implements MainButtonWidget {
       iconName: "res://step_over_symbolic",
       text: _("Step"),
       actionName: MainButton.stepTapEvent,
+    },
+    [MainButtonState.HIDDEN]: {
+      iconName: "res://build_alt_symbolic", // Fallback icon, won't be shown
+      text: _("Hidden"),
+      actionName: MainButton.assembleTapEvent, // Fallback action, won't be used
     },
   };
 
@@ -166,7 +172,7 @@ export class MainButton extends Fab implements MainButtonWidget {
   }
 
   /**
-   * Update button based on simulator state
+   * Update button based on simulator state and current view
    * Implements MainButtonWidget
    *
    * @param state Current simulator state
@@ -235,6 +241,15 @@ export class MainButton extends Fab implements MainButtonWidget {
 
   protected onStateChanged(state: MainButtonState): void {
     if (!this.nativeFab) return;
+
+    if (state === MainButtonState.HIDDEN) {
+      // Hide the button
+      this.nativeFab.setVisibility(android.view.View.GONE);
+      return;
+    }
+
+    // Show the button
+    this.nativeFab.setVisibility(android.view.View.VISIBLE);
 
     const mode = this.buttonModes[state];
     if (!mode) {

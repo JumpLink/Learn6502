@@ -280,6 +280,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Update previous child
     this.previousVisibleChild = currentChild;
 
+    // Update main state controller with current view type
+    mainStateController.setViewType(this.activeView);
+
     if (currentChild === this._debugger) {
       this.updateDebugger();
     }
@@ -691,7 +694,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.resetSimulatorAction.set_enabled(enabledState.reset);
     this.stepSimulatorAction.set_enabled(enabledState.step);
 
-    // Update the button state based on simulator state
+    // Update the button state based on simulator state and current view
     return this._mainButton.updateFromSimulatorState(state);
   }
 

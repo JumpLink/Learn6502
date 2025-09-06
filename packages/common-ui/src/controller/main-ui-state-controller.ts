@@ -2,6 +2,7 @@ import type { MainButtonActionState, MainUiStateEventMap } from "../types";
 import { MainButtonState } from "../data/index";
 import { EventDispatcher, SimulatorState } from "@learn6502/6502";
 import type { MainButtonWidget } from "../widgets";
+import { ViewType } from "../views/main";
 
 /**
  * Controller class for main state implementations across platforms
@@ -10,6 +11,8 @@ import type { MainButtonWidget } from "../widgets";
 class MainUiStateController implements MainButtonWidget {
   // State tracking
   protected _codeChanged: boolean = false;
+  protected _currentViewType: ViewType = ViewType.LEARN;
+  protected _currentSimulatorState: SimulatorState = SimulatorState.INITIALIZED;
 
   readonly events = new EventDispatcher<MainUiStateEventMap>();
 
@@ -29,19 +32,24 @@ class MainUiStateController implements MainButtonWidget {
   }
 
   public init(): void {
-    // Initialize with default state
-    this.setState(MainButtonState.ASSEMBLE);
+    // Initialize with default state based on current view type
+    this.updateFromSimulatorState(this._currentSimulatorState);
   }
 
   /**
-   * Updates the button state based on the simulator state
+   * Updates the button state based on the simulator state and current view
    * @param state Current simulator state
    * @returns The updated button state
    */
   public updateFromSimulatorState(state: SimulatorState): MainButtonState {
+    // Store current simulator state for future reference
+    this._currentSimulatorState = state;
+
     // If code has changed, always show ASSEMBLE
     if (this._codeChanged) {
-      return MainButtonState.ASSEMBLE;
+      const buttonState = MainButtonState.ASSEMBLE;
+      this.setState(buttonState);
+      return buttonState;
     }
 
     const buttonState = this.getButtonState(state);
@@ -67,6 +75,31 @@ class MainUiStateController implements MainButtonWidget {
 
   public getCodeChanged(): boolean {
     return this._codeChanged;
+  }
+
+  /**
+   * Sets the current view type and automatically updates button state
+   * @param viewType The new view type
+   */
+  public setViewType(viewType: ViewType): void {
+    if (this._currentViewType !== viewType) {
+      const oldViewType = this._currentViewType;
+      this._currentViewType = viewType;
+
+      // Automatically update button state when view type changes
+      this.updateFromSimulatorState(this._currentSimulatorState);
+
+      console.log(`ViewType changed: ${oldViewType} -> ${viewType}`);
+      this.events.dispatch("view-changed", viewType);
+    }
+  }
+
+  /**
+   * Gets the current view type
+   * @returns The current view type
+   */
+  public getViewType(): ViewType {
+    return this._currentViewType;
   }
 
   /**
@@ -143,13 +176,19 @@ class MainUiStateController implements MainButtonWidget {
   }
 
   /**
-   * Determine the appropriate button state based on simulator state
+   * Determine the appropriate button state based on simulator state and current view
    *
    * @param state Current simulator state
    * @returns The button state to display
    */
   public getButtonState(state: SimulatorState): MainButtonState {
     let buttonState: MainButtonState;
+
+    // Check if button should be hidden based on current view
+    if (this._currentViewType === ViewType.LEARN) {
+      return MainButtonState.HIDDEN;
+    }
+
     switch (state) {
       case SimulatorState.INITIALIZED:
         buttonState = MainButtonState.ASSEMBLE;

@@ -6,4 +6,5 @@ export enum MainButtonState {
   RESUME = "resume",
   RESET = "reset",
   STEP = "step",
+  HIDDEN = "hidden",
 }
