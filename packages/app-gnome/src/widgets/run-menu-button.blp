@@ -1,0 +1,43 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $RunMenuButton : Adw.Bin {
+  MenuButton button {
+    icon-name: "view-more-symbolic";
+    tooltip-text: _("Run menu");
+    menu-model: buttonRunMenu;
+    primary: true;
+    styles [
+      "flat",
+    ]
+  }
+}
+
+menu buttonRunMenu {
+  section {
+    item {
+      label: _("Assemble");
+      action: 'win.assemble';
+    }
+    item {
+      label: _("Run");
+      action: 'win.run-simulator';
+    }
+    item {
+      label: _("Continue");
+      action: 'win.resume-simulator';
+    }
+    item {
+      label: _("Pause");
+      action: 'win.pause-simulator';
+    }
+    item {
+      label: _("Step");
+      action: 'win.step-simulator';
+    }
+    item {
+      label: _("Reset");
+      action: 'win.reset-simulator';
+    }
+  }
+}

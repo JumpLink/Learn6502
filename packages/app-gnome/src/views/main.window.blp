@@ -43,52 +43,62 @@ template $MainWindow: Adw.ApplicationWindow {
           "circular"
         ]
       }
-
       [end]
-      $MainButton mainButton {
+      $RunMenuButton runMenuButton {
         halign: center;
       }
+
     }
 
-    content: Adw.ToastOverlay toastOverlay {
-      Adw.ViewStack stack {
-        vexpand: true;
+    content: Overlay mainOverlay {
+      child: Adw.ToastOverlay toastOverlay {
+        Adw.ViewStack stack {
+          vexpand: true;
 
-        Adw.ViewStackPage {
-          name: "learn";
-          title: _("Learn");
-          icon-name: "school-symbolic";
-          use-underline: true;
+          Adw.ViewStackPage {
+            name: "learn";
+            title: _("Learn");
+            icon-name: "school-symbolic";
+            use-underline: true;
 
-          child: $Learn learn {};
+            child: $Learn learn {};
+          }
+
+          Adw.ViewStackPage {
+            name: "editor";
+            title: _("Editor");
+            icon-name: "code-symbolic";
+            use-underline: true;
+
+            child: $Editor editor {};
+          }
+
+          Adw.ViewStackPage {
+            name: "debugger";
+            title: _("Debugger");
+            icon-name: "bug-symbolic";
+            use-underline: true;
+
+            child: $Debugger debugger {};
+          }
+
+          Adw.ViewStackPage {
+            name: "gameConsole";
+            title: _("Game Console");
+            icon-name: "nintendo-controller-symbolic";
+            use-underline: true;
+
+            child: $GameConsole gameConsole {};
+          }
         }
+      };
 
-        Adw.ViewStackPage {
-          name: "editor";
-          title: _("Editor");
-          icon-name: "code-symbolic";
-          use-underline: true;
-
-          child: $Editor editor {};
-        }
-
-        Adw.ViewStackPage {
-          name: "debugger";
-          title: _("Debugger");
-          icon-name: "bug-symbolic";
-          use-underline: true;
-
-          child: $Debugger debugger {};
-        }
-
-        Adw.ViewStackPage {
-          name: "gameConsole";
-          title: _("Game Console");
-          icon-name: "nintendo-controller-symbolic";
-          use-underline: true;
-
-          child: $GameConsole gameConsole {};
-        }
+      [overlay]
+      $MainButton mainButton {
+        halign: end;
+        valign: end;
+        margin-end: 16;
+        margin-bottom: 16;
       }
     };
 
