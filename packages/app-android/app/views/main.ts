@@ -330,7 +330,7 @@ export class MainController implements MainView {
    * Sets up learn tutorial signal listeners
    */
   private setupLearnTutorialSignalListeners(): void {
-    learnController.on("copy", ({ code }) => {
+    learnController.on("copy", ({ code }: { code: string }) => {
       this.setEditorCode(code);
       // Show notification using notification service
       notificationService.showNotification({

@@ -4,7 +4,6 @@ import type { LearnView, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { learnController } from "@learn6502/common-ui/src/controller";
 
 class Learn implements LearnView {
-  readonly events = learnController.events;
   private page: Page | null = null;
   private tutorialView: TutorialView | null = null;
 
@@ -56,10 +55,7 @@ class Learn implements LearnView {
     if (!this.tutorialView) return;
 
     this.tutorialView.events.on("copy", (event: SourceViewCopyEvent) => {
-      // Dispatch to both the local events and the common controller
-      this.events.dispatch("copy", { code: event.code });
-
-      // Use the common controller to communicate with other components
+      // Dispatch copy event through controller
       learnController.dispatch("copy", { code: event.code });
     });
   }

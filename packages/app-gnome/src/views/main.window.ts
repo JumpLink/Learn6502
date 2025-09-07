@@ -22,6 +22,7 @@ import {
   gameConsoleController,
   mainStateController,
   editorController,
+  learnController,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -176,7 +177,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupLearnTutorialSignalListeners(): void {
-    this._learn.events.on("copy", ({ code }) => {
+    learnController.on("copy", ({ code }: { code: string }) => {
       this.setEditorCode(code);
       this.showToast({
         title: _("Code copied to editor"),

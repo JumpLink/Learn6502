@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-09-07 17:38+0200\n"
+"POT-Creation-Date: 2025-09-07 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,6 +143,61 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
+#: ../app-gnome/src/views/main.window.ts:183
+msgid "Code copied to editor"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:209
+msgid "Copied to clipboard"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:214
+msgid "Failed to copy to clipboard"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:282
+#: ../app-gnome/src/views/main.window.ts:320
+msgid "Program paused automatically"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:476
+msgid "Assembled successfully"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:488
+msgid "Assemble failed"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:497
+msgid "Hexdump:"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:506
+msgid "Disassembly:"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:589
+msgid "Simulator failure"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:608
+msgid "Labels failure"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:662
+msgid "Gamepad key pressed:"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:757
+#, javascript-format
+msgid "Opened %s"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:784
+#, javascript-format
+msgid "Saved as %s"
+msgstr ""
+
 #: ../app-gnome/src/widgets/main-button.ts:64
 #: ../app-gnome/src/widgets/main-button.ts:69
 msgid "Assemble"
@@ -171,88 +226,6 @@ msgstr ""
 #. Fallback icon, won't be shown
 #: ../app-gnome/src/widgets/main-button.ts:99
 msgid "Hidden"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:182
-msgid "Code copied to editor"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:208
-msgid "Copied to clipboard"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:213
-msgid "Failed to copy to clipboard"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:281
-#: ../app-gnome/src/views/main.window.ts:319
-msgid "Program paused automatically"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:475
-msgid "Assembled successfully"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:487
-msgid "Assemble failed"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:496
-msgid "Hexdump:"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:505
-msgid "Disassembly:"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:588
-msgid "Simulator failure"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:607
-msgid "Labels failure"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:661
-msgid "Gamepad key pressed:"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:756
-#, javascript-format
-msgid "Opened %s"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:783
-#, javascript-format
-msgid "Saved as %s"
-msgstr ""
-
-#: ../app-gnome/src/widgets/run-menu-button.blp:7
-msgid "Run menu"
-msgstr ""
-
-#: ../app-gnome/src/widgets/run-menu-button.blp:27
-msgid "Continue"
-msgstr ""
-
-#: ../app-gnome/src/widgets/source-view.blp:34
-msgid "Copy to editor"
-msgstr ""
-
-#: ../app-gnome/src/widgets/theme-selector.blp:24
-#: ../app-gnome/src/widgets/theme-selector.blp:27
-msgid "Follow system style"
-msgstr ""
-
-#: ../app-gnome/src/widgets/theme-selector.blp:43
-#: ../app-gnome/src/widgets/theme-selector.blp:46
-msgid "Light style"
-msgstr ""
-
-#: ../app-gnome/src/widgets/theme-selector.blp:62
-#: ../app-gnome/src/widgets/theme-selector.blp:65
-msgid "Dark style"
 msgstr ""
 
 #: ../app-gnome/src/views/help.window.blp:7
@@ -337,6 +310,75 @@ msgstr ""
 msgid "There are currently no settings."
 msgstr ""
 
+#: ../app-gnome/src/widgets/run-menu-button.blp:7
+msgid "Run menu"
+msgstr ""
+
+#: ../app-gnome/src/widgets/run-menu-button.blp:27
+msgid "Continue"
+msgstr ""
+
+#: ../app-gnome/src/widgets/source-view.blp:34
+msgid "Copy to editor"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:24
+#: ../app-gnome/src/widgets/theme-selector.blp:27
+msgid "Follow system style"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:43
+#: ../app-gnome/src/widgets/theme-selector.blp:46
+msgid "Light style"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:62
+#: ../app-gnome/src/widgets/theme-selector.blp:65
+msgid "Dark style"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:36
+msgid "Settings"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:40
+msgid "Enable Stepper Mode"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:41
+msgid "Execute instructions one by one instead of continuously"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:47
+msgid "Information"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:61
+msgid "Messages"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:75
+msgid "Hex Monitor"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:90
+msgid "Hexdump"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:105
+msgid "Disassembled"
+msgstr ""
+
+#: ../app-gnome/src/views/main/learn.blp:9
+msgid "Learn how to program the 6502 microprocessor."
+msgstr ""
+
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
 msgid "Zero Page ($0000-$00FF)"
 msgstr ""
@@ -368,48 +410,6 @@ msgstr ""
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:35
 #: ../app-gnome/src/widgets/debugger/hexdump.blp:9
 msgid "Copy to clipboard"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:16
-msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:36
-msgid "Settings"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:39
-msgid "Enable Stepper Mode"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:40
-msgid "Execute instructions one by one instead of continuously"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:46
-msgid "Information"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:61
-msgid "Messages"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:76
-msgid "Hex Monitor"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:91
-msgid "Hexdump"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:106
-msgid "Disassembled"
-msgstr ""
-
-#: ../app-gnome/src/views/main/learn.blp:9
-msgid "Learn how to program the 6502 microprocessor."
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
