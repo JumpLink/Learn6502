@@ -198,6 +198,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private setupDebuggerSignalListeners(): void {
     debuggerController.on("copyToClipboard", this.onCopyToClipboard.bind(this));
     debuggerController.on("copyToEditor", this.onCopyToEditor.bind(this));
+    debuggerController.on("stepperToggled", this.onStepperToggled.bind(this));
   }
 
   private onCopyToClipboard(code: string): void {
@@ -217,6 +218,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private onCopyToEditor(code: string): void {
     this.setEditorCode(code);
+  }
+
+  private onStepperToggled(enabled: boolean): void {
+    // Update the main button state when stepper changes
+    this.updateRunActions(this._gameConsole.simulator.state);
   }
 
   private setupGeneralSignalListeners(): void {
@@ -598,6 +604,17 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         timeout: 2,
       });
     });
+
+    // Listen for stepper state changes from game console
+    gameConsoleController.on(
+      "stepper-changed",
+      (event: { enabled: boolean }) => {
+        // Update debugger controller stepper state to match
+        if (debuggerController.stepperEnabled !== event.enabled) {
+          debuggerController.stepperEnabled = event.enabled;
+        }
+      }
+    );
   }
 
   private setupKeyboardListener(): void {
@@ -697,18 +714,15 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     // Update the button state based on simulator state and current view
     return this._mainButton.updateFromSimulatorState(state);
-
-    // Update RunMenuButton with enabled states
-    this.updateRunMenuButton(enabledState);
   }
 
   public stepGameConsole(): void {
     // Navigate to the debugger view
     this.navigateToView(ViewType.DEBUGGER);
 
-    // Enable stepper if not already enabled
-    if (!this._gameConsole.simulator.stepperEnabled) {
-      this._gameConsole.simulator.enableStepper();
+    // Enable stepper using debugger controller (this will sync UI properly)
+    if (!debuggerController.stepperEnabled) {
+      debuggerController.stepperEnabled = true;
     }
 
     // Execute a single step
