@@ -9,6 +9,7 @@ import {
   type MainButtonWidget,
   mainStateController,
   ViewType,
+  type MainUiState,
 } from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
@@ -174,9 +175,9 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
     mainStateController.events.on("state-changed", this.onStateChanged);
   }
 
-  protected onStateChanged(state: MainButtonState): void {
+  protected onStateChanged(state: MainUiState): void {
     console.log("onStateChanged", state);
-    if (state === MainButtonState.HIDDEN) {
+    if (state.mainButtonState === MainButtonState.HIDDEN) {
       // Hide the button with animation
       this._revealer.set_reveal_child(false);
       return;
@@ -186,7 +187,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
     this._revealer.set_reveal_child(true);
 
     // Update the button icon, tooltip, and action name
-    const mode = this.buttonModes[state];
+    const mode = this.buttonModes[state.mainButtonState];
     this._button.set_icon_name(mode.iconName);
     this._button.set_tooltip_text(mode.text);
     // Default Gtk.Button doesn't support labels and icons at the same time,

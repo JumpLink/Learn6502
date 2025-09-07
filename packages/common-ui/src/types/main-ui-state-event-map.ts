@@ -1,18 +1,38 @@
 import { MainButtonState } from "../data/index.ts";
 import { ViewType } from "../views/main";
+import { SimulatorState } from "@learn6502/6502";
+
+/**
+ * Complete state object containing all UI states
+ */
+export interface MainUiState {
+  mainButtonState: MainButtonState;
+  codeChanged: boolean;
+  viewType: ViewType;
+  simulatorState: SimulatorState;
+}
 
 /**
  * Event map for main UI state events
  */
 export interface MainUiStateEventMap {
-  "state-changed": MainButtonState;
+  // All-in-one state change event
+  "state-changed": MainUiState;
+
+  // Specific state change events
+  "state-changed:main-button-state": MainButtonState;
+  "state-changed:code-changed": boolean;
+  "state-changed:view-type": ViewType;
+  "state-changed:simulator-state": SimulatorState;
+
+  // Action events (unchanged)
   assemble: void;
   run: void;
   pause: void;
   resume: void;
   reset: void;
   step: void;
-  "code-changed": boolean;
+
+  // Navigation events (unchanged)
   "navigate-to-view": { viewType: string };
-  "view-changed": ViewType;
 }

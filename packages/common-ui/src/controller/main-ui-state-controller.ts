@@ -1,4 +1,8 @@
-import type { MainButtonActionState, MainUiStateEventMap } from "../types";
+import type {
+  MainButtonActionState,
+  MainUiStateEventMap,
+  MainUiState,
+} from "../types";
 import { MainButtonState } from "../data/index";
 import { EventDispatcher, SimulatorState } from "@learn6502/6502";
 import type { MainButtonWidget } from "../widgets";
@@ -11,29 +15,68 @@ import { ViewType } from "../views/main";
 class MainUiStateController implements MainButtonWidget {
   // State tracking
   protected _codeChanged: boolean = false;
-  protected _currentViewType: ViewType = ViewType.LEARN;
-  protected _currentSimulatorState: SimulatorState = SimulatorState.INITIALIZED;
+  protected _viewType: ViewType = ViewType.LEARN;
+  protected _simulatorState: SimulatorState = SimulatorState.INITIALIZED;
 
   readonly events = new EventDispatcher<MainUiStateEventMap>();
 
   // Current state property
-  private _state: MainButtonState = MainButtonState.INITIAL;
+  private _mainButtonState: MainButtonState = MainButtonState.INITIAL;
+
+  /**
+   * Private method to handle all state changes and dispatch appropriate events
+   */
+  private dispatchStateChange(changedProperty?: keyof MainUiState): void {
+    const currentState: MainUiState = {
+      mainButtonState: this._mainButtonState,
+      codeChanged: this._codeChanged,
+      viewType: this._viewType,
+      simulatorState: this._simulatorState,
+    };
+
+    // Dispatch general state-changed event
+    this.events.dispatch("state-changed", currentState);
+
+    // Dispatch specific events based on what changed
+    if (changedProperty) {
+      switch (changedProperty) {
+        case "mainButtonState":
+          this.events.dispatch(
+            "state-changed:main-button-state",
+            this._mainButtonState
+          );
+          break;
+        case "codeChanged":
+          this.events.dispatch("state-changed:code-changed", this._codeChanged);
+          break;
+        case "viewType":
+          this.events.dispatch("state-changed:view-type", this._viewType);
+          break;
+        case "simulatorState":
+          this.events.dispatch(
+            "state-changed:simulator-state",
+            this._simulatorState
+          );
+          break;
+      }
+    }
+  }
 
   public setState(state: MainButtonState): void {
-    if (this._state == state) {
+    if (this._mainButtonState == state) {
       return;
     }
-    this._state = state;
-    this.events.dispatch("state-changed", state);
+    this._mainButtonState = state;
+    this.dispatchStateChange("mainButtonState");
   }
 
   public getState(): MainButtonState {
-    return this._state;
+    return this._mainButtonState;
   }
 
   public init(): void {
     // Initialize with default state based on current view type
-    this.updateFromSimulatorState(this._currentSimulatorState);
+    this.updateFromSimulatorState(this._simulatorState);
   }
 
   /**
@@ -43,7 +86,13 @@ class MainUiStateController implements MainButtonWidget {
    */
   public updateFromSimulatorState(state: SimulatorState): MainButtonState {
     // Store current simulator state for future reference
-    this._currentSimulatorState = state;
+    const previousSimulatorState = this._simulatorState;
+    this._simulatorState = state;
+
+    // Dispatch simulator state change if it actually changed
+    if (previousSimulatorState !== state) {
+      this.dispatchStateChange("simulatorState");
+    }
 
     // If code has changed, always show ASSEMBLE
     if (this._codeChanged) {
@@ -69,8 +118,8 @@ class MainUiStateController implements MainButtonWidget {
       this.setState(MainButtonState.ASSEMBLE);
     }
 
-    // Emit code-changed event
-    this.events.dispatch("code-changed", changed);
+    // Dispatch code-changed specific event
+    this.dispatchStateChange("codeChanged");
   }
 
   public getCodeChanged(): boolean {
@@ -82,15 +131,15 @@ class MainUiStateController implements MainButtonWidget {
    * @param viewType The new view type
    */
   public setViewType(viewType: ViewType): void {
-    if (this._currentViewType !== viewType) {
-      const oldViewType = this._currentViewType;
-      this._currentViewType = viewType;
+    if (this._viewType !== viewType) {
+      const oldViewType = this._viewType;
+      this._viewType = viewType;
 
       // Automatically update button state when view type changes
-      this.updateFromSimulatorState(this._currentSimulatorState);
+      this.updateFromSimulatorState(this._simulatorState);
 
       console.log(`ViewType changed: ${oldViewType} -> ${viewType}`);
-      this.events.dispatch("view-changed", viewType);
+      this.dispatchStateChange("viewType");
     }
   }
 
@@ -99,7 +148,7 @@ class MainUiStateController implements MainButtonWidget {
    * @returns The current view type
    */
   public getViewType(): ViewType {
-    return this._currentViewType;
+    return this._viewType;
   }
 
   /**
@@ -185,7 +234,7 @@ class MainUiStateController implements MainButtonWidget {
     let buttonState: MainButtonState;
 
     // Check if button should be hidden based on current view
-    if (this._currentViewType === ViewType.LEARN) {
+    if (this._viewType === ViewType.LEARN) {
       return MainButtonState.HIDDEN;
     }
 

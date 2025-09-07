@@ -351,7 +351,7 @@ export class MainController implements MainView {
     });
 
     // Listen for code changed events
-    mainStateController.events.on("code-changed", (changed) => {
+    mainStateController.events.on("state-changed:code-changed", (changed) => {
       this.updateMainUiState();
     });
 

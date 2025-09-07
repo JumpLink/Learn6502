@@ -818,7 +818,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
 
     // Listen for code changed events
-    mainStateController.events.on("code-changed", (changed) => {
+    mainStateController.events.on("state-changed:code-changed", (changed) => {
       this.codeToAssembleChanged = changed;
       this.updateRunActions(this._gameConsole.simulator.state);
     });

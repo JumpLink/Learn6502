@@ -8,6 +8,7 @@ import {
   type MainButtonWidget,
   mainStateController,
   ViewType,
+  type MainUiState,
 } from "@learn6502/common-ui";
 // Property for the button's state
 const stateProperty = new Property<MainButton, MainButtonState>({
@@ -239,10 +240,10 @@ export class MainButton extends Fab implements MainButtonWidget {
     mainStateController.events.on("state-changed", this.onStateChanged);
   }
 
-  protected onStateChanged(state: MainButtonState): void {
+  protected onStateChanged(state: MainUiState): void {
     if (!this.nativeFab) return;
 
-    if (state === MainButtonState.HIDDEN) {
+    if (state.mainButtonState === MainButtonState.HIDDEN) {
       // Hide the button
       this.nativeFab.setVisibility(android.view.View.GONE);
       return;
@@ -251,9 +252,9 @@ export class MainButton extends Fab implements MainButtonWidget {
     // Show the button
     this.nativeFab.setVisibility(android.view.View.VISIBLE);
 
-    const mode = this.buttonModes[state];
+    const mode = this.buttonModes[state.mainButtonState];
     if (!mode) {
-      console.error(`MainButton: Invalid state - ${state}`);
+      console.error(`MainButton: Invalid state - ${state.mainButtonState}`);
       return;
     }
 
@@ -270,7 +271,7 @@ export class MainButton extends Fab implements MainButtonWidget {
     this.notify(<EventData>{
       eventName: MainButton.stateChangedEvent,
       object: this,
-      state: state,
+      state: state.mainButtonState,
     });
   }
 
