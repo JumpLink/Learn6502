@@ -123,11 +123,13 @@ export class ButtonStateService {
     let buttonState: MainButtonState;
 
     // Check if button should be hidden based on current view
-    if (
-      this._viewType === ViewType.LEARN ||
-      this._viewType === ViewType.STORYBOOK
-    ) {
-      return MainButtonState.HIDDEN;
+    switch (this._viewType) {
+      case ViewType.LEARN:
+        return MainButtonState.HIDDEN;
+      case ViewType.STORYBOOK:
+        return MainButtonState.HIDDEN;
+      case ViewType.EDITOR:
+        return MainButtonState.ASSEMBLE;
     }
 
     // If code has changed, always show ASSEMBLE
