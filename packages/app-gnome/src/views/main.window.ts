@@ -764,7 +764,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private showUnsavedChangesDialog(action: "open" | "close"): void {
     this.pendingDialogAction = action;
-    this._unsavedChangesDialog.present();
+    this._unsavedChangesDialog.present(this);
   }
 
   private onUnsavedChangesResponse(
