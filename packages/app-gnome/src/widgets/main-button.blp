@@ -6,6 +6,10 @@ template $MainButton  : Adw.Bin {
   Gtk.Revealer revealer {
     transition-type: slide_up;
     reveal-child: true;
+    vexpand: true;
+    valign: end;
+    margin-end: 0;
+    margin-bottom: 0;
     child: Gtk.Button button {
       vexpand: true;
       hexpand: true;
