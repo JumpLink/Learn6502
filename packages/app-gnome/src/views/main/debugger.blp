@@ -33,7 +33,8 @@ template $Debugger: Adw.Bin {
             orientation: vertical;
 
             Adw.PreferencesGroup {
-              title: _("Debug Settings");
+              title: _("Settings");
+              margin-bottom: 12;
 
               Adw.SwitchRow stepperSwitch {
                 title: _("Enable Stepper Mode");
@@ -46,7 +47,6 @@ template $Debugger: Adw.Bin {
               label: _("Information");
               halign: start;
               margin-bottom: 12;
-              margin-top: 12;
               styles [
                 "heading"
               ]
@@ -61,7 +61,6 @@ template $Debugger: Adw.Bin {
               label: _("Messages");
               halign: start;
               margin-bottom: 12;
-              margin-top: 12;
               styles [
                 "heading"
               ]
