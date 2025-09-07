@@ -19,15 +19,15 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
   declare private _rowX: Adw.ActionRow;
   declare private _rowY: Adw.ActionRow;
 
-  // Flag labels
-  declare private _nFlag: Gtk.Label;
-  declare private _vFlag: Gtk.Label;
-  declare private _dashFlag: Gtk.Label;
-  declare private _bFlag: Gtk.Label;
-  declare private _dFlag: Gtk.Label;
-  declare private _iFlag: Gtk.Label;
-  declare private _zFlag: Gtk.Label;
-  declare private _cFlag: Gtk.Label;
+  // Flag header labels
+  declare private _nHdr: Gtk.Label;
+  declare private _vHdr: Gtk.Label;
+  declare private _dashHdr: Gtk.Label;
+  declare private _bHdr: Gtk.Label;
+  declare private _dHdr: Gtk.Label;
+  declare private _iHdr: Gtk.Label;
+  declare private _zHdr: Gtk.Label;
+  declare private _cHdr: Gtk.Label;
 
   // P bits (bit7..bit0)
   declare private _p7: Gtk.Label;
@@ -55,15 +55,15 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
           "yValue",
           "spValue",
           "pcValue",
-          // flags (compact)
-          "nFlag",
-          "vFlag",
-          "dashFlag",
-          "bFlag",
-          "dFlag",
-          "iFlag",
-          "zFlag",
-          "cFlag",
+          // flags header
+          "nHdr",
+          "vHdr",
+          "dashHdr",
+          "bHdr",
+          "dHdr",
+          "iHdr",
+          "zHdr",
+          "cHdr",
           // bit view p7..p0
           "p7",
           "p6",
@@ -82,8 +82,8 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
 
-    // Optional: Klick auf PC öffnet Disassembly/Memory-View
-    // (hook hier ein Signal ein, falls du eine Navigation hast)
+    // Optional: Click on PC opens Disassembly/Memory-View
+    // (hook up a signal here if you have navigation)
     // this._pcValue.connect("activate-link", ...);
   }
 
@@ -97,10 +97,10 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
     this._spValue.set_label(`$${num2hex(regSP)}`);
     this._pcValue.set_label(`$${addr2hex(regPC)}`);
 
-    // Optional: Dezimal im Subtitle für Einsteiger
-    this._rowA.set_subtitle(`${regA} (dez)`);
-    this._rowX.set_subtitle(`${regX} (dez)`);
-    this._rowY.set_subtitle(`${regY} (dez)`);
+    // Optional: Decimal in subtitle for beginners
+    this._rowA.set_subtitle(`${regA} (dec)`);
+    this._rowX.set_subtitle(`${regX} (dec)`);
+    this._rowY.set_subtitle(`${regY} (dec)`);
 
     // Flags: N V - B D I Z C   (bit7..bit0)
     // 6502 P: N V - B D I Z C
@@ -115,29 +115,23 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
       (regP >> 0) & 1, // C
     ];
 
-    // Kompakt-Flags visuell hervorheben (aktiv: normal, inaktiv: dim-label)
+    // Highlight compact flags visually (active: normal, inactive: dim-label)
     const setFlag = (label: Gtk.Label, on: number) => {
       if (on) {
         label.remove_css_class("dim-label");
-        label.add_css_class("accent"); // dezent; falls zu kräftig, weglassen
+        label.add_css_class("accent"); // subtle; remove if too strong
       } else {
         label.add_css_class("dim-label");
         label.remove_css_class("accent");
       }
     };
 
-    setFlag(this._nFlag, bits[0]);
-    setFlag(this._vFlag, bits[1]);
-    // dash flag nur anzeigen, nicht highlighten
-    this._dashFlag.add_css_class("dim-label");
+    // Header labels remain static (just labels)
+    // Bit labels show the dynamic values
+    // dash flag always dimmed
+    this._dashHdr.add_css_class("dim-label");
 
-    setFlag(this._bFlag, bits[3]);
-    setFlag(this._dFlag, bits[4]);
-    setFlag(this._iFlag, bits[5]);
-    setFlag(this._zFlag, bits[6]);
-    setFlag(this._cFlag, bits[7]);
-
-    // P-Register Bitansicht (Text 0/1)
+    // P-Register bit view (text 0/1)
     const pLbls = [
       this._p7,
       this._p6,

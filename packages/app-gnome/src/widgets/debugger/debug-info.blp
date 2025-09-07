@@ -88,43 +88,102 @@ template $DebugInfo: Adw.Bin {
       title: "Status Flags";
       margin-bottom: 12;
 
-      Adw.ActionRow rowFlags {
-        title: "Flags";
-        subtitle: "N V - B D I Z C";
-
-        [suffix]
-        Gtk.Box flagsBox {
-          spacing: 6;
-          halign: end;
-
-          Gtk.Label nFlag { label: "N"; css-classes: ["flag"]; }
-          Gtk.Label vFlag { label: "V"; css-classes: ["flag"]; }
-          Gtk.Label dashFlag { label: "-"; css-classes: ["flag"]; }
-          Gtk.Label bFlag { label: "B"; css-classes: ["flag"]; }
-          Gtk.Label dFlag { label: "D"; css-classes: ["flag"]; }
-          Gtk.Label iFlag { label: "I"; css-classes: ["flag"]; }
-          Gtk.Label zFlag { label: "Z"; css-classes: ["flag"]; }
-          Gtk.Label cFlag { label: "C"; css-classes: ["flag"]; }
-        }
-      }
-
-      Adw.ActionRow rowP {
+      Adw.ActionRow rowStatus {
         title: "P (SR)";
-        subtitle: "Processor Status Register (bit 7..0)";
+        subtitle: "NV-BDIZC · Processor Status";
 
         [suffix]
-        Gtk.Box pBits {
-          spacing: 4;
+        Gtk.Grid statusGrid {
           halign: end;
+          margin-bottom: 12;
+          margin-top: 12;
+          row-spacing: 2;
+          column-spacing: 6;
+          column-homogeneous: true;
 
-          Gtk.Label p7 { label: "1"; css-classes: ["monospace", "bit"]; }
-          Gtk.Label p6 { label: "1"; css-classes: ["monospace", "bit"]; }
-          Gtk.Label p5 { label: "0"; css-classes: ["monospace", "bit"]; }
-          Gtk.Label p4 { label: "0"; css-classes: ["monospace", "bit"]; }
-          Gtk.Label p3 { label: "1"; css-classes: ["monospace", "bit"]; }
-          Gtk.Label p2 { label: "1"; css-classes: ["monospace", "bit"]; }
-          Gtk.Label p1 { label: "0"; css-classes: ["monospace", "bit"]; }
-          Gtk.Label p0 { label: "0"; css-classes: ["monospace", "bit"]; }
+          // Kopfzeile: N V - B D I Z C
+          Gtk.Label nHdr {
+            label: "N";
+            css-classes: ["flag"];
+            layout { row: 0; column: 0; }
+          }
+          Gtk.Label vHdr {
+            label: "V";
+            css-classes: ["flag"];
+            layout { row: 0; column: 1; }
+          }
+          Gtk.Label dashHdr {
+            label: "-";
+            css-classes: ["flag", "dim-label"];
+            layout { row: 0; column: 2; }
+          }
+          Gtk.Label bHdr {
+            label: "B";
+            css-classes: ["flag"];
+            layout { row: 0; column: 3; }
+          }
+          Gtk.Label dHdr {
+            label: "D";
+            css-classes: ["flag"];
+            layout { row: 0; column: 4; }
+          }
+          Gtk.Label iHdr {
+            label: "I";
+            css-classes: ["flag"];
+            layout { row: 0; column: 5; }
+          }
+          Gtk.Label zHdr {
+            label: "Z";
+            css-classes: ["flag"];
+            layout { row: 0; column: 6; }
+          }
+          Gtk.Label cHdr {
+            label: "C";
+            css-classes: ["flag"];
+            layout { row: 0; column: 7; }
+          }
+
+          // Bitzeile: p7..p0 (MSB..LSB)
+          Gtk.Label p7 {
+            label: "0";
+            css-classes: ["monospace", "bit"];
+            layout { row: 1; column: 0; }
+          }
+          Gtk.Label p6 {
+            label: "0";
+            css-classes: ["monospace", "bit"];
+            layout { row: 1; column: 1; }
+          }
+          Gtk.Label p5 {
+            label: "0";
+            css-classes: ["monospace", "bit", "dim-label"];
+            layout { row: 1; column: 2; }
+          }
+          Gtk.Label p4 {
+            label: "0";
+            css-classes: ["monospace", "bit", "dim-label"];
+            layout { row: 1; column: 3; }
+          }
+          Gtk.Label p3 {
+            label: "1";
+            css-classes: ["monospace", "bit"];
+            layout { row: 1; column: 4; }
+          }
+          Gtk.Label p2 {
+            label: "1";
+            css-classes: ["monospace", "bit"];
+            layout { row: 1; column: 5; }
+          }
+          Gtk.Label p1 {
+            label: "0";
+            css-classes: ["monospace", "bit", "dim-label"];
+            layout { row: 1; column: 6; }
+          }
+          Gtk.Label p0 {
+            label: "0";
+            css-classes: ["monospace", "bit", "dim-label"];
+            layout { row: 1; column: 7; }
+          }
         }
       }
     }
