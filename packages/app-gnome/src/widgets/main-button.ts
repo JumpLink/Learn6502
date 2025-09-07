@@ -1,13 +1,16 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import Gio from "@girs/gio-2.0";
+import Gtk from "@girs/gtk-4.0";
 
 import { SimulatorState } from "@learn6502/6502";
 import {
-  MainUiState,
+  MainButtonState,
   type MainButtonMode,
   type MainButtonWidget,
   mainStateController,
+  ViewType,
+  type MainUiState,
+  buttonStateService,
 } from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
@@ -22,7 +25,8 @@ import Template from "./main-button.blp";
  */
 export class MainButton extends Adw.Bin implements MainButtonWidget {
   // Internal child widgets
-  declare private _button: Adw.SplitButton;
+  declare private _button: Gtk.Button;
+  declare private _revealer: Gtk.Revealer;
 
   // Signals
   static {
@@ -30,14 +34,14 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
       {
         GTypeName: "MainButton",
         Template,
-        InternalChildren: ["button"],
+        InternalChildren: ["button", "revealer"],
         Properties: {
           state: GObject.ParamSpec.string(
             "state",
             "State",
             "Current button state",
             GObject.ParamFlags.READWRITE,
-            MainUiState.ASSEMBLE
+            MainButtonState.ASSEMBLE
           ),
         },
       },
@@ -54,41 +58,46 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
   private stepSimulatorAction = "step-simulator";
 
   // Button modes configuration
-  private buttonModes: Record<MainUiState, MainButtonMode> = {
-    [MainUiState.INITIAL]: {
+  private buttonModes: Record<MainButtonState, MainButtonMode> = {
+    [MainButtonState.INITIAL]: {
       iconName: "build-alt-symbolic",
       text: _("Assemble"),
       actionName: this.assembleAction,
     },
-    [MainUiState.ASSEMBLE]: {
+    [MainButtonState.ASSEMBLE]: {
       iconName: "build-alt-symbolic",
       text: _("Assemble"),
       actionName: this.assembleAction,
     },
-    [MainUiState.RUN]: {
+    [MainButtonState.RUN]: {
       iconName: "play-symbolic",
       text: _("Run"),
       actionName: this.runSimulatorAction,
     },
-    [MainUiState.PAUSE]: {
+    [MainButtonState.PAUSE]: {
       iconName: "pause-symbolic",
       text: _("Pause"),
       actionName: this.pauseSimulatorAction,
     },
-    [MainUiState.RESUME]: {
+    [MainButtonState.RESUME]: {
       iconName: "play-symbolic",
       text: _("Resume"),
       actionName: this.resumeSimulatorAction,
     },
-    [MainUiState.RESET]: {
+    [MainButtonState.RESET]: {
       iconName: "reset-symbolic",
       text: _("Reset"),
       actionName: this.resetSimulatorAction,
     },
-    [MainUiState.STEP]: {
+    [MainButtonState.STEP]: {
       iconName: "step-over-symbolic",
       text: _("Step"),
       actionName: this.stepSimulatorAction,
+    },
+    [MainButtonState.HIDDEN]: {
+      iconName: "build-alt-symbolic", // Fallback icon, won't be shown
+      text: _("Hidden"),
+      actionName: this.assembleAction, // Fallback action, won't be used
     },
   };
 
@@ -109,7 +118,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
    *
    * @param state The new button state
    */
-  public setState(state: MainUiState): void {
+  public setState(state: MainButtonState): void {
     mainStateController.setState(state);
   }
 
@@ -117,7 +126,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
    * Get the current button state
    * Delegates to the controller
    */
-  public getState(): MainUiState {
+  public getState(): MainButtonState {
     return mainStateController.getState();
   }
 
@@ -137,13 +146,13 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
   }
 
   /**
-   * Update button based on simulator state
+   * Update button based on simulator state and current view
    * Implements MainButtonWidget
    *
    * @param state Current simulator state
    * @returns The new button state
    */
-  public updateFromSimulatorState(state: SimulatorState): MainUiState {
+  public updateFromSimulatorState(state: SimulatorState): MainButtonState {
     return mainStateController.updateFromSimulatorState(state);
   }
 
@@ -168,10 +177,23 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
   }
 
   protected onStateChanged(state: MainUiState): void {
+    console.log("onStateChanged", state);
+    if (state.mainButtonState === MainButtonState.HIDDEN) {
+      // Hide the button with animation
+      this._revealer.set_reveal_child(false);
+      return;
+    }
+
+    // Show the button with animation
+    this._revealer.set_reveal_child(true);
+
     // Update the button icon, tooltip, and action name
-    const mode = this.buttonModes[state];
+    const mode = this.buttonModes[state.mainButtonState];
     this._button.set_icon_name(mode.iconName);
     this._button.set_tooltip_text(mode.text);
+    // Default Gtk.Button doesn't support labels and icons at the same time,
+    // but we could create a box containing both icon and label
+    // this._button.set_label(mode.text);
     this._button.set_action_name(`win.${mode.actionName}`);
   }
 }

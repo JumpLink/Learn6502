@@ -4,7 +4,7 @@ using Adw 1;
 template $Gamepad: Adw.Bin {
   name: "gamepad";
   halign: center;
-  valign: end;
+  valign: start;
   vexpand: true;
   Box {
     orientation: horizontal;
@@ -109,7 +109,6 @@ template $Gamepad: Adw.Bin {
         styles [
           "circular",
           "opaque",
-          "destructive-action"
         ]
       }
 
@@ -124,8 +123,7 @@ template $Gamepad: Adw.Bin {
 
         styles [
           "circular",
-          "opaque",
-          "suggested-action",
+          "destructive-action",
         ]
       }
     }

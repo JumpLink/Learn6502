@@ -143,7 +143,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       __GJS_CONSOLE__: JSON.stringify(GJS_CONSOLE),
       __PKGDATADIR__: JSON.stringify(PKGDATADIR),
     },
-    css: {},
+    css: {
+      transformer: "lightningcss",
+    },
     build: {
       assetsDir: ".",
       outDir: OUTDIR,

@@ -1,0 +1,133 @@
+---
+description: Guidelines for Blueprint UI templates
+globs: **/*.blp
+alwaysApply: false
+---
+
+> See also: [@adwaita-styling](mdc:.cursor/rules/adwaita-styling)
+
+# Blueprint Templates (TL;DR)
+
+**Goal:** Declarative UI in `.blp`; logic in TypeScript. Bind data, don’t hardcode.
+
+## Basics
+
+- Use Blueprint for all GTK UI; follow GNOME HIG.
+- Keep structure declarative; avoid programmatic widget construction.
+- Namespaces: `using Gtk 4.0; using Adw 1;` etc.
+- Prefix template names with `$` and extend proper base classes (`Adw.Window`, `Adw.Bin`, …).
+
+## Binding (default choice)
+
+- `bind template.prop` for one-way display.
+- `bind template.prop bidirectional` for editable fields.
+- Prefer expressions over ad-hoc callbacks for simple transforms.
+- Avoid magic constants; bind instead.
+
+```blp
+template $MyWidget : Gtk.Box {
+  Label title { label: bind template.title; visible: bind template.title as <bool>; }
+  Entry  edit  { text: bind template.title bidirectional; }
+}
+```
+
+## Signals (wire in .blp, implement in TS)
+
+- Connect in `.blp`: `clicked => $_on_action();`
+- Implement in class; annotate with `@Gtk.Template.Callback()` when needed.
+- Use consistent `_onXxx()` naming.
+
+```blp
+Button save { action-name: "app.save"; clicked => $_on_save(); }
+```
+
+```ts
+_on_save() { this.emit('save-requested'); }
+```
+
+## TypeScript Registration (minimal pattern)
+
+```ts
+import GObject from "@girs/gobject-2.0";
+import Gtk from "@girs/gtk-4.0";
+import Template from "./my-widget.blp";
+
+export class MyWidget extends Gtk.Box {
+  static {
+    GObject.registerClass(
+      {
+        GTypeName: "MyWidget",
+        Template,
+        InternalChildren: ["title", "save"],
+        Properties: {
+          title: GObject.ParamSpec.string(
+            "title",
+            "Title",
+            "",
+            GObject.ParamFlags.READWRITE,
+            ""
+          ),
+        },
+      },
+      this
+    );
+  }
+  declare _title: Gtk.Label;
+  declare _save: Gtk.Button;
+}
+```
+
+## Actions, Menus & State
+
+- Prefer `GAction`/`action-name` over manual `clicked` where possible.
+- Bind action targets to template state.
+- Use menu models via `MenuButton.menu-model`.
+
+```blp
+Button { action-name: "app.export"; action-target: bind template.doc_id; }
+MenuButton { icon-name: "open-menu-symbolic"; menu-model: template.menu; }
+```
+
+## Conditional UI
+
+- Toggle with boolean binds; compute labels inline.
+
+```blp
+Label err { label: bind template.error; visible: bind template.has_error; styles: ["error"]; }
+Button submit { sensitive: bind template.form_valid; label: bind template.loading ? "Loading…" : "Submit"; }
+```
+
+## Layout (pragmatic defaults)
+
+- Prefer shallow hierarchies; use spacing/margins instead of nested boxes.
+- Use `hexpand/halign/valign` intentionally for responsiveness.
+
+```blp
+Box root {
+  orientation: vertical; spacing: 12; margin-top: 24; margin-bottom: 24; margin-start: 24; margin-end: 24;
+  Box header {
+    orientation: horizontal; spacing: 6;
+    Label title { label: bind template.title; hexpand: true; xalign: 0; styles: ["title-1"]; }
+    Button close { icon-name: "window-close-symbolic"; clicked => $_on_close(); }
+  }
+}
+```
+
+## Styles
+
+- [GNOME / Adwaita CSS Variables](https://gnome.pages.gitlab.gnome.org/libadwaita/doc/1-latest/css-variables.html)
+
+## Accessibility (must-haves)
+
+- Meaningful labels/`accessible-name` for interactives.
+- Keyboard navigation preserved; avoid focus traps.
+- Tooltips only for non-obvious controls.
+
+## Best Practices (checklist)
+
+- ✅ Bind > hardcode; actions > ad-hoc handlers.
+- ✅ Split complex UIs into multiple templates; keep names meaningful.
+- ✅ Use `InternalChildren` only for elements you must touch in code.
+- ✅ Keep margins/spacing consistent; prefer Adwaita styles.
+- ❌ No deep container nesting; no business logic in `.blp`.
+- ❌ Don’t connect signals in code when `.blp` can do it.

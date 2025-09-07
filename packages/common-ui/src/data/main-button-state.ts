@@ -1,4 +1,4 @@
-export enum MainUiState {
+export enum MainButtonState {
   INITIAL = "initial",
   ASSEMBLE = "assemble",
   RUN = "run",
@@ -6,4 +6,5 @@ export enum MainUiState {
   RESUME = "resume",
   RESET = "reset",
   STEP = "step",
+  HIDDEN = "hidden",
 }

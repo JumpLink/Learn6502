@@ -8,19 +8,21 @@ import { SimulatorState, num2hex } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import { MainButton } from "../widgets";
+import { MainButton, RunMenuButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 
 import Template from "./main.window.blp";
 import {
-  type MainUiState,
+  type MainButtonState,
+  type MainButtonActionState,
   type MainView,
   ViewType,
   debuggerController,
   gameConsoleController,
   mainStateController,
   editorController,
+  learnController,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -30,6 +32,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _learn: Learn;
   declare private _menuButton: Gtk.MenuButton;
   declare private _mainButton: MainButton;
+  declare private _runMenuButton: RunMenuButton;
   declare private _stack: Adw.ViewStack;
   declare private _switcherBar: Adw.ViewSwitcherBar;
   declare private _debugger: Debugger;
@@ -174,7 +177,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupLearnTutorialSignalListeners(): void {
-    this._learn.events.on("copy", ({ code }) => {
+    learnController.on("copy", ({ code }: { code: string }) => {
       this.setEditorCode(code);
       this.showToast({
         title: _("Code copied to editor"),
@@ -196,6 +199,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private setupDebuggerSignalListeners(): void {
     debuggerController.on("copyToClipboard", this.onCopyToClipboard.bind(this));
     debuggerController.on("copyToEditor", this.onCopyToEditor.bind(this));
+    debuggerController.on("stepperToggled", this.onStepperToggled.bind(this));
   }
 
   private onCopyToClipboard(code: string): void {
@@ -215,6 +219,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private onCopyToEditor(code: string): void {
     this.setEditorCode(code);
+  }
+
+  private onStepperToggled(enabled: boolean): void {
+    // Update the main button state when stepper changes
+    this.updateRunActions(this._gameConsole.simulator.state);
   }
 
   private setupGeneralSignalListeners(): void {
@@ -278,6 +287,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     // Update previous child
     this.previousVisibleChild = currentChild;
+
+    // Update main state controller with current view type
+    mainStateController.setViewType(this.activeView);
 
     if (currentChild === this._debugger) {
       this.updateDebugger();
@@ -394,7 +406,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   public runGameConsole(): void {
-    this.navigateToView(ViewType.GAME_CONSOLE);
+    // Use platform-independent navigation logic
+    const targetView = mainStateController.getNavigationTarget("run");
+    if (targetView && targetView !== this.activeView) {
+      this.navigateToView(targetView);
+    }
     this._gameConsole.run();
   }
 
@@ -593,6 +609,17 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         timeout: 2,
       });
     });
+
+    // Listen for stepper state changes from game console
+    gameConsoleController.on(
+      "stepper-changed",
+      (event: { enabled: boolean }) => {
+        // Update debugger controller stepper state to match
+        if (debuggerController.stepperEnabled !== event.enabled) {
+          debuggerController.stepperEnabled = event.enabled;
+        }
+      }
+    );
   }
 
   private setupKeyboardListener(): void {
@@ -671,7 +698,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // This is already handled by the key controller added in setupKeyboardListener
   }
 
-  private updateRunActions(state: SimulatorState): MainUiState {
+  private updateRunActions(state: SimulatorState): MainButtonState {
     // Check if editor has code
     const hasCode = editorController.hasCode;
 
@@ -690,17 +717,20 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.resetSimulatorAction.set_enabled(enabledState.reset);
     this.stepSimulatorAction.set_enabled(enabledState.step);
 
-    // Update the button state based on simulator state
+    // Update the button state based on simulator state and current view
     return this._mainButton.updateFromSimulatorState(state);
   }
 
   public stepGameConsole(): void {
-    // Navigate to the debugger view
-    this.navigateToView(ViewType.DEBUGGER);
+    // Use platform-independent navigation logic
+    const targetView = mainStateController.getNavigationTarget("step");
+    if (targetView && targetView !== this.activeView) {
+      this.navigateToView(targetView);
+    }
 
-    // Enable stepper if not already enabled
-    if (!this._gameConsole.simulator.stepperEnabled) {
-      this._gameConsole.simulator.enableStepper();
+    // Enable stepper using debugger controller (this will sync UI properly)
+    if (!debuggerController.stepperEnabled) {
+      debuggerController.stepperEnabled = true;
     }
 
     // Execute a single step
@@ -760,7 +790,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private showUnsavedChangesDialog(action: "open" | "close"): void {
     this.pendingDialogAction = action;
-    this._unsavedChangesDialog.present();
+    this._unsavedChangesDialog.present(this);
   }
 
   private onUnsavedChangesResponse(
@@ -814,10 +844,25 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
 
     // Listen for code changed events
-    mainStateController.events.on("code-changed", (changed) => {
+    mainStateController.events.on("state-changed:code-changed", (changed) => {
       this.codeToAssembleChanged = changed;
       this.updateRunActions(this._gameConsole.simulator.state);
     });
+  }
+
+  /**
+   * Update the RunMenuButton with enabled states for menu items
+   * @param enabledState The action enablement state from button state service
+   */
+  private updateRunMenuButton(enabledState: MainButtonActionState): void {
+    // Update the menu model actions based on the enabled state
+    // The menu actions are already connected via Blueprint, so we just need to update the action enabled state
+    this.assembleAction.set_enabled(enabledState.assemble);
+    this.runSimulatorAction.set_enabled(enabledState.run);
+    this.resumeSimulatorAction.set_enabled(enabledState.resume);
+    this.pauseSimulatorAction.set_enabled(enabledState.pause);
+    this.stepSimulatorAction.set_enabled(enabledState.step);
+    this.resetSimulatorAction.set_enabled(enabledState.reset);
   }
 }
 

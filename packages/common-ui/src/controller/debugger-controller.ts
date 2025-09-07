@@ -8,7 +8,6 @@ import {
 
 import { DebuggerState } from "../data/index.ts";
 import type { DebuggerEventMap } from "../types/index.ts";
-import type { DebuggerView } from "../views/index.ts";
 import {
   type MessageConsoleWidget,
   type DebugInfoWidget,
@@ -17,14 +16,13 @@ import {
   type HexdumpWidget,
   DummyMessageConsole,
 } from "../widgets/index.ts";
+import { debuggerStateService } from "../services/index.ts";
 
 /**
  * Platform-independent debugger controller
+ * Acts as a coordinator between debugger state service and UI widgets
  */
-class DebuggerController implements DebuggerView {
-  // State
-  protected _state: DebuggerState = DebuggerState.INITIAL;
-
+class DebuggerController {
   // Reference to the last memory update for refreshing when monitor options change
   protected memory: Memory | null = null;
 
@@ -38,9 +36,6 @@ class DebuggerController implements DebuggerView {
   protected disassembled: DisassembledWidget | null = null;
   protected hexdump: HexdumpWidget | null = null;
 
-  // Persistent state for widgets
-  protected consoleMessages: string[] = [];
-
   // Core references (set once during init)
   protected assembler: Assembler | null = null;
   protected simulator: Simulator | null = null;
@@ -49,17 +44,58 @@ class DebuggerController implements DebuggerView {
    * Get the current state of the debugger
    */
   public get state(): DebuggerState {
-    return this._state;
+    return debuggerStateService.debuggerState;
   }
 
   /**
    * Set the current state of the debugger
    */
   public set state(value: DebuggerState) {
-    if (this._state !== value) {
-      this._state = value;
+    if (debuggerStateService.debuggerState !== value) {
+      debuggerStateService.debuggerState = value;
       this.events.dispatch("stateChanged", value);
     }
+  }
+
+  /**
+   * Get the stepper enabled state
+   */
+  public get stepperEnabled(): boolean {
+    return this.simulator ? this.simulator.stepperEnabled : false;
+  }
+
+  /**
+   * Set the stepper enabled state
+   */
+  public set stepperEnabled(value: boolean) {
+    if (!this.simulator) return;
+
+    // Only update if the state actually changed
+    if (this.simulator.stepperEnabled !== value) {
+      if (value) {
+        this.simulator.enableStepper();
+      } else {
+        this.simulator.stopStepper();
+      }
+      this.events.dispatch("stepperToggled", value);
+    }
+  }
+
+  /**
+   * Toggle the stepper state
+   * @returns The new stepper state
+   */
+  public toggleStepper(): boolean {
+    if (!this.simulator) return false;
+
+    const newState = !this.simulator.stepperEnabled;
+    if (newState) {
+      this.simulator.enableStepper();
+    } else {
+      this.simulator.stopStepper();
+    }
+    this.events.dispatch("stepperToggled", newState);
+    return newState;
   }
 
   /**
@@ -104,9 +140,10 @@ class DebuggerController implements DebuggerView {
    */
   protected restoreWidgetState(): void {
     // Restore console messages
-    if (this.console && this.consoleMessages.length > 0) {
+    const messages = debuggerStateService.getConsoleMessages();
+    if (this.console && messages.length > 0) {
       this.console.clear();
-      for (const message of this.consoleMessages) {
+      for (const message of messages) {
         this.console.log(message);
       }
     }
@@ -128,13 +165,25 @@ class DebuggerController implements DebuggerView {
     if (this.memory && this.hexMonitor) {
       this.hexMonitor.update(this.memory);
     }
+
+    // Dispatch initial stepper state
+    this.events.dispatch("stepperToggled", this.stepperEnabled);
+  }
+
+  /**
+   * Update debugger state from simulator state
+   * @param simulatorState Current simulator state
+   */
+  public updateFromSimulatorState(simulatorState: Simulator["state"]): void {
+    debuggerStateService.updateFromSimulatorState(simulatorState);
+    this.events.dispatch("stateChanged", debuggerStateService.debuggerState);
   }
 
   /**
    * Get the stored console messages
    */
   public getConsoleMessages(): string[] {
-    return [...this.consoleMessages];
+    return debuggerStateService.getConsoleMessages();
   }
 
   /**
@@ -243,7 +292,7 @@ class DebuggerController implements DebuggerView {
    * @param message Message to log
    */
   public log(message: string): void {
-    this.consoleMessages.push(message);
+    debuggerStateService.addConsoleMessage(message);
     this.console?.log(message);
   }
 
@@ -251,7 +300,7 @@ class DebuggerController implements DebuggerView {
    * Clear all stored console logs
    */
   public clearConsole(): void {
-    this.consoleMessages = [];
+    debuggerStateService.clearConsoleMessages();
     if (this.console) {
       this.console.clear();
     }
@@ -261,9 +310,9 @@ class DebuggerController implements DebuggerView {
    * Reset all debugger components
    */
   public reset(): void {
+    debuggerStateService.reset();
     this.clearConsole();
     this.memory = null;
-    this.state = DebuggerState.RESET;
     this.events.dispatch("reset", undefined);
   }
 

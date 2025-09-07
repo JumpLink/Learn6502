@@ -6,12 +6,10 @@ import GLib from "@girs/glib-2.0";
 import { TutorialView } from "../../mdx/tutorial-view.ts";
 
 import Template from "./learn.blp";
-import type { LearnView, LearnEventMap } from "@learn6502/common-ui";
+import type { LearnView } from "@learn6502/common-ui";
 import { learnController } from "@learn6502/common-ui/src/controller";
 
 export class Learn extends Adw.Bin implements LearnView {
-  readonly events = learnController.events;
-
   // Child widgets
   declare private _statusPage: Adw.StatusPage;
   declare private _tutorialView: TutorialView;
@@ -37,10 +35,7 @@ export class Learn extends Adw.Bin implements LearnView {
 
   private setupTutorialSignalListeners(): void {
     this._tutorialView.connect("copy", (tutorialView, code) => {
-      // Dispatch to both local events and controller
-      this.events.dispatch("copy", { code });
-
-      // Use controller to broadcast event
+      // Dispatch copy event through controller
       learnController.dispatch("copy", { code });
     });
   }

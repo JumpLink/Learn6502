@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-08-17 07:33+0200\n"
+"POT-Creation-Date: 2025-09-07 18:14+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,88 +143,93 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:180
+#: ../app-gnome/src/views/main.window.ts:183
 msgid "Code copied to editor"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:205
+#: ../app-gnome/src/views/main.window.ts:209
 msgid "Copied to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:210
+#: ../app-gnome/src/views/main.window.ts:214
 msgid "Failed to copy to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:273
-#: ../app-gnome/src/views/main.window.ts:308
+#: ../app-gnome/src/views/main.window.ts:282
+#: ../app-gnome/src/views/main.window.ts:320
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:460
+#: ../app-gnome/src/views/main.window.ts:476
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:472
+#: ../app-gnome/src/views/main.window.ts:488
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:481
+#: ../app-gnome/src/views/main.window.ts:497
 msgid "Hexdump:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:490
+#: ../app-gnome/src/views/main.window.ts:506
 msgid "Disassembly:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:573
+#: ../app-gnome/src/views/main.window.ts:589
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:592
+#: ../app-gnome/src/views/main.window.ts:608
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:635
+#: ../app-gnome/src/views/main.window.ts:662
 msgid "Gamepad key pressed:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:727
+#: ../app-gnome/src/views/main.window.ts:757
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:754
+#: ../app-gnome/src/views/main.window.ts:784
 #, javascript-format
 msgid "Saved as %s"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:60
-#: ../app-gnome/src/widgets/main-button.ts:65
+#: ../app-gnome/src/widgets/main-button.ts:64
+#: ../app-gnome/src/widgets/main-button.ts:69
 msgid "Assemble"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:70
+#: ../app-gnome/src/widgets/main-button.ts:74
 msgid "Run"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:75
+#: ../app-gnome/src/widgets/main-button.ts:79
 msgid "Pause"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:80
+#: ../app-gnome/src/widgets/main-button.ts:84
 msgid "Resume"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:85
+#: ../app-gnome/src/widgets/main-button.ts:89
 msgid "Reset"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:90
+#: ../app-gnome/src/widgets/main-button.ts:94
 msgid "Step"
 msgstr ""
 
+#. Fallback icon, won't be shown
+#: ../app-gnome/src/widgets/main-button.ts:99
+msgid "Hidden"
+msgstr ""
+
 #: ../app-gnome/src/views/help.window.blp:7
-#: ../app-gnome/src/views/main.window.blp:139
+#: ../app-gnome/src/views/main.window.blp:149
 #: ../app-gnome/src/views/main/editor.blp:8
 msgid "Help"
 msgstr ""
@@ -237,55 +242,55 @@ msgstr ""
 msgid "Menu"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:59
+#: ../app-gnome/src/views/main.window.blp:60
 #: ../app-gnome/src/views/main/learn.blp:8
 msgid "Learn"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:68
+#: ../app-gnome/src/views/main.window.blp:69
 msgid "Editor"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:77
+#: ../app-gnome/src/views/main.window.blp:78
 #: ../app-gnome/src/views/main/debugger.blp:15
 msgid "Debugger"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:86
+#: ../app-gnome/src/views/main.window.blp:87
 msgid "Game Console"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:108
+#: ../app-gnome/src/views/main.window.blp:118
 msgid "Open..."
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:113
-#: ../app-gnome/src/views/main.window.blp:164
+#: ../app-gnome/src/views/main.window.blp:123
+#: ../app-gnome/src/views/main.window.blp:174
 msgid "Save"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:118
+#: ../app-gnome/src/views/main.window.blp:128
 msgid "Save as..."
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:144
+#: ../app-gnome/src/views/main.window.blp:154
 msgid "About Learn 6502 Assembly"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:149
+#: ../app-gnome/src/views/main.window.blp:159
 msgid "Quit"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:157
+#: ../app-gnome/src/views/main.window.blp:167
 msgid "Save changes?"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:158
+#: ../app-gnome/src/views/main.window.blp:168
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.blp:163
+#: ../app-gnome/src/views/main.window.blp:173
 msgid "Discard"
 msgstr ""
 
@@ -305,7 +310,11 @@ msgstr ""
 msgid "There are currently no settings."
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.blp:25
+#: ../app-gnome/src/widgets/run-menu-button.blp:7
+msgid "Run menu"
+msgstr ""
+
+#: ../app-gnome/src/widgets/run-menu-button.blp:27
 msgid "Continue"
 msgstr ""
 
@@ -334,23 +343,35 @@ msgid ""
 "and registers. To get started, assemble and run your program."
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:37
+#: ../app-gnome/src/views/main/debugger.blp:36
+msgid "Settings"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:40
+msgid "Enable Stepper Mode"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:41
+msgid "Execute instructions one by one instead of continuously"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:47
 msgid "Information"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:52
+#: ../app-gnome/src/views/main/debugger.blp:61
 msgid "Messages"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:67
+#: ../app-gnome/src/views/main/debugger.blp:75
 msgid "Hex Monitor"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:82
+#: ../app-gnome/src/views/main/debugger.blp:90
 msgid "Hexdump"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:97
+#: ../app-gnome/src/views/main/debugger.blp:105
 msgid "Disassembled"
 msgstr ""
 

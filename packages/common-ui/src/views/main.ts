@@ -8,6 +8,8 @@ export enum ViewType {
   EDITOR = "editor",
   DEBUGGER = "debugger",
   GAME_CONSOLE = "gameConsole",
+  /** Only for development purposes */
+  STORYBOOK = "storybook",
 }
 
 /**
@@ -40,7 +42,9 @@ export interface MainView {
 
   /**
    * Runs the assembled code
-   * Will navigate to the game console view
+   * Navigation behavior depends on current view:
+   * - From Debugger: navigates to Game Console view
+   * - From Game Console: stays in Game Console view
    */
   runGameConsole(): void;
 
@@ -56,7 +60,9 @@ export interface MainView {
 
   /**
    * Executes a single step of the program
-   * Will navigate to the debugger view
+   * Navigation behavior depends on current view (stepper mode):
+   * - From Debugger: stays in Debugger view
+   * - From Game Console: stays in Game Console view
    */
   stepGameConsole(): void;
 

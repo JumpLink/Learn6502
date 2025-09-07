@@ -32,12 +32,21 @@ template $Debugger: Adw.Bin {
           child: Box {
             orientation: vertical;
 
+            Adw.PreferencesGroup {
+              title: _("Settings");
+              margin-bottom: 12;
+
+              Adw.SwitchRow stepperSwitch {
+                title: _("Enable Stepper Mode");
+                subtitle: _("Execute instructions one by one instead of continuously");
+              }
+            }
+
             // Information
             Label {
               label: _("Information");
               halign: start;
               margin-bottom: 12;
-              margin-top: 12;
               styles [
                 "heading"
               ]
@@ -52,7 +61,6 @@ template $Debugger: Adw.Bin {
               label: _("Messages");
               halign: start;
               margin-bottom: 12;
-              margin-top: 12;
               styles [
                 "heading"
               ]

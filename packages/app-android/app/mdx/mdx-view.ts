@@ -99,7 +99,9 @@ export abstract class MdxView extends ContentView {
       }
 
       if (originalHtml === html) {
-        console.log(`HTML string "${originalHtml}" is not localized`);
+        console.log(
+          `HTML string "${originalHtml.slice(0, 100)}..." is not localized`
+        );
       }
     });
   }
