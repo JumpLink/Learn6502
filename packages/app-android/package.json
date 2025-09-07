@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "clear": "ns clean",
-    "start": "yarn:start:emulated'",
+    "start": "yarn start:emulated",
     "start:emulated": "ns run android --emulator",
     "start:device": "ns run android",
     "start:clean": "ns run android --clean --emulator",
