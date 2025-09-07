@@ -5,23 +5,22 @@ import type {
 } from "../types";
 import { MainButtonState } from "../data/index";
 import { EventDispatcher, SimulatorState } from "@learn6502/6502";
-import type { MainButtonWidget } from "../widgets";
+import { buttonStateService } from "../services";
 import { ViewType } from "../views/main";
 
 /**
- * Controller class for main state implementations across platforms
- * Contains shared logic that can be reused
+ * Controller class for coordinating main UI state across platforms
+ * Acts as a coordinator between the business logic service and UI components
+ * Does not implement UI interfaces, only manages state and events
  */
-class MainUiStateController implements MainButtonWidget {
-  // State tracking
-  protected _codeChanged: boolean = false;
-  protected _viewType: ViewType = ViewType.LEARN;
-  protected _simulatorState: SimulatorState = SimulatorState.INITIALIZED;
-
+class MainUiStateController {
   readonly events = new EventDispatcher<MainUiStateEventMap>();
 
-  // Current state property
+  // Current state properties for internal coordination
   private _mainButtonState: MainButtonState = MainButtonState.INITIAL;
+  private _simulatorState: SimulatorState = SimulatorState.INITIALIZED;
+  private _codeChanged: boolean = false;
+  private _viewType: ViewType = ViewType.LEARN;
 
   /**
    * Private method to handle all state changes and dispatch appropriate events
@@ -62,6 +61,14 @@ class MainUiStateController implements MainButtonWidget {
     }
   }
 
+  public init(): void {
+    // Initialize service and internal state with default values
+    buttonStateService.setViewType(this._viewType);
+    buttonStateService.setCodeChanged(this._codeChanged);
+    // Initialize with default state
+    this.updateFromSimulatorState(SimulatorState.INITIALIZED);
+  }
+
   public setState(state: MainButtonState): void {
     if (this._mainButtonState == state) {
       return;
@@ -72,11 +79,6 @@ class MainUiStateController implements MainButtonWidget {
 
   public getState(): MainButtonState {
     return this._mainButtonState;
-  }
-
-  public init(): void {
-    // Initialize with default state based on current view type
-    this.updateFromSimulatorState(this._simulatorState);
   }
 
   /**
@@ -94,14 +96,8 @@ class MainUiStateController implements MainButtonWidget {
       this.dispatchStateChange("simulatorState");
     }
 
-    // If code has changed, always show ASSEMBLE
-    if (this._codeChanged) {
-      const buttonState = MainButtonState.ASSEMBLE;
-      this.setState(buttonState);
-      return buttonState;
-    }
-
-    const buttonState = this.getButtonState(state);
+    // Use service to calculate button state
+    const buttonState = buttonStateService.calculateButtonState(state);
     this.setState(buttonState);
     return buttonState;
   }
@@ -111,6 +107,8 @@ class MainUiStateController implements MainButtonWidget {
    * @param changed Whether code has changed
    */
   public setCodeChanged(changed: boolean): void {
+    // Update both service and internal state
+    buttonStateService.setCodeChanged(changed);
     this._codeChanged = changed;
 
     // If code has changed, automatically set to ASSEMBLE mode
@@ -123,7 +121,7 @@ class MainUiStateController implements MainButtonWidget {
   }
 
   public getCodeChanged(): boolean {
-    return this._codeChanged;
+    return buttonStateService.getCodeChanged();
   }
 
   /**
@@ -131,8 +129,10 @@ class MainUiStateController implements MainButtonWidget {
    * @param viewType The new view type
    */
   public setViewType(viewType: ViewType): void {
-    if (this._viewType !== viewType) {
-      const oldViewType = this._viewType;
+    const oldViewType = buttonStateService.getViewType();
+    if (oldViewType !== viewType) {
+      // Update both service and internal state
+      buttonStateService.setViewType(viewType);
       this._viewType = viewType;
 
       // Automatically update button state when view type changes
@@ -153,6 +153,7 @@ class MainUiStateController implements MainButtonWidget {
 
   /**
    * Determine which actions should be enabled based on current state
+   * Delegates to the service for platform-independent logic
    *
    * @param state Current simulator state
    * @param hasCode Whether there is code in the editor
@@ -164,114 +165,20 @@ class MainUiStateController implements MainButtonWidget {
     hasCode: boolean,
     codeChanged: boolean
   ): MainButtonActionState {
-    // Default: disable all actions
-    const enabledState: MainButtonActionState = {
-      assemble: false,
-      run: false,
-      resume: false,
-      pause: false,
-      reset: false,
-      step: false,
-    };
-
-    // Always enable assemble if there's code
-    enabledState.assemble = hasCode;
-
-    if (codeChanged) {
-      return enabledState;
-    }
-
-    switch (state) {
-      case SimulatorState.RUNNING:
-        enabledState.pause = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.DEBUGGING:
-        enabledState.step = true;
-        enabledState.pause = true;
-        enabledState.reset = true;
-        enabledState.run = true;
-        break;
-
-      case SimulatorState.COMPLETED:
-        enabledState.run = true;
-        enabledState.step = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.PAUSED:
-        enabledState.resume = true;
-        enabledState.run = true;
-        enabledState.reset = true;
-        enabledState.step = true;
-        break;
-
-      case SimulatorState.DEBUGGING_PAUSED:
-        enabledState.step = true;
-        enabledState.resume = true;
-        enabledState.run = true;
-        enabledState.reset = true;
-        break;
-
-      case SimulatorState.READY:
-        enabledState.run = true;
-        enabledState.step = true;
-        enabledState.reset = true;
-        break;
-    }
-
-    return enabledState;
+    return buttonStateService.getActionEnabledState(
+      state,
+      hasCode,
+      codeChanged
+    );
   }
 
   /**
-   * Determine the appropriate button state based on simulator state and current view
-   *
+   * Get the current button state from the service
    * @param state Current simulator state
    * @returns The button state to display
    */
   public getButtonState(state: SimulatorState): MainButtonState {
-    let buttonState: MainButtonState;
-
-    // Check if button should be hidden based on current view
-    if (this._viewType === ViewType.LEARN) {
-      return MainButtonState.HIDDEN;
-    }
-
-    switch (state) {
-      case SimulatorState.INITIALIZED:
-        buttonState = MainButtonState.ASSEMBLE;
-        break;
-
-      case SimulatorState.RUNNING:
-        buttonState = MainButtonState.PAUSE;
-        break;
-
-      case SimulatorState.DEBUGGING:
-        buttonState = MainButtonState.STEP;
-        break;
-
-      case SimulatorState.COMPLETED:
-        buttonState = MainButtonState.RESET;
-        break;
-
-      case SimulatorState.PAUSED:
-        buttonState = MainButtonState.RESUME;
-        break;
-
-      case SimulatorState.DEBUGGING_PAUSED:
-        buttonState = MainButtonState.STEP;
-        break;
-
-      case SimulatorState.READY:
-        buttonState = MainButtonState.RUN;
-        break;
-
-      default:
-        throw new Error(`Unknown simulator state: ${state}`);
-    }
-
-    return buttonState;
+    return buttonStateService.getButtonState(state);
   }
 
   /**

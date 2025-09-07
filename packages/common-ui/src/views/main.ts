@@ -8,6 +8,8 @@ export enum ViewType {
   EDITOR = "editor",
   DEBUGGER = "debugger",
   GAME_CONSOLE = "gameConsole",
+  /** Only for development purposes */
+  STORYBOOK = "storybook",
 }
 
 /**
