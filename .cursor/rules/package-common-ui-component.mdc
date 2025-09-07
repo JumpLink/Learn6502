@@ -1,23 +1,109 @@
 ---
-description: 
+description:
 globs: packages/common-ui/src/*/**
 alwaysApply: false
 ---
-## Component Architecture Pattern
 
-When implementing views or widgets in the common-ui package:
+## 🎯 **Four-Layer Component Architecture**
 
-1. Each component follows a three-part architecture:
-   - **Interface file** (`component-name.ts`) - Defines the component API
-   - **Controller** (`component-name-controller.ts`) - Implements shared logic
-   - **Event map** (`component-name-event-map.ts`) - Defines event types (if needed)
+### **Layer Structure**
 
-2. Controllers should:
-   - Implement their corresponding interface
-   - Use EventDispatcher for event handling
-   - Export a singleton instance
-   - Remain platform/framework-agnostic
+1. **Service** (`component-name-service.ts`) - Business logic, state calculations
+2. **Controller** (`component-name-controller.ts`) - Coordination, event handling
+3. **Interface** (`component-name.ts`) - UI contracts for platform implementations
+4. **Event Map** (`component-name-event-map.ts`) - Event type definitions
 
-3. Follow existing patterns:
-   - See `debugger.ts`/`debugger-controller.ts`/`debugger-event-map.ts` 
-   - See `main-button.ts`/`main-ui-state-controller.ts`/`main-ui-state-event-map.ts`
+### **📋 Layer Responsibilities**
+
+| Layer          | Purpose                                 | Key Rules                                                      |
+| -------------- | --------------------------------------- | -------------------------------------------------------------- |
+| **Service**    | Platform-independent business logic     | ✅ Singleton exports, no UI dependencies, pure functions       |
+| **Controller** | Pure coordination between services & UI | ✅ **NEVER implements View interfaces**, delegates to services |
+| **Interface**  | Abstract UI APIs                        | ✅ Only UI-specific methods, no implementation                 |
+| **Widget**     | Platform-specific UI                    | ✅ Implements interfaces, uses controllers/services            |
+
+### **🚀 Implementation Pattern**
+
+```typescript
+// Service: Business Logic
+export class ComponentStateService {
+  calculateState(data: Input): Output {
+    /* Pure logic */
+  }
+}
+export const componentStateService = new ComponentStateService();
+
+// Controller: Coordination Only
+export class ComponentController {
+  readonly events = new EventDispatcher<ComponentEventMap>();
+
+  update(data: Input) {
+    const result = componentStateService.calculateState(data);
+    this.events.dispatch("updated", result);
+  }
+}
+export const componentController = new ComponentController();
+
+// Interface: UI Contract
+export interface ComponentView {
+  update(data: Output): void;
+}
+```
+
+### **📋 Component Structure Pattern**
+
+| Component       | Service                                                             | Controller                    | Interface         |
+| --------------- | ------------------------------------------------------------------- | ----------------------------- | ----------------- |
+| **Debugger**    | `debugger-state-service.ts`                                         | `debugger-controller.ts`      | `debugger.ts`     |
+| **GameConsole** | `game-console-state-service.ts`<br/>`game-console-input-service.ts` | `game-console-controller.ts`  | `game-console.ts` |
+| **Learn**       | `learn-state-service.ts`                                            | `learn-controller.ts`         | `learn.ts`        |
+| **Editor**      | -                                                                   | `editor-controller.ts`        | `editor.ts`       |
+| **MainButton**  | `main-button-state-service.ts`                                      | `main-ui-state-controller.ts` | -                 |
+
+### **🎖️ Best Practices**
+
+#### **Service Rules**
+
+- Export singleton instance: `export const service = new Service()`
+- Stateless where possible, pure functions preferred
+- Handle all business logic, calculations, transformations
+- No UI framework dependencies
+- Comprehensive error handling
+
+#### **Controller Rules**
+
+- **CRITICAL**: Never implement View interfaces
+- Only coordinate between services and UI
+- Delegate ALL business logic to services
+- Handle event dispatching and routing
+- Use EventDispatcher for communication
+
+#### **Interface Rules**
+
+- Define only UI-specific method signatures
+- Used by platform widgets for implementation
+- No business logic or default implementations
+- Clear, minimal contracts
+
+### **🚫 Critical Anti-Patterns**
+
+- ❌ `class Controller implements ViewInterface` - **Never!**
+- ❌ Business logic in controllers
+- ❌ UI dependencies in services
+- ❌ Controllers handling complex calculations
+- ❌ Mixed responsibilities in any layer
+
+### **🔄 Quick Migration Guide**
+
+1. **Extract** business logic → new service class
+2. **Remove** `implements ViewInterface` from controller
+3. **Delegate** logic calls to service methods
+4. **Update** interfaces to contain only UI methods
+5. **Verify** all platforms still work
+
+### **📖 Reference Examples**
+
+- **Complete**: `debugger-state-service.ts` + `debugger-controller.ts` + `debugger.ts`
+- **Multi-service**: `game-console-state-service.ts` + `game-console-input-service.ts`
+- **Simple**: `learn-state-service.ts` + `learn-controller.ts`
+- **Original**: `main-button-state-service.ts` + `main-ui-state-controller.ts`
