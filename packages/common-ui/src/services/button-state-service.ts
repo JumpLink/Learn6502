@@ -184,6 +184,33 @@ export class ButtonStateService {
     // Use the main button state calculation logic
     return this.getButtonState(state);
   }
+
+  /**
+   * Determines the target view for navigation based on current view and action
+   * This implements the stepper mode navigation logic:
+   * - When stepping: stay in current view (Debugger stays in Debugger, Game Console stays in Game Console)
+   * - When running: from Debugger navigate to Game Console, from Game Console stay in Game Console
+   *
+   * @param action The action being performed ('step' | 'run')
+   * @returns The target view type, or null if no navigation is needed
+   */
+  public getNavigationTarget(action: "step" | "run"): ViewType | null {
+    switch (action) {
+      case "step":
+        // For stepping: always stay in current view
+        return this._viewType;
+
+      case "run":
+        // For running: if in Debugger, navigate to Game Console; otherwise stay
+        if (this._viewType === ViewType.DEBUGGER) {
+          return ViewType.GAME_CONSOLE;
+        }
+        return this._viewType;
+
+      default:
+        return null;
+    }
+  }
 }
 
 // Export singleton instance

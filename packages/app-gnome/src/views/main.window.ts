@@ -405,7 +405,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   public runGameConsole(): void {
-    this.navigateToView(ViewType.GAME_CONSOLE);
+    // Use platform-independent navigation logic
+    const targetView = mainStateController.getNavigationTarget("run");
+    if (targetView && targetView !== this.activeView) {
+      this.navigateToView(targetView);
+    }
     this._gameConsole.run();
   }
 
@@ -717,8 +721,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   public stepGameConsole(): void {
-    // Navigate to the debugger view
-    this.navigateToView(ViewType.DEBUGGER);
+    // Use platform-independent navigation logic
+    const targetView = mainStateController.getNavigationTarget("step");
+    if (targetView && targetView !== this.activeView) {
+      this.navigateToView(targetView);
+    }
 
     // Enable stepper using debugger controller (this will sync UI properly)
     if (!debuggerController.stepperEnabled) {

@@ -229,6 +229,17 @@ class MainUiStateController {
   public emitNavigateToView(viewType: string): void {
     this.events.dispatch("navigate-to-view", { viewType });
   }
+
+  /**
+   * Get the navigation target for a specific action based on current view
+   * This implements the stepper mode navigation logic
+   *
+   * @param action The action being performed ('step' | 'run')
+   * @returns The target view type, or null if no navigation is needed
+   */
+  public getNavigationTarget(action: "step" | "run"): ViewType | null {
+    return buttonStateService.getNavigationTarget(action);
+  }
 }
 
 export const mainStateController = new MainUiStateController();
