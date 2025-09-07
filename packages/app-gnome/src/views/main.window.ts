@@ -15,6 +15,7 @@ import { themeService, notificationService, fileService } from "../services";
 import Template from "./main.window.blp";
 import {
   type MainButtonState,
+  type MainButtonActionState,
   type MainView,
   ViewType,
   debuggerController,
@@ -696,6 +697,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     // Update the button state based on simulator state and current view
     return this._mainButton.updateFromSimulatorState(state);
+
+    // Update RunMenuButton with enabled states
+    this.updateRunMenuButton(enabledState);
   }
 
   public stepGameConsole(): void {
@@ -822,6 +826,21 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.codeToAssembleChanged = changed;
       this.updateRunActions(this._gameConsole.simulator.state);
     });
+  }
+
+  /**
+   * Update the RunMenuButton with enabled states for menu items
+   * @param enabledState The action enablement state from button state service
+   */
+  private updateRunMenuButton(enabledState: MainButtonActionState): void {
+    // Update the menu model actions based on the enabled state
+    // The menu actions are already connected via Blueprint, so we just need to update the action enabled state
+    this.assembleAction.set_enabled(enabledState.assemble);
+    this.runSimulatorAction.set_enabled(enabledState.run);
+    this.resumeSimulatorAction.set_enabled(enabledState.resume);
+    this.pauseSimulatorAction.set_enabled(enabledState.pause);
+    this.stepSimulatorAction.set_enabled(enabledState.step);
+    this.resetSimulatorAction.set_enabled(enabledState.reset);
   }
 }
 

@@ -1,118 +1,163 @@
-# Learn6502 Common UI
-
-This package contains shared interfaces, components and utilities for the Learn6502 application across different platforms (GNOME, Web, and Android).
+# Common UI - Four-Layer Architecture
 
 ## Overview
 
-The purpose of this package is to provide a consistent API and reusable code across different platform implementations, making it easier to maintain and extend the application.
+The `common-ui` package implements a **four-layer architecture** for maximum code reuse and maintainability. This architecture strictly separates business logic, coordination, UI contracts, and platform-specific implementations.
 
-## Components
+## Architecture Layers
 
-### Views
+### 1. Service Layer (`*-service.ts`)
 
-- **MainView**: Common interface for the main application window/view
-- **EditorView**: Interface for code editor component
-- **GameConsoleView**: Interface for the 6502 game console/emulator view
+**Purpose:** Platform-independent business logic and state management
 
-### Widgets
+- ✅ Pure functions, no UI dependencies
+- ✅ Singleton export: `export const service = new Service()`
+- ✅ All calculations, transformations, and validations
+- ✅ Comprehensive error handling
 
-- **MainButton**: Interface and utilities for the main floating action button
-- **DisplayWidget**: Interface for the display canvas/component
-- **MessageConsole**: Interface for the console output
-- **SourceView**: Interface for displaying source code
-- **DebuggerWidget**: Interface for the debugger component
-
-### Utilities
-
-- **UIController**: Base class for managing UI state across platforms
-- **GamepadController**: Controller for handling gamepad/keyboard input
-- **FileManager**: Interface for file operations (open, save, etc.)
-- **MainButtonHelper**: Utility for managing main button states
-
-## Usage
-
-Import the needed components from the package:
+**Example:**
 
 ```typescript
-import { MainView, EditorView, UIController } from "@learn6502/common-ui";
+export class ButtonStateService {
+  calculateButtonState(state: SimulatorState): MainButtonState {
+    // Pure business logic
+  }
+}
+export const buttonStateService = new ButtonStateService();
 ```
 
-Implement the interfaces in your platform-specific code:
+### 2. Controller Layer (`*-controller.ts`)
+
+**Purpose:** Coordination between services and UI widgets
+
+- ✅ **NEVER implements View interfaces** (critical anti-pattern!)
+- ✅ Delegates all business logic to services
+- ✅ Event dispatching and routing
+- ✅ Singleton export: `export const controller = new Controller()`
+
+**Example:**
 
 ```typescript
-export class MyPlatformMainView implements MainView {
-  // Implement the interface methods
-  assembleGameConsole(): void {
-    // Platform-specific implementation
+export class DebuggerController {
+  update(memory: Memory, simulator: Simulator) {
+    // Delegate to service
+    debuggerStateService.updateFromSimulatorState(simulator.state);
+    // Update UI
+    this.events.dispatch("stateChanged", newState);
   }
-
-  // ...other methods
 }
 ```
 
-## Data Flow
+### 3. Interface Layer (`*.ts`)
 
-The common communication pattern between components is:
+**Purpose:** Abstract UI contracts for platform-specific implementations
 
-1. User interacts with UI (clicks button, types code)
-2. Platform-specific component handles the raw event
-3. Common interface methods are called (e.g., `assembleGameConsole()`)
-4. Platform-specific implementation processes the action
-5. Common events/signals are emitted for other components to react
+- ✅ Only UI-specific method signatures
+- ✅ No implementations or business logic
+- ✅ Clear, minimal contracts
 
-## Development
-
-When adding features to the Easy6502 application, consider whether the functionality should be:
-
-1. In the platform-specific implementation
-2. In this common-ui package
-3. In the core 6502 emulator package
-
-Generally, UI-related logic that can be shared across platforms should go in this package.
-
-## Component Architecture Pattern
-
-Each view or widget in the common-ui package follows a consistent pattern:
-
-1. **Interface file** - Defines the component API (e.g., `debugger.ts`, `main-button.ts`)
-2. **Controller implementation** - Contains the shared logic (e.g., `debugger-controller.ts`, `main-ui-state-controller.ts`)
-3. **Event map file** - Declares event types if the component uses events (e.g., `debugger-event-map.ts`, `main-ui-state-event-map.ts`)
-
-This separation allows platform-specific implementations to consistently implement the interfaces while reusing the controller logic.
-
-### Widget Creation Example
+**Example:**
 
 ```typescript
-// my-widget.ts (Interface)
-export interface MyWidget {
-  update(data: SomeData): void;
-  getState(): WidgetState;
+export interface DebuggerView {
+  update(memory: Memory): void;
+  log(message: string): void;
 }
-
-// my-widget-event-map.ts (Event map)
-export interface MyWidgetEventMap {
-  "state-changed": WidgetState;
-  "data-updated": SomeData;
-}
-
-// my-widget-controller.ts (Controller)
-import { EventDispatcher } from "@learn6502/6502";
-import type { MyWidgetEventMap } from "../types/index.ts";
-import type { MyWidget } from "../widgets/index.ts";
-
-class MyWidgetController implements MyWidget {
-  protected events = new EventDispatcher<MyWidgetEventMap>();
-  private state: WidgetState = WidgetState.INITIAL;
-
-  public update(data: SomeData): void {
-    // Implementation
-    this.events.dispatch("data-updated", data);
-  }
-
-  public getState(): WidgetState {
-    return this.state;
-  }
-}
-
-export const myWidgetController = new MyWidgetController();
 ```
+
+### 4. Widget Layer (Platform-specific)
+
+**Purpose:** Concrete UI implementations
+
+- ✅ Implements interface contracts
+- ✅ Uses controllers for state management
+- ✅ Platform-specific UI frameworks (GTK, React, etc.)
+
+## Service Overview
+
+| Service                      | Purpose                      | Platform          |
+| ---------------------------- | ---------------------------- | ----------------- |
+| `button-state-service`       | Button state calculations    | shared            |
+| `debugger-state-service`     | Debugger state management    | shared            |
+| `game-console-state-service` | Game console rendering       | shared            |
+| `game-console-input-service` | Gamepad/keyboard handling    | shared            |
+| `learn-state-service`        | Learning progress management | shared            |
+| `file-service`               | File operations              | platform-specific |
+| `theme-service`              | Theme management             | platform-specific |
+| `notification-service`       | Notifications                | platform-specific |
+
+## Best Practices
+
+### ✅ Services
+
+- Always export singleton instances
+- Keep state minimal and focused
+- Use pure functions where possible
+- Document all public methods
+
+### ✅ Controllers
+
+- **NEVER** implement View interfaces (anti-pattern!)
+- Delegate all business logic to services
+- Use EventDispatcher for loose coupling
+- Keep methods small and focused
+
+### ✅ Interfaces
+
+- Define only UI-specific operations
+- Keep contracts minimal but complete
+- Use clear, descriptive names
+
+### 🚫 Critical Anti-Patterns
+
+- ❌ `class Controller implements ViewInterface`
+- ❌ Business logic in controllers
+- ❌ UI dependencies in services
+- ❌ Mixed responsibilities
+
+## Migration Guide
+
+### Migrating from old architecture:
+
+1. **Extract business logic** → create new service
+2. **Clean up controller** → remove `implements ViewInterface`
+3. **Implement delegation** → controller calls service methods
+4. **Update interfaces** → keep only UI methods
+5. **Test platforms** → ensure all implementations still work
+
+### Migration Example:
+
+```typescript
+// ❌ OLD (Anti-Pattern)
+class OldController implements ViewInterface {
+  update(data: Input) {
+    // Business logic mixed with UI
+    const result = this.calculateState(data);
+    this.updateUI(result);
+  }
+}
+
+// ✅ NEW (Four-Layer Architecture)
+class StateService {
+  calculateState(data: Input): Output {
+    // Pure business logic
+  }
+}
+
+class NewController {
+  update(data: Input) {
+    // Delegate to service
+    const result = stateService.calculateState(data);
+    // Dispatch to UI
+    this.events.dispatch("updated", result);
+  }
+}
+```
+
+## Benefits of this Architecture
+
+- **🔄 Maximum Reuse** - Services run on all platforms
+- **🧪 Easy to Test** - Pure services without UI dependencies
+- **🛠️ Maintainable** - Clear separation of responsibilities
+- **📱 Platform Independent** - Services are framework-agnostic
+- **🎯 Focused** - Each layer has a single responsibility

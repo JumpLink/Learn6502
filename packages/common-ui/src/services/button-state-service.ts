@@ -179,6 +179,7 @@ export class ButtonStateService {
    * @returns The updated button state
    */
   public calculateButtonState(state: SimulatorState): MainButtonState {
+    // Use the main button state calculation logic
     return this.getButtonState(state);
   }
 }
