@@ -10,6 +10,7 @@ import {
   mainStateController,
   ViewType,
   type MainUiState,
+  buttonStateService,
 } from "@learn6502/common-ui";
 
 import Template from "./main-button.blp";
