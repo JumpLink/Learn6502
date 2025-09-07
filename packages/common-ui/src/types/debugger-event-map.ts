@@ -9,4 +9,5 @@ export interface DebuggerEventMap {
   copyToEditor: string;
   stateChanged: DebuggerState;
   reset: void;
+  stepperToggled: boolean;
 }

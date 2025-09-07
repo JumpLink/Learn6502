@@ -365,7 +365,14 @@ class GameConsoleController {
    */
   public run(): void {
     if (this._simulator) {
+      const wasStepperEnabled = this._simulator.stepperEnabled;
       this._simulator.stopStepper();
+
+      // Dispatch stepper state change if it actually changed
+      if (wasStepperEnabled) {
+        this.events.dispatch("stepper-changed", { enabled: false });
+      }
+
       this._simulator.runBinary();
     }
   }

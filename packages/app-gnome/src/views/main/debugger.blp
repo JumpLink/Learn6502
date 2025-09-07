@@ -32,6 +32,15 @@ template $Debugger: Adw.Bin {
           child: Box {
             orientation: vertical;
 
+            Adw.PreferencesGroup {
+              title: _("Debug Settings");
+
+              Adw.SwitchRow stepperSwitch {
+                title: _("Enable Stepper Mode");
+                subtitle: _("Execute instructions one by one instead of continuously");
+              }
+            }
+
             // Information
             Label {
               label: _("Information");

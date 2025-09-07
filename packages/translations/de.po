@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-09-07 09:53+0200\n"
+"POT-Creation-Date: 2025-09-07 17:00+0200\n"
 "PO-Revision-Date: 2024-03-19 12:00+0100\n"
 "Last-Translator: Pascal Garber <pascal@mailfreun.de>\n"
 "Language-Team: German <de@li.org>\n"
@@ -149,57 +149,57 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:181
+#: ../app-gnome/src/views/main.window.ts:182
 msgid "Code copied to editor"
 msgstr "Code in Editor kopiert"
 
-#: ../app-gnome/src/views/main.window.ts:206
+#: ../app-gnome/src/views/main.window.ts:208
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
-#: ../app-gnome/src/views/main.window.ts:211
+#: ../app-gnome/src/views/main.window.ts:213
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
-#: ../app-gnome/src/views/main.window.ts:274
-#: ../app-gnome/src/views/main.window.ts:312
+#: ../app-gnome/src/views/main.window.ts:281
+#: ../app-gnome/src/views/main.window.ts:319
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
-#: ../app-gnome/src/views/main.window.ts:464
+#: ../app-gnome/src/views/main.window.ts:471
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
-#: ../app-gnome/src/views/main.window.ts:476
+#: ../app-gnome/src/views/main.window.ts:483
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
-#: ../app-gnome/src/views/main.window.ts:485
+#: ../app-gnome/src/views/main.window.ts:492
 msgid "Hexdump:"
 msgstr "Hexdump:"
 
-#: ../app-gnome/src/views/main.window.ts:494
+#: ../app-gnome/src/views/main.window.ts:501
 msgid "Disassembly:"
 msgstr "Disassemblierung:"
 
-#: ../app-gnome/src/views/main.window.ts:577
+#: ../app-gnome/src/views/main.window.ts:584
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
-#: ../app-gnome/src/views/main.window.ts:596
+#: ../app-gnome/src/views/main.window.ts:603
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
-#: ../app-gnome/src/views/main.window.ts:639
+#: ../app-gnome/src/views/main.window.ts:657
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
-#: ../app-gnome/src/views/main.window.ts:731
+#: ../app-gnome/src/views/main.window.ts:749
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:758
+#: ../app-gnome/src/views/main.window.ts:776
 #, javascript-format
 msgid "Saved as %s"
 msgstr "Gespeichert unter %s"
@@ -354,23 +354,36 @@ msgstr ""
 "betrachte Speicher und Register. Kompiliere und starte dein Programm, um zu "
 "beginnen."
 
-#: ../app-gnome/src/views/main/debugger.blp:37
+#: ../app-gnome/src/views/main/debugger.blp:36
+#, fuzzy
+msgid "Debug Settings"
+msgstr "Haupteinstellungen"
+
+#: ../app-gnome/src/views/main/debugger.blp:39
+msgid "Enable Stepper Mode"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:40
+msgid "Execute instructions one by one instead of continuously"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:46
 msgid "Information"
 msgstr "Information"
 
-#: ../app-gnome/src/views/main/debugger.blp:52
+#: ../app-gnome/src/views/main/debugger.blp:61
 msgid "Messages"
 msgstr "Meldungen"
 
-#: ../app-gnome/src/views/main/debugger.blp:67
+#: ../app-gnome/src/views/main/debugger.blp:76
 msgid "Hex Monitor"
 msgstr "Hex-Monitor"
 
-#: ../app-gnome/src/views/main/debugger.blp:82
+#: ../app-gnome/src/views/main/debugger.blp:91
 msgid "Hexdump"
 msgstr "Hexdump"
 
-#: ../app-gnome/src/views/main/debugger.blp:97
+#: ../app-gnome/src/views/main/debugger.blp:106
 msgid "Disassembled"
 msgstr "Disassemblierter Code"
 

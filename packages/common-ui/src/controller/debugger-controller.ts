@@ -58,6 +58,47 @@ class DebuggerController {
   }
 
   /**
+   * Get the stepper enabled state
+   */
+  public get stepperEnabled(): boolean {
+    return this.simulator ? this.simulator.stepperEnabled : false;
+  }
+
+  /**
+   * Set the stepper enabled state
+   */
+  public set stepperEnabled(value: boolean) {
+    if (!this.simulator) return;
+
+    // Only update if the state actually changed
+    if (this.simulator.stepperEnabled !== value) {
+      if (value) {
+        this.simulator.enableStepper();
+      } else {
+        this.simulator.stopStepper();
+      }
+      this.events.dispatch("stepperToggled", value);
+    }
+  }
+
+  /**
+   * Toggle the stepper state
+   * @returns The new stepper state
+   */
+  public toggleStepper(): boolean {
+    if (!this.simulator) return false;
+
+    const newState = !this.simulator.stepperEnabled;
+    if (newState) {
+      this.simulator.enableStepper();
+    } else {
+      this.simulator.stopStepper();
+    }
+    this.events.dispatch("stepperToggled", newState);
+    return newState;
+  }
+
+  /**
    * Initialize the debugger controller with widgets and core references
    * @param console Message console widget for logging output
    * @param debugInfo Debug info widget for displaying CPU state
@@ -124,6 +165,9 @@ class DebuggerController {
     if (this.memory && this.hexMonitor) {
       this.hexMonitor.update(this.memory);
     }
+
+    // Dispatch initial stepper state
+    this.events.dispatch("stepperToggled", this.stepperEnabled);
   }
 
   /**

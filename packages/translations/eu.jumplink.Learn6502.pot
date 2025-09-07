@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-09-07 13:04+0200\n"
+"POT-Creation-Date: 2025-09-07 17:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -143,57 +143,57 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:181
+#: ../app-gnome/src/views/main.window.ts:182
 msgid "Code copied to editor"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:206
+#: ../app-gnome/src/views/main.window.ts:208
 msgid "Copied to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:211
+#: ../app-gnome/src/views/main.window.ts:213
 msgid "Failed to copy to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:274
-#: ../app-gnome/src/views/main.window.ts:312
+#: ../app-gnome/src/views/main.window.ts:281
+#: ../app-gnome/src/views/main.window.ts:319
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:464
+#: ../app-gnome/src/views/main.window.ts:471
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:476
+#: ../app-gnome/src/views/main.window.ts:483
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:485
+#: ../app-gnome/src/views/main.window.ts:492
 msgid "Hexdump:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:494
+#: ../app-gnome/src/views/main.window.ts:501
 msgid "Disassembly:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:577
+#: ../app-gnome/src/views/main.window.ts:584
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:596
+#: ../app-gnome/src/views/main.window.ts:603
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:639
+#: ../app-gnome/src/views/main.window.ts:657
 msgid "Gamepad key pressed:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:731
+#: ../app-gnome/src/views/main.window.ts:749
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:758
+#: ../app-gnome/src/views/main.window.ts:776
 #, javascript-format
 msgid "Saved as %s"
 msgstr ""
@@ -343,23 +343,35 @@ msgid ""
 "and registers. To get started, assemble and run your program."
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:37
+#: ../app-gnome/src/views/main/debugger.blp:36
+msgid "Debug Settings"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:39
+msgid "Enable Stepper Mode"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:40
+msgid "Execute instructions one by one instead of continuously"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:46
 msgid "Information"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:52
+#: ../app-gnome/src/views/main/debugger.blp:61
 msgid "Messages"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:67
+#: ../app-gnome/src/views/main/debugger.blp:76
 msgid "Hex Monitor"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:82
+#: ../app-gnome/src/views/main/debugger.blp:91
 msgid "Hexdump"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:97
+#: ../app-gnome/src/views/main/debugger.blp:106
 msgid "Disassembled"
 msgstr ""
 
