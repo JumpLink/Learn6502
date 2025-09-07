@@ -9,6 +9,7 @@ import {
   mainStateController,
   ViewType,
   type MainUiState,
+  buttonStateService,
 } from "@learn6502/common-ui";
 // Property for the button's state
 const stateProperty = new Property<MainButton, MainButtonState>({
@@ -243,35 +244,40 @@ export class MainButton extends Fab implements MainButtonWidget {
   protected onStateChanged(state: MainUiState): void {
     if (!this.nativeFab) return;
 
-    if (state.mainButtonState === MainButtonState.HIDDEN) {
-      // Hide the button
+    const newState = state.mainButtonState;
+
+    // Handle HIDDEN state - completely hide the button
+    if (newState === MainButtonState.HIDDEN) {
+      // Hide with animation and ensure it stays hidden
+      this.hide();
+      // Set visibility to GONE to ensure it's completely hidden
       this.nativeFab.setVisibility(android.view.View.GONE);
       return;
     }
 
-    // Show the button
+    // If transitioning to visible state, ensure button is visible
     this.nativeFab.setVisibility(android.view.View.VISIBLE);
+    this.show();
 
-    const mode = this.buttonModes[state.mainButtonState];
+    // Update button appearance for the new state
+    const mode = this.buttonModes[newState];
     if (!mode) {
-      console.error(`MainButton: Invalid state - ${state.mainButtonState}`);
+      console.error(`MainButton: Invalid state - ${newState}`);
       return;
     }
 
     // Set Icon using the inherited property setter from Fab
-    this.icon = mode.iconName; // Base class will handle applying this to nativeFab.setIconResource
+    this.icon = mode.iconName;
     this.text = mode.text;
 
     // Set Tooltip (Content Description for accessibility)
-    // Directly access nativeFab for content description as Fab doesn't expose it
-    // TODO: Consider adding a setTooltip/setContentDescription method to the base Fab class
     this.nativeFab.setContentDescription(mode.text);
 
     // Emit state change event *after* applying changes
     this.notify(<EventData>{
       eventName: MainButton.stateChangedEvent,
       object: this,
-      state: state.mainButtonState,
+      state: newState,
     });
   }
 
