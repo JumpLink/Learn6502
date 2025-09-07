@@ -2,15 +2,131 @@ using Gtk 4.0;
 using Adw 1;
 
 template $DebugInfo: Adw.Bin {
-  TextView textView {
-    editable: false;
-    hexpand: true;
-    hexpand-set: true;
-    wrap-mode: none;
-    bottom-margin: 12;
-    left-margin: 12;
-    right-margin: 12;
-    top-margin: 12;
-    monospace: true;
+  hexpand: true;
+  vexpand: true;
+
+  Gtk.Box mainBox {
+    orientation: vertical;
+
+    // ===== REGISTERS =====
+    Adw.PreferencesGroup grpRegisters {
+      title: "Registers";
+      margin-bottom: 12;
+
+      Adw.ActionRow rowA {
+        title: "A";
+        subtitle: "";
+
+        [suffix]
+        Gtk.Label aValue {
+          hexpand: true;
+          halign: end;
+          selectable: true;
+          css-classes: ["monospace"];
+          label: "0x00";
+        }
+      }
+
+      Adw.ActionRow rowX {
+        title: "X";
+        subtitle: "";
+
+        [suffix]
+        Gtk.Label xValue {
+          hexpand: true;
+          halign: end;
+          selectable: true;
+          css-classes: ["monospace"];
+          label: "0x00";
+        }
+      }
+
+      Adw.ActionRow rowY {
+        title: "Y";
+        subtitle: "";
+
+        [suffix]
+        Gtk.Label yValue {
+          hexpand: true;
+          halign: end;
+          selectable: true;
+          css-classes: ["monospace"];
+          label: "0x00";
+        }
+      }
+
+      Adw.ActionRow rowSP {
+        title: "SP";
+
+        [suffix]
+        Gtk.Label spValue {
+          hexpand: true;
+          halign: end;
+          selectable: true;
+          css-classes: ["monospace"];
+          label: "0xff";
+        }
+      }
+
+      Adw.ActionRow rowPC {
+        title: "PC";
+        subtitle: "Next instruction address";
+
+        [suffix]
+        Gtk.Label pcValue {
+          hexpand: true;
+          halign: end;
+          selectable: true;
+          css-classes: ["monospace"];
+          label: "0x0600";
+        }
+      }
+    }
+
+    // ===== FLAGS =====
+    Adw.PreferencesGroup grpFlags {
+      title: "Status Flags";
+      margin-bottom: 12;
+
+      Adw.ActionRow rowFlags {
+        title: "Flags";
+        subtitle: "N V - B D I Z C";
+
+        [suffix]
+        Gtk.Box flagsBox {
+          spacing: 6;
+          halign: end;
+
+          Gtk.Label nFlag { label: "N"; css-classes: ["flag"]; }
+          Gtk.Label vFlag { label: "V"; css-classes: ["flag"]; }
+          Gtk.Label dashFlag { label: "-"; css-classes: ["flag"]; }
+          Gtk.Label bFlag { label: "B"; css-classes: ["flag"]; }
+          Gtk.Label dFlag { label: "D"; css-classes: ["flag"]; }
+          Gtk.Label iFlag { label: "I"; css-classes: ["flag"]; }
+          Gtk.Label zFlag { label: "Z"; css-classes: ["flag"]; }
+          Gtk.Label cFlag { label: "C"; css-classes: ["flag"]; }
+        }
+      }
+
+      Adw.ActionRow rowP {
+        title: "P (SR)";
+        subtitle: "Processor Status Register (bit 7..0)";
+
+        [suffix]
+        Gtk.Box pBits {
+          spacing: 4;
+          halign: end;
+
+          Gtk.Label p7 { label: "1"; css-classes: ["monospace", "bit"]; }
+          Gtk.Label p6 { label: "1"; css-classes: ["monospace", "bit"]; }
+          Gtk.Label p5 { label: "0"; css-classes: ["monospace", "bit"]; }
+          Gtk.Label p4 { label: "0"; css-classes: ["monospace", "bit"]; }
+          Gtk.Label p3 { label: "1"; css-classes: ["monospace", "bit"]; }
+          Gtk.Label p2 { label: "1"; css-classes: ["monospace", "bit"]; }
+          Gtk.Label p1 { label: "0"; css-classes: ["monospace", "bit"]; }
+          Gtk.Label p0 { label: "0"; css-classes: ["monospace", "bit"]; }
+        }
+      }
+    }
   }
 }

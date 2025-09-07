@@ -43,15 +43,7 @@ template $Debugger: Adw.Bin {
             }
 
             // Information
-            Label {
-              label: _("Information");
-              halign: start;
-              margin-bottom: 12;
-              styles [
-                "heading"
-              ]
-            }
-            Frame {
+            Box debugInfoBox {
               margin-bottom: 12;
               $DebugInfo debugInfo {}
             }
