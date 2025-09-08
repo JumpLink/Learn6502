@@ -25,7 +25,8 @@
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "!packages/app-android"
   ],
   "devDependencies": {
     "prettier": "^3.6.2",

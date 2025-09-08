@@ -21,7 +21,7 @@ rm -rf "$BUILD_DIR"
 
 # Build the Flatpak
 echo "Building the Flatpak..."
-flatpak-builder --keep-build-dirs --force-clean "$BUILD_DIR" "$MANIFEST_FILE" --install-deps-from=flathub
+flatpak-builder -v --force-clean --sandbox --delete-build-dirs "$BUILD_DIR" "$MANIFEST_FILE" --install-deps-from=flathub
 
 # Install the application locally
 echo "Installing the Flatpak application locally..."
