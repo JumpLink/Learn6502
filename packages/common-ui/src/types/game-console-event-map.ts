@@ -46,4 +46,7 @@ export interface GameConsoleEventMap {
   // Labels events
   "labels-info": LabelsInfoEvent;
   "labels-failure": LabelsFailureEvent;
+
+  // Stepper events
+  "stepper-changed": { enabled: boolean };
 }

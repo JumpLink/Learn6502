@@ -38,7 +38,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
    */
   const RESOURCES_PATH = "/" + APPLICATION_ID.replaceAll(".", "/");
   /**
-   * flatpak and local: 0.2.0
+   * flatpak and local: 0.3.0
    */
   const PACKAGE_VERSION = process.env.PACKAGE_VERSION || pkg.version;
   /**
@@ -143,7 +143,9 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
       __GJS_CONSOLE__: JSON.stringify(GJS_CONSOLE),
       __PKGDATADIR__: JSON.stringify(PKGDATADIR),
     },
-    css: {},
+    css: {
+      transformer: "lightningcss",
+    },
     build: {
       assetsDir: ".",
       outDir: OUTDIR,

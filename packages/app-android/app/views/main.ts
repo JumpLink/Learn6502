@@ -32,6 +32,7 @@ import { notificationService } from "~/services";
 import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
 import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
 import { MainButton } from "~/widgets";
+import { MainButtonState } from "@learn6502/common-ui";
 import { BottomNavigation } from "~/widgets/bottom-navigation";
 
 // Import debugger view
@@ -55,10 +56,10 @@ export class MainController implements MainView {
   private mainFrame: Frame | null = null;
 
   // Current active view
-  private _activeView: ViewType = ViewType.LEARN;
+  private _activeView: ViewType = ViewType.EDITOR;
 
   /**
-   * Get the current simulator state - delegate to gameConsoleView like GNOME
+   * Get the current simulator state
    */
   get state(): SimulatorState {
     return gameConsoleView.simulator.state;
@@ -329,7 +330,7 @@ export class MainController implements MainView {
    * Sets up learn tutorial signal listeners
    */
   private setupLearnTutorialSignalListeners(): void {
-    learnController.on("copy", ({ code }) => {
+    learnController.on("copy", ({ code }: { code: string }) => {
       this.setEditorCode(code);
       // Show notification using notification service
       notificationService.showNotification({
@@ -351,7 +352,7 @@ export class MainController implements MainView {
     });
 
     // Listen for code changed events
-    mainStateController.events.on("code-changed", (changed) => {
+    mainStateController.events.on("state-changed:code-changed", (changed) => {
       this.updateMainUiState();
     });
 
@@ -403,14 +404,15 @@ export class MainController implements MainView {
    */
   public onLoaded(args: EventData): void {
     this.page = args.object as Page;
+
+    // Find UI elements
     this.actionBar = this.page.getViewById<ActionBar>("main-action-bar");
     this.mainButton = this.page.getViewById<MainButton>("mainButton");
     this.bottomNavigation =
       this.page.getViewById<BottomNavigation>("bottomNavigation");
     this.mainFrame = this.page.getViewById<Frame>("mainFrame");
 
-    console.log("main: loaded:", this.page.id);
-
+    // Set up system event listeners
     systemStates.events.on(
       SystemStates.windowInsetsChangedEvent,
       this.handleWindowInsets
@@ -421,31 +423,21 @@ export class MainController implements MainView {
     );
     setStatusBarAppearance("surface");
 
-    this.initFabScrollBehavior();
-
-    // Set up Android key handling
+    // Initialize services and controllers
     this.setupAndroidKeyHandling();
-
-    // Set up Learn tutorial signal listeners
     this.setupLearnTutorialSignalListeners();
-
-    // Initialize game console controller early - this was missing!
     this.initializeGameConsoleController();
-
-    // Set up Game Console signal listeners for debugger integration
     this.setupGameConsoleSignalListeners();
-
-    // Set up main state event listeners
     this.setupMainStateEventListeners();
-
-    // Set up editor event listeners
     this.setupEditorEventListeners();
-
-    // Initialize main state controller
     mainStateController.init();
 
-    // Set up main button - this was missing!
+    // Set up main button and scroll behavior
     this.setupMainButton();
+    this.initFabScrollBehavior();
+
+    // Navigate to initial view
+    this.navigateToView(this.activeView);
   }
 
   /**
@@ -481,50 +473,53 @@ export class MainController implements MainView {
   }
 
   public initFabScrollBehavior(): void {
-    if (!this.page) {
-      console.error("main: initFabScrollBehavior - View not found");
+    if (!this.page || !this.mainButton) {
       return;
     }
 
-    const scrollView = this.page?.getViewById<ScrollView>("mainScrollView");
-    const mainButton = this.page?.getViewById<MainButton>("mainButton");
-
-    if (!scrollView || !mainButton) {
-      console.error(
-        "ScrollView or MainButton not found for scroll behavior setup."
-      );
+    const scrollView = this.page.getViewById<ScrollView>("mainScrollView");
+    if (!scrollView) {
       return;
     }
 
     let lastScrollY = 0;
-    const scrollThreshold = 10;
+    const scrollThreshold = 15; // Higher threshold to prevent flickering
+    let isExtendedByScroll = false;
 
     scrollView.on(ScrollView.scrollEvent, (event: ScrollEventData) => {
       const currentScrollY = event.scrollY;
       const scrollDiff = currentScrollY - lastScrollY;
 
-      // Scrolled to the top and FAB is collapsed, extend it
-      if (currentScrollY <= 0 && !mainButton.isExtended) {
-        mainButton.extend();
-      }
-      // Scrolled to the bottom and FAB is collapsed, extend it
-      else if (
-        currentScrollY >= scrollView.scrollableHeight &&
-        !mainButton.isExtended
-      ) {
-        mainButton.extend();
-      }
-      // Scroll down and FAB is extended, collapse it
-      else if (scrollDiff > scrollThreshold && mainButton.isExtended) {
-        mainButton.collapse();
-      }
-      // Scroll up and FAB is extended, collapse it
-      else if (scrollDiff < -scrollThreshold && mainButton.isExtended) {
-        mainButton.collapse();
+      // Don't interfere with FAB behavior if it's hidden by state
+      if (this.mainButton.getState() === MainButtonState.HIDDEN) {
+        lastScrollY = currentScrollY;
+        return;
       }
 
-      // Update last scroll position
-      if (Math.abs(scrollDiff) > scrollThreshold || currentScrollY <= 0) {
+      // Calculate scroll position as percentage (0 = top, 1 = bottom)
+      const scrollableHeight = scrollView.scrollableHeight;
+      const scrollPercentage =
+        scrollableHeight > 0 ? currentScrollY / scrollableHeight : 0;
+
+      // Material Design 3 Extended FAB behavior:
+      // - At top (scrollPercentage < 0.1): Extended FAB
+      // - In middle (0.1 <= scrollPercentage <= 0.9): Normal FAB
+      // - At bottom (scrollPercentage > 0.9): Extended FAB
+
+      const shouldBeExtended = scrollPercentage < 0.1 || scrollPercentage > 0.9;
+
+      if (shouldBeExtended && !isExtendedByScroll) {
+        // Extend the FAB at top/bottom positions
+        this.mainButton.extend();
+        isExtendedByScroll = true;
+      } else if (!shouldBeExtended && isExtendedByScroll) {
+        // Shrink the FAB in middle positions
+        this.mainButton.shrink();
+        isExtendedByScroll = false;
+      }
+
+      // Update last scroll position only if significant movement occurred
+      if (Math.abs(scrollDiff) > scrollThreshold) {
         lastScrollY = currentScrollY;
       }
     });
@@ -535,18 +530,46 @@ export class MainController implements MainView {
    * @param viewType The view to navigate to
    */
   public navigateToView(viewType: ViewType): void {
-    console.log("navigateToView", viewType);
-
     if (!this.mainFrame || !this.bottomNavigation) {
-      console.error("navigateToView: MainFrame or BottomNavigation not found");
       return;
     }
 
-    // Then update the bottom navigation
-    this.bottomNavigation.selectTab(viewType);
-
     // Update active view
     this._activeView = viewType;
+    mainStateController.setViewType(viewType);
+
+    // Navigate the frame to the new view
+    const moduleName = this.getModuleNameForViewType(viewType);
+    if (moduleName) {
+      this.mainFrame.navigate({
+        moduleName: moduleName,
+        clearHistory: true,
+        transition: {
+          name: "fade",
+          duration: 200,
+        },
+      });
+    }
+
+    // Update the bottom navigation
+    this.bottomNavigation.selectTab(viewType);
+  }
+
+  /**
+   * Gets the module name for a given view type
+   * @param viewType The view type to get module name for
+   * @returns The module name or null if not found
+   */
+  private getModuleNameForViewType(viewType: ViewType): string | null {
+    const moduleMap = {
+      [ViewType.LEARN]: "views/main/learn",
+      [ViewType.EDITOR]: "views/main/editor",
+      [ViewType.DEBUGGER]: "views/main/debugger",
+      [ViewType.GAME_CONSOLE]: "views/main/game-console",
+      [ViewType.STORYBOOK]: "views/main/storybook",
+    };
+
+    return moduleMap[viewType] || null;
   }
 
   /**
@@ -679,7 +702,7 @@ export class MainController implements MainView {
       // Apply enabled states to button actions
       this.mainButton.setActionEnabledStates(enabledState);
 
-      // Update the button state based on simulator state - this is the key part!
+      // Update the button state based on simulator state and current view - this is the key part!
       this.mainButton.updateFromSimulatorState(currentState);
     }
   }
@@ -726,9 +749,23 @@ export class MainController implements MainView {
    * Sets up the main button with initial state
    */
   private setupMainButton(): void {
-    console.log("setupMainButton called");
-    // Initial button setup
+    if (!this.mainButton) {
+      return;
+    }
+
+    // Update UI state first to get the correct initial state
     this.updateMainUiState();
+
+    // Handle initial visibility based on state
+    const currentState = this.mainButton.getState();
+    if (currentState === MainButtonState.HIDDEN) {
+      // Ensure the button is completely hidden
+      this.mainButton.nativeFab?.setVisibility(android.view.View.GONE);
+    } else {
+      // Ensure the button is visible
+      this.mainButton.nativeFab?.setVisibility(android.view.View.VISIBLE);
+      this.mainButton.show();
+    }
   }
 
   /**

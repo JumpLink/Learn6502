@@ -1,14 +1,16 @@
 {
   "name": "@learn6502/app-android",
   "main": "app/app.ts",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "private": true,
   "scripts": {
     "clear": "ns clean",
-    "start": "ns run android --emulator",
+    "start": "yarn start:emulated",
+    "start:emulated": "ns run android --emulator",
     "start:device": "ns run android",
     "start:clean": "ns run android --clean --emulator",
     "start:debug": "ns debug android",
+    "start:emulator": "$HOME/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36",
     "check": "tsc --noEmit"
   },
   "dependencies": {
@@ -16,8 +18,8 @@
     "@learn6502/common-ui": "workspace:^",
     "@nativescript/core": "~8.9.7",
     "@nativescript/localize": "^5.2.0",
-    "@nativescript/tailwind": "^4.0.3",
-    "tailwindcss": "^4.1.12"
+    "@nativescript/tailwind": "^4.0.4",
+    "tailwindcss": "^4.1.13"
   },
   "devDependencies": {
     "@nativescript/android": "8.9.1",

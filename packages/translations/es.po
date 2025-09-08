@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-08-17 07:33+0200\n"
+"POT-Creation-Date: 2025-09-08 18:20+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Automatically generated\n"
 "Language-Team: none\n"
@@ -141,169 +141,96 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:180
+#: ../app-gnome/src/widgets/main-button.ts:64
+#: ../app-gnome/src/widgets/main-button.ts:69
+msgid "Assemble"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:74
+msgid "Run"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:79
+msgid "Pause"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:84
+msgid "Resume"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:89
+msgid "Reset"
+msgstr ""
+
+#: ../app-gnome/src/widgets/main-button.ts:94
+msgid "Step"
+msgstr ""
+
+#. Fallback icon, won't be shown
+#: ../app-gnome/src/widgets/main-button.ts:99
+msgid "Hidden"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:188
 msgid "Code copied to editor"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:205
+#: ../app-gnome/src/views/main.window.ts:214
 msgid "Copied to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:210
+#: ../app-gnome/src/views/main.window.ts:219
 msgid "Failed to copy to clipboard"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:273
-#: ../app-gnome/src/views/main.window.ts:308
+#: ../app-gnome/src/views/main.window.ts:287
+#: ../app-gnome/src/views/main.window.ts:325
 msgid "Program paused automatically"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:460
+#: ../app-gnome/src/views/main.window.ts:481
 msgid "Assembled successfully"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:472
+#: ../app-gnome/src/views/main.window.ts:493
 msgid "Assemble failed"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:481
+#: ../app-gnome/src/views/main.window.ts:502
 msgid "Hexdump:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:490
+#: ../app-gnome/src/views/main.window.ts:511
 msgid "Disassembly:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:573
+#: ../app-gnome/src/views/main.window.ts:594
 msgid "Simulator failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:592
+#: ../app-gnome/src/views/main.window.ts:613
 msgid "Labels failure"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:635
+#: ../app-gnome/src/views/main.window.ts:667
 msgid "Gamepad key pressed:"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:727
+#: ../app-gnome/src/views/main.window.ts:762
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:754
+#: ../app-gnome/src/views/main.window.ts:789
 #, javascript-format
 msgid "Saved as %s"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:60
-#: ../app-gnome/src/widgets/main-button.ts:65
-msgid "Assemble"
+#: ../app-gnome/src/widgets/run-menu-button.blp:7
+msgid "Run menu"
 msgstr ""
 
-#: ../app-gnome/src/widgets/main-button.ts:70
-msgid "Run"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:75
-msgid "Pause"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:80
-msgid "Resume"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:85
-msgid "Reset"
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.ts:90
-msgid "Step"
-msgstr ""
-
-#: ../app-gnome/src/views/help.window.blp:7
-#: ../app-gnome/src/views/main.window.blp:139
-#: ../app-gnome/src/views/main/editor.blp:8
-msgid "Help"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:26
-msgid "Learn 6502 Assembly"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:33
-msgid "Menu"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:59
-#: ../app-gnome/src/views/main/learn.blp:8
-msgid "Learn"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:68
-msgid "Editor"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:77
-#: ../app-gnome/src/views/main/debugger.blp:15
-msgid "Debugger"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:86
-msgid "Game Console"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:108
-msgid "Open..."
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:113
-#: ../app-gnome/src/views/main.window.blp:164
-msgid "Save"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:118
-msgid "Save as..."
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:144
-msgid "About Learn 6502 Assembly"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:149
-msgid "Quit"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:157
-msgid "Save changes?"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:158
-msgid ""
-"Your file has unsaved changes. Changes will be lost if you don't save them."
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.blp:163
-msgid "Discard"
-msgstr ""
-
-#: ../app-gnome/src/views/preferences.dialog.blp:7
-msgid "Preferences"
-msgstr ""
-
-#: ../app-gnome/src/views/preferences.dialog.blp:10
-msgid "Appearance"
-msgstr ""
-
-#: ../app-gnome/src/views/preferences.dialog.blp:14
-msgid "Main Settings"
-msgstr ""
-
-#: ../app-gnome/src/views/preferences.dialog.blp:15
-msgid "There are currently no settings."
-msgstr ""
-
-#: ../app-gnome/src/widgets/main-button.blp:25
+#: ../app-gnome/src/widgets/run-menu-button.blp:27
 msgid "Continue"
 msgstr ""
 
@@ -326,34 +253,207 @@ msgstr ""
 msgid "Dark style"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:16
+#: ../app-gnome/src/views/help.window.blp:7
+#: ../app-gnome/src/views/main.window.blp:149
+#: ../app-gnome/src/views/main/editor.blp:8
+msgid "Help"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:26
+msgid "Learn 6502 Assembly"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:33
+msgid "Menu"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:60
+#: ../app-gnome/src/views/main/learn.blp:8
+msgid "Learn"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:69
+msgid "Editor"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:78
+#: ../app-gnome/src/views/main/debugger.blp:15
+msgid "Debugger"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:87
+msgid "Game Console"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:118
+msgid "Open..."
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:123
+#: ../app-gnome/src/views/main.window.blp:174
+msgid "Save"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:128
+msgid "Save as..."
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:154
+msgid "About Learn 6502 Assembly"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:159
+msgid "Quit"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:167
+msgid "Save changes?"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.blp:168
 msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
+"Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:37
-msgid "Information"
+#: ../app-gnome/src/views/main.window.blp:173
+msgid "Discard"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:52
-msgid "Messages"
+#: ../app-gnome/src/views/preferences.dialog.blp:7
+msgid "Preferences"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:67
-msgid "Hex Monitor"
+#: ../app-gnome/src/views/preferences.dialog.blp:10
+msgid "Appearance"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:82
-msgid "Hexdump"
+#: ../app-gnome/src/views/preferences.dialog.blp:14
+msgid "Main Settings"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:97
-msgid "Disassembled"
+#: ../app-gnome/src/views/preferences.dialog.blp:15
+msgid "There are currently no settings."
 msgstr ""
 
-#: ../app-gnome/src/views/main/learn.blp:9
-msgid "Learn how to program the 6502 microprocessor."
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:15
+msgid "Registers"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:20
+msgid "Accumulator: Main register for calculations"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:21
+msgid ""
+"The Accumulator (A) is the primary register for arithmetic and logic "
+"operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use "
+"this register. It's the most frequently used register in 6502 assembly "
+"programming."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:49
+msgid "Index register X: Used for addressing"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:50
+msgid ""
+"The X Index Register is used for indexed addressing modes and counting "
+"operations. It can hold loop counters, array indices, and is essential for "
+"accessing memory locations relative to a base address using X as an offset."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:78
+msgid "Index register Y: Used for addressing"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:79
+msgid ""
+"The Y Index Register works similarly to X but has some unique capabilities. "
+"It's particularly useful for accessing memory with Y-relative addressing and "
+"is often used for data transfer operations between memory blocks."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:107
+msgid "Stack Pointer: Points to stack position"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:108
+msgid ""
+"The Stack Pointer manages the call stack for subroutines and interrupts. It "
+"starts at $FF (top of stack) and grows downward. Used for PUSH/PULL "
+"operations, JSR/RTS calls, and interrupt handling. Critical for nested "
+"function calls."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:136
+msgid "Program Counter: Points to next instruction"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:137
+msgid ""
+"The Program Counter contains the memory address of the next instruction to "
+"execute. It automatically increments after each instruction and can be "
+"modified by jumps, branches, calls, and returns. Essential for program flow "
+"control and debugging."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:166
+msgid "Status Flags"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:170
+msgid "Processor Status Register"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:185
+msgid ""
+"Negative Flag: Set when the most significant bit (bit 7) of the result is 1. "
+"Used for signed number comparisons and indicates if a value is negative in "
+"two's complement representation."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:191
+msgid ""
+"Overflow Flag: Set when an arithmetic operation produces a result that "
+"cannot be represented in signed 8-bit range (-128 to +127). Used for "
+"detecting signed arithmetic errors in calculations."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:202
+msgid ""
+"Break Flag: Set when a BRK (Break) instruction is executed. Used to "
+"distinguish between software interrupts (BRK) and hardware interrupts. Helps "
+"identify the source of an interrupt in interrupt service routines."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:208
+msgid ""
+"Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic "
+"operations. When set, ADC/SBC instructions treat values as decimal digits "
+"(0-9) instead of binary. Used for financial calculations and decimal "
+"arithmetic."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:214
+msgid ""
+"Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). "
+"Only Non-Maskable Interrupts (NMI) can still occur. Used for critical "
+"sections of code that must not be interrupted."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:220
+msgid ""
+"Zero Flag: Set when the result of an operation is zero. Essential for "
+"conditional branching - most conditional jump instructions (BEQ, BNE) check "
+"this flag to determine program flow based on whether a value is zero."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:226
+msgid ""
+"Carry Flag: Set when an addition produces a carry-out or subtraction "
+"produces a borrow. Used for multi-byte arithmetic operations and conditional "
+"branching (BCS, BCC). Critical for implementing arithmetic operations larger "
+"than 8 bits."
 msgstr ""
 
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
@@ -389,140 +489,212 @@ msgstr ""
 msgid "Copy to clipboard"
 msgstr ""
 
+#: ../app-gnome/src/views/main/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:36
+msgid "Settings"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:40
+msgid "Enable Stepper Mode"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:41
+msgid "Execute instructions one by one instead of continuously"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:53
+msgid "Hex Monitor"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:68
+msgid "Hexdump"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:83
+msgid "Disassembled"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:98
+msgid "Messages"
+msgstr ""
+
+#: ../app-gnome/src/views/main/learn.blp:9
+msgid "Learn how to program the 6502 microprocessor."
+msgstr ""
+
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
-msgid "6502 Assembly Learning Environment"
+msgid "Program Vintage Game Consoles"
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:9
 msgid ""
-"A comprehensive learning environment for programming vintage computers and "
-"game consoles using 6502 assembly language."
+"Discover the fascinating world of programming classic computers and game "
+"consoles! Learn 6502 assembly language - the same code that powered iconic "
+"systems like the NES, Commodore 64, and Apple II."
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:12
-msgid "Features:"
-msgstr ""
-
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:14
-msgid "Learn step-by-step with an interactive tutorial"
-msgstr ""
-
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:15
-msgid "Write code with a built-in editor"
+msgid ""
+"No prior programming experience needed. Start with interactive lessons and "
+"build your skills step by step."
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:16
-msgid "Debug your programs with real-time tools"
+msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:17
-msgid "See your code run on a virtual game console"
+msgid "Write and edit code with a built-in code editor"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:24
-msgid "Interactive tutorial interface in light theme"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:18
+msgid "Debug your programs with real-time inspection tools"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:28
-msgid "Interactive tutorial interface in dark theme"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:19
+msgid "Test your creations on a virtual game console"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:32
-msgid "Code editor with 6502 assembly syntax highlighting and visible help"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:20
+msgid "Learn about computer history while coding"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:36
-msgid "Built-in debugger showing real-time registers, flags, and memory"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:22
+msgid ""
+"Perfect for hobbyists, students, and anyone curious about how computers "
+"really work under the hood!"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:40
-msgid "Virtual game console displaying three colored pixels"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:30
+msgid "Snake game running on the virtual game console"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:55
-msgid "Major update focusing on improved learning experience and usability"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:34
+msgid "Interactive tutorial"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:57
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:38
+msgid "Code editor"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:42
+msgid "Built-in debugger"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:46
+msgid "Code editor with help panel in expanded view"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:61
+msgid ""
+"Major UI improvements introducing a modern Floating Action Button with "
+"dynamic states for intuitive program control, and a completely redesigned "
+"debugger widget using modern Adwaita components."
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:62
+msgid ""
+"Architecture enhancements enable better code sharing between GNOME, Web, and "
+"Android platforms."
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:67
 msgid "Added help feature to make code editing easier for beginners"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:58
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:68
 msgid "Improved game screen and controls for mobile devices"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:59
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:69
 msgid ""
 "New tools to examine your code, including disassembler and fast switchable "
 "memory viewer"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:60
-msgid "Many minor bugs have been fixed to improve overall usability"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:70
+msgid "Many minor bugs have been fixed to improve overall usabipty"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:61
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:71
 msgid "Games now automatically pause when switching between screens"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:62
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:72
 msgid "Added file management to save and load your programs"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:68
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:77
 msgid "Enhanced app presentation and accessibility"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:69
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:78
 msgid "Improved descriptions to be more welcoming for non-technical users"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:70
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:79
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:75
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:84
 msgid "Improved the game console performance for smoother gameplay"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:76
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:85
 msgid "Enhanced the hex monitor address range input for easier value editing"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:77
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:86
 msgid "Reduced default hex monitor address range for better efficiency"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:78
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:87
 msgid "Debugger now only updates when visible, reducing unnecessary processing"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:79
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:88
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:84
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:93
 msgid "First release of Learn 6502 Assembly for GNOME"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:97
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:106
 msgid "6502"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:98
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:107
 msgid "Assembly"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:99
-msgid "Programming"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:108
+msgid "programming"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:100
-msgid "Learning"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:109
+msgid "learning"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:101
-msgid "Emulator"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:110
+msgid "Simulator"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:111
+msgid "IDE"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:113
+msgid "Adwaita"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:114
+msgid "GNOME"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:1
@@ -649,10 +821,6 @@ msgstr ""
 msgid "<b><tt>$f</tt></b>: Light grey (<tt>#bbbbbb</tt>)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:7
-msgid "Registers"
-msgstr ""
-
 #: ../learn/dist/quick-help.ui:8
 msgid ""
 "<b>A</b> (Accumulator): Main register for calculations and data manipulation"
@@ -704,10 +872,6 @@ msgstr ""
 
 #: ../learn/dist/quick-help.ui:10
 msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
-msgstr ""
-
-#: ../learn/dist/quick-help.ui:10
-msgid "Used for conditional branching"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:11
@@ -872,16 +1036,16 @@ msgstr ""
 msgid ""
 "In this tiny tutorial I'm going to show you how to get started writing 6502 "
 "assembly language. The 6502 processor was massive in the seventies and "
-"eighties, powering famous computers like the <a href=\"http://en.wikipedia."
-"org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Atari_2600\">Atari 2600</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Commodore_64\">Commodore 64</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Apple_II\">Apple II</a>, and the <a href=\"http://en.wikipedia.org/wiki/"
-"Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in "
-"Futurama <a href=\"http://www.transbyte.org/SID/SID-files/Bender_6502."
-"jpg\">has a 6502 processor for a brain</a>. <a href=\"http://www.pagetable."
-"com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in "
-"6502</a>."
+"eighties, powering famous computers like the <a href=\"http://"
+"en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"http://"
+"en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
+"System</a>. Bender in Futurama <a href=\"http://www.transbyte.org/SID/SID-"
+"files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a "
+"href=\"http://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the "
+"Terminator was programmed in 6502</a>."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:4
@@ -894,9 +1058,9 @@ msgstr ""
 #: ../learn/dist/tutorial.ui:5
 msgid ""
 "(Actually, I've been reliably informed that 6502 processors are still being "
-"produced by <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-chip."
-"cfm\">Western Design Center</a> and <a href=\"http://www.mouser.co.uk/Search/"
-"Refine.aspx?Keyword=65C02\">sold to hobbyists</a>, so clearly 6502 "
+"produced by <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-"
+"chip.cfm\">Western Design Center</a> and <a href=\"http://www.mouser.co.uk/"
+"Search/Refine.aspx?Keyword=65C02\">sold to hobbyists</a>, so clearly 6502 "
 "<i>isn&apos;t</i> a dead language! Who knew?)"
 msgstr ""
 
@@ -959,8 +1123,8 @@ msgstr ""
 msgid ""
 "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by "
 "extension, in this book) are in hexadecimal (hex) format. If you're not "
-"familiar with hex numbers, I recommend you read <a href=\"http://en."
-"wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
+"familiar with hex numbers, I recommend you read <a href=\"http://"
+"en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
 "prefixed with <tt>#</tt> is a literal number value. Any other number refers "
 "to a memory location."
 msgstr ""
@@ -1062,8 +1226,8 @@ msgid ""
 "The last section shows the processor flags. Each flag is one bit, so all "
 "seven flags live in a single byte. The flags are set by the processor to "
 "give information about the previous instruction. More on that later. <a "
-"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me."
-"uk/6502/registers.html\">Read more about the registers and flags here</a>."
+"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/"
+"6502/registers.html\">Read more about the registers and flags here</a>."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:30
@@ -1124,9 +1288,9 @@ msgstr ""
 #: ../learn/dist/tutorial.ui:45
 msgid ""
 "A full list of the 6502 instruction set is <a href=\"http://www.6502.org/"
-"tutorials/6502opcodes.html\">available here</a> and <a href=\"http://www."
-"obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages "
-"as they have their strengths and weaknesses). These pages detail the "
+"tutorials/6502opcodes.html\">available here</a> and <a href=\"http://"
+"www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both "
+"pages as they have their strengths and weaknesses). These pages detail the "
 "arguments to each instruction, which registers they use, and which flags "
 "they set. They are your bible."
 msgstr ""
@@ -1172,10 +1336,10 @@ msgid ""
 "line is a label. Labels just mark certain points in a program so we can "
 "return to them later. After the label we decrement <tt>X</tt>, store it to "
 "<tt>$0200</tt> (the top-left pixel), and then compare it to the value "
-"<tt>$03</tt>. <a href=\"http://www.obelisk.me.uk/6502/reference."
-"html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register "
-"with another value. If the two values are equal, the <tt>Z</tt> flag is set "
-"to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
+"<tt>$03</tt>. <a href=\"http://www.obelisk.me.uk/6502/"
+"reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> "
+"register with another value. If the two values are equal, the <tt>Z</tt> "
+"flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
 msgstr ""
 
 #: ../learn/dist/tutorial.ui:60

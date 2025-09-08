@@ -2,15 +2,275 @@ using Gtk 4.0;
 using Adw 1;
 
 template $DebugInfo: Adw.Bin {
-  TextView textView {
-    editable: false;
+  hexpand: true;
+  vexpand: true;
+
+  Gtk.Box mainBox {
+    orientation: vertical;
     hexpand: true;
-    hexpand-set: true;
-    wrap-mode: none;
-    bottom-margin: 12;
-    left-margin: 12;
-    right-margin: 12;
-    top-margin: 12;
-    monospace: true;
+    vexpand: true;
+
+    // ===== REGISTERS =====
+    Adw.PreferencesGroup grpRegisters {
+      title: _("Registers");
+      margin-bottom: 12;
+
+      Adw.ActionRow rowA {
+        title: "A";
+        subtitle: _("Accumulator: Main register for calculations");
+        tooltip-text: _("The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming.");
+
+        [suffix]
+        Gtk.Box valueBox {
+          orientation: vertical;
+          halign: end;
+          spacing: 2;
+          margin-top: 12;
+          margin-bottom: 12;
+
+          Gtk.Label aValue {
+            selectable: true;
+            css-classes: ["monospace"];
+            label: "0x00";
+            halign: end;
+          }
+
+          Gtk.Label aValueDec {
+            selectable: true;
+            css-classes: ["monospace", "dim-label", "subtitle"];
+            label: "0";
+            halign: end;
+          }
+        }
+      }
+
+      Adw.ActionRow rowX {
+        title: "X";
+        subtitle: _("Index register X: Used for addressing");
+        tooltip-text: _("The X Index Register is used for indexed addressing modes and counting operations. It can hold loop counters, array indices, and is essential for accessing memory locations relative to a base address using X as an offset.");
+
+        [suffix]
+        Gtk.Box xValueBox {
+          orientation: vertical;
+          halign: end;
+          spacing: 2;
+          margin-top: 12;
+          margin-bottom: 12;
+
+          Gtk.Label xValue {
+            selectable: true;
+            css-classes: ["monospace"];
+            label: "0x00";
+            halign: end;
+          }
+
+          Gtk.Label xValueDec {
+            selectable: true;
+            css-classes: ["monospace", "dim-label", "subtitle"];
+            label: "0";
+            halign: end;
+          }
+        }
+      }
+
+      Adw.ActionRow rowY {
+        title: "Y";
+        subtitle: _("Index register Y: Used for addressing");
+        tooltip-text: _("The Y Index Register works similarly to X but has some unique capabilities. It's particularly useful for accessing memory with Y-relative addressing and is often used for data transfer operations between memory blocks.");
+
+        [suffix]
+        Gtk.Box yValueBox {
+          orientation: vertical;
+          halign: end;
+          spacing: 2;
+          margin-top: 12;
+          margin-bottom: 12;
+
+          Gtk.Label yValue {
+            selectable: true;
+            css-classes: ["monospace"];
+            label: "0x00";
+            halign: end;
+          }
+
+          Gtk.Label yValueDec {
+            selectable: true;
+            css-classes: ["monospace", "dim-label", "subtitle"];
+            label: "0";
+            halign: end;
+          }
+        }
+      }
+
+      Adw.ActionRow rowSP {
+        title: "SP";
+        subtitle: _("Stack Pointer: Points to stack position");
+        tooltip-text: _("The Stack Pointer manages the call stack for subroutines and interrupts. It starts at $FF (top of stack) and grows downward. Used for PUSH/PULL operations, JSR/RTS calls, and interrupt handling. Critical for nested function calls.");
+
+        [suffix]
+        Gtk.Box spValueBox {
+          orientation: vertical;
+          halign: end;
+          spacing: 2;
+          margin-top: 12;
+          margin-bottom: 12;
+
+          Gtk.Label spValue {
+            selectable: true;
+            css-classes: ["monospace"];
+            label: "0xff";
+            halign: end;
+          }
+
+          Gtk.Label spValueDec {
+            selectable: true;
+            css-classes: ["monospace", "dim-label", "subtitle"];
+            label: "255";
+            halign: end;
+          }
+        }
+      }
+
+      Adw.ActionRow rowPC {
+        title: "PC";
+        subtitle: _("Program Counter: Points to next instruction");
+        tooltip-text: _("The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging.");
+
+        [suffix]
+        Gtk.Box pcValueBox {
+          orientation: vertical;
+          halign: end;
+          spacing: 2;
+          margin-top: 12;
+          margin-bottom: 12;
+
+          Gtk.Label pcValue {
+            selectable: true;
+            css-classes: ["monospace"];
+            label: "0x0600";
+            halign: end;
+          }
+
+          Gtk.Label pcValueDec {
+            selectable: true;
+            css-classes: ["monospace", "dim-label", "subtitle"];
+            label: "1536";
+            halign: end;
+          }
+        }
+      }
+    }
+
+    // ===== FLAGS =====
+    Adw.PreferencesGroup grpFlags {
+      title: _("Status Flags");
+
+      Adw.ActionRow rowStatus {
+        title: "P (SR)";
+        subtitle: _("Processor Status Register");
+
+        [suffix]
+        Gtk.Grid statusGrid {
+          halign: end;
+          margin-bottom: 12;
+          margin-top: 12;
+          row-spacing: 2;
+          column-spacing: 2;
+          column-homogeneous: true;
+
+          // Kopfzeile: N V - B D I Z C
+          Gtk.Label nHdr {
+            label: "N";
+            css-classes: ["flag"];
+            tooltip-text: _("Negative Flag: Set when the most significant bit (bit 7) of the result is 1. Used for signed number comparisons and indicates if a value is negative in two's complement representation.");
+            layout { row: 0; column: 0; }
+          }
+          Gtk.Label vHdr {
+            label: "V";
+            css-classes: ["flag"];
+            tooltip-text: _("Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations.");
+            layout { row: 0; column: 1; }
+          }
+          Gtk.Label dashHdr {
+            label: "-";
+            css-classes: ["flag", "dim-label"];
+            layout { row: 0; column: 2; }
+          }
+          Gtk.Label bHdr {
+            label: "B";
+            css-classes: ["flag"];
+            tooltip-text: _("Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines.");
+            layout { row: 0; column: 3; }
+          }
+          Gtk.Label dHdr {
+            label: "D";
+            css-classes: ["flag"];
+            tooltip-text: _("Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic operations. When set, ADC/SBC instructions treat values as decimal digits (0-9) instead of binary. Used for financial calculations and decimal arithmetic.");
+            layout { row: 0; column: 4; }
+          }
+          Gtk.Label iHdr {
+            label: "I";
+            css-classes: ["flag"];
+            tooltip-text: _("Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted.");
+            layout { row: 0; column: 5; }
+          }
+          Gtk.Label zHdr {
+            label: "Z";
+            css-classes: ["flag"];
+            tooltip-text: _("Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero.");
+            layout { row: 0; column: 6; }
+          }
+          Gtk.Label cHdr {
+            label: "C";
+            css-classes: ["flag"];
+            tooltip-text: _("Carry Flag: Set when an addition produces a carry-out or subtraction produces a borrow. Used for multi-byte arithmetic operations and conditional branching (BCS, BCC). Critical for implementing arithmetic operations larger than 8 bits.");
+            layout { row: 0; column: 7; }
+          }
+
+          // Bitzeile: p7..p0 (MSB..LSB)
+          Gtk.Label p7 {
+            label: "0";
+            css-classes: ["monospace", "bit"];
+            layout { row: 1; column: 0; }
+          }
+          Gtk.Label p6 {
+            label: "0";
+            css-classes: ["monospace", "bit"];
+            layout { row: 1; column: 1; }
+          }
+          Gtk.Label p5 {
+            label: "0";
+            css-classes: ["monospace", "bit", "dim-label"];
+            layout { row: 1; column: 2; }
+          }
+          Gtk.Label p4 {
+            label: "0";
+            css-classes: ["monospace", "bit", "dim-label"];
+            layout { row: 1; column: 3; }
+          }
+          Gtk.Label p3 {
+            label: "1";
+            css-classes: ["monospace", "bit"];
+            layout { row: 1; column: 4; }
+          }
+          Gtk.Label p2 {
+            label: "1";
+            css-classes: ["monospace", "bit"];
+            layout { row: 1; column: 5; }
+          }
+          Gtk.Label p1 {
+            label: "0";
+            css-classes: ["monospace", "bit", "dim-label"];
+            layout { row: 1; column: 6; }
+          }
+          Gtk.Label p0 {
+            label: "0";
+            css-classes: ["monospace", "bit", "dim-label"];
+            layout { row: 1; column: 7; }
+          }
+        }
+      }
+
+    }
   }
 }

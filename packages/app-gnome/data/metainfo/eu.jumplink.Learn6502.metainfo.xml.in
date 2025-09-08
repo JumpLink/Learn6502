@@ -4,40 +4,46 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>Learn 6502 Assembly</name>
-  <summary>6502 Assembly Learning Environment</summary>
+  <summary>Program Vintage Game Consoles</summary>
   <description>
     <p>
-      A comprehensive learning environment for programming vintage computers and game consoles using 6502 assembly language.
+      Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.
     </p>
-    <p>Features:</p>
+    <p>
+      No prior programming experience needed. Start with interactive lessons and build your skills step by step.
+    </p>
     <ul>
-      <li>Learn step-by-step with an interactive tutorial</li>
-      <li>Write code with a built-in editor</li>
-      <li>Debug your programs with real-time tools</li>
-      <li>See your code run on a virtual game console</li>
+      <li>Interactive tutorials guide you from beginner to advanced</li>
+      <li>Write and edit code with a built-in code editor</li>
+      <li>Debug your programs with real-time inspection tools</li>
+      <li>Test your creations on a virtual game console</li>
+      <li>Learn about computer history while coding</li>
     </ul>
+    <p>
+      Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!
+    </p>
   </description>
   <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/1.png</image>
-      <caption>Interactive tutorial interface in light theme</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/1.png</image>
+      <caption>Snake game running on the virtual game console</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/2.png</image>
-      <caption>Interactive tutorial interface in dark theme</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/2.png</image>
+      <caption>Interactive tutorial</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/3.png</image>
-      <caption>Code editor with 6502 assembly syntax highlighting and visible help</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/3.png</image>
+      <caption>Code editor</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/4.png</image>
-      <caption>Built-in debugger showing real-time registers, flags, and memory</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/4.png</image>
+      <caption>Built-in debugger</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/5.png</image>
-      <caption>Virtual game console displaying three colored pixels</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/5.png</image>
+      <caption>Code editor with help panel in expanded view</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
@@ -50,17 +56,20 @@
   </developer>
   <content_rating type="oars-1.1" />
   <releases>
+    <release version="0.3.0" date="2025-09-08">
+      <description>
+        <p>Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components.</p>
+        <p>Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms.</p>
+      </description>
+    </release>
     <release version="0.2.0" date="2025-04-11">
       <description>
-        <p>Major update focusing on improved learning experience and usability</p>
-        <ul>
-          <li>Added help feature to make code editing easier for beginners</li>
-          <li>Improved game screen and controls for mobile devices</li>
-          <li>New tools to examine your code, including disassembler and fast switchable memory viewer</li>
-          <li>Many minor bugs have been fixed to improve overall usability</li>
-          <li>Games now automatically pause when switching between screens</li>
-          <li>Added file management to save and load your programs</li>
-        </ul>
+        <p>Added help feature to make code editing easier for beginners</p>
+        <p>Improved game screen and controls for mobile devices</p>
+        <p>New tools to examine your code, including disassembler and fast switchable memory viewer</p>
+        <p>Many minor bugs have been fixed to improve overall usabipty</p>
+        <p>Games now automatically pause when switching between screens</p>
+        <p>Added file management to save and load your programs</p>
       </description>
     </release>
     <release version="0.1.2" date="2025-04-03">
@@ -96,9 +105,13 @@
   <keywords>
     <keyword>6502</keyword>
     <keyword>Assembly</keyword>
-    <keyword>Programming</keyword>
-    <keyword>Learning</keyword>
-    <keyword>Emulator</keyword>
+    <keyword>programming</keyword>
+    <keyword>learning</keyword>
+    <keyword>Simulator</keyword>
+    <keyword>IDE</keyword>
+    <keyword>Debugger</keyword>
+    <keyword>Adwaita</keyword>
+    <keyword>GNOME</keyword>
   </keywords>
   <recommends>
     <control>keyboard</control>

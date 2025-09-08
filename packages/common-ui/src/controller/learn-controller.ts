@@ -1,33 +1,87 @@
 import { EventDispatcher } from "@learn6502/6502";
 import type { LearnEventMap } from "../types/learn-event-map";
-import type { LearnView } from "../views";
+import { learnStateService } from "../services/index.ts";
 
 /**
  * Learn controller to communicate between platform-specific learn views
- * Acts as a bridge between the learn view and other components
+ * Acts as a coordinator between learn state service and UI components
  */
-class LearnController implements LearnView {
+class LearnController {
   readonly events = new EventDispatcher<LearnEventMap>();
-
-  // Store the last scroll position (platform implementations may use this)
-  private _lastScrollPosition: number = 0;
 
   /**
    * Save the current scroll position
-   * Platform-specific implementations will provide more concrete behaviors
+   * @param position Current scroll position to save
    */
-  public saveScrollPosition(): void {
-    // Base implementation - will be extended by platform-specific implementations
-    // This can be called by platform implementations to update the shared state
+  public saveScrollPosition(position?: number): void {
+    if (position !== undefined) {
+      learnStateService.saveScrollPosition(position);
+    }
   }
 
   /**
    * Restore the previously saved scroll position
-   * Platform-specific implementations will provide more concrete behaviors
+   * @returns The last saved scroll position
    */
-  public restoreScrollPosition(): void {
-    // Base implementation - will be extended by platform-specific implementations
-    // This can be called by platform implementations to get the shared state
+  public restoreScrollPosition(): number {
+    return learnStateService.getLastScrollPosition();
+  }
+
+  /**
+   * Get the current scroll position
+   * @returns The current scroll position
+   */
+  public getCurrentScrollPosition(): number {
+    return learnStateService.lastScrollPosition;
+  }
+
+  /**
+   * Set the current section being viewed
+   * @param sectionId Section identifier
+   */
+  public setCurrentSection(sectionId: string): void {
+    learnStateService.currentSection = sectionId;
+  }
+
+  /**
+   * Get the current section being viewed
+   * @returns Current section identifier
+   */
+  public getCurrentSection(): string {
+    return learnStateService.currentSection;
+  }
+
+  /**
+   * Mark a section as completed
+   * @param sectionId Section identifier
+   */
+  public markSectionCompleted(sectionId: string): void {
+    learnStateService.markSectionCompleted(sectionId);
+  }
+
+  /**
+   * Check if a section is completed
+   * @param sectionId Section identifier
+   * @returns True if section is completed
+   */
+  public isSectionCompleted(sectionId: string): boolean {
+    return learnStateService.isSectionCompleted(sectionId);
+  }
+
+  /**
+   * Get learning progress as percentage
+   * @param totalSections Total number of sections
+   * @returns Progress percentage (0-100)
+   */
+  public getProgressPercentage(totalSections: number): number {
+    return learnStateService.getProgressPercentage(totalSections);
+  }
+
+  /**
+   * Clear all learning progress
+   */
+  public clearProgress(): void {
+    learnStateService.clearProgress();
   }
 
   /**

@@ -21,7 +21,7 @@
     <GridLayout rows="*, auto" columns="*">
         <ScrollView id="mainScrollView">
             <!-- Frame for content switching -->
-            <Frame id="mainFrame" row="0" defaultPage="views/main/storybook" />
+            <Frame id="mainFrame" defaultPage="views/main/editor" />
         </ScrollView>
 
         <!-- FAB positioned in the bottom-right corner -->
@@ -64,6 +64,5 @@
             <w:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic"
                 id="gameConsole" moduleName="views/main/game-console" />
         </w:BottomNavigation>
-
     </GridLayout>
 </Page>

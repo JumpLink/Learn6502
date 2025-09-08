@@ -35,6 +35,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   declare private _disassembled: Disassembled;
   declare private _debugInfo: DebugInfoWidget;
   declare private _statusPage: Adw.StatusPage;
+  declare private _stepperSwitch: Adw.SwitchRow;
 
   // Reference to game console
   private gameConsole: GameConsole | null = null;
@@ -52,6 +53,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
           "disassembled",
           "debugInfo",
           "statusPage",
+          "stepperSwitch",
         ],
         Properties: {
           // TypeScript enums are numbers by default
@@ -96,6 +98,8 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this.onStateChanged = this.onStateChanged.bind(this);
     this.onParamChanged = this.onParamChanged.bind(this);
     this.onServiceStateChanged = this.onServiceStateChanged.bind(this);
+    this.onStepperToggled = this.onStepperToggled.bind(this);
+    this.onStepperSwitchActivated = this.onStepperSwitchActivated.bind(this);
 
     this.setupSignalHandlers();
     this.state = DebuggerState.INITIAL;
@@ -187,6 +191,9 @@ export class Debugger extends Adw.Bin implements DebuggerView {
 
     // Listen for state changes from the service
     debuggerController.on("stateChanged", this.onServiceStateChanged);
+
+    // Listen for stepper state changes from the service
+    debuggerController.on("stepperToggled", this.onStepperToggled);
   }
 
   private onServiceStateChanged(newState: DebuggerState): void {
@@ -237,6 +244,12 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this._hexMonitor.events.on("copy", this.onCopyToClipboard);
 
     this._hexMonitor.events.on("changed", this.onHexMonitorChanged);
+
+    // Connect stepper switch signal
+    this._stepperSwitch.connect(
+      "notify::active",
+      this.onStepperSwitchActivated
+    );
   }
 
   private removeSignalHandlers(): void {
@@ -251,10 +264,30 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this._hexMonitor.events.off("copy", this.onCopyToClipboard);
     this._hexMonitor.events.off("changed", this.onHexMonitorChanged);
 
-    // Remove service event listener
+    // Remove service event listeners
     debuggerController.off("stateChanged", this.onServiceStateChanged);
+    debuggerController.off("stepperToggled", this.onStepperToggled);
 
     this.handlerIds = [];
+  }
+
+  /**
+   * Handle stepper state changes from the service
+   * @param enabled Whether stepper is enabled
+   */
+  private onStepperToggled(enabled: boolean): void {
+    // Only update if the state actually changed to avoid signal loops
+    if (this._stepperSwitch.active !== enabled) {
+      this._stepperSwitch.active = enabled;
+    }
+  }
+
+  /**
+   * Handle stepper switch activation from UI
+   */
+  private onStepperSwitchActivated(): void {
+    // The setter will only dispatch events if the state actually changed
+    debuggerController.stepperEnabled = this._stepperSwitch.active;
   }
 }
 

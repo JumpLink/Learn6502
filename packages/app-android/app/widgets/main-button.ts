@@ -3,15 +3,18 @@ import { localize as _ } from "@nativescript/localize";
 import { SimulatorState } from "@learn6502/6502"; // Import shared simulator state
 import { Fab } from "./fab"; // Import the base Fab class
 import {
-  MainUiState,
+  MainButtonState,
   type MainButtonMode,
   type MainButtonWidget,
   mainStateController,
+  ViewType,
+  type MainUiState,
+  buttonStateService,
 } from "@learn6502/common-ui";
 // Property for the button's state
-const stateProperty = new Property<MainButton, MainUiState>({
+const stateProperty = new Property<MainButton, MainButtonState>({
   name: "state",
-  defaultValue: MainUiState.ASSEMBLE,
+  defaultValue: MainButtonState.ASSEMBLE,
 });
 
 /**
@@ -36,41 +39,46 @@ export class MainButton extends Fab implements MainButtonWidget {
   public static stateChangedEvent = "stateChanged"; // Matches GNOME signal name
 
   // Button modes configuration
-  private buttonModes: Record<MainUiState, MainButtonMode> = {
-    [MainUiState.INITIAL]: {
+  private buttonModes: Record<MainButtonState, MainButtonMode> = {
+    [MainButtonState.INITIAL]: {
       iconName: "res://build_alt_symbolic",
       text: _("Assemble"),
       actionName: MainButton.assembleTapEvent,
     },
-    [MainUiState.ASSEMBLE]: {
+    [MainButtonState.ASSEMBLE]: {
       iconName: "res://build_alt_symbolic",
       text: _("Assemble"),
       actionName: MainButton.assembleTapEvent,
     },
-    [MainUiState.RUN]: {
+    [MainButtonState.RUN]: {
       iconName: "res://play_symbolic",
       text: _("Run"),
       actionName: MainButton.runTapEvent,
     },
-    [MainUiState.PAUSE]: {
+    [MainButtonState.PAUSE]: {
       iconName: "res://pause_symbolic",
       text: _("Pause"),
       actionName: MainButton.pauseTapEvent,
     },
-    [MainUiState.RESUME]: {
+    [MainButtonState.RESUME]: {
       iconName: "res://play_symbolic",
       text: _("Resume"),
       actionName: MainButton.resumeTapEvent,
     },
-    [MainUiState.RESET]: {
+    [MainButtonState.RESET]: {
       iconName: "res://reset_symbolic",
       text: _("Reset"),
       actionName: MainButton.resetTapEvent,
     },
-    [MainUiState.STEP]: {
+    [MainButtonState.STEP]: {
       iconName: "res://step_over_symbolic",
       text: _("Step"),
       actionName: MainButton.stepTapEvent,
+    },
+    [MainButtonState.HIDDEN]: {
+      iconName: "res://build_alt_symbolic", // Fallback icon, won't be shown
+      text: _("Hidden"),
+      actionName: MainButton.assembleTapEvent, // Fallback action, won't be used
     },
   };
 
@@ -78,7 +86,7 @@ export class MainButton extends Fab implements MainButtonWidget {
    * Native property change handler for state
    * @param value - The new button state
    */
-  [stateProperty.setNative](value: MainUiState) {
+  [stateProperty.setNative](value: MainButtonState) {
     this.setState(value);
   }
 
@@ -131,7 +139,7 @@ export class MainButton extends Fab implements MainButtonWidget {
    * Implements MainButtonWidget
    * @param state The new button state
    */
-  public setState(state: MainUiState): void {
+  public setState(state: MainButtonState): void {
     mainStateController.setState(state);
   }
 
@@ -139,7 +147,7 @@ export class MainButton extends Fab implements MainButtonWidget {
    * Get the current button state
    * Implements MainButtonWidget
    */
-  public getState(): MainUiState {
+  public getState(): MainButtonState {
     return mainStateController.getState();
   }
 
@@ -153,7 +161,7 @@ export class MainButton extends Fab implements MainButtonWidget {
 
     // If code has changed, automatically set to ASSEMBLE mode
     if (changed) {
-      this.setState(MainUiState.ASSEMBLE);
+      this.setState(MainButtonState.ASSEMBLE);
     }
   }
 
@@ -166,13 +174,13 @@ export class MainButton extends Fab implements MainButtonWidget {
   }
 
   /**
-   * Update button based on simulator state
+   * Update button based on simulator state and current view
    * Implements MainButtonWidget
    *
    * @param state Current simulator state
    * @returns The new button state
    */
-  public updateFromSimulatorState(state: SimulatorState): MainUiState {
+  public updateFromSimulatorState(state: SimulatorState): MainButtonState {
     // Use the mainStateController to determine button state
     const buttonState = mainStateController.updateFromSimulatorState(state);
     this.setState(buttonState);
@@ -236,26 +244,40 @@ export class MainButton extends Fab implements MainButtonWidget {
   protected onStateChanged(state: MainUiState): void {
     if (!this.nativeFab) return;
 
-    const mode = this.buttonModes[state];
+    const newState = state.mainButtonState;
+
+    // Handle HIDDEN state - completely hide the button
+    if (newState === MainButtonState.HIDDEN) {
+      // Hide with animation and ensure it stays hidden
+      this.hide();
+      // Set visibility to GONE to ensure it's completely hidden
+      this.nativeFab.setVisibility(android.view.View.GONE);
+      return;
+    }
+
+    // If transitioning to visible state, ensure button is visible
+    this.nativeFab.setVisibility(android.view.View.VISIBLE);
+    this.show();
+
+    // Update button appearance for the new state
+    const mode = this.buttonModes[newState];
     if (!mode) {
-      console.error(`MainButton: Invalid state - ${state}`);
+      console.error(`MainButton: Invalid state - ${newState}`);
       return;
     }
 
     // Set Icon using the inherited property setter from Fab
-    this.icon = mode.iconName; // Base class will handle applying this to nativeFab.setIconResource
+    this.icon = mode.iconName;
     this.text = mode.text;
 
     // Set Tooltip (Content Description for accessibility)
-    // Directly access nativeFab for content description as Fab doesn't expose it
-    // TODO: Consider adding a setTooltip/setContentDescription method to the base Fab class
     this.nativeFab.setContentDescription(mode.text);
 
     // Emit state change event *after* applying changes
     this.notify(<EventData>{
       eventName: MainButton.stateChangedEvent,
       object: this,
-      state: state,
+      state: newState,
     });
   }
 
@@ -264,22 +286,22 @@ export class MainButton extends Fab implements MainButtonWidget {
     console.log("[MainButton] onButtonTap");
     let eventName: string | null = null;
     switch (this.getState()) {
-      case MainUiState.ASSEMBLE:
+      case MainButtonState.ASSEMBLE:
         eventName = MainButton.assembleTapEvent;
         break;
-      case MainUiState.RUN:
+      case MainButtonState.RUN:
         eventName = MainButton.runTapEvent;
         break;
-      case MainUiState.PAUSE:
+      case MainButtonState.PAUSE:
         eventName = MainButton.pauseTapEvent;
         break;
-      case MainUiState.RESUME:
+      case MainButtonState.RESUME:
         eventName = MainButton.resumeTapEvent;
         break;
-      case MainUiState.RESET:
+      case MainButtonState.RESET:
         eventName = MainButton.resetTapEvent;
         break;
-      case MainUiState.STEP:
+      case MainButtonState.STEP:
         eventName = MainButton.stepTapEvent;
         break;
     }

@@ -32,34 +32,20 @@ template $Debugger: Adw.Bin {
           child: Box {
             orientation: vertical;
 
-            // Information
-            Label {
-              label: _("Information");
-              halign: start;
+            Adw.PreferencesGroup {
+              title: _("Settings");
               margin-bottom: 12;
-              margin-top: 12;
-              styles [
-                "heading"
-              ]
-            }
-            Frame {
-              margin-bottom: 12;
-              $DebugInfo debugInfo {}
+
+              Adw.SwitchRow stepperSwitch {
+                title: _("Enable Stepper Mode");
+                subtitle: _("Execute instructions one by one instead of continuously");
+              }
             }
 
-            // Messages
-            Label {
-              label: _("Messages");
-              halign: start;
+            // Information
+            Box debugInfoBox {
               margin-bottom: 12;
-              margin-top: 12;
-              styles [
-                "heading"
-              ]
-            }
-            Frame {
-              margin-bottom: 12;
-              $MessageConsole messageConsole {}
+              $DebugInfo debugInfo {}
             }
 
             // Hex Monitor
@@ -105,6 +91,21 @@ template $Debugger: Adw.Bin {
             Frame {
               margin-bottom: 12;
               $Disassembled disassembled {}
+            }
+
+            // Messages
+            Label {
+              label: _("Messages");
+              halign: start;
+              margin-bottom: 12;
+              margin-top: 12;
+              styles [
+                "heading"
+              ]
+            }
+            Frame {
+              margin-bottom: 12;
+              $MessageConsole messageConsole {}
             }
           };
         };

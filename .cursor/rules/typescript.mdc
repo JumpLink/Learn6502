@@ -1,0 +1,24 @@
+---
+globs: **/*.ts,**/*.tsx
+alwaysApply: false
+---
+
+# General
+
+- Code and comments always in English
+
+# Classes
+
+Class member ordering (top to bottom):
+
+1. Static properties (public, protected, private)
+2. Instance properties (public, protected, private)
+3. Constructor
+4. Static methods (public, protected, private)
+5. Instance methods (public, protected, private)
+
+Within each category, order by:
+
+- Public members first
+- Protected members second
+- Private members last
