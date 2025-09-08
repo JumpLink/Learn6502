@@ -2,7 +2,7 @@
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-This package contains the classic web version of Easy6502 by Nick Morgan, a one-stop accessible tutorial on 6502 assembly language programming. It includes a series of worked example programs which you can edit and run in the embedded emulator.
+This package contains the classic web version of Easy6502 by Nick Morgan, a one-stop accessible tutorial on 6502 assembly language programming. It includes a series of worked example programs which you can edit and run in the embedded simulator.
 
 This web version is maintained as part of the larger [Learn 6502 Assembly](../../README.md) project, which also provides a modern GNOME desktop application. While the GNOME app offers an enhanced experience, we maintain this web version to preserve the original tutorial's accessibility and simplicity.
 

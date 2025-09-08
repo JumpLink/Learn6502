@@ -5,7 +5,7 @@
 [![Flathub](https://img.shields.io/flathub/v/eu.jumplink.Learn6502.svg)](https://flathub.org/apps/eu.jumplink.Learn6502)
 [![Weblate](https://hosted.weblate.org/widget/eu-jumplink-learn6502/app/svg-badge.svg)](https://hosted.weblate.org/engage/eu-jumplink-learn6502/)
 
-## Modern 6502 Assembly Learning Environment for GNOME
+## 6502 Assembly Learning Environment for GNOME
 
 <img style="vertical-align: middle;" src="./packages/app-gnome/src/data/eu.jumplink.Learn6502.Source.svg" width="80" height="80" align="left">
 
@@ -21,21 +21,21 @@ Learn 6502 Assembly is a modern, native Adwaita application for the GNOME deskto
 
 - **Interactive Tutorial**: A comprehensive step-by-step guide to learning 6502 assembly language, with explanations of all core concepts
 - **Code Editor**: Write and edit your 6502 assembly code with syntax highlighting
-- **Assembler & Debugger**: Assemble your code and debug it with a powerful built-in debugger showing registers, flags, and memory in real-time
-- **Visual Game Console**: See your code in action on a virtual display, perfect for creating simple games and graphics
+- **Assembler & Debugger**: Assemble your code and debug it with a built-in debugger showing registers, flags, and memory in real-time
+- **Visual Game Console**: See your code in action on a virtual display, perfect for creating vintage games and graphics
 - **Built with Modern Technologies**: Developed in GJS and TypeScript with Adwaita styling for a native GNOME experience
 
 This project is a fork of the [original web-based easy6502 tutorial](https://github.com/skilldrick/easy6502), transformed into a native GNOME application while preserving the core functionality that made the original so effective for learning 6502 assembly.
 
 ## Packages
 
-- [app-gnome](./packages/app-gnome/README.md): The main GNOME desktop application with Adwaita styling
-- [app-web](./packages/app-web/README.md): The classic web application as it originally looked
-- [6502](./packages/6502/README.md): The core 6502 simulator, assembler, and disassembler library
-- [translations](./packages/translations/README.md): Translation files and build system for localization
+- [app-gnome](./packages/app-gnome/README.md): Main GNOME desktop application with Adwaita styling
+- [app-android](./packages/app-android/): Android application with NativeScript
+- [app-web](./packages/app-web/README.md): Web application version
+- [6502](./packages/6502/README.md): Core 6502 assembler, simulator, and disassembler
+- [common-ui](./packages/common-ui/README.md): Shared UI components and controllers
 - [learn](./packages/learn/README.md): Tutorial content and learning materials
-- [vite-plugin-gettext](./packages/vite-plugin-gettext/README.md): Vite plugin for gettext localization support
-- [vite-plugin-blueprint](./packages/vite-plugin-blueprint/README.md): Vite plugin for GNOME Blueprint UI files
+- [translations](./packages/translations/README.md): Localization files and build system
 
 ## Development
 
