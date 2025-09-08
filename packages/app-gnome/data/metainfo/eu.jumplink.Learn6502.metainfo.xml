@@ -5,52 +5,60 @@
   <project_license>GPL-3.0-or-later</project_license>
   <name>Learn 6502 Assembly</name>
   <name xml:lang="de">Lerne 6502 Assembler</name>
-  <summary>6502 Assembly Learning Environment</summary>
-  <summary xml:lang="de">Lernumgebung für 6502-Assembler</summary>
+  <summary>Program Vintage Game Consoles</summary>
+  <summary xml:lang="de">Programmiere Vintage-Spielekonsolen</summary>
   <description>
     <p>
-      A comprehensive learning environment for programming vintage computers and game consoles using 6502 assembly language.
+      Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.
     </p>
-    <p xml:lang="de">Eine umfassende Lernumgebung für die Programmierung von Retro-Computern und Spielkonsolen mit 6502-Assembler.</p>
-    <p>Features:</p>
-    <p xml:lang="de">Funktionen:</p>
+    <p xml:lang="de">Entdecke die faszinierende Welt der Programmierung klassischer Computer und Spielekonsolen! Lerne die 6502-Assemblersprache - denselben Code, der legendäre Systeme wie NES, Commodore 64 und Apple II antrieb.</p>
+    <p>
+      No prior programming experience needed. Start with interactive lessons and build your skills step by step.
+    </p>
+    <p xml:lang="de">Keine vorherigen Programmierkenntnisse erforderlich. Beginne mit interaktiven Lektionen und baue deine Fähigkeiten Schritt für Schritt auf.</p>
     <ul>
-      <li>Learn step-by-step with an interactive tutorial</li>
-      <li xml:lang="de">Lerne Schritt für Schritt mit einem interaktiven Tutorial</li>
-      <li>Write code with a built-in editor</li>
-      <li xml:lang="de">Schreibe Code mit einem integrierten Editor</li>
-      <li>Debug your programs with real-time tools</li>
-      <li xml:lang="de">Debugge deine Programme mit Echtzeit-Tools</li>
-      <li>See your code run on a virtual game console</li>
-      <li xml:lang="de">Führe deinen Code auf einer virtuellen Spielkonsole aus</li>
+      <li>Interactive tutorials guide you from beginner to advanced</li>
+      <li xml:lang="de">Interaktive Tutorials führen dich vom Anfänger zum Fortgeschrittenen</li>
+      <li>Write and edit code with a built-in code editor</li>
+      <li xml:lang="de">Schreibe und bearbeite Code mit einem integrierten Code-Editor</li>
+      <li>Debug your programs with real-time inspection tools</li>
+      <li xml:lang="de">Debugge deine Programme mit Echtzeit-Inspektionswerkzeugen</li>
+      <li>Test your creations on a virtual game console</li>
+      <li xml:lang="de">Teste deine Kreationen auf einer virtuellen Spielkonsole</li>
+      <li>Learn about computer history while coding</li>
+      <li xml:lang="de">Erfahre mehr über Computer-Geschichte beim Programmieren</li>
     </ul>
+    <p>
+      Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!
+    </p>
+    <p xml:lang="de">Perfekt für Hobbyisten, Studenten und alle, die neugierig sind, wie Computer wirklich unter der Haube funktionieren!</p>
   </description>
   <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/1.png</image>
-      <caption>Interactive tutorial interface in light theme</caption>
-      <caption xml:lang="de">Interaktive Tutorial-Oberfläche im hellen Design</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/1.png</image>
+      <caption>Snake game running on the virtual game console</caption>
+      <caption xml:lang="de">Snake-Spiel läuft auf der virtuellen Spielkonsole</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/2.png</image>
-      <caption>Interactive tutorial interface in dark theme</caption>
-      <caption xml:lang="de">Interaktive Tutorial-Oberfläche im dunklen Design</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/2.png</image>
+      <caption>Interactive tutorial</caption>
+      <caption xml:lang="de">Interaktives Tutorial</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/3.png</image>
-      <caption>Code editor with 6502 assembly syntax highlighting and visible help</caption>
-      <caption xml:lang="de">Code-Editor mit Syntaxhervorhebung für 6502-Assembler und sichtbarer Hilfe</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/3.png</image>
+      <caption>Code editor</caption>
+      <caption xml:lang="de">Code-Editor</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/4.png</image>
-      <caption>Built-in debugger showing real-time registers, flags, and memory</caption>
-      <caption xml:lang="de">Integrierter Debugger mit Echtzeit-Anzeige von Registern, Flags und Speicher</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/4.png</image>
+      <caption>Built-in debugger</caption>
+      <caption xml:lang="de">Integrierter Debugger</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.2.0/misc/screenshots/5.png</image>
-      <caption>Virtual game console displaying three colored pixels</caption>
-      <caption xml:lang="de">Virtuelle Spielkonsole mit drei farbigen Pixeln</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/5.png</image>
+      <caption>Code editor with help panel in expanded view</caption>
+      <caption xml:lang="de">Code-Editor mit Hilfe-Panel in erweiterter Ansicht</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
@@ -63,24 +71,27 @@
   </developer>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.3.0" date="2025-09-08">
+      <description>
+        <p>Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components.</p>
+        <p xml:lang="de">Wichtige UI-Verbesserungen mit Einführung eines modernen Floating Action Buttons mit dynamischen Zuständen für intuitive Programmkontrolle und einem vollständig neu gestalteten Debugger-Widget mit modernen Adwaita-Komponenten.</p>
+        <p>Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms.</p>
+        <p xml:lang="de">Architekturverbesserungen ermöglichen bessere Code-Teilung zwischen GNOME, Web und Android-Plattformen.</p>
+      </description>
+    </release>
     <release version="0.2.0" date="2025-04-11">
       <description>
-        <p>Major update focusing on improved learning experience and usability</p>
-        <p xml:lang="de">Umfangreiches Update mit Fokus auf verbessertes Lernerlebnis und Benutzerfreundlichkeit</p>
-        <ul>
-          <li>Added help feature to make code editing easier for beginners</li>
-          <li xml:lang="de">Hilfefunktion hinzugefügt, um die Codebearbeitung für Anfänger zu erleichtern</li>
-          <li>Improved game screen and controls for mobile devices</li>
-          <li xml:lang="de">Verbesserte Spieloberfläche und Steuerung für mobile Geräte</li>
-          <li>New tools to examine your code, including disassembler and fast switchable memory viewer</li>
-          <li xml:lang="de">Neue Werkzeuge zur Code-Analyse, einschließlich Disassembler und schnell umschaltbarer Speicheransicht</li>
-          <li>Many minor bugs have been fixed to improve overall usability</li>
-          <li xml:lang="de">Zahlreiche kleine Fehler wurden behoben, um die allgemeine Benutzerfreundlichkeit zu verbessern</li>
-          <li>Games now automatically pause when switching between screens</li>
-          <li xml:lang="de">Spiele werden jetzt automatisch pausiert, wenn zwischen Bildschirmen gewechselt wird</li>
-          <li>Added file management to save and load your programs</li>
-          <li xml:lang="de">Dateiverwaltung zum Speichern und Laden von Programmen hinzugefügt</li>
-        </ul>
+        <p>Added help feature to make code editing easier for beginners</p>
+        <p xml:lang="de">Hilfefunktion hinzugefügt, um die Codebearbeitung für Anfänger zu erleichtern</p>
+        <p>Improved game screen and controls for mobile devices</p>
+        <p xml:lang="de">Verbesserte Spieloberfläche und Steuerung für mobile Geräte</p>
+        <p>New tools to examine your code, including disassembler and fast switchable memory viewer</p>
+        <p xml:lang="de">Neue Werkzeuge zur Code-Analyse, einschließlich Disassembler und schnell umschaltbarer Speicheransicht</p>
+        <p>Many minor bugs have been fixed to improve overall usabipty</p>
+        <p>Games now automatically pause when switching between screens</p>
+        <p xml:lang="de">Spiele werden jetzt automatisch pausiert, wenn zwischen Bildschirmen gewechselt wird</p>
+        <p>Added file management to save and load your programs</p>
+        <p xml:lang="de">Dateiverwaltung zum Speichern und Laden von Programmen hinzugefügt</p>
       </description>
     </release>
     <release version="0.1.2" date="2025-04-03">
@@ -127,12 +138,17 @@
     <keyword xml:lang="de">6502</keyword>
     <keyword>Assembly</keyword>
     <keyword xml:lang="de">Assembler</keyword>
-    <keyword>Programming</keyword>
-    <keyword xml:lang="de">Programmierung</keyword>
-    <keyword>Learning</keyword>
-    <keyword xml:lang="de">Lernen</keyword>
-    <keyword>Emulator</keyword>
-    <keyword xml:lang="de">Emulator</keyword>
+    <keyword>programming</keyword>
+    <keyword>learning</keyword>
+    <keyword>Simulator</keyword>
+    <keyword>IDE</keyword>
+    <keyword xml:lang="de">IDE</keyword>
+    <keyword>Debugger</keyword>
+    <keyword xml:lang="de">Debugger</keyword>
+    <keyword>Adwaita</keyword>
+    <keyword xml:lang="de">Adwaita</keyword>
+    <keyword>GNOME</keyword>
+    <keyword xml:lang="de">GNOME</keyword>
   </keywords>
   <recommends>
     <control>keyboard</control>

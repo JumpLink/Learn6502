@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-09-08 13:52+0200\n"
+"POT-Creation-Date: 2025-09-08 18:20+0200\n"
 "PO-Revision-Date: 2025-05-16 15:03+0000\n"
 "Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eu-jumplink-"
@@ -145,61 +145,6 @@ msgstr ""
 msgid "OK"
 msgstr ""
 
-#: ../app-gnome/src/views/main.window.ts:183
-msgid "Code copied to editor"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:209
-msgid "Copied to clipboard"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:214
-msgid "Failed to copy to clipboard"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:282
-#: ../app-gnome/src/views/main.window.ts:320
-msgid "Program paused automatically"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:476
-msgid "Assembled successfully"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:488
-msgid "Assemble failed"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:497
-msgid "Hexdump:"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:506
-msgid "Disassembly:"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:589
-msgid "Simulator failure"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:608
-msgid "Labels failure"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:662
-msgid "Gamepad key pressed:"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:757
-#, javascript-format
-msgid "Opened %s"
-msgstr ""
-
-#: ../app-gnome/src/views/main.window.ts:784
-#, javascript-format
-msgid "Saved as %s"
-msgstr ""
-
 #: ../app-gnome/src/widgets/main-button.ts:64
 #: ../app-gnome/src/widgets/main-button.ts:69
 msgid "Assemble"
@@ -228,6 +173,88 @@ msgstr ""
 #. Fallback icon, won't be shown
 #: ../app-gnome/src/widgets/main-button.ts:99
 msgid "Hidden"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:188
+msgid "Code copied to editor"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:214
+msgid "Copied to clipboard"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:219
+msgid "Failed to copy to clipboard"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:287
+#: ../app-gnome/src/views/main.window.ts:325
+msgid "Program paused automatically"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:481
+msgid "Assembled successfully"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:493
+msgid "Assemble failed"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:502
+msgid "Hexdump:"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:511
+msgid "Disassembly:"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:594
+msgid "Simulator failure"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:613
+msgid "Labels failure"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:667
+msgid "Gamepad key pressed:"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:762
+#, javascript-format
+msgid "Opened %s"
+msgstr ""
+
+#: ../app-gnome/src/views/main.window.ts:789
+#, javascript-format
+msgid "Saved as %s"
+msgstr ""
+
+#: ../app-gnome/src/widgets/run-menu-button.blp:7
+msgid "Run menu"
+msgstr ""
+
+#: ../app-gnome/src/widgets/run-menu-button.blp:27
+msgid "Continue"
+msgstr ""
+
+#: ../app-gnome/src/widgets/source-view.blp:34
+msgid "Copy to editor"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:24
+#: ../app-gnome/src/widgets/theme-selector.blp:27
+msgid "Follow system style"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:43
+#: ../app-gnome/src/widgets/theme-selector.blp:46
+msgid "Light style"
+msgstr ""
+
+#: ../app-gnome/src/widgets/theme-selector.blp:62
+#: ../app-gnome/src/widgets/theme-selector.blp:65
+msgid "Dark style"
 msgstr ""
 
 #: ../app-gnome/src/views/help.window.blp:7
@@ -310,74 +337,6 @@ msgstr ""
 
 #: ../app-gnome/src/views/preferences.dialog.blp:15
 msgid "There are currently no settings."
-msgstr ""
-
-#: ../app-gnome/src/widgets/run-menu-button.blp:7
-msgid "Run menu"
-msgstr ""
-
-#: ../app-gnome/src/widgets/run-menu-button.blp:27
-msgid "Continue"
-msgstr ""
-
-#: ../app-gnome/src/widgets/source-view.blp:34
-msgid "Copy to editor"
-msgstr ""
-
-#: ../app-gnome/src/widgets/theme-selector.blp:24
-#: ../app-gnome/src/widgets/theme-selector.blp:27
-msgid "Follow system style"
-msgstr ""
-
-#: ../app-gnome/src/widgets/theme-selector.blp:43
-#: ../app-gnome/src/widgets/theme-selector.blp:46
-msgid "Light style"
-msgstr ""
-
-#: ../app-gnome/src/widgets/theme-selector.blp:62
-#: ../app-gnome/src/widgets/theme-selector.blp:65
-msgid "Dark style"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:16
-msgid ""
-"Debug your 6502 assembly code, step through your program, and view memory "
-"and registers. To get started, assemble and run your program."
-msgstr ""
-"Déboguez votre code assembleur 6502, exécutez-le étape par étape et "
-"visualisez la mémoire et les registres. Pour commencer, assemblez et "
-"exécutez votre programme."
-
-#: ../app-gnome/src/views/main/debugger.blp:36
-msgid "Settings"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:40
-msgid "Enable Stepper Mode"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:41
-msgid "Execute instructions one by one instead of continuously"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:53
-msgid "Hex Monitor"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:68
-msgid "Hexdump"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:83
-msgid "Disassembled"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:98
-msgid "Messages"
-msgstr ""
-
-#: ../app-gnome/src/views/main/learn.blp:9
-msgid "Learn how to program the 6502 microprocessor."
 msgstr ""
 
 #: ../app-gnome/src/widgets/debugger/debug-info.blp:15
@@ -534,140 +493,215 @@ msgstr ""
 msgid "Copy to clipboard"
 msgstr ""
 
+#: ../app-gnome/src/views/main/debugger.blp:16
+msgid ""
+"Debug your 6502 assembly code, step through your program, and view memory "
+"and registers. To get started, assemble and run your program."
+msgstr ""
+"Déboguez votre code assembleur 6502, exécutez-le étape par étape et "
+"visualisez la mémoire et les registres. Pour commencer, assemblez et "
+"exécutez votre programme."
+
+#: ../app-gnome/src/views/main/debugger.blp:36
+msgid "Settings"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:40
+msgid "Enable Stepper Mode"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:41
+msgid "Execute instructions one by one instead of continuously"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:53
+msgid "Hex Monitor"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:68
+msgid "Hexdump"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:83
+msgid "Disassembled"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:98
+msgid "Messages"
+msgstr ""
+
+#: ../app-gnome/src/views/main/learn.blp:9
+msgid "Learn how to program the 6502 microprocessor."
+msgstr ""
+
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:7
-msgid "6502 Assembly Learning Environment"
+msgid "Program Vintage Game Consoles"
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:9
 msgid ""
-"A comprehensive learning environment for programming vintage computers and "
-"game consoles using 6502 assembly language."
+"Discover the fascinating world of programming classic computers and game "
+"consoles! Learn 6502 assembly language - the same code that powered iconic "
+"systems like the NES, Commodore 64, and Apple II."
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:12
-msgid "Features:"
-msgstr ""
-
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:14
-msgid "Learn step-by-step with an interactive tutorial"
-msgstr ""
-
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:15
-msgid "Write code with a built-in editor"
+msgid ""
+"No prior programming experience needed. Start with interactive lessons and "
+"build your skills step by step."
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:16
-msgid "Debug your programs with real-time tools"
+msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr ""
 
 #: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:17
-msgid "See your code run on a virtual game console"
+msgid "Write and edit code with a built-in code editor"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:24
-msgid "Interactive tutorial interface in light theme"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:18
+msgid "Debug your programs with real-time inspection tools"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:28
-msgid "Interactive tutorial interface in dark theme"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:19
+msgid "Test your creations on a virtual game console"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:32
-msgid "Code editor with 6502 assembly syntax highlighting and visible help"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:20
+msgid "Learn about computer history while coding"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:36
-msgid "Built-in debugger showing real-time registers, flags, and memory"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:22
+msgid ""
+"Perfect for hobbyists, students, and anyone curious about how computers "
+"really work under the hood!"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:40
-msgid "Virtual game console displaying three colored pixels"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:30
+msgid "Snake game running on the virtual game console"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:55
-msgid "Major update focusing on improved learning experience and usability"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:34
+msgid "Interactive tutorial"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:57
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:38
+msgid "Code editor"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:42
+msgid "Built-in debugger"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:46
+msgid "Code editor with help panel in expanded view"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:61
+msgid ""
+"Major UI improvements introducing a modern Floating Action Button with "
+"dynamic states for intuitive program control, and a completely redesigned "
+"debugger widget using modern Adwaita components."
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:62
+msgid ""
+"Architecture enhancements enable better code sharing between GNOME, Web, and "
+"Android platforms."
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:67
 msgid "Added help feature to make code editing easier for beginners"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:58
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:68
 msgid "Improved game screen and controls for mobile devices"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:59
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:69
 msgid ""
 "New tools to examine your code, including disassembler and fast switchable "
 "memory viewer"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:60
-msgid "Many minor bugs have been fixed to improve overall usability"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:70
+msgid "Many minor bugs have been fixed to improve overall usabipty"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:61
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:71
 msgid "Games now automatically pause when switching between screens"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:62
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:72
 msgid "Added file management to save and load your programs"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:68
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:77
 msgid "Enhanced app presentation and accessibility"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:69
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:78
 msgid "Improved descriptions to be more welcoming for non-technical users"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:70
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:79
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:75
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:84
 msgid "Improved the game console performance for smoother gameplay"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:76
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:85
 msgid "Enhanced the hex monitor address range input for easier value editing"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:77
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:86
 msgid "Reduced default hex monitor address range for better efficiency"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:78
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:87
 msgid "Debugger now only updates when visible, reducing unnecessary processing"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:79
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:88
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:84
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:93
 msgid "First release of Learn 6502 Assembly for GNOME"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:97
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:106
 msgid "6502"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:98
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:107
 msgid "Assembly"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:99
-msgid "Programming"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:108
+msgid "programming"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:100
-msgid "Learning"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:109
+msgid "learning"
 msgstr ""
 
-#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:101
-msgid "Emulator"
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:110
+msgid "Simulator"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:111
+msgid "IDE"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:113
+msgid "Adwaita"
+msgstr ""
+
+#: ../app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in:114
+msgid "GNOME"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:1
