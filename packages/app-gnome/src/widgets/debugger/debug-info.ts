@@ -7,27 +7,26 @@ import { type DebugInfoWidget } from "@learn6502/common-ui";
 import Template from "./debug-info.blp";
 
 export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
-  // Register value labels
+  // Register value labels (hex)
   declare private _aValue: Gtk.Label;
   declare private _xValue: Gtk.Label;
   declare private _yValue: Gtk.Label;
   declare private _spValue: Gtk.Label;
   declare private _pcValue: Gtk.Label;
 
-  // Optional subtitles for decimal view
+  // Register value labels (decimal)
+  declare private _aValueDec: Gtk.Label;
+  declare private _xValueDec: Gtk.Label;
+  declare private _yValueDec: Gtk.Label;
+  declare private _spValueDec: Gtk.Label;
+  declare private _pcValueDec: Gtk.Label;
+
+  // Register rows (for help subtitles)
   declare private _rowA: Adw.ActionRow;
   declare private _rowX: Adw.ActionRow;
   declare private _rowY: Adw.ActionRow;
-
-  // Flag header labels
-  declare private _nHdr: Gtk.Label;
-  declare private _vHdr: Gtk.Label;
-  declare private _dashHdr: Gtk.Label;
-  declare private _bHdr: Gtk.Label;
-  declare private _dHdr: Gtk.Label;
-  declare private _iHdr: Gtk.Label;
-  declare private _zHdr: Gtk.Label;
-  declare private _cHdr: Gtk.Label;
+  declare private _rowSP: Adw.ActionRow;
+  declare private _rowPC: Adw.ActionRow;
 
   // P bits (bit7..bit0)
   declare private _p7: Gtk.Label;
@@ -49,21 +48,20 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
           "rowA",
           "rowX",
           "rowY",
-          // register values
+          "rowSP",
+          "rowPC",
+          // register values (hex)
           "aValue",
           "xValue",
           "yValue",
           "spValue",
           "pcValue",
-          // flags header
-          "nHdr",
-          "vHdr",
-          "dashHdr",
-          "bHdr",
-          "dHdr",
-          "iHdr",
-          "zHdr",
-          "cHdr",
+          // register values (decimal)
+          "aValueDec",
+          "xValueDec",
+          "yValueDec",
+          "spValueDec",
+          "pcValueDec",
           // bit view p7..p0
           "p7",
           "p6",
@@ -90,17 +88,19 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
   public update(simulator: Simulator) {
     const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
 
-    // Registerwerte (hex)
+    // Register values (hex)
     this._aValue.set_label(`$${num2hex(regA)}`);
     this._xValue.set_label(`$${num2hex(regX)}`);
     this._yValue.set_label(`$${num2hex(regY)}`);
     this._spValue.set_label(`$${num2hex(regSP)}`);
     this._pcValue.set_label(`$${addr2hex(regPC)}`);
 
-    // Optional: Decimal in subtitle for beginners
-    this._rowA.set_subtitle(`${regA} (dec)`);
-    this._rowX.set_subtitle(`${regX} (dec)`);
-    this._rowY.set_subtitle(`${regY} (dec)`);
+    // Register values (decimal) - always visible
+    this._aValueDec.set_label(`${regA}`);
+    this._xValueDec.set_label(`${regX}`);
+    this._yValueDec.set_label(`${regY}`);
+    this._spValueDec.set_label(`${regSP}`);
+    this._pcValueDec.set_label(`${regPC}`);
 
     // Flags: N V - B D I Z C   (bit7..bit0)
     // 6502 P: N V - B D I Z C
@@ -115,23 +115,7 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
       (regP >> 0) & 1, // C
     ];
 
-    // Highlight compact flags visually (active: normal, inactive: dim-label)
-    const setFlag = (label: Gtk.Label, on: number) => {
-      if (on) {
-        label.remove_css_class("dim-label");
-        label.add_css_class("accent"); // subtle; remove if too strong
-      } else {
-        label.add_css_class("dim-label");
-        label.remove_css_class("accent");
-      }
-    };
-
-    // Header labels remain static (just labels)
-    // Bit labels show the dynamic values
-    // dash flag always dimmed
-    this._dashHdr.add_css_class("dim-label");
-
-    // P-Register bit view (text 0/1)
+    // Update compact flag display (bit view)
     const pLbls = [
       this._p7,
       this._p6,
