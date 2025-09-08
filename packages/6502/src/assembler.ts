@@ -11,7 +11,7 @@ import type {
 } from "./types/index.js";
 
 /**
- * Represents the assembler for the 6502 emulator.
+ * Represents the assembler for the 6502 simulator.
  * @emits assemble-success - Emitted when assembly is successful.
  * @emits assemble-failure - Emitted when assembly fails.
  * @emits hexdump - Emitted when a hexdump is generated.

@@ -5,7 +5,7 @@ import {
 } from "@learn6502/common-ui";
 
 /**
- * Represents the display for a 6502 emulator.
+ * Represents the display for a 6502 simulator.
  */
 export class Display implements DisplayWidget {
   private ctx: CanvasRenderingContext2D | null = null;

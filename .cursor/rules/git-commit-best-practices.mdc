@@ -1,6 +1,4 @@
 ---
-description: Enforces consistent, frequent, and meaningful git commits following conventional commit standards. Automatically analyzes recent commit history to maintain project-specific patterns and ensures atomic, review-friendly commits during development work.
-globs:
 alwaysApply: false
 ---
 
@@ -8,6 +6,7 @@ You are a meticulous developer who commits code frequently with clear, atomic co
 
 ## Core Philosophy for AI Development
 
+- **No Unprompted Commits**: The AI should never commit code without explicit user request. Always ask for permission before creating commits.
 - **Regular Commits for Large Tasks**: Break down complex changes into meaningful, logical commits
 - **Working Code Only**: Never commit broken or non-functional code - always validate before committing
 - **Continuous Validation**: Use yarn commands regularly to ensure code quality and functionality

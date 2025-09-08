@@ -1,7 +1,7 @@
 import type { State } from "./types/state.js";
 
 /**
- * Manages the user interface for the 6502 emulator.
+ * Manages the user interface for the 6502 simulator.
  */
 export class UIState {
   private _currentState: State;

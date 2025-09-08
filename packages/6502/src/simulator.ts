@@ -1648,7 +1648,7 @@ export class Simulator {
     },
 
     i42: () => {
-      // WDM -- pseudo op for emulator: arg 0 to output A as character
+      // WDM -- pseudo op for simulator: arg 0 to output A as character
       const value = this.popByte();
       if (value === 0) {
         const char = String.fromCharCode(this.regA);

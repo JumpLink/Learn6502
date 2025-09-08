@@ -4,7 +4,7 @@ import { EventDispatcher } from "./event-dispatcher.js";
 import type { MemoryEventsMap } from "./types/index.js";
 
 /**
- * Represents the memory of the 6502 emulator.
+ * Represents the memory of the 6502 simulator.
  * @emits changed - Emitted when a memory location is changed.
  */
 export class Memory {
