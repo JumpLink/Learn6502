@@ -11,6 +11,7 @@ import { HelpWindow } from "./help.window.ts";
 import { MainButton, RunMenuButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
+import { settings } from "../settings.ts";
 
 import Template from "./main.window.blp";
 import {
@@ -146,6 +147,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     // Initialize the previous visible child after all setup is done
     this.previousVisibleChild = this._stack.get_visible_child();
+
+    // Load and setup window size management
+    this.loadWindowSize();
+    this.setupWindowSizeSaving();
   }
 
   public get state(): SimulatorState {
@@ -863,6 +868,49 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.pauseSimulatorAction.set_enabled(enabledState.pause);
     this.stepSimulatorAction.set_enabled(enabledState.step);
     this.resetSimulatorAction.set_enabled(enabledState.reset);
+  }
+
+  private loadWindowSize(): void {
+    try {
+      const width = settings.get_int("window-width");
+      const height = settings.get_int("window-height");
+      const isMaximized = settings.get_boolean("is-maximized");
+
+      if (isMaximized) {
+        this.maximize();
+      } else {
+        this.set_default_size(width, height);
+      }
+    } catch (error) {
+      console.warn("Could not load window size from settings:", error);
+      // Fallback to Blueprint defaults
+    }
+  }
+
+  private setupWindowSizeSaving(): void {
+    // Save window size when it changes
+    this.connect("notify::default-width", () => this.saveWindowSize());
+    this.connect("notify::default-height", () => this.saveWindowSize());
+
+    // Save maximized state
+    this.connect("notify::maximized", () => {
+      const isMaximized = this.is_maximized();
+      settings.set_boolean("is-maximized", isMaximized);
+    });
+  }
+
+  private saveWindowSize(): void {
+    if (this.is_maximized()) {
+      return; // Don't save size when maximized
+    }
+
+    try {
+      const [width, height] = this.get_default_size();
+      settings.set_int("window-width", width);
+      settings.set_int("window-height", height);
+    } catch (error) {
+      console.warn("Could not save window size to settings:", error);
+    }
   }
 }
 
