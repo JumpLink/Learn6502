@@ -24,7 +24,7 @@ yarn_env.set('BUILD_MODE', 'flatpak')
 
 yarn_env.set('PKGDATADIR', pkgdatadir)
 
-run_command(yarn, yarn_args, 'yarn workspaces focus @learn6502/app-gnome', check: true)
+run_command(yarn, yarn_args, 'workspaces focus @learn6502/app-gnome', check: true)
 
 # Find all source files
 ts_files = run_command('sh', '-c', 'ls src/*/*.ts && ls src/**/*.ts', check: true).stdout().strip().split('\n')
