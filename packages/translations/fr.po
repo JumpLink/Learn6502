@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.2.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
-"POT-Creation-Date: 2025-09-07 18:08+0200\n"
+"POT-Creation-Date: 2025-09-08 13:52+0200\n"
 "PO-Revision-Date: 2025-05-16 15:03+0000\n"
 "Last-Translator: LibreTranslate <noreply-mt-libretranslate@weblate.org>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/eu-jumplink-"
@@ -360,28 +360,145 @@ msgstr ""
 msgid "Execute instructions one by one instead of continuously"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:47
-msgid "Information"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:61
-msgid "Messages"
-msgstr ""
-
-#: ../app-gnome/src/views/main/debugger.blp:75
+#: ../app-gnome/src/views/main/debugger.blp:53
 msgid "Hex Monitor"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:90
+#: ../app-gnome/src/views/main/debugger.blp:68
 msgid "Hexdump"
 msgstr ""
 
-#: ../app-gnome/src/views/main/debugger.blp:105
+#: ../app-gnome/src/views/main/debugger.blp:83
 msgid "Disassembled"
+msgstr ""
+
+#: ../app-gnome/src/views/main/debugger.blp:98
+msgid "Messages"
 msgstr ""
 
 #: ../app-gnome/src/views/main/learn.blp:9
 msgid "Learn how to program the 6502 microprocessor."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:15
+msgid "Registers"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:20
+msgid "Accumulator: Main register for calculations"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:21
+msgid ""
+"The Accumulator (A) is the primary register for arithmetic and logic "
+"operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use "
+"this register. It's the most frequently used register in 6502 assembly "
+"programming."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:49
+msgid "Index register X: Used for addressing"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:50
+msgid ""
+"The X Index Register is used for indexed addressing modes and counting "
+"operations. It can hold loop counters, array indices, and is essential for "
+"accessing memory locations relative to a base address using X as an offset."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:78
+msgid "Index register Y: Used for addressing"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:79
+msgid ""
+"The Y Index Register works similarly to X but has some unique capabilities. "
+"It's particularly useful for accessing memory with Y-relative addressing and "
+"is often used for data transfer operations between memory blocks."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:107
+msgid "Stack Pointer: Points to stack position"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:108
+msgid ""
+"The Stack Pointer manages the call stack for subroutines and interrupts. It "
+"starts at $FF (top of stack) and grows downward. Used for PUSH/PULL "
+"operations, JSR/RTS calls, and interrupt handling. Critical for nested "
+"function calls."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:136
+msgid "Program Counter: Points to next instruction"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:137
+msgid ""
+"The Program Counter contains the memory address of the next instruction to "
+"execute. It automatically increments after each instruction and can be "
+"modified by jumps, branches, calls, and returns. Essential for program flow "
+"control and debugging."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:166
+msgid "Status Flags"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:170
+msgid "Processor Status Register"
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:185
+msgid ""
+"Negative Flag: Set when the most significant bit (bit 7) of the result is 1. "
+"Used for signed number comparisons and indicates if a value is negative in "
+"two's complement representation."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:191
+msgid ""
+"Overflow Flag: Set when an arithmetic operation produces a result that "
+"cannot be represented in signed 8-bit range (-128 to +127). Used for "
+"detecting signed arithmetic errors in calculations."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:202
+msgid ""
+"Break Flag: Set when a BRK (Break) instruction is executed. Used to "
+"distinguish between software interrupts (BRK) and hardware interrupts. Helps "
+"identify the source of an interrupt in interrupt service routines."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:208
+msgid ""
+"Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic "
+"operations. When set, ADC/SBC instructions treat values as decimal digits "
+"(0-9) instead of binary. Used for financial calculations and decimal "
+"arithmetic."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:214
+msgid ""
+"Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). "
+"Only Non-Maskable Interrupts (NMI) can still occur. Used for critical "
+"sections of code that must not be interrupted."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:220
+msgid ""
+"Zero Flag: Set when the result of an operation is zero. Essential for "
+"conditional branching - most conditional jump instructions (BEQ, BNE) check "
+"this flag to determine program flow based on whether a value is zero."
+msgstr ""
+
+#: ../app-gnome/src/widgets/debugger/debug-info.blp:226
+msgid ""
+"Carry Flag: Set when an addition produces a carry-out or subtraction "
+"produces a borrow. Used for multi-byte arithmetic operations and conditional "
+"branching (BCS, BCC). Critical for implementing arithmetic operations larger "
+"than 8 bits."
 msgstr ""
 
 #: ../app-gnome/src/widgets/debugger/hex-monitor.blp:19
@@ -677,10 +794,6 @@ msgstr ""
 msgid "<b><tt>$f</tt></b>: Light grey (<tt>#bbbbbb</tt>)"
 msgstr ""
 
-#: ../learn/dist/quick-help.ui:7
-msgid "Registers"
-msgstr ""
-
 #: ../learn/dist/quick-help.ui:8
 msgid ""
 "<b>A</b> (Accumulator): Main register for calculations and data manipulation"
@@ -732,10 +845,6 @@ msgstr ""
 
 #: ../learn/dist/quick-help.ui:10
 msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
-msgstr ""
-
-#: ../learn/dist/quick-help.ui:10
-msgid "Used for conditional branching"
 msgstr ""
 
 #: ../learn/dist/quick-help.ui:11
