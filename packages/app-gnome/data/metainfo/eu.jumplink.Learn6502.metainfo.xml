@@ -6,7 +6,8 @@
   <name>Learn 6502 Assembly</name>
   <name xml:lang="de">Lerne 6502 Assembler</name>
   <summary>Program Vintage Game Consoles</summary>
-  <summary xml:lang="de">Programmiere Vintage-Spielekonsolen</summary>
+  <summary xml:lang="de">Programmiere Retro-Spielekonsolen</summary>
+  <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
   <description>
     <p>
       Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.
@@ -69,7 +70,10 @@
     <name translate="no">Pascal Garber</name>
     <email>pascal@mailfreund.de</email>
   </developer>
-  <content_rating type="oars-1.1"/>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-info">mild</content_attribute>
+    <content_attribute id="language-humor">mild</content_attribute>
+  </content_rating>
   <releases>
     <release version="0.3.0" date="2025-09-08">
       <description>
@@ -128,7 +132,12 @@
   <kudos>
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
+    <kudo>TouchscreenSupport</kudo>
+    <kudo>UserDocs</kudo>
   </kudos>
+  <provides>
+    <binary>eu.jumplink.Learn6502</binary>
+  </provides>
   <categories>
     <category>Development</category>
     <category>Education</category>
@@ -150,14 +159,17 @@
     <keyword>GNOME</keyword>
     <keyword xml:lang="de">GNOME</keyword>
   </keywords>
-  <recommends>
+  <supports>
     <control>keyboard</control>
     <control>pointing</control>
     <control>touch</control>
-  </recommends>
+  </supports>
   <requires>
     <display_length compare="ge">360</display_length>
   </requires>
+  <recommends>
+    <display_length compare="ge">480</display_length>
+  </recommends>
   <branding>
     <color type="primary" scheme_preference="light">#DC9FF0</color>
     <color type="primary" scheme_preference="dark">#5E2073</color>
