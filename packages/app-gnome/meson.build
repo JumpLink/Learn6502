@@ -4,7 +4,7 @@ dependency('gjs-1.0', version: '>= 1.80.2')
 gjs_console = find_program('gjs-console', required: true)
 
 # TODO: Autodetect yarn version
-yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.9.1.cjs'
+yarn_path = meson.project_source_root() / '.yarn' / 'releases' / 'yarn-4.9.4.cjs'
 node = find_program('node')
 yarn = [node, yarn_path]
 
@@ -24,7 +24,7 @@ yarn_env.set('BUILD_MODE', 'flatpak')
 
 yarn_env.set('PKGDATADIR', pkgdatadir)
 
-run_command(yarn, yarn_args, 'install', check: true)
+run_command(yarn, yarn_args, 'yarn workspaces focus @learn6502/app-gnome', check: true)
 
 # Find all source files
 ts_files = run_command('sh', '-c', 'ls src/*/*.ts && ls src/**/*.ts', check: true).stdout().strip().split('\n')

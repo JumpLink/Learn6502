@@ -4,11 +4,11 @@
   "runtime-version": "48",
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
-    "org.freedesktop.Sdk.Extension.node22",
+    "org.freedesktop.Sdk.Extension.node24",
     "org.freedesktop.Sdk.Extension.typescript"
   ],
   "build-options": {
-    "append-path": "/usr/lib/sdk/node22/bin:/usr/lib/sdk/typescript/bin:/app/bin"
+    "append-path": "/usr/lib/sdk/node24/bin:/usr/lib/sdk/typescript/bin:/app/bin"
   },
   "command": "eu.jumplink.Learn6502",
   "finish-args": [
@@ -40,8 +40,8 @@
       "sources": [
         {
           "type": "archive",
-          "url": "https://gitlab.gnome.org/jwestman/blueprint-compiler/-/archive/v0.16.0/blueprint-compiler-v0.16.0.tar.gz",
-          "sha256": "01feb8263fe7a450b0a9fed0fd54cf88947aaf00f86cc7da345f8b39a0e7bd30"
+          "url": "https://gitlab.gnome.org/GNOME/blueprint-compiler/-/archive/0.18.0/blueprint-compiler-0.18.0.tar.gz",
+          "sha256": "51aa472ecd7bd4b32b8baa7ae6768b19810793d4a2a1aba39c5b31b0170cb258"
         }
       ]
     },
