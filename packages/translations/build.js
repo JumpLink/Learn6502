@@ -23,6 +23,12 @@ const xgettext = xgettextPlugin({
   version: VERSION,
   autoUpdatePo: true,
   msgidBugsAddress: "https://github.com/JumpLink/Learn6502/issues",
+  // Reduce diff noise and stabilize output
+  noLocation: true,
+  sortOutput: true,
+  msgcatOptions: ["--no-wrap"],
+  // Preserve existing POT-Creation-Date from previous POT
+  preserveCreationDate: true,
 });
 
 // Compile PO files to MO files

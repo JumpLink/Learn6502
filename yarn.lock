@@ -1439,28 +1439,28 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gjsify/vite-plugin-blueprint@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@gjsify/vite-plugin-blueprint@npm:0.2.2"
+"@gjsify/vite-plugin-blueprint@npm:^0.2.5":
+  version: 0.2.5
+  resolution: "@gjsify/vite-plugin-blueprint@npm:0.2.5"
   dependencies:
     execa: "npm:^9.6.0"
     minify-xml: "npm:^4.5.2"
   peerDependencies:
     vite: "*"
-  checksum: 10c0/16d77e0d482ec9fc27c9e7ffdd31ef18f31a61a45a90e0c05f478da2e0ffe62dfbe154ece3af591ebced393a451ef4b8493780dbbfea74bd719e723cfd28466d
+  checksum: 10c0/79f93c5b7f1e559ac6162397443e52d8366b2fdc106df6fcecc80718f0ba09e72e1b870126c3d06362c0b836b1cb88f0f9f0f50e89057de1920fd48d4f322405
   languageName: node
   linkType: hard
 
-"@gjsify/vite-plugin-gettext@npm:^0.2.2":
-  version: 0.2.2
-  resolution: "@gjsify/vite-plugin-gettext@npm:0.2.2"
+"@gjsify/vite-plugin-gettext@npm:^0.2.5":
+  version: 0.2.5
+  resolution: "@gjsify/vite-plugin-gettext@npm:0.2.5"
   dependencies:
     execa: "npm:^9.6.0"
     fast-glob: "npm:^3.3.3"
     gettext-parser: "npm:^8.0.0"
   peerDependencies:
     vite: "*"
-  checksum: 10c0/0e7efd0847132a251b1deab852b2d499ab1232540bfd27afbf7697c44e152218610ff300540318da1351104d7da79ca03a8b30da41b44ae9d4e76627eb616130
+  checksum: 10c0/2fcfe4d36fd33bfa726e572867975a521413ec2d500904c8131be125b890a07aad024da7619e28d1ff69f323388491cee3da8e99bbe73a5199d4247f9cd1fa87
   languageName: node
   linkType: hard
 
@@ -2064,8 +2064,8 @@ __metadata:
     "@girs/javascriptcore-6.0": "npm:^2.48.5-4.0.0-beta.36"
     "@girs/pango-1.0": "npm:^1.56.4-4.0.0-beta.36"
     "@girs/webkit-6.0": "npm:^2.48.5-4.0.0-beta.36"
-    "@gjsify/vite-plugin-blueprint": "npm:^0.2.2"
-    "@gjsify/vite-plugin-gettext": "npm:^0.2.2"
+    "@gjsify/vite-plugin-blueprint": "npm:^0.2.5"
+    "@gjsify/vite-plugin-gettext": "npm:^0.2.5"
     "@learn6502/6502": "workspace:^"
     "@learn6502/common-ui": "workspace:^"
     "@learn6502/learn": "workspace:^"
@@ -2114,7 +2114,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/translations@workspace:packages/translations"
   dependencies:
-    "@gjsify/vite-plugin-gettext": "npm:^0.2.2"
+    "@gjsify/vite-plugin-gettext": "npm:^0.2.5"
   languageName: unknown
   linkType: soft
 
