@@ -1,5 +1,20 @@
-/*
-window#application-window {
-  background-color: var(--accent-bg-color);
+/* Derive a tone from the chosen/system accent depending on mode */
+.themed.is-light {
+  --learn-accent-tone: color-mix(
+    in oklab,
+    var(--learn-accent-color, var(--accent-bg-color)) 50%,
+    white
+  );
 }
-  */
+.themed.is-dark {
+  --learn-accent-tone: color-mix(
+    in oklab,
+    var(--learn-accent-color, var(--accent-bg-color)) 50%,
+    black
+  );
+}
+
+.themed:not(.accent-none) window#application-window,
+window#application-window.themed:not(.accent-none) {
+  background-color: var(--learn-accent-tone);
+}

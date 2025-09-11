@@ -856,20 +856,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupThemeManagement(): void {
-    // Add theme listener to update UI when theme changes
-    themeService.events.on("theme-changed", ({ theme, isDark }) => {
-      // Update UI elements that need to change with theme
-      console.log(`Theme changed to ${theme}, isDark: ${isDark}`);
-
-      const ctx = this.get_style_context();
-      if (isDark) {
-        ctx.remove_class("app-light");
-        ctx.add_class("app-dark");
-      } else {
-        ctx.remove_class("app-dark");
-        ctx.add_class("app-light");
-      }
-    });
+    // Register this window to receive mode/accent classes automatically
+    themeService.registerThemedWidget(this);
   }
 
   private setupMainStateEventListeners(): void {

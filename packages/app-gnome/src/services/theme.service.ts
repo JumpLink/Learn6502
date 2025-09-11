@@ -14,6 +14,16 @@ class ThemeService extends BaseThemeService {
   private styleManager: Adw.StyleManager | null = null;
   private settings: Gio.Settings | null = null;
   private cssProvider: Gtk.CssProvider | null = null;
+  private accentProvider: Gtk.CssProvider | null = null;
+  /**
+   * Widgets that should automatically receive theme-related CSS classes.
+   */
+  private themedWidgets: Set<Gtk.Widget> = new Set();
+  /**
+   * Named accent key when using predefined accent families.
+   * null => auto/custom without a named key, "none" => explicit no-accent mode
+   */
+  private currentAccentKey: string | null = null;
 
   constructor() {
     super();
@@ -60,6 +70,10 @@ class ThemeService extends BaseThemeService {
           this.styleManager?.get_system_supports_color_schemes() ?? false,
       });
     });
+
+    // Sync classes on theme/accent changes
+    this.events.on("theme-changed", () => this.refreshThemedWidgets());
+    this.events.on("accent-changed", () => this.refreshThemedWidgets());
   }
 
   /**
@@ -93,6 +107,181 @@ class ThemeService extends BaseThemeService {
 
     // Save theme to settings
     this.saveThemeToSettings(mode);
+  }
+
+  /**
+   * Set a custom accent color via CSS variable. Pass null to clear and follow system.
+   * @param hexOrNull CSS color string (e.g. "#3584e4") or null to clear
+   */
+  public setAccentColor(hexOrNull: string | null): void {
+    const display = Gdk.Display.get_default();
+    if (!display) return;
+
+    // Remove previous provider if any
+    if (this.accentProvider) {
+      Gtk.StyleContext.remove_provider_for_display(
+        display,
+        this.accentProvider
+      );
+      this.accentProvider = null;
+    }
+
+    if (!hexOrNull) {
+      // Clearing accent: rely on libadwaita defaults
+      this.currentAccentKey = null;
+      this.events.dispatch("accent-changed", {
+        color: null,
+        key: null,
+        mode: "auto",
+      });
+      return;
+    }
+
+    // Install a small provider that defines our CSS variable
+    const css = `:root { --learn-accent-color: ${hexOrNull}; }`;
+    const provider = new Gtk.CssProvider();
+    provider.load_from_string(css);
+    Gtk.StyleContext.add_provider_for_display(
+      display,
+      provider,
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    );
+    this.accentProvider = provider;
+    this.currentAccentKey = null;
+    this.events.dispatch("accent-changed", {
+      color: hexOrNull,
+      key: null,
+      mode: "custom",
+    });
+  }
+
+  /** Clear any explicit accent, follow system defaults. */
+  public clearAccentColor(): void {
+    this.setAccentColor(null);
+  }
+
+  /**
+   * Set accent by a predefined key using Adwaita CSS variables.
+   * @param key One of the supported accent families.
+   */
+  public setAccentByKey(
+    key:
+      | "blue"
+      | "teal"
+      | "green"
+      | "yellow"
+      | "orange"
+      | "red"
+      | "pink"
+      | "purple"
+      | "slate"
+  ): void {
+    const display = Gdk.Display.get_default();
+    if (!display) return;
+
+    if (this.accentProvider) {
+      Gtk.StyleContext.remove_provider_for_display(
+        display,
+        this.accentProvider
+      );
+      this.accentProvider = null;
+    }
+
+    const css = `:root { --learn-accent-color: var(--accent-${key}); }`;
+    const provider = new Gtk.CssProvider();
+    provider.load_from_string(css);
+    Gtk.StyleContext.add_provider_for_display(
+      display,
+      provider,
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    );
+    this.accentProvider = provider;
+    this.currentAccentKey = key;
+    this.events.dispatch("accent-changed", {
+      color: null,
+      key,
+      mode: "custom",
+    });
+  }
+
+  /** Follow system accent (auto). */
+  public setAccentAuto(): void {
+    this.clearAccentColor();
+    this.currentAccentKey = null;
+    this.events.dispatch("accent-changed", {
+      color: null,
+      key: null,
+      mode: "auto",
+    });
+  }
+
+  /** No accent override: keep system defaults but mark class as none. */
+  public setAccentNone(): void {
+    this.clearAccentColor();
+    this.currentAccentKey = "none" as any;
+    this.events.dispatch("accent-changed", {
+      color: null,
+      key: null,
+      mode: "none",
+    });
+  }
+
+  /**
+   * Register a widget to receive theme-related CSS classes.
+   * @param widget Target widget
+   */
+  public registerThemedWidget(widget: Gtk.Widget): void {
+    this.themedWidgets.add(widget);
+    this.applyClasses(widget);
+  }
+
+  /**
+   * Unregister a widget from receiving theme-related CSS classes.
+   * @param widget Target widget
+   */
+  public unregisterThemedWidget(widget: Gtk.Widget): void {
+    if (this.themedWidgets.delete(widget)) {
+      this.clearClasses(widget);
+    }
+  }
+
+  /** Force re-applying classes to all registered widgets. */
+  public refreshThemedWidgets(): void {
+    for (const w of this.themedWidgets) this.applyClasses(w);
+  }
+
+  /** Apply CSS classes for mode and accent onto a widget. */
+  private applyClasses(widget: Gtk.Widget): void {
+    this.clearClasses(widget);
+    widget.add_css_class("themed");
+    const mode = this.currentTheme;
+    const isDark = this.isDarkTheme;
+    widget.add_css_class(`mode-${mode}`);
+    widget.add_css_class(isDark ? "is-dark" : "is-light");
+    if (this.currentAccentKey) {
+      if (this.currentAccentKey === "none") widget.add_css_class("accent-none");
+      else widget.add_css_class(`accent-${this.currentAccentKey}`);
+    }
+  }
+
+  /** Remove all theme-related classes from a widget. */
+  private clearClasses(widget: Gtk.Widget): void {
+    widget.remove_css_class("themed");
+    widget.remove_css_class("mode-system");
+    widget.remove_css_class("mode-light");
+    widget.remove_css_class("mode-dark");
+    widget.remove_css_class("is-dark");
+    widget.remove_css_class("is-light");
+    widget.remove_css_class("accent-none");
+    widget.remove_css_class("accent-blue");
+    widget.remove_css_class("accent-teal");
+    widget.remove_css_class("accent-green");
+    widget.remove_css_class("accent-yellow");
+    widget.remove_css_class("accent-orange");
+    widget.remove_css_class("accent-red");
+    widget.remove_css_class("accent-pink");
+    widget.remove_css_class("accent-purple");
+    widget.remove_css_class("accent-slate");
   }
 
   /**

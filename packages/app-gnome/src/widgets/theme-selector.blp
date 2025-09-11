@@ -5,12 +5,17 @@ using Adw 1;
 template $ThemeSelector : Adw.Bin {
   hexpand: true;
 
-  Box box {
+  Box root {
     hexpand: true;
-    orientation: horizontal;
-    spacing: 12;
+    orientation: vertical;
+    spacing: 6;
 
-    CheckButton follow {
+    Box box {
+      hexpand: true;
+      orientation: horizontal;
+      spacing: 12;
+
+      CheckButton follow {
       styles [
         "theme-selector",
         "follow",
@@ -27,7 +32,7 @@ template $ThemeSelector : Adw.Bin {
       }
     }
 
-    CheckButton light {
+      CheckButton light {
       styles [
         "theme-selector",
         "light",
@@ -44,7 +49,7 @@ template $ThemeSelector : Adw.Bin {
       }
     }
 
-    CheckButton dark {
+      CheckButton dark {
       styles [
         "theme-selector",
         "dark",
@@ -60,6 +65,103 @@ template $ThemeSelector : Adw.Bin {
       accessibility {
         label: _("Dark style");
       }
+    }
+  }
+
+  /* Accent selector row */
+    Box accents {
+    margin-top: 6;
+    hexpand: true;
+    orientation: horizontal;
+    spacing: 8;
+
+    CheckButton accent_auto {
+      styles [ "theme-selector", "accent", "accent-auto" ]
+      focus-on-click: false;
+      tooltip-text: _("Follow system accent");
+      toggled => $_onAccentAutoToggled();
+      accessibility { label: _("Follow system accent"); }
+    }
+
+    CheckButton accent_none {
+      styles [ "theme-selector", "accent", "accent-none" ]
+      focus-on-click: false;
+      tooltip-text: _("No accent");
+      toggled => $_onAccentNoneToggled();
+      accessibility { label: _("No accent"); }
+    }
+
+    CheckButton accent_blue {
+      styles [ "theme-selector", "accent", "accent-blue" ]
+      focus-on-click: false;
+      tooltip-text: _("Blue accent");
+      toggled => $_onAccentBlueToggled();
+      accessibility { label: _("Blue accent"); }
+    }
+
+    CheckButton accent_teal {
+      styles [ "theme-selector", "accent", "accent-teal" ]
+      focus-on-click: false;
+      tooltip-text: _("Teal accent");
+      toggled => $_onAccentTealToggled();
+      accessibility { label: _("Teal accent"); }
+    }
+
+    CheckButton accent_green {
+      styles [ "theme-selector", "accent", "accent-green" ]
+      focus-on-click: false;
+      tooltip-text: _("Green accent");
+      toggled => $_onAccentGreenToggled();
+      accessibility { label: _("Green accent"); }
+    }
+
+    CheckButton accent_yellow {
+      styles [ "theme-selector", "accent", "accent-yellow" ]
+      focus-on-click: false;
+      tooltip-text: _("Yellow accent");
+      toggled => $_onAccentYellowToggled();
+      accessibility { label: _("Yellow accent"); }
+    }
+
+    CheckButton accent_orange {
+      styles [ "theme-selector", "accent", "accent-orange" ]
+      focus-on-click: false;
+      tooltip-text: _("Orange accent");
+      toggled => $_onAccentOrangeToggled();
+      accessibility { label: _("Orange accent"); }
+    }
+
+    CheckButton accent_red {
+      styles [ "theme-selector", "accent", "accent-red" ]
+      focus-on-click: false;
+      tooltip-text: _("Red accent");
+      toggled => $_onAccentRedToggled();
+      accessibility { label: _("Red accent"); }
+    }
+
+    CheckButton accent_pink {
+      styles [ "theme-selector", "accent", "accent-pink" ]
+      focus-on-click: false;
+      tooltip-text: _("Pink accent");
+      toggled => $_onAccentPinkToggled();
+      accessibility { label: _("Pink accent"); }
+    }
+
+    CheckButton accent_purple {
+      styles [ "theme-selector", "accent", "accent-purple" ]
+      focus-on-click: false;
+      tooltip-text: _("Purple accent");
+      toggled => $_onAccentPurpleToggled();
+      accessibility { label: _("Purple accent"); }
+    }
+
+    CheckButton accent_slate {
+      styles [ "theme-selector", "accent", "accent-slate" ]
+      focus-on-click: false;
+      tooltip-text: _("Slate accent");
+      toggled => $_onAccentSlateToggled();
+      accessibility { label: _("Slate accent"); }
+    }
     }
   }
 }
