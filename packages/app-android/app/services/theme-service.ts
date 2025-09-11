@@ -183,7 +183,7 @@ export class ThemeService extends BaseThemeService {
         // Only update isDarkTheme if we're in system mode
         if (this._currentTheme === "system") {
           this._isDarkTheme = systemStates.systemAppearance === "dark";
-          this.notifyListeners();
+          this.notifyThemeChanged();
         }
 
         // Apply day/night mode to the activity
