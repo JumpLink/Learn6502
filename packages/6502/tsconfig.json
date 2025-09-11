@@ -8,10 +8,15 @@
     "module": "NodeNext",
     "target": "ESNext",
     "moduleResolution": "NodeNext",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
     "diagnostics": true,
     "verbatimModuleSyntax": true,
     "isolatedModules": true
   },
-  "include": ["src/index.ts"],
+  "include": ["src/**/*"],
   "exclude": ["node_modules", "dist"]
 }
