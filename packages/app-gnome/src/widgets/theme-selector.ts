@@ -5,68 +5,99 @@ import Adw from "gi://Adw";
 import type Gtk from "gi://Gtk";
 
 import Template from "./theme-selector.blp";
+import { themeService } from "../services";
 
 export class ThemeSelector extends Adw.Bin {
   declare private _follow: Gtk.CheckButton;
-
-  private _theme: string;
-  private style_manager: Adw.StyleManager;
+  declare private _light: Gtk.CheckButton;
+  declare private _dark: Gtk.CheckButton;
+  private _isUpdatingUi: boolean = false;
 
   static {
     GObject.registerClass(
       {
         GTypeName: "ThemeSelector",
         Template,
-        CssName: "themeselector",
-        InternalChildren: ["follow"],
-        Properties: {
-          theme: GObject.ParamSpec.string(
-            "theme", // Name
-            "Theme", // Nick
-            "Theme", // Blurb
-            GObject.ParamFlags.READWRITE,
-            ""
-          ),
-        },
+        CssName: "theme-selector",
+        InternalChildren: ["follow", "light", "dark"],
       },
       this
     );
   }
 
-  get theme(): string {
-    return this._theme;
-  }
-
-  set theme(value: string) {
-    this._theme = value;
-  }
-
   constructor(params = {}) {
     super(params);
 
-    this.style_manager = Adw.StyleManager.get_default();
-    this.style_manager.connect(
-      "notify::system-supports-color-schemes",
-      this._on_notify_system_supports_color_schemes.bind(this)
-    );
-    this._on_notify_system_supports_color_schemes();
+    // Follow/Light/Dark visibility based on system support
+    this._follow.set_visible(themeService.isSystemColorSchemeSupported());
 
-    const dark = this.style_manager.get_dark();
-    this._theme = dark ? "dark" : "light";
+    // Initialize CheckButton states based on current theme
+    this._setUiSelection(themeService.currentTheme);
 
-    this.style_manager.connect("notify::dark", this._on_notify_dark.bind(this));
-    this._on_notify_dark();
+    // React to theme changes
+    themeService.events.on("theme-changed", ({ theme, isDark }) => {
+      if (isDark) this.add_css_class("dark");
+      else this.remove_css_class("dark");
+      this._setUiSelection(themeService.currentTheme);
+    });
+
+    themeService.events.on("system-support-changed", ({ supported }) => {
+      this._follow.set_visible(supported);
+    });
   }
 
-  _on_notify_system_supports_color_schemes() {
-    this._follow.set_visible(
-      this.style_manager.get_system_supports_color_schemes()
-    );
+  /**
+   * Handler for follow system style toggle.
+   * Handler is registered in the template.
+   */
+  _onFollowToggled(): void {
+    if (this._isUpdatingUi) return;
+    if (this._follow.get_active()) {
+      // Optimistically reflect selection in UI to avoid double-click feel
+      this._setUiSelection("system");
+      themeService.setColorScheme("system");
+    }
   }
 
-  _on_notify_dark() {
-    if (this.style_manager.get_dark()) this.add_css_class("dark");
-    else this.remove_css_class("dark");
+  /**
+   * Handler for light theme toggle.
+   * Handler is registered in the template.
+   */
+  _onLightToggled(): void {
+    if (this._isUpdatingUi) return;
+    if (this._light.get_active()) {
+      this._setUiSelection("light");
+      themeService.setColorScheme("light");
+    }
+  }
+
+  /**
+   * Handler for dark theme toggle.
+   * Handler is registered in the template.
+   */
+  _onDarkToggled(): void {
+    if (this._isUpdatingUi) return;
+    if (this._dark.get_active()) {
+      this._setUiSelection("dark");
+      themeService.setColorScheme("dark");
+    }
+  }
+
+  private _setUiSelection(theme: "system" | "light" | "dark"): void {
+    this._isUpdatingUi = true;
+    try {
+      const wantFollow = theme === "system";
+      const wantLight = theme === "light";
+      const wantDark = theme === "dark";
+
+      if (this._follow.get_active() !== wantFollow)
+        this._follow.set_active(wantFollow);
+      if (this._light.get_active() !== wantLight)
+        this._light.set_active(wantLight);
+      if (this._dark.get_active() !== wantDark) this._dark.set_active(wantDark);
+    } finally {
+      this._isUpdatingUi = false;
+    }
   }
 }
 

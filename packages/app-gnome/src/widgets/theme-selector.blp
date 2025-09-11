@@ -19,16 +19,15 @@ template $ThemeSelector : Adw.Bin {
       hexpand: true;
       halign: center;
       focus-on-click: false;
-      action-name: "app.color-scheme";
-      action-target: "0";
       tooltip-text: _("Follow system style");
+      toggled => $_onFollowToggled();
 
       accessibility {
         label: _("Follow system style");
       }
     }
 
-    CheckButton {
+    CheckButton light {
       styles [
         "theme-selector",
         "light",
@@ -36,18 +35,16 @@ template $ThemeSelector : Adw.Bin {
 
       hexpand: true;
       halign: center;
-      group: follow;
       focus-on-click: false;
-      action-name: "app.color-scheme";
-      action-target: "1";
       tooltip-text: _("Light style");
+      toggled => $_onLightToggled();
 
       accessibility {
         label: _("Light style");
       }
     }
 
-    CheckButton {
+    CheckButton dark {
       styles [
         "theme-selector",
         "dark",
@@ -55,11 +52,10 @@ template $ThemeSelector : Adw.Bin {
 
       hexpand: true;
       halign: center;
-      group: follow;
+      group: light;
       focus-on-click: false;
-      action-name: "app.color-scheme";
-      action-target: "4";
       tooltip-text: _("Dark style");
+      toggled => $_onDarkToggled();
 
       accessibility {
         label: _("Dark style");
