@@ -279,7 +279,7 @@ export class Simulator {
   public stop(message = "") {
     message = "\n" + _("Stopped") + "\n" + message;
     this._codeRunning = false;
-    clearInterval(this.executeId);
+    if (this.executeId !== undefined) clearInterval(this.executeId);
     this.dispatchStopEvent(message);
   }
 
@@ -1839,7 +1839,7 @@ export class Simulator {
     if (this.regPC === 0 || (!this._codeRunning && !debugging)) {
       this._codeRunning = false;
       this._programCompleted = true;
-      clearInterval(this.executeId);
+      if (this.executeId !== undefined) clearInterval(this.executeId);
       this.dispatchStopEvent(_("Program completed at PC=$%s"), [
         addr2hex(this.regPC - 1),
       ]);
