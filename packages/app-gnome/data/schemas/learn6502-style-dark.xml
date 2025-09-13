@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<style-scheme id="Learn6502-dark" _name="Learn6502 Dark" parent-scheme="Adwaita-dark" version="1.0">
+  <!--
+    Only override current line background; inherit everything else from Adwaita-dark
+    Docs:
+    - https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/style-reference.html
+  -->
+  <style name="current-line" background="#ffffff10"/>
+  <style name="current-line-number" background="#ffffff10"/>
+</style-scheme>

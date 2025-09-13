@@ -76,6 +76,34 @@ class ThemeService extends BaseThemeService {
     this.events.on("primary-changed", () => this.refreshThemedWidgets());
   }
 
+  /** Remove current primary CSS provider from the display, if any. */
+  private clearPrimaryCssProvider(): void {
+    const display = Gdk.Display.get_default();
+    if (!display) return;
+    if (this.primaryProvider) {
+      Gtk.StyleContext.remove_provider_for_display(
+        display,
+        this.primaryProvider
+      );
+      this.primaryProvider = null;
+    }
+  }
+
+  /** Install a new primary CSS provider from a CSS string. Replaces the existing one. */
+  private updatePrimaryCssProviderFromCss(css: string): void {
+    const display = Gdk.Display.get_default();
+    if (!display) return;
+    this.clearPrimaryCssProvider();
+    const provider = new Gtk.CssProvider();
+    provider.load_from_string(css);
+    Gtk.StyleContext.add_provider_for_display(
+      display,
+      provider,
+      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    );
+    this.primaryProvider = provider;
+  }
+
   /**
    * Check if the dark theme is currently active
    */
@@ -114,18 +142,6 @@ class ThemeService extends BaseThemeService {
    * @param hexOrNull CSS color string (e.g. "#3584e4") or null to clear
    */
   public setPrimaryColor(hexOrNull: string | null): void {
-    const display = Gdk.Display.get_default();
-    if (!display) return;
-
-    // Remove previous provider if any
-    if (this.primaryProvider) {
-      Gtk.StyleContext.remove_provider_for_display(
-        display,
-        this.primaryProvider
-      );
-      this.primaryProvider = null;
-    }
-
     if (!hexOrNull) {
       // Clearing primary: rely on libadwaita defaults
       this.currentPrimaryKey = null;
@@ -138,15 +154,9 @@ class ThemeService extends BaseThemeService {
     }
 
     // Install a small provider that defines our CSS variable
-    const css = `:root { --learn-primary-color: ${hexOrNull}; }`;
-    const provider = new Gtk.CssProvider();
-    provider.load_from_string(css);
-    Gtk.StyleContext.add_provider_for_display(
-      display,
-      provider,
-      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    this.updatePrimaryCssProviderFromCss(
+      `:root { --learn-primary-color: ${hexOrNull}; }`
     );
-    this.primaryProvider = provider;
     this.currentPrimaryKey = null;
     this.events.dispatch("primary-changed", {
       color: hexOrNull,
@@ -176,26 +186,9 @@ class ThemeService extends BaseThemeService {
       | "purple"
       | "slate"
   ): void {
-    const display = Gdk.Display.get_default();
-    if (!display) return;
-
-    if (this.primaryProvider) {
-      Gtk.StyleContext.remove_provider_for_display(
-        display,
-        this.primaryProvider
-      );
-      this.primaryProvider = null;
-    }
-
-    const css = `:root { --learn-primary-color: var(--accent-${key}); }`;
-    const provider = new Gtk.CssProvider();
-    provider.load_from_string(css);
-    Gtk.StyleContext.add_provider_for_display(
-      display,
-      provider,
-      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+    this.updatePrimaryCssProviderFromCss(
+      `:root { --learn-primary-color: var(--accent-${key}); }`
     );
-    this.primaryProvider = provider;
     this.currentPrimaryKey = key;
     this.events.dispatch("primary-changed", {
       color: null,
