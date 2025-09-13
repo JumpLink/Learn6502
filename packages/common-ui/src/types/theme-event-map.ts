@@ -15,9 +15,9 @@ export interface ThemeEventMap {
   "system-support-changed": SystemSupportChangedEvent;
 
   /**
-   * Emitted when the accent changes (custom, auto, or none).
+   * Emitted when the primary color changes (custom, auto, or none).
    */
-  "accent-changed": AccentChangedEvent;
+  "primary-changed": PrimaryChangedEvent;
 }
 
 export interface ThemeChangedEvent {
@@ -39,16 +39,11 @@ export interface SystemSupportChangedEvent {
   supported: boolean;
 }
 
-export interface AccentChangedEvent {
-  /**
-   * CSS color for the accent if explicitly set; null for auto/none.
-   * Example: "#3584e4" or a computed color string.
-   */
+export interface PrimaryChangedEvent {
+  /** CSS color for the primary if explicitly set; null for auto/none. */
   color: string | null;
 
-  /**
-   * Named accent key if a predefined family is selected; null/undefined otherwise.
-   */
+  /** Named key if a predefined family is selected; null/undefined otherwise. */
   key?:
     | "blue"
     | "teal"
@@ -61,11 +56,6 @@ export interface AccentChangedEvent {
     | "slate"
     | null;
 
-  /**
-   * Accent selection mode.
-   * - auto: follow system accent
-   * - custom: explicit user selection (by key or color)
-   * - none: no accent override
-   */
+  /** Selection mode: auto (system), custom (by key or color), none. */
   mode?: "auto" | "custom" | "none";
 }

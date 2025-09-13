@@ -1,25 +1,25 @@
-/* Derive a tone from the chosen/system accent depending on mode */
+/* Derive a tone from the chosen/system primary color depending on mode */
 .themed {
   &.is-light {
-    --learn-accent-tone: color-mix(
+    --learn-primary-tone: color-mix(
       in oklab,
-      var(--learn-accent-color, var(--accent-bg-color)) 50%,
+      var(--learn-primary-color, var(--accent-bg-color)) 50%,
       white
     );
   }
 
   &.is-dark {
-    --learn-accent-tone: color-mix(
+    --learn-primary-tone: color-mix(
       in oklab,
-      var(--learn-accent-color, var(--accent-bg-color)) 50%,
+      var(--learn-primary-color, var(--accent-bg-color)) 50%,
       black
     );
   }
 
-  &:not(.accent-none) {
+  &:not(.primary-none) {
     window#application-window,
     window#application-window& {
-      background-color: var(--learn-accent-tone);
+      background-color: var(--learn-primary-tone);
     }
   }
 }

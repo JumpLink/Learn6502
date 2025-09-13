@@ -43,8 +43,8 @@ theme-selector {
       padding: 2px;
     }
 
-    /* Accent selector (small circles) */
-    &.accent {
+    /* Primary selector (small circles) */
+    &.primary {
       min-height: 24px;
       min-width: 24px;
       padding: 1px;
@@ -53,12 +53,12 @@ theme-selector {
       box-shadow: inset 0 0 0 1px var(--border-color);
     }
 
-    &.accent:checked {
+    &.primary:checked {
       box-shadow: inset 0 0 0 2px var(--accent-bg-color);
     }
 
-    /* Concrete accent swatches */
-    &.accent-auto {
+    /* Concrete primary swatches */
+    &.primary-auto {
       background-image:
         linear-gradient(45deg, var(--border-color) 25%, transparent 25%),
         linear-gradient(-45deg, var(--border-color) 25%, transparent 25%),
@@ -72,35 +72,35 @@ theme-selector {
         -3px 0px;
     }
 
-    &.accent-none {
+    &.primary-none {
       background: none;
     }
 
-    &.accent-blue {
+    &.primary-blue {
       background-color: var(--accent-blue);
     }
-    &.accent-teal {
+    &.primary-teal {
       background-color: var(--accent-teal);
     }
-    &.accent-green {
+    &.primary-green {
       background-color: var(--accent-green);
     }
-    &.accent-yellow {
+    &.primary-yellow {
       background-color: var(--accent-yellow);
     }
-    &.accent-orange {
+    &.primary-orange {
       background-color: var(--accent-orange);
     }
-    &.accent-red {
+    &.primary-red {
       background-color: var(--accent-red);
     }
-    &.accent-pink {
+    &.primary-pink {
       background-color: var(--accent-pink);
     }
-    &.accent-purple {
+    &.primary-purple {
       background-color: var(--accent-purple);
     }
-    &.accent-slate {
+    &.primary-slate {
       background-color: var(--accent-slate);
     }
   }

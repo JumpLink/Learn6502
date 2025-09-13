@@ -68,99 +68,99 @@ template $ThemeSelector : Adw.Bin {
     }
   }
 
-  /* Accent selector row */
+  /* Primary color selector row */
     Box accents {
     margin-top: 6;
     hexpand: true;
     orientation: horizontal;
     spacing: 8;
 
-    CheckButton accent_auto {
-      styles [ "theme-selector", "accent", "accent-auto" ]
+    CheckButton primary_auto {
+      styles [ "theme-selector", "primary", "primary-auto" ]
       focus-on-click: false;
-      tooltip-text: _("Follow system accent");
-      toggled => $_onAccentAutoToggled();
-      accessibility { label: _("Follow system accent"); }
+      tooltip-text: _("Follow system primary");
+      toggled => $_onPrimaryAutoToggled();
+      accessibility { label: _("Follow system primary"); }
     }
 
-    CheckButton accent_none {
-      styles [ "theme-selector", "accent", "accent-none" ]
+    CheckButton primary_none {
+      styles [ "theme-selector", "primary", "primary-none" ]
       focus-on-click: false;
-      tooltip-text: _("No accent");
-      toggled => $_onAccentNoneToggled();
-      accessibility { label: _("No accent"); }
+      tooltip-text: _("No primary override");
+      toggled => $_onPrimaryNoneToggled();
+      accessibility { label: _("No primary override"); }
     }
 
-    CheckButton accent_blue {
-      styles [ "theme-selector", "accent", "accent-blue" ]
+    CheckButton primary_blue {
+      styles [ "theme-selector", "primary", "primary-blue" ]
       focus-on-click: false;
-      tooltip-text: _("Blue accent");
-      toggled => $_onAccentBlueToggled();
-      accessibility { label: _("Blue accent"); }
+      tooltip-text: _("Primary: Blue");
+      toggled => $_onPrimaryBlueToggled();
+      accessibility { label: _("Primary: Blue"); }
     }
 
-    CheckButton accent_teal {
-      styles [ "theme-selector", "accent", "accent-teal" ]
+    CheckButton primary_teal {
+      styles [ "theme-selector", "primary", "primary-teal" ]
       focus-on-click: false;
-      tooltip-text: _("Teal accent");
-      toggled => $_onAccentTealToggled();
-      accessibility { label: _("Teal accent"); }
+      tooltip-text: _("Primary: Teal");
+      toggled => $_onPrimaryTealToggled();
+      accessibility { label: _("Primary: Teal"); }
     }
 
-    CheckButton accent_green {
-      styles [ "theme-selector", "accent", "accent-green" ]
+    CheckButton primary_green {
+      styles [ "theme-selector", "primary", "primary-green" ]
       focus-on-click: false;
-      tooltip-text: _("Green accent");
-      toggled => $_onAccentGreenToggled();
-      accessibility { label: _("Green accent"); }
+      tooltip-text: _("Primary: Green");
+      toggled => $_onPrimaryGreenToggled();
+      accessibility { label: _("Primary: Green"); }
     }
 
-    CheckButton accent_yellow {
-      styles [ "theme-selector", "accent", "accent-yellow" ]
+    CheckButton primary_yellow {
+      styles [ "theme-selector", "primary", "primary-yellow" ]
       focus-on-click: false;
-      tooltip-text: _("Yellow accent");
-      toggled => $_onAccentYellowToggled();
-      accessibility { label: _("Yellow accent"); }
+      tooltip-text: _("Primary: Yellow");
+      toggled => $_onPrimaryYellowToggled();
+      accessibility { label: _("Primary: Yellow"); }
     }
 
-    CheckButton accent_orange {
-      styles [ "theme-selector", "accent", "accent-orange" ]
+    CheckButton primary_orange {
+      styles [ "theme-selector", "primary", "primary-orange" ]
       focus-on-click: false;
-      tooltip-text: _("Orange accent");
-      toggled => $_onAccentOrangeToggled();
-      accessibility { label: _("Orange accent"); }
+      tooltip-text: _("Primary: Orange");
+      toggled => $_onPrimaryOrangeToggled();
+      accessibility { label: _("Primary: Orange"); }
     }
 
-    CheckButton accent_red {
-      styles [ "theme-selector", "accent", "accent-red" ]
+    CheckButton primary_red {
+      styles [ "theme-selector", "primary", "primary-red" ]
       focus-on-click: false;
-      tooltip-text: _("Red accent");
-      toggled => $_onAccentRedToggled();
-      accessibility { label: _("Red accent"); }
+      tooltip-text: _("Primary: Red");
+      toggled => $_onPrimaryRedToggled();
+      accessibility { label: _("Primary: Red"); }
     }
 
-    CheckButton accent_pink {
-      styles [ "theme-selector", "accent", "accent-pink" ]
+    CheckButton primary_pink {
+      styles [ "theme-selector", "primary", "primary-pink" ]
       focus-on-click: false;
-      tooltip-text: _("Pink accent");
-      toggled => $_onAccentPinkToggled();
-      accessibility { label: _("Pink accent"); }
+      tooltip-text: _("Primary: Pink");
+      toggled => $_onPrimaryPinkToggled();
+      accessibility { label: _("Primary: Pink"); }
     }
 
-    CheckButton accent_purple {
-      styles [ "theme-selector", "accent", "accent-purple" ]
+    CheckButton primary_purple {
+      styles [ "theme-selector", "primary", "primary-purple" ]
       focus-on-click: false;
-      tooltip-text: _("Purple accent");
-      toggled => $_onAccentPurpleToggled();
-      accessibility { label: _("Purple accent"); }
+      tooltip-text: _("Primary: Purple");
+      toggled => $_onPrimaryPurpleToggled();
+      accessibility { label: _("Primary: Purple"); }
     }
 
-    CheckButton accent_slate {
-      styles [ "theme-selector", "accent", "accent-slate" ]
+    CheckButton primary_slate {
+      styles [ "theme-selector", "primary", "primary-slate" ]
       focus-on-click: false;
-      tooltip-text: _("Slate accent");
-      toggled => $_onAccentSlateToggled();
-      accessibility { label: _("Slate accent"); }
+      tooltip-text: _("Primary: Slate");
+      toggled => $_onPrimarySlateToggled();
+      accessibility { label: _("Primary: Slate"); }
     }
     }
   }

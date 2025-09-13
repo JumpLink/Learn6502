@@ -11,7 +11,7 @@ import { themeService } from "../services";
  * ThemeSelector
  *
  * GNOME (Adwaita) widget to select the current theme mode (follow/light/dark)
- * and the accent policy (auto/none or a predefined accent family).
+ * and the primary color policy (auto/none or a predefined color family).
  *
  * Responsibilities:
  * - Reflect current mode in three primary check buttons
@@ -23,18 +23,18 @@ export class ThemeSelector extends Adw.Bin {
   declare private _follow: Gtk.CheckButton;
   declare private _light: Gtk.CheckButton;
   declare private _dark: Gtk.CheckButton;
-  // Accent buttons
-  declare private _accent_auto: Gtk.CheckButton;
-  declare private _accent_none: Gtk.CheckButton;
-  declare private _accent_blue: Gtk.CheckButton;
-  declare private _accent_teal: Gtk.CheckButton;
-  declare private _accent_green: Gtk.CheckButton;
-  declare private _accent_yellow: Gtk.CheckButton;
-  declare private _accent_orange: Gtk.CheckButton;
-  declare private _accent_red: Gtk.CheckButton;
-  declare private _accent_pink: Gtk.CheckButton;
-  declare private _accent_purple: Gtk.CheckButton;
-  declare private _accent_slate: Gtk.CheckButton;
+  // Primary color buttons
+  declare private _primary_auto: Gtk.CheckButton;
+  declare private _primary_none: Gtk.CheckButton;
+  declare private _primary_blue: Gtk.CheckButton;
+  declare private _primary_teal: Gtk.CheckButton;
+  declare private _primary_green: Gtk.CheckButton;
+  declare private _primary_yellow: Gtk.CheckButton;
+  declare private _primary_orange: Gtk.CheckButton;
+  declare private _primary_red: Gtk.CheckButton;
+  declare private _primary_pink: Gtk.CheckButton;
+  declare private _primary_purple: Gtk.CheckButton;
+  declare private _primary_slate: Gtk.CheckButton;
   private _isUpdatingUi: boolean = false;
 
   static {
@@ -47,17 +47,17 @@ export class ThemeSelector extends Adw.Bin {
           "follow",
           "light",
           "dark",
-          "accent_auto",
-          "accent_none",
-          "accent_blue",
-          "accent_teal",
-          "accent_green",
-          "accent_yellow",
-          "accent_orange",
-          "accent_red",
-          "accent_pink",
-          "accent_purple",
-          "accent_slate",
+          "primary_auto",
+          "primary_none",
+          "primary_blue",
+          "primary_teal",
+          "primary_green",
+          "primary_yellow",
+          "primary_orange",
+          "primary_red",
+          "primary_pink",
+          "primary_purple",
+          "primary_slate",
         ],
       },
       this
@@ -125,109 +125,109 @@ export class ThemeSelector extends Adw.Bin {
     }
   }
 
-  // Accent handlers
-  /** Use blue accent family. */
-  _onAccentBlueToggled(): void {
-    this._onAccentToggled(this._accent_blue, "blue");
+  // Primary color handlers
+  /** Use blue primary family. */
+  _onPrimaryBlueToggled(): void {
+    this._onPrimaryToggled(this._primary_blue, "blue");
   }
-  /** Use teal accent family. */
-  _onAccentTealToggled(): void {
-    this._onAccentToggled(this._accent_teal, "teal");
+  /** Use teal primary family. */
+  _onPrimaryTealToggled(): void {
+    this._onPrimaryToggled(this._primary_teal, "teal");
   }
-  /** Use green accent family. */
-  _onAccentGreenToggled(): void {
-    this._onAccentToggled(this._accent_green, "green");
+  /** Use green primary family. */
+  _onPrimaryGreenToggled(): void {
+    this._onPrimaryToggled(this._primary_green, "green");
   }
-  /** Use yellow accent family. */
-  _onAccentYellowToggled(): void {
-    this._onAccentToggled(this._accent_yellow, "yellow");
+  /** Use yellow primary family. */
+  _onPrimaryYellowToggled(): void {
+    this._onPrimaryToggled(this._primary_yellow, "yellow");
   }
-  /** Use orange accent family. */
-  _onAccentOrangeToggled(): void {
-    this._onAccentToggled(this._accent_orange, "orange");
+  /** Use orange primary family. */
+  _onPrimaryOrangeToggled(): void {
+    this._onPrimaryToggled(this._primary_orange, "orange");
   }
-  /** Use red accent family. */
-  _onAccentRedToggled(): void {
-    this._onAccentToggled(this._accent_red, "red");
+  /** Use red primary family. */
+  _onPrimaryRedToggled(): void {
+    this._onPrimaryToggled(this._primary_red, "red");
   }
-  /** Use pink accent family. */
-  _onAccentPinkToggled(): void {
-    this._onAccentToggled(this._accent_pink, "pink");
+  /** Use pink primary family. */
+  _onPrimaryPinkToggled(): void {
+    this._onPrimaryToggled(this._primary_pink, "pink");
   }
-  /** Use purple accent family. */
-  _onAccentPurpleToggled(): void {
-    this._onAccentToggled(this._accent_purple, "purple");
+  /** Use purple primary family. */
+  _onPrimaryPurpleToggled(): void {
+    this._onPrimaryToggled(this._primary_purple, "purple");
   }
-  /** Use slate accent family. */
-  _onAccentSlateToggled(): void {
-    this._onAccentToggled(this._accent_slate, "slate");
+  /** Use slate primary family. */
+  _onPrimarySlateToggled(): void {
+    this._onPrimaryToggled(this._primary_slate, "slate");
   }
 
   /**
-   * Follow system accent (auto). Clears explicit accent.
+   * Follow system primary color (auto). Clears explicit primary.
    */
-  _onAccentAutoToggled(): void {
+  _onPrimaryAutoToggled(): void {
     if (this._isUpdatingUi) return;
-    if (this._accent_auto.get_active()) {
-      // Auto: remove custom accent and let system accent apply
-      this._setAccentSelection("auto");
-      themeService.setAccentAuto();
+    if (this._primary_auto.get_active()) {
+      // Auto: remove custom primary and let system apply
+      this._setPrimarySelection("auto");
+      themeService.setPrimaryAuto();
       themeService.refreshThemedWidgets();
     }
   }
 
   /**
-   * No accent override (none). Clears explicit accent and marks class as none.
+   * No primary override (none). Clears explicit primary and marks class as none.
    */
-  _onAccentNoneToggled(): void {
+  _onPrimaryNoneToggled(): void {
     if (this._isUpdatingUi) return;
-    if (this._accent_none.get_active()) {
-      // None: no accent class, also clear custom accent
-      this._setAccentSelection("none");
-      themeService.setAccentNone();
+    if (this._primary_none.get_active()) {
+      // None: no primary class, also clear custom primary
+      this._setPrimarySelection("none");
+      themeService.setPrimaryNone();
       themeService.refreshThemedWidgets();
     }
   }
 
   /**
-   * Common handler to toggle one accent family and ensure exclusivity.
+   * Common handler to toggle one primary family and ensure exclusivity.
    * @param source The toggled check button
-   * @param key    The accent key (e.g., "blue", "teal")
+   * @param key    The primary key (e.g., "blue", "teal")
    */
-  private _onAccentToggled(source: Gtk.CheckButton, key: string): void {
+  private _onPrimaryToggled(source: Gtk.CheckButton, key: string): void {
     if (this._isUpdatingUi) return;
     if (!source.get_active()) {
-      // If toggled off, clear accent only if no other is selected
-      if (!this._anyAccentActive()) themeService.clearAccentColor();
+      // If toggled off, clear primary only if no other is selected
+      if (!this._anyPrimaryActive()) themeService.clearPrimaryColor();
       return;
     }
 
-    // Ensure exclusivity among accents
-    this._setAccentSelection(key);
+    // Ensure exclusivity among primaries
+    this._setPrimarySelection(key);
     // Use predefined CSS variables by key instead of hex
-    themeService.setAccentByKey(key as any);
+    themeService.setPrimaryByKey(key as any);
     themeService.refreshThemedWidgets();
   }
 
   /**
-   * Programmatically set which accent control is active, keeping exclusivity.
-   * @param key Active accent key or policy ("auto" | "none" | family key | null)
+   * Programmatically set which primary control is active, keeping exclusivity.
+   * @param key Active primary key or policy ("auto" | "none" | family key | null)
    */
-  private _setAccentSelection(key: string | null): void {
+  private _setPrimarySelection(key: string | null): void {
     this._isUpdatingUi = true;
     try {
       const map: Record<string, Gtk.CheckButton> = {
-        auto: this._accent_auto,
-        none: this._accent_none,
-        blue: this._accent_blue,
-        teal: this._accent_teal,
-        green: this._accent_green,
-        yellow: this._accent_yellow,
-        orange: this._accent_orange,
-        red: this._accent_red,
-        pink: this._accent_pink,
-        purple: this._accent_purple,
-        slate: this._accent_slate,
+        auto: this._primary_auto,
+        none: this._primary_none,
+        blue: this._primary_blue,
+        teal: this._primary_teal,
+        green: this._primary_green,
+        yellow: this._primary_yellow,
+        orange: this._primary_orange,
+        red: this._primary_red,
+        pink: this._primary_pink,
+        purple: this._primary_purple,
+        slate: this._primary_slate,
       };
       for (const [k, btn] of Object.entries(map)) {
         const want = key === k;
@@ -239,21 +239,21 @@ export class ThemeSelector extends Adw.Bin {
   }
 
   /**
-   * Returns true when any accent control is active.
+   * Returns true when any primary control is active.
    */
-  private _anyAccentActive(): boolean {
+  private _anyPrimaryActive(): boolean {
     return (
-      this._accent_auto.get_active() ||
-      this._accent_none.get_active() ||
-      this._accent_blue.get_active() ||
-      this._accent_teal.get_active() ||
-      this._accent_green.get_active() ||
-      this._accent_yellow.get_active() ||
-      this._accent_orange.get_active() ||
-      this._accent_red.get_active() ||
-      this._accent_pink.get_active() ||
-      this._accent_purple.get_active() ||
-      this._accent_slate.get_active()
+      this._primary_auto.get_active() ||
+      this._primary_none.get_active() ||
+      this._primary_blue.get_active() ||
+      this._primary_teal.get_active() ||
+      this._primary_green.get_active() ||
+      this._primary_yellow.get_active() ||
+      this._primary_orange.get_active() ||
+      this._primary_red.get_active() ||
+      this._primary_pink.get_active() ||
+      this._primary_purple.get_active() ||
+      this._primary_slate.get_active()
     );
   }
 
