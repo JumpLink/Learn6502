@@ -1,115 +1,115 @@
 /* Adapted from https://github.com/sonnyp/troll/blob/8b0275948eedec9ed0378f9bdda1aa4aac3062ba/src/widgets/README.md */
 theme-selector {
   margin: 9px;
+
+  checkbutton {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 1px;
+    background-clip: content-box;
+    border-radius: 9999px;
+    box-shadow: inset 0 0 0 1px var(--border-color);
+
+    &.follow:checked,
+    &.light:checked,
+    &.dark:checked {
+      box-shadow: inset 0 0 0 2px var(--accent-bg-color);
+    }
+
+    &.follow {
+      background-image: linear-gradient(
+        to bottom right,
+        #fff 49.99%,
+        #202020 50.01%
+      );
+    }
+
+    &.light {
+      background-color: #fff;
+    }
+
+    &.dark {
+      background-color: #202020;
+    }
+
+    radio {
+      -gtk-icon-source: none;
+      border: none;
+      background: none;
+      box-shadow: none;
+      min-width: 12px;
+      min-height: 12px;
+      transform: translate(27px, 14px);
+      padding: 2px;
+    }
+
+    /* Accent selector (small circles) */
+    &.accent {
+      min-height: 24px;
+      min-width: 24px;
+      padding: 1px;
+      background-clip: content-box;
+      border-radius: 9999px;
+      box-shadow: inset 0 0 0 1px var(--border-color);
+    }
+
+    &.accent:checked {
+      box-shadow: inset 0 0 0 2px var(--accent-bg-color);
+    }
+
+    /* Concrete accent swatches */
+    &.accent-auto {
+      background-image:
+        linear-gradient(45deg, var(--border-color) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--border-color) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--border-color) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--border-color) 75%);
+      background-size: 6px 6px;
+      background-position:
+        0 0,
+        0 3px,
+        3px -3px,
+        -3px 0px;
+    }
+
+    &.accent-none {
+      background: none;
+    }
+
+    &.accent-blue {
+      background-color: var(--accent-blue);
+    }
+    &.accent-teal {
+      background-color: var(--accent-teal);
+    }
+    &.accent-green {
+      background-color: var(--accent-green);
+    }
+    &.accent-yellow {
+      background-color: var(--accent-yellow);
+    }
+    &.accent-orange {
+      background-color: var(--accent-orange);
+    }
+    &.accent-red {
+      background-color: var(--accent-red);
+    }
+    &.accent-pink {
+      background-color: var(--accent-pink);
+    }
+    &.accent-purple {
+      background-color: var(--accent-purple);
+    }
+    &.accent-slate {
+      background-color: var(--accent-slate);
+    }
+  }
 }
 
-theme-selector checkbutton {
-  padding: 0;
-  min-height: 44px;
-  min-width: 44px;
-  padding: 1px;
-  background-clip: content-box;
-  border-radius: 9999px;
-  box-shadow: inset 0 0 0 1px var(--border-color);
-}
-
-theme-selector checkbutton.follow:checked,
-theme-selector checkbutton.light:checked,
-theme-selector checkbutton.dark:checked {
-  box-shadow: inset 0 0 0 2px var(--accent-bg-color);
-}
-
-theme-selector checkbutton.follow {
-  background-image: linear-gradient(
-    to bottom right,
-    #fff 49.99%,
-    #202020 50.01%
-  );
-}
-
-theme-selector checkbutton.light {
-  background-color: #fff;
-}
-
-theme-selector checkbutton.dark {
-  background-color: #202020;
-}
-
-theme-selector checkbutton radio {
-  -gtk-icon-source: none;
-  border: none;
-  background: none;
-  box-shadow: none;
-  min-width: 12px;
-  min-height: 12px;
-  transform: translate(27px, 14px);
-  padding: 2px;
-}
-
-checkbutton.theme-selector radio:checked {
-  -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
-  background-color: var(--accent-bg-color);
-  color: var(--accent-fg-color);
-}
-
-/* Accent selector (small circles) */
-theme-selector checkbutton.accent {
-  padding: 0;
-  min-height: 24px;
-  min-width: 24px;
-  padding: 1px;
-  background-clip: content-box;
-  border-radius: 9999px;
-  box-shadow: inset 0 0 0 1px var(--border-color);
-}
-
-theme-selector checkbutton.accent:checked {
-  box-shadow: inset 0 0 0 2px var(--accent-bg-color);
-}
-
-/* Concrete accent swatches */
-theme-selector checkbutton.accent-auto {
-  background-image:
-    linear-gradient(45deg, var(--border-color) 25%, transparent 25%),
-    linear-gradient(-45deg, var(--border-color) 25%, transparent 25%),
-    linear-gradient(45deg, transparent 75%, var(--border-color) 75%),
-    linear-gradient(-45deg, transparent 75%, var(--border-color) 75%);
-  background-size: 6px 6px;
-  background-position:
-    0 0,
-    0 3px,
-    3px -3px,
-    -3px 0px;
-}
-
-theme-selector checkbutton.accent-none {
-  background: none;
-}
-
-theme-selector checkbutton.accent-blue {
-  background-color: var(--accent-blue);
-}
-theme-selector checkbutton.accent-teal {
-  background-color: var(--accent-teal);
-}
-theme-selector checkbutton.accent-green {
-  background-color: var(--accent-green);
-}
-theme-selector checkbutton.accent-yellow {
-  background-color: var(--accent-yellow);
-}
-theme-selector checkbutton.accent-orange {
-  background-color: var(--accent-orange);
-}
-theme-selector checkbutton.accent-red {
-  background-color: var(--accent-red);
-}
-theme-selector checkbutton.accent-pink {
-  background-color: var(--accent-pink);
-}
-theme-selector checkbutton.accent-purple {
-  background-color: var(--accent-purple);
-}
-theme-selector checkbutton.accent-slate {
-  background-color: var(--accent-slate);
+checkbutton.theme-selector {
+  radio:checked {
+    -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
+    background-color: var(--accent-bg-color);
+    color: var(--accent-fg-color);
+  }
 }
