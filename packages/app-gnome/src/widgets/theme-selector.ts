@@ -1,5 +1,3 @@
-// Adapted from https://github.com/sonnyp/troll/blob/8b0275948eedec9ed0378f9bdda1aa4aac3062ba/src/widgets/README.md
-
 import GObject from "gi://GObject";
 import Adw from "gi://Adw";
 import type Gtk from "gi://Gtk";
@@ -75,6 +73,20 @@ export class ThemeSelector extends Adw.Bin {
 
     // Initialize CheckButton states based on current theme
     this._setUiSelection(themeService.currentTheme);
+
+    // Reflect primary state from service whenever it changes (including initial load)
+    themeService.events.on("primary-changed", ({ key, mode }) => {
+      const sel = key ?? (mode === "none" ? "none" : null);
+      this._setPrimarySelection(sel as any);
+    });
+
+    // When the widget becomes visible/mapped, sync from the current service state
+    this.connect("map", () => {
+      console.log("map");
+      const { key, mode } = themeService.getPrimaryState();
+      const sel = key ?? (mode === "none" ? "none" : null);
+      this._setPrimarySelection(sel as any);
+    });
 
     // React to theme changes
     themeService.events.on("theme-changed", ({ theme, isDark }) => {

@@ -5,6 +5,13 @@ import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import Gio from "@girs/gio-2.0";
 import mainCss from "../main.css?inline";
+import {
+  KEY_COLOR_SCHEME,
+  KEY_PRIMARY_COLOR,
+  SCHEMA_ID,
+  PRIMARY_FAMILIES,
+} from "../constants.ts";
+import type { PrimaryFamilyKey } from "../types/theme.ts";
 
 /**
  * GNOME-specific implementation of the ThemeService
@@ -23,7 +30,7 @@ class ThemeService extends BaseThemeService {
    * Named primary color key when using predefined color families.
    * null => auto/custom without a named key, "none" => explicit no-primary mode
    */
-  private currentPrimaryKey: string | null = null;
+  private currentPrimaryKey: PrimaryFamilyKey | "none" | null = null;
 
   constructor() {
     super();
@@ -34,7 +41,7 @@ class ThemeService extends BaseThemeService {
     if (!this.cssProvider) {
       this.cssProvider = new Gtk.CssProvider();
       this.cssProvider.load_from_string(mainCss);
-      const display = Gdk.Display.get_default();
+      const display = this.getDisplay();
       if (display) {
         Gtk.StyleContext.add_provider_for_display(
           display,
@@ -48,15 +55,19 @@ class ThemeService extends BaseThemeService {
     this.styleManager = Adw.StyleManager.get_default();
 
     // Initialize GSettings for theme settings
-    this.settings = new Gio.Settings({ schema_id: "eu.jumplink.Learn6502" });
+    this.settings = new Gio.Settings({ schema_id: SCHEMA_ID });
+    // Monitor settings changes
+    this.settings.connect(`changed::${KEY_COLOR_SCHEME}` as any, () =>
+      this.loadThemeFromSettings()
+    );
+    this.settings.connect(`changed::${KEY_PRIMARY_COLOR}` as any, () =>
+      this.loadPrimaryFromSettings()
+    );
 
     // Load initial theme mode from settings
     this.loadThemeFromSettings();
-
-    // Monitor settings changes
-    this.settings.connect("changed::color-scheme", () =>
-      this.loadThemeFromSettings()
-    );
+    // Load initial primary from settings
+    this.loadPrimaryFromSettings();
 
     // Monitor system appearance changes
     this.monitorSystemAppearance();
@@ -74,11 +85,14 @@ class ThemeService extends BaseThemeService {
     // Sync classes on theme/primary changes
     this.events.on("theme-changed", () => this.refreshThemedWidgets());
     this.events.on("primary-changed", () => this.refreshThemedWidgets());
+
+    // If settings didn't specify anything (e.g., migration), default to none
+    if (!this.currentPrimaryKey) this.setPrimaryNone();
   }
 
   /** Remove current primary CSS provider from the display, if any. */
   private clearPrimaryCssProvider(): void {
-    const display = Gdk.Display.get_default();
+    const display = this.getDisplay();
     if (!display) return;
     if (this.primaryProvider) {
       Gtk.StyleContext.remove_provider_for_display(
@@ -91,7 +105,7 @@ class ThemeService extends BaseThemeService {
 
   /** Install a new primary CSS provider from a CSS string. Replaces the existing one. */
   private updatePrimaryCssProviderFromCss(css: string): void {
-    const display = Gdk.Display.get_default();
+    const display = this.getDisplay();
     if (!display) return;
     this.clearPrimaryCssProvider();
     const provider = new Gtk.CssProvider();
@@ -143,13 +157,9 @@ class ThemeService extends BaseThemeService {
    */
   public setPrimaryColor(hexOrNull: string | null): void {
     if (!hexOrNull) {
-      // Clearing primary: rely on libadwaita defaults
+      // Clear provider and rely on Adwaita defaults. Caller will dispatch state.
+      this.clearPrimaryCssProvider();
       this.currentPrimaryKey = null;
-      this.events.dispatch("primary-changed", {
-        color: null,
-        key: null,
-        mode: "auto",
-      });
       return;
     }
 
@@ -174,22 +184,12 @@ class ThemeService extends BaseThemeService {
    * Set primary by a predefined key using Adwaita CSS variables.
    * @param key One of the supported color families.
    */
-  public setPrimaryByKey(
-    key:
-      | "blue"
-      | "teal"
-      | "green"
-      | "yellow"
-      | "orange"
-      | "red"
-      | "pink"
-      | "purple"
-      | "slate"
-  ): void {
+  public setPrimaryByKey(key: PrimaryFamilyKey): void {
     this.updatePrimaryCssProviderFromCss(
       `:root { --learn-primary-color: var(--accent-${key}); }`
     );
     this.currentPrimaryKey = key;
+    this.savePrimaryToSettings(key);
     this.events.dispatch("primary-changed", {
       color: null,
       key,
@@ -198,25 +198,62 @@ class ThemeService extends BaseThemeService {
   }
 
   /** Follow system primary (auto). */
-  public setPrimaryAuto(): void {
-    this.clearPrimaryColor();
-    this.currentPrimaryKey = null;
-    this.events.dispatch("primary-changed", {
-      color: null,
-      key: null,
-      mode: "auto",
-    });
-  }
+  // Removed: following system accent as primary is no longer supported
 
   /** No primary override: keep system defaults but mark class as none. */
   public setPrimaryNone(): void {
     this.clearPrimaryColor();
     this.currentPrimaryKey = "none" as any;
+    this.savePrimaryToSettings("none");
     this.events.dispatch("primary-changed", {
       color: null,
       key: null,
       mode: "none",
     });
+  }
+
+  /** Persist primary color choice to GSettings. */
+  private savePrimaryToSettings(value: string): void {
+    if (!this.settings) return;
+    this.settings.set_string(KEY_PRIMARY_COLOR, value);
+  }
+
+  /** Load primary color choice from GSettings and apply it. */
+  private loadPrimaryFromSettings(): void {
+    if (!this.settings) return;
+    const stored = this.settings.get_string(KEY_PRIMARY_COLOR);
+    if (stored === "none" || stored === "auto" || !stored) {
+      // 'auto' (legacy) migrates to 'none'
+      this.setPrimaryNone();
+      return;
+    }
+    if ((PRIMARY_FAMILIES as readonly string[]).includes(stored)) {
+      this.setPrimaryByKey(stored as PrimaryFamilyKey);
+      return;
+    }
+    // Unknown value: default to none for safety
+    this.setPrimaryNone();
+  }
+
+  /**
+   * Return the current primary state in the same shape used by events.
+   * key: one of the predefined families or null
+   * mode: 'none' when no override, 'custom' when a family/custom color is active
+   */
+  public getPrimaryState(): { key: string | null; mode: "none" | "custom" } {
+    if (this.currentPrimaryKey === "none") {
+      return { key: null, mode: "none" };
+    }
+    // When a predefined family was selected we keep the key
+    if (this.currentPrimaryKey) {
+      return { key: this.currentPrimaryKey, mode: "custom" } as any;
+    }
+    // If a custom hex has been set, provider exists while key is null
+    if (this.primaryProvider) {
+      return { key: null, mode: "custom" };
+    }
+    // Default: no override
+    return { key: null, mode: "none" };
   }
 
   /**
@@ -286,7 +323,7 @@ class ThemeService extends BaseThemeService {
    */
   private loadThemeFromSettings(): void {
     if (!this.settings) return;
-    const savedColorScheme = this.settings.get_int("color-scheme");
+    const savedColorScheme = this.settings.get_int(KEY_COLOR_SCHEME);
     this.setColorScheme(savedColorScheme);
   }
 
@@ -295,25 +332,23 @@ class ThemeService extends BaseThemeService {
    */
   private saveThemeToSettings(mode: ThemeMode): void {
     if (!this.settings) return;
+    const value = this.themeModeToInt(mode);
+    if (value === null) return;
+    this.settings.set_int(KEY_COLOR_SCHEME, value);
+  }
 
-    // Convert ThemeMode to color-scheme integer format (0=follow,1=light,2=dark)
-    let colorSchemeValue: number;
+  private themeModeToInt(mode: ThemeMode): number | null {
     switch (mode) {
       case "system":
-        colorSchemeValue = 0; // follow
-        break;
+        return 0;
       case "light":
-        colorSchemeValue = 1;
-        break;
+        return 1;
       case "dark":
-        colorSchemeValue = 2;
-        break;
+        return 2;
       default:
         console.warn(`Unknown theme mode: ${mode}`);
-        return;
+        return null;
     }
-
-    this.settings.set_int("color-scheme", colorSchemeValue);
   }
 
   /**
@@ -387,6 +422,10 @@ class ThemeService extends BaseThemeService {
 
   public isSystemColorSchemeSupported(): boolean {
     return this.styleManager?.get_system_supports_color_schemes() ?? false;
+  }
+
+  private getDisplay(): Gdk.Display | null {
+    return Gdk.Display.get_default();
   }
 }
 

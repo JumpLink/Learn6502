@@ -7,3 +7,21 @@ export const LIBDIR = __LIBDIR__;
 export const DATADIR = __DATADIR__;
 export const BINDIR = __BINDIR__;
 export const PKGDATADIR = __PKGDATADIR__;
+
+// GSettings
+export const SCHEMA_ID = "eu.jumplink.Learn6502";
+export const KEY_COLOR_SCHEME = "color-scheme"; // 0=follow,1=light,2=dark
+export const KEY_PRIMARY_COLOR = "primary-color"; // 'none' | predefined key
+
+// Primary color family keys supported by libadwaita accent variables
+export const PRIMARY_FAMILIES = [
+  "blue",
+  "teal",
+  "green",
+  "yellow",
+  "orange",
+  "red",
+  "pink",
+  "purple",
+  "slate",
+] as const;
