@@ -8,7 +8,7 @@ import mainCss from "../main.css?inline";
 import {
   KEY_COLOR_SCHEME,
   KEY_PRIMARY_COLOR,
-  SCHEMA_ID,
+  APPLICATION_ID,
   PRIMARY_FAMILIES,
 } from "../constants.ts";
 import type { PrimaryFamilyKey } from "../types/theme.ts";
@@ -55,12 +55,12 @@ class ThemeService extends BaseThemeService {
     this.styleManager = Adw.StyleManager.get_default();
 
     // Initialize GSettings for theme settings
-    this.settings = new Gio.Settings({ schema_id: SCHEMA_ID });
+    this.settings = new Gio.Settings({ schema_id: APPLICATION_ID });
     // Monitor settings changes
-    this.settings.connect(`changed::${KEY_COLOR_SCHEME}` as any, () =>
+    this.settings.connect(`changed::${KEY_COLOR_SCHEME}`, () =>
       this.loadThemeFromSettings()
     );
-    this.settings.connect(`changed::${KEY_PRIMARY_COLOR}` as any, () =>
+    this.settings.connect(`changed::${KEY_PRIMARY_COLOR}`, () =>
       this.loadPrimaryFromSettings()
     );
 

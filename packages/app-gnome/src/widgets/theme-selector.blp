@@ -21,9 +21,8 @@ template $ThemeSelector : Adw.Bin {
         styles [
           "follow",
         ]
-
-        hexpand: true;
         halign: center;
+        valign: center;
         focus-on-click: false;
         tooltip-text: _("Follow system style");
         toggled => $_onFollowToggled();
@@ -37,9 +36,8 @@ template $ThemeSelector : Adw.Bin {
         styles [
           "light",
         ]
-
-        hexpand: true;
         halign: center;
+        valign: center;
         group: follow;
         focus-on-click: false;
         tooltip-text: _("Light style");
@@ -54,9 +52,8 @@ template $ThemeSelector : Adw.Bin {
         styles [
           "dark",
         ]
-
-        hexpand: true;
         halign: center;
+        valign: center;
         group: follow;
         focus-on-click: false;
         tooltip-text: _("Dark style");
@@ -78,6 +75,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_none {
         styles [ "primary", "primary-none" ]
+        halign: center;
+        valign: center;
         focus-on-click: false;
         tooltip-text: _("No primary override");
         toggled => $_onPrimaryNoneToggled();
@@ -86,6 +85,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_blue {
         styles [ "primary", "primary-blue" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Blue");
@@ -95,6 +96,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_teal {
         styles [ "primary", "primary-teal" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Teal");
@@ -104,6 +107,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_green {
         styles [ "primary", "primary-green" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Green");
@@ -113,6 +118,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_yellow {
         styles [ "primary", "primary-yellow" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Yellow");
@@ -122,6 +129,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_orange {
         styles [ "primary", "primary-orange" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Orange");
@@ -131,6 +140,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_red {
         styles [ "primary", "primary-red" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Red");
@@ -140,6 +151,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_pink {
         styles [ "primary", "primary-pink" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Pink");
@@ -149,6 +162,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_purple {
         styles [ "primary", "primary-purple" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Purple");
@@ -158,6 +173,8 @@ template $ThemeSelector : Adw.Bin {
 
       CheckButton primary_slate {
         styles [ "primary", "primary-slate" ]
+        halign: center;
+        valign: center;
         group: primary_none;
         focus-on-click: false;
         tooltip-text: _("Primary: Slate");
