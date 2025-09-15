@@ -1,0 +1,61 @@
+.primary-color-selector {
+  --swatch-size-small: 24px;
+  --swatch-gap: 6px;
+  --ring-width: 3px;
+  --ring-color-active: var(--accent-bg-color);
+
+  checkbutton.primary {
+    min-height: var(--swatch-size-small);
+    min-width: var(--swatch-size-small);
+    background-clip: content-box;
+    border-radius: 9999px;
+
+    radio {
+      -gtk-icon-source: none;
+      border: none;
+      background: none;
+      box-shadow: none;
+      min-width: 12px;
+      min-height: 12px;
+      padding: 0;
+      transform: none;
+    }
+
+    padding: var(--swatch-gap);
+    box-shadow: inset 0 0 0 var(--ring-width) transparent;
+    &:checked {
+      box-shadow: inset 0 0 0 var(--ring-width) var(--ring-color-active);
+    }
+
+    &.primary-none {
+      background-color: var(--window-bg-color);
+    }
+    &.primary-blue {
+      background-color: var(--accent-blue);
+    }
+    &.primary-teal {
+      background-color: var(--accent-teal);
+    }
+    &.primary-green {
+      background-color: var(--accent-green);
+    }
+    &.primary-yellow {
+      background-color: var(--accent-yellow);
+    }
+    &.primary-orange {
+      background-color: var(--accent-orange);
+    }
+    &.primary-red {
+      background-color: var(--accent-red);
+    }
+    &.primary-pink {
+      background-color: var(--accent-pink);
+    }
+    &.primary-purple {
+      background-color: var(--accent-purple);
+    }
+    &.primary-slate {
+      background-color: var(--accent-slate);
+    }
+  }
+}

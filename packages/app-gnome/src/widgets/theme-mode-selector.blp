@@ -1,0 +1,54 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ThemeModeSelector : Adw.Bin {
+  css-classes: ["theme-mode-selector"];
+  hexpand: true;
+
+  Box root {
+    hexpand: true;
+    orientation: horizontal;
+    spacing: 12;
+    margin-top: 12;
+    margin-bottom: 12;
+    margin-start: 12;
+    margin-end: 12;
+
+    CheckButton follow {
+      styles [ "follow" ]
+      halign: center;
+      valign: center;
+      focus-on-click: false;
+      tooltip-text: _("Follow system style");
+      toggled => $_onFollowToggled();
+
+      accessibility { label: _("Follow system style"); }
+    }
+
+    CheckButton light {
+      styles [ "light" ]
+      halign: center;
+      valign: center;
+      group: follow;
+      focus-on-click: false;
+      tooltip-text: _("Light style");
+      toggled => $_onLightToggled();
+
+      accessibility { label: _("Light style"); }
+    }
+
+    CheckButton dark {
+      styles [ "dark" ]
+      halign: center;
+      valign: center;
+      group: follow;
+      focus-on-click: false;
+      tooltip-text: _("Dark style");
+      toggled => $_onDarkToggled();
+
+      accessibility { label: _("Dark style"); }
+    }
+  }
+}
+
+

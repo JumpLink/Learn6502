@@ -734,7 +734,10 @@ msgstr ""
 "Ändere eines der Pixel so, dass es in der unteren rechten Ecke gezeichnet "
 "wird (Speicheradresse <tt>$05ff</tt>)."
 
-msgid "Choose app theme and primary color."
+msgid "Choose a primary color family."
+msgstr ""
+
+msgid "Choose light/dark or follow system."
 msgstr ""
 
 #, javascript-format
@@ -1495,6 +1498,9 @@ msgstr ""
 "linken Ecke. Das ist einfacher als die Art und Weise, wie ein echter "
 "Computer Video ausgeben würde, aber für den Moment reicht es."
 
+msgid "Primary color"
+msgstr ""
+
 msgid "Primary: Blue"
 msgstr ""
 
@@ -1751,6 +1757,9 @@ msgstr "Schritt"
 
 msgid "Stopped"
 msgstr "Angehalten"
+
+msgid "Style"
+msgstr ""
 
 #, javascript-format
 msgid "Syntax error line %d: %s"
@@ -2154,9 +2163,6 @@ msgstr ""
 "Werte <tt>$01</tt> und <tt>$02</tt> enthalten, verweisen sie auf das zweite "
 "Pixel des Displays (<tt>$0201</tt> - beachte, dass bei Indirect Addressing "
 "das Least Significant Byte zuerst kommt)."
-
-msgid "Theme"
-msgstr ""
 
 msgid ""
 "Then why 6502? Why not a <i>useful</i> assembly language, like <a "

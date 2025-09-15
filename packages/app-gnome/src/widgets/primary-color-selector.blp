@@ -1,0 +1,129 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $PrimaryColorSelector : Adw.Bin {
+  css-classes: ["primary-color-selector"];
+  hexpand: true;
+
+  Adw.WrapBox accents {
+    margin-top: 12;
+    margin-bottom: 12;
+    margin-start: 12;
+    margin-end: 12;
+    hexpand: true;
+    orientation: horizontal;
+    child-spacing: 8;
+    line-spacing: 8;
+
+    CheckButton primary_none {
+      styles [ "primary", "primary-none" ]
+      halign: center;
+      valign: center;
+      focus-on-click: false;
+      tooltip-text: _("No primary override");
+      toggled => $_onPrimaryNoneToggled();
+      accessibility { label: _("No primary override"); }
+    }
+
+    CheckButton primary_blue {
+      styles [ "primary", "primary-blue" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Blue");
+      toggled => $_onPrimaryBlueToggled();
+      accessibility { label: _("Primary: Blue"); }
+    }
+
+    CheckButton primary_teal {
+      styles [ "primary", "primary-teal" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Teal");
+      toggled => $_onPrimaryTealToggled();
+      accessibility { label: _("Primary: Teal"); }
+    }
+
+    CheckButton primary_green {
+      styles [ "primary", "primary-green" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Green");
+      toggled => $_onPrimaryGreenToggled();
+      accessibility { label: _("Primary: Green"); }
+    }
+
+    CheckButton primary_yellow {
+      styles [ "primary", "primary-yellow" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Yellow");
+      toggled => $_onPrimaryYellowToggled();
+      accessibility { label: _("Primary: Yellow"); }
+    }
+
+    CheckButton primary_orange {
+      styles [ "primary", "primary-orange" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Orange");
+      toggled => $_onPrimaryOrangeToggled();
+      accessibility { label: _("Primary: Orange"); }
+    }
+
+    CheckButton primary_red {
+      styles [ "primary", "primary-red" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Red");
+      toggled => $_onPrimaryRedToggled();
+      accessibility { label: _("Primary: Red"); }
+    }
+
+    CheckButton primary_pink {
+      styles [ "primary", "primary-pink" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Pink");
+      toggled => $_onPrimaryPinkToggled();
+      accessibility { label: _("Primary: Pink"); }
+    }
+
+    CheckButton primary_purple {
+      styles [ "primary", "primary-purple" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Purple");
+      toggled => $_onPrimaryPurpleToggled();
+      accessibility { label: _("Primary: Purple"); }
+    }
+
+    CheckButton primary_slate {
+      styles [ "primary", "primary-slate" ]
+      halign: center;
+      valign: center;
+      group: primary_none;
+      focus-on-click: false;
+      tooltip-text: _("Primary: Slate");
+      toggled => $_onPrimarySlateToggled();
+      accessibility { label: _("Primary: Slate"); }
+    }
+  }
+}
+
+

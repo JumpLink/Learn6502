@@ -10,11 +10,23 @@ template $PreferencesDialog: Adw.PreferencesDialog {
     title: _("Appearance");
     icon-name: "brush-monitor-symbolic";
 
-    Adw.PreferencesGroup appearanceGroup {
-      title: _("Theme");
-      description: _("Choose app theme and primary color.");
+    Adw.PreferencesGroup themeGroup {
+      title: _("Style");
+      description: _("Choose light/dark or follow system.");
 
-      $ThemeSelector themeSelector {}
+      $ThemeModeSelector {
+        css-classes: ["card", "theme-mode-selector"];
+      }
+    }
+
+    Adw.PreferencesGroup primaryGroup {
+      title: _("Primary color");
+      description: _("Choose a primary color family.");
+
+
+      $PrimaryColorSelector {
+        css-classes: ["card", "primary-color-selector"];
+      }
     }
   }
 }
