@@ -59,8 +59,6 @@ export class Application extends Adw.Application {
       preferencesDialog.present(this.active_window);
     });
     this.add_action(showPreferencesAction);
-
-    // No app-level color-scheme action needed; ThemeSelector updates settings directly via ThemeService
   }
 
   private onShowAboutDialog() {

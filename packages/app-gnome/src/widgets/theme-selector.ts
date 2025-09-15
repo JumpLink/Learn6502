@@ -11,7 +11,7 @@ import { themeService } from "../services";
  * ThemeSelector
  *
  * GNOME (Adwaita) widget to select the current theme mode (follow/light/dark)
- * and the primary color policy (auto/none or a predefined color family).
+ * and the primary color policy (none or a predefined color family).
  *
  * Responsibilities:
  * - Reflect current mode in three primary check buttons
@@ -24,7 +24,6 @@ export class ThemeSelector extends Adw.Bin {
   declare private _light: Gtk.CheckButton;
   declare private _dark: Gtk.CheckButton;
   // Primary color buttons
-  declare private _primary_auto: Gtk.CheckButton;
   declare private _primary_none: Gtk.CheckButton;
   declare private _primary_blue: Gtk.CheckButton;
   declare private _primary_teal: Gtk.CheckButton;
@@ -47,7 +46,6 @@ export class ThemeSelector extends Adw.Bin {
           "follow",
           "light",
           "dark",
-          "primary_auto",
           "primary_none",
           "primary_blue",
           "primary_teal",
@@ -164,19 +162,6 @@ export class ThemeSelector extends Adw.Bin {
   }
 
   /**
-   * Follow system primary color (auto). Clears explicit primary.
-   */
-  _onPrimaryAutoToggled(): void {
-    if (this._isUpdatingUi) return;
-    if (this._primary_auto.get_active()) {
-      // Auto: remove custom primary and let system apply
-      this._setPrimarySelection("auto");
-      themeService.setPrimaryAuto();
-      themeService.refreshThemedWidgets();
-    }
-  }
-
-  /**
    * No primary override (none). Clears explicit primary and marks class as none.
    */
   _onPrimaryNoneToggled(): void {
@@ -211,13 +196,12 @@ export class ThemeSelector extends Adw.Bin {
 
   /**
    * Programmatically set which primary control is active, keeping exclusivity.
-   * @param key Active primary key or policy ("auto" | "none" | family key | null)
+   * @param key Active primary key or policy ("none" | family key | null)
    */
   private _setPrimarySelection(key: string | null): void {
     this._isUpdatingUi = true;
     try {
       const map: Record<string, Gtk.CheckButton> = {
-        auto: this._primary_auto,
         none: this._primary_none,
         blue: this._primary_blue,
         teal: this._primary_teal,
@@ -243,7 +227,6 @@ export class ThemeSelector extends Adw.Bin {
    */
   private _anyPrimaryActive(): boolean {
     return (
-      this._primary_auto.get_active() ||
       this._primary_none.get_active() ||
       this._primary_blue.get_active() ||
       this._primary_teal.get_active() ||

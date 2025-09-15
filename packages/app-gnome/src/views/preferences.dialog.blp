@@ -10,9 +10,11 @@ template $PreferencesDialog: Adw.PreferencesDialog {
     title: _("Appearance");
     icon-name: "brush-monitor-symbolic";
 
-    Adw.PreferencesGroup {
-      title: _("Main Settings");
-      description: _("There are currently no settings.");
+    Adw.PreferencesGroup appearanceGroup {
+      title: _("Theme");
+      description: _("Choose app theme and primary color.");
+
+      $ThemeSelector themeSelector {}
     }
   }
 }

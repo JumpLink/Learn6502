@@ -8,7 +8,7 @@ import { SimulatorState, num2hex } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import { MainButton, RunMenuButton, ThemeSelector } from "../widgets";
+import { MainButton, RunMenuButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 import { settings } from "../settings.ts";
@@ -138,7 +138,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.setupHelpActions();
     this.setupThemeManagement();
     this.setupMainStateEventListeners();
-    this.setupPopoverThemeSelector();
 
     // Initialize main state controller
     mainStateController.init();
@@ -399,28 +398,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private setupHelpActions(): void {
     this.showHelpAction.connect("activate", this.showHelp.bind(this));
     this.add_action(this.showHelpAction);
-  }
-
-  /**
-   * Setup the ThemeSelector in the popover menu
-   * This should be called after the window is fully initialized and presented
-   */
-  public setupPopoverThemeSelector(): void {
-    if (!this._menuButton) {
-      console.warn("MenuButton not found");
-      return;
-    }
-
-    const themeSelector = new ThemeSelector();
-    const popover = this._menuButton.get_popover() as Gtk.PopoverMenu;
-
-    if (!popover) {
-      console.warn("Popover not found");
-      return;
-    }
-
-    popover.add_child(themeSelector, "theme-selector");
-    console.log("ThemeSelector added to popover menu");
   }
 
   private showHelp(): void {

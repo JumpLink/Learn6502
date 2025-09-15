@@ -382,6 +382,9 @@ msgstr ""
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr ""
 
+msgid "Choose app theme and primary color."
+msgstr ""
+
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
 msgstr ""
@@ -508,9 +511,6 @@ msgid "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A
 msgstr ""
 
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
-msgstr ""
-
-msgid "Follow system primary"
 msgstr ""
 
 msgid "Follow system style"
@@ -684,9 +684,6 @@ msgid "Learn how to program the 6502 microprocessor."
 msgstr ""
 
 msgid "Light style"
-msgstr ""
-
-msgid "Main Settings"
 msgstr ""
 
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1064,10 +1061,10 @@ msgstr ""
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr ""
 
-msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"http://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - this is purely an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
+msgid "Theme"
 msgstr ""
 
-msgid "There are currently no settings."
+msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"http://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - this is purely an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr ""
 
 msgid "These are the absolute addressing versions of zero page,X and zero page,Y. For example:"
@@ -1155,6 +1152,9 @@ msgid "Zero page,Y: <tt>$c0,Y</tt>"
 msgstr ""
 
 msgid "Zero page: <tt>$c0</tt>"
+msgstr ""
+
+msgid "_Appearance"
 msgstr ""
 
 msgid "learning"

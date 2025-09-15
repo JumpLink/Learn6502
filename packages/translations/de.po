@@ -734,6 +734,9 @@ msgstr ""
 "Ändere eines der Pixel so, dass es in der unteren rechten Ecke gezeichnet "
 "wird (Speicheradresse <tt>$05ff</tt>)."
 
+msgid "Choose app theme and primary color."
+msgstr ""
+
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
 msgstr "Code erfolgreich assembliert, %d Bytes."
@@ -953,9 +956,6 @@ msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
 msgstr ""
 "Build-Fehler unter PostmarketOS behoben, verbessert Kompatibilität mit "
 "Mobilgeräten"
-
-msgid "Follow system primary"
-msgstr ""
 
 msgid "Follow system style"
 msgstr ""
@@ -1282,9 +1282,6 @@ msgstr "Lerne, wie man den 6502-Mikroprozessor programmiert."
 
 msgid "Light style"
 msgstr ""
-
-msgid "Main Settings"
-msgstr "Haupteinstellungen"
 
 msgid ""
 "Major UI improvements introducing a modern Floating Action Button with "
@@ -2158,6 +2155,9 @@ msgstr ""
 "Pixel des Displays (<tt>$0201</tt> - beachte, dass bei Indirect Addressing "
 "das Least Significant Byte zuerst kommt)."
 
+msgid "Theme"
+msgstr ""
+
 msgid ""
 "Then why 6502? Why not a <i>useful</i> assembly language, like <a "
 "href=\"http://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think "
@@ -2181,9 +2181,6 @@ msgstr ""
 "geschrieben. Modernere Assemblersprachen sind dafür gedacht, von Compilern "
 "geschrieben zu werden, also überlassen wir es ihnen. Außerdem macht 6502 "
 "<i>Spaß</i>. Niemand hat je x86 als <i>spaßig</i> bezeichnet."
-
-msgid "There are currently no settings."
-msgstr "Derzeit gibt es keine Einstellungen."
 
 msgid ""
 "These are the absolute addressing versions of zero page,X and zero page,Y. "
@@ -2379,6 +2376,10 @@ msgid "Zero page: <tt>$c0</tt>"
 msgstr "Nullseite: <tt>$c0</tt>"
 
 #, fuzzy
+msgid "_Appearance"
+msgstr "Erscheinungsbild"
+
+#, fuzzy
 msgid "learning"
 msgstr "lernen"
 
@@ -2402,6 +2403,12 @@ msgstr ""
 
 msgid "•"
 msgstr ""
+
+#~ msgid "Main Settings"
+#~ msgstr "Haupteinstellungen"
+
+#~ msgid "There are currently no settings."
+#~ msgstr "Derzeit gibt es keine Einstellungen."
 
 #~ msgid "Interactive tutorial interface in dark theme"
 #~ msgstr "Interaktive Tutorial-Oberfläche im dunklen Design"

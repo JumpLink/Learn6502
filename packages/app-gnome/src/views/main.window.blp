@@ -112,13 +112,6 @@ template $MainWindow: Adw.ApplicationWindow {
 }
 
 menu buttonWindowMenu {
-
-  section {
-    item {
-      custom: "theme-selector";
-    }
-  }
-
   section {
 
     item {
@@ -140,11 +133,10 @@ menu buttonWindowMenu {
 
   section {
 
-    // TODO: Uncomment when preferences are implemented
-    // item {
-    //   label: _("_Preferences");
-    //   action: "app.preferences";
-    // }
+    item {
+      label: _("_Appearance");
+      action: "app.preferences";
+    }
 
     // TODO: Uncomment when keyboard shortcuts are implemented
     // item {

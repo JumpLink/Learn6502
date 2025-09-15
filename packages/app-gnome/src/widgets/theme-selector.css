@@ -1,69 +1,77 @@
 /* Adapted from https://github.com/sonnyp/troll/blob/8b0275948eedec9ed0378f9bdda1aa4aac3062ba/src/widgets/README.md */
-theme-selector {
-  margin: 9px;
+.theme-selector {
+  /* Local custom properties to make sizes and rings easy to tweak */
+  --swatch-size: 44px;
+  --swatch-size-small: 24px;
+  --swatch-padding: 1px;
+  --ring-color: var(--border-color);
+  --ring-color-active: var(--accent-bg-color);
+  --light-swatch: #fff; /* fixed: represents the Light scheme */
+  --dark-swatch: color-mix(in oklab, var(--window-fg-color) 10%, black);
 
+  /* Any CheckButton inside the component becomes a circular swatch */
   checkbutton {
-    min-height: 44px;
-    min-width: 44px;
-    padding: 1px;
+    min-height: var(--swatch-size);
+    min-width: var(--swatch-size);
+    padding: var(--swatch-padding);
     background-clip: content-box;
     border-radius: 9999px;
-    box-shadow: inset 0 0 0 1px var(--border-color);
+    box-shadow: inset 0 0 0 1px var(--ring-color);
 
-    &.follow:checked,
-    &.light:checked,
-    &.dark:checked {
-      box-shadow: inset 0 0 0 2px var(--accent-bg-color);
+    &:checked {
+      box-shadow: inset 0 0 0 2px var(--ring-color-active);
     }
 
+    /* Mode swatches */
     &.follow {
       background-image: linear-gradient(
         to bottom right,
-        #fff 49.99%,
-        #202020 50.01%
+        var(--light-swatch) 49.99%,
+        var(--dark-swatch) 50.01%
       );
     }
 
     &.light {
-      background-color: #fff;
+      background-color: var(--light-swatch);
     }
 
     &.dark {
-      background-color: #202020;
+      background-color: var(--dark-swatch);
     }
 
-    radio {
+    /* Hide default indicator node (radio graphics) */
+    & > radio {
       -gtk-icon-source: none;
       border: none;
       background: none;
       box-shadow: none;
       min-width: 12px;
       min-height: 12px;
-      transform: translate(27px, 14px);
-      padding: 2px;
+      padding: 0;
+      transform: none;
     }
 
-    /* Primary selector (small circles) */
+    /* Small variant for primary color swatches */
     &.primary {
-      min-height: 24px;
-      min-width: 24px;
-      padding: 1px;
+      min-height: var(--swatch-size-small);
+      min-width: var(--swatch-size-small);
+      padding: var(--swatch-padding);
       background-clip: content-box;
       border-radius: 9999px;
-      box-shadow: inset 0 0 0 1px var(--border-color);
+      box-shadow: inset 0 0 0 1px var(--ring-color);
     }
 
     &.primary:checked {
-      box-shadow: inset 0 0 0 2px var(--accent-bg-color);
+      box-shadow: inset 0 0 0 2px var(--ring-color-active);
     }
 
     /* Concrete primary swatches */
     &.primary-auto {
       background-image:
-        linear-gradient(45deg, var(--border-color) 25%, transparent 25%),
-        linear-gradient(-45deg, var(--border-color) 25%, transparent 25%),
-        linear-gradient(45deg, transparent 75%, var(--border-color) 75%),
-        linear-gradient(-45deg, transparent 75%, var(--border-color) 75%);
+        linear-gradient(45deg, var(--ring-color) 25%, transparent 25%),
+        linear-gradient(-45deg, var(--ring-color) 25%, transparent 25%),
+        linear-gradient(45deg, transparent 75%, var(--ring-color) 75%),
+        linear-gradient(-45deg, transparent 75%, var(--ring-color) 75%);
       background-size: 6px 6px;
       background-position:
         0 0,
@@ -75,7 +83,6 @@ theme-selector {
     &.primary-none {
       background: none;
     }
-
     &.primary-blue {
       background-color: var(--accent-blue);
     }
@@ -103,13 +110,5 @@ theme-selector {
     &.primary-slate {
       background-color: var(--accent-slate);
     }
-  }
-}
-
-checkbutton.theme-selector {
-  radio:checked {
-    -gtk-icon-source: -gtk-icontheme("object-select-symbolic");
-    background-color: var(--accent-bg-color);
-    color: var(--accent-fg-color);
   }
 }
