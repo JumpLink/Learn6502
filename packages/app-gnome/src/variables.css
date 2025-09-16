@@ -21,6 +21,7 @@
 
     /* Text */
     --window-fg-color: var(--dark-5);
+    --view-fg-color: var(--window-fg-color);
   }
 
   &.is-dark {
@@ -63,5 +64,7 @@
 .accent-custom {
   --accent-bg-color: var(--learn-accent-color);
   --accent-color: var(--learn-accent-color);
-  --link-color: var(--learn-accent-color);
+  link {
+    color: var(--learn-accent-color);
+  }
 }
