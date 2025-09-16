@@ -6,6 +6,7 @@ template $PrimaryColorSelector : Adw.Bin {
   hexpand: true;
 
   Adw.WrapBox accents {
+    sensitive: bind template.enabled;
     margin-top: 12;
     margin-bottom: 12;
     margin-start: 12;
@@ -16,21 +17,10 @@ template $PrimaryColorSelector : Adw.Bin {
     child-spacing: 8;
     line-spacing: 8;
 
-    CheckButton primary_none {
-      styles [ "primary", "primary-none" ]
-      halign: center;
-      valign: center;
-      focus-on-click: false;
-      tooltip-text: _("None");
-      toggled => $_onPrimaryNoneToggled();
-      accessibility { label: _("No primary override"); }
-    }
-
     CheckButton primary_blue {
       styles [ "primary", "primary-blue" ]
       halign: center;
       valign: center;
-      group: primary_none;
       focus-on-click: false;
       tooltip-text: _("Blue");
       toggled => $_onPrimaryBlueToggled();
@@ -41,7 +31,7 @@ template $PrimaryColorSelector : Adw.Bin {
       styles [ "primary", "primary-teal" ]
       halign: center;
       valign: center;
-      group: primary_none;
+      group: primary_blue;
       focus-on-click: false;
       tooltip-text: _("Teal");
       toggled => $_onPrimaryTealToggled();
@@ -52,7 +42,7 @@ template $PrimaryColorSelector : Adw.Bin {
       styles [ "primary", "primary-green" ]
       halign: center;
       valign: center;
-      group: primary_none;
+      group: primary_blue;
       focus-on-click: false;
       tooltip-text: _("Green");
       toggled => $_onPrimaryGreenToggled();
@@ -63,7 +53,7 @@ template $PrimaryColorSelector : Adw.Bin {
       styles [ "primary", "primary-yellow" ]
       halign: center;
       valign: center;
-      group: primary_none;
+      group: primary_blue;
       focus-on-click: false;
       tooltip-text: _("Yellow");
       toggled => $_onPrimaryYellowToggled();
@@ -74,7 +64,7 @@ template $PrimaryColorSelector : Adw.Bin {
       styles [ "primary", "primary-orange" ]
       halign: center;
       valign: center;
-      group: primary_none;
+      group: primary_blue;
       focus-on-click: false;
       tooltip-text: _("Orange");
       toggled => $_onPrimaryOrangeToggled();
@@ -85,7 +75,7 @@ template $PrimaryColorSelector : Adw.Bin {
       styles [ "primary", "primary-red" ]
       halign: center;
       valign: center;
-      group: primary_none;
+      group: primary_blue;
       focus-on-click: false;
       tooltip-text: _("Red");
       toggled => $_onPrimaryRedToggled();
@@ -96,7 +86,7 @@ template $PrimaryColorSelector : Adw.Bin {
       styles [ "primary", "primary-pink" ]
       halign: center;
       valign: center;
-      group: primary_none;
+      group: primary_blue;
       focus-on-click: false;
       tooltip-text: _("Pink");
       toggled => $_onPrimaryPinkToggled();
@@ -107,7 +97,7 @@ template $PrimaryColorSelector : Adw.Bin {
       styles [ "primary", "primary-purple" ]
       halign: center;
       valign: center;
-      group: primary_none;
+      group: primary_blue;
       focus-on-click: false;
       tooltip-text: _("Purple");
       toggled => $_onPrimaryPurpleToggled();
@@ -118,7 +108,7 @@ template $PrimaryColorSelector : Adw.Bin {
       styles [ "primary", "primary-slate" ]
       halign: center;
       valign: center;
-      group: primary_none;
+      group: primary_blue;
       focus-on-click: false;
       tooltip-text: _("Slate");
       toggled => $_onPrimarySlateToggled();

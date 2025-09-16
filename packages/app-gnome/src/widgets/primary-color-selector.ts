@@ -12,7 +12,6 @@ import { themeService } from "../services";
  * Delegates persistence/apply to themeService.
  */
 export class PrimaryColorSelector extends Adw.Bin {
-  declare private _primary_none: Gtk.CheckButton;
   declare private _primary_blue: Gtk.CheckButton;
   declare private _primary_teal: Gtk.CheckButton;
   declare private _primary_green: Gtk.CheckButton;
@@ -23,6 +22,7 @@ export class PrimaryColorSelector extends Adw.Bin {
   declare private _primary_purple: Gtk.CheckButton;
   declare private _primary_slate: Gtk.CheckButton;
   private _isUpdatingUi: boolean = false;
+  private _enabled: boolean = true;
 
   static {
     GObject.registerClass(
@@ -31,7 +31,6 @@ export class PrimaryColorSelector extends Adw.Bin {
         Template,
         CssName: "primary-color-selector",
         InternalChildren: [
-          "primary_none",
           "primary_blue",
           "primary_teal",
           "primary_green",
@@ -42,6 +41,15 @@ export class PrimaryColorSelector extends Adw.Bin {
           "primary_purple",
           "primary_slate",
         ],
+        Properties: {
+          enabled: GObject.ParamSpec.boolean(
+            "enabled",
+            "Enabled",
+            "Whether primary color swatches are enabled",
+            GObject.ParamFlags.READWRITE,
+            true
+          ),
+        },
       },
       this
     );
@@ -52,30 +60,39 @@ export class PrimaryColorSelector extends Adw.Bin {
 
     // Initial state from service
     const { key, mode } = themeService.getPrimaryState();
-    const sel = key ?? (mode === "none" ? "none" : null);
+    const sel = key ?? null;
     this._setPrimarySelection(sel as any);
 
     // Sync on map to catch late changes
     this.connect("map", () => {
       const { key, mode } = themeService.getPrimaryState();
-      const sel = key ?? (mode === "none" ? "none" : null);
+      const sel = key ?? null;
       this._setPrimarySelection(sel as any);
     });
 
     // React to external changes
     themeService.events.on("primary-changed", ({ key, mode }) => {
-      const sel = key ?? (mode === "none" ? "none" : null);
+      const sel = key ?? null;
       this._setPrimarySelection(sel as any);
     });
-  }
 
-  _onPrimaryNoneToggled(): void {
-    if (this._isUpdatingUi) return;
-    if (this._primary_none.get_active()) {
-      this._setPrimarySelection("none");
-      themeService.setPrimaryNone();
-      themeService.refreshThemedWidgets();
-    }
+    // Keep primary override cleared when disabled
+    this.connect("notify::enabled", () => {
+      const enabled = (this as any).enabled as boolean;
+      this._enabled = enabled;
+      if (!enabled) {
+        this._setPrimarySelection(null);
+        themeService.setPrimaryNone();
+        themeService.refreshThemedWidgets();
+      } else {
+        // When enabling, ensure at least one is selected (default to blue)
+        if (!this._anyPrimaryActive()) {
+          this._setPrimarySelection("blue");
+          themeService.setPrimaryByKey("blue" as any);
+          themeService.refreshThemedWidgets();
+        }
+      }
+    });
   }
 
   _onPrimaryBlueToggled(): void {
@@ -109,7 +126,16 @@ export class PrimaryColorSelector extends Adw.Bin {
   private _onPrimaryToggled(source: Gtk.CheckButton, key: string): void {
     if (this._isUpdatingUi) return;
     if (!source.get_active()) {
-      if (!this._anyPrimaryActive()) themeService.clearPrimaryColor();
+      if (!this._anyPrimaryActive()) {
+        if (this._enabled) {
+          // Enforce one selected when enabled
+          this._setPrimarySelection("blue");
+          themeService.setPrimaryByKey("blue" as any);
+          themeService.refreshThemedWidgets();
+        } else {
+          themeService.clearPrimaryColor();
+        }
+      }
       return;
     }
     this._setPrimarySelection(key);
@@ -121,7 +147,6 @@ export class PrimaryColorSelector extends Adw.Bin {
     this._isUpdatingUi = true;
     try {
       const map: Record<string, Gtk.CheckButton> = {
-        none: this._primary_none,
         blue: this._primary_blue,
         teal: this._primary_teal,
         green: this._primary_green,
@@ -143,7 +168,6 @@ export class PrimaryColorSelector extends Adw.Bin {
 
   private _anyPrimaryActive(): boolean {
     return (
-      this._primary_none.get_active() ||
       this._primary_blue.get_active() ||
       this._primary_teal.get_active() ||
       this._primary_green.get_active() ||
