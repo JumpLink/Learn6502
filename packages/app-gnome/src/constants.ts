@@ -14,6 +14,7 @@ export const PKGDATADIR = __PKGDATADIR__;
 // GSettings
 export const KEY_COLOR_SCHEME = "color-scheme"; // 0=follow,1=light,2=dark
 export const KEY_PRIMARY_COLOR = "primary-color"; // 'none' | predefined key
+export const KEY_ACCENT_COLOR = "accent-color"; // 'system' | predefined key
 
 // Primary color family keys supported by libadwaita accent variables
 export const PRIMARY_FAMILIES = [

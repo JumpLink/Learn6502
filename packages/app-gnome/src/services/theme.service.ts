@@ -8,6 +8,7 @@ import mainCss from "../main.css?inline";
 import {
   KEY_COLOR_SCHEME,
   KEY_PRIMARY_COLOR,
+  KEY_ACCENT_COLOR,
   APPLICATION_ID,
   PRIMARY_FAMILIES,
 } from "../constants.ts";
@@ -21,7 +22,7 @@ class ThemeService extends BaseThemeService {
   private styleManager: Adw.StyleManager | null = null;
   private settings: Gio.Settings | null = null;
   private cssProvider: Gtk.CssProvider | null = null;
-  private primaryProvider: Gtk.CssProvider | null = null;
+  private variablesProvider: Gtk.CssProvider | null = null;
   /**
    * Widgets that should automatically receive theme-related CSS classes.
    */
@@ -31,6 +32,12 @@ class ThemeService extends BaseThemeService {
    * null => auto/custom without a named key, "none" => explicit no-primary mode
    */
   private currentPrimaryKey: PrimaryFamilyKey | "none" | null = null;
+  private currentPrimaryHex: string | null = null;
+  /**
+   * Named accent color key when using predefined color families.
+   * 'system' => follow system accent (no override)
+   */
+  private currentAccentKey: PrimaryFamilyKey | "system" = "system";
 
   constructor() {
     super();
@@ -63,11 +70,16 @@ class ThemeService extends BaseThemeService {
     this.settings.connect(`changed::${KEY_PRIMARY_COLOR}`, () =>
       this.loadPrimaryFromSettings()
     );
+    this.settings.connect(`changed::${KEY_ACCENT_COLOR}`, () =>
+      this.loadAccentFromSettings()
+    );
 
     // Load initial theme mode from settings
     this.loadThemeFromSettings();
     // Load initial primary from settings
     this.loadPrimaryFromSettings();
+    // Load initial accent from settings
+    this.loadAccentFromSettings();
 
     // Monitor system appearance changes
     this.monitorSystemAppearance();
@@ -82,40 +94,67 @@ class ThemeService extends BaseThemeService {
       });
     });
 
-    // Sync classes on theme/primary changes
+    // Sync classes on theme/primary/accent changes
     this.events.on("theme-changed", () => this.refreshThemedWidgets());
     this.events.on("primary-changed", () => this.refreshThemedWidgets());
+    this.events.on("accent-changed", () => this.refreshThemedWidgets());
 
     // If settings didn't specify anything (e.g., migration), default to none
     if (!this.currentPrimaryKey) this.setPrimaryNone();
   }
 
-  /** Remove current primary CSS provider from the display, if any. */
-  private clearPrimaryCssProvider(): void {
+  /** Remove current variables CSS provider from the display, if any. */
+  private clearVariablesCssProvider(): void {
     const display = this.getDisplay();
     if (!display) return;
-    if (this.primaryProvider) {
+    if (this.variablesProvider) {
       Gtk.StyleContext.remove_provider_for_display(
         display,
-        this.primaryProvider
+        this.variablesProvider
       );
-      this.primaryProvider = null;
+      this.variablesProvider = null;
     }
   }
 
-  /** Install a new primary CSS provider from a CSS string. Replaces the existing one. */
-  private updatePrimaryCssProviderFromCss(css: string): void {
+  /** Install or update a single variables CSS provider from a CSS string. */
+  private updateVariablesCssProviderFromCss(css: string): void {
     const display = this.getDisplay();
     if (!display) return;
-    this.clearPrimaryCssProvider();
-    const provider = new Gtk.CssProvider();
-    provider.load_from_string(css);
-    Gtk.StyleContext.add_provider_for_display(
-      display,
-      provider,
-      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    );
-    this.primaryProvider = provider;
+    if (!css.trim()) {
+      this.clearVariablesCssProvider();
+      return;
+    }
+    if (!this.variablesProvider) {
+      this.variablesProvider = new Gtk.CssProvider();
+      Gtk.StyleContext.add_provider_for_display(
+        display,
+        this.variablesProvider,
+        Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+      );
+    }
+    this.variablesProvider.load_from_string(css);
+  }
+
+  /** Compute and apply variables CSS for current accent/primary overrides. */
+  private applyVariables(): void {
+    const parts: string[] = [];
+    // Accent override
+    if (this.currentAccentKey !== "system") {
+      parts.push(
+        `--learn-accent-color: var(--accent-${this.currentAccentKey});`
+      );
+    }
+    // Primary override
+    if (this.currentPrimaryKey && this.currentPrimaryKey !== "none") {
+      parts.push(
+        `--learn-primary-color: var(--accent-${this.currentPrimaryKey});`
+      );
+    } else if (!this.currentPrimaryKey && this.currentPrimaryHex) {
+      parts.push(`--learn-primary-color: ${this.currentPrimaryHex};`);
+    }
+
+    const css = parts.length ? `:root { ${parts.join(" ")} }` : "";
+    this.updateVariablesCssProviderFromCss(css);
   }
 
   /**
@@ -157,17 +196,23 @@ class ThemeService extends BaseThemeService {
    */
   public setPrimaryColor(hexOrNull: string | null): void {
     if (!hexOrNull) {
-      // Clear provider and rely on Adwaita defaults. Caller will dispatch state.
-      this.clearPrimaryCssProvider();
+      if (!this.currentPrimaryHex && this.currentPrimaryKey === null) return;
+      this.currentPrimaryHex = null;
       this.currentPrimaryKey = null;
+      this.applyVariables();
+      this.events.dispatch("primary-changed", {
+        color: null,
+        key: null,
+        mode: "none",
+      });
       return;
     }
 
-    // Install a small provider that defines our CSS variable
-    this.updatePrimaryCssProviderFromCss(
-      `:root { --learn-primary-color: ${hexOrNull}; }`
-    );
+    if (this.currentPrimaryHex === hexOrNull && this.currentPrimaryKey === null)
+      return;
+    this.currentPrimaryHex = hexOrNull;
     this.currentPrimaryKey = null;
+    this.applyVariables();
     this.events.dispatch("primary-changed", {
       color: hexOrNull,
       key: null,
@@ -185,10 +230,11 @@ class ThemeService extends BaseThemeService {
    * @param key One of the supported color families.
    */
   public setPrimaryByKey(key: PrimaryFamilyKey): void {
-    this.updatePrimaryCssProviderFromCss(
-      `:root { --learn-primary-color: var(--accent-${key}); }`
-    );
+    if (this.currentPrimaryKey === key && this.currentPrimaryHex === null)
+      return;
+    this.currentPrimaryHex = null;
     this.currentPrimaryKey = key;
+    this.applyVariables();
     this.savePrimaryToSettings(key);
     this.events.dispatch("primary-changed", {
       color: null,
@@ -202,8 +248,11 @@ class ThemeService extends BaseThemeService {
 
   /** No primary override: keep system defaults but mark class as none. */
   public setPrimaryNone(): void {
-    this.clearPrimaryColor();
+    if (this.currentPrimaryKey === "none" && this.currentPrimaryHex === null)
+      return;
+    this.currentPrimaryHex = null;
     this.currentPrimaryKey = "none" as any;
+    this.applyVariables();
     this.savePrimaryToSettings("none");
     this.events.dispatch("primary-changed", {
       color: null,
@@ -212,10 +261,83 @@ class ThemeService extends BaseThemeService {
     });
   }
 
+  /**
+   * Set accent by a predefined key using Adwaita accent variables.
+   * @param key One of the supported color families.
+   */
+  public setAccentByKey(key: PrimaryFamilyKey): void {
+    if (this.currentAccentKey === key) return;
+    this.currentAccentKey = key;
+    this.applyVariables();
+    this.saveAccentToSettings(key);
+    this.events.dispatch("accent-changed", {
+      key,
+      mode: "custom",
+    });
+  }
+
+  /** Follow system accent (no override). */
+  public setAccentSystem(): void {
+    if (this.currentAccentKey === "system") return;
+    this.currentAccentKey = "system";
+    this.applyVariables();
+    this.saveAccentToSettings("system");
+    this.events.dispatch("accent-changed", {
+      key: null,
+      mode: "system",
+    });
+  }
+
+  /** Persist accent color choice to GSettings. */
+  private saveAccentToSettings(value: string): void {
+    if (!this.settings) return;
+    const current = this.settings.get_string(KEY_ACCENT_COLOR);
+    if (current !== value) this.settings.set_string(KEY_ACCENT_COLOR, value);
+  }
+
+  /** Load accent color choice from GSettings and apply it. */
+  private loadAccentFromSettings(): void {
+    if (!this.settings) return;
+    const stored = this.settings.get_string(KEY_ACCENT_COLOR);
+    if (!stored || stored === "system") {
+      if (this.currentAccentKey !== "system") {
+        this.currentAccentKey = "system";
+        this.applyVariables();
+        this.events.dispatch("accent-changed", { key: null, mode: "system" });
+      }
+      return;
+    }
+    if ((PRIMARY_FAMILIES as readonly string[]).includes(stored)) {
+      if (this.currentAccentKey !== (stored as PrimaryFamilyKey)) {
+        this.currentAccentKey = stored as PrimaryFamilyKey;
+        this.applyVariables();
+        this.events.dispatch("accent-changed", {
+          key: stored as PrimaryFamilyKey,
+          mode: "custom",
+        });
+      }
+      return;
+    }
+    // Unknown value: default to system for safety
+    if (this.currentAccentKey !== "system") {
+      this.currentAccentKey = "system";
+      this.applyVariables();
+      this.events.dispatch("accent-changed", { key: null, mode: "system" });
+    }
+  }
+
+  /** Return the current accent state. */
+  public getAccentState(): { key: string | null; mode: "system" | "custom" } {
+    if (this.currentAccentKey === "system")
+      return { key: null, mode: "system" };
+    return { key: this.currentAccentKey, mode: "custom" } as any;
+  }
+
   /** Persist primary color choice to GSettings. */
   private savePrimaryToSettings(value: string): void {
     if (!this.settings) return;
-    this.settings.set_string(KEY_PRIMARY_COLOR, value);
+    const current = this.settings.get_string(KEY_PRIMARY_COLOR);
+    if (current !== value) this.settings.set_string(KEY_PRIMARY_COLOR, value);
   }
 
   /** Load primary color choice from GSettings and apply it. */
@@ -223,16 +345,36 @@ class ThemeService extends BaseThemeService {
     if (!this.settings) return;
     const stored = this.settings.get_string(KEY_PRIMARY_COLOR);
     if (stored === "none" || stored === "auto" || !stored) {
-      // 'auto' (legacy) migrates to 'none'
-      this.setPrimaryNone();
+      this.currentPrimaryHex = null;
+      this.currentPrimaryKey = "none" as any;
+      this.applyVariables();
+      this.events.dispatch("primary-changed", {
+        color: null,
+        key: null,
+        mode: "none",
+      });
       return;
     }
     if ((PRIMARY_FAMILIES as readonly string[]).includes(stored)) {
-      this.setPrimaryByKey(stored as PrimaryFamilyKey);
+      this.currentPrimaryHex = null;
+      this.currentPrimaryKey = stored as PrimaryFamilyKey;
+      this.applyVariables();
+      this.events.dispatch("primary-changed", {
+        color: null,
+        key: stored as PrimaryFamilyKey,
+        mode: "custom",
+      });
       return;
     }
     // Unknown value: default to none for safety
-    this.setPrimaryNone();
+    this.currentPrimaryHex = null;
+    this.currentPrimaryKey = "none" as any;
+    this.applyVariables();
+    this.events.dispatch("primary-changed", {
+      color: null,
+      key: null,
+      mode: "none",
+    });
   }
 
   /**
@@ -248,8 +390,8 @@ class ThemeService extends BaseThemeService {
     if (this.currentPrimaryKey) {
       return { key: this.currentPrimaryKey, mode: "custom" } as any;
     }
-    // If a custom hex has been set, provider exists while key is null
-    if (this.primaryProvider) {
+    // If a custom hex has been set
+    if (this.currentPrimaryHex) {
       return { key: null, mode: "custom" };
     }
     // Default: no override
@@ -280,31 +422,35 @@ class ThemeService extends BaseThemeService {
     for (const w of this.themedWidgets) this.applyClasses(w);
   }
 
-  /** Apply CSS classes for mode and primary color onto a widget. */
+  /** Apply CSS classes for mode and custom color flags onto a widget. */
   private applyClasses(widget: Gtk.Widget): void {
     this.clearClasses(widget);
-    widget.add_css_class("themed");
     const mode = this.currentTheme;
     const isDark = this.isDarkTheme;
     widget.add_css_class(`mode-${mode}`);
     widget.add_css_class(isDark ? "is-dark" : "is-light");
-    if (this.currentPrimaryKey) {
-      if (this.currentPrimaryKey === "none") {
-        widget.add_css_class("primary-none");
-      } else {
+    // Primary state classes
+    if (this.currentPrimaryKey === "none") {
+      widget.add_css_class("primary-none");
+    } else if (this.currentPrimaryKey || this.currentPrimaryHex) {
+      widget.add_css_class("primary-custom");
+      if (this.currentPrimaryKey)
         widget.add_css_class(`primary-${this.currentPrimaryKey}`);
-      }
+    }
+    // Accent state classes
+    if (this.currentAccentKey !== "system") {
+      widget.add_css_class("accent-custom");
     }
   }
 
   /** Remove all theme-related classes from a widget. */
   private clearClasses(widget: Gtk.Widget): void {
-    widget.remove_css_class("themed");
     widget.remove_css_class("mode-system");
     widget.remove_css_class("mode-light");
     widget.remove_css_class("mode-dark");
     widget.remove_css_class("is-dark");
     widget.remove_css_class("is-light");
+    widget.remove_css_class("primary-custom");
     // primary-* classes
     widget.remove_css_class("primary-none");
     widget.remove_css_class("primary-blue");
@@ -316,6 +462,8 @@ class ThemeService extends BaseThemeService {
     widget.remove_css_class("primary-pink");
     widget.remove_css_class("primary-purple");
     widget.remove_css_class("primary-slate");
+    // accent
+    widget.remove_css_class("accent-custom");
   }
 
   /**

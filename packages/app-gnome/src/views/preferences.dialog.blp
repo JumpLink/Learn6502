@@ -25,13 +25,29 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
       Adw.SwitchRow rowPrimary {
         title: _("Use custom primary color");
-        // Initialize from service via a default active value; TS will sync on map
-        active: true;
+        // TS syncs on map; default off to avoid early notify loops
+        active: false;
       }
 
       $PrimaryColorSelector {
         css-classes: ["card", "rounded-t-none", "primary-color-selector"];
         enabled: bind rowPrimary.active;
+      }
+    }
+
+    Adw.PreferencesGroup accentGroup {
+      css-classes: ["accent-group"];
+      title: _("Accent color");
+
+      Adw.SwitchRow rowAccent {
+        title: _("Use custom accent color");
+        // TS syncs on map; default off to avoid early notify loops
+        active: false;
+      }
+
+      $AccentColorSelector {
+        css-classes: ["card", "rounded-t-none", "accent-color-selector"];
+        enabled: bind rowAccent.active;
       }
     }
   }

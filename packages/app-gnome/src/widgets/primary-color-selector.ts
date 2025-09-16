@@ -23,6 +23,7 @@ export class PrimaryColorSelector extends Adw.Bin {
   declare private _primary_slate: Gtk.CheckButton;
   private _isUpdatingUi: boolean = false;
   private _enabled: boolean = true;
+  private _isReady: boolean = false;
 
   static {
     GObject.registerClass(
@@ -63,11 +64,12 @@ export class PrimaryColorSelector extends Adw.Bin {
     const sel = key ?? null;
     this._setPrimarySelection(sel as any);
 
-    // Sync on map to catch late changes
+    // Sync on map to catch late changes and mark ready
     this.connect("map", () => {
       const { key, mode } = themeService.getPrimaryState();
       const sel = key ?? null;
       this._setPrimarySelection(sel as any);
+      this._isReady = true;
     });
 
     // React to external changes
@@ -80,6 +82,7 @@ export class PrimaryColorSelector extends Adw.Bin {
     this.connect("notify::enabled", () => {
       const enabled = (this as any).enabled as boolean;
       this._enabled = enabled;
+      if (!this._isReady) return;
       if (!enabled) {
         this._setPrimarySelection(null);
         themeService.setPrimaryNone();
@@ -87,8 +90,10 @@ export class PrimaryColorSelector extends Adw.Bin {
       } else {
         // When enabling, ensure at least one is selected (default to blue)
         if (!this._anyPrimaryActive()) {
-          this._setPrimarySelection("blue");
-          themeService.setPrimaryByKey("blue" as any);
+          const { key } = themeService.getPrimaryState();
+          const useKey = (key as any) || "blue";
+          this._setPrimarySelection(useKey);
+          themeService.setPrimaryByKey(useKey as any);
           themeService.refreshThemedWidgets();
         }
       }

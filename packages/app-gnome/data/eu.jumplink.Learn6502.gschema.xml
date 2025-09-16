@@ -15,6 +15,15 @@
                 or one of 'blue','teal','green','yellow','orange','red','pink','purple','slate'.
             </description>
         </key>
+
+        <key name="accent-color" type="s">
+            <default>'system'</default>
+            <summary>Accent color preference</summary>
+            <description>
+                Selected accent color key. Allowed values: 'system' to follow the system accent,
+                or one of 'blue','teal','green','yellow','orange','red','pink','purple','slate'.
+            </description>
+        </key>
         
         <!-- UI settings -->
         <key name="window-width" type="i">

@@ -1,0 +1,120 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $AccentColorSelector : Adw.Bin {
+  css-classes: ["accent-color-selector"];
+  hexpand: true;
+
+  Adw.WrapBox accents {
+    sensitive: bind template.enabled;
+    margin-top: 12;
+    margin-bottom: 12;
+    margin-start: 12;
+    margin-end: 12;
+    hexpand: true;
+    halign: center;
+    orientation: horizontal;
+    child-spacing: 8;
+    line-spacing: 8;
+
+    CheckButton accent_blue {
+      styles [ "accent", "accent-blue" ]
+      halign: center;
+      valign: center;
+      focus-on-click: false;
+      tooltip-text: _("Blue");
+      toggled => $_onAccentBlueToggled();
+      accessibility { label: _("Accent: Blue"); }
+    }
+
+    CheckButton accent_teal {
+      styles [ "accent", "accent-teal" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      tooltip-text: _("Teal");
+      toggled => $_onAccentTealToggled();
+      accessibility { label: _("Accent: Teal"); }
+    }
+
+    CheckButton accent_green {
+      styles [ "accent", "accent-green" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      tooltip-text: _("Green");
+      toggled => $_onAccentGreenToggled();
+      accessibility { label: _("Accent: Green"); }
+    }
+
+    CheckButton accent_yellow {
+      styles [ "accent", "accent-yellow" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      tooltip-text: _("Yellow");
+      toggled => $_onAccentYellowToggled();
+      accessibility { label: _("Accent: Yellow"); }
+    }
+
+    CheckButton accent_orange {
+      styles [ "accent", "accent-orange" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      tooltip-text: _("Orange");
+      toggled => $_onAccentOrangeToggled();
+      accessibility { label: _("Accent: Orange"); }
+    }
+
+    CheckButton accent_red {
+      styles [ "accent", "accent-red" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      tooltip-text: _("Red");
+      toggled => $_onAccentRedToggled();
+      accessibility { label: _("Accent: Red"); }
+    }
+
+    CheckButton accent_pink {
+      styles [ "accent", "accent-pink" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      tooltip-text: _("Pink");
+      toggled => $_onAccentPinkToggled();
+      accessibility { label: _("Accent: Pink"); }
+    }
+
+    CheckButton accent_purple {
+      styles [ "accent", "accent-purple" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      tooltip-text: _("Purple");
+      toggled => $_onAccentPurpleToggled();
+      accessibility { label: _("Accent: Purple"); }
+    }
+
+    CheckButton accent_slate {
+      styles [ "accent", "accent-slate" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      tooltip-text: _("Slate");
+      toggled => $_onAccentSlateToggled();
+      accessibility { label: _("Accent: Slate"); }
+    }
+  }
+}
+
+

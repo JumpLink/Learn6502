@@ -1,0 +1,63 @@
+.accent-color-selector {
+  --swatch-size-small: 24px;
+  --swatch-gap: 6px;
+  --ring-width: 3px;
+  --ring-color-active: var(--accent-bg-color);
+
+  checkbutton.accent {
+    min-height: var(--swatch-size-small);
+    min-width: var(--swatch-size-small);
+    background-clip: content-box;
+    border-radius: 9999px;
+
+    radio {
+      -gtk-icon-source: none;
+      border: none;
+      background: none;
+      box-shadow: none;
+      min-width: 12px;
+      min-height: 12px;
+      padding: 0;
+      transform: none;
+    }
+
+    padding: var(--swatch-gap);
+    box-shadow: inset 0 0 0 var(--ring-width) transparent;
+    &:checked {
+      box-shadow: inset 0 0 0 var(--ring-width) var(--ring-color-active);
+    }
+
+    &:disabled {
+      filter: saturate(0.4) brightness(1.05);
+      opacity: 0.7;
+    }
+
+    &.accent-blue {
+      background-color: var(--accent-blue);
+    }
+    &.accent-teal {
+      background-color: var(--accent-teal);
+    }
+    &.accent-green {
+      background-color: var(--accent-green);
+    }
+    &.accent-yellow {
+      background-color: var(--accent-yellow);
+    }
+    &.accent-orange {
+      background-color: var(--accent-orange);
+    }
+    &.accent-red {
+      background-color: var(--accent-red);
+    }
+    &.accent-pink {
+      background-color: var(--accent-pink);
+    }
+    &.accent-purple {
+      background-color: var(--accent-purple);
+    }
+    &.accent-slate {
+      background-color: var(--accent-slate);
+    }
+  }
+}

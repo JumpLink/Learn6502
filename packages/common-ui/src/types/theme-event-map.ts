@@ -18,6 +18,11 @@ export interface ThemeEventMap {
    * Emitted when the primary color changes (custom, auto, or none).
    */
   "primary-changed": PrimaryChangedEvent;
+
+  /**
+   * Emitted when the accent color changes (system or custom).
+   */
+  "accent-changed": AccentChangedEvent;
 }
 
 export interface ThemeChangedEvent {
@@ -58,4 +63,22 @@ export interface PrimaryChangedEvent {
 
   /** Selection mode: auto (system), custom (by key or color), none. */
   mode?: "auto" | "custom" | "none";
+}
+
+export interface AccentChangedEvent {
+  /** Named key if a predefined family is selected; null when following system. */
+  key?:
+    | "blue"
+    | "teal"
+    | "green"
+    | "yellow"
+    | "orange"
+    | "red"
+    | "pink"
+    | "purple"
+    | "slate"
+    | null;
+
+  /** Selection mode: system (follow system accent) or custom (by key). */
+  mode: "system" | "custom";
 }

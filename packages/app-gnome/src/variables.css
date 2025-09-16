@@ -1,5 +1,5 @@
 /* Derive a tone from the chosen/system primary color depending on mode */
-.themed {
+.primary-custom {
   &:not(.is-dark) {
     --learn-primary-bg-color: color-mix(
       in oklab,
@@ -54,4 +54,11 @@
     --card-bg-color: var(--learn-primary-card-bg-color);
     --popover-bg-color: var(--learn-popover-bg-color);
   }
+}
+
+/* Override accent variables only when a custom accent is active */
+.accent-custom {
+  --accent-bg-color: var(--learn-accent-color);
+  --accent-color: var(--learn-accent-color);
+  --accent-fg-color: var(--learn-accent-fg-color);
 }

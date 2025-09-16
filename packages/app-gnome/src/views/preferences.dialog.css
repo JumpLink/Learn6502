@@ -1,5 +1,7 @@
 .appearance-page {
-  .primary-group {
+  .primary-group,
+  .accent-group {
+    /* Fix boxed-list style for custom widget `PrimaryColorSelector` */
     .boxed-list {
       border-bottom-left-radius: 0px;
       border-bottom-right-radius: 0px;
