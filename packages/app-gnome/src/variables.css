@@ -18,12 +18,15 @@
     --learn-popover-bg-color: var(--learn-primary-view-bg-color);
 
     --learn-primary-none-color: var(--light-2);
+
+    /* Text */
+    --window-fg-color: var(--dark-5);
   }
 
   &.is-dark {
     --learn-primary-bg-color: color-mix(
       in oklab,
-      var(--learn-primary-color, var(--accent-color)) 50%,
+      var(--learn-primary-color, var(--accent-color)) 60%,
       var(--dark-5)
     );
 
@@ -60,5 +63,5 @@
 .accent-custom {
   --accent-bg-color: var(--learn-accent-color);
   --accent-color: var(--learn-accent-color);
-  --accent-fg-color: var(--learn-accent-fg-color);
+  --link-color: var(--learn-accent-color);
 }

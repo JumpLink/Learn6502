@@ -51,7 +51,7 @@ export class ThemeModeSelector extends Adw.Bin {
     if (this._isUpdatingUi) return;
     if (this._follow.get_active()) {
       this._setUiSelection("system");
-      themeService.setColorScheme("system");
+      themeService.setTheme("system");
     }
   }
 
@@ -59,7 +59,7 @@ export class ThemeModeSelector extends Adw.Bin {
     if (this._isUpdatingUi) return;
     if (this._light.get_active()) {
       this._setUiSelection("light");
-      themeService.setColorScheme("light");
+      themeService.setTheme("light");
     }
   }
 
@@ -67,7 +67,7 @@ export class ThemeModeSelector extends Adw.Bin {
     if (this._isUpdatingUi) return;
     if (this._dark.get_active()) {
       this._setUiSelection("dark");
-      themeService.setColorScheme("dark");
+      themeService.setTheme("dark");
     }
   }
 

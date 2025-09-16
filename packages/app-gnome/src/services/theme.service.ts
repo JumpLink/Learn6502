@@ -15,28 +15,24 @@ import {
 import type { PrimaryFamilyKey } from "../types/theme.ts";
 
 /**
- * GNOME-specific implementation of the ThemeService
- * Uses Adw.StyleManager for theming
+ * GNOME-specific ThemeService implementation.
+ *
+ * - Applies color scheme via Adw.StyleManager
+ * - Persists preferences in GSettings (schema: APPLICATION_ID)
+ * - Exposes primary/accent overrides using CSS variables
+ * - Adds helper CSS classes to registered widgets for easy styling hooks
  */
 class ThemeService extends BaseThemeService {
   private styleManager: Adw.StyleManager | null = null;
   private settings: Gio.Settings | null = null;
   private cssProvider: Gtk.CssProvider | null = null;
   private variablesProvider: Gtk.CssProvider | null = null;
-  /**
-   * Widgets that should automatically receive theme-related CSS classes.
-   */
+  /** Widgets that should automatically receive theme-related CSS classes. */
   private themedWidgets: Set<Gtk.Widget> = new Set();
-  /**
-   * Named primary color key when using predefined color families.
-   * null => auto/custom without a named key, "none" => explicit no-primary mode
-   */
+  /** Named primary color key when using predefined color families. */
   private currentPrimaryKey: PrimaryFamilyKey | "none" | null = null;
   private currentPrimaryHex: string | null = null;
-  /**
-   * Named accent color key when using predefined color families.
-   * 'system' => follow system accent (no override)
-   */
+  /** Named accent color key when using predefined color families. */
   private currentAccentKey: PrimaryFamilyKey | "system" = "system";
 
   constructor() {
@@ -74,11 +70,9 @@ class ThemeService extends BaseThemeService {
       this.loadAccentFromSettings()
     );
 
-    // Load initial theme mode from settings
+    // Load initial settings
     this.loadThemeFromSettings();
-    // Load initial primary from settings
     this.loadPrimaryFromSettings();
-    // Load initial accent from settings
     this.loadAccentFromSettings();
 
     // Monitor system appearance changes
@@ -99,11 +93,10 @@ class ThemeService extends BaseThemeService {
     this.events.on("primary-changed", () => this.refreshThemedWidgets());
     this.events.on("accent-changed", () => this.refreshThemedWidgets());
 
-    // If settings didn't specify anything (e.g., migration), default to none
+    // Default to none when unset
     if (!this.currentPrimaryKey) this.setPrimaryNone();
   }
 
-  /** Remove current variables CSS provider from the display, if any. */
   private clearVariablesCssProvider(): void {
     const display = this.getDisplay();
     if (!display) return;
@@ -116,7 +109,6 @@ class ThemeService extends BaseThemeService {
     }
   }
 
-  /** Install or update a single variables CSS provider from a CSS string. */
   private updateVariablesCssProviderFromCss(css: string): void {
     const display = this.getDisplay();
     if (!display) return;
@@ -135,16 +127,13 @@ class ThemeService extends BaseThemeService {
     this.variablesProvider.load_from_string(css);
   }
 
-  /** Compute and apply variables CSS for current accent/primary overrides. */
   private applyVariables(): void {
     const parts: string[] = [];
-    // Accent override
     if (this.currentAccentKey !== "system") {
       parts.push(
         `--learn-accent-color: var(--accent-${this.currentAccentKey});`
       );
     }
-    // Primary override
     if (this.currentPrimaryKey && this.currentPrimaryKey !== "none") {
       parts.push(
         `--learn-primary-color: var(--accent-${this.currentPrimaryKey});`
@@ -157,9 +146,6 @@ class ThemeService extends BaseThemeService {
     this.updateVariablesCssProviderFromCss(css);
   }
 
-  /**
-   * Check if the dark theme is currently active
-   */
   protected isCurrentlyDarkTheme(): boolean {
     return this.styleManager?.get_dark() || false;
   }
@@ -168,11 +154,7 @@ class ThemeService extends BaseThemeService {
     return this.isCurrentlyDarkTheme();
   }
 
-  /**
-   * Apply the selected theme to the Adw.StyleManager
-   */
   protected applyTheme(mode: ThemeMode): void {
-    // Apply theme according to mode
     switch (mode) {
       case "light":
         this.styleManager?.set_color_scheme(Adw.ColorScheme.FORCE_LIGHT);
@@ -185,15 +167,9 @@ class ThemeService extends BaseThemeService {
         this.styleManager?.set_color_scheme(Adw.ColorScheme.DEFAULT);
         break;
     }
-
-    // Save theme to settings
     this.saveThemeToSettings(mode);
   }
 
-  /**
-   * Set a custom primary color via CSS variable. Pass null to clear and follow system.
-   * @param hexOrNull CSS color string (e.g. "#3584e4") or null to clear
-   */
   public setPrimaryColor(hexOrNull: string | null): void {
     if (!hexOrNull) {
       if (!this.currentPrimaryHex && this.currentPrimaryKey === null) return;
@@ -220,15 +196,10 @@ class ThemeService extends BaseThemeService {
     });
   }
 
-  /** Clear any explicit primary, follow system defaults. */
   public clearPrimaryColor(): void {
     this.setPrimaryColor(null);
   }
 
-  /**
-   * Set primary by a predefined key using Adwaita CSS variables.
-   * @param key One of the supported color families.
-   */
   public setPrimaryByKey(key: PrimaryFamilyKey): void {
     if (this.currentPrimaryKey === key && this.currentPrimaryHex === null)
       return;
@@ -243,10 +214,6 @@ class ThemeService extends BaseThemeService {
     });
   }
 
-  /** Follow system primary (auto). */
-  // Removed: following system accent as primary is no longer supported
-
-  /** No primary override: keep system defaults but mark class as none. */
   public setPrimaryNone(): void {
     if (this.currentPrimaryKey === "none" && this.currentPrimaryHex === null)
       return;
@@ -261,10 +228,6 @@ class ThemeService extends BaseThemeService {
     });
   }
 
-  /**
-   * Set accent by a predefined key using Adwaita accent variables.
-   * @param key One of the supported color families.
-   */
   public setAccentByKey(key: PrimaryFamilyKey): void {
     if (this.currentAccentKey === key) return;
     this.currentAccentKey = key;
@@ -276,7 +239,6 @@ class ThemeService extends BaseThemeService {
     });
   }
 
-  /** Follow system accent (no override). */
   public setAccentSystem(): void {
     if (this.currentAccentKey === "system") return;
     this.currentAccentKey = "system";
@@ -288,14 +250,12 @@ class ThemeService extends BaseThemeService {
     });
   }
 
-  /** Persist accent color choice to GSettings. */
   private saveAccentToSettings(value: string): void {
     if (!this.settings) return;
     const current = this.settings.get_string(KEY_ACCENT_COLOR);
     if (current !== value) this.settings.set_string(KEY_ACCENT_COLOR, value);
   }
 
-  /** Load accent color choice from GSettings and apply it. */
   private loadAccentFromSettings(): void {
     if (!this.settings) return;
     const stored = this.settings.get_string(KEY_ACCENT_COLOR);
@@ -318,7 +278,6 @@ class ThemeService extends BaseThemeService {
       }
       return;
     }
-    // Unknown value: default to system for safety
     if (this.currentAccentKey !== "system") {
       this.currentAccentKey = "system";
       this.applyVariables();
@@ -326,21 +285,18 @@ class ThemeService extends BaseThemeService {
     }
   }
 
-  /** Return the current accent state. */
   public getAccentState(): { key: string | null; mode: "system" | "custom" } {
     if (this.currentAccentKey === "system")
       return { key: null, mode: "system" };
     return { key: this.currentAccentKey, mode: "custom" } as any;
   }
 
-  /** Persist primary color choice to GSettings. */
   private savePrimaryToSettings(value: string): void {
     if (!this.settings) return;
     const current = this.settings.get_string(KEY_PRIMARY_COLOR);
     if (current !== value) this.settings.set_string(KEY_PRIMARY_COLOR, value);
   }
 
-  /** Load primary color choice from GSettings and apply it. */
   private loadPrimaryFromSettings(): void {
     if (!this.settings) return;
     const stored = this.settings.get_string(KEY_PRIMARY_COLOR);
@@ -366,7 +322,6 @@ class ThemeService extends BaseThemeService {
       });
       return;
     }
-    // Unknown value: default to none for safety
     this.currentPrimaryHex = null;
     this.currentPrimaryKey = "none" as any;
     this.applyVariables();
@@ -377,59 +332,40 @@ class ThemeService extends BaseThemeService {
     });
   }
 
-  /**
-   * Return the current primary state in the same shape used by events.
-   * key: one of the predefined families or null
-   * mode: 'none' when no override, 'custom' when a family/custom color is active
-   */
   public getPrimaryState(): { key: string | null; mode: "none" | "custom" } {
     if (this.currentPrimaryKey === "none") {
       return { key: null, mode: "none" };
     }
-    // When a predefined family was selected we keep the key
     if (this.currentPrimaryKey) {
       return { key: this.currentPrimaryKey, mode: "custom" } as any;
     }
-    // If a custom hex has been set
     if (this.currentPrimaryHex) {
       return { key: null, mode: "custom" };
     }
-    // Default: no override
     return { key: null, mode: "none" };
   }
 
-  /**
-   * Register a widget to receive theme-related CSS classes.
-   * @param widget Target widget
-   */
   public registerThemedWidget(widget: Gtk.Widget): void {
     this.themedWidgets.add(widget);
     this.applyClasses(widget);
   }
 
-  /**
-   * Unregister a widget from receiving theme-related CSS classes.
-   * @param widget Target widget
-   */
   public unregisterThemedWidget(widget: Gtk.Widget): void {
     if (this.themedWidgets.delete(widget)) {
       this.clearClasses(widget);
     }
   }
 
-  /** Force re-applying classes to all registered widgets. */
   public refreshThemedWidgets(): void {
     for (const w of this.themedWidgets) this.applyClasses(w);
   }
 
-  /** Apply CSS classes for mode and custom color flags onto a widget. */
   private applyClasses(widget: Gtk.Widget): void {
     this.clearClasses(widget);
     const mode = this.currentTheme;
     const isDark = this.isDarkTheme;
     widget.add_css_class(`mode-${mode}`);
     widget.add_css_class(isDark ? "is-dark" : "is-light");
-    // Primary state classes
     if (this.currentPrimaryKey === "none") {
       widget.add_css_class("primary-none");
     } else if (this.currentPrimaryKey || this.currentPrimaryHex) {
@@ -437,13 +373,11 @@ class ThemeService extends BaseThemeService {
       if (this.currentPrimaryKey)
         widget.add_css_class(`primary-${this.currentPrimaryKey}`);
     }
-    // Accent state classes
     if (this.currentAccentKey !== "system") {
       widget.add_css_class("accent-custom");
     }
   }
 
-  /** Remove all theme-related classes from a widget. */
   private clearClasses(widget: Gtk.Widget): void {
     widget.remove_css_class("mode-system");
     widget.remove_css_class("mode-light");
@@ -451,33 +385,32 @@ class ThemeService extends BaseThemeService {
     widget.remove_css_class("is-dark");
     widget.remove_css_class("is-light");
     widget.remove_css_class("primary-custom");
-    // primary-* classes
     widget.remove_css_class("primary-none");
-    widget.remove_css_class("primary-blue");
-    widget.remove_css_class("primary-teal");
-    widget.remove_css_class("primary-green");
-    widget.remove_css_class("primary-yellow");
-    widget.remove_css_class("primary-orange");
-    widget.remove_css_class("primary-red");
-    widget.remove_css_class("primary-pink");
-    widget.remove_css_class("primary-purple");
-    widget.remove_css_class("primary-slate");
-    // accent
+    for (const family of PRIMARY_FAMILIES) {
+      widget.remove_css_class(`primary-${family}`);
+    }
     widget.remove_css_class("accent-custom");
   }
 
-  /**
-   * Load theme from application settings
-   */
   private loadThemeFromSettings(): void {
     if (!this.settings) return;
-    const savedColorScheme = this.settings.get_int(KEY_COLOR_SCHEME);
-    this.setColorScheme(savedColorScheme);
+    const saved = this.settings.get_int(KEY_COLOR_SCHEME);
+    let mode: ThemeMode = "system";
+    switch (saved) {
+      case 1:
+        mode = "light";
+        break;
+      case 2:
+        mode = "dark";
+        break;
+      case 0:
+      default:
+        mode = "system";
+        break;
+    }
+    this.setTheme(mode);
   }
 
-  /**
-   * Save theme to application settings
-   */
   private saveThemeToSettings(mode: ThemeMode): void {
     if (!this.settings) return;
     const value = this.themeModeToInt(mode);
@@ -499,73 +432,13 @@ class ThemeService extends BaseThemeService {
     }
   }
 
-  /**
-   * Monitor changes to the system theme and update accordingly
-   */
   private monitorSystemAppearance(): void {
-    // React to changes in StyleManager
     this.styleManager?.connect("notify::dark", () => {
-      // Only update if we're in system mode
       if (this._currentTheme === "system") {
         this._isDarkTheme = this.styleManager?.get_dark() || false;
         this.notifyThemeChanged();
       }
     });
-  }
-
-  public setColorSchemeFollowSystem(): void {
-    this.setTheme("system");
-  }
-
-  public setColorSchemeLight(): void {
-    this.setTheme("light");
-  }
-
-  public setColorSchemeDark(): void {
-    this.setTheme("dark");
-  }
-
-  /**
-   * Set color scheme by string or integer parameter (like Workbench)
-   */
-  public setColorScheme(scheme: string | number): void {
-    let schemeValue: string;
-
-    if (typeof scheme === "number") {
-      // Convert integer to string (like Workbench: 0=follow, 1=light, 2=dark)
-      switch (scheme) {
-        case 0:
-          schemeValue = "follow";
-          break;
-        case 1:
-          schemeValue = "light";
-          break;
-        case 2:
-          schemeValue = "dark";
-          break;
-        default:
-          console.warn(`Unknown color scheme number: ${scheme}`);
-          return;
-      }
-    } else {
-      schemeValue = scheme;
-    }
-
-    switch (schemeValue) {
-      case "follow":
-      case "system":
-        this.setColorSchemeFollowSystem();
-        break;
-      case "light":
-        this.setColorSchemeLight();
-        break;
-      case "dark":
-        this.setColorSchemeDark();
-        break;
-      default:
-        console.warn(`Unknown color scheme: ${schemeValue}`);
-        break;
-    }
   }
 
   public isSystemColorSchemeSupported(): boolean {
