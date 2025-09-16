@@ -9,7 +9,7 @@ export class RunMenuButton extends Adw.Bin {
       {
         GTypeName: "RunMenuButton",
         Template,
-        CssName: "runmenubutton",
+        CssName: "run-menu-button",
       },
       this
     );
