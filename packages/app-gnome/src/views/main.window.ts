@@ -8,7 +8,7 @@ import { SimulatorState, num2hex } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import { MainButton, RunMenuButton } from "../widgets";
+import { MainButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 import { settings } from "../settings.ts";
@@ -16,7 +16,6 @@ import { settings } from "../settings.ts";
 import Template from "./main.window.blp";
 import {
   type MainButtonState,
-  type MainButtonActionState,
   type MainView,
   ViewType,
   debuggerController,
@@ -31,9 +30,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _editor: Editor;
   declare private _gameConsole: GameConsole;
   declare private _learn: Learn;
-  declare private _menuButton: Gtk.MenuButton;
   declare private _mainButton: MainButton;
-  declare private _runMenuButton: RunMenuButton;
   declare private _stack: Adw.ViewStack;
   declare private _switcherBar: Adw.ViewSwitcherBar;
   declare private _debugger: Debugger;
@@ -41,7 +38,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _unsavedChangesDialog: Adw.AlertDialog;
   declare private _titleLabel: Gtk.Label;
   declare private _unsavedChangesIndicator: Gtk.Button;
-  declare private _buttonWindowMenu: Gio.MenuModel;
   static {
     GObject.registerClass(
       {
@@ -51,7 +47,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "editor",
           "gameConsole",
           "learn",
-          "menuButton",
           "mainButton",
           "stack",
           "switcherBar",
@@ -60,7 +55,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "unsavedChangesDialog",
           "titleLabel",
           "unsavedChangesIndicator",
-          "buttonWindowMenu",
         ],
       },
       this
@@ -849,21 +843,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.codeToAssembleChanged = changed;
       this.updateRunActions(this._gameConsole.simulator.state);
     });
-  }
-
-  /**
-   * Update the RunMenuButton with enabled states for menu items
-   * @param enabledState The action enablement state from button state service
-   */
-  private updateRunMenuButton(enabledState: MainButtonActionState): void {
-    // Update the menu model actions based on the enabled state
-    // The menu actions are already connected via Blueprint, so we just need to update the action enabled state
-    this.assembleAction.set_enabled(enabledState.assemble);
-    this.runSimulatorAction.set_enabled(enabledState.run);
-    this.resumeSimulatorAction.set_enabled(enabledState.resume);
-    this.pauseSimulatorAction.set_enabled(enabledState.pause);
-    this.stepSimulatorAction.set_enabled(enabledState.step);
-    this.resetSimulatorAction.set_enabled(enabledState.reset);
   }
 
   private loadWindowSize(): void {
