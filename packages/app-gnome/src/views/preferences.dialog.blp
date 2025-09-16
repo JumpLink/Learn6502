@@ -4,7 +4,7 @@ using Adw 1;
 template $PreferencesDialog: Adw.PreferencesDialog {
   content-width: 800;
   content-height: 600;
-  title: _("Preferences");
+  title: _("Appearance");
 
   Adw.PreferencesPage mainPage {
     title: _("Appearance");
@@ -12,7 +12,6 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
     Adw.PreferencesGroup themeGroup {
       title: _("Style");
-      description: _("Choose light/dark or follow system.");
 
       $ThemeModeSelector {
         css-classes: ["card", "theme-mode-selector"];
@@ -21,8 +20,6 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
     Adw.PreferencesGroup primaryGroup {
       title: _("Primary color");
-      description: _("Choose a primary color family.");
-
 
       $PrimaryColorSelector {
         css-classes: ["card", "primary-color-selector"];

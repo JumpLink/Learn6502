@@ -3,6 +3,8 @@
   --swatch-gap: 6px;
   --ring-width: 3px;
   --ring-color-active: var(--accent-bg-color);
+  --light-swatch: #fff;
+  --dark-swatch: color-mix(in oklab, var(--window-fg-color) 10%, black);
 
   checkbutton.primary {
     min-height: var(--swatch-size-small);
@@ -28,7 +30,7 @@
     }
 
     &.primary-none {
-      background-color: var(--window-bg-color);
+      background-color: var(--learn-primary-none-color);
     }
     &.primary-blue {
       background-color: var(--accent-blue);

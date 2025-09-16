@@ -11,6 +11,7 @@ template $PrimaryColorSelector : Adw.Bin {
     margin-start: 12;
     margin-end: 12;
     hexpand: true;
+    halign: center;
     orientation: horizontal;
     child-spacing: 8;
     line-spacing: 8;
@@ -20,7 +21,7 @@ template $PrimaryColorSelector : Adw.Bin {
       halign: center;
       valign: center;
       focus-on-click: false;
-      tooltip-text: _("No primary override");
+      tooltip-text: _("None");
       toggled => $_onPrimaryNoneToggled();
       accessibility { label: _("No primary override"); }
     }
@@ -31,7 +32,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Blue");
+      tooltip-text: _("Blue");
       toggled => $_onPrimaryBlueToggled();
       accessibility { label: _("Primary: Blue"); }
     }
@@ -42,7 +43,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Teal");
+      tooltip-text: _("Teal");
       toggled => $_onPrimaryTealToggled();
       accessibility { label: _("Primary: Teal"); }
     }
@@ -53,7 +54,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Green");
+      tooltip-text: _("Green");
       toggled => $_onPrimaryGreenToggled();
       accessibility { label: _("Primary: Green"); }
     }
@@ -64,7 +65,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Yellow");
+      tooltip-text: _("Yellow");
       toggled => $_onPrimaryYellowToggled();
       accessibility { label: _("Primary: Yellow"); }
     }
@@ -75,7 +76,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Orange");
+      tooltip-text: _("Orange");
       toggled => $_onPrimaryOrangeToggled();
       accessibility { label: _("Primary: Orange"); }
     }
@@ -86,7 +87,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Red");
+      tooltip-text: _("Red");
       toggled => $_onPrimaryRedToggled();
       accessibility { label: _("Primary: Red"); }
     }
@@ -97,7 +98,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Pink");
+      tooltip-text: _("Pink");
       toggled => $_onPrimaryPinkToggled();
       accessibility { label: _("Primary: Pink"); }
     }
@@ -108,7 +109,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Purple");
+      tooltip-text: _("Purple");
       toggled => $_onPrimaryPurpleToggled();
       accessibility { label: _("Primary: Purple"); }
     }
@@ -119,7 +120,7 @@ template $PrimaryColorSelector : Adw.Bin {
       valign: center;
       group: primary_none;
       focus-on-click: false;
-      tooltip-text: _("Primary: Slate");
+      tooltip-text: _("Slate");
       toggled => $_onPrimarySlateToggled();
       accessibility { label: _("Primary: Slate"); }
     }

@@ -12,6 +12,12 @@
       var(--learn-primary-color, var(--accent-color)) 30%,
       var(--light-1)
     );
+
+    --learn-primary-card-bg-color: var(--learn-primary-view-bg-color);
+
+    --learn-popover-bg-color: var(--learn-primary-view-bg-color);
+
+    --learn-primary-none-color: var(--light-2);
   }
 
   &.is-dark {
@@ -26,10 +32,26 @@
       var(--learn-primary-color, var(--accent-color)) 30%,
       var(--dark-5)
     );
+
+    --learn-primary-card-bg-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 50%,
+      var(--dark-4)
+    );
+
+    --learn-popover-bg-color: var(--learn-primary-card-bg-color);
+
+    --learn-primary-none-color: var(--dark-4);
+  }
+
+  &.primary-none {
+    --learn-primary-none-color: var(--window-bg-color);
   }
 
   &:not(.primary-none) {
     --window-bg-color: var(--learn-primary-bg-color);
     --view-bg-color: var(--learn-primary-view-bg-color);
+    --card-bg-color: var(--learn-primary-card-bg-color);
+    --popover-bg-color: var(--learn-popover-bg-color);
   }
 }

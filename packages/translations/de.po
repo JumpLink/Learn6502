@@ -695,6 +695,9 @@ msgstr ""
 "Abschnitt \"Indirekt indiziert\" in <a "
 "href=\"#addressing\">Adressierungsmodi</a> für weitere Details."
 
+msgid "Blue"
+msgstr "Blau"
+
 msgid "Branching"
 msgstr "Verzweigungen"
 
@@ -734,12 +737,6 @@ msgstr ""
 "Ändere eines der Pixel so, dass es in der unteren rechten Ecke gezeichnet "
 "wird (Speicheradresse <tt>$05ff</tt>)."
 
-msgid "Choose a primary color family."
-msgstr ""
-
-msgid "Choose light/dark or follow system."
-msgstr ""
-
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
 msgstr "Code erfolgreich assembliert, %d Bytes."
@@ -760,7 +757,7 @@ msgid "Common Instructions"
 msgstr "Häufige Anweisungen"
 
 msgid "Confirm"
-msgstr ""
+msgstr "Bestätigen"
 
 msgid "Continue"
 msgstr "Fortfahren"
@@ -778,7 +775,7 @@ msgid "Creating a game"
 msgstr "Ein Spiel erstellen"
 
 msgid "Dark style"
-msgstr ""
+msgstr "Dunkler Stil"
 
 msgid ""
 "Debug your 6502 assembly code, step through your program, and view memory "
@@ -961,7 +958,7 @@ msgstr ""
 "Mobilgeräten"
 
 msgid "Follow system style"
-msgstr ""
+msgstr "Systemstil verwenden"
 
 msgid "Found $d label."
 msgstr "%d Label gefunden."
@@ -1002,6 +999,9 @@ msgstr ""
 "gesetzt wurde, wissen wir, dass wir auch das höchstwertige Byte erhöhen "
 "müssen."
 
+msgid "Green"
+msgstr "Grün"
+
 msgid "Help"
 msgstr "Hilfe"
 
@@ -1023,7 +1023,7 @@ msgstr "Hexdump:"
 
 #. Fallback icon, won't be shown
 msgid "Hidden"
-msgstr ""
+msgstr "Ausgeblendet"
 
 msgid ""
 "I won't explain in depth how each of the directions work, but the above "
@@ -1284,7 +1284,7 @@ msgid "Learn how to program the 6502 microprocessor."
 msgstr "Lerne, wie man den 6502-Mikroprozessor programmiert."
 
 msgid "Light style"
-msgstr ""
+msgstr "Heller Stil"
 
 msgid ""
 "Major UI improvements introducing a modern Floating Action Button with "
@@ -1386,7 +1386,7 @@ msgid "No code to run."
 msgstr "Kein Code zum Ausführen vorhanden."
 
 msgid "No primary override"
-msgstr ""
+msgstr "Keine Primärfarbe überschreiben"
 
 msgid ""
 "No prior programming experience needed. Start with interactive lessons and "
@@ -1394,6 +1394,9 @@ msgid ""
 msgstr ""
 "Keine vorherigen Programmierkenntnisse erforderlich. Beginne mit "
 "interaktiven Lektionen und baue deine Fähigkeiten Schritt für Schritt auf."
+
+msgid "None"
+msgstr "Keine"
 
 msgid ""
 "Now, let's put all this knowledge to good use, and make a game! We're going "
@@ -1404,7 +1407,7 @@ msgstr ""
 
 #. Add OK button
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgid ""
 "Once the values have been shifted down the snake, we have to work out what "
@@ -1430,11 +1433,14 @@ msgstr "Öffnen..."
 
 #, javascript-format
 msgid "Opened %s"
-msgstr ""
+msgstr "Geöffnet: %s"
 
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr ""
 "Optimierte Flatpak-Konfiguration durch Entfernen unnötiger Berechtigungen"
+
+msgid "Orange"
+msgstr "Orange"
 
 msgid "Organized as four horizontal strips of 32×8 pixels"
 msgstr "Organisiert als vier horizontale Streifen von 32×8 Pixeln"
@@ -1472,8 +1478,8 @@ msgstr ""
 "Perfekt für Hobbyisten, Studenten und alle, die neugierig sind, wie Computer "
 "wirklich unter der Haube funktionieren!"
 
-msgid "Preferences"
-msgstr "Einstellungen"
+msgid "Pink"
+msgstr "Rosa"
 
 msgid "Preprocessing ..."
 msgstr "Vorverarbeitung läuft..."
@@ -1499,34 +1505,34 @@ msgstr ""
 "Computer Video ausgeben würde, aber für den Moment reicht es."
 
 msgid "Primary color"
-msgstr ""
+msgstr "Primärfarbe"
 
 msgid "Primary: Blue"
-msgstr ""
+msgstr "Primär: Blau"
 
 msgid "Primary: Green"
-msgstr ""
+msgstr "Primär: Grün"
 
 msgid "Primary: Orange"
-msgstr ""
+msgstr "Primär: Orange"
 
 msgid "Primary: Pink"
-msgstr ""
+msgstr "Primär: Rosa"
 
 msgid "Primary: Purple"
-msgstr ""
+msgstr "Primär: Violett"
 
 msgid "Primary: Red"
-msgstr ""
+msgstr "Primär: Rot"
 
 msgid "Primary: Slate"
-msgstr ""
+msgstr "Primär: Schiefer"
 
 msgid "Primary: Teal"
-msgstr ""
+msgstr "Primär: Türkis"
 
 msgid "Primary: Yellow"
-msgstr ""
+msgstr "Primär: Gelb"
 
 msgid "Processor Flags"
 msgstr "Prozessor-Flags"
@@ -1550,6 +1556,9 @@ msgstr "Programm beendet bei PC=$%s"
 msgid "Program paused automatically"
 msgstr "Programm automatisch pausiert"
 
+msgid "Purple"
+msgstr "Violett"
+
 msgid "Quit"
 msgstr "Beenden"
 
@@ -1558,6 +1567,9 @@ msgstr "Zufalls-/Eingabedaten ($FE-$FF)"
 
 msgid "Reading the input"
 msgstr "Die Eingabe lesen"
+
+msgid "Red"
+msgstr "Rot"
 
 msgid "Reduced default hex monitor address range for better efficiency"
 msgstr ""
@@ -1601,7 +1613,7 @@ msgid "Run"
 msgstr "Ausführen"
 
 msgid "Run menu"
-msgstr ""
+msgstr "Ausführen-Menü"
 
 msgid "Save"
 msgstr "Speichern"
@@ -1649,6 +1661,9 @@ msgstr "Simulator"
 
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
+
+msgid "Slate"
+msgstr "Schiefer"
 
 msgid "Snake Game Data ($00-$15)"
 msgstr "Snake-Spieldaten ($00-$15)"
@@ -1759,11 +1774,14 @@ msgid "Stopped"
 msgstr "Angehalten"
 
 msgid "Style"
-msgstr ""
+msgstr "Stil"
 
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr "Syntaxfehler in Zeile %d: %s"
+
+msgid "Teal"
+msgstr "Türkis"
 
 msgid "Test your creations on a virtual game console"
 msgstr "Teste deine Kreationen auf einer virtuellen Spielkonsole"
@@ -2330,6 +2348,9 @@ msgstr ""
 msgid "Write and edit code with a built-in code editor"
 msgstr "Schreibe und bearbeite Code mit einem integrierten Code-Editor"
 
+msgid "Yellow"
+msgstr "Gelb"
+
 msgid ""
 "You can think of the screen as four horizontal strips of 32 × 8 pixels. "
 "These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-"
@@ -2381,9 +2402,8 @@ msgstr "Nullseite,Y: <tt>$c0,Y</tt>"
 msgid "Zero page: <tt>$c0</tt>"
 msgstr "Nullseite: <tt>$c0</tt>"
 
-#, fuzzy
 msgid "_Appearance"
-msgstr "Erscheinungsbild"
+msgstr "_Erscheinungsbild"
 
 #, fuzzy
 msgid "learning"
@@ -2408,7 +2428,10 @@ msgstr ""
 "indirekte Adressierung funktioniert."
 
 msgid "•"
-msgstr ""
+msgstr "•"
+
+#~ msgid "Preferences"
+#~ msgstr "Einstellungen"
 
 #~ msgid "Main Settings"
 #~ msgstr "Haupteinstellungen"

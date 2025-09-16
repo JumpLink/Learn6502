@@ -363,6 +363,9 @@ msgstr ""
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
 msgstr ""
 
+msgid "Blue"
+msgstr ""
+
 msgid "Branching"
 msgstr ""
 
@@ -380,12 +383,6 @@ msgid "Carry Flag: Set when an addition produces a carry-out or subtraction prod
 msgstr ""
 
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
-msgstr ""
-
-msgid "Choose a primary color family."
-msgstr ""
-
-msgid "Choose light/dark or follow system."
 msgstr ""
 
 #, javascript-format
@@ -541,6 +538,9 @@ msgid "Games now automatically pause when switching between screens"
 msgstr ""
 
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
+msgstr ""
+
+msgid "Green"
 msgstr ""
 
 msgid "Help"
@@ -731,6 +731,9 @@ msgstr ""
 msgid "No prior programming experience needed. Start with interactive lessons and build your skills step by step."
 msgstr ""
 
+msgid "None"
+msgstr ""
+
 msgid "Now, let's put all this knowledge to good use, and make a game! We're going to be making a really simple version of the classic game 'Snake'."
 msgstr ""
 
@@ -752,6 +755,9 @@ msgid "Opened %s"
 msgstr ""
 
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
+msgstr ""
+
+msgid "Orange"
 msgstr ""
 
 msgid "Organized as four horizontal strips of 32×8 pixels"
@@ -776,7 +782,7 @@ msgstr ""
 msgid "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!"
 msgstr ""
 
-msgid "Preferences"
+msgid "Pink"
 msgstr ""
 
 msgid "Preprocessing ..."
@@ -837,6 +843,9 @@ msgstr ""
 msgid "Program paused automatically"
 msgstr ""
 
+msgid "Purple"
+msgstr ""
+
 msgid "Quit"
 msgstr ""
 
@@ -844,6 +853,9 @@ msgid "Random/Input ($FE-$FF)"
 msgstr ""
 
 msgid "Reading the input"
+msgstr ""
+
+msgid "Red"
 msgstr ""
 
 msgid "Reduced default hex monitor address range for better efficiency"
@@ -910,6 +922,9 @@ msgstr ""
 msgid "Simulator failure"
 msgstr ""
 
+msgid "Slate"
+msgstr ""
+
 msgid "Snake Game Data ($00-$15)"
 msgstr ""
 
@@ -963,6 +978,9 @@ msgstr ""
 
 #, javascript-format
 msgid "Syntax error line %d: %s"
+msgstr ""
+
+msgid "Teal"
 msgstr ""
 
 msgid "Test your creations on a virtual game console"
@@ -1131,6 +1149,9 @@ msgid "With all these examples you might find it helpful to use the memory monit
 msgstr ""
 
 msgid "Write and edit code with a built-in code editor"
+msgstr ""
+
+msgid "Yellow"
 msgstr ""
 
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
