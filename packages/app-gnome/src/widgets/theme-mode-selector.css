@@ -3,8 +3,8 @@
   --swatch-gap: 6px;
   --ring-width: 3px;
   --ring-color-active: var(--accent-bg-color);
-  --light-swatch: #fff;
-  --dark-swatch: color-mix(in oklab, var(--window-fg-color) 10%, black);
+  --light-swatch: var(--light-2);
+  --dark-swatch: var(--dark-4);
 
   checkbutton {
     min-height: var(--swatch-size);
