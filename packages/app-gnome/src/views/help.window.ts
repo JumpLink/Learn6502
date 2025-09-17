@@ -1,6 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import { QuickHelpView } from "../mdx/quick-help-view.ts";
+import { themeService } from "../services";
 
 import Template from "./help.window.blp";
 
@@ -20,6 +21,17 @@ export class HelpWindow extends Adw.Window {
 
   constructor(params: Partial<Adw.Window.ConstructorProps> = {}) {
     super(params);
+  }
+
+  // Register/unregister for theme classes so variables.css styles apply
+  vfunc_map(): void {
+    super.vfunc_map();
+    themeService.registerThemedWidget(this as any);
+  }
+
+  vfunc_unmap(): void {
+    themeService.unregisterThemedWidget(this as any);
+    super.vfunc_unmap();
   }
 }
 
