@@ -1,0 +1,47 @@
+.theme-mode-selector {
+  --swatch-size: 44px;
+  --swatch-gap: 6px;
+  --ring-width: 3px;
+  --ring-color-active: var(--accent-bg-color);
+  --light-swatch: var(--light-2);
+  --dark-swatch: var(--dark-4);
+
+  checkbutton {
+    min-height: var(--swatch-size);
+    min-width: var(--swatch-size);
+    background-clip: content-box;
+    border-radius: 9999px;
+
+    &.follow {
+      background-image: linear-gradient(
+        to bottom right,
+        var(--light-swatch) 49.99%,
+        var(--dark-swatch) 50.01%
+      );
+    }
+
+    &.light {
+      background-color: var(--light-swatch);
+    }
+    &.dark {
+      background-color: var(--dark-swatch);
+    }
+
+    radio {
+      -gtk-icon-source: none;
+      border: none;
+      background: none;
+      box-shadow: none;
+      min-width: 12px;
+      min-height: 12px;
+      padding: 0;
+      transform: none;
+    }
+
+    padding: var(--swatch-gap);
+    box-shadow: inset 0 0 0 var(--ring-width) transparent;
+    &:checked {
+      box-shadow: inset 0 0 0 var(--ring-width) var(--ring-color-active);
+    }
+  }
+}

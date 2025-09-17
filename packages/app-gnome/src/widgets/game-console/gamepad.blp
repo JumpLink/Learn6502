@@ -93,7 +93,7 @@ template $Gamepad: Adw.Bin {
 
     Box {
       orientation: horizontal;
-      margin-start: 30;
+      margin-start: 20;
       halign: end;
       hexpand: true;
 
@@ -102,13 +102,14 @@ template $Gamepad: Adw.Bin {
         label: "B";
         margin-top: 70;
         margin-end: 20;
-        height-request: 50;
-        width-request: 50;
+        margin-start: 10;
+        height-request: 55;
+        width-request: 55;
         valign: center;
 
         styles [
+          "osd",
           "circular",
-          "opaque",
         ]
       }
 
@@ -116,14 +117,15 @@ template $Gamepad: Adw.Bin {
         name: "buttonA";
         label: "A";
         margin-bottom: 70;
+        margin-end: 5;
         margin-start: 0;
-        height-request: 50;
-        width-request: 50;
+        height-request: 55;
+        width-request: 55;
         valign: center;
 
         styles [
+          "osd",
           "circular",
-          "destructive-action",
         ]
       }
     }

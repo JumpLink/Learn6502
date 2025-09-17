@@ -18,5 +18,5 @@ export * from "./memory-region";
 export * from "./notification-options";
 export * from "./notification-type";
 export * from "./source-view-event-map";
-export * from "./theme-change-listener";
+export * from "./theme-event-map";
 export * from "./theme-mode";

@@ -279,7 +279,7 @@ export class Simulator {
   public stop(message = "") {
     message = "\n" + _("Stopped") + "\n" + message;
     this._codeRunning = false;
-    clearInterval(this.executeId);
+    if (this.executeId !== undefined) clearInterval(this.executeId);
     this.dispatchStopEvent(message);
   }
 
@@ -424,7 +424,7 @@ export class Simulator {
    * This is used in operations like ASL (Arithmetic Shift Left).
    * @param value - The value to extract the carry flag from.
    */
-  private setCarryFlagFromBit7(value) {
+  private setCarryFlagFromBit7(value: number) {
     this.regP = (this.regP & 0xfe) | ((value >> 7) & 1);
   }
 
@@ -1813,7 +1813,8 @@ export class Simulator {
     if (instructionName.length === 1) {
       instructionName = "0" + instructionName;
     }
-    const instruction = this.instructions["i" + instructionName];
+    const key = ("i" + instructionName) as keyof typeof this.instructions;
+    const instruction = this.instructions[key];
 
     if (instruction) {
       instruction();
@@ -1838,7 +1839,7 @@ export class Simulator {
     if (this.regPC === 0 || (!this._codeRunning && !debugging)) {
       this._codeRunning = false;
       this._programCompleted = true;
-      clearInterval(this.executeId);
+      if (this.executeId !== undefined) clearInterval(this.executeId);
       this.dispatchStopEvent(_("Program completed at PC=$%s"), [
         addr2hex(this.regPC - 1),
       ]);

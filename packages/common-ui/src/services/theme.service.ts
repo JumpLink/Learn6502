@@ -1,4 +1,6 @@
-import type { ThemeChangeListener, ThemeMode } from "../types";
+import type { ThemeMode } from "../types";
+import type { ThemeEventMap } from "../types/theme-event-map";
+import { EventDispatcher } from "../../../6502/src/event-dispatcher";
 
 /**
  * Abstract class for theme services
@@ -6,7 +8,7 @@ import type { ThemeChangeListener, ThemeMode } from "../types";
 export abstract class ThemeService {
   protected _currentTheme: ThemeMode = "system";
   protected _isDarkTheme: boolean = false;
-  protected listeners: Map<string, ThemeChangeListener> = new Map();
+  public readonly events = new EventDispatcher<ThemeEventMap>();
 
   /**
    * Current theme setting
@@ -36,30 +38,7 @@ export abstract class ThemeService {
     this._isDarkTheme = this.isCurrentlyDarkTheme();
 
     // Notify listeners
-    this.notifyListeners();
-  }
-
-  /**
-   * Add theme change listener
-   * @param listener Callback function for theme changes
-   * @returns ID of the listener for removal
-   */
-  public addThemeChangeListener(listener: ThemeChangeListener): string {
-    const id = this.generateListenerId();
-    this.listeners.set(id, listener);
-
-    // Call listener immediately with current state
-    listener(this._currentTheme, this._isDarkTheme);
-
-    return id;
-  }
-
-  /**
-   * Remove theme change listener
-   * @param id ID of the listener to remove
-   */
-  public removeThemeChangeListener(id: string): boolean {
-    return this.listeners.delete(id);
+    this.notifyThemeChanged();
   }
 
   /**
@@ -77,16 +56,10 @@ export abstract class ThemeService {
   /**
    * Notifies all registered listeners about theme changes
    */
-  protected notifyListeners(): void {
-    this.listeners.forEach((listener) => {
-      listener(this._currentTheme, this._isDarkTheme);
+  protected notifyThemeChanged(): void {
+    this.events.dispatch("theme-changed", {
+      theme: this._currentTheme,
+      isDark: this._isDarkTheme,
     });
-  }
-
-  /**
-   * Generates a unique ID for listeners
-   */
-  private generateListenerId(): string {
-    return `theme-listener-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
   }
 }

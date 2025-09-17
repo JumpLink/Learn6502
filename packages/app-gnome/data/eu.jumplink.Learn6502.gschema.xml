@@ -2,10 +2,27 @@
 <schemalist gettext-domain="eu.jumplink.Learn6502">
 	<schema id="eu.jumplink.Learn6502" path="/eu/jumplink/Learn6502/">
         <!-- Theme settings -->
-        <key name="theme" type="s">
+        <key name="color-scheme" type="i">
+            <default>0</default>
+            <summary>Color scheme preference</summary>
+            <description>The color scheme preference (0=follow, 1=light, 2=dark)</description>
+        </key>
+        <key name="primary-color" type="s">
+            <default>'none'</default>
+            <summary>Primary color preference</summary>
+            <description>
+                Selected primary color key. Allowed values: 'none' for no override,
+                or one of 'blue','teal','green','yellow','orange','red','pink','purple','slate'.
+            </description>
+        </key>
+
+        <key name="accent-color" type="s">
             <default>'system'</default>
-            <summary>Application theme</summary>
-            <description>The theme preference for the application (system, light, dark)</description>
+            <summary>Accent color preference</summary>
+            <description>
+                Selected accent color key. Allowed values: 'system' to follow the system accent,
+                or one of 'blue','teal','green','yellow','orange','red','pink','purple','slate'.
+            </description>
         </key>
         
         <!-- UI settings -->

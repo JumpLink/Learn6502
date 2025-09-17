@@ -17,9 +17,9 @@ msgstr ""
 
 msgid ""
 "(Actually, I've been reliably informed that 6502 processors are still being "
-"produced by <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-chip."
-"cfm\">Western Design Center</a> and <a href=\"http://www.mouser.co.uk/Search/"
-"Refine.aspx?Keyword=65C02\">sold to hobbyists</a>, so clearly 6502 "
+"produced by <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-"
+"chip.cfm\">Western Design Center</a> and <a href=\"http://www.mouser.co.uk/"
+"Search/Refine.aspx?Keyword=65C02\">sold to hobbyists</a>, so clearly 6502 "
 "<i>isn&apos;t</i> a dead language! Who knew?)"
 msgstr ""
 
@@ -323,9 +323,9 @@ msgstr ""
 
 msgid ""
 "A full list of the 6502 instruction set is <a href=\"http://www.6502.org/"
-"tutorials/6502opcodes.html\">available here</a> and <a href=\"http://www."
-"obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages "
-"as they have their strengths and weaknesses). These pages detail the "
+"tutorials/6502opcodes.html\">available here</a> and <a href=\"http://"
+"www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both "
+"pages as they have their strengths and weaknesses). These pages detail the "
 "arguments to each instruction, which registers they use, and which flags "
 "they set. They are your bible."
 msgstr ""
@@ -337,6 +337,36 @@ msgid "Absolute,X and absolute,Y: <tt>$c000,X</tt> and <tt>$c000,Y</tt>"
 msgstr ""
 
 msgid "Absolute: <tt>$c000</tt>"
+msgstr ""
+
+msgid "Accent color"
+msgstr ""
+
+msgid "Accent: Blue"
+msgstr ""
+
+msgid "Accent: Green"
+msgstr ""
+
+msgid "Accent: Orange"
+msgstr ""
+
+msgid "Accent: Pink"
+msgstr ""
+
+msgid "Accent: Purple"
+msgstr ""
+
+msgid "Accent: Red"
+msgstr ""
+
+msgid "Accent: Slate"
+msgstr ""
+
+msgid "Accent: Teal"
+msgstr ""
+
+msgid "Accent: Yellow"
 msgstr ""
 
 msgid "Accumulator: Main register for calculations"
@@ -425,8 +455,8 @@ msgstr ""
 msgid ""
 "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by "
 "extension, in this book) are in hexadecimal (hex) format. If you're not "
-"familiar with hex numbers, I recommend you read <a href=\"http://en."
-"wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
+"familiar with hex numbers, I recommend you read <a href=\"http://"
+"en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
 "prefixed with <tt>#</tt> is a literal number value. Any other number refers "
 "to a memory location."
 msgstr ""
@@ -511,6 +541,9 @@ msgid ""
 "where the location of the apple is stored, so <tt>($00),y</tt> dereferences "
 "to this memory location. Read the \"Indirect indexed\" section in <a "
 "href=\"#addressing\">Addressing modes</a> for more details."
+msgstr ""
+
+msgid "Blue"
 msgstr ""
 
 msgid "Branching"
@@ -691,10 +724,10 @@ msgid ""
 "line is a label. Labels just mark certain points in a program so we can "
 "return to them later. After the label we decrement <tt>X</tt>, store it to "
 "<tt>$0200</tt> (the top-left pixel), and then compare it to the value "
-"<tt>$03</tt>. <a href=\"http://www.obelisk.me.uk/6502/reference."
-"html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register "
-"with another value. If the two values are equal, the <tt>Z</tt> flag is set "
-"to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
+"<tt>$03</tt>. <a href=\"http://www.obelisk.me.uk/6502/"
+"reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> "
+"register with another value. If the two values are equal, the <tt>Z</tt> "
+"flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
 msgstr ""
 
 msgid ""
@@ -743,6 +776,9 @@ msgid ""
 "accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and "
 "sets the carry bit. If the carry bit was set, we know we also need to "
 "increment the most significant byte."
+msgstr ""
+
+msgid "Green"
 msgstr ""
 
 msgid "Help"
@@ -841,16 +877,16 @@ msgstr ""
 msgid ""
 "In this tiny tutorial I'm going to show you how to get started writing 6502 "
 "assembly language. The 6502 processor was massive in the seventies and "
-"eighties, powering famous computers like the <a href=\"http://en.wikipedia."
-"org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Atari_2600\">Atari 2600</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Commodore_64\">Commodore 64</a>, <a href=\"http://en.wikipedia.org/wiki/"
-"Apple_II\">Apple II</a>, and the <a href=\"http://en.wikipedia.org/wiki/"
-"Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in "
-"Futurama <a href=\"http://www.transbyte.org/SID/SID-files/Bender_6502."
-"jpg\">has a 6502 processor for a brain</a>. <a href=\"http://www.pagetable."
-"com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in "
-"6502</a>."
+"eighties, powering famous computers like the <a href=\"http://"
+"en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"http://"
+"en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"http://"
+"en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
+"System</a>. Bender in Futurama <a href=\"http://www.transbyte.org/SID/SID-"
+"files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a "
+"href=\"http://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the "
+"Terminator was programmed in 6502</a>."
 msgstr ""
 
 msgid "Index register X: Used for addressing"
@@ -955,9 +991,6 @@ msgstr ""
 msgid "Light style"
 msgstr ""
 
-msgid "Main Settings"
-msgstr ""
-
 msgid ""
 "Major UI improvements introducing a modern Floating Action Button with "
 "dynamic states for intuitive program control, and a completely redesigned "
@@ -980,9 +1013,6 @@ msgid ""
 "that the <tt>Y</tt> register was stored into in the previous instruction, so "
 "the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a "
 "much more circuitous route. You won't see this much."
-msgstr ""
-
-msgid "Menu"
 msgstr ""
 
 msgid "Messages"
@@ -1058,6 +1088,9 @@ msgstr ""
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr ""
 
+msgid "Orange"
+msgstr ""
+
 msgid "Organized as four horizontal strips of 32×8 pixels"
 msgstr ""
 
@@ -1086,7 +1119,7 @@ msgid ""
 "really work under the hood!"
 msgstr ""
 
-msgid "Preferences"
+msgid "Pink"
 msgstr ""
 
 msgid "Preprocessing ..."
@@ -1101,6 +1134,36 @@ msgid ""
 "value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at "
 "the top left corner. This is simpler than how an actual computer would "
 "output video, but it'll do for now."
+msgstr ""
+
+msgid "Primary color"
+msgstr ""
+
+msgid "Primary: Blue"
+msgstr ""
+
+msgid "Primary: Green"
+msgstr ""
+
+msgid "Primary: Orange"
+msgstr ""
+
+msgid "Primary: Pink"
+msgstr ""
+
+msgid "Primary: Purple"
+msgstr ""
+
+msgid "Primary: Red"
+msgstr ""
+
+msgid "Primary: Slate"
+msgstr ""
+
+msgid "Primary: Teal"
+msgstr ""
+
+msgid "Primary: Yellow"
 msgstr ""
 
 msgid "Processor Flags"
@@ -1125,6 +1188,9 @@ msgstr ""
 msgid "Program paused automatically"
 msgstr ""
 
+msgid "Purple"
+msgstr ""
+
 msgid "Quit"
 msgstr ""
 
@@ -1132,6 +1198,9 @@ msgid "Random/Input ($FE-$FF)"
 msgstr ""
 
 msgid "Reading the input"
+msgstr ""
+
+msgid "Red"
 msgstr ""
 
 msgid "Reduced default hex monitor address range for better efficiency"
@@ -1167,9 +1236,6 @@ msgid ""
 msgstr ""
 
 msgid "Run"
-msgstr ""
-
-msgid "Run menu"
 msgstr ""
 
 msgid "Save"
@@ -1208,6 +1274,9 @@ msgid "Simulator"
 msgstr ""
 
 msgid "Simulator failure"
+msgstr ""
+
+msgid "Slate"
 msgstr ""
 
 msgid "Snake Game Data ($00-$15)"
@@ -1287,8 +1356,14 @@ msgstr ""
 msgid "Stopped"
 msgstr ""
 
+msgid "Style"
+msgstr ""
+
 #, javascript-format
 msgid "Syntax error line %d: %s"
+msgstr ""
+
+msgid "Teal"
 msgstr ""
 
 msgid "Test your creations on a virtual game console"
@@ -1426,8 +1501,8 @@ msgid ""
 "The last section shows the processor flags. Each flag is one bit, so all "
 "seven flags live in a single byte. The flags are set by the processor to "
 "give information about the previous instruction. More on that later. <a "
-"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me."
-"uk/6502/registers.html\">Read more about the registers and flags here</a>."
+"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/"
+"6502/registers.html\">Read more about the registers and flags here</a>."
 msgstr ""
 
 msgid ""
@@ -1548,9 +1623,6 @@ msgid ""
 "Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr ""
 
-msgid "There are currently no settings."
-msgstr ""
-
 msgid ""
 "These are the absolute addressing versions of zero page,X and zero page,Y. "
 "For example:"
@@ -1623,6 +1695,12 @@ msgstr ""
 msgid "Updating the game state"
 msgstr ""
 
+msgid "Use custom accent color"
+msgstr ""
+
+msgid "Use custom primary color"
+msgstr ""
+
 msgid ""
 "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</"
 "tt>=black, <tt>$01</tt>=white)"
@@ -1648,6 +1726,9 @@ msgid ""
 msgstr ""
 
 msgid "Write and edit code with a built-in code editor"
+msgstr ""
+
+msgid "Yellow"
 msgstr ""
 
 msgid ""
@@ -1685,6 +1766,9 @@ msgid "Zero page,Y: <tt>$c0,Y</tt>"
 msgstr ""
 
 msgid "Zero page: <tt>$c0</tt>"
+msgstr ""
+
+msgid "_Appearance"
 msgstr ""
 
 msgid "learning"

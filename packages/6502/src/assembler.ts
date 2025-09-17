@@ -2,6 +2,7 @@ import { Memory } from "./memory.js";
 import { Labels } from "./labels.js";
 import { EventDispatcher } from "./event-dispatcher.js";
 import { _, addr2hex, num2hex } from "./utils.js";
+import { ADDRESSING_MODES, INSTRUCTION_LENGTH } from "./constants.js";
 
 import type {
   Symbols,
@@ -19,8 +20,8 @@ import type {
  * @emits info - Emitted when the assembler has an info message.
  */
 export class Assembler {
-  private currentPC: number;
-  private codeLen: number;
+  private currentPC = 0;
+  private codeLen = 0;
   private codeAssembledOK = false;
   private wasOutOfRangeBranch = false;
 
@@ -898,38 +899,6 @@ export class Assembler {
     ],
   ];
 
-  // TODO: Create separate disassembler object?
-  private addressingModes = [
-    null,
-    "Imm",
-    "ZP",
-    "ZPX",
-    "ZPY",
-    "ABS",
-    "ABSX",
-    "ABSY",
-    "IND",
-    "INDX",
-    "INDY",
-    "SNGL",
-    "BRA",
-  ];
-
-  private instructionLength = {
-    Imm: 2,
-    ZP: 2,
-    ZPX: 2,
-    ZPY: 2,
-    ABS: 3,
-    ABSX: 3,
-    ABSY: 3,
-    IND: 3,
-    INDX: 2,
-    INDY: 2,
-    SNGL: 1,
-    BRA: 2,
-  };
-
   private readonly events = new EventDispatcher<AssemblerEventsMap>();
 
   constructor(
@@ -1202,7 +1171,8 @@ export class Assembler {
       inst.addByte(byte);
 
       modeAndCode = this.getModeAndCode(byte);
-      length = this.instructionLength[modeAndCode.mode];
+      length =
+        INSTRUCTION_LENGTH[modeAndCode.mode as keyof typeof INSTRUCTION_LENGTH];
       inst.setModeAndCode(modeAndCode);
 
       for (let i = 1; i < length; i++) {
@@ -1857,7 +1827,7 @@ export class Assembler {
       }
       return {
         opCode: line[0] as string,
-        mode: this.addressingModes[index] as string,
+        mode: ADDRESSING_MODES[index] as string,
       };
     }
   }

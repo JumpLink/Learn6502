@@ -35,4 +35,12 @@ export const initResources = () => {
     `resource://${RESOURCES_PATH}/lang-specs`,
     ...searchPath,
   ]);
+
+  // Register GtkSourceView style schemes from resources
+  const schemeManager = GtkSource.StyleSchemeManager.get_default();
+  const schemePaths = schemeManager.get_search_path();
+  schemeManager.set_search_path([
+    `resource://${RESOURCES_PATH}/schemas`,
+    ...schemePaths,
+  ]);
 };

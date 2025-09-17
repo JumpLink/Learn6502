@@ -266,6 +266,36 @@ msgstr ""
 msgid "Absolute: <tt>$c000</tt>"
 msgstr ""
 
+msgid "Accent color"
+msgstr ""
+
+msgid "Accent: Blue"
+msgstr ""
+
+msgid "Accent: Green"
+msgstr ""
+
+msgid "Accent: Orange"
+msgstr ""
+
+msgid "Accent: Pink"
+msgstr ""
+
+msgid "Accent: Purple"
+msgstr ""
+
+msgid "Accent: Red"
+msgstr ""
+
+msgid "Accent: Slate"
+msgstr ""
+
+msgid "Accent: Teal"
+msgstr ""
+
+msgid "Accent: Yellow"
+msgstr ""
+
 msgid "Accumulator: Main register for calculations"
 msgstr ""
 
@@ -361,6 +391,9 @@ msgid "At a low level, this subroutine is slightly more complex. First, the leng
 msgstr ""
 
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
+msgstr ""
+
+msgid "Blue"
 msgstr ""
 
 msgid "Branching"
@@ -537,6 +570,9 @@ msgstr ""
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr ""
 
+msgid "Green"
+msgstr ""
+
 msgid "Help"
 msgstr ""
 
@@ -683,9 +719,6 @@ msgstr ""
 msgid "Light style"
 msgstr ""
 
-msgid "Main Settings"
-msgstr ""
-
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
 msgstr ""
 
@@ -696,9 +729,6 @@ msgid "Memory Map"
 msgstr ""
 
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
-msgstr ""
-
-msgid "Menu"
 msgstr ""
 
 msgid "Messages"
@@ -748,6 +778,9 @@ msgstr ""
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr ""
 
+msgid "Orange"
+msgstr ""
+
 msgid "Organized as four horizontal strips of 32×8 pixels"
 msgstr ""
 
@@ -770,13 +803,43 @@ msgstr ""
 msgid "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!"
 msgstr ""
 
-msgid "Preferences"
+msgid "Pink"
 msgstr ""
 
 msgid "Preprocessing ..."
 msgstr ""
 
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
+msgstr ""
+
+msgid "Primary color"
+msgstr ""
+
+msgid "Primary: Blue"
+msgstr ""
+
+msgid "Primary: Green"
+msgstr ""
+
+msgid "Primary: Orange"
+msgstr ""
+
+msgid "Primary: Pink"
+msgstr ""
+
+msgid "Primary: Purple"
+msgstr ""
+
+msgid "Primary: Red"
+msgstr ""
+
+msgid "Primary: Slate"
+msgstr ""
+
+msgid "Primary: Teal"
+msgstr ""
+
+msgid "Primary: Yellow"
 msgstr ""
 
 msgid "Processor Flags"
@@ -801,6 +864,9 @@ msgstr ""
 msgid "Program paused automatically"
 msgstr ""
 
+msgid "Purple"
+msgstr ""
+
 msgid "Quit"
 msgstr ""
 
@@ -808,6 +874,9 @@ msgid "Random/Input ($FE-$FF)"
 msgstr ""
 
 msgid "Reading the input"
+msgstr ""
+
+msgid "Red"
 msgstr ""
 
 msgid "Reduced default hex monitor address range for better efficiency"
@@ -840,9 +909,6 @@ msgstr ""
 msgid "Run"
 msgstr ""
 
-msgid "Run menu"
-msgstr ""
-
 msgid "Save"
 msgstr ""
 
@@ -872,6 +938,9 @@ msgid "Simulator"
 msgstr ""
 
 msgid "Simulator failure"
+msgstr ""
+
+msgid "Slate"
 msgstr ""
 
 msgid "Snake Game Data ($00-$15)"
@@ -922,8 +991,14 @@ msgstr ""
 msgid "Stopped"
 msgstr ""
 
+msgid "Style"
+msgstr ""
+
 #, javascript-format
 msgid "Syntax error line %d: %s"
+msgstr ""
+
+msgid "Teal"
 msgstr ""
 
 msgid "Test your creations on a virtual game console"
@@ -1034,9 +1109,6 @@ msgstr ""
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"http://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - this is purely an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr ""
 
-msgid "There are currently no settings."
-msgstr ""
-
 msgid "These are the absolute addressing versions of zero page,X and zero page,Y. For example:"
 msgstr ""
 
@@ -1082,6 +1154,12 @@ msgstr ""
 msgid "Updating the game state"
 msgstr ""
 
+msgid "Use custom accent color"
+msgstr ""
+
+msgid "Use custom primary color"
+msgstr ""
+
 msgid "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</tt>=black, <tt>$01</tt>=white)"
 msgstr ""
 
@@ -1095,6 +1173,9 @@ msgid "With all these examples you might find it helpful to use the memory monit
 msgstr ""
 
 msgid "Write and edit code with a built-in code editor"
+msgstr ""
+
+msgid "Yellow"
 msgstr ""
 
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
@@ -1122,6 +1203,9 @@ msgid "Zero page,Y: <tt>$c0,Y</tt>"
 msgstr ""
 
 msgid "Zero page: <tt>$c0</tt>"
+msgstr ""
+
+msgid "_Appearance"
 msgstr ""
 
 msgid "learning"

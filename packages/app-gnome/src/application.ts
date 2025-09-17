@@ -1,14 +1,17 @@
 import GObject from "@girs/gobject-2.0";
 import Gio from "@girs/gio-2.0";
-import Gdk from "@girs/gdk-4.0";
 import Gtk from "@girs/gtk-4.0";
 import Adw from "@girs/adw-1";
 
 import { MainWindow, PreferencesDialog } from "./views/index.ts";
-import { APPLICATION_ID, RESOURCES_PATH } from "./constants.ts";
+import {
+  APPLICATION_ID,
+  RESOURCES_PATH,
+  PACKAGE_VERSION,
+} from "./constants.ts";
 import { initResources } from "./resources.ts";
 
-import applicationStyle from "./application.css?inline";
+import { themeService } from "./services";
 
 export class Application extends Adw.Application {
   static {
@@ -31,26 +34,8 @@ export class Application extends Adw.Application {
   }
 
   protected onStartup(): void {
-    this.initStyles();
+    themeService.init();
     initResources();
-  }
-
-  /** Load the stylesheet in a CssProvider and add it to the Gtk.StyleContext */
-  protected initStyles() {
-    const provider = new Gtk.CssProvider();
-    provider.load_from_string(applicationStyle);
-    const display = Gdk.Display.get_default();
-
-    if (!display) {
-      console.error("No display found");
-      return;
-    }
-
-    Gtk.StyleContext.add_provider_for_display(
-      display,
-      provider,
-      Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-    );
   }
 
   initActions() {
@@ -78,8 +63,8 @@ export class Application extends Adw.Application {
 
   private onShowAboutDialog() {
     const aboutDialog = Adw.AboutDialog.new_from_appdata(
-      `${RESOURCES_PATH}/metainfo/${pkg.name}.metainfo.xml`,
-      pkg.version
+      `${RESOURCES_PATH}/metainfo/${APPLICATION_ID}.metainfo.xml`,
+      PACKAGE_VERSION
     );
     aboutDialog.present(this.get_active_window());
   }

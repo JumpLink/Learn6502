@@ -7,7 +7,6 @@ alwaysApply: false
 ## Package: `app-gnome`
 
 - **Purpose:** The GNOME desktop application, aiming for a highly integrated native user experience.
-- **Primary Technologies:** GJS (JavaScript for GNOME), TypeScript, GTK, [Adwaita styling](mdc:.cursor/rules/adwaita-styling.mdc), and [Blueprint](mdc:.cursor/rules/blueprint-templates.mdc) (`.blp`) for UI definitions.
 - **UI:**
   - Leverages native GNOME libraries and Adwaita for a consistent look and feel.
   - UI logic primarily in GJS/TypeScript.
@@ -21,6 +20,15 @@ alwaysApply: false
 - **Design:** Declarative UI (Blueprint) + reactive state (GObject properties/signals)
 - **Rendering:** GSK snapshot API; GPU paths first
 - **Lifecycle:** Map/Unmap/Unroot for hooks; keep Dispose tiny
+
+## Primary Technologies
+
+- TypeScript
+- GJS (JavaScript for GNOME)
+- GTK 4 + Adwaita
+- Keep your Adwaita usage up-to-date, check https://nyaa.place/blog/ for updates
+- [Adwaita styling](mdc:.cursor/rules/adwaita-styling.mdc)
+- [Blueprint templates](mdc:.cursor/rules/blueprint-templates.mdc) (`.blp`) for UI definitions
 
 ## **✅ Do / ❌ Don't**
 

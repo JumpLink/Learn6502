@@ -637,6 +637,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
 
     this.language = "6502-assembler";
     this.setupSignalListeners();
+    this.ensureStyleSearchPaths();
     this.updateStyle();
 
     this.code = "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
@@ -662,6 +663,41 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
     this.buffer.connect_after("cursor-moved", this.onCursorMoved.bind(this));
 
     this.styleManager.connect("notify::dark", this.updateStyle.bind(this));
+  }
+
+  /** Ensure our custom style scheme search paths are registered. */
+  private ensureStyleSearchPaths(): void {
+    // Development path inside the repo
+    const devPath = GLib.build_filenamev([
+      GLib.get_current_dir(),
+      "packages",
+      "app-gnome",
+      "data",
+      "schemas",
+    ]);
+    const pathsToTry: string[] = [devPath];
+
+    // Installed path (Flatpak/meson): share/eu.jumplink.Learn6502/schemas
+    const dataDirs = GLib.get_system_data_dirs();
+    for (const base of dataDirs) {
+      const candidate = GLib.build_filenamev([
+        base,
+        "eu.jumplink.Learn6502",
+        "schemas",
+      ]);
+      pathsToTry.push(candidate);
+    }
+
+    for (const p of pathsToTry) {
+      try {
+        const f = Gio.File.new_for_path(p);
+        if (f.query_exists(null)) {
+          this.schemeManager.prepend_search_path(p);
+        }
+      } catch (_) {
+        // ignore
+      }
+    }
   }
 
   private onCursorMoved(buffer: GtkSource.Buffer) {
@@ -804,10 +840,16 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
    * Used internally to update the style of the source view when the theme changes.
    */
   private updateStyle() {
-    const scheme = this.schemeManager.get_scheme(
-      this.styleManager.dark ? "Adwaita-dark" : "Adwaita"
-    );
-    this.buffer.set_style_scheme(scheme);
+    const isDark = this.styleManager.dark;
+    const preferredId = isDark ? "Learn6502-dark" : "Learn6502";
+    let scheme = this.schemeManager.get_scheme(preferredId);
+    if (!scheme) {
+      scheme = this.schemeManager.get_scheme(
+        isDark ? "Adwaita-dark" : "Adwaita"
+      );
+    }
+    if (scheme) this.buffer.set_style_scheme(scheme);
+    this._sourceView.set_highlight_current_line(true);
   }
 
   /**

@@ -3,8 +3,7 @@ using Adw 1;
 
 template $RunMenuButton : Adw.Bin {
   MenuButton button {
-    icon-name: "view-more-symbolic";
-    tooltip-text: _("Run menu");
+    icon-name: "open-menu-symbolic";
     menu-model: buttonRunMenu;
     primary: true;
     styles [
@@ -38,6 +37,43 @@ menu buttonRunMenu {
     item {
       label: _("Reset");
       action: 'win.reset-simulator';
+    }
+  }
+  section {
+    item {
+      label: _("Open...");
+      action: 'win.open-file';
+    }
+    item {
+      label: _("Save");
+      action: 'win.save-file';
+    }
+    item {
+      label: _("Save as...");
+      action: 'win.save-as-file';
+    }
+  }
+  section {
+    item {
+      label: _("_Appearance");
+      action: 'app.preferences';
+    }
+    // TODO: Uncomment when keyboard shortcuts are implemented
+    // item {
+    //   label: _("_Keyboard Shortcuts");
+    //   action: 'win.show-help-overlay';
+    // }
+    item {
+      label: _("Help");
+      action: 'win.show-help';
+    }
+    item {
+      label: _("About Learn 6502 Assembly");
+      action: 'app.about';
+    }
+    item {
+      label: _("Quit");
+      action: 'app.quit';
     }
   }
 }

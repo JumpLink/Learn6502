@@ -1,0 +1,26 @@
+/* Styling for GtkSource.View
+ * Docs:
+ * - https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/class.View.html
+ * Attach the "source-view" style class to your GtkSourceView.
+ *
+ * Styles like the current line, current line number, etc. are defined in the
+ * learn6502-style.xml and learn6502-style-dark.xml files.
+ *
+ * Docs:
+ * - https://gnome.pages.gitlab.gnome.org/gtksourceview/gtksourceview5/style-reference.html
+ */
+
+.source-view {
+  text,
+  gutter {
+    background-color: var(--view-bg-color);
+
+    current-line {
+      background-color: color-mix(
+        in oklab,
+        var(--view-bg-color) 88%,
+        var(--window-fg-color)
+      );
+    }
+  }
+}

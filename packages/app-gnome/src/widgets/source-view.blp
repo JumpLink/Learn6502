@@ -3,6 +3,8 @@ using Adw 1;
 using GtkSource 5;
 
 template $SourceView: Adw.Bin {
+  css-classes: ["source-view"];
+  
   Overlay {
     ScrolledWindow scrolledWindow {
       hexpand: true;

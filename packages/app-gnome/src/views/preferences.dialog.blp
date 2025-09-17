@@ -4,15 +4,51 @@ using Adw 1;
 template $PreferencesDialog: Adw.PreferencesDialog {
   content-width: 800;
   content-height: 600;
-  title: _("Preferences");
+  title: _("Appearance");
 
-  Adw.PreferencesPage mainPage {
+  Adw.PreferencesPage appearancePage {
+    css-classes: ["appearance-page"];
     title: _("Appearance");
     icon-name: "brush-monitor-symbolic";
 
-    Adw.PreferencesGroup {
-      title: _("Main Settings");
-      description: _("There are currently no settings.");
+    Adw.PreferencesGroup themeGroup {
+      title: _("Style");
+
+      $ThemeModeSelector {
+        css-classes: ["card", "theme-mode-selector"];
+      }
+    }
+
+    Adw.PreferencesGroup primaryGroup {
+      css-classes: ["custom-color-group"];
+      title: _("Primary color");
+
+      Adw.SwitchRow rowPrimary {
+        title: _("Use custom primary color");
+        // TS syncs on map; default off to avoid early notify loops
+        active: false;
+      }
+
+      $PrimaryColorSelector {
+        css-classes: ["card", "rounded-t-none", "primary-color-selector"];
+        enabled: bind rowPrimary.active;
+      }
+    }
+
+    Adw.PreferencesGroup accentGroup {
+      css-classes: ["custom-color-group"];
+      title: _("Accent color");
+
+      Adw.SwitchRow rowAccent {
+        title: _("Use custom accent color");
+        // TS syncs on map; default off to avoid early notify loops
+        active: false;
+      }
+
+      $AccentColorSelector {
+        css-classes: ["card", "rounded-t-none", "accent-color-selector"];
+        enabled: bind rowAccent.active;
+      }
     }
   }
 }
