@@ -731,9 +731,6 @@ msgstr ""
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
 msgstr ""
 
-msgid "Menu"
-msgstr ""
-
 msgid "Messages"
 msgstr ""
 
@@ -910,9 +907,6 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr ""
 
 msgid "Run"
-msgstr ""
-
-msgid "Run menu"
 msgstr ""
 
 msgid "Save"
