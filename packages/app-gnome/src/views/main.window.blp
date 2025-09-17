@@ -47,45 +47,7 @@ template $MainWindow: Adw.ApplicationWindow {
 
     content: Overlay mainOverlay {
       child: Adw.ToastOverlay toastOverlay {
-        Adw.ViewStack stack {
-          vexpand: true;
-
-          Adw.ViewStackPage {
-            name: "learn";
-            title: _("Learn");
-            icon-name: "school-symbolic";
-            use-underline: true;
-
-            child: $Learn learn {};
-          }
-
-          Adw.ViewStackPage {
-            name: "editor";
-            title: _("Editor");
-            icon-name: "code-symbolic";
-            use-underline: true;
-
-            child: $Editor editor {};
-          }
-
-          Adw.ViewStackPage {
-            name: "debugger";
-            title: _("Debugger");
-            icon-name: "bug-symbolic";
-            use-underline: true;
-
-            child: $Debugger debugger {};
-          }
-
-          Adw.ViewStackPage {
-            name: "gameConsole";
-            title: _("Game Console");
-            icon-name: "nintendo-controller-symbolic";
-            use-underline: true;
-
-            child: $GameConsole gameConsole {};
-          }
-        }
+        $PageStack pageStack {}
       };
 
       [overlay]
@@ -99,7 +61,6 @@ template $MainWindow: Adw.ApplicationWindow {
 
     [bottom]
     Adw.ViewSwitcherBar switcherBar {
-      stack: stack;
       reveal: true;
     }
 
@@ -118,3 +79,9 @@ Adw.AlertDialog unsavedChangesDialog {
     save: _("Save") suggested,
   ]
 }
+
+// Feature views instantiated as internal children of the template
+$Learn learn {}
+$Editor editor {}
+$Debugger debugger {}
+$GameConsole gameConsole {}

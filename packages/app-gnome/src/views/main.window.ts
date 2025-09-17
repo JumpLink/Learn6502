@@ -8,7 +8,7 @@ import { SimulatorState, num2hex } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import { MainButton } from "../widgets";
+import { MainButton, PageStack } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 import { settings } from "../settings.ts";
@@ -31,7 +31,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _gameConsole: GameConsole;
   declare private _learn: Learn;
   declare private _mainButton: MainButton;
-  declare private _stack: Adw.ViewStack;
+  declare private _pageStack: PageStack;
   declare private _switcherBar: Adw.ViewSwitcherBar;
   declare private _debugger: Debugger;
   declare private _toastOverlay: Adw.ToastOverlay;
@@ -48,7 +48,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "gameConsole",
           "learn",
           "mainButton",
-          "stack",
+          "pageStack",
           "switcherBar",
           "debugger",
           "toastOverlay",
@@ -113,6 +113,37 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     notificationService.init(this, this._toastOverlay);
 
+    // Initialize PageStack pages and wire bottom switcher
+    this._pageStack.setPages([
+      {
+        name: "learn",
+        title: _("Learn"),
+        iconName: "school-symbolic",
+        widget: this._learn,
+      },
+      {
+        name: "editor",
+        title: _("Editor"),
+        iconName: "code-symbolic",
+        widget: this._editor,
+      },
+      {
+        name: "debugger",
+        title: _("Debugger"),
+        iconName: "bug-symbolic",
+        widget: this._debugger,
+      },
+      {
+        name: "gameConsole",
+        title: _("Game Console"),
+        iconName: "nintendo-controller-symbolic",
+        widget: this._gameConsole,
+      },
+    ]);
+
+    // Bind the external switcher bar to the page stack
+    this._switcherBar.set_stack(this._pageStack.stack);
+
     // Setup view to widget mapping
     this.viewWidgetMap.set(ViewType.LEARN, this._learn);
     this.viewWidgetMap.set(ViewType.EDITOR, this._editor);
@@ -140,7 +171,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this._debugger.setGameConsole(this._gameConsole);
 
     // Initialize the previous visible child after all setup is done
-    this.previousVisibleChild = this._stack.get_visible_child();
+    this.previousVisibleChild = this._pageStack.stack.get_visible_child();
 
     // Load and setup window size management
     this.loadWindowSize();
@@ -153,7 +184,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   public get activeView(): ViewType {
     // Get current visible child and return the corresponding ViewType
-    const visibleChild = this._stack.get_visible_child();
+    const visibleChild = this._pageStack.stack.get_visible_child();
     for (const [viewType, widget] of this.viewWidgetMap.entries()) {
       if (widget === visibleChild) {
         return viewType;
@@ -169,7 +200,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   public navigateToView(viewType: ViewType): void {
     const widget = this.viewWidgetMap.get(viewType);
     if (widget) {
-      this._stack.set_visible_child(widget);
+      this._pageStack.stack.set_visible_child(widget);
     } else {
       console.error(`navigateToView: Widget not found for view ${viewType}`);
     }
@@ -227,7 +258,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private setupGeneralSignalListeners(): void {
     this.connect("close-request", this.onCloseRequest.bind(this));
-    this._stack.connect(
+    this._pageStack.stack.connect(
       "notify::visible-child",
       this.onStackVisibleChildChanged.bind(this)
     );
@@ -235,7 +266,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private onStackVisibleChildChanged(): void {
-    const currentChild = this._stack.get_visible_child();
+    const currentChild = this._pageStack.stack.get_visible_child();
 
     // Save scroll position when navigating away from Learn view
     if (
@@ -450,7 +481,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private updateDebugger(): void {
     // Only update the debugger if it's the visible child
-    if (this._stack.get_visible_child() === this._debugger) {
+    if (this._pageStack.stack.get_visible_child() === this._debugger) {
       this._debugger.update(
         this._gameConsole.memory,
         this._gameConsole.simulator
@@ -652,7 +683,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Event-Listener für Gamepad-Eingaben
     gameConsoleController.on("keyPressed", (event) => {
       // If we're in the game console or debugger view, log the key press
-      const visibleChild = this._stack.get_visible_child();
+      const visibleChild = this._pageStack.stack.get_visible_child();
       if (
         visibleChild === this._gameConsole ||
         visibleChild === this._debugger
