@@ -14,6 +14,10 @@ template $MainWindow: Adw.ApplicationWindow {
     condition ("max-width: 500sp")
 
     setters {
+      layoutHost.visible-child-name: "single";
+      switcherBar.reveal: true;
+      leftColumn.width-request: -1;
+
       titleLabel.visible: false;
     }
   }
@@ -26,6 +30,9 @@ template $MainWindow: Adw.ApplicationWindow {
     setters {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
+      leftColumn.width-request: 360;
+
+      titleLabel.visible: true;
     }
   }
 
@@ -36,6 +43,23 @@ template $MainWindow: Adw.ApplicationWindow {
     setters {
       layoutHost.visible-child-name: "single";
       switcherBar.reveal: true;
+      leftColumn.width-request: -1;
+
+      titleLabel.visible: false;
+    }
+  }
+
+  // Very wide desktop: increase left column width
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("min-width: 1600sp and min-height: 800sp")
+
+    setters {
+      layoutHost.visible-child-name: "three";
+      switcherBar.reveal: false;
+      leftColumn.width-request: 600;
+
+      titleLabel.visible: true;
     }
   }
 
@@ -93,6 +117,7 @@ template $MainWindow: Adw.ApplicationWindow {
                 Box leftColumn {
                   hexpand: false;
                   vexpand: true;
+                  width-request: 360;
                 }
 
                 Separator {}
