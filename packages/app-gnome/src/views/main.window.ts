@@ -4,7 +4,7 @@ import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import Gio from "@girs/gio-2.0";
 
-import { SimulatorState, num2hex } from "@learn6502/6502";
+import { SimulatorState, num2hex, debounce } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
@@ -79,6 +79,20 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private currentFile: Gio.File | null = null;
   private pendingDialogAction: "open" | "close" | null = null;
   private codeToAssembleChanged: boolean = false;
+
+  // Debounced handler to avoid immediate pause on transient focus loss (e.g., menu popovers)
+  private handleFocusChangeDebounced = debounce(() => {
+    if (!this.is_active) {
+      const state = this._gameConsole.simulator.state;
+      if (state === SimulatorState.RUNNING) {
+        this.pauseGameConsole();
+        this.showToast({
+          title: _("Program paused automatically"),
+          timeout: 2,
+        });
+      }
+    }
+  }, 250);
 
   // Map from ViewType to widget
   private viewWidgetMap = new Map<ViewType, Gtk.Widget>();
@@ -338,19 +352,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private onFocusChanged(): void {
-    // Check if window has lost focus
-    if (!this.is_active) {
-      // Check if simulator is in running state
-      const state = this._gameConsole.simulator.state;
-      if (state === SimulatorState.RUNNING) {
-        // Pause the program
-        this.pauseGameConsole();
-        this.showToast({
-          title: _("Program paused automatically"),
-          timeout: 2,
-        });
-      }
-    }
+    // Debounce to ignore transient focus changes from in-window popovers
+    this.handleFocusChangeDebounced();
   }
 
   private setupActions(): void {
