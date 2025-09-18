@@ -8,19 +8,6 @@ template $MainWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 624;
 
-  // Add breakpoint for responsive design
-  [breakpoint]
-  Adw.Breakpoint {
-    condition ("max-width: 500sp")
-
-    setters {
-      layoutHost.visible-child-name: "single";
-      switcherBar.reveal: true;
-
-      titleLabel.visible: false;
-    }
-  }
-
   // Auto switch between single and three-column layouts
   [breakpoint]
   Adw.Breakpoint {

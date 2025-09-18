@@ -126,14 +126,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     notificationService.init(this, this._toastOverlay);
 
-    // Initialize single stack pages and wire bottom switcher (single layout by default)
-    this.setupSingleStackPages();
-    this._switcherBar.set_stack(this._stack);
+    // Mount layout based on current breakpoint mode and listen for changes
+    const initialMode = this._layoutHost.get_visible_child_name();
+    if (initialMode === "three") {
+      this.mountThreeColumnLayout();
+    } else {
+      this.mountSingleLayout();
+    }
 
-    // Ensure we start in single layout
-    this._layoutHost.set_visible_child_name("single");
-
-    // Listen for layout changes to reparent feature views accordingly
     this._layoutHost.connect("notify::visible-child-name", () => {
       const mode = this._layoutHost.get_visible_child_name();
       if (mode === "three") {
@@ -142,9 +142,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         this.mountSingleLayout();
       }
     });
-
-    // Mount initial layout
-    this.mountSingleLayout();
 
     // Setup view to widget mapping
     this.viewWidgetMap.set(ViewType.LEARN, this._learn);
@@ -749,7 +746,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupKeyboardListener(): void {
-    // Plattformspezifischer Key-Controller für Gnome
+    // Platform-specific key controller for GNOME
     const keyController = new Gtk.EventControllerKey();
     this.add_controller(keyController);
 
@@ -760,7 +757,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     );
 
-    // Plattformspezifische Keycodes registrieren
+    // Register platform-specific keycodes
     gameConsoleController.registerKeyMappings({
       [Gdk.KEY_w]: "Up",
       [Gdk.KEY_s]: "Down",
@@ -776,7 +773,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       [Gdk.KEY_e]: "B",
     });
 
-    // Event-Listener für Gamepad-Eingaben
+    // Event listener for gamepad inputs
     gameConsoleController.on("keyPressed", (event) => {
       // If we're in the game console or debugger view, log the key press
       const visibleChild = this._stack.get_visible_child();
@@ -791,37 +788,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         );
       }
     });
-  }
-
-  // TODO: Migrate or make use of it
-  private handleKeyPress(keyval: number): void {
-    // Don't handle keys if a dialog is showing
-    if (this.unsavedChanges) return;
-
-    // Check keyboard shortcuts that apply in any view
-    switch (keyval) {
-      case Gdk.KEY_F5: // F5 to build
-        this.assembleGameConsole();
-        return;
-      case Gdk.KEY_F6: // F6 to run
-        if (
-          this._gameConsole.simulator.state === SimulatorState.READY ||
-          this._gameConsole.simulator.state === SimulatorState.PAUSED
-        ) {
-          this.runGameConsole();
-        } else if (
-          this._gameConsole.simulator.state === SimulatorState.RUNNING
-        ) {
-          this.pauseGameConsole();
-        }
-        return;
-      case Gdk.KEY_F7: // F7 to step
-        this.stepGameConsole();
-        return;
-    }
-
-    // Let the gamepad service handle other keys
-    // This is already handled by the key controller added in setupKeyboardListener
   }
 
   private updateRunActions(state: SimulatorState): MainButtonState {
@@ -961,7 +927,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private setupMainStateEventListeners(): void {
     // Listen for state changes
     mainStateController.events.on("state-changed", (state) => {
-      console.log("Main state changed:", state);
+      // React on main state changes by updating run actions
       this.updateRunActions(this._gameConsole.simulator.state);
     });
 
