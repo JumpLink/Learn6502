@@ -51,6 +51,15 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       {
         GTypeName: "MainWindow",
         Template,
+        Properties: {
+          "desktop-mode": GObject.ParamSpec.boolean(
+            "desktop-mode",
+            "Desktop Mode",
+            "True when window is in desktop (three-column) layout",
+            GObject.ParamFlags.READWRITE,
+            false
+          ),
+        },
         InternalChildren: [
           "editor",
           "gameConsole",
@@ -96,6 +105,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   // Map from ViewType to widget
   private viewWidgetMap = new Map<ViewType, Gtk.Widget>();
+
+  private isDesktopMode(): boolean {
+    return this._layoutHost?.get_visible_child_name?.() === "three";
+  }
 
   private set unsavedChanges(unsavedChanges: boolean) {
     fileService?.setUnsavedChanges(unsavedChanges);
@@ -211,6 +224,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
    * @param viewType The view to navigate to
    */
   public navigateToView(viewType: ViewType): void {
+    // In desktop mode, all relevant views are visible. Skip switching the stack.
+    if (this.isDesktopMode()) {
+      return;
+    }
     const widget = this.viewWidgetMap.get(viewType);
     if (widget) {
       this._stack.set_visible_child(widget);
@@ -576,8 +593,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private updateDebugger(): void {
-    // Only update the debugger if it's the visible child
-    if (this._stack.get_visible_child() === this._debugger) {
+    // Update debugger when visible: either active page in mobile, or desktop mode
+    if (
+      this.isDesktopMode() ||
+      this._stack.get_visible_child() === this._debugger
+    ) {
       this._debugger.update(
         this._gameConsole.memory,
         this._gameConsole.simulator
