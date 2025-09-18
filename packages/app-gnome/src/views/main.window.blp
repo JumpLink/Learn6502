@@ -18,6 +18,27 @@ template $MainWindow: Adw.ApplicationWindow {
     }
   }
 
+  // Auto switch between single and three-column layouts
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("min-width: 1200sp and min-height: 800sp")
+
+    setters {
+      layoutHost.visible-child-name: "three";
+      switcherBar.reveal: false;
+    }
+  }
+
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("max-width: 1199sp or max-height: 799sp")
+
+    setters {
+      layoutHost.visible-child-name: "single";
+      switcherBar.reveal: true;
+    }
+  }
+
   content: Adw.ToolbarView {
     [top]
     Adw.HeaderBar headerBar {
@@ -47,7 +68,69 @@ template $MainWindow: Adw.ApplicationWindow {
 
     content: Overlay mainOverlay {
       child: Adw.ToastOverlay toastOverlay {
-        $PageStack pageStack {}
+        Stack layoutHost {
+          name: "layoutHost";
+
+          // Single (mobile) layout: one ViewStack
+          StackPage singlePage {
+            name: "single";
+            child: Adw.Bin singleContainer {
+              child: Adw.ViewStack stack {
+                vexpand: true;
+              };
+            };
+          }
+
+          // Three column (desktop) layout: Learn | Editor | (GameConsole over Debugger)
+          StackPage threePage {
+            name: "three";
+            child: Adw.Bin threeColumnContainer {
+              child: Box threeColumns {
+                orientation: horizontal;
+                spacing: 0;
+
+                // Left column placeholder (Learn)
+                Box leftColumn {
+                  hexpand: true;
+                  vexpand: false;
+                }
+
+                Separator {}
+
+                // Center column placeholder (Editor)
+                Box centerColumn {
+                  hexpand: true;
+                  vexpand: true;
+                }
+
+                Separator {}
+
+                // Right column with two rows (GameConsole top, Debugger bottom)
+                Box rightColumn {
+                  orientation: vertical;
+                  hexpand: false;
+                  vexpand: false;
+
+                  Box rightTopBox {
+                    hexpand: false;
+                    vexpand: false;
+                    margin-bottom: 12;
+                    margin-start: 12;
+                    margin-end: 12;
+                    margin-top: 0;
+                  }
+
+                  Separator {}
+
+                  Box rightBottomBox {
+                    hexpand: true;
+                    vexpand: true;
+                  }
+                }
+              };
+            };
+          }
+        }
       };
 
       [overlay]

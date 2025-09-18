@@ -8,7 +8,7 @@ import { SimulatorState, num2hex } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import { MainButton, PageStack } from "../widgets";
+import { MainButton } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 import { settings } from "../settings.ts";
@@ -31,10 +31,18 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _gameConsole: GameConsole;
   declare private _learn: Learn;
   declare private _mainButton: MainButton;
-  declare private _pageStack: PageStack;
+  declare private _stack: Adw.ViewStack;
   declare private _switcherBar: Adw.ViewSwitcherBar;
   declare private _debugger: Debugger;
   declare private _toastOverlay: Adw.ToastOverlay;
+  declare private _layoutHost: Gtk.Stack;
+  declare private _singleContainer: Adw.Bin;
+  declare private _threeColumnContainer: Adw.Bin;
+  // Three column boxes
+  declare private _leftColumn: Gtk.Box;
+  declare private _centerColumn: Gtk.Box;
+  declare private _rightTopBox: Gtk.Box;
+  declare private _rightBottomBox: Gtk.Box;
   declare private _unsavedChangesDialog: Adw.AlertDialog;
   declare private _titleLabel: Gtk.Label;
   declare private _unsavedChangesIndicator: Gtk.Button;
@@ -48,10 +56,17 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "gameConsole",
           "learn",
           "mainButton",
-          "pageStack",
+          "stack",
           "switcherBar",
           "debugger",
           "toastOverlay",
+          "layoutHost",
+          "singleContainer",
+          "threeColumnContainer",
+          "leftColumn",
+          "centerColumn",
+          "rightTopBox",
+          "rightBottomBox",
           "unsavedChangesDialog",
           "titleLabel",
           "unsavedChangesIndicator",
@@ -113,36 +128,25 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     notificationService.init(this, this._toastOverlay);
 
-    // Initialize PageStack pages and wire bottom switcher
-    this._pageStack.setPages([
-      {
-        name: "learn",
-        title: _("Learn"),
-        iconName: "school-symbolic",
-        widget: this._learn,
-      },
-      {
-        name: "editor",
-        title: _("Editor"),
-        iconName: "code-symbolic",
-        widget: this._editor,
-      },
-      {
-        name: "debugger",
-        title: _("Debugger"),
-        iconName: "bug-symbolic",
-        widget: this._debugger,
-      },
-      {
-        name: "gameConsole",
-        title: _("Game Console"),
-        iconName: "nintendo-controller-symbolic",
-        widget: this._gameConsole,
-      },
-    ]);
+    // Initialize single stack pages and wire bottom switcher (single layout by default)
+    this.setupSingleStackPages();
+    this._switcherBar.set_stack(this._stack);
 
-    // Bind the external switcher bar to the page stack
-    this._switcherBar.set_stack(this._pageStack.stack);
+    // Ensure we start in single layout
+    this._layoutHost.set_visible_child_name("single");
+
+    // Listen for layout changes to reparent feature views accordingly
+    this._layoutHost.connect("notify::visible-child-name", () => {
+      const mode = this._layoutHost.get_visible_child_name();
+      if (mode === "three") {
+        this.mountThreeColumnLayout();
+      } else {
+        this.mountSingleLayout();
+      }
+    });
+
+    // Mount initial layout
+    this.mountSingleLayout();
 
     // Setup view to widget mapping
     this.viewWidgetMap.set(ViewType.LEARN, this._learn);
@@ -171,7 +175,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this._debugger.setGameConsole(this._gameConsole);
 
     // Initialize the previous visible child after all setup is done
-    this.previousVisibleChild = this._pageStack.stack.get_visible_child();
+    this.previousVisibleChild = this._stack.get_visible_child();
 
     // Load and setup window size management
     this.loadWindowSize();
@@ -184,7 +188,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   public get activeView(): ViewType {
     // Get current visible child and return the corresponding ViewType
-    const visibleChild = this._pageStack.stack.get_visible_child();
+    const visibleChild = this._stack.get_visible_child();
     for (const [viewType, widget] of this.viewWidgetMap.entries()) {
       if (widget === visibleChild) {
         return viewType;
@@ -200,7 +204,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   public navigateToView(viewType: ViewType): void {
     const widget = this.viewWidgetMap.get(viewType);
     if (widget) {
-      this._pageStack.stack.set_visible_child(widget);
+      this._stack.set_visible_child(widget);
     } else {
       console.error(`navigateToView: Widget not found for view ${viewType}`);
     }
@@ -258,7 +262,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private setupGeneralSignalListeners(): void {
     this.connect("close-request", this.onCloseRequest.bind(this));
-    this._pageStack.stack.connect(
+    this._stack.connect(
       "notify::visible-child",
       this.onStackVisibleChildChanged.bind(this)
     );
@@ -266,7 +270,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private onStackVisibleChildChanged(): void {
-    const currentChild = this._pageStack.stack.get_visible_child();
+    const currentChild = this._stack.get_visible_child();
 
     // Save scroll position when navigating away from Learn view
     if (
@@ -425,6 +429,100 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.add_action(this.showHelpAction);
   }
 
+  private setupSingleStackPages(): void {
+    // Ensure views are detached from any current parent before adding to stack
+    this.detachFromParent(this._learn);
+    this.detachFromParent(this._editor);
+    this.detachFromParent(this._debugger);
+    this.detachFromParent(this._gameConsole);
+
+    // Remove existing pages
+    const model: any = (this._stack as any).get_pages?.();
+    if (model) {
+      const toRemove: Gtk.Widget[] = [];
+      const n: number = model.get_n_items?.() ?? 0;
+      for (let i = 0; i < n; i++) {
+        const page: any = model.get_item?.(i);
+        const child: Gtk.Widget | undefined = page?.get_child?.();
+        if (child) toRemove.push(child);
+      }
+      for (const child of toRemove) this._stack.remove(child);
+    }
+
+    // Add four pages
+    (this._stack as any).add_titled_with_icon?.(
+      this._learn,
+      "learn",
+      _("Learn"),
+      "school-symbolic"
+    );
+    (this._stack as any).add_titled_with_icon?.(
+      this._editor,
+      "editor",
+      _("Editor"),
+      "code-symbolic"
+    );
+    (this._stack as any).add_titled_with_icon?.(
+      this._debugger,
+      "debugger",
+      _("Debugger"),
+      "bug-symbolic"
+    );
+    (this._stack as any).add_titled_with_icon?.(
+      this._gameConsole,
+      "gameConsole",
+      _("Game Console"),
+      "nintendo-controller-symbolic"
+    );
+  }
+
+  // Mount single layout: all views in one PageStack
+  private mountSingleLayout(): void {
+    this.setupSingleStackPages();
+    this._switcherBar.set_stack(this._stack);
+  }
+
+  // Mount three-column layout: Learn | Editor | (GameConsole over Debugger)
+  private mountThreeColumnLayout(): void {
+    // Clear containers
+    this.clearBoxChildren(this._leftColumn);
+    this.clearBoxChildren(this._centerColumn);
+    this.clearBoxChildren(this._rightTopBox);
+    this.clearBoxChildren(this._rightBottomBox);
+
+    // Left: Learn
+    this.detachFromParent(this._learn);
+    this._leftColumn.append(this._learn);
+    // Center: Editor
+    this.detachFromParent(this._editor);
+    this._centerColumn.append(this._editor);
+    // Right top: Game Console
+    this.detachFromParent(this._gameConsole);
+    this._rightTopBox.append(this._gameConsole);
+    // Right bottom: Debugger
+    this.detachFromParent(this._debugger);
+    this._rightBottomBox.append(this._debugger);
+
+    // Detach bottom switcher in three-column mode
+    this._switcherBar.set_stack(null as unknown as Adw.ViewStack);
+  }
+
+  private clearBoxChildren(box: Gtk.Box): void {
+    let child = box.get_first_child();
+    while (child) {
+      const next = child.get_next_sibling();
+      box.remove(child);
+      child = next;
+    }
+  }
+
+  private detachFromParent(widget: Gtk.Widget): void {
+    const parent = widget.get_parent();
+    if (parent && (parent as any).remove) {
+      (parent as any).remove(widget);
+    }
+  }
+
   private showHelp(): void {
     const helpWindow = new HelpWindow();
     helpWindow.present();
@@ -481,7 +579,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private updateDebugger(): void {
     // Only update the debugger if it's the visible child
-    if (this._pageStack.stack.get_visible_child() === this._debugger) {
+    if (this._stack.get_visible_child() === this._debugger) {
       this._debugger.update(
         this._gameConsole.memory,
         this._gameConsole.simulator
@@ -683,7 +781,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Event-Listener für Gamepad-Eingaben
     gameConsoleController.on("keyPressed", (event) => {
       // If we're in the game console or debugger view, log the key press
-      const visibleChild = this._pageStack.stack.get_visible_child();
+      const visibleChild = this._stack.get_visible_child();
       if (
         visibleChild === this._gameConsole ||
         visibleChild === this._debugger
