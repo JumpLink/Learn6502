@@ -36,16 +36,16 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _debugger: Debugger;
   declare private _toastOverlay: Adw.ToastOverlay;
   declare private _layoutHost: Gtk.Stack;
-  declare private _singleContainer: Adw.Bin;
-  declare private _threeColumnContainer: Adw.Bin;
+
+  declare private _unsavedChangesDialog: Adw.AlertDialog;
+  declare private _titleLabel: Gtk.Label;
+  declare private _unsavedChangesIndicator: Gtk.Button;
+
   // Three column boxes
   declare private _leftColumn: Gtk.Box;
   declare private _centerColumn: Gtk.Box;
   declare private _rightTopBox: Gtk.Box;
   declare private _rightBottomBox: Gtk.Box;
-  declare private _unsavedChangesDialog: Adw.AlertDialog;
-  declare private _titleLabel: Gtk.Label;
-  declare private _unsavedChangesIndicator: Gtk.Button;
   static {
     GObject.registerClass(
       {
@@ -61,8 +61,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "debugger",
           "toastOverlay",
           "layoutHost",
-          "singleContainer",
-          "threeColumnContainer",
           "leftColumn",
           "centerColumn",
           "rightTopBox",
