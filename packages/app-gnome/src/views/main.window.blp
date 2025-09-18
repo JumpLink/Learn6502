@@ -19,6 +19,8 @@ template $MainWindow: Adw.ApplicationWindow {
       leftCenterPaned.position: 360;
 
       titleLabel.visible: true;
+      mainButton.visible: false;
+      runToolbar.visible: true;
     }
   }
 
@@ -31,6 +33,8 @@ template $MainWindow: Adw.ApplicationWindow {
       switcherBar.reveal: true;
 
       titleLabel.visible: false;
+      mainButton.visible: true;
+      runToolbar.visible: false;
     }
   }
 
@@ -45,6 +49,8 @@ template $MainWindow: Adw.ApplicationWindow {
       leftCenterPaned.position: 600;
 
       titleLabel.visible: true;
+      mainButton.visible: false;
+      runToolbar.visible: true;
     }
   }
 
@@ -69,7 +75,7 @@ template $MainWindow: Adw.ApplicationWindow {
         ]
       }
       [end]
-      $RunMenuButton menuButton {
+      $MenuButton menuButton {
         halign: center;
       }
 
@@ -159,6 +165,14 @@ template $MainWindow: Adw.ApplicationWindow {
         halign: end;
         valign: end;
         margin-end: 0;
+        margin-bottom: 0;
+      }
+
+      [overlay]
+      $RunToolbar runToolbar {
+        halign: end;
+        valign: center;
+        margin-end: 360;
         margin-bottom: 0;
       }
     };

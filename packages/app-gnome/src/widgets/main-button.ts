@@ -80,7 +80,7 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
       actionName: this.pauseSimulatorAction,
     },
     [MainButtonState.RESUME]: {
-      iconName: "play-symbolic",
+      iconName: "resume-symbolic",
       text: _("Resume"),
       actionName: this.resumeSimulatorAction,
     },
