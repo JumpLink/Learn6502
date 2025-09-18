@@ -25,12 +25,6 @@ template $RunToolbar : Adw.Bin {
     }
 
     Button {
-      icon-name: "resume-symbolic";
-      action-name: "win.resume-simulator";
-      tooltip-text: _("Resume");
-    }
-
-    Button {
       icon-name: "pause-symbolic";
       action-name: "win.pause-simulator";
       tooltip-text: _("Pause");
@@ -51,7 +45,6 @@ template $RunToolbar : Adw.Bin {
     styles [
       "toolbar",
       "osd",
-      "darken",
     ]
   };
 }
