@@ -16,7 +16,6 @@ template $MainWindow: Adw.ApplicationWindow {
     setters {
       layoutHost.visible-child-name: "single";
       switcherBar.reveal: true;
-      leftColumn.width-request: -1;
 
       titleLabel.visible: false;
     }
@@ -30,7 +29,7 @@ template $MainWindow: Adw.ApplicationWindow {
     setters {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
-      leftColumn.width-request: 360;
+      leftCenterPaned.position: 360;
 
       titleLabel.visible: true;
     }
@@ -43,7 +42,6 @@ template $MainWindow: Adw.ApplicationWindow {
     setters {
       layoutHost.visible-child-name: "single";
       switcherBar.reveal: true;
-      leftColumn.width-request: -1;
 
       titleLabel.visible: false;
     }
@@ -57,7 +55,7 @@ template $MainWindow: Adw.ApplicationWindow {
     setters {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
-      leftColumn.width-request: 600;
+      leftCenterPaned.position: 600;
 
       titleLabel.visible: true;
     }
@@ -113,44 +111,55 @@ template $MainWindow: Adw.ApplicationWindow {
                 orientation: horizontal;
                 spacing: 0;
 
-                // Left column placeholder (Learn)
-                Box leftColumn {
-                  hexpand: false;
-                  vexpand: true;
-                  width-request: -1;
-                }
+                // Paned splits left (Learn) and center+right
+                Gtk.Paned leftCenterPaned {
+                  orientation: horizontal;
+                  resize-start-child: false;
+                  shrink-start-child: false;
+                  resize-end-child: true;
+                  shrink-end-child: true;
 
-                Separator {}
-
-                // Center column placeholder (Editor)
-                Box centerColumn {
-                  hexpand: true;
-                  vexpand: true;
-                }
-
-                Separator {}
-
-                // Right column with two rows (GameConsole top, Debugger bottom)
-                Box rightColumn {
-                  orientation: vertical;
-                  hexpand: false;
-                  vexpand: true;
-
-                  Box rightTopBox {
+                  start-child: Box leftColumn {
                     hexpand: false;
-                    vexpand: false;
-                    margin-bottom: 12;
-                    margin-start: 12;
-                    margin-end: 12;
-                    margin-top: 0;
-                  }
+                    vexpand: true;
+                  };
 
-                  Separator {}
-
-                  Box rightBottomBox {
+                  end-child: Box centerRight {
+                    orientation: horizontal;
                     hexpand: true;
                     vexpand: true;
-                  }
+
+                    // Center column (Editor)
+                    Box centerColumn {
+                      hexpand: true;
+                      vexpand: true;
+                    }
+
+                    Separator {}
+
+                    // Right column with two rows (GameConsole top, Debugger bottom)
+                    Box rightColumn {
+                      orientation: vertical;
+                      hexpand: false;
+                      vexpand: true;
+
+                      Box rightTopBox {
+                        hexpand: false;
+                        vexpand: false;
+                        margin-bottom: 12;
+                        margin-start: 12;
+                        margin-end: 12;
+                        margin-top: 0;
+                      }
+
+                      Separator {}
+
+                      Box rightBottomBox {
+                        hexpand: true;
+                        vexpand: true;
+                      }
+                    }
+                  };
                 }
               };
             };
