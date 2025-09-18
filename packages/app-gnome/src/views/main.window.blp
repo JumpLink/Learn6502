@@ -91,8 +91,8 @@ template $MainWindow: Adw.ApplicationWindow {
 
                 // Left column placeholder (Learn)
                 Box leftColumn {
-                  hexpand: true;
-                  vexpand: false;
+                  hexpand: false;
+                  vexpand: true;
                 }
 
                 Separator {}
@@ -109,7 +109,7 @@ template $MainWindow: Adw.ApplicationWindow {
                 Box rightColumn {
                   orientation: vertical;
                   hexpand: false;
-                  vexpand: false;
+                  vexpand: true;
 
                   Box rightTopBox {
                     hexpand: false;
