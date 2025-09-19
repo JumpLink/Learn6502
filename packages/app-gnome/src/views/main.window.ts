@@ -3,6 +3,7 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import Gio from "@girs/gio-2.0";
+import GLib from "@girs/glib-2.0";
 
 import { SimulatorState, num2hex, debounce } from "@learn6502/6502";
 
@@ -88,6 +89,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private currentFile: Gio.File | null = null;
   private pendingDialogAction: "open" | "close" | null = null;
   private codeToAssembleChanged: boolean = false;
+  private lastRunAtMs: number = 0;
+  private focusSourceId: number | null = null;
 
   // Debounced handler to avoid immediate pause on transient focus loss (e.g., menu popovers)
   private handleFocusChangeDebounced = debounce(() => {
@@ -95,13 +98,29 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       const state = this._gameConsole.simulator.state;
       if (state === SimulatorState.RUNNING) {
         this.pauseGameConsole();
-        this.showToast({
-          title: _("Program paused automatically"),
-          timeout: 2,
-        });
       }
     }
   }, 250);
+
+  // Debounced handler for in-window focus changes in desktop mode
+  private handleChildFocusChangeDebounced = debounce(() => {
+    if (!this.isDesktopMode()) return;
+
+    const focused: Gtk.Widget | null =
+      (this as unknown as Gtk.Window).get_focus?.() ?? null;
+    const isFocusInsideConsole = this.widgetIsDescendantOf(
+      focused,
+      this._gameConsole
+    );
+    if (!isFocusInsideConsole) {
+      // Suppress immediate auto-pause right after starting the program
+      if (Date.now() - this.lastRunAtMs < 400) return;
+      const state = this._gameConsole.simulator.state;
+      if (state === SimulatorState.RUNNING) {
+        this.pauseGameConsole();
+      }
+    }
+  }, 150);
 
   // Map from ViewType to widget
   private viewWidgetMap = new Map<ViewType, Gtk.Widget>();
@@ -293,6 +312,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.onStackVisibleChildChanged.bind(this)
     );
     this.connect("notify::is-active", this.onFocusChanged.bind(this));
+    // Listen to focus changes within the window for desktop-mode pause behavior
+    this.connect("notify::focus-widget", this.onFocusWidgetChanged.bind(this));
   }
 
   private onStackVisibleChildChanged(): void {
@@ -338,10 +359,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       if (state === SimulatorState.RUNNING) {
         // Pause the program
         this.pauseGameConsole();
-        this.showToast({
-          title: _("Program paused automatically"),
-          timeout: 2,
-        });
       }
     }
 
@@ -371,6 +388,25 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private onFocusChanged(): void {
     // Debounce to ignore transient focus changes from in-window popovers
     this.handleFocusChangeDebounced();
+  }
+
+  private onFocusWidgetChanged(): void {
+    // Debounce in-window focus changes to avoid pausing on transient focus shifts
+    this.handleChildFocusChangeDebounced();
+  }
+
+  private widgetIsDescendantOf(
+    widget: Gtk.Widget | null,
+    ancestor: Gtk.Widget
+  ): boolean {
+    let current: Gtk.Widget | null = widget;
+    while (current) {
+      if (current === ancestor) return true;
+      current =
+        (current.get_parent && (current.get_parent() as Gtk.Widget | null)) ||
+        null;
+    }
+    return false;
   }
 
   private setupActions(): void {
@@ -555,10 +591,27 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.navigateToView(targetView);
     }
     this._gameConsole.run();
+    // Ensure the game console receives focus so keyboard/gamepad input works immediately
+    // Debounce focus slightly to avoid pausing due to transient toolbar focus
+    this.lastRunAtMs = Date.now();
+    this._gameConsole.focus();
+    if (this.focusSourceId) {
+      GLib.source_remove(this.focusSourceId);
+      this.focusSourceId = null;
+    }
+    this.focusSourceId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, () => {
+      this._gameConsole.focus();
+      this.focusSourceId = null;
+      return GLib.SOURCE_REMOVE;
+    });
   }
 
   public pauseGameConsole(): void {
     this._gameConsole.stop();
+    this.showToast({
+      title: _("Program paused automatically"),
+      timeout: 2,
+    });
   }
 
   public reset(): void {

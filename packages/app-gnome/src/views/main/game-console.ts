@@ -86,6 +86,16 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
     gameConsoleController.reset();
   }
 
+  /**
+   * Try to focus the game console for immediate input.
+   */
+  public focus(): boolean {
+    if (this._display) {
+      return this._display.focus();
+    }
+    return this.grab_focus();
+  }
+
   public step(): void {
     gameConsoleController.step();
   }
