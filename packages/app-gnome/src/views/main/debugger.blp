@@ -26,20 +26,29 @@ template $Debugger: Adw.Bin {
               title: _("Settings");
               margin-bottom: 12;
 
+              Adw.SwitchRow enabledSwitch {
+                title: _("Enable Debugger");
+                subtitle: _("Disable to improve performance");
+                active: bind template.enabled bidirectional;
+              }
+
               Adw.SwitchRow stepperSwitch {
                 title: _("Enable Stepper Mode");
                 subtitle: _("Execute instructions one by one instead of continuously");
+                sensitive: bind template.enabled;
               }
             }
 
             // Information
             Box debugInfoBox {
+              sensitive: bind template.enabled;
               margin-bottom: 12;
               $DebugInfo debugInfo {}
             }
 
             // Hex Monitor
             Label {
+              sensitive: bind template.enabled;
               label: _("Hex Monitor");
               halign: start;
               margin-bottom: 12;
@@ -49,12 +58,14 @@ template $Debugger: Adw.Bin {
               ]
             }
             Frame {
+              sensitive: bind template.enabled;
               margin-bottom: 12;
               $HexMonitor hexMonitor {}
             }
 
             // Hexdump
             Label {
+              sensitive: bind template.enabled;
               label: _("Hexdump");
               halign: start;
               margin-bottom: 12;
@@ -64,12 +75,14 @@ template $Debugger: Adw.Bin {
               ]
             }
             Frame {
+              sensitive: bind template.enabled;
               margin-bottom: 12;
               $Hexdump hexdump {}
             }
 
             // Disassembled
             Label {
+              sensitive: bind template.enabled;
               label: _("Disassembled");
               halign: start;
               margin-bottom: 12;
@@ -79,12 +92,14 @@ template $Debugger: Adw.Bin {
               ]
             }
             Frame {
+              sensitive: bind template.enabled;
               margin-bottom: 12;
               $Disassembled disassembled {}
             }
 
             // Messages
             Label {
+              sensitive: bind template.enabled;
               label: _("Messages");
               halign: start;
               margin-bottom: 12;
@@ -94,6 +109,7 @@ template $Debugger: Adw.Bin {
               ]
             }
             Frame {
+              sensitive: bind template.enabled;
               margin-bottom: 12;
               $MessageConsole messageConsole {}
             }

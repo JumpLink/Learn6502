@@ -590,6 +590,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     if (targetView && targetView !== this.activeView) {
       this.navigateToView(targetView);
     }
+    // Ensure stepper mode is disabled when running continuously
+    if (debuggerController.stepperEnabled) {
+      debuggerController.stepperEnabled = false;
+    }
     this._gameConsole.run();
     // Ensure the game console receives focus so keyboard/gamepad input works immediately
     // Debounce focus slightly to avoid pausing due to transient toolbar focus
