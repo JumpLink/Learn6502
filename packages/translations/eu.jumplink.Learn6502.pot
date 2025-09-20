@@ -17,7 +17,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"http://www.westerndesigncenter.com/wdc/w65c02s-chip.cfm\">Western Design Center</a> and <a href=\"http://www.mouser.co.uk/Search/Refine.aspx?Keyword=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
+msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
 msgstr ""
 
 msgid "1."
@@ -41,7 +41,7 @@ msgstr ""
 msgid "6502 assembly language has a bunch of branching instructions, all of which branch based on whether certain flags are set or not. In this example we'll be looking at <tt>BNE</tt>: \"Branch on not equal\"."
 msgstr ""
 
-msgid "<a href=\"https://twitter.com/wkjagt\">Willem van der Jagt</a> made a <a href=\"https://gist.github.com/wkjagt/9043907\">fully annotated gist of this source code</a>, so follow along with that for more details."
+msgid "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> made a <a href=\"https://gist.github.com/wkjagt/9043907\">fully annotated gist of this source code</a>, so follow along with that for more details."
 msgstr ""
 
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
@@ -254,7 +254,7 @@ msgstr ""
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
 msgstr ""
 
-msgid "A full list of the 6502 instruction set is <a href=\"http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
+msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
 msgstr ""
 
 msgid "About Learn 6502 Assembly"
@@ -345,7 +345,7 @@ msgstr ""
 msgid "An important thing to notice here is the distinction between <tt>ADC #$01</tt> and <tt>ADC $01</tt>. The first one adds the value <tt>$01</tt> to the <tt>A</tt> register, but the second adds the value stored at memory location <tt>$01</tt> to the <tt>A</tt> register."
 msgstr ""
 
-msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"http://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
+msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr ""
 
 msgid "Appearance"
@@ -534,7 +534,7 @@ msgstr ""
 msgid "First row: <tt>$0200</tt>-<tt>$021F</tt>, second row: <tt>$0220</tt>-<tt>$023F</tt>, etc."
 msgstr ""
 
-msgid "First we load the value <tt>$08</tt> into the <tt>X</tt> register. The next line is a label. Labels just mark certain points in a program so we can return to them later. After the label we decrement <tt>X</tt>, store it to <tt>$0200</tt> (the top-left pixel), and then compare it to the value <tt>$03</tt>. <a href=\"http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register with another value. If the two values are equal, the <tt>Z</tt> flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
+msgid "First we load the value <tt>$08</tt> into the <tt>X</tt> register. The next line is a label. Labels just mark certain points in a program so we can return to them later. After the label we decrement <tt>X</tt>, store it to <tt>$0200</tt> (the top-left pixel), and then compare it to the value <tt>$03</tt>. <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register with another value. If the two values are equal, the <tt>Z</tt> flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
 msgstr ""
 
 msgid "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, S, D) was pressed, and if so, sets the direction of the snake accordingly. Then, <tt>checkCollision</tt> checks to see if the snake collided with itself or the apple. <tt>updateSnake</tt> updates the internal representation of the snake, based on its direction. Next, the apple and snake are drawn. Finally, <tt>spinWheels</tt> makes the processor do some busy work, to stop the game from running too quickly. Think of it like a sleep command. The game keeps running until the snake collides with the wall or itself."
@@ -634,7 +634,7 @@ msgstr ""
 msgid "In this example, <tt>$f0</tt> contains the value <tt>$01</tt> and <tt>$f1</tt> contains the value <tt>$cc</tt>. The instruction <tt>JMP ($f0)</tt> causes the processor to look up the two bytes at <tt>$f0</tt> and <tt>$f1</tt> (<tt>$01</tt> and <tt>$cc</tt>) and put them together to form the address <tt>$cc01</tt>, which becomes the new program counter. Assemble and step through the program above to see what happens. I'll talk more about <tt>JMP</tt> in the section on <a href=\"#jumping\">Jumping</a>."
 msgstr ""
 
-msgid "In this tiny tutorial I'm going to show you how to get started writing 6502 assembly language. The 6502 processor was massive in the seventies and eighties, powering famous computers like the <a href=\"http://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"http://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"http://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"http://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"http://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in Futurama <a href=\"http://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a href=\"http://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in 6502</a>."
+msgid "In this tiny tutorial I'm going to show you how to get started writing 6502 assembly language. The 6502 processor was massive in the seventies and eighties, powering famous computers like the <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in 6502</a>."
 msgstr ""
 
 msgid "Index register X: Used for addressing"
@@ -861,7 +861,7 @@ msgstr ""
 msgid "Program completed at PC=$%s"
 msgstr ""
 
-msgid "Program paused automatically"
+msgid "Program paused"
 msgstr ""
 
 msgid "Purple"
@@ -928,7 +928,7 @@ msgstr ""
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
 msgstr ""
 
-msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"http://skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
+msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
 msgstr ""
 
 msgid "Settings"
@@ -955,7 +955,7 @@ msgstr ""
 msgid "So far we're only able to write basic programs without any branching logic. Let's change that."
 msgstr ""
 
-msgid "So, let's dive in! This application contains a <a href=\"https://github.com/skilldrick/6502js\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then click the button in the top right to assemble the code, then click it again to run the program. You can also access these actions through the dropdown menu."
+msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then click the button in the top right to assemble the code, then click it again to run the program. You can also access these actions through the dropdown menu."
 msgstr ""
 
 msgid "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", so in this case we'll branch to <tt>illegalMove</tt>, which just returns from the subroutine. Otherwise, the new direction (1 in this case) is stored in the appropriate memory location."
@@ -967,7 +967,7 @@ msgstr ""
 msgid "So, what's this program actually doing? Let's step through it. Hit <b>Reset</b>, then select <b>Step</b> from the dropdown menu. The button will switch to step mode, allowing you to execute the program one instruction at a time. Click once and you'll notice in the debugger that <tt>A=</tt> changed from <tt>$00</tt> to <tt>$01</tt>, and <tt>PC=</tt> changed from <tt>$0600</tt> to <tt>$0602</tt>."
 msgstr ""
 
-msgid "So, why would you want to learn 6502? It's a dead language isn't it? Well, so's Latin. And they still teach that. <a href=\"http://en.wikipedia.org/wiki/Q.E.D.\">Q.E.D.</a>"
+msgid "So, why would you want to learn 6502? It's a dead language isn't it? Well, so's Latin. And they still teach that. <a href=\"https://en.wikipedia.org/wiki/Q.E.D.\">Q.E.D.</a>"
 msgstr ""
 
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
@@ -1106,7 +1106,7 @@ msgstr ""
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr ""
 
-msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"http://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - this is purely an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
+msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - this is purely an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr ""
 
 msgid "These are the absolute addressing versions of zero page,X and zero page,Y. For example:"

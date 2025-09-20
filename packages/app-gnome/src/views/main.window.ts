@@ -609,7 +609,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   public pauseGameConsole(): void {
     this._gameConsole.stop();
     this.showToast({
-      title: _("Program paused automatically"),
+      title: _("Program paused"),
       timeout: 2,
     });
   }
