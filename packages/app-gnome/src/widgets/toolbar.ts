@@ -1,15 +1,15 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 
-import Template from "./run-toolbar.blp";
+import Template from "./toolbar.blp";
 
-export class RunToolbar extends Adw.Bin {
+export class Toolbar extends Adw.Bin {
   static {
     GObject.registerClass(
       {
-        GTypeName: "RunToolbar",
+        GTypeName: "Toolbar",
         Template,
-        CssName: "run-toolbar",
+        CssName: "toolbar",
       },
       this
     );
@@ -20,4 +20,4 @@ export class RunToolbar extends Adw.Bin {
   }
 }
 
-GObject.type_ensure(RunToolbar.$gtype);
+GObject.type_ensure(Toolbar.$gtype);
