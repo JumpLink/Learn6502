@@ -28,13 +28,11 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   declare private _state: DebuggerState;
 
   // Child widgets
-  declare private _stack: Gtk.Stack;
   declare private _messageConsole: MessageConsoleWidget;
   declare private _hexMonitor: HexMonitor;
   declare private _hexdump: Hexdump;
   declare private _disassembled: Disassembled;
   declare private _debugInfo: DebugInfoWidget;
-  declare private _statusPage: Adw.StatusPage;
   declare private _stepperSwitch: Adw.SwitchRow;
 
   // Reference to game console
@@ -46,13 +44,11 @@ export class Debugger extends Adw.Bin implements DebuggerView {
         GTypeName: "Debugger",
         Template,
         InternalChildren: [
-          "stack",
           "messageConsole",
           "hexMonitor",
           "hexdump",
           "disassembled",
           "debugInfo",
-          "statusPage",
           "stepperSwitch",
         ],
         Properties: {
@@ -95,8 +91,6 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this.onCopyToClipboard = this.onCopyToClipboard.bind(this);
     this.onCopyToEditor = this.onCopyToEditor.bind(this);
     this.onHexMonitorChanged = this.onHexMonitorChanged.bind(this);
-    this.onStateChanged = this.onStateChanged.bind(this);
-    this.onParamChanged = this.onParamChanged.bind(this);
     this.onServiceStateChanged = this.onServiceStateChanged.bind(this);
     this.onStepperToggled = this.onStepperToggled.bind(this);
     this.onStepperSwitchActivated = this.onStepperSwitchActivated.bind(this);
@@ -197,24 +191,8 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private onServiceStateChanged(newState: DebuggerState): void {
-    // Update UI component state when service state changes
+    // Keep state in sync for service consumers; UI is always the debugger view
     this.state = newState;
-  }
-
-  private onStateChanged(): void {
-    if (this.state === DebuggerState.INITIAL) {
-      this._stack.set_visible_child_name("initial");
-    } else {
-      this._stack.set_visible_child_name("debugger");
-    }
-  }
-
-  private onParamChanged(_self: Debugger, pspec: GObject.ParamSpec): void {
-    switch (pspec.name) {
-      case "state":
-        this.onStateChanged();
-        break;
-    }
   }
 
   private onHexMonitorChanged(): void {
@@ -235,8 +213,6 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private setupSignalHandlers(): void {
-    this.handlerIds.push(this.connect("notify", this.onParamChanged));
-
     this._disassembled.events.on("copy", this.onCopyToEditor);
 
     this._hexdump.events.on("copy", this.onCopyToClipboard);
@@ -253,12 +229,6 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private removeSignalHandlers(): void {
-    try {
-      this.handlerIds.forEach((id) => this.disconnect(id));
-    } catch (error) {
-      console.error("[Debugger] Failed to remove signal handlers", error);
-    }
-
     this._disassembled.events.off("copy", this.onCopyToEditor);
     this._hexdump.events.off("copy", this.onCopyToClipboard);
     this._hexMonitor.events.off("copy", this.onCopyToClipboard);
@@ -267,8 +237,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     // Remove service event listeners
     debuggerController.off("stateChanged", this.onServiceStateChanged);
     debuggerController.off("stepperToggled", this.onStepperToggled);
-
-    this.handlerIds = [];
+    // no-op
   }
 
   /**

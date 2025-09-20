@@ -12,8 +12,7 @@ class EditorController {
 
   // State preservation
   private _isInitialized: boolean = false;
-  private _persistedCode: string =
-    "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
+  private _persistedCode: string = "";
   private _persistedHelpVisible: boolean = false;
 
   // Platform-specific SourceView reference
@@ -135,8 +134,7 @@ class EditorController {
    */
   resetInitialization(): void {
     this._isInitialized = false;
-    this._persistedCode =
-      "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
+    this._persistedCode = "";
     this._persistedHelpVisible = false;
   }
 }

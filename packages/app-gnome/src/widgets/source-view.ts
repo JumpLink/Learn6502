@@ -640,7 +640,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
     this.ensureStyleSearchPaths();
     this.updateStyle();
 
-    this.code = "LDA #$01\nSTA $0200\nLDA #$05\nSTA $0201\nLDA #$08\nSTA $0202";
+    this.code = "";
   }
 
   private setupScrolledWindow() {
