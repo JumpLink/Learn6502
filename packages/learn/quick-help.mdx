@@ -47,6 +47,7 @@
 - **I** (Interrupt): Set when interrupts are disabled
 - **Z** (Zero): Set when result is zero
 - **C** (Carry): Set when arithmetic operations overflow a byte
+- On reset (simulator): `P = $30` (bit5 and `B` set; `D` and `I` clear)
 
 ## Addressing Modes
 
@@ -58,6 +59,7 @@
 - **Indirect** (`($c000)`): Look up address stored at given location
 - **Indexed Indirect** (`($c0,X)`): Add X to zero page address, then dereference
 - **Indirect Indexed** (`($c0),Y`): Dereference zero page address, then add Y
+- **Relative** (`label`): Branch uses signed 8‑bit offset from the next instruction (−128…+127)
 
 ## Common Instructions
 
@@ -69,6 +71,12 @@
 - **JSR/RTS**: Jump to subroutine / Return from subroutine
 - **BEQ/BNE/BCC/BCS**: Branch if equal/not equal/carry clear/carry set
 - **PHA/PLA**: Push/pull accumulator to/from stack
+- Also useful: **BIT**, **CMP/CPX/CPY**, **PHP/PLP**, **TSX/TXS**, **SED/CLD**, **SEI/CLI**, **BMI/BPL**, **BVS/BVC**
+
+## Quick tips
+
+- **SBC needs carry set**: Set `C` before subtracting (works as inverse borrow). `C` clear after SBC indicates a borrow occurred.
+- **Compare ops**: `CMP/CPX/CPY` set `N/Z/C` like a subtraction (register − memory) without storing a result.
 
 ## Special Memory Locations (in Simulator)
 

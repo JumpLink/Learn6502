@@ -47,7 +47,7 @@ template $DebugInfo: Adw.Bin {
       Adw.ActionRow rowX {
         title: "X";
         subtitle: _("Index register X: Used for addressing");
-        tooltip-text: _("The X Index Register is used for indexed addressing modes and counting operations. It can hold loop counters, array indices, and is essential for accessing memory locations relative to a base address using X as an offset.");
+        tooltip-text: _("The X Index Register is used for indexed addressing modes and counting operations. It can hold loop counters, array indices, and is essential for accessing memory locations relative to a base address using X as an offset. Special: TSX/TXS transfer X to/from the stack pointer.");
 
         [suffix]
         Gtk.Box xValueBox {
@@ -76,7 +76,7 @@ template $DebugInfo: Adw.Bin {
       Adw.ActionRow rowY {
         title: "Y";
         subtitle: _("Index register Y: Used for addressing");
-        tooltip-text: _("The Y Index Register works similarly to X but has some unique capabilities. It's particularly useful for accessing memory with Y-relative addressing and is often used for data transfer operations between memory blocks.");
+        tooltip-text: _("The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement.");
 
         [suffix]
         Gtk.Box yValueBox {
@@ -223,7 +223,7 @@ template $DebugInfo: Adw.Bin {
           Gtk.Label cHdr {
             label: "C";
             css-classes: ["flag"];
-            tooltip-text: _("Carry Flag: Set when an addition produces a carry-out or subtraction produces a borrow. Used for multi-byte arithmetic operations and conditional branching (BCS, BCC). Critical for implementing arithmetic operations larger than 8 bits.");
+            tooltip-text: _("Carry Flag: Set when an addition produces a carry-out; clear when a subtraction requires a borrow. Used for multi-byte arithmetic and shifts/rotates (BCS/BCC).");
             layout { row: 0; column: 7; }
           }
 
@@ -239,22 +239,22 @@ template $DebugInfo: Adw.Bin {
             layout { row: 1; column: 1; }
           }
           Gtk.Label p5 {
-            label: "0";
+            label: "1";
             css-classes: ["monospace", "bit", "dim-label"];
             layout { row: 1; column: 2; }
           }
           Gtk.Label p4 {
-            label: "0";
+            label: "1";
             css-classes: ["monospace", "bit", "dim-label"];
             layout { row: 1; column: 3; }
           }
           Gtk.Label p3 {
-            label: "1";
+            label: "0";
             css-classes: ["monospace", "bit"];
             layout { row: 1; column: 4; }
           }
           Gtk.Label p2 {
-            label: "1";
+            label: "0";
             css-classes: ["monospace", "bit"];
             layout { row: 1; column: 5; }
           }

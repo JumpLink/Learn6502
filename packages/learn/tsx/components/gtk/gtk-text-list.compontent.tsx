@@ -32,9 +32,19 @@ export class GtkTextList extends Component {
         if (!content) {
           return null;
         }
+        const isGtkNode = /<child>\s*<object\s+class=\"GtkLabel\"/i.test(
+          content
+        );
         const item = {
           index,
           content,
+          child,
+          isGtkNode,
+        } as {
+          index: number;
+          content: string;
+          child: any;
+          isGtkNode: boolean;
         };
         index++;
         return item;
@@ -53,28 +63,20 @@ export class GtkTextList extends Component {
             <GtkLabel
               use-markup
               wrap
-              xalign={0}
-              valign={Align.START}
+              valign={Align.BASELINE}
               label={
                 this.props.type === TextListType.ORDERED
                   ? `${item.index}. `
                   : "• "
               }
-            >
-              {this.props.type === TextListType.ORDERED
-                ? `${item.index}. `
-                : "• "}
-            </GtkLabel>
-            <GtkLabel
-              use-markup
-              wrap
-              hexpand-set
-              hexpand
-              xalign={0}
-              halign={Align.FILL}
-            >
-              {item.content}
-            </GtkLabel>
+            />
+            {item.isGtkNode ? (
+              item.child
+            ) : (
+              <GtkLabel use-markup wrap valign={Align.BASELINE}>
+                {item.content}
+              </GtkLabel>
+            )}
           </GtkBox>
         ))}
       </GtkBox>
