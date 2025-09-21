@@ -51,10 +51,9 @@ class DebuggerController {
    * Set the current state of the debugger
    */
   public set state(value: DebuggerState) {
-    if (debuggerStateService.debuggerState !== value) {
-      debuggerStateService.debuggerState = value;
-      this.events.dispatch("stateChanged", value);
-    }
+    if (debuggerStateService.debuggerState === value) return;
+    debuggerStateService.debuggerState = value;
+    this.events.dispatch("stateChanged", value);
   }
 
   /**
@@ -69,16 +68,18 @@ class DebuggerController {
    */
   public set stepperEnabled(value: boolean) {
     if (!this.simulator) return;
+    if (this.simulator.stepperEnabled === value) return;
 
-    // Only update if the state actually changed
-    if (this.simulator.stepperEnabled !== value) {
-      if (value) {
-        this.simulator.enableStepper();
-      } else {
-        this.simulator.stopStepper();
-      }
-      this.events.dispatch("stepperToggled", value);
+    // Auto-enable when enabling stepper
+    if (value && this.state === DebuggerState.DISABLED) {
+      this.state = DebuggerState.ACTIVE;
     }
+    if (value) {
+      this.simulator.enableStepper();
+    } else {
+      this.simulator.stopStepper();
+    }
+    this.events.dispatch("stepperToggled", value);
   }
 
   /**
@@ -87,14 +88,8 @@ class DebuggerController {
    */
   public toggleStepper(): boolean {
     if (!this.simulator) return false;
-
     const newState = !this.simulator.stepperEnabled;
-    if (newState) {
-      this.simulator.enableStepper();
-    } else {
-      this.simulator.stopStepper();
-    }
-    this.events.dispatch("stepperToggled", newState);
+    this.stepperEnabled = newState;
     return newState;
   }
 
@@ -193,6 +188,7 @@ class DebuggerController {
    * @param simulator Current state of the 6502 simulator
    */
   private _update(memory: Memory, simulator: Simulator): void {
+    if (this.state === DebuggerState.DISABLED) return; // No-op when disabled
     this.memory = memory;
     this.updateMonitor(memory);
     this.updateDebugInfo(simulator);
@@ -212,6 +208,7 @@ class DebuggerController {
    * @param memory Current memory state
    */
   public updateMonitor(memory: Memory): void {
+    if (this.state === DebuggerState.DISABLED) return; // No-op when disabled
     if (this.hexMonitor) {
       this.hexMonitor.update(memory);
     }
@@ -222,6 +219,7 @@ class DebuggerController {
    * @param simulator Simulator instance for state information
    */
   public updateDebugInfo(simulator: Simulator): void {
+    if (this.state === DebuggerState.DISABLED) return; // No-op when disabled
     if (this.debugInfo) {
       this.debugInfo.update(simulator);
     }
@@ -232,6 +230,7 @@ class DebuggerController {
    * @param assembler Assembler with assembled code
    */
   public updateHexdump(assembler: Assembler): void {
+    if (this.state === DebuggerState.DISABLED) return; // No-op when disabled
     if (this.hexdump) {
       this.hexdump.update(assembler);
     }
@@ -242,6 +241,7 @@ class DebuggerController {
    * @param assembler Assembler with assembled code
    */
   public updateDisassembled(assembler: Assembler): void {
+    if (this.state === DebuggerState.DISABLED) return; // No-op when disabled
     if (this.disassembled) {
       this.disassembled.update(assembler);
     }

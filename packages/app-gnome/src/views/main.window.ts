@@ -3,8 +3,9 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import Gio from "@girs/gio-2.0";
+import GLib from "@girs/glib-2.0";
 
-import { SimulatorState, num2hex } from "@learn6502/6502";
+import { SimulatorState, num2hex, debounce } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
@@ -35,14 +36,31 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _switcherBar: Adw.ViewSwitcherBar;
   declare private _debugger: Debugger;
   declare private _toastOverlay: Adw.ToastOverlay;
+  declare private _layoutHost: Gtk.Stack;
+
   declare private _unsavedChangesDialog: Adw.AlertDialog;
   declare private _titleLabel: Gtk.Label;
   declare private _unsavedChangesIndicator: Gtk.Button;
+
+  // Three column boxes
+  declare private _leftColumn: Gtk.Box;
+  declare private _centerColumn: Gtk.Box;
+  declare private _rightTopBox: Gtk.Box;
+  declare private _rightBottomBox: Gtk.Box;
   static {
     GObject.registerClass(
       {
         GTypeName: "MainWindow",
         Template,
+        Properties: {
+          "desktop-mode": GObject.ParamSpec.boolean(
+            "desktop-mode",
+            "Desktop Mode",
+            "True when window is in desktop (three-column) layout",
+            GObject.ParamFlags.READWRITE,
+            false
+          ),
+        },
         InternalChildren: [
           "editor",
           "gameConsole",
@@ -52,6 +70,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "switcherBar",
           "debugger",
           "toastOverlay",
+          "layoutHost",
+          "leftColumn",
+          "centerColumn",
+          "rightTopBox",
+          "rightBottomBox",
           "unsavedChangesDialog",
           "titleLabel",
           "unsavedChangesIndicator",
@@ -66,9 +89,45 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private currentFile: Gio.File | null = null;
   private pendingDialogAction: "open" | "close" | null = null;
   private codeToAssembleChanged: boolean = false;
+  private lastRunAtMs: number = 0;
+  private focusSourceId: number | null = null;
+
+  // Debounced handler to avoid immediate pause on transient focus loss (e.g., menu popovers)
+  private handleFocusChangeDebounced = debounce(() => {
+    if (!this.is_active) {
+      const state = this._gameConsole.simulator.state;
+      if (state === SimulatorState.RUNNING) {
+        this.pauseGameConsole();
+      }
+    }
+  }, 250);
+
+  // Debounced handler for in-window focus changes in desktop mode
+  private handleChildFocusChangeDebounced = debounce(() => {
+    if (!this.isDesktopMode()) return;
+
+    const focused: Gtk.Widget | null =
+      (this as unknown as Gtk.Window).get_focus?.() ?? null;
+    const isFocusInsideConsole = this.widgetIsDescendantOf(
+      focused,
+      this._gameConsole
+    );
+    if (!isFocusInsideConsole) {
+      // Suppress immediate auto-pause right after starting the program
+      if (Date.now() - this.lastRunAtMs < 400) return;
+      const state = this._gameConsole.simulator.state;
+      if (state === SimulatorState.RUNNING) {
+        this.pauseGameConsole();
+      }
+    }
+  }, 150);
 
   // Map from ViewType to widget
   private viewWidgetMap = new Map<ViewType, Gtk.Widget>();
+
+  private isDesktopMode(): boolean {
+    return this._layoutHost?.get_visible_child_name?.() === "three";
+  }
 
   private set unsavedChanges(unsavedChanges: boolean) {
     fileService?.setUnsavedChanges(unsavedChanges);
@@ -112,6 +171,23 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     themeService.init();
 
     notificationService.init(this, this._toastOverlay);
+
+    // Mount layout based on current breakpoint mode and listen for changes
+    const initialMode = this._layoutHost.get_visible_child_name();
+    if (initialMode === "three") {
+      this.mountThreeColumnLayout();
+    } else {
+      this.mountSingleLayout();
+    }
+
+    this._layoutHost.connect("notify::visible-child-name", () => {
+      const mode = this._layoutHost.get_visible_child_name();
+      if (mode === "three") {
+        this.mountThreeColumnLayout();
+      } else {
+        this.mountSingleLayout();
+      }
+    });
 
     // Setup view to widget mapping
     this.viewWidgetMap.set(ViewType.LEARN, this._learn);
@@ -167,6 +243,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
    * @param viewType The view to navigate to
    */
   public navigateToView(viewType: ViewType): void {
+    // In desktop mode, all relevant views are visible. Skip switching the stack.
+    if (this.isDesktopMode()) {
+      return;
+    }
     const widget = this.viewWidgetMap.get(viewType);
     if (widget) {
       this._stack.set_visible_child(widget);
@@ -232,6 +312,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.onStackVisibleChildChanged.bind(this)
     );
     this.connect("notify::is-active", this.onFocusChanged.bind(this));
+    // Listen to focus changes within the window for desktop-mode pause behavior
+    this.connect("notify::focus-widget", this.onFocusWidgetChanged.bind(this));
   }
 
   private onStackVisibleChildChanged(): void {
@@ -277,10 +359,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       if (state === SimulatorState.RUNNING) {
         // Pause the program
         this.pauseGameConsole();
-        this.showToast({
-          title: _("Program paused automatically"),
-          timeout: 2,
-        });
       }
     }
 
@@ -308,19 +386,27 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private onFocusChanged(): void {
-    // Check if window has lost focus
-    if (!this.is_active) {
-      // Check if simulator is in running state
-      const state = this._gameConsole.simulator.state;
-      if (state === SimulatorState.RUNNING) {
-        // Pause the program
-        this.pauseGameConsole();
-        this.showToast({
-          title: _("Program paused automatically"),
-          timeout: 2,
-        });
-      }
+    // Debounce to ignore transient focus changes from in-window popovers
+    this.handleFocusChangeDebounced();
+  }
+
+  private onFocusWidgetChanged(): void {
+    // Debounce in-window focus changes to avoid pausing on transient focus shifts
+    this.handleChildFocusChangeDebounced();
+  }
+
+  private widgetIsDescendantOf(
+    widget: Gtk.Widget | null,
+    ancestor: Gtk.Widget
+  ): boolean {
+    let current: Gtk.Widget | null = widget;
+    while (current) {
+      if (current === ancestor) return true;
+      current =
+        (current.get_parent && (current.get_parent() as Gtk.Widget | null)) ||
+        null;
     }
+    return false;
   }
 
   private setupActions(): void {
@@ -394,6 +480,100 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.add_action(this.showHelpAction);
   }
 
+  private setupSingleStackPages(): void {
+    // Ensure views are detached from any current parent before adding to stack
+    this.detachFromParent(this._learn);
+    this.detachFromParent(this._editor);
+    this.detachFromParent(this._debugger);
+    this.detachFromParent(this._gameConsole);
+
+    // Remove existing pages
+    const model: any = (this._stack as any).get_pages?.();
+    if (model) {
+      const toRemove: Gtk.Widget[] = [];
+      const n: number = model.get_n_items?.() ?? 0;
+      for (let i = 0; i < n; i++) {
+        const page: any = model.get_item?.(i);
+        const child: Gtk.Widget | undefined = page?.get_child?.();
+        if (child) toRemove.push(child);
+      }
+      for (const child of toRemove) this._stack.remove(child);
+    }
+
+    // Add four pages
+    (this._stack as any).add_titled_with_icon?.(
+      this._learn,
+      "learn",
+      _("Learn"),
+      "school-symbolic"
+    );
+    (this._stack as any).add_titled_with_icon?.(
+      this._editor,
+      "editor",
+      _("Editor"),
+      "code-symbolic"
+    );
+    (this._stack as any).add_titled_with_icon?.(
+      this._debugger,
+      "debugger",
+      _("Debugger"),
+      "bug-symbolic"
+    );
+    (this._stack as any).add_titled_with_icon?.(
+      this._gameConsole,
+      "gameConsole",
+      _("Game Console"),
+      "nintendo-controller-symbolic"
+    );
+  }
+
+  // Mount single layout: all views in one PageStack
+  private mountSingleLayout(): void {
+    this.setupSingleStackPages();
+    this._switcherBar.set_stack(this._stack);
+  }
+
+  // Mount three-column layout: Learn | Editor | (GameConsole over Debugger)
+  private mountThreeColumnLayout(): void {
+    // Clear containers
+    this.clearBoxChildren(this._leftColumn);
+    this.clearBoxChildren(this._centerColumn);
+    this.clearBoxChildren(this._rightTopBox);
+    this.clearBoxChildren(this._rightBottomBox);
+
+    // Left: Learn
+    this.detachFromParent(this._learn);
+    this._leftColumn.append(this._learn);
+    // Center: Editor
+    this.detachFromParent(this._editor);
+    this._centerColumn.append(this._editor);
+    // Right top: Game Console
+    this.detachFromParent(this._gameConsole);
+    this._rightTopBox.append(this._gameConsole);
+    // Right bottom: Debugger
+    this.detachFromParent(this._debugger);
+    this._rightBottomBox.append(this._debugger);
+
+    // Detach bottom switcher in three-column mode
+    this._switcherBar.set_stack(null as unknown as Adw.ViewStack);
+  }
+
+  private clearBoxChildren(box: Gtk.Box): void {
+    let child = box.get_first_child();
+    while (child) {
+      const next = child.get_next_sibling();
+      box.remove(child);
+      child = next;
+    }
+  }
+
+  private detachFromParent(widget: Gtk.Widget): void {
+    const parent = widget.get_parent();
+    if (parent && (parent as any).remove) {
+      (parent as any).remove(widget);
+    }
+  }
+
   private showHelp(): void {
     const helpWindow = new HelpWindow();
     helpWindow.present();
@@ -410,11 +590,32 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     if (targetView && targetView !== this.activeView) {
       this.navigateToView(targetView);
     }
+    // Ensure stepper mode is disabled when running continuously
+    if (debuggerController.stepperEnabled) {
+      debuggerController.stepperEnabled = false;
+    }
     this._gameConsole.run();
+    // Ensure the game console receives focus so keyboard/gamepad input works immediately
+    // Debounce focus slightly to avoid pausing due to transient toolbar focus
+    this.lastRunAtMs = Date.now();
+    this._gameConsole.focus();
+    if (this.focusSourceId) {
+      GLib.source_remove(this.focusSourceId);
+      this.focusSourceId = null;
+    }
+    this.focusSourceId = GLib.timeout_add(GLib.PRIORITY_DEFAULT, 150, () => {
+      this._gameConsole.focus();
+      this.focusSourceId = null;
+      return GLib.SOURCE_REMOVE;
+    });
   }
 
   public pauseGameConsole(): void {
     this._gameConsole.stop();
+    this.showToast({
+      title: _("Program paused"),
+      timeout: 2,
+    });
   }
 
   public reset(): void {
@@ -449,8 +650,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private updateDebugger(): void {
-    // Only update the debugger if it's the visible child
-    if (this._stack.get_visible_child() === this._debugger) {
+    // Update debugger when visible: either active page in mobile, or desktop mode
+    if (
+      this.isDesktopMode() ||
+      this._stack.get_visible_child() === this._debugger
+    ) {
       this._debugger.update(
         this._gameConsole.memory,
         this._gameConsole.simulator
@@ -622,7 +826,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupKeyboardListener(): void {
-    // Plattformspezifischer Key-Controller für Gnome
+    // Platform-specific key controller for GNOME
     const keyController = new Gtk.EventControllerKey();
     this.add_controller(keyController);
 
@@ -633,7 +837,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
     );
 
-    // Plattformspezifische Keycodes registrieren
+    // Register platform-specific keycodes
     gameConsoleController.registerKeyMappings({
       [Gdk.KEY_w]: "Up",
       [Gdk.KEY_s]: "Down",
@@ -649,7 +853,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       [Gdk.KEY_e]: "B",
     });
 
-    // Event-Listener für Gamepad-Eingaben
+    // Event listener for gamepad inputs
     gameConsoleController.on("keyPressed", (event) => {
       // If we're in the game console or debugger view, log the key press
       const visibleChild = this._stack.get_visible_child();
@@ -664,37 +868,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         );
       }
     });
-  }
-
-  // TODO: Migrate or make use of it
-  private handleKeyPress(keyval: number): void {
-    // Don't handle keys if a dialog is showing
-    if (this.unsavedChanges) return;
-
-    // Check keyboard shortcuts that apply in any view
-    switch (keyval) {
-      case Gdk.KEY_F5: // F5 to build
-        this.assembleGameConsole();
-        return;
-      case Gdk.KEY_F6: // F6 to run
-        if (
-          this._gameConsole.simulator.state === SimulatorState.READY ||
-          this._gameConsole.simulator.state === SimulatorState.PAUSED
-        ) {
-          this.runGameConsole();
-        } else if (
-          this._gameConsole.simulator.state === SimulatorState.RUNNING
-        ) {
-          this.pauseGameConsole();
-        }
-        return;
-      case Gdk.KEY_F7: // F7 to step
-        this.stepGameConsole();
-        return;
-    }
-
-    // Let the gamepad service handle other keys
-    // This is already handled by the key controller added in setupKeyboardListener
   }
 
   private updateRunActions(state: SimulatorState): MainButtonState {
@@ -834,7 +1007,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private setupMainStateEventListeners(): void {
     // Listen for state changes
     mainStateController.events.on("state-changed", (state) => {
-      console.log("Main state changed:", state);
+      // React on main state changes by updating run actions
       this.updateRunActions(this._gameConsole.simulator.state);
     });
 

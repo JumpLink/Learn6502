@@ -91,6 +91,17 @@ export class Display extends Adw.Bin implements DisplayWidget {
     this._drawingArea.queue_draw();
   }
 
+  /**
+   * Focus the display to capture keyboard input in desktop mode.
+   */
+  public focus(): boolean {
+    // Prefer focusing the drawing area; if it cannot take focus, fallback to the container
+    if (this._drawingArea) {
+      return this._drawingArea.grab_focus();
+    }
+    return this.grab_focus();
+  }
+
   private drawClear(
     _drawingArea: Gtk.DrawingArea,
     cr: cairo.Context,

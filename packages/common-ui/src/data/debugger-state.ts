@@ -3,4 +3,5 @@ export enum DebuggerState {
   ACTIVE,
   PAUSED,
   RESET,
+  DISABLED,
 }

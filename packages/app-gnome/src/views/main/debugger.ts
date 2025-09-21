@@ -1,5 +1,4 @@
 import GObject from "@girs/gobject-2.0";
-import Gtk from "@girs/gtk-4.0";
 import Adw from "@girs/adw-1";
 
 import {
@@ -26,16 +25,16 @@ import type { GameConsole } from "./game-console.ts";
 export class Debugger extends Adw.Bin implements DebuggerView {
   // Properties
   declare private _state: DebuggerState;
+  declare private _enabled: boolean;
 
   // Child widgets
-  declare private _stack: Gtk.Stack;
   declare private _messageConsole: MessageConsoleWidget;
   declare private _hexMonitor: HexMonitor;
   declare private _hexdump: Hexdump;
   declare private _disassembled: Disassembled;
   declare private _debugInfo: DebugInfoWidget;
-  declare private _statusPage: Adw.StatusPage;
   declare private _stepperSwitch: Adw.SwitchRow;
+  declare private _enabledSwitch: Adw.SwitchRow;
 
   // Reference to game console
   private gameConsole: GameConsole | null = null;
@@ -46,14 +45,13 @@ export class Debugger extends Adw.Bin implements DebuggerView {
         GTypeName: "Debugger",
         Template,
         InternalChildren: [
-          "stack",
           "messageConsole",
           "hexMonitor",
           "hexdump",
           "disassembled",
           "debugInfo",
-          "statusPage",
           "stepperSwitch",
+          "enabledSwitch",
         ],
         Properties: {
           // TypeScript enums are numbers by default
@@ -65,6 +63,13 @@ export class Debugger extends Adw.Bin implements DebuggerView {
             DebuggerState.INITIAL,
             DebuggerState.RESET,
             DebuggerState.INITIAL
+          ),
+          enabled: GObject.ParamSpec.boolean(
+            "enabled",
+            "Enabled",
+            "Debugger enabled",
+            GObject.ParamFlags.READWRITE,
+            true
           ),
         },
       },
@@ -83,8 +88,24 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     }
   }
 
-  /** A list of handler IDs for the signals we connect to. */
-  private handlerIds: number[] = [];
+  public get enabled(): boolean {
+    return this._enabled;
+  }
+
+  public set enabled(value: boolean) {
+    if (this._enabled === value) return;
+    this._enabled = value;
+    this.notify("enabled");
+
+    // Sync with controller state
+    debuggerController.state = value
+      ? this.state === DebuggerState.RESET
+        ? DebuggerState.RESET
+        : DebuggerState.ACTIVE
+      : DebuggerState.DISABLED;
+  }
+
+  // No generic handler tracking needed
 
   // Reference to the last memory update for refreshing when monitor options change
   private memory: Memory | null = null;
@@ -95,14 +116,14 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this.onCopyToClipboard = this.onCopyToClipboard.bind(this);
     this.onCopyToEditor = this.onCopyToEditor.bind(this);
     this.onHexMonitorChanged = this.onHexMonitorChanged.bind(this);
-    this.onStateChanged = this.onStateChanged.bind(this);
-    this.onParamChanged = this.onParamChanged.bind(this);
     this.onServiceStateChanged = this.onServiceStateChanged.bind(this);
     this.onStepperToggled = this.onStepperToggled.bind(this);
     this.onStepperSwitchActivated = this.onStepperSwitchActivated.bind(this);
+    this.onEnabledSwitchActivated = this.onEnabledSwitchActivated.bind(this);
 
     this.setupSignalHandlers();
     this.state = DebuggerState.INITIAL;
+    this.enabled = true;
   }
 
   /**
@@ -197,23 +218,13 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private onServiceStateChanged(newState: DebuggerState): void {
-    // Update UI component state when service state changes
+    // Keep state in sync for service consumers; UI is always the debugger view
     this.state = newState;
-  }
-
-  private onStateChanged(): void {
-    if (this.state === DebuggerState.INITIAL) {
-      this._stack.set_visible_child_name("initial");
-    } else {
-      this._stack.set_visible_child_name("debugger");
-    }
-  }
-
-  private onParamChanged(_self: Debugger, pspec: GObject.ParamSpec): void {
-    switch (pspec.name) {
-      case "state":
-        this.onStateChanged();
-        break;
+    // Reflect enabled state without triggering controller state changes
+    const shouldBeEnabled = newState !== DebuggerState.DISABLED;
+    if (this._enabled !== shouldBeEnabled) {
+      this._enabled = shouldBeEnabled;
+      this.notify("enabled");
     }
   }
 
@@ -235,8 +246,6 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private setupSignalHandlers(): void {
-    this.handlerIds.push(this.connect("notify", this.onParamChanged));
-
     this._disassembled.events.on("copy", this.onCopyToEditor);
 
     this._hexdump.events.on("copy", this.onCopyToClipboard);
@@ -250,15 +259,15 @@ export class Debugger extends Adw.Bin implements DebuggerView {
       "notify::active",
       this.onStepperSwitchActivated
     );
+
+    // Connect enabled switch
+    this._enabledSwitch.connect(
+      "notify::active",
+      this.onEnabledSwitchActivated
+    );
   }
 
   private removeSignalHandlers(): void {
-    try {
-      this.handlerIds.forEach((id) => this.disconnect(id));
-    } catch (error) {
-      console.error("[Debugger] Failed to remove signal handlers", error);
-    }
-
     this._disassembled.events.off("copy", this.onCopyToEditor);
     this._hexdump.events.off("copy", this.onCopyToClipboard);
     this._hexMonitor.events.off("copy", this.onCopyToClipboard);
@@ -267,8 +276,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     // Remove service event listeners
     debuggerController.off("stateChanged", this.onServiceStateChanged);
     debuggerController.off("stepperToggled", this.onStepperToggled);
-
-    this.handlerIds = [];
+    // no-op
   }
 
   /**
@@ -288,6 +296,14 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   private onStepperSwitchActivated(): void {
     // The setter will only dispatch events if the state actually changed
     debuggerController.stepperEnabled = this._stepperSwitch.active;
+    // Stepping implies debugging; ensure enabled
+    if (!this._enabledSwitch.active) {
+      this._enabledSwitch.active = true;
+    }
+  }
+
+  private onEnabledSwitchActivated(): void {
+    this.enabled = this._enabledSwitch.active;
   }
 }
 

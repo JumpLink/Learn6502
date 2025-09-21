@@ -1,0 +1,52 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $Toolbar : Adw.Bin {
+  child: Box toolbar {
+    orientation: vertical;
+    spacing: 0;
+    margin-end: 0;
+    margin-bottom: 0;
+    margin-start: 0;
+    margin-top: 0;
+    halign: end;
+    valign: center;
+
+    Button {
+      icon-name: "build-alt-symbolic";
+      action-name: "win.assemble";
+      tooltip-text: _("Assemble");
+    }
+
+    Button {
+      icon-name: "play-symbolic";
+      action-name: "win.run-simulator";
+      tooltip-text: _("Run");
+    }
+
+    Button {
+      icon-name: "pause-symbolic";
+      action-name: "win.pause-simulator";
+      tooltip-text: _("Pause");
+    }
+
+    Button {
+      icon-name: "step-over-symbolic";
+      action-name: "win.step-simulator";
+      tooltip-text: _("Step");
+    }
+
+    Button {
+      icon-name: "reset-symbolic";
+      action-name: "win.reset-simulator";
+      tooltip-text: _("Reset");
+    }
+
+    styles [
+      "toolbar",
+      "osd",
+    ]
+  };
+}
+
+

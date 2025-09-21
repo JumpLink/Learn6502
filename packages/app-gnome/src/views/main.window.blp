@@ -8,13 +8,49 @@ template $MainWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 624;
 
-  // Add breakpoint for responsive design
+  // Auto switch between single and three-column layouts
   [breakpoint]
   Adw.Breakpoint {
-    condition ("max-width: 500sp")
+    condition ("min-width: 1200sp and min-height: 800sp")
 
     setters {
+      layoutHost.visible-child-name: "three";
+      switcherBar.reveal: false;
+      leftCenterPaned.position: 360;
+
+      titleLabel.visible: true;
+      mainButton.visible: false;
+      runToolbar.visible: true;
+    }
+  }
+
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("max-width: 1199sp or max-height: 799sp")
+
+    setters {
+      layoutHost.visible-child-name: "single";
+      switcherBar.reveal: true;
+
       titleLabel.visible: false;
+      mainButton.visible: true;
+      runToolbar.visible: false;
+    }
+  }
+
+  // Very wide desktop: increase left column width
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("min-width: 1600sp and min-height: 800sp")
+
+    setters {
+      layoutHost.visible-child-name: "three";
+      switcherBar.reveal: false;
+      leftCenterPaned.position: 600;
+
+      titleLabel.visible: true;
+      mainButton.visible: false;
+      runToolbar.visible: true;
     }
   }
 
@@ -39,7 +75,7 @@ template $MainWindow: Adw.ApplicationWindow {
         ]
       }
       [end]
-      $RunMenuButton menuButton {
+      $MenuButton menuButton {
         halign: center;
       }
 
@@ -47,43 +83,79 @@ template $MainWindow: Adw.ApplicationWindow {
 
     content: Overlay mainOverlay {
       child: Adw.ToastOverlay toastOverlay {
-        Adw.ViewStack stack {
-          vexpand: true;
+        Stack layoutHost {
+          name: "layoutHost";
 
-          Adw.ViewStackPage {
-            name: "learn";
-            title: _("Learn");
-            icon-name: "school-symbolic";
-            use-underline: true;
-
-            child: $Learn learn {};
+          // Single (mobile) layout: one ViewStack
+          StackPage singlePage {
+            name: "single";
+            child: Adw.Bin singleContainer {
+              child: Adw.ViewStack stack {
+                vexpand: true;
+              };
+            };
           }
 
-          Adw.ViewStackPage {
-            name: "editor";
-            title: _("Editor");
-            icon-name: "code-symbolic";
-            use-underline: true;
+          // Three column (desktop) layout: Learn | Editor | (GameConsole over Debugger)
+          StackPage threePage {
+            name: "three";
+            child: Adw.Bin threeColumnContainer {
+              child: Box threeColumns {
+                orientation: horizontal;
+                spacing: 0;
 
-            child: $Editor editor {};
-          }
+                // Paned splits left (Learn) and center+right
+                Gtk.Paned leftCenterPaned {
+                  orientation: horizontal;
+                  resize-start-child: false;
+                  shrink-start-child: false;
+                  resize-end-child: true;
+                  shrink-end-child: true;
 
-          Adw.ViewStackPage {
-            name: "debugger";
-            title: _("Debugger");
-            icon-name: "bug-symbolic";
-            use-underline: true;
+                  start-child: Box leftColumn {
+                    hexpand: false;
+                    vexpand: true;
+                  };
 
-            child: $Debugger debugger {};
-          }
+                  end-child: Box centerRight {
+                    orientation: horizontal;
+                    hexpand: true;
+                    vexpand: true;
 
-          Adw.ViewStackPage {
-            name: "gameConsole";
-            title: _("Game Console");
-            icon-name: "nintendo-controller-symbolic";
-            use-underline: true;
+                    // Center column (Editor)
+                    Box centerColumn {
+                      hexpand: true;
+                      vexpand: true;
+                    }
 
-            child: $GameConsole gameConsole {};
+                    Separator {}
+
+                    // Right column with two rows (GameConsole top, Debugger bottom)
+                    Box rightColumn {
+                      orientation: vertical;
+                      hexpand: false;
+                      vexpand: true;
+
+                      Box rightTopBox {
+                        hexpand: false;
+                        vexpand: false;
+                        margin-bottom: 0;
+                        margin-start: 12;
+                        margin-end: 12;
+                        margin-top: 0;
+                      }
+
+                      Separator {}
+
+                      Box rightBottomBox {
+                        hexpand: true;
+                        vexpand: true;
+                      }
+                    }
+                  };
+                }
+              };
+            };
           }
         }
       };
@@ -95,11 +167,17 @@ template $MainWindow: Adw.ApplicationWindow {
         margin-end: 0;
         margin-bottom: 0;
       }
+
+      [overlay]
+      $Toolbar runToolbar {
+        halign: end;
+        valign: center;
+        margin-end: 360;
+      }
     };
 
     [bottom]
     Adw.ViewSwitcherBar switcherBar {
-      stack: stack;
       reveal: true;
     }
 
@@ -118,3 +196,9 @@ Adw.AlertDialog unsavedChangesDialog {
     save: _("Save") suggested,
   ]
 }
+
+// Feature views instantiated as internal children of the template
+$Learn learn {}
+$Editor editor {}
+$Debugger debugger {}
+$GameConsole gameConsole {}

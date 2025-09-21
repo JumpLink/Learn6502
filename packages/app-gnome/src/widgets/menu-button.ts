@@ -1,15 +1,15 @@
 import GObject from "gi://GObject";
 import Adw from "gi://Adw";
 
-import Template from "./run-menu-button.blp";
+import Template from "./menu-button.blp";
 
-export class RunMenuButton extends Adw.Bin {
+export class MenuButton extends Adw.Bin {
   static {
     GObject.registerClass(
       {
-        GTypeName: "RunMenuButton",
+        GTypeName: "MenuButton",
         Template,
-        CssName: "run-menu-button",
+        CssName: "menu-button",
       },
       this
     );
@@ -20,4 +20,4 @@ export class RunMenuButton extends Adw.Bin {
   }
 }
 
-GObject.type_ensure(RunMenuButton.$gtype);
+GObject.type_ensure(MenuButton.$gtype);

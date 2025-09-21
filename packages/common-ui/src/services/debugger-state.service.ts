@@ -59,6 +59,8 @@ export class DebuggerStateService {
    * @param simulatorState Current simulator state
    */
   public updateFromSimulatorState(simulatorState: SimulatorState): void {
+    // Preserve disabled state until explicitly re-enabled
+    if (this._debuggerState === DebuggerState.DISABLED) return;
     this._debuggerState = this.calculateDebuggerState(simulatorState);
   }
 
