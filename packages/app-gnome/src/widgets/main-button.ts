@@ -66,36 +66,43 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
     },
     [MainButtonState.ASSEMBLE]: {
       iconName: "build-alt-symbolic",
+      // TRANSLATORS: Main action button label and menu item to assemble current code
       text: _("Assemble"),
       actionName: this.assembleAction,
     },
     [MainButtonState.RUN]: {
       iconName: "play-symbolic",
+      // TRANSLATORS: Main action button label to start continuous execution of the simulator
       text: _("Run"),
       actionName: this.runSimulatorAction,
     },
     [MainButtonState.PAUSE]: {
       iconName: "pause-symbolic",
+      // TRANSLATORS: Main action button label to pause the running simulator
       text: _("Pause"),
       actionName: this.pauseSimulatorAction,
     },
     [MainButtonState.RESUME]: {
       iconName: "resume-symbolic",
+      // TRANSLATORS: Main action button label to continue execution after pause
       text: _("Resume"),
       actionName: this.resumeSimulatorAction,
     },
     [MainButtonState.RESET]: {
       iconName: "reset-symbolic",
+      // TRANSLATORS: Main action button label to reset simulator and state
       text: _("Reset"),
       actionName: this.resetSimulatorAction,
     },
     [MainButtonState.STEP]: {
       iconName: "step-over-symbolic",
+      // TRANSLATORS: Main action button label for single-step execution when debugger is enabled
       text: _("Step"),
       actionName: this.stepSimulatorAction,
     },
     [MainButtonState.HIDDEN]: {
       iconName: "build-alt-symbolic", // Fallback icon, won't be shown
+      // TRANSLATORS: Main action button label when hidden (fallback)
       text: _("Hidden"),
       actionName: this.assembleAction, // Fallback action, won't be used
     },

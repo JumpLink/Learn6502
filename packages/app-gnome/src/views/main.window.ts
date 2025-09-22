@@ -259,6 +259,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     learnController.on("copy", ({ code }: { code: string }) => {
       this.setEditorCode(code);
       this.showToast({
+        // TRANSLATORS: Toast message title after copying code snippet into the editor
         title: _("Code copied to editor"),
         timeout: 2,
       });
@@ -285,11 +286,13 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     const success = copyToClipboard(code, this.get_clipboard());
     if (success) {
       this.showToast({
+        // TRANSLATORS: Toast message title after copying to clipboard
         title: _("Copied to clipboard"),
         timeout: 2,
       });
     } else {
       this.showToast({
+        // TRANSLATORS: Toast message title when clipboard copy fails
         title: _("Failed to copy to clipboard"),
         timeout: 2,
       });
@@ -504,24 +507,28 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     (this._stack as any).add_titled_with_icon?.(
       this._learn,
       "learn",
+      // TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
       _("Learn"),
       "school-symbolic"
     );
     (this._stack as any).add_titled_with_icon?.(
       this._editor,
       "editor",
+      // TRANSLATORS: ViewSwitcher/tab title for the Editor view
       _("Editor"),
       "code-symbolic"
     );
     (this._stack as any).add_titled_with_icon?.(
       this._debugger,
       "debugger",
+      // TRANSLATORS: ViewSwitcher/tab title for the Debugger view
       _("Debugger"),
       "bug-symbolic"
     );
     (this._stack as any).add_titled_with_icon?.(
       this._gameConsole,
       "gameConsole",
+      // TRANSLATORS: ViewSwitcher/tab title for the Game Console view
       _("Game Console"),
       "nintendo-controller-symbolic"
     );
@@ -613,6 +620,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   public pauseGameConsole(): void {
     this._gameConsole.stop();
     this.showToast({
+      // TRANSLATORS: Toast message title shown when pausing the game console
       title: _("Program paused"),
       timeout: 2,
     });
@@ -676,6 +684,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.updateRunActions(this._gameConsole.simulator.state);
 
       this.showToast({
+        // TRANSLATORS: Toast message title after successful assembly
         title: _("Assembled successfully"),
         timeout: 2,
       });
@@ -688,6 +697,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
 
       this.showToast({
+        // TRANSLATORS: Toast message title after assembly failure
         title: _("Assemble failed"),
         timeout: 2,
       });
@@ -789,6 +799,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
 
       this.showToast({
+        // TRANSLATORS: Toast message title when simulator reports a failure
         title: _("Simulator failure"),
         timeout: 2,
       });
@@ -808,6 +819,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       }
 
       this.showToast({
+        // TRANSLATORS: Toast message title when labels processing fails
         title: _("Labels failure"),
         timeout: 2,
       });
@@ -926,6 +938,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.currentFile = fileService.getCurrentGioFile() || null;
       this._titleLabel.label = result.filename;
       this.showToast({
+        // TRANSLATORS: Toast message title after opening a file, includes filename
         title: _("Opened %s").format(result.filename),
         timeout: 2,
       });
@@ -953,6 +966,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.currentFile = fileService.getCurrentGioFile() || null;
       this._titleLabel.label = this.getCurrentFileName();
       this.showToast({
+        // TRANSLATORS: Toast message title after saving file successfully, includes filename
         title: _("Saved as %s").format(this.getCurrentFileName()),
         timeout: 2,
       });

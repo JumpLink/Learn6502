@@ -63,7 +63,9 @@ class NotificationService extends BaseNotificationService {
       });
 
       // Add response buttons
+      // TRANSLATORS: Generic confirmation dialog button label
       dialog.add_response("cancel", options.cancelLabel || _("Cancel"));
+      // TRANSLATORS: Generic confirmation dialog button label
       dialog.add_response("confirm", options.confirmLabel || _("Confirm"));
 
       // Event handler for response
@@ -90,6 +92,7 @@ class NotificationService extends BaseNotificationService {
       });
 
       // Add OK button
+      // TRANSLATORS: Alert dialog response button label to confirm an action
       dialog.add_response("close", options.confirmLabel || _("OK"));
 
       // Event handler for response

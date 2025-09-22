@@ -336,6 +336,7 @@ msgstr ""
 msgid "After this, the value <tt>2</tt> is added to the accumulator, to create a final random number in the range 2–5."
 msgstr ""
 
+#. TRANSLATORS: File filter name for all file types
 msgid "All Files"
 msgstr ""
 
@@ -363,9 +364,11 @@ msgstr ""
 msgid "As stated before, the four directions are represented internally by the numbers 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented by a binary number with a single <tt>1</tt>:"
 msgstr ""
 
+#. TRANSLATORS: Main action button label and menu item to assemble current code
 msgid "Assemble"
 msgstr ""
 
+#. TRANSLATORS: Toast message title after assembly failure
 msgid "Assemble failed"
 msgstr ""
 
@@ -378,6 +381,7 @@ msgstr ""
 msgid "Assemble the following code, then check the debugger to see the hexdump of the assembled code."
 msgstr ""
 
+#. TRANSLATORS: Toast message title after successful assembly
 msgid "Assembled successfully"
 msgstr ""
 
@@ -387,6 +391,7 @@ msgstr ""
 msgid "Assembly"
 msgstr ""
 
+#. TRANSLATORS: File filter name for assembly source files
 msgid "Assembly Files"
 msgstr ""
 
@@ -409,6 +414,7 @@ msgid "Built-in debugger"
 msgstr ""
 
 #. Add response buttons
+#. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
 msgstr ""
 
@@ -422,6 +428,7 @@ msgstr ""
 msgid "Code assembled successfully, %d bytes."
 msgstr ""
 
+#. TRANSLATORS: Toast message title after copying code snippet into the editor
 msgid "Code copied to editor"
 msgstr ""
 
@@ -437,12 +444,14 @@ msgstr ""
 msgid "Common Instructions"
 msgstr ""
 
+#. TRANSLATORS: Generic confirmation dialog button label
 msgid "Confirm"
 msgstr ""
 
 msgid "Continue"
 msgstr ""
 
+#. TRANSLATORS: Toast message title after copying to clipboard
 msgid "Copied to clipboard"
 msgstr ""
 
@@ -461,6 +470,7 @@ msgstr ""
 msgid "Debug your programs with real-time inspection tools"
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
 msgid "Debugger"
 msgstr ""
 
@@ -494,6 +504,7 @@ msgstr ""
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Editor"
 msgstr ""
 
@@ -524,6 +535,7 @@ msgstr ""
 msgid "Exercises"
 msgstr ""
 
+#. TRANSLATORS: Toast message title when clipboard copy fails
 msgid "Failed to copy to clipboard"
 msgstr ""
 
@@ -564,6 +576,7 @@ msgstr ""
 msgid "GNOME"
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Game Console"
 msgstr ""
 
@@ -595,6 +608,7 @@ msgid "Hexdump:"
 msgstr ""
 
 #. Fallback icon, won't be shown
+#. TRANSLATORS: Main action button label when hidden (fallback)
 msgid "Hidden"
 msgstr ""
 
@@ -707,9 +721,11 @@ msgstr ""
 msgid "Label {label} is already used as a symbol; please rename one of them"
 msgstr ""
 
+#. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
 msgstr ""
 
@@ -765,6 +781,7 @@ msgid "Now, let's put all this knowledge to good use, and make a game! We're goi
 msgstr ""
 
 #. Add OK button
+#. TRANSLATORS: Alert dialog response button label to confirm an action
 msgid "OK"
 msgstr ""
 
@@ -774,12 +791,14 @@ msgstr ""
 msgid "Once the values have been shifted down the snake, we have to work out what to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</tt> means \"logical shift right\", or \"shift all the bits one position to the right\". The least significant bit is shifted into the carry flag, so if the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the carry flag set."
 msgstr ""
 
+#. TRANSLATORS: File dialog title when choosing an assembly source file
 msgid "Open Assembly File"
 msgstr ""
 
 msgid "Open..."
 msgstr ""
 
+#. TRANSLATORS: Toast message title after opening a file, includes filename
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
@@ -806,6 +825,7 @@ msgstr ""
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
 msgstr ""
 
+#. TRANSLATORS: Main action button label to pause the running simulator
 msgid "Pause"
 msgstr ""
 
@@ -870,6 +890,7 @@ msgstr ""
 msgid "Program completed at PC=$%s"
 msgstr ""
 
+#. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"
 msgstr ""
 
@@ -909,21 +930,25 @@ msgstr ""
 msgid "Rendering the game"
 msgstr ""
 
+#. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
 msgstr ""
 
+#. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
 msgstr ""
 
 msgid "Rewrite the first example in this section to use the <tt>Y</tt> register instead of the <tt>X</tt> register."
 msgstr ""
 
+#. TRANSLATORS: Main action button label to start continuous execution of the simulator
 msgid "Run"
 msgstr ""
 
 msgid "Save"
 msgstr ""
 
+#. TRANSLATORS: File dialog title for saving a new assembly file
 msgid "Save Assembly File"
 msgstr ""
 
@@ -933,6 +958,7 @@ msgstr ""
 msgid "Save changes?"
 msgstr ""
 
+#. TRANSLATORS: Toast message title after saving file successfully, includes filename
 #, javascript-format
 msgid "Saved as %s"
 msgstr ""
@@ -949,6 +975,7 @@ msgstr ""
 msgid "Simulator"
 msgstr ""
 
+#. TRANSLATORS: Toast message title when simulator reports a failure
 msgid "Simulator failure"
 msgstr ""
 
@@ -997,6 +1024,7 @@ msgstr ""
 msgid "Status Flags"
 msgstr ""
 
+#. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 msgid "Step"
 msgstr ""
 
@@ -1163,6 +1191,7 @@ msgstr ""
 msgid "Unlike zero page,Y, absolute,Y can't be used with <tt>STX</tt> but can be used with <tt>LDA</tt> and <tt>STA</tt>."
 msgstr ""
 
+#. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
 msgid "Unsaved changes"
 msgstr ""
 

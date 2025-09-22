@@ -36,6 +36,7 @@ class FileService extends BaseFileService {
   } | null> {
     try {
       const fileDialog = new Gtk.FileDialog({
+        // TRANSLATORS: File dialog title when choosing an assembly source file
         title: _("Open Assembly File"),
         modal: true,
         filters: this.createFileFilters(),
@@ -77,6 +78,7 @@ class FileService extends BaseFileService {
   ): Promise<boolean> {
     try {
       const fileDialog = new Gtk.FileDialog({
+        // TRANSLATORS: File dialog title for saving a new assembly file
         title: _("Save Assembly File"),
         modal: true,
         filters: this.createFileFilters(),
@@ -155,6 +157,7 @@ class FileService extends BaseFileService {
 
       // Update tooltip text
       if (this.currentFile === null) {
+        // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
         this.unsavedChangesIndicator.tooltip_text = _("Unsaved changes");
       } else {
         this.unsavedChangesIndicator.tooltip_text = _(
@@ -171,11 +174,13 @@ class FileService extends BaseFileService {
     const filters = new Gio.ListStore({ item_type: Gtk.FileFilter.$gtype });
 
     const asmFilter = Gtk.FileFilter.new();
+    // TRANSLATORS: File filter name for assembly source files
     asmFilter.set_name(_("Assembly Files"));
     asmFilter.add_pattern("*.asm");
     asmFilter.add_pattern("*.s");
 
     const allFilter = Gtk.FileFilter.new();
+    // TRANSLATORS: File filter name for all file types
     allFilter.set_name(_("All Files"));
     allFilter.add_pattern("*");
 

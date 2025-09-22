@@ -20,9 +20,9 @@ msgstr ""
 
 msgid ""
 "(Actually, I've been reliably informed that 6502 processors are still being "
-"produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip."
-"php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?"
-"q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead "
+"produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-"
+"chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/"
+"c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead "
 "language! Who knew?)"
 msgstr ""
 
@@ -332,8 +332,8 @@ msgstr ""
 
 msgid ""
 "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/"
-"web/20250915114440/http://www.6502.org/tutorials/6502opcodes."
-"html\">available here</a> and <a href=\"https://web.archive.org/"
+"web/20250915114440/http://www.6502.org/tutorials/"
+"6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/"
 "web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> "
 "(I usually refer to both pages as they have their strengths and weaknesses). "
 "These pages detail the arguments to each instruction, which registers they "
@@ -444,6 +444,7 @@ msgid ""
 "final random number in the range 2–5."
 msgstr ""
 
+#. TRANSLATORS: File filter name for all file types
 msgid "All Files"
 msgstr ""
 
@@ -470,8 +471,8 @@ msgstr ""
 msgid ""
 "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by "
 "extension, in this book) are in hexadecimal (hex) format. If you're not "
-"familiar with hex numbers, I recommend you read <a href=\"https://en."
-"wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
+"familiar with hex numbers, I recommend you read <a href=\"https://"
+"en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
 "prefixed with <tt>#</tt> is a literal number value. Any other number refers "
 "to a memory location."
 msgstr ""
@@ -498,9 +499,11 @@ msgid ""
 "represented by a binary number with a single <tt>1</tt>:"
 msgstr ""
 
+#. TRANSLATORS: Main action button label and menu item to assemble current code
 msgid "Assemble"
 msgstr ""
 
+#. TRANSLATORS: Toast message title after assembly failure
 msgid "Assemble failed"
 msgstr ""
 
@@ -530,6 +533,7 @@ msgid ""
 "the assembled code."
 msgstr ""
 
+#. TRANSLATORS: Toast message title after successful assembly
 msgid "Assembled successfully"
 msgstr ""
 
@@ -539,6 +543,7 @@ msgstr ""
 msgid "Assembly"
 msgstr ""
 
+#. TRANSLATORS: File filter name for assembly source files
 msgid "Assembly Files"
 msgstr ""
 
@@ -574,6 +579,7 @@ msgid "Built-in debugger"
 msgstr ""
 
 #. Add response buttons
+#. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
 msgstr ""
 
@@ -592,6 +598,7 @@ msgstr ""
 msgid "Code assembled successfully, %d bytes."
 msgstr ""
 
+#. TRANSLATORS: Toast message title after copying code snippet into the editor
 msgid "Code copied to editor"
 msgstr ""
 
@@ -607,12 +614,14 @@ msgstr ""
 msgid "Common Instructions"
 msgstr ""
 
+#. TRANSLATORS: Generic confirmation dialog button label
 msgid "Confirm"
 msgstr ""
 
 msgid "Continue"
 msgstr ""
 
+#. TRANSLATORS: Toast message title after copying to clipboard
 msgid "Copied to clipboard"
 msgstr ""
 
@@ -631,6 +640,7 @@ msgstr ""
 msgid "Debug your programs with real-time inspection tools"
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
 msgid "Debugger"
 msgstr ""
 
@@ -674,6 +684,7 @@ msgid ""
 "another little detour."
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Editor"
 msgstr ""
 
@@ -714,6 +725,7 @@ msgstr ""
 msgid "Exercises"
 msgstr ""
 
+#. TRANSLATORS: Toast message title when clipboard copy fails
 msgid "Failed to copy to clipboard"
 msgstr ""
 
@@ -776,6 +788,7 @@ msgstr ""
 msgid "GNOME"
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Game Console"
 msgstr ""
 
@@ -815,6 +828,7 @@ msgid "Hexdump:"
 msgstr ""
 
 #. Fallback icon, won't be shown
+#. TRANSLATORS: Main action button label when hidden (fallback)
 msgid "Hidden"
 msgstr ""
 
@@ -893,16 +907,16 @@ msgstr ""
 msgid ""
 "In this tiny tutorial I'm going to show you how to get started writing 6502 "
 "assembly language. The 6502 processor was massive in the seventies and "
-"eighties, powering famous computers like the <a href=\"https://en.wikipedia."
-"org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/"
-"Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/"
-"Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/"
-"Apple_II\">Apple II</a>, and the <a href=\"https://en.wikipedia.org/wiki/"
-"Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in "
-"Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502."
-"jpg\">has a 6502 processor for a brain</a>. <a href=\"https://www.pagetable."
-"com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in "
-"6502</a>."
+"eighties, powering famous computers like the <a href=\"https://"
+"en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://"
+"en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://"
+"en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://"
+"en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"https://"
+"en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
+"System</a>. Bender in Futurama <a href=\"https://www.transbyte.org/SID/SID-"
+"files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a "
+"href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the "
+"Terminator was programmed in 6502</a>."
 msgstr ""
 
 msgid "Index register X: Used for addressing"
@@ -989,9 +1003,11 @@ msgstr ""
 msgid "Label {label} is already used as a symbol; please rename one of them"
 msgstr ""
 
+#. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
 msgstr ""
 
@@ -1079,6 +1095,7 @@ msgid ""
 msgstr ""
 
 #. Add OK button
+#. TRANSLATORS: Alert dialog response button label to confirm an action
 msgid "OK"
 msgstr ""
 
@@ -1096,12 +1113,14 @@ msgid ""
 "carry flag set."
 msgstr ""
 
+#. TRANSLATORS: File dialog title when choosing an assembly source file
 msgid "Open Assembly File"
 msgstr ""
 
 msgid "Open..."
 msgstr ""
 
+#. TRANSLATORS: Toast message title after opening a file, includes filename
 #, javascript-format
 msgid "Opened %s"
 msgstr ""
@@ -1132,6 +1151,7 @@ msgid ""
 "detecting signed arithmetic errors in calculations."
 msgstr ""
 
+#. TRANSLATORS: Main action button label to pause the running simulator
 msgid "Pause"
 msgstr ""
 
@@ -1206,6 +1226,7 @@ msgstr ""
 msgid "Program completed at PC=$%s"
 msgstr ""
 
+#. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"
 msgstr ""
 
@@ -1248,9 +1269,11 @@ msgstr ""
 msgid "Rendering the game"
 msgstr ""
 
+#. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
 msgstr ""
 
+#. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
 msgstr ""
 
@@ -1259,12 +1282,14 @@ msgid ""
 "instead of the <tt>X</tt> register."
 msgstr ""
 
+#. TRANSLATORS: Main action button label to start continuous execution of the simulator
 msgid "Run"
 msgstr ""
 
 msgid "Save"
 msgstr ""
 
+#. TRANSLATORS: File dialog title for saving a new assembly file
 msgid "Save Assembly File"
 msgstr ""
 
@@ -1274,6 +1299,7 @@ msgstr ""
 msgid "Save changes?"
 msgstr ""
 
+#. TRANSLATORS: Toast message title after saving file successfully, includes filename
 #, javascript-format
 msgid "Saved as %s"
 msgstr ""
@@ -1297,6 +1323,7 @@ msgstr ""
 msgid "Simulator"
 msgstr ""
 
+#. TRANSLATORS: Toast message title when simulator reports a failure
 msgid "Simulator failure"
 msgstr ""
 
@@ -1375,6 +1402,7 @@ msgstr ""
 msgid "Status Flags"
 msgstr ""
 
+#. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 msgid "Step"
 msgstr ""
 
@@ -1526,8 +1554,8 @@ msgid ""
 "The last section shows the processor flags. Each flag is one bit, so all "
 "seven flags live in a single byte. The flags are set by the processor to "
 "give information about the previous instruction. More on that later. <a "
-"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me."
-"uk/6502/registers.html\">Read more about the registers and flags here</a>."
+"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/"
+"6502/registers.html\">Read more about the registers and flags here</a>."
 msgstr ""
 
 msgid ""
@@ -1651,11 +1679,11 @@ msgstr ""
 
 msgid ""
 "There's also a very practical reason: retro game development. The homebrew "
-"scene is alive and well—new games are still <a href=\"https://www.youtube."
-"com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical "
-"cartridges) and for many other classic systems; the NES is just an example. "
-"Even if your target is something like the SNES, starting with 6502 pays off: "
-"the SNES CPU (65C816) is backward-compatible with the 6502, so the "
+"scene is alive and well—new games are still <a href=\"https://"
+"www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as "
+"physical cartridges) and for many other classic systems; the NES is just an "
+"example. Even if your target is something like the SNES, starting with 6502 "
+"pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the "
 "fundamentals you learn here—registers, addressing modes, and the core "
 "instruction set—carry straight over."
 msgstr ""
@@ -1726,6 +1754,7 @@ msgid ""
 "used with <tt>LDA</tt> and <tt>STA</tt>."
 msgstr ""
 
+#. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
 msgid "Unsaved changes"
 msgstr ""
 

@@ -21,15 +21,15 @@ msgstr ""
 
 msgid ""
 "(Actually, I've been reliably informed that 6502 processors are still being "
-"produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip."
-"php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?"
-"q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead "
+"produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-"
+"chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/"
+"c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead "
 "language! Who knew?)"
 msgstr ""
 "(Tatsächlich wurde mir zuverlässig mitgeteilt, dass 6502-Prozessoren immer "
-"noch von <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip."
-"php\">Western Design Center</a> hergestellt und <a href=\"https://www.mouser."
-"co.uk/c/?q=65C02\">an Bastler verkauft</a> werden, also ist 6502 "
+"noch von <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-"
+"chip.php\">Western Design Center</a> hergestellt und <a href=\"https://"
+"www.mouser.co.uk/c/?q=65C02\">an Bastler verkauft</a> werden, also ist 6502 "
 "offensichtlich <i>keine</i> tote Sprache! Wer hätte das gedacht?)"
 
 msgid "6502"
@@ -157,7 +157,6 @@ msgstr ""
 msgid "<b>Action buttons</b>:"
 msgstr "<b>Aktionstasten</b>:"
 
-#, fuzzy
 msgid "<b>B</b> (Break): Set when BRK instruction is executed"
 msgstr "<b>B</b> (Break): Gesetzt, wenn BRK-Anweisung ausgeführt wird"
 
@@ -280,10 +279,8 @@ msgstr ""
 msgid "<b>STA/STX/STY</b>: Store registers to memory"
 msgstr "<b>STA/STX/STY</b>: Register im Speicher ablegen"
 
-#, fuzzy
 msgid "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
-msgstr ""
-"Bildschirm wird auf Speicherbereich <tt>$0200</tt>-<tt>$05FF</tt> abgebildet"
+msgstr "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
 
 # Duplicate of earlier entry removed to avoid multiple definition
 msgid ""
@@ -428,20 +425,21 @@ msgstr ""
 
 msgid ""
 "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/"
-"web/20250915114440/http://www.6502.org/tutorials/6502opcodes."
-"html\">available here</a> and <a href=\"https://web.archive.org/"
+"web/20250915114440/http://www.6502.org/tutorials/"
+"6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/"
 "web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> "
 "(I usually refer to both pages as they have their strengths and weaknesses). "
 "These pages detail the arguments to each instruction, which registers they "
 "use, and which flags they set. They are your bible."
 msgstr ""
-"Eine vollständige Liste des 6502-Befehlssatzes ist <a href=\"https://web."
-"archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes."
-"html\">hier</a> und <a href=\"https://web.archive.org/web/20210626042844/"
-"http://www.obelisk.me.uk/6502/reference.html\">hier</a> verfügbar (ich "
-"verweise normalerweise auf beide Seiten, da sie ihre Stärken und Schwächen "
-"haben). Diese Seiten beschreiben die Argumente für jede Anweisung, welche "
-"Register sie verwenden und welche Flags sie setzen. Sie sind deine Bibel."
+"Eine vollständige Liste des 6502-Befehlssatzes ist <a href=\"https://"
+"web.archive.org/web/20250915114440/http://www.6502.org/tutorials/"
+"6502opcodes.html\">hier</a> und <a href=\"https://web.archive.org/web/"
+"20210626042844/http://www.obelisk.me.uk/6502/reference.html\">hier</a> "
+"verfügbar (ich verweise normalerweise auf beide Seiten, da sie ihre Stärken "
+"und Schwächen haben). Diese Seiten beschreiben die Argumente für jede "
+"Anweisung, welche Register sie verwenden und welche Flags sie setzen. Sie "
+"sind deine Bibel."
 
 msgid "About Learn 6502 Assembly"
 msgstr "Über Lerne 6502 Assembler"
@@ -576,6 +574,7 @@ msgstr ""
 "Danach wird der Wert <tt>2</tt> zum Akkumulator addiert, um eine endgültige "
 "Zufallszahl im Bereich 2-5 zu erzeugen."
 
+#. TRANSLATORS: File filter name for all file types
 msgid "All Files"
 msgstr "Alle Dateien"
 
@@ -612,8 +611,8 @@ msgstr ""
 msgid ""
 "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by "
 "extension, in this book) are in hexadecimal (hex) format. If you're not "
-"familiar with hex numbers, I recommend you read <a href=\"https://en."
-"wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
+"familiar with hex numbers, I recommend you read <a href=\"https://"
+"en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything "
 "prefixed with <tt>#</tt> is a literal number value. Any other number refers "
 "to a memory location."
 msgstr ""
@@ -656,9 +655,11 @@ msgstr ""
 "2, 4 und 8 dargestellt. Jede dieser Zahlen ist eine Zweierpotenz, daher "
 "werden sie durch eine Binärzahl mit einer einzigen <tt>1</tt> dargestellt:"
 
+#. TRANSLATORS: Main action button label and menu item to assemble current code
 msgid "Assemble"
 msgstr "Assemblieren"
 
+#. TRANSLATORS: Toast message title after assembly failure
 msgid "Assemble failed"
 msgstr "Assemblierung fehlgeschlagen"
 
@@ -707,6 +708,7 @@ msgstr ""
 "Assembliere den folgenden Code und schaue dann im Debugger, um den Hexdump "
 "des assemblierten Codes zu sehen."
 
+#. TRANSLATORS: Toast message title after successful assembly
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
@@ -716,6 +718,7 @@ msgstr "Code wird assembliert..."
 msgid "Assembly"
 msgstr "Assembler"
 
+#. TRANSLATORS: File filter name for assembly source files
 msgid "Assembly Files"
 msgstr "Assembler-Dateien"
 
@@ -766,10 +769,10 @@ msgid "Built-in debugger"
 msgstr "Integrierter Debugger"
 
 #. Add response buttons
+#. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
 msgstr "Abbrechen"
 
-#, fuzzy
 msgid ""
 "Carry Flag: Set when an addition produces a carry-out; clear when a "
 "subtraction requires a borrow. Used for multi-byte arithmetic and shifts/"
@@ -792,6 +795,7 @@ msgstr ""
 msgid "Code assembled successfully, %d bytes."
 msgstr "Code erfolgreich assembliert, %d Bytes."
 
+#. TRANSLATORS: Toast message title after copying code snippet into the editor
 msgid "Code copied to editor"
 msgstr "Code in Editor kopiert"
 
@@ -807,12 +811,14 @@ msgstr "Farbpalette"
 msgid "Common Instructions"
 msgstr "Häufige Anweisungen"
 
+#. TRANSLATORS: Generic confirmation dialog button label
 msgid "Confirm"
 msgstr "Bestätigen"
 
 msgid "Continue"
 msgstr "Fortfahren"
 
+#. TRANSLATORS: Toast message title after copying to clipboard
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
@@ -831,6 +837,7 @@ msgstr "Dunkler Stil"
 msgid "Debug your programs with real-time inspection tools"
 msgstr "Debugge deine Programme mit Echtzeit-Inspektionswerkzeugen"
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
 msgid "Debugger"
 msgstr "Debugger"
 
@@ -886,6 +893,7 @@ msgstr ""
 "ob die aktuelle Richtung die entgegengesetzte der neuen Richtung ist. Dies "
 "erfordert einen weiteren kleinen Umweg."
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Editor"
 msgstr "Editor"
 
@@ -936,6 +944,7 @@ msgstr "Übung"
 msgid "Exercises"
 msgstr "Übungen"
 
+#. TRANSLATORS: Toast message title when clipboard copy fails
 msgid "Failed to copy to clipboard"
 msgstr "Konnte nicht in die Zwischenablage kopiert werden"
 
@@ -976,10 +985,10 @@ msgstr ""
 "Programm, damit wir später dorthin zurückkehren können. Nach dem Label "
 "dekrementieren wir <tt>X</tt>, speichern es in <tt>$0200</tt> (das Pixel "
 "oben links) und vergleichen es dann mit dem Wert <tt>$03</tt>. <a "
-"href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me."
-"uk/6502/reference.html#CPX\"><tt>CPX</tt></a> vergleicht den Wert im <tt>X</"
-"tt>-Register mit einem anderen Wert. Wenn die beiden Werte gleich sind, wird "
-"das <tt>Z</tt>-Flag auf <tt>1</tt> gesetzt, andernfalls auf <tt>0</tt>."
+"href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/"
+"6502/reference.html#CPX\"><tt>CPX</tt></a> vergleicht den Wert im <tt>X</tt>-"
+"Register mit einem anderen Wert. Wenn die beiden Werte gleich sind, wird das "
+"<tt>Z</tt>-Flag auf <tt>1</tt> gesetzt, andernfalls auf <tt>0</tt>."
 
 msgid ""
 "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, "
@@ -1022,6 +1031,7 @@ msgstr "Gesamter Speicher ($0000-$FFFF)"
 msgid "GNOME"
 msgstr "GNOME"
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Game Console"
 msgstr "Spielkonsole"
 
@@ -1072,6 +1082,7 @@ msgid "Hexdump:"
 msgstr "Hexdump:"
 
 #. Fallback icon, won't be shown
+#. TRANSLATORS: Main action button label when hidden (fallback)
 msgid "Hidden"
 msgstr "Ausgeblendet"
 
@@ -1186,25 +1197,25 @@ msgstr ""
 msgid ""
 "In this tiny tutorial I'm going to show you how to get started writing 6502 "
 "assembly language. The 6502 processor was massive in the seventies and "
-"eighties, powering famous computers like the <a href=\"https://en.wikipedia."
-"org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/"
-"Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/"
-"Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/"
-"Apple_II\">Apple II</a>, and the <a href=\"https://en.wikipedia.org/wiki/"
-"Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in "
-"Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502."
-"jpg\">has a 6502 processor for a brain</a>. <a href=\"https://www.pagetable."
-"com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in "
-"6502</a>."
+"eighties, powering famous computers like the <a href=\"https://"
+"en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://"
+"en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://"
+"en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://"
+"en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"https://"
+"en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
+"System</a>. Bender in Futurama <a href=\"https://www.transbyte.org/SID/SID-"
+"files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a "
+"href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the "
+"Terminator was programmed in 6502</a>."
 msgstr ""
 "In diesem kleinen Tutorial zeige ich dir, wie du mit der 6502-"
 "Assemblersprache loslegen kannst. Der 6502-Prozessor war in den Siebzigern "
 "und Achtzigern riesig und trieb berühmte Computer wie den <a href=\"https://"
-"de.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://de."
-"wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://de."
-"wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://de."
-"wikipedia.org/wiki/Apple_II\">Apple II</a> und das <a href=\"https://de."
-"wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
+"de.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://"
+"de.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://"
+"de.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://"
+"de.wikipedia.org/wiki/Apple_II\">Apple II</a> und das <a href=\"https://"
+"de.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment "
 "System</a> an. Bender aus Futurama <a href=\"https://www.transbyte.org/SID/"
 "SID-files/Bender_6502.jpg\">hat einen 6502-Prozessor als Gehirn</a>. <a "
 "href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Sogar der "
@@ -1318,9 +1329,11 @@ msgid "Label {label} is already used as a symbol; please rename one of them"
 msgstr ""
 "Label {label} wird bereits als Symbol verwendet; bitte eines davon umbenennen"
 
+#. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
 msgstr "Label-Fehler"
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
 msgstr "Lernen"
 
@@ -1446,6 +1459,7 @@ msgstr ""
 "werden eine sehr einfache Version des klassischen Spiels 'Snake' erstellen."
 
 #. Add OK button
+#. TRANSLATORS: Alert dialog response button label to confirm an action
 msgid "OK"
 msgstr "OK"
 
@@ -1470,12 +1484,14 @@ msgstr ""
 "Akkumulator <tt>1</tt> ist, ist er nach <tt>LSR</tt> <tt>0</tt>, wobei das "
 "Carry-Flag gesetzt ist."
 
+#. TRANSLATORS: File dialog title when choosing an assembly source file
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
 msgid "Open..."
 msgstr "Öffnen..."
 
+#. TRANSLATORS: Toast message title after opening a file, includes filename
 #, javascript-format
 msgid "Opened %s"
 msgstr "Geöffnet: %s"
@@ -1513,6 +1529,7 @@ msgstr ""
 "dargestellt werden kann. Wird zur Erkennung von Fehlern in "
 "vorzeichenbehafteten arithmetischen Berechnungen verwendet."
 
+#. TRANSLATORS: Main action button label to pause the running simulator
 msgid "Pause"
 msgstr "Pause"
 
@@ -1598,6 +1615,7 @@ msgstr "Programmiere Retro-Spielekonsolen"
 msgid "Program completed at PC=$%s"
 msgstr "Programm beendet bei PC=$%s"
 
+#. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"
 msgstr "Programm pausiert"
 
@@ -1644,9 +1662,11 @@ msgstr "Relativ: <tt>$c0</tt> (oder Label)"
 msgid "Rendering the game"
 msgstr "Das Spiel darstellen"
 
+#. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
 msgstr "Zurücksetzen"
 
+#. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
 msgstr "Fortsetzen"
 
@@ -1657,12 +1677,14 @@ msgstr ""
 "Schreibe das erste Beispiel in diesem Abschnitt so um, dass es das <tt>Y</"
 "tt>-Register anstelle des <tt>X</tt>-Registers verwendet."
 
+#. TRANSLATORS: Main action button label to start continuous execution of the simulator
 msgid "Run"
 msgstr "Ausführen"
 
 msgid "Save"
 msgstr "Speichern"
 
+#. TRANSLATORS: File dialog title for saving a new assembly file
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
@@ -1672,6 +1694,7 @@ msgstr "Speichern unter..."
 msgid "Save changes?"
 msgstr "Änderungen speichern?"
 
+#. TRANSLATORS: Toast message title after saving file successfully, includes filename
 #, javascript-format
 msgid "Saved as %s"
 msgstr "Gespeichert unter %s"
@@ -1694,8 +1717,8 @@ msgstr ""
 "Abstraktionsebene in Computern - der Punkt, an dem der Code noch lesbar ist. "
 "Assemblersprache wird direkt in die Bytes übersetzt, die von deinem "
 "Computerprozessor ausgeführt werden. Wenn du verstehst, wie es funktioniert, "
-"bist du im Grunde ein Computer-<a href=\"https://www.skilldrick.co."
-"uk/2011/04/magic-in-software-development/\">Magier</a> geworden."
+"bist du im Grunde ein Computer-<a href=\"https://www.skilldrick.co.uk/"
+"2011/04/magic-in-software-development/\">Magier</a> geworden."
 
 msgid "Settings"
 msgstr "Einstellungen"
@@ -1703,6 +1726,7 @@ msgstr "Einstellungen"
 msgid "Simulator"
 msgstr "Simulator"
 
+#. TRANSLATORS: Toast message title when simulator reports a failure
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
@@ -1812,6 +1836,7 @@ msgstr "Stack Pointer: Zeigt auf Stack-Position"
 msgid "Status Flags"
 msgstr "Status-Flags"
 
+#. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 msgid "Step"
 msgstr "Schritt"
 
@@ -1921,7 +1946,6 @@ msgstr ""
 "Wird für PUSH/PULL-Operationen, JSR/RTS-Aufrufe und Unterbrechungsbehandlung "
 "verwendet. Kritisch für verschachtelte Funktionsaufrufe."
 
-#, fuzzy
 msgid ""
 "The X Index Register is used for indexed addressing modes and counting "
 "operations. It can hold loop counters, array indices, and is essential for "
@@ -2042,15 +2066,15 @@ msgid ""
 "The last section shows the processor flags. Each flag is one bit, so all "
 "seven flags live in a single byte. The flags are set by the processor to "
 "give information about the previous instruction. More on that later. <a "
-"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me."
-"uk/6502/registers.html\">Read more about the registers and flags here</a>."
+"href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/"
+"6502/registers.html\">Read more about the registers and flags here</a>."
 msgstr ""
 "Der letzte Abschnitt zeigt die Prozessor-Flags. Jedes Flag ist ein Bit, "
 "sodass alle sieben Flags in einem einzigen Byte untergebracht sind. Die "
 "Flags werden vom Prozessor gesetzt, um Informationen über die vorherige "
-"Anweisung zu geben. Mehr dazu später. <a href=\"https://web.archive.org/"
-"web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Lies hier "
-"mehr über Register und Flags</a>."
+"Anweisung zu geben. Mehr dazu später. <a href=\"https://web.archive.org/web/"
+"20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Lies hier mehr "
+"über Register und Flags</a>."
 
 msgid ""
 "The last subroutine, <tt>spinWheels</tt>, is just there because the game "
@@ -2254,11 +2278,11 @@ msgstr ""
 
 msgid ""
 "There's also a very practical reason: retro game development. The homebrew "
-"scene is alive and well—new games are still <a href=\"https://www.youtube."
-"com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical "
-"cartridges) and for many other classic systems; the NES is just an example. "
-"Even if your target is something like the SNES, starting with 6502 pays off: "
-"the SNES CPU (65C816) is backward-compatible with the 6502, so the "
+"scene is alive and well—new games are still <a href=\"https://"
+"www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as "
+"physical cartridges) and for many other classic systems; the NES is just an "
+"example. Even if your target is something like the SNES, starting with 6502 "
+"pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the "
 "fundamentals you learn here—registers, addressing modes, and the core "
 "instruction set—carry straight over."
 msgstr ""
@@ -2276,8 +2300,8 @@ msgid ""
 "These are the absolute addressing versions of zero page,X and zero page,Y. "
 "For example:"
 msgstr ""
-"Dies sind die absoluten Adressierungsversionen von Nullseite,X und Nullseite,"
-"Y. Zum Beispiel:"
+"Dies sind die absoluten Adressierungsversionen von Nullseite,X und "
+"Nullseite,Y. Zum Beispiel:"
 
 msgid ""
 "This is the equivalent of zero page,X, but can only be used with <tt>LDX</"
@@ -2368,6 +2392,7 @@ msgstr ""
 "Im Gegensatz zu Nullseite,Y kann absolut,Y nicht mit <tt>STX</tt> verwendet "
 "werden, aber mit <tt>LDA</tt> und <tt>STA</tt>."
 
+#. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
 msgid "Unsaved changes"
 msgstr "Uneingespeicherte Änderungen"
 
@@ -2496,31 +2521,3 @@ msgstr ""
 "tt> und <tt>$040f</tt> repräsentiert (drei Pixel in der Mitte des Displays). "
 "Ich betone diesen Punkt, aber es ist wichtig, vollständig zu verstehen, wie "
 "indirekte Adressierung funktioniert."
-
-#~ msgid "1."
-#~ msgstr "1."
-
-#~ msgid "2."
-#~ msgstr "2."
-
-#~ msgid "3."
-#~ msgstr "3."
-
-#~ msgid "•"
-#~ msgstr "•"
-
-#~ msgid ""
-#~ "<child><object class=\"GtkLabel\"><property name=\"label\" "
-#~ "translatable=\"yes\">On reset (simulator): &lt;tt&gt;P = $30&lt;/tt&gt; "
-#~ "(bit5 and &lt;tt&gt;B&lt;/tt&gt; set; &lt;tt&gt;D&lt;/tt&gt; and &lt;"
-#~ "tt&gt;I&lt;/tt&gt; clear)</property><property name=\"use-markup\">true</"
-#~ "property><property name=\"wrap\">true</property><property name=\"hexpand-"
-#~ "set\">true</property><property name=\"hexpand\">true</property><property "
-#~ "name=\"halign\">0</property><property name=\"xalign\">0</"
-#~ "property><property name=\"margin-top\">12</property><property "
-#~ "name=\"margin-bottom\">12</property><style><class name=\"paragraph\"></"
-#~ "class></style></object></child>"
-#~ msgstr ""
-#~ "Beim Reset (Simulator): &lt;tt&gt;P = $30&lt;/tt&gt; (Bit5 und &lt;tt&gt;"
-#~ "B&lt;/tt&gt; gesetzt; &lt;tt&gt;D&lt;/tt&gt; und &lt;tt&gt;I&lt;/tt&gt; "
-#~ "gelöscht)"
