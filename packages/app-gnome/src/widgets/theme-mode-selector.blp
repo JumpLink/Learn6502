@@ -20,10 +20,14 @@ template $ThemeModeSelector : Adw.Bin {
       halign: center;
       valign: center;
       focus-on-click: false;
+      // TRANSLATORS: Tooltip for mode toggle that follows system style
       tooltip-text: _("Follow system style");
       toggled => $_onFollowToggled();
 
-      accessibility { label: _("Follow system style"); }
+      accessibility { 
+        // TRANSLATORS: Accessibility label for mode toggle that follows system style
+        label: _("Follow system style"); 
+      }
     }
 
     CheckButton light {
@@ -32,10 +36,14 @@ template $ThemeModeSelector : Adw.Bin {
       valign: center;
       group: follow;
       focus-on-click: false;
+      // TRANSLATORS: Tooltip for light theme option
       tooltip-text: _("Light style");
       toggled => $_onLightToggled();
 
-      accessibility { label: _("Light style"); }
+      accessibility { 
+        // TRANSLATORS: Accessibility label for light theme option
+        label: _("Light style"); 
+      }
     }
 
     CheckButton dark {
@@ -44,10 +52,14 @@ template $ThemeModeSelector : Adw.Bin {
       valign: center;
       group: follow;
       focus-on-click: false;
+      // TRANSLATORS: Tooltip for dark theme option
       tooltip-text: _("Dark style");
       toggled => $_onDarkToggled();
 
-      accessibility { label: _("Dark style"); }
+      accessibility { 
+        // TRANSLATORS: Accessibility label for dark theme option
+        label: _("Dark style"); 
+      }
     }
   }
 }

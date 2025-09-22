@@ -35,9 +35,11 @@ msgstr ""
 msgid "6502"
 msgstr "6502"
 
+#. TRANSLATORS: Info message when the hardware stack underflows and wraps around
 msgid "6502 Stack emptied! Wrapping..."
 msgstr "6502 Stack leer! Unterlauf..."
 
+#. TRANSLATORS: Info message when the hardware stack overflows and wraps around
 msgid "6502 Stack filled! Wrapping..."
 msgstr "6502 Stack voll! Überlauf..."
 
@@ -441,6 +443,7 @@ msgstr ""
 "Anweisung, welche Register sie verwenden und welche Flags sie setzen. Sie "
 "sind deine Bibel."
 
+#. TRANSLATORS: About dialog menu item label
 msgid "About Learn 6502 Assembly"
 msgstr "Über Lerne 6502 Assembler"
 
@@ -450,45 +453,58 @@ msgstr "Absolut,X und absolut,Y: <tt>$c000,X</tt> und <tt>$c000,Y</tt>"
 msgid "Absolute: <tt>$c000</tt>"
 msgstr "Absolut: <tt>$c000</tt>"
 
+#. TRANSLATORS: Preferences group title for accent color selection
 msgid "Accent color"
 msgstr "Akzentfarbe"
 
+#. TRANSLATORS: Accessibility label for accent color option Blue
 msgid "Accent: Blue"
 msgstr "Akzent: Blau"
 
+#. TRANSLATORS: Accessibility label for accent color option Green
 msgid "Accent: Green"
 msgstr "Akzent: Grün"
 
+#. TRANSLATORS: Accessibility label for accent color option Orange
 msgid "Accent: Orange"
 msgstr "Akzent: Orange"
 
+#. TRANSLATORS: Accessibility label for accent color option Pink
 msgid "Accent: Pink"
 msgstr "Akzent: Pink"
 
+#. TRANSLATORS: Accessibility label for accent color option Purple
 msgid "Accent: Purple"
 msgstr "Akzent: Violett"
 
+#. TRANSLATORS: Accessibility label for accent color option Red
 msgid "Accent: Red"
 msgstr "Akzent: Rot"
 
+#. TRANSLATORS: Accessibility label for accent color option Slate
 msgid "Accent: Slate"
 msgstr "Akzent: Schiefer"
 
+#. TRANSLATORS: Accessibility label for accent color option Teal
 msgid "Accent: Teal"
 msgstr "Akzent: Türkis"
 
+#. TRANSLATORS: Accessibility label for accent color option Yellow
 msgid "Accent: Yellow"
 msgstr "Akzent: Gelb"
 
+#. TRANSLATORS: Register name and description in debugger
 msgid "Accumulator: Main register for calculations"
 msgstr "Akkumulator: Hauptregister für Berechnungen"
 
 msgid "Add more instructions to draw extra pixels."
 msgstr "Füge weitere Anweisungen hinzu, um zusätzliche Pixel zu zeichnen."
 
+#. TRANSLATORS: Release notes for version 0.2.0 - file management
 msgid "Added file management to save and load your programs"
 msgstr "Dateiverwaltung zum Speichern und Laden von Programmen hinzugefügt"
 
+#. TRANSLATORS: Release notes for version 0.2.0 - help feature
 msgid "Added help feature to make code editing easier for beginners"
 msgstr ""
 "Hilfefunktion hinzugefügt, um die Codebearbeitung für Anfänger zu erleichtern"
@@ -505,6 +521,7 @@ msgstr ""
 "hinzuzufügen. Für die Richtungssteuerung können sowohl WASD-Tasten als auch "
 "Pfeiltasten austauschbar verwendet werden."
 
+#. TRANSLATORS: Error message when an unknown opcode is encountered at address
 #, javascript-format
 msgid "Address %s - unknown opcode"
 msgstr "Adresse %s - unbekannter Opcode"
@@ -623,9 +640,12 @@ msgstr ""
 "lesen. Alles mit dem Präfix <tt>#</tt> ist ein Literalwert. Alle anderen "
 "Zahlen beziehen sich auf Speicheradressen."
 
+#. TRANSLATORS: Preferences dialog title
+#. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Erscheinungsbild"
 
+#. TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements
 msgid ""
 "Architecture enhancements enable better code sharing between GNOME, Web, and "
 "Android platforms."
@@ -712,6 +732,7 @@ msgstr ""
 msgid "Assembled successfully"
 msgstr "Erfolgreich assembliert"
 
+#. TRANSLATORS: Status message shown while assembling source code
 msgid "Assembling code ..."
 msgstr "Code wird assembliert..."
 
@@ -749,6 +770,8 @@ msgstr ""
 "Abschnitt \"Indirekt indiziert\" in <a "
 "href=\"#addressing\">Adressierungsmodi</a> für weitere Details."
 
+#. TRANSLATORS: Tooltip for accent color option Blue
+#. TRANSLATORS: Tooltip for primary color option Blue
 msgid "Blue"
 msgstr "Blau"
 
@@ -791,6 +814,7 @@ msgstr ""
 "Ändere eines der Pixel so, dass es in der unteren rechten Ecke gezeichnet "
 "wird (Speicheradresse <tt>$05ff</tt>)."
 
+#. TRANSLATORS: Success message after assembly with total bytes of machine code
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
 msgstr "Code erfolgreich assembliert, %d Bytes."
@@ -815,6 +839,7 @@ msgstr "Häufige Anweisungen"
 msgid "Confirm"
 msgstr "Bestätigen"
 
+#. TRANSLATORS: Menu item to resume execution after pause
 msgid "Continue"
 msgstr "Fortfahren"
 
@@ -822,18 +847,23 @@ msgstr "Fortfahren"
 msgid "Copied to clipboard"
 msgstr "In die Zwischenablage kopiert"
 
+#. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
 msgstr "In die Zwischenablage kopieren"
 
+#. TRANSLATORS: Tooltip for button that copies the snippet into the editor
 msgid "Copy to editor"
 msgstr "In Editor kopieren"
 
 msgid "Creating a game"
 msgstr "Ein Spiel erstellen"
 
+#. TRANSLATORS: Tooltip for dark theme option
+#. TRANSLATORS: Accessibility label for dark theme option
 msgid "Dark style"
 msgstr "Dunkler Stil"
 
+#. TRANSLATORS: Feature list item about debugging tools
 msgid "Debug your programs with real-time inspection tools"
 msgstr "Debugge deine Programme mit Echtzeit-Inspektionswerkzeugen"
 
@@ -857,18 +887,22 @@ msgstr ""
 "als Dezimalziffern (0-9) anstatt als Binärzahlen. Wird für "
 "Finanzberechnungen und Dezimalarithmetik verwendet."
 
+#. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
 msgstr "Deaktivieren, um die Leistung zu verbessern"
 
+#. TRANSLATORS: Section heading label for the disassembled instructions block
 msgid "Disassembled"
 msgstr "Disassemblierter Code"
 
+#. TRANSLATORS: Prefix label in Debugger messages when showing disassembly output
 msgid "Disassembly:"
 msgstr "Disassemblierung:"
 
 msgid "Discard"
 msgstr "Verwerfen"
 
+#. TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms
 msgid ""
 "Discover the fascinating world of programming classic computers and game "
 "consoles! Learn 6502 assembly language - the same code that powered iconic "
@@ -878,6 +912,7 @@ msgstr ""
 "Spielekonsolen! Lerne die 6502-Assemblersprache - denselben Code, der "
 "legendäre Systeme wie NES, Commodore 64 und Apple II antrieb."
 
+#. TRANSLATORS: Dropdown option label for display memory range
 msgid "Display Memory ($0200-$05FF)"
 msgstr "Anzeigespeicher ($0200-$05FF)"
 
@@ -897,12 +932,15 @@ msgstr ""
 msgid "Editor"
 msgstr "Editor"
 
+#. TRANSLATORS: Preference switch label on Debugger page to enable/disable the debugger
 msgid "Enable Debugger"
 msgstr "Debugger aktivieren"
 
+#. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
 msgstr "Stepper-Modus aktivieren"
 
+#. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
 msgstr "Verbesserte App-Darstellung und Zugänglichkeit"
 
@@ -935,6 +973,7 @@ msgstr ""
 "kann auch zu schwer zu findenden Fehlern führen. Stattdessen lassen wir "
 "jetzt den Assembler einen Teil der alltäglichen Arbeit für uns erledigen."
 
+#. TRANSLATORS: Switch subtitle describing stepper mode behavior
 msgid "Execute instructions one by one instead of continuously"
 msgstr "Anweisungen einzeln ausführen anstatt kontinuierlich"
 
@@ -959,6 +998,7 @@ msgstr ""
 "Schließlich enthält Byte <tt>$03</tt> die aktuelle Länge der Schlange, "
 "gemessen in Bytes im Speicher (eine Länge von 4 bedeutet also 2 Pixel)."
 
+#. TRANSLATORS: Release notes for version 0.1.0
 msgid "First release of Learn 6502 Assembly for GNOME"
 msgstr "Erste Veröffentlichung von Lerne 6502 Assembler für GNOME"
 
@@ -1016,15 +1056,20 @@ msgstr ""
 "Build-Fehler unter PostmarketOS behoben, verbessert Kompatibilität mit "
 "Mobilgeräten"
 
+#. TRANSLATORS: Tooltip for mode toggle that follows system style
+#. TRANSLATORS: Accessibility label for mode toggle that follows system style
 msgid "Follow system style"
 msgstr "Systemstil verwenden"
 
+#. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
 msgid "Found $d label."
 msgstr "%d Label gefunden."
 
+#. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
 msgid "Found $d labels."
 msgstr "%d Labels gefunden."
 
+#. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Gesamter Speicher ($0000-$FFFF)"
 
@@ -1035,9 +1080,11 @@ msgstr "GNOME"
 msgid "Game Console"
 msgstr "Spielkonsole"
 
+#. TRANSLATORS: Debugger log message when gamepad key is pressed
 msgid "Gamepad key pressed:"
 msgstr "Gamepad-Taste gedrückt:"
 
+#. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr ""
 "Spiele werden jetzt automatisch pausiert, wenn zwischen Bildschirmen "
@@ -1059,9 +1106,14 @@ msgstr ""
 "gesetzt wurde, wissen wir, dass wir auch das höchstwertige Byte erhöhen "
 "müssen."
 
+#. TRANSLATORS: Tooltip for accent color option Green
+#. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
 msgstr "Grün"
 
+#. TRANSLATORS: Help window title
+#. TRANSLATORS: Help menu item label
+#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Hilfe"
 
@@ -1072,12 +1124,15 @@ msgstr ""
 "Hier ist ein Beispiel. Beachte, dass unmittelbare Operanden immer noch mit "
 "einem <tt>#</tt> beginnen."
 
+#. TRANSLATORS: Section heading label for the Hex Monitor block
 msgid "Hex Monitor"
 msgstr "Hex-Monitor"
 
+#. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "Hexdump"
 
+#. TRANSLATORS: Prefix label in Debugger messages when showing hexdump output
 msgid "Hexdump:"
 msgstr "Hexdump:"
 
@@ -1127,9 +1182,11 @@ msgstr "Implizit"
 msgid "Improved descriptions to be more welcoming for non-technical users"
 msgstr "Verbesserte Beschreibungen für nicht-technische Benutzer"
 
+#. TRANSLATORS: Release notes for version 0.2.0 - mobile improvements
 msgid "Improved game screen and controls for mobile devices"
 msgstr "Verbesserte Spieloberfläche und Steuerung für mobile Geräte"
 
+#. TRANSLATORS: Release notes for version 0.1.1
 msgid "Improved the game console performance for smoother gameplay"
 msgstr "Verbesserte Leistung der Spielekonsole für flüssigeres Gameplay"
 
@@ -1221,9 +1278,11 @@ msgstr ""
 "href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Sogar der "
 "Terminator wurde in 6502 programmiert</a>."
 
+#. TRANSLATORS: Register name and description in debugger
 msgid "Index register X: Used for addressing"
 msgstr "Indexregister X: Wird für Adressierung verwendet"
 
+#. TRANSLATORS: Register name and description in debugger
 msgid "Index register Y: Used for addressing"
 msgstr "Indexregister Y: Wird für Adressierung verwendet"
 
@@ -1280,6 +1339,7 @@ msgstr ""
 msgid "Interactive tutorial"
 msgstr "Interaktives Tutorial"
 
+#. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "Interaktive Tutorials führen dich vom Anfänger zum Fortgeschrittenen"
 
@@ -1337,18 +1397,24 @@ msgstr "Label-Fehler"
 msgid "Learn"
 msgstr "Lernen"
 
+#. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
 msgstr "Lerne 6502 Assembler"
 
+#. TRANSLATORS: Feature list item about learning history while coding
 msgid "Learn about computer history while coding"
 msgstr "Erfahre mehr über Computer-Geschichte beim Programmieren"
 
+#. TRANSLATORS: Short description of the Learn view
 msgid "Learn how to program the 6502 microprocessor."
 msgstr "Lerne, wie man den 6502-Mikroprozessor programmiert."
 
+#. TRANSLATORS: Tooltip for light theme option
+#. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
 msgstr "Heller Stil"
 
+#. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid ""
 "Major UI improvements introducing a modern Floating Action Button with "
 "dynamic states for intuitive program control, and a completely redesigned "
@@ -1358,6 +1424,7 @@ msgstr ""
 "Buttons mit dynamischen Zuständen für intuitive Programmkontrolle und einem "
 "vollständig neu gestalteten Debugger-Widget mit modernen Adwaita-Komponenten."
 
+#. TRANSLATORS: Release notes for version 0.2.0 - bug fixes
 msgid "Many minor bugs have been fixed to improve overall usabipty"
 msgstr ""
 "Zahlreiche kleine Fehler wurden behoben, um die allgemeine "
@@ -1388,6 +1455,7 @@ msgstr ""
 "das <tt>A</tt>-Register den gleichen Wert wie <tt>Y</tt> erhält, wenn auch "
 "auf einem viel umständlicheren Weg. Das wirst du nicht oft sehen."
 
+#. TRANSLATORS: Section heading label for console messages block
 msgid "Messages"
 msgstr "Meldungen"
 
@@ -1410,6 +1478,7 @@ msgstr ""
 "Ergebnisses 1 ist. Wird für Vergleiche mit Vorzeichen verwendet und zeigt "
 "an, ob ein Wert negativ in der Zweierkomplement-Darstellung ist."
 
+#. TRANSLATORS: Release notes for version 0.2.0 - tooling additions
 msgid ""
 "New tools to examine your code, including disassembler and fast switchable "
 "memory viewer"
@@ -1438,12 +1507,15 @@ msgstr ""
 "Da sich nur der Kopf und der Schwanz der Schlange bewegen, reicht dies aus, "
 "um die Schlange in Bewegung zu halten."
 
+#. TRANSLATORS: Error shown when jumping to an address/label without providing any input
 msgid "No address or label provided"
 msgstr "Keine Adresse oder Label angegeben"
 
+#. TRANSLATORS: Error when no instructions were assembled
 msgid "No code to run."
 msgstr "Kein Code zum Ausführen vorhanden."
 
+#. TRANSLATORS: App Store description paragraph about onboarding for beginners
 msgid ""
 "No prior programming experience needed. Start with interactive lessons and "
 "build your skills step by step."
@@ -1488,6 +1560,7 @@ msgstr ""
 msgid "Open Assembly File"
 msgstr "Assembler-Datei öffnen"
 
+#. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "Öffnen..."
 
@@ -1500,6 +1573,8 @@ msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr ""
 "Optimierte Flatpak-Konfiguration durch Entfernen unnötiger Berechtigungen"
 
+#. TRANSLATORS: Tooltip for accent color option Orange
+#. TRANSLATORS: Tooltip for primary color option Orange
 msgid "Orange"
 msgstr "Orange"
 
@@ -1533,6 +1608,7 @@ msgstr ""
 msgid "Pause"
 msgstr "Pause"
 
+#. TRANSLATORS: Closing paragraph targeting the audience
 msgid ""
 "Perfect for hobbyists, students, and anyone curious about how computers "
 "really work under the hood!"
@@ -1540,6 +1616,8 @@ msgstr ""
 "Perfekt für Hobbyisten, Studenten und alle, die neugierig sind, wie Computer "
 "wirklich unter der Haube funktionieren!"
 
+#. TRANSLATORS: Tooltip for accent color option Pink
+#. TRANSLATORS: Tooltip for primary color option Pink
 msgid "Pink"
 msgstr "Rosa"
 
@@ -1566,51 +1644,65 @@ msgstr ""
 "linken Ecke. Das ist einfacher als die Art und Weise, wie ein echter "
 "Computer Video ausgeben würde, aber für den Moment reicht es."
 
+#. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
 msgstr "Primärfarbe"
 
+#. TRANSLATORS: Accessibility label for primary color option Blue
 msgid "Primary: Blue"
 msgstr "Primär: Blau"
 
+#. TRANSLATORS: Accessibility label for primary color option Green
 msgid "Primary: Green"
 msgstr "Primär: Grün"
 
+#. TRANSLATORS: Accessibility label for primary color option Orange
 msgid "Primary: Orange"
 msgstr "Primär: Orange"
 
+#. TRANSLATORS: Accessibility label for primary color option Pink
 msgid "Primary: Pink"
 msgstr "Primär: Rosa"
 
+#. TRANSLATORS: Accessibility label for primary color option Purple
 msgid "Primary: Purple"
 msgstr "Primär: Violett"
 
+#. TRANSLATORS: Accessibility label for primary color option Red
 msgid "Primary: Red"
 msgstr "Primär: Rot"
 
+#. TRANSLATORS: Accessibility label for primary color option Slate
 msgid "Primary: Slate"
 msgstr "Primär: Schiefer"
 
+#. TRANSLATORS: Accessibility label for primary color option Teal
 msgid "Primary: Teal"
 msgstr "Primär: Türkis"
 
+#. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
 msgstr "Primär: Gelb"
 
 msgid "Processor Flags"
 msgstr "Prozessor-Flags"
 
+#. TRANSLATORS: Register name and description in debugger
 msgid "Processor Status Register"
 msgstr "Prozessor-Statusregister"
 
+#. TRANSLATORS: Register name and description in debugger
 msgid "Program Counter: Points to next instruction"
 msgstr "Program Counter: Zeigt auf nächste Anweisung"
 
+#. TRANSLATORS: Dropdown option label for program storage range
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "Programmspeicher ($0600-$FFFF)"
 
 msgid "Program Vintage Game Consoles"
 msgstr "Programmiere Retro-Spielekonsolen"
 
+#. TRANSLATORS: Info message shown when program finishes execution at address
 #, javascript-format
 msgid "Program completed at PC=$%s"
 msgstr "Programm beendet bei PC=$%s"
@@ -1619,21 +1711,27 @@ msgstr "Programm beendet bei PC=$%s"
 msgid "Program paused"
 msgstr "Programm pausiert"
 
+#. TRANSLATORS: Tooltip for accent color option Purple
+#. TRANSLATORS: Tooltip for primary color option Purple
 msgid "Purple"
 msgstr "Violett"
 
 msgid "Quick tips"
 msgstr "Kurz-Tipps"
 
+#. TRANSLATORS: Quit application menu item label
 msgid "Quit"
 msgstr "Beenden"
 
+#. TRANSLATORS: Dropdown option label for random/input IO range
 msgid "Random/Input ($FE-$FF)"
 msgstr "Zufalls-/Eingabedaten ($FE-$FF)"
 
 msgid "Reading the input"
 msgstr "Die Eingabe lesen"
 
+#. TRANSLATORS: Tooltip for accent color option Red
+#. TRANSLATORS: Tooltip for primary color option Red
 msgid "Red"
 msgstr "Rot"
 
@@ -1641,6 +1739,7 @@ msgid "Reduced default hex monitor address range for better efficiency"
 msgstr ""
 "Reduzierter Standard-Adressbereich des Hex-Monitors für bessere Effizienz"
 
+#. TRANSLATORS: Section heading title on Debugger page for registers
 msgid "Registers"
 msgstr "Register"
 
@@ -1681,6 +1780,7 @@ msgstr ""
 msgid "Run"
 msgstr "Ausführen"
 
+#. TRANSLATORS: Menu item to save the current file
 msgid "Save"
 msgstr "Speichern"
 
@@ -1688,9 +1788,11 @@ msgstr "Speichern"
 msgid "Save Assembly File"
 msgstr "Assembler Datei speichern"
 
+#. TRANSLATORS: Menu item to save to a new file (Save As)
 msgid "Save as..."
 msgstr "Speichern unter..."
 
+#. TRANSLATORS: Alert dialog heading when unsaved changes are present
 msgid "Save changes?"
 msgstr "Änderungen speichern?"
 
@@ -1720,6 +1822,7 @@ msgstr ""
 "bist du im Grunde ein Computer-<a href=\"https://www.skilldrick.co.uk/"
 "2011/04/magic-in-software-development/\">Magier</a> geworden."
 
+#. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
 msgstr "Einstellungen"
 
@@ -1730,9 +1833,12 @@ msgstr "Simulator"
 msgid "Simulator failure"
 msgstr "Simulator-Fehler"
 
+#. TRANSLATORS: Tooltip for accent color option Slate
+#. TRANSLATORS: Tooltip for primary color option Slate
 msgid "Slate"
 msgstr "Schiefer"
 
+#. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
 msgid "Snake Game Data ($00-$15)"
 msgstr "Snake-Spieldaten ($00-$15)"
 
@@ -1827,12 +1933,15 @@ msgstr ""
 msgid "Special Memory Locations (in Simulator)"
 msgstr "Spezielle Speicheradressen (im Simulator)"
 
+#. TRANSLATORS: Dropdown option label for stack memory range
 msgid "Stack ($0100-$01FF)"
 msgstr "Stack ($0100-$01FF)"
 
+#. TRANSLATORS: Register name and description in debugger
 msgid "Stack Pointer: Points to stack position"
 msgstr "Stack Pointer: Zeigt auf Stack-Position"
 
+#. TRANSLATORS: Section heading title on Debugger page for status flags
 msgid "Status Flags"
 msgstr "Status-Flags"
 
@@ -1840,19 +1949,25 @@ msgstr "Status-Flags"
 msgid "Step"
 msgstr "Schritt"
 
+#. TRANSLATORS: Status line shown when simulator execution stops
 msgid "Stopped"
 msgstr "Angehalten"
 
+#. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
 msgstr "Stil"
 
+#. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr "Syntaxfehler in Zeile %d: %s"
 
+#. TRANSLATORS: Tooltip for accent color option Teal
+#. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
 msgstr "Türkis"
 
+#. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "Teste deine Kreationen auf einer virtuellen Spielkonsole"
 
@@ -1913,6 +2028,7 @@ msgstr ""
 "Das <tt>loop</tt>-Unterprogramm selbst ruft nur eine Reihe von "
 "Unterprogrammen nacheinander auf, bevor es zu sich selbst zurückkehrt:"
 
+#. TRANSLATORS: Detailed description of Accumulator register
 msgid ""
 "The Accumulator (A) is the primary register for arithmetic and logic "
 "operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use "
@@ -1924,6 +2040,7 @@ msgstr ""
 "etc. verwenden dieses Register. Es ist das am häufigsten verwendete Register "
 "in der 6502-Assembler-Programmierung."
 
+#. TRANSLATORS: Detailed description of Program Counter register
 msgid ""
 "The Program Counter contains the memory address of the next instruction to "
 "execute. It automatically increments after each instruction and can be "
@@ -1935,6 +2052,7 @@ msgstr ""
 "Sprünge, Verzweigungen, Aufrufe und Rückgaben modifiziert werden. Essentiell "
 "für die Programmflusssteuerung und das Debugging."
 
+#. TRANSLATORS: Detailed description of Stack Pointer register
 msgid ""
 "The Stack Pointer manages the call stack for subroutines and interrupts. It "
 "starts at $FF (top of stack) and grows downward. Used for PUSH/PULL "
@@ -1946,6 +2064,7 @@ msgstr ""
 "Wird für PUSH/PULL-Operationen, JSR/RTS-Aufrufe und Unterbrechungsbehandlung "
 "verwendet. Kritisch für verschachtelte Funktionsaufrufe."
 
+#. TRANSLATORS: Detailed description of X Index register
 msgid ""
 "The X Index Register is used for indexed addressing modes and counting "
 "operations. It can hold loop counters, array indices, and is essential for "
@@ -1958,6 +2077,7 @@ msgstr ""
 "Basisadresse unter Verwendung von X als Offset. Besonderheit: TSX/TXS "
 "übertragen X zum/vom Stack-Pointer."
 
+#. TRANSLATORS: Detailed description of Y Index register
 msgid ""
 "The Y Index Register is similar to X and has no special functions. Commonly "
 "used for indexed addressing and data movement."
@@ -2399,9 +2519,11 @@ msgstr "Uneingespeicherte Änderungen"
 msgid "Updating the game state"
 msgstr "Den Spielzustand aktualisieren"
 
+#. TRANSLATORS: Switch label to enable custom accent color
 msgid "Use custom accent color"
 msgstr "Benutzerdefinierte Akzentfarbe verwenden"
 
+#. TRANSLATORS: Switch label to enable custom primary color
 msgid "Use custom primary color"
 msgstr "Benutzerdefinierte Primärfarbe verwenden"
 
@@ -2442,9 +2564,12 @@ msgstr ""
 "Beispiel 16 Bytes Speicher ab <tt>$c000</tt> anzuzeigen, gib <tt>c000</tt> "
 "und <tt>10</tt> in die Felder <b>Start</b> bzw. <b>Länge</b> ein."
 
+#. TRANSLATORS: Feature list item about integrated code editor
 msgid "Write and edit code with a built-in code editor"
 msgstr "Schreibe und bearbeite Code mit einem integrierten Code-Editor"
 
+#. TRANSLATORS: Tooltip for accent color option Yellow
+#. TRANSLATORS: Tooltip for primary color option Yellow
 msgid "Yellow"
 msgstr "Gelb"
 
@@ -2468,6 +2593,7 @@ msgstr ""
 "tt>, <tt>TXA</tt> und <tt>TYA</tt> tun, aber schreibe etwas Code, um deine "
 "Vermutungen zu testen."
 
+#. TRANSLATORS: Alert dialog body explaining risk of losing changes
 msgid ""
 "Your file has unsaved changes. Changes will be lost if you don't save them."
 msgstr ""
@@ -2484,6 +2610,7 @@ msgstr ""
 "Sprunganweisungen (BEQ, BNE) prüfen dieses Flag, um den Programmfluss "
 "basierend darauf zu bestimmen, ob ein Wert null ist."
 
+#. TRANSLATORS: Dropdown option label for zero-page memory range
 msgid "Zero Page ($0000-$00FF)"
 msgstr "Nullseite ($0000-$00FF)"
 
@@ -2499,6 +2626,7 @@ msgstr "Nullseite,Y: <tt>$c0,Y</tt>"
 msgid "Zero page: <tt>$c0</tt>"
 msgstr "Nullseite: <tt>$c0</tt>"
 
+#. TRANSLATORS: Preferences menu item label with underscore for accelerator
 msgid "_Appearance"
 msgstr "_Erscheinungsbild"
 
@@ -2508,6 +2636,7 @@ msgstr "lernen"
 msgid "programming"
 msgstr "Programmierung"
 
+#. TRANSLATORS: Internal simulator pseudo-op name used when outputting A as a character
 msgid "wdm-output"
 msgstr "WDM-Ausgabe"
 

@@ -94,8 +94,10 @@ export class Labels {
     const count = this.labelIndex.length;
     const plural = count !== 1;
     if (plural) {
+      // TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
       this.dispatchInfo(_("Found $d labels."), [count]);
     } else {
+      // TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
       this.dispatchInfo(_("Found $d label."), [count]);
     }
   }
@@ -165,6 +167,7 @@ export class Labels {
       const label = input.replace(/(^\w+):.*$/, "$1");
 
       if (symbols.lookup(label)) {
+        // TRANSLATORS: Error when a label name conflicts with a defined symbol
         this.dispatchFailure(
           _(
             "Label {label} is already used as a symbol; please rename one of them"

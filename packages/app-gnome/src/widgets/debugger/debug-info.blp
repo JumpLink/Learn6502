@@ -12,12 +12,15 @@ template $DebugInfo: Adw.Bin {
 
     // ===== REGISTERS =====
     Adw.PreferencesGroup grpRegisters {
+      // TRANSLATORS: Section heading title on Debugger page for registers
       title: _("Registers");
       margin-bottom: 12;
 
       Adw.ActionRow rowA {
         title: "A";
+        // TRANSLATORS: Register name and description in debugger
         subtitle: _("Accumulator: Main register for calculations");
+        // TRANSLATORS: Detailed description of Accumulator register
         tooltip-text: _("The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming.");
 
         [suffix]
@@ -46,7 +49,9 @@ template $DebugInfo: Adw.Bin {
 
       Adw.ActionRow rowX {
         title: "X";
+        // TRANSLATORS: Register name and description in debugger
         subtitle: _("Index register X: Used for addressing");
+        // TRANSLATORS: Detailed description of X Index register
         tooltip-text: _("The X Index Register is used for indexed addressing modes and counting operations. It can hold loop counters, array indices, and is essential for accessing memory locations relative to a base address using X as an offset. Special: TSX/TXS transfer X to/from the stack pointer.");
 
         [suffix]
@@ -75,7 +80,9 @@ template $DebugInfo: Adw.Bin {
 
       Adw.ActionRow rowY {
         title: "Y";
+        // TRANSLATORS: Register name and description in debugger
         subtitle: _("Index register Y: Used for addressing");
+        // TRANSLATORS: Detailed description of Y Index register
         tooltip-text: _("The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement.");
 
         [suffix]
@@ -104,7 +111,9 @@ template $DebugInfo: Adw.Bin {
 
       Adw.ActionRow rowSP {
         title: "SP";
+        // TRANSLATORS: Register name and description in debugger
         subtitle: _("Stack Pointer: Points to stack position");
+        // TRANSLATORS: Detailed description of Stack Pointer register
         tooltip-text: _("The Stack Pointer manages the call stack for subroutines and interrupts. It starts at $FF (top of stack) and grows downward. Used for PUSH/PULL operations, JSR/RTS calls, and interrupt handling. Critical for nested function calls.");
 
         [suffix]
@@ -133,7 +142,9 @@ template $DebugInfo: Adw.Bin {
 
       Adw.ActionRow rowPC {
         title: "PC";
+        // TRANSLATORS: Register name and description in debugger
         subtitle: _("Program Counter: Points to next instruction");
+        // TRANSLATORS: Detailed description of Program Counter register
         tooltip-text: _("The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging.");
 
         [suffix]
@@ -163,10 +174,12 @@ template $DebugInfo: Adw.Bin {
 
     // ===== FLAGS =====
     Adw.PreferencesGroup grpFlags {
+      // TRANSLATORS: Section heading title on Debugger page for status flags
       title: _("Status Flags");
 
       Adw.ActionRow rowStatus {
         title: "P (SR)";
+        // TRANSLATORS: Register name and description in debugger
         subtitle: _("Processor Status Register");
 
         [suffix]

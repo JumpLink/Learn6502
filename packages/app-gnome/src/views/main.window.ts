@@ -707,6 +707,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(
+          // TRANSLATORS: Prefix label in Debugger messages when showing hexdump output
           _("Hexdump:") + "\n" + _(signal.message).format(...params)
         );
       }
@@ -716,6 +717,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       if (signal.message) {
         const params = signal.params || [];
         this._debugger.log(
+          // TRANSLATORS: Prefix label in Debugger messages when showing disassembly output
           _("Disassembly:") + "\n" + _(signal.message).format(...params)
         );
       }
@@ -874,6 +876,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
         visibleChild === this._debugger
       ) {
         this._debugger.log(
+          // TRANSLATORS: Debugger log message when gamepad key is pressed
           _("Gamepad key pressed:") +
             " $" +
             num2hex(event.keyCode).toUpperCase()

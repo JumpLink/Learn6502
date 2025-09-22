@@ -23,17 +23,22 @@ template $Debugger: Adw.Bin {
             orientation: vertical;
 
             Adw.PreferencesGroup {
+              // TRANSLATORS: Debugger page settings group title
               title: _("Settings");
               margin-bottom: 12;
 
               Adw.SwitchRow enabledSwitch {
+                // TRANSLATORS: Preference switch label on Debugger page to enable/disable the debugger
                 title: _("Enable Debugger");
+                // TRANSLATORS: Switch subtitle explaining performance impact of debugger
                 subtitle: _("Disable to improve performance");
                 active: bind template.enabled bidirectional;
               }
 
               Adw.SwitchRow stepperSwitch {
+                // TRANSLATORS: Preference switch label to enable step-by-step execution
                 title: _("Enable Stepper Mode");
+                // TRANSLATORS: Switch subtitle describing stepper mode behavior
                 subtitle: _("Execute instructions one by one instead of continuously");
                 sensitive: bind template.enabled;
               }
@@ -49,6 +54,7 @@ template $Debugger: Adw.Bin {
             // Hex Monitor
             Label {
               sensitive: bind template.enabled;
+              // TRANSLATORS: Section heading label for the Hex Monitor block
               label: _("Hex Monitor");
               halign: start;
               margin-bottom: 12;
@@ -66,6 +72,7 @@ template $Debugger: Adw.Bin {
             // Hexdump
             Label {
               sensitive: bind template.enabled;
+              // TRANSLATORS: Section heading label for the Hexdump block
               label: _("Hexdump");
               halign: start;
               margin-bottom: 12;
@@ -83,6 +90,7 @@ template $Debugger: Adw.Bin {
             // Disassembled
             Label {
               sensitive: bind template.enabled;
+              // TRANSLATORS: Section heading label for the disassembled instructions block
               label: _("Disassembled");
               halign: start;
               margin-bottom: 12;
@@ -100,6 +108,7 @@ template $Debugger: Adw.Bin {
             // Messages
             Label {
               sensitive: bind template.enabled;
+              // TRANSLATORS: Section heading label for console messages block
               label: _("Messages");
               halign: start;
               margin-bottom: 12;

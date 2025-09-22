@@ -7,19 +7,27 @@
   <summary>Program Vintage Game Consoles</summary>
   <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
   <description>
+    <!-- TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms -->
     <p>
       Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.
     </p>
+    <!-- TRANSLATORS: App Store description paragraph about onboarding for beginners -->
     <p>
       No prior programming experience needed. Start with interactive lessons and build your skills step by step.
     </p>
     <ul>
+      <!-- TRANSLATORS: Feature list item about interactive tutorials -->
       <li>Interactive tutorials guide you from beginner to advanced</li>
+      <!-- TRANSLATORS: Feature list item about integrated code editor -->
       <li>Write and edit code with a built-in code editor</li>
+      <!-- TRANSLATORS: Feature list item about debugging tools -->
       <li>Debug your programs with real-time inspection tools</li>
+      <!-- TRANSLATORS: Feature list item about virtual game console -->
       <li>Test your creations on a virtual game console</li>
+      <!-- TRANSLATORS: Feature list item about learning history while coding -->
       <li>Learn about computer history while coding</li>
     </ul>
+    <!-- TRANSLATORS: Closing paragraph targeting the audience -->
     <p>
       Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!
     </p>
@@ -62,22 +70,31 @@
   <releases>
     <release version="0.3.0" date="2025-09-08">
       <description>
+        <!-- TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign -->
         <p>Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components.</p>
+        <!-- TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements -->
         <p>Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms.</p>
       </description>
     </release>
     <release version="0.2.0" date="2025-04-11">
       <description>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - help feature -->
         <p>Added help feature to make code editing easier for beginners</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - mobile improvements -->
         <p>Improved game screen and controls for mobile devices</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - tooling additions -->
         <p>New tools to examine your code, including disassembler and fast switchable memory viewer</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - bug fixes -->
         <p>Many minor bugs have been fixed to improve overall usabipty</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - auto pause -->
         <p>Games now automatically pause when switching between screens</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - file management -->
         <p>Added file management to save and load your programs</p>
       </description>
     </release>
     <release version="0.1.2" date="2025-04-03">
       <description>
+        <!-- TRANSLATORS: Release notes for version 0.1.2 -->
         <p>Enhanced app presentation and accessibility</p>
         <p>Improved descriptions to be more welcoming for non-technical users</p>
         <p>Optimized Flatpak configuration by removing unnecessary permissions</p>
@@ -85,6 +102,7 @@
     </release>
     <release version="0.1.1" date="2025-04-02">
       <description>
+        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
         <p>Improved the game console performance for smoother gameplay</p>
         <p>Enhanced the hex monitor address range input for easier value editing</p>
         <p>Reduced default hex monitor address range for better efficiency</p>
@@ -94,6 +112,7 @@
     </release>
     <release version="0.1.0" date="2025-04-02">
       <description>
+        <!-- TRANSLATORS: Release notes for version 0.1.0 -->
         <p>First release of Learn 6502 Assembly for GNOME</p>
       </description>
     </release>

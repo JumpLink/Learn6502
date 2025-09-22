@@ -4,14 +4,17 @@ using Adw 1;
 template $PreferencesDialog: Adw.PreferencesDialog {
   content-width: 800;
   content-height: 600;
+  // TRANSLATORS: Preferences dialog title
   title: _("Appearance");
 
   Adw.PreferencesPage appearancePage {
     css-classes: ["appearance-page"];
+    // TRANSLATORS: Preferences page title for Appearance settings
     title: _("Appearance");
     icon-name: "brush-monitor-symbolic";
 
     Adw.PreferencesGroup themeGroup {
+      // TRANSLATORS: Preferences group title for theme style selection
       title: _("Style");
 
       $ThemeModeSelector {
@@ -21,9 +24,11 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
     Adw.PreferencesGroup primaryGroup {
       css-classes: ["custom-color-group"];
+      // TRANSLATORS: Preferences group title for primary color selection
       title: _("Primary color");
 
       Adw.SwitchRow rowPrimary {
+        // TRANSLATORS: Switch label to enable custom primary color
         title: _("Use custom primary color");
         // TS syncs on map; default off to avoid early notify loops
         active: false;
@@ -37,9 +42,11 @@ template $PreferencesDialog: Adw.PreferencesDialog {
 
     Adw.PreferencesGroup accentGroup {
       css-classes: ["custom-color-group"];
+      // TRANSLATORS: Preferences group title for accent color selection
       title: _("Accent color");
 
       Adw.SwitchRow rowAccent {
+        // TRANSLATORS: Switch label to enable custom accent color
         title: _("Use custom accent color");
         // TS syncs on map; default off to avoid early notify loops
         active: false;
