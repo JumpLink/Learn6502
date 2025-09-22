@@ -1,6 +1,6 @@
 import { renderSSR } from "nano-jsx/esm/index.js";
 import { GtkWidget } from "./gtk-widget.compontent.tsx";
-import { clearExtraSpaces } from "../../utils.ts";
+import { clearExtraSpaces, getCurrentSourceFile } from "../../utils.ts";
 export class GtkLabel extends GtkWidget {
   static propertyNames = [
     ...GtkWidget.propertyNames,
@@ -38,7 +38,11 @@ export class GtkLabel extends GtkWidget {
       <child>
         <object class="GtkLabel">
           {content && (
-            <property name="label" translatable="yes">
+            <property
+              name="label"
+              translatable="yes"
+              comments={`TRANSLATORS: MDX-derived text from ${getCurrentSourceFile()}`}
+            >
               {content}
             </property>
           )}
