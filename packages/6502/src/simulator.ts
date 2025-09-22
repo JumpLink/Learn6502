@@ -230,6 +230,7 @@ export class Simulator {
   public gotoAddr(inp: string) {
     let addr = 0;
     if (!inp) {
+      // TRANSLATORS: Error shown when jumping to an address/label without providing any input
       this.dispatchSimulatorFailureEvent(_("No address or label provided"));
       return;
     }
@@ -245,6 +246,7 @@ export class Simulator {
       }
     }
     if (addr === 0) {
+      // TRANSLATORS: Error when the given address or label cannot be parsed or found
       this.dispatchSimulatorFailureEvent(
         _("Unable to find/parse given address/label")
       );
@@ -277,6 +279,7 @@ export class Simulator {
    * @param message - Optional message describing why execution was stopped
    */
   public stop(message = "") {
+    // TRANSLATORS: Status line shown when simulator execution stops
     message = "\n" + _("Stopped") + "\n" + message;
     this._codeRunning = false;
     if (this.executeId !== undefined) clearInterval(this.executeId);
@@ -1652,6 +1655,7 @@ export class Simulator {
       const value = this.popByte();
       if (value === 0) {
         const char = String.fromCharCode(this.regA);
+        // TRANSLATORS: Internal simulator pseudo-op name used when outputting A as a character
         this.dispatchPseudoOpEvent(_("wdm-output"), char);
       }
     },
@@ -1727,6 +1731,7 @@ export class Simulator {
     },
 
     ierr: () => {
+      // TRANSLATORS: Error message when an unknown opcode is encountered at address
       this.dispatchSimulatorFailureEvent(_("Address %s - unknown opcode"), [
         addr2hex(this.regPC),
       ]);
@@ -1739,6 +1744,7 @@ export class Simulator {
     this.regSP--;
     if (this.regSP < 0) {
       this.regSP &= 0xff;
+      // TRANSLATORS: Info message when the hardware stack overflows and wraps around
       this.dispatchSimulatorInfoEvent(_("6502 Stack filled! Wrapping..."));
     }
   }
@@ -1748,6 +1754,7 @@ export class Simulator {
     this.regSP++;
     if (this.regSP >= 0x100) {
       this.regSP &= 0xff;
+      // TRANSLATORS: Info message when the hardware stack underflows and wraps around
       this.dispatchSimulatorInfoEvent(_("6502 Stack emptied! Wrapping..."));
     }
     value = this.memory.get(this.regSP + 0x100);
@@ -1840,6 +1847,7 @@ export class Simulator {
       this._codeRunning = false;
       this._programCompleted = true;
       if (this.executeId !== undefined) clearInterval(this.executeId);
+      // TRANSLATORS: Info message shown when program finishes execution at address
       this.dispatchStopEvent(_("Program completed at PC=$%s"), [
         addr2hex(this.regPC - 1),
       ]);

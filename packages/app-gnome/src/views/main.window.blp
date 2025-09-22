@@ -59,6 +59,7 @@ template $MainWindow: Adw.ApplicationWindow {
     Adw.HeaderBar headerBar {
 
       title-widget: Label titleLabel {
+        // TRANSLATORS: Application title shown in the header bar
         label: _("Learn 6502 Assembly");
       };
 
@@ -67,6 +68,7 @@ template $MainWindow: Adw.ApplicationWindow {
 
       Button unsavedChangesIndicator {
         icon-name: "dot-symbolic";
+        // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
         tooltip-text: _("Unsaved changes");
         visible: false;
         styles [
@@ -186,11 +188,14 @@ template $MainWindow: Adw.ApplicationWindow {
 
 // Dialog for unsaved changes
 Adw.AlertDialog unsavedChangesDialog {
+  // TRANSLATORS: Alert dialog heading when unsaved changes are present
   heading: _("Save changes?");
+  // TRANSLATORS: Alert dialog body explaining risk of losing changes
   body: _("Your file has unsaved changes. Changes will be lost if you don't save them.");
   close-response: "cancel";
 
   responses [
+    // TRANSLATORS: Alert dialog button labels
     cancel: _("Cancel"),
     discard: _("Discard") destructive,
     save: _("Save") suggested,

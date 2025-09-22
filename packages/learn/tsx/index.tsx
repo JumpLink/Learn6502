@@ -9,6 +9,7 @@ import {
   NsRoot,
 } from "./components/nativescript/index.tsx";
 import { writeFile } from "node:fs/promises";
+import { withSourceFileContext } from "./utils.ts";
 
 async function generateGtkUiXml(fileName: string, component: string) {
   const output = `<?xml version="1.0" encoding="UTF-8"?>` + component;
@@ -42,18 +43,22 @@ async function generateHtml(fileName: string, component: string) {
 // Generate GTK UI files
 await generateGtkUiXml(
   "tutorial",
-  renderSSR(
-    <GtkRoot class="TutorialView">
-      <Tutorial components={GtkComponents} />
-    </GtkRoot>
+  withSourceFileContext("packages/learn/tutorial.mdx", () =>
+    renderSSR(
+      <GtkRoot class="TutorialView">
+        <Tutorial components={GtkComponents} />
+      </GtkRoot>
+    )
   )
 );
 await generateGtkUiXml(
   "quick-help",
-  renderSSR(
-    <GtkRoot class="QuickHelpView">
-      <QuickHelp components={GtkComponents} />
-    </GtkRoot>
+  withSourceFileContext("packages/learn/quick-help.mdx", () =>
+    renderSSR(
+      <GtkRoot class="QuickHelpView">
+        <QuickHelp components={GtkComponents} />
+      </GtkRoot>
+    )
   )
 );
 

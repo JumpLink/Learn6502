@@ -61,7 +61,7 @@
   "<b>SBC needs carry set</b>: Set <tt>C</tt> before subtracting (works as inverse borrow). <tt>C</tt> clear after SBC indicates a borrow occurred.": "<b>SBC benötigt gesetztes Carry</b>: Vor dem Subtrahieren <tt>C</tt> setzen (wirkt als inverse Borrow). <tt>C</tt>=0 nach SBC bedeutet, dass ein Borrow auftrat.",
   "<b>SP</b> (Stack Pointer): Points to current stack position (starts at <tt>$FF</tt>)": "<b>SP</b> (Stack Pointer): Zeigt auf aktuelle Stack-Position (beginnt bei <tt>$FF</tt>)",
   "<b>STA/STX/STY</b>: Store registers to memory": "<b>STA/STX/STY</b>: Register im Speicher ablegen",
-  "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>": "Bildschirm wird auf Speicherbereich <tt>$0200</tt>-<tt>$05FF</tt> abgebildet",
+  "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>": "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>",
   "<b>W</b> or Up Arrow key (<tt>$77</tt>)": "<b>W</b> oder Pfeil nach oben (<tt>$77</tt>)",
   "<b>X, Y</b>: Index registers for addressing and counting": "<b>X, Y</b>: Indexregister für Adressierung und Zählung",
   "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address": "<b>Nullseite,X/Y</b> (<tt>$c0,X</tt>): Addiert X/Y-Register zur Nullseitenadresse",

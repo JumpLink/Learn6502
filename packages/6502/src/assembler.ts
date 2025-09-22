@@ -985,6 +985,7 @@ export class Assembler {
         addr = parseInt(param, 10);
       }
       if (addr < 0 || addr > 0xffff) {
+        // TRANSLATORS: Error when setting the program counter outside the 64KB address space
         this.dispatchAssembleFailure(
           _("Unable to relocate code outside 64k memory")
         );
@@ -1077,6 +1078,7 @@ export class Assembler {
     this.labels.displayMessage();
 
     this.currentPC = BOOTSTRAP_ADDRESS;
+    // TRANSLATORS: Status message shown while assembling source code
     this.dispatchInfo(_("Assembling code ..."));
 
     this.codeLen = 0;
@@ -1095,6 +1097,7 @@ export class Assembler {
 
     if (this.codeLen === 0) {
       this.codeAssembledOK = false;
+      // TRANSLATORS: Error when no instructions were assembled
       message = _("No code to run.");
     }
 
@@ -1102,9 +1105,11 @@ export class Assembler {
       if (lastLine) {
         const str = lines[i].replace("<", "&lt;").replace(">", "&gt;");
         if (!this.wasOutOfRangeBranch) {
+          // TRANSLATORS: Assembly syntax error with line number and offending line
           message = _("Syntax error line %d: %s");
           params = [i + 1, str];
         } else {
+          // TRANSLATORS: Error when a relative branch target is out of the valid range
           message = _(
             "Out of range branch on line %d (branches are limited to -128 to +127): %s"
           );
@@ -1116,6 +1121,7 @@ export class Assembler {
       return false;
     }
 
+    // TRANSLATORS: Success message after assembly with total bytes of machine code
     this.dispatchAssembleSuccess(_("Code assembled successfully, %d bytes."), [
       this.codeLen,
     ]);

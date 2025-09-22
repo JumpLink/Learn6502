@@ -15,30 +15,35 @@ template $Toolbar : Adw.Bin {
     Button {
       icon-name: "build-alt-symbolic";
       action-name: "win.assemble";
+      // TRANSLATORS: Toolbar button tooltip to assemble the current code
       tooltip-text: _("Assemble");
     }
 
     Button {
       icon-name: "play-symbolic";
       action-name: "win.run-simulator";
+      // TRANSLATORS: Toolbar button tooltip to start running the simulator
       tooltip-text: _("Run");
     }
 
     Button {
       icon-name: "pause-symbolic";
       action-name: "win.pause-simulator";
+      // TRANSLATORS: Toolbar button tooltip to pause the simulator
       tooltip-text: _("Pause");
     }
 
     Button {
       icon-name: "step-over-symbolic";
       action-name: "win.step-simulator";
+      // TRANSLATORS: Toolbar button tooltip for single-step execution
       tooltip-text: _("Step");
     }
 
     Button {
       icon-name: "reset-symbolic";
       action-name: "win.reset-simulator";
+      // TRANSLATORS: Toolbar button tooltip to reset simulator and state
       tooltip-text: _("Reset");
     }
 

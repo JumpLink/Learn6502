@@ -42,41 +42,49 @@ export class MainButton extends Fab implements MainButtonWidget {
   private buttonModes: Record<MainButtonState, MainButtonMode> = {
     [MainButtonState.INITIAL]: {
       iconName: "res://build_alt_symbolic",
+      // TRANSLATORS: Android main action button label and menu item to assemble current code
       text: _("Assemble"),
       actionName: MainButton.assembleTapEvent,
     },
     [MainButtonState.ASSEMBLE]: {
       iconName: "res://build_alt_symbolic",
+      // TRANSLATORS: Android main action button label and menu item to assemble current code
       text: _("Assemble"),
       actionName: MainButton.assembleTapEvent,
     },
     [MainButtonState.RUN]: {
       iconName: "res://play_symbolic",
+      // TRANSLATORS: Android main action button label to start continuous execution of the simulator
       text: _("Run"),
       actionName: MainButton.runTapEvent,
     },
     [MainButtonState.PAUSE]: {
       iconName: "res://pause_symbolic",
+      // TRANSLATORS: Android main action button label to pause the running simulator
       text: _("Pause"),
       actionName: MainButton.pauseTapEvent,
     },
     [MainButtonState.RESUME]: {
       iconName: "res://play_symbolic",
+      // TRANSLATORS: Android main action button label to continue execution after pause
       text: _("Resume"),
       actionName: MainButton.resumeTapEvent,
     },
     [MainButtonState.RESET]: {
       iconName: "res://reset_symbolic",
+      // TRANSLATORS: Android main action button label to reset simulator and state
       text: _("Reset"),
       actionName: MainButton.resetTapEvent,
     },
     [MainButtonState.STEP]: {
       iconName: "res://step_over_symbolic",
+      // TRANSLATORS: Android main action button label for single-step execution when debugger is enabled
       text: _("Step"),
       actionName: MainButton.stepTapEvent,
     },
     [MainButtonState.HIDDEN]: {
       iconName: "res://build_alt_symbolic", // Fallback icon, won't be shown
+      // TRANSLATORS: Android main action button label when hidden (fallback)
       text: _("Hidden"),
       actionName: MainButton.assembleTapEvent, // Fallback action, won't be used
     },

@@ -16,12 +16,19 @@ template $HexMonitor: Adw.Bin {
         enable-search: false;
         model: StringList {
           strings [
+            // TRANSLATORS: Dropdown option label for zero-page memory range
             _("Zero Page ($0000-$00FF)"),
+            // TRANSLATORS: Dropdown option label for stack memory range
             _("Stack ($0100-$01FF)"),
+            // TRANSLATORS: Dropdown option label for display memory range
             _("Display Memory ($0200-$05FF)"),
+            // TRANSLATORS: Dropdown option label for program storage range
             _("Program Storage ($0600-$FFFF)"),
+            // TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
             _("Snake Game Data ($00-$15)"),
+            // TRANSLATORS: Dropdown option label for random/input IO range
             _("Random/Input ($FE-$FF)"),
+            // TRANSLATORS: Dropdown option label for full memory range
             _("Full Memory ($0000-$FFFF)")
           ]
         };
@@ -32,6 +39,7 @@ template $HexMonitor: Adw.Bin {
       editable: false;
       copyable: true;
       copy-button-icon: 'clipboard-symbolic';
+      // TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
       copy-button-tooltip: _("Copy to clipboard");
       language: 'hex';
       vexpand: true;
