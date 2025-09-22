@@ -29,6 +29,8 @@ const xgettext = xgettextPlugin({
   msgcatOptions: ["--no-wrap"],
   // Preserve existing POT-Creation-Date from previous POT
   preserveCreationDate: true,
+  // Disable line wrapping in xgettext output to keep long lines intact
+  xgettextOptions: ["--no-wrap"],
 });
 
 // Compile PO files to MO files
