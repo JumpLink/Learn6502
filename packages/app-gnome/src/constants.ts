@@ -16,6 +16,11 @@ export const KEY_COLOR_SCHEME = "color-scheme"; // 0=follow,1=light,2=dark
 export const KEY_PRIMARY_COLOR = "primary-color"; // 'none' | predefined key
 export const KEY_ACCENT_COLOR = "accent-color"; // 'system' | predefined key
 
+// Default GSettings values for theme
+export const DEFAULT_COLOR_SCHEME = 0; // 0=follow system, 1=light, 2=dark
+export const DEFAULT_PRIMARY_COLOR = "none" as const;
+export const DEFAULT_ACCENT_COLOR = "system" as const;
+
 // Primary color family keys supported by libadwaita accent variables
 export const PRIMARY_FAMILIES = [
   "blue",
