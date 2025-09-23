@@ -32,10 +32,35 @@ New language translations are always welcome! You can start a new language trans
    - HTML tags
    - Formatting placeholders
 
+3. **External links**:
+   - You may replace links to English pages with equivalent high-quality pages in the target language.
+   - Prefer reputable sources (e.g., Wikipedia) when a high-quality article exists in the target language.
+
 ## Resources
 
 - [Project Repository](https://github.com/JumpLink/Learn6502)
 - [Issue Tracker](https://github.com/JumpLink/Learn6502/issues)
+
+## Testing translations in the GNOME app
+
+To test your translations locally in the GNOME app:
+
+```bash
+# From the repository root
+
+# 1) Build translations (creates MO files under packages/translations/dist/locale)
+yarn workspace @learn6502/translations run build
+
+# 2) Build the GNOME app (copies MO files for local runs)
+yarn workspace @learn6502/app-gnome run build
+
+# 3) Start the app in a specific language (examples)
+LANGUAGE=nl yarn start:gnome     # Dutch
+LANGUAGE=es yarn start:gnome     # Spanish
+```
+
+If translations do not appear, verify the compiled file exists at:
+`packages/app-gnome/data/locale/<lang>/LC_MESSAGES/eu.jumplink.Learn6502.mo`.
 
 ## License
 
