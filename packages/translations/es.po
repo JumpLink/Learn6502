@@ -327,7 +327,7 @@ msgstr "<tt>a9</tt> y <tt>c9</tt> son los opcodes del procesador para <tt>LDA</t
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>checkSnakeCollision</tt> loops through the snake's body segments, checking each byte pair against the head pair. If there is a match, then game over."
-msgstr "<tt>checkSnakeCollision</tt> recorre los segmentos del cuerpo de la serpiente comparando cada par de bytes con el par de la cabeza. Si hay coincidencia, game over."
+msgstr "<tt>checkSnakeCollision</tt> recorre los segmentos del cuerpo de la serpiente comparando cada par de bytes con el par de la cabeza. Si hay coincidencia, fin del juego."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
@@ -730,11 +730,11 @@ msgstr "Seguir el estilo del sistema"
 
 #. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
 msgid "Found $d label."
-msgstr "Se encontró %d etiqueta."
+msgstr "Se encontró $d etiqueta."
 
 #. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
 msgid "Found $d labels."
-msgstr "Se encontraron %d etiquetas."
+msgstr "Se encontraron $d etiquetas."
 
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
