@@ -13,6 +13,10 @@ import {
   DEFAULT_COLOR_SCHEME,
   DEFAULT_PRIMARY_COLOR,
   DEFAULT_ACCENT_COLOR,
+  DEFAULT_COLOR_SCHEME_OVERRIDE,
+  DEFAULT_PRIMARY_OVERRIDE_KEY,
+  DEFAULT_ACCENT_OVERRIDE_KEY,
+  ColorScheme,
   PRIMARY_FAMILIES,
 } from "../constants.ts";
 import type { PrimaryFamilyKey } from "../types/theme.ts";
@@ -35,7 +39,6 @@ class ThemeService extends BaseThemeService {
   /** Named primary color key when using predefined color families. */
   private currentPrimaryKey: PrimaryFamilyKey | "none" | null =
     DEFAULT_PRIMARY_COLOR;
-  private currentPrimaryHex: string | null = null;
   /** Named accent color key when using predefined color families. */
   private currentAccentKey: PrimaryFamilyKey | "system" = DEFAULT_ACCENT_COLOR;
 
@@ -96,9 +99,6 @@ class ThemeService extends BaseThemeService {
     this.events.on("theme-changed", () => this.refreshThemedWidgets());
     this.events.on("primary-changed", () => this.refreshThemedWidgets());
     this.events.on("accent-changed", () => this.refreshThemedWidgets());
-
-    // Default to none when unset
-    if (!this.currentPrimaryKey) this.setPrimaryNone(false);
   }
 
   private clearVariablesCssProvider(): void {
@@ -145,8 +145,6 @@ class ThemeService extends BaseThemeService {
       parts.push(
         `--learn-primary-color: var(--accent-${this.currentPrimaryKey});`
       );
-    } else if (!this.currentPrimaryKey && this.currentPrimaryHex) {
-      parts.push(`--learn-primary-color: ${this.currentPrimaryHex};`);
     }
 
     const css = parts.length ? `:root { ${parts.join(" ")} }` : "";
@@ -178,29 +176,10 @@ class ThemeService extends BaseThemeService {
   }
 
   public setPrimaryColor(hexOrNull: string | null): void {
-    if (!hexOrNull) {
-      if (!this.currentPrimaryHex && this.currentPrimaryKey === null) return;
-      this.currentPrimaryHex = null;
-      this.currentPrimaryKey = null;
-      this.applyVariables();
-      this.events.dispatch("primary-changed", {
-        color: null,
-        key: null,
-        mode: "none",
-      });
-      return;
-    }
-
-    if (this.currentPrimaryHex === hexOrNull && this.currentPrimaryKey === null)
-      return;
-    this.currentPrimaryHex = hexOrNull;
-    this.currentPrimaryKey = null;
-    this.applyVariables();
-    this.events.dispatch("primary-changed", {
-      color: hexOrNull,
-      key: null,
-      mode: "custom",
-    });
+    // Custom hex colors are not supported - only predefined palette keys
+    console.warn(
+      "setPrimaryColor: Custom hex colors are not supported. Use setPrimaryByKey() instead."
+    );
   }
 
   public clearPrimaryColor(): void {
@@ -208,9 +187,7 @@ class ThemeService extends BaseThemeService {
   }
 
   public setPrimaryByKey(key: PrimaryFamilyKey): void {
-    if (this.currentPrimaryKey === key && this.currentPrimaryHex === null)
-      return;
-    this.currentPrimaryHex = null;
+    if (this.currentPrimaryKey === key) return;
     this.currentPrimaryKey = key;
     this.applyVariables();
     this.savePrimaryToSettings(key);
@@ -222,12 +199,7 @@ class ThemeService extends BaseThemeService {
   }
 
   public setPrimaryNone(persist: boolean = true): void {
-    if (
-      this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR &&
-      this.currentPrimaryHex === null
-    )
-      return;
-    this.currentPrimaryHex = null;
+    if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) return;
     this.currentPrimaryKey = DEFAULT_PRIMARY_COLOR;
     this.applyVariables();
     if (persist) this.savePrimaryToSettings(DEFAULT_PRIMARY_COLOR);
@@ -236,6 +208,22 @@ class ThemeService extends BaseThemeService {
       key: null,
       mode: "none",
     });
+  }
+
+  public setPrimaryDefault(persist: boolean = true): void {
+    if (DEFAULT_PRIMARY_OVERRIDE_KEY) {
+      if (this.currentPrimaryKey === DEFAULT_PRIMARY_OVERRIDE_KEY) return;
+      this.currentPrimaryKey = DEFAULT_PRIMARY_OVERRIDE_KEY;
+      this.applyVariables();
+      if (persist) this.savePrimaryToSettings(DEFAULT_PRIMARY_OVERRIDE_KEY);
+      this.events.dispatch("primary-changed", {
+        color: null,
+        key: DEFAULT_PRIMARY_OVERRIDE_KEY,
+        mode: "custom",
+      });
+      return;
+    }
+    this.setPrimaryNone(persist);
   }
 
   public setAccentByKey(key: PrimaryFamilyKey): void {
@@ -268,9 +256,9 @@ class ThemeService extends BaseThemeService {
 
   private loadAccentFromSettings(): void {
     const stored = this.settings?.get_string(KEY_ACCENT_COLOR) ?? null;
-    const value = stored || DEFAULT_ACCENT_COLOR;
+    const value = stored || DEFAULT_ACCENT_OVERRIDE_KEY;
 
-    if (value === DEFAULT_ACCENT_COLOR) {
+    if (value === DEFAULT_ACCENT_OVERRIDE_KEY) {
       this.setAccentSystem(false);
       return;
     }
@@ -307,12 +295,11 @@ class ThemeService extends BaseThemeService {
     const value = stored || DEFAULT_PRIMARY_COLOR;
 
     if (value === DEFAULT_PRIMARY_COLOR || value === "auto") {
-      this.setPrimaryNone(false);
+      this.setPrimaryDefault(false);
       return;
     }
 
     if ((PRIMARY_FAMILIES as readonly string[]).includes(value)) {
-      this.currentPrimaryHex = null;
       this.currentPrimaryKey = value as PrimaryFamilyKey;
       this.applyVariables();
       this.events.dispatch("primary-changed", {
@@ -323,7 +310,7 @@ class ThemeService extends BaseThemeService {
       return;
     }
 
-    this.setPrimaryNone(false);
+    this.setPrimaryDefault(false);
   }
 
   public getPrimaryState(): { key: string | null; mode: "none" | "custom" } {
@@ -332,9 +319,6 @@ class ThemeService extends BaseThemeService {
     }
     if (this.currentPrimaryKey) {
       return { key: this.currentPrimaryKey, mode: "custom" };
-    }
-    if (this.currentPrimaryHex) {
-      return { key: null, mode: "custom" };
     }
     return { key: null, mode: "none" };
   }
@@ -362,10 +346,9 @@ class ThemeService extends BaseThemeService {
     widget.add_css_class(isDark ? "is-dark" : "is-light");
     if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) {
       widget.add_css_class("primary-none");
-    } else if (this.currentPrimaryKey || this.currentPrimaryHex) {
+    } else if (this.currentPrimaryKey) {
       widget.add_css_class("primary-custom");
-      if (this.currentPrimaryKey)
-        widget.add_css_class(`primary-${this.currentPrimaryKey}`);
+      widget.add_css_class(`primary-${this.currentPrimaryKey}`);
     }
     if (this.currentAccentKey !== DEFAULT_ACCENT_COLOR) {
       widget.add_css_class("accent-custom");
@@ -388,7 +371,8 @@ class ThemeService extends BaseThemeService {
 
   private loadThemeFromSettings(): void {
     const saved = this.settings?.get_int(KEY_COLOR_SCHEME);
-    this.setTheme(this.intToThemeMode(saved));
+    const value = saved ?? DEFAULT_COLOR_SCHEME_OVERRIDE;
+    this.setTheme(this.intToThemeMode(value));
   }
 
   private saveThemeToSettings(mode: ThemeMode): void {
@@ -401,11 +385,11 @@ class ThemeService extends BaseThemeService {
   private themeModeToInt(mode: ThemeMode): number | null {
     switch (mode) {
       case "system":
-        return 0;
+        return ColorScheme.SYSTEM;
       case "light":
-        return 1;
+        return ColorScheme.LIGHT;
       case "dark":
-        return 2;
+        return ColorScheme.DARK;
       default:
         console.warn(`Unknown theme mode: ${mode}`);
         return null;
@@ -414,11 +398,11 @@ class ThemeService extends BaseThemeService {
 
   private intToThemeMode(value: number | null | undefined): ThemeMode {
     switch (value ?? DEFAULT_COLOR_SCHEME) {
-      case 1:
+      case ColorScheme.LIGHT:
         return "light";
-      case 2:
+      case ColorScheme.DARK:
         return "dark";
-      case 0:
+      case ColorScheme.SYSTEM:
       default:
         return "system";
     }
