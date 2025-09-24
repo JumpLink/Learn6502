@@ -10,6 +10,13 @@ import {
   KEY_PRIMARY_COLOR,
   KEY_ACCENT_COLOR,
   APPLICATION_ID,
+  DEFAULT_COLOR_SCHEME,
+  DEFAULT_PRIMARY_COLOR,
+  DEFAULT_ACCENT_COLOR,
+  DEFAULT_COLOR_SCHEME_OVERRIDE,
+  DEFAULT_PRIMARY_OVERRIDE_KEY,
+  DEFAULT_ACCENT_OVERRIDE_KEY,
+  ColorScheme,
   PRIMARY_FAMILIES,
 } from "../constants.ts";
 import type { PrimaryFamilyKey } from "../types/theme.ts";
@@ -30,10 +37,10 @@ class ThemeService extends BaseThemeService {
   /** Widgets that should automatically receive theme-related CSS classes. */
   private themedWidgets: Set<Gtk.Widget> = new Set();
   /** Named primary color key when using predefined color families. */
-  private currentPrimaryKey: PrimaryFamilyKey | "none" | null = null;
-  private currentPrimaryHex: string | null = null;
+  private currentPrimaryKey: PrimaryFamilyKey | "none" | null =
+    DEFAULT_PRIMARY_COLOR;
   /** Named accent color key when using predefined color families. */
-  private currentAccentKey: PrimaryFamilyKey | "system" = "system";
+  private currentAccentKey: PrimaryFamilyKey | "system" = DEFAULT_ACCENT_COLOR;
 
   constructor() {
     super();
@@ -92,9 +99,6 @@ class ThemeService extends BaseThemeService {
     this.events.on("theme-changed", () => this.refreshThemedWidgets());
     this.events.on("primary-changed", () => this.refreshThemedWidgets());
     this.events.on("accent-changed", () => this.refreshThemedWidgets());
-
-    // Default to none when unset
-    if (!this.currentPrimaryKey) this.setPrimaryNone();
   }
 
   private clearVariablesCssProvider(): void {
@@ -129,17 +133,18 @@ class ThemeService extends BaseThemeService {
 
   private applyVariables(): void {
     const parts: string[] = [];
-    if (this.currentAccentKey !== "system") {
+    if (this.currentAccentKey !== DEFAULT_ACCENT_COLOR) {
       parts.push(
         `--learn-accent-color: var(--accent-${this.currentAccentKey});`
       );
     }
-    if (this.currentPrimaryKey && this.currentPrimaryKey !== "none") {
+    if (
+      this.currentPrimaryKey &&
+      this.currentPrimaryKey !== DEFAULT_PRIMARY_COLOR
+    ) {
       parts.push(
         `--learn-primary-color: var(--accent-${this.currentPrimaryKey});`
       );
-    } else if (!this.currentPrimaryKey && this.currentPrimaryHex) {
-      parts.push(`--learn-primary-color: ${this.currentPrimaryHex};`);
     }
 
     const css = parts.length ? `:root { ${parts.join(" ")} }` : "";
@@ -171,29 +176,10 @@ class ThemeService extends BaseThemeService {
   }
 
   public setPrimaryColor(hexOrNull: string | null): void {
-    if (!hexOrNull) {
-      if (!this.currentPrimaryHex && this.currentPrimaryKey === null) return;
-      this.currentPrimaryHex = null;
-      this.currentPrimaryKey = null;
-      this.applyVariables();
-      this.events.dispatch("primary-changed", {
-        color: null,
-        key: null,
-        mode: "none",
-      });
-      return;
-    }
-
-    if (this.currentPrimaryHex === hexOrNull && this.currentPrimaryKey === null)
-      return;
-    this.currentPrimaryHex = hexOrNull;
-    this.currentPrimaryKey = null;
-    this.applyVariables();
-    this.events.dispatch("primary-changed", {
-      color: hexOrNull,
-      key: null,
-      mode: "custom",
-    });
+    // Custom hex colors are not supported - only predefined palette keys
+    console.warn(
+      "setPrimaryColor: Custom hex colors are not supported. Use setPrimaryByKey() instead."
+    );
   }
 
   public clearPrimaryColor(): void {
@@ -201,9 +187,7 @@ class ThemeService extends BaseThemeService {
   }
 
   public setPrimaryByKey(key: PrimaryFamilyKey): void {
-    if (this.currentPrimaryKey === key && this.currentPrimaryHex === null)
-      return;
-    this.currentPrimaryHex = null;
+    if (this.currentPrimaryKey === key) return;
     this.currentPrimaryKey = key;
     this.applyVariables();
     this.savePrimaryToSettings(key);
@@ -214,18 +198,32 @@ class ThemeService extends BaseThemeService {
     });
   }
 
-  public setPrimaryNone(): void {
-    if (this.currentPrimaryKey === "none" && this.currentPrimaryHex === null)
-      return;
-    this.currentPrimaryHex = null;
-    this.currentPrimaryKey = "none" as any;
+  public setPrimaryNone(persist: boolean = true): void {
+    if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) return;
+    this.currentPrimaryKey = DEFAULT_PRIMARY_COLOR;
     this.applyVariables();
-    this.savePrimaryToSettings("none");
+    if (persist) this.savePrimaryToSettings(DEFAULT_PRIMARY_COLOR);
     this.events.dispatch("primary-changed", {
       color: null,
       key: null,
       mode: "none",
     });
+  }
+
+  public setPrimaryDefault(persist: boolean = true): void {
+    if (DEFAULT_PRIMARY_OVERRIDE_KEY) {
+      if (this.currentPrimaryKey === DEFAULT_PRIMARY_OVERRIDE_KEY) return;
+      this.currentPrimaryKey = DEFAULT_PRIMARY_OVERRIDE_KEY;
+      this.applyVariables();
+      if (persist) this.savePrimaryToSettings(DEFAULT_PRIMARY_OVERRIDE_KEY);
+      this.events.dispatch("primary-changed", {
+        color: null,
+        key: DEFAULT_PRIMARY_OVERRIDE_KEY,
+        mode: "custom",
+      });
+      return;
+    }
+    this.setPrimaryNone(persist);
   }
 
   public setAccentByKey(key: PrimaryFamilyKey): void {
@@ -239,11 +237,11 @@ class ThemeService extends BaseThemeService {
     });
   }
 
-  public setAccentSystem(): void {
-    if (this.currentAccentKey === "system") return;
-    this.currentAccentKey = "system";
+  public setAccentSystem(persist: boolean = true): void {
+    if (this.currentAccentKey === DEFAULT_ACCENT_COLOR) return;
+    this.currentAccentKey = DEFAULT_ACCENT_COLOR;
     this.applyVariables();
-    this.saveAccentToSettings("system");
+    if (persist) this.saveAccentToSettings(DEFAULT_ACCENT_COLOR);
     this.events.dispatch("accent-changed", {
       key: null,
       mode: "system",
@@ -257,38 +255,33 @@ class ThemeService extends BaseThemeService {
   }
 
   private loadAccentFromSettings(): void {
-    if (!this.settings) return;
-    const stored = this.settings.get_string(KEY_ACCENT_COLOR);
-    if (!stored || stored === "system") {
-      if (this.currentAccentKey !== "system") {
-        this.currentAccentKey = "system";
-        this.applyVariables();
-        this.events.dispatch("accent-changed", { key: null, mode: "system" });
-      }
+    const stored = this.settings?.get_string(KEY_ACCENT_COLOR) ?? null;
+    const value = stored || DEFAULT_ACCENT_OVERRIDE_KEY;
+
+    if (value === DEFAULT_ACCENT_OVERRIDE_KEY) {
+      this.setAccentSystem(false);
       return;
     }
-    if ((PRIMARY_FAMILIES as readonly string[]).includes(stored)) {
-      if (this.currentAccentKey !== (stored as PrimaryFamilyKey)) {
-        this.currentAccentKey = stored as PrimaryFamilyKey;
+
+    if ((PRIMARY_FAMILIES as readonly string[]).includes(value)) {
+      if (this.currentAccentKey !== (value as PrimaryFamilyKey)) {
+        this.currentAccentKey = value as PrimaryFamilyKey;
         this.applyVariables();
         this.events.dispatch("accent-changed", {
-          key: stored as PrimaryFamilyKey,
+          key: value as PrimaryFamilyKey,
           mode: "custom",
         });
       }
       return;
     }
-    if (this.currentAccentKey !== "system") {
-      this.currentAccentKey = "system";
-      this.applyVariables();
-      this.events.dispatch("accent-changed", { key: null, mode: "system" });
-    }
+
+    this.setAccentSystem(false);
   }
 
   public getAccentState(): { key: string | null; mode: "system" | "custom" } {
-    if (this.currentAccentKey === "system")
+    if (this.currentAccentKey === DEFAULT_ACCENT_COLOR)
       return { key: null, mode: "system" };
-    return { key: this.currentAccentKey, mode: "custom" } as any;
+    return { key: this.currentAccentKey, mode: "custom" };
   }
 
   private savePrimaryToSettings(value: string): void {
@@ -298,49 +291,34 @@ class ThemeService extends BaseThemeService {
   }
 
   private loadPrimaryFromSettings(): void {
-    if (!this.settings) return;
-    const stored = this.settings.get_string(KEY_PRIMARY_COLOR);
-    if (stored === "none" || stored === "auto" || !stored) {
-      this.currentPrimaryHex = null;
-      this.currentPrimaryKey = "none" as any;
-      this.applyVariables();
-      this.events.dispatch("primary-changed", {
-        color: null,
-        key: null,
-        mode: "none",
-      });
+    const stored = this.settings?.get_string(KEY_PRIMARY_COLOR) ?? null;
+    const value = stored || DEFAULT_PRIMARY_COLOR;
+
+    if (value === DEFAULT_PRIMARY_COLOR || value === "auto") {
+      this.setPrimaryDefault(false);
       return;
     }
-    if ((PRIMARY_FAMILIES as readonly string[]).includes(stored)) {
-      this.currentPrimaryHex = null;
-      this.currentPrimaryKey = stored as PrimaryFamilyKey;
+
+    if ((PRIMARY_FAMILIES as readonly string[]).includes(value)) {
+      this.currentPrimaryKey = value as PrimaryFamilyKey;
       this.applyVariables();
       this.events.dispatch("primary-changed", {
         color: null,
-        key: stored as PrimaryFamilyKey,
+        key: value as PrimaryFamilyKey,
         mode: "custom",
       });
       return;
     }
-    this.currentPrimaryHex = null;
-    this.currentPrimaryKey = "none" as any;
-    this.applyVariables();
-    this.events.dispatch("primary-changed", {
-      color: null,
-      key: null,
-      mode: "none",
-    });
+
+    this.setPrimaryDefault(false);
   }
 
   public getPrimaryState(): { key: string | null; mode: "none" | "custom" } {
-    if (this.currentPrimaryKey === "none") {
+    if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) {
       return { key: null, mode: "none" };
     }
     if (this.currentPrimaryKey) {
-      return { key: this.currentPrimaryKey, mode: "custom" } as any;
-    }
-    if (this.currentPrimaryHex) {
-      return { key: null, mode: "custom" };
+      return { key: this.currentPrimaryKey, mode: "custom" };
     }
     return { key: null, mode: "none" };
   }
@@ -366,14 +344,13 @@ class ThemeService extends BaseThemeService {
     const isDark = this.isDarkTheme;
     widget.add_css_class(`mode-${mode}`);
     widget.add_css_class(isDark ? "is-dark" : "is-light");
-    if (this.currentPrimaryKey === "none") {
+    if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) {
       widget.add_css_class("primary-none");
-    } else if (this.currentPrimaryKey || this.currentPrimaryHex) {
+    } else if (this.currentPrimaryKey) {
       widget.add_css_class("primary-custom");
-      if (this.currentPrimaryKey)
-        widget.add_css_class(`primary-${this.currentPrimaryKey}`);
+      widget.add_css_class(`primary-${this.currentPrimaryKey}`);
     }
-    if (this.currentAccentKey !== "system") {
+    if (this.currentAccentKey !== DEFAULT_ACCENT_COLOR) {
       widget.add_css_class("accent-custom");
     }
   }
@@ -393,22 +370,9 @@ class ThemeService extends BaseThemeService {
   }
 
   private loadThemeFromSettings(): void {
-    if (!this.settings) return;
-    const saved = this.settings.get_int(KEY_COLOR_SCHEME);
-    let mode: ThemeMode = "system";
-    switch (saved) {
-      case 1:
-        mode = "light";
-        break;
-      case 2:
-        mode = "dark";
-        break;
-      case 0:
-      default:
-        mode = "system";
-        break;
-    }
-    this.setTheme(mode);
+    const saved = this.settings?.get_int(KEY_COLOR_SCHEME);
+    const value = saved ?? DEFAULT_COLOR_SCHEME_OVERRIDE;
+    this.setTheme(this.intToThemeMode(value));
   }
 
   private saveThemeToSettings(mode: ThemeMode): void {
@@ -421,14 +385,26 @@ class ThemeService extends BaseThemeService {
   private themeModeToInt(mode: ThemeMode): number | null {
     switch (mode) {
       case "system":
-        return 0;
+        return ColorScheme.SYSTEM;
       case "light":
-        return 1;
+        return ColorScheme.LIGHT;
       case "dark":
-        return 2;
+        return ColorScheme.DARK;
       default:
         console.warn(`Unknown theme mode: ${mode}`);
         return null;
+    }
+  }
+
+  private intToThemeMode(value: number | null | undefined): ThemeMode {
+    switch (value ?? DEFAULT_COLOR_SCHEME) {
+      case ColorScheme.LIGHT:
+        return "light";
+      case ColorScheme.DARK:
+        return "dark";
+      case ColorScheme.SYSTEM:
+      default:
+        return "system";
     }
   }
 
