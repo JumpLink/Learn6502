@@ -30,7 +30,7 @@ export const DEFAULT_ACCENT_COLOR = "system" as const;
 
 // Default override values (applied when settings are unset/reset)
 export const DEFAULT_COLOR_SCHEME_OVERRIDE = 0; // 0=follow system, 1=light, 2=dark
-export const DEFAULT_PRIMARY_OVERRIDE_KEY = "pink" as const;
+export const DEFAULT_PRIMARY_OVERRIDE_KEY = "purple" as const;
 export const DEFAULT_ACCENT_OVERRIDE_KEY = "system" as const;
 
 // Primary color family keys supported by libadwaita accent variables
