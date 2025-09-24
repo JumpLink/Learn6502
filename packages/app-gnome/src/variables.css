@@ -1,69 +1,112 @@
 /* Derive a tone from the chosen/system primary color depending on mode */
 .primary-custom {
   &:not(.is-dark) {
+    /* Background */
     --learn-primary-bg-color: color-mix(
       in oklab,
       var(--learn-primary-color, var(--accent-color)) 50%,
       var(--light-1)
     );
 
+    /* View */
     --learn-primary-view-bg-color: color-mix(
       in oklab,
       var(--learn-primary-color, var(--accent-color)) 30%,
       var(--light-1)
     );
 
+    /* Card */
     --learn-primary-card-bg-color: var(--learn-primary-view-bg-color);
 
-    --learn-popover-bg-color: var(--learn-primary-view-bg-color);
+    /* Sidebar */
+    --learn-primary-sidebar-bg-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 40%,
+      var(--light-3)
+    );
 
+    /* Popover */
+    --learn-popover-bg-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 20%,
+      var(--light-1)
+    );
+
+    /* None */
     --learn-primary-none-color: var(--light-2);
 
-    /* Text */
+    /* Window Text */
     --window-fg-color: var(--dark-5);
+    /* View Text */
     --view-fg-color: var(--window-fg-color);
   }
 
   &.is-dark {
+    /* Background */
     --learn-primary-bg-color: color-mix(
       in oklab,
       var(--learn-primary-color, var(--accent-color)) 60%,
       var(--dark-5)
     );
 
+    /* View */
     --learn-primary-view-bg-color: color-mix(
       in oklab,
       var(--learn-primary-color, var(--accent-color)) 30%,
       var(--dark-5)
     );
 
+    /* Card */
     --learn-primary-card-bg-color: color-mix(
       in oklab,
       var(--learn-primary-color, var(--accent-color)) 50%,
       var(--dark-4)
     );
 
-    --learn-popover-bg-color: var(--learn-primary-card-bg-color);
+    /* Sidebar */
+    --learn-primary-sidebar-bg-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 30%,
+      var(--dark-4)
+    );
 
+    /* Popover */
+    --learn-popover-bg-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 40%,
+      var(--dark-5)
+    );
+
+    /* None */
     --learn-primary-none-color: var(--dark-4);
   }
 
   &.primary-none {
+    /* None */
     --learn-primary-none-color: var(--window-bg-color);
   }
 
   &:not(.primary-none) {
+    /* Background */
     --window-bg-color: var(--learn-primary-bg-color);
+    /* View */
     --view-bg-color: var(--learn-primary-view-bg-color);
+    /* Card */
     --card-bg-color: var(--learn-primary-card-bg-color);
+    /* Sidebar */
+    --sidebar-bg-color: var(--learn-primary-sidebar-bg-color);
+    /* Popover */
     --popover-bg-color: var(--learn-popover-bg-color);
   }
 }
 
 /* Override accent variables only when a custom accent is active */
 .accent-custom {
+  /* Accent */
   --accent-bg-color: var(--learn-accent-color);
+  /* Accent Color */
   --accent-color: var(--learn-accent-color);
+  /* Link */
   link {
     color: var(--learn-accent-color);
   }
