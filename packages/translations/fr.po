@@ -203,11 +203,11 @@ msgid "<b>Immediate</b> (<tt>#$c0</tt>): Use the actual value"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-msgid "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then dereference"
+msgid "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then use result as pointer to get actual target address"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-msgid "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Dereference zero page address, then add Y"
+msgid "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Use zero page address as pointer to get base address, then add Y to that base"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
@@ -394,6 +394,10 @@ msgstr ""
 msgid "Accumulator: Main register for calculations"
 msgstr ""
 
+#. TRANSLATORS: Release notes for version 0.4.0 - adaptive desktop
+msgid "Adaptive desktop layout with responsive breakpoints and floating toolbar for better desktop experience"
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Add more instructions to draw extra pixels."
 msgstr ""
@@ -404,6 +408,10 @@ msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.2.0 - help feature
 msgid "Added help feature to make code editing easier for beginners"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.4.0 - learning content
+msgid "Added retro game development motivation content covering NES/SNES programming and active homebrew community"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -536,10 +544,6 @@ msgstr ""
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
 msgstr ""
 
-#. TRANSLATORS: Screenshot caption for the built-in debugger
-msgid "Built-in debugger"
-msgstr ""
-
 #. Add response buttons
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
@@ -550,6 +554,10 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
+msgstr ""
+
+#. TRANSLATORS: ViewSwitcher/tab title for the Editor view
+msgid "Code"
 msgstr ""
 
 #. TRANSLATORS: Success message after assembly with total bytes of machine code
@@ -565,16 +573,16 @@ msgstr ""
 msgid "Code editor"
 msgstr ""
 
-#. TRANSLATORS: Screenshot caption for the code editor with expanded help panel
-msgid "Code editor with help panel in expanded view"
-msgstr ""
-
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.4.0 - theme system
+msgid "Complete theme system with accent colors, dark/light mode support, and purple as the default primary color for a playful look"
 msgstr ""
 
 #. TRANSLATORS: Generic confirmation dialog button label
@@ -606,11 +614,15 @@ msgstr ""
 msgid "Dark style"
 msgstr ""
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
+msgid "Debug"
+msgstr ""
+
 #. TRANSLATORS: Feature list item about debugging tools
 msgid "Debug your programs with real-time inspection tools"
 msgstr ""
 
-#. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
+#. TRANSLATORS: App Store search keyword
 msgid "Debugger"
 msgstr ""
 
@@ -652,10 +664,6 @@ msgstr ""
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr ""
 
-#. TRANSLATORS: ViewSwitcher/tab title for the Editor view
-msgid "Editor"
-msgstr ""
-
 #. TRANSLATORS: Preference switch label on Debugger page to enable/disable the debugger
 msgid "Enable Debugger"
 msgstr ""
@@ -666,6 +674,10 @@ msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.4.0 - internationalization
+msgid "Enhanced internationalization with Weblate integration and improved translator comments"
 msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.1.1
@@ -743,10 +755,6 @@ msgstr ""
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
-msgstr ""
-
-#. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
-msgid "Game Console"
 msgstr ""
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
@@ -898,6 +906,10 @@ msgstr ""
 
 #. TRANSLATORS: Screenshot caption for the interactive tutorial view
 msgid "Interactive tutorial"
+msgstr ""
+
+#. TRANSLATORS: Screenshot caption for the desktop layout
+msgid "Interactive tutorial, code editor and virtual game console"
 msgstr ""
 
 #. TRANSLATORS: Feature list item about interactive tutorials
@@ -1075,6 +1087,10 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Pink
 #. TRANSLATORS: Tooltip for primary color option Pink
 msgid "Pink"
+msgstr ""
+
+#. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
+msgid "Play"
 msgstr ""
 
 msgid "Preprocessing ..."
@@ -1340,6 +1356,10 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.4.0 - technical improvements
+msgid "Technical improvements including TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls"
 msgstr ""
 
 #. TRANSLATORS: Feature list item about virtual game console
