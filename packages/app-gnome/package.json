@@ -7,10 +7,11 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clear": "yarn clear:dist && yarn clear:resources && yarn clear:settings",
+    "clear": "yarn clear:dist && yarn clear:resources && yarn clear:settings && yarn clear:setttngs:flatpak",
     "clear:dist": "rm -rf dist",
     "clear:resources": "rm -rf data/eu.jumplink.Learn6502.data.gresource",
     "clear:settings": "GSETTINGS_SCHEMA_DIR=$PWD/data/schemas gsettings reset-recursively eu.jumplink.Learn6502",
+    "clear:setttngs:flatpak": "flatpak run --command=gsettings reset-recursively eu.jumplink.Learn6502",
     "build:vite": "vite build",
     "build:resources": "glib-compile-resources --sourcedir data data/eu.jumplink.Learn6502.data.gresource.xml",
     "build:schema": "mkdir -p data/schemas && glib-compile-schemas --strict --targetdir=data/schemas data",
