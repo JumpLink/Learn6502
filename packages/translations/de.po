@@ -546,10 +546,6 @@ msgstr "Verzweigungen"
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
 msgstr "Break Flag: Wird gesetzt, wenn eine BRK (Break)-Anweisung ausgeführt wird. Wird verwendet, um zwischen Software-Interrupts (BRK) und Hardware-Interrupts zu unterscheiden. Hilft bei der Identifizierung der Quelle eines Interrupts in Interrupt-Service-Routinen."
 
-#. TRANSLATORS: Screenshot caption for the built-in debugger
-msgid "Built-in debugger"
-msgstr "Integrierter Debugger"
-
 #. Add response buttons
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
@@ -574,10 +570,6 @@ msgstr "Code in Editor kopiert"
 #. TRANSLATORS: Screenshot caption for the integrated code editor
 msgid "Code editor"
 msgstr "Code-Editor"
-
-#. TRANSLATORS: Screenshot caption for the code editor with expanded help panel
-msgid "Code editor with help panel in expanded view"
-msgstr "Code-Editor mit Hilfe-Panel in erweiterter Ansicht"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
@@ -917,6 +909,10 @@ msgstr "Anweisungen in der Assemblersprache sind wie eine kleine Sammlung vordef
 #. TRANSLATORS: Screenshot caption for the interactive tutorial view
 msgid "Interactive tutorial"
 msgstr "Interaktives Tutorial"
+
+#. TRANSLATORS: Screenshot caption for the desktop layout
+msgid "Interactive tutorial, code editor and virtual game console"
+msgstr "Interaktives Tutorial, Code-Editor und virtuelle Spielkonsole"
 
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
@@ -1657,3 +1653,9 @@ msgstr "WDM-Ausgabe"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "was die indirekt adressierten Speicheradressen <tt>$0411</tt>, <tt>$0410</tt> und <tt>$040f</tt> repräsentiert (drei Pixel in der Mitte des Displays). Ich betone diesen Punkt, aber es ist wichtig, vollständig zu verstehen, wie indirekte Adressierung funktioniert."
+
+#~ msgid "Built-in debugger"
+#~ msgstr "Integrierter Debugger"
+
+#~ msgid "Code editor with help panel in expanded view"
+#~ msgstr "Code-Editor mit Hilfe-Panel in erweiterter Ansicht"
