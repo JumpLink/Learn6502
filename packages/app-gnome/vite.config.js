@@ -109,6 +109,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         templateFile: "./data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in",
         verbose: true,
         useLocaleStructure: false,
+        removeComments: true, // Remove XML comments from output
       }),
       // Copy the MO files to the output directory for local builds
       // For flatpak builds, the MO files are compiled by meson
