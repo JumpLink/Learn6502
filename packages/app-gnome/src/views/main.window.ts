@@ -41,8 +41,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _unsavedChangesDialog: Adw.AlertDialog;
   declare private _titleLabel: Gtk.Label;
   declare private _unsavedChangesIndicator: Gtk.Button;
+  declare private _sidebarToggleButton: Gtk.ToggleButton;
 
-  // Three column boxes
+  // Three column layout widgets
+  declare private _leftSidebar: Adw.OverlaySplitView;
   declare private _leftColumn: Gtk.Box;
   declare private _centerColumn: Gtk.Box;
   declare private _rightTopBox: Gtk.Box;
@@ -71,6 +73,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "debugger",
           "toastOverlay",
           "layoutHost",
+          "leftSidebar",
           "leftColumn",
           "centerColumn",
           "rightTopBox",
@@ -78,6 +81,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "unsavedChangesDialog",
           "titleLabel",
           "unsavedChangesIndicator",
+          "sidebarToggleButton",
         ],
       },
       this

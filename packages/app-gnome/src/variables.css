@@ -22,7 +22,12 @@
     --learn-primary-sidebar-bg-color: color-mix(
       in oklab,
       var(--learn-primary-color, var(--accent-color)) 40%,
-      var(--light-3)
+      var(--light-2)
+    );
+    --learn-primary-sidebar-backdrop-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 35%,
+      var(--light-2)
     );
 
     /* Popover */
@@ -73,8 +78,13 @@
     /* Sidebar */
     --learn-primary-sidebar-bg-color: color-mix(
       in oklab,
-      var(--learn-primary-color, var(--accent-color)) 30%,
-      var(--dark-4)
+      var(--learn-primary-color, var(--accent-color)) 50%,
+      var(--dark-5)
+    );
+    --learn-primary-sidebar-backdrop-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 40%,
+      var(--dark-5)
     );
 
     /* Popover */
@@ -109,6 +119,7 @@
     --card-bg-color: var(--learn-primary-card-bg-color);
     /* Sidebar */
     --sidebar-bg-color: var(--learn-primary-sidebar-bg-color);
+    --sidebar-backdrop-color: var(--learn-primary-sidebar-backdrop-color);
     /* Popover */
     --popover-bg-color: var(--learn-popover-bg-color);
     /* Dialog */
