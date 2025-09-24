@@ -57,8 +57,8 @@
 - **Zero Page,X/Y** (`$c0,X`): Add X/Y register to zero page address
 - **Absolute,X/Y** (`$c000,X`): Add X/Y register to absolute address
 - **Indirect** (`($c000)`): Look up address stored at given location
-- **Indexed Indirect** (`($c0,X)`): Add X to zero page address, then dereference
-- **Indirect Indexed** (`($c0),Y`): Dereference zero page address, then add Y
+- **Indexed Indirect** (`($c0,X)`): Add X to zero page address, then use result as pointer to get actual target address
+- **Indirect Indexed** (`($c0),Y`): Use zero page address as pointer to get base address, then add Y to that base
 - **Relative** (`label`): Branch uses signed 8‑bit offset from the next instruction (−128…+127)
 
 ## Common Instructions

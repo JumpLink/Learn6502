@@ -204,12 +204,12 @@ msgid "<b>Immediate</b> (<tt>#$c0</tt>): Use the actual value"
 msgstr "<b>Unmittelbar</b> (<tt>#$c0</tt>): Verwendet den tatsächlichen Wert"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-msgid "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then dereference"
-msgstr "<b>Indiziert Indirekt</b> (<tt>($c0,X)</tt>): Addiert X zur Nullseitenadresse, dann dereferenzieren"
+msgid "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then use result as pointer to get actual target address"
+msgstr "<b>Indiziert Indirekt</b> (<tt>($c0,X)</tt>): Addiert X zur Nullseitenadresse, dann verwendet das Ergebnis als Zeiger zur tatsächlichen Zieladresse"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-msgid "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Dereference zero page address, then add Y"
-msgstr "<b>Indirekt Indiziert</b> (<tt>($c0),Y</tt>): Dereferenziert Nullseitenadresse, dann Y addieren"
+msgid "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Use zero page address as pointer to get base address, then add Y to that base"
+msgstr "<b>Indirekt Indiziert</b> (<tt>($c0),Y</tt>): Verwendet Nullseitenadresse als Zeiger zur Basisadresse, dann addiert Y zu dieser Basis"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indirect</b> (<tt>($c000)</tt>): Look up address stored at given location"
@@ -558,6 +558,10 @@ msgstr "Carry Flag: Wird gesetzt, wenn eine Addition einen Übertrag erzeugt ode
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Ändere eines der Pixel so, dass es in der unteren rechten Ecke gezeichnet wird (Speicheradresse <tt>$05ff</tt>)."
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Editor view
+msgid "Code"
+msgstr "Coden"
+
 #. TRANSLATORS: Success message after assembly with total bytes of machine code
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
@@ -612,11 +616,15 @@ msgstr "Ein Spiel erstellen"
 msgid "Dark style"
 msgstr "Dunkler Stil"
 
+#. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
+msgid "Debug"
+msgstr "Debuggen"
+
 #. TRANSLATORS: Feature list item about debugging tools
 msgid "Debug your programs with real-time inspection tools"
 msgstr "Debugge deine Programme mit Echtzeit-Inspektionswerkzeugen"
 
-#. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
+#. TRANSLATORS: App Store search keyword
 msgid "Debugger"
 msgstr "Debugger"
 
@@ -657,10 +665,6 @@ msgstr "Bildschirmorganisation"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr "Jeder Abschnitt (<tt>upKey</tt>, <tt>rightKey</tt>, usw.) überprüft zuerst, ob die aktuelle Richtung die entgegengesetzte der neuen Richtung ist. Dies erfordert einen weiteren kleinen Umweg."
-
-#. TRANSLATORS: ViewSwitcher/tab title for the Editor view
-msgid "Editor"
-msgstr "Editor"
 
 #. TRANSLATORS: Preference switch label on Debugger page to enable/disable the debugger
 msgid "Enable Debugger"
@@ -754,10 +758,6 @@ msgstr "Gesamter Speicher ($0000-$FFFF)"
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
 msgstr "GNOME"
-
-#. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
-msgid "Game Console"
-msgstr "Spielkonsole"
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
 msgid "Gamepad key pressed:"
@@ -1090,6 +1090,10 @@ msgstr "Perfekt für Hobbyisten, Studenten und alle, die neugierig sind, wie Com
 #. TRANSLATORS: Tooltip for primary color option Pink
 msgid "Pink"
 msgstr "Rosa"
+
+#. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
+msgid "Play"
+msgstr "Spielen"
 
 msgid "Preprocessing ..."
 msgstr "Vorverarbeitung läuft..."
@@ -1653,6 +1657,12 @@ msgstr "WDM-Ausgabe"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "was die indirekt adressierten Speicheradressen <tt>$0411</tt>, <tt>$0410</tt> und <tt>$040f</tt> repräsentiert (drei Pixel in der Mitte des Displays). Ich betone diesen Punkt, aber es ist wichtig, vollständig zu verstehen, wie indirekte Adressierung funktioniert."
+
+#~ msgid "Edit"
+#~ msgstr "Editor"
+
+#~ msgid "Game Console"
+#~ msgstr "Spielkonsole"
 
 #~ msgid "Built-in debugger"
 #~ msgstr "Integrierter Debugger"

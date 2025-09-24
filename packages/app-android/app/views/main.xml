@@ -57,11 +57,11 @@
                 moduleName="views/main/storybook" />
             <w:BottomTab title="Learn" icon="res://school_symbolic" id="learn"
                 moduleName="views/main/learn" />
-            <w:BottomTab title="Editor" icon="res://code_symbolic" id="editor"
+            <w:BottomTab title="Edit" icon="res://code_symbolic" id="editor"
                 moduleName="views/main/editor" />
-            <w:BottomTab title="Debugger" icon="res://bug_symbolic" id="debugger"
+            <w:BottomTab title="Debug" icon="res://bug_symbolic" id="debugger"
                 moduleName="views/main/debugger" />
-            <w:BottomTab title="Game Console" icon="res://nintendo_controller_symbolic"
+            <w:BottomTab title="Play" icon="res://nintendo_controller_symbolic"
                 id="gameConsole" moduleName="views/main/game-console" />
         </w:BottomNavigation>
     </GridLayout>

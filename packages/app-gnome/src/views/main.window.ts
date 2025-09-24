@@ -106,8 +106,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private handleChildFocusChangeDebounced = debounce(() => {
     if (!this.isDesktopMode()) return;
 
-    const focused: Gtk.Widget | null =
-      (this as unknown as Gtk.Window).get_focus?.() ?? null;
+    const focused: Gtk.Widget | null = this.get_focus() ?? null;
     const isFocusInsideConsole = this.widgetIsDescendantOf(
       focused,
       this._gameConsole
@@ -405,9 +404,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     let current: Gtk.Widget | null = widget;
     while (current) {
       if (current === ancestor) return true;
-      current =
-        (current.get_parent && (current.get_parent() as Gtk.Widget | null)) ||
-        null;
+      current = current.get_parent() as Gtk.Widget | null;
     }
     return false;
   }
@@ -491,45 +488,45 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.detachFromParent(this._gameConsole);
 
     // Remove existing pages
-    const model: any = (this._stack as any).get_pages?.();
+    const model: Gtk.SelectionModel<Gtk.Widget> = this._stack.get_pages();
     if (model) {
       const toRemove: Gtk.Widget[] = [];
       const n: number = model.get_n_items?.() ?? 0;
       for (let i = 0; i < n; i++) {
-        const page: any = model.get_item?.(i);
-        const child: Gtk.Widget | undefined = page?.get_child?.();
+        const page = model.get_item(i) as Gtk.StackPage;
+        const child = page.get_child();
         if (child) toRemove.push(child);
       }
       for (const child of toRemove) this._stack.remove(child);
     }
 
     // Add four pages
-    (this._stack as any).add_titled_with_icon?.(
+    this._stack.add_titled_with_icon(
       this._learn,
       "learn",
       // TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
       _("Learn"),
       "school-symbolic"
     );
-    (this._stack as any).add_titled_with_icon?.(
+    this._stack.add_titled_with_icon(
       this._editor,
       "editor",
       // TRANSLATORS: ViewSwitcher/tab title for the Editor view
-      _("Editor"),
+      _("Code"),
       "code-symbolic"
     );
-    (this._stack as any).add_titled_with_icon?.(
+    this._stack.add_titled_with_icon(
       this._debugger,
       "debugger",
       // TRANSLATORS: ViewSwitcher/tab title for the Debugger view
-      _("Debugger"),
+      _("Debug"),
       "bug-symbolic"
     );
-    (this._stack as any).add_titled_with_icon?.(
+    this._stack.add_titled_with_icon(
       this._gameConsole,
       "gameConsole",
       // TRANSLATORS: ViewSwitcher/tab title for the Game Console view
-      _("Game Console"),
+      _("Play"),
       "nintendo-controller-symbolic"
     );
   }
@@ -576,8 +573,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private detachFromParent(widget: Gtk.Widget): void {
     const parent = widget.get_parent();
-    if (parent && (parent as any).remove) {
-      (parent as any).remove(widget);
+    if (
+      parent &&
+      (parent as Gtk.Box | Gtk.Grid | Gtk.Fixed | Gtk.Stack).remove
+    ) {
+      (parent as Gtk.Box | Gtk.Grid | Gtk.Fixed | Gtk.Stack).remove(widget);
     }
   }
 
