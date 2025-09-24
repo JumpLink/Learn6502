@@ -32,6 +32,13 @@
       var(--light-1)
     );
 
+    /* Dialog */
+    --learn-primary-dialog-bg-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 30%,
+      var(--light-2)
+    );
+
     /* None */
     --learn-primary-none-color: var(--light-2);
 
@@ -77,6 +84,13 @@
       var(--dark-5)
     );
 
+    /* Dialog */
+    --learn-primary-dialog-bg-color: color-mix(
+      in oklab,
+      var(--learn-primary-color, var(--accent-color)) 25%,
+      var(--dark-4)
+    );
+
     /* None */
     --learn-primary-none-color: var(--dark-4);
   }
@@ -97,6 +111,8 @@
     --sidebar-bg-color: var(--learn-primary-sidebar-bg-color);
     /* Popover */
     --popover-bg-color: var(--learn-popover-bg-color);
+    /* Dialog */
+    --dialog-bg-color: var(--learn-primary-dialog-bg-color);
   }
 }
 
