@@ -11,12 +11,12 @@ template $MainWindow: Adw.ApplicationWindow {
   // Auto switch between single and three-column layouts
   [breakpoint]
   Adw.Breakpoint {
-    condition ("min-width: 1200sp and min-height: 800sp")
+    condition ("min-width: 1000sp and min-height: 700sp")
 
     setters {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
-      leftCenterPaned.position: 360;
+      leftCenterPaned.position: 344;
 
       titleLabel.visible: true;
       mainButton.visible: false;
@@ -26,7 +26,7 @@ template $MainWindow: Adw.ApplicationWindow {
 
   [breakpoint]
   Adw.Breakpoint {
-    condition ("max-width: 1199sp or max-height: 799sp")
+    condition ("max-width: 999sp or max-height: 699sp")
 
     setters {
       layoutHost.visible-child-name: "single";
@@ -41,7 +41,7 @@ template $MainWindow: Adw.ApplicationWindow {
   // Very wide desktop: increase left column width
   [breakpoint]
   Adw.Breakpoint {
-    condition ("min-width: 1600sp and min-height: 800sp")
+    condition ("min-width: 1600sp and min-height: 700sp")
 
     setters {
       layoutHost.visible-child-name: "three";
