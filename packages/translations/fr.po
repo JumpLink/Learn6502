@@ -394,10 +394,6 @@ msgstr ""
 msgid "Accumulator: Main register for calculations"
 msgstr ""
 
-#. TRANSLATORS: Release notes for version 0.4.0 - adaptive desktop
-msgid "Adaptive desktop layout with responsive breakpoints and floating toolbar for better desktop experience"
-msgstr ""
-
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Add more instructions to draw extra pixels."
 msgstr ""
@@ -408,10 +404,6 @@ msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.2.0 - help feature
 msgid "Added help feature to make code editing easier for beginners"
-msgstr ""
-
-#. TRANSLATORS: Release notes for version 0.4.0 - learning content
-msgid "Added retro game development motivation content covering NES/SNES programming and active homebrew community"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -474,6 +466,10 @@ msgstr ""
 #. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
+msgstr ""
+
+#. TRANSLATORS: Screenshot caption for the appearance settings
+msgid "Appearance settings"
 msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements
@@ -573,16 +569,16 @@ msgstr ""
 msgid "Code editor"
 msgstr ""
 
+#. TRANSLATORS: Screenshot caption for the desktop layout
+msgid "Code editor and virtual game console"
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
-msgstr ""
-
-#. TRANSLATORS: Release notes for version 0.4.0 - theme system
-msgid "Complete theme system with accent colors, dark/light mode support, and purple as the default primary color for a playful look"
 msgstr ""
 
 #. TRANSLATORS: Generic confirmation dialog button label
@@ -674,10 +670,6 @@ msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
-msgstr ""
-
-#. TRANSLATORS: Release notes for version 0.4.0 - internationalization
-msgid "Enhanced internationalization with Weblate integration and improved translator comments"
 msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.1.1
@@ -906,10 +898,6 @@ msgstr ""
 
 #. TRANSLATORS: Screenshot caption for the interactive tutorial view
 msgid "Interactive tutorial"
-msgstr ""
-
-#. TRANSLATORS: Screenshot caption for the desktop layout
-msgid "Interactive tutorial, code editor and virtual game console"
 msgstr ""
 
 #. TRANSLATORS: Feature list item about interactive tutorials
@@ -1234,6 +1222,10 @@ msgstr ""
 msgid "Run"
 msgstr ""
 
+#. TRANSLATORS: Screenshot caption for the snake game running in the virtual console
+msgid "Running Snake game"
+msgstr ""
+
 #. TRANSLATORS: Menu item to save the current file
 msgid "Save"
 msgstr ""
@@ -1286,10 +1278,6 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Snake Game Memory Usage"
-msgstr ""
-
-#. TRANSLATORS: Screenshot caption for the snake game running in the virtual console
-msgid "Snake game running on the virtual game console"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -1356,10 +1344,6 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
-msgstr ""
-
-#. TRANSLATORS: Release notes for version 0.4.0 - technical improvements
-msgid "Technical improvements including TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls"
 msgstr ""
 
 #. TRANSLATORS: Feature list item about virtual game console
@@ -1530,8 +1514,16 @@ msgstr ""
 msgid "This one's kinda weird. It's like a cross between zero page,X and indirect. Basically, you take the zero page address, add the value of the <tt>X</tt> register to it, then use that to look up a two-byte address. For example:"
 msgstr ""
 
+#. TRANSLATORS: Release notes for version 0.4.0
+msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
+msgstr ""
+
+#. TRANSLATORS: Tooltip text for sidebar toggle button in header bar
+msgid "Toggle Sidebar"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx

@@ -274,7 +274,7 @@ msgstr "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
 # Duplicate of earlier entry removed to avoid multiple definition
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>V</b> (Overflow): Set when arithmetic operation causes signed overflow"
-msgstr ""
+msgstr "<b>V</b> (Overflow): Wird gesetzt, wenn eine arithmetische Operation einen vorzeichenbehafteten Überlauf verursacht"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>W</b> or Up Arrow key (<tt>$77</tt>)"
@@ -286,7 +286,7 @@ msgstr "<b>X, Y</b>: Indexregister für Adressierung und Zählung"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Z</b> (Zero): Set when result is zero"
-msgstr ""
+msgstr "<b>Z</b> (Zero): Wird gesetzt, wenn das Ergebnis null ist"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
@@ -396,10 +396,6 @@ msgstr "Akzent: Gelb"
 msgid "Accumulator: Main register for calculations"
 msgstr "Akkumulator: Hauptregister für Berechnungen"
 
-#. TRANSLATORS: Release notes for version 0.4.0 - adaptive desktop
-msgid "Adaptive desktop layout with responsive breakpoints and floating toolbar for better desktop experience"
-msgstr "Adaptives Desktop-Layout mit responsiven Breakpoints und schwebender Toolbar für bessere Desktop-Erfahrung"
-
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Add more instructions to draw extra pixels."
 msgstr "Füge weitere Anweisungen hinzu, um zusätzliche Pixel zu zeichnen."
@@ -411,10 +407,6 @@ msgstr "Dateiverwaltung zum Speichern und Laden von Programmen hinzugefügt"
 #. TRANSLATORS: Release notes for version 0.2.0 - help feature
 msgid "Added help feature to make code editing easier for beginners"
 msgstr "Hilfefunktion hinzugefügt, um die Codebearbeitung für Anfänger zu erleichtern"
-
-#. TRANSLATORS: Release notes for version 0.4.0 - learning content
-msgid "Added retro game development motivation content covering NES/SNES programming and active homebrew community"
-msgstr "Retro-Spielentwicklungs-Motivationsinhalt hinzugefügt, der NES/SNES-Programmierung und aktive Homebrew-Community abdeckt"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Additional button inputs are also available: button A (Enter/Return key, ASCII code <tt>$0D</tt>) and button B (Space key, ASCII code <tt>$20</tt>). These can be used to add more interaction to your games. For directional controls, both WASD keys and arrow keys can be used interchangeably."
@@ -463,7 +455,7 @@ msgstr "Alle Anweisungen, die absolute Adressierung unterstützen (mit Ausnahme 
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
-msgstr ""
+msgstr "Auch nützlich: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "An important thing to notice here is the distinction between <tt>ADC #$01</tt> and <tt>ADC $01</tt>. The first one adds the value <tt>$01</tt> to the <tt>A</tt> register, but the second adds the value stored at memory location <tt>$01</tt> to the <tt>A</tt> register."
@@ -477,6 +469,10 @@ msgstr "Alle Zahlen mit dem Präfix <tt>$</tt> in der 6502-Assemblersprache (und
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Erscheinungsbild"
+
+#. TRANSLATORS: Screenshot caption for the appearance settings
+msgid "Appearance settings"
+msgstr "Erscheinungsbild-Einstellungen"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
@@ -575,6 +571,10 @@ msgstr "Code in Editor kopiert"
 msgid "Code editor"
 msgstr "Code-Editor"
 
+#. TRANSLATORS: Screenshot caption for the desktop layout
+msgid "Code editor and virtual game console"
+msgstr "Code-Editor und virtuelle Spielkonsole"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "Farbpalette"
@@ -582,10 +582,6 @@ msgstr "Farbpalette"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
 msgstr "Häufige Anweisungen"
-
-#. TRANSLATORS: Release notes for version 0.4.0 - theme system
-msgid "Complete theme system with accent colors, dark/light mode support, and purple as the default primary color for a playful look"
-msgstr "Vollständiges Theme-System mit Akzentfarben, Dark/Light-Mode-Unterstützung und Lila als Standard-Primärfarbe für ein verspieltes Aussehen"
 
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Confirm"
@@ -677,10 +673,6 @@ msgstr "Stepper-Modus aktivieren"
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
 msgstr "Verbesserte App-Darstellung und Zugänglichkeit"
-
-#. TRANSLATORS: Release notes for version 0.4.0 - internationalization
-msgid "Enhanced internationalization with Weblate integration and improved translator comments"
-msgstr "Erweiterte Internationalisierung mit Weblate-Integration und verbesserten Übersetzer-Kommentaren"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Enhanced the hex monitor address range input for easier value editing"
@@ -910,10 +902,6 @@ msgstr "Anweisungen in der Assemblersprache sind wie eine kleine Sammlung vordef
 msgid "Interactive tutorial"
 msgstr "Interaktives Tutorial"
 
-#. TRANSLATORS: Screenshot caption for the desktop layout
-msgid "Interactive tutorial, code editor and virtual game console"
-msgstr "Interaktives Tutorial, Code-Editor und virtuelle Spielkonsole"
-
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "Interaktive Tutorials führen dich vom Anfänger zum Fortgeschrittenen"
@@ -1031,7 +1019,7 @@ msgstr "OK"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "On reset (simulator): <tt>P = $30</tt> (bit5 and <tt>B</tt> set; <tt>D</tt> and <tt>I</tt> clear)"
-msgstr ""
+msgstr "Beim Zurücksetzen (Simulator): <tt>P = $30</tt> (Bit5 und <tt>B</tt> gesetzt; <tt>D</tt> und <tt>I</tt> gelöscht)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Once the values have been shifted down the snake, we have to work out what to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</tt> means \"logical shift right\", or \"shift all the bits one position to the right\". The least significant bit is shifted into the carry flag, so if the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the carry flag set."
@@ -1236,6 +1224,10 @@ msgstr "Schreibe das erste Beispiel in diesem Abschnitt so um, dass es das <tt>Y
 msgid "Run"
 msgstr "Ausführen"
 
+#. TRANSLATORS: Screenshot caption for the snake game running in the virtual console
+msgid "Running Snake game"
+msgstr "Snake-Spiel läuft"
+
 #. TRANSLATORS: Menu item to save the current file
 msgid "Save"
 msgstr "Speichern"
@@ -1289,10 +1281,6 @@ msgstr "Snake-Spieldaten ($00-$15)"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Snake Game Memory Usage"
 msgstr "Speichernutzung im Snake-Spiel"
-
-#. TRANSLATORS: Screenshot caption for the snake game running in the virtual console
-msgid "Snake game running on the virtual game console"
-msgstr "Snake-Spiel läuft auf der virtuellen Spielkonsole"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So far we're only able to write basic programs without any branching logic. Let's change that."
@@ -1359,10 +1347,6 @@ msgstr "Syntaxfehler in Zeile %d: %s"
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
 msgstr "Türkis"
-
-#. TRANSLATORS: Release notes for version 0.4.0 - technical improvements
-msgid "Technical improvements including TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls"
-msgstr "Technische Verbesserungen einschließlich TypeScript-Strictness, benutzerdefinierten GtkSourceView-Style-Schemes und erweiterten Debugger-Steuerungen"
 
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
@@ -1532,9 +1516,17 @@ msgstr "Dies lädt den Wert <tt>$11</tt> in die Speicheradresse <tt>$10</tt>, de
 msgid "This one's kinda weird. It's like a cross between zero page,X and indirect. Basically, you take the zero page address, add the value of the <tt>X</tt> register to it, then use that to look up a two-byte address. For example:"
 msgstr "Diese ist etwas seltsam. Es ist wie eine Kreuzung zwischen Nullseite,X und indirekt. Im Grunde nimmst du die Nullseiten-Adresse, addierst den Wert des <tt>X</tt>-Registers dazu und verwendest das dann, um eine zweibyte-Adresse nachzuschlagen. Zum Beispiel:"
 
+#. TRANSLATORS: Release notes for version 0.4.0
+msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
+msgstr "Diese Version bringt lebendiges, handheld-inspiriertes Theming mit anpassbaren Farben. Wir haben adaptive Tablet- und Desktop-Layouts eingeführt, die alles im Blick behalten - perfekt für diese Marathon-Codingsessions beim Lernen der Retro-Spielentwicklung in Assembly. Großer Dank an unseren neuen Mitwirkenden @mmartinortiz für die großartigen Desktop-Layout-Ideen. Es gibt auch einige coole technische Verbesserungen wie TypeScript-Strictness, benutzerdefinierte GtkSourceView-Style-Schemes und erweiterte Debugger-Steuerungen für flüssigere Entwicklung."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
 msgstr "Um zu testen, ob die Richtung <tt>1</tt>, <tt>2</tt>, <tt>4</tt> oder <tt>8</tt> ist, verschiebt der Code kontinuierlich nach rechts, bis das Carry gesetzt ist. Ein <tt>LSR</tt> bedeutet \"nach oben\", zwei bedeutet \"nach rechts\" und so weiter."
+
+#. TRANSLATORS: Tooltip text for sidebar toggle button in header bar
+msgid "Toggle Sidebar"
+msgstr "Seitenleiste umschalten"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try changing the colour of the three pixels."
@@ -1657,6 +1649,24 @@ msgstr "WDM-Ausgabe"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "was die indirekt adressierten Speicheradressen <tt>$0411</tt>, <tt>$0410</tt> und <tt>$040f</tt> repräsentiert (drei Pixel in der Mitte des Displays). Ich betone diesen Punkt, aber es ist wichtig, vollständig zu verstehen, wie indirekte Adressierung funktioniert."
+
+#~ msgid "Adaptive desktop layout with responsive breakpoints and floating toolbar for better desktop experience"
+#~ msgstr "Adaptives Desktop-Layout mit responsiven Breakpoints und schwebender Toolbar für bessere Desktop-Erfahrung"
+
+#~ msgid "Added retro game development motivation content covering NES/SNES programming and active homebrew community"
+#~ msgstr "Retro-Spielentwicklungs-Motivationsinhalt hinzugefügt, der NES/SNES-Programmierung und aktive Homebrew-Community abdeckt"
+
+#~ msgid "Complete theme system with accent colors, dark/light mode support, and purple as the default primary color for a playful look"
+#~ msgstr "Vollständiges Theme-System mit Akzentfarben, Dark/Light-Mode-Unterstützung und Lila als Standard-Primärfarbe für ein verspieltes Aussehen"
+
+#~ msgid "Enhanced internationalization with Weblate integration and improved translator comments"
+#~ msgstr "Erweiterte Internationalisierung mit Weblate-Integration und verbesserten Übersetzer-Kommentaren"
+
+#~ msgid "Snake game running on the virtual game console"
+#~ msgstr "Snake-Spiel läuft auf der virtuellen Spielkonsole"
+
+#~ msgid "Technical improvements including TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls"
+#~ msgstr "Technische Verbesserungen einschließlich TypeScript-Strictness, benutzerdefinierten GtkSourceView-Style-Schemes und erweiterten Debugger-Steuerungen"
 
 #~ msgid "Edit"
 #~ msgstr "Editor"

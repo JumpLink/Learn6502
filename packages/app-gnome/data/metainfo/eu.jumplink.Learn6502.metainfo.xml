@@ -47,26 +47,32 @@
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/1.png</image>
       
-      <caption>Snake game running on the virtual game console</caption>
-      <caption xml:lang="de">Snake-Spiel läuft auf der virtuellen Spielkonsole</caption>
+      <caption>Code editor and virtual game console</caption>
+      <caption xml:lang="de">Code-Editor und virtuelle Spielkonsole</caption>
     </screenshot>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/2.png</image>
+      
+      <caption>Appearance settings</caption>
+      <caption xml:lang="de">Erscheinungsbild-Einstellungen</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/3.png</image>
+      
+      <caption>Running Snake game</caption>
+      <caption xml:lang="de">Snake-Spiel läuft</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/4.png</image>
       
       <caption>Interactive tutorial</caption>
       <caption xml:lang="de">Interaktives Tutorial</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/3.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/5.png</image>
       
       <caption>Code editor</caption>
       <caption xml:lang="de">Code-Editor</caption>
-    </screenshot>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/4.png</image>
-      
-      <caption>Interactive tutorial, code editor and virtual game console</caption>
-      <caption xml:lang="de">Interaktives Tutorial, Code-Editor und virtuelle Spielkonsole</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
@@ -85,20 +91,8 @@
     <release version="0.4.0" date="2025-09-24">
       <description>
         
-        <p>Complete theme system with accent colors, dark/light mode support, and purple as the default primary color for a playful look</p>
-        <p xml:lang="de">Vollständiges Theme-System mit Akzentfarben, Dark/Light-Mode-Unterstützung und Lila als Standard-Primärfarbe für ein verspieltes Aussehen</p>
-        
-        <p>Adaptive desktop layout with responsive breakpoints and floating toolbar for better desktop experience</p>
-        <p xml:lang="de">Adaptives Desktop-Layout mit responsiven Breakpoints und schwebender Toolbar für bessere Desktop-Erfahrung</p>
-        
-        <p>Enhanced internationalization with Weblate integration and improved translator comments</p>
-        <p xml:lang="de">Erweiterte Internationalisierung mit Weblate-Integration und verbesserten Übersetzer-Kommentaren</p>
-        
-        <p>Added retro game development motivation content covering NES/SNES programming and active homebrew community</p>
-        <p xml:lang="de">Retro-Spielentwicklungs-Motivationsinhalt hinzugefügt, der NES/SNES-Programmierung und aktive Homebrew-Community abdeckt</p>
-        
-        <p>Technical improvements including TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls</p>
-        <p xml:lang="de">Technische Verbesserungen einschließlich TypeScript-Strictness, benutzerdefinierten GtkSourceView-Style-Schemes und erweiterten Debugger-Steuerungen</p>
+        <p>This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development.</p>
+        <p xml:lang="de">Diese Version bringt lebendiges, handheld-inspiriertes Theming mit anpassbaren Farben. Wir haben adaptive Tablet- und Desktop-Layouts eingeführt, die alles im Blick behalten - perfekt für diese Marathon-Codingsessions beim Lernen der Retro-Spielentwicklung in Assembly. Großer Dank an unseren neuen Mitwirkenden @mmartinortiz für die großartigen Desktop-Layout-Ideen. Es gibt auch einige coole technische Verbesserungen wie TypeScript-Strictness, benutzerdefinierte GtkSourceView-Style-Schemes und erweiterte Debugger-Steuerungen für flüssigere Entwicklung.</p>
       </description>
     </release>
     <release version="0.3.0" date="2025-09-08">
