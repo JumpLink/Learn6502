@@ -17,6 +17,7 @@ template $MainWindow: Adw.ApplicationWindow {
       layoutHost.visible-child-name: "single";
       switcherBar.reveal: true;
       leftSidebar.collapsed: true;
+      leftSidebar.show-sidebar: false;
       sidebarToggleButton.visible: false;
 
       titleLabel.visible: false;
@@ -34,6 +35,7 @@ template $MainWindow: Adw.ApplicationWindow {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
       leftSidebar.collapsed: true;
+      leftSidebar.show-sidebar: false;
       leftSidebar.min-sidebar-width: 344;
       leftSidebar.max-sidebar-width: 344;
       sidebarToggleButton.visible: true;
@@ -52,6 +54,7 @@ template $MainWindow: Adw.ApplicationWindow {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
       leftSidebar.collapsed: false;
+      leftSidebar.show-sidebar: true;
       leftSidebar.min-sidebar-width: 344;
       leftSidebar.max-sidebar-width: 344;
       sidebarToggleButton.visible: true;
@@ -71,6 +74,7 @@ template $MainWindow: Adw.ApplicationWindow {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
       leftSidebar.collapsed: false;
+      leftSidebar.show-sidebar: true;
       leftSidebar.min-sidebar-width: 344;
       leftSidebar.max-sidebar-width: 800;
       sidebarToggleButton.visible: true;

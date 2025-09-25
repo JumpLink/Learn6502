@@ -265,6 +265,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private setupLearnTutorialSignalListeners(): void {
     learnController.on("copy", ({ code }: { code: string }) => {
       this.setEditorCode(code);
+      this.closeSidebarIfOverlay();
       this.showToast({
         // TRANSLATORS: Toast message title after copying code snippet into the editor
         title: _("Code copied to editor"),
@@ -308,6 +309,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private onCopyToEditor(code: string): void {
     this.setEditorCode(code);
+    this.closeSidebarIfOverlay();
   }
 
   private onStepperToggled(enabled: boolean): void {
@@ -1088,6 +1090,17 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       settings.set_int("window-height", height);
     } catch (error) {
       console.warn("Could not save window size to settings:", error);
+    }
+  }
+
+  /**
+   * Close the sidebar if it's in overlay mode (collapsed)
+   * This provides better UX when copying code to editor
+   */
+  private closeSidebarIfOverlay(): void {
+    // Only close sidebar if we're in desktop mode and sidebar is collapsed (overlay mode)
+    if (this.isDesktopMode() && this._leftSidebar.collapsed) {
+      this._leftSidebar.show_sidebar = false;
     }
   }
 }
