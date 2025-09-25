@@ -26,11 +26,10 @@ const xgettext = xgettextPlugin({
   // Reduce diff noise and stabilize output
   noLocation: true,
   sortOutput: true,
-  msgcatOptions: ["--no-wrap"],
   // Preserve existing POT-Creation-Date from previous POT
   preserveCreationDate: true,
-  // Disable line wrapping in xgettext output to keep long lines intact
-  xgettextOptions: ["--no-wrap"],
+  // Disable line wrapping to keep long lines intact and avoid Weblate conflicts
+  noWrap: true,
 });
 
 // Compile PO files to MO files

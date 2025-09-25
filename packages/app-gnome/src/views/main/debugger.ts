@@ -1,5 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
+import Gtk from "@girs/gtk-4.0";
 
 import {
   HexMonitor,
@@ -26,6 +27,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   // Properties
   declare private _state: DebuggerState;
   declare private _enabled: boolean;
+  declare public scrollable: boolean;
 
   // Child widgets
   declare private _messageConsole: MessageConsoleWidget;
@@ -68,6 +70,13 @@ export class Debugger extends Adw.Bin implements DebuggerView {
             "enabled",
             "Enabled",
             "Debugger enabled",
+            GObject.ParamFlags.READWRITE,
+            true
+          ),
+          scrollable: GObject.ParamSpec.boolean(
+            "scrollable",
+            "Scrollable",
+            "Whether the debugger should have its own scrollbar",
             GObject.ParamFlags.READWRITE,
             true
           ),
@@ -124,6 +133,11 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this.setupSignalHandlers();
     this.state = DebuggerState.INITIAL;
     this.enabled = true;
+
+    // Connect to scrollable property changes
+    this.connect("notify::scrollable", () => {
+      this.updateScrollbarPolicy();
+    });
   }
 
   /**
@@ -304,6 +318,15 @@ export class Debugger extends Adw.Bin implements DebuggerView {
 
   private onEnabledSwitchActivated(): void {
     this.enabled = this._enabledSwitch.active;
+  }
+
+  private updateScrollbarPolicy(): void {
+    const scrolledWindow = this.get_first_child() as Gtk.ScrolledWindow;
+    if (scrolledWindow) {
+      scrolledWindow.vscrollbar_policy = this.scrollable
+        ? Gtk.PolicyType.AUTOMATIC
+        : Gtk.PolicyType.NEVER;
+    }
   }
 }
 
