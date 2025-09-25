@@ -72,7 +72,7 @@ template $MainWindow: Adw.ApplicationWindow {
       switcherBar.reveal: false;
       leftSidebar.collapsed: false;
       leftSidebar.min-sidebar-width: 344;
-      leftSidebar.max-sidebar-width: -1;
+      leftSidebar.max-sidebar-width: 800;
       sidebarToggleButton.visible: true;
 
       titleLabel.visible: true;
@@ -164,27 +164,37 @@ template $MainWindow: Adw.ApplicationWindow {
 
                     Separator {}
 
-                    // Right column with two rows (GameConsole top, Debugger bottom)
-                    Box rightColumn {
-                      orientation: vertical;
+                    // Right column with scrollable container for GameConsole and Debugger
+                    ScrolledWindow rightColumn {
                       hexpand: false;
                       vexpand: true;
+                      width-request: 320;
+                      hscrollbar-policy: never;
+                      vscrollbar-policy: automatic;
 
-                      Box rightTopBox {
-                        hexpand: false;
-                        vexpand: false;
-                        margin-bottom: 0;
+                      child: Box rightColumnContent {
+                        orientation: vertical;
+                        spacing: 12;
                         margin-start: 12;
                         margin-end: 12;
-                        margin-top: 0;
-                      }
-
-                      Separator {}
-
-                      Box rightBottomBox {
+                        margin-top: 12;
+                        margin-bottom: 12;
                         hexpand: true;
-                        vexpand: true;
-                      }
+
+                        // GameConsole at the top
+                        Box rightTopBox {
+                          hexpand: false;
+                          vexpand: true;
+                        }
+
+                        Separator {}
+
+                        // Debugger at the bottom
+                        Box rightBottomBox {
+                          hexpand: true;
+                          vexpand: true;
+                        }
+                      };
                     }
                   };
                 }

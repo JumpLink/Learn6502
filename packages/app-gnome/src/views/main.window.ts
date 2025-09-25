@@ -47,6 +47,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _leftSidebar: Adw.OverlaySplitView;
   declare private _leftColumn: Gtk.Box;
   declare private _centerColumn: Gtk.Box;
+  declare private _rightColumn: Gtk.ScrolledWindow;
+  declare private _rightColumnContent: Gtk.Box;
   declare private _rightTopBox: Gtk.Box;
   declare private _rightBottomBox: Gtk.Box;
   static {
@@ -76,6 +78,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "leftSidebar",
           "leftColumn",
           "centerColumn",
+          "rightColumn",
+          "rightColumnContent",
           "rightTopBox",
           "rightBottomBox",
           "unsavedChangesDialog",
@@ -539,9 +543,12 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private mountSingleLayout(): void {
     this.setupSingleStackPages();
     this._switcherBar.set_stack(this._stack);
+
+    // Enable debugger's own scrollbar in single layout mode
+    this._debugger.scrollable = true;
   }
 
-  // Mount three-column layout: Learn | Editor | (GameConsole over Debugger)
+  // Mount three-column layout: Learn | Editor | (GameConsole over Debugger in scrollable container)
   private mountThreeColumnLayout(): void {
     // Clear containers
     this.clearBoxChildren(this._leftColumn);
@@ -555,12 +562,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Center: Editor
     this.detachFromParent(this._editor);
     this._centerColumn.append(this._editor);
-    // Right top: Game Console
+    // Right: Game Console and Debugger in scrollable container
     this.detachFromParent(this._gameConsole);
     this._rightTopBox.append(this._gameConsole);
-    // Right bottom: Debugger
     this.detachFromParent(this._debugger);
     this._rightBottomBox.append(this._debugger);
+
+    // Disable debugger's own scrollbar since it's now in a scrollable container
+    this._debugger.scrollable = false;
 
     // Detach bottom switcher in three-column mode
     this._switcherBar.set_stack(null as unknown as Adw.ViewStack);
