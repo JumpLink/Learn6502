@@ -8,15 +8,37 @@ template $MainWindow: Adw.ApplicationWindow {
   width-request: 360;
   height-request: 624;
 
+
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("max-width: 799sp or max-height: 599sp")
+
+    setters {
+      layoutHost.visible-child-name: "single";
+      switcherBar.reveal: true;
+      leftSidebar.collapsed: true;
+      leftSidebar.show-sidebar: false;
+      sidebarToggleButton.visible: false;
+
+      titleLabel.visible: false;
+      mainButton.visible: true;
+      runToolbar.visible: false;
+    }
+  }
+
   // Auto switch between single and three-column layouts
   [breakpoint]
   Adw.Breakpoint {
-    condition ("min-width: 1200sp and min-height: 800sp")
+    condition ("min-width: 800sp and min-height: 600sp")
 
     setters {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
-      leftCenterPaned.position: 360;
+      leftSidebar.collapsed: true;
+      leftSidebar.show-sidebar: false;
+      leftSidebar.min-sidebar-width: 344;
+      leftSidebar.max-sidebar-width: 344;
+      sidebarToggleButton.visible: true;
 
       titleLabel.visible: true;
       mainButton.visible: false;
@@ -26,27 +48,36 @@ template $MainWindow: Adw.ApplicationWindow {
 
   [breakpoint]
   Adw.Breakpoint {
-    condition ("max-width: 1199sp or max-height: 799sp")
+    condition ("min-width: 1000sp and min-height: 600sp")
 
     setters {
-      layoutHost.visible-child-name: "single";
-      switcherBar.reveal: true;
+      layoutHost.visible-child-name: "three";
+      switcherBar.reveal: false;
+      leftSidebar.collapsed: false;
+      leftSidebar.show-sidebar: true;
+      leftSidebar.min-sidebar-width: 344;
+      leftSidebar.max-sidebar-width: 344;
+      sidebarToggleButton.visible: true;
 
-      titleLabel.visible: false;
-      mainButton.visible: true;
-      runToolbar.visible: false;
+      titleLabel.visible: true;
+      mainButton.visible: false;
+      runToolbar.visible: true;
     }
   }
 
   // Very wide desktop: increase left column width
   [breakpoint]
   Adw.Breakpoint {
-    condition ("min-width: 1600sp and min-height: 800sp")
+    condition ("min-width: 1600sp and min-height: 600sp")
 
     setters {
       layoutHost.visible-child-name: "three";
       switcherBar.reveal: false;
-      leftCenterPaned.position: 600;
+      leftSidebar.collapsed: false;
+      leftSidebar.show-sidebar: true;
+      leftSidebar.min-sidebar-width: 344;
+      leftSidebar.max-sidebar-width: 800;
+      sidebarToggleButton.visible: true;
 
       titleLabel.visible: true;
       mainButton.visible: false;
@@ -64,7 +95,13 @@ template $MainWindow: Adw.ApplicationWindow {
       };
 
       [start]
-      
+      ToggleButton sidebarToggleButton {
+        icon-name: "sidebar-show-symbolic";
+        // TRANSLATORS: Tooltip text for sidebar toggle button in header bar
+        tooltip-text: _("Toggle Sidebar");
+        active: bind leftSidebar.show-sidebar;
+        visible: false;
+      }
 
       Button unsavedChangesIndicator {
         icon-name: "dot-symbolic";
@@ -106,20 +143,19 @@ template $MainWindow: Adw.ApplicationWindow {
                 orientation: horizontal;
                 spacing: 0;
 
-                // Paned splits left (Learn) and center+right
-                Gtk.Paned leftCenterPaned {
-                  orientation: horizontal;
-                  resize-start-child: false;
-                  shrink-start-child: false;
-                  resize-end-child: true;
-                  shrink-end-child: true;
+                // OverlaySplitView splits left (Learn) and center+right
+                Adw.OverlaySplitView leftSidebar {
+                  sidebar-width-fraction: 0.25;
+                  min-sidebar-width: 180;
+                  max-sidebar-width: 600;
+                  show-sidebar: bind sidebarToggleButton.active;
 
-                  start-child: Box leftColumn {
+                  sidebar: Box leftColumn {
                     hexpand: false;
                     vexpand: true;
                   };
 
-                  end-child: Box centerRight {
+                  content: Box centerRight {
                     orientation: horizontal;
                     hexpand: true;
                     vexpand: true;
@@ -132,27 +168,37 @@ template $MainWindow: Adw.ApplicationWindow {
 
                     Separator {}
 
-                    // Right column with two rows (GameConsole top, Debugger bottom)
-                    Box rightColumn {
-                      orientation: vertical;
+                    // Right column with scrollable container for GameConsole and Debugger
+                    ScrolledWindow rightColumn {
                       hexpand: false;
                       vexpand: true;
+                      width-request: 320;
+                      hscrollbar-policy: never;
+                      vscrollbar-policy: automatic;
 
-                      Box rightTopBox {
-                        hexpand: false;
-                        vexpand: false;
-                        margin-bottom: 0;
+                      child: Box rightColumnContent {
+                        orientation: vertical;
+                        spacing: 12;
                         margin-start: 12;
                         margin-end: 12;
-                        margin-top: 0;
-                      }
-
-                      Separator {}
-
-                      Box rightBottomBox {
+                        margin-top: 12;
+                        margin-bottom: 12;
                         hexpand: true;
-                        vexpand: true;
-                      }
+
+                        // GameConsole at the top
+                        Box rightTopBox {
+                          hexpand: false;
+                          vexpand: true;
+                        }
+
+                        Separator {}
+
+                        // Debugger at the bottom
+                        Box rightBottomBox {
+                          hexpand: true;
+                          vexpand: true;
+                        }
+                      };
                     }
                   };
                 }
