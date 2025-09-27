@@ -25,11 +25,13 @@
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "!packages/app-android",
+    "!packages/app-web"
   ],
   "devDependencies": {
     "prettier": "^3.6.2",
     "typescript": "^5.9.2"
   },
-  "packageManager": "yarn@4.9.4"
+  "packageManager": "yarn@4.10.3"
 }

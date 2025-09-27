@@ -4,8 +4,8 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>Learn 6502 Assembly</name>
-  <summary>Program Vintage Game Consoles</summary>
-  <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
+  <summary>Program vintage game consoles</summary>
+  <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
   <description>
     <!-- TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms -->
     <p>
@@ -35,29 +35,29 @@
   <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/1.png</image>
-      <!-- TRANSLATORS: Screenshot caption for the snake game running in the virtual console -->
-      <caption>Snake game running on the virtual game console</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/1.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the desktop layout -->
+      <caption>Code editor and virtual game console</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/2.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/2.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the appearance settings -->
+      <caption>Appearance settings</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/3.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the snake game running in the virtual console -->
+      <caption>Running Snake game</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/4.png</image>
       <!-- TRANSLATORS: Screenshot caption for the interactive tutorial view -->
       <caption>Interactive tutorial</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/3.png</image>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/5.png</image>
       <!-- TRANSLATORS: Screenshot caption for the integrated code editor -->
       <caption>Code editor</caption>
-    </screenshot>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/4.png</image>
-      <!-- TRANSLATORS: Screenshot caption for the built-in debugger -->
-      <caption>Built-in debugger</caption>
-    </screenshot>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/5.png</image>
-      <!-- TRANSLATORS: Screenshot caption for the code editor with expanded help panel -->
-      <caption>Code editor with help panel in expanded view</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
@@ -73,6 +73,12 @@
     <content_attribute id="language-humor">mild</content_attribute>
   </content_rating>
   <releases>
+    <release version="0.4.0" date="2025-09-24">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.4.0 -->
+        <p>This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development.</p>
+      </description>
+    </release>
     <release version="0.3.0" date="2025-09-08">
       <description>
         <!-- TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign -->

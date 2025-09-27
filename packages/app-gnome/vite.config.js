@@ -38,7 +38,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
    */
   const RESOURCES_PATH = "/" + APPLICATION_ID.replaceAll(".", "/");
   /**
-   * flatpak and local: 0.3.0
+   * flatpak and local: 0.4.0
    */
   const PACKAGE_VERSION = process.env.PACKAGE_VERSION || pkg.version;
   /**
@@ -109,6 +109,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         templateFile: "./data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in",
         verbose: true,
         useLocaleStructure: false,
+        removeComments: true, // Remove XML comments from output
       }),
       // Copy the MO files to the output directory for local builds
       // For flatpak builds, the MO files are compiled by meson
