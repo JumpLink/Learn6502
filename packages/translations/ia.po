@@ -130,8 +130,9 @@ msgid "<b><tt>$f</tt></b>: Light grey (<tt>#bbbbbb</tt>)"
 msgstr "<b><tt>$f</tt></b>: Gris clar (<tt>#bbbbbb</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-msgid "<b>A</b> (Accumulator): Registro principal pro calculos e manipulation de datos"
-msgstr "<b>A</b> (Accumulator): Registro principal pro calculos e manipulation de datos"
+#, fuzzy
+msgid "<b>A</b> (Accumulator): Main register for calculations and data manipulation"
+msgstr "Accumulator: Registro principal pro calculos"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>A</b> or Left Arrow key (<tt>$61</tt>)"
@@ -142,7 +143,8 @@ msgid "<b>ADC/SBC</b>: Add/subtract with carry"
 msgstr "<b>ADC/SBC</b>: Adder/subtraher con reporto"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-msgid "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Adder registro X/Y a adresse absolute"
+#, fuzzy
+msgid "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
 msgstr "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Adder registro X/Y a adresse absolute"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
@@ -166,7 +168,8 @@ msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
 msgstr "<b>C</b> (Reporto): Definite quando operationes arithmetic excede un byte"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-msgid "<b>Comparison operations</b>: <tt>CMP/CPX/CPY</tt> set <tt>N/Z/C</tt> as a subtraction (register − memory) without storing a result."
+#, fuzzy
+msgid "<b>Compare ops</b>: <tt>CMP/CPX/CPY</tt> set <tt>N/Z/C</tt> like a subtraction (register − memory) without storing a result."
 msgstr "<b>Operationes de comparation</b>: <tt>CMP/CPX/CPY</tt> define <tt>N/Z/C</tt> como un substraction (registro − memoria) sin immagazinar un resultato."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
@@ -286,7 +289,8 @@ msgid "<b>Z</b> (Zero): Set when result is zero"
 msgstr "<b>Z</b> (Zero): Definite quando resultato es zero"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-msgid "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add register X/Y to zero page address"
+#, fuzzy
+msgid "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
 msgstr "<b>Pagina zero,X/Y</b> (<tt>$c0,X</tt>): Adder registro X/Y a adresse de pagina zero"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
@@ -314,7 +318,8 @@ msgid "<tt>PC</tt> is the program counter - it's how the processor knows at what
 msgstr "<tt>PC</tt> es le contator de programma - es como le processor sape a qual puncto in le programma illo currentemente es. Es como le numero de linea currente de un script executante. In le simulator le codice es assemblate comenciante a location de memoria <tt>$0600</tt>, assi <tt>PC</tt> sempre comencia ibi."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "<tt>SP</tt> es le punctator de pila. Io non entrara in le pila ancora, ma basicamente iste registro es decrementate cata vice que un byte es pushate sur le pila, e incrementate quando un byte es poppate del pila."
+#, fuzzy
+msgid "<tt>SP</tt> is the stack pointer. I won't get into the stack yet, but basically this register is decremented every time a byte is pushed onto the stack, and incremented when a byte is popped off the stack."
 msgstr "<tt>SP</tt> es le punctator de pila. Io non entrara in le pila ancora, ma basicamente iste registro es decrementate cata vice que un byte es pushate sur le pila, e incrementate quando un byte es poppate del pila."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -1431,7 +1436,7 @@ msgstr "Le ultime subrutina, <tt>spinWheels</tt>, es justo ibi proque le joco cu
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive (<tt>BPL</tt> means \"branch if positive\")."
-msgstr "Le longitude es initialisate a <tt>4</tt>, assi <tt>X</tt> comencia como <tt>3</tt>. <tt>LDA $10,x</tt> carga le valor de <tt>$13</tt> in <tt>A</tt>, pois <tt>STA $12,x</tt> immagazina iste valor in <tt>$15</tt>. <tt>X</tt> es decrementate, e nos itera. Ora <tt>X</tt> es <tt>2</tt>, assi nos carga <tt>$12</tt> e immagazina lo in <tt>$14</tt>. Iste itera durante que <tt>X</tt> es positive (<tt>BPL</tt> significa \"ramificar si positive\")." 
+msgstr "Le longitude es initialisate a <tt>4</tt>, assi <tt>X</tt> comencia como <tt>3</tt>. <tt>LDA $10,x</tt> carga le valor de <tt>$13</tt> in <tt>A</tt>, pois <tt>STA $12,x</tt> immagazina iste valor in <tt>$15</tt>. <tt>X</tt> es decrementate, e nos itera. Ora <tt>X</tt> es <tt>2</tt>, assi nos carga <tt>$12</tt> e immagazina lo in <tt>$14</tt>. Iste itera durante que <tt>X</tt> es positive (<tt>BPL</tt> significa \"ramificar si positive\")."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next bit updates the head of the snake depending on the direction. This is probably the most complicated part of the code, and it's all reliant on how memory locations map to the screen, so let's look at that in more detail."
@@ -1642,3 +1647,6 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "que representa le locationes de memoria indirectemente adressate <tt>$0411</tt>, <tt>$0410</tt> e <tt>$040f</tt> (tres pixeles in le medio del schermo). Io labora iste puncto, ma illo es importante pro plenemente comprehender como adressage indirecte functiona."
+
+#~ msgid "<b>A</b> (Accumulator): Registro principal pro calculos e manipulation de datos"
+#~ msgstr "<b>A</b> (Accumulator): Registro principal pro calculos e manipulation de datos"
