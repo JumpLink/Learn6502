@@ -7,6 +7,7 @@
   <name xml:lang="es">Aprende 6502 Assembly</name>
   <name xml:lang="de">Lerne 6502 Assembler</name>
   <summary>Program vintage game consoles</summary>
+  <summary xml:lang="es">Programa consolas de videojuegos clásicas</summary>
   <summary xml:lang="de">Programmiere Retro-Spielekonsolen</summary>
   <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
   <description>
@@ -64,12 +65,14 @@
       <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/2.png</image>
       
       <caption>Appearance settings</caption>
+      <caption xml:lang="es">Configuración de apariencia</caption>
       <caption xml:lang="de">Erscheinungsbild-Einstellungen</caption>
     </screenshot>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/3.png</image>
       
       <caption>Running Snake game</caption>
+      <caption xml:lang="es">Juego de la serpiente ejecutándose</caption>
       <caption xml:lang="de">Snake-Spiel läuft</caption>
     </screenshot>
     <screenshot type="default">
@@ -78,13 +81,6 @@
       <caption>Interactive tutorial</caption>
       <caption xml:lang="es">Tutorial interactivo</caption>
       <caption xml:lang="de">Interaktives Tutorial</caption>
-    </screenshot>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/5.png</image>
-      
-      <caption>Code editor</caption>
-      <caption xml:lang="es">Editor de código</caption>
-      <caption xml:lang="de">Code-Editor</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
@@ -104,6 +100,7 @@
       <description>
         
         <p>This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development.</p>
+        <p xml:lang="es">Esta versión trae un tema vibrante inspirado en dispositivos portátiles con colores personalizables. Hemos introducido diseños adaptativos para tabletas y escritorio que mantienen todo a la vista, perfectos para esas sesiones de programación maratónicas al aprender a desarrollar juegos retro en ensamblador. Muchas gracias a nuestro nuevo colaborador @mmartinortiz por las excelentes ideas de diseño de escritorio. También hay algunas mejoras técnicas geniales, como el rigor de TypeScript, esquemas de estilo GtkSourceView personalizados y controles de depuración mejorados para un desarrollo más fluido.</p>
         <p xml:lang="de">Diese Version bringt lebendiges, handheld-inspiriertes Theming mit anpassbaren Farben. Wir haben adaptive Tablet- und Desktop-Layouts eingeführt, die alles im Blick behalten - perfekt für diese Marathon-Codingsessions beim Lernen der Retro-Spielentwicklung in Assembly. Großer Dank an unseren neuen Mitwirkenden @mmartinortiz für die großartigen Desktop-Layout-Ideen. Es gibt auch einige coole technische Verbesserungen wie TypeScript-Strictness, benutzerdefinierte GtkSourceView-Style-Schemes und erweiterte Debugger-Steuerungen für flüssigere Entwicklung.</p>
       </description>
     </release>
