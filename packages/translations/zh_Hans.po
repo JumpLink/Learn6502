@@ -992,7 +992,7 @@ msgstr "新增检查代码的工具，包括反汇编器与可快速切换的内
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Next comes <tt>drawSnake</tt>. This is pretty simple too - we first undraw the tail and then draw the head. <tt>X</tt> is set to the length of the snake, so we can index to the right pixel, and we set <tt>A</tt> to zero then perform the write using the indexed indirect addressing mode. Then we reload <tt>X</tt> to index to the head, set <tt>A</tt> to one and store it at <tt>($10,x)</tt>. <tt>$10</tt> stores the two-byte location of the head, so this draws a white pixel at the current head position. As only the head and the tail of the snake move, this is enough to keep the snake moving."
-msgstr "接下来是 <tt>drawSnake</tt>。这也很简单——先抹掉尾巴再绘制蛇头。将 <tt>X</tt> 设为蛇长以索引到正确像素，并把 <tt>A</tt> 置零后使用索引间接寻址写入。随后重新载入 <tt>X</tt> 以索引到蛇头，将 <tt>A</tt> 置为 1 并存入 <tt>($10,x)</tt>。<tt>$10</tt> 存放蛇头的双字节位置，因此会在当前蛇头位置绘制一个白色像素。由于只移动蛇头与尾巴，这已足够让蛇"动起来"。"
+msgstr "接下来是 <tt>drawSnake</tt>。这也很简单——先抹掉尾巴再绘制蛇头。将 <tt>X</tt> 设为蛇长以索引到正确像素，并把 <tt>A</tt> 置零后使用索引间接寻址写入。随后重新载入 <tt>X</tt> 以索引到蛇头，将 <tt>A</tt> 置为 1 并存入 <tt>($10,x)</tt>。<tt>$10</tt> 存放蛇头的双字节位置，因此会在当前蛇头位置绘制一个白色像素。由于只移动蛇头与尾巴，这已足够让蛇"动起来。"
 
 #. TRANSLATORS: Error shown when jumping to an address/label without providing any input
 msgid "No address or label provided"
@@ -1000,28 +1000,28 @@ msgstr "未提供地址或标签"
 
 #. TRANSLATORS: Error when no instructions were assembled
 msgid "No code to run."
-msgstr ""
+msgstr "没有可运行的代码。"
 
 #. TRANSLATORS: App Store description paragraph about onboarding for beginners
 msgid "No prior programming experience needed. Start with interactive lessons and build your skills step by step."
-msgstr ""
+msgstr "无需编程经验。通过交互式课程循序渐进地提升你的技能。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Now, let's put all this knowledge to good use, and make a game! We're going to be making a really simple version of the classic game 'Snake'."
-msgstr ""
+msgstr "最后使用以上的功能实现一个贪吃蛇游戏。"
 
 #. Add OK button
 #. TRANSLATORS: Alert dialog response button label to confirm an action
 msgid "OK"
-msgstr ""
+msgstr "确定"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "On reset (simulator): <tt>P = $30</tt> (bit5 and <tt>B</tt> set; <tt>D</tt> and <tt>I</tt> clear)"
-msgstr ""
+msgstr "复位（模拟器）时：<tt>P = $30</tt>（第 5 位与 <tt>B</tt> 置位；<tt>D</tt> 与 <tt>I</tt> 清零）"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Once the values have been shifted down the snake, we have to work out what to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</tt> means \"logical shift right\", or \"shift all the bits one position to the right\". The least significant bit is shifted into the carry flag, so if the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the carry flag set."
-msgstr ""
+msgstr "当值沿着蛇身下移后，需要决定如何处理蛇头。先将方向加载到 <tt>A</tt>。<tt>LSR</tt> 表示"逻辑右移"，即将所有位右移一位。最低位会移入进位标志，因此如果累加器为 <tt>1</tt>，执行 <tt>LSR</tt> 后变为 <tt>0</tt>，且进位标志被置位。"
 
 #. TRANSLATORS: File dialog title when choosing an assembly source file
 #, fuzzy
@@ -1030,16 +1030,16 @@ msgstr "汇编文件"
 
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
-msgstr ""
+msgstr "打开..."
 
 #. TRANSLATORS: Toast message title after opening a file, includes filename
 #, javascript-format
 msgid "Opened %s"
-msgstr ""
+msgstr "已打开 %s"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
-msgstr ""
+msgstr "通过移除不必要的权限优化了 Flatpak 配置"
 
 #. TRANSLATORS: Tooltip for accent color option Orange
 #. TRANSLATORS: Tooltip for primary color option Orange
@@ -1049,42 +1049,42 @@ msgstr "强调色：橙色"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Organized as four horizontal strips of 32×8 pixels"
-msgstr ""
+msgstr "按四个 32×8 像素的水平带进行组织"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Our first program"
-msgstr ""
+msgstr "第一个程序"
 
 #, javascript-format
 msgid "Out of range branch on line %d (branches are limited to -128 to +127): %s"
-msgstr ""
+msgstr "第 %d 行分支超出范围（分支限制为 -128 到 +127）：%s"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Overall structure"
-msgstr ""
+msgstr "整体结构"
 
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
-msgstr ""
+msgstr "溢出标志：当算术运算结果超出有符号 8 位范围（-128 到 +127）时置位，用于检测带符号运算错误。"
 
 #. TRANSLATORS: Main action button label to pause the running simulator
 msgid "Pause"
-msgstr ""
+msgstr "暂停"
 
 #. TRANSLATORS: Closing paragraph targeting the audience
 msgid "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!"
-msgstr ""
+msgstr "非常适合爱好者、学生，以及对计算机底层工作原理感兴趣的任何人！"
 
 #. TRANSLATORS: Tooltip for accent color option Pink
 #. TRANSLATORS: Tooltip for primary color option Pink
 msgid "Pink"
-msgstr ""
+msgstr "粉色"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
-msgstr ""
+msgstr "开始"
 
 msgid "Preprocessing ..."
-msgstr ""
+msgstr "预处理中 ..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
@@ -1116,15 +1116,15 @@ msgstr "主色：紫色"
 
 #. TRANSLATORS: Accessibility label for primary color option Red
 msgid "Primary: Red"
-msgstr ""
+msgstr "主色：红色"
 
 #. TRANSLATORS: Accessibility label for primary color option Slate
 msgid "Primary: Slate"
-msgstr ""
+msgstr "主色：板岩色"
 
 #. TRANSLATORS: Accessibility label for primary color option Teal
 msgid "Primary: Teal"
-msgstr ""
+msgstr "主色：青色"
 
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
@@ -1327,272 +1327,272 @@ msgstr "<b>SP</b>（栈指针）：指向当前栈位置（初始为 <tt>$FF</tt
 
 #. TRANSLATORS: Section heading title on Debugger page for status flags
 msgid "Status Flags"
-msgstr ""
+msgstr "状态标志"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 msgid "Step"
-msgstr ""
+msgstr "单步"
 
 #. TRANSLATORS: Status line shown when simulator execution stops
 msgid "Stopped"
-msgstr ""
+msgstr "已停止"
 
 #. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
-msgstr ""
+msgstr "样式"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
-msgstr ""
+msgstr "语法错误 第 %d 行：%s"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
-msgstr ""
+msgstr "青色"
 
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
-msgstr ""
+msgstr "在虚拟游戏主机上测试你的作品"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
-msgstr ""
+msgstr "6502使用16bit地址总线，意味着处理器可以访问到 65536(2的16次方) bytes的内存.通常使用十六进制 <tt>$0000 - $ffff</tt>表示. 下面介绍内存寻址的方式."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is only used to set the zero flag - the actual result is discarded. The zero flag is set only if the result of AND-ing the accumulator with argument is zero. When we're looking at powers of two, the zero flag will only be set if the two numbers are not the same. For example, <tt>0001 AND 0001</tt> is not zero, but <tt>0001 AND 0010</tt> is zero."
-msgstr ""
+msgstr "指令 <tt>BIT</tt>与<tt>AND</tt>相似, 只用来设置标志位，忽略计算结果.例如, <tt>0001 AND 0001</tt>不是0, but <tt>0001 AND 0010</tt>是0."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>init</tt> subroutine defers to two subroutines, <tt>initSnake</tt> and <tt>generateApplePosition</tt>. <tt>initSnake</tt> sets the snake direction, length, and then loads the initial memory locations of the snake head and body. The byte pair at <tt>$10</tt> contains the screen location of the head, the pair at <tt>$12</tt> contains the location of the single body segment, and <tt>$14</tt> contains the location of the tail (the tail is the last segment of the body and is drawn in black to keep the snake moving). This happens in the following code:"
-msgstr ""
+msgstr "<tt>init</tt> 包含2个子程序, <tt>initSnake</tt> 和 <tt>generateApplePosition</tt>. <tt>initSnake</tt> 初始化蛇的方向 长度 然后加载内存中的头部和身体y. <tt>$10</tt> 保存了头的位置 <tt>$12</tt> 保存了身体开始部位的信息, and <tt>$14</tt> 保存了尾部:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>loop</tt> subroutine itself just calls a number of subroutines sequentially, before looping back on itself:"
-msgstr ""
+msgstr "在 <tt>loop</tt> 调用中，只是调用其他的子程序:"
 
 #. TRANSLATORS: Detailed description of Accumulator register
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
-msgstr ""
+msgstr "累加器（A）是算术与逻辑运算的主要寄存器。ADD、SUBTRACT、AND、OR 等基本计算都使用该寄存器。它是 6502 汇编中最常用的寄存器。"
 
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
-msgstr ""
+msgstr "程序计数器包含下一条待执行指令的内存地址。每条指令后自动递增，可被跳转、分支、调用与返回修改。对程序流程控制与调试至关重要。"
 
 #. TRANSLATORS: Detailed description of Stack Pointer register
 msgid "The Stack Pointer manages the call stack for subroutines and interrupts. It starts at $FF (top of stack) and grows downward. Used for PUSH/PULL operations, JSR/RTS calls, and interrupt handling. Critical for nested function calls."
-msgstr ""
+msgstr "栈指针管理子程序与中断的调用栈。其初值为 $FF（栈顶），并向下增长。用于 PUSH/PULL 操作、JSR/RTS 调用与中断处理。对嵌套调用至关重要。"
 
 #. TRANSLATORS: Detailed description of X Index register
 msgid "The X Index Register is used for indexed addressing modes and counting operations. It can hold loop counters, array indices, and is essential for accessing memory locations relative to a base address using X as an offset. Special: TSX/TXS transfer X to/from the stack pointer."
-msgstr ""
+msgstr "X 索引寄存器用于索引寻址与计数操作。可保存循环计数器、数组索引，且在以基址加 X 偏移访问内存时至关重要。特殊：TSX/TXS 在 X 与栈指针之间传送。"
 
 #. TRANSLATORS: Detailed description of Y Index register
 msgid "The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement."
-msgstr ""
+msgstr "Y 索引寄存器与 X 类似，无特殊功能。常用于索引寻址与数据移动。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
-msgstr ""
+msgstr "黑色的游戏控制台屏幕现在应该在左上角显示三个彩色\"像素\"。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The code block below contains the entire source code of the game. I'll explain how it works in the following sections."
-msgstr ""
+msgstr "下面的实例包含了所有代码."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The effect of this is to mask out the least significant two bits of the accumulator, setting the others to zero. This converts a number in the range of 0–255 to a number in the range of 0–3."
-msgstr ""
+msgstr "其效果是屏蔽累加器的最低两位，其余位置零。这样可将 0–255 的数值转换为 0–3 的范围。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first instruction causes execution to jump to the <tt>init</tt> label. This sets <tt>X</tt>, then returns to the next instruction, <tt>JSR loop</tt>. This jumps to the <tt>loop</tt> label, which increments <tt>X</tt> until it is equal to <tt>$05</tt>. After that we return to the next instruction, <tt>JSR end</tt>, which jumps to the end of the file. This illustrates how <tt>JSR</tt> and <tt>RTS</tt> can be used together to create modular code."
-msgstr ""
+msgstr "第一条指令使执行跳转到 <tt>init</tt> 标签。它设置 <tt>X</tt>，然后返回到下一条指令 <tt>JSR loop</tt>。这会跳到 <tt>loop</tt> 标签，并递增 <tt>X</tt> 直到等于 <tt>$05</tt>。之后返回到下一条指令 <tt>JSR end</tt>，跳转到文件结尾。这说明了如何组合使用 <tt>JSR</tt> 与 <tt>RTS</tt> 来编写模块化代码。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first line shows the <tt>A</tt>, <tt>X</tt> and <tt>Y</tt> registers (<tt>A</tt> is often called the \"accumulator\"). Each register holds a single byte. Most operations work on the contents of these registers."
-msgstr ""
+msgstr "第一行展示了 <tt>A</tt>、<tt>X</tt> 与 <tt>Y</tt> 寄存器（<tt>A</tt> 常称为"累加器"）。每个寄存器保存一个字节。大多数操作都作用于这些寄存器的内容。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first subroutine, <tt>readKeys</tt>, takes the job of accepting user input. The memory location <tt>$ff</tt> holds the ascii code of the most recent key press in this simulator. The value is loaded into the accumulator, then compared to <tt>$77</tt> (the hex code for W), <tt>$64</tt> (D), <tt>$73</tt> (S) and <tt>$61</tt> (A). If any of these comparisons are successful, the program branches to the appropriate section."
-msgstr ""
+msgstr "第一个子程序 <tt>readKeys</tt> 负责接收用户输入。本模拟器中，内存位置 <tt>$ff</tt> 保存最近一次按键的 ASCII 码。该值被载入累加器后，与 <tt>$77</tt>（W）、<tt>$64</tt>（D）、<tt>$73</tt>（S）与 <tt>$61</tt>（A）比较。若任一比较成立，程序跳转到相应分支。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first two bytes hold the location of the apple. This is updated every time the snake eats the apple. Byte <tt>$02</tt> contains the current direction. <tt>1</tt> means up, <tt>2</tt> right, <tt>4</tt> down, and <tt>8</tt> left. The reasoning behind these numbers will become clear later."
-msgstr ""
+msgstr "前两个字节保存苹果的位置；每次蛇吃到苹果都会更新。字节 <tt>$02</tt> 保存当前方向：<tt>1</tt> 表示上，<tt>2</tt> 右，<tt>4</tt> 下，<tt>8</tt> 左。为何使用这些数值稍后会解释。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The game loop"
-msgstr ""
+msgstr "游戏循环"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex should look something like this:"
-msgstr ""
+msgstr "十六进制应类似如下："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
-msgstr ""
+msgstr "十六进制值 <tt>$03</tt> 的二进制表示为 <tt>00000011</tt>。<tt>AND</tt> 指令对参数与累加器执行按位与。例如，若累加器为 <tt>10101010</tt>，与 <tt>00000011</tt> 进行 <tt>AND</tt> 的结果为 <tt>00000010</tt>。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."
-msgstr ""
+msgstr "最后一部分展示处理器标志。每个标志占一位，因此七个标志共占一个字节。处理器通过设置标志来描述上一条指令的信息。稍后会详细说明。<a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">在此了解更多寄存器与标志</a>。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last subroutine, <tt>spinWheels</tt>, is just there because the game would run too fast otherwise. All <tt>spinWheels</tt> does is count <tt>X</tt> down from zero until it hits zero again. The first <tt>dex</tt> wraps, making <tt>X</tt> <tt>#$ff</tt>."
-msgstr ""
+msgstr "最后一个子程序 <tt>spinWheels</tt> 只是为了避免游戏过快运行。它所做的是将 <tt>X</tt> 从零向下计数直到再次回到零。第一次 <tt>dex</tt> 会回绕，使 <tt>X</tt> 变为 <tt>#$ff</tt>。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive (<tt>BPL</tt> means \"branch if positive\")."
-msgstr ""
+msgstr "长度初始化为 <tt>4</tt>，因此 <tt>X</tt> 起始为 <tt>3</tt>。<tt>LDA $10,x</tt> 将 <tt>$13</tt> 的值载入 <tt>A</tt>，随后 <tt>STA $12,x</tt> 将该值存入 <tt>$15</tt>。<tt>X</tt> 递减并循环。此时 <tt>X</tt> 为 <tt>2</tt>，于是载入 <tt>$12</tt> 并存入 <tt>$14</tt>。当 <tt>X</tt> 为正时循环（<tt>BPL</tt> 表示"为正则分支"）。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next bit updates the head of the snake depending on the direction. This is probably the most complicated part of the code, and it's all reliant on how memory locations map to the screen, so let's look at that in more detail."
-msgstr ""
+msgstr "接下来的部分根据方向更新蛇头。这可能是代码中最复杂的部分，完全依赖于内存位置如何映射到屏幕，因此我们详细看一下。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next line, <tt>BNE decrement</tt>, will shift execution to the decrement label if the <tt>Z</tt> flag is set to <tt>0</tt> (meaning that the two values in the <tt>CPX</tt> comparison were not equal), otherwise it does nothing and we store <tt>X</tt> to <tt>$0201</tt>, then finish the program."
-msgstr ""
+msgstr "下一行 <tt>BNE decrement</tt> 若 <tt>Z</tt> 标志为 <tt>0</tt>（表示 <tt>CPX</tt> 比较的两个值不相等）则跳转到 decrement 标签，否则不做任何事并将 <tt>X</tt> 存入 <tt>$0201</tt>，随后结束程序。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>checkCollision</tt>, defers to <tt>checkAppleCollision</tt> and <tt>checkSnakeCollision</tt>. <tt>checkAppleCollision</tt> just checks to see if the two bytes holding the location of the apple match the two bytes holding the location of the head. If they do, the length is increased and a new apple position is generated."
-msgstr ""
+msgstr "接下来的子程序 <tt>checkCollision</tt> 进一步调用 <tt>checkAppleCollision</tt> 与 <tt>checkSnakeCollision</tt>。<tt>checkAppleCollision</tt> 仅检查保存苹果位置的两个字节是否与保存蛇头位置的两个字节相同；若相同，则增长长度并生成新的苹果位置。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
-msgstr ""
+msgstr "接下来的子程序 <tt>generateApplePosition</tt> 将苹果位置设置为屏幕上的随机位置。首先，将一个随机字节载入累加器（本模拟器中 <tt>$fe</tt> 为随机数生成器），并存入 <tt>$00</tt>。随后再载入一个不同的随机字节，与 <tt>$03</tt> 进行 <tt>AND</tt> 运算。此处需要一点额外说明。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."
-msgstr ""
+msgstr "<tt>ADC</tt> 的相反指令是 <tt>SBC</tt>（带借位减）。编写一个使用该指令的程序。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>BNE</tt> is <tt>BEQ</tt>. Try writing a program that uses <tt>BEQ</tt>."
-msgstr ""
+msgstr "<tt>BNE</tt> 的相反指令是 <tt>BEQ</tt>。试着编写一个使用 <tt>BEQ</tt> 的程序。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The problem is, <tt>$184</tt> is too big to fit in a single byte (the max is <tt>$FF</tt>), and the registers can only hold a single byte. It's OK though; the processor isn't actually dumb. If you were looking carefully enough, you'll have noticed that the carry flag was set to <tt>1</tt> after this operation. So that's how you know."
-msgstr ""
+msgstr "问题在于 <tt>$184</tt> 太大，无法放入单字节（最大为 <tt>$FF</tt>），而寄存器只能保存单字节。不过没关系，处理器并不"笨"。如果你足够仔细，会注意到该运算后进位标志被置为 <tt>1</tt>。这就是判断依据。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The processor knows where to return to because <tt>JSR</tt> pushes the address minus one of the next instruction onto the stack before jumping to the given location. <tt>RTS</tt> pops this location, adds one to it, and jumps to that location. An example:"
-msgstr ""
+msgstr "处理器之所以知道返回位置，是因为 <tt>JSR</tt> 在跳转前会将"下一条指令地址减一"压入栈中；<tt>RTS</tt> 弹出该地址，加一后跳转到该位置。示例："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
-msgstr ""
+msgstr "该子程序的结果是在 <tt>$00</tt> 中放入一个随机字节，在 <tt>$01</tt> 中放入 2 到 5 之间的随机数。由于间接寻址低位在前，这对应于 <tt>$0200</tt> 到 <tt>$05ff</tt> 之间的内存地址——正好是用于绘制显示的范围。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"
-msgstr ""
+msgstr "调用栈"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
-msgstr ""
+msgstr "用来进行存储后进先出的值，包含push,pull(pop)2个操作.栈的当前深度使用栈指针寄存器保存.栈保存在内存的 <tt>$0100</tt> 到 <tt>$01ff</tt>.栈指针初始化为<tt>$ff</tt>, 指向内存的<tt>$01ff</tt>.等压入byte值时则变为 <tt>$fe</tt>, 也就是 <tt>$01fe</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
-msgstr ""
+msgstr "零页内存用于存储若干游戏状态变量，如游戏顶部注释所示。从 <tt>$00</tt>、<tt>$01</tt> 与 <tt>$10</tt> 起的内容均为表示两字节内存位置的字节对，将通过间接寻址查找。这些内存位置都在 <tt>$0200</tt> 到 <tt>$05ff</tt> 之间——对应游戏主机的显示区。例如，若 <tt>$00</tt> 与 <tt>$01</tt> 的值分别为 <tt>$01</tt> 与 <tt>$02</tt>，则它们指向显示的第二个像素（<tt>$0201</tt>——记住，间接寻址低位在前）。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr ""
+msgstr "那么为什么是6502汇编?而不是一门常用的汇编语言,比如<a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? 好吧，我觉得学些x86并不是那么有用。现在的工作中很少使用x86汇编,通常只是个人的教学练习，或者是闲暇时组织的思维。然后6502是在那个时代真正被广泛应有的语言,不像现在的汇编是高级语言的产物。所有6502汇编是设计为人类编写友好的汇编语言。所以还是值得学些。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
-msgstr ""
+msgstr "还有一个非常实际的原因：复古游戏开发。自制游戏场景依然活跃且良好——新游戏仍然<a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">为NES发布</a>（有些甚至作为实体卡带），并且适用于许多其他经典系统；NES只是一个例子。即使你的目标是像SNES这样的系统，从6502开始也是值得的：SNES CPU（65C816）向后兼容6502，所以你在这里学到的基础知识——寄存器、寻址模式和核心指令集——可以直接沿用。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "These are the absolute addressing versions of zero page,X and zero page,Y. For example:"
-msgstr ""
+msgstr "这些是零页 X、零页 Y 的绝对寻址版本。例如："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This is the equivalent of zero page,X, but can only be used with <tt>LDX</tt> and <tt>STX</tt>."
-msgstr ""
+msgstr "这等价于零页 X，但只能与 <tt>LDX</tt> 与 <tt>STX</tt> 配合使用。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This is where addressing gets interesting. In this mode, a zero page address is given, and then the value of the <tt>X</tt> register is added. Here is an example:"
-msgstr ""
+msgstr "这是寻址开始变得有趣的地方。在此模式下，给定一个零页地址，然后将 <tt>X</tt> 寄存器的值加到该地址上。示例如下："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This loads the value <tt>$11</tt> into the memory location <tt>$10</tt>, the value <tt>$10</tt> into <tt>$12</tt>, and <tt>$0f</tt> into <tt>$14</tt>. It then loads the value <tt>$04</tt> into <tt>$11</tt>, <tt>$13</tt> and <tt>$15</tt>. This leads to memory like this:"
-msgstr ""
+msgstr "这将值 <tt>$11</tt> 写入内存位置 <tt>$10</tt>，将 <tt>$10</tt> 写入 <tt>$12</tt>，将 <tt>$0f</tt> 写入 <tt>$14</tt>。随后将值 <tt>$04</tt> 写入 <tt>$11</tt>、<tt>$13</tt> 与 <tt>$15</tt>。得到的内存如下所示："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This one's kinda weird. It's like a cross between zero page,X and indirect. Basically, you take the zero page address, add the value of the <tt>X</tt> register to it, then use that to look up a two-byte address. For example:"
-msgstr ""
+msgstr "这个有点奇怪，像是零页 X 与间接寻址的结合。基本做法是取零页地址，加上 <tt>X</tt> 的值，然后用结果去查找一个双字节地址。例如："
 
 #. TRANSLATORS: Release notes for version 0.4.0
 msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
-msgstr ""
+msgstr "本次发布带来了充满掌机灵感的主题与可自定义配色；引入了自适应的平板与桌面布局，让一切尽在眼前，非常适合学习汇编开发复古游戏时的长时间编码。特别感谢新贡献者 @mmartinortiz 提供的优秀桌面布局思路。还包括多项技术改进，如更严格的 TypeScript 设置、自定义 GtkSourceView 样式方案，以及增强的调试器控件，以获得更顺畅的开发体验。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
-msgstr ""
+msgstr "为了判断方向是否为 <tt>1</tt>、<tt>2</tt>、<tt>4</tt> 或 <tt>8</tt>，代码会持续右移直到进位被置位。一次 <tt>LSR</tt> 表示"上"，两次表示"右"，依此类推。"
 
 #. TRANSLATORS: Tooltip text for sidebar toggle button in header bar
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "切换侧边栏"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try changing the colour of the three pixels."
-msgstr ""
+msgstr "试着修改前三个像素的颜色。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the monitor in the debugger to watch a section of memory."
-msgstr ""
+msgstr "试着编写分别使用 6502 各种寻址模式的代码片段。记得可用调试器中的监视器观察一段内存。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
-msgstr ""
+msgstr "教程 <sub>作者 <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>，基于 CC BY 4.0 许可</sub>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
-msgstr ""
+msgstr "两条与栈有关的指令是 <tt>PHA</tt> 与 <tt>PLA</tt>，分别是"压栈累加器"和"出栈累加器"。下面是它们的示例。"
 
 msgid "Unable to find/parse given address/label"
-msgstr ""
+msgstr "无法找到/解析给定的地址/标签"
 
 msgid "Unable to relocate code outside 64k memory"
-msgstr ""
+msgstr "无法将代码重定位到 64K 内存之外"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Unlike zero page,Y, absolute,Y can't be used with <tt>STX</tt> but can be used with <tt>LDA</tt> and <tt>STA</tt>."
-msgstr ""
+msgstr "与零页,Y 不同，绝对,Y 不能与 <tt>STX</tt> 配合使用，但可用于 <tt>LDA</tt> 与 <tt>STA</tt>。"
 
 #. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
 msgid "Unsaved changes"
-msgstr ""
+msgstr "未保存的更改"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Updating the game state"
-msgstr ""
+msgstr "更新游戏状态"
 
 #. TRANSLATORS: Switch label to enable custom accent color
 #, fuzzy
 msgid "Use custom accent color"
-msgstr "强调色"
+msgstr "使用自定义强调色"
 
 #. TRANSLATORS: Switch label to enable custom primary color
 msgid "Use custom primary color"
-msgstr ""
+msgstr "使用自定义主色"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</tt>=black, <tt>$01</tt>=white)"
-msgstr ""
+msgstr "数值 <tt>$00</tt>-<tt>$0F</tt> 代表 16 种颜色（<tt>$00</tt>=黑，<tt>$01</tt>=白）"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "We've already had a little look at the processor status section (the bit with <tt>A</tt>, <tt>PC</tt> etc.), but what does it all mean?"
-msgstr ""
+msgstr "上面我们简单说明了寄存器<tt>A</tt>的操作, <tt>那么其余的像X,Y到PC</tt>等.),又表示什么??"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "With absolute addressing, the full memory location is used as the argument to the instruction. For example:"
-msgstr ""
+msgstr "采用绝对寻址时，完整的内存位置作为指令的参数。例如："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
-msgstr ""
+msgstr "在这些示例中，使用调试器的内存监视器观察内存变化会很有帮助。监视器需要一个起始内存位置和从该位置开始显示的字节数，二者均为十六进制值。比如，要显示自 <tt>$c000</tt> 起的 16 字节，请在 <b>Start</b> 输入 <tt>c000</tt>，在 <b>Length</b> 输入 <tt>10</tt>。"
 
 #. TRANSLATORS: Feature list item about integrated code editor
 msgid "Write and edit code with a built-in code editor"
-msgstr ""
+msgstr "使用内置代码编辑器编写与编辑代码"
 
 #. TRANSLATORS: Tooltip for accent color option Yellow
 #. TRANSLATORS: Tooltip for primary color option Yellow
@@ -1602,26 +1602,26 @@ msgstr "强调色：黄色"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
-msgstr ""
+msgstr "可以看做屏幕为4个水平条，每个条32×8像素.映射到<tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> 和 <tt>$0500-$05ff</tt>。第一行像素是<tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>等。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
-msgstr ""
+msgstr "看到上面的<tt>TAX</tt>.  <tt>那么指令TAY</tt>是否也是这样呢, <tt>TXA</tt> 和 <tt>TYA</tt>是否相同 ,编写代码进行测试."
 
 #. TRANSLATORS: Alert dialog body explaining risk of losing changes
 msgid "Your file has unsaved changes. Changes will be lost if you don't save them."
-msgstr ""
+msgstr "你的文件有未保存的更改。如不保存，这些更改将会丢失。"
 
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
-msgstr ""
+msgstr "零标志（Z）：当运算结果为零时置位。对条件分支至关重要——大多数条件跳转（BEQ、BNE）会检查该标志以依据是否为零来决定流程。"
 
 #. TRANSLATORS: Dropdown option label for zero-page memory range
 msgid "Zero Page ($0000-$00FF)"
-msgstr ""
+msgstr "零页（$0000-$00FF）"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page usage"
-msgstr ""
+msgstr "零页内存使用"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 #, fuzzy
@@ -1645,19 +1645,19 @@ msgstr "外观"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"
-msgstr ""
+msgstr "学习"
 
 #. TRANSLATORS: App Store search keyword
 msgid "programming"
-msgstr ""
+msgstr "编程"
 
 #. TRANSLATORS: Internal simulator pseudo-op name used when outputting A as a character
 msgid "wdm-output"
-msgstr ""
+msgstr "wdm-output"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
-msgstr ""
+msgstr "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 与 <tt>$040f</tt>（显示中部的三个像素）。之所以反复强调，是因为完全理解间接寻址的工作方式非常重要。"
 
 #~ msgid "Because the snake's length is stored in zero page <tt>$03</tt>, we can use indirect addressing to draw the snake. The basic idea is to loop through the zero page locations that store the snake's position data, and use indirect addressing to draw each segment to the display."
 #~ msgstr "由于蛇的长度存储在零页 <tt>$03</tt>，我们可以使用间接寻址来绘制蛇。基本思路是遍历存储蛇位置数据的零页位置，然后使用间接寻址将每个段绘制到显示区。"
