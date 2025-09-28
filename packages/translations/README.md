@@ -41,6 +41,11 @@ New language translations are always welcome! You can start a new language trans
 - [Project Repository](https://github.com/JumpLink/Learn6502)
 - [Issue Tracker](https://github.com/JumpLink/Learn6502/issues)
 
+## Translation Sources
+
+- **Chinese (Simplified)**: The translation in `zh_Hans.po` is based on [https://codediy.github.io/nes-zh/easy6502/](https://codediy.github.io/nes-zh/easy6502/)
+- **Portuguese**: The translation in `pt.po` is based on [https://github.com/gustavogx/easy6502](https://github.com/gustavogx/easy6502) from Gustavo Valdiviesso
+
 ## Testing translations in the GNOME app
 
 To test your translations locally in the GNOME app:
