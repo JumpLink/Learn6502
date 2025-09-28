@@ -555,7 +555,7 @@ msgid "Code"
 msgstr "代码"
 
 #. TRANSLATORS: Success message after assembly with total bytes of machine code
-#, fuzzy, javascript-format
+#, javascript-format
 msgid "Code assembled successfully, %d bytes."
 msgstr "代码汇编成功，%d 字节。"
 
@@ -800,12 +800,10 @@ msgid "If the result of the addition is larger than a single byte, the address w
 msgstr "如果加法结果超过一个字节，地址会回绕。例如："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-#, fuzzy
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
 msgstr "立即寻址并不直接处理内存地址——该模式使用字面值。例如，<tt>LDX #$01</tt> 将值 <tt>$01</tt> 载入 <tt>X</tt> 寄存器。这与零页指令 <tt>LDX $01</tt>（将内存位置 <tt>$01</tt> 的值载入 <tt>X</tt>）完全不同。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-#, fuzzy
 msgid "Immediate: <tt>#$c0</tt>"
 msgstr "立即寻址：<tt>#$c0</tt>"
 
@@ -850,12 +848,10 @@ msgid "In this tiny tutorial I'm going to show you how to get started writing 65
 msgstr "在这个简短的教程中，我将向您展示如何开始编写6502汇编语言。6502处理器在七十年代和八十年代非常流行，为许多著名计算机提供动力，如<a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>、<a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>、<a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>、<a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>和<a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>。Futurama中的Bender<a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">拥有一个6502处理器作为大脑</a>。<a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">甚至终结者也是用6502编程的</a>。"
 
 #. TRANSLATORS: Register name and description in debugger
-#, fuzzy
 msgid "Index register X: Used for addressing"
 msgstr "<b>X, Y</b>：用于寻址与计数的索引寄存器"
 
 #. TRANSLATORS: Register name and description in debugger
-#, fuzzy
 msgid "Index register Y: Used for addressing"
 msgstr "<b>X, Y</b>：用于寻址与计数的索引寄存器"
 
@@ -879,7 +875,6 @@ msgid "Indirect indexed: <tt>($c0),Y</tt>"
 msgstr "间接索引：<tt>($c0),Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-#, fuzzy
 msgid "Indirect: <tt>($c000)</tt>"
 msgstr "间接寻址：<tt>($c000)</tt>"
 
@@ -942,7 +937,6 @@ msgid "Learn"
 msgstr "学习"
 
 #. TRANSLATORS: Application title shown in the header bar
-#, fuzzy
 msgid "Learn 6502 Assembly"
 msgstr "关于 Learn 6502 Assembly"
 
@@ -1024,7 +1018,6 @@ msgid "Once the values have been shifted down the snake, we have to work out wha
 msgstr "当值沿着蛇身下移后，需要决定如何处理蛇头。先将方向加载到 <tt>A</tt>。<tt>LSR</tt> 表示\"逻辑右移\"，即将所有位右移一位。最低位会移入进位标志，因此如果累加器为 <tt>1</tt>，执行 <tt>LSR</tt> 后变为 <tt>0</tt>，且进位标志被置位。"
 
 #. TRANSLATORS: File dialog title when choosing an assembly source file
-#, fuzzy
 msgid "Open Assembly File"
 msgstr "汇编文件"
 
@@ -1043,7 +1036,6 @@ msgstr "通过移除不必要的权限优化了 Flatpak 配置"
 
 #. TRANSLATORS: Tooltip for accent color option Orange
 #. TRANSLATORS: Tooltip for primary color option Orange
-#, fuzzy
 msgid "Orange"
 msgstr "强调色：橙色"
 
@@ -1139,7 +1131,6 @@ msgid "Processor Status Register"
 msgstr "处理器状态寄存器"
 
 #. TRANSLATORS: Register name and description in debugger
-#, fuzzy
 msgid "Program Counter: Points to next instruction"
 msgstr "<b>PC</b>（程序计数器）：指向下一条将要执行的指令"
 
@@ -1316,12 +1307,10 @@ msgid "Special Memory Locations (in Simulator)"
 msgstr "特殊内存位置（模拟器）"
 
 #. TRANSLATORS: Dropdown option label for stack memory range
-#, fuzzy
 msgid "Stack ($0100-$01FF)"
-msgstr "显示 ($0200-$05FF)"
+msgstr "栈（$0100-$01FF）"
 
 #. TRANSLATORS: Register name and description in debugger
-#, fuzzy
 msgid "Stack Pointer: Points to stack position"
 msgstr "<b>SP</b>（栈指针）：指向当前栈位置（初始为 <tt>$FF</tt>）"
 
@@ -1566,7 +1555,6 @@ msgid "Updating the game state"
 msgstr "更新游戏状态"
 
 #. TRANSLATORS: Switch label to enable custom accent color
-#, fuzzy
 msgid "Use custom accent color"
 msgstr "使用自定义强调色"
 
@@ -1596,7 +1584,6 @@ msgstr "使用内置代码编辑器编写与编辑代码"
 
 #. TRANSLATORS: Tooltip for accent color option Yellow
 #. TRANSLATORS: Tooltip for primary color option Yellow
-#, fuzzy
 msgid "Yellow"
 msgstr "强调色：黄色"
 
@@ -1624,22 +1611,18 @@ msgid "Zero page usage"
 msgstr "零页内存使用"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-#, fuzzy
 msgid "Zero page,X: <tt>$c0,X</tt>"
-msgstr "绝对寻址：<tt>$c000</tt>"
+msgstr "零页,X：<tt>$c0,X</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-#, fuzzy
 msgid "Zero page,Y: <tt>$c0,Y</tt>"
-msgstr "绝对寻址：<tt>$c000</tt>"
+msgstr "零页,Y：<tt>$c0,Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-#, fuzzy
 msgid "Zero page: <tt>$c0</tt>"
-msgstr "绝对寻址：<tt>$c000</tt>"
+msgstr "零页：<tt>$c0</tt>"
 
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
-#, fuzzy
 msgid "_Appearance"
 msgstr "外观"
 
