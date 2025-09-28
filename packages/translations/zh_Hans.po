@@ -992,7 +992,7 @@ msgstr "新增检查代码的工具，包括反汇编器与可快速切换的内
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Next comes <tt>drawSnake</tt>. This is pretty simple too - we first undraw the tail and then draw the head. <tt>X</tt> is set to the length of the snake, so we can index to the right pixel, and we set <tt>A</tt> to zero then perform the write using the indexed indirect addressing mode. Then we reload <tt>X</tt> to index to the head, set <tt>A</tt> to one and store it at <tt>($10,x)</tt>. <tt>$10</tt> stores the two-byte location of the head, so this draws a white pixel at the current head position. As only the head and the tail of the snake move, this is enough to keep the snake moving."
-msgstr "接下来是 <tt>drawSnake</tt>。这也很简单——先抹掉尾巴再绘制蛇头。将 <tt>X</tt> 设为蛇长以索引到正确像素，并把 <tt>A</tt> 置零后使用索引间接寻址写入。随后重新载入 <tt>X</tt> 以索引到蛇头，将 <tt>A</tt> 置为 1 并存入 <tt>($10,x)</tt>。<tt>$10</tt> 存放蛇头的双字节位置，因此会在当前蛇头位置绘制一个白色像素。由于只移动蛇头与尾巴，这已足够让蛇"动起来。"
+msgstr "接下来是 <tt>drawSnake</tt>。这也很简单——先抹掉尾巴再绘制蛇头。将 <tt>X</tt> 设为蛇长以索引到正确像素，并把 <tt>A</tt> 置零后使用索引间接寻址写入。随后重新载入 <tt>X</tt> 以索引到蛇头，将 <tt>A</tt> 置为 1 并存入 <tt>($10,x)</tt>。<tt>$10</tt> 存放蛇头的双字节位置，因此会在当前蛇头位置绘制一个白色像素。由于只移动蛇头与尾巴，这已足够让蛇\"动起来\"。"
 
 #. TRANSLATORS: Error shown when jumping to an address/label without providing any input
 msgid "No address or label provided"
@@ -1021,7 +1021,7 @@ msgstr "复位（模拟器）时：<tt>P = $30</tt>（第 5 位与 <tt>B</tt> �
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Once the values have been shifted down the snake, we have to work out what to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</tt> means \"logical shift right\", or \"shift all the bits one position to the right\". The least significant bit is shifted into the carry flag, so if the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the carry flag set."
-msgstr "当值沿着蛇身下移后，需要决定如何处理蛇头。先将方向加载到 <tt>A</tt>。<tt>LSR</tt> 表示"逻辑右移"，即将所有位右移一位。最低位会移入进位标志，因此如果累加器为 <tt>1</tt>，执行 <tt>LSR</tt> 后变为 <tt>0</tt>，且进位标志被置位。"
+msgstr "当值沿着蛇身下移后，需要决定如何处理蛇头。先将方向加载到 <tt>A</tt>。<tt>LSR</tt> 表示\"逻辑右移\"，即将所有位右移一位。最低位会移入进位标志，因此如果累加器为 <tt>1</tt>，执行 <tt>LSR</tt> 后变为 <tt>0</tt>，且进位标志被置位。"
 
 #. TRANSLATORS: File dialog title when choosing an assembly source file
 #, fuzzy
@@ -1409,7 +1409,7 @@ msgstr "第一条指令使执行跳转到 <tt>init</tt> 标签。它设置 <tt>X
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first line shows the <tt>A</tt>, <tt>X</tt> and <tt>Y</tt> registers (<tt>A</tt> is often called the \"accumulator\"). Each register holds a single byte. Most operations work on the contents of these registers."
-msgstr "第一行展示了 <tt>A</tt>、<tt>X</tt> 与 <tt>Y</tt> 寄存器（<tt>A</tt> 常称为"累加器"）。每个寄存器保存一个字节。大多数操作都作用于这些寄存器的内容。"
+msgstr "第一行展示了 <tt>A</tt>、<tt>X</tt> 与 <tt>Y</tt> 寄存器（<tt>A</tt> 常称为\"累加器\"）。每个寄存器保存一个字节。大多数操作都作用于这些寄存器的内容。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first subroutine, <tt>readKeys</tt>, takes the job of accepting user input. The memory location <tt>$ff</tt> holds the ascii code of the most recent key press in this simulator. The value is loaded into the accumulator, then compared to <tt>$77</tt> (the hex code for W), <tt>$64</tt> (D), <tt>$73</tt> (S) and <tt>$61</tt> (A). If any of these comparisons are successful, the program branches to the appropriate section."
@@ -1441,7 +1441,7 @@ msgstr "最后一个子程序 <tt>spinWheels</tt> 只是为了避免游戏过快
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive (<tt>BPL</tt> means \"branch if positive\")."
-msgstr "长度初始化为 <tt>4</tt>，因此 <tt>X</tt> 起始为 <tt>3</tt>。<tt>LDA $10,x</tt> 将 <tt>$13</tt> 的值载入 <tt>A</tt>，随后 <tt>STA $12,x</tt> 将该值存入 <tt>$15</tt>。<tt>X</tt> 递减并循环。此时 <tt>X</tt> 为 <tt>2</tt>，于是载入 <tt>$12</tt> 并存入 <tt>$14</tt>。当 <tt>X</tt> 为正时循环（<tt>BPL</tt> 表示"为正则分支"）。"
+msgstr "长度初始化为 <tt>4</tt>，因此 <tt>X</tt> 起始为 <tt>3</tt>。<tt>LDA $10,x</tt> 将 <tt>$13</tt> 的值载入 <tt>A</tt>，随后 <tt>STA $12,x</tt> 将该值存入 <tt>$15</tt>。<tt>X</tt> 递减并循环。此时 <tt>X</tt> 为 <tt>2</tt>，于是载入 <tt>$12</tt> 并存入 <tt>$14</tt>。当 <tt>X</tt> 为正时循环（<tt>BPL</tt> 表示\"为正则分支\"）。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next bit updates the head of the snake depending on the direction. This is probably the most complicated part of the code, and it's all reliant on how memory locations map to the screen, so let's look at that in more detail."
@@ -1469,11 +1469,11 @@ msgstr "<tt>BNE</tt> 的相反指令是 <tt>BEQ</tt>。试着编写一个使用 
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The problem is, <tt>$184</tt> is too big to fit in a single byte (the max is <tt>$FF</tt>), and the registers can only hold a single byte. It's OK though; the processor isn't actually dumb. If you were looking carefully enough, you'll have noticed that the carry flag was set to <tt>1</tt> after this operation. So that's how you know."
-msgstr "问题在于 <tt>$184</tt> 太大，无法放入单字节（最大为 <tt>$FF</tt>），而寄存器只能保存单字节。不过没关系，处理器并不"笨"。如果你足够仔细，会注意到该运算后进位标志被置为 <tt>1</tt>。这就是判断依据。"
+msgstr "问题在于 <tt>$184</tt> 太大，无法放入单字节（最大为 <tt>$FF</tt>），而寄存器只能保存单字节。不过没关系，处理器并不\"笨\"。如果你足够仔细，会注意到该运算后进位标志被置为 <tt>1</tt>。这就是判断依据。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The processor knows where to return to because <tt>JSR</tt> pushes the address minus one of the next instruction onto the stack before jumping to the given location. <tt>RTS</tt> pops this location, adds one to it, and jumps to that location. An example:"
-msgstr "处理器之所以知道返回位置，是因为 <tt>JSR</tt> 在跳转前会将"下一条指令地址减一"压入栈中；<tt>RTS</tt> 弹出该地址，加一后跳转到该位置。示例："
+msgstr "处理器之所以知道返回位置，是因为 <tt>JSR</tt> 在跳转前会将\"下一条指令地址减一\"压入栈中；<tt>RTS</tt> 弹出该地址，加一后跳转到该位置。示例："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
@@ -1525,7 +1525,7 @@ msgstr "本次发布带来了充满掌机灵感的主题与可自定义配色；
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
-msgstr "为了判断方向是否为 <tt>1</tt>、<tt>2</tt>、<tt>4</tt> 或 <tt>8</tt>，代码会持续右移直到进位被置位。一次 <tt>LSR</tt> 表示"上"，两次表示"右"，依此类推。"
+msgstr "为了判断方向是否为 <tt>1</tt>、<tt>2</tt>、<tt>4</tt> 或 <tt>8</tt>，代码会持续右移直到进位被置位。一次 <tt>LSR</tt> 表示\"上\"，两次表示\"右\"，依此类推。"
 
 #. TRANSLATORS: Tooltip text for sidebar toggle button in header bar
 msgid "Toggle Sidebar"
@@ -1545,7 +1545,7 @@ msgstr "教程 <sub>作者 <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
-msgstr "两条与栈有关的指令是 <tt>PHA</tt> 与 <tt>PLA</tt>，分别是"压栈累加器"和"出栈累加器"。下面是它们的示例。"
+msgstr "两条与栈有关的指令是 <tt>PHA</tt> 与 <tt>PLA</tt>，分别是\"压栈累加器\"和\"出栈累加器\"。下面是它们的示例。"
 
 msgid "Unable to find/parse given address/label"
 msgstr "无法找到/解析给定的地址/标签"
