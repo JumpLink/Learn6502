@@ -402,7 +402,7 @@ msgstr "Adicionada gerenciamento de arquivos para salvar e carregar seus program
 
 #. TRANSLATORS: Release notes for version 0.2.0 - help feature
 msgid "Added help feature to make code editing easier for beginners"
-msgstr "Adicionada funcionalidade de ajuda para tornar a edição de código mais fácil para principiantes"
+msgstr "Adicionada funcionalidade de ajuda para tornar a edição de código mais fácil para iniciantes"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Additional button inputs are also available: button A (Enter/Return key, ASCII code <tt>$0D</tt>) and button B (Space key, ASCII code <tt>$20</tt>). These can be used to add more interaction to your games. For directional controls, both WASD keys and arrow keys can be used interchangeably."
@@ -476,7 +476,7 @@ msgstr "Melhorias de arquitetura permitem uma melhor partilha de código entre a
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
-msgstr "Enquanto te moves dentro de uma destas tiras horizontais, as coisas são simples. Por exemplo, para te moveres para a direita, apenas incrementa o byte menos significativo (por exemplo, <tt>$0200</tt> torna-se <tt>$0201</tt>). Para ir para baixo, adiciona <tt>$20</tt> (por exemplo, <tt>$0200</tt> torna-se <tt>$0220</tt>). Esquerda e cima são o reverso."
+msgstr "Enquanto você se move dentro de uma destas tiras horizontais, as coisas são simples. Por exemplo, para você se mover para a direita, apenas incrementa o byte menos significativo (por exemplo, <tt>$0200</tt> torna-se <tt>$0201</tt>). Para ir para baixo, adiciona <tt>$20</tt> (por exemplo, <tt>$0200</tt> torna-se <tt>$0220</tt>). Esquerda e cima são o reverso."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As stated before, the four directions are represented internally by the numbers 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented by a binary number with a single <tt>1</tt>:"
@@ -508,7 +508,7 @@ msgstr "Montado com sucesso"
 
 #. TRANSLATORS: Status message shown while assembling source code
 msgid "Assembling code ..."
-msgstr "Montando código......"
+msgstr "Montando código ..."
 
 #. TRANSLATORS: App Store search keyword
 msgid "Assembly"
@@ -652,7 +652,7 @@ msgstr "Organização da Tela"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
-msgstr "Cada seção (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) primeiro verifique se a direção atual é o oposto da nova direção. Isto requer outro pequeno desvio."
+msgstr "Cada seção (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) Primeiro, verifique se a direção atual é o oposto da nova direção. Isto requer outro pequeno desvio."
 
 #. TRANSLATORS: Preference switch label on Debugger page to enable/disable the debugger
 msgid "Enable Debugger"
@@ -672,7 +672,7 @@ msgstr "Melhorada a entrada de faixa de endereços do monitor hex para facilitar
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
-msgstr "Equipado com esse conhecimento, você deve ser capaz ser capaz de ver que a instrução <tt>LDA #$01</tt> carrega o valor hexadecimal <tt>$01</tt> no registro <tt>A</tt>. Vou entrar em mais detalhes sobre os registros na próxima seção."
+msgstr "Equipado com esse conhecimento, você deve ser capaz de ver que a instrução <tt>LDA #$01</tt> carrega o valor hexadecimal <tt>$01</tt> no registro <tt>A</tt>. Vou entrar em mais detalhes sobre os registros na próxima seção."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
@@ -696,7 +696,7 @@ msgstr "Falhou ao copiar para a área de transferência"
 
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
-msgstr "O arquivo \"%s\" tem Alterações não salvas"
+msgstr "O arquivo \"%s\" tem alterações não salvas"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Finally, byte <tt>$03</tt> contains the current length of the snake, in terms of bytes in memory (so a length of 4 means 2 pixels)."
@@ -716,7 +716,7 @@ msgstr "Primeiro carregamos o valor <tt>$08</tt> no registro <tt>X</tt>. A linha
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, S, D) was pressed, and if so, sets the direction of the snake accordingly. Then, <tt>checkCollision</tt> checks to see if the snake collided with itself or the apple. <tt>updateSnake</tt> updates the internal representation of the snake, based on its direction. Next, the apple and snake are drawn. Finally, <tt>spinWheels</tt> makes the processor do some busy work, to stop the game from running too quickly. Think of it like a sleep command. The game keeps running until the snake collides with the wall or itself."
-msgstr "Primeiro, <tt>readkeys</tt> verifique se uma das teclas de direção (W, A, S, D) foi pressionada, e se sim, define a direção da cobra em conformidade. Depois, <tt>checkCollision</tt> verifique se a cobra colidiu consigo própria ou com a maçã. <tt>updateSnake</tt> atualiza a representação interna da cobra, baseada na sua direção. Em seguida, a maçã e a cobra são desenhadas. Finalmente, <tt>spinWheels</tt> faz o processador fazer algum trabalho ocupado, para impedir que o jogo corra demasiado depressa. Pense nisso como um comando sleep. O jogo continua a correr até a cobra colidir com a parede ou consigo própria."
+msgstr "Primeiro, <tt>readkeys</tt> verifica se uma das teclas de direção (W, A, S, D) foi pressionada, e se sim, define a direção da cobra em conformidade. Depois, <tt>checkCollision</tt> verifica se a cobra colidiu consigo própria ou com a maçã. <tt>updateSnake</tt> atualiza a representação interna da cobra, baseada na sua direção. Em seguida, a maçã e a cobra são desenhadas. Finalmente, <tt>spinWheels</tt> faz o processador fazer algum trabalho ocupado, para impedir que o jogo corra demasiado depressa. Pense nisso como um comando sleep. O jogo continua a correr até a cobra colidir com a parede ou consigo própria."
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
@@ -817,7 +817,7 @@ msgstr "Melhoradas as descrições para serem mais acolhedoras para usuários n�
 
 #. TRANSLATORS: Release notes for version 0.2.0 - mobile improvements
 msgid "Improved game screen and controls for mobile devices"
-msgstr "Melhorado a tela do jogo e os controles para dispositivos móveis"
+msgstr "Melhorada a tela do jogo e os controles para dispositivos móveis"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Improved the game console performance for smoother gameplay"
@@ -896,7 +896,7 @@ msgstr "Tutorial interativo"
 
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
-msgstr "Tutorials interativos guiam você do principiante ao avançado"
+msgstr "Tutoriais interativos guiam você do iniciante ao avançado"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Flag de Interrupção: Quando definida, mascara (desativa) todas as interrupções mascaráveis (IRQ). Apenas as Interrupções Não-Mascaráveis (NMI) podem ainda ocorrer. Usada para seções críticas de código que não devem ser interrompidas."
@@ -967,7 +967,7 @@ msgstr "Mapa de Memória"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
-msgstr "As endereços de memória <tt>$01</tt> e <tt>$02</tt> contêm os valores <tt>$05</tt> e <tt>$07</tt> respectivamente. Pense em <tt>($00,X)</tt> como <tt>($00 + X)</tt>. Neste caso <tt>X</tt> é <tt>$01</tt>, então isto simplifica para <tt>($01)</tt>. A partir daqui as coisas procedem como o endereçamento indireto padrão - os dois bytes em <tt>$01</tt> e <tt>$02</tt> (<tt>$05</tt> e <tt>$07</tt>) são procurados para formar o endereço <tt>$0705</tt>. Este é o endereço onde o registro <tt>Y</tt> foi armazenado na instrução anterior, então o registro <tt>A</tt> recebe o mesmo valor que <tt>Y</tt>, embora através de uma rota muito mais tortuosa. Não você verá isto muito."
+msgstr "As endereços de memória <tt>$01</tt> e <tt>$02</tt> contêm os valores <tt>$05</tt> e <tt>$07</tt> respectivamente. Pense em <tt>($00,X)</tt> como <tt>($00 + X)</tt>. Neste caso <tt>X</tt> é <tt>$01</tt>, então isto simplifica para <tt>($01)</tt>. A partir daqui as coisas procedem como o endereçamento indireto padrão - os dois bytes em <tt>$01</tt> e <tt>$02</tt> (<tt>$05</tt> e <tt>$07</tt>) são procurados para formar o endereço <tt>$0705</tt>. Este é o endereço onde o registro <tt>Y</tt> foi armazenado na instrução anterior, então o registro <tt>A</tt> recebe o mesmo valor que <tt>Y</tt>, embora através de uma rota muito mais tortuosa. Você não verá isso com frequência."
 
 #. TRANSLATORS: Section heading label for console messages block
 msgid "Messages"
@@ -1247,7 +1247,7 @@ msgstr "Tela mapeia para a faixa de memória <tt>$0200</tt>-<tt>$05FF</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
-msgstr "A sério, penso que é valioso ter uma compreensão da linguagem assembly. A linguagem assembly é o nível mais baixo de abstração nos computadores - o ponto em que o código ainda é legível. A linguagem assembly traduz-se diretamente nos bytes que são executados pelo processador do seu computador. Se entendes como funciona, basicamente tornaste-te num <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">mago</a> da computação."
+msgstr "Falando sério, acho que é valioso ter uma compreensão da linguagem assembly. A linguagem assembly é o nível mais baixo de abstração nos computadores - o ponto em que o código ainda é legível. A linguagem assembly traduz-se diretamente nos bytes que são executados pelo processador do seu computador. Se você entende como funciona, basicamente você se tornou um <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">mago</a> da computação."
 
 #. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
@@ -1280,7 +1280,7 @@ msgstr "Até agora só conseguimos escrever programas básicos sem qualquer lóg
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then click the button in the top right to assemble the code, then click it again to run the program. You can also access these actions through the dropdown menu."
-msgstr "Vamos mergulhar! Este aplicativo contém um <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">Assemblador e Simulador 6502 em JavaScript</a> que adaptei para este tutorial interativo. Clique no botão <b>Copy</b> no bloco de código abaixo para copiar o código de exemplo para o editor. Depois clica no botão no canto superior direito para montar o código, depois clica novamente para executar o programa. Também você pode acessaceder a estas ações através do menu suspenso."
+msgstr "Vamos mergulhar! Este aplicativo contém um <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">Assemblador e Simulador 6502 em JavaScript</a> que adaptei para este tutorial interativo. Clique no botão <b>Copy</b> no bloco de código abaixo para copiar o código de exemplo para o editor. Depois clique no botão no canto superior direito para montar o código, depois clique novamente para executar o programa. Também é possível acessar essas ações através do menu suspenso."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", so in this case we'll branch to <tt>illegalMove</tt>, which just returns from the subroutine. Otherwise, the new direction (1 in this case) is stored in the appropriate memory location."
@@ -1374,7 +1374,7 @@ msgstr "O Ponteiro da Pilha gere a pilha de chamadas para sub-rotinas e interrup
 
 #. TRANSLATORS: Detailed description of X Index register
 msgid "The X Index Register is used for indexed addressing modes and counting operations. It can hold loop counters, array indices, and is essential for accessing memory locations relative to a base address using X as an offset. Special: TSX/TXS transfer X to/from the stack pointer."
-msgstr "O registro de Índice X é usado para modos de endereçamento indexados e operações de contagem. Pode conter contadores de ciclo, índices de array, e é essencial para acessaceder a endereços de memória relativas a um endereço base usando X como deslocamento. Especial: TSX/TXS transferem X para/de o ponteiro da pilha."
+msgstr "O registro de Índice X é usado para modos de endereçamento indexados e operações de contagem. Pode conter contadores de ciclo, índices de array, e é essencial para acessar endereços de memória relativas a um endereço base usando X como deslocamento. Especial: TSX/TXS transferem X para/de o ponteiro da pilha."
 
 #. TRANSLATORS: Detailed description of Y Index register
 msgid "The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement."
@@ -1382,7 +1382,7 @@ msgstr "O registro de Índice Y é similar a X e não tem funções especiais. C
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
-msgstr "A tela preto do console de jogo deve agora mostrar três \"pixels\" coloridos no canto superior esquerdo."
+msgstr "A tela preta do console de jogo deve agora mostrar três \"pixels\" coloridos no canto superior esquerdo."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The code block below contains the entire source code of the game. I'll explain how it works in the following sections."
@@ -1482,7 +1482,7 @@ msgstr "A página zero da memória é usada para armazenar um número de variáv
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr "Então porquê 6502? Porque não uma linguagem assembly <i>útil</i>, como <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Bem, não penso que aprender x86 seja útil. Não penso que alguma vez tenha de <i>escrever</i> linguagem assembly no trabalho diário — para algumas pessoas é um exercício académico, algo para expandir a mente e o pensamento. O 6502 foi originalmente escrito numa era diferente, numa altura em que a maioria dos programadores escrevia assembly diretamente, em vez destas novas linguagens de alto nível. Por isso, foi concebido para ser escrito por humanos. As linguagens assembly mais modernas destinam-se a ser escritas por compiladores, então deixemos isso para eles. Além disso, o 6502 é <i>divertido</i>. Ninguém alguma vez chamou ao x86 <i>divertido</i>."
+msgstr "Então porquê 6502? Porque não uma linguagem assembly <i>útil</i>, como <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Bem, não acho que aprender x86 seja útil. Não acho que alguma vez tenha de <i>escrever</i> linguagem assembly no trabalho diário — para algumas pessoas é um exercício académico, algo para expandir a mente e o pensamento. O 6502 foi originalmente escrito numa era diferente, numa altura em que a maioria dos programadores escrevia assembly diretamente, em vez destas novas linguagens de alto nível. Por isso, foi concebido para ser escrito por humanos. As linguagens assembly mais modernas destinam-se a ser escritas por compiladores, então deixemos isso para eles. Além disso, o 6502 é <i>divertido</i>. Ninguém alguma vez chamou ao x86 <i>divertido</i>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1597,7 +1597,7 @@ msgstr "Já viste <tt>TAX</tt>. Provavelmente consegues adivinhar o que <tt>TAY<
 
 #. TRANSLATORS: Alert dialog body explaining risk of losing changes
 msgid "Your file has unsaved changes. Changes will be lost if you don't save them."
-msgstr "seu arquivo tem Alterações não salvas. As alterações serão perdidas se não as salvares."
+msgstr "seu arquivo tem alterações não salvas. As alterações serão perdidas se não as salvares."
 
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
 msgstr "Flag Zero: Definida quando o resultado de uma operação é zero. Essencial para ramificação condicional - a maioria das instruções de salto condicional (BEQ, BNE) verifique esta flag para determinar o fluxo do programa baseado se um valor é zero."
