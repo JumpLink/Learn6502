@@ -165,7 +165,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
           entryFileNames: ENTRY_FILENAME,
           // banner: `#!${GJS_CONSOLE} -m\n`,
         },
-        external: [new RegExp("^gi://*", "i"), "system", "cairo"],
+        external: [new RegExp("^gi://*", "i"), "system", "cairo", "gettext"],
       },
       esbuild: {
         external: ["jsdom", "react"],
