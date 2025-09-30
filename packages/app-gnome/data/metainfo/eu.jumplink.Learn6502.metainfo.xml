@@ -4,75 +4,83 @@
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
   <name>Learn 6502 Assembly</name>
+  <name xml:lang="es">Aprende 6502 Assembly</name>
   <name xml:lang="de">Lerne 6502 Assembler</name>
-  <summary>Program Vintage Game Consoles</summary>
+  <summary>Program vintage game consoles</summary>
+  <summary xml:lang="es">Programa consolas de videojuegos clásicas</summary>
   <summary xml:lang="de">Programmiere Retro-Spielekonsolen</summary>
-  <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
+  <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
   <description>
-    <!-- TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms -->
+    
     <p>
       Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.
     </p>
+    <p xml:lang="es">Descubre el fascinante mundo de la programación de ordenadores y consolas clásicas. Aprende el lenguaje ensamblador 6502: el mismo código que impulsó sistemas icónicos como NES, Commodore 64 y Apple II.</p>
     <p xml:lang="de">Entdecke die faszinierende Welt der Programmierung klassischer Computer und Spielekonsolen! Lerne die 6502-Assemblersprache - denselben Code, der legendäre Systeme wie NES, Commodore 64 und Apple II antrieb.</p>
-    <!-- TRANSLATORS: App Store description paragraph about onboarding for beginners -->
+    
     <p>
       No prior programming experience needed. Start with interactive lessons and build your skills step by step.
     </p>
+    <p xml:lang="es">No se necesita experiencia previa en programación. Comienza con lecciones interactivas y desarrolla tus habilidades paso a paso.</p>
     <p xml:lang="de">Keine vorherigen Programmierkenntnisse erforderlich. Beginne mit interaktiven Lektionen und baue deine Fähigkeiten Schritt für Schritt auf.</p>
     <ul>
-      <!-- TRANSLATORS: Feature list item about interactive tutorials -->
+      
       <li>Interactive tutorials guide you from beginner to advanced</li>
+      <li xml:lang="es">Los tutoriales interactivos te guían de principiante a avanzado</li>
       <li xml:lang="de">Interaktive Tutorials führen dich vom Anfänger zum Fortgeschrittenen</li>
-      <!-- TRANSLATORS: Feature list item about integrated code editor -->
+      
       <li>Write and edit code with a built-in code editor</li>
+      <li xml:lang="es">Escribe y edita código con un editor integrado</li>
       <li xml:lang="de">Schreibe und bearbeite Code mit einem integrierten Code-Editor</li>
-      <!-- TRANSLATORS: Feature list item about debugging tools -->
+      
       <li>Debug your programs with real-time inspection tools</li>
+      <li xml:lang="es">Depura tus programas con herramientas de inspección en tiempo real</li>
       <li xml:lang="de">Debugge deine Programme mit Echtzeit-Inspektionswerkzeugen</li>
-      <!-- TRANSLATORS: Feature list item about virtual game console -->
+      
       <li>Test your creations on a virtual game console</li>
+      <li xml:lang="es">Prueba tus creaciones en una consola de juegos virtual</li>
       <li xml:lang="de">Teste deine Kreationen auf einer virtuellen Spielkonsole</li>
-      <!-- TRANSLATORS: Feature list item about learning history while coding -->
+      
       <li>Learn about computer history while coding</li>
+      <li xml:lang="es">Aprende sobre la historia de la informática mientras programas</li>
       <li xml:lang="de">Erfahre mehr über Computer-Geschichte beim Programmieren</li>
     </ul>
-    <!-- TRANSLATORS: Closing paragraph targeting the audience -->
+    
     <p>
       Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!
     </p>
+    <p xml:lang="es">Perfecto para aficionados, estudiantes y cualquier persona curiosa por cómo funcionan realmente los ordenadores por dentro.</p>
     <p xml:lang="de">Perfekt für Hobbyisten, Studenten und alle, die neugierig sind, wie Computer wirklich unter der Haube funktionieren!</p>
   </description>
   <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/1.png</image>
-      <!-- TRANSLATORS: Screenshot caption for the snake game running in the virtual console -->
-      <caption>Snake game running on the virtual game console</caption>
-      <caption xml:lang="de">Snake-Spiel läuft auf der virtuellen Spielkonsole</caption>
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/1.png</image>
+      
+      <caption>Code editor and virtual game console</caption>
+      <caption xml:lang="es">Editor de código y consola de juegos virtual</caption>
+      <caption xml:lang="de">Code-Editor und virtuelle Spielkonsole</caption>
     </screenshot>
     <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/2.png</image>
-      <!-- TRANSLATORS: Screenshot caption for the interactive tutorial view -->
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/2.png</image>
+      
+      <caption>Appearance settings</caption>
+      <caption xml:lang="es">Configuración de apariencia</caption>
+      <caption xml:lang="de">Erscheinungsbild-Einstellungen</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/3.png</image>
+      
+      <caption>Running Snake game</caption>
+      <caption xml:lang="es">Juego de la serpiente ejecutándose</caption>
+      <caption xml:lang="de">Snake-Spiel läuft</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/4.png</image>
+      
       <caption>Interactive tutorial</caption>
+      <caption xml:lang="es">Tutorial interactivo</caption>
       <caption xml:lang="de">Interaktives Tutorial</caption>
-    </screenshot>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/3.png</image>
-      <!-- TRANSLATORS: Screenshot caption for the integrated code editor -->
-      <caption>Code editor</caption>
-      <caption xml:lang="de">Code-Editor</caption>
-    </screenshot>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/4.png</image>
-      <!-- TRANSLATORS: Screenshot caption for the built-in debugger -->
-      <caption>Built-in debugger</caption>
-      <caption xml:lang="de">Integrierter Debugger</caption>
-    </screenshot>
-    <screenshot type="default">
-      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.3.0/misc/screenshots/5.png</image>
-      <!-- TRANSLATORS: Screenshot caption for the code editor with expanded help panel -->
-      <caption>Code editor with help panel in expanded view</caption>
-      <caption xml:lang="de">Code-Editor mit Hilfe-Panel in erweiterter Ansicht</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
@@ -88,74 +96,99 @@
     <content_attribute id="language-humor">mild</content_attribute>
   </content_rating>
   <releases>
+    <release version="0.4.0" date="2025-09-24">
+      <description>
+        
+        <p>This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development.</p>
+        <p xml:lang="es">Esta versión trae un tema vibrante inspirado en dispositivos portátiles con colores personalizables. Hemos introducido diseños adaptativos para tabletas y escritorio que mantienen todo a la vista, perfectos para esas sesiones de programación maratónicas al aprender a desarrollar juegos retro en ensamblador. Muchas gracias a nuestro nuevo colaborador @mmartinortiz por las excelentes ideas de diseño de escritorio. También hay algunas mejoras técnicas geniales, como el rigor de TypeScript, esquemas de estilo GtkSourceView personalizados y controles de depuración mejorados para un desarrollo más fluido.</p>
+        <p xml:lang="de">Diese Version bringt lebendiges, handheld-inspiriertes Theming mit anpassbaren Farben. Wir haben adaptive Tablet- und Desktop-Layouts eingeführt, die alles im Blick behalten - perfekt für diese Marathon-Codingsessions beim Lernen der Retro-Spielentwicklung in Assembly. Großer Dank an unseren neuen Mitwirkenden @mmartinortiz für die großartigen Desktop-Layout-Ideen. Es gibt auch einige coole technische Verbesserungen wie TypeScript-Strictness, benutzerdefinierte GtkSourceView-Style-Schemes und erweiterte Debugger-Steuerungen für flüssigere Entwicklung.</p>
+      </description>
+    </release>
     <release version="0.3.0" date="2025-09-08">
       <description>
-        <!-- TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign -->
+        
         <p>Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components.</p>
+        <p xml:lang="es">Importantes mejoras de UI con un botón de acción flotante moderno y estados dinámicos para un control intuitivo del programa, y un widget de depurador completamente rediseñado usando componentes modernos de Adwaita.</p>
         <p xml:lang="de">Wichtige UI-Verbesserungen mit Einführung eines modernen Floating Action Buttons mit dynamischen Zuständen für intuitive Programmkontrolle und einem vollständig neu gestalteten Debugger-Widget mit modernen Adwaita-Komponenten.</p>
-        <!-- TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements -->
+        
         <p>Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms.</p>
+        <p xml:lang="es">Las mejoras de arquitectura permiten un mejor intercambio de código entre GNOME, Web y Android.</p>
         <p xml:lang="de">Architekturverbesserungen ermöglichen bessere Code-Teilung zwischen GNOME, Web und Android-Plattformen.</p>
       </description>
     </release>
     <release version="0.2.0" date="2025-04-11">
       <description>
-        <!-- TRANSLATORS: Release notes for version 0.2.0 - help feature -->
+        
         <p>Added help feature to make code editing easier for beginners</p>
+        <p xml:lang="es">Se añadió una función de ayuda para facilitar la edición de código a principiantes</p>
         <p xml:lang="de">Hilfefunktion hinzugefügt, um die Codebearbeitung für Anfänger zu erleichtern</p>
-        <!-- TRANSLATORS: Release notes for version 0.2.0 - mobile improvements -->
+        
         <p>Improved game screen and controls for mobile devices</p>
+        <p xml:lang="es">Mejoradas la pantalla del juego y los controles para dispositivos móviles</p>
         <p xml:lang="de">Verbesserte Spieloberfläche und Steuerung für mobile Geräte</p>
-        <!-- TRANSLATORS: Release notes for version 0.2.0 - tooling additions -->
+        
         <p>New tools to examine your code, including disassembler and fast switchable memory viewer</p>
+        <p xml:lang="es">Nuevas herramientas para examinar tu código, incluyendo desensamblador y visor de memoria con cambio rápido</p>
         <p xml:lang="de">Neue Werkzeuge zur Code-Analyse, einschließlich Disassembler und schnell umschaltbarer Speicheransicht</p>
-        <!-- TRANSLATORS: Release notes for version 0.2.0 - bug fixes -->
+        
         <p>Many minor bugs have been fixed to improve overall usabipty</p>
+        <p xml:lang="es">Se han corregido numerosos errores menores para mejorar la usabilidad general</p>
         <p xml:lang="de">Zahlreiche kleine Fehler wurden behoben, um die allgemeine Benutzerfreundlichkeit zu verbessern</p>
-        <!-- TRANSLATORS: Release notes for version 0.2.0 - auto pause -->
+        
         <p>Games now automatically pause when switching between screens</p>
+        <p xml:lang="es">Los juegos ahora se pausan automáticamente al cambiar entre pantallas</p>
         <p xml:lang="de">Spiele werden jetzt automatisch pausiert, wenn zwischen Bildschirmen gewechselt wird</p>
-        <!-- TRANSLATORS: Release notes for version 0.2.0 - file management -->
+        
         <p>Added file management to save and load your programs</p>
+        <p xml:lang="es">Se añadió la gestión de archivos para guardar y cargar tus programas</p>
         <p xml:lang="de">Dateiverwaltung zum Speichern und Laden von Programmen hinzugefügt</p>
       </description>
     </release>
     <release version="0.1.2" date="2025-04-03">
       <description>
-        <!-- TRANSLATORS: Release notes for version 0.1.2 -->
+        
         <p>Enhanced app presentation and accessibility</p>
+        <p xml:lang="es">Mejorada la presentación de la app y la accesibilidad</p>
         <p xml:lang="de">Verbesserte App-Darstellung und Zugänglichkeit</p>
-        <!-- TRANSLATORS: Release notes for version 0.1.2 -->
+        
         <p>Improved descriptions to be more welcoming for non-technical users</p>
+        <p xml:lang="es">Descripciones mejoradas para ser más acogedoras para usuarios no técnicos</p>
         <p xml:lang="de">Verbesserte Beschreibungen für nicht-technische Benutzer</p>
-        <!-- TRANSLATORS: Release notes for version 0.1.2 -->
+        
         <p>Optimized Flatpak configuration by removing unnecessary permissions</p>
+        <p xml:lang="es">Configuración de Flatpak optimizada eliminando permisos innecesarios</p>
         <p xml:lang="de">Optimierte Flatpak-Konfiguration durch Entfernen unnötiger Berechtigungen</p>
       </description>
     </release>
     <release version="0.1.1" date="2025-04-02">
       <description>
-        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        
         <p>Improved the game console performance for smoother gameplay</p>
+        <p xml:lang="es">Mejorado el rendimiento de la consola de juegos para una jugabilidad más fluida</p>
         <p xml:lang="de">Verbesserte Leistung der Spielekonsole für flüssigeres Gameplay</p>
-        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        
         <p>Enhanced the hex monitor address range input for easier value editing</p>
+        <p xml:lang="es">Mejorada la entrada del rango de direcciones en el monitor hex para facilitar la edición</p>
         <p xml:lang="de">Verbesserte Eingabe des Adressbereichs im Hex-Monitor</p>
-        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        
         <p>Reduced default hex monitor address range for better efficiency</p>
+        <p xml:lang="es">Rango de direcciones predeterminado del monitor hex reducido para mejorar la eficiencia</p>
         <p xml:lang="de">Reduzierter Standard-Adressbereich des Hex-Monitors für bessere Effizienz</p>
-        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        
         <p>Debugger now only updates when visible, reducing unnecessary processing</p>
+        <p xml:lang="es">El depurador ahora solo se actualiza cuando es visible, reduciendo el procesamiento innecesario</p>
         <p xml:lang="de">Debugger wird nur noch aktualisiert, wenn er sichtbar ist, reduziert unnötige Verarbeitung</p>
-        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        
         <p>Fixed build error on PostmarketOS, improving mobile compatibility</p>
+        <p xml:lang="es">Corregido un error de compilación en PostmarketOS, mejorando la compatibilidad móvil</p>
         <p xml:lang="de">Build-Fehler unter PostmarketOS behoben, verbessert Kompatibilität mit Mobilgeräten</p>
       </description>
     </release>
     <release version="0.1.0" date="2025-04-02">
       <description>
-        <!-- TRANSLATORS: Release notes for version 0.1.0 -->
+        
         <p>First release of Learn 6502 Assembly for GNOME</p>
+        <p xml:lang="es">Primera versión de Learn 6502 Assembly para GNOME</p>
         <p xml:lang="de">Erste Veröffentlichung von Lerne 6502 Assembler für GNOME</p>
       </description>
     </release>
@@ -174,32 +207,41 @@
     <category>Education</category>
   </categories>
   <keywords>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>6502</keyword>
+    <keyword xml:lang="es">6502</keyword>
     <keyword xml:lang="de">6502</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>Assembly</keyword>
+    <keyword xml:lang="es">Assembly</keyword>
     <keyword xml:lang="de">Assembler</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>programming</keyword>
+    <keyword xml:lang="es">programación</keyword>
     <keyword xml:lang="de">Programmierung</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>learning</keyword>
+    <keyword xml:lang="es">aprendizaje</keyword>
     <keyword xml:lang="de">lernen</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>Simulator</keyword>
+    <keyword xml:lang="es">Simulador</keyword>
     <keyword xml:lang="de">Simulator</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>IDE</keyword>
+    <keyword xml:lang="es">IDE</keyword>
     <keyword xml:lang="de">IDE</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>Debugger</keyword>
+    <keyword xml:lang="es">Depurador</keyword>
     <keyword xml:lang="de">Debugger</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>Adwaita</keyword>
+    <keyword xml:lang="es">Adwaita</keyword>
     <keyword xml:lang="de">Adwaita</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
+    
     <keyword>GNOME</keyword>
+    <keyword xml:lang="es">GNOME</keyword>
     <keyword xml:lang="de">GNOME</keyword>
   </keywords>
   <supports>

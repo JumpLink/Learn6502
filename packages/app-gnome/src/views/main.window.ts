@@ -41,10 +41,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _unsavedChangesDialog: Adw.AlertDialog;
   declare private _titleLabel: Gtk.Label;
   declare private _unsavedChangesIndicator: Gtk.Button;
+  declare private _sidebarToggleButton: Gtk.ToggleButton;
 
-  // Three column boxes
+  // Three column layout widgets
+  declare private _leftSidebar: Adw.OverlaySplitView;
   declare private _leftColumn: Gtk.Box;
   declare private _centerColumn: Gtk.Box;
+  declare private _rightColumn: Gtk.ScrolledWindow;
+  declare private _rightColumnContent: Gtk.Box;
   declare private _rightTopBox: Gtk.Box;
   declare private _rightBottomBox: Gtk.Box;
   static {
@@ -71,13 +75,17 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "debugger",
           "toastOverlay",
           "layoutHost",
+          "leftSidebar",
           "leftColumn",
           "centerColumn",
+          "rightColumn",
+          "rightColumnContent",
           "rightTopBox",
           "rightBottomBox",
           "unsavedChangesDialog",
           "titleLabel",
           "unsavedChangesIndicator",
+          "sidebarToggleButton",
         ],
       },
       this
@@ -106,8 +114,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private handleChildFocusChangeDebounced = debounce(() => {
     if (!this.isDesktopMode()) return;
 
-    const focused: Gtk.Widget | null =
-      (this as unknown as Gtk.Window).get_focus?.() ?? null;
+    const focused: Gtk.Widget | null = this.get_focus() ?? null;
     const isFocusInsideConsole = this.widgetIsDescendantOf(
       focused,
       this._gameConsole
@@ -258,6 +265,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private setupLearnTutorialSignalListeners(): void {
     learnController.on("copy", ({ code }: { code: string }) => {
       this.setEditorCode(code);
+      this.closeSidebarIfOverlay();
       this.showToast({
         // TRANSLATORS: Toast message title after copying code snippet into the editor
         title: _("Code copied to editor"),
@@ -301,6 +309,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private onCopyToEditor(code: string): void {
     this.setEditorCode(code);
+    this.closeSidebarIfOverlay();
   }
 
   private onStepperToggled(enabled: boolean): void {
@@ -405,9 +414,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     let current: Gtk.Widget | null = widget;
     while (current) {
       if (current === ancestor) return true;
-      current =
-        (current.get_parent && (current.get_parent() as Gtk.Widget | null)) ||
-        null;
+      current = current.get_parent() as Gtk.Widget | null;
     }
     return false;
   }
@@ -491,45 +498,45 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.detachFromParent(this._gameConsole);
 
     // Remove existing pages
-    const model: any = (this._stack as any).get_pages?.();
+    const model: Gtk.SelectionModel<Gtk.Widget> = this._stack.get_pages();
     if (model) {
       const toRemove: Gtk.Widget[] = [];
       const n: number = model.get_n_items?.() ?? 0;
       for (let i = 0; i < n; i++) {
-        const page: any = model.get_item?.(i);
-        const child: Gtk.Widget | undefined = page?.get_child?.();
+        const page = model.get_item(i) as Gtk.StackPage;
+        const child = page.get_child();
         if (child) toRemove.push(child);
       }
       for (const child of toRemove) this._stack.remove(child);
     }
 
     // Add four pages
-    (this._stack as any).add_titled_with_icon?.(
+    this._stack.add_titled_with_icon(
       this._learn,
       "learn",
       // TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
       _("Learn"),
       "school-symbolic"
     );
-    (this._stack as any).add_titled_with_icon?.(
+    this._stack.add_titled_with_icon(
       this._editor,
       "editor",
       // TRANSLATORS: ViewSwitcher/tab title for the Editor view
-      _("Editor"),
+      _("Code"),
       "code-symbolic"
     );
-    (this._stack as any).add_titled_with_icon?.(
+    this._stack.add_titled_with_icon(
       this._debugger,
       "debugger",
       // TRANSLATORS: ViewSwitcher/tab title for the Debugger view
-      _("Debugger"),
+      _("Debug"),
       "bug-symbolic"
     );
-    (this._stack as any).add_titled_with_icon?.(
+    this._stack.add_titled_with_icon(
       this._gameConsole,
       "gameConsole",
       // TRANSLATORS: ViewSwitcher/tab title for the Game Console view
-      _("Game Console"),
+      _("Play"),
       "nintendo-controller-symbolic"
     );
   }
@@ -538,9 +545,12 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private mountSingleLayout(): void {
     this.setupSingleStackPages();
     this._switcherBar.set_stack(this._stack);
+
+    // Enable debugger's own scrollbar in single layout mode
+    this._debugger.scrollable = true;
   }
 
-  // Mount three-column layout: Learn | Editor | (GameConsole over Debugger)
+  // Mount three-column layout: Learn | Editor | (GameConsole over Debugger in scrollable container)
   private mountThreeColumnLayout(): void {
     // Clear containers
     this.clearBoxChildren(this._leftColumn);
@@ -554,12 +564,14 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Center: Editor
     this.detachFromParent(this._editor);
     this._centerColumn.append(this._editor);
-    // Right top: Game Console
+    // Right: Game Console and Debugger in scrollable container
     this.detachFromParent(this._gameConsole);
     this._rightTopBox.append(this._gameConsole);
-    // Right bottom: Debugger
     this.detachFromParent(this._debugger);
     this._rightBottomBox.append(this._debugger);
+
+    // Disable debugger's own scrollbar since it's now in a scrollable container
+    this._debugger.scrollable = false;
 
     // Detach bottom switcher in three-column mode
     this._switcherBar.set_stack(null as unknown as Adw.ViewStack);
@@ -576,8 +588,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private detachFromParent(widget: Gtk.Widget): void {
     const parent = widget.get_parent();
-    if (parent && (parent as any).remove) {
-      (parent as any).remove(widget);
+    if (
+      parent &&
+      (parent as Gtk.Box | Gtk.Grid | Gtk.Fixed | Gtk.Stack).remove
+    ) {
+      (parent as Gtk.Box | Gtk.Grid | Gtk.Fixed | Gtk.Stack).remove(widget);
     }
   }
 
@@ -1075,6 +1090,17 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       settings.set_int("window-height", height);
     } catch (error) {
       console.warn("Could not save window size to settings:", error);
+    }
+  }
+
+  /**
+   * Close the sidebar if it's in overlay mode (collapsed)
+   * This provides better UX when copying code to editor
+   */
+  private closeSidebarIfOverlay(): void {
+    // Only close sidebar if we're in desktop mode and sidebar is collapsed (overlay mode)
+    if (this.isDesktopMode() && this._leftSidebar.collapsed) {
+      this._leftSidebar.show_sidebar = false;
     }
   }
 }
