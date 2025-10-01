@@ -556,6 +556,13 @@ msgstr "Bandiera de reporto: Definite quando un addition produce un reporto; cla
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Cambia un del pixeles pro designar in le angulo in basso a dextra (location de memoria <tt>$05ff</tt>)."
 
+msgid "Chinese (Simplified)"
+msgstr "Chinese (Simplificate)"
+
+#. TRANSLATORS: Preferences row subtitle for language selection
+msgid "Choose the language for the application interface"
+msgstr "Elige le lingua pro le interfacie del application"
+
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "Codice"
@@ -656,6 +663,9 @@ msgstr "Memoria de schermo ($0200-$05FF)"
 msgid "Display Organization"
 msgstr "Organisation de schermo"
 
+msgid "Dutch"
+msgstr "Nederlandese"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr "Cata section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) prime verifica si le direction currente es le opposite del nove direction. Iste require un altere micre detour."
@@ -667,6 +677,9 @@ msgstr "Habilitar debugger"
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
 msgstr "Habilitar modo de passo"
+
+msgid "English"
+msgstr "Anglese"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
@@ -741,6 +754,9 @@ msgstr "Trovate $d etiquetta."
 msgid "Found $d labels."
 msgstr "Trovate $d etiquettas."
 
+msgid "French"
+msgstr "Francese"
+
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Memoria complete ($0000-$FFFF)"
@@ -756,6 +772,13 @@ msgstr "Clave de gamepad pressate:"
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr "Jocos ora automaticamente pausa quando cambi inter schermos"
+
+#. TRANSLATORS: Preferences page title for General settings
+msgid "General"
+msgstr "General"
+
+msgid "German"
+msgstr "German"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
@@ -904,6 +927,9 @@ msgstr "Tutorial interactive"
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "Tutoriales interactive te guia de initiator a avantiate"
 
+msgid "Interlingua"
+msgstr "Interlingua"
+
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Bandiera de interruption: Quando definite, mascara (dishabilita) tote interruptiones mascabile (IRQ). Solo interruptiones non mascabile (NMI) pote ancora occurer. Usate pro sectiones critical de codice que non debe esser interruptite."
 
@@ -918,6 +944,9 @@ msgstr "JMP"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
 msgstr "JSR/RTS"
+
+msgid "Japanese"
+msgstr "Japonese"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
@@ -937,6 +966,10 @@ msgstr "Etiquetta {label} es jam usate como symbolo; per favor renomina un de il
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
 msgstr "Fallimento de etiquettas"
+
+#. TRANSLATORS: Preferences row title for language selection
+msgid "Language"
+msgstr "Lingua"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
@@ -1080,6 +1113,15 @@ msgstr "Rosate"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "Jocar"
+
+msgid "Please restart the application for the language change to take effect."
+msgstr "Per favor reinitia le application pro applicar le cambio de lingua."
+
+msgid "Portuguese"
+msgstr "Portuguese"
+
+msgid "Portuguese (Brazil)"
+msgstr "Portuguese (Brasil)"
 
 msgid "Preprocessing ..."
 msgstr "Preprocessante..."
@@ -1308,6 +1350,9 @@ msgstr "Assi, proque tu volerea apprender 6502? Illo es un lingua morte, non es 
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr "Alcun instructiones non maneja locationes de memoria (p.ex. <tt>INX</tt> - incrementa le registro <tt>X</tt>). Iste es dicite haber adressage implicite - le argumento es implicite per le instruction."
 
+msgid "Spanish"
+msgstr "Espaniol"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr "Locationes special de memoria (in Simulator)"
@@ -1340,6 +1385,9 @@ msgstr "Stilo"
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr "Error de syntaxe linea %d: %s"
+
+msgid "System Default"
+msgstr "Predefinition del systema"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1542,6 +1590,9 @@ msgstr "Tutorial <sub>per <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan<
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
 msgstr "Duo del instructiones de pila es <tt>PHA</tt> e <tt>PLA</tt>, \"push accumulator\" e \"pull accumulator\". Infra es un exemplo de iste duo in action."
 
+msgid "Ukrainian"
+msgstr "Ucrainiano"
+
 msgid "Unable to find/parse given address/label"
 msgstr "Incapace de trovar/analysar le adresse/etiquetta date"
 
@@ -1629,8 +1680,8 @@ msgid "Zero page: <tt>$c0</tt>"
 msgstr "Pagina zero: <tt>$c0</tt>"
 
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
-msgid "_Appearance"
-msgstr "_Apparentia"
+msgid "_Preferences"
+msgstr "_Preferentias"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"
@@ -1647,6 +1698,9 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "que representa le locationes de memoria indirectemente adressate <tt>$0411</tt>, <tt>$0410</tt> e <tt>$040f</tt> (tres pixeles in le medio del schermo). Io labora iste puncto, ma illo es importante pro plenemente comprehender como adressage indirecte functiona."
+
+#~ msgid "_Appearance"
+#~ msgstr "_Apparentia"
 
 #~ msgid "<b>A</b> (Accumulator): Registro principal pro calculos e manipulation de datos"
 #~ msgstr "<b>A</b> (Accumulator): Registro principal pro calculos e manipulation de datos"

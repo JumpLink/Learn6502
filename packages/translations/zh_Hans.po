@@ -551,6 +551,13 @@ msgstr "进位标志（C）：加法产生进位时置位；减法需要借位�
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "试着修改内存中最后一个像素的颜色 (内存地址 $05ff)。"
 
+msgid "Chinese (Simplified)"
+msgstr "中文（简体）"
+
+#. TRANSLATORS: Preferences row subtitle for language selection
+msgid "Choose the language for the application interface"
+msgstr "选择应用界面的语言"
+
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "代码"
@@ -651,6 +658,9 @@ msgstr "显示内存（$0200–$05FF）"
 msgid "Display Organization"
 msgstr "显示布局"
 
+msgid "Dutch"
+msgstr "荷兰语"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr "每个分支（如 <tt>upKey</tt>、<tt>rightKey</tt> 等）首先检查当前方向是否与新方向相反。这需要一点额外的处理。"
@@ -662,6 +672,9 @@ msgstr "启用调试器"
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
 msgstr "启用单步模式"
+
+msgid "English"
+msgstr "英语"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
@@ -736,6 +749,9 @@ msgstr "找到 $d 个标签。"
 msgid "Found $d labels."
 msgstr "找到 $d 个标签。"
 
+msgid "French"
+msgstr "法语"
+
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "全部内存（$0000–$FFFF）"
@@ -751,6 +767,13 @@ msgstr "手柄按键："
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr "切换屏幕时游戏现在会自动暂停"
+
+#. TRANSLATORS: Preferences page title for General settings
+msgid "General"
+msgstr "通用"
+
+msgid "German"
+msgstr "德语"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
@@ -899,6 +922,9 @@ msgstr "交互式教程"
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "交互式教程将带你从入门到进阶"
 
+msgid "Interlingua"
+msgstr "国际语"
+
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "中断禁用标志（I）：置位时屏蔽所有可屏蔽中断（IRQ），仅不可屏蔽中断（NMI）仍会发生。用于必须不可被打断的关键代码区。"
 
@@ -913,6 +939,9 @@ msgstr "JMP"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
 msgstr "JSR/RTS"
+
+msgid "Japanese"
+msgstr "日语"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
@@ -932,6 +961,10 @@ msgstr "标签 {label} 已被用作符号；请重命名其中一个"
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
 msgstr "标签处理失败"
+
+#. TRANSLATORS: Preferences row title for language selection
+msgid "Language"
+msgstr "语言"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
@@ -1075,6 +1108,15 @@ msgstr "粉色"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "开始"
+
+msgid "Please restart the application for the language change to take effect."
+msgstr "请重启应用以使语言更改生效。"
+
+msgid "Portuguese"
+msgstr "葡萄牙语"
+
+msgid "Portuguese (Brazil)"
+msgstr "葡萄牙语（巴西）"
 
 msgid "Preprocessing ..."
 msgstr "预处理…"
@@ -1303,6 +1345,9 @@ msgstr "那为什么要学 6502？它不是“已死”的语言吗？拉丁语�
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr "有些指令不涉及内存位置（如 <tt>INX</tt> —— 递增 <tt>X</tt> 寄存器）。这称为隐式寻址——参数由指令本身隐含。"
 
+msgid "Spanish"
+msgstr "西班牙语"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr "特殊内存位置（模拟器）"
@@ -1335,6 +1380,9 @@ msgstr "样式"
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr "语法错误 第 %d 行：%s"
+
+msgid "System Default"
+msgstr "系统默认"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1537,6 +1585,9 @@ msgstr "教程 <sub>作者 <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
 msgstr "两条与栈有关的指令是 <tt>PHA</tt> 与 <tt>PLA</tt>，分别是\"压栈累加器\"和\"出栈累加器\"。下面是它们的示例。"
 
+msgid "Ukrainian"
+msgstr "乌克兰语"
+
 msgid "Unable to find/parse given address/label"
 msgstr "无法找到/解析给定的地址/标签"
 
@@ -1624,8 +1675,8 @@ msgid "Zero page: <tt>$c0</tt>"
 msgstr "零页：<tt>$c0</tt>"
 
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
-msgid "_Appearance"
-msgstr "外观"
+msgid "_Preferences"
+msgstr "_首选项"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"
@@ -1642,6 +1693,9 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 与 <tt>$040f</tt>（显示中部的三个像素）。之所以反复强调，是因为完全理解间接寻址的工作方式非常重要。"
+
+#~ msgid "_Appearance"
+#~ msgstr "外观"
 
 #~ msgid "Because the snake's length is stored in zero page <tt>$03</tt>, we can use indirect addressing to draw the snake. The basic idea is to loop through the zero page locations that store the snake's position data, and use indirect addressing to draw each segment to the display."
 #~ msgstr "由于蛇的长度存储在零页 <tt>$03</tt>，我们可以使用间接寻址来绘制蛇。基本思路是遍历存储蛇位置数据的零页位置，然后使用间接寻址将每个段绘制到显示区。"

@@ -550,6 +550,13 @@ msgstr ""
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr ""
 
+msgid "Chinese (Simplified)"
+msgstr "Китайська (спрощена)"
+
+#. TRANSLATORS: Preferences row subtitle for language selection
+msgid "Choose the language for the application interface"
+msgstr "Виберіть мову інтерфейсу застосунку"
+
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr ""
@@ -650,6 +657,9 @@ msgstr ""
 msgid "Display Organization"
 msgstr ""
 
+msgid "Dutch"
+msgstr "Нідерландська"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr ""
@@ -661,6 +671,9 @@ msgstr ""
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
 msgstr ""
+
+msgid "English"
+msgstr "Англійська"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
@@ -735,6 +748,9 @@ msgstr ""
 msgid "Found $d labels."
 msgstr ""
 
+msgid "French"
+msgstr "Французька"
+
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr ""
@@ -750,6 +766,13 @@ msgstr ""
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr ""
+
+#. TRANSLATORS: Preferences page title for General settings
+msgid "General"
+msgstr "Загальні"
+
+msgid "German"
+msgstr "Німецька"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
@@ -898,6 +921,9 @@ msgstr ""
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr ""
 
+msgid "Interlingua"
+msgstr "Інтерлінгва"
+
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr ""
 
@@ -912,6 +938,9 @@ msgstr ""
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
 msgstr ""
+
+msgid "Japanese"
+msgstr "Японська"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
@@ -931,6 +960,10 @@ msgstr ""
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
 msgstr ""
+
+#. TRANSLATORS: Preferences row title for language selection
+msgid "Language"
+msgstr "Мова"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
@@ -1074,6 +1107,15 @@ msgstr ""
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr ""
+
+msgid "Please restart the application for the language change to take effect."
+msgstr "Перезапустіть застосунок, щоб зміна мови набрала чинності."
+
+msgid "Portuguese"
+msgstr "Португальська"
+
+msgid "Portuguese (Brazil)"
+msgstr "Португальська (Бразилія)"
 
 msgid "Preprocessing ..."
 msgstr ""
@@ -1302,6 +1344,9 @@ msgstr ""
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr ""
 
+msgid "Spanish"
+msgstr "Іспанська"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr ""
@@ -1334,6 +1379,9 @@ msgstr ""
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr ""
+
+msgid "System Default"
+msgstr "Системне за замовчуванням"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1536,6 +1584,9 @@ msgstr ""
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
 msgstr ""
 
+msgid "Ukrainian"
+msgstr "Українська"
+
 msgid "Unable to find/parse given address/label"
 msgstr ""
 
@@ -1623,8 +1674,8 @@ msgid "Zero page: <tt>$c0</tt>"
 msgstr ""
 
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
-msgid "_Appearance"
-msgstr ""
+msgid "_Preferences"
+msgstr "_Параметри"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"
