@@ -7,11 +7,7 @@ import Adw from "@girs/adw-1";
 import Template from "./language-selector.blp";
 import ListItemTemplate from "./language-list-item.blp";
 import { LanguageItem } from "./language-item.ts";
-import {
-  languageService,
-  AVAILABLE_LANGUAGES,
-  notificationService,
-} from "../services";
+import { languageService, AVAILABLE_LANGUAGES } from "../services";
 
 /**
  * Language selector widget using Adw.ComboRow
@@ -25,6 +21,9 @@ export class LanguageSelector extends Adw.ComboRow {
       {
         GTypeName: "LanguageSelector",
         Template,
+        Signals: {
+          "language-changed": {},
+        },
       },
       this
     );
@@ -76,7 +75,7 @@ export class LanguageSelector extends Adw.ComboRow {
     const expression = Gtk.PropertyExpression.new(
       LanguageItem.$gtype,
       null,
-      "native-name"
+      "name"
     );
     this.set_expression(expression);
   }
@@ -102,13 +101,8 @@ export class LanguageSelector extends Adw.ComboRow {
 
     languageService.setLanguage(selectedLanguage.code);
 
-    // Show notification using the notification service
-    notificationService.info(
-      // TRANSLATORS: Notification shown after changing language
-      _(
-        "Please restart the application for the language change to take effect."
-      )
-    );
+    // Emit signal to notify parent about language change
+    this.emit("language-changed");
   }
 }
 

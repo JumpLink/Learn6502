@@ -5,6 +5,10 @@ import GObject from "@girs/gobject-2.0";
  * Used in ComboRow list model
  */
 export class LanguageItem extends GObject.Object {
+  declare private code: string;
+  declare private name: string;
+  declare private nativeName: string;
+
   static {
     GObject.registerClass(
       {
@@ -24,8 +28,8 @@ export class LanguageItem extends GObject.Object {
             GObject.ParamFlags.READWRITE,
             ""
           ),
-          "native-name": GObject.ParamSpec.string(
-            "native-name",
+          nativeName: GObject.ParamSpec.string(
+            "nativeName",
             "Native Name",
             "Native name of the language",
             GObject.ParamFlags.READWRITE,
@@ -40,9 +44,9 @@ export class LanguageItem extends GObject.Object {
   constructor(params?: { code: string; name: string; nativeName: string }) {
     super();
     if (params) {
-      (this as any).code = params.code;
-      (this as any).name = params.name;
-      (this as any)["native-name"] = params.nativeName;
+      this.code = params.code;
+      this.name = params.name;
+      this.nativeName = params.nativeName;
     }
   }
 }

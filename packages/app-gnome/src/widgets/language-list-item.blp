@@ -7,12 +7,12 @@ template ListItem {
 
     Label {
       xalign: 0;
-      label: bind template.item as <$LanguageItem>.native-name;
+      label: bind template.item as <$LanguageItem>.name;
     }
 
     Label {
       xalign: 0;
-      label: bind template.item as <$LanguageItem>.name;
+      label: bind template.item as <$LanguageItem>.nativeName;
       
       styles [
         "caption",

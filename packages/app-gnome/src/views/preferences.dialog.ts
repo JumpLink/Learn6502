@@ -12,12 +12,20 @@ import { themeService } from "../services";
 export class PreferencesDialog extends Adw.PreferencesDialog {
   declare _rowPrimary: Adw.SwitchRow;
   declare _rowAccent: Adw.SwitchRow;
+  declare _restartBanner: Adw.Banner;
+  declare _languageSelector: Adw.ComboRow;
+
   static {
     GObject.registerClass(
       {
         GTypeName: "PreferencesDialog",
         Template,
-        InternalChildren: ["rowPrimary", "rowAccent"],
+        InternalChildren: [
+          "rowPrimary",
+          "rowAccent",
+          "restartBanner",
+          "languageSelector",
+        ],
       },
       this
     );
@@ -48,6 +56,11 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
       const want = mode === "custom";
       if (this._rowAccent.get_active() !== want)
         this._rowAccent.set_active(want);
+    });
+
+    // Show banner when language is changed
+    this._languageSelector.connect("language-changed", () => {
+      this._restartBanner.set_revealed(true);
     });
   }
 }
