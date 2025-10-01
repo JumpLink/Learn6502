@@ -464,7 +464,6 @@ msgstr "Es importante notar aquí la diferencia entre <tt>ADC #$01</tt> y <tt>AD
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "Cualquier número con el prefijo <tt>$</tt> en ensamblador 6502 (y por extensión, en este libro) está en formato hexadecimal (hex). Si no estás familiarizado con los números hexadecimales, te recomiendo leer <a href=\"https://es.wikipedia.org/wiki/Sistema_hexadecimal\">el artículo de Wikipedia</a>. Todo lo que lleva el prefijo <tt>#</tt> es un valor numérico literal. Cualquier otro número se refiere a una dirección de memoria."
 
-#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Apariencia"
@@ -1111,6 +1110,7 @@ msgstr "Rosa"
 msgid "Play"
 msgstr "Jugar"
 
+#. TRANSLATORS: Banner title shown after changing language
 msgid "Please restart the application for the language change to take effect."
 msgstr "Reinicia la aplicación para que el cambio de idioma surta efecto."
 
@@ -1119,6 +1119,10 @@ msgstr "Portugués"
 
 msgid "Portuguese (Brazil)"
 msgstr "Portugués (Brasil)"
+
+#. TRANSLATORS: Preferences dialog title
+msgid "Preferences"
+msgstr "Preferencias"
 
 msgid "Preprocessing ..."
 msgstr "Preprocesando ..."

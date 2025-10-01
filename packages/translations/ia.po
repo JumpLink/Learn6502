@@ -143,7 +143,6 @@ msgid "<b>ADC/SBC</b>: Add/subtract with carry"
 msgstr "<b>ADC/SBC</b>: Adder/subtraher con reporto"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-#, fuzzy
 msgid "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
 msgstr "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Adder registro X/Y a adresse absolute"
 
@@ -168,7 +167,6 @@ msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
 msgstr "<b>C</b> (Reporto): Definite quando operationes arithmetic excede un byte"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-#, fuzzy
 msgid "<b>Compare ops</b>: <tt>CMP/CPX/CPY</tt> set <tt>N/Z/C</tt> like a subtraction (register − memory) without storing a result."
 msgstr "<b>Operationes de comparation</b>: <tt>CMP/CPX/CPY</tt> define <tt>N/Z/C</tt> como un substraction (registro − memoria) sin immagazinar un resultato."
 
@@ -289,7 +287,6 @@ msgid "<b>Z</b> (Zero): Set when result is zero"
 msgstr "<b>Z</b> (Zero): Definite quando resultato es zero"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
-#, fuzzy
 msgid "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
 msgstr "<b>Pagina zero,X/Y</b> (<tt>$c0,X</tt>): Adder registro X/Y a adresse de pagina zero"
 
@@ -318,7 +315,6 @@ msgid "<tt>PC</tt> is the program counter - it's how the processor knows at what
 msgstr "<tt>PC</tt> es le contator de programma - es como le processor sape a qual puncto in le programma illo currentemente es. Es como le numero de linea currente de un script executante. In le simulator le codice es assemblate comenciante a location de memoria <tt>$0600</tt>, assi <tt>PC</tt> sempre comencia ibi."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-#, fuzzy
 msgid "<tt>SP</tt> is the stack pointer. I won't get into the stack yet, but basically this register is decremented every time a byte is pushed onto the stack, and incremented when a byte is popped off the stack."
 msgstr "<tt>SP</tt> es le punctator de pila. Io non entrara in le pila ancora, ma basicamente iste registro es decrementate cata vice que un byte es pushate sur le pila, e incrementate quando un byte es poppate del pila."
 
@@ -467,7 +463,6 @@ msgstr "Un cosa importante a notar hic es le distinction inter <tt>ADC #$01</tt>
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "Qualcunque numeros prefixate con <tt>$</tt> in lingua de assemblage 6502 (e per extension, in iste libro) es in formato hexadecimal (hex). Si tu non es familiar con numeros hex, io recommenda leger <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">le articulo de Wikipedia</a>. Qualcunque prefixate con <tt>#</tt> es un valor numeric literal. Qualcunque altere numero refere a un location de memoria."
 
-#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Apparentia"
@@ -1114,6 +1109,7 @@ msgstr "Rosate"
 msgid "Play"
 msgstr "Jocar"
 
+#. TRANSLATORS: Banner title shown after changing language
 msgid "Please restart the application for the language change to take effect."
 msgstr "Per favor reinitia le application pro applicar le cambio de lingua."
 
@@ -1122,6 +1118,10 @@ msgstr "Portuguese"
 
 msgid "Portuguese (Brazil)"
 msgstr "Portuguese (Brasil)"
+
+#. TRANSLATORS: Preferences dialog title
+msgid "Preferences"
+msgstr "Preferentias"
 
 msgid "Preprocessing ..."
 msgstr "Preprocessante..."
