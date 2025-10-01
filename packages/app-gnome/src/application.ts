@@ -11,7 +11,7 @@ import {
 } from "./constants.ts";
 import { initResources } from "./resources.ts";
 
-import { themeService } from "./services";
+import { themeService, languageService } from "./services";
 
 export class Application extends Adw.Application {
   static {
@@ -34,6 +34,7 @@ export class Application extends Adw.Application {
   }
 
   protected onStartup(): void {
+    languageService.init();
     themeService.init();
     initResources();
   }

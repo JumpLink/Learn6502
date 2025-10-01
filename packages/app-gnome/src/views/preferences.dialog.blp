@@ -7,6 +7,16 @@ template $PreferencesDialog: Adw.PreferencesDialog {
   // TRANSLATORS: Preferences dialog title
   title: _("Appearance");
 
+  Adw.PreferencesPage generalPage {
+    // TRANSLATORS: Preferences page title for General settings
+    title: _("General");
+    icon-name: "preferences-system-symbolic";
+
+    Adw.PreferencesGroup languageGroup {
+      $LanguageSelector {}
+    }
+  }
+
   Adw.PreferencesPage appearancePage {
     css-classes: ["appearance-page"];
     // TRANSLATORS: Preferences page title for Appearance settings

@@ -1,0 +1,23 @@
+using Gtk 4.0;
+
+template ListItem {
+  child: Box {
+    orientation: vertical;
+    spacing: 2;
+
+    Label {
+      xalign: 0;
+      label: bind template.item as <$LanguageItem>.native-name;
+    }
+
+    Label {
+      xalign: 0;
+      label: bind template.item as <$LanguageItem>.name;
+      
+      styles [
+        "caption",
+        "dim-label",
+      ]
+    }
+  };
+}

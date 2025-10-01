@@ -3,6 +3,7 @@ import Adw from "@girs/adw-1";
 
 import Template from "./preferences.dialog.blp";
 // Ensure custom widgets referenced in Blueprint are registered
+import "../widgets/language-selector.ts";
 import "../widgets/theme-mode-selector.ts";
 import "../widgets/primary-color-selector.ts";
 import "../widgets/accent-color-selector.ts";
