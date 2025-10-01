@@ -275,6 +275,7 @@
   "Please restart the application for the language change to take effect.": "请重启应用以使语言更改生效。",
   "Portuguese": "葡萄牙语",
   "Portuguese (Brazil)": "葡萄牙语（巴西）",
+  "Preferences": "首选项",
   "Preprocessing ...": "预处理…",
   "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now.": "再次点击<b>单步</b>执行第二条指令。第一个像素变为白色。显示器使用内存地址<tt>$0200</tt>到<tt>$05ff</tt>存储像素值。<tt>$00</tt>表示黑色,<tt>$01</tt>表示白色。<tt>STA $0200</tt>将寄存器<tt>A</tt>的值(<tt>$01</tt>)存储到内存地址<tt>$0200</tt>,绘制一个白色像素。",
   "Primary color": "主色",

@@ -462,7 +462,6 @@ msgstr "这里要注意 <tt>ADC #$01</tt> 与 <tt>ADC $01</tt> 的区别。前�
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "在 6502 汇编中，以 <tt>$</tt> 开头的数字是十六进制。以 <tt>#</tt> 开头表示立即数（字面值）。没有 # 的数字通常表示内存地址（其进制由前缀决定，例如 $ 为十六进制）。如果你对十六进制不熟悉，建议阅读 <a href=\"https://zh.wikipedia.org/wiki/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6\">维基百科条目</a>。"
 
-#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "外观"
@@ -1109,6 +1108,7 @@ msgstr "粉色"
 msgid "Play"
 msgstr "开始"
 
+#. TRANSLATORS: Banner title shown after changing language
 msgid "Please restart the application for the language change to take effect."
 msgstr "请重启应用以使语言更改生效。"
 
@@ -1117,6 +1117,10 @@ msgstr "葡萄牙语"
 
 msgid "Portuguese (Brazil)"
 msgstr "葡萄牙语（巴西）"
+
+#. TRANSLATORS: Preferences dialog title
+msgid "Preferences"
+msgstr "首选项"
 
 msgid "Preprocessing ..."
 msgstr "预处理…"
