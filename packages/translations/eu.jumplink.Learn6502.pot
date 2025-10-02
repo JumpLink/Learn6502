@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: eu.jumplink.Learn6502 0.4.0\n"
+"Project-Id-Version: eu.jumplink.Learn6502 0.5.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -774,6 +774,10 @@ msgstr ""
 msgid "German"
 msgstr ""
 
+#. TRANSLATORS: Note about validation status - keep it concise and encouraging
+msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr ""
@@ -820,6 +824,10 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "If the result of the addition is larger than a single byte, the address wraps around. For example:"
+msgstr ""
+
+#. TRANSLATORS: Call to action for community translation/validation
+msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -1290,6 +1298,10 @@ msgstr ""
 #. TRANSLATORS: Toast message title after saving file successfully, includes filename
 #, javascript-format
 msgid "Saved as %s"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations
+msgid "Say hello to a new language selector and many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese, Chinese (Simplified)"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx

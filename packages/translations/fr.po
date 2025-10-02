@@ -775,6 +775,10 @@ msgstr "Général"
 msgid "German"
 msgstr "Allemand"
 
+#. TRANSLATORS: Note about validation status - keep it concise and encouraging
+msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
+msgstr "L'allemand et l'espagnol ont été validés par des contributeurs. Les autres langues sont des brouillons assistés par IA et nécessitent une validation humaine."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr "Le passage entre les sections est plus compliqué, car nous devons également tenir compte de l'octet le plus significatif. Par exemple, descendre de <tt>$02e1</tt> devrait mener à <tt>$0301</tt>. Heureusement, c'est assez facile à réaliser. Ajouter <tt>$20</tt> à <tt>$e1</tt> donne <tt>$01</tt> et active le bit de retenue. Si le bit de retenue est activé, nous savons que nous devons aussi incrémenter l'octet le plus significatif."
@@ -822,6 +826,10 @@ msgstr "IDE"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "If the result of the addition is larger than a single byte, the address wraps around. For example:"
 msgstr "Si le résultat de l'addition est plus grand qu'un seul octet, l'adresse revient au début. Par exemple :"
+
+#. TRANSLATORS: Call to action for community translation/validation
+msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
+msgstr "Si vous parlez l'une des langues listées, aidez‑nous à relire ou à améliorer les traductions. Vous pouvez contribuer via les liens dans l'application, notre plateforme de traduction ou en ouvrant un ticket."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1292,6 +1300,10 @@ msgstr "Enregistrer les modifications ?"
 #, javascript-format
 msgid "Saved as %s"
 msgstr "Enregistré sous %s"
+
+#. TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations
+msgid "Say hello to a new language selector and many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese, Chinese (Simplified)"
+msgstr "Découvrez un nouveau sélecteur de langue et de nombreuses nouvelles traductions : français, interlingua, portugais, portugais (Brésil), néerlandais, espagnol, ukrainien, japonais et chinois (simplifié)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
