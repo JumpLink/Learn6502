@@ -18,539 +18,539 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
-msgstr ""
+msgstr "（実際のところ、6502プロセッサは現在も<a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a>によって製造されており、<a href=\"https://www.mouser.co.uk/c/?q=65C02\">趣味の開発者向けに販売</a>されているという確実な情報があります。つまり6502は明らかに<i>死語ではない</i>のです！誰が知っていたでしょう？）"
 
 #. TRANSLATORS: App Store search keyword
 msgid "6502"
-msgstr ""
+msgstr "6502"
 
 #. TRANSLATORS: Info message when the hardware stack underflows and wraps around
 msgid "6502 Stack emptied! Wrapping..."
-msgstr ""
+msgstr "6502 スタックが空になりました！折り返します…"
 
 #. TRANSLATORS: Info message when the hardware stack overflows and wraps around
 msgid "6502 Stack filled! Wrapping..."
-msgstr ""
+msgstr "6502 スタックが一杯です！折り返します…"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "6502 assembly language has a bunch of branching instructions, all of which branch based on whether certain flags are set or not. In this example we'll be looking at <tt>BNE</tt>: \"Branch on not equal\"."
-msgstr ""
+msgstr "6502アセンブリ言語には複数の分岐命令があり、これらはすべて特定のフラグの状態に基づいて分岐します。この例では<tt>BNE</tt> (「等しくない場合に分岐」) を見ていきます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> made a <a href=\"https://gist.github.com/wkjagt/9043907\">fully annotated gist of this source code</a>, so follow along with that for more details."
-msgstr ""
+msgstr "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a>氏が<a href=\"https://gist.github.com/wkjagt/9043907\">このソースコードの完全な注釈付きgist</a>を作成しました。詳細はそちらを参照してください。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
-msgstr ""
+msgstr "<b><tt>$00</tt>-<tt>$01</tt></b>: りんごの位置"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$02</tt></b>: Snake direction (1=up, 2=right, 4=down, 8=left)"
-msgstr ""
+msgstr "<b><tt>$02</tt></b>: スネークの方向 (1=上, 2=右, 4=下, 8=左)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$03</tt></b>: Snake length"
-msgstr ""
+msgstr "<b><tt>$03</tt></b>: スネークの長さ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$0</tt></b>: Black (<tt>#000000</tt>)"
-msgstr ""
+msgstr "<b><tt>$0</tt></b>: 黒 (<tt>#000000</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position data (head, body segments, tail)"
-msgstr ""
+msgstr "<b><tt>$10</tt>-<tt>$15</tt></b>: スネークの位置データ (頭、胴体、しっぽ)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$1</tt></b>: White (<tt>#ffffff</tt>)"
-msgstr ""
+msgstr "<b><tt>$1</tt></b>: 白 (<tt>#ffffff</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$2</tt></b>: Red (<tt>#880000</tt>)"
-msgstr ""
+msgstr "<b><tt>$2</tt></b>: 赤 (<tt>#880000</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$3</tt></b>: Cyan (<tt>#aaffee</tt>)"
-msgstr ""
+msgstr "<b><tt>$3</tt></b>: シアン (<tt>#aaffee</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$4</tt></b>: Purple (<tt>#cc44cc</tt>)"
-msgstr ""
+msgstr "<b><tt>$4</tt></b>: 紫 (<tt>#cc44cc</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$5</tt></b>: Green (<tt>#00cc55</tt>)"
-msgstr ""
+msgstr "<b><tt>$5</tt></b>: 緑 (<tt>#00cc55</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$6</tt></b>: Blue (<tt>#0000aa</tt>)"
-msgstr ""
+msgstr "<b><tt>$6</tt></b>: 青 (<tt>#0000aa</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$7</tt></b>: Yellow (<tt>#eeee77</tt>)"
-msgstr ""
+msgstr "<b><tt>$7</tt></b>: 黄 (<tt>#eeee77</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$8</tt></b>: Orange (<tt>#dd8855</tt>)"
-msgstr ""
+msgstr "<b><tt>$8</tt></b>: オレンジ (<tt>#dd8855</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$9</tt></b>: Brown (<tt>#664400</tt>)"
-msgstr ""
+msgstr "<b><tt>$9</tt></b>: 茶 (<tt>#664400</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$FE</tt></b>: Random number generator (reads as a random value 0-255)"
-msgstr ""
+msgstr "<b><tt>$FE</tt></b>: 乱数生成器 (0〜255 の乱数として読み取れる)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$FF</tt></b>: Last pressed key (ASCII code)"
-msgstr ""
+msgstr "<b><tt>$FF</tt></b>: 最後に押されたキー (ASCII コード)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$a</tt></b>: Light red (<tt>#ff7777</tt>)"
-msgstr ""
+msgstr "<b><tt>$a</tt></b>: 明るい赤 (<tt>#ff7777</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$b</tt></b>: Dark grey (<tt>#333333</tt>)"
-msgstr ""
+msgstr "<b><tt>$b</tt></b>: 濃い灰 (<tt>#333333</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$c</tt></b>: Grey (<tt>#777777</tt>)"
-msgstr ""
+msgstr "<b><tt>$c</tt></b>: 灰 (<tt>#777777</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$d</tt></b>: Light green (<tt>#aaff66</tt>)"
-msgstr ""
+msgstr "<b><tt>$d</tt></b>: 明るい緑 (<tt>#aaff66</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$e</tt></b>: Light blue (<tt>#0088ff</tt>)"
-msgstr ""
+msgstr "<b><tt>$e</tt></b>: 明るい青 (<tt>#0088ff</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$f</tt></b>: Light grey (<tt>#bbbbbb</tt>)"
-msgstr ""
+msgstr "<b><tt>$f</tt></b>: 明るい灰 (<tt>#bbbbbb</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>A</b> (Accumulator): Main register for calculations and data manipulation"
-msgstr ""
+msgstr "<b>A</b> (アキュムレータ): 計算とデータ操作の主レジスタ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>A</b> or Left Arrow key (<tt>$61</tt>)"
-msgstr ""
+msgstr "<b>A</b> または左矢印キー (<tt>$61</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>ADC/SBC</b>: Add/subtract with carry"
-msgstr ""
+msgstr "<b>ADC/SBC</b>: キャリー付き加算/減算"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
-msgstr ""
+msgstr "<b>絶対アドレッシング (X/Y)</b> (<tt>$c000,X</tt>): 絶対アドレスに X/Y レジスタを加算"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Absolute</b> (<tt>$c000</tt>): Access any memory location"
-msgstr ""
+msgstr "<b>絶対</b> (<tt>$c000</tt>): 任意のメモリアドレスにアクセス"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Action buttons</b>:"
-msgstr ""
+msgstr "<b>アクションボタン</b>:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>B</b> (Break): Set when BRK instruction is executed"
-msgstr ""
+msgstr "<b>B</b> (ブレーク): BRK 命令実行時にセット"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>BEQ/BNE/BCC/BCS</b>: Branch if equal/not equal/carry clear/carry set"
-msgstr ""
+msgstr "<b>BEQ/BNE/BCC/BCS</b>: 等しい/等しくない/キャリークリア/キャリーセットで分岐"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
-msgstr ""
+msgstr "<b>C</b> (キャリー): 算術で1バイトを超えたときにセット"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Compare ops</b>: <tt>CMP/CPX/CPY</tt> set <tt>N/Z/C</tt> like a subtraction (register − memory) without storing a result."
-msgstr ""
+msgstr "<b>比較系</b>: <tt>CMP/CPX/CPY</tt> は結果を保存せず (レジスタ−メモリ) の減算と同様に <tt>N/Z/C</tt> を設定"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>D</b> (Decimal): Set when processor is in BCD (Binary Coded Decimal) mode"
-msgstr ""
+msgstr "<b>D</b> (デシマル): プロセッサが BCD モードのときセット"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>D</b> or Right Arrow key (<tt>$64</tt>)"
-msgstr ""
+msgstr "<b>D</b> または右矢印キー (<tt>$64</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Directional controls</b>:"
-msgstr ""
+msgstr "<b>方向操作</b>:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Display Memory</b>: <tt>$0200</tt>-<tt>$05FF</tt> (used for screen output)"
-msgstr ""
+msgstr "<b>表示メモリ</b>: <tt>$0200</tt>-<tt>$05FF</tt> (画面出力に使用)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>E</b> or Space key (<tt>$20</tt>)"
-msgstr ""
+msgstr "<b>E</b> またはスペースキー (<tt>$20</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>I</b> (Interrupt): Set when interrupts are disabled"
-msgstr ""
+msgstr "<b>I</b> (割り込み禁止): 割り込みが無効のときセット"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>INX/INY/DEX/DEY</b>: Increment/decrement registers"
-msgstr ""
+msgstr "<b>INX/INY/DEX/DEY</b>: レジスタのインクリメント/デクリメント"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Immediate</b> (<tt>#$c0</tt>): Use the actual value"
-msgstr ""
+msgstr "<b>即値</b> (<tt>#$c0</tt>): 値そのものを使用"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then use result as pointer to get actual target address"
-msgstr ""
+msgstr "<b>インデックス間接</b> (<tt>($c0,X)</tt>): ゼロページアドレスに X を加算し、その結果をポインタとして実アドレスを取得"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Use zero page address as pointer to get base address, then add Y to that base"
-msgstr ""
+msgstr "<b>間接インデックス</b> (<tt>($c0),Y</tt>): ゼロページアドレスをポインタとして基底を取り、その上に Y を加算"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indirect</b> (<tt>($c000)</tt>): Look up address stored at given location"
-msgstr ""
+msgstr "<b>間接</b> (<tt>($c000)</tt>): 指定位置に格納されたアドレスを参照"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>JMP</b>: Unconditional jump"
-msgstr ""
+msgstr "<b>JMP</b>: 無条件ジャンプ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>JSR/RTS</b>: Jump to subroutine / Return from subroutine"
-msgstr ""
+msgstr "<b>JSR/RTS</b>: サブルーチンへジャンプ / サブルーチンから戻る"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>LDA/LDX/LDY</b>: Load registers"
-msgstr ""
+msgstr "<b>LDA/LDX/LDY</b>: レジスタをロード"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>N</b> (Negative): Set when bit 7 of result is set"
-msgstr ""
+msgstr "<b>N</b> (ネガティブ): 結果のビット7が1のときセット"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>PC</b> (Program Counter): Points to the next instruction to execute"
-msgstr ""
+msgstr "<b>PC</b> (プログラムカウンタ): 次に実行する命令を指す"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>PHA/PLA</b>: Push/pull accumulator to/from stack"
-msgstr ""
+msgstr "<b>PHA/PLA</b>: アキュムレータをスタックへプッシュ/スタックからプル"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Program Storage</b>: Starting at <tt>$0600</tt>"
-msgstr ""
+msgstr "<b>プログラム領域</b>: <tt>$0600</tt> から開始"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Q</b> or Enter/Return key (<tt>$0D</tt>)"
-msgstr ""
+msgstr "<b>Q</b> または Enter/Return キー (<tt>$0D</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Relative</b> (<tt>label</tt>): Branch uses signed 8‑bit offset from the next instruction (−128…+127)"
-msgstr ""
+msgstr "<b>相対</b> (<tt>label</tt>): 次の命令からの符号付き8ビットオフセット (−128〜+127) で分岐"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>S</b> or Down Arrow key (<tt>$73</tt>)"
-msgstr ""
+msgstr "<b>S</b> または下矢印キー (<tt>$73</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>SBC needs carry set</b>: Set <tt>C</tt> before subtracting (works as inverse borrow). <tt>C</tt> clear after SBC indicates a borrow occurred."
-msgstr ""
+msgstr "<b>SBC は事前にキャリーが必要</b>: 減算前に <tt>C</tt> をセット (逆借位として機能)。SBC 後に <tt>C</tt> がクリアなら借位が発生"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>SP</b> (Stack Pointer): Points to current stack position (starts at <tt>$FF</tt>)"
-msgstr ""
+msgstr "<b>SP</b> (スタックポインタ): 現在のスタック位置を指します (<tt>$FF</tt>から開始)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>STA/STX/STY</b>: Store registers to memory"
-msgstr ""
+msgstr "<b>STA/STX/STY</b>: レジスタをメモリに格納"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
-msgstr ""
+msgstr "<b>スタック</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>V</b> (Overflow): Set when arithmetic operation causes signed overflow"
-msgstr ""
+msgstr "<b>V</b> (オーバーフロー): 算術で符号付きオーバーフロー時にセット"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>W</b> or Up Arrow key (<tt>$77</tt>)"
-msgstr ""
+msgstr "<b>W</b> または上矢印キー (<tt>$77</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>X, Y</b>: Index registers for addressing and counting"
-msgstr ""
+msgstr "<b>X, Y</b>: アドレッシングとカウント用のインデックスレジスタ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Z</b> (Zero): Set when result is zero"
-msgstr ""
+msgstr "<b>Z</b> (ゼロ): 結果が0のときセット"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
-msgstr ""
+msgstr "<b>ゼロページ (X/Y)</b> (<tt>$c0,X</tt>): ゼロページアドレスに X/Y レジスタを加算"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page</b> (<tt>$c0</tt>): Access memory locations <tt>$00</tt>-<tt>$FF</tt>"
-msgstr ""
+msgstr "<b>ゼロページ</b> (<tt>$c0</tt>): <tt>$00</tt>-<tt>$FF</tt> のメモリにアクセス"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page</b>: <tt>$0000</tt>-<tt>$00FF</tt> (first 256 bytes, faster access)"
-msgstr ""
+msgstr "<b>ゼロページ</b>: <tt>$0000</tt>-<tt>$00FF</tt> (最初の256バイトでアクセスが高速)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>BCC</tt> and <tt>BCS</tt> (\"branch on carry clear\" and \"branch on carry set\") are used to branch on the carry flag. Write a program that uses one of these two."
-msgstr ""
+msgstr "<tt>BCC</tt> と <tt>BCS</tt> (「キャリークリアで分岐」「キャリーセットで分岐」) はキャリーフラグで分岐します。どちらかを使うプログラムを書いてみましょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JMP</tt> is an unconditional jump. Here's a really simple example to show it in action:"
-msgstr ""
+msgstr "<tt>JMP</tt>は無条件ジャンプです。動作を確認するための非常に簡単な例を以下に示します："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JSR</tt> and <tt>RTS</tt> (\"jump to subroutine\" and \"return from subroutine\") are a dynamic duo that you'll usually see used together. <tt>JSR</tt> is used to jump from the current location to another part of the code. <tt>RTS</tt> returns to the previous position. This is basically like calling a function and returning."
-msgstr ""
+msgstr "<tt>JSR</tt> と <tt>RTS</tt> (サブルーチンへジャンプ/サブルーチンから戻る) はセットで使われることが多い組み合わせです。<tt>JSR</tt> は現在位置から別のコードへジャンプし、<tt>RTS</tt> は元の位置へ戻ります。関数の呼び出しと戻りに相当します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>PC</tt> is the program counter - it's how the processor knows at what point in the program it currently is. It's like the current line number of an executing script. In the simulator the code is assembled starting at memory location <tt>$0600</tt>, so <tt>PC</tt> always starts there."
-msgstr ""
+msgstr "<tt>PC</tt> はプログラムカウンタで、プロセッサがプログラムのどの位置にいるかを示します。実行中スクリプトの現在行番号のようなものです。シミュレーターでは <tt>$0600</tt> からコードをアセンブルするため、<tt>PC</tt> は常にそこから始まります。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>SP</tt> is the stack pointer. I won't get into the stack yet, but basically this register is decremented every time a byte is pushed onto the stack, and incremented when a byte is popped off the stack."
-msgstr ""
+msgstr "<tt>SP</tt> はスタックポインタです。詳細は後述しますが、基本的に1バイトをスタックへプッシュすると減少し、ポップすると増加します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>X</tt> holds the pixel colour, and <tt>Y</tt> holds the position of the current pixel. The first loop draws the current colour as a pixel (via the <tt>A</tt> register), pushes the colour to the stack, then increments the colour and position. The second loop pops the stack, draws the popped colour as a pixel, then increments the position. As should be expected, this creates a mirrored pattern."
-msgstr ""
+msgstr "<tt>X</tt> はピクセルの色、<tt>Y</tt> は現在のピクセル位置を持ちます。最初のループは (<tt>A</tt> レジスタ経由で) 現在の色を描き、その色をスタックへプッシュし、色と位置をインクリメントします。2つ目のループはスタックをポップしてその色を描き、位置をインクリメントします。結果として対称パターンになります。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>a9</tt> and <tt>c9</tt> are the processor opcodes for immediate-addressed <tt>LDA</tt> and <tt>CMP</tt> respectively. <tt>01</tt> and <tt>02</tt> are the arguments to these instructions. <tt>d0</tt> is the opcode for <tt>BNE</tt>, and its argument is <tt>02</tt>. This means \"skip over the next two bytes\" (<tt>85 22</tt>, the assembled version of <tt>STA $22</tt>). Try editing the code so <tt>STA</tt> takes a two-byte absolute address rather than a single-byte zero page address (e.g. change <tt>STA $22</tt> to <tt>STA $2222</tt>). Reassemble the code and look at the hexdump again - the argument to <tt>BNE</tt> should now be <tt>03</tt>, because the instruction the processor is skipping past is now three bytes long."
-msgstr ""
+msgstr "<tt>a9</tt> と <tt>c9</tt> は即値アドレッシングの <tt>LDA</tt> と <tt>CMP</tt> のオペコードです。<tt>01</tt> と <tt>02</tt> はそれぞれの引数です。<tt>d0</tt> は <tt>BNE</tt> のオペコードで、その引数は <tt>02</tt> です。これは「次の2バイトを飛ばす」(<tt>85 22</tt>、<tt>STA $22</tt> のアセンブル結果) という意味です。<tt>STA</tt> を1バイトのゼロページではなく2バイトの絶対アドレスを取るように編集してみてください (例: <tt>STA $22</tt> を <tt>STA $2222</tt> に)。再アセンブルしてヘックスダンプを見ると、<tt>BNE</tt> の引数は <tt>03</tt> になります。スキップ対象の命令が3バイトになったためです。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>checkSnakeCollision</tt> loops through the snake's body segments, checking each byte pair against the head pair. If there is a match, then game over."
-msgstr ""
+msgstr "<tt>checkSnakeCollision</tt> は胴体の各バイトペアを走査し、頭のペアと一致するかを確認します。一致すればゲームオーバーです。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
-msgstr ""
+msgstr "<tt>init</tt> と <tt>loop</tt> はどちらもサブルーチンです。<tt>init</tt> はゲーム状態を初期化し、<tt>loop</tt> はメインのゲームループです。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
-msgstr ""
+msgstr "6502命令セットの完全なリストは<a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">こちら</a>と<a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">こちら</a>で参照できます (通常は両方のページを参照します。それぞれ長所と短所があるためです)。これらのページには各命令の引数、使用するレジスタ、設定するフラグの詳細が記載されています。これらはあなたの聖典となるでしょう。"
 
 #. TRANSLATORS: About dialog menu item label
 msgid "About Learn 6502 Assembly"
-msgstr ""
+msgstr "6502アセンブリを学ぶについて"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Absolute,X and absolute,Y: <tt>$c000,X</tt> and <tt>$c000,Y</tt>"
-msgstr ""
+msgstr "絶対 (X/Y): <tt>$c000,X</tt> と <tt>$c000,Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Absolute: <tt>$c000</tt>"
-msgstr ""
+msgstr "絶対: <tt>$c000</tt>"
 
 #. TRANSLATORS: Preferences group title for accent color selection
 msgid "Accent color"
-msgstr ""
+msgstr "アクセントカラー"
 
 #. TRANSLATORS: Accessibility label for accent color option Blue
 msgid "Accent: Blue"
-msgstr ""
+msgstr "アクセント: 青"
 
 #. TRANSLATORS: Accessibility label for accent color option Green
 msgid "Accent: Green"
-msgstr ""
+msgstr "アクセント: 緑"
 
 #. TRANSLATORS: Accessibility label for accent color option Orange
 msgid "Accent: Orange"
-msgstr ""
+msgstr "アクセント: オレンジ"
 
 #. TRANSLATORS: Accessibility label for accent color option Pink
 msgid "Accent: Pink"
-msgstr ""
+msgstr "アクセント: ピンク"
 
 #. TRANSLATORS: Accessibility label for accent color option Purple
 msgid "Accent: Purple"
-msgstr ""
+msgstr "アクセント: 紫"
 
 #. TRANSLATORS: Accessibility label for accent color option Red
 msgid "Accent: Red"
-msgstr ""
+msgstr "アクセント: 赤"
 
 #. TRANSLATORS: Accessibility label for accent color option Slate
 msgid "Accent: Slate"
-msgstr ""
+msgstr "アクセント: スレート"
 
 #. TRANSLATORS: Accessibility label for accent color option Teal
 msgid "Accent: Teal"
-msgstr ""
+msgstr "アクセント: ティール"
 
 #. TRANSLATORS: Accessibility label for accent color option Yellow
 msgid "Accent: Yellow"
-msgstr ""
+msgstr "アクセント: 黄色"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Accumulator: Main register for calculations"
-msgstr ""
+msgstr "アキュムレータ: 計算の主レジスタ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Add more instructions to draw extra pixels."
-msgstr ""
+msgstr "ピクセルを増やす指令をさらに追加してみましょう。"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - file management
 msgid "Added file management to save and load your programs"
-msgstr ""
+msgstr "ファイル管理を追加し、プログラムの保存と読み込みに対応"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - help feature
 msgid "Added help feature to make code editing easier for beginners"
-msgstr ""
+msgstr "ヘルプ機能を追加し、初心者のコード編集を支援"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Additional button inputs are also available: button A (Enter/Return key, ASCII code <tt>$0D</tt>) and button B (Space key, ASCII code <tt>$20</tt>). These can be used to add more interaction to your games. For directional controls, both WASD keys and arrow keys can be used interchangeably."
-msgstr ""
+msgstr "追加のボタン入力も利用できます。A ボタン (Enter/Return、ASCII <tt>$0D</tt>) と B ボタン (スペース、ASCII <tt>$20</tt>) です。ゲームにより多くの操作性を加えられます。方向操作は WASD と矢印キーのどちらでも同様に使えます。"
 
 #. TRANSLATORS: Error message when an unknown opcode is encountered at address
 #, javascript-format
 msgid "Address %s - unknown opcode"
-msgstr ""
+msgstr "アドレス %s - 不明なオペコード"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Addressing Modes"
-msgstr ""
+msgstr "アドレッシングモード"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Addressing modes"
-msgstr ""
+msgstr "アドレッシングモード"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Adwaita"
-msgstr ""
+msgstr "Adwaita"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After a move in each direction, we also need to check to see if the head would become out of bounds. This is handled differently for each direction. For left and right, we can check to see if the head has effectively \"wrapped around\". Going right from <tt>$021f</tt> by incrementing the least significant byte would lead to <tt>$0220</tt>, but this is actually jumping from the last pixel of the first row to the first pixel of the second row. So, every time we move right, we need to check if the new least significant byte is a multiple of <tt>$20</tt>. This is done using a bit check against the mask <tt>$1f</tt>. Hopefully the illustration below will show you how masking out the lowest 5 bits reveals whether a number is a multiple of <tt>$20</tt> or not."
-msgstr ""
+msgstr "各方向への移動後、頭部が範囲外になるかどうかを確認する必要があります。各方向で処理方法が異なります。左右方向では、頭部が実際に「折り返し」していないかを確認できます。<tt>$021f</tt>から右に移動して最下位バイトをインクリメントすると<tt>$0220</tt>になりますが、これは実際には1行目の最後のピクセルから2行目の最初のピクセルへのジャンプです。したがって、右に移動するたびに、新しい最下位バイトが<tt>$20</tt>の倍数かどうかを確認する必要があります。これはマスク<tt>$1f</tt>に対するビットチェックで行います。以下の図が、下位5ビットをマスクすることで数値が<tt>$20</tt>の倍数かどうかを判別できることを示してくれるでしょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After collision detection, we update the snake's location. This is done at a high level like so: First, move each byte pair of the body up one position in memory. Second, update the head according to the current direction. Finally, if the head is out of bounds, handle it as a collision. I'll illustrate this with some ascii art. Each pair of brackets contains an x,y coordinate rather than a pair of bytes for simplicity."
-msgstr ""
+msgstr "衝突判定の後、スネークの位置を更新します。高レベルの流れは次のとおりです。① 胴体の各バイトペアをメモリ上で1つ上にずらす。② 現在の方向に従って頭を更新する。③ 頭が範囲外なら衝突として処理する。以下の ASCII 図で説明します。簡単のため各括弧は2バイトではなく x,y 座標の組を表します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After the initial block of comments (lines starting with semicolons), the first two lines are:"
-msgstr ""
+msgstr "最初の注釈ブロック (行頭がセミコロン) に続いて、最初の2行は次のとおりです:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After this, the value <tt>2</tt> is added to the accumulator, to create a final random number in the range 2–5."
-msgstr ""
+msgstr "この後、値 <tt>2</tt> をアキュムレータに加算し、最終的に 2〜5 の範囲の乱数を作ります。"
 
 #. TRANSLATORS: File filter name for all file types
 msgid "All Files"
-msgstr ""
+msgstr "すべてのファイル"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "All instructions that support absolute addressing (with the exception of the jump instructions) also have the option to take a single-byte address. This type of addressing is called \"zero page\" - only the first page (the first 256 bytes) of memory is accessible. This is faster, as only one byte needs to be looked up, and takes up less space in the assembled code as well."
-msgstr ""
+msgstr "絶対アドレッシングをサポートするすべての命令 (ジャンプ命令を除く) は、1バイトのアドレスも使用できます。このアドレッシング方式は「ゼロページ」と呼ばれます。メモリの最初のページ (最初の256バイト) のみにアクセスできます。これは1バイトのみをルックアップする必要があるため高速で、アセンブルされたコードでもより少ないスペースを占めます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
-msgstr ""
+msgstr "これも有用: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "An important thing to notice here is the distinction between <tt>ADC #$01</tt> and <tt>ADC $01</tt>. The first one adds the value <tt>$01</tt> to the <tt>A</tt> register, but the second adds the value stored at memory location <tt>$01</tt> to the <tt>A</tt> register."
-msgstr ""
+msgstr "ここで重要なのは <tt>ADC #$01</tt> と <tt>ADC $01</tt> の違いです。前者は値 <tt>$01</tt> を <tt>A</tt> レジスタに加算し、後者はメモリアドレス <tt>$01</tt> にある値を <tt>A</tt> に加算します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
-msgstr ""
+msgstr "6502アセンブリ言語 (および本書) では、<tt>$</tt>で始まる数値は16進数 (hex) 形式です。16進数に不慣れな場合は、<a href=\"https://ja.wikipedia.org/wiki/%E5%8D%81%E5%85%AD%E9%80%B2%E6%B3%95\">Wikipediaの記事</a>を読むことをお勧めします。<tt>#</tt>で始まるものはリテラル数値 (即値) です。それ以外の数値はメモリアドレスを指します。"
 
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
-msgstr ""
+msgstr "外観"
 
 #. TRANSLATORS: Screenshot caption for the appearance settings
 msgid "Appearance settings"
-msgstr ""
+msgstr "外観設定"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
-msgstr ""
+msgstr "アーキテクチャを強化し、GNOME・Web・Android 間のコード共有を改善"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
-msgstr ""
+msgstr "これらの横帯の中で動く限りは簡単です。右へは下位バイトをインクリメント (例: <tt>$0200</tt> → <tt>$0201</tt>)、下へは <tt>$20</tt> を加算 (例: <tt>$0200</tt> → <tt>$0220</tt>)。左と上は逆方向です。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As stated before, the four directions are represented internally by the numbers 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented by a binary number with a single <tt>1</tt>:"
-msgstr ""
+msgstr "前述のとおり、4つの方向は内部的には 1, 2, 4, 8 で表されます。いずれも 2 の冪なので、ビットが1つだけ立った2進数になります:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
 msgid "Assemble"
-msgstr ""
+msgstr "アセンブル"
 
 #. TRANSLATORS: Toast message title after assembly failure
 msgid "Assemble failed"
-msgstr ""
+msgstr "アセンブルに失敗しました"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the code and select <b>Step</b> from the Run button's dropdown menu to step through these three instructions. The monitor in the debugger shows a section of memory, and can be helpful to visualise the execution of programs. <tt>STA $01</tt> stores the value of the <tt>A</tt> register at memory location <tt>$01</tt>, and <tt>ADC $01</tt> adds the value stored at the memory location <tt>$01</tt> to the <tt>A</tt> register. <tt>$80 + $80</tt> should equal <tt>$100</tt>, but because this is bigger than a byte, the <tt>A</tt> register is set to <tt>$00</tt> and the carry flag is set. As well as this though, the zero flag is set. The zero flag is set by all instructions where the result is zero."
-msgstr ""
+msgstr "コードをアセンブルし、実行ボタンのドロップダウンから <b>ステップ</b> を選んで3命令を順に実行します。デバッガーのモニターはメモリの一部を表示し、実行の可視化に役立ちます。<tt>STA $01</tt> は <tt>A</tt> の値をアドレス <tt>$01</tt> に保存し、<tt>ADC $01</tt> はアドレス <tt>$01</tt> の値を <tt>A</tt> に加算します。<tt>$80 + $80</tt> は <tt>$100</tt> ですが1バイトを超えるため <tt>A</tt> は <tt>$00</tt>、キャリーフラグがセットされ、かつゼロフラグもセットされます。結果が0の命令はゼロフラグをセットします。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the code, then turn on the debugger and step through the code, watching the <tt>A</tt> and <tt>X</tt> registers. Something slightly odd happens on the line <tt>ADC #$c4</tt>. You might expect that adding <tt>$c4</tt> to <tt>$c0</tt> would give <tt>$184</tt>, but this processor gives the result as <tt>$84</tt>. What's up with that?"
-msgstr ""
+msgstr "コードをアセンブルしてデバッガーを有効にし、<tt>A</tt> と <tt>X</tt> を観察しながらステップ実行します。<tt>ADC #$c4</tt> の行で少し奇妙なことが起こります。<tt>$c0</tt> に <tt>$c4</tt> を足すと <tt>$184</tt> になりそうですが、結果は <tt>$84</tt> です。なぜでしょう？"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the following code, then check the debugger to see the hexdump of the assembled code."
-msgstr ""
+msgstr "次のコードをアセンブルし、デバッガーでアセンブル結果のヘックスダンプを確認しましょう。"
 
 #. TRANSLATORS: Toast message title after successful assembly
 msgid "Assembled successfully"
-msgstr ""
+msgstr "アセンブルに成功しました"
 
 #. TRANSLATORS: Status message shown while assembling source code
 msgid "Assembling code ..."
-msgstr ""
+msgstr "コードをアセンブル中…"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Assembly"
-msgstr ""
+msgstr "アセンブリ"
 
 #. TRANSLATORS: File filter name for assembly source files
 msgid "Assembly Files"
-msgstr ""
+msgstr "アセンブリファイル"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
-msgstr ""
+msgstr "低レベルではこのサブルーチンはやや複雑です。まず長さを <tt>X</tt> にロードしてデクリメントします。以下はスネークの初期メモリです。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
-msgstr ""
+msgstr "ゲーム状態がピクセル位置として格納されているため、ゲームのレンダリングは非常に簡単です。最初のサブルーチン<tt>drawApple</tt>は極めて単純です。<tt>Y</tt>を0に設定し、乱数の色をアキュムレータにロードしてから、その値を<tt>($00),y</tt>に格納します。<tt>$00</tt>はりんごの位置が格納されている場所なので、<tt>($00),y</tt>はこのメモリアドレスを間接参照します。詳細については<a href=\"#addressing\">アドレッシングモード</a>の「間接インデックス」のセクションを参照してください。"
 
 #. TRANSLATORS: Tooltip for accent color option Blue
 #. TRANSLATORS: Tooltip for primary color option Blue
 msgid "Blue"
-msgstr ""
+msgstr "青"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Branching"
-msgstr ""
+msgstr "分岐"
 
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
-msgstr ""
+msgstr "ブレークフラグ: BRK（ブレーク）命令実行時にセット。ソフトウェア割り込み（BRK）とハードウェア割り込みの区別に用いられ、割り込みサービスルーチンで発生源の特定に役立ちます。"
 
 #. Add response buttons
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
-msgstr ""
+msgstr "キャンセル"
 
 msgid "Carry Flag: Set when an addition produces a carry-out; clear when a subtraction requires a borrow. Used for multi-byte arithmetic and shifts/rotates (BCS/BCC)."
-msgstr ""
+msgstr "キャリーフラグ: 加算でキャリーが発生するとセット、減算で借りが必要な場合はクリア。多バイト演算やシフト/ローテート（BCS/BCC）に使用します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
-msgstr ""
+msgstr "右下隅 (メモリアドレス <tt>$05ff</tt>) に描画されるよう、いずれかのピクセルを変更してみましょう。"
 
 msgid "Chinese (Simplified)"
-msgstr "中国語（簡体字）"
+msgstr "中国語 (簡体字)"
 
 #. TRANSLATORS: Preferences row subtitle for language selection
 msgid "Choose the language for the application interface"
@@ -558,213 +558,213 @@ msgstr "アプリのインターフェース言語を選択"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
-msgstr ""
+msgstr "コード"
 
 #. TRANSLATORS: Success message after assembly with total bytes of machine code
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
-msgstr ""
+msgstr "コードを正常にアセンブルしました (%d バイト)。"
 
 #. TRANSLATORS: Toast message title after copying code snippet into the editor
 msgid "Code copied to editor"
-msgstr ""
+msgstr "コードをエディターにコピーしました"
 
 #. TRANSLATORS: Screenshot caption for the desktop layout
 msgid "Code editor and virtual game console"
-msgstr ""
+msgstr "コードエディターと仮想ゲームコンソール"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
-msgstr ""
+msgstr "カラーパレット"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
-msgstr ""
+msgstr "よく使う命令"
 
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Confirm"
-msgstr ""
+msgstr "確認"
 
 #. TRANSLATORS: Menu item to resume execution after pause
 msgid "Continue"
-msgstr ""
+msgstr "続行"
 
 #. TRANSLATORS: Toast message title after copying to clipboard
 msgid "Copied to clipboard"
-msgstr ""
+msgstr "クリップボードにコピーしました"
 
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "クリップボードにコピー"
 
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
 msgid "Copy to editor"
-msgstr ""
+msgstr "エディターにコピー"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Creating a game"
-msgstr ""
+msgstr "ゲームを作る"
 
 #. TRANSLATORS: Tooltip for dark theme option
 #. TRANSLATORS: Accessibility label for dark theme option
 msgid "Dark style"
-msgstr ""
+msgstr "ダークスタイル"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
 msgid "Debug"
-msgstr ""
+msgstr "デバッグ"
 
 #. TRANSLATORS: Feature list item about debugging tools
 msgid "Debug your programs with real-time inspection tools"
-msgstr ""
+msgstr "リアルタイム検査ツールでプログラムをデバッグ"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Debugger"
-msgstr ""
+msgstr "デバッガー"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Debugger now only updates when visible, reducing unnecessary processing"
-msgstr ""
+msgstr "デバッガーは表示時のみ更新されるようになり、不要な処理が減りました"
 
 msgid "Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic operations. When set, ADC/SBC instructions treat values as decimal digits (0-9) instead of binary. Used for financial calculations and decimal arithmetic."
-msgstr ""
+msgstr "デシマルフラグ: 算術演算をBCD (十進化) モードにします。セット時は ADC/SBC が値を2進ではなく0〜9の十進として扱います。金額計算などの十進演算で使用します。"
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
-msgstr ""
+msgstr "無効にするとパフォーマンスが向上します"
 
 #. TRANSLATORS: Section heading label for the disassembled instructions block
 msgid "Disassembled"
-msgstr ""
+msgstr "逆アセンブル"
 
 #. TRANSLATORS: Prefix label in Debugger messages when showing disassembly output
 msgid "Disassembly:"
-msgstr ""
+msgstr "逆アセンブル:"
 
 msgid "Discard"
-msgstr ""
+msgstr "破棄"
 
 #. TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
-msgstr ""
+msgstr "クラシックなコンピューターやゲーム機のプログラミングの世界へ！6502 アセンブリ言語を学びましょう。これは NES、Commodore 64、Apple II などを動かしたコードです。"
 
 #. TRANSLATORS: Dropdown option label for display memory range
 msgid "Display Memory ($0200-$05FF)"
-msgstr ""
+msgstr "表示メモリ ($0200-$05FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Display Organization"
-msgstr ""
+msgstr "表示の構成"
 
 msgid "Dutch"
 msgstr "オランダ語"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
-msgstr ""
+msgstr "各セクション (<tt>upKey</tt>、<tt>rightKey</tt> など) は、まず現在の方向が新しい方向と正反対かを確認します。ここで少し寄り道が必要です。"
 
 #. TRANSLATORS: Preference switch label on Debugger page to enable/disable the debugger
 msgid "Enable Debugger"
-msgstr ""
+msgstr "デバッガーを有効化"
 
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
-msgstr ""
+msgstr "ステッパーモードを有効化"
 
 msgid "English"
 msgstr "英語"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
-msgstr ""
+msgstr "アプリの見た目とアクセシビリティを改善"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Enhanced the hex monitor address range input for easier value editing"
-msgstr ""
+msgstr "16進モニターのアドレス範囲入力を改善し、値の編集を容易に"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
-msgstr ""
+msgstr "この知識があれば、命令 <tt>LDA #$01</tt> が 16進の <tt>$01</tt> をレジスタ <tt>A</tt> にロードすることが分かるはずです。レジスタの詳細は次の節で説明します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
-msgstr ""
+msgstr "簡易版とはいえ、コード量はこれまでの例より大幅に増えます。ゲームの様々な要素のために複数のメモリアドレスをまとめて管理する必要があります。従来どおり手作業で管理することもできますが、規模が大きくなると煩雑で見落としやすい不具合の原因になります。そこで、単純作業はアセンブラに任せることにします。"
 
 #. TRANSLATORS: Switch subtitle describing stepper mode behavior
 msgid "Execute instructions one by one instead of continuously"
-msgstr ""
+msgstr "連続実行の代わりに1命令ずつ実行します"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Exercise"
-msgstr ""
+msgstr "練習"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Exercises"
-msgstr ""
+msgstr "練習問題"
 
 #. TRANSLATORS: Toast message title when clipboard copy fails
 msgid "Failed to copy to clipboard"
-msgstr ""
+msgstr "クリップボードへのコピーに失敗しました"
 
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
-msgstr ""
+msgstr "ファイル「%s」には未保存の変更があります"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Finally, byte <tt>$03</tt> contains the current length of the snake, in terms of bytes in memory (so a length of 4 means 2 pixels)."
-msgstr ""
+msgstr "最後に、バイト <tt>$03</tt> にはスネークの現在の長さがメモリ上のバイト数で入っています (長さ 4 は 2 ピクセルを意味します)。"
 
 #. TRANSLATORS: Release notes for version 0.1.0
 msgid "First release of Learn 6502 Assembly for GNOME"
-msgstr ""
+msgstr "6502アセンブリを学ぶ for GNOME の初期リリース"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "First row: <tt>$0200</tt>-<tt>$021F</tt>, second row: <tt>$0220</tt>-<tt>$023F</tt>, etc."
-msgstr ""
+msgstr "1 行目: <tt>$0200</tt>-<tt>$021F</tt>、2 行目: <tt>$0220</tt>-<tt>$023F</tt>、以降同様。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First we load the value <tt>$08</tt> into the <tt>X</tt> register. The next line is a label. Labels just mark certain points in a program so we can return to them later. After the label we decrement <tt>X</tt>, store it to <tt>$0200</tt> (the top-left pixel), and then compare it to the value <tt>$03</tt>. <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register with another value. If the two values are equal, the <tt>Z</tt> flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
-msgstr ""
+msgstr "まず、値<tt>$08</tt>を<tt>X</tt>レジスタにロードします。次の行はラベルです。ラベルはプログラム内の特定のポイントをマークするだけで、後でそれらに戻ることができます。ラベルの後で<tt>X</tt>をデクリメントし、<tt>$0200</tt>（左上ピクセル）に格納してから、値<tt>$03</tt>と比較します。<a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a>は<tt>X</tt>レジスタの値と別の値を比較します。2つの値が等しい場合、<tt>Z</tt>フラグが<tt>1</tt>にセットされ、そうでない場合は<tt>0</tt>にセットされます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, S, D) was pressed, and if so, sets the direction of the snake accordingly. Then, <tt>checkCollision</tt> checks to see if the snake collided with itself or the apple. <tt>updateSnake</tt> updates the internal representation of the snake, based on its direction. Next, the apple and snake are drawn. Finally, <tt>spinWheels</tt> makes the processor do some busy work, to stop the game from running too quickly. Think of it like a sleep command. The game keeps running until the snake collides with the wall or itself."
-msgstr ""
+msgstr "まず <tt>readkeys</tt> が方向キー（W/A/S/D）の入力を確認し、押されていれば進行方向を設定します。続いて <tt>checkCollision</tt> が自己衝突やりんごとの衝突を確認します。<tt>updateSnake</tt> は方向に基づいて内部表現を更新し、その後りんごとスネークを描画します。最後に <tt>spinWheels</tt> が処理に遅延を入れて、ゲームが速過ぎないようにします。スネークが壁か自身に衝突するまでゲームは続きます。"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
-msgstr ""
+msgstr "PostmarketOS のビルドエラーを修正し、モバイル互換性を向上"
 
 #. TRANSLATORS: Tooltip for mode toggle that follows system style
 #. TRANSLATORS: Accessibility label for mode toggle that follows system style
 msgid "Follow system style"
-msgstr ""
+msgstr "システムのスタイルに従う"
 
 #. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
 msgid "Found $d label."
-msgstr ""
+msgstr "ラベルを $d 件見つけました。"
 
 #. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
 msgid "Found $d labels."
-msgstr ""
+msgstr "ラベルを $d 件見つけました。"
 
 msgid "French"
 msgstr "フランス語"
 
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
-msgstr ""
+msgstr "全メモリ ($0000-$FFFF)"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
 msgid "Gamepad key pressed:"
-msgstr ""
+msgstr "ゲームパッドのキーが押されました:"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
-msgstr ""
+msgstr "画面切り替え時にゲームが自動一時停止するようになりました"
 
 #. TRANSLATORS: Preferences page title for General settings
 msgid "General"
@@ -775,190 +775,190 @@ msgstr "ドイツ語"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
-msgstr ""
+msgstr "セクション間の移動は、上位バイトも考慮する必要があるため少し複雑です。たとえば <tt>$02e1</tt> から下へは <tt>$0301</tt> になります。幸い、これは比較的簡単です。<tt>$e1</tt> に <tt>$20</tt> を加えると <tt>$01</tt> となりキャリービットが立ちます。キャリーが立ったなら、上位バイトもインクリメントすべきだと分かります。"
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
-msgstr ""
+msgstr "緑"
 
 #. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
-msgstr ""
+msgstr "ヘルプ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Here's an example. Note that immediate operands are still prefixed with a <tt>#</tt>."
-msgstr ""
+msgstr "例です。即値オペランドには <tt>#</tt> が付く点に注意してください。"
 
 #. TRANSLATORS: Section heading label for the Hex Monitor block
 msgid "Hex Monitor"
-msgstr ""
+msgstr "16進モニター"
 
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
-msgstr ""
+msgstr "ヘックスダンプ"
 
 #. TRANSLATORS: Prefix label in Debugger messages when showing hexdump output
 msgid "Hexdump:"
-msgstr ""
+msgstr "ヘックスダンプ:"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
 msgid "Hidden"
-msgstr ""
+msgstr "非表示"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "I won't explain in depth how each of the directions work, but the above explanation should give you enough to work it out with a bit of study."
-msgstr ""
+msgstr "各方向の詳細な仕組みは深入りしませんが、上の説明で少し練習すれば理解できるはずです。"
 
 #. TRANSLATORS: App Store search keyword
 msgid "IDE"
-msgstr ""
+msgstr "IDE"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "If the result of the addition is larger than a single byte, the address wraps around. For example:"
-msgstr ""
+msgstr "加算結果が1バイトを超えると、アドレスは折り返します。例えば:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
-msgstr ""
+msgstr "即値アドレッシングは厳密にはメモリアドレスを扱いません。値そのものを使う方式です。例えば <tt>LDX #$01</tt> は値 <tt>$01</tt> を <tt>X</tt> にロードします。これは <tt>LDX $01</tt>（メモリ <tt>$01</tt> の値を <tt>X</tt> にロード）とは全く異なります。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate: <tt>#$c0</tt>"
-msgstr ""
+msgstr "即値: <tt>#$c0</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Implicit"
-msgstr ""
+msgstr "暗黙"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Improved descriptions to be more welcoming for non-technical users"
-msgstr ""
+msgstr "非技術ユーザーにも分かりやすい説明に改善"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - mobile improvements
 msgid "Improved game screen and controls for mobile devices"
-msgstr ""
+msgstr "モバイル向けにゲーム画面と操作性を改善"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Improved the game console performance for smoother gameplay"
-msgstr ""
+msgstr "ゲームコンソールの性能を改善し、より滑らかなプレイに"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In assembly language, you'll usually use labels with branch instructions. When assembled though, this label is converted to a single-byte relative offset (a number of bytes to go backwards or forwards from the next instruction) so branch instructions can only go forward and back around 256 bytes. This means they can only be used to move around local code. For moving further you'll need to use the jumping instructions."
-msgstr ""
+msgstr "アセンブリでは分岐命令とラベルを併用するのが一般的です。アセンブル時、ラベルは1バイトの相対オフセット（次の命令から前後に進むバイト数）に変換されるため、分岐は約256バイトの範囲内でしか移動できません。つまり局所的な移動に限られ、遠くへ移動するにはジャンプ命令を使います。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In the editor <b>type</b> (don't paste) the following code:"
-msgstr ""
+msgstr "エディターで次のコードを<b>入力</b>（貼り付け不可）してください:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this assembler, we can define descriptive constants (or symbols) that represent numbers. The rest of the code can then simply use the constants instead of the literal number, which immediately makes it obvious what we're dealing with. You can use letters, digits and underscores in a name."
-msgstr ""
+msgstr "このアセンブラでは、数値を表す説明的な定数（またはシンボル）を定義できます。以降のコードはリテラルの代わりに定数を使えるため、意図が明確になります。名前には英字、数字、アンダースコアを使用できます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this case, <tt>($01)</tt> looks up the two bytes at <tt>$01</tt> and <tt>$02</tt>: <tt>$03</tt> and <tt>$07</tt>. These form the address <tt>$0703</tt>. The value of the <tt>Y</tt> register is added to this address to give the final address <tt>$0704</tt>."
-msgstr ""
+msgstr "この場合、<tt>($01)</tt> は <tt>$01</tt> と <tt>$02</tt> の2バイト（<tt>$03</tt> と <tt>$07</tt>）を参照してアドレス <tt>$0703</tt> を構成します。さらに <tt>Y</tt> の値を加えて最終アドレス <tt>$0704</tt> を得ます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this example, <tt>$f0</tt> contains the value <tt>$01</tt> and <tt>$f1</tt> contains the value <tt>$cc</tt>. The instruction <tt>JMP ($f0)</tt> causes the processor to look up the two bytes at <tt>$f0</tt> and <tt>$f1</tt> (<tt>$01</tt> and <tt>$cc</tt>) and put them together to form the address <tt>$cc01</tt>, which becomes the new program counter. Assemble and step through the program above to see what happens. I'll talk more about <tt>JMP</tt> in the section on <a href=\"#jumping\">Jumping</a>."
-msgstr ""
+msgstr "この例では、<tt>$f0</tt>には値<tt>$01</tt>が、<tt>$f1</tt>には値<tt>$cc</tt>が格納されています。命令<tt>JMP ($f0)</tt>は、プロセッサに<tt>$f0</tt>と<tt>$f1</tt>（<tt>$01</tt>と<tt>$cc</tt>）の2バイトをルックアップさせ、それらを組み合わせてアドレス<tt>$cc01</tt>を形成し、これが新しいプログラムカウンタになります。上記のプログラムをアセンブルしてステップ実行し、何が起こるかを確認してください。<tt>JMP</tt>については<a href=\"#jumping\">ジャンプ</a>のセクションでさらに詳しく説明します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this tiny tutorial I'm going to show you how to get started writing 6502 assembly language. The 6502 processor was massive in the seventies and eighties, powering famous computers like the <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in 6502</a>."
-msgstr ""
+msgstr "この短いチュートリアルでは、6502アセンブリ言語の書き方を始めることを紹介します。6502プロセッサは1970年代から1980年代にかけて非常に普及し、<a href=\"https://ja.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>、<a href=\"https://ja.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>、<a href=\"https://ja.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>、<a href=\"https://ja.wikipedia.org/wiki/Apple_II\">Apple II</a>、<a href=\"https://ja.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>などの有名なコンピュータを駆動していました。FuturamaのBenderは<a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">脳として6502プロセッサを使用</a>しています。<a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">ターミネーターでさえも6502でプログラミングされていた</a>のです。"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Index register X: Used for addressing"
-msgstr ""
+msgstr "インデックスレジスタ X: アドレッシングに使用"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Index register Y: Used for addressing"
-msgstr ""
+msgstr "インデックスレジスタ Y: アドレッシングに使用"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indexed indirect: <tt>($c0,X)</tt>"
-msgstr ""
+msgstr "インデックス間接: <tt>($c0,X)</tt>"
 
 msgid "Indexing labels..."
-msgstr ""
+msgstr "ラベルをインデックス作成中..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect addressing uses an absolute address to look up another address. The first address gives the least significant byte of the address, and the following byte gives the most significant byte. That can be hard to wrap your head around, so here's an example:"
-msgstr ""
+msgstr "間接アドレッシングは絶対アドレスを使って別のアドレスを参照します。先頭のアドレスが下位バイト、次のバイトが上位バイトです。分かりづらいので例を示します:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed is like indexed indirect but less insane. Instead of adding the <tt>X</tt> register to the address <i>before</i> dereferencing, the zero page address is dereferenced, and the <tt>Y</tt> register is added to the resulting address."
-msgstr ""
+msgstr "間接インデックスはインデックス間接に似ていますが、参照の手順が逆です。参照<b>前</b>に <tt>X</tt> を足す代わりに、ゼロページアドレスを参照して得たアドレスに <tt>Y</tt> を足します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed: <tt>($c0),Y</tt>"
-msgstr ""
+msgstr "間接インデックス: <tt>($c0),Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect: <tt>($c000)</tt>"
-msgstr ""
+msgstr "間接: <tt>($c000)</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Initialization"
-msgstr ""
+msgstr "初期化"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Instructions"
-msgstr ""
+msgstr "命令"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Instructions in assembly language are like a small set of predefined functions. All instructions take zero or one arguments. Here's some annotated source code to introduce a few different instructions:"
-msgstr ""
+msgstr "アセンブリの命令は小さな事前定義関数の集合のようなものです。すべての命令は引数0個または1個を取ります。いくつかの命令を注釈付きコードで紹介します:"
 
 #. TRANSLATORS: Screenshot caption for the interactive tutorial view
 msgid "Interactive tutorial"
-msgstr ""
+msgstr "インタラクティブチュートリアル"
 
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
-msgstr ""
+msgstr "インタラクティブチュートリアルで初心者から上級者までガイド"
 
 msgid "Interlingua"
 msgstr "インターリングア"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
-msgstr ""
+msgstr "割り込み禁止フラグ: セット時はマスク可能な割り込み（IRQ）をすべて無効化します。NMI（不可マスク割り込み）のみ発生します。割り込み不可のクリティカル区間で使用します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Introduction"
-msgstr ""
+msgstr "導入"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JMP"
-msgstr ""
+msgstr "JMP"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
-msgstr ""
+msgstr "JSR/RTS"
 
 msgid "Japanese"
 msgstr "日本語"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
-msgstr ""
+msgstr "ジャンプ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping is like branching with two main differences. First, jumps are not conditionally executed, and second, they take a two-byte absolute address. For small programs, this second detail isn't very important, as you'll mostly be using labels, and the assembler works out the correct memory location from the label. For larger programs though, jumping is the only way to move from one section of the code to another."
-msgstr ""
+msgstr "ジャンプは分岐に似ていますが2点異なります。1つ目は条件付きではないこと、2つ目は2バイトの絶対アドレスを取ることです。小規模なプログラムでは主にラベルを使うため重要ではありませんが、大規模になるとセクション間の移動はジャンプが唯一の手段になります。"
 
 #, javascript-format
 msgid "Label already defined at line %s: %d"
-msgstr ""
+msgstr "ラベルは行 %s ですでに定義されています: %d"
 
 msgid "Label {label} is already used as a symbol; please rename one of them"
-msgstr ""
+msgstr "ラベル {label} は既にシンボルとして使用されています。いずれかの名前を変更してください"
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
-msgstr ""
+msgstr "ラベル処理に失敗しました"
 
 #. TRANSLATORS: Preferences row title for language selection
 msgid "Language"
@@ -966,146 +966,146 @@ msgstr "言語"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
-msgstr ""
+msgstr "学習"
 
 #. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
-msgstr ""
+msgstr "6502アセンブリを学ぶ"
 
 #. TRANSLATORS: Feature list item about learning history while coding
 msgid "Learn about computer history while coding"
-msgstr ""
+msgstr "コーディングしながらコンピュータの歴史も学べます"
 
 #. TRANSLATORS: Short description of the Learn view
 msgid "Learn how to program the 6502 microprocessor."
-msgstr ""
+msgstr "6502 マイクロプロセッサのプログラミングを学びましょう。"
 
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
-msgstr ""
+msgstr "ライトスタイル"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
-msgstr ""
+msgstr "動的状態を備えたモダンなフローティングアクションボタンを導入し直感的な操作を実現。さらに Adwaita コンポーネントでデバッガーウィジェットを全面刷新しました。"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - bug fixes
 msgid "Many minor bugs have been fixed to improve overall usabipty"
-msgstr ""
+msgstr "多数の軽微な不具合を修正し、全体の使い勝手を向上"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Memory Map"
-msgstr ""
+msgstr "メモリマップ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
-msgstr ""
+msgstr "メモリ <tt>$01</tt> と <tt>$02</tt> にはそれぞれ <tt>$05</tt> と <tt>$07</tt> が入っています。<tt>($00,X)</tt> は <tt>($00 + X)</tt> と考えられ、ここでは <tt>X=$01</tt> なので <tt>($01)</tt> になります。以降は通常の間接参照と同様で、<tt>$01</tt> と <tt>$02</tt> の2バイト（<tt>$05</tt> と <tt>$07</tt>）から <tt>$0705</tt> を形成します。これは直前の命令で <tt>Y</tt> を格納したアドレスなので、回り道ながら <tt>A</tt> は <tt>Y</tt> と同じ値になります。実際にはあまり見かけません。"
 
 #. TRANSLATORS: Section heading label for console messages block
 msgid "Messages"
-msgstr ""
+msgstr "メッセージ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Nearly all games have at their heart a game loop. All game loops have the same basic form: accept user input, update the game state, and render the game state. This loop is no different."
-msgstr ""
+msgstr "ほぼすべてのゲームはゲームループが核にあります。基本形は同じで、入力の受付→状態更新→描画を繰り返します。本ループも同様です。"
 
 msgid "Negative Flag: Set when the most significant bit (bit 7) of the result is 1. Used for signed number comparisons and indicates if a value is negative in two's complement representation."
-msgstr ""
+msgstr "ネガティブフラグ: 演算結果の最上位ビット（ビット7）が1のときセット。符号付き比較に用い、2の補数表現で負かどうかを示します。"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - tooling additions
 msgid "New tools to examine your code, including disassembler and fast switchable memory viewer"
-msgstr ""
+msgstr "コード検査用の新ツール（逆アセンブラーと高速切替可能なメモリビューア）を追加"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Next comes <tt>drawSnake</tt>. This is pretty simple too - we first undraw the tail and then draw the head. <tt>X</tt> is set to the length of the snake, so we can index to the right pixel, and we set <tt>A</tt> to zero then perform the write using the indexed indirect addressing mode. Then we reload <tt>X</tt> to index to the head, set <tt>A</tt> to one and store it at <tt>($10,x)</tt>. <tt>$10</tt> stores the two-byte location of the head, so this draws a white pixel at the current head position. As only the head and the tail of the snake move, this is enough to keep the snake moving."
-msgstr ""
+msgstr "次は <tt>drawSnake</tt> です。これも単純で、まず尾を消し、その後頭を描きます。<tt>X</tt> に長さを設定して正しいピクセルを指し、<tt>A</tt> を 0 にしてインデックス間接で書き込みます。続いて頭にインデックスするために <tt>X</tt> を再ロードし、<tt>A</tt> を 1 にして <tt>($10,x)</tt> へ保存します。<tt>$10</tt> は頭の2バイト位置を持つため、現在の頭位置に白いピクセルを描きます。動くのは頭と尾だけなので、これで十分に動作します。"
 
 #. TRANSLATORS: Error shown when jumping to an address/label without providing any input
 msgid "No address or label provided"
-msgstr ""
+msgstr "アドレスまたはラベルが指定されていません"
 
 #. TRANSLATORS: Error when no instructions were assembled
 msgid "No code to run."
-msgstr ""
+msgstr "実行するコードがありません。"
 
 #. TRANSLATORS: App Store description paragraph about onboarding for beginners
 msgid "No prior programming experience needed. Start with interactive lessons and build your skills step by step."
-msgstr ""
+msgstr "事前のプログラミング経験は不要。インタラクティブなレッスンで一歩ずつスキルを身につけましょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Now, let's put all this knowledge to good use, and make a game! We're going to be making a really simple version of the classic game 'Snake'."
-msgstr ""
+msgstr "さあ、学んだことを使ってゲームを作りましょう。古典『スネーク』のごく簡単な版を作成します。"
 
 #. Add OK button
 #. TRANSLATORS: Alert dialog response button label to confirm an action
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "On reset (simulator): <tt>P = $30</tt> (bit5 and <tt>B</tt> set; <tt>D</tt> and <tt>I</tt> clear)"
-msgstr ""
+msgstr "リセット時（シミュレーター）: <tt>P = $30</tt>（bit5 と <tt>B</tt> セット、<tt>D</tt> と <tt>I</tt> クリア）"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Once the values have been shifted down the snake, we have to work out what to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</tt> means \"logical shift right\", or \"shift all the bits one position to the right\". The least significant bit is shifted into the carry flag, so if the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the carry flag set."
-msgstr ""
+msgstr "値がスネークの体に沿ってシフトダウンされた後、頭部をどうするかを決定する必要があります。まず方向を<tt>A</tt>にロードします。<tt>LSR</tt>は「論理右シフト」を意味し、「すべてのビットを1ビット右にシフト」します。最下位ビットはキャリーフラグにシフトされるため、アキュムレータが<tt>1</tt>の場合、<tt>LSR</tt>の後は<tt>0</tt>になり、キャリーフラグがセットされます。"
 
 #. TRANSLATORS: File dialog title when choosing an assembly source file
 msgid "Open Assembly File"
-msgstr ""
+msgstr "アセンブリファイルを開く"
 
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
-msgstr ""
+msgstr "開く..."
 
 #. TRANSLATORS: Toast message title after opening a file, includes filename
 #, javascript-format
 msgid "Opened %s"
-msgstr ""
+msgstr "%s を開きました"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
-msgstr ""
+msgstr "不要な権限を削除して Flatpak 設定を最適化"
 
 #. TRANSLATORS: Tooltip for accent color option Orange
 #. TRANSLATORS: Tooltip for primary color option Orange
 msgid "Orange"
-msgstr ""
+msgstr "オレンジ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Organized as four horizontal strips of 32×8 pixels"
-msgstr ""
+msgstr "32×8 ピクセルの水平ストリップ4本で構成"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Our first program"
-msgstr ""
+msgstr "最初のプログラム"
 
 #, javascript-format
 msgid "Out of range branch on line %d (branches are limited to -128 to +127): %s"
-msgstr ""
+msgstr "分岐が範囲外です（行 %d、分岐は -128〜+127 に制限）: %s"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Overall structure"
-msgstr ""
+msgstr "全体構造"
 
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
-msgstr ""
+msgstr "オーバーフローフラグ: 演算結果が符号付き8ビット（-128〜+127）の範囲に収まらない場合にセット。符号付き演算のエラー検出に使用します。"
 
 #. TRANSLATORS: Main action button label to pause the running simulator
 msgid "Pause"
-msgstr ""
+msgstr "一時停止"
 
 #. TRANSLATORS: Closing paragraph targeting the audience
 msgid "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!"
-msgstr ""
+msgstr "趣味の開発者、学生、そしてコンピュータの仕組みに興味があるすべての人に最適です！"
 
 #. TRANSLATORS: Tooltip for accent color option Pink
 #. TRANSLATORS: Tooltip for primary color option Pink
 msgid "Pink"
-msgstr ""
+msgstr "ピンク"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
-msgstr ""
+msgstr "プレイ"
 
 #. TRANSLATORS: Banner title shown after changing language
 msgid "Please restart the application for the language change to take effect."
@@ -1122,267 +1122,267 @@ msgid "Preferences"
 msgstr "設定"
 
 msgid "Preprocessing ..."
-msgstr ""
+msgstr "前処理中…"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
-msgstr ""
+msgstr "<b>ステップ</b> をもう一度押して2つ目の命令を実行します。画面左上のピクセルが白になるはずです。このシミュレーターは <tt>$0200</tt>〜<tt>$05ff</tt> のメモリを表示に使います。<tt>$00</tt>〜<tt>$0f</tt> は16色（<tt>$00</tt>=黒、<tt>$01</tt>=白）なので、<tt>$0200</tt> に <tt>$01</tt> を書けば左上が白になります。実機の映像出力より簡略ですが、ここでは十分です。"
 
 #. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
-msgstr ""
+msgstr "プライマリカラー"
 
 #. TRANSLATORS: Accessibility label for primary color option Blue
 msgid "Primary: Blue"
-msgstr ""
+msgstr "プライマリ: 青"
 
 #. TRANSLATORS: Accessibility label for primary color option Green
 msgid "Primary: Green"
-msgstr ""
+msgstr "プライマリ: 緑"
 
 #. TRANSLATORS: Accessibility label for primary color option Orange
 msgid "Primary: Orange"
-msgstr ""
+msgstr "プライマリ: オレンジ"
 
 #. TRANSLATORS: Accessibility label for primary color option Pink
 msgid "Primary: Pink"
-msgstr ""
+msgstr "プライマリ: ピンク"
 
 #. TRANSLATORS: Accessibility label for primary color option Purple
 msgid "Primary: Purple"
-msgstr ""
+msgstr "プライマリ: 紫"
 
 #. TRANSLATORS: Accessibility label for primary color option Red
 msgid "Primary: Red"
-msgstr ""
+msgstr "プライマリ: 赤"
 
 #. TRANSLATORS: Accessibility label for primary color option Slate
 msgid "Primary: Slate"
-msgstr ""
+msgstr "プライマリ: スレート"
 
 #. TRANSLATORS: Accessibility label for primary color option Teal
 msgid "Primary: Teal"
-msgstr ""
+msgstr "プライマリ: ティール"
 
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
-msgstr ""
+msgstr "プライマリ: 黄色"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
-msgstr ""
+msgstr "プロセッサフラグ"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Processor Status Register"
-msgstr ""
+msgstr "プロセッサステータスレジスタ"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Program Counter: Points to next instruction"
-msgstr ""
+msgstr "プログラムカウンタ: 次の命令を指す"
 
 #. TRANSLATORS: Dropdown option label for program storage range
 msgid "Program Storage ($0600-$FFFF)"
-msgstr ""
+msgstr "プログラム領域 ($0600-$FFFF)"
 
 #. TRANSLATORS: Info message shown when program finishes execution at address
 #, javascript-format
 msgid "Program completed at PC=$%s"
-msgstr ""
+msgstr "プログラムは PC=$%s で完了しました"
 
 #. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"
-msgstr ""
+msgstr "プログラムを一時停止しました"
 
 msgid "Program vintage game consoles"
-msgstr ""
+msgstr "レトロなゲーム機をプログラミング"
 
 #. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
 msgid "Purple"
-msgstr ""
+msgstr "紫"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Quick tips"
-msgstr ""
+msgstr "クイックヒント"
 
 #. TRANSLATORS: Quit application menu item label
 msgid "Quit"
-msgstr ""
+msgstr "終了"
 
 #. TRANSLATORS: Dropdown option label for random/input IO range
 msgid "Random/Input ($FE-$FF)"
-msgstr ""
+msgstr "乱数/入力 ($FE-$FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Reading the input"
-msgstr ""
+msgstr "入力の読み取り"
 
 #. TRANSLATORS: Tooltip for accent color option Red
 #. TRANSLATORS: Tooltip for primary color option Red
 msgid "Red"
-msgstr ""
+msgstr "赤"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Reduced default hex monitor address range for better efficiency"
-msgstr ""
+msgstr "既定の16進モニターのアドレス範囲を縮小し効率を向上"
 
 #. TRANSLATORS: Section heading title on Debugger page for registers
 msgid "Registers"
-msgstr ""
+msgstr "レジスタ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Registers and flags"
-msgstr ""
+msgstr "レジスタとフラグ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Relative addressing is used for branching instructions. These instructions take a single byte, which is used as an offset from the following instruction."
-msgstr ""
+msgstr "相対アドレッシングは分岐命令に使用されます。これらの命令は1バイトを取り、それを次の命令からのオフセットとして使用します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Relative: <tt>$c0</tt> (or label)"
-msgstr ""
+msgstr "相対: <tt>$c0</tt>（またはラベル）"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Rendering the game"
-msgstr ""
+msgstr "ゲームの描画"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
-msgstr ""
+msgstr "リセット"
 
 #. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
-msgstr ""
+msgstr "再開"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Rewrite the first example in this section to use the <tt>Y</tt> register instead of the <tt>X</tt> register."
-msgstr ""
+msgstr "このセクションの最初の例を、<tt>X</tt>レジスタの代わりに<tt>Y</tt>レジスタを使用するように書き換えてください。"
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
 msgid "Run"
-msgstr ""
+msgstr "実行"
 
 #. TRANSLATORS: Screenshot caption for the snake game running in the virtual console
 msgid "Running Snake game"
-msgstr ""
+msgstr "実行中のスネークゲーム"
 
 #. TRANSLATORS: Menu item to save the current file
 msgid "Save"
-msgstr ""
+msgstr "保存"
 
 #. TRANSLATORS: File dialog title for saving a new assembly file
 msgid "Save Assembly File"
-msgstr ""
+msgstr "アセンブリファイルを保存"
 
 #. TRANSLATORS: Menu item to save to a new file (Save As)
 msgid "Save as..."
-msgstr ""
+msgstr "名前を付けて保存..."
 
 #. TRANSLATORS: Alert dialog heading when unsaved changes are present
 msgid "Save changes?"
-msgstr ""
+msgstr "変更を保存しますか？"
 
 #. TRANSLATORS: Toast message title after saving file successfully, includes filename
 #, javascript-format
 msgid "Saved as %s"
-msgstr ""
+msgstr "%s として保存しました"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
-msgstr ""
+msgstr "画面はメモリ範囲<tt>$0200</tt>-<tt>$05FF</tt>にマッピングされます"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
-msgstr ""
+msgstr "しかし真剣に言うと、アセンブリ言語を理解することは非常に価値があります。アセンブリ言語はコンピュータにおける最も低い抽象化レベルであり、コードがまだ読み取れる状態にあるポイントです。アセンブリ言語は、コンピュータのプロセッサによって実行されるバイトに直接変換されます。その仕組みを理解すれば、あなたは基本的にコンピュータの<a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">魔法使い</a>になったようなものです。"
 
 #. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
-msgstr ""
+msgstr "設定"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Simulator"
-msgstr ""
+msgstr "シミュレーター"
 
 #. TRANSLATORS: Toast message title when simulator reports a failure
 msgid "Simulator failure"
-msgstr ""
+msgstr "シミュレーターのエラー"
 
 #. TRANSLATORS: Tooltip for accent color option Slate
 #. TRANSLATORS: Tooltip for primary color option Slate
 msgid "Slate"
-msgstr ""
+msgstr "スレート"
 
 #. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
 msgid "Snake Game Data ($00-$15)"
-msgstr ""
+msgstr "スネークゲームデータ ($00-$15)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Snake Game Memory Usage"
-msgstr ""
+msgstr "スネークゲームのメモリ使用"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So far we're only able to write basic programs without any branching logic. Let's change that."
-msgstr ""
+msgstr "これまでは分岐のない基本的なプログラムしか書けませんでした。ここから変えていきましょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then click the button in the top right to assemble the code, then click it again to run the program. You can also access these actions through the dropdown menu."
-msgstr ""
+msgstr "それでは始めましょう！このアプリには、このインタラクティブチュートリアル向けに調整した<a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 アセンブラとシミュレーター</a>が含まれています。下のコードブロックの<b>Copy</b>を押して例をエディターへコピーし、右上のボタンでアセンブル、もう一度押して実行します。これらの操作はドロップダウンメニューからも行えます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", so in this case we'll branch to <tt>illegalMove</tt>, which just returns from the subroutine. Otherwise, the new direction (1 in this case) is stored in the appropriate memory location."
-msgstr ""
+msgstr "<tt>upKey</tt> を見ると、現在の方向が下（4）ならビットテストは 0 になります。<tt>BNE</tt> は「ゼロフラグがクリアなら分岐」を意味するので、この場合は <tt>illegalMove</tt> に分岐し、サブルーチンから単に戻ります。そうでなければ新しい方向（この場合は 1）を適切なメモリ位置に保存します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, the instruction <tt>STA $0200</tt> stores the value of the <tt>A</tt> register to memory location <tt>$0200</tt>. Click <b>Step</b> four more times to execute the rest of the instructions, keeping an eye on the <tt>A</tt> register as it changes."
-msgstr ""
+msgstr "つまり <tt>STA $0200</tt> は <tt>A</tt> の値を <tt>$0200</tt> に保存します。<b>ステップ</b>をさらに4回押して残りを実行し、<tt>A</tt> の変化に注目してください。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, what's this program actually doing? Let's step through it. Hit <b>Reset</b>, then select <b>Step</b> from the dropdown menu. The button will switch to step mode, allowing you to execute the program one instruction at a time. Click once and you'll notice in the debugger that <tt>A=</tt> changed from <tt>$00</tt> to <tt>$01</tt>, and <tt>PC=</tt> changed from <tt>$0600</tt> to <tt>$0602</tt>."
-msgstr ""
+msgstr "ではこのプログラムは何をしているのでしょう？ステップ実行して見てみます。<b>Reset</b> を押し、ドロップダウンから <b>Step</b> を選択。ボタンがステップモードに切り替わり、1命令ずつ実行できます。1回押すと、デバッガーで <tt>A=</tt> が <tt>$00</tt> から <tt>$01</tt> に、<tt>PC=</tt> が <tt>$0600</tt> から <tt>$0602</tt> へ変わるのが分かります。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, why would you want to learn 6502? It's a dead language isn't it? Well, so's Latin. And they still teach that. <a href=\"https://en.wikipedia.org/wiki/Q.E.D.\">Q.E.D.</a>"
-msgstr ""
+msgstr "ところで、なぜ 6502 を学ぶのでしょう？廃れた言語では？ラテン語も同じですが今も教えられています。<a href=\"https://ja.wikipedia.org/wiki/Q.E.D.\">Q.E.D.</a>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
-msgstr ""
+msgstr "一部の命令はメモリアドレスを扱いません（例: <tt>INX</tt> は <tt>X</tt> をインクリメント）。これは暗黙アドレッシングと呼ばれ、引数は命令に暗黙的に含まれます。"
 
 msgid "Spanish"
 msgstr "スペイン語"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
-msgstr ""
+msgstr "特別なメモリ位置（シミュレーター）"
 
 #. TRANSLATORS: Dropdown option label for stack memory range
 msgid "Stack ($0100-$01FF)"
-msgstr ""
+msgstr "スタック ($0100-$01FF)"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Stack Pointer: Points to stack position"
-msgstr ""
+msgstr "スタックポインタ: スタック位置を指す"
 
 #. TRANSLATORS: Section heading title on Debugger page for status flags
 msgid "Status Flags"
-msgstr ""
+msgstr "ステータスフラグ"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 msgid "Step"
-msgstr ""
+msgstr "ステップ実行"
 
 #. TRANSLATORS: Status line shown when simulator execution stops
 msgid "Stopped"
-msgstr ""
+msgstr "停止"
 
 #. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
-msgstr ""
+msgstr "スタイル"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
-msgstr ""
+msgstr "構文エラー 行 %d: %s"
 
 msgid "System Default"
 msgstr "システムデフォルト"
@@ -1390,292 +1390,292 @@ msgstr "システムデフォルト"
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
-msgstr ""
+msgstr "ティール"
 
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
-msgstr ""
+msgstr "仮想ゲームコンソールで作品をテスト"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
-msgstr ""
+msgstr "6502 は 16 ビットのアドレスバスを使用し、プロセッサは 65536 バイトのメモリにアクセスできます。1 バイトは 2 桁の16進で表すため、メモリアドレスは一般に <tt>$0000 - $ffff</tt> と表記します。以下に代表的な参照方法を示します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is only used to set the zero flag - the actual result is discarded. The zero flag is set only if the result of AND-ing the accumulator with argument is zero. When we're looking at powers of two, the zero flag will only be set if the two numbers are not the same. For example, <tt>0001 AND 0001</tt> is not zero, but <tt>0001 AND 0010</tt> is zero."
-msgstr ""
+msgstr "<tt>BIT</tt> は <tt>AND</tt> に似ていますが、計算はゼロフラグの設定にのみ使われ、結果自体は破棄されます。アキュムレータと引数の AND が 0 のときのみゼロフラグが立ちます。2 の冪を扱う場合、2 つの数が異なるときだけゼロになります（例: <tt>0001 AND 0001</tt> は 0 ではなく、<tt>0001 AND 0010</tt> は 0）。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>init</tt> subroutine defers to two subroutines, <tt>initSnake</tt> and <tt>generateApplePosition</tt>. <tt>initSnake</tt> sets the snake direction, length, and then loads the initial memory locations of the snake head and body. The byte pair at <tt>$10</tt> contains the screen location of the head, the pair at <tt>$12</tt> contains the location of the single body segment, and <tt>$14</tt> contains the location of the tail (the tail is the last segment of the body and is drawn in black to keep the snake moving). This happens in the following code:"
-msgstr ""
+msgstr "<tt>init</tt> は <tt>initSnake</tt> と <tt>generateApplePosition</tt> の2つに分かれます。<tt>initSnake</tt> は方向と長さを設定し、頭部と胴体の初期位置を読み込みます。<tt>$10</tt> は頭、<tt>$12</tt> は単一の胴体セグメント、<tt>$14</tt> は尾の画面位置を保持します（尾は最後のセグメントで黒で描画し、動きを表現します）。次のコードで行われます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>loop</tt> subroutine itself just calls a number of subroutines sequentially, before looping back on itself:"
-msgstr ""
+msgstr "<tt>loop</tt> サブルーチンは複数のサブルーチンを順に呼び出し、その後自分自身に戻ります："
 
 #. TRANSLATORS: Detailed description of Accumulator register
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
-msgstr ""
+msgstr "アキュムレータ（A）は算術・論理演算の主レジスタです。ADD、SUBTRACT、AND、OR などの基本計算で使用され、6502 アセンブリで最も頻用されます。"
 
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
-msgstr ""
+msgstr "プログラムカウンタは次に実行する命令のアドレスを保持します。各命令後に自動インクリメントされ、ジャンプや分岐、呼び出しや復帰で変更されます。フロー制御やデバッグに不可欠です。"
 
 #. TRANSLATORS: Detailed description of Stack Pointer register
 msgid "The Stack Pointer manages the call stack for subroutines and interrupts. It starts at $FF (top of stack) and grows downward. Used for PUSH/PULL operations, JSR/RTS calls, and interrupt handling. Critical for nested function calls."
-msgstr ""
+msgstr "スタックポインタはサブルーチンや割り込みのコールスタックを管理します。初期値は $FF（スタック頂点）で下方向に伸びます。PUSH/PULL、JSR/RTS、割り込み処理で用いられ、入れ子呼び出しで重要です。"
 
 #. TRANSLATORS: Detailed description of X Index register
 msgid "The X Index Register is used for indexed addressing modes and counting operations. It can hold loop counters, array indices, and is essential for accessing memory locations relative to a base address using X as an offset. Special: TSX/TXS transfer X to/from the stack pointer."
-msgstr ""
+msgstr "X インデックスレジスタはインデックス付きアドレッシングやカウントに使用します。ループカウンタや配列インデックスを保持し、基底アドレスに対する X オフセットでのメモリアクセスに必須です。特例: TSX/TXS で X とスタックポインタを相互に転送します。"
 
 #. TRANSLATORS: Detailed description of Y Index register
 msgid "The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement."
-msgstr ""
+msgstr "Y インデックスレジスタは X と同様で特別な機能はありません。主にインデックス付きアドレッシングやデータ移動に使われます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
-msgstr ""
+msgstr "黒いゲーム画面の左上に色付きの「ピクセル」が3つ表示されているはずです。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The code block below contains the entire source code of the game. I'll explain how it works in the following sections."
-msgstr ""
+msgstr "以下のコードブロックにはゲーム全体のソースコードが含まれています。以降のセクションでその仕組みを説明します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The effect of this is to mask out the least significant two bits of the accumulator, setting the others to zero. This converts a number in the range of 0–255 to a number in the range of 0–3."
-msgstr ""
+msgstr "これによりアキュムレータの下位2ビットがマスクされ、それ以外は 0 になります。0〜255 の数を 0〜3 の範囲に変換します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first instruction causes execution to jump to the <tt>init</tt> label. This sets <tt>X</tt>, then returns to the next instruction, <tt>JSR loop</tt>. This jumps to the <tt>loop</tt> label, which increments <tt>X</tt> until it is equal to <tt>$05</tt>. After that we return to the next instruction, <tt>JSR end</tt>, which jumps to the end of the file. This illustrates how <tt>JSR</tt> and <tt>RTS</tt> can be used together to create modular code."
-msgstr ""
+msgstr "最初の命令で実行は <tt>init</tt> にジャンプします。ここで <tt>X</tt> を設定して次の命令 <tt>JSR loop</tt> に戻ります。<tt>loop</tt> では <tt>X</tt> を <tt>$05</tt> になるまでインクリメントし、続いて <tt>JSR end</tt> でファイル末尾へ。<tt>JSR</tt> と <tt>RTS</tt> を組み合わせてモジュール化できることを示します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first line shows the <tt>A</tt>, <tt>X</tt> and <tt>Y</tt> registers (<tt>A</tt> is often called the \"accumulator\"). Each register holds a single byte. Most operations work on the contents of these registers."
-msgstr ""
+msgstr "最初の行には <tt>A</tt>、<tt>X</tt>、<tt>Y</tt> の各レジスタ（<tt>A</tt> はアキュムレータ）を示します。各レジスタは1バイトを保持し、多くの操作はこれらの内容に対して行われます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first subroutine, <tt>readKeys</tt>, takes the job of accepting user input. The memory location <tt>$ff</tt> holds the ascii code of the most recent key press in this simulator. The value is loaded into the accumulator, then compared to <tt>$77</tt> (the hex code for W), <tt>$64</tt> (D), <tt>$73</tt> (S) and <tt>$61</tt> (A). If any of these comparisons are successful, the program branches to the appropriate section."
-msgstr ""
+msgstr "最初のサブルーチン <tt>readKeys</tt> は入力受付を担当します。このシミュレーターではメモリ <tt>$ff</tt> に直近のキーの ASCII コードが入ります。これを読み込んで <tt>$77</tt>(W)、<tt>$64</tt>(D)、<tt>$73</tt>(S)、<tt>$61</tt>(A) と比較し、一致すれば該当セクションに分岐します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first two bytes hold the location of the apple. This is updated every time the snake eats the apple. Byte <tt>$02</tt> contains the current direction. <tt>1</tt> means up, <tt>2</tt> right, <tt>4</tt> down, and <tt>8</tt> left. The reasoning behind these numbers will become clear later."
-msgstr ""
+msgstr "先頭の2バイトはりんごの位置です。スネークがりんごを食べるたび更新されます。バイト <tt>$02</tt> には現在の方向が入り、<tt>1</tt>=上、<tt>2</tt>=右、<tt>4</tt>=下、<tt>8</tt>=左です。数値の理由は後ほど明らかになります。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The game loop"
-msgstr ""
+msgstr "ゲームループ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex should look something like this:"
-msgstr ""
+msgstr "16進表示は次のようになります:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
-msgstr ""
+msgstr "16進 <tt>$03</tt> は 2 進で <tt>00000011</tt> です。<tt>AND</tt> は引数とアキュムレータのビット AND を行います。例えばアキュムレータが <tt>10101010</tt> なら、<tt>00000011</tt> との <tt>AND</tt> 結果は <tt>00000010</tt> です。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."
-msgstr ""
+msgstr "最後のセクションはプロセッサフラグです。各フラグは1ビットなので7つすべてが1バイトに収まります。フラグは直前の命令結果を示すために設定されます。詳細は後ほど。<a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">こちらでレジスタとフラグの解説を参照</a>。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last subroutine, <tt>spinWheels</tt>, is just there because the game would run too fast otherwise. All <tt>spinWheels</tt> does is count <tt>X</tt> down from zero until it hits zero again. The first <tt>dex</tt> wraps, making <tt>X</tt> <tt>#$ff</tt>."
-msgstr ""
+msgstr "最後の <tt>spinWheels</tt> はゲームが速すぎないようにするための遅延です。<tt>X</tt> を 0 から減らし 0 に戻るまで数えます。最初の <tt>dex</tt> はラップして <tt>X</tt> は <tt>#$ff</tt> になります。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive (<tt>BPL</tt> means \"branch if positive\")."
-msgstr ""
+msgstr "長さは <tt>4</tt> なので <tt>X</tt> は <tt>3</tt> から開始します。<tt>LDA $10,x</tt> で <tt>$13</tt> を <tt>A</tt> に、<tt>STA $12,x</tt> でそれを <tt>$15</tt> に保存。<tt>X</tt> をデクリメントしてループします。次に <tt>X=2</tt> なので <tt>$12</tt> を読み <tt>$14</tt> に保存します。<tt>X</tt> が正の間（<tt>BPL</tt>）ループします。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next bit updates the head of the snake depending on the direction. This is probably the most complicated part of the code, and it's all reliant on how memory locations map to the screen, so let's look at that in more detail."
-msgstr ""
+msgstr "次の部分は方向に応じて蛇の頭を更新します。ここはおそらく最も複雑で、メモリアドレスが画面にどう対応するかに依存します。詳しく見ていきましょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next line, <tt>BNE decrement</tt>, will shift execution to the decrement label if the <tt>Z</tt> flag is set to <tt>0</tt> (meaning that the two values in the <tt>CPX</tt> comparison were not equal), otherwise it does nothing and we store <tt>X</tt> to <tt>$0201</tt>, then finish the program."
-msgstr ""
+msgstr "次の <tt>BNE decrement</tt> は、<tt>Z</tt> が <tt>0</tt>（<tt>CPX</tt> で等しくなかった）なら <tt>decrement</tt> へ。そうでなければ何もせず <tt>X</tt> を <tt>$0201</tt> に保存して終了します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>checkCollision</tt>, defers to <tt>checkAppleCollision</tt> and <tt>checkSnakeCollision</tt>. <tt>checkAppleCollision</tt> just checks to see if the two bytes holding the location of the apple match the two bytes holding the location of the head. If they do, the length is increased and a new apple position is generated."
-msgstr ""
+msgstr "次の <tt>checkCollision</tt> は <tt>checkAppleCollision</tt> と <tt>checkSnakeCollision</tt> に委ねます。<tt>checkAppleCollision</tt> はりんご位置の2バイトと頭位置の2バイトが一致するかを確認し、一致すれば長さを伸ばして新しいりんご位置を生成します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
-msgstr ""
+msgstr "次の <tt>generateApplePosition</tt> はりんごの位置をランダムに設定します。まず乱数バイトをアキュムレータへ読み込み（このシミュレーターでは <tt>$fe</tt> が乱数源）、<tt>$00</tt> に保存。次に別の乱数を読み込み、<tt>$03</tt> と <tt>AND</tt> します。ここで少し寄り道が必要です。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."
-msgstr ""
+msgstr "<tt>ADC</tt> の反対は <tt>SBC</tt>（キャリー付き減算）です。これを使うプログラムを書いてみましょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>BNE</tt> is <tt>BEQ</tt>. Try writing a program that uses <tt>BEQ</tt>."
-msgstr ""
+msgstr "<tt>BNE</tt> の逆は <tt>BEQ</tt> です。<tt>BEQ</tt> を使うプログラムを書いてみましょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The problem is, <tt>$184</tt> is too big to fit in a single byte (the max is <tt>$FF</tt>), and the registers can only hold a single byte. It's OK though; the processor isn't actually dumb. If you were looking carefully enough, you'll have noticed that the carry flag was set to <tt>1</tt> after this operation. So that's how you know."
-msgstr ""
+msgstr "問題は <tt>$184</tt> が 1 バイトに収まりません（最大 <tt>$FF</tt>）。レジスタは 1 バイトしか保持できません。ただし処理系は賢く、この演算後にキャリーフラグが <tt>1</tt> に立っていたのに気付くでしょう。つまりそういうことです。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The processor knows where to return to because <tt>JSR</tt> pushes the address minus one of the next instruction onto the stack before jumping to the given location. <tt>RTS</tt> pops this location, adds one to it, and jumps to that location. An example:"
-msgstr ""
+msgstr "<tt>JSR</tt> はジャンプ前に「次の命令のアドレス−1」をスタックに積むため、処理系は戻り先を知っています。<tt>RTS</tt> はそれを取り出して +1 し、そこへ戻ります。例:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
-msgstr ""
+msgstr "このサブルーチンの結果、<tt>$00</tt> に乱数バイト、<tt>$01</tt> に 2〜5 の乱数が入ります。間接アドレッシングでは下位バイトが先なので、表示に使う <tt>$0200</tt>〜<tt>$05ff</tt> の範囲のアドレスになります。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"
-msgstr ""
+msgstr "スタック"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
-msgstr ""
+msgstr "6502 のスタックは一般的なスタックと同じで、値をプッシュし、（6502 では「プル」と呼ぶ）ポップします。深さはスタックポインタという特別なレジスタで管理されます。スタックは <tt>$0100</tt>〜<tt>$01ff</tt> にあり、スタックポインタの初期値は <tt>$ff</tt>（<tt>$01ff</tt> を指す）です。1 バイトをプッシュすると <tt>$fe</tt>（<tt>$01fe</tt>）になり…と続きます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
-msgstr ""
+msgstr "ゼロページには、ゲーム状態の変数がいくつか格納されます。<tt>$00</tt>、<tt>$01</tt>、<tt>$10</tt> 以降にあるものは、間接アドレッシングで参照される 2 バイトのアドレスを表します。これらは表示用の <tt>$0200</tt>〜<tt>$05ff</tt> の範囲に対応します。例えば <tt>$00</tt>=<tt>$01</tt>、<tt>$01</tt>=<tt>$02</tt> なら、表示の2番目のピクセル <tt>$0201</tt> を指します（間接では下位バイトが先）。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr ""
+msgstr "ではなぜ 6502 なのか？<a href=\"https://ja.wikipedia.org/wiki/X86\">x86</a> のような「実用的」なアセンブリでは？私は x86 を学ぶ必要性は高くないと思います。仕事でアセンブリを書く機会はほぼありません。これは思考を広げる学術的な練習でもあります。6502 は多くの開発者が高級言語ではなく直接アセンブリを書いていた時代に、人間が書く前提で設計されました。現代のアセンブリはコンパイラが出力するためのものです。しかも 6502 は「楽しい」。x86 を「楽しい」と言う人はいません。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
-msgstr ""
+msgstr "実用的な理由もあります。レトロゲーム開発です。ホームブリューは今も盛んで、<a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">NES 向けの新作</a>をはじめ多くのクラシック機で作品が出ています。SNES のような別機種でも 6502 から始める価値があります。SNES の 65C816 は 6502 と後方互換で、ここで学ぶ基礎（レジスタ、アドレッシング、命令セット）はそのまま活きます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "These are the absolute addressing versions of zero page,X and zero page,Y. For example:"
-msgstr ""
+msgstr "これはゼロページ,X/Y の絶対アドレッシング版です。例:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This is the equivalent of zero page,X, but can only be used with <tt>LDX</tt> and <tt>STX</tt>."
-msgstr ""
+msgstr "これはゼロページ,X と同等ですが、<tt>LDX</tt> と <tt>STX</tt> にのみ使用できます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This is where addressing gets interesting. In this mode, a zero page address is given, and then the value of the <tt>X</tt> register is added. Here is an example:"
-msgstr ""
+msgstr "このあたりからアドレッシングが面白くなります。このモードではゼロページアドレスが与えられ、そこに <tt>X</tt> の値を加えます。例:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This loads the value <tt>$11</tt> into the memory location <tt>$10</tt>, the value <tt>$10</tt> into <tt>$12</tt>, and <tt>$0f</tt> into <tt>$14</tt>. It then loads the value <tt>$04</tt> into <tt>$11</tt>, <tt>$13</tt> and <tt>$15</tt>. This leads to memory like this:"
-msgstr ""
+msgstr "これは <tt>$10</tt> に <tt>$11</tt>、<tt>$12</tt> に <tt>$10</tt>、<tt>$14</tt> に <tt>$0f</tt> を書き込み、さらに <tt>$11</tt>、<tt>$13</tt>、<tt>$15</tt> に <tt>$04</tt> を書き込みます。結果のメモリは次のとおりです:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This one's kinda weird. It's like a cross between zero page,X and indirect. Basically, you take the zero page address, add the value of the <tt>X</tt> register to it, then use that to look up a two-byte address. For example:"
-msgstr ""
+msgstr "これは少し変わっています。ゼロページ,X と間接の中間のようなものです。ゼロページアドレスに <tt>X</tt> を加え、その結果を使って 2 バイトアドレスを参照します。例:"
 
 #. TRANSLATORS: Release notes for version 0.4.0
 msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
-msgstr ""
+msgstr "本リリースでは携帯機風の鮮やかなテーマとカスタムカラー、タブレット/デスクトップ向けのアダプティブなレイアウトを導入し、長時間の学習にも見通しよく作業できます。新規コントリビューター @mmartinortiz に感謝します。TypeScript の厳格化、GtkSourceView のカスタムスタイル、強化されたデバッガー操作など技術面の改善も多数含みます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
-msgstr ""
+msgstr "方向が <tt>1</tt>/<tt>2</tt>/<tt>4</tt>/<tt>8</tt> のどれかを調べるには、キャリーが立つまで右シフト（<tt>LSR</tt>）を繰り返します。1 回なら上、2 回なら右…という具合です。"
 
 #. TRANSLATORS: Tooltip text for sidebar toggle button in header bar
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "サイドバーを切り替え"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try changing the colour of the three pixels."
-msgstr ""
+msgstr "3 つのピクセルの色を変えてみましょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the monitor in the debugger to watch a section of memory."
-msgstr ""
+msgstr "6502 の各アドレッシングモードを使うコード片を書いてみましょう。デバッガーのモニターでメモリの変化を観察できます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
-msgstr ""
+msgstr "チュートリアル <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, CC BY 4.0</sub>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
-msgstr ""
+msgstr "スタック命令の例として <tt>PHA</tt>（アキュムレータをプッシュ）と <tt>PLA</tt>（プル）があります。以下はその例です。"
 
 msgid "Ukrainian"
 msgstr "ウクライナ語"
 
 msgid "Unable to find/parse given address/label"
-msgstr ""
+msgstr "指定されたアドレス/ラベルを見つける/解析できません"
 
 msgid "Unable to relocate code outside 64k memory"
-msgstr ""
+msgstr "64K メモリ外へコードを再配置できません"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Unlike zero page,Y, absolute,Y can't be used with <tt>STX</tt> but can be used with <tt>LDA</tt> and <tt>STA</tt>."
-msgstr ""
+msgstr "ゼロページ,Y と違い、absolute,Y は <tt>STX</tt> では使えませんが、<tt>LDA</tt> と <tt>STA</tt> では使えます。"
 
 #. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
 msgid "Unsaved changes"
-msgstr ""
+msgstr "未保存の変更"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Updating the game state"
-msgstr ""
+msgstr "ゲーム状態の更新"
 
 #. TRANSLATORS: Switch label to enable custom accent color
 msgid "Use custom accent color"
-msgstr ""
+msgstr "カスタムのアクセントカラーを使用"
 
 #. TRANSLATORS: Switch label to enable custom primary color
 msgid "Use custom primary color"
-msgstr ""
+msgstr "カスタムのプライマリカラーを使用"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</tt>=black, <tt>$01</tt>=white)"
-msgstr ""
+msgstr "<tt>$00</tt>〜<tt>$0F</tt> は 16 色を表します（<tt>$00</tt>=黒、<tt>$01</tt>=白）"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "We've already had a little look at the processor status section (the bit with <tt>A</tt>, <tt>PC</tt> etc.), but what does it all mean?"
-msgstr ""
+msgstr "すでにステータス欄（<tt>A</tt> や <tt>PC</tt> など）を少し見ましたが、何を意味するのでしょうか？"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "With absolute addressing, the full memory location is used as the argument to the instruction. For example:"
-msgstr ""
+msgstr "絶対アドレッシングでは、命令の引数として完全なメモリアドレスを使います。例えば:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
-msgstr ""
+msgstr "これらの例では、デバッガーのメモリモニターで変化を観察すると理解が進みます。開始アドレスと表示バイト数（ともに16進）を指定します。例えば <tt>$c000</tt> から 16 バイトを表示するには、<b>Start</b> に <tt>c000</tt>、<b>Length</b> に <tt>10</tt> を入力します。"
 
 #. TRANSLATORS: Feature list item about integrated code editor
 msgid "Write and edit code with a built-in code editor"
-msgstr ""
+msgstr "内蔵コードエディターでコードを作成・編集"
 
 #. TRANSLATORS: Tooltip for accent color option Yellow
 #. TRANSLATORS: Tooltip for primary color option Yellow
 msgid "Yellow"
-msgstr ""
+msgstr "黄色"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
-msgstr ""
+msgstr "画面は 32×8 ピクセルの水平ストリップ 4 本と考えられます。対応は <tt>$0200-$02ff</tt>、<tt>$0300-$03ff</tt>、<tt>$0400-$04ff</tt>、<tt>$0500-$05ff</tt>。各行の先頭は <tt>$0200-$021f</tt>、<tt>$0220-$023f</tt>、<tt>$0240-$025f</tt>…です。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
-msgstr ""
+msgstr "<tt>TAX</tt> は見ましたね。<tt>TAY</tt>、<tt>TXA</tt>、<tt>TYA</tt> が何をするか想像できるでしょう。コードを書いて確かめてみましょう。"
 
 #. TRANSLATORS: Alert dialog body explaining risk of losing changes
 msgid "Your file has unsaved changes. Changes will be lost if you don't save them."
-msgstr ""
+msgstr "ファイルに未保存の変更があります。保存しない場合、変更は失われます。"
 
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
-msgstr ""
+msgstr "ゼロフラグ: 演算結果が0のときにセット。条件分岐で重要で、BEQ/BNE など多くの命令が値が0かどうかの判定に用います。"
 
 #. TRANSLATORS: Dropdown option label for zero-page memory range
 msgid "Zero Page ($0000-$00FF)"
-msgstr ""
+msgstr "ゼロページ ($0000-$00FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page usage"
-msgstr ""
+msgstr "ゼロページの使い方"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page,X: <tt>$c0,X</tt>"
-msgstr ""
+msgstr "ゼロページ,X: <tt>$c0,X</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page,Y: <tt>$c0,Y</tt>"
-msgstr ""
+msgstr "ゼロページ,Y: <tt>$c0,Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page: <tt>$c0</tt>"
-msgstr ""
+msgstr "ゼロページ: <tt>$c0</tt>"
 
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
 msgid "_Preferences"
@@ -1683,16 +1683,16 @@ msgstr "_設定"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"
-msgstr ""
+msgstr "学習"
 
 #. TRANSLATORS: App Store search keyword
 msgid "programming"
-msgstr ""
+msgstr "プログラミング"
 
 #. TRANSLATORS: Internal simulator pseudo-op name used when outputting A as a character
 msgid "wdm-output"
-msgstr ""
+msgstr "wdm-output"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
-msgstr ""
+msgstr "これは間接参照で得られる <tt>$0411</tt>、<tt>$0410</tt>、<tt>$040f</tt>（画面中央付近の3ピクセル）を表します。くどいようですが、間接アドレッシングの仕組みをしっかり理解することが重要です。"
