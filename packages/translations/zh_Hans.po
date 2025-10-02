@@ -868,7 +868,7 @@ msgstr "在本示例中，<tt>$f0</tt> 含有 <tt>$01</tt>，<tt>$f1</tt> 含有
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this tiny tutorial I'm going to show you how to get started writing 6502 assembly language. The 6502 processor was massive in the seventies and eighties, powering famous computers like the <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in 6502</a>."
-msgstr "在这个简短的教程中，我将向您展示如何开始编写6502汇编语言。6502处理器在七十年代和八十年代非常流行，为许多著名计算机提供动力，如<a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>、<a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>、<a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>、<a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>和<a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>。Futurama中的Bender<a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">拥有一个6502处理器作为大脑</a>。<a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">甚至终结者也是用6502编程的</a>。"
+msgstr "在这个简短教程中，我将向你展示如何开始编写 6502 汇编语言。6502 处理器在七八十年代非常流行，为许多著名计算机提供动力，如 <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>、<a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>、<a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>、<a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a> 和 <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>。《飞出个未来》中的 Bender <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">有一个 6502 处理器作为大脑</a>。<a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">甚至终结者也是用 6502 编程的</a>。"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Index register X: Used for addressing"
@@ -911,7 +911,7 @@ msgstr "指令集"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Instructions in assembly language are like a small set of predefined functions. All instructions take zero or one arguments. Here's some annotated source code to introduce a few different instructions:"
-msgstr "指令集可以看做汇编语言中的预定义函数.所有的指令可以接受0个或者1个参数,下面的代码使用了一些部分指令:"
+msgstr "汇编语言中的指令类似于一小组预定义函数。所有指令接受零个或一个参数。下面是一些带注释的源代码，用于介绍几种不同的指令："
 
 #. TRANSLATORS: Screenshot caption for the interactive tutorial view
 msgid "Interactive tutorial"
@@ -971,7 +971,7 @@ msgstr "学习"
 
 #. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
-msgstr "关于 Learn 6502 Assembly"
+msgstr "学习 6502 汇编"
 
 #. TRANSLATORS: Feature list item about learning history while coding
 msgid "Learn about computer history while coding"
@@ -1008,7 +1008,7 @@ msgstr "消息"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Nearly all games have at their heart a game loop. All game loops have the same basic form: accept user input, update the game state, and render the game state. This loop is no different."
-msgstr "与大多数游戏的循环相似，接受用户输入，更新游戏状态，渲染游戏状态."
+msgstr "几乎所有游戏的核心都是游戏循环。所有游戏循环都具有相同的基本形式：接受用户输入，更新游戏状态，渲染游戏状态。这个循环也不例外。"
 
 msgid "Negative Flag: Set when the most significant bit (bit 7) of the result is 1. Used for signed number comparisons and indicates if a value is negative in two's complement representation."
 msgstr "负标志（N）：当结果最高位（位 7）为 1 时置位。用于有符号数比较，指示值在二进制补码表示中是否为负。"
@@ -1070,7 +1070,7 @@ msgstr "通过移除不必要的权限优化了 Flatpak 配置"
 #. TRANSLATORS: Tooltip for accent color option Orange
 #. TRANSLATORS: Tooltip for primary color option Orange
 msgid "Orange"
-msgstr "强调色：橙色"
+msgstr "橙色"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Organized as four horizontal strips of 32×8 pixels"
@@ -1399,19 +1399,19 @@ msgstr "在虚拟游戏主机上测试你的作品"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
-msgstr "6502使用16bit地址总线，意味着处理器可以访问到 65536(2的16次方) bytes的内存.通常使用十六进制 <tt>$0000 - $ffff</tt>表示. 下面介绍内存寻址的方式."
+msgstr "6502 使用 16 位地址总线，这意味着处理器可以访问 65536 字节的内存。请记住一个字节用两个十六进制字符表示，因此内存位置通常表示为 <tt>$0000 - $ffff</tt>。访问这些内存位置有多种方式，详述如下。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is only used to set the zero flag - the actual result is discarded. The zero flag is set only if the result of AND-ing the accumulator with argument is zero. When we're looking at powers of two, the zero flag will only be set if the two numbers are not the same. For example, <tt>0001 AND 0001</tt> is not zero, but <tt>0001 AND 0010</tt> is zero."
-msgstr "指令 <tt>BIT</tt>与<tt>AND</tt>相似, 只用来设置标志位，忽略计算结果.例如, <tt>0001 AND 0001</tt>不是0, but <tt>0001 AND 0010</tt>是0."
+msgstr "<tt>BIT</tt> 指令与 <tt>AND</tt> 相似，但计算结果仅用于设置零标志——实际结果会被丢弃。仅当累加器与参数进行 AND 运算的结果为零时，零标志才会置位。对于 2 的幂，仅当两个数不相同时零标志才会置位。例如，<tt>0001 AND 0001</tt> 不为零，但 <tt>0001 AND 0010</tt> 为零。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>init</tt> subroutine defers to two subroutines, <tt>initSnake</tt> and <tt>generateApplePosition</tt>. <tt>initSnake</tt> sets the snake direction, length, and then loads the initial memory locations of the snake head and body. The byte pair at <tt>$10</tt> contains the screen location of the head, the pair at <tt>$12</tt> contains the location of the single body segment, and <tt>$14</tt> contains the location of the tail (the tail is the last segment of the body and is drawn in black to keep the snake moving). This happens in the following code:"
-msgstr "<tt>init</tt> 包含2个子程序, <tt>initSnake</tt> 和 <tt>generateApplePosition</tt>. <tt>initSnake</tt> 初始化蛇的方向 长度 然后加载内存中的头部和身体y. <tt>$10</tt> 保存了头的位置 <tt>$12</tt> 保存了身体开始部位的信息, and <tt>$14</tt> 保存了尾部:"
+msgstr "<tt>init</tt> 子程序调用两个子程序：<tt>initSnake</tt> 和 <tt>generateApplePosition</tt>。<tt>initSnake</tt> 设置蛇的方向和长度，然后加载蛇头与身体的初始内存位置。<tt>$10</tt> 处的字节对包含蛇头的屏幕位置，<tt>$12</tt> 处的字节对包含唯一身体段的位置，<tt>$14</tt> 包含尾部位置（尾部是身体的最后一段，用黑色绘制以保持蛇的移动）。这在以下代码中实现："
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>loop</tt> subroutine itself just calls a number of subroutines sequentially, before looping back on itself:"
-msgstr "在 <tt>loop</tt> 调用中，只是调用其他的子程序:"
+msgstr "<tt>loop</tt> 子程序本身只是按顺序调用多个子程序，然后循环回到自身："
 
 #. TRANSLATORS: Detailed description of Accumulator register
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
@@ -1527,7 +1527,7 @@ msgstr "调用栈"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
-msgstr "用来进行存储后进先出的值，包含push,pull(pop)2个操作.栈的当前深度使用栈指针寄存器保存.栈保存在内存的 <tt>$0100</tt> 到 <tt>$01ff</tt>.栈指针初始化为<tt>$ff</tt>, 指向内存的<tt>$01ff</tt>.等压入byte值时则变为 <tt>$fe</tt>, 也就是 <tt>$01fe</tt>."
+msgstr "6502 处理器中的栈与其他栈一样——值被压入栈，然后弹出（6502 术语中称为\"拉出\"）。栈的当前深度由栈指针（一个特殊寄存器）测量。栈位于内存的 <tt>$0100</tt> 到 <tt>$01ff</tt> 之间。栈指针初始为 <tt>$ff</tt>，指向内存位置 <tt>$01ff</tt>。当有字节压入栈时，栈指针变为 <tt>$fe</tt>，即内存位置 <tt>$01fe</tt>，依此类推。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
@@ -1535,11 +1535,11 @@ msgstr "零页内存用于存储若干游戏状态变量，如游戏顶部注释
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr "那么为什么是6502汇编?而不是一门常用的汇编语言,比如<a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? 好吧，我觉得学些x86并不是那么有用。现在的工作中很少使用x86汇编,通常只是个人的教学练习，或者是闲暇时组织的思维。然后6502是在那个时代真正被广泛应有的语言,不像现在的汇编是高级语言的产物。所有6502汇编是设计为人类编写友好的汇编语言。所以还是值得学些。"
+msgstr "那么为什么选择 6502？为什么不是像 <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a> 这样<i>有用的</i>汇编语言？其实我认为学习 x86 并不那么有用。你的日常工作中可能永远不需要<i>编写</i>汇编语言——对某些人来说这是学术练习，是拓展思维的方式。6502 诞生于不同的时代，那时大多数开发者直接编写汇编，而非使用这些新兴的高级编程语言。因此它被设计为对人类友好。更现代的汇编语言是为编译器设计的，所以交给它们吧。而且，6502 很<i>有趣</i>。从来没人说过 x86<i>有趣</i>。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
-msgstr "还有一个非常实际的原因：复古游戏开发。自制游戏场景依然活跃且良好——新游戏仍然<a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">为NES发布</a>（有些甚至作为实体卡带），并且适用于许多其他经典系统；NES只是一个例子。即使你的目标是像SNES这样的系统，从6502开始也是值得的：SNES CPU（65C816）向后兼容6502，所以你在这里学到的基础知识——寄存器、寻址模式和核心指令集——可以直接沿用。"
+msgstr "还有一个非常实际的理由：复古游戏开发。自制游戏圈依然活跃——新游戏仍在<a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">为 NES 发布</a>（有些甚至做成实体卡带），以及许多其他经典系统；NES 只是一个例子。即使你的目标是 SNES 之类的系统，从 6502 开始也很值得：SNES 的 CPU（65C816）向后兼容 6502，所以你在这里学到的基础——寄存器、寻址模式和核心指令集——可以直接应用。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "These are the absolute addressing versions of zero page,X and zero page,Y. For example:"
@@ -1624,7 +1624,7 @@ msgstr "数值 <tt>$00</tt>-<tt>$0F</tt> 代表 16 种颜色（<tt>$00</tt>=黑�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "We've already had a little look at the processor status section (the bit with <tt>A</tt>, <tt>PC</tt> etc.), but what does it all mean?"
-msgstr "上面我们简单说明了寄存器<tt>A</tt>的操作, <tt>那么其余的像X,Y到PC</tt>等.),又表示什么??"
+msgstr "我们已经简单了解了处理器状态部分（包括 <tt>A</tt>、<tt>PC</tt> 等），但这些都是什么意思呢？"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "With absolute addressing, the full memory location is used as the argument to the instruction. For example:"
@@ -1641,7 +1641,7 @@ msgstr "使用内置代码编辑器编写与编辑代码"
 #. TRANSLATORS: Tooltip for accent color option Yellow
 #. TRANSLATORS: Tooltip for primary color option Yellow
 msgid "Yellow"
-msgstr "强调色：黄色"
+msgstr "黄色"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
@@ -1649,7 +1649,7 @@ msgstr "可以将屏幕看作 4 个横向条，每个条 32 × 8 像素。它们
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
-msgstr "看到上面的<tt>TAX</tt>.  <tt>那么指令TAY</tt>是否也是这样呢, <tt>TXA</tt> 和 <tt>TYA</tt>是否相同 ,编写代码进行测试."
+msgstr "你已经看过 <tt>TAX</tt> 了。你大概能猜到 <tt>TAY</tt>、<tt>TXA</tt> 和 <tt>TYA</tt> 的作用，但请编写代码来验证你的假设。"
 
 #. TRANSLATORS: Alert dialog body explaining risk of losing changes
 msgid "Your file has unsaved changes. Changes will be lost if you don't save them."
