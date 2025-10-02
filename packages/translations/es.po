@@ -1216,7 +1216,7 @@ msgstr "Púrpura"
 msgid "Quick tips"
 msgstr "Consejos rápidos"
 
-#. TRANSLATORS: Button to quit the application so user can restart it manually
+#. TRANSLATORS: Quit application menu item label
 msgid "Quit"
 msgstr "Salir"
 
@@ -1259,6 +1259,10 @@ msgstr "Renderizado del juego"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
+msgstr "Reiniciar"
+
+#. TRANSLATORS: Button to quit the application so user can restart it
+msgid "Restart"
 msgstr "Reiniciar"
 
 #. TRANSLATORS: Dialog heading shown when user changes language
@@ -1491,8 +1495,8 @@ msgstr "El hex debería verse más o menos así:"
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "El valor hexadecimal <tt>$03</tt> se representa en binario como <tt>00000011</tt>. La operación <tt>AND</tt> realiza un AND bit a bit entre el argumento y el acumulador. Por ejemplo, si el acumulador contiene <tt>10101010</tt>, el resultado de <tt>AND</tt> con <tt>00000011</tt> será <tt>00000010</tt>."
 
-msgid "The language change will take full effect after manually restarting the application."
-msgstr "El cambio de idioma tendrá efecto completo después de reiniciar manualmente la aplicación."
+msgid "The language change will take full effect after restarting the application."
+msgstr "El cambio de idioma tendrá efecto completo después de reiniciar la aplicación."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."

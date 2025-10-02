@@ -1215,7 +1215,7 @@ msgstr "Violet"
 msgid "Quick tips"
 msgstr "Astuces rapides"
 
-#. TRANSLATORS: Button to quit the application so user can restart it manually
+#. TRANSLATORS: Quit application menu item label
 msgid "Quit"
 msgstr "Quitter"
 
@@ -1259,6 +1259,10 @@ msgstr "Rendu du jeu"
 #. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
 msgstr "Réinitialiser"
+
+#. TRANSLATORS: Button to quit the application so user can restart it
+msgid "Restart"
+msgstr "Redémarrer"
 
 #. TRANSLATORS: Dialog heading shown when user changes language
 msgid "Restart Required"
@@ -1490,8 +1494,8 @@ msgstr "L'hex devrait ressembler à quelque chose comme ça :"
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "La valeur hex <tt>$03</tt> est représentée en binaire comme <tt>00000011</tt>. L'opcode <tt>AND</tt> effectue un ET bit à bit de l'argument avec l'accumulateur. Par exemple, si l'accumulateur contient la valeur binaire <tt>10101010</tt>, alors le résultat de <tt>AND</tt> avec <tt>00000011</tt> sera <tt>00000010</tt>."
 
-msgid "The language change will take full effect after manually restarting the application."
-msgstr "Le changement de langue prendra pleinement effet après avoir redémarré manuellement l'application."
+msgid "The language change will take full effect after restarting the application."
+msgstr "Le changement de langue prendra pleinement effet après avoir redémarré l'application."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."

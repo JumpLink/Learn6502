@@ -1214,7 +1214,7 @@ msgstr "Paars"
 msgid "Quick tips"
 msgstr "Snelle tips"
 
-#. TRANSLATORS: Button to quit the application so user can restart it manually
+#. TRANSLATORS: Quit application menu item label
 msgid "Quit"
 msgstr "Afsluiten"
 
@@ -1258,6 +1258,10 @@ msgstr "Het spel renderen"
 #. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
 msgstr "Resetten"
+
+#. TRANSLATORS: Button to quit the application so user can restart it
+msgid "Restart"
+msgstr "Herstarten"
 
 #. TRANSLATORS: Dialog heading shown when user changes language
 msgid "Restart Required"
@@ -1489,8 +1493,8 @@ msgstr "De hex zou er ongeveer zo uit moeten zien:"
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "De hexwaarde <tt>$03</tt> wordt binair weergegeven als <tt>00000011</tt>. De opcode <tt>AND</tt> voert een bitgewijze AND uit van het argument met de accumulator. Als de accumulator bijvoorbeeld de binaire waarde <tt>10101010</tt> bevat, dan is het resultaat van <tt>AND</tt> met <tt>00000011</tt> <tt>00000010</tt>."
 
-msgid "The language change will take full effect after manually restarting the application."
-msgstr "De taalwijziging zal volledig effect hebben na het handmatig herstarten van de toepassing."
+msgid "The language change will take full effect after restarting the application."
+msgstr "De taalwijziging zal volledig effect hebben na het herstarten van de toepassing."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."
