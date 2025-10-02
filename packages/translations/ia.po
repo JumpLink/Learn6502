@@ -966,6 +966,10 @@ msgstr "Fallimento de etiquettas"
 msgid "Language"
 msgstr "Lingua"
 
+#. TRANSLATORS: Button to dismiss the restart dialog and continue using the app
+msgid "Later"
+msgstr "Plus tarde"
+
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
 msgstr "Apprender"
@@ -1109,10 +1113,6 @@ msgstr "Rosate"
 msgid "Play"
 msgstr "Jocar"
 
-#. TRANSLATORS: Banner title shown after changing language
-msgid "Please restart the application for the language change to take effect."
-msgstr "Per favor reinitia le application pro applicar le cambio de lingua."
-
 msgid "Portuguese"
 msgstr "Portuguese"
 
@@ -1207,7 +1207,7 @@ msgstr "Purpura"
 msgid "Quick tips"
 msgstr "Consilios rapide"
 
-#. TRANSLATORS: Quit application menu item label
+#. TRANSLATORS: Button to quit the application so user can restart it manually
 msgid "Quit"
 msgstr "Quitar"
 
@@ -1251,6 +1251,10 @@ msgstr "Render le joco"
 #. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
 msgstr "Reinitialisar"
+
+#. TRANSLATORS: Dialog heading shown when user changes language
+msgid "Restart Required"
+msgstr "Reinitio requirite"
 
 #. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
@@ -1473,6 +1477,9 @@ msgstr "Le hex deberea reguardar alcuno cosa como isto:"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "Le valor hex <tt>$03</tt> es representate in binari como <tt>00000011</tt>. Le opcode <tt>AND</tt> executa un AND bitwise del argumento con le accumulator. Pro exemplo, si le accumulator contine le valor binari <tt>10101010</tt>, pois le resultato de <tt>AND</tt> con <tt>00000011</tt> sera <tt>00000010</tt>."
+
+msgid "The language change will take full effect after manually restarting the application."
+msgstr "Le cambio de lingua prendera effecto complete post reinitiar manualmente le application."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."

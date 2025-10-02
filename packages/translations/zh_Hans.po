@@ -965,6 +965,10 @@ msgstr "标签处理失败"
 msgid "Language"
 msgstr "语言"
 
+#. TRANSLATORS: Button to dismiss the restart dialog and continue using the app
+msgid "Later"
+msgstr "稍后"
+
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
 msgstr "学习"
@@ -1108,10 +1112,6 @@ msgstr "粉色"
 msgid "Play"
 msgstr "开始"
 
-#. TRANSLATORS: Banner title shown after changing language
-msgid "Please restart the application for the language change to take effect."
-msgstr "请重启应用以使语言更改生效。"
-
 msgid "Portuguese"
 msgstr "葡萄牙语"
 
@@ -1206,7 +1206,7 @@ msgstr "紫色"
 msgid "Quick tips"
 msgstr "快速提示"
 
-#. TRANSLATORS: Quit application menu item label
+#. TRANSLATORS: Button to quit the application so user can restart it manually
 msgid "Quit"
 msgstr "退出"
 
@@ -1250,6 +1250,10 @@ msgstr "渲染游戏"
 #. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
 msgstr "重置"
+
+#. TRANSLATORS: Dialog heading shown when user changes language
+msgid "Restart Required"
+msgstr "需要重启"
 
 #. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
@@ -1472,6 +1476,9 @@ msgstr "十六进制应类似如下："
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "十六进制值 <tt>$03</tt> 的二进制表示为 <tt>00000011</tt>。<tt>AND</tt> 指令对参数与累加器执行按位与。例如，若累加器为 <tt>10101010</tt>，与 <tt>00000011</tt> 进行 <tt>AND</tt> 的结果为 <tt>00000010</tt>。"
+
+msgid "The language change will take full effect after manually restarting the application."
+msgstr "语言更改将在手动重启应用程序后完全生效。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."
