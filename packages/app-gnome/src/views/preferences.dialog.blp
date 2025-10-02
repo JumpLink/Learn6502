@@ -11,12 +11,6 @@ template $PreferencesDialog: Adw.PreferencesDialog {
     // TRANSLATORS: Preferences page title for General settings
     title: _("General");
     icon-name: "preferences-system-symbolic";
-    
-    banner: Adw.Banner restartBanner {
-      // TRANSLATORS: Banner title shown after changing language
-      title: _("Please restart the application for the language change to take effect.");
-      revealed: false;
-    };
 
     Adw.PreferencesGroup languageGroup {
       $LanguageSelector languageSelector {}

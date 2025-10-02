@@ -1,6 +1,5 @@
 import GObject from "@girs/gobject-2.0";
 import Gio from "@girs/gio-2.0";
-import Gtk from "@girs/gtk-4.0";
 import Adw from "@girs/adw-1";
 
 import { MainWindow, PreferencesDialog } from "./views/index.ts";
@@ -37,6 +36,42 @@ export class Application extends Adw.Application {
     languageService.init();
     themeService.init();
     initResources();
+
+    // Listen for language changes to show restart dialog
+    languageService.connect("language-changed", () => {
+      this.showRestartDialog();
+    });
+  }
+
+  private showRestartDialog(): void {
+    const dialog = new Adw.AlertDialog({
+      // TRANSLATORS: Dialog heading shown when user changes language
+      heading: _("Restart Required"),
+      // TRANSLATORS: Dialog message explaining that the language change requires a manual restart
+      body: _(
+        "The language change will take full effect after manually restarting the application."
+      ),
+    });
+    // TRANSLATORS: Button to dismiss the restart dialog and continue using the app
+    dialog.add_response("cancel", _("Later"));
+    // TRANSLATORS: Button to quit the application so user can restart it manually
+    dialog.add_response("restart", _("Quit"));
+    dialog.set_response_appearance("restart", Adw.ResponseAppearance.SUGGESTED);
+    dialog.set_default_response("restart");
+    dialog.set_close_response("cancel");
+
+    dialog.connect("response", (_self, response) => {
+      if (response === "restart") {
+        // Quit and let the user restart manually
+        // Note: Automatic restart is complex in flatpak/sandboxed environments
+        this.quit();
+      }
+    });
+
+    const window = this.get_active_window();
+    if (window) {
+      dialog.present(window);
+    }
   }
 
   initActions() {

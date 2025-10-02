@@ -1,6 +1,8 @@
 import GLib from "@girs/glib-2.0";
 import { settings } from "../settings.ts";
-import { APPLICATION_ID } from "../constants.ts";
+import { APPLICATION_ID, DATADIR } from "../constants.ts";
+
+import GObject from "@girs/gobject-2.0";
 import gettext from "gettext";
 
 export interface LanguageInfo {
@@ -29,10 +31,25 @@ export const AVAILABLE_LANGUAGES: LanguageInfo[] = [
   { code: "zh_Hans", name: _("Chinese (Simplified)"), nativeName: "简体中文" },
 ];
 
-class LanguageService {
+class LanguageService extends GObject.Object {
   private currentLanguage: string;
 
+  static {
+    GObject.registerClass(
+      {
+        GTypeName: "LanguageService",
+        Signals: {
+          "language-changed": {
+            param_types: [GObject.TYPE_STRING],
+          },
+        },
+      },
+      this
+    );
+  }
+
   constructor() {
+    super();
     this.currentLanguage = settings.get_string("language");
   }
 
@@ -69,17 +86,35 @@ class LanguageService {
       // Reset to system default
       GLib.unsetenv("LANGUAGE");
       GLib.unsetenv("LC_ALL");
+      GLib.unsetenv("LC_MESSAGES");
     } else {
-      // Set the language environment variable
-      // Note: In GJS, changing environment variables affects the current process
+      // Set the language environment variables
+      // LANGUAGE is used by gettext for message catalogs
       GLib.setenv("LANGUAGE", languageCode, true);
       GLib.setenv("LC_ALL", `${languageCode}.UTF-8`, true);
+      GLib.setenv("LC_MESSAGES", `${languageCode}.UTF-8`, true);
     }
 
-    // Reinitialize gettext to apply the language change
+    // Call setlocale through the native gettext bindings
+    // This is essential for gettext to pick up the new language
+    try {
+      const localeString =
+        languageCode === "system" ? "" : `${languageCode}.UTF-8`;
+      gettext.setlocale(6, localeString); // 6 = LC_ALL
+    } catch (e) {
+      console.warn(`Failed to set locale to ${languageCode}:`, e);
+      // Continue even if setlocale fails - environment variables may be enough
+    }
+
+    // Rebind text domain to ensure translations are reloaded
+    // This forces gettext to reload the message catalog
+    gettext.bindtextdomain(APPLICATION_ID, `${DATADIR}/locale`);
     gettext.textdomain(APPLICATION_ID);
 
     log(`Language changed to: ${languageCode}`);
+
+    // Emit signal to notify UI components about language change
+    this.emit("language-changed", languageCode);
   }
 
   public getAvailableLanguages(): LanguageInfo[] {

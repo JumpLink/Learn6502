@@ -12,7 +12,6 @@ import { themeService } from "../services";
 export class PreferencesDialog extends Adw.PreferencesDialog {
   declare _rowPrimary: Adw.SwitchRow;
   declare _rowAccent: Adw.SwitchRow;
-  declare _restartBanner: Adw.Banner;
   declare _languageSelector: Adw.ComboRow;
 
   static {
@@ -20,12 +19,7 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
       {
         GTypeName: "PreferencesDialog",
         Template,
-        InternalChildren: [
-          "rowPrimary",
-          "rowAccent",
-          "restartBanner",
-          "languageSelector",
-        ],
+        InternalChildren: ["rowPrimary", "rowAccent", "languageSelector"],
       },
       this
     );
@@ -60,7 +54,7 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
 
     // Show banner when language is changed
     this._languageSelector.connect("language-changed", () => {
-      this._restartBanner.set_revealed(true);
+      // ...
     });
   }
 }
