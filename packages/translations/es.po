@@ -552,13 +552,6 @@ msgstr "Indicador de acarreo: Se establece cuando una suma produce un acarreo; s
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Cambia uno de los píxeles para dibujar en la esquina inferior derecha (dirección de memoria <tt>$05ff</tt>)."
 
-msgid "Chinese (Simplified)"
-msgstr "Chino (Simplificado)"
-
-#. TRANSLATORS: Preferences row subtitle for language selection
-msgid "Choose the language for the application interface"
-msgstr "Elige el idioma de la interfaz de la aplicación"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "Código"
@@ -659,9 +652,6 @@ msgstr "Memoria de pantalla ($0200-$05FF)"
 msgid "Display Organization"
 msgstr "Organización de la pantalla"
 
-msgid "Dutch"
-msgstr "Neerlandés"
-
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr "Cada sección (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) primero comprueba si la dirección actual es la opuesta a la nueva. Esto requiere otro pequeño desvío."
@@ -673,9 +663,6 @@ msgstr "Activar depurador"
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
 msgstr "Activar modo paso a paso"
-
-msgid "English"
-msgstr "Inglés"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
@@ -750,9 +737,6 @@ msgstr "Se encontró $d etiqueta."
 msgid "Found $d labels."
 msgstr "Se encontraron $d etiquetas."
 
-msgid "French"
-msgstr "Francés"
-
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Memoria completa ($0000-$FFFF)"
@@ -772,9 +756,6 @@ msgstr "Los juegos ahora se pausan automáticamente al cambiar entre pantallas"
 #. TRANSLATORS: Preferences page title for General settings
 msgid "General"
 msgstr "General"
-
-msgid "German"
-msgstr "Alemán"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
@@ -931,9 +912,6 @@ msgstr "Tutorial interactivo"
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "Los tutoriales interactivos te guían de principiante a avanzado"
 
-msgid "Interlingua"
-msgstr "Interlingua"
-
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Indicador de interrupción: Cuando está activo, enmascara (desactiva) todas las interrupciones enmascarables (IRQ). Solo pueden ocurrir interrupciones no enmascarables (NMI). Se usa para secciones críticas de código que no deben interrumpirse."
 
@@ -948,9 +926,6 @@ msgstr "JMP"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
 msgstr "JSR/RTS"
-
-msgid "Japanese"
-msgstr "Japonés"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
@@ -970,14 +945,6 @@ msgstr "La etiqueta {label} ya se usa como símbolo; por favor, renombra una de 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
 msgstr "Error de etiquetas"
-
-#. TRANSLATORS: Preferences row title for language selection
-msgid "Language"
-msgstr "Idioma"
-
-#. TRANSLATORS: Button to dismiss the restart dialog and continue using the app
-msgid "Later"
-msgstr "Más tarde"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
@@ -1122,12 +1089,6 @@ msgstr "Rosa"
 msgid "Play"
 msgstr "Jugar"
 
-msgid "Portuguese"
-msgstr "Portugués"
-
-msgid "Portuguese (Brazil)"
-msgstr "Portugués (Brasil)"
-
 #. TRANSLATORS: Preferences dialog title
 msgid "Preferences"
 msgstr "Preferencias"
@@ -1261,14 +1222,6 @@ msgstr "Renderizado del juego"
 msgid "Reset"
 msgstr "Reiniciar"
 
-#. TRANSLATORS: Button to quit the application so user can restart it
-msgid "Restart"
-msgstr "Reiniciar"
-
-#. TRANSLATORS: Dialog heading shown when user changes language
-msgid "Restart Required"
-msgstr "Reinicio requerido"
-
 #. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
 msgstr "Reanudar"
@@ -1307,8 +1260,8 @@ msgid "Saved as %s"
 msgstr "Guardado como %s"
 
 #. TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations
-msgid "Say hello to a new language selector and many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
-msgstr "Dale la bienvenida a un nuevo selector de idioma y a muchas traducciones nuevas: Francés, Interlingua, Portugués, Portugués (Brasil), Neerlandés, Español, Ucraniano, Japonés y Chino (simplificado)"
+msgid "Say hello to many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
+msgstr "Dale la bienvenida a muchas traducciones nuevas: Francés, Interlingua, Portugués, Portugués (Brasil), Neerlandés, Español, Ucraniano, Japonés y Chino (simplificado)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
@@ -1371,9 +1324,6 @@ msgstr "Entonces, ¿por qué querrías aprender 6502? Es un lenguaje muerto, ¿n
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr "Algunas instrucciones no operan con direcciones de memoria (p.ej., <tt>INX</tt> - incrementa el registro <tt>X</tt>). Se dice que tienen direccionamiento implícito: el argumento está implícito en la instrucción."
 
-msgid "Spanish"
-msgstr "Español"
-
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr "Ubicaciones de memoria especiales (en el simulador)"
@@ -1406,9 +1356,6 @@ msgstr "Estilo"
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr "Error de sintaxis en la línea %d: %s"
-
-msgid "System Default"
-msgstr "Predeterminado del sistema"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1494,9 +1441,6 @@ msgstr "El hex debería verse más o menos así:"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "El valor hexadecimal <tt>$03</tt> se representa en binario como <tt>00000011</tt>. La operación <tt>AND</tt> realiza un AND bit a bit entre el argumento y el acumulador. Por ejemplo, si el acumulador contiene <tt>10101010</tt>, el resultado de <tt>AND</tt> con <tt>00000011</tt> será <tt>00000010</tt>."
-
-msgid "The language change will take full effect after restarting the application."
-msgstr "El cambio de idioma tendrá efecto completo después de reiniciar la aplicación."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."
@@ -1614,9 +1558,6 @@ msgstr "Tutorial <sub>por <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan<
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
 msgstr "Dos instrucciones de pila son <tt>PHA</tt> y <tt>PLA</tt>, \"push accumulator\" y \"pull accumulator\". Abajo hay un ejemplo de ambas en acción."
 
-msgid "Ukrainian"
-msgstr "Ucraniano"
-
 msgid "Unable to find/parse given address/label"
 msgstr "No se puede encontrar/analizar la dirección/etiqueta dada"
 
@@ -1722,6 +1663,60 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "lo que representa las direcciones de memoria indirectas <tt>$0411</tt>, <tt>$0410</tt> y <tt>$040f</tt> (tres píxeles en el centro de la pantalla). Insisto en este punto porque es importante entender bien cómo funciona el direccionamiento indirecto."
+
+#~ msgid "Chinese (Simplified)"
+#~ msgstr "Chino (Simplificado)"
+
+#~ msgid "Choose the language for the application interface"
+#~ msgstr "Elige el idioma de la interfaz de la aplicación"
+
+#~ msgid "Dutch"
+#~ msgstr "Neerlandés"
+
+#~ msgid "English"
+#~ msgstr "Inglés"
+
+#~ msgid "French"
+#~ msgstr "Francés"
+
+#~ msgid "German"
+#~ msgstr "Alemán"
+
+#~ msgid "Interlingua"
+#~ msgstr "Interlingua"
+
+#~ msgid "Japanese"
+#~ msgstr "Japonés"
+
+#~ msgid "Language"
+#~ msgstr "Idioma"
+
+#~ msgid "Later"
+#~ msgstr "Más tarde"
+
+#~ msgid "Portuguese"
+#~ msgstr "Portugués"
+
+#~ msgid "Portuguese (Brazil)"
+#~ msgstr "Portugués (Brasil)"
+
+#~ msgid "Restart"
+#~ msgstr "Reiniciar"
+
+#~ msgid "Restart Required"
+#~ msgstr "Reinicio requerido"
+
+#~ msgid "Spanish"
+#~ msgstr "Español"
+
+#~ msgid "System Default"
+#~ msgstr "Predeterminado del sistema"
+
+#~ msgid "The language change will take full effect after restarting the application."
+#~ msgstr "El cambio de idioma tendrá efecto completo después de reiniciar la aplicación."
+
+#~ msgid "Ukrainian"
+#~ msgstr "Ucraniano"
 
 #~ msgid "_Appearance"
 #~ msgstr "_Apariencia"

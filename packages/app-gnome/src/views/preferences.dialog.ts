@@ -3,7 +3,6 @@ import Adw from "@girs/adw-1";
 
 import Template from "./preferences.dialog.blp";
 // Ensure custom widgets referenced in Blueprint are registered
-import "../widgets/language-selector.ts";
 import "../widgets/theme-mode-selector.ts";
 import "../widgets/primary-color-selector.ts";
 import "../widgets/accent-color-selector.ts";
@@ -12,14 +11,13 @@ import { themeService } from "../services";
 export class PreferencesDialog extends Adw.PreferencesDialog {
   declare _rowPrimary: Adw.SwitchRow;
   declare _rowAccent: Adw.SwitchRow;
-  declare _languageSelector: Adw.ComboRow;
 
   static {
     GObject.registerClass(
       {
         GTypeName: "PreferencesDialog",
         Template,
-        InternalChildren: ["rowPrimary", "rowAccent", "languageSelector"],
+        InternalChildren: ["rowPrimary", "rowAccent"],
       },
       this
     );
@@ -50,11 +48,6 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
       const want = mode === "custom";
       if (this._rowAccent.get_active() !== want)
         this._rowAccent.set_active(want);
-    });
-
-    // Show banner when language is changed
-    this._languageSelector.connect("language-changed", () => {
-      // ...
     });
   }
 }

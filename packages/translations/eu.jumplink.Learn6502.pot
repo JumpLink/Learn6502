@@ -550,13 +550,6 @@ msgstr ""
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr ""
 
-msgid "Chinese (Simplified)"
-msgstr ""
-
-#. TRANSLATORS: Preferences row subtitle for language selection
-msgid "Choose the language for the application interface"
-msgstr ""
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr ""
@@ -657,9 +650,6 @@ msgstr ""
 msgid "Display Organization"
 msgstr ""
 
-msgid "Dutch"
-msgstr ""
-
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr ""
@@ -670,9 +660,6 @@ msgstr ""
 
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
-msgstr ""
-
-msgid "English"
 msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.1.2
@@ -748,9 +735,6 @@ msgstr ""
 msgid "Found $d labels."
 msgstr ""
 
-msgid "French"
-msgstr ""
-
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr ""
@@ -769,9 +753,6 @@ msgstr ""
 
 #. TRANSLATORS: Preferences page title for General settings
 msgid "General"
-msgstr ""
-
-msgid "German"
 msgstr ""
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
@@ -929,9 +910,6 @@ msgstr ""
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr ""
 
-msgid "Interlingua"
-msgstr ""
-
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr ""
 
@@ -945,9 +923,6 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
-msgstr ""
-
-msgid "Japanese"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -967,14 +942,6 @@ msgstr ""
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
-msgstr ""
-
-#. TRANSLATORS: Preferences row title for language selection
-msgid "Language"
-msgstr ""
-
-#. TRANSLATORS: Button to dismiss the restart dialog and continue using the app
-msgid "Later"
 msgstr ""
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
@@ -1120,12 +1087,6 @@ msgstr ""
 msgid "Play"
 msgstr ""
 
-msgid "Portuguese"
-msgstr ""
-
-msgid "Portuguese (Brazil)"
-msgstr ""
-
 #. TRANSLATORS: Preferences dialog title
 msgid "Preferences"
 msgstr ""
@@ -1259,14 +1220,6 @@ msgstr ""
 msgid "Reset"
 msgstr ""
 
-#. TRANSLATORS: Button to quit the application so user can restart it
-msgid "Restart"
-msgstr ""
-
-#. TRANSLATORS: Dialog heading shown when user changes language
-msgid "Restart Required"
-msgstr ""
-
 #. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
 msgstr ""
@@ -1305,7 +1258,7 @@ msgid "Saved as %s"
 msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations
-msgid "Say hello to a new language selector and many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
+msgid "Say hello to many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
@@ -1369,9 +1322,6 @@ msgstr ""
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr ""
 
-msgid "Spanish"
-msgstr ""
-
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr ""
@@ -1403,9 +1353,6 @@ msgstr ""
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
-msgstr ""
-
-msgid "System Default"
 msgstr ""
 
 #. TRANSLATORS: Tooltip for accent color option Teal
@@ -1491,9 +1438,6 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
-msgstr ""
-
-msgid "The language change will take full effect after restarting the application."
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -1610,9 +1554,6 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
-msgstr ""
-
-msgid "Ukrainian"
 msgstr ""
 
 msgid "Unable to find/parse given address/label"

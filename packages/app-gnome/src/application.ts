@@ -11,11 +11,9 @@ import {
 } from "./constants.ts";
 import { initResources } from "./resources.ts";
 
-import { themeService, languageService } from "./services";
+import { themeService } from "./services";
 
 export class Application extends Adw.Application {
-  public restartRequested = false;
-
   static {
     GObject.registerClass(
       {
@@ -36,43 +34,8 @@ export class Application extends Adw.Application {
   }
 
   protected onStartup(): void {
-    languageService.init();
     themeService.init();
     initResources();
-
-    // Listen for language changes to show restart dialog
-    languageService.connect("language-changed", () => {
-      this.showRestartDialog();
-    });
-  }
-
-  private showRestartDialog(): void {
-    const dialog = new Adw.AlertDialog({
-      // TRANSLATORS: Dialog heading shown when user changes language
-      heading: _("Restart Required"),
-      // TRANSLATORS: Dialog message explaining that the language change requires a manual restart
-      body: _(
-        "The language change will take full effect after restarting the application."
-      ),
-    });
-    // TRANSLATORS: Button to dismiss the restart dialog and continue using the app
-    dialog.add_response("cancel", _("Later"));
-    // TRANSLATORS: Button to quit the application so user can restart it
-    dialog.add_response("restart", _("Restart"));
-    dialog.set_response_appearance("restart", Adw.ResponseAppearance.SUGGESTED);
-    dialog.set_default_response("restart");
-    dialog.set_close_response("cancel");
-
-    dialog.connect("response", (_self, response) => {
-      if (response === "restart") {
-        this.restartApplication();
-      }
-    });
-
-    const window = this.get_active_window();
-    if (window) {
-      dialog.present(window);
-    }
   }
 
   initActions() {
@@ -112,10 +75,5 @@ export class Application extends Adw.Application {
     if (!active_window) active_window = new MainWindow(this);
 
     active_window.present();
-  }
-
-  private restartApplication(): void {
-    this.restartRequested = true;
-    this.quit();
   }
 }

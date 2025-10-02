@@ -550,13 +550,6 @@ msgstr "进位标志（C）：加法产生进位时置位；减法需要借位�
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "试着修改内存中最后一个像素的颜色 (内存地址 $05ff)。"
 
-msgid "Chinese (Simplified)"
-msgstr "中文（简体）"
-
-#. TRANSLATORS: Preferences row subtitle for language selection
-msgid "Choose the language for the application interface"
-msgstr "选择应用界面的语言"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "代码"
@@ -657,9 +650,6 @@ msgstr "显示内存（$0200–$05FF）"
 msgid "Display Organization"
 msgstr "显示布局"
 
-msgid "Dutch"
-msgstr "荷兰语"
-
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
 msgstr "每个分支（如 <tt>upKey</tt>、<tt>rightKey</tt> 等）首先检查当前方向是否与新方向相反。这需要一点额外的处理。"
@@ -671,9 +661,6 @@ msgstr "启用调试器"
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
 msgstr "启用单步模式"
-
-msgid "English"
-msgstr "英语"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
@@ -748,9 +735,6 @@ msgstr "找到 $d 个标签。"
 msgid "Found $d labels."
 msgstr "找到 $d 个标签。"
 
-msgid "French"
-msgstr "法语"
-
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "全部内存（$0000–$FFFF）"
@@ -770,9 +754,6 @@ msgstr "切换屏幕时游戏现在会自动暂停"
 #. TRANSLATORS: Preferences page title for General settings
 msgid "General"
 msgstr "通用"
-
-msgid "German"
-msgstr "德语"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
@@ -929,9 +910,6 @@ msgstr "交互式教程"
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "交互式教程将带你从入门到进阶"
 
-msgid "Interlingua"
-msgstr "国际语"
-
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "中断禁用标志（I）：置位时屏蔽所有可屏蔽中断（IRQ），仅不可屏蔽中断（NMI）仍会发生。用于必须不可被打断的关键代码区。"
 
@@ -946,9 +924,6 @@ msgstr "JMP"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
 msgstr "JSR/RTS"
-
-msgid "Japanese"
-msgstr "日语"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
@@ -968,14 +943,6 @@ msgstr "标签 {label} 已被用作符号；请重命名其中一个"
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
 msgstr "标签处理失败"
-
-#. TRANSLATORS: Preferences row title for language selection
-msgid "Language"
-msgstr "语言"
-
-#. TRANSLATORS: Button to dismiss the restart dialog and continue using the app
-msgid "Later"
-msgstr "稍后"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
@@ -1120,12 +1087,6 @@ msgstr "粉色"
 msgid "Play"
 msgstr "开始"
 
-msgid "Portuguese"
-msgstr "葡萄牙语"
-
-msgid "Portuguese (Brazil)"
-msgstr "葡萄牙语（巴西）"
-
 #. TRANSLATORS: Preferences dialog title
 msgid "Preferences"
 msgstr "首选项"
@@ -1259,14 +1220,6 @@ msgstr "渲染游戏"
 msgid "Reset"
 msgstr "重置"
 
-#. TRANSLATORS: Button to quit the application so user can restart it
-msgid "Restart"
-msgstr "重启"
-
-#. TRANSLATORS: Dialog heading shown when user changes language
-msgid "Restart Required"
-msgstr "需要重启"
-
 #. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
 msgstr "继续"
@@ -1305,8 +1258,8 @@ msgid "Saved as %s"
 msgstr "已保存为 %s"
 
 #. TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations
-msgid "Say hello to a new language selector and many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
-msgstr "全新语言选择器与多项新增翻译：法语、国际语、葡萄牙语、葡萄牙语（巴西）、荷兰语、西班牙语、乌克兰语、日语和简体中文"
+msgid "Say hello to many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
+msgstr "多项新增翻译：法语、国际语、葡萄牙语、葡萄牙语（巴西）、荷兰语、西班牙语、乌克兰语、日语和简体中文"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
@@ -1369,9 +1322,6 @@ msgstr "那为什么要学 6502？它不是“已死”的语言吗？拉丁语�
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr "有些指令不涉及内存位置（如 <tt>INX</tt> —— 递增 <tt>X</tt> 寄存器）。这称为隐式寻址——参数由指令本身隐含。"
 
-msgid "Spanish"
-msgstr "西班牙语"
-
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr "特殊内存位置（模拟器）"
@@ -1404,9 +1354,6 @@ msgstr "样式"
 #, javascript-format
 msgid "Syntax error line %d: %s"
 msgstr "语法错误 第 %d 行：%s"
-
-msgid "System Default"
-msgstr "系统默认"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1492,9 +1439,6 @@ msgstr "十六进制应类似如下："
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "十六进制值 <tt>$03</tt> 的二进制表示为 <tt>00000011</tt>。<tt>AND</tt> 指令对参数与累加器执行按位与。例如，若累加器为 <tt>10101010</tt>，与 <tt>00000011</tt> 进行 <tt>AND</tt> 的结果为 <tt>00000010</tt>。"
-
-msgid "The language change will take full effect after restarting the application."
-msgstr "语言更改将在重启应用程序后完全生效。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."
@@ -1612,9 +1556,6 @@ msgstr "教程 <sub>作者 <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
 msgstr "两条与栈有关的指令是 <tt>PHA</tt> 与 <tt>PLA</tt>，分别是\"压栈累加器\"和\"出栈累加器\"。下面是它们的示例。"
 
-msgid "Ukrainian"
-msgstr "乌克兰语"
-
 msgid "Unable to find/parse given address/label"
 msgstr "无法找到/解析给定的地址/标签"
 
@@ -1720,6 +1661,60 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 与 <tt>$040f</tt>（显示中部的三个像素）。之所以反复强调，是因为完全理解间接寻址的工作方式非常重要。"
+
+#~ msgid "Chinese (Simplified)"
+#~ msgstr "中文（简体）"
+
+#~ msgid "Choose the language for the application interface"
+#~ msgstr "选择应用界面的语言"
+
+#~ msgid "Dutch"
+#~ msgstr "荷兰语"
+
+#~ msgid "English"
+#~ msgstr "英语"
+
+#~ msgid "French"
+#~ msgstr "法语"
+
+#~ msgid "German"
+#~ msgstr "德语"
+
+#~ msgid "Interlingua"
+#~ msgstr "国际语"
+
+#~ msgid "Japanese"
+#~ msgstr "日语"
+
+#~ msgid "Language"
+#~ msgstr "语言"
+
+#~ msgid "Later"
+#~ msgstr "稍后"
+
+#~ msgid "Portuguese"
+#~ msgstr "葡萄牙语"
+
+#~ msgid "Portuguese (Brazil)"
+#~ msgstr "葡萄牙语（巴西）"
+
+#~ msgid "Restart"
+#~ msgstr "重启"
+
+#~ msgid "Restart Required"
+#~ msgstr "需要重启"
+
+#~ msgid "Spanish"
+#~ msgstr "西班牙语"
+
+#~ msgid "System Default"
+#~ msgstr "系统默认"
+
+#~ msgid "The language change will take full effect after restarting the application."
+#~ msgstr "语言更改将在重启应用程序后完全生效。"
+
+#~ msgid "Ukrainian"
+#~ msgstr "乌克兰语"
 
 #~ msgid "_Appearance"
 #~ msgstr "外观"
