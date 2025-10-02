@@ -66,7 +66,9 @@ export const waitForFunctionResult = async <T = any>(
     try {
       result = func();
     } catch (error) {
-      console.error("waitForFunctionResult", error);
+      const errorMessage =
+        error instanceof Error ? error.message : String(error);
+      console.error("waitForFunctionResult: " + errorMessage);
     }
 
     // Check if the result is truthy

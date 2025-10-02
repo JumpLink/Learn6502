@@ -774,6 +774,10 @@ msgstr "通用"
 msgid "German"
 msgstr "德语"
 
+#. TRANSLATORS: Note about validation status - keep it concise and encouraging
+msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
+msgstr "德语和西班牙语已由贡献者验证。其他语言为 AI 辅助的初稿，需要人工校对。"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr "在不同区域之间移动更复杂，因为还需要考虑高字节。例如，从 <tt>$02e1</tt> 向下应到达 <tt>$0301</tt>。幸运的是这并不难：将 <tt>$20</tt> 加到 <tt>$e1</tt> 得到 <tt>$01</tt> 并置位进位位。如果进位被置位，我们还需要递增高字节。"
@@ -821,6 +825,10 @@ msgstr "IDE"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "If the result of the addition is larger than a single byte, the address wraps around. For example:"
 msgstr "如果加法结果超过一个字节，地址会回绕。例如："
+
+#. TRANSLATORS: Call to action for community translation/validation
+msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
+msgstr "如果你会其中任意一种语言，欢迎协助审阅或改进翻译。你可以通过应用内链接、我们的翻译平台，或提交 Issue 来贡献。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1206,7 +1214,7 @@ msgstr "紫色"
 msgid "Quick tips"
 msgstr "快速提示"
 
-#. TRANSLATORS: Button to quit the application so user can restart it manually
+#. TRANSLATORS: Quit application menu item label
 msgid "Quit"
 msgstr "退出"
 
@@ -1251,6 +1259,10 @@ msgstr "渲染游戏"
 msgid "Reset"
 msgstr "重置"
 
+#. TRANSLATORS: Button to quit the application so user can restart it
+msgid "Restart"
+msgstr "重启"
+
 #. TRANSLATORS: Dialog heading shown when user changes language
 msgid "Restart Required"
 msgstr "需要重启"
@@ -1291,6 +1303,10 @@ msgstr "保存更改？"
 #, javascript-format
 msgid "Saved as %s"
 msgstr "已保存为 %s"
+
+#. TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations
+msgid "Say hello to a new language selector and many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
+msgstr "全新语言选择器与多项新增翻译：法语、国际语、葡萄牙语、葡萄牙语（巴西）、荷兰语、西班牙语、乌克兰语、日语和简体中文"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
@@ -1477,8 +1493,8 @@ msgstr "十六进制应类似如下："
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "十六进制值 <tt>$03</tt> 的二进制表示为 <tt>00000011</tt>。<tt>AND</tt> 指令对参数与累加器执行按位与。例如，若累加器为 <tt>10101010</tt>，与 <tt>00000011</tt> 进行 <tt>AND</tt> 的结果为 <tt>00000010</tt>。"
 
-msgid "The language change will take full effect after manually restarting the application."
-msgstr "语言更改将在手动重启应用程序后完全生效。"
+msgid "The language change will take full effect after restarting the application."
+msgstr "语言更改将在重启应用程序后完全生效。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."

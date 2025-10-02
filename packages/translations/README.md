@@ -15,6 +15,15 @@ You can contribute translations in two ways:
 
 New language translations are always welcome! You can start a new language translation either through Weblate or by creating new .po files in the repository.
 
+### Requesting a new language
+
+If you would like to see your native language supported, you have two options:
+
+1. **Ask us to add it**: Open an issue and request the language. We can bootstrap an AI‑assisted initial translation, and you (or another native speaker) can validate and improve it afterward.
+2. **Contribute directly**: Translate via [Weblate](https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/) or submit a Pull Request adding/updating the corresponding `.po` file.
+
+Support for every new language is welcome.
+
 ## Project Structure
 
 - **UI Elements & Messages**: Managed through `.po` files
@@ -41,10 +50,24 @@ New language translations are always welcome! You can start a new language trans
 - [Project Repository](https://github.com/JumpLink/Learn6502)
 - [Issue Tracker](https://github.com/JumpLink/Learn6502/issues)
 
-## Translation Sources
+## Language credits and validation status
 
-- **Chinese (Simplified)**: The translation in `zh_Hans.po` is based on [https://codediy.github.io/nes-zh/easy6502/](https://codediy.github.io/nes-zh/easy6502/)
-- **Portuguese**: The translation in `pt.po` is based on [https://github.com/gustavogx/easy6502](https://github.com/gustavogx/easy6502) from Gustavo Valdiviesso
+Below is an overview of all languages, their sources, and human validation status. If you can help validate any language listed as “Needs validation”, please contribute via [Weblate](https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/) or open an issue/PR.
+
+| Language             | Code    | Source                                                                                        | Validator     | Status           |
+| -------------------- | ------- | --------------------------------------------------------------------------------------------- | ------------- | ---------------- |
+| German               | de      | Original (maintainers)                                                                        | @JumpLink     | Validated        |
+| Spanish              | es      | AI‑assisted                                                                                   | @mmartinortiz | Validated        |
+| Chinese (Simplified) | zh_Hans | Based on external translation: [codediy easy6502](https://codediy.github.io/nes-zh/easy6502/) | —             | Needs validation |
+| Portuguese           | pt      | Based on external translation: [gustavogx/easy6502](https://github.com/gustavogx/easy6502)    | —             | Needs validation |
+| Portuguese (Brazil)  | pt_BR   | AI‑assisted                                                                                   | —             | Needs validation |
+| Dutch                | nl      | AI‑assisted                                                                                   | —             | Needs validation |
+| French               | fr      | AI‑assisted                                                                                   | —             | Needs validation |
+| Interlingua          | ia      | AI‑assisted                                                                                   | —             | Needs validation |
+| Ukrainian            | uk      | AI‑assisted                                                                                   | —             | Needs validation |
+| Japanese             | ja      | AI‑assisted                                                                                   | —             | Needs validation |
+
+To volunteer as a validator, please use [Weblate](https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/) or report your feedback in the [issue tracker](https://github.com/JumpLink/Learn6502/issues).
 
 ## Testing translations in the GNOME app
 

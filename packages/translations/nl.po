@@ -774,6 +774,10 @@ msgstr "Algemeen"
 msgid "German"
 msgstr "Duits"
 
+#. TRANSLATORS: Note about validation status - keep it concise and encouraging
+msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
+msgstr "Duits en Spaans zijn door bijdragers gevalideerd. De overige talen zijn AI‑ondersteunde conceptversies en hebben menselijke validatie nodig."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr "Tussen secties gaan is ingewikkelder, omdat we ook met het meest significante byte rekening moeten houden. Van <tt>$02e1</tt> naar beneden gaan moet bijvoorbeeld <tt>$0301</tt> opleveren. Gelukkig is dit vrij eenvoudig te bereiken. <tt>$20</tt> optellen bij <tt>$e1</tt> resulteert in <tt>$01</tt> en zet de carry‑bit. Als de carry‑bit was gezet, weten we dat we ook het meest significante byte moeten verhogen."
@@ -821,6 +825,10 @@ msgstr "IDE"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "If the result of the addition is larger than a single byte, the address wraps around. For example:"
 msgstr "Als het resultaat van de optelling groter is dan één byte, loopt het adres rond. Bijvoorbeeld:"
+
+#. TRANSLATORS: Call to action for community translation/validation
+msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
+msgstr "Spreek je een van de genoemde talen? Help dan de vertalingen te beoordelen of te verbeteren. Je kunt bijdragen via de links in de app, ons vertaalplatform of door een issue te openen."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1206,7 +1214,7 @@ msgstr "Paars"
 msgid "Quick tips"
 msgstr "Snelle tips"
 
-#. TRANSLATORS: Button to quit the application so user can restart it manually
+#. TRANSLATORS: Quit application menu item label
 msgid "Quit"
 msgstr "Afsluiten"
 
@@ -1251,6 +1259,10 @@ msgstr "Het spel renderen"
 msgid "Reset"
 msgstr "Resetten"
 
+#. TRANSLATORS: Button to quit the application so user can restart it
+msgid "Restart"
+msgstr "Herstarten"
+
 #. TRANSLATORS: Dialog heading shown when user changes language
 msgid "Restart Required"
 msgstr "Herstart vereist"
@@ -1291,6 +1303,10 @@ msgstr "Wijzigingen opslaan?"
 #, javascript-format
 msgid "Saved as %s"
 msgstr "Opgeslagen als %s"
+
+#. TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations
+msgid "Say hello to a new language selector and many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
+msgstr "Maak kennis met een nieuwe taalselector en veel nieuwe vertalingen: Frans, Interlingua, Portugees, Portugees (Brazilië), Nederlands, Spaans, Oekraïens, Japans en Vereenvoudigd Chinees"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
@@ -1477,8 +1493,8 @@ msgstr "De hex zou er ongeveer zo uit moeten zien:"
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
 msgstr "De hexwaarde <tt>$03</tt> wordt binair weergegeven als <tt>00000011</tt>. De opcode <tt>AND</tt> voert een bitgewijze AND uit van het argument met de accumulator. Als de accumulator bijvoorbeeld de binaire waarde <tt>10101010</tt> bevat, dan is het resultaat van <tt>AND</tt> met <tt>00000011</tt> <tt>00000010</tt>."
 
-msgid "The language change will take full effect after manually restarting the application."
-msgstr "De taalwijziging zal volledig effect hebben na het handmatig herstarten van de toepassing."
+msgid "The language change will take full effect after restarting the application."
+msgstr "De taalwijziging zal volledig effect hebben na het herstarten van de toepassing."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."

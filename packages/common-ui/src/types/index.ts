@@ -20,3 +20,4 @@ export * from "./notification-type";
 export * from "./source-view-event-map";
 export * from "./theme-event-map";
 export * from "./theme-mode";
+export * from "./wait-for-property-options";

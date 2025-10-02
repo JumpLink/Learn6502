@@ -33,6 +33,7 @@ export const AVAILABLE_LANGUAGES: LanguageInfo[] = [
 
 class LanguageService extends GObject.Object {
   private currentLanguage: string;
+  private settingsConnectionId: number | null = null;
 
   static {
     GObject.registerClass(
@@ -58,7 +59,7 @@ class LanguageService extends GObject.Object {
     this.applyLanguage(savedLanguage);
 
     // Watch for language changes
-    settings.connect("changed::language", () => {
+    this.settingsConnectionId = settings.connect("changed::language", () => {
       const newLanguage = settings.get_string("language");
       if (newLanguage !== this.currentLanguage) {
         this.applyLanguage(newLanguage);
@@ -75,28 +76,37 @@ class LanguageService extends GObject.Object {
       return;
     }
 
+    // Temporarily disconnect settings signal to prevent double emission
+    if (this.settingsConnectionId !== null) {
+      settings.disconnect(this.settingsConnectionId);
+      this.settingsConnectionId = null;
+    }
+
     settings.set_string("language", languageCode);
     this.applyLanguage(languageCode);
+
+    // Reconnect settings signal
+    this.settingsConnectionId = settings.connect("changed::language", () => {
+      const newLanguage = settings.get_string("language");
+      if (newLanguage !== this.currentLanguage) {
+        this.applyLanguage(newLanguage);
+      }
+    });
   }
 
   private applyLanguage(languageCode: string): void {
-    this.currentLanguage = languageCode;
+    this.currentLanguage = GLib.getenv("LANGUAGE") || languageCode;
 
     if (languageCode === "system") {
       // Reset to system default
       GLib.unsetenv("LANGUAGE");
-      GLib.unsetenv("LC_ALL");
-      GLib.unsetenv("LC_MESSAGES");
     } else {
       // Set the language environment variables
       // LANGUAGE is used by gettext for message catalogs
       GLib.setenv("LANGUAGE", languageCode, true);
-      GLib.setenv("LC_ALL", `${languageCode}.UTF-8`, true);
-      GLib.setenv("LC_MESSAGES", `${languageCode}.UTF-8`, true);
     }
 
     // Call setlocale through the native gettext bindings
-    // This is essential for gettext to pick up the new language
     try {
       const localeString =
         languageCode === "system" ? "" : `${languageCode}.UTF-8`;
@@ -105,11 +115,6 @@ class LanguageService extends GObject.Object {
       console.warn(`Failed to set locale to ${languageCode}:`, e);
       // Continue even if setlocale fails - environment variables may be enough
     }
-
-    // Rebind text domain to ensure translations are reloaded
-    // This forces gettext to reload the message catalog
-    gettext.bindtextdomain(APPLICATION_ID, `${DATADIR}/locale`);
-    gettext.textdomain(APPLICATION_ID);
 
     log(`Language changed to: ${languageCode}`);
 
