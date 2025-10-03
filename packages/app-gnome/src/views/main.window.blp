@@ -95,12 +95,25 @@ template $MainWindow: Adw.ApplicationWindow {
       };
 
       [start]
+
       ToggleButton sidebarToggleButton {
         icon-name: "sidebar-show-symbolic";
         // TRANSLATORS: Tooltip text for sidebar toggle button in header bar
         tooltip-text: _("Toggle Sidebar");
         active: bind leftSidebar.show-sidebar;
         visible: false;
+      }
+
+      Button learnBackButton {
+        icon-name: "go-previous-symbolic";
+        // TRANSLATORS: Tooltip text for back button in learn section
+        tooltip-text: _("Back");
+        visible: bind learn.show-back-button;
+        clicked => $_onLearnBackButtonClicked();
+        
+        styles [
+          "flat",
+        ]
       }
 
       Button unsavedChangesIndicator {

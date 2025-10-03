@@ -42,6 +42,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _titleLabel: Gtk.Label;
   declare private _unsavedChangesIndicator: Gtk.Button;
   declare private _sidebarToggleButton: Gtk.ToggleButton;
+  declare private _learnBackButton: Gtk.Button;
 
   // Three column layout widgets
   declare private _leftSidebar: Adw.OverlaySplitView;
@@ -86,10 +87,15 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "titleLabel",
           "unsavedChangesIndicator",
           "sidebarToggleButton",
+          "learnBackButton",
         ],
       },
       this
     );
+  }
+
+  private _onLearnBackButtonClicked(): void {
+    this._learn.navigateBack();
   }
 
   // State

@@ -4,20 +4,136 @@ using Adw 1;
 template $Learn: Adw.Bin {
   height-request: 200;
   vexpand: true;
-  Adw.StatusPage statusPage {
-    // TRANSLATORS: Card title for Learn/Tutorial view
-    title: _("Learn");
-    // TRANSLATORS: Short description of the Learn view
-    description: _("Learn how to program the 6502 microprocessor.");
-    icon-name: "school-symbolic";
-    Adw.Clamp {
-      maximum-size: 600;
-      margin-top: 0;
-      margin-bottom: 0;
-      margin-start: 0;
-      margin-end: 0;
 
-      child: $TutorialView tutorialView {};
+  Adw.NavigationView navigationView {
+    // Main navigation page
+    Adw.NavigationPage {
+      // TRANSLATORS: Main title for Learn section
+      title: _("Learn");
+      tag: "main";
+      
+      child: Adw.StatusPage {
+        // TRANSLATORS: Card title for Learn/Tutorial view
+        title: _("Learn");
+        // TRANSLATORS: Short description of the Learn view
+        description: _("Learn how to program the 6502 microprocessor.");
+        icon-name: "school-symbolic";
+        
+        child: Adw.Clamp {
+          maximum-size: 600;
+          
+          Gtk.Box {
+            orientation: vertical;
+            spacing: 24;
+            margin-top: 12;
+            margin-bottom: 12;
+            
+            Gtk.ListBox navigationList {
+              selection-mode: none;
+              
+              styles [
+                "boxed-list",
+              ]
+              
+              Adw.ActionRow tutorialRow {
+                // TRANSLATORS: Title for tutorial section
+                title: _("Tutorial");
+                // TRANSLATORS: Description for tutorial section
+                subtitle: _("Step-by-step guide to 6502 assembly");
+                icon-name: "book-open-page-variant-symbolic";
+                activatable: true;
+                action-name: "navigation.push";
+                action-target: "'tutorial'";
+                
+                [suffix]
+                Gtk.Image {
+                  icon-name: "go-next-symbolic";
+                }
+              }
+              
+              Adw.ActionRow examplesRow {
+                // TRANSLATORS: Title for examples section
+                title: _("Examples");
+                // TRANSLATORS: Description for examples section
+                subtitle: _("Try out example programs");
+                icon-name: "code-symbolic";
+                activatable: true;
+                action-name: "navigation.push";
+                action-target: "'examples'";
+                
+                [suffix]
+                Gtk.Image {
+                  icon-name: "go-next-symbolic";
+                }
+              }
+            }
+          }
+        };
+      };
+    }
+    
+    // Tutorial page
+    Adw.NavigationPage {
+      // TRANSLATORS: Title for tutorial page
+      title: _("Tutorial");
+      tag: "tutorial";
+      
+      child: Adw.StatusPage statusPage {
+        // TRANSLATORS: Card title for Tutorial view
+        title: _("Tutorial");
+        // TRANSLATORS: Short description of the Tutorial view
+        description: _("Learn how to program the 6502 microprocessor.");
+        icon-name: "book-open-page-variant-symbolic";
+        
+        Adw.Clamp {
+          maximum-size: 600;
+          margin-top: 0;
+          margin-bottom: 0;
+          margin-start: 0;
+          margin-end: 0;
+
+          $TutorialView tutorialView {}
+        }
+      };
+    }
+
+    // Examples page
+    Adw.NavigationPage {
+      // TRANSLATORS: Title for examples page
+      title: _("Examples");
+      tag: "examples";
+      
+      child: Adw.StatusPage examplesStatusPage {
+        // TRANSLATORS: Title for examples placeholder
+        title: _("Examples");
+        // TRANSLATORS: Description for examples placeholder
+        description: _("Try out example programs for the 6502 microprocessor.");
+        icon-name: "code-symbolic";
+        
+        child: Adw.Clamp {
+          maximum-size: 600;
+          margin-top: 0;
+          margin-bottom: 0;
+          margin-start: 0;
+          margin-end: 0;
+          
+          Gtk.Box placeholderBox {
+            orientation: vertical;
+            spacing: 12;
+            halign: center;
+            valign: center;
+            vexpand: true;
+            
+            Gtk.Label {
+              label: _("Examples will be available here soon.");
+              
+              styles [
+                "dim-label",
+              ]
+            }
+          }
+        };
+      };
     }
   }
 }
