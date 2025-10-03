@@ -1,6 +1,6 @@
 import { Application, Utils, View, CoreTypes } from "@nativescript/core";
 import { getMaterialColor } from "./color";
-import { waitForFunctionResult } from "./control";
+import { waitForFunctionResult } from "@learn6502/common-ui";
 import { systemStates } from "../states/system.states";
 import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
 

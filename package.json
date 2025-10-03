@@ -26,8 +26,8 @@
   "license": "GPL-3.0",
   "workspaces": [
     "packages/*",
-    "!packages/app-android",
-    "!packages/app-web"
+    "packages/app-android",
+    "packages/app-web"
   ],
   "devDependencies": {
     "prettier": "^3.6.2",
