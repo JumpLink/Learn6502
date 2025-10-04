@@ -208,7 +208,7 @@ export class NsCode extends Component<NsCodeProps> {
         examplePrefix.length
       ) as keyof typeof Examples;
       if (EXAMPLE_NAMES.includes(exampleName)) {
-        code = Examples[exampleName];
+        code = Examples[exampleName].code;
       } else {
         console.warn(`[NsCode] Unknown example: ${exampleName}`);
       }

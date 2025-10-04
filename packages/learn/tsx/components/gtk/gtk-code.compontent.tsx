@@ -261,7 +261,7 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     if (exampleModifier) {
       const exampleName = exampleModifier.slice(examplePrefix.length);
       if (EXAMPLE_NAMES.includes(exampleName)) {
-        code = (Examples as any)[exampleName];
+        code = Examples[exampleName].code;
       } else {
         console.warn(`[GtkCode] Unknown example: ${exampleName}`);
       }
