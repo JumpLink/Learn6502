@@ -522,6 +522,10 @@ msgstr "Assembly-bestanden"
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
 msgstr "Op laag niveau is deze subroutine iets complexer. Eerst wordt de lengte in het <tt>X</tt>-register geladen, dat vervolgens wordt verlaagd. Het fragment hieronder toont het startgeheugen voor de slang."
 
+#. TRANSLATORS: Tooltip text for back button in learn section
+msgid "Back"
+msgstr "Terug"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
 msgstr "Omdat de spelstatus wordt opgeslagen als pixellocaties, is het renderen van het spel heel eenvoudig. De eerste subroutine, <tt>drawApple</tt>, is extreem simpel. Deze zet <tt>Y</tt> op nul, laadt een willekeurige kleur in de accumulator en slaat deze waarde vervolgens op in <tt>($00),y</tt>. <tt>$00</tt> is waar de positie van de appel is opgeslagen, dus <tt>($00),y</tt> dereferentieert naar deze geheugenlocatie. Lees de sectie \"Indirect geïndexeerd\" in <a href=\"#addressing\">Adresseringsmodi</a> voor meer details."
@@ -591,6 +595,7 @@ msgstr "Gekopieerd naar klembord"
 msgid "Copy to clipboard"
 msgstr "Kopiëren naar klembord"
 
+#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
 msgid "Copy to editor"
 msgstr "Kopiëren naar editor"
@@ -677,6 +682,12 @@ msgstr "Met die kennis zie je dat de instructie <tt>LDA #$01</tt> de hexwaarde <
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "Ook al wordt dit een eenvoudige versie, de code zal aanzienlijk groter zijn dan alle vorige voorbeelden. We moeten meerdere geheugenlocaties samen bijhouden voor de verschillende aspecten van het spel. We kunnen het nodige bijhouden nog steeds zelf in het programma doen, zoals eerder, maar op grotere schaal wordt dat snel saai en kan het leiden tot lastig te vinden bugs. In plaats daarvan laten we de assembler nu een deel van het routinewerk voor ons doen."
+
+#. TRANSLATORS: Title for examples section
+#. TRANSLATORS: Title for examples page
+#. TRANSLATORS: Title for examples placeholder
+msgid "Examples"
+msgstr "Voorbeelden"
 
 #. TRANSLATORS: Switch subtitle describing stepper mode behavior
 msgid "Execute instructions one by one instead of continuously"
@@ -957,6 +968,7 @@ msgid "Learn about computer history while coding"
 msgstr "Leer over computerhistorie tijdens het programmeren"
 
 #. TRANSLATORS: Short description of the Learn view
+#. TRANSLATORS: Short description of the Tutorial view
 msgid "Learn how to program the 6502 microprocessor."
 msgstr "Leer hoe je de 6502‑microprocessor programmeert."
 
@@ -1342,6 +1354,10 @@ msgstr "Statusvlaggen"
 msgid "Step"
 msgstr "Stap"
 
+#. TRANSLATORS: Description for tutorial section
+msgid "Step-by-step guide to 6502 assembly"
+msgstr "Stap-voor-stap handleiding voor 6502 assembly"
+
 #. TRANSLATORS: Status line shown when simulator execution stops
 msgid "Stopped"
 msgstr "Gestopt"
@@ -1544,9 +1560,24 @@ msgstr "Zijbalk wisselen"
 msgid "Try changing the colour of the three pixels."
 msgstr "Probeer de kleur van de drie pixels te veranderen."
 
+#. TRANSLATORS: Description for examples section
+msgid "Try out example programs"
+msgstr "Probeer voorbeeldprogramma's"
+
+#. TRANSLATORS: Description for examples placeholder
+#, fuzzy
+msgid "Try out example programs for the 6502 microprocessor."
+msgstr "Leer hoe je de 6502‑microprocessor programmeert."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the monitor in the debugger to watch a section of memory."
 msgstr "Probeer codefragmenten te schrijven die elk van de 6502‑adresseringsmodi gebruiken. Onthoud: je kunt de monitor in de debugger gebruiken om een geheugensectie te bekijken."
+
+#. TRANSLATORS: Title for tutorial section
+#. TRANSLATORS: Title for tutorial page
+#. TRANSLATORS: Card title for Tutorial view
+msgid "Tutorial"
+msgstr "Tutorial"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
