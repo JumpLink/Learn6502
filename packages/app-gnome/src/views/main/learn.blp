@@ -117,20 +117,9 @@ template $Learn: Adw.Bin {
           margin-start: 0;
           margin-end: 0;
           
-          Gtk.Box placeholderBox {
-            orientation: vertical;
-            spacing: 12;
-            halign: center;
-            valign: center;
-            vexpand: true;
-            
-            Gtk.Label {
-              label: _("Examples will be available here soon.");
-              
-              styles [
-                "dim-label",
-              ]
-            }
+          $ExamplesList examplesList {
+            margin-top: 12;
+            margin-bottom: 12;
           }
         };
       };

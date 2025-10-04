@@ -1,0 +1,67 @@
+using Gtk 4.0;
+
+template $ExampleListItem: Gtk.Box {
+  orientation: vertical;
+  spacing: 12;
+  margin-start: 0;
+  margin-end: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+  
+  styles [
+    "card",
+  ]
+
+  Gtk.Box headerBox {
+    orientation: vertical;
+    spacing: 6;
+    margin-bottom: 0;
+    margin-start: 12;
+    margin-end: 12;
+    margin-top: 12;
+
+    Gtk.Label titleLabel {
+      halign: start;
+      wrap: true;
+      xalign: 0;
+      
+      styles [
+        "title-4",
+      ]
+    }
+
+    Gtk.Label authorLabel {
+      halign: start;
+      xalign: 0;
+      
+      styles [
+        "caption-heading",
+      ]
+    }
+
+    Gtk.Label descriptionLabel {
+      halign: start;
+      wrap: true;
+      xalign: 0;
+      margin-top: 6;
+    }
+  }
+
+  Gtk.Box codeBox {
+    orientation: vertical;
+    spacing: 12;
+
+    $SourceView sourceView {
+      editable: false;
+      copyable: true;
+      vexpand: false;
+      hexpand: true;
+      line-numbers: true;
+      height: 300;
+      // TRANSLATORS: Tooltip for copy button in example list item
+      copy-button-tooltip: _("Copy to editor");
+    }
+  }
+
+}
+

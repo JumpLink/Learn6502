@@ -4,6 +4,7 @@ import Gtk from "@girs/gtk-4.0";
 import GLib from "@girs/glib-2.0";
 
 import { TutorialView } from "../../mdx/tutorial-view.ts";
+import { ExamplesList } from "../../widgets/examples-list.ts";
 
 import Template from "./learn.blp";
 import type { LearnView } from "@learn6502/common-ui";
@@ -18,7 +19,7 @@ export class Learn extends Adw.Bin implements LearnView {
   declare private _statusPage: Adw.StatusPage;
   declare private _tutorialView: TutorialView;
   declare private _examplesStatusPage: Adw.StatusPage;
-  declare private _placeholderBox: Gtk.Box;
+  declare private _examplesList: ExamplesList;
 
   // Store the scroll position
   private _lastScrollPosition: number = 0;
@@ -45,7 +46,7 @@ export class Learn extends Adw.Bin implements LearnView {
           "statusPage",
           "tutorialView",
           "examplesStatusPage",
-          "placeholderBox",
+          "examplesList",
         ],
       },
       this
@@ -56,6 +57,7 @@ export class Learn extends Adw.Bin implements LearnView {
     super(params);
     this.setupTutorialSignalListeners();
     this.setupNavigationListeners();
+    this.setupExamplesSignalListeners();
   }
 
   private setupNavigationListeners(): void {
@@ -78,6 +80,13 @@ export class Learn extends Adw.Bin implements LearnView {
   private setupTutorialSignalListeners(): void {
     this._tutorialView.connect("copy", (tutorialView, code) => {
       // Dispatch copy event through controller
+      learnController.dispatch("copy", { code });
+    });
+  }
+
+  private setupExamplesSignalListeners(): void {
+    this._examplesList.connect("copy-code", (_examplesList, code) => {
+      // Dispatch copy event to load example code into editor
       learnController.dispatch("copy", { code });
     });
   }

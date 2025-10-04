@@ -3,7 +3,11 @@
   "version": "0.5.0",
   "description": "Learn 6502 assembly examples",
   "type": "module",
-  "main": "index.tsx",
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts",
+    "./example-meta": "./example-meta.ts"
+  },
   "author": "Nick Morgan, Pascal Garber",
   "license": "CC-BY-4.0",
   "devDependencies": {

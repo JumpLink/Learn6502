@@ -171,6 +171,7 @@ export default defineConfig(({ command, mode, ssrBuild }) => {
         external: ["jsdom", "react"],
         loader: {
           ".ui": "text",
+          ".asm": "text",
         },
       },
       cssMinify: false,

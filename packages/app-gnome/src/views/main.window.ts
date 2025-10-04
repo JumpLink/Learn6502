@@ -99,12 +99,12 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private updateLearnBackButtonVisibility(): void {
-    const isDesktop = this.isDesktopMode(); // TODO: We need a good back button position in desktop mode
+    const isDesktop = this.isDesktopMode();
     const isLearnVisible = this._stack.get_visible_child() === this._learn;
     const hasSubpage = this._learn.hasVisibleSubpage;
 
-    // Show back button only in mobile/tablet mode when Learn is visible and a subpage is open
-    this._learnBackButton.visible = isLearnVisible && hasSubpage;
+    // Show back button in desktop mode or in mobile mode when Learn is visible and a subpage is open
+    this._learnBackButton.visible = isDesktop || (isLearnVisible && hasSubpage);
   }
 
   // State
