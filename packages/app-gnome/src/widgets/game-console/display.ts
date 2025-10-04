@@ -6,14 +6,17 @@ import Template from "./display.blp";
 
 import {
   type DisplayWidget,
-  gameConsoleController,
+  gameConsoleStateService,
 } from "@learn6502/common-ui";
 import { DEFAULT_DISPLAY_CONFIG } from "@learn6502/common-ui/src/data/display-constants";
 import { type Memory, DisplayAddressRange } from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayWidget {
   // Child widgets
-  declare private _drawingArea: Gtk.DrawingArea;
+  declare private _drawingArea: Gtk.DrawingArea; // TODO: Switch to Gdk.Paintable?
+  // Private backing fields for properties
+  declare private _displayWidth: number;
+  declare private _displayHeight: number;
 
   static {
     GObject.registerClass(
@@ -21,25 +24,87 @@ export class Display extends Adw.Bin implements DisplayWidget {
         GTypeName: "Display",
         Template,
         InternalChildren: ["drawingArea"],
+        Properties: {
+          displayWidth: GObject.ParamSpec.int(
+            "displayWidth",
+            "Display Width",
+            "Width of the display in pixels",
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT,
+            1,
+            2048,
+            DEFAULT_DISPLAY_CONFIG.width
+          ),
+          displayHeight: GObject.ParamSpec.int(
+            "displayHeight",
+            "Display Height",
+            "Height of the display in pixels",
+            GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT,
+            1,
+            2048,
+            DEFAULT_DISPLAY_CONFIG.height
+          ),
+        },
       },
       this
     );
   }
 
-  private canvasWidth: number = DEFAULT_DISPLAY_CONFIG.width;
-  private canvasHeight: number = DEFAULT_DISPLAY_CONFIG.height;
+  // Property getters and setters
+  public get displayWidth(): number {
+    return this._displayWidth;
+  }
+
+  public set displayWidth(value: number) {
+    if (value === this._displayWidth) {
+      return;
+    }
+    this._displayWidth = value;
+    this.updateDrawingAreaSize();
+  }
+
+  public get displayHeight(): number {
+    return this._displayHeight;
+  }
+
+  public set displayHeight(value: number) {
+    if (value === this._displayHeight) {
+      return;
+    }
+    this._displayHeight = value;
+    this.updateDrawingAreaSize();
+  }
+
   private pixelSize: number = 0;
   private numX: number = DEFAULT_DISPLAY_CONFIG.numX;
   private numY: number = DEFAULT_DISPLAY_CONFIG.numY;
   private memory: Memory | undefined;
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
-    super(params);
-    if (!this._drawingArea) {
-      throw new Error("DrawingArea is required");
+  constructor(
+    params: {
+      displayWidth?: number;
+      displayHeight?: number;
+    } = {}
+  ) {
+    super();
+    if (params.displayWidth) {
+      this.displayWidth = params.displayWidth;
     }
-
+    if (params.displayHeight) {
+      this.displayHeight = params.displayHeight;
+    }
+    this.updateDrawingAreaSize();
     this.reset();
+  }
+
+  /**
+   * Update the drawing area size based on properties
+   */
+  private updateDrawingAreaSize(): void {
+    if (!this._drawingArea) {
+      return;
+    }
+    this._drawingArea.set_content_width(this.displayWidth);
+    this._drawingArea.set_content_height(this.displayHeight);
   }
 
   /**
@@ -48,17 +113,17 @@ export class Display extends Adw.Bin implements DisplayWidget {
   public initialize(memory: Memory): void {
     this.memory = memory;
     this.memory.on("changed", (event) => {
-      if (gameConsoleController.isDisplayAddress(event.addr)) {
+      if (gameConsoleStateService.isDisplayAddress(event.addr)) {
         this.updatePixel(event.addr);
       }
     });
 
-    this.canvasWidth = this._drawingArea.get_content_width();
-    this.canvasHeight = this._drawingArea.get_content_height();
-    if (!this.canvasWidth || !this.canvasHeight) {
+    // this.displayWidth = this._drawingArea.get_content_width();
+    // this.displayHeight = this._drawingArea.get_content_height();
+    if (!this.displayWidth || !this.displayHeight) {
       throw new Error("DrawingArea is required");
     }
-    this.pixelSize = this.canvasWidth / this.numX;
+    this.pixelSize = this.displayWidth / this.numX;
 
     this.drawAllPixels();
   }
@@ -133,8 +198,13 @@ export class Display extends Adw.Bin implements DisplayWidget {
   }
 
   private drawPixel(cr: cairo.Context, addr: number) {
-    const color = gameConsoleController.getColorForAddress(addr);
-    const [x, y] = gameConsoleController.addrToCoordinates(addr, this.numX);
+    if (!this.memory) {
+      return;
+    }
+
+    // Use the display's own memory instance directly via the state service
+    const color = gameConsoleStateService.getColorForAddress(this.memory, addr);
+    const [x, y] = gameConsoleStateService.addrToCoordinates(addr, this.numX);
 
     cr.setSourceRGB(color.red, color.green, color.blue);
     cr.rectangle(

@@ -8,16 +8,10 @@
     "noEmit": true,
     "jsx": "react-jsx",
     "jsxImportSource": "nano-jsx/esm",
-    "types": ["mdx", "node"],
+    "types": ["mdx"],
     "diagnostics": true,
     "verbatimModuleSyntax": true,
     "isolatedModules": true
   },
-  "include": [
-    "env.d.ts",
-    "./*.mdx",
-    "tsx/**/*.ts",
-    "tsx/**/*.tsx",
-    "tsx/**/*.mdx"
-  ]
+  "include": ["env.d.ts", "**/*.mdx", "**/*.ts", "**/*.tsx"]
 }

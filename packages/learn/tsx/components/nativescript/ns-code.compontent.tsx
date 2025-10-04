@@ -1,5 +1,7 @@
 import { Component, renderSSR } from "nano-jsx/esm/index.js";
-import * as Examples from "../../examples/index.tsx"; // Corrected path for Examples
+import * as Examples from "@learn6502/examples";
+
+const EXAMPLE_NAMES = Object.keys(Examples);
 
 // TODO implement this based on GtkCode
 
@@ -205,8 +207,8 @@ export class NsCode extends Component<NsCodeProps> {
       const exampleName = exampleModifier.slice(
         examplePrefix.length
       ) as keyof typeof Examples;
-      if (Examples[exampleName]) {
-        code = Examples[exampleName];
+      if (EXAMPLE_NAMES.includes(exampleName)) {
+        code = Examples[exampleName].code;
       } else {
         console.warn(`[NsCode] Unknown example: ${exampleName}`);
       }

@@ -1,0 +1,15 @@
+{
+  "name": "@learn6502/examples",
+  "version": "0.5.0",
+  "description": "Learn 6502 assembly examples",
+  "type": "module",
+  "main": "index.ts",
+  "author": "Nick Morgan, Pascal Garber",
+  "license": "CC-BY-4.0",
+  "devDependencies": {
+    "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@learn6502/6502": "workspace:^"
+  }
+}

@@ -6,6 +6,7 @@ import { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
 import { Display, Gamepad } from "../../widgets/game-console/index.ts";
 import {
   gameConsoleController,
+  gameConsoleStateService,
   type GameConsoleView,
 } from "@learn6502/common-ui";
 
@@ -138,7 +139,10 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
 
     // Add a test pattern to memory to test the display
     // This should be done AFTER display initialization to ensure it's visible
-    gameConsoleController.initializeMemoryWithTestPattern("colorChart");
+    gameConsoleStateService.initializeMemoryWithTestPattern(
+      this._memory,
+      "colorChart"
+    );
 
     console.log("GNOME GameConsole: Initialization complete");
   }

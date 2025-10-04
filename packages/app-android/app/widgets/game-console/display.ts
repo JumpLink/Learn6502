@@ -2,6 +2,7 @@ import {
   DisplayWidget,
   gameConsoleController,
   DEFAULT_DISPLAY_CONFIG,
+  gameConsoleStateService,
 } from "@learn6502/common-ui";
 import {
   CreateViewEventData,
@@ -154,7 +155,7 @@ export class Display extends GridLayout implements DisplayWidget {
       const addrHex = event.addr.toString(16);
       const valHex = event.val.toString(16);
       // Only respond to display address changes
-      if (gameConsoleController.isDisplayAddress(event.addr)) {
+      if (gameConsoleStateService.isDisplayAddress(event.addr)) {
         if (this.canvas && this.bitmap && this.paintObj) {
           // Draw the individual pixel directly without calling drawAllPixels
           this.drawSinglePixel(event.addr);
@@ -209,7 +210,10 @@ export class Display extends GridLayout implements DisplayWidget {
     try {
       // Get color from memory using the service
       const memValue = this.memory.get(addr) & 0x0f;
-      const color = gameConsoleController.getColorForAddress(addr);
+      const color = gameConsoleStateService.getColorForAddress(
+        this.memory,
+        addr
+      );
 
       // Use RGB color values (0-255) for Android
       const red = Math.round(color.red * 255);
@@ -220,7 +224,7 @@ export class Display extends GridLayout implements DisplayWidget {
       this.paintObj.setARGB(255, red, green, blue);
 
       // Calculate coordinates
-      const [x, y] = gameConsoleController.addrToCoordinates(addr, this.numX);
+      const [x, y] = gameConsoleStateService.addrToCoordinates(addr, this.numX);
 
       // Calculate pixel rectangle
       const left = x * this.pixelSize;
@@ -390,7 +394,10 @@ export class Display extends GridLayout implements DisplayWidget {
     try {
       // Get color from memory using the service
       const memValue = this.memory.get(addr) & 0x0f;
-      const color = gameConsoleController.getColorForAddress(addr);
+      const color = gameConsoleStateService.getColorForAddress(
+        this.memory,
+        addr
+      );
 
       // Use RGB color values (0-255) for Android
       const red = Math.round(color.red * 255);
@@ -401,7 +408,7 @@ export class Display extends GridLayout implements DisplayWidget {
       this.paintObj.setARGB(255, red, green, blue);
 
       // Calculate coordinates
-      const [x, y] = gameConsoleController.addrToCoordinates(addr, this.numX);
+      const [x, y] = gameConsoleStateService.addrToCoordinates(addr, this.numX);
 
       // Calculate pixel rectangle
       const left = x * this.pixelSize;

@@ -2112,10 +2112,20 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"@learn6502/examples@workspace:^, @learn6502/examples@workspace:packages/examples":
+  version: 0.0.0-use.local
+  resolution: "@learn6502/examples@workspace:packages/examples"
+  dependencies:
+    "@learn6502/6502": "workspace:^"
+    typescript: "npm:^5.9.2"
+  languageName: unknown
+  linkType: soft
+
 "@learn6502/learn@workspace:^, @learn6502/learn@workspace:packages/learn":
   version: 0.0.0-use.local
   resolution: "@learn6502/learn@workspace:packages/learn"
   dependencies:
+    "@learn6502/examples": "workspace:^"
     "@mdx-js/esbuild": "npm:^3.1.1"
     "@types/mdx": "npm:^2.0.13"
     "@types/node": "npm:^24.5.2"

@@ -523,6 +523,10 @@ msgstr "Fichiers assembleur"
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
 msgstr "À bas niveau, cette sous-routine est un peu plus complexe. D'abord, la longueur est chargée dans le registre <tt>X</tt>, qui est ensuite décrémenté. L'extrait ci-dessous montre la mémoire initiale pour le serpent."
 
+#. TRANSLATORS: Tooltip text for back button in learn section
+msgid "Back"
+msgstr "Retour"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
 msgstr "Comme l'état du jeu est stocké en termes de positions de pixels, le rendu du jeu est très simple. La première sous-routine, <tt>drawApple</tt>, est extrêmement simple. Elle met <tt>Y</tt> à zéro, charge une couleur aléatoire dans l'accumulateur, puis stocke cette valeur dans <tt>($00),y</tt>. <tt>$00</tt> est l'endroit où la position de la pomme est stockée, donc <tt>($00),y</tt> déréférence cet emplacement mémoire. Lisez la section \"Post-indexé indirect\" dans <a href=\"#addressing\">Modes d'adressage</a> pour plus de détails."
@@ -550,6 +554,10 @@ msgstr "Drapeau de retenue : Activé lorsqu'une addition produit une retenue ; e
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Modifiez l'un des pixels pour le dessiner dans le coin inférieur droit (emplacement mémoire <tt>$05ff</tt>)."
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "Classic snake game from the original easy6502 tutorial"
+msgstr "Jeu classique du serpent tiré du tutoriel original easy6502"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
@@ -592,6 +600,7 @@ msgstr "Copié dans le presse-papiers"
 msgid "Copy to clipboard"
 msgstr "Copier dans le presse-papiers"
 
+#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
 msgid "Copy to editor"
 msgstr "Copier dans l'éditeur"
@@ -678,6 +687,12 @@ msgstr "Avec ces connaissances, vous devriez pouvoir voir que l'instruction <tt>
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "Bien que ce soit une version simple, le code sera substantiellement plus grand que tous les exemples précédents. Nous devrons suivre plusieurs emplacements mémoire ensemble pour les différents aspects du jeu. Nous pouvons toujours faire nous-mêmes la comptabilité nécessaire tout au long du programme, comme avant, mais à plus grande échelle, cela devient rapidement fastidieux et peut aussi conduire à des bugs difficiles à repérer. À la place, nous allons maintenant laisser l'assembleur faire une partie du travail fastidieux pour nous."
+
+#. TRANSLATORS: Title for examples section
+#. TRANSLATORS: Title for examples page
+#. TRANSLATORS: Title for examples placeholder
+msgid "Examples"
+msgstr "Exemples"
 
 #. TRANSLATORS: Switch subtitle describing stepper mode behavior
 msgid "Execute instructions one by one instead of continuously"
@@ -958,6 +973,7 @@ msgid "Learn about computer history while coding"
 msgstr "Apprenez l'histoire de l'informatique tout en codant"
 
 #. TRANSLATORS: Short description of the Learn view
+#. TRANSLATORS: Short description of the Tutorial view
 msgid "Learn how to program the 6502 microprocessor."
 msgstr "Apprenez à programmer le microprocesseur 6502."
 
@@ -1287,6 +1303,10 @@ msgstr "Échec du simulateur"
 msgid "Slate"
 msgstr "Ardoise"
 
+#. TRANSLATORS: Example title for the Snake game
+msgid "Snake Game"
+msgstr "Jeu du Serpent"
+
 #. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
 msgid "Snake Game Data ($00-$15)"
 msgstr "Données du jeu Snake ($00-$15)"
@@ -1342,6 +1362,10 @@ msgstr "Drapeaux d'état"
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 msgid "Step"
 msgstr "Pas à pas"
+
+#. TRANSLATORS: Description for tutorial section
+msgid "Step-by-step guide to 6502 assembly"
+msgstr "Guide pas à pas de l'assembleur 6502"
 
 #. TRANSLATORS: Status line shown when simulator execution stops
 msgid "Stopped"
@@ -1545,9 +1569,23 @@ msgstr "Basculer la barre latérale"
 msgid "Try changing the colour of the three pixels."
 msgstr "Essayez de changer la couleur des trois pixels."
 
+#. TRANSLATORS: Description for examples section
+msgid "Try out example programs"
+msgstr "Essayez des programmes d'exemple"
+
+#. TRANSLATORS: Description for examples placeholder
+msgid "Try out example programs for the 6502 microprocessor."
+msgstr "Essayez des programmes d'exemple pour le microprocesseur 6502."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the monitor in the debugger to watch a section of memory."
 msgstr "Essayez d'écrire des extraits de code qui utilisent chacun des modes d'adressage 6502. Rappelez-vous, vous pouvez utiliser le moniteur dans le débogueur pour surveiller une section de mémoire."
+
+#. TRANSLATORS: Title for tutorial section
+#. TRANSLATORS: Title for tutorial page
+#. TRANSLATORS: Card title for Tutorial view
+msgid "Tutorial"
+msgstr "Tutoriel"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
@@ -1646,6 +1684,11 @@ msgstr "Page zéro : <tt>$c0</tt>"
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
 msgid "_Preferences"
 msgstr "_Préférences"
+
+#. TRANSLATORS: Example author for the Snake game
+#, javascript-format
+msgid "by %s"
+msgstr "par %s"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"

@@ -521,6 +521,10 @@ msgstr "アセンブリファイル"
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
 msgstr "低レベルではこのサブルーチンはやや複雑です。まず長さを <tt>X</tt> にロードしてデクリメントします。以下はスネークの初期メモリです。"
 
+#. TRANSLATORS: Tooltip text for back button in learn section
+msgid "Back"
+msgstr "戻る"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
 msgstr "ゲーム状態がピクセル位置として格納されているため、ゲームのレンダリングは非常に簡単です。最初のサブルーチン<tt>drawApple</tt>は極めて単純です。<tt>Y</tt>を0に設定し、乱数の色をアキュムレータにロードしてから、その値を<tt>($00),y</tt>に格納します。<tt>$00</tt>はりんごの位置が格納されている場所なので、<tt>($00),y</tt>はこのメモリアドレスを間接参照します。詳細については<a href=\"#addressing\">アドレッシングモード</a>の「間接インデックス」のセクションを参照してください。"
@@ -548,6 +552,10 @@ msgstr "キャリーフラグ: 加算でキャリーが発生するとセット�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "右下隅 (メモリアドレス <tt>$05ff</tt>) に描画されるよう、いずれかのピクセルを変更してみましょう。"
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "Classic snake game from the original easy6502 tutorial"
+msgstr "オリジナルの easy6502 チュートリアルの定番スネークゲーム"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
@@ -590,6 +598,7 @@ msgstr "クリップボードにコピーしました"
 msgid "Copy to clipboard"
 msgstr "クリップボードにコピー"
 
+#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
 msgid "Copy to editor"
 msgstr "エディターにコピー"
@@ -676,6 +685,12 @@ msgstr "この知識があれば、命令 <tt>LDA #$01</tt> が 16進の <tt>$01
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "簡易版とはいえ、コード量はこれまでの例より大幅に増えます。ゲームの様々な要素のために複数のメモリアドレスをまとめて管理する必要があります。従来どおり手作業で管理することもできますが、規模が大きくなると煩雑で見落としやすい不具合の原因になります。そこで、単純作業はアセンブラに任せることにします。"
+
+#. TRANSLATORS: Title for examples section
+#. TRANSLATORS: Title for examples page
+#. TRANSLATORS: Title for examples placeholder
+msgid "Examples"
+msgstr "例"
 
 #. TRANSLATORS: Switch subtitle describing stepper mode behavior
 msgid "Execute instructions one by one instead of continuously"
@@ -956,6 +971,7 @@ msgid "Learn about computer history while coding"
 msgstr "コーディングしながらコンピュータの歴史も学べます"
 
 #. TRANSLATORS: Short description of the Learn view
+#. TRANSLATORS: Short description of the Tutorial view
 msgid "Learn how to program the 6502 microprocessor."
 msgstr "6502 マイクロプロセッサのプログラミングを学びましょう。"
 
@@ -1285,6 +1301,10 @@ msgstr "シミュレーターのエラー"
 msgid "Slate"
 msgstr "スレート"
 
+#. TRANSLATORS: Example title for the Snake game
+msgid "Snake Game"
+msgstr "スネークゲーム"
+
 #. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
 msgid "Snake Game Data ($00-$15)"
 msgstr "スネークゲームデータ ($00-$15)"
@@ -1340,6 +1360,10 @@ msgstr "ステータスフラグ"
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 msgid "Step"
 msgstr "ステップ実行"
+
+#. TRANSLATORS: Description for tutorial section
+msgid "Step-by-step guide to 6502 assembly"
+msgstr "6502アセンブリのステップバイステップガイド"
 
 #. TRANSLATORS: Status line shown when simulator execution stops
 msgid "Stopped"
@@ -1543,9 +1567,23 @@ msgstr "サイドバーを切り替え"
 msgid "Try changing the colour of the three pixels."
 msgstr "3 つのピクセルの色を変えてみましょう。"
 
+#. TRANSLATORS: Description for examples section
+msgid "Try out example programs"
+msgstr "サンプルプログラムを試す"
+
+#. TRANSLATORS: Description for examples placeholder
+msgid "Try out example programs for the 6502 microprocessor."
+msgstr "6502マイクロプロセッサのサンプルプログラムを試してみましょう。"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the monitor in the debugger to watch a section of memory."
 msgstr "6502 の各アドレッシングモードを使うコード片を書いてみましょう。デバッガーのモニターでメモリの変化を観察できます。"
+
+#. TRANSLATORS: Title for tutorial section
+#. TRANSLATORS: Title for tutorial page
+#. TRANSLATORS: Card title for Tutorial view
+msgid "Tutorial"
+msgstr "チュートリアル"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
@@ -1644,6 +1682,11 @@ msgstr "ゼロページ: <tt>$c0</tt>"
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
 msgid "_Preferences"
 msgstr "_設定"
+
+#. TRANSLATORS: Example author for the Snake game
+#, javascript-format
+msgid "by %s"
+msgstr "作者: %s"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"

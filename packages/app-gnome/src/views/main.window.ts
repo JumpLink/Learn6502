@@ -42,6 +42,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   declare private _titleLabel: Gtk.Label;
   declare private _unsavedChangesIndicator: Gtk.Button;
   declare private _sidebarToggleButton: Gtk.ToggleButton;
+  declare private _learnBackButton: Gtk.Button;
 
   // Three column layout widgets
   declare private _leftSidebar: Adw.OverlaySplitView;
@@ -86,10 +87,24 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           "titleLabel",
           "unsavedChangesIndicator",
           "sidebarToggleButton",
+          "learnBackButton",
         ],
       },
       this
     );
+  }
+
+  private _onLearnBackButtonClicked(): void {
+    this._learn.navigateBack();
+  }
+
+  private updateLearnBackButtonVisibility(): void {
+    const isDesktop = this.isDesktopMode();
+    const isLearnVisible = this._stack.get_visible_child() === this._learn;
+    const hasSubpage = this._learn.hasVisibleSubpage;
+
+    // Show back button in desktop mode or in mobile mode when Learn is visible and a subpage is open
+    this._learnBackButton.visible = isDesktop || (isLearnVisible && hasSubpage);
   }
 
   // State
@@ -326,10 +341,23 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.connect("notify::is-active", this.onFocusChanged.bind(this));
     // Listen to focus changes within the window for desktop-mode pause behavior
     this.connect("notify::focus-widget", this.onFocusWidgetChanged.bind(this));
+
+    // Update back button visibility when layout changes
+    this._layoutHost.connect("notify::visible-child-name", () => {
+      this.updateLearnBackButtonVisibility();
+    });
+
+    // Update back button visibility when learn navigation changes
+    this._learn.connect("notify::hasVisibleSubpage", () => {
+      this.updateLearnBackButtonVisibility();
+    });
   }
 
   private onStackVisibleChildChanged(): void {
     const currentChild = this._stack.get_visible_child();
+
+    // Update back button visibility when switching views
+    this.updateLearnBackButtonVisibility();
 
     // Save scroll position when navigating away from Learn view
     if (

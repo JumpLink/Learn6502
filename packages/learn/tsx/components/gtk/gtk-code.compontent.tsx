@@ -2,7 +2,9 @@ import { renderSSR } from "nano-jsx/esm/index.js";
 import { GtkWidget } from "./gtk-widget.compontent.tsx";
 import { GtkBox } from "./gtk-box.component.tsx";
 import { CodeType } from "../../enums/gtk.enums.ts";
-import * as Examples from "../../examples/index.tsx";
+import * as Examples from "@learn6502/examples";
+
+const EXAMPLE_NAMES = Object.keys(Examples);
 
 interface GtkCodeProps extends Object {
   /**
@@ -258,7 +260,11 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     );
     if (exampleModifier) {
       const exampleName = exampleModifier.slice(examplePrefix.length);
-      code = (Examples as any)[exampleName];
+      if (EXAMPLE_NAMES.includes(exampleName)) {
+        code = Examples[exampleName].code;
+      } else {
+        console.warn(`[GtkCode] Unknown example: ${exampleName}`);
+      }
     }
 
     // E.g. line-start=0x0600 for 6502's $0600 start address
