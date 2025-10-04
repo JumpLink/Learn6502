@@ -8,8 +8,8 @@ template $Display: Adw.Bin {
 
   Frame {
     DrawingArea drawingArea {
-      content-width: 320;
-      content-height: 320;
+      content-width: bind template.displayWidth;
+      content-height: bind template.displayHeight;
       focusable: true;
     }
   }
