@@ -14,6 +14,7 @@ const xgettext = xgettextPlugin({
     "../6502/src/**/*.{ts,tsx,js}",
     "../app-gnome/src/**/*.{ts,tsx,js,blp,xml,ui,desktop}",
     "../app-gnome/data/**/*.xml.in",
+    "../examples/**/*.ts",
     "../learn/dist/**/*.ui",
   ],
   output: `./${APPLICATION_ID}.pot`,

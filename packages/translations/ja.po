@@ -553,6 +553,10 @@ msgstr "キャリーフラグ: 加算でキャリーが発生するとセット�
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "右下隅 (メモリアドレス <tt>$05ff</tt>) に描画されるよう、いずれかのピクセルを変更してみましょう。"
 
+#. TRANSLATORS: Example description for the Snake game
+msgid "Classic snake game from the original easy6502 tutorial"
+msgstr "オリジナルの easy6502 チュートリアルの定番スネークゲーム"
+
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "コード"
@@ -1297,6 +1301,10 @@ msgstr "シミュレーターのエラー"
 msgid "Slate"
 msgstr "スレート"
 
+#. TRANSLATORS: Example title for the Snake game
+msgid "Snake Game"
+msgstr "スネークゲーム"
+
 #. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
 msgid "Snake Game Data ($00-$15)"
 msgstr "スネークゲームデータ ($00-$15)"
@@ -1675,6 +1683,11 @@ msgstr "ゼロページ: <tt>$c0</tt>"
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
 msgid "_Preferences"
 msgstr "_設定"
+
+#. TRANSLATORS: Example author for the Snake game
+#, javascript-format
+msgid "by %s"
+msgstr "作者: %s"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"

@@ -2116,6 +2116,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/examples@workspace:packages/examples"
   dependencies:
+    "@learn6502/6502": "workspace:^"
     typescript: "npm:^5.9.2"
   languageName: unknown
   linkType: soft

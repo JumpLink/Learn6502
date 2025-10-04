@@ -4,13 +4,12 @@
   "description": "Learn 6502 assembly examples",
   "type": "module",
   "main": "index.ts",
-  "exports": {
-    ".": "./index.ts",
-    "./example-meta": "./example-meta.ts"
-  },
   "author": "Nick Morgan, Pascal Garber",
   "license": "CC-BY-4.0",
   "devDependencies": {
     "typescript": "^5.9.2"
+  },
+  "dependencies": {
+    "@learn6502/6502": "workspace:^"
   }
 }

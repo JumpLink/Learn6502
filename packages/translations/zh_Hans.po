@@ -554,6 +554,10 @@ msgstr "进位标志（C）：加法产生进位时置位；减法需要借位�
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "试着修改内存中最后一个像素的颜色 (内存地址 $05ff)。"
 
+#. TRANSLATORS: Example description for the Snake game
+msgid "Classic snake game from the original easy6502 tutorial"
+msgstr "来自原版 easy6502 教程的经典贪吃蛇游戏"
+
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "代码"
@@ -1298,6 +1302,10 @@ msgstr "模拟器故障"
 msgid "Slate"
 msgstr "板岩灰"
 
+#. TRANSLATORS: Example title for the Snake game
+msgid "Snake Game"
+msgstr "贪吃蛇游戏"
+
 #. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
 msgid "Snake Game Data ($00-$15)"
 msgstr "贪吃蛇游戏数据（$00–$15）"
@@ -1676,6 +1684,11 @@ msgstr "零页：<tt>$c0</tt>"
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
 msgid "_Preferences"
 msgstr "_首选项"
+
+#. TRANSLATORS: Example author for the Snake game
+#, javascript-format
+msgid "by %s"
+msgstr "作者：%s"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"

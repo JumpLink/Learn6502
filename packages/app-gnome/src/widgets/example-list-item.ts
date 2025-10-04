@@ -49,9 +49,10 @@ export class ExampleListItem extends Gtk.Box {
 
   public setExample(example: ExampleMeta): void {
     this._example = example;
-    this._titleLabel.label = example.title;
-    this._authorLabel.label = `by ${example.author}`;
-    this._descriptionLabel.label = example.description;
+    this._titleLabel.label = _(example.title);
+    // TRANSLATORS: Example author for the Snake game
+    this._authorLabel.label = _("by %s").format(example.author);
+    this._descriptionLabel.label = _(example.description);
     this._sourceView.code = example.code;
   }
 
