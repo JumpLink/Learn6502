@@ -6,14 +6,14 @@ import Template from "./display.blp";
 
 import {
   type DisplayWidget,
-  gameConsoleController,
+  gameConsoleStateService,
 } from "@learn6502/common-ui";
 import { DEFAULT_DISPLAY_CONFIG } from "@learn6502/common-ui/src/data/display-constants";
 import { type Memory, DisplayAddressRange } from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayWidget {
   // Child widgets
-  declare private _drawingArea: Gtk.DrawingArea;
+  declare private _drawingArea: Gtk.DrawingArea; // TODO: Switch to Gdk.Paintable?
 
   static {
     GObject.registerClass(
@@ -48,7 +48,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
   public initialize(memory: Memory): void {
     this.memory = memory;
     this.memory.on("changed", (event) => {
-      if (gameConsoleController.isDisplayAddress(event.addr)) {
+      if (gameConsoleStateService.isDisplayAddress(event.addr)) {
         this.updatePixel(event.addr);
       }
     });
@@ -133,8 +133,13 @@ export class Display extends Adw.Bin implements DisplayWidget {
   }
 
   private drawPixel(cr: cairo.Context, addr: number) {
-    const color = gameConsoleController.getColorForAddress(addr);
-    const [x, y] = gameConsoleController.addrToCoordinates(addr, this.numX);
+    if (!this.memory) {
+      return;
+    }
+
+    // Use the display's own memory instance directly via the state service
+    const color = gameConsoleStateService.getColorForAddress(this.memory, addr);
+    const [x, y] = gameConsoleStateService.addrToCoordinates(addr, this.numX);
 
     cr.setSourceRGB(color.red, color.green, color.blue);
     cr.rectangle(

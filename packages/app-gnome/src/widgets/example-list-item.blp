@@ -47,6 +47,20 @@ template $ExampleListItem: Gtk.Box {
     }
   }
 
+  Gtk.Box displayBox {
+    orientation: vertical;
+    spacing: 6;
+    margin-start: 12;
+    margin-end: 12;
+    margin-top: 6;
+    margin-bottom: 6;
+
+    $Display display {
+      halign: center;
+      valign: start;
+    }
+  }
+
   Gtk.Box codeBox {
     orientation: vertical;
     spacing: 12;

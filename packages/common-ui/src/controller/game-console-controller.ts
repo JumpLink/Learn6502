@@ -22,19 +22,10 @@ import {
   type LabelsInfoEvent,
   type LabelsFailureEvent,
 } from "@learn6502/6502";
-import { DEFAULT_COLOR_PALETTE, getGamepadKeyCode } from "../data";
-import { hexToRgb } from "@learn6502/6502/src/utils";
-import type {
-  GamepadKey,
-  GamepadEvent,
-  GameConsoleEventMap,
-  RGBColor,
-} from "../types";
+import { getGamepadKeyCode } from "../data";
+import type { GamepadKey, GameConsoleEventMap } from "../types";
 import type { DisplayWidget, GamepadWidget } from "../widgets/game-console";
-import {
-  gameConsoleStateService,
-  gameConsoleInputService,
-} from "../services/index.ts";
+import { gameConsoleInputService } from "../services/index.ts";
 
 /**
  * Platform-independent controller that manages the entire game console functionality.
@@ -439,86 +430,6 @@ class GameConsoleController {
     }
   }
 
-  //
-  // Display Rendering
-  //
-
-  /**
-   * Get the current color palette
-   */
-  get palette(): string[] {
-    return gameConsoleStateService.colorPalette;
-  }
-
-  /**
-   * Set a new color palette
-   */
-  set palette(value: string[]) {
-    gameConsoleStateService.colorPalette = value;
-  }
-
-  /**
-   * Get the color for a specific memory address
-   * @param addr Memory address
-   * @returns RGB color object with values in 0-1 range
-   */
-  public getColorForAddress(addr: number): RGBColor {
-    if (!this._memory) {
-      console.error("Memory not initialized when getting color for address");
-      // Return black as fallback
-      return { red: 0, green: 0, blue: 0 };
-    }
-
-    return gameConsoleStateService.getColorForAddress(this._memory, addr);
-  }
-
-  /**
-   * Convert a memory address to pixel coordinates
-   * @param addr Memory address (0x200-0x5ff)
-   * @param numX Number of pixels in x direction
-   * @returns [x, y] coordinates
-   */
-  public addrToCoordinates(addr: number, numX: number): [number, number] {
-    return gameConsoleStateService.addrToCoordinates(addr, numX);
-  }
-
-  /**
-   * Check if an address is in the display memory range
-   * @param addr Memory address to check
-   * @returns True if address is in display range (0x200-0x5ff)
-   */
-  public isDisplayAddress(addr: number): boolean {
-    return gameConsoleStateService.isDisplayAddress(addr);
-  }
-
-  /**
-   * Update a pixel in the display - enhanced with error logging
-   * @param addr Memory address for the pixel
-   */
-  public updatePixel(addr: number): void {
-    if (!this.isDisplayAddress(addr)) {
-      console.error(
-        `updatePixel called with invalid address: 0x${addr.toString(16)}`
-      );
-      return;
-    }
-
-    if (!this.displayWidget) {
-      console.error("Display widget not initialized in updatePixel");
-      return;
-    }
-
-    console.log(
-      `GameConsoleController: Updating pixel at 0x${addr.toString(16)}`
-    );
-
-    try {
-      this.displayWidget.updatePixel(addr);
-    } catch (error) {
-      console.error(`Error updating pixel at 0x${addr.toString(16)}: ${error}`);
-    }
-  }
-
   /**
    * Handle gamepad key press - compatibility method for existing implementations
    * @param key Key that was pressed
@@ -544,27 +455,6 @@ class GameConsoleController {
     this._labels = null;
     this.displayWidget = null;
     this.gamepadWidget = null;
-  }
-
-  /**
-   * Initialize memory with test patterns to verify display functionality
-   * @param pattern The pattern type to initialize
-   */
-  public initializeMemoryWithTestPattern(
-    pattern: "gradient" | "colorChart" | "simple" = "simple"
-  ): void {
-    if (!this._memory) {
-      console.error("Cannot initialize test pattern: Memory not initialized");
-      return;
-    }
-
-    gameConsoleStateService.initializeMemoryWithTestPattern(
-      this._memory,
-      pattern
-    );
-
-    // Force display refresh after setting test pattern
-    this.refreshDisplay();
   }
 
   /**

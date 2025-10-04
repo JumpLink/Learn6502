@@ -13,6 +13,7 @@ import { Display, Gamepad } from "~/widgets/game-console";
 // Import common controller
 import {
   gameConsoleController,
+  gameConsoleStateService,
   type GameConsoleView,
   type GamepadKey,
 } from "@learn6502/common-ui";
@@ -253,7 +254,10 @@ export class GameConsole implements GameConsoleView {
 
     // Add test pattern to memory via shared controller AFTER display initialization
     // This ensures the display is ready to receive and show the pattern
-    gameConsoleController.initializeMemoryWithTestPattern("colorChart");
+    gameConsoleStateService.initializeMemoryWithTestPattern(
+      this._memory,
+      "colorChart"
+    );
 
     console.log("GameConsole: Initialization complete");
   }
