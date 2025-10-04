@@ -29,10 +29,10 @@ export class Learn extends Adw.Bin implements LearnView {
         GTypeName: "Learn",
         Template,
         Properties: {
-          "show-back-button": GObject.ParamSpec.boolean(
-            "show-back-button",
-            "Show Back Button",
-            "Whether the back button should be shown in the header bar",
+          hasVisibleSubpage: GObject.ParamSpec.boolean(
+            "hasVisibleSubpage",
+            "Has Visible Subpage",
+            "Whether the Learn view has opened a visible subpage",
             GObject.ParamFlags.READABLE,
             false
           ),
@@ -59,15 +59,15 @@ export class Learn extends Adw.Bin implements LearnView {
   }
 
   private setupNavigationListeners(): void {
-    // Listen to navigation stack changes to update back button visibility
+    // Listen to navigation stack changes to update hasVisibleSubpage property
     this._navigationView.connect("notify::visible-page", () => {
-      this.notify("show-back-button");
+      this.notify("hasVisibleSubpage");
     });
   }
 
-  get show_back_button(): boolean {
+  get hasVisibleSubpage(): boolean {
     const visiblePageTag = this._navigationView.get_visible_page_tag();
-    // Show back button when we're not on the main page
+    // Show back button when we're not on the main tutorial page
     return visiblePageTag !== "main" && visiblePageTag !== null;
   }
 

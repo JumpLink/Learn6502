@@ -108,7 +108,7 @@ template $MainWindow: Adw.ApplicationWindow {
         icon-name: "go-previous-symbolic";
         // TRANSLATORS: Tooltip text for back button in learn section
         tooltip-text: _("Back");
-        visible: bind learn.show-back-button;
+        visible: false;
         clicked => $_onLearnBackButtonClicked();
         
         styles [

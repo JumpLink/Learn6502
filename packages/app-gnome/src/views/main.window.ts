@@ -98,6 +98,15 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this._learn.navigateBack();
   }
 
+  private updateLearnBackButtonVisibility(): void {
+    const isDesktop = this.isDesktopMode(); // TODO: We need a good back button position in desktop mode
+    const isLearnVisible = this._stack.get_visible_child() === this._learn;
+    const hasSubpage = this._learn.hasVisibleSubpage;
+
+    // Show back button only in mobile/tablet mode when Learn is visible and a subpage is open
+    this._learnBackButton.visible = isLearnVisible && hasSubpage;
+  }
+
   // State
   private previousVisibleChild: Gtk.Widget | null = null;
   private currentFile: Gio.File | null = null;
@@ -332,10 +341,23 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.connect("notify::is-active", this.onFocusChanged.bind(this));
     // Listen to focus changes within the window for desktop-mode pause behavior
     this.connect("notify::focus-widget", this.onFocusWidgetChanged.bind(this));
+
+    // Update back button visibility when layout changes
+    this._layoutHost.connect("notify::visible-child-name", () => {
+      this.updateLearnBackButtonVisibility();
+    });
+
+    // Update back button visibility when learn navigation changes
+    this._learn.connect("notify::hasVisibleSubpage", () => {
+      this.updateLearnBackButtonVisibility();
+    });
   }
 
   private onStackVisibleChildChanged(): void {
     const currentChild = this._stack.get_visible_child();
+
+    // Update back button visibility when switching views
+    this.updateLearnBackButtonVisibility();
 
     // Save scroll position when navigating away from Learn view
     if (
