@@ -1,4 +1,6 @@
 export interface ExampleMetaJson {
+  /** Example slug */
+  slug: string;
   /** Example title */
   title: string;
   /** Example description */
@@ -9,6 +11,8 @@ export interface ExampleMetaJson {
   displayMemory: string;
   /** Source code URL */
   sourceUrl?: string;
+  /** GitHub username */
+  githubUsername?: string;
 }
 
 export interface ExampleMeta extends ExampleMetaJson {

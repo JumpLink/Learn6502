@@ -61,10 +61,19 @@ export class ButtonStateService {
       pause: false,
       reset: false,
       step: false,
+      share: false,
     };
 
     // Always enable assemble if there's code
     enabledState.assemble = hasCode;
+
+    // Enable share when code is present and in certain states
+    // Share is available in PAUSED, COMPLETED, DEBUGGING_PAUSED states
+    enabledState.share =
+      hasCode &&
+      (state === SimulatorState.PAUSED ||
+        state === SimulatorState.COMPLETED ||
+        state === SimulatorState.DEBUGGING_PAUSED);
 
     if (codeChanged) {
       return enabledState;

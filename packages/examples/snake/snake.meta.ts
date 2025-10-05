@@ -1,6 +1,7 @@
 import { _ } from "@learn6502/6502";
 import type { ExampleMetaJson } from "../example-meta.ts";
 export default {
+  slug: "snake",
   // TRANSLATORS: Example title for the Snake game
   title: _("Snake Game"),
   // TRANSLATORS: Example description for the Snake game

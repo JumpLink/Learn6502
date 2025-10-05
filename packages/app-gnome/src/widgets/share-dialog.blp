@@ -1,0 +1,187 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ShareDialog: Adw.Dialog {
+  title: _("Share Example");
+  content-width: 600;
+  content-height: 700;
+  follows-content-size: false;
+
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [start]
+      Button backButton {
+        icon-name: "go-previous-symbolic";
+        // TRANSLATORS: Tooltip for back button in share dialog
+        tooltip-text: _("Previous");
+        visible: false;
+      }
+
+      [end]
+      Button nextButton {
+        icon-name: "go-next-symbolic";
+        // TRANSLATORS: Tooltip for next button in share dialog
+        tooltip-text: _("Next");
+        
+        styles [
+          "suggested-action",
+        ]
+      }
+    }
+
+    Adw.Carousel carousel {
+      allow-long-swipes: false;
+      allow-scroll-wheel: false;
+      interactive: false;
+
+      // Page 1: Form
+      Adw.StatusPage {
+        hexpand: true;
+        icon-name: "share-symbolic";
+        // TRANSLATORS: Title of the share dialog
+        title: _("Share Your Example");
+        // TRANSLATORS: Description in share dialog
+        description: _("Fill in the information about your 6502 example to share it with the community");
+
+        Box formBox {
+          orientation: vertical;
+          spacing: 6;
+          margin-start: 12;
+          margin-end: 12;
+          margin-top: 12;
+          margin-bottom: 12;
+          halign: center;
+
+          Adw.PreferencesGroup {
+            styles [
+              "boxed-list",
+            ]
+
+            Adw.EntryRow titleEntry {
+              // TRANSLATORS: Entry label for example title
+              title: _("Title");
+              input-purpose: free_form;
+            }
+
+            Adw.EntryRow authorEntry {
+              // TRANSLATORS: Entry label for example author
+              title: _("Author");
+              input-purpose: free_form;
+            }
+
+            Adw.EntryRow descriptionEntry {
+              // TRANSLATORS: Entry label for example description
+              title: _("Description");
+              input-purpose: free_form;
+            }
+          }
+
+          Adw.PreferencesGroup {
+            styles [
+              "boxed-list",
+            ]
+
+            Adw.EntryRow sourceUrlEntry {
+              // TRANSLATORS: Entry label for optional source URL
+              title: _("Source URL");
+              // TRANSLATORS: Placeholder for source URL entry
+              input-purpose: url;
+            }
+          }
+
+          Label {
+            label: _("If your example is based on or inspired by another example, you can provide the source URL.");
+            wrap: true;
+            xalign: 0;
+            margin-start: 6;
+            margin-end: 6;
+            
+            styles [
+              "caption",
+              "dim-label",
+            ]
+          }
+        }
+      }
+
+      // Page 2: Preview
+      Adw.StatusPage {
+        hexpand: true;
+        icon-name: "document-properties-symbolic";
+        // TRANSLATORS: Title for preview page in share dialog
+        title: _("Preview Your Example");
+        // TRANSLATORS: Description for preview page
+        description: _("Review how your example will appear to others");
+
+        Box previewBox {
+          orientation: vertical;
+          spacing: 6;
+          margin-start: 12;
+          margin-end: 12;
+          margin-top: 12;
+          margin-bottom: 12;
+          halign: center;
+
+          $ExampleListItem examplePreview {
+          }
+
+          Adw.PreferencesGroup {
+            styles [
+              "boxed-list",
+            ]
+
+            Adw.ActionRow {
+              icon-name: "dialog-information-symbolic";
+              // TRANSLATORS: Info about GitHub requirement
+              title: _("GitHub Account Required");
+              // TRANSLATORS: Subtitle explaining the submission process
+              subtitle: _("Clicking 'Submit' will create a pull request on GitHub. You'll need to sign in with your GitHub account to complete the submission.");
+            }
+          }
+
+          Box {
+            halign: center;
+            spacing: 12;
+
+            Button cancelButton {
+              // TRANSLATORS: Cancel button in preview page
+              label: _("Cancel");
+            }
+
+            Button submitButton {
+              // TRANSLATORS: Submit button to send example
+              label: _("Submit");
+              
+              styles [
+                "suggested-action",
+              ]
+            }
+          }
+        }
+      }
+
+      // Page 3: Completion
+      Adw.StatusPage {
+        hexpand: true;
+        icon-name: "heart-filled-symbolic";
+        // TRANSLATORS: Title when submission is complete
+        title: _("Example Submitted!");
+        // TRANSLATORS: Success message after submission
+        description: _("Thank you for contributing! Your example has been submitted for review. If approved, it will be included in the next release.");
+
+        Button closeButton {
+          // TRANSLATORS: Close button on completion page
+          label: _("Close");
+          halign: center;
+          margin-top: 18;
+          
+          styles [
+            "pill",
+            "suggested-action",
+          ]
+        }
+      }
+    }
+  }
+}
