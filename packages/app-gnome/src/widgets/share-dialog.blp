@@ -140,29 +140,24 @@ template $ShareDialog: Adw.Dialog {
             }
           }
 
-          Box {
+
+          Button submitButton {
+            // TRANSLATORS: Close button on completion page
+            label: _("Submit");
             halign: center;
-            spacing: 12;
-
-            Button cancelButton {
-              // TRANSLATORS: Cancel button in preview page
-              label: _("Cancel");
-            }
-
-            Button submitButton {
-              // TRANSLATORS: Submit button to send example
-              label: _("Submit");
-              
-              styles [
-                "suggested-action",
-              ]
-            }
+            margin-top: 18;
+            
+            styles [
+              "pill",
+              "suggested-action",
+            ]
           }
+
         }
       }
 
       // Page 3: Completion
-      Adw.StatusPage {
+      Adw.StatusPage completionPage {
         hexpand: true;
         icon-name: "heart-filled-symbolic";
         // TRANSLATORS: Title when submission is complete
@@ -170,16 +165,34 @@ template $ShareDialog: Adw.Dialog {
         // TRANSLATORS: Success message after submission
         description: _("Thank you for contributing! Your example has been submitted for review. If approved, it will be included in the next release.");
 
-        Button closeButton {
-          // TRANSLATORS: Close button on completion page
-          label: _("Close");
+        Box {
+          orientation: vertical;
+          spacing: 12;
           halign: center;
-          margin-top: 18;
-          
-          styles [
-            "pill",
-            "suggested-action",
-          ]
+
+          Label manualPasteInfo {
+            label: _("📋 Your example is larger than the URL size limit.\n\nThe complete issue content has been copied to your clipboard. Please paste it into the GitHub issue that just opened.");
+            wrap: true;
+            justify: center;
+            max-width-chars: 50;
+            visible: false;
+            margin-top: 12;
+            
+            styles [
+              "title-4",
+            ]
+          }
+          Button closeButton {
+            // TRANSLATORS: Close button on completion page
+            label: _("Close");
+            halign: center;
+            margin-top: 18;
+            
+            styles [
+              "pill",
+              "suggested-action",
+            ]
+          }
         }
       }
     }

@@ -1,6 +1,8 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
+import Gdk from "@girs/gdk-4.0";
+import GLib from "@girs/glib-2.0";
 
 import type {
   ExampleMeta,
@@ -11,6 +13,10 @@ import { ExampleListItem } from "./example-list-item.ts";
 
 import Template from "./share-dialog.blp";
 
+// GitHub repository configuration
+const GITHUB_OWNER = "JumpLink";
+const GITHUB_REPO = "Learn6502";
+
 export class ShareDialog extends Adw.Dialog {
   declare private _carousel: Adw.Carousel;
   declare private _backButton: Gtk.Button;
@@ -20,9 +26,9 @@ export class ShareDialog extends Adw.Dialog {
   declare private _descriptionEntry: Adw.EntryRow;
   declare private _sourceUrlEntry: Adw.EntryRow;
   declare private _examplePreview: ExampleListItem;
-  declare private _cancelButton: Gtk.Button;
   declare private _submitButton: Gtk.Button;
   declare private _closeButton: Gtk.Button;
+  declare private _manualPasteInfo: Gtk.Label;
 
   private _code: string = "";
   private _memory: Memory | null = null;
@@ -42,9 +48,9 @@ export class ShareDialog extends Adw.Dialog {
           "descriptionEntry",
           "sourceUrlEntry",
           "examplePreview",
-          "cancelButton",
           "submitButton",
           "closeButton",
+          "manualPasteInfo",
         ],
         Signals: {
           submit: {
@@ -98,9 +104,6 @@ export class ShareDialog extends Adw.Dialog {
     });
 
     // Preview page buttons
-    this._cancelButton.connect("clicked", () => {
-      this.close();
-    });
 
     this._submitButton.connect("clicked", () => {
       this.handleSubmit();
@@ -247,10 +250,137 @@ export class ShareDialog extends Adw.Dialog {
   }
 
   /**
+   * URL-encode a string
+   */
+  private encodeURIComponent(str: string): string {
+    return GLib.uri_escape_string(str, null, false);
+  }
+
+  /**
+   * Build the issue body content
+   */
+  private buildIssueBody(payload: {
+    slug: string;
+    title: string;
+    description: string;
+    author: string;
+    sourceUrl?: string;
+    code: string;
+    displayMemory: string;
+  }): string {
+    // Build metadata JSON without code (code will be in separate block)
+    const metadata = {
+      slug: payload.slug,
+      title: payload.title,
+      description: payload.description,
+      author: payload.author,
+      ...(payload.sourceUrl && { sourceUrl: payload.sourceUrl }),
+      displayMemory: payload.displayMemory,
+    };
+    const metadataJson = JSON.stringify(metadata, null, 2);
+
+    return [
+      "Please do not edit below this line.",
+      "",
+      "## Metadata",
+      "```json",
+      metadataJson,
+      "```",
+      "",
+      "## Code",
+      "```assembly",
+      payload.code,
+      "```",
+      "",
+      "_Submitted via Learn6502 app_",
+    ].join("\n");
+  }
+
+  /**
+   * Build GitHub issue URL with prefilled data
+   * Returns both the URL and a flag indicating if it's too long
+   */
+  private buildGitHubIssueURL(payload: {
+    slug: string;
+    title: string;
+    description: string;
+    author: string;
+    sourceUrl?: string;
+    code: string;
+    displayMemory: string;
+  }): { url: string; isTooLong: boolean; body: string } {
+    const title = `[example] ${payload.slug}`;
+    const body = this.buildIssueBody(payload);
+
+    // Build URL with query parameters manually
+    const baseUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new`;
+    const encodedTitle = this.encodeURIComponent(title);
+    const encodedBody = this.encodeURIComponent(body);
+
+    const fullUrl = `${baseUrl}?title=${encodedTitle}&body=${encodedBody}`;
+
+    // GitHub's URL limit is around 8000 characters, we use 7000 as safe threshold
+    const isTooLong = fullUrl.length > 7000;
+
+    // If too long, create URL with help message in body
+    let url: string;
+    if (isTooLong) {
+      const helpMessage =
+        "Your example is larger than the URL size limit. The complete issue content has been automatically copied to your clipboard. Please paste it to replace this message, then submit the issue.";
+      const encodedHelpBody = this.encodeURIComponent(helpMessage);
+      url = `${baseUrl}?title=${encodedTitle}&body=${encodedHelpBody}`;
+    } else {
+      url = fullUrl;
+    }
+
+    return { url, isTooLong, body };
+  }
+
+  /**
    * Handle form submission
    */
   private handleSubmit(): void {
     const example = this.buildExampleMeta();
+
+    // Build payload with code and display memory as plain strings
+    const payload = {
+      slug: example.slug,
+      title: example.title,
+      description: example.description,
+      author: example.author,
+      ...(example.sourceUrl && { sourceUrl: example.sourceUrl }),
+      code: example.code,
+      displayMemory: example.displayMemory,
+    };
+
+    // Build GitHub issue URL
+    const result = this.buildGitHubIssueURL(payload);
+
+    // Open URL in default browser
+    // Get the parent window to use as context for URI opening
+    const root = this.get_root();
+    if (root && root instanceof Gtk.Window) {
+      Gtk.show_uri(root, result.url, Gdk.CURRENT_TIME);
+    }
+
+    // If URL was too long, copy body to clipboard and show manual paste info
+    if (result.isTooLong) {
+      const display = Gdk.Display.get_default();
+      if (display) {
+        const clipboard = display.get_clipboard();
+        clipboard.set(result.body);
+      }
+
+      // Show the manual paste info label
+      this._manualPasteInfo.visible = true;
+
+      console.log(
+        `URL too long (${result.url.length} chars), body copied to clipboard`
+      );
+    } else {
+      // Hide manual paste info for normal submissions
+      this._manualPasteInfo.visible = false;
+    }
 
     // Emit submit signal with the example data
     this.emit("submit", example);
