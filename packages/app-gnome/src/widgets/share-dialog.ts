@@ -10,6 +10,7 @@ import type {
 } from "@learn6502/examples/example-meta";
 import { DisplayAddressRange, Memory } from "@learn6502/6502";
 import { ExampleListItem } from "./example-list-item.ts";
+import { copyToClipboard } from "../utils.ts";
 
 import Template from "./share-dialog.blp";
 
@@ -27,12 +28,13 @@ export class ShareDialog extends Adw.Dialog {
   declare private _sourceUrlEntry: Adw.EntryRow;
   declare private _examplePreview: ExampleListItem;
   declare private _submitButton: Gtk.Button;
+  declare private _copyToClipboardButton: Gtk.Button;
   declare private _closeButton: Gtk.Button;
-  declare private _manualPasteInfo: Gtk.Label;
 
   private _code: string = "";
   private _memory: Memory | null = null;
   private _currentPage: number = 0;
+  private _issueBody: string = "";
 
   static {
     GObject.registerClass(
@@ -49,8 +51,8 @@ export class ShareDialog extends Adw.Dialog {
           "sourceUrlEntry",
           "examplePreview",
           "submitButton",
+          "copyToClipboardButton",
           "closeButton",
-          "manualPasteInfo",
         ],
         Signals: {
           submit: {
@@ -109,7 +111,11 @@ export class ShareDialog extends Adw.Dialog {
       this.handleSubmit();
     });
 
-    // Completion page button
+    // Completion page buttons
+    this._copyToClipboardButton.connect("clicked", () => {
+      this.handleCopyToClipboard();
+    });
+
     this._closeButton.connect("clicked", () => {
       this.close();
     });
@@ -159,7 +165,7 @@ export class ShareDialog extends Adw.Dialog {
         this._nextButton.visible = false;
         break;
       case 2: // Completion page
-        this._backButton.visible = false;
+        this._backButton.visible = true;
         this._nextButton.visible = false;
         break;
     }
@@ -326,7 +332,7 @@ export class ShareDialog extends Adw.Dialog {
     let url: string;
     if (isTooLong) {
       const helpMessage =
-        "Your example is larger than the URL size limit. The complete issue content has been automatically copied to your clipboard. Please paste it to replace this message, then submit the issue.";
+        "Your example is too large to insert automatically. The complete issue content has been automatically copied to your clipboard. Please paste it to replace this message, then submit the issue.";
       const encodedHelpBody = this.encodeURIComponent(helpMessage);
       url = `${baseUrl}?title=${encodedTitle}&body=${encodedHelpBody}`;
     } else {
@@ -363,23 +369,16 @@ export class ShareDialog extends Adw.Dialog {
       Gtk.show_uri(root, result.url, Gdk.CURRENT_TIME);
     }
 
-    // If URL was too long, copy body to clipboard and show manual paste info
+    // If URL was too long, copy body to clipboard and show copy button
     if (result.isTooLong) {
-      const display = Gdk.Display.get_default();
-      if (display) {
-        const clipboard = display.get_clipboard();
-        clipboard.set(result.body);
-      }
-
-      // Show the manual paste info label
-      this._manualPasteInfo.visible = true;
-
+      this._issueBody = result.body;
+      copyToClipboard(result.body);
+      this._copyToClipboardButton.visible = true;
       console.log(
         `URL too long (${result.url.length} chars), body copied to clipboard`
       );
     } else {
-      // Hide manual paste info for normal submissions
-      this._manualPasteInfo.visible = false;
+      this._copyToClipboardButton.visible = false;
     }
 
     // Emit submit signal with the example data
@@ -387,6 +386,13 @@ export class ShareDialog extends Adw.Dialog {
 
     // Navigate to completion page
     this.navigateToPage(2);
+  }
+
+  private handleCopyToClipboard(): void {
+    if (this._issueBody) {
+      copyToClipboard(this._issueBody);
+      console.log("Issue content copied to clipboard");
+    }
   }
 }
 

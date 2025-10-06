@@ -21,8 +21,8 @@ template $ShareDialog: Adw.Dialog {
       [end]
       Button nextButton {
         icon-name: "go-next-symbolic";
-        // TRANSLATORS: Tooltip for next button in share dialog
-        tooltip-text: _("Next");
+        // TRANSLATORS: Label for next button in share dialog
+        label: _("Next");
         
         styles [
           "suggested-action",
@@ -108,11 +108,10 @@ template $ShareDialog: Adw.Dialog {
       // Page 2: Preview
       Adw.StatusPage {
         hexpand: true;
-        icon-name: "document-properties-symbolic";
         // TRANSLATORS: Title for preview page in share dialog
         title: _("Preview Your Example");
-        // TRANSLATORS: Description for preview page
-        description: _("Review how your example will appear to others");
+        // TRANSLATORS: Description for preview page with GitHub account info
+        description: _("Review how your example will appear to others. Clicking <b>Submit</b> will create a issue on GitHub. You'll need to sign in with your GitHub account to complete the submission.");
 
         Box previewBox {
           orientation: vertical;
@@ -121,38 +120,22 @@ template $ShareDialog: Adw.Dialog {
           margin-end: 12;
           margin-top: 12;
           margin-bottom: 12;
-          halign: center;
+          halign: fill;
+          hexpand: true;
 
-          $ExampleListItem examplePreview {
-          }
-
-          Adw.PreferencesGroup {
-            styles [
-              "boxed-list",
-            ]
-
-            Adw.ActionRow {
-              icon-name: "dialog-information-symbolic";
-              // TRANSLATORS: Info about GitHub requirement
-              title: _("GitHub Account Required");
-              // TRANSLATORS: Subtitle explaining the submission process
-              subtitle: _("Clicking 'Submit' will create a pull request on GitHub. You'll need to sign in with your GitHub account to complete the submission.");
-            }
-          }
-
+          $ExampleListItem examplePreview {}
 
           Button submitButton {
             // TRANSLATORS: Close button on completion page
             label: _("Submit");
             halign: center;
-            margin-top: 18;
+            margin-top: 24;
             
             styles [
               "pill",
               "suggested-action",
             ]
           }
-
         }
       }
 
@@ -160,33 +143,37 @@ template $ShareDialog: Adw.Dialog {
       Adw.StatusPage completionPage {
         hexpand: true;
         icon-name: "heart-filled-symbolic";
-        // TRANSLATORS: Title when submission is complete
-        title: _("Example Submitted!");
-        // TRANSLATORS: Success message after submission
-        description: _("Thank you for contributing! Your example has been submitted for review. If approved, it will be included in the next release.");
+        // TRANSLATORS: Title for final step
+        title: _("Almost Done!");
+        // TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
+        description: _("A GitHub issue has been opened in your browser. Please review and submit it there to complete your contribution. Once approved, your example will be included in the next release.\n\nShould your example be too large, the complete content will be copied to your clipboard for manual pasting into the GitHub issue.");
 
         Box {
           orientation: vertical;
-          spacing: 12;
+          spacing: 6;
+          margin-start: 12;
+          margin-end: 12;
+          margin-top: 12;
+          margin-bottom: 12;
           halign: center;
 
-          Label manualPasteInfo {
-            label: _("📋 Your example is larger than the URL size limit.\n\nThe complete issue content has been copied to your clipboard. Please paste it into the GitHub issue that just opened.");
-            wrap: true;
-            justify: center;
-            max-width-chars: 50;
+          Button copyToClipboardButton {
             visible: false;
+            // TRANSLATORS: Button to copy example content to clipboard again
+            label: _("Copy to Clipboard");
+            halign: center;
             margin-top: 12;
             
             styles [
-              "title-4",
+              "pill",
             ]
           }
+
           Button closeButton {
-            // TRANSLATORS: Close button on completion page
-            label: _("Close");
+            // TRANSLATORS: Button to close dialog after submitting issue on GitHub
+            label: _("Done");
             halign: center;
-            margin-top: 18;
+            margin-top: 24;
             
             styles [
               "pill",

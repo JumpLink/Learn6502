@@ -1,4 +1,4 @@
-name: Issue → PR: Add Example
+name: "Issue → PR: Add Example"
 
 on:
   issues:
@@ -144,4 +144,3 @@ jobs:
               repo: context.repo.repo,
               body: '✅ Pull request created! Your example will be reviewed and merged soon. Thank you for contributing! 🎉'
             })
-
