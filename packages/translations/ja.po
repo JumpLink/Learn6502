@@ -332,6 +332,16 @@ msgstr "<tt>checkSnakeCollision</tt> は胴体の各バイトペアを走査し�
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
 msgstr "<tt>init</tt> と <tt>loop</tt> はどちらもサブルーチンです。<tt>init</tt> はゲーム状態を初期化し、<tt>loop</tt> はメインのゲームループです。"
 
+#. TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
+msgid ""
+"A GitHub issue has been opened in your browser. Please review and submit it there to complete your contribution. Once approved, your example will be included in the next release.\n"
+"\n"
+"Should your example be too large, the complete content will be copied to your clipboard for manual pasting into the GitHub issue."
+msgstr ""
+"GitHub issueがブラウザで開かれました。内容を確認して送信し、投稿を完了してください。承認されると、次のリリースに含まれます。\n"
+"\n"
+"例が大きすぎる場合は、すべての内容がクリップボードにコピーされますので、手動でGitHub issueに貼り付けてください。"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
 msgstr "6502命令セットの完全なリストは<a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">こちら</a>と<a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">こちら</a>で参照できます (通常は両方のページを参照します。それぞれ長所と短所があるためです)。これらのページには各命令の引数、使用するレジスタ、設定するフラグの詳細が記載されています。これらはあなたの聖典となるでしょう。"
@@ -449,6 +459,10 @@ msgstr "すべてのファイル"
 msgid "All instructions that support absolute addressing (with the exception of the jump instructions) also have the option to take a single-byte address. This type of addressing is called \"zero page\" - only the first page (the first 256 bytes) of memory is accessible. This is faster, as only one byte needs to be looked up, and takes up less space in the assembled code as well."
 msgstr "絶対アドレッシングをサポートするすべての命令 (ジャンプ命令を除く) は、1バイトのアドレスも使用できます。このアドレッシング方式は「ゼロページ」と呼ばれます。メモリの最初のページ (最初の256バイト) のみにアクセスできます。これは1バイトのみをルックアップする必要があるため高速で、アセンブルされたコードでもより少ないスペースを占めます。"
 
+#. TRANSLATORS: Title for final step
+msgid "Almost Done!"
+msgstr "もう少しです！"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 msgstr "これも有用: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
@@ -520,6 +534,10 @@ msgstr "アセンブリファイル"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
 msgstr "低レベルではこのサブルーチンはやや複雑です。まず長さを <tt>X</tt> にロードしてデクリメントします。以下はスネークの初期メモリです。"
+
+#. TRANSLATORS: Entry label for example author
+msgid "Author"
+msgstr "著者"
 
 #. TRANSLATORS: Tooltip text for back button in learn section
 msgid "Back"
@@ -594,6 +612,7 @@ msgstr "続行"
 msgid "Copied to clipboard"
 msgstr "クリップボードにコピーしました"
 
+#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
 msgstr "クリップボードにコピー"
@@ -631,6 +650,10 @@ msgstr "デバッガーは表示時のみ更新されるようになり、不要
 msgid "Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic operations. When set, ADC/SBC instructions treat values as decimal digits (0-9) instead of binary. Used for financial calculations and decimal arithmetic."
 msgstr "デシマルフラグ: 算術演算をBCD (十進化) モードにします。セット時は ADC/SBC が値を2進ではなく0〜9の十進として扱います。金額計算などの十進演算で使用します。"
 
+#. TRANSLATORS: Entry label for example description
+msgid "Description"
+msgstr "説明"
+
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
 msgstr "無効にするとパフォーマンスが向上します"
@@ -657,6 +680,10 @@ msgstr "表示メモリ ($0200-$05FF)"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Display Organization"
 msgstr "表示の構成"
+
+#. TRANSLATORS: Button to close dialog after submitting issue on GitHub
+msgid "Done"
+msgstr "完了"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
@@ -686,6 +713,10 @@ msgstr "この知識があれば、命令 <tt>LDA #$01</tt> が 16進の <tt>$01
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "簡易版とはいえ、コード量はこれまでの例より大幅に増えます。ゲームの様々な要素のために複数のメモリアドレスをまとめて管理する必要があります。従来どおり手作業で管理することもできますが、規模が大きくなると煩雑で見落としやすい不具合の原因になります。そこで、単純作業はアセンブラに任せることにします。"
 
+#. TRANSLATORS: Toast message when example is submitted
+msgid "Example submitted for review"
+msgstr "例がレビュー用に送信されました"
+
 #. TRANSLATORS: Title for examples section
 #. TRANSLATORS: Title for examples page
 #. TRANSLATORS: Title for examples placeholder
@@ -711,6 +742,10 @@ msgstr "クリップボードへのコピーに失敗しました"
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "ファイル「%s」には未保存の変更があります"
+
+#. TRANSLATORS: Description in share dialog
+msgid "Fill in the information about your 6502 example to share it with the community"
+msgstr "6502の例についての情報を記入して、コミュニティと共有してください"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Finally, byte <tt>$03</tt> contains the current length of the snake, in terms of bytes in memory (so a length of 4 means 2 pixels)."
@@ -777,6 +812,14 @@ msgstr "ドイツ語とスペイン語はコントリビューターにより検
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr "セクション間の移動は、上位バイトも考慮する必要があるため少し複雑です。たとえば <tt>$02e1</tt> から下へは <tt>$0301</tt> になります。幸い、これは比較的簡単です。<tt>$e1</tt> に <tt>$20</tt> を加えると <tt>$01</tt> となりキャリービットが立ちます。キャリーが立ったなら、上位バイトもインクリメントすべきだと分かります。"
 
+#. TRANSLATORS: Description for examples placeholder
+msgid ""
+"Got a cool 6502 example?\n"
+"Share it with the community!"
+msgstr ""
+"クールな6502の例はありますか？\n"
+"コミュニティと共有しましょう！"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -824,6 +867,9 @@ msgstr "加算結果が1バイトを超えると、アドレスは折り返し�
 #. TRANSLATORS: Call to action for community translation/validation
 msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
 msgstr "記載のいずれかの言語を話す方は、翻訳のレビューや改善にご協力ください。アプリ内リンク、翻訳プラットフォーム、またはIssueの作成から参加できます。"
+
+msgid "If your example is based on or inspired by another example, you can provide the source URL."
+msgstr "例が別の例に基づいている、またはインスピレーションを受けている場合は、ソースURLを入力できます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1113,6 +1159,18 @@ msgstr "前処理中…"
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
 msgstr "<b>ステップ</b> をもう一度押して2つ目の命令を実行します。画面左上のピクセルが白になるはずです。このシミュレーターは <tt>$0200</tt>〜<tt>$05ff</tt> のメモリを表示に使います。<tt>$00</tt>〜<tt>$0f</tt> は16色（<tt>$00</tt>=黒、<tt>$01</tt>=白）なので、<tt>$0200</tt> に <tt>$01</tt> を書けば左上が白になります。実機の映像出力より簡略ですが、ここでは十分です。"
 
+#. TRANSLATORS: Label for next button in share dialog
+msgid "Preview"
+msgstr "プレビュー"
+
+#. TRANSLATORS: Title for preview page in share dialog
+msgid "Preview Your Example"
+msgstr "例のプレビュー"
+
+#. TRANSLATORS: Tooltip for back button in share dialog
+msgid "Previous"
+msgstr "前へ"
+
 #. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
 msgstr "プライマリカラー"
@@ -1239,6 +1297,10 @@ msgstr "リセット"
 msgid "Resume"
 msgstr "再開"
 
+#. TRANSLATORS: Description for preview page with GitHub account info
+msgid "Review how your example will appear to others. Clicking <b>Submit</b> will create a issue on GitHub. You'll need to sign in with your GitHub account to complete the submission."
+msgstr "例がどのように表示されるかを確認してください。<b>送信</b>をクリックすると、GitHubでissueが作成されます。送信を完了するには、GitHubアカウントでサインインする必要があります。"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Rewrite the first example in this section to use the <tt>Y</tt> register instead of the <tt>X</tt> register."
 msgstr "このセクションの最初の例を、<tt>X</tt>レジスタの代わりに<tt>Y</tt>レジスタを使用するように書き換えてください。"
@@ -1287,6 +1349,19 @@ msgstr "しかし真剣に言うと、アセンブリ言語を理解すること
 #. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
 msgstr "設定"
+
+#. TRANSLATORS: Menu item to share the current code
+#. TRANSLATORS: Toolbar button tooltip to share the current code
+msgid "Share"
+msgstr "共有"
+
+msgid "Share Example"
+msgstr "例を共有"
+
+#. TRANSLATORS: Title of the share dialog
+#. TRANSLATORS: Button to share your own example
+msgid "Share Your Example"
+msgstr "例を共有"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Simulator"
@@ -1341,6 +1416,10 @@ msgstr "ところで、なぜ 6502 を学ぶのでしょう？廃れた言語で
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr "一部の命令はメモリアドレスを扱いません（例: <tt>INX</tt> は <tt>X</tt> をインクリメント）。これは暗黙アドレッシングと呼ばれ、引数は命令に暗黙的に含まれます。"
 
+#. TRANSLATORS: Entry label for optional source URL
+msgid "Source URL"
+msgstr "ソースURL"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr "特別なメモリ位置（シミュレーター）"
@@ -1372,6 +1451,10 @@ msgstr "停止"
 #. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
 msgstr "スタイル"
+
+#. TRANSLATORS: Close button on completion page
+msgid "Submit"
+msgstr "送信"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1555,6 +1638,10 @@ msgstr "これは少し変わっています。ゼロページ,X と間接の中
 msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
 msgstr "本リリースでは携帯機風の鮮やかなテーマとカスタムカラー、タブレット/デスクトップ向けのアダプティブなレイアウトを導入し、長時間の学習にも見通しよく作業できます。新規コントリビューター @mmartinortiz に感謝します。TypeScript の厳格化、GtkSourceView のカスタムスタイル、強化されたデバッガー操作など技術面の改善も多数含みます。"
 
+#. TRANSLATORS: Entry label for example title
+msgid "Title"
+msgstr "タイトル"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
 msgstr "方向が <tt>1</tt>/<tt>2</tt>/<tt>4</tt>/<tt>8</tt> のどれかを調べるには、キャリーが立つまで右シフト（<tt>LSR</tt>）を繰り返します。1 回なら上、2 回なら右…という具合です。"
@@ -1703,6 +1790,9 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "これは間接参照で得られる <tt>$0411</tt>、<tt>$0410</tt>、<tt>$040f</tt>（画面中央付近の3ピクセル）を表します。くどいようですが、間接アドレッシングの仕組みをしっかり理解することが重要です。"
+
+#~ msgid "Copy to Clipboard"
+#~ msgstr "クリップボードにコピー"
 
 #~ msgid "Chinese (Simplified)"
 #~ msgstr "中国語 (簡体字)"

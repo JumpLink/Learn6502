@@ -332,6 +332,16 @@ msgstr "<tt>checkSnakeCollision</tt> проходить через сегмен�
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
 msgstr "<tt>init</tt> і <tt>loop</tt> — обидві підпрограми. <tt>init</tt> ініціалізує стан гри, а <tt>loop</tt> — це основний ігровий цикл."
 
+#. TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
+msgid ""
+"A GitHub issue has been opened in your browser. Please review and submit it there to complete your contribution. Once approved, your example will be included in the next release.\n"
+"\n"
+"Should your example be too large, the complete content will be copied to your clipboard for manual pasting into the GitHub issue."
+msgstr ""
+"У вашому браузері відкрито issue на GitHub. Перегляньте та надішліть його там, щоб завершити свій внесок. Після схвалення ваш приклад буде включено в наступний реліз.\n"
+"\n"
+"Якщо ваш приклад занадто великий, весь вміст буде скопійовано в буфер обміну для ручного вставлення в issue на GitHub."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
 msgstr "Повний список набору інструкцій 6502 <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">доступний тут</a> та <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">тут</a> (зазвичай я звертаюся до обох сторінок, оскільки вони мають свої сильні та слабкі сторони). Ці сторінки детально описують аргументи до кожної інструкції, які регістри вони використовують і які прапорці встановлюють. Вони — ваша біблія."
@@ -449,6 +459,10 @@ msgstr "Усі файли"
 msgid "All instructions that support absolute addressing (with the exception of the jump instructions) also have the option to take a single-byte address. This type of addressing is called \"zero page\" - only the first page (the first 256 bytes) of memory is accessible. This is faster, as only one byte needs to be looked up, and takes up less space in the assembled code as well."
 msgstr "Усі інструкції, що підтримують абсолютну адресацію (за винятком інструкцій переходу), також можуть приймати однобайтову адресу. Цей тип адресації називається \"нульова сторінка\" — доступна лише перша сторінка (перші 256 байтів) пам'яті. Це швидше, оскільки потрібно знайти лише один байт, і займає менше місця в зібраному коді."
 
+#. TRANSLATORS: Title for final step
+msgid "Almost Done!"
+msgstr "Майже готово!"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 msgstr "Також корисні: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
@@ -520,6 +534,10 @@ msgstr "Файли асемблера"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
 msgstr "На низькому рівні ця підпрограма трохи складніша. Спочатку довжина завантажується в регістр <tt>X</tt>, після чого зменшується. Фрагмент нижче показує початковий вміст пам’яті для змійки."
+
+#. TRANSLATORS: Entry label for example author
+msgid "Author"
+msgstr "Автор"
 
 #. TRANSLATORS: Tooltip text for back button in learn section
 msgid "Back"
@@ -594,6 +612,7 @@ msgstr "Продовжити"
 msgid "Copied to clipboard"
 msgstr "Скопійовано в буфер обміну"
 
+#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
 msgstr "Копіювати в буфер обміну"
@@ -631,6 +650,10 @@ msgstr "Налагоджувач тепер оновлюється лише ко
 msgid "Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic operations. When set, ADC/SBC instructions treat values as decimal digits (0-9) instead of binary. Used for financial calculations and decimal arithmetic."
 msgstr "Прапорець Decimal: Вмикає режим двійково-десяткового коду (BCD) для арифметичних операцій. Коли встановлений, інструкції ADC/SBC обробляють значення як десяткові цифри (0-9) замість двійкових. Використовується для фінансових обчислень і десяткової арифметики."
 
+#. TRANSLATORS: Entry label for example description
+msgid "Description"
+msgstr "Опис"
+
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
 msgstr "Вимкніть для покращення продуктивності"
@@ -657,6 +680,10 @@ msgstr "Пам'ять дисплея ($0200-$05FF)"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Display Organization"
 msgstr "Організація дисплея"
+
+#. TRANSLATORS: Button to close dialog after submitting issue on GitHub
+msgid "Done"
+msgstr "Готово"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
@@ -686,6 +713,10 @@ msgstr "Озброєні цими знаннями, ви маєте побачи
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "Хоча це буде спрощена версія, код буде значно більший за попередні приклади. Потрібно відстежувати кілька комірок пам’яті для різних аспектів гри. Ми могли б і надалі виконувати потрібний облік вручну по всій програмі, як раніше, але в більшому масштабі це швидко стає виснажливим і веде до важковиявних помилок. Тож доручимо частину рутинної роботи асемблеру."
 
+#. TRANSLATORS: Toast message when example is submitted
+msgid "Example submitted for review"
+msgstr "Приклад надіслано на перевірку"
+
 #. TRANSLATORS: Title for examples section
 #. TRANSLATORS: Title for examples page
 #. TRANSLATORS: Title for examples placeholder
@@ -711,6 +742,10 @@ msgstr "Не вдалося скопіювати в буфер обміну"
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "Файл \"%s\" має незбережені зміни"
+
+#. TRANSLATORS: Description in share dialog
+msgid "Fill in the information about your 6502 example to share it with the community"
+msgstr "Заповніть інформацію про ваш приклад 6502, щоб поділитися ним зі спільнотою"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Finally, byte <tt>$03</tt> contains the current length of the snake, in terms of bytes in memory (so a length of 4 means 2 pixels)."
@@ -777,6 +812,14 @@ msgstr "Німецьку та іспанську перевірили учасн
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr "Перехід між смугами складніший, бо треба враховувати і старший байт. Наприклад, перехід донизу з <tt>$02e1</tt> має привести до <tt>$0301</tt>. На щастя, це легко реалізувати: додавання <tt>$20</tt> до <tt>$e1</tt> дає <tt>$01</tt> і встановлює біт перенесення. Якщо біт перенесення встановлено, треба також інкрементувати старший байт."
 
+#. TRANSLATORS: Description for examples placeholder
+msgid ""
+"Got a cool 6502 example?\n"
+"Share it with the community!"
+msgstr ""
+"Є класний приклад 6502?\n"
+"Поділіться ним зі спільнотою!"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -824,6 +867,9 @@ msgstr "Якщо результат додавання перевищує оди
 #. TRANSLATORS: Call to action for community translation/validation
 msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
 msgstr "Якщо ви володієте однією з указаних мов, допоможіть, будь ласка, переглянути або покращити переклади. Ви можете зробити внесок через посилання в застосунку, на нашій платформі перекладу або створивши issue."
+
+msgid "If your example is based on or inspired by another example, you can provide the source URL."
+msgstr "Якщо ваш приклад базується на іншому прикладі або натхненний ним, ви можете вказати URL джерела."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1113,6 +1159,18 @@ msgstr "Попередня обробка..."
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
 msgstr "Натисніть <b>Крок</b> знову, щоб виконати другу інструкцію. Верхній лівий піксель ігрової консолі тепер має бути білим. Цей симулятор використовує комірки пам'яті <tt>$0200</tt> до <tt>$05ff</tt> для малювання пікселів на дисплеї. Значення від <tt>$00</tt> до <tt>$0f</tt> представляють 16 різних кольорів (<tt>$00</tt> — чорний, а <tt>$01</tt> — білий), тому збереження значення <tt>$01</tt> у комірці пам'яті <tt>$0200</tt> малює білий піксель у верхньому лівому куті. Це простіше, ніж те, як справжній комп'ютер виводить відео, але поки що це підійде."
 
+#. TRANSLATORS: Label for next button in share dialog
+msgid "Preview"
+msgstr "Попередній перегляд"
+
+#. TRANSLATORS: Title for preview page in share dialog
+msgid "Preview Your Example"
+msgstr "Попередній перегляд вашого прикладу"
+
+#. TRANSLATORS: Tooltip for back button in share dialog
+msgid "Previous"
+msgstr "Назад"
+
 #. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
 msgstr "Основний колір"
@@ -1239,6 +1297,10 @@ msgstr "Скинути"
 msgid "Resume"
 msgstr "Продовжити"
 
+#. TRANSLATORS: Description for preview page with GitHub account info
+msgid "Review how your example will appear to others. Clicking <b>Submit</b> will create a issue on GitHub. You'll need to sign in with your GitHub account to complete the submission."
+msgstr "Перегляньте, як ваш приклад відображатиметься для інших. Натиснувши <b>Надіслати</b>, буде створено issue на GitHub. Вам потрібно буде увійти за допомогою свого облікового запису GitHub, щоб завершити подання."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Rewrite the first example in this section to use the <tt>Y</tt> register instead of the <tt>X</tt> register."
 msgstr "Перепишіть перший приклад цього розділу, використавши регістр <tt>Y</tt> замість <tt>X</tt>."
@@ -1287,6 +1349,19 @@ msgstr "Серйозно, розуміння мови асемблера — ц�
 #. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
 msgstr "Налаштування"
+
+#. TRANSLATORS: Menu item to share the current code
+#. TRANSLATORS: Toolbar button tooltip to share the current code
+msgid "Share"
+msgstr "Поділитися"
+
+msgid "Share Example"
+msgstr "Поділитися прикладом"
+
+#. TRANSLATORS: Title of the share dialog
+#. TRANSLATORS: Button to share your own example
+msgid "Share Your Example"
+msgstr "Поділіться своїм прикладом"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Simulator"
@@ -1341,6 +1416,10 @@ msgstr "Навіщо вивчати 6502? Це ж «мертва» мова, ч�
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr "Деякі інструкції не працюють з адресами пам’яті (напр., <tt>INX</tt> — інкремент регістра <tt>X</tt>). Кажуть, що вони мають неявну адресацію — аргумент визначається самою інструкцією."
 
+#. TRANSLATORS: Entry label for optional source URL
+msgid "Source URL"
+msgstr "URL джерела"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr "Спеціальні комірки пам'яті (у симуляторі)"
@@ -1372,6 +1451,10 @@ msgstr "Зупинено"
 #. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
 msgstr "Стиль"
+
+#. TRANSLATORS: Close button on completion page
+msgid "Submit"
+msgstr "Надіслати"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1555,6 +1638,10 @@ msgstr "Цей варіант трохи дивний — ніби суміш ze
 msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
 msgstr "У цьому випуску — яскрава тема в стилі портативних пристроїв із настроюваними кольорами. Ми додали адаптивні макети для планшетів і робочих станцій, які тримають усе в полі зору — ідеально для довгих сесій навчання розробці ретроігор на асемблері. Величезна подяка нашому новому контриб’ютору @mmartinortiz за класні ідеї десктопного макета. Є й технічні покращення: посилена строгість TypeScript, власні схеми стилів GtkSourceView та розширені елементи керування налагоджувачем для плавнішої роботи."
 
+#. TRANSLATORS: Entry label for example title
+msgid "Title"
+msgstr "Назва"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
 msgstr "Щоб визначити, чи напрямок дорівнює <tt>1</tt>, <tt>2</tt>, <tt>4</tt> або <tt>8</tt>, код багаторазово зсуває вправо, доки не встановиться перенесення. Один <tt>LSR</tt> означає «вгору», два — «вправо» і так далі."
@@ -1703,6 +1790,9 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "що відповідає непрямим адресам <tt>$0411</tt>, <tt>$0410</tt> і <tt>$040f</tt> (три пікселі посеред екрана). Я наголошую на цьому, бо важливо повністю зрозуміти, як працює непряма адресація."
+
+#~ msgid "Copy to Clipboard"
+#~ msgstr "Копіювати в буфер обміну"
 
 #~ msgid "Chinese (Simplified)"
 #~ msgstr "Китайська (спрощена)"

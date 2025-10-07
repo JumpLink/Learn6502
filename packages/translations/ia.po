@@ -334,6 +334,13 @@ msgstr "<tt>checkSnakeCollision</tt> itera per le segmentos del corpore del serp
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
 msgstr "<tt>init</tt> e <tt>loop</tt> es ambe subrutinas. <tt>init</tt> initialisa le stato del joco, e <tt>loop</tt> es le loop principal del joco."
 
+#. TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
+msgid ""
+"A GitHub issue has been opened in your browser. Please review and submit it there to complete your contribution. Once approved, your example will be included in the next release.\n"
+"\n"
+"Should your example be too large, the complete content will be copied to your clipboard for manual pasting into the GitHub issue."
+msgstr "Un issue de GitHub ha essite aperite in tu navigator. Per favor revide e submitte lo illac pro completar tu contribution. Un vice approbate, tu exemplo essera includite in le proxime liberation. Si tu exemplo es troppo grande, le contento complete essera copiate a tu area de transferentia pro collage manual in le issue de GitHub."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
 msgstr "Un lista complete del collection de instructiones 6502 es <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">disponibile hic</a> e <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">hic</a> (io usualmente refere a ambe paginas proque illes ha lor fortessas e debilitates). Iste paginas detalia le argumentos a cata instruction, qual registros illes usa, e qual bandieras illes defini. Illes es tu biblia."
@@ -451,6 +458,10 @@ msgstr "Tote files"
 msgid "All instructions that support absolute addressing (with the exception of the jump instructions) also have the option to take a single-byte address. This type of addressing is called \"zero page\" - only the first page (the first 256 bytes) of memory is accessible. This is faster, as only one byte needs to be looked up, and takes up less space in the assembled code as well."
 msgstr "Tote instructiones que supporta adressage absolute (con le exception del instructiones de salto) tamben ha le option de prender un adresse de un sol byte. Iste typo de adressage es appellate \"pagina zero\" - solo le prime pagina (le prime 256 bytes) de memoria es accessibile. Isto es plus rapide, proque solo un byte debe esser recercate, e occupa minus spatio in le codice assemblate tamben."
 
+#. TRANSLATORS: Title for final step
+msgid "Almost Done!"
+msgstr "Quasi finite!"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 msgstr "Tamben utile: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
@@ -522,6 +533,10 @@ msgstr "Files de assemblage"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
 msgstr "A un basse nivello, iste subrutina es ligeramente plus complexe. Prime, le longitude es cargate in le registro <tt>X</tt>, que es pois decrementate. Le fragmento infra monstra le memoria initial pro le serpente."
+
+#. TRANSLATORS: Entry label for example author
+msgid "Author"
+msgstr "Autor"
 
 #. TRANSLATORS: Tooltip text for back button in learn section
 msgid "Back"
@@ -596,6 +611,7 @@ msgstr "Continuar"
 msgid "Copied to clipboard"
 msgstr "Copiate al portafolio"
 
+#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
 msgstr "Copiar al portafolio"
@@ -633,6 +649,10 @@ msgstr "Debugger ora solo actualisa quando visibile, reducente processamento non
 msgid "Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic operations. When set, ADC/SBC instructions treat values as decimal digits (0-9) instead of binary. Used for financial calculations and decimal arithmetic."
 msgstr "Bandiera decimal: Habilita modo Binary Coded Decimal (BCD) pro operationes arithmetic. Quando definite, instructiones ADC/SBC tracta valores como digitos decimal (0-9) in vice de binari. Usate pro calculos financiar e arithmetica decimal."
 
+#. TRANSLATORS: Entry label for example description
+msgid "Description"
+msgstr "Description"
+
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
 msgstr "Dishabilitar pro meliorar prestation"
@@ -659,6 +679,10 @@ msgstr "Memoria de schermo ($0200-$05FF)"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Display Organization"
 msgstr "Organisation de schermo"
+
+#. TRANSLATORS: Button to close dialog after submitting issue on GitHub
+msgid "Done"
+msgstr "Facite"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
@@ -688,6 +712,10 @@ msgstr "Equipate con ille cognoscentia, tu deberea poter vider que le instructio
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "Ben que iste sera un version simple, le codice sera substantialmente plus grande que tote le exemplos previe. Nos habera besonio de traciar plure locationes de memoria insimul pro le varie aspectos del joco. Nos pote ancora facer le comptabilitate necessari per tote le programma nos mesme, como antea, ma sur un scala plus grande que rapidemente deveni tediose e pote tamben ducer a bugs que es difficile de deteger. In vice nos ora lassara le assemblator facer alcun del labor mundane pro nos."
 
+#. TRANSLATORS: Toast message when example is submitted
+msgid "Example submitted for review"
+msgstr "Exemplo submittite pro revision"
+
 #. TRANSLATORS: Title for examples section
 #. TRANSLATORS: Title for examples page
 #. TRANSLATORS: Title for examples placeholder
@@ -713,6 +741,10 @@ msgstr "Fallite copiar al portafolio"
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "File \"%s\" ha cambiamentos non salvate"
+
+#. TRANSLATORS: Description in share dialog
+msgid "Fill in the information about your 6502 example to share it with the community"
+msgstr "Compila le information sur tu exemplo 6502 pro compartir lo con le communitate"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Finally, byte <tt>$03</tt> contains the current length of the snake, in terms of bytes in memory (so a length of 4 means 2 pixels)."
@@ -779,6 +811,14 @@ msgstr "Le german e le espaniol ha essite validate per collaboratores. Le altere
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr "Ir inter sectiones es plus complicate, proque nos debe tamben tener in conto le byte plus significante. Pro exemplo, ir bassum de <tt>$02e1</tt> deberea ducer a <tt>$0301</tt>. Felicemente, isto es bastante facile de accomplir. Adder <tt>$20</tt> a <tt>$e1</tt> resulta in <tt>$01</tt> e defini le bit de reporto. Si le bit de reporto esseva definite, nos sape que nos tamben debe incrementar le byte plus significante."
 
+#. TRANSLATORS: Description for examples placeholder
+msgid ""
+"Got a cool 6502 example?\n"
+"Share it with the community!"
+msgstr ""
+"Ha tu un exemplo de 6502 interessante?\n"
+"Comparti lo con le communitate!"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -826,6 +866,9 @@ msgstr "Si le resultato del addition es plus grande que un sol byte, le adresse 
 #. TRANSLATORS: Call to action for community translation/validation
 msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
 msgstr "Si tu parla un del linguas listate, per favor adjuta nos a revisar o meliorar le traductiones. Tu pote contribuer via le ligamines intra le application, in nostre platforma de traduction o per aperir un issue."
+
+msgid "If your example is based on or inspired by another example, you can provide the source URL."
+msgstr "Si tu exemplo es basate sur o inspirate per un altere exemplo, tu pote fornir le URL del fonte."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1115,6 +1158,18 @@ msgstr "Preprocessante..."
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
 msgstr "Pressa <b>Passo</b> de novo pro executar le secunde instruction. Le pixel in alto a sinistra del consola de joco deberea ora esser blanc. Iste simulator usa le locationes de memoria <tt>$0200</tt> a <tt>$05ff</tt> pro designar pixeles sur su schermo. Le valores <tt>$00</tt> a <tt>$0f</tt> representa 16 colores differente (<tt>$00</tt> es negro e <tt>$01</tt> es blanco), assi immagazinar le valor <tt>$01</tt> a location de memoria <tt>$0200</tt> designa un pixel blanc in le angulo in alto a sinistra. Iste es plus simple que como un computator actual outputerea video, ma illo servira pro ora."
 
+#. TRANSLATORS: Label for next button in share dialog
+msgid "Preview"
+msgstr "Previsualisation"
+
+#. TRANSLATORS: Title for preview page in share dialog
+msgid "Preview Your Example"
+msgstr "Previsualisar tu exemplo"
+
+#. TRANSLATORS: Tooltip for back button in share dialog
+msgid "Previous"
+msgstr "Precedente"
+
 #. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
 msgstr "Color primari"
@@ -1241,6 +1296,10 @@ msgstr "Reinitialisar"
 msgid "Resume"
 msgstr "Continuar"
 
+#. TRANSLATORS: Description for preview page with GitHub account info
+msgid "Review how your example will appear to others. Clicking <b>Submit</b> will create a issue on GitHub. You'll need to sign in with your GitHub account to complete the submission."
+msgstr "Revide como tu exemplo apparera a alteres. Cliccar <b>Submitter</b> creara un issue sur GitHub. Tu debera authenticar te con tu conto GitHub pro completar le submission."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Rewrite the first example in this section to use the <tt>Y</tt> register instead of the <tt>X</tt> register."
 msgstr "Rescribe le prime exemplo in iste section pro usar le registro <tt>Y</tt> in vice del registro <tt>X</tt>."
@@ -1289,6 +1348,19 @@ msgstr "Seriosamente tamen, io pensa que es valuable haber un comprension de lin
 #. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
 msgstr "Configurationes"
+
+#. TRANSLATORS: Menu item to share the current code
+#. TRANSLATORS: Toolbar button tooltip to share the current code
+msgid "Share"
+msgstr "Compartir"
+
+msgid "Share Example"
+msgstr "Compartir exemplo"
+
+#. TRANSLATORS: Title of the share dialog
+#. TRANSLATORS: Button to share your own example
+msgid "Share Your Example"
+msgstr "Compartir tu exemplo"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Simulator"
@@ -1343,6 +1415,10 @@ msgstr "Assi, proque tu volerea apprender 6502? Illo es un lingua morte, non es 
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr "Alcun instructiones non maneja locationes de memoria (p.ex. <tt>INX</tt> - incrementa le registro <tt>X</tt>). Iste es dicite haber adressage implicite - le argumento es implicite per le instruction."
 
+#. TRANSLATORS: Entry label for optional source URL
+msgid "Source URL"
+msgstr "URL del fonte"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr "Locationes special de memoria (in Simulator)"
@@ -1374,6 +1450,10 @@ msgstr "Fermate"
 #. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
 msgstr "Stilo"
+
+#. TRANSLATORS: Close button on completion page
+msgid "Submit"
+msgstr "Submitter"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1557,6 +1637,10 @@ msgstr "Iste es un poc stran. Illo es como un cruce inter pagina zero,X e indire
 msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
 msgstr "Iste liberation porta theming vibrante inspirate per apparatos manual con colores customisabile. Nos ha introducite dispositiones adaptive pro tabletta e scriptorio que mantene toto in vista, perfecte pro ille sessiones de codification marathon quando apprender a disveloppar jocos retro in assemblage. Grande gratias a nostre nove contributor @mmartinortiz pro le grande ideas de disposition de scriptorio. Il ha alcun fresias meliorationes technic tamben, como strictessa TypeScript, schemas de stilo GtkSourceView custom, e controles de debugger meliorate pro disveloppamento plus suave."
 
+#. TRANSLATORS: Entry label for example title
+msgid "Title"
+msgstr "Titulo"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
 msgstr "Pro testar si le direction es <tt>1</tt>, <tt>2</tt>, <tt>4</tt> o <tt>8</tt>, le codice continuamente cambia a dextra usque le reporto es definite. Un <tt>LSR</tt> significa \"sursum\", duo significa \"dextra\", e assi via."
@@ -1705,6 +1789,9 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "que representa le locationes de memoria indirectemente adressate <tt>$0411</tt>, <tt>$0410</tt> e <tt>$040f</tt> (tres pixeles in le medio del schermo). Io labora iste puncto, ma illo es importante pro plenemente comprehender como adressage indirecte functiona."
+
+#~ msgid "Copy to Clipboard"
+#~ msgstr "Copiar al portafolio"
 
 #~ msgid "Chinese (Simplified)"
 #~ msgstr "Chinese (Simplificate)"

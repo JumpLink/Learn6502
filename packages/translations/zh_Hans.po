@@ -333,6 +333,16 @@ msgstr "<tt>checkSnakeCollision</tt> 遍历蛇的身体段，将每个字节对�
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
 msgstr "<tt>init</tt> 和 <tt>loop</tt> 是两个核心子程序。<tt>init</tt> 初始化游戏状态，<tt>loop</tt> 是主要的游戏循环。"
 
+#. TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
+msgid ""
+"A GitHub issue has been opened in your browser. Please review and submit it there to complete your contribution. Once approved, your example will be included in the next release.\n"
+"\n"
+"Should your example be too large, the complete content will be copied to your clipboard for manual pasting into the GitHub issue."
+msgstr ""
+"已在您的浏览器中打开 GitHub issue。请在那里审核并提交以完成您的贡献。批准后，您的示例将包含在下一个版本中。\n"
+"\n"
+"如果您的示例太大，完整内容将复制到剪贴板，以便手动粘贴到 GitHub issue 中。"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
 msgstr "6502 指令集的完整列表<a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">在这里</a>和<a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">这里</a>可用（通常会同时参考这两页，它们各有优劣）。这些页面详细说明了每条指令的参数、使用的寄存器以及设置的标志位。"
@@ -450,6 +460,10 @@ msgstr "所有文件"
 msgid "All instructions that support absolute addressing (with the exception of the jump instructions) also have the option to take a single-byte address. This type of addressing is called \"zero page\" - only the first page (the first 256 bytes) of memory is accessible. This is faster, as only one byte needs to be looked up, and takes up less space in the assembled code as well."
 msgstr "所有支持绝对寻址的指令（跳转指令除外）也可使用单字节地址。这种方式称为“零页”寻址——只能访问内存的第一页（前 256 字节）。这种方式更快，因为只需查找一个字节，并且在汇编代码中占用更少空间。"
 
+#. TRANSLATORS: Title for final step
+msgid "Almost Done!"
+msgstr "即将完成！"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 msgstr "也很有用：<b>BIT</b>、<b>CMP/CPX/CPY</b>、<b>PHP/PLP</b>、<b>TSX/TXS</b>、<b>SED/CLD</b>、<b>SEI/CLI</b>、<b>BMI/BPL</b>、<b>BVS/BVC</b>"
@@ -521,6 +535,10 @@ msgstr "汇编文件"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
 msgstr "在低层实现上，该子程序稍微复杂一些。首先将长度加载到寄存器 <tt>X</tt>，随后对其递减。下面的片段展示了蛇的初始内存状态。"
+
+#. TRANSLATORS: Entry label for example author
+msgid "Author"
+msgstr "作者"
 
 #. TRANSLATORS: Tooltip text for back button in learn section
 msgid "Back"
@@ -595,6 +613,7 @@ msgstr "继续"
 msgid "Copied to clipboard"
 msgstr "已复制到剪贴板"
 
+#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
 msgstr "复制到剪贴板"
@@ -632,6 +651,10 @@ msgstr "调试器仅在可见时更新，减少不必要的处理"
 msgid "Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic operations. When set, ADC/SBC instructions treat values as decimal digits (0-9) instead of binary. Used for financial calculations and decimal arithmetic."
 msgstr "十进制标志（D）：启用 BCD（压缩十进制）模式。置位时，ADC/SBC 按十进制数字（0–9）处理，而非二进制。用于财务计算和十进制运算。"
 
+#. TRANSLATORS: Entry label for example description
+msgid "Description"
+msgstr "描述"
+
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
 msgstr "禁用以提升性能"
@@ -658,6 +681,10 @@ msgstr "显示内存（$0200–$05FF）"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Display Organization"
 msgstr "显示布局"
+
+#. TRANSLATORS: Button to close dialog after submitting issue on GitHub
+msgid "Done"
+msgstr "完成"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
@@ -687,6 +714,10 @@ msgstr "掌握这些知识后，你应该能看出指令 <tt>LDA #$01</tt> 会�
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "虽然这将是一个简单版本，代码会比以往示例大得多。我们需要同时跟踪游戏各方面的多个内存位置。我们也可以像之前那样自己在程序中做必要的“簿记”，但规模变大后会很繁琐且易出错。相反，我们现在让汇编器替我们处理一部分琐事。"
 
+#. TRANSLATORS: Toast message when example is submitted
+msgid "Example submitted for review"
+msgstr "已提交示例供审核"
+
 #. TRANSLATORS: Title for examples section
 #. TRANSLATORS: Title for examples page
 #. TRANSLATORS: Title for examples placeholder
@@ -712,6 +743,10 @@ msgstr "复制到剪贴板失败"
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "文件“%s”有未保存的更改"
+
+#. TRANSLATORS: Description in share dialog
+msgid "Fill in the information about your 6502 example to share it with the community"
+msgstr "填写有关您的 6502 示例的信息以与社区分享"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Finally, byte <tt>$03</tt> contains the current length of the snake, in terms of bytes in memory (so a length of 4 means 2 pixels)."
@@ -778,6 +813,14 @@ msgstr "德语和西班牙语已由贡献者验证。其他语言为 AI 辅助�
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
 msgstr "在不同区域之间移动更复杂，因为还需要考虑高字节。例如，从 <tt>$02e1</tt> 向下应到达 <tt>$0301</tt>。幸运的是这并不难：将 <tt>$20</tt> 加到 <tt>$e1</tt> 得到 <tt>$01</tt> 并置位进位位。如果进位被置位，我们还需要递增高字节。"
 
+#. TRANSLATORS: Description for examples placeholder
+msgid ""
+"Got a cool 6502 example?\n"
+"Share it with the community!"
+msgstr ""
+"有很酷的 6502 示例吗？\n"
+"与社区分享吧！"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -825,6 +868,9 @@ msgstr "如果加法结果超过一个字节，地址会回绕。例如："
 #. TRANSLATORS: Call to action for community translation/validation
 msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
 msgstr "如果你会其中任意一种语言，欢迎协助审阅或改进翻译。你可以通过应用内链接、我们的翻译平台，或提交 Issue 来贡献。"
+
+msgid "If your example is based on or inspired by another example, you can provide the source URL."
+msgstr "如果您的示例基于或受到另一个示例的启发，您可以提供源 URL。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1114,6 +1160,18 @@ msgstr "预处理…"
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
 msgstr "再次点击<b>单步</b>执行第二条指令。第一个像素变为白色。显示器使用内存地址<tt>$0200</tt>到<tt>$05ff</tt>存储像素值。<tt>$00</tt>表示黑色,<tt>$01</tt>表示白色。<tt>STA $0200</tt>将寄存器<tt>A</tt>的值(<tt>$01</tt>)存储到内存地址<tt>$0200</tt>,绘制一个白色像素。"
 
+#. TRANSLATORS: Label for next button in share dialog
+msgid "Preview"
+msgstr "预览"
+
+#. TRANSLATORS: Title for preview page in share dialog
+msgid "Preview Your Example"
+msgstr "预览您的示例"
+
+#. TRANSLATORS: Tooltip for back button in share dialog
+msgid "Previous"
+msgstr "上一步"
+
 #. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
 msgstr "主色"
@@ -1240,6 +1298,10 @@ msgstr "重置"
 msgid "Resume"
 msgstr "继续"
 
+#. TRANSLATORS: Description for preview page with GitHub account info
+msgid "Review how your example will appear to others. Clicking <b>Submit</b> will create a issue on GitHub. You'll need to sign in with your GitHub account to complete the submission."
+msgstr "查看您的示例对其他人的显示方式。点击<b>提交</b>将在 GitHub 上创建一个 issue。您需要使用 GitHub 帐户登录才能完成提交。"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Rewrite the first example in this section to use the <tt>Y</tt> register instead of the <tt>X</tt> register."
 msgstr "将本节中的第一个示例改为使用 <tt>Y</tt> 寄存器而不是 <tt>X</tt> 寄存器。"
@@ -1288,6 +1350,19 @@ msgstr "严肃地说，我认为理解汇编语言很有价值。汇编是计算
 #. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
 msgstr "设置"
+
+#. TRANSLATORS: Menu item to share the current code
+#. TRANSLATORS: Toolbar button tooltip to share the current code
+msgid "Share"
+msgstr "分享"
+
+msgid "Share Example"
+msgstr "分享示例"
+
+#. TRANSLATORS: Title of the share dialog
+#. TRANSLATORS: Button to share your own example
+msgid "Share Your Example"
+msgstr "分享您的示例"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Simulator"
@@ -1342,6 +1417,10 @@ msgstr "那为什么要学 6502？它不是“已死”的语言吗？拉丁语�
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
 msgstr "有些指令不涉及内存位置（如 <tt>INX</tt> —— 递增 <tt>X</tt> 寄存器）。这称为隐式寻址——参数由指令本身隐含。"
 
+#. TRANSLATORS: Entry label for optional source URL
+msgid "Source URL"
+msgstr "源 URL"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
 msgstr "特殊内存位置（模拟器）"
@@ -1373,6 +1452,10 @@ msgstr "已停止"
 #. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
 msgstr "样式"
+
+#. TRANSLATORS: Close button on completion page
+msgid "Submit"
+msgstr "提交"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1556,6 +1639,10 @@ msgstr "这个有点奇怪，像是零页 X 与间接寻址的结合。基本做
 msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
 msgstr "本次发布带来了充满掌机灵感的主题与可自定义配色；引入了自适应的平板与桌面布局，让一切尽在眼前，非常适合学习汇编开发复古游戏时的长时间编码。特别感谢新贡献者 @mmartinortiz 提供的优秀桌面布局思路。还包括多项技术改进，如更严格的 TypeScript 设置、自定义 GtkSourceView 样式方案，以及增强的调试器控件，以获得更顺畅的开发体验。"
 
+#. TRANSLATORS: Entry label for example title
+msgid "Title"
+msgstr "标题"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
 msgstr "为了判断方向是否为 <tt>1</tt>、<tt>2</tt>、<tt>4</tt> 或 <tt>8</tt>，代码会持续右移直到进位被置位。一次 <tt>LSR</tt> 表示\"上\"，两次表示\"右\"，依此类推。"
@@ -1704,6 +1791,9 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 与 <tt>$040f</tt>（显示中部的三个像素）。之所以反复强调，是因为完全理解间接寻址的工作方式非常重要。"
+
+#~ msgid "Copy to Clipboard"
+#~ msgstr "复制到剪贴板"
 
 #~ msgid "Chinese (Simplified)"
 #~ msgstr "中文（简体）"
