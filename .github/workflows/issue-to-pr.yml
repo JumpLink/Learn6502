@@ -20,12 +20,9 @@ jobs:
         id: extract
         run: |
           set -euo pipefail
-          BODY_FILE="$(mktemp)"
-          export BODY_FILE
-          printf "%s" "${BODY}" > "$BODY_FILE"
           node -e '
             const fs = require("fs");
-            const body = fs.readFileSync(process.env.BODY_FILE, "utf8");
+            const body = process.env.ISSUE_BODY;
             
             // Extract JSON metadata
             const jsonMatch = body.match(/```json\s*([\s\S]*?)```/);
@@ -46,7 +43,7 @@ jobs:
             fs.writeFileSync("payload.json", JSON.stringify(payload, null, 2));
           '
         env:
-          BODY: ${{ github.event.issue.body }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
 
       - name: Render files from payload
         id: render
@@ -123,25 +120,36 @@ jobs:
         run: git push -u origin "$BRANCH"
 
       - name: Open PR
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.BRANCH }}
-          base: main
-          title: "Add example: ${{ steps.render.outputs.SLUG }} (from issue #${{ github.event.issue.number }})"
-          body: |
-            Generated from issue #${{ github.event.issue.number }} by workflow.
-            Files:
-            - `${{ steps.render.outputs.META_PATH }}`
-            - `${{ steps.render.outputs.CODE_PATH }}`
-
-      - name: Comment on issue
+        id: open_pr
         uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.createComment({
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Add example: ${{ steps.render.outputs.SLUG }} (from issue #${{ github.event.issue.number }})',
+              head: '${{ env.BRANCH }}',
+              base: 'main',
+              body: `Generated from issue #${{ github.event.issue.number }} by workflow.
+
+            Files:
+            - \`${{ steps.render.outputs.META_PATH }}\`
+            - \`${{ steps.render.outputs.CODE_PATH }}\`
+
+            Closes #${{ github.event.issue.number }}`
+            });
+            console.log(`Pull request created: ${pr.html_url}`);
+            core.setOutput('pr_number', pr.number);
+            core.setOutput('pr_url', pr.html_url);
+
+      - name: Comment on issue
+        id: comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ Pull request created! Your example will be reviewed and merged soon. Thank you for contributing! 🎉'
+              body: '✅ Pull request created: #${{ steps.open_pr.outputs.pr_number }}\n\nYour example will be reviewed and merged soon. Thank you for contributing! 🎉'
             })
