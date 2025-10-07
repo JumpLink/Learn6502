@@ -21,6 +21,7 @@ jobs:
         run: |
           set -euo pipefail
           BODY_FILE="$(mktemp)"
+          export BODY_FILE
           printf "%s" "${BODY}" > "$BODY_FILE"
           node -e '
             const fs = require("fs");
