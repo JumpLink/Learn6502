@@ -38,9 +38,16 @@ jobs:
             const ok = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(metadata.slug || "");
             if (!ok) { console.error("Invalid slug"); process.exit(3); }
             
-            // Combine metadata and code into payload
-            const payload = { ...metadata, code };
-            fs.writeFileSync("payload.json", JSON.stringify(payload, null, 2));
+            // Write outputs for next step
+            const output = process.env.GITHUB_OUTPUT;
+            fs.appendFileSync(output, `slug=${metadata.slug}\n`);
+            fs.appendFileSync(output, `title=${metadata.title}\n`);
+            fs.appendFileSync(output, `description=${metadata.description}\n`);
+            fs.appendFileSync(output, `author=${metadata.author}\n`);
+            fs.appendFileSync(output, `displayMemory=${metadata.displayMemory}\n`);
+            if (metadata.sourceUrl) fs.appendFileSync(output, `sourceUrl=${metadata.sourceUrl}\n`);
+            if (metadata.githubUsername) fs.appendFileSync(output, `githubUsername=${metadata.githubUsername}\n`);
+            fs.appendFileSync(output, `code<<EOF\n${code}\nEOF\n`);
           '
         env:
           ISSUE_BODY: ${{ github.event.issue.body }}
@@ -49,16 +56,15 @@ jobs:
         id: render
         run: |
           set -euo pipefail
-          jq -r . payload.json > /dev/null
 
-          SLUG="$(jq -r .slug payload.json)"
-          TITLE="$(jq -r .title payload.json)"
-          DESC="$(jq -r .description payload.json)"
-          AUTHOR="$(jq -r .author payload.json)"
-          SRC_URL="$(jq -r '.sourceUrl // empty' payload.json)"
-          GH_USER="$(jq -r '.githubUsername // empty' payload.json)"
-          CODE="$(jq -r .code payload.json)"
-          DISP="$(jq -r .displayMemory payload.json)"
+          SLUG="${{ steps.extract.outputs.slug }}"
+          TITLE="${{ steps.extract.outputs.title }}"
+          DESC="${{ steps.extract.outputs.description }}"
+          AUTHOR="${{ steps.extract.outputs.author }}"
+          SRC_URL="${{ steps.extract.outputs.sourceUrl }}"
+          GH_USER="${{ steps.extract.outputs.githubUsername }}"
+          CODE="${{ steps.extract.outputs.code }}"
+          DISP="${{ steps.extract.outputs.displayMemory }}"
 
           BASE_DIR="packages/examples/${SLUG}"
           CODE_PATH="${BASE_DIR}/${SLUG}.asm"
