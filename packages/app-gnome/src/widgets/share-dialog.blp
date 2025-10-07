@@ -17,17 +17,6 @@ template $ShareDialog: Adw.Dialog {
         tooltip-text: _("Previous");
         visible: false;
       }
-
-      [end]
-      Button nextButton {
-        icon-name: "go-next-symbolic";
-        // TRANSLATORS: Label for next button in share dialog
-        label: _("Next");
-        
-        styles [
-          "suggested-action",
-        ]
-      }
     }
 
     Adw.Carousel carousel {
@@ -100,6 +89,19 @@ template $ShareDialog: Adw.Dialog {
             styles [
               "caption",
               "dim-label",
+            ]
+          }
+
+          Button nextButton {
+            icon-name: "go-next-symbolic";
+            // TRANSLATORS: Label for next button in share dialog
+            label: _("Preview");
+            halign: center;
+            margin-top: 24;
+            
+            styles [
+              "pill",
+              "suggested-action",
             ]
           }
         }
