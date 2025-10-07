@@ -373,12 +373,9 @@ export class ShareDialog extends Adw.Dialog {
     if (result.isTooLong) {
       this._issueBody = result.body;
       copyToClipboard(result.body);
-      this._copyToClipboardButton.visible = true;
       console.log(
         `URL too long (${result.url.length} chars), body copied to clipboard`
       );
-    } else {
-      this._copyToClipboardButton.visible = false;
     }
 
     // Emit submit signal with the example data

@@ -27,7 +27,6 @@ template $ShareDialog: Adw.Dialog {
       // Page 1: Form
       Adw.StatusPage {
         hexpand: true;
-        icon-name: "share-symbolic";
         // TRANSLATORS: Title of the share dialog
         title: _("Share Your Example");
         // TRANSLATORS: Description in share dialog
@@ -160,9 +159,8 @@ template $ShareDialog: Adw.Dialog {
           halign: center;
 
           Button copyToClipboardButton {
-            visible: false;
             // TRANSLATORS: Button to copy example content to clipboard again
-            label: _("Copy to Clipboard");
+            label: _("Copy to clipboard");
             halign: center;
             margin-top: 12;
             
