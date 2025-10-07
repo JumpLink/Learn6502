@@ -474,6 +474,7 @@ msgstr "Un cosa importante a notar hic es le distinction inter <tt>ADC #$01</tt>
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "Qualcunque numeros prefixate con <tt>$</tt> in lingua de assemblage 6502 (e per extension, in iste libro) es in formato hexadecimal (hex). Si tu non es familiar con numeros hex, io recommenda leger <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">le articulo de Wikipedia</a>. Qualcunque prefixate con <tt>#</tt> es un valor numeric literal. Qualcunque altere numero refere a un location de memoria."
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Apparentia"
@@ -798,10 +799,6 @@ msgstr "Clave de gamepad pressate:"
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr "Jocos ora automaticamente pausa quando cambi inter schermos"
-
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "General"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
@@ -1146,10 +1143,6 @@ msgstr "Rosate"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "Jocar"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "Preferentias"
 
 msgid "Preprocessing ..."
 msgstr "Preprocessante..."
@@ -1790,6 +1783,15 @@ msgstr "wdm-output"
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "que representa le locationes de memoria indirectemente adressate <tt>$0411</tt>, <tt>$0410</tt> e <tt>$040f</tt> (tres pixeles in le medio del schermo). Io labora iste puncto, ma illo es importante pro plenemente comprehender como adressage indirecte functiona."
 
+#~ msgid "_Appearance"
+#~ msgstr "_Apparentia"
+
+#~ msgid "General"
+#~ msgstr "General"
+
+#~ msgid "Preferences"
+#~ msgstr "Preferentias"
+
 #~ msgid "Copy to Clipboard"
 #~ msgstr "Copiar al portafolio"
 
@@ -1846,9 +1848,6 @@ msgstr "que representa le locationes de memoria indirectemente adressate <tt>$04
 
 #~ msgid "Ukrainian"
 #~ msgstr "Ucrainiano"
-
-#~ msgid "_Appearance"
-#~ msgstr "_Apparentia"
 
 #~ msgid "<b>A</b> (Accumulator): Registro principal pro calculos e manipulation de datos"
 #~ msgstr "<b>A</b> (Accumulator): Registro principal pro calculos e manipulation de datos"

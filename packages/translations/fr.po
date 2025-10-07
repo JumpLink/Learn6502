@@ -477,6 +477,7 @@ msgstr "Une chose importante à noter ici est la distinction entre <tt>ADC #$01<
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "Tous les nombres préfixés par <tt>$</tt> dans le langage assembleur 6502 (et par extension, dans ce livre) sont au format hexadécimal (hex). Si vous n'êtes pas familier avec les nombres hexadécimaux, je vous recommande de lire <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">l'article Wikipédia</a>. Tout ce qui est préfixé par <tt>#</tt> est une valeur numérique littérale. Tout autre nombre fait référence à un emplacement mémoire."
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Apparence"
@@ -801,10 +802,6 @@ msgstr "Touche de manette pressée :"
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr "Les jeux se mettent maintenant automatiquement en pause lors du changement d'écran"
-
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "Général"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
@@ -1149,10 +1146,6 @@ msgstr "Rose"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "Jouer"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "Préférences"
 
 msgid "Preprocessing ..."
 msgstr "Prétraitement ..."
@@ -1793,6 +1786,15 @@ msgstr "sortie-wdm"
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "qui représente les emplacements mémoire adressés indirectement <tt>$0411</tt>, <tt>$0410</tt> et <tt>$040f</tt> (trois pixels au milieu de l'affichage). J'insiste sur ce point, mais il est important de bien comprendre comment fonctionne l'adressage indirect."
 
+#~ msgid "_Appearance"
+#~ msgstr "_Apparence"
+
+#~ msgid "General"
+#~ msgstr "Général"
+
+#~ msgid "Preferences"
+#~ msgstr "Préférences"
+
 #~ msgid "Copy to Clipboard"
 #~ msgstr "Copier dans le presse-papiers"
 
@@ -1849,9 +1851,6 @@ msgstr "qui représente les emplacements mémoire adressés indirectement <tt>$0
 
 #~ msgid "Ukrainian"
 #~ msgstr "Ukrainien"
-
-#~ msgid "_Appearance"
-#~ msgstr "_Apparence"
 
 #~ msgid "Debug your 6502 assembly code, step through your program, and view memory and registers. To get started, assemble and run your program."
 #~ msgstr "Déboguez votre code assembleur 6502, exécutez-le étape par étape et visualisez la mémoire et les registres. Pour commencer, assemblez et exécutez votre programme."

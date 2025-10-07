@@ -475,6 +475,7 @@ msgstr "ここで重要なのは <tt>ADC #$01</tt> と <tt>ADC $01</tt> の違�
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "6502アセンブリ言語 (および本書) では、<tt>$</tt>で始まる数値は16進数 (hex) 形式です。16進数に不慣れな場合は、<a href=\"https://ja.wikipedia.org/wiki/%E5%8D%81%E5%85%AD%E9%80%B2%E6%B3%95\">Wikipediaの記事</a>を読むことをお勧めします。<tt>#</tt>で始まるものはリテラル数値 (即値) です。それ以外の数値はメモリアドレスを指します。"
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "外観"
@@ -799,10 +800,6 @@ msgstr "ゲームパッドのキーが押されました:"
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr "画面切り替え時にゲームが自動一時停止するようになりました"
-
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "一般"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
@@ -1147,10 +1144,6 @@ msgstr "ピンク"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "プレイ"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "設定"
 
 msgid "Preprocessing ..."
 msgstr "前処理中…"
@@ -1790,6 +1783,16 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "これは間接参照で得られる <tt>$0411</tt>、<tt>$0410</tt>、<tt>$040f</tt>（画面中央付近の3ピクセル）を表します。くどいようですが、間接アドレッシングの仕組みをしっかり理解することが重要です。"
+
+#, fuzzy
+#~ msgid "_Appearance"
+#~ msgstr "_外観"
+
+#~ msgid "General"
+#~ msgstr "一般"
+
+#~ msgid "Preferences"
+#~ msgstr "設定"
 
 #~ msgid "Copy to Clipboard"
 #~ msgstr "クリップボードにコピー"

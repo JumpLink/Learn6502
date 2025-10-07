@@ -475,6 +475,7 @@ msgstr "Важливо зауважити відмінність між <tt>ADC 
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "Будь-які числа з префіксом <tt>$</tt> у мові асемблера 6502 (і, відповідно, у цьому посібнику) мають шістнадцятковий (hex) формат. Якщо ви не знайомі з шістнадцятковими числами, рекомендую прочитати <a href=\"https://uk.wikipedia.org/wiki/%D0%A8%D1%96%D1%81%D1%82%D0%BD%D0%B0%D0%B4%D1%86%D1%8F%D1%82%D0%BA%D0%BE%D0%B2%D0%B0_%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC%D0%B0_%D1%87%D0%B8%D1%81%D0%BB%D0%B5%D0%BD%D0%BD%D1%8F\">статтю Вікіпедії</a>. Все, що має префікс <tt>#</tt>, є літеральним числовим значенням. Будь-яке інше число вказує на комірку пам'яті."
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Вигляд"
@@ -799,10 +800,6 @@ msgstr "Натиснута клавіша геймпада:"
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr "Ігри тепер автоматично призупиняються при перемиканні між екранами"
-
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "Загальні"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
@@ -1147,10 +1144,6 @@ msgstr "Рожевий"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "Грати"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "Параметри"
 
 msgid "Preprocessing ..."
 msgstr "Попередня обробка..."
@@ -1790,6 +1783,15 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "що відповідає непрямим адресам <tt>$0411</tt>, <tt>$0410</tt> і <tt>$040f</tt> (три пікселі посеред екрана). Я наголошую на цьому, бо важливо повністю зрозуміти, як працює непряма адресація."
+
+#~ msgid "_Appearance"
+#~ msgstr "_Вигляд"
+
+#~ msgid "General"
+#~ msgstr "Загальні"
+
+#~ msgid "Preferences"
+#~ msgstr "Параметри"
 
 #~ msgid "Copy to Clipboard"
 #~ msgstr "Копіювати в буфер обміну"

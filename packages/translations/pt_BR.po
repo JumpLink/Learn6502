@@ -475,6 +475,7 @@ msgstr "Uma coisa importante a notar aqui é a distinção entre <tt>ADC #$01</t
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "Qualquer número precedido de <tt>$</tt> na linguagem assembly 6502 (e por extensão, neste livro) está no formato hexadecimal (hex). Se não estás familiarizado com números hexadecimais, recomendo que leias <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">o artigo da Wikipédia</a>. Qualquer coisa precedida de <tt>#</tt> é um valor numérico literal. Qualquer outro número refere-se a uma endereço de memória."
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Aparência"
@@ -799,10 +800,6 @@ msgstr "Tecla do comando de jogos pressionada:"
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr "Os jogos agora param automaticamente ao alternar entre telas"
-
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "Geral"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
@@ -1147,10 +1144,6 @@ msgstr "Rosa"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "Jogar"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "Preferências"
 
 msgid "Preprocessing ..."
 msgstr "Pré-processamento..."
@@ -1791,6 +1784,15 @@ msgstr "wdm-output"
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "que representa as endereços de memória endereçadas indiretamente <tt>$0411</tt>, <tt>$0410</tt> e <tt>$040f</tt> (três pixels no meio da tela). Estou a insistir neste ponto, mas é importante compreender completamente como o endereçamento indireto funciona."
 
+#~ msgid "_Appearance"
+#~ msgstr "_Aparência"
+
+#~ msgid "General"
+#~ msgstr "Geral"
+
+#~ msgid "Preferences"
+#~ msgstr "Preferências"
+
 #~ msgid "Copy to Clipboard"
 #~ msgstr "Copiar para a área de transferência"
 
@@ -1847,6 +1849,3 @@ msgstr "que representa as endereços de memória endereçadas indiretamente <tt>
 
 #~ msgid "Ukrainian"
 #~ msgstr "Ucraniano"
-
-#~ msgid "_Appearance"
-#~ msgstr "_Aparência"

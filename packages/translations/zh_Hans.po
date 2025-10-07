@@ -476,6 +476,7 @@ msgstr "这里要注意 <tt>ADC #$01</tt> 与 <tt>ADC $01</tt> 的区别。前�
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "在 6502 汇编中，以 <tt>$</tt> 开头的数字是十六进制。以 <tt>#</tt> 开头表示立即数（字面值）。没有 # 的数字通常表示内存地址（其进制由前缀决定，例如 $ 为十六进制）。如果你对十六进制不熟悉，建议阅读 <a href=\"https://zh.wikipedia.org/wiki/%E5%8D%81%E5%85%AD%E8%BF%9B%E5%88%B6\">维基百科条目</a>。"
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "外观"
@@ -800,10 +801,6 @@ msgstr "手柄按键："
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
 msgstr "切换屏幕时游戏现在会自动暂停"
-
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "通用"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
@@ -1148,10 +1145,6 @@ msgstr "粉色"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "开始"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "首选项"
 
 msgid "Preprocessing ..."
 msgstr "预处理…"
@@ -1792,6 +1785,15 @@ msgstr "wdm-output"
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 与 <tt>$040f</tt>（显示中部的三个像素）。之所以反复强调，是因为完全理解间接寻址的工作方式非常重要。"
 
+#~ msgid "_Appearance"
+#~ msgstr "_外观"
+
+#~ msgid "General"
+#~ msgstr "通用"
+
+#~ msgid "Preferences"
+#~ msgstr "首选项"
+
 #~ msgid "Copy to Clipboard"
 #~ msgstr "复制到剪贴板"
 
@@ -1848,9 +1850,6 @@ msgstr "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 
 
 #~ msgid "Ukrainian"
 #~ msgstr "乌克兰语"
-
-#~ msgid "_Appearance"
-#~ msgstr "外观"
 
 #~ msgid "Because the snake's length is stored in zero page <tt>$03</tt>, we can use indirect addressing to draw the snake. The basic idea is to loop through the zero page locations that store the snake's position data, and use indirect addressing to draw each segment to the display."
 #~ msgstr "由于蛇的长度存储在零页 <tt>$03</tt>，我们可以使用间接寻址来绘制蛇。基本思路是遍历存储蛇位置数据的零页位置，然后使用间接寻址将每个段绘制到显示区。"
