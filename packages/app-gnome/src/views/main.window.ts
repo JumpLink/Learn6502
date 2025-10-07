@@ -9,7 +9,7 @@ import { SimulatorState, num2hex, debounce } from "@learn6502/6502";
 
 import { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import { MainButton } from "../widgets";
+import { MainButton, ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 import { settings } from "../settings.ts";
@@ -174,6 +174,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   private stepSimulatorAction = new Gio.SimpleAction({
     name: "step-simulator",
   });
+  private shareAction = new Gio.SimpleAction({ name: "share" });
 
   // File actions
   private openFileAction = new Gio.SimpleAction({ name: "open-file" });
@@ -477,6 +478,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       this.stepGameConsole.bind(this)
     );
     this.add_action(this.stepSimulatorAction);
+
+    this.shareAction.connect("activate", this.showShareDialog.bind(this));
+    this.add_action(this.shareAction);
   }
 
   private setupFileActions(): void {
@@ -946,6 +950,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.pauseSimulatorAction.set_enabled(enabledState.pause);
     this.resetSimulatorAction.set_enabled(enabledState.reset);
     this.stepSimulatorAction.set_enabled(enabledState.step);
+    this.shareAction.set_enabled(enabledState.share);
 
     // Update the button state based on simulator state and current view
     return this._mainButton.updateFromSimulatorState(state);
@@ -1018,6 +1023,30 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
       });
     }
     return success || false;
+  }
+
+  private showShareDialog(): void {
+    const dialog = new ShareDialog();
+
+    // Set the current code
+    dialog.setCode(editorController.code);
+
+    // Set the current memory state
+    dialog.setMemory(this._gameConsole.memory);
+
+    // Handle submit event
+    dialog.connect("submit", (_dialog: ShareDialog, example: unknown) => {
+      console.log("Example submitted:", example);
+      // TODO: Implement GitHub PR creation logic here
+      this.showToast({
+        // TRANSLATORS: Toast message when example is submitted
+        title: _("Example submitted for review"),
+        timeout: 3,
+      });
+    });
+
+    // Present the dialog
+    dialog.present(this);
   }
 
   private showUnsavedChangesDialog(action: "open" | "close"): void {

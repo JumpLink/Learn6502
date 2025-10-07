@@ -1,0 +1,187 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $ShareDialog: Adw.Dialog {
+  title: _("Share Example");
+  content-width: 600;
+  content-height: 700;
+  follows-content-size: false;
+
+  Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar {
+      [start]
+      Button backButton {
+        icon-name: "go-previous-symbolic";
+        // TRANSLATORS: Tooltip for back button in share dialog
+        tooltip-text: _("Previous");
+        visible: false;
+      }
+    }
+
+    Adw.Carousel carousel {
+      allow-long-swipes: false;
+      allow-scroll-wheel: false;
+      interactive: false;
+
+      // Page 1: Form
+      Adw.StatusPage {
+        hexpand: true;
+        // TRANSLATORS: Title of the share dialog
+        title: _("Share Your Example");
+        // TRANSLATORS: Description in share dialog
+        description: _("Fill in the information about your 6502 example to share it with the community");
+
+        Box formBox {
+          orientation: vertical;
+          spacing: 6;
+          margin-start: 12;
+          margin-end: 12;
+          margin-top: 12;
+          margin-bottom: 12;
+          halign: center;
+
+          Adw.PreferencesGroup {
+            styles [
+              "boxed-list",
+            ]
+
+            Adw.EntryRow titleEntry {
+              // TRANSLATORS: Entry label for example title
+              title: _("Title");
+              input-purpose: free_form;
+            }
+
+            Adw.EntryRow authorEntry {
+              // TRANSLATORS: Entry label for example author
+              title: _("Author");
+              input-purpose: free_form;
+            }
+
+            Adw.EntryRow descriptionEntry {
+              // TRANSLATORS: Entry label for example description
+              title: _("Description");
+              input-purpose: free_form;
+            }
+          }
+
+          Adw.PreferencesGroup {
+            styles [
+              "boxed-list",
+            ]
+
+            Adw.EntryRow sourceUrlEntry {
+              // TRANSLATORS: Entry label for optional source URL
+              title: _("Source URL");
+              // TRANSLATORS: Placeholder for source URL entry
+              input-purpose: url;
+            }
+          }
+
+          Label {
+            label: _("If your example is based on or inspired by another example, you can provide the source URL.");
+            wrap: true;
+            xalign: 0;
+            margin-start: 6;
+            margin-end: 6;
+            
+            styles [
+              "caption",
+              "dim-label",
+            ]
+          }
+
+          Button nextButton {
+            icon-name: "go-next-symbolic";
+            // TRANSLATORS: Label for next button in share dialog
+            label: _("Preview");
+            halign: center;
+            margin-top: 24;
+            
+            styles [
+              "pill",
+              "suggested-action",
+            ]
+          }
+        }
+      }
+
+      // Page 2: Preview
+      Adw.StatusPage {
+        hexpand: true;
+        // TRANSLATORS: Title for preview page in share dialog
+        title: _("Preview Your Example");
+        // TRANSLATORS: Description for preview page with GitHub account info
+        description: _("Review how your example will appear to others. Clicking <b>Submit</b> will create a issue on GitHub. You'll need to sign in with your GitHub account to complete the submission.");
+
+        Box previewBox {
+          orientation: vertical;
+          spacing: 6;
+          margin-start: 12;
+          margin-end: 12;
+          margin-top: 12;
+          margin-bottom: 12;
+          halign: fill;
+          hexpand: true;
+
+          $ExampleListItem examplePreview {}
+
+          Button submitButton {
+            // TRANSLATORS: Close button on completion page
+            label: _("Submit");
+            halign: center;
+            margin-top: 24;
+            
+            styles [
+              "pill",
+              "suggested-action",
+            ]
+          }
+        }
+      }
+
+      // Page 3: Completion
+      Adw.StatusPage completionPage {
+        hexpand: true;
+        icon-name: "heart-filled-symbolic";
+        // TRANSLATORS: Title for final step
+        title: _("Almost Done!");
+        // TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
+        description: _("A GitHub issue has been opened in your browser. Please review and submit it there to complete your contribution. Once approved, your example will be included in the next release.\n\nShould your example be too large, the complete content will be copied to your clipboard for manual pasting into the GitHub issue.");
+
+        Box {
+          orientation: vertical;
+          spacing: 6;
+          margin-start: 12;
+          margin-end: 12;
+          margin-top: 12;
+          margin-bottom: 12;
+          halign: center;
+
+          Button copyToClipboardButton {
+            // TRANSLATORS: Button to copy example content to clipboard again
+            label: _("Copy to clipboard");
+            halign: center;
+            margin-top: 12;
+            
+            styles [
+              "pill",
+            ]
+          }
+
+          Button closeButton {
+            // TRANSLATORS: Button to close dialog after submitting issue on GitHub
+            label: _("Done");
+            halign: center;
+            margin-top: 24;
+            
+            styles [
+              "pill",
+              "suggested-action",
+            ]
+          }
+        }
+      }
+    }
+  }
+}

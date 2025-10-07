@@ -8,4 +8,5 @@ export interface MainButtonActionState {
   pause: boolean;
   reset: boolean;
   step: boolean;
+  share: boolean;
 }

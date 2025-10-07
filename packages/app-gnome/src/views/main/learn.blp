@@ -117,9 +117,43 @@ template $Learn: Adw.Bin {
           margin-start: 0;
           margin-end: 0;
           
-          $ExamplesList examplesList {
-            margin-top: 12;
-            margin-bottom: 12;
+          Box {
+            orientation: vertical;
+            spacing: 24;
+            
+            $ExamplesList examplesList {
+              margin-top: 12;
+              margin-bottom: 12;
+            }
+            
+            Box {
+              orientation: vertical;
+              spacing: 12;
+              halign: center;
+              margin-start: 24;
+              margin-end: 24;
+              margin-bottom: 24;
+              
+              Label {
+                // TRANSLATORS: Description for examples placeholder
+                label: _("Got a cool 6502 example?\nShare it with the community!");
+                justify: center;
+                wrap: true;
+                xalign: 0.5;
+              }
+              
+              Button {
+                // TRANSLATORS: Button to share your own example
+                label: _("Share Your Example");
+                action-name: "win.share";
+                halign: center;
+                
+                styles [
+                  "pill",
+                  "suggested-action",
+                ]
+              }
+            }
           }
         };
       };

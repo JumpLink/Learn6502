@@ -1,0 +1,146 @@
+name: "Issue → PR: Add Example"
+
+on:
+  issues:
+    types: [opened]
+
+permissions:
+  contents: write
+  pull-requests: write
+  issues: write
+
+jobs:
+  make-pr:
+    if: startsWith(github.event.issue.title, '[example]')
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Extract metadata and code from issue body
+        id: extract
+        run: |
+          set -euo pipefail
+          BODY_FILE="$(mktemp)"
+          printf "%s" "${BODY}" > "$BODY_FILE"
+          node -e '
+            const fs = require("fs");
+            const body = fs.readFileSync(process.env.BODY_FILE, "utf8");
+            
+            // Extract JSON metadata
+            const jsonMatch = body.match(/```json\s*([\s\S]*?)```/);
+            if (!jsonMatch) { console.error("JSON block not found"); process.exit(1); }
+            const metadata = JSON.parse(jsonMatch[1]);
+            
+            // Extract assembly code
+            const codeMatch = body.match(/```assembly\s*([\s\S]*?)```/);
+            if (!codeMatch) { console.error("Assembly code block not found"); process.exit(2); }
+            const code = codeMatch[1];
+            
+            // Validate slug
+            const ok = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(metadata.slug || "");
+            if (!ok) { console.error("Invalid slug"); process.exit(3); }
+            
+            // Combine metadata and code into payload
+            const payload = { ...metadata, code };
+            fs.writeFileSync("payload.json", JSON.stringify(payload, null, 2));
+          '
+        env:
+          BODY: ${{ github.event.issue.body }}
+
+      - name: Render files from payload
+        id: render
+        run: |
+          set -euo pipefail
+          jq -r . payload.json > /dev/null
+
+          SLUG="$(jq -r .slug payload.json)"
+          TITLE="$(jq -r .title payload.json)"
+          DESC="$(jq -r .description payload.json)"
+          AUTHOR="$(jq -r .author payload.json)"
+          SRC_URL="$(jq -r '.sourceUrl // empty' payload.json)"
+          GH_USER="$(jq -r '.githubUsername // empty' payload.json)"
+          CODE="$(jq -r .code payload.json)"
+          DISP="$(jq -r .displayMemory payload.json)"
+
+          BASE_DIR="packages/examples/${SLUG}"
+          CODE_PATH="${BASE_DIR}/${SLUG}.asm"
+          META_PATH="${BASE_DIR}/${SLUG}.meta.ts"
+          mkdir -p "$BASE_DIR"
+
+          # Write code directly to file
+          printf "%s" "$CODE" > "$CODE_PATH"
+
+          # Helper function for JSON escaping
+          esc() { printf "%s" "$1" | python3 -c 'import sys,json;print(json.dumps(sys.stdin.read())[1:-1])'; }
+
+          # Build the TypeScript file content
+          {
+            echo 'import { _ } from "@learn6502/6502";'
+            echo 'import type { ExampleMetaJson } from "../example-meta.ts";'
+            echo 'export default {'
+            echo "  slug: \"$(esc "$SLUG")\","
+            echo "  title: _(\"$(esc "$TITLE")\"),"
+            echo "  description: _(\"$(esc "$DESC")\"),"
+            echo "  author: \"$(esc "$AUTHOR")\","
+            echo "  displayMemory: \"$(esc "$DISP")\","
+            if [ -n "$SRC_URL" ]; then
+              echo "  sourceUrl: \"$(esc "$SRC_URL")\","
+            fi
+            if [ -n "$GH_USER" ]; then
+              echo "  githubUsername: \"$(esc "$GH_USER")\","
+            fi
+            echo '} as ExampleMetaJson;'
+          } > "$META_PATH"
+
+          echo "CODE_PATH=$CODE_PATH" >> $GITHUB_OUTPUT
+          echo "META_PATH=$META_PATH" >> $GITHUB_OUTPUT
+          echo "BASE_DIR=$BASE_DIR" >> $GITHUB_OUTPUT
+          echo "SLUG=$SLUG" >> $GITHUB_OUTPUT
+
+      - name: Create branch
+        run: |
+          BR="examples/issue-${{ github.event.issue.number }}"
+          echo "BRANCH=$BR" >> $GITHUB_ENV
+          git switch -c "$BR"
+
+      - name: Commit with author = issue opener
+        env:
+          AUTHOR_NAME: ${{ github.event.issue.user.login }}
+          AUTHOR_EMAIL: ${{ github.event.issue.user.id }}+${{ github.event.issue.user.login }}@users.noreply.github.com
+        run: |
+          git add -A
+          git -c user.name="github-actions[bot]" \
+              -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
+              commit --author="${AUTHOR_NAME} <${AUTHOR_EMAIL}>" \
+              -m "feat(example): add ${{ steps.render.outputs.SLUG }} (from issue #${{ github.event.issue.number }})
+              
+              Co-authored-by: ${{ github.event.issue.user.login }} <${{ github.event.issue.user.id }}+${{ github.event.issue.user.login }}@users.noreply.github.com>
+              Signed-off-by: ${{ github.event.issue.user.login }} <${{ github.event.issue.user.id }}+${{ github.event.issue.user.login }}@users.noreply.github.com>
+              "
+
+      - name: Push
+        run: git push -u origin "$BRANCH"
+
+      - name: Open PR
+        uses: peter-evans/create-pull-request@v6
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          branch: ${{ env.BRANCH }}
+          base: main
+          title: "Add example: ${{ steps.render.outputs.SLUG }} (from issue #${{ github.event.issue.number }})"
+          body: |
+            Generated from issue #${{ github.event.issue.number }} by workflow.
+            Files:
+            - `${{ steps.render.outputs.META_PATH }}`
+            - `${{ steps.render.outputs.CODE_PATH }}`
+
+      - name: Comment on issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ Pull request created! Your example will be reviewed and merged soon. Thank you for contributing! 🎉'
+            })

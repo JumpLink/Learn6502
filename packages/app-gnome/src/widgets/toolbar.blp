@@ -47,6 +47,17 @@ template $Toolbar : Adw.Bin {
       tooltip-text: _("Reset");
     }
 
+    Separator {
+      orientation: vertical;
+    }
+
+    Button {
+      icon-name: "share-symbolic";
+      action-name: "win.share";
+      // TRANSLATORS: Toolbar button tooltip to share the current code
+      tooltip-text: _("Share");
+    }
+
     styles [
       "toolbar",
       "osd",
