@@ -575,10 +575,6 @@ msgstr "Indicador de acarreo: Se establece cuando una suma produce un acarreo; s
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Cambia uno de los píxeles para dibujar en la esquina inferior derecha (dirección de memoria <tt>$05ff</tt>)."
 
-#. TRANSLATORS: Example description for the Snake game
-msgid "Classic snake game from the original easy6502 tutorial"
-msgstr "Juego clásico de la serpiente del tutorial original de easy6502"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "Código"
@@ -599,6 +595,9 @@ msgstr "Editor de código y consola de juegos virtual"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "Paleta de colores"
+
+msgid "Commented Snake Game"
+msgstr "Juego de la Serpiente Comentado"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -791,6 +790,9 @@ msgstr "Se encontraron $d etiquetas."
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Memoria completa ($0000-$FFFF)"
+
+msgid "Fully commented version of the Snake game"
+msgstr "Versión completamente comentada del juego de la serpiente"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -1589,6 +1591,10 @@ msgstr "El procesador sabe adónde volver porque <tt>JSR</tt> empuja al stack la
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
 msgstr "El resultado de esta subrutina es cargar un byte aleatorio en <tt>$00</tt> y un número aleatorio entre 2 y 5 en <tt>$01</tt>. Como en el direccionamiento indirecto el byte menos significativo va primero, esto se traduce en una dirección entre <tt>$0200</tt> y <tt>$05ff</tt>: exactamente el rango usado para dibujar la pantalla."
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "The snake game from the tutorial"
+msgstr "El juego de la serpiente del tutorial"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"

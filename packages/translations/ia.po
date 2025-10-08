@@ -571,10 +571,6 @@ msgstr "Bandiera de reporto: Definite quando un addition produce un reporto; cla
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Cambia un del pixeles pro designar in le angulo in basso a dextra (location de memoria <tt>$05ff</tt>)."
 
-#. TRANSLATORS: Example description for the Snake game
-msgid "Classic snake game from the original easy6502 tutorial"
-msgstr "Joco classic de serpente del tutorial original easy6502"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "Codice"
@@ -595,6 +591,9 @@ msgstr "Editor de codice e consola de joco virtual"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "Paletta de colores"
+
+msgid "Commented Snake Game"
+msgstr "Joco Snake Commentate"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -787,6 +786,9 @@ msgstr "Trovate $d etiquettas."
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Memoria complete ($0000-$FFFF)"
+
+msgid "Fully commented version of the Snake game"
+msgstr "Version completemente commentate del joco Snake"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -1585,6 +1587,10 @@ msgstr "Le processor sape ubi retornar proque <tt>JSR</tt> pusha le adresse minu
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
 msgstr "Le resultato de iste subrutina es cargar un byte casual in <tt>$00</tt>, e un numero casual inter 2 e 5 in <tt>$01</tt>. Proque le byte minus significante veni prime con adressage indirecte, iste se traduce in un adresse de memoria inter <tt>$0200</tt> e <tt>$05ff</tt>: le exacte rango usate pro designar le schermo."
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "The snake game from the tutorial"
+msgstr "Le joco Snake del tutorial"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"

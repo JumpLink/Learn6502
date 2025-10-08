@@ -573,10 +573,6 @@ msgstr "进位标志（C）：加法产生进位时置位；减法需要借位�
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "试着修改内存中最后一个像素的颜色 (内存地址 $05ff)。"
 
-#. TRANSLATORS: Example description for the Snake game
-msgid "Classic snake game from the original easy6502 tutorial"
-msgstr "来自原版 easy6502 教程的经典贪吃蛇游戏"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "代码"
@@ -597,6 +593,9 @@ msgstr "代码编辑器与虚拟游戏主机"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "调色板"
+
+msgid "Commented Snake Game"
+msgstr "带注释的贪吃蛇游戏"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -789,6 +788,9 @@ msgstr "找到 $d 个标签。"
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "全部内存（$0000–$FFFF）"
+
+msgid "Fully commented version of the Snake game"
+msgstr "完整注释版贪吃蛇游戏"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -1587,6 +1589,10 @@ msgstr "处理器之所以知道返回位置，是因为 <tt>JSR</tt> 在跳转�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
 msgstr "该子程序的结果是在 <tt>$00</tt> 中放入一个随机字节，在 <tt>$01</tt> 中放入 2 到 5 之间的随机数。由于间接寻址低位在前，这对应于 <tt>$0200</tt> 到 <tt>$05ff</tt> 之间的内存地址——正好是用于绘制显示的范围。"
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "The snake game from the tutorial"
+msgstr "教程中的贪吃蛇游戏"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"

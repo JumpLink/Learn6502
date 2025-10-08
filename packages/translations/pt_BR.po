@@ -572,10 +572,6 @@ msgstr "Flag Carry: Definida quando uma adição produz um carry-out; limpa quan
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Mude um dos pixels para desenhar no canto inferior direito (endereço de memória <tt>$05ff</tt>)."
 
-#. TRANSLATORS: Example description for the Snake game
-msgid "Classic snake game from the original easy6502 tutorial"
-msgstr "Jogo clássico da cobrinha do tutorial original easy6502"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "Código"
@@ -596,6 +592,9 @@ msgstr "Editor de código e console de jogo virtual"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "Paleta de Cores"
+
+msgid "Commented Snake Game"
+msgstr "Jogo da Cobrinha Comentado"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -788,6 +787,9 @@ msgstr "Encontrados $d rótulos."
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Memória Completa ($0000-$FFFF)"
+
+msgid "Fully commented version of the Snake game"
+msgstr "Versão totalmente comentada do jogo da cobrinha"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -1586,6 +1588,10 @@ msgstr "O processador sabe para onde retornar porque <tt>JSR</tt> coloca o ender
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
 msgstr "O resultado desta sub-rotina é carregar um byte aleatório em <tt>$00</tt> e um número aleatório entre 2 e 5 em <tt>$01</tt>. Como o byte menos significativo vem primeiro com endereçamento indireto, isto traduz-se num endereço de memória entre <tt>$0200</tt> e <tt>$05ff</tt>: o intervalo exato usado para desenhar a tela."
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "The snake game from the tutorial"
+msgstr "O jogo da cobrinha do tutorial"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"

@@ -20,11 +20,9 @@ jobs:
         id: extract
         run: |
           set -euo pipefail
-          BODY_FILE="$(mktemp)"
-          printf "%s" "${BODY}" > "$BODY_FILE"
           node -e '
             const fs = require("fs");
-            const body = fs.readFileSync(process.env.BODY_FILE, "utf8");
+            const body = process.env.ISSUE_BODY;
             
             // Extract JSON metadata
             const jsonMatch = body.match(/```json\s*([\s\S]*?)```/);
@@ -40,12 +38,12 @@ jobs:
             const ok = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(metadata.slug || "");
             if (!ok) { console.error("Invalid slug"); process.exit(3); }
             
-            // Combine metadata and code into payload
+            // Combine metadata and code into payload (temporary file, not committed)
             const payload = { ...metadata, code };
             fs.writeFileSync("payload.json", JSON.stringify(payload, null, 2));
           '
         env:
-          BODY: ${{ github.event.issue.body }}
+          ISSUE_BODY: ${{ github.event.issue.body }}
 
       - name: Render files from payload
         id: render
@@ -97,11 +95,31 @@ jobs:
           echo "BASE_DIR=$BASE_DIR" >> $GITHUB_OUTPUT
           echo "SLUG=$SLUG" >> $GITHUB_OUTPUT
 
+          # Remove temporary file to prevent accidental commit
+          rm -f payload.json
+
       - name: Create branch
         run: |
           BR="examples/issue-${{ github.event.issue.number }}"
           echo "BRANCH=$BR" >> $GITHUB_ENV
           git switch -c "$BR"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build project
+        run: yarn build
+
+      - name: Format code
+        run: yarn format
 
       - name: Commit with author = issue opener
         env:
@@ -122,25 +140,36 @@ jobs:
         run: git push -u origin "$BRANCH"
 
       - name: Open PR
-        uses: peter-evans/create-pull-request@v6
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          branch: ${{ env.BRANCH }}
-          base: main
-          title: "Add example: ${{ steps.render.outputs.SLUG }} (from issue #${{ github.event.issue.number }})"
-          body: |
-            Generated from issue #${{ github.event.issue.number }} by workflow.
-            Files:
-            - `${{ steps.render.outputs.META_PATH }}`
-            - `${{ steps.render.outputs.CODE_PATH }}`
-
-      - name: Comment on issue
+        id: open_pr
         uses: actions/github-script@v7
         with:
           script: |
-            github.rest.issues.createComment({
+            const { data: pr } = await github.rest.pulls.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: 'Add example: ${{ steps.render.outputs.SLUG }} (from issue #${{ github.event.issue.number }})',
+              head: '${{ env.BRANCH }}',
+              base: 'main',
+              body: `Generated from issue #${{ github.event.issue.number }} by workflow.
+
+            Files:
+            - \`${{ steps.render.outputs.META_PATH }}\`
+            - \`${{ steps.render.outputs.CODE_PATH }}\`
+
+            Closes #${{ github.event.issue.number }}`
+            });
+            console.log(`Pull request created: ${pr.html_url}`);
+            core.setOutput('pr_number', pr.number);
+            core.setOutput('pr_url', pr.html_url);
+
+      - name: Comment on issue
+        id: comment
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ Pull request created! Your example will be reviewed and merged soon. Thank you for contributing! 🎉'
+              body: '✅ Pull request created: #${{ steps.open_pr.outputs.pr_number }}\n\nYour example will be reviewed and merged soon. Thank you for contributing! 🎉'
             })

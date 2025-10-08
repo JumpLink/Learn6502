@@ -1,1 +1,0 @@
-export { snake } from "./snake";

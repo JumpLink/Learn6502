@@ -573,10 +573,6 @@ msgstr "Carry‑vlag: Ingesteld wanneer optellen een carry‑out produceert; gew
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Verander een van de pixels om te tekenen in de rechterbenedenhoek (geheugenlocatie <tt>$05ff</tt>)."
 
-#. TRANSLATORS: Example description for the Snake game
-msgid "Classic snake game from the original easy6502 tutorial"
-msgstr "Klassiek snake-spel uit de originele easy6502-tutorial"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "Code"
@@ -597,6 +593,9 @@ msgstr "Code-editor en virtuele spelconsole"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "Kleurenpalet"
+
+msgid "Commented Snake Game"
+msgstr "Snake-spel met Commentaar"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -789,6 +788,9 @@ msgstr "$d labels gevonden."
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Volledig geheugen ($0000-$FFFF)"
+
+msgid "Fully commented version of the Snake game"
+msgstr "Volledig van commentaar voorziene versie van het Snake-spel"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -1587,6 +1589,10 @@ msgstr "De processor weet waarnaar hij moet terugkeren omdat <tt>JSR</tt> vóór
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
 msgstr "Het resultaat van deze subroutine is dat een willekeurige byte in <tt>$00</tt> wordt geladen en een willekeurig getal tussen 2 en 5 in <tt>$01</tt>. Omdat bij indirecte adressering het minst significante byte eerst komt, resulteert dit in een geheugenadres tussen <tt>$0200</tt> en <tt>$05ff</tt>: precies het bereik dat wordt gebruikt om het scherm te tekenen."
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "The snake game from the tutorial"
+msgstr "Het snake-spel uit de tutorial"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"
