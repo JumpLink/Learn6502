@@ -1,14 +1,14 @@
 import GObject from "@girs/gobject-2.0";
 import Gtk from "@girs/gtk-4.0";
 
-import { snake } from "@learn6502/examples";
-import type { ExampleMeta } from "@learn6502/examples/example-meta";
+import * as Examples from "@learn6502/examples/examples";
+import type { ExampleMeta } from "@learn6502/examples";
 import { ExampleListItem } from "./example-list-item.ts";
 
 import Template from "./examples-list.blp";
 
 export class ExamplesList extends Gtk.Box {
-  private examples: ExampleMeta[] = [snake];
+  private examples: ExampleMeta[] = Object.values(Examples);
 
   static {
     GObject.registerClass(

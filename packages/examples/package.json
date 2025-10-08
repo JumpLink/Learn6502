@@ -6,7 +6,15 @@
   "main": "index.ts",
   "author": "Nick Morgan, Pascal Garber",
   "license": "CC-BY-4.0",
+  "exports": {
+    ".": "./index.ts",
+    "./examples": "./examples.ts"
+  },
+  "scripts": {
+    "build": "node --experimental-specifier-resolution=node --experimental-strip-types --experimental-transform-types --no-warnings build.ts"
+  },
   "devDependencies": {
+    "@types/node": "^22.10.5",
     "typescript": "^5.9.2"
   },
   "dependencies": {
