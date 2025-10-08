@@ -1,7 +1,7 @@
 {
   "name": "@learn6502/app-android",
   "main": "app/app.ts",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "private": true,
   "scripts": {
     "clear": "ns clean",
@@ -19,13 +19,13 @@
     "@nativescript/core": "~8.9.9",
     "@nativescript/localize": "^5.2.0",
     "@nativescript/tailwind": "^4.0.5",
-    "tailwindcss": "^4.1.13"
+    "tailwindcss": "^4.1.14"
   },
   "devDependencies": {
     "@nativescript/android": "8.9.2",
     "@nativescript/types": "~8.9.1",
     "@nativescript/webpack": "^5.0.24",
     "nativescript": "^8.9.3",
-    "typescript": "^5.9.2"
+    "typescript": "^5.9.3"
   }
 }

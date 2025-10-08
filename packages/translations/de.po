@@ -481,6 +481,7 @@ msgstr "Ein wichtiger Punkt hier ist der Unterschied zwischen <tt>ADC #$01</tt> 
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "Alle Zahlen mit dem Präfix <tt>$</tt> in der 6502-Assemblersprache (und folglich auch in diesem Buch) sind im Hexadezimal-(Hex)-Format. Wenn du mit Hexadezimalzahlen nicht vertraut bist, empfehle ich dir, <a href=\"https://de.wikipedia.org/wiki/Hexadezimalsystem\">den Wikipedia-Artikel</a> zu lesen. Alles mit dem Präfix <tt>#</tt> ist ein Literalwert. Alle anderen Zahlen beziehen sich auf Speicheradressen."
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Erscheinungsbild"
@@ -808,10 +809,6 @@ msgstr "Gamepad-Taste gedrückt:"
 msgid "Games now automatically pause when switching between screens"
 msgstr "Spiele werden jetzt automatisch pausiert, wenn zwischen Bildschirmen gewechselt wird"
 
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "Allgemein"
-
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
 msgstr "Deutsch und Spanisch wurden von Mitwirkenden validiert. Die anderen Sprachen sind KI‑unterstützte Entwürfe und benötigen eine menschliche Validierung."
@@ -827,6 +824,10 @@ msgid ""
 msgstr ""
 "Hast du ein cooles 6502 Beispiel?\n"
 "Teile es mit der Community!"
+
+#. TRANSLATORS: Release notes for version 0.6.0 - community contribution feature
+msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
+msgstr "Hast du eine coole 6502-Kreation? Teile sie mit der Community! Du kannst jetzt deine Code-Beispiele direkt aus der App einreichen. Einfach auf den Teilen-Button klicken, und wir erstellen automatisch ein GitHub Issue und Pull Request für dich."
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
@@ -1032,6 +1033,10 @@ msgstr "Lerne, wie man den 6502-Mikroprozessor programmiert."
 msgid "Learn how to use the stack with PHA and PLA instructions"
 msgstr "Lerne, wie man den Stack mit den Befehlen PHA und PLA verwendet"
 
+#. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
+msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
+msgstr "Lernen durch Beispiele war noch nie so einfach. Tauche in funktionierenden Code ein, passe ihn an, bring ihn kaputt, repariere ihn wieder - so haben die besten Programmierer früher gelernt!"
+
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
@@ -1158,10 +1163,6 @@ msgstr "Rosa"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "Spielen"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "Einstellungen"
 
 msgid "Preprocessing ..."
 msgstr "Vorverarbeitung läuft..."
@@ -1728,6 +1729,10 @@ msgstr "Benutzerdefinierte Primärfarbe verwenden"
 msgid "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</tt>=black, <tt>$01</tt>=white)"
 msgstr "Werte <tt>$00</tt>-<tt>$0F</tt> stellen 16 verschiedene Farben dar (<tt>$00</tt>=schwarz, <tt>$01</tt>=weiß)"
 
+#. TRANSLATORS: Release notes for version 0.6.0 - new examples section
+msgid "We've added a new Examples section to the Learn tab where you can explore and run fully-commented 6502 programs right in the app. Start with our featured Snake game example and see how those pixels come to life!"
+msgstr "Wir haben eine neue Beispiele-Sektion im Lernen-Tab hinzugefügt, wo du vollständig kommentierte 6502-Programme direkt in der App erkunden und ausführen kannst. Beginne mit unserem Snake-Spiel-Beispiel und sieh zu, wie die Pixel zum Leben erwachen!"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "We've already had a little look at the processor status section (the bit with <tt>A</tt>, <tt>PC</tt> etc.), but what does it all mean?"
 msgstr "Wir haben bereits einen kurzen Blick auf den Prozessorstatus-Bereich geworfen (den Teil mit <tt>A</tt>, <tt>PC</tt> usw.), aber was bedeutet das alles?"
@@ -1809,7 +1814,15 @@ msgstr "WDM-Ausgabe"
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "was die indirekt adressierten Speicheradressen <tt>$0411</tt>, <tt>$0410</tt> und <tt>$040f</tt> repräsentiert (drei Pixel in der Mitte des Displays). Ich betone diesen Punkt, aber es ist wichtig, vollständig zu verstehen, wie indirekte Adressierung funktioniert."
 
-#, fuzzy
+#~ msgid "_Appearance"
+#~ msgstr "_Erscheinungsbild"
+
+#~ msgid "General"
+#~ msgstr "Allgemein"
+
+#~ msgid "Preferences"
+#~ msgstr "Einstellungen"
+
 #~ msgid "Copy to Clipboard"
 #~ msgstr "In die Zwischenablage kopieren"
 
@@ -1866,9 +1879,6 @@ msgstr "was die indirekt adressierten Speicheradressen <tt>$0411</tt>, <tt>$0410
 
 #~ msgid "Ukrainian"
 #~ msgstr "Ukrainisch"
-
-#~ msgid "_Appearance"
-#~ msgstr "_Erscheinungsbild"
 
 #~ msgid "Code editor"
 #~ msgstr "Code-Editor"

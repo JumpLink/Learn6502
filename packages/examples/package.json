@@ -1,6 +1,6 @@
 {
   "name": "@learn6502/examples",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "Learn 6502 assembly examples",
   "type": "module",
   "main": "index.ts",
@@ -14,8 +14,8 @@
     "build": "node --experimental-specifier-resolution=node --experimental-strip-types --experimental-transform-types --no-warnings build.ts"
   },
   "devDependencies": {
-    "@types/node": "^22.10.5",
-    "typescript": "^5.9.2"
+    "@types/node": "^24.7.0",
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "@learn6502/6502": "workspace:^"

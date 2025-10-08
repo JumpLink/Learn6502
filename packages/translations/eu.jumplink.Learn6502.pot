@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: eu.jumplink.Learn6502 0.5.0\n"
+"Project-Id-Version: eu.jumplink.Learn6502 0.6.0\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -473,6 +473,7 @@ msgstr ""
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr ""
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr ""
@@ -800,10 +801,6 @@ msgstr ""
 msgid "Games now automatically pause when switching between screens"
 msgstr ""
 
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr ""
-
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
 msgstr ""
@@ -816,6 +813,10 @@ msgstr ""
 msgid ""
 "Got a cool 6502 example?\n"
 "Share it with the community!"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.6.0 - community contribution feature
+msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr ""
 
 #. TRANSLATORS: Tooltip for accent color option Green
@@ -1022,6 +1023,10 @@ msgstr ""
 msgid "Learn how to use the stack with PHA and PLA instructions"
 msgstr ""
 
+#. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
+msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
+msgstr ""
+
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
@@ -1147,10 +1152,6 @@ msgstr ""
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
-msgstr ""
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
 msgstr ""
 
 msgid "Preprocessing ..."
@@ -1716,6 +1717,10 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</tt>=black, <tt>$01</tt>=white)"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.6.0 - new examples section
+msgid "We've added a new Examples section to the Learn tab where you can explore and run fully-commented 6502 programs right in the app. Start with our featured Snake game example and see how those pixels come to life!"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx

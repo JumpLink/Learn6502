@@ -475,6 +475,7 @@ msgstr "ここで重要なのは <tt>ADC #$01</tt> と <tt>ADC $01</tt> の違�
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "6502アセンブリ言語 (および本書) では、<tt>$</tt>で始まる数値は16進数 (hex) 形式です。16進数に不慣れな場合は、<a href=\"https://ja.wikipedia.org/wiki/%E5%8D%81%E5%85%AD%E9%80%B2%E6%B3%95\">Wikipediaの記事</a>を読むことをお勧めします。<tt>#</tt>で始まるものはリテラル数値 (即値) です。それ以外の数値はメモリアドレスを指します。"
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "外観"
@@ -802,10 +803,6 @@ msgstr "ゲームパッドのキーが押されました:"
 msgid "Games now automatically pause when switching between screens"
 msgstr "画面切り替え時にゲームが自動一時停止するようになりました"
 
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "一般"
-
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
 msgstr "ドイツ語とスペイン語はコントリビューターにより検証済みです。その他の言語はAI支援の下書きであり、人による検証が必要です。"
@@ -821,6 +818,10 @@ msgid ""
 msgstr ""
 "クールな6502の例はありますか？\n"
 "コミュニティと共有しましょう！"
+
+#. TRANSLATORS: Release notes for version 0.6.0 - community contribution feature
+msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
+msgstr "独自のクールな6502作品をお持ちですか？コミュニティと共有しましょう！アプリから直接コード例を投稿できるようになりました。共有ボタンを押すだけで、GitHubのissueとプルリクエストが自動的に作成されます。"
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
@@ -1026,6 +1027,10 @@ msgstr "6502 マイクロプロセッサのプログラミングを学びまし�
 msgid "Learn how to use the stack with PHA and PLA instructions"
 msgstr "PHA命令とPLA命令でスタックを扱う方法を学びましょう"
 
+#. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
+msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
+msgstr "例から学ぶことがこれほど簡単になったことはありません。動作するコードに飛び込んで、調整し、壊して、また直す――かつて最高のプログラマーたちはそうやって学んだのです！"
+
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
@@ -1152,10 +1157,6 @@ msgstr "ピンク"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "プレイ"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "設定"
 
 msgid "Preprocessing ..."
 msgstr "前処理中…"
@@ -1722,6 +1723,10 @@ msgstr "カスタムのプライマリカラーを使用"
 msgid "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</tt>=black, <tt>$01</tt>=white)"
 msgstr "<tt>$00</tt>〜<tt>$0F</tt> は 16 色を表します（<tt>$00</tt>=黒、<tt>$01</tt>=白）"
 
+#. TRANSLATORS: Release notes for version 0.6.0 - new examples section
+msgid "We've added a new Examples section to the Learn tab where you can explore and run fully-commented 6502 programs right in the app. Start with our featured Snake game example and see how those pixels come to life!"
+msgstr "学習タブに新しい「例」セクションを追加しました。ここでは、完全にコメントされた6502プログラムをアプリ内で直接探索して実行できます。特集のスネークゲームの例から始めて、ピクセルが生き生きと動く様子をご覧ください！"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "We've already had a little look at the processor status section (the bit with <tt>A</tt>, <tt>PC</tt> etc.), but what does it all mean?"
 msgstr "すでにステータス欄（<tt>A</tt> や <tt>PC</tt> など）を少し見ましたが、何を意味するのでしょうか？"
@@ -1802,6 +1807,16 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "これは間接参照で得られる <tt>$0411</tt>、<tt>$0410</tt>、<tt>$040f</tt>（画面中央付近の3ピクセル）を表します。くどいようですが、間接アドレッシングの仕組みをしっかり理解することが重要です。"
+
+#, fuzzy
+#~ msgid "_Appearance"
+#~ msgstr "_外観"
+
+#~ msgid "General"
+#~ msgstr "一般"
+
+#~ msgid "Preferences"
+#~ msgstr "設定"
 
 #~ msgid "Copy to Clipboard"
 #~ msgstr "クリップボードにコピー"

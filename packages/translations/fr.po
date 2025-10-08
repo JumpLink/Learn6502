@@ -477,6 +477,7 @@ msgstr "Une chose importante à noter ici est la distinction entre <tt>ADC #$01<
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
 msgstr "Tous les nombres préfixés par <tt>$</tt> dans le langage assembleur 6502 (et par extension, dans ce livre) sont au format hexadécimal (hex). Si vous n'êtes pas familier avec les nombres hexadécimaux, je vous recommande de lire <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">l'article Wikipédia</a>. Tout ce qui est préfixé par <tt>#</tt> est une valeur numérique littérale. Tout autre nombre fait référence à un emplacement mémoire."
 
+#. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
 msgstr "Apparence"
@@ -804,10 +805,6 @@ msgstr "Touche de manette pressée :"
 msgid "Games now automatically pause when switching between screens"
 msgstr "Les jeux se mettent maintenant automatiquement en pause lors du changement d'écran"
 
-#. TRANSLATORS: Preferences page title for General settings
-msgid "General"
-msgstr "Général"
-
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
 msgstr "L'allemand et l'espagnol ont été validés par des contributeurs. Les autres langues sont des brouillons assistés par IA et nécessitent une validation humaine."
@@ -823,6 +820,10 @@ msgid ""
 msgstr ""
 "Vous avez un bel exemple 6502 ?\n"
 "Partagez-le avec la communauté !"
+
+#. TRANSLATORS: Release notes for version 0.6.0 - community contribution feature
+msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
+msgstr "Vous avez votre propre création 6502 ? Partagez-la avec la communauté ! Vous pouvez maintenant soumettre vos exemples de code directement depuis l'application. Appuyez simplement sur le bouton de partage et nous créerons automatiquement un issue et une pull request GitHub pour vous."
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
@@ -1028,6 +1029,10 @@ msgstr "Apprenez à programmer le microprocesseur 6502."
 msgid "Learn how to use the stack with PHA and PLA instructions"
 msgstr "Apprenez à utiliser la pile avec les instructions PHA et PLA"
 
+#. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
+msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
+msgstr "Apprendre par l'exemple n'a jamais été aussi facile. Plongez dans du code fonctionnel, modifiez-le, cassez-le, réparez-le à nouveau - c'est ainsi que les meilleurs programmeurs ont appris autrefois !"
+
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
@@ -1154,10 +1159,6 @@ msgstr "Rose"
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
 msgstr "Jouer"
-
-#. TRANSLATORS: Preferences dialog title
-msgid "Preferences"
-msgstr "Préférences"
 
 msgid "Preprocessing ..."
 msgstr "Prétraitement ..."
@@ -1724,6 +1725,10 @@ msgstr "Utiliser une couleur principale personnalisée"
 msgid "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</tt>=black, <tt>$01</tt>=white)"
 msgstr "Les valeurs <tt>$00</tt>-<tt>$0F</tt> représentent 16 couleurs différentes (<tt>$00</tt>=noir, <tt>$01</tt>=blanc)"
 
+#. TRANSLATORS: Release notes for version 0.6.0 - new examples section
+msgid "We've added a new Examples section to the Learn tab where you can explore and run fully-commented 6502 programs right in the app. Start with our featured Snake game example and see how those pixels come to life!"
+msgstr "Nous avons ajouté une nouvelle section Exemples dans l'onglet Apprendre où vous pouvez explorer et exécuter des programmes 6502 entièrement commentés directement dans l'application. Commencez avec notre exemple du jeu Snake et voyez comment ces pixels prennent vie !"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "We've already had a little look at the processor status section (the bit with <tt>A</tt>, <tt>PC</tt> etc.), but what does it all mean?"
 msgstr "Nous avons déjà jeté un petit coup d'œil à la section d'état du processeur (celle avec <tt>A</tt>, <tt>PC</tt> etc.), mais qu'est-ce que ça signifie ?"
@@ -1805,6 +1810,15 @@ msgstr "sortie-wdm"
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "qui représente les emplacements mémoire adressés indirectement <tt>$0411</tt>, <tt>$0410</tt> et <tt>$040f</tt> (trois pixels au milieu de l'affichage). J'insiste sur ce point, mais il est important de bien comprendre comment fonctionne l'adressage indirect."
 
+#~ msgid "_Appearance"
+#~ msgstr "_Apparence"
+
+#~ msgid "General"
+#~ msgstr "Général"
+
+#~ msgid "Preferences"
+#~ msgstr "Préférences"
+
 #~ msgid "Copy to Clipboard"
 #~ msgstr "Copier dans le presse-papiers"
 
@@ -1861,9 +1875,6 @@ msgstr "qui représente les emplacements mémoire adressés indirectement <tt>$0
 
 #~ msgid "Ukrainian"
 #~ msgstr "Ukrainien"
-
-#~ msgid "_Appearance"
-#~ msgstr "_Apparence"
 
 #~ msgid "Debug your 6502 assembly code, step through your program, and view memory and registers. To get started, assemble and run your program."
 #~ msgstr "Déboguez votre code assembleur 6502, exécutez-le étape par étape et visualisez la mémoire et les registres. Pour commencer, assemblez et exécutez votre programme."
