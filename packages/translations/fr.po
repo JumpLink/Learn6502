@@ -573,10 +573,6 @@ msgstr "Drapeau de retenue : Activé lorsqu'une addition produit une retenue ; e
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Modifiez l'un des pixels pour le dessiner dans le coin inférieur droit (emplacement mémoire <tt>$05ff</tt>)."
 
-#. TRANSLATORS: Example description for the Snake game
-msgid "Classic snake game from the original easy6502 tutorial"
-msgstr "Jeu classique du serpent tiré du tutoriel original easy6502"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "Code"
@@ -597,6 +593,9 @@ msgstr "Éditeur de code et console de jeu virtuelle"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "Palette de couleurs"
+
+msgid "Commented Snake Game"
+msgstr "Jeu du Serpent Commenté"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -789,6 +788,9 @@ msgstr "Trouvé $d étiquettes."
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Mémoire complète ($0000-$FFFF)"
+
+msgid "Fully commented version of the Snake game"
+msgstr "Version entièrement commentée du jeu du serpent"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -1595,6 +1597,10 @@ msgstr "Le processeur sait où retourner parce que <tt>JSR</tt> pousse l'adresse
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
 msgstr "Le résultat de cette sous-routine est de charger un octet aléatoire dans <tt>$00</tt>, et un nombre aléatoire entre 2 et 5 dans <tt>$01</tt>. Parce que l'octet de poids faible vient en premier avec l'adressage indirect, cela se traduit par une adresse mémoire entre <tt>$0200</tt> et <tt>$05ff</tt> : la plage exacte utilisée pour dessiner l'affichage."
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "The snake game from the tutorial"
+msgstr "Le jeu du serpent du tutoriel"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"

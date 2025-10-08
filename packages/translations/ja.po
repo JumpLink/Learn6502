@@ -571,10 +571,6 @@ msgstr "キャリーフラグ: 加算でキャリーが発生するとセット�
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "右下隅 (メモリアドレス <tt>$05ff</tt>) に描画されるよう、いずれかのピクセルを変更してみましょう。"
 
-#. TRANSLATORS: Example description for the Snake game
-msgid "Classic snake game from the original easy6502 tutorial"
-msgstr "オリジナルの easy6502 チュートリアルの定番スネークゲーム"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "コード"
@@ -595,6 +591,9 @@ msgstr "コードエディターと仮想ゲームコンソール"
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "カラーパレット"
+
+msgid "Commented Snake Game"
+msgstr "コメント付きスネークゲーム"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -787,6 +786,9 @@ msgstr "ラベルを $d 件見つけました。"
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "全メモリ ($0000-$FFFF)"
+
+msgid "Fully commented version of the Snake game"
+msgstr "完全コメント付きのスネークゲーム"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -1593,6 +1595,10 @@ msgstr "<tt>JSR</tt> はジャンプ前に「次の命令のアドレス−1」�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
 msgstr "このサブルーチンの結果、<tt>$00</tt> に乱数バイト、<tt>$01</tt> に 2〜5 の乱数が入ります。間接アドレッシングでは下位バイトが先なので、表示に使う <tt>$0200</tt>〜<tt>$05ff</tt> の範囲のアドレスになります。"
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "The snake game from the tutorial"
+msgstr "チュートリアルのスネークゲーム"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"

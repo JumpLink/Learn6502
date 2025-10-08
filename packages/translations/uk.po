@@ -571,10 +571,6 @@ msgstr "Прапорець перенесення: Встановлюється,
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
 msgstr "Змініть один із пікселів, щоб намалювати в нижньому правому куті (комірка пам'яті <tt>$05ff</tt>)."
 
-#. TRANSLATORS: Example description for the Snake game
-msgid "Classic snake game from the original easy6502 tutorial"
-msgstr "Класична гра в змійку з оригінального посібника easy6502"
-
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
 msgstr "Код"
@@ -595,6 +591,9 @@ msgstr "Редактор коду та віртуальна ігрова кон�
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "Колірна палітра"
+
+msgid "Commented Snake Game"
+msgstr "Гра «Змійка» з коментарями"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -787,6 +786,9 @@ msgstr "Знайдено $d міток."
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Вся пам'ять ($0000-$FFFF)"
+
+msgid "Fully commented version of the Snake game"
+msgstr "Повністю прокоментована версія гри «Змійка»"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -1593,6 +1595,10 @@ msgstr "Процесор знає, куди повертатися, тому щ�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
 msgstr "У підсумку ця підпрограма завантажує випадковий байт у <tt>$00</tt> і випадкове число від 2 до 5 у <tt>$01</tt>. Оскільки при непрямій адресації молодший байт іде першим, це задає адресу між <tt>$0200</tt> і <tt>$05ff</tt> — саме той діапазон, що використовується для виведення на екран."
+
+#. TRANSLATORS: Example description for the Snake game
+msgid "The snake game from the tutorial"
+msgstr "Гра «Змійка» з посібника"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"
