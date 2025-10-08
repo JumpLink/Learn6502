@@ -115,11 +115,8 @@ jobs:
       - name: Install dependencies
         run: yarn install --immutable
 
-      - name: Install build dependencies
-        run: sudo apt-get install gettext blueprint-compiler
-
-      - name: Build project
-        run: yarn build
+      - name: Build examples
+        run: yarn workspace @learn6502/examples run build
 
       - name: Format code
         run: yarn format
