@@ -104,6 +104,23 @@ jobs:
           echo "BRANCH=$BR" >> $GITHUB_ENV
           git switch -c "$BR"
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Build project
+        run: yarn build
+
+      - name: Format code
+        run: yarn format
+
       - name: Commit with author = issue opener
         env:
           AUTHOR_NAME: ${{ github.event.issue.user.login }}
