@@ -4,10 +4,7 @@ import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import GLib from "@girs/glib-2.0";
 
-import type {
-  ExampleMeta,
-  ExampleMetaJson,
-} from "@learn6502/examples/example-meta";
+import type { ExampleMeta } from "@learn6502/examples";
 import { DisplayAddressRange, Memory } from "@learn6502/6502";
 import { ExampleListItem } from "./example-list-item.ts";
 import { copyToClipboard } from "../utils.ts";
