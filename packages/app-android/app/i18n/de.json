@@ -133,6 +133,7 @@
   "Blue": "Blau",
   "Branching": "Verzweigungen",
   "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines.": "Break Flag: Wird gesetzt, wenn eine BRK (Break)-Anweisung ausgeführt wird. Wird verwendet, um zwischen Software-Interrupts (BRK) und Hardware-Interrupts zu unterscheiden. Hilft bei der Identifizierung der Quelle eines Interrupts in Interrupt-Service-Routinen.",
+  "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>.": "Durch das Übermitteln stimmst du zu, dass dein Beispiel unter <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a> lizenziert wird.",
   "Cancel": "Abbrechen",
   "Carry Flag: Set when an addition produces a carry-out; clear when a subtraction requires a borrow. Used for multi-byte arithmetic and shifts/rotates (BCS/BCC).": "Carry Flag: Wird gesetzt, wenn eine Addition einen Übertrag erzeugt oder eine Subtraktion einen Borrow erzeugt. Wird für Multi-Byte-Arithmetikoperationen und bedingte Verzweigungen (BCS, BCC) verwendet. Kritisch für die Implementierung von arithmetischen Operationen, die größer als 8 Bit sind.",
   "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>).": "Ändere eines der Pixel so, dass es in der unteren rechten Ecke gezeichnet wird (Speicheradresse <tt>$05ff</tt>).",

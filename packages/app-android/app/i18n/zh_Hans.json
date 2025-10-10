@@ -133,6 +133,7 @@
   "Blue": "蓝色",
   "Branching": "分支",
   "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines.": "中断标志（B）：执行 BRK（中断）指令时置位。用于区分软件中断（BRK）与硬件中断，帮助在中断服务程序中识别中断来源。",
+  "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>.": "提交即表示您同意您的示例将根据 <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a> 进行许可。",
   "Cancel": "取消",
   "Carry Flag: Set when an addition produces a carry-out; clear when a subtraction requires a borrow. Used for multi-byte arithmetic and shifts/rotates (BCS/BCC).": "进位标志（C）：加法产生进位时置位；减法需要借位时清零。用于多字节运算以及移位/循环（BCS/BCC）。",
   "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>).": "试着修改内存中最后一个像素的颜色 (内存地址 $05ff)。",
