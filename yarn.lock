@@ -754,7 +754,7 @@ __metadata:
   resolution: "@learn6502/examples@workspace:packages/examples"
   dependencies:
     "@learn6502/6502": "workspace:^"
-    "@types/node": "npm:^24.7.0"
+    "@types/node": "npm:^24.7.1"
     typescript: "npm:^5.9.3"
   languageName: unknown
   linkType: soft
@@ -766,7 +766,7 @@ __metadata:
     "@learn6502/examples": "workspace:^"
     "@mdx-js/esbuild": "npm:^3.1.1"
     "@types/mdx": "npm:^2.0.13"
-    "@types/node": "npm:^24.7.0"
+    "@types/node": "npm:^24.7.1"
     esbuild: "npm:^0.25.10"
     nano-jsx: "npm:^0.2.0"
     typescript: "npm:^5.9.3"
@@ -1112,12 +1112,12 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:^24.7.0":
-  version: 24.7.0
-  resolution: "@types/node@npm:24.7.0"
+"@types/node@npm:^24.7.1":
+  version: 24.7.1
+  resolution: "@types/node@npm:24.7.1"
   dependencies:
     undici-types: "npm:~7.14.0"
-  checksum: 10c0/f036c78062cb3a0d5c6586bf2dac347ed3f4af121cef4ab92c85c44e32be1c50aab5ba96955842b7f8165f0e0f1c8066d1813ae259372df6c0fa9fadb1116a3e
+  checksum: 10c0/2525f2aa865d78b1c75faaf8c6bf2af51c930962d8078306620d9a76eafcbbea035142cf2cdc2fcf1b4010cd3958a1c6c59b67aba1ac205dc1e5f895ef6af673
   languageName: node
   linkType: hard
 
