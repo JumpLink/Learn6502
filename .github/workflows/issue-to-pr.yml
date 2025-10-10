@@ -55,7 +55,7 @@ jobs:
           TITLE="$(jq -r .title payload.json)"
           DESC="$(jq -r .description payload.json)"
           AUTHOR="$(jq -r .author payload.json)"
-          LICENSE="$(jq -r .license payload.json)"
+          LICENSE="$(jq -r '.license // "CC-BY-4.0"' payload.json)"
           SRC_URL="$(jq -r '.sourceUrl // empty' payload.json)"
           GH_USER="$(jq -r '.githubUsername // empty' payload.json)"
           CODE="$(jq -r .code payload.json)"
