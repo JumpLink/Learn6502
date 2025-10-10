@@ -9,6 +9,8 @@ export interface ExampleMetaJson {
   author: string;
   /** Memory snapshot to display in the example list item */
   displayMemory: string;
+  /** Example license */
+  license: "CC-BY-4.0"; // Currently only CC-BY-4.0 is supported
   /** Source code URL */
   sourceUrl?: string;
   /** GitHub username */

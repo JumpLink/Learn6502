@@ -103,6 +103,22 @@ template $ShareDialog: Adw.Dialog {
               "suggested-action",
             ]
           }
+
+          Label {
+            // TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
+            label: _("By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>.");
+            use-markup: true;
+            wrap: true;
+            xalign: 0;
+            halign: center;
+            margin-start: 0;
+            margin-end: 0;
+            margin-top: 24;
+
+            styles [
+              "dim-label",
+            ]
+          }
         }
       }
 

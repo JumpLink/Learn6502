@@ -233,6 +233,7 @@ export class ShareDialog extends Adw.Dialog {
       title,
       description,
       author,
+      license: "CC-BY-4.0",
       displayMemory: this.generateDisplayMemory(),
       code: this._code,
     };
@@ -267,6 +268,7 @@ export class ShareDialog extends Adw.Dialog {
     title: string;
     description: string;
     author: string;
+    license: string;
     sourceUrl?: string;
     code: string;
     displayMemory: string;
@@ -277,6 +279,7 @@ export class ShareDialog extends Adw.Dialog {
       title: payload.title,
       description: payload.description,
       author: payload.author,
+      license: payload.license,
       ...(payload.sourceUrl && { sourceUrl: payload.sourceUrl }),
       displayMemory: payload.displayMemory,
     };
@@ -308,6 +311,7 @@ export class ShareDialog extends Adw.Dialog {
     title: string;
     description: string;
     author: string;
+    license: string;
     sourceUrl?: string;
     code: string;
     displayMemory: string;
@@ -351,6 +355,7 @@ export class ShareDialog extends Adw.Dialog {
       title: example.title,
       description: example.description,
       author: example.author,
+      license: example.license,
       ...(example.sourceUrl && { sourceUrl: example.sourceUrl }),
       code: example.code,
       displayMemory: example.displayMemory,
