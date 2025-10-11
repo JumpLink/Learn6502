@@ -190,57 +190,57 @@
 
         <!-- One-line Lists -->
         <Label text="One-line Lists" class="text-lg font-bold mb-2" />
-        <StackLayout class="bg-surface-container rounded-md mb-4">
+        <w:List containerColor="surfaceContainer">
             <w:ListItem id="oneLineItem1" headline="One-line item" />
             <w:ListItem id="oneLineItem2" headline="With leading icon" leadingIcon="res://code_symbolic" />
             <w:ListItem id="oneLineItem3" headline="With trailing text" trailingText="100+" />
-        </StackLayout>
+        </w:List>
 
         <!-- Two-line Lists -->
         <Label text="Two-line Lists" class="text-lg font-bold mb-2" />
-        <StackLayout class="bg-surface-container rounded-md mb-4">
+        <w:List containerColor="surfaceContainer">
             <w:ListItem id="twoLineItem1" headline="Two-line item" supporting="Supporting text" />
             <w:ListItem id="twoLineItem2" headline="With leading icon" supporting="Description goes here"
                 leadingIcon="res://clipboard_symbolic" />
             <w:ListItem id="twoLineItem3" headline="With trailing icon" supporting="Additional details"
                 trailingIcon="res://play_symbolic" />
-        </StackLayout>
+        </w:List>
 
         <!-- Three-line Lists -->
         <Label text="Three-line Lists" class="text-lg font-bold mb-2" />
-        <StackLayout class="bg-surface-container rounded-md mb-4">
+        <w:List containerColor="surfaceContainer">
             <w:ListItem id="threeLineItem1" headline="Three-line item"
                 supporting="This is a longer supporting text that can span multiple lines to provide more context and information." />
             <w:ListItem id="threeLineItem2" headline="With icon and text" leadingIcon="res://open_book_symbolic"
                 supporting="A detailed description that provides comprehensive information about this item in the list."
                 trailingText="5m" />
-        </StackLayout>
+        </w:List>
 
         <!-- Interactive Lists with Selection -->
         <Label text="Interactive Lists" class="text-lg font-bold mb-2" />
-        <StackLayout class="bg-surface-container rounded-md mb-4">
+        <w:List containerColor="surfaceContainer">
             <w:ListItem id="selectableItem1" headline="Selectable item" supporting="Tap to select"
                 leadingIcon="res://build_alt_symbolic" />
             <w:ListItem id="selectableItem2" headline="Another selectable" supporting="Tap to toggle"
                 leadingIcon="res://school_symbolic" />
             <w:ListItem id="selectableItem3" headline="Third option" supporting="Try selecting this"
                 leadingIcon="res://bug_symbolic" />
-        </StackLayout>
+        </w:List>
 
         <!-- List with Dividers -->
         <Label text="Lists with Dividers" class="text-lg font-bold mb-2" />
-        <StackLayout class="bg-surface-container rounded-md mb-4">
+        <w:List containerColor="surfaceContainer">
             <w:ListItem headline="Item with divider" supporting="First item" showDivider="true" />
             <w:ListItem headline="Another item" supporting="Second item" showDivider="true" />
             <w:ListItem headline="Last item" supporting="Third item" />
-        </StackLayout>
+        </w:List>
 
         <!-- Disabled List Item -->
         <Label text="Disabled State" class="text-lg font-bold mb-2" />
-        <StackLayout class="bg-surface-container rounded-md mb-4">
+        <w:List containerColor="surfaceContainer">
             <w:ListItem headline="Enabled item" supporting="This item is interactive" />
             <w:ListItem headline="Disabled item" supporting="This item cannot be tapped" enabled="false" />
-        </StackLayout>
+        </w:List>
         </StackLayout>
     </ScrollView>
 </Page>

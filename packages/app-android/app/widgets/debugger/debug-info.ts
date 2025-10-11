@@ -1,15 +1,21 @@
-import { GridLayout, Label } from "@nativescript/core";
+import { ContentView, Builder } from "@nativescript/core";
 import type { DebugInfoWidget } from "@learn6502/common-ui";
 import type { Simulator } from "@learn6502/6502";
 import { num2hex, addr2hex } from "@learn6502/6502";
+import { ListItem } from "../list-item";
 
-export class DebugInfo extends GridLayout implements DebugInfoWidget {
-  private regALabel: Label | null = null;
-  private regXLabel: Label | null = null;
-  private regYLabel: Label | null = null;
-  private regSPLabel: Label | null = null;
-  private regPCLabel: Label | null = null;
-  private flagsLabel: Label | null = null;
+/**
+ * DebugInfo widget displaying 6502 CPU registers and status flags
+ * Uses Material Design 3 List and ListItem components for a modern look
+ */
+export class DebugInfo extends ContentView implements DebugInfoWidget {
+  // ListItem references for registers
+  private itemA: ListItem;
+  private itemX: ListItem;
+  private itemY: ListItem;
+  private itemSP: ListItem;
+  private itemPC: ListItem;
+  private itemFlags: ListItem;
 
   constructor() {
     super();
@@ -18,33 +24,72 @@ export class DebugInfo extends GridLayout implements DebugInfoWidget {
   public onLoaded(): void {
     super.onLoaded();
 
-    // Get references to labels from template
-    this.regALabel = this.getViewById<Label>("regA");
-    this.regXLabel = this.getViewById<Label>("regX");
-    this.regYLabel = this.getViewById<Label>("regY");
-    this.regSPLabel = this.getViewById<Label>("regSP");
-    this.regPCLabel = this.getViewById<Label>("regPC");
-    this.flagsLabel = this.getViewById<Label>("flags");
+    console.log("[DebugInfo] onLoaded - loading template");
+
+    // Load the XML layout using Builder
+    const componentView = Builder.load({
+      path: "~/widgets/debugger",
+      name: "debug-info",
+    });
+
+    if (!componentView) {
+      console.error("Failed to load debug-info.xml template");
+      return;
+    }
+
+    // Get references to list items from template
+    this.itemA = componentView.getViewById<ListItem>("itemA");
+    this.itemX = componentView.getViewById<ListItem>("itemX");
+    this.itemY = componentView.getViewById<ListItem>("itemY");
+    this.itemSP = componentView.getViewById<ListItem>("itemSP");
+    this.itemPC = componentView.getViewById<ListItem>("itemPC");
+    this.itemFlags = componentView.getViewById<ListItem>("itemFlags");
+
+    if (
+      !this.itemA ||
+      !this.itemX ||
+      !this.itemY ||
+      !this.itemSP ||
+      !this.itemPC ||
+      !this.itemFlags
+    ) {
+      console.error("DebugInfo: Failed to find list items in template");
+    } else {
+      console.log("[DebugInfo] All list items loaded successfully");
+    }
+
+    // Add the componentView to the content
+    this.content = componentView;
   }
 
   public update(simulator: Simulator): void {
     // Get register values from simulator.info
     const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
 
-    // Update register values
-    if (this.regALabel) this.regALabel.text = "$" + num2hex(regA);
-    if (this.regXLabel) this.regXLabel.text = "$" + num2hex(regX);
-    if (this.regYLabel) this.regYLabel.text = "$" + num2hex(regY);
-    if (this.regSPLabel) this.regSPLabel.text = "$" + num2hex(regSP);
-    if (this.regPCLabel) this.regPCLabel.text = "$" + addr2hex(regPC);
+    // Update register values with both hex and decimal representation
+    if (this.itemA) {
+      this.itemA.trailingText = `$${num2hex(regA)} (${regA})`;
+    }
+    if (this.itemX) {
+      this.itemX.trailingText = `$${num2hex(regX)} (${regX})`;
+    }
+    if (this.itemY) {
+      this.itemY.trailingText = `$${num2hex(regY)} (${regY})`;
+    }
+    if (this.itemSP) {
+      this.itemSP.trailingText = `$${num2hex(regSP)} (${regSP})`;
+    }
+    if (this.itemPC) {
+      this.itemPC.trailingText = `$${addr2hex(regPC)} (${regPC})`;
+    }
 
-    // Update flags (NV-BDIZC format)
-    if (this.flagsLabel) {
+    // Update flags (N V - B D I Z C format, bits 7-0)
+    if (this.itemFlags) {
       let flagsText = "";
       for (let i = 7; i >= 0; i--) {
         flagsText += (regP >> i) & 1;
       }
-      this.flagsLabel.text = flagsText;
+      this.itemFlags.trailingText = flagsText;
     }
   }
 }
