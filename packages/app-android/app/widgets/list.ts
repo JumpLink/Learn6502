@@ -45,25 +45,33 @@ const containerColorProperty = new Property<List, string>({
 });
 
 export class List extends ContentView {
+  // Private instance properties
   /** The native Android ScrollView */
   private scrollView: android.widget.ScrollView;
   /** The native Android LinearLayout container */
   private listContainer: android.widget.LinearLayout;
   /** List items to be added once the native view is created */
   private pendingItems: ListItem[] = [];
-
-  // Property backing fields
+  /** Property backing field for container color */
   private _containerColor: string = containerColorProperty.defaultValue;
 
+  // Constructor
+  constructor() {
+    super();
+    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
+  }
+
+  // Native property change handler
   /**
    * Native property change handler for containerColor
    * @param value - The new container color value
    */
-  [containerColorProperty.setNative](value: string) {
+  [containerColorProperty.setNative](value: string): void {
     this._containerColor = value;
     this.applyTheme();
   }
 
+  // Public getters and setters
   /**
    * Gets the Android context
    */
@@ -71,7 +79,6 @@ export class List extends ContentView {
     return this._context;
   }
 
-  // Getters and setters for properties
   get containerColor(): string {
     return this._containerColor;
   }
@@ -81,11 +88,7 @@ export class List extends ContentView {
     this.applyTheme();
   }
 
-  constructor() {
-    super();
-    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
-  }
-
+  // Public methods
   /**
    * Creates the native Android view for the list
    * @returns The native Android view
@@ -128,6 +131,57 @@ export class List extends ContentView {
   }
 
   /**
+   * Disposes the native view and cleans up resources
+   * Called by NativeScript when the view is no longer needed
+   */
+  public disposeNativeView(): void {
+    systemStates.events.off(
+      SystemStates.systemAppearanceChangedEvent,
+      this.onSystemAppearanceChanged
+    );
+    this.scrollView = null;
+    this.listContainer = null;
+    super.disposeNativeView();
+  }
+
+  /**
+   * Adds child elements to the list
+   * Currently supports ListItem instances only
+   * This method is called by NativeScript when children are added declaratively in XML
+   *
+   * @param name - The name of the child element
+   * @param value - The child element instance
+   */
+  public _addChildFromBuilder(name: string, value: unknown): void {
+    if (value instanceof ListItem) {
+      if (this.listContainer) {
+        this.addItemToContainer(value);
+      } else {
+        // Store items to add them once the view is created
+        this.pendingItems.push(value);
+      }
+    }
+  }
+
+  /**
+   * Removes all items from the list
+   */
+  public clearItems(): void {
+    if (!this.listContainer) return;
+    this.listContainer.removeAllViews();
+  }
+
+  /**
+   * Gets the number of items in the list
+   * @returns The number of items
+   */
+  public getItemCount(): number {
+    if (!this.listContainer) return 0;
+    return this.listContainer.getChildCount();
+  }
+
+  // Private methods
+  /**
    * Handles system appearance (dark/light mode) changes
    * @param event - The system appearance change event
    */
@@ -153,39 +207,6 @@ export class List extends ContentView {
   }
 
   /**
-   * Disposes the native view and cleans up resources
-   * Called by NativeScript when the view is no longer needed
-   */
-  public disposeNativeView(): void {
-    systemStates.events.off(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
-    this.scrollView = null;
-    this.listContainer = null;
-    super.disposeNativeView();
-  }
-
-  /**
-   * Adds child elements to the list
-   * Currently supports ListItem instances only
-   * This method is called by NativeScript when children are added declaratively in XML
-   *
-   * @param name - The name of the child element
-   * @param value - The child element instance
-   */
-  public _addChildFromBuilder(name: string, value: any) {
-    if (value instanceof ListItem) {
-      if (this.listContainer) {
-        this.addItemToContainer(value);
-      } else {
-        // Store items to add them once the view is created
-        this.pendingItems.push(value);
-      }
-    }
-  }
-
-  /**
    * Adds a list item to the container
    * @param item - The ListItem instance to add
    */
@@ -199,23 +220,6 @@ export class List extends ContentView {
 
     // Add the item's native view to the container
     this.listContainer.addView(item.nativeView as android.view.View);
-  }
-
-  /**
-   * Removes all items from the list
-   */
-  public clearItems(): void {
-    if (!this.listContainer) return;
-    this.listContainer.removeAllViews();
-  }
-
-  /**
-   * Gets the number of items in the list
-   * @returns The number of items
-   */
-  public getItemCount(): number {
-    if (!this.listContainer) return 0;
-    return this.listContainer.getChildCount();
   }
 }
 

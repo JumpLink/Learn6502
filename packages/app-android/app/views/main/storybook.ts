@@ -1,10 +1,17 @@
 import { EventData, Page } from "@nativescript/core";
 import { ListItem } from "../../widgets";
 
+/**
+ * Storybook view controller for demonstrating Material Design 3 components
+ */
 class Storybook {
   private page: Page | null = null;
 
-  public onNavigatingTo(args: EventData) {
+  /**
+   * Called when navigating to the storybook page
+   * @param args - Navigation event data
+   */
+  public onNavigatingTo(args: EventData): void {
     const page = args.object as Page;
     this.page = page;
 
@@ -14,62 +21,65 @@ class Storybook {
     this.setupListItemHandlers();
   }
 
-  private setupListItemHandlers() {
+  /**
+   * Sets up tap handlers for all list items in the storybook
+   */
+  private setupListItemHandlers(): void {
     if (!this.page) return;
 
-    // One-line list items
-    const oneLineItem1 = this.page.getViewById("oneLineItem1") as ListItem;
-    const oneLineItem2 = this.page.getViewById("oneLineItem2") as ListItem;
-    const oneLineItem3 = this.page.getViewById("oneLineItem3") as ListItem;
+    // Define all list item IDs
+    const standardItemIds = [
+      "oneLineItem1",
+      "oneLineItem2",
+      "oneLineItem3",
+      "twoLineItem1",
+      "twoLineItem2",
+      "twoLineItem3",
+      "threeLineItem1",
+      "threeLineItem2",
+    ];
 
-    // Two-line list items
-    const twoLineItem1 = this.page.getViewById("twoLineItem1") as ListItem;
-    const twoLineItem2 = this.page.getViewById("twoLineItem2") as ListItem;
-    const twoLineItem3 = this.page.getViewById("twoLineItem3") as ListItem;
+    const selectableItemIds = [
+      "selectableItem1",
+      "selectableItem2",
+      "selectableItem3",
+    ];
 
-    // Three-line list items
-    const threeLineItem1 = this.page.getViewById("threeLineItem1") as ListItem;
-    const threeLineItem2 = this.page.getViewById("threeLineItem2") as ListItem;
+    // Set up handlers for standard items (non-selectable)
+    this.setupStandardItemHandlers(standardItemIds);
 
-    // Interactive list items
-    const selectableItem1 = this.page.getViewById(
-      "selectableItem1"
-    ) as ListItem;
-    const selectableItem2 = this.page.getViewById(
-      "selectableItem2"
-    ) as ListItem;
-    const selectableItem3 = this.page.getViewById(
-      "selectableItem3"
-    ) as ListItem;
+    // Set up handlers for selectable items (with toggle behavior)
+    this.setupSelectableItemHandlers(selectableItemIds);
+  }
 
-    // Add tap handlers for all items
-    const allItems = [
-      oneLineItem1,
-      oneLineItem2,
-      oneLineItem3,
-      twoLineItem1,
-      twoLineItem2,
-      twoLineItem3,
-      threeLineItem1,
-      threeLineItem2,
-    ].filter((item) => item);
+  /**
+   * Sets up tap handlers for standard (non-selectable) list items
+   * @param itemIds - Array of list item IDs
+   */
+  private setupStandardItemHandlers(itemIds: string[]): void {
+    if (!this.page) return;
 
-    allItems.forEach((item) => {
+    itemIds.forEach((id) => {
+      const item = this.page.getViewById<ListItem>(id);
       if (item) {
         item.on(ListItem.tapEvent, () => {
           console.log(`List item tapped: ${item.headline}`);
         });
+      } else {
+        console.warn(`Storybook: List item not found with id: ${id}`);
       }
     });
+  }
 
-    // Add tap handlers for selectable items with toggle behavior
-    const selectableItems = [
-      selectableItem1,
-      selectableItem2,
-      selectableItem3,
-    ].filter((item) => item);
+  /**
+   * Sets up tap handlers for selectable list items with toggle behavior
+   * @param itemIds - Array of selectable list item IDs
+   */
+  private setupSelectableItemHandlers(itemIds: string[]): void {
+    if (!this.page) return;
 
-    selectableItems.forEach((item) => {
+    itemIds.forEach((id) => {
+      const item = this.page.getViewById<ListItem>(id);
       if (item) {
         item.on(ListItem.tapEvent, () => {
           item.selected = !item.selected;
@@ -77,6 +87,10 @@ class Storybook {
             `List item tapped: ${item.headline}, selected: ${item.selected}`
           );
         });
+      } else {
+        console.warn(
+          `Storybook: Selectable list item not found with id: ${id}`
+        );
       }
     });
   }

@@ -22,6 +22,7 @@ import { SystemAppearanceChangeEvent } from "~/types";
  * - **Trailing content**: Text, icon, switch, checkbox
  * - **State support**: Default, selected, disabled states
  * - **Dividers**: Optional divider support
+ * - **Accessibility**: Full screen reader support with content descriptions
  *
  * ## Material Design 3 Color System
  *
@@ -143,6 +144,11 @@ const showDividerProperty = new Property<ListItem, boolean>({
 });
 
 export class ListItem extends ContentView {
+  // Static properties
+  /** Expose the tap event for use in XML or code */
+  public static tapEvent = "tap";
+
+  // Private instance properties - Native views
   /** The native Android LinearLayout container */
   private container: android.widget.LinearLayout;
   /** The content container (horizontal layout) */
@@ -163,8 +169,10 @@ export class ListItem extends ContentView {
   private trailingIconView: android.widget.ImageView;
   /** The divider view */
   private dividerView: android.view.View;
+  /** The ripple drawable for Material Design 3 */
+  private rippleDrawable: android.graphics.drawable.RippleDrawable;
 
-  // Property backing fields
+  // Private instance properties - Property backing fields
   private _headline: string;
   private _supporting: string;
   private _leadingIcon: string;
@@ -178,69 +186,74 @@ export class ListItem extends ContentView {
   private _selected: boolean = selectedProperty.defaultValue;
   private _showDivider: boolean = showDividerProperty.defaultValue;
 
-  /**
-   * Native property change handlers
-   */
-  [headlineProperty.setNative](value: string) {
+  // Constructor
+  constructor() {
+    super();
+    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
+  }
+
+  // Native property change handlers
+  [headlineProperty.setNative](value: string): void {
     this._headline = value;
     this.applyHeadline();
   }
 
-  [supportingProperty.setNative](value: string) {
+  [supportingProperty.setNative](value: string): void {
     this._supporting = value;
     this.applySupporting();
   }
 
-  [leadingIconProperty.setNative](value: string) {
+  [leadingIconProperty.setNative](value: string): void {
     this._leadingIcon = value;
     this.applyLeadingIcon();
   }
 
-  [leadingImageProperty.setNative](value: string) {
+  [leadingImageProperty.setNative](value: string): void {
     this._leadingImage = value;
     this.applyLeadingImage();
   }
 
-  [trailingTextProperty.setNative](value: string) {
+  [trailingTextProperty.setNative](value: string): void {
     this._trailingText = value;
     this.applyTrailingText();
   }
 
-  [trailingIconProperty.setNative](value: string) {
+  [trailingIconProperty.setNative](value: string): void {
     this._trailingIcon = value;
     this.applyTrailingIcon();
   }
 
-  [containerColorProperty.setNative](value: string) {
+  [containerColorProperty.setNative](value: string): void {
     this._containerColor = value;
     this.applyTheme();
   }
 
-  [headlineColorProperty.setNative](value: string) {
+  [headlineColorProperty.setNative](value: string): void {
     this._headlineColor = value;
     this.applyTheme();
   }
 
-  [supportingColorProperty.setNative](value: string) {
+  [supportingColorProperty.setNative](value: string): void {
     this._supportingColor = value;
     this.applyTheme();
   }
 
-  [enabledProperty.setNative](value: boolean) {
+  [enabledProperty.setNative](value: boolean): void {
     this._enabled = value;
     this.applyEnabled();
   }
 
-  [selectedProperty.setNative](value: boolean) {
+  [selectedProperty.setNative](value: boolean): void {
     this._selected = value;
     this.applyTheme();
   }
 
-  [showDividerProperty.setNative](value: boolean) {
+  [showDividerProperty.setNative](value: boolean): void {
     this._showDivider = value;
     this.applyDivider();
   }
 
+  // Public getters and setters
   /**
    * Gets the Android context
    */
@@ -248,7 +261,6 @@ export class ListItem extends ContentView {
     return this._context;
   }
 
-  // Getters and setters for properties
   get headline(): string {
     return this._headline;
   }
@@ -357,11 +369,7 @@ export class ListItem extends ContentView {
     this.applyDivider();
   }
 
-  constructor() {
-    super();
-    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
-  }
-
+  // Public methods
   /**
    * Creates the native Android view for the list item
    * @returns The native Android view
@@ -391,25 +399,22 @@ export class ListItem extends ContentView {
     // One-line: 56dp, Two-line: 72dp, Three-line: 88dp
     this.contentLayout.setMinimumHeight(this.dpToPx(56));
 
-    // Make it clickable
+    // Make it clickable and focusable
     this.contentLayout.setClickable(true);
     this.contentLayout.setFocusable(true);
 
-    // Add ripple effect for Material Design 3
-    const outValue = new android.util.TypedValue();
-    this.context
-      .getTheme()
-      .resolveAttribute(
-        android.R.attr.selectableItemBackground,
-        outValue,
-        true
-      );
-    this.contentLayout.setBackgroundResource(outValue.resourceId);
+    // Set accessibility role
+    if (android.os.Build.VERSION.SDK_INT >= 28) {
+      this.contentLayout.setAccessibilityHeading(false);
+    }
+
+    // Create ripple effect for Material Design 3 using foreground
+    this.createRippleEffect();
 
     // Set up click listener
     this.contentLayout.setOnClickListener(
       new android.view.View.OnClickListener({
-        onClick: (view: android.view.View) => {
+        onClick: (view: android.view.View): void => {
           if (this._enabled) {
             this.notify({ eventName: ListItem.tapEvent, object: this });
           }
@@ -427,6 +432,9 @@ export class ListItem extends ContentView {
     iconLayoutParams.setMarginEnd(this.dpToPx(16)); // 16dp margin to text
     this.leadingIconView.setLayoutParams(iconLayoutParams);
     this.leadingIconView.setVisibility(android.view.View.GONE);
+    this.leadingIconView.setImportantForAccessibility(
+      android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
+    );
 
     // Create leading image ImageView (for avatars)
     this.leadingImageView = new android.widget.ImageView(this.context);
@@ -438,6 +446,9 @@ export class ListItem extends ContentView {
     imageLayoutParams.setMarginEnd(this.dpToPx(16)); // 16dp margin to text
     this.leadingImageView.setLayoutParams(imageLayoutParams);
     this.leadingImageView.setVisibility(android.view.View.GONE);
+    this.leadingImageView.setImportantForAccessibility(
+      android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
+    );
 
     // Create text container (vertical layout)
     this.textLayout = new android.widget.LinearLayout(this.context);
@@ -478,6 +489,9 @@ export class ListItem extends ContentView {
     trailingTextParams.setMarginStart(this.dpToPx(16)); // 16dp margin from text
     this.trailingTextView.setLayoutParams(trailingTextParams);
     this.trailingTextView.setVisibility(android.view.View.GONE);
+    this.trailingTextView.setImportantForAccessibility(
+      android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
+    );
 
     // Create trailing icon ImageView
     this.trailingIconView = new android.widget.ImageView(this.context);
@@ -489,6 +503,9 @@ export class ListItem extends ContentView {
     trailingIconParams.setMarginStart(this.dpToPx(16)); // 16dp margin from text
     this.trailingIconView.setLayoutParams(trailingIconParams);
     this.trailingIconView.setVisibility(android.view.View.GONE);
+    this.trailingIconView.setImportantForAccessibility(
+      android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
+    );
 
     // Create divider
     this.dividerView = new android.view.View(this.context);
@@ -524,6 +541,7 @@ export class ListItem extends ContentView {
     this.applyTrailingIcon();
     this.applyEnabled();
     this.applyDivider();
+    this.applyAccessibility();
 
     systemStates.events.on(
       SystemStates.systemAppearanceChangedEvent,
@@ -539,6 +557,77 @@ export class ListItem extends ContentView {
    */
   public initNativeView(): void {
     super.initNativeView();
+  }
+
+  /**
+   * Disposes the native view and cleans up resources
+   * Called by NativeScript when the view is no longer needed
+   */
+  public disposeNativeView(): void {
+    systemStates.events.off(
+      SystemStates.systemAppearanceChangedEvent,
+      this.onSystemAppearanceChanged
+    );
+    this.container = null;
+    this.contentLayout = null;
+    this.textLayout = null;
+    this.headlineView = null;
+    this.supportingView = null;
+    this.leadingIconView = null;
+    this.leadingImageView = null;
+    this.trailingTextView = null;
+    this.trailingIconView = null;
+    this.dividerView = null;
+    this.rippleDrawable = null;
+    super.disposeNativeView();
+  }
+
+  // Private methods
+  /**
+   * Creates the ripple effect for Material Design 3
+   * Uses foreground instead of background to preserve container color
+   */
+  private createRippleEffect(): void {
+    if (!this.contentLayout) return;
+
+    try {
+      // Get ripple color from theme
+      const rippleColor = getMaterialColor("onSurface", this.context);
+      const rippleColorWithAlpha = android.graphics.Color.argb(
+        32, // 12.5% alpha for Material Design 3
+        android.graphics.Color.red(rippleColor),
+        android.graphics.Color.green(rippleColor),
+        android.graphics.Color.blue(rippleColor)
+      );
+
+      // Create color state list for ripple
+      const rippleColorStateList = createColorStateList(rippleColorWithAlpha);
+
+      // Create ripple drawable
+      this.rippleDrawable = new android.graphics.drawable.RippleDrawable(
+        rippleColorStateList,
+        null, // null content drawable (we set background separately)
+        null // null mask (ripple covers entire view)
+      );
+
+      // Apply ripple as foreground (API 23+)
+      if (android.os.Build.VERSION.SDK_INT >= 23) {
+        this.contentLayout.setForeground(this.rippleDrawable);
+      } else {
+        // Fallback for older Android versions
+        const outValue = new android.util.TypedValue();
+        this.context
+          .getTheme()
+          .resolveAttribute(
+            android.R.attr.selectableItemBackground,
+            outValue,
+            true
+          );
+        this.contentLayout.setBackgroundResource(outValue.resourceId);
+      }
+    } catch (error) {
+      console.error("ListItem: Failed to create ripple effect", error);
+    }
   }
 
   /**
@@ -572,6 +661,7 @@ export class ListItem extends ContentView {
         ? getMaterialColor("onSecondaryContainer", this.context)
         : getMaterialColor(this._supportingColor, this.context);
 
+      // Set background color on content layout (ripple is in foreground)
       if (this.contentLayout) {
         this.contentLayout.setBackgroundColor(containerColor);
       }
@@ -602,8 +692,32 @@ export class ListItem extends ContentView {
         const dividerColor = getMaterialColor("outlineVariant", this.context);
         this.dividerView.setBackgroundColor(dividerColor);
       }
+
+      // Update ripple color if needed
+      this.updateRippleColor();
     } catch (error) {
       // Silently ignore errors during initialization when views might not be ready
+    }
+  }
+
+  /**
+   * Updates the ripple effect color based on current theme
+   */
+  private updateRippleColor(): void {
+    if (!this.rippleDrawable || android.os.Build.VERSION.SDK_INT < 23) return;
+
+    try {
+      const rippleColor = getMaterialColor("onSurface", this.context);
+      const rippleColorWithAlpha = android.graphics.Color.argb(
+        32, // 12.5% alpha for Material Design 3
+        android.graphics.Color.red(rippleColor),
+        android.graphics.Color.green(rippleColor),
+        android.graphics.Color.blue(rippleColor)
+      );
+
+      this.rippleDrawable.setColor(createColorStateList(rippleColorWithAlpha));
+    } catch (error) {
+      console.error("ListItem: Failed to update ripple color", error);
     }
   }
 
@@ -613,6 +727,7 @@ export class ListItem extends ContentView {
   private applyHeadline(): void {
     if (!this.headlineView) return;
     this.headlineView.setText(this._headline || "");
+    this.applyAccessibility();
   }
 
   /**
@@ -633,6 +748,7 @@ export class ListItem extends ContentView {
         this.contentLayout.setMinimumHeight(this.dpToPx(56)); // One-line minimum
       }
     }
+    this.applyAccessibility();
   }
 
   /**
@@ -735,6 +851,8 @@ export class ListItem extends ContentView {
       if (this.supportingView) {
         this.supportingView.setAlpha(this._enabled ? 1.0 : 0.38);
       }
+
+      this.applyAccessibility();
     } catch (error) {
       // Silently ignore errors during initialization when views might not be ready
     }
@@ -752,6 +870,50 @@ export class ListItem extends ContentView {
   }
 
   /**
+   * Applies accessibility features for screen readers
+   */
+  private applyAccessibility(): void {
+    if (!this.contentLayout) return;
+
+    try {
+      // Build content description
+      let contentDescription = "";
+
+      if (this._headline) {
+        contentDescription = this._headline;
+      }
+
+      if (this._supporting) {
+        contentDescription += `, ${this._supporting}`;
+      }
+
+      if (this._trailingText) {
+        contentDescription += `, ${this._trailingText}`;
+      }
+
+      if (this._selected) {
+        contentDescription += ", selected";
+      }
+
+      if (!this._enabled) {
+        contentDescription += ", disabled";
+      }
+
+      // Set content description
+      if (contentDescription) {
+        this.contentLayout.setContentDescription(contentDescription);
+      }
+
+      // Make the content layout important for accessibility
+      this.contentLayout.setImportantForAccessibility(
+        android.view.View.IMPORTANT_FOR_ACCESSIBILITY_YES
+      );
+    } catch (error) {
+      console.error("ListItem: Failed to apply accessibility", error);
+    }
+  }
+
+  /**
    * Converts DP to pixels
    * @param dp - The value in DP
    * @returns The value in pixels
@@ -761,31 +923,6 @@ export class ListItem extends ContentView {
       dp * this.context.getResources().getDisplayMetrics().density
     );
   }
-
-  /**
-   * Disposes the native view and cleans up resources
-   * Called by NativeScript when the view is no longer needed
-   */
-  public disposeNativeView(): void {
-    systemStates.events.off(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
-    this.container = null;
-    this.contentLayout = null;
-    this.textLayout = null;
-    this.headlineView = null;
-    this.supportingView = null;
-    this.leadingIconView = null;
-    this.leadingImageView = null;
-    this.trailingTextView = null;
-    this.trailingIconView = null;
-    this.dividerView = null;
-    super.disposeNativeView();
-  }
-
-  // Expose the tap event for use in XML or code
-  public static tapEvent = "tap";
 }
 
 /**
