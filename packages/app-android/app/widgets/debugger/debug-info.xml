@@ -1,38 +1,51 @@
-<GridLayout xmlns="http://schemas.nativescript.org/tns.xsd"
-    rows="auto,auto,auto,auto"
-    columns="auto,*,auto,*"
-    padding="12"
-    class="debug-info">
+<StackLayout xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:w="~/widgets/index">
 
-    <!-- Registers row 1 -->
-    <Label text="A:" row="0" col="0" class="text-sm font-medium text-on-surface-variant"
-        marginRight="8" />
-    <Label id="regA" text="$00" row="0" col="1" class="text-sm font-mono text-on-surface"
-        marginRight="16" />
-    <Label text="X:" row="0" col="2" class="text-sm font-medium text-on-surface-variant"
-        marginRight="8" />
-    <Label id="regX" text="$00" row="0" col="3" class="text-sm font-mono text-on-surface"
-        marginRight="16" />
+    <!-- Registers Section -->
+    <Label text="Registers" class="text-base font-medium text-on-surface my-4" />
+    <w:List id="registersList" containerColor="surfaceContainerHigh">
+        <w:ListItem
+            id="itemA"
+            headline="A"
+            supporting="Accumulator: Main register for calculations"
+            trailingText="$00 (0)"
+            showDivider="true" />
 
-    <!-- Registers row 2 -->
-    <Label text="Y:" row="1" col="0" class="text-sm font-medium text-on-surface-variant"
-        marginRight="8" />
-    <Label id="regY" text="$00" row="1" col="1" class="text-sm font-mono text-on-surface"
-        marginRight="16" />
-    <Label text="SP:" row="1" col="2" class="text-sm font-medium text-on-surface-variant"
-        marginRight="8" />
-    <Label id="regSP" text="$00" row="1" col="3" class="text-sm font-mono text-on-surface"
-        marginRight="16" />
+        <w:ListItem
+            id="itemX"
+            headline="X"
+            supporting="Index register X: Used for addressing"
+            trailingText="$00 (0)"
+            showDivider="true" />
 
-    <!-- PC row -->
-    <Label text="PC:" row="2" col="0" class="text-sm font-medium text-on-surface-variant"
-        marginRight="8" />
-    <Label id="regPC" text="$0000" row="2" col="1" colSpan="3"
-        class="text-sm font-mono text-on-surface" marginRight="16" />
+        <w:ListItem
+            id="itemY"
+            headline="Y"
+            supporting="Index register Y: Used for addressing"
+            trailingText="$00 (0)"
+            showDivider="true" />
 
-    <!-- Flags row -->
-    <Label text="Flags:" row="3" col="0" class="text-sm font-medium text-on-surface-variant"
-        marginRight="8" />
-    <Label id="flags" text="00000000" row="3" col="1" colSpan="3"
-        class="text-sm font-mono text-on-surface" marginRight="16" />
-</GridLayout>
+        <w:ListItem
+            id="itemSP"
+            headline="SP"
+            supporting="Stack Pointer: Points to stack position"
+            trailingText="$FF (255)"
+            showDivider="true" />
+
+        <w:ListItem
+            id="itemPC"
+            headline="PC"
+            supporting="Program Counter: Points to next instruction"
+            trailingText="$0600 (1536)" />
+    </w:List>
+
+    <!-- Status Flags Section -->
+    <Label text="Status Flags" class="text-base font-medium text-on-surface my-4" />
+    <w:List id="flagsList" containerColor="surfaceContainerHigh">
+        <w:ListItem
+            id="itemFlags"
+            headline="P (SR)"
+            supporting="Processor Status Register: N V - B D I Z C"
+            trailingText="00110000" />
+    </w:List>
+</StackLayout>

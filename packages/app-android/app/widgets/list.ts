@@ -1,27 +1,25 @@
-import { ContentView, Property } from "@nativescript/core";
+import { StackLayout, Property } from "@nativescript/core";
 import { ListItem } from "./list-item";
-import { getMaterialColor } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
 
 /**
  * Material Design 3 List component for Android
  *
- * Provides a container for list items following Material Design 3 guidelines.
- * Manages a collection of ListItem instances with proper spacing and dividers.
+ * Provides a styled container for list items following Material Design 3 guidelines.
+ * This is a simple wrapper around StackLayout that provides consistent styling.
  *
  * ## Material Design 3 Features
  *
- * - **Vertical scrolling**: Scrollable container for list items
- * - **Dividers**: Optional dividers between items
+ * - **Vertical layout**: Container for list items
+ * - **Styling**: Automatic background colors and rounded corners
  * - **Color System**: Full Material Design 3 color token support
- * - **Spacing**: Proper spacing according to Material Design 3 specs
  *
  * ## Material Design 3 Color System
  *
  * | UI Element          | Default Material Color Token |
  * |---------------------|------------------------------|
- * | Container background| colorSurface                 |
+ * | Container background| surfaceContainerHigh         |
  *
  * ## References
  * - [Lists Overview](https://m3.material.io/components/lists/overview)
@@ -29,36 +27,43 @@ import { SystemAppearanceChangeEvent } from "~/types";
  * - [Lists Guidelines](https://m3.material.io/components/lists/guidelines)
  *
  * @example
- * <List containerColor="surface">
- *   <ListItem headline="Item 1" supporting="Description 1" />
- *   <ListItem headline="Item 2" supporting="Description 2" />
- * </List>
+ * // In XML:
+ * <w:List containerColor="surfaceContainerHigh">
+ *   <w:ListItem headline="Item 1" supporting="Description 1" />
+ *   <w:ListItem headline="Item 2" supporting="Description 2" />
+ * </w:List>
+ *
+ * // Programmatically:
+ * const list = new List();
+ * list.containerColor = "surfaceContainerHigh";
+ * list.className = "rounded-md mb-4";
+ *
+ * const item = new ListItem();
+ * item.headline = "Item";
+ * item.supporting = "Description";
+ * list.addChild(item);
  */
 
 /**
- * Property for setting the container background color
- * @default 'surface'
+ * Property for setting the container background color style name
+ * @default 'surfaceContainerHigh'
  */
 const containerColorProperty = new Property<List, string>({
   name: "containerColor",
-  defaultValue: "surface",
+  defaultValue: "surfaceContainerHigh",
 });
 
-export class List extends ContentView {
-  // Private instance properties
-  /** The native Android ScrollView */
-  private scrollView: android.widget.ScrollView;
-  /** The native Android LinearLayout container */
-  private listContainer: android.widget.LinearLayout;
-  /** List items to be added once the native view is created */
-  private pendingItems: ListItem[] = [];
-  /** Property backing field for container color */
+export class List extends StackLayout {
+  // Property backing field for container color
   private _containerColor: string = containerColorProperty.defaultValue;
 
   // Constructor
   constructor() {
     super();
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
+
+    // Apply default styling
+    this.applyDefaultStyling();
   }
 
   // Native property change handler
@@ -72,13 +77,6 @@ export class List extends ContentView {
   }
 
   // Public getters and setters
-  /**
-   * Gets the Android context
-   */
-  get context(): android.content.Context {
-    return this._context;
-  }
-
   get containerColor(): string {
     return this._containerColor;
   }
@@ -89,137 +87,82 @@ export class List extends ContentView {
   }
 
   // Public methods
-  /**
-   * Creates the native Android view for the list
-   * @returns The native Android view
-   */
-  public createNativeView(): android.view.View {
-    // Create ScrollView for scrollable list
-    this.scrollView = new android.widget.ScrollView(this.context);
-    this.scrollView.setFillViewport(true);
-
-    // Create LinearLayout container for list items
-    this.listContainer = new android.widget.LinearLayout(this.context);
-    this.listContainer.setOrientation(android.widget.LinearLayout.VERTICAL);
-
-    // Add container to scroll view
-    this.scrollView.addView(this.listContainer);
-
-    // Apply theme
-    this.applyTheme();
+  public onLoaded(): void {
+    super.onLoaded();
 
     systemStates.events.on(
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
 
-    // Process any pending items that were added before view creation
-    if (this.pendingItems.length > 0) {
-      this.pendingItems.forEach((item) => this.addItemToContainer(item));
-      this.pendingItems = [];
-    }
-
-    return this.scrollView;
+    this.applyTheme();
   }
 
-  /**
-   * Initializes the native view
-   * Called by NativeScript after the native view is created
-   */
-  public initNativeView(): void {
-    super.initNativeView();
-  }
-
-  /**
-   * Disposes the native view and cleans up resources
-   * Called by NativeScript when the view is no longer needed
-   */
-  public disposeNativeView(): void {
+  public onUnloaded(): void {
     systemStates.events.off(
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
-    this.scrollView = null;
-    this.listContainer = null;
-    super.disposeNativeView();
-  }
 
-  /**
-   * Adds child elements to the list
-   * Currently supports ListItem instances only
-   * This method is called by NativeScript when children are added declaratively in XML
-   *
-   * @param name - The name of the child element
-   * @param value - The child element instance
-   */
-  public _addChildFromBuilder(name: string, value: unknown): void {
-    if (value instanceof ListItem) {
-      if (this.listContainer) {
-        this.addItemToContainer(value);
-      } else {
-        // Store items to add them once the view is created
-        this.pendingItems.push(value);
-      }
-    }
-  }
-
-  /**
-   * Removes all items from the list
-   */
-  public clearItems(): void {
-    if (!this.listContainer) return;
-    this.listContainer.removeAllViews();
-  }
-
-  /**
-   * Gets the number of items in the list
-   * @returns The number of items
-   */
-  public getItemCount(): number {
-    if (!this.listContainer) return 0;
-    return this.listContainer.getChildCount();
+    super.onUnloaded();
   }
 
   // Private methods
+  /**
+   * Applies default Material Design 3 styling
+   */
+  private applyDefaultStyling(): void {
+    // Get existing classes or empty string
+    const existingClasses = this.className || "";
+    const classes = existingClasses.split(" ").filter((c) => c.length > 0);
+
+    // Add rounded-md if not present
+    if (!classes.includes("rounded-md")) {
+      classes.push("rounded-md");
+    }
+
+    // Add margin bottom if not present
+    if (!classes.some((c) => c.startsWith("mb-"))) {
+      classes.push("mb-4");
+    }
+
+    this.className = classes.join(" ");
+  }
+
   /**
    * Handles system appearance (dark/light mode) changes
    * @param event - The system appearance change event
    */
   private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
-    this.applyTheme(event.newValue === "dark");
+    this.applyTheme();
   }
 
   /**
    * Applies the current theme colors to the list
    * Called when colors change or system theme changes
    */
-  private applyTheme(
-    isDarkMode = systemStates.systemAppearance === "dark"
-  ): void {
-    if (!this.listContainer) return;
+  private applyTheme(): void {
+    // Get existing classes
+    const existingClasses = this.className || "";
+    const classes = existingClasses.split(" ").filter((c) => c.length > 0);
 
-    const backgroundColor = getMaterialColor(
-      this._containerColor,
-      this.context
-    );
+    // Remove any existing bg- classes
+    const filteredClasses = classes.filter((c) => !c.startsWith("bg-"));
 
-    this.listContainer.setBackgroundColor(backgroundColor);
+    // Add the background color class based on containerColor
+    const bgClass = `bg-${this.kebabCase(this._containerColor)}`;
+    filteredClasses.push(bgClass);
+
+    this.className = filteredClasses.join(" ");
   }
 
   /**
-   * Adds a list item to the container
-   * @param item - The ListItem instance to add
+   * Converts camelCase to kebab-case
+   * @param str - The camelCase string
+   * @returns The kebab-case string
    */
-  private addItemToContainer(item: ListItem): void {
-    if (!this.listContainer) return;
-
-    // Create the native view for the item if not already created
-    if (!item.nativeView) {
-      item._setupAsRootView(this._context);
-    }
-
-    // Add the item's native view to the container
-    this.listContainer.addView(item.nativeView as android.view.View);
+  private kebabCase(str: string): string {
+    return str.replace(/([a-z0-9])([A-Z])/g, "$1-$2").toLowerCase();
   }
 }
 
