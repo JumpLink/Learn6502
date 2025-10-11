@@ -224,11 +224,6 @@ export class MainController implements MainView {
         // For now, we'll update debug info only
         debuggerView.updateDebugInfo(signal.simulator);
       }
-
-      // If stepper is enabled, update the UI
-      if (gameConsoleView.simulator.stepperEnabled) {
-        this.updateMainUiState();
-      }
     });
 
     gameConsoleController.on("multistep", (signal) => {
@@ -242,8 +237,6 @@ export class MainController implements MainView {
         // For now, we'll update debug info only
         debuggerView.updateDebugInfo(signal.simulator);
       }
-
-      this.updateMainUiState();
     });
 
     gameConsoleController.on("goto", (signal) => {
@@ -257,8 +250,6 @@ export class MainController implements MainView {
         // For now, we'll update debug info only
         debuggerView.updateDebugInfo(signal.simulator);
       }
-
-      this.updateMainUiState();
     });
 
     gameConsoleController.on("simulator-info", (signal) => {
@@ -682,22 +673,11 @@ export class MainController implements MainView {
       const codeChanged = mainStateController.getCodeChanged();
       const currentState = this.state;
 
-      console.log(
-        "updateMainUiState - hasCode:",
-        hasCode,
-        "codeChanged:",
-        codeChanged,
-        "state:",
-        currentState
-      );
-
       const enabledState = mainStateController.getActionEnabledState(
         currentState,
         hasCode,
         codeChanged
       );
-
-      console.log("updateMainUiState - enabledState:", enabledState);
 
       // Apply enabled states to button actions
       this.mainButton.setActionEnabledStates(enabledState);

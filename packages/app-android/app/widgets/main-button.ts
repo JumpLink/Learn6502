@@ -241,8 +241,6 @@ export class MainButton extends Fab implements MainButtonWidget {
   }): void {
     // In Android, we don't disable the FAB itself, but we could
     // store this state if needed for visual feedback
-    // For now, just log it for debugging
-    console.log("[MainButton] Action enabled states:", enabledState);
   }
 
   protected addEventListeners(): void {
@@ -291,7 +289,6 @@ export class MainButton extends Fab implements MainButtonWidget {
 
   // TODO: Move this to a common event handler?
   protected onButtonTap(): void {
-    console.log("[MainButton] onButtonTap");
     let eventName: string | null = null;
     switch (this.getState()) {
       case MainButtonState.ASSEMBLE:
