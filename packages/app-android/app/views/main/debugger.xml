@@ -5,15 +5,12 @@
     actionBarHidden="true" class="bg-surface text-on-surface">
 
     <ScrollView>
-        <StackLayout class="p-16">
+        <StackLayout class="p-4">
             <!-- Debugger Header -->
             <Label text="Debugger" class="h2 text-center mb-16" />
 
-            <!-- Information Section -->
-            <Label text="Information" class="h3 mb-8" />
-            <StackLayout class="bg-surface-container mb-16 p-8">
-                <w:DebugInfo id="debugInfo" />
-            </StackLayout>
+            <!-- Debug Information Section -->
+            <w:DebugInfo id="debugInfo" class="mb-16" />
 
             <!-- Messages Section -->
             <Label text="Messages" class="h3 mb-8" />
