@@ -24,7 +24,7 @@ yarn_env.set('BUILD_MODE', 'flatpak')
 
 yarn_env.set('PKGDATADIR', pkgdatadir)
 
-run_command(yarn, yarn_args, 'workspace @learn6502/app-gnome install', check: true)
+run_command(yarn, yarn_args, 'workspaces', 'focus', '@learn6502/app-gnome', check: true)
 
 # Find all source files
 ts_files = run_command('sh', '-c', 'ls src/*/*.ts && ls src/**/*.ts', check: true).stdout().strip().split('\n')
@@ -34,7 +34,7 @@ src_files = files(ts_files, blueprint_files)
 
 custom_target('yarn-build',
   input: src_files,
-  command: [yarn, yarn_args, 'build:with-deps'],
+  command: [yarn, yarn_args, 'workspace', '@learn6502/app-gnome', 'run', 'build:with-deps'],
   output: application_id,
   build_by_default: true,
   env: yarn_env,
