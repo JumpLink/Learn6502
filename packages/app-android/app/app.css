@@ -6,8 +6,6 @@
 @import "css/_dark-mc.css";
 @import "css/_dark-hc.css";
 
-@source './**/*.{css,xml,html,vue,svelte,ts,tsx}';
-
 @custom-variant dark (&:is(.ns-dark *));
 @custom-variant high (&:is(.ns-contrast-high *));
 @custom-variant medium (&:is(.ns-contrast-medium *));
