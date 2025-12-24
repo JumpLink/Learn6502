@@ -27,15 +27,15 @@ msgstr "6502"
 
 #. TRANSLATORS: Info message when the hardware stack underflows and wraps around
 msgid "6502 Stack emptied! Wrapping..."
-msgstr "6502 Ngăn xếp trống rỗng! Gói..."
+msgstr "6502 Ngăn xếp trống rỗng! Quay vòng..."
 
 #. TRANSLATORS: Info message when the hardware stack overflows and wraps around
 msgid "6502 Stack filled! Wrapping..."
-msgstr "6502 Ngăn xếp đầy! Gói..."
+msgstr "6502 Ngăn xếp đầy! Quay vòng..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "6502 assembly language has a bunch of branching instructions, all of which branch based on whether certain flags are set or not. In this example we'll be looking at <tt>BNE</tt>: \"Branch on not equal\"."
-msgstr "Ngôn ngữ hợp ngữ 6502 có một loạt các hướng dẫn phân nhánh, tất cả đều dựa trên việc các cờ nhất định có được đặt hay không. Trong ví dụ này, chúng ta sẽ xem xét <tt>BNE</tt>: \"Chi nhánh không bằng nhau\"."
+msgstr "Ngôn ngữ hợp ngữ 6502 có một loạt các hướng dẫn phân nhánh, tất cả đều dựa trên việc các cờ nhất định có được đặt hay không. Trong ví dụ này, chúng ta sẽ xem xét <tt>BNE</tt>: \"Rẽ nhánh khi không bằng nhau\"."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> made a <a href=\"https://gist.github.com/wkjagt/9043907\">fully annotated gist of this source code</a>, so follow along with that for more details."
@@ -43,7 +43,7 @@ msgstr "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> đã tạo
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
-msgstr "<b><tt>$00</tt>-<tt>$01</tt></b>: Vị thế của Apple"
+msgstr "<b><tt>$00</tt>-<tt>$01</tt></b>: Vị trí của Apple"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$02</tt></b>: Snake direction (1=up, 2=right, 4=down, 8=left)"
@@ -111,7 +111,7 @@ msgstr "<b><tt>$a</tt></b>: Đỏ nhạt (<tt>#ff7777</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$b</tt></b>: Dark grey (<tt>#333333</tt>)"
-msgstr "<b><tt>$b</tt></b>: Xám đậm (<tt>#333333</tt>)t"
+msgstr "<b><tt>$b</tt></b>: Xám đậm (<tt>#333333</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$c</tt></b>: Grey (<tt>#777777</tt>)"
@@ -299,7 +299,7 @@ msgstr "<b>Trang Không</b>: <tt>$0000</tt>-<tt>$00FF</tt> (256 byte đầu tiê
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>BCC</tt> and <tt>BCS</tt> (\"branch on carry clear\" and \"branch on carry set\") are used to branch on the carry flag. Write a program that uses one of these two."
-msgstr "<tt>BCC</tt> và <tt>BCS</tt> (\"nhánh trên bộ mang theo\") được sử dụng để phân nhánh trên cờ mang theo. Viết chương trình sử dụng một trong hai."
+msgstr "<tt>BCC</tt> và <tt>BCS</tt> (\"rẽ nhánh khi cờ nhớ xóa\" và \"rẽ nhánh khi cờ nhớ đặt\") được sử dụng để rẽ nhánh dựa trên cờ nhớ. Viết chương trình sử dụng một trong hai."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JMP</tt> is an unconditional jump. Here's a really simple example to show it in action:"
@@ -345,7 +345,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
-msgstr "Danh sách đầy đủ của tập lệnh 6502 <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">có tại đây</a> và <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">tại đây</a> (Tôi thường tham khảo cả hai trang vì chúng có điểm mạnh và điểm yếu). Các trang này trình bày chi tiết các đối số cho từng lệnh, các thanh ghi chúng sử dụng và các cờ nào chúng đặt. Họ là kinh thánh của bạn."
+msgstr "Danh sách đầy đủ của tập lệnh 6502 <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">có tại đây</a> và <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">tại đây</a> (Tôi thường tham khảo cả hai trang vì chúng có điểm mạnh và điểm yếu). Các trang này trình bày chi tiết các đối số cho từng lệnh, các thanh ghi chúng sử dụng và các cờ nào chúng đặt. Chúng là kinh thánh của bạn."
 
 #. TRANSLATORS: About dialog menu item label
 msgid "About Learn 6502 Assembly"
@@ -401,7 +401,7 @@ msgstr "Nhấn: Vàng"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Accumulator: Main register for calculations"
-msgstr "Tích lũy: Thanh ghi chính để tính toán"
+msgstr "Bộ tích lũy: Thanh ghi chính để tính toán"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Add more instructions to draw extra pixels."
@@ -814,7 +814,7 @@ msgstr "Tiếng Đức và tiếng Tây Ban Nha đã được xác nhận bởi 
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
-msgstr "Việc chuyển đổi giữa các phần phức tạp hơn vì chúng ta cũng phải tính đến byte quan trọng nhất. Ví dụ: giảm từ <tt>$02e1</tt> sẽ dẫn đến <tt>$0301</tt>. May mắn thay, điều này khá dễ thực hiện. Việc thêm <tt>$20</tt> vào <tt>$e1</tt> sẽ tạo ra <tt>$01</tt> và đặt bit mang. Nếu bit mang được đặt, chúng ta biết rằng chúng ta cũng cần tăng byte quan trọng nhất."
+msgstr "Việc chuyển đổi giữa các phần phức tạp hơn vì chúng ta cũng phải tính đến byte quan trọng nhất. Ví dụ: giảm từ <tt>$02e1</tt> sẽ dẫn đến <tt>$0301</tt>. May mắn thay, điều này khá dễ thực hiện. Việc thêm <tt>$20</tt> vào <tt>$e1</tt> sẽ tạo ra <tt>$01</tt> và đặt cờ nhớ. Nếu cờ nhớ được đặt, chúng ta biết rằng chúng ta cũng cần tăng byte quan trọng nhất."
 
 #. TRANSLATORS: Description for examples placeholder
 msgid ""
@@ -889,7 +889,7 @@ msgstr "Ngay lập tức: <tt>#$c0</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Implicit"
-msgstr "Ngầm"
+msgstr "Ngầm định"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Improved descriptions to be more welcoming for non-technical users"
@@ -1051,7 +1051,7 @@ msgstr "Nhiều lỗi nhỏ đã được sửa để cải thiện khả năng 
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Memory Map"
-msgstr "Nút Hành Động Nổi"
+msgstr "Bản đồ bộ nhớ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
@@ -1228,7 +1228,7 @@ msgstr "Cờ Bộ Xử Lý"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Processor Status Register"
-msgstr "Đăng Ký Trạng Thái Bộ Xử Lý"
+msgstr "Thanh ghi Trạng Thái Bộ Xử Lý"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Program Counter: Points to next instruction"
@@ -1282,7 +1282,7 @@ msgstr "Giảm phạm vi địa chỉ màn hình hex mặc định để có hi�
 
 #. TRANSLATORS: Section heading title on Debugger page for registers
 msgid "Registers"
-msgstr "Đăng Ký"
+msgstr "Thanh ghi"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Registers and flags"
@@ -1782,7 +1782,7 @@ msgstr "Trang Không ($0000-$00FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page usage"
-msgstr "Lượng Dùng Trang Không"
+msgstr "Sử dụng Trang Không"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page,X: <tt>$c0,X</tt>"
