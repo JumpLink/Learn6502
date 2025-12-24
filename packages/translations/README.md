@@ -66,6 +66,7 @@ Below is an overview of all languages, their sources, and human validation statu
 | Interlingua          | ia      | AI‑assisted                                                                                   | —             | Needs validation |
 | Ukrainian            | uk      | AI‑assisted                                                                                   | —             | Needs validation |
 | Japanese             | ja      | AI‑assisted                                                                                   | —             | Needs validation |
+| Vietnamese           | vi      | Contributed by @hthienloc                                                                     | @hthienloc    | Validated        |
 
 To volunteer as a validator, please use [Weblate](https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/) or report your feedback in the [issue tracker](https://github.com/JumpLink/Learn6502/issues).
 
