@@ -18,7 +18,6 @@ global.__errorHandler = function (error, nativeError) {
   return true;
 };
 
-// Initial startup logging
 console.log("App.ts starting...");
 console.log("Is Android:", isAndroid);
 
@@ -49,6 +48,16 @@ Application.on(Application.resumeEvent, () => {
 });
 
 console.log("Setting application resources...");
-Application.setResources({ _: localize });
+try {
+  Application.setResources({ _: localize });
+} catch (error) {
+  throw error;
+}
 console.log("Starting application...");
-Application.run({ moduleName: "app-root" });
+// Wrap Application.run in try-catch to catch initialization errors
+try {
+  Application.run({ moduleName: "app-root" });
+} catch (error) {
+  console.error("ERROR IN Application.run:", error);
+  throw error;
+}
