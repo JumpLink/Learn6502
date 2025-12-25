@@ -18,21 +18,24 @@
     "@learn6502/common-ui": "workspace:^",
     "@nativescript/core": "~9.0.10",
     "@nativescript/localize": "^5.2.0",
-    "@nativescript/tailwind": "^4.0.6",
+    "@nativescript/tailwind": "^4.0.7",
+    "@valor/nativescript-websockets": "^2.0.2",
     "tailwindcss": "^4.1.18"
   },
   "devDependencies": {
     "@nativescript/android": "9.0.1",
     "@nativescript/types": "~9.0.0",
-    "@nativescript/webpack": "^5.0.29",
+    "@nativescript/vite": "^1.0.5",
     "@tailwindcss/postcss": "^4.1.18",
     "autoprefixer": "^10.4.23",
+    "concurrently": "^9.2.1",
     "nativescript": "^9.0.1",
     "postcss": "^8.5.6",
     "postcss-cli": "^11.0.1",
     "postcss-discard-empty": "^7.0.1",
     "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2",
-    "typescript": "^5.9.3"
+    "typescript": "^5.9.3",
+    "wait-on": "^9.0.3"
   }
 }
