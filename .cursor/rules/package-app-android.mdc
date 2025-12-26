@@ -1,22 +1,19 @@
 ---
-description: 
+description:
 globs: packages/app-android/**/*
 alwaysApply: false
 ---
+
 ## Package: `app-android`
 
-- **Purpose:** The Android application version aiming for deep platform integration.
-- **Primary Technologies:** TypeScript and NativeScript (without an additional framework like Angular/Vue).
-- **UI:**
-    - Utilizes custom components written in TypeScript to wrap native Android widgets (e.g., `fab.ts` for `com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton`).
-    - Adheres to Material Design 3 principles.
-    - Focus on a native look and feel.
-- **Event Handling:** Prefers the custom `event-dispatcher.ts` from `packages/6502` over platform-specific event mechanisms to promote consistent event handling logic across platforms.
-- **Key Focus:** Android platform integration, touch-friendly UI, performance on mobile devices, leveraging `6502` core and `common-ui` components.
-- **Platform APIs:** Directly utilizes Android SDK via NativeScript for native features.
-- **Build:** Standard NativeScript and Android build tools (Gradle).
+Android app with deep platform integration.
+**Stack:** TypeScript + NativeScript (no Angular/Vue).
+**UI:** Custom TypeScript components wrapping native Android widgets (e.g., `fab.ts` → `ExtendedFloatingActionButton`), Material Design 3, native look/feel.
+**Events:** Use `packages/6502/event-dispatcher.ts` for cross-platform consistency.
+**Focus:** Platform integration, touch-friendly UI, mobile performance, reuse `6502` core + `common-ui`.
+**APIs:** Direct Android SDK via NativeScript.
+**Build:** NativeScript + Gradle.
 
-## Documentation
+**Reference Projects** (git submodules in `references/nativescript/`): `alpimaps`, `conty`, `oss-weather`, `ui-material-components` — use for NativeScript patterns, component architecture, and platform integration best practices.
 
-@NativeScript 
-@Android API Reference 
+**Docs:** @NativeScript @Android API Reference
