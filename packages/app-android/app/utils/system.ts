@@ -1,9 +1,22 @@
+/**
+ * System utilities for Android
+ *
+ * Provides helper functions for:
+ * - Status bar and navigation bar customization
+ * - Edge-to-edge display mode
+ * - App restart functionality
+ * - Font scale detection
+ */
+
 import { Application, Utils, View, CoreTypes } from "@nativescript/core";
 import { getMaterialColor } from "./color";
 import { waitForFunctionResult } from "@learn6502/common-ui";
 import { systemStates } from "../states/system.states";
 import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
 
+/**
+ * Check if the system is currently in dark mode
+ */
 export function isDarkMode(): boolean {
   return systemStates.systemAppearance === "dark";
 }
@@ -166,12 +179,12 @@ export function setEdgeToEdge(enabled: boolean): void {
         Application.android.startActivity ||
         Application.android.foregroundActivity;
       if (!activity) {
-        console.error("setEdgeToEdge: Could not get Activity object.");
+        console.error("setEdgeToEdge: Could not get Activity object");
         return;
       }
       const window = activity.getWindow();
       if (!window) {
-        console.error("setEdgeToEdge: Could not get Window object.");
+        console.error("setEdgeToEdge: Could not get Window object");
         return;
       }
       // Tell the system whether the app will handle drawing behind system bars
@@ -181,7 +194,8 @@ export function setEdgeToEdge(enabled: boolean): void {
         window,
         !enabled
       );
-      console.log(`Edge-to-Edge display ${enabled ? "enabled" : "disabled"}.`);
+      DEV_LOG &&
+        console.log(`Edge-to-Edge display ${enabled ? "enabled" : "disabled"}`);
     });
   } catch (error) {
     console.error(`Error setting Edge-to-Edge to ${enabled}:`, error);
@@ -196,7 +210,7 @@ export function restartApp(): void {
   try {
     const context = Utils.android.getApplicationContext();
     if (!context) {
-      console.error("Restart failed: Could not get application context.");
+      console.error("Restart failed: Could not get application context");
       return;
     }
 
@@ -205,7 +219,7 @@ export function restartApp(): void {
     // Intent to launch the main activity
     const intent = packageManager.getLaunchIntentForPackage(packageName);
     if (!intent) {
-      console.error("Restart failed: Could not get launch intent.");
+      console.error("Restart failed: Could not get launch intent");
       return;
     }
 
@@ -218,7 +232,7 @@ export function restartApp(): void {
     // Start the main activity
     context.startActivity(intent);
 
-    console.log("Triggering app restart...");
+    DEV_LOG && console.log("Triggering app restart...");
 
     // Terminate the current application process
     // Use killProcess for a slightly more forceful exit than System.exit
@@ -228,12 +242,15 @@ export function restartApp(): void {
   }
 }
 
+/**
+ * Wait for the root view to be ready and return it
+ */
 export async function getRootViewWhenReady() {
   try {
     const rootView = await waitForFunctionResult(
       Application.getRootView.bind(Application)
     );
-    console.log("Root view is ready:", rootView);
+    DEV_LOG && console.log("Root view is ready:", rootView);
     return rootView;
   } catch (error) {
     console.error("Failed to get root view:", error);

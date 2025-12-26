@@ -1,3 +1,14 @@
+/**
+ * System-level state management
+ *
+ * Manages reactive state for:
+ * - System appearance (light/dark mode)
+ * - Contrast mode (normal/medium/high)
+ * - Window insets (safe areas)
+ *
+ * Pattern from reference projects: centralized state with EventDispatcher
+ */
+
 import {
   Application,
   LaunchEventData,
@@ -10,6 +21,7 @@ import {
 } from "@nativescript/localize";
 import { EventDispatcher } from "@learn6502/6502";
 import { ContrastMode } from "../constants";
+import { contrastLevelToMode } from "../utils";
 
 import type {
   ContrastChangeEvent,
@@ -128,23 +140,24 @@ export class SystemStates {
    */
   public onLaunch(event: LaunchEventData): void {
     if (!event.android)
-      throw new Error("Events:: onLaunch - No Android event found");
+      throw new Error("SystemStates:: onLaunch - No Android event found");
     if (this.initialized)
-      throw new Error("Events:: onLaunch - Already initialized");
+      throw new Error("SystemStates:: onLaunch - Already initialized");
     this.initialized = true;
 
     androidLaunchEventLocalizationHandler();
 
-    console.log("Events:: onLaunch called");
+    DEV_LOG && console.log("SystemStates:: onLaunch called");
 
     // Get initial system appearance
     const systemAppearance = Application.systemAppearance();
-    console.log("systemAppearance", systemAppearance);
+    DEV_LOG && console.log("systemAppearance", systemAppearance);
     this.systemAppearance = systemAppearance;
 
     // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
     const localeOverriddenSuccessfully = overrideLocale("de-DE");
-    console.log("localeOverriddenSuccessfully", localeOverriddenSuccessfully);
+    DEV_LOG &&
+      console.log("localeOverriddenSuccessfully", localeOverriddenSuccessfully);
 
     this.events.dispatch("launchEvent", event);
 
@@ -155,13 +168,14 @@ export class SystemStates {
   private listenContrastChange(): void {
     // Listen for contrast changes (API 34+)
     if (android.os.Build.VERSION.SDK_INT < 34) {
-      console.warn("ContrastChangeListener requires API level 34+.");
+      DEV_LOG &&
+        console.log("ContrastChangeListener requires API level 34+, skipping");
       return;
     }
 
     const context = Utils.android.getApplicationContext();
     if (!context) {
-      console.error("Could not get application context for contrast listener.");
+      console.error("Could not get application context for contrast listener");
       return;
     }
 
@@ -171,7 +185,7 @@ export class SystemStates {
 
     if (!uiModeManager) {
       console.error(
-        "Could not get UiModeManager service for contrast listener."
+        "Could not get UiModeManager service for contrast listener"
       );
       return;
     }
@@ -179,45 +193,28 @@ export class SystemStates {
     // Get the main executor to run the callback on the main thread
     const mainExecutor = context.getMainExecutor();
     if (!mainExecutor) {
-      console.error("Could not get main executor for ContrastChangeListener.");
+      console.error("Could not get main executor for ContrastChangeListener");
       return;
     }
 
     const contrastListener =
       new android.app.UiModeManager.ContrastChangeListener({
         onContrastChanged: (contrastLevel: number) => {
-          console.log("System contrast changed:", contrastLevel);
-          let newMode: ContrastMode;
-          if (contrastLevel === 1) {
-            newMode = ContrastMode.HIGH;
-          } else if (contrastLevel === 0.5) {
-            newMode = ContrastMode.MEDIUM;
-          } else {
-            newMode = ContrastMode.NORMAL;
-          }
-
+          DEV_LOG && console.log("System contrast changed:", contrastLevel);
           // Set the contrast property (this will trigger property change event)
-          this.contrast = newMode;
+          this.contrast = contrastLevelToMode(contrastLevel);
         },
       });
 
     // Get initial contrast state and dispatch
     const initialContrast = uiModeManager.getContrast();
-    console.log("Initial system contrast level:", initialContrast);
-    let initialMode: ContrastMode;
-    if (initialContrast === 1) {
-      initialMode = ContrastMode.HIGH;
-    } else if (initialContrast === 0.5) {
-      initialMode = ContrastMode.MEDIUM;
-    } else {
-      initialMode = ContrastMode.NORMAL;
-    }
+    DEV_LOG && console.log("Initial system contrast level:", initialContrast);
 
     // Set the contrast property (this will trigger property change event)
-    this.contrast = initialMode;
+    this.contrast = contrastLevelToMode(initialContrast);
 
     uiModeManager.addContrastChangeListener(mainExecutor, contrastListener);
-    console.log("ContrastChangeListener added.");
+    DEV_LOG && console.log("ContrastChangeListener added");
   }
 
   private listenWindowInsetsChange(): void {
@@ -226,14 +223,14 @@ export class SystemStates {
       Application.android?.startActivity;
     if (!activity) {
       throw new Error(
-        "Events:: Could not get activity to attach WindowInsets listener."
+        "SystemStates:: Could not get activity to attach WindowInsets listener"
       );
     }
 
     const rootView = activity.getWindow().getDecorView().getRootView();
     if (!rootView) {
       throw new Error(
-        "Events:: Could not get root view to attach WindowInsets listener."
+        "SystemStates:: Could not get root view to attach WindowInsets listener"
       );
     }
 
@@ -260,6 +257,7 @@ export class SystemStates {
     );
     // Request initial insets
     rootView.requestApplyInsets();
+    DEV_LOG && console.log("WindowInsets listener attached");
   }
 
   /**
@@ -267,7 +265,9 @@ export class SystemStates {
    */
   public setupEvents(): void {
     if (!Application.android) {
-      throw new Error("Events:: setupEvents - No Android application found");
+      throw new Error(
+        "SystemStates:: setupEvents - No Android application found"
+      );
     }
 
     // This registers the onLaunch handler to the native Application event.
@@ -287,6 +287,8 @@ export class SystemStates {
     Application.on(Application.resumeEvent, (args) => {
       this.events.dispatch("resumeEvent", args);
     });
+
+    DEV_LOG && console.log("SystemStates events setup complete");
   }
 }
 

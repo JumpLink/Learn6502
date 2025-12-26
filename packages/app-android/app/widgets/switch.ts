@@ -374,7 +374,7 @@ export class Switch extends ContentView {
       );
       this._nativeSwitch.setTrackDecorationTintList(borderColorStateList);
     } catch (error) {
-      console.error("Switch: Failed to apply theme", error);
+      console.error("Switch: Failed to apply theme:", error);
     }
   }
 
