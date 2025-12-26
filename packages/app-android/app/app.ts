@@ -5,12 +5,11 @@
  * - Centralized logger for conditional logging
  * - Global error handling
  * - Sequential service initialization
- * - Edge-to-edge display support
  */
 
 import { Application, LaunchEventData, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
-import { setEdgeToEdge, logger } from "./utils/index";
+import { logger } from "./utils/index";
 import { systemStates, SystemStates } from "./states";
 import { ThemeService } from "./services";
 import { appVariables } from "./variables";
@@ -41,10 +40,7 @@ try {
     log.info("Launch event received, setting up the app...");
 
     try {
-      // Set edge-to-edge display
-      setEdgeToEdge(true);
-
-      // Initialize app variables (window insets, action bar height, etc.)
+      // Initialize app variables (action bar height, screen dimensions, etc.)
       appVariables.initialize();
 
       // Initialize theme service
@@ -55,11 +51,6 @@ try {
     } catch (error) {
       console.error("Error during app initialization:", error);
     }
-  });
-
-  // Log when the application is actually running
-  Application.on(Application.resumeEvent, () => {
-    log.debug("Application resumed");
   });
 
   // Set localization resources

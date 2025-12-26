@@ -266,7 +266,10 @@ export class ThemeService extends BaseThemeService {
         view?._onCssStateChange();
       });
 
-      log.debug("rootView cssClasses", Array.from(rootView.cssClasses.values()));
+      log.debug(
+        "rootView cssClasses",
+        Array.from(rootView.cssClasses.values())
+      );
     } catch (error) {
       console.error("Error updating contrast classes:", error);
     }

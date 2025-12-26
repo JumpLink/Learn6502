@@ -2,7 +2,6 @@
  * Central app variables and reactive state management
  *
  * This module provides centralized access to:
- * - Window insets (status bar, navigation bar, keyboard)
  * - Action bar dimensions
  * - Screen dimensions
  * - Font scale settings
@@ -14,9 +13,9 @@
 
 import { Application, Screen, Utils } from "@nativescript/core";
 import { EventDispatcher } from "@learn6502/6502";
-import { systemStates, SystemStates } from "./states";
+import { systemStates } from "./states";
 import { logger } from "./utils";
-import type { WindowInsets, VariablesEventsMap } from "./types";
+import type { VariablesEventsMap } from "./types";
 
 const log = logger.scoped("AppVariables");
 
@@ -36,24 +35,11 @@ class AppVariables {
     Screen.mainScreen.widthDIPs / Screen.mainScreen.heightDIPs;
 
   // Private backing fields
-  private _windowInsets: WindowInsets = {
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-  };
   private _actionBarHeight: number = 56; // Default Material action bar height
   private _actionBarButtonHeight: number = 46;
   private _fontScale: number = 1.0;
   private _isRTL: boolean = false;
   private _initialized: boolean = false;
-
-  /**
-   * Current window insets (safe area)
-   */
-  public get windowInsets(): WindowInsets {
-    return { ...this._windowInsets };
-  }
 
   /**
    * Action bar height in DIPs
@@ -96,11 +82,6 @@ class AppVariables {
     log.info("Initializing...");
     this._initialized = true;
 
-    // Listen for window insets changes from systemStates
-    systemStates.events.on(SystemStates.windowInsetsChangedEvent, (event) => {
-      this.updateWindowInsetsFromNative(event.newValue);
-    });
-
     // Initial values from system
     this.updateFromConfiguration();
 
@@ -114,51 +95,6 @@ class AppVariables {
       fontScale: this._fontScale,
       isRTL: this._isRTL,
     });
-  }
-
-  /**
-   * Update window insets from native WindowInsetsCompat
-   */
-  private updateWindowInsetsFromNative(
-    nativeInsets: androidx.core.view.WindowInsetsCompat | null
-  ): void {
-    if (!nativeInsets) return;
-
-    const systemBars = nativeInsets.getInsets(
-      androidx.core.view.WindowInsetsCompat.Type.systemBars()
-    );
-
-    const newInsets: WindowInsets = {
-      top: Utils.layout.toDeviceIndependentPixels(systemBars.top),
-      bottom: Utils.layout.toDeviceIndependentPixels(systemBars.bottom),
-      left: Utils.layout.toDeviceIndependentPixels(systemBars.left),
-      right: Utils.layout.toDeviceIndependentPixels(systemBars.right),
-    };
-
-    this.setWindowInsets(newInsets);
-  }
-
-  /**
-   * Set window insets and emit change event
-   */
-  private setWindowInsets(newInsets: WindowInsets): void {
-    const oldValue = this._windowInsets;
-    if (
-      oldValue.top === newInsets.top &&
-      oldValue.bottom === newInsets.bottom &&
-      oldValue.left === newInsets.left &&
-      oldValue.right === newInsets.right
-    ) {
-      return; // No change
-    }
-
-    this._windowInsets = newInsets;
-    this.events.dispatch("windowInsets:changed", {
-      newValue: newInsets,
-      oldValue,
-    });
-
-    log.debug("Window insets updated:", JSON.stringify(newInsets));
   }
 
   /**

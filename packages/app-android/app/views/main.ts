@@ -3,14 +3,17 @@ import {
   ScrollView,
   ScrollEventData,
   Utils,
-  ActionBar,
   Frame,
   Application,
 } from "@nativescript/core";
 
 import { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
-import { setStatusBarAppearance, logger } from "~/utils";
+import {
+  setStatusBarAppearance,
+  setNavigationBarAppearance,
+  logger,
+} from "~/utils";
 
 const log = logger.scoped("MainController");
 
@@ -29,7 +32,7 @@ import type { GamepadKey } from "@learn6502/common-ui";
 
 // Import services
 import { notificationService } from "~/services";
-import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
+import { SystemAppearanceChangeEvent } from "~/types";
 import { MainButton } from "~/widgets";
 import { MainButtonState } from "@learn6502/common-ui";
 import { BottomNavigation } from "~/widgets/bottom-navigation";
@@ -49,7 +52,7 @@ import { gameConsoleView } from "./main/game-console";
  */
 export class MainController implements MainView {
   private page: Page | null = null;
-  private actionBar: ActionBar | null = null;
+  private actionBar: any | null = null;
   private mainButton: MainButton | null = null;
   private bottomNavigation: BottomNavigation | null = null;
   private mainFrame: Frame | null = null;
@@ -74,7 +77,6 @@ export class MainController implements MainView {
   constructor() {
     // Private constructor for singleton pattern
     log.info("Initialized");
-    this.handleWindowInsets = this.handleWindowInsets.bind(this);
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
     this.setupAndroidKeyHandling = this.setupAndroidKeyHandling.bind(this);
     this.setupLearnTutorialSignalListeners =
@@ -286,31 +288,11 @@ export class MainController implements MainView {
     });
   }
 
-  /**
-   * Handles window inset changes to apply top margin dynamically.
-   * @param insets The WindowInsetsCompat object containing inset data.
-   */
-  private handleWindowInsets(event: WindowInsetsChangeEvent): void {
-    if (!event.newValue || !this.actionBar) {
-      log.warn(
-        `handleWindowInsets - Could not apply padding. Insets: ${!!event.newValue}, ActionBar: ${this.actionBar}`
-      );
-      return;
-    }
-
-    const topInsetPixels = event.newValue.getInsets(
-      androidx.core.view.WindowInsetsCompat.Type.systemBars()
-    ).top;
-    const topPaddingDips =
-      Utils.layout.toDeviceIndependentPixels(topInsetPixels);
-    // Apply marginTop to the ActionBar
-    this.actionBar.style.marginTop = topPaddingDips;
-
-    log.debug(`handleWindowInsets - Applied marginTop: ${topPaddingDips} DIPs`);
-  }
-
   private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
-    setStatusBarAppearance("surface", event.newValue === "dark");
+    const isDark = event.newValue === "dark";
+    setStatusBarAppearance(isDark);
+    // Set navigation bar icon appearance (light icons for dark mode, dark icons for light mode)
+    setNavigationBarAppearance(isDark);
   }
 
   /**
@@ -385,30 +367,43 @@ export class MainController implements MainView {
 
   /**
    * Event handler for the 'loaded' event of the root view.
-   * Applies system bar insets to ensure content is not drawn under system bars
-   * when Edge-to-Edge is enabled.
    * @param args Event arguments containing the view object.
    */
   public onLoaded(args: EventData): void {
     this.page = args.object as Page;
 
     // Find UI elements
-    this.actionBar = this.page.getViewById<ActionBar>("main-action-bar");
+    this.actionBar = this.page.getViewById("main-action-bar");
     this.mainButton = this.page.getViewById<MainButton>("mainButton");
     this.bottomNavigation =
       this.page.getViewById<BottomNavigation>("bottomNavigation");
     this.mainFrame = this.page.getViewById<Frame>("mainFrame");
 
+    // Debug: Check if bottomNavigation was found
+    if (this.bottomNavigation) {
+      log.debug("BottomNavigation found");
+      try {
+        const height = this.bottomNavigation.height;
+        const visibility = this.bottomNavigation.visibility;
+        log.debug(
+          `BottomNavigation - height: ${height}, visibility: ${visibility}`
+        );
+      } catch (error) {
+        log.error("Error checking BottomNavigation properties:", error);
+      }
+    } else {
+      log.error("BottomNavigation NOT FOUND!");
+    }
+
     // Set up system event listeners
-    systemStates.events.on(
-      SystemStates.windowInsetsChangedEvent,
-      this.handleWindowInsets
-    );
     systemStates.events.on(
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
-    setStatusBarAppearance("surface");
+    const isDark = systemStates.systemAppearance === "dark";
+    setStatusBarAppearance(isDark);
+    // Set navigation bar icon appearance (light icons for dark mode, dark icons for light mode)
+    setNavigationBarAppearance(isDark);
 
     // Initialize services and controllers
     this.setupAndroidKeyHandling();
@@ -435,22 +430,6 @@ export class MainController implements MainView {
   public onUnloaded(args: EventData): void {
     const view = args.object as Page;
     log.debug("unloaded:", view.id);
-
-    // Unsubscribe if handler exists
-    if (this.handleWindowInsets) {
-      systemStates.events.off(
-        SystemStates.windowInsetsChangedEvent,
-        this.handleWindowInsets
-      );
-    }
-
-    // Backward compatibility
-    if (view["insetsHandler"]) {
-      systemStates.events.off(
-        SystemStates.windowInsetsChangedEvent,
-        view["insetsHandler"]
-      );
-    }
 
     // Unsubscribe appearance change handler
     systemStates.events.off(

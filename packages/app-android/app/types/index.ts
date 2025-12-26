@@ -4,4 +4,3 @@ export * from "./system-appearance-change-event";
 export * from "./system-events-map";
 export * from "./theme";
 export * from "./variables";
-export * from "./window-insets-change-event";

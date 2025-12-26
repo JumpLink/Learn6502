@@ -8,7 +8,8 @@
     "start": "yarn start:emulated",
     "start:emulated": "ns run android --emulator",
     "start:device": "ns run android",
-    "start:clean": "ns run android --clean --emulator",
+    "start:clean:emulated": "ns run android --clean --emulator",
+    "start:clean:device": "ns run android --clean",
     "start:debug": "ns debug android",
     "start:emulator": "$HOME/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36",
     "check": "tsc --noEmit"

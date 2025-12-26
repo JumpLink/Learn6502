@@ -4,7 +4,6 @@
  * Manages reactive state for:
  * - System appearance (light/dark mode)
  * - Contrast mode (normal/medium/high)
- * - Window insets (safe areas)
  *
  * Pattern from reference projects: centralized state with EventDispatcher
  */
@@ -31,14 +30,7 @@ import type {
   ContrastChangeEvent,
   SystemAppearanceChangeEvent,
   SystemEventsMap,
-  WindowInsetsChangeEvent,
 } from "~/types";
-
-// Import necessary AndroidX classes
-import androidx_core_view_ViewCompat = androidx.core.view.ViewCompat;
-import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
-import androidx_core_view_OnApplyWindowInsetsListener = androidx.core.view.OnApplyWindowInsetsListener;
-import android_view_View = android.view.View;
 
 /**
  * Class for managing system-related states and events
@@ -56,7 +48,6 @@ export class SystemStates {
   public static readonly systemAppearanceChangedEvent =
     "systemAppearance:changed";
   public static readonly contrastChangedEvent = "contrast:changed";
-  public static readonly windowInsetsChangedEvent = "windowInsets:changed";
 
   public static readonly launchEvent = "launchEvent";
   public static readonly resumeEvent = "resumeEvent";
@@ -64,7 +55,6 @@ export class SystemStates {
   private initialized = false;
   private _systemAppearance: "light" | "dark" | null = null;
   private _contrast: ContrastMode | null = null;
-  private _windowInsets: androidx_core_view_WindowInsetsCompat | null = null;
 
   constructor() {
     this.setupEvents();
@@ -117,29 +107,6 @@ export class SystemStates {
   }
 
   /**
-   * Get the current window insets
-   */
-  public get windowInsets(): androidx_core_view_WindowInsetsCompat | null {
-    return this._windowInsets;
-  }
-
-  /**
-   * Set the window insets and dispatch change event if changed
-   */
-  public set windowInsets(value: androidx_core_view_WindowInsetsCompat | null) {
-    if (value !== this._windowInsets) {
-      const oldValue = this._windowInsets;
-      this._windowInsets = value;
-      const changeEvent: WindowInsetsChangeEvent = {
-        newValue: value,
-        oldValue,
-        initial: oldValue === null,
-      };
-      this.events.dispatch("windowInsets:changed", changeEvent);
-    }
-  }
-
-  /**
    * Initializes theme-related functionality when the app is ready
    */
   public onLaunch(event: LaunchEventData): void {
@@ -165,7 +132,6 @@ export class SystemStates {
     this.events.dispatch("launchEvent", event);
 
     this.listenContrastChange();
-    this.listenWindowInsetsChange();
   }
 
   private listenContrastChange(): void {
@@ -217,49 +183,6 @@ export class SystemStates {
 
     uiModeManager.addContrastChangeListener(mainExecutor, contrastListener);
     log.debug("ContrastChangeListener added");
-  }
-
-  private listenWindowInsetsChange(): void {
-    const activity =
-      Application.android?.foregroundActivity ||
-      Application.android?.startActivity;
-    if (!activity) {
-      throw new Error(
-        "SystemStates:: Could not get activity to attach WindowInsets listener"
-      );
-    }
-
-    const rootView = activity.getWindow().getDecorView().getRootView();
-    if (!rootView) {
-      throw new Error(
-        "SystemStates:: Could not get root view to attach WindowInsets listener"
-      );
-    }
-
-    const self = this; // Preserve this reference for the inner scope
-
-    androidx_core_view_ViewCompat.setOnApplyWindowInsetsListener(
-      rootView,
-      new androidx_core_view_OnApplyWindowInsetsListener({
-        onApplyWindowInsets: (
-          view: android_view_View,
-          insets: androidx_core_view_WindowInsetsCompat
-        ): androidx_core_view_WindowInsetsCompat => {
-          // Set the windowInsets property (this will trigger property change event)
-          self.windowInsets = insets;
-
-          // Return the insets consumed by the decor view's default listener
-          // to ensure proper handling by the system
-          return androidx_core_view_ViewCompat.onApplyWindowInsets(
-            view,
-            insets
-          );
-        },
-      })
-    );
-    // Request initial insets
-    rootView.requestApplyInsets();
-    log.debug("WindowInsets listener attached");
   }
 
   /**
