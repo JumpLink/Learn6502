@@ -1,4 +1,4 @@
-import { ContentView, Property } from "@nativescript/core";
+import { booleanConverter, ContentView, Property } from "@nativescript/core";
 import {
   createColorStateList,
   getMaterialColor,
@@ -90,6 +90,26 @@ const trailingIconProperty = new Property<ListItem, string>({
 });
 
 /**
+ * Property for showing a trailing switch
+ * @default false
+ */
+const showTrailingSwitchProperty = new Property<ListItem, boolean>({
+  name: "showTrailingSwitch",
+  defaultValue: false,
+  valueConverter: booleanConverter,
+});
+
+/**
+ * Property for the trailing switch checked state
+ * @default false
+ */
+const trailingSwitchCheckedProperty = new Property<ListItem, boolean>({
+  name: "trailingSwitchChecked",
+  defaultValue: false,
+  valueConverter: booleanConverter,
+});
+
+/**
  * Property for setting the container background color
  * @default 'surface'
  */
@@ -123,6 +143,7 @@ const supportingColorProperty = new Property<ListItem, string>({
 const enabledProperty = new Property<ListItem, boolean>({
   name: "enabled",
   defaultValue: true,
+  valueConverter: booleanConverter,
 });
 
 /**
@@ -132,6 +153,7 @@ const enabledProperty = new Property<ListItem, boolean>({
 const selectedProperty = new Property<ListItem, boolean>({
   name: "selected",
   defaultValue: false,
+  valueConverter: booleanConverter,
 });
 
 /**
@@ -141,12 +163,15 @@ const selectedProperty = new Property<ListItem, boolean>({
 const showDividerProperty = new Property<ListItem, boolean>({
   name: "showDivider",
   defaultValue: false,
+  valueConverter: booleanConverter,
 });
 
 export class ListItem extends ContentView {
   // Static properties
   /** Expose the tap event for use in XML or code */
   public static tapEvent = "tap";
+  /** Event fired when the trailing switch state changes */
+  public static switchChangeEvent = "switchChange";
 
   // Private instance properties - Native views
   /** The native Android LinearLayout container */
@@ -167,6 +192,8 @@ export class ListItem extends ContentView {
   private trailingTextView: android.widget.TextView;
   /** The trailing icon ImageView */
   private trailingIconView: android.widget.ImageView;
+  /** The trailing switch */
+  private trailingSwitchView: com.google.android.material.materialswitch.MaterialSwitch;
   /** The divider view */
   private dividerView: android.view.View;
   /** The ripple drawable for Material Design 3 */
@@ -179,12 +206,18 @@ export class ListItem extends ContentView {
   private _leadingImage: string;
   private _trailingText: string;
   private _trailingIcon: string;
+  private _showTrailingSwitch: boolean =
+    showTrailingSwitchProperty.defaultValue;
+  private _trailingSwitchChecked: boolean =
+    trailingSwitchCheckedProperty.defaultValue;
   private _containerColor: string = containerColorProperty.defaultValue;
   private _headlineColor: string = headlineColorProperty.defaultValue;
   private _supportingColor: string = supportingColorProperty.defaultValue;
   private _enabled: boolean = enabledProperty.defaultValue;
   private _selected: boolean = selectedProperty.defaultValue;
   private _showDivider: boolean = showDividerProperty.defaultValue;
+  /** Flag to prevent event loops when setting switch state programmatically */
+  private _isUpdatingSwitch: boolean = false;
 
   // Constructor
   constructor() {
@@ -221,6 +254,16 @@ export class ListItem extends ContentView {
   [trailingIconProperty.setNative](value: string): void {
     this._trailingIcon = value;
     this.applyTrailingIcon();
+  }
+
+  [showTrailingSwitchProperty.setNative](value: boolean): void {
+    this._showTrailingSwitch = value;
+    this.applyTrailingSwitch();
+  }
+
+  [trailingSwitchCheckedProperty.setNative](value: boolean): void {
+    this._trailingSwitchChecked = value;
+    this.applyTrailingSwitchChecked();
   }
 
   [containerColorProperty.setNative](value: string): void {
@@ -313,6 +356,24 @@ export class ListItem extends ContentView {
   set trailingIcon(value: string) {
     this._trailingIcon = value;
     this.applyTrailingIcon();
+  }
+
+  get showTrailingSwitch(): boolean {
+    return this._showTrailingSwitch;
+  }
+
+  set showTrailingSwitch(value: boolean) {
+    this._showTrailingSwitch = value;
+    this.applyTrailingSwitch();
+  }
+
+  get trailingSwitchChecked(): boolean {
+    return this._trailingSwitchChecked;
+  }
+
+  set trailingSwitchChecked(value: boolean) {
+    this._trailingSwitchChecked = value;
+    this.applyTrailingSwitchChecked();
   }
 
   get containerColor(): string {
@@ -507,6 +568,37 @@ export class ListItem extends ContentView {
       android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
     );
 
+    // Create trailing switch (MaterialSwitch for MD3)
+    this.trailingSwitchView =
+      new com.google.android.material.materialswitch.MaterialSwitch(
+        this.context
+      );
+    const trailingSwitchParams = new android.widget.LinearLayout.LayoutParams(
+      android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
+      android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
+    );
+    trailingSwitchParams.setMarginStart(this.dpToPx(16)); // 16dp margin from text
+    this.trailingSwitchView.setLayoutParams(trailingSwitchParams);
+    this.trailingSwitchView.setVisibility(android.view.View.GONE);
+    // Set up checked change listener
+    this.trailingSwitchView.setOnCheckedChangeListener(
+      new android.widget.CompoundButton.OnCheckedChangeListener({
+        onCheckedChanged: (
+          _buttonView: android.widget.CompoundButton,
+          isChecked: boolean
+        ): void => {
+          if (!this._isUpdatingSwitch) {
+            this._trailingSwitchChecked = isChecked;
+            this.notify({
+              eventName: ListItem.switchChangeEvent,
+              object: this,
+              value: isChecked,
+            });
+          }
+        },
+      })
+    );
+
     // Create divider
     this.dividerView = new android.view.View(this.context);
     const dividerParams = new android.widget.LinearLayout.LayoutParams(
@@ -527,6 +619,7 @@ export class ListItem extends ContentView {
     this.contentLayout.addView(this.textLayout);
     this.contentLayout.addView(this.trailingTextView);
     this.contentLayout.addView(this.trailingIconView);
+    this.contentLayout.addView(this.trailingSwitchView);
 
     this.container.addView(this.contentLayout);
     this.container.addView(this.dividerView);
@@ -539,6 +632,8 @@ export class ListItem extends ContentView {
     this.applyLeadingImage();
     this.applyTrailingText();
     this.applyTrailingIcon();
+    this.applyTrailingSwitch();
+    this.applyTrailingSwitchChecked();
     this.applyEnabled();
     this.applyDivider();
     this.applyAccessibility();
@@ -568,6 +663,9 @@ export class ListItem extends ContentView {
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
+    if (this.trailingSwitchView) {
+      this.trailingSwitchView.setOnCheckedChangeListener(null);
+    }
     this.container = null;
     this.contentLayout = null;
     this.textLayout = null;
@@ -577,6 +675,7 @@ export class ListItem extends ContentView {
     this.leadingImageView = null;
     this.trailingTextView = null;
     this.trailingIconView = null;
+    this.trailingSwitchView = null;
     this.dividerView = null;
     this.rippleDrawable = null;
     super.disposeNativeView();
@@ -695,6 +794,11 @@ export class ListItem extends ContentView {
 
       // Update ripple color if needed
       this.updateRippleColor();
+
+      // Update trailing switch theme if visible
+      if (this._showTrailingSwitch) {
+        this.applyTrailingSwitchTheme();
+      }
     } catch (error) {
       // Silently ignore errors during initialization when views might not be ready
     }
@@ -825,12 +929,96 @@ export class ListItem extends ContentView {
       if (resId) {
         this.trailingIconView.setImageResource(resId);
         this.trailingIconView.setVisibility(android.view.View.VISIBLE);
+        // Hide switch when icon is shown
+        if (this.trailingSwitchView) {
+          this.trailingSwitchView.setVisibility(android.view.View.GONE);
+        }
       } else {
         console.error(`ListItem: Icon resource not found: ${iconName}`);
         this.trailingIconView.setVisibility(android.view.View.GONE);
       }
     } else {
       this.trailingIconView.setVisibility(android.view.View.GONE);
+    }
+  }
+
+  /**
+   * Applies the trailing switch visibility
+   */
+  private applyTrailingSwitch(): void {
+    if (!this.trailingSwitchView) return;
+
+    if (this._showTrailingSwitch) {
+      this.trailingSwitchView.setVisibility(android.view.View.VISIBLE);
+      // Hide icon and text when switch is shown (switch takes precedence)
+      if (this.trailingIconView) {
+        this.trailingIconView.setVisibility(android.view.View.GONE);
+      }
+      if (this.trailingTextView) {
+        this.trailingTextView.setVisibility(android.view.View.GONE);
+      }
+      // Apply switch theme colors
+      this.applyTrailingSwitchTheme();
+    } else {
+      this.trailingSwitchView.setVisibility(android.view.View.GONE);
+    }
+  }
+
+  /**
+   * Applies the trailing switch checked state
+   */
+  private applyTrailingSwitchChecked(): void {
+    if (!this.trailingSwitchView) return;
+
+    try {
+      this._isUpdatingSwitch = true;
+      // Ensure we pass a proper boolean (not string "true"/"false")
+      const isChecked = this._trailingSwitchChecked === true;
+      this.trailingSwitchView.setChecked(isChecked);
+    } catch (error) {
+      console.error("ListItem: Failed to apply switch checked state", error);
+    } finally {
+      this._isUpdatingSwitch = false;
+    }
+  }
+
+  /**
+   * Applies Material Design 3 theme colors to the trailing switch
+   */
+  private applyTrailingSwitchTheme(): void {
+    if (!this.trailingSwitchView) return;
+
+    try {
+      // Get MD3 colors
+      const checkedTrackColor = getMaterialColor("primary", this.context);
+      const uncheckedTrackColor = getMaterialColor(
+        "surfaceContainerHighest",
+        this.context
+      );
+      const checkedThumbColor = getMaterialColor("onPrimary", this.context);
+      const uncheckedThumbColor = getMaterialColor("outline", this.context);
+      const uncheckedBorderColor = getMaterialColor("outline", this.context);
+
+      // Create color state lists
+      const trackColorStateList = createColorStateList(
+        checkedTrackColor,
+        uncheckedTrackColor
+      );
+      const thumbColorStateList = createColorStateList(
+        checkedThumbColor,
+        uncheckedThumbColor
+      );
+      const borderColorStateList = createColorStateList(
+        checkedTrackColor,
+        uncheckedBorderColor
+      );
+
+      // Apply colors
+      this.trailingSwitchView.setTrackTintList(trackColorStateList);
+      this.trailingSwitchView.setThumbTintList(thumbColorStateList);
+      this.trailingSwitchView.setTrackDecorationTintList(borderColorStateList);
+    } catch (error) {
+      console.error("ListItem: Failed to apply switch theme", error);
     }
   }
 
@@ -850,6 +1038,9 @@ export class ListItem extends ContentView {
       }
       if (this.supportingView) {
         this.supportingView.setAlpha(this._enabled ? 1.0 : 0.38);
+      }
+      if (this.trailingSwitchView) {
+        this.trailingSwitchView.setEnabled(this._enabled);
       }
 
       this.applyAccessibility();
@@ -889,6 +1080,10 @@ export class ListItem extends ContentView {
 
       if (this._trailingText) {
         contentDescription += `, ${this._trailingText}`;
+      }
+
+      if (this._showTrailingSwitch) {
+        contentDescription += `, switch ${this._trailingSwitchChecked ? "on" : "off"}`;
       }
 
       if (this._selected) {
@@ -935,6 +1130,8 @@ leadingIconProperty.register(ListItem);
 leadingImageProperty.register(ListItem);
 trailingTextProperty.register(ListItem);
 trailingIconProperty.register(ListItem);
+showTrailingSwitchProperty.register(ListItem);
+trailingSwitchCheckedProperty.register(ListItem);
 containerColorProperty.register(ListItem);
 headlineColorProperty.register(ListItem);
 supportingColorProperty.register(ListItem);

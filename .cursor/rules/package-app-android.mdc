@@ -16,4 +16,10 @@ Android app with deep platform integration.
 
 **Reference Projects** (git submodules in `references/nativescript/`): `alpimaps`, `conty`, `oss-weather`, `ui-material-components` — use for NativeScript patterns, component architecture, and platform integration best practices.
 
+**Missing Android/Material Types:** When `@nativescript/types-android` lacks types (especially MD3 components like `MaterialSwitch`, `MaterialTimePicker`, etc.):
+
+1. Search `references/nativescript/ui-material-components/src/typings/mdc.android.d.ts` (~22k lines)
+2. Extract only needed class declarations → `app/typings/material.android.d.ts`
+3. Ensure `references.d.ts` includes `/// <reference path="app/typings/material.android.d.ts" />`
+
 **Docs:** @NativeScript @Android API Reference

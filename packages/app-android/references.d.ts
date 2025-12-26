@@ -5,6 +5,9 @@
 // Android types
 /// <reference path="../../node_modules/@nativescript/types-android/lib/android-35.d.ts" />
 
+// Material Design 3 types (not included in @nativescript/types-android)
+/// <reference path="app/typings/material.android.d.ts" />
+
 // Theme switcher types
 /// <reference path="../../node_modules/@nativescript/theme-switcher/shims.d.ts" />
 
