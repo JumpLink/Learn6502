@@ -1,6 +1,5 @@
 import { ContrastChangeEvent } from "./contrast-change-event";
 import { SystemAppearanceChangeEvent } from "./system-appearance-change-event";
-import { WindowInsetsChangeEvent } from "./window-insets-change-event";
 import { ApplicationEventData, LaunchEventData } from "@nativescript/core";
 
 /**
@@ -13,7 +12,6 @@ export interface SystemEventsMap {
    */
   "systemAppearance:changed": SystemAppearanceChangeEvent;
   "contrast:changed": ContrastChangeEvent;
-  "windowInsets:changed": WindowInsetsChangeEvent;
 
   /**
    * NativeScript Application events

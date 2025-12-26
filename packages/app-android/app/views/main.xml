@@ -19,7 +19,7 @@
 
     <!-- Use GridLayout to position content and bottom navigation -->
     <GridLayout rows="*, auto" columns="*">
-        <ScrollView id="mainScrollView">
+        <ScrollView id="mainScrollView" row="0">
             <!-- Frame for content switching -->
             <Frame id="mainFrame" defaultPage="views/main/editor" />
         </ScrollView>
@@ -46,6 +46,7 @@
         <w:BottomNavigation
             id="bottomNavigation"
             row="1"
+            height="80"
             class="bg-surface-container"
             activeTextColor="onSurface"
             inactiveTextColor="onSurfaceVariant"

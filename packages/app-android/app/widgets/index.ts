@@ -7,4 +7,5 @@ export * from "./list";
 export * from "./list-item";
 export * from "./main-button";
 export * from "./source-view";
+export * from "./switch";
 export * from "./debugger";

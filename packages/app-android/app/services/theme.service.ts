@@ -2,20 +2,27 @@ import { ThemeService as BaseThemeService } from "@learn6502/common-ui";
 import type { ThemeMode } from "@learn6502/common-ui";
 import { Application, ApplicationSettings } from "@nativescript/core";
 import { systemStates, SystemStates } from "../states";
-import { getRootViewWhenReady, restartApp } from "../utils/index";
-import { ContrastMode } from "../constants";
+import { getRootViewWhenReady, restartApp, logger } from "../utils/index";
+import { ContrastMode, SETTINGS_THEME, DEFAULT_THEME } from "../constants";
 import type { ContrastChangeEvent } from "~/types";
+
+const log = logger.scoped("ThemeService");
 
 /**
  * Android-specific implementation of the ThemeManager
  * Uses Android's AppCompatDelegate for theming
+ *
+ * Pattern from reference projects:
+ * - Centralized logger for conditional logging
+ * - Centralized settings keys from constants.ts
+ * - Singleton pattern with lazy initialization
  */
 export class ThemeService extends BaseThemeService {
-  private static readonly THEME_SETTING_KEY = "eu.jumplink.Learn6502.theme";
-  private restartRequiredOnResume = false;
-
   // Singleton instance
   private static instance: ThemeService | null = null;
+
+  // Instance state
+  private restartRequiredOnResume = false;
 
   /**
    * Get the singleton instance of ThemeService
@@ -32,7 +39,7 @@ export class ThemeService extends BaseThemeService {
    */
   public static initialize(): ThemeService {
     if (!ThemeService.instance) {
-      console.log("Initializing ThemeService...");
+      log.info("Initializing...");
       ThemeService.instance = new ThemeService();
 
       // Now that the instance is created, perform initialization
@@ -47,7 +54,7 @@ export class ThemeService extends BaseThemeService {
    */
   private constructor() {
     super();
-    console.log("AndroidThemeManager constructor called");
+    log.debug("Constructor called");
     // NO initialization here to prevent startup deadlocks
   }
 
@@ -56,7 +63,7 @@ export class ThemeService extends BaseThemeService {
    * This keeps the constructor minimal and avoids potential deadlocks
    */
   private initializeManager(): void {
-    console.log("AndroidThemeManager: initializeManager called");
+    log.debug("initializeManager called");
 
     try {
       // Load theme from settings
@@ -68,11 +75,14 @@ export class ThemeService extends BaseThemeService {
       // Monitor contrast changes
       this.monitorContrastChanges();
 
+      // Setup Android activity lifecycle handlers (like reference projects)
+      this.setupActivityLifecycleHandlers();
+
       // Add listener for the resume event to handle deferred restart
       systemStates.events.on(SystemStates.resumeEvent, () => {
-        console.log("Application resumed.");
+        log.debug("Application resumed");
         if (this.restartRequiredOnResume) {
-          console.log("Restart required flag is set, restarting app now.");
+          log.debug("Restart required flag is set, restarting app now");
           // Reset the flag before triggering the restart,
           // to avoid infinite loops if the restart fails.
           this.restartRequiredOnResume = false;
@@ -80,10 +90,35 @@ export class ThemeService extends BaseThemeService {
         }
       });
 
-      console.log("AndroidThemeManager initialization completed successfully");
+      log.info("Initialization completed");
     } catch (error) {
-      console.error("Error during AndroidThemeManager initialization:", error);
+      console.error("Error during ThemeService initialization:", error);
     }
+  }
+
+  /**
+   * Setup Android activity lifecycle event handlers
+   * Pattern from reference projects (conty, oss-weather, alpimaps)
+   * Based on StackOverflow solution: https://stackoverflow.com/questions/79319740
+   */
+  private setupActivityLifecycleHandlers(): void {
+    // Handle activity start - update theme colors (like reference projects)
+    // This ensures dynamic colors are applied on every activity start
+    Application.android?.on(
+      Application.android.activityStartedEvent,
+      (event: any) => {
+        // Only handle NativeScript activities
+        if (event?.activity?.["isNativeScriptActivity"] === true) {
+          log.debug("Activity started, updating theme colors");
+          const activity =
+            event.activity as androidx.appcompat.app.AppCompatActivity;
+          if (activity) {
+            // Ensure theme is applied
+            activity.getDelegate().applyDayNight();
+          }
+        }
+      }
+    );
   }
 
   /**
@@ -96,12 +131,14 @@ export class ThemeService extends BaseThemeService {
 
   /**
    * Apply the selected theme to the Android application
+   * Like reference projects: use startActivity and call applyDayNight after setting mode
    */
   protected applyTheme(mode: ThemeMode): void {
     try {
-      const activity = Application.android.foregroundActivity;
+      const activity = Application.android
+        .startActivity as androidx.appcompat.app.AppCompatActivity;
       if (!activity) {
-        console.error("Could not apply theme, no foreground activity");
+        console.error("Could not apply theme, no start activity");
         return;
       }
 
@@ -122,6 +159,9 @@ export class ThemeService extends BaseThemeService {
           break;
       }
 
+      // Apply day/night mode like reference projects do
+      activity.getDelegate().applyDayNight();
+
       // Save theme to settings
       this.saveThemeToSettings(mode);
     } catch (error) {
@@ -134,13 +174,13 @@ export class ThemeService extends BaseThemeService {
    */
   private loadThemeFromSettings(): void {
     try {
-      console.log("Loading theme from settings...");
+      log.debug("Loading theme from settings...");
       const savedTheme = ApplicationSettings.getString(
-        ThemeService.THEME_SETTING_KEY,
-        "system"
+        SETTINGS_THEME,
+        DEFAULT_THEME
       );
 
-      console.log("Saved theme:", savedTheme);
+      log.debug("Saved theme:", savedTheme);
       if (
         savedTheme &&
         (savedTheme === "light" ||
@@ -164,8 +204,8 @@ export class ThemeService extends BaseThemeService {
    */
   private saveThemeToSettings(mode: ThemeMode): void {
     try {
-      console.log("Saving theme to settings:", mode);
-      ApplicationSettings.setString(ThemeService.THEME_SETTING_KEY, mode);
+      log.debug("Saving theme to settings:", mode);
+      ApplicationSettings.setString(SETTINGS_THEME, mode);
     } catch (error) {
       console.error("Error saving theme to settings:", error);
     }
@@ -179,7 +219,7 @@ export class ThemeService extends BaseThemeService {
     systemStates.events.on(
       SystemStates.systemAppearanceChangedEvent,
       (event) => {
-        console.log("System appearance changed:", event);
+        log.debug("System appearance changed:", event);
         // Only update isDarkTheme if we're in system mode
         if (this._currentTheme === "system") {
           this._isDarkTheme = systemStates.systemAppearance === "dark";
@@ -187,9 +227,10 @@ export class ThemeService extends BaseThemeService {
         }
 
         // Apply day/night mode to the activity
+        // Like reference projects: use startActivity and call applyDayNight
         try {
           const activity = Application.android
-            .foregroundActivity as androidx.appcompat.app.AppCompatActivity;
+            .startActivity as androidx.appcompat.app.AppCompatActivity;
           if (activity) {
             activity.getDelegate().applyDayNight();
           }
@@ -208,12 +249,12 @@ export class ThemeService extends BaseThemeService {
     systemStates.events.on(
       SystemStates.contrastChangedEvent,
       async (event: ContrastChangeEvent) => {
-        console.log("contrastChangedEvent", event);
+        log.debug("contrastChangedEvent", event);
 
         // WORKAROUND: Flag the app for restart when the contrast mode changes
         // (instead of restarting immediately)
         if (!event.initial) {
-          console.log("Contrast changed, flagging for restart on resume.");
+          log.debug("Contrast changed, flagging for restart on resume");
           this.restartRequiredOnResume = true;
         }
 
@@ -259,7 +300,7 @@ export class ThemeService extends BaseThemeService {
         view?._onCssStateChange();
       });
 
-      console.log(
+      log.debug(
         "rootView cssClasses",
         Array.from(rootView.cssClasses.values())
       );

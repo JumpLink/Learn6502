@@ -1,17 +1,22 @@
-import { ContentView, Property, Frame, Utils } from "@nativescript/core";
+import {
+  ContentView,
+  Property,
+  Frame,
+  Utils,
+  Application,
+} from "@nativescript/core";
 import { BottomTab } from "./bottom-tab";
 import {
   createColorStateList,
   getMaterialColor,
   isDarkMode,
-  setNavigationBarAppearance,
+  logger,
 } from "../utils/index";
 import { getResource } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
+import { SystemAppearanceChangeEvent } from "~/types";
 
-// Import necessary AndroidX classes
-import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
-import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
+const log = logger.scoped("BottomNavigation");
 
 /**
  * Material Design 3 Bottom Navigation component for Android
@@ -210,7 +215,6 @@ export class BottomNavigation extends ContentView {
   constructor() {
     super();
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
-    this.onWindowInsetsChanged = this.onWindowInsetsChanged.bind(this);
   }
 
   /**
@@ -233,6 +237,33 @@ export class BottomNavigation extends ContentView {
         null,
         defStyleAttr
       );
+
+    this.bottomNav.setClipToPadding(false);
+
+    if (android.os.Build.VERSION.SDK_INT >= 21) {
+      this.bottomNav.setElevation(0);
+    }
+
+    // CRITICAL: Set initial background color immediately after creation
+    // This prevents any black background from showing during initialization
+    try {
+      const surfaceContainerColor = getMaterialColor(
+        "surfaceContainer",
+        this.context
+      );
+      if (
+        surfaceContainerColor !== undefined &&
+        surfaceContainerColor !== null
+      ) {
+        this.bottomNav.setBackgroundColor(surfaceContainerColor);
+      }
+    } catch (error) {
+      log.error("Error setting initial background color:", error);
+    }
+
+    // Ensure minimum height for visibility
+    // Material BottomNavigationView has a default minimum height, but we ensure it's set
+    this.bottomNav.setMinimumHeight(this.bottomNav.getMinimumHeight());
 
     // Set label visibility mode
     this.bottomNav.setLabelVisibilityMode(
@@ -292,13 +323,70 @@ export class BottomNavigation extends ContentView {
   public initNativeView(): void {
     super.initNativeView();
 
-    // Subscribe to the global window insets event
-    systemStates.events.on(
-      SystemStates.windowInsetsChangedEvent,
-      this.onWindowInsetsChanged
-    );
+    // Set background color on the ContentView wrapper itself
+    try {
+      const surfaceContainerColor = getMaterialColor(
+        "surfaceContainer",
+        this.context
+      );
+      if (
+        surfaceContainerColor !== undefined &&
+        surfaceContainerColor !== null
+      ) {
+        this.nativeViewProtected?.setBackgroundColor(surfaceContainerColor);
+      }
+    } catch (error) {
+      log.error("Error setting ContentView background color:", error);
+    }
 
-    // Additional initialization if needed
+    // Log dimensions for debugging
+    try {
+      if (this.bottomNav) {
+        const height = this.bottomNav.getHeight();
+        const minHeight = this.bottomNav.getMinimumHeight();
+        log.debug(
+          `BottomNavigation initialized - height: ${height}, minHeight: ${minHeight}`
+        );
+      }
+    } catch (error) {
+      log.error("Error logging BottomNavigation dimensions:", error);
+    }
+  }
+
+  /**
+   * Called after the view is laid out
+   * Ensures the BottomNavigation has a proper height
+   */
+  public onLayout(
+    left: number,
+    top: number,
+    right: number,
+    bottom: number
+  ): void {
+    super.onLayout(left, top, right, bottom);
+
+    // CRITICAL: Force the native view to have a height if it's still 0
+    // This can happen if the GridLayout doesn't measure it properly
+    try {
+      if (this.bottomNav) {
+        const currentHeight = this.bottomNav.getHeight();
+        const minHeight = this.bottomNav.getMinimumHeight();
+
+        if (currentHeight === 0 && minHeight > 0) {
+          // Convert pixels to DIPs and set explicit height
+          const heightInDips =
+            Utils.layout.toDeviceIndependentPixels(minHeight);
+          this.height = heightInDips;
+          log.debug(
+            `BottomNavigation onLayout: Set explicit height to ${heightInDips} DIPs (${minHeight}px)`
+          );
+          // Request a new layout pass
+          this.requestLayout();
+        }
+      }
+    } catch (error) {
+      log.error("Error setting BottomNavigation height in onLayout:", error);
+    }
   }
 
   /**
@@ -314,11 +402,11 @@ export class BottomNavigation extends ContentView {
    * Called when colors change or system theme changes
    */
   private applyTheme(
-    isDarkMode = systemStates.systemAppearance === "dark"
+    _isDarkMode = systemStates.systemAppearance === "dark"
   ): void {
     if (!this.bottomNav) return;
 
-    console.log("applyTheme");
+    log.debug("applyTheme");
 
     // Get colors using the new properties
     const activeTextColor = getMaterialColor(
@@ -354,8 +442,6 @@ export class BottomNavigation extends ContentView {
     this.bottomNav.setItemTextColor(textStateList);
     this.bottomNav.setItemIconTintList(iconStateList);
     this.bottomNav.setItemActiveIndicatorColor(indicatorStateList);
-
-    this.updateInsets(systemStates.windowInsets);
   }
 
   /**
@@ -367,10 +453,6 @@ export class BottomNavigation extends ContentView {
     systemStates.events.off(
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
-    );
-    systemStates.events.off(
-      SystemStates.windowInsetsChangedEvent,
-      this.onWindowInsetsChanged
     );
 
     this.bottomNav = null;
@@ -442,74 +524,13 @@ export class BottomNavigation extends ContentView {
   }
 
   /**
-   * Handler for the global windowInsetsChanged event.
-   * Calculates and applies padding based on navigation bar insets.
-   * @param insets - The WindowInsetsCompat object received from the event.
-   */
-  private onWindowInsetsChanged(event: WindowInsetsChangeEvent): void {
-    this.updateInsets(event.newValue);
-  }
-
-  private updateInsets(insets: androidx_core_view_WindowInsetsCompat): void {
-    if (!this.bottomNav || !insets) {
-      // Check bottomNav and insets
-      console.log(
-        "BottomNavigation: onWindowInsetsChanged called but bottomNav or insets are null"
-      );
-      return;
-    }
-    try {
-      // Get navigation bar insets directly from WindowInsetsCompat
-      const bottomInsetPixels = insets.getInsets(
-        androidx_core_view_WindowInsetsCompat.Type.navigationBars()
-      ).bottom;
-      // Use getMeasuredHeight which reflects the actual measured size, might be more reliable than getMinimumHeight
-      const bottomNavHeightPixels = this.bottomNav.getMinimumHeight(); // measured height not works here so we use getMinimumHeight
-      this.bottomNav.setPadding(0, 0, 0, bottomInsetPixels);
-
-      if (bottomNavHeightPixels <= 0) {
-        // If measured height is 0, it might mean the view hasn't been laid out yet.
-        // We might need to request layout or wait.
-        console.log(
-          "BottomNavigation: onWindowInsetsChanged - Measured height is 0. Requesting layout."
-        );
-        // Request layout to potentially trigger a remeasure
-        return this.requestLayout();
-      }
-
-      const totalHeightPixels = bottomNavHeightPixels + bottomInsetPixels;
-      // Convert total pixels to DIPs for setting NativeScript height property
-      this.height = Utils.layout.toDeviceIndependentPixels(totalHeightPixels);
-
-      // Uniform the navigation bar appearance to match the bottom navigation background color
-      setNavigationBarAppearance(undefined, isDarkMode());
-
-      console.log(
-        "BottomNavigation: onWindowInsetsChanged - Native Measured Height (Pixels):",
-        bottomNavHeightPixels,
-        "| Padding Bottom (Pixels):",
-        bottomInsetPixels,
-        "| Total Calculated Height (DIPs):",
-        this.height
-      );
-    } catch (error) {
-      console.error(
-        "BottomNavigation: Error during onWindowInsetsChanged height calculation:",
-        error
-      );
-    }
-  }
-
-  /**
    * Programmatically selects a tab by ID without triggering navigation
    * @param tabId The ID of the tab to select
    * @returns True if the tab was found and selected, false otherwise
    */
   public selectTab(tabId: string): boolean {
     if (!this.bottomNav || !this.idToMenuId.has(tabId)) {
-      console.log(
-        `BottomNavigation: selectTab - Tab with ID ${tabId} not found`
-      );
+      log.debug(`selectTab - Tab with ID ${tabId} not found`);
       return false;
     }
 

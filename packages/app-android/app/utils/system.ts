@@ -1,50 +1,48 @@
-import { Application, Utils, View, CoreTypes } from "@nativescript/core";
-import { getMaterialColor } from "./color";
+/**
+ * System utilities for Android
+ *
+ * Provides helper functions for:
+ * - Status bar and navigation bar customization
+ * - Edge-to-edge display mode
+ * - App restart functionality
+ * - Font scale detection
+ */
+
+import { Application, Utils } from "@nativescript/core";
+import { logger } from "./logger";
 import { waitForFunctionResult } from "@learn6502/common-ui";
 import { systemStates } from "../states/system.states";
+
+// Import necessary AndroidX classes for Edge-to-Edge
 import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
 
+const log = logger.scoped("System");
+
+/**
+ * Check if the system is currently in dark mode
+ */
 export function isDarkMode(): boolean {
   return systemStates.systemAppearance === "dark";
 }
 
 /**
- * Sets the status bar background color and icon color
- * @param backgroundColor Color to set as status bar background
+ * Sets the status bar icon color (light/dark icons)
+ *
  * @param useLightIcons Whether to use light colored icons (true for dark backgrounds)
  */
 export function setStatusBarAppearance(
-  backgroundColor?: number | string,
-  useLightIcons: boolean = isDarkMode(),
-  context: android.content.Context = Utils.android.getApplicationContext()
+  useLightIcons: boolean = isDarkMode()
 ): void {
   try {
-    // Convert color name to color value if provided
-    backgroundColor =
-      typeof backgroundColor === "string"
-        ? getMaterialColor(backgroundColor, context)
-        : backgroundColor;
-    const window = Application.android.startActivity.getWindow();
+    const window = Application.android.startActivity?.getWindow();
     if (!window) return;
-
-    // Set background color if provided, otherwise use default surface color
-    if (backgroundColor !== undefined) {
-      window.setStatusBarColor(backgroundColor);
-    } else {
-      const colorSurface = getMaterialColor("surface", context);
-      window.setStatusBarColor(colorSurface);
-    }
-
-    // Use parameter if provided, otherwise infer from system appearance
-    const shouldUseLightIcons =
-      useLightIcons !== undefined ? useLightIcons : isDarkMode();
 
     // Using WindowInsetsController for Android 11+ (API 30+)
     if (android.os.Build.VERSION.SDK_INT >= 30) {
       const controller = window.getDecorView().getWindowInsetsController();
       if (!controller) return;
 
-      const statusBarAppearance = shouldUseLightIcons
+      const statusBarAppearance = useLightIcons
         ? 0
         : android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
 
@@ -57,7 +55,7 @@ export function setStatusBarAppearance(
       const decorView = window.getDecorView();
       let flags = decorView.getSystemUiVisibility();
 
-      if (!shouldUseLightIcons) {
+      if (!useLightIcons) {
         // Dark icons on light background
         flags |= android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
       } else {
@@ -68,44 +66,28 @@ export function setStatusBarAppearance(
       decorView.setSystemUiVisibility(flags);
     }
   } catch (error) {
-    console.error("Error setting status bar appearance:", error);
+    log.error("Error setting status bar appearance:", error);
   }
 }
 
 /**
- * Sets the navigation bar background color and icon color
- * @param backgroundColor Color to set as navigation bar background
+ * Sets the navigation bar icon color (light/dark icons)
+ *
  * @param useLightIcons Whether to use light colored icons (true for dark backgrounds)
  */
 export function setNavigationBarAppearance(
-  backgroundColor?: number | string,
-  useLightIcons: boolean = isDarkMode(),
-  context: android.content.Context = Utils.android.getApplicationContext()
+  useLightIcons: boolean = isDarkMode()
 ): void {
   try {
-    // Convert color name to color value if provided
-    backgroundColor =
-      typeof backgroundColor === "string"
-        ? getMaterialColor(backgroundColor, context)
-        : backgroundColor;
-    const window = Application.android.startActivity.getWindow();
+    const window = Application.android.startActivity?.getWindow();
     if (!window) return;
-
-    // Set background color if provided, otherwise use default surface container color
-    if (backgroundColor !== undefined) {
-      window.setNavigationBarColor(backgroundColor);
-    }
-
-    // Use parameter if provided, otherwise infer from system appearance
-    const shouldUseLightIcons =
-      useLightIcons !== undefined ? useLightIcons : isDarkMode();
 
     // Using WindowInsetsController for Android 11+ (API 30+)
     if (android.os.Build.VERSION.SDK_INT >= 30) {
       const controller = window.getDecorView().getWindowInsetsController();
       if (!controller) return;
 
-      const navigationBarAppearance = shouldUseLightIcons
+      const navigationBarAppearance = useLightIcons
         ? 0
         : android.view.WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
 
@@ -118,7 +100,7 @@ export function setNavigationBarAppearance(
       const decorView = window.getDecorView();
       let flags = decorView.getSystemUiVisibility();
 
-      if (!shouldUseLightIcons) {
+      if (!useLightIcons) {
         // Dark icons on light background
         flags |= android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
       } else {
@@ -130,61 +112,7 @@ export function setNavigationBarAppearance(
     }
     // For Android < 8.1, navigation bar appearance customization is not supported
   } catch (error) {
-    console.error("Error setting navigation bar appearance:", error);
-  }
-}
-
-/**
- * Gets the current font scale factor from the device configuration.
- * Values > 1.0 indicate larger text for accessibility.
- * @returns {number} The font scale factor (1.0 is normal size)
- */
-export function getFontScale(): number {
-  try {
-    const context = Utils.android.getApplicationContext();
-    if (!context) return 1.0;
-
-    const configuration = context.getResources().getConfiguration();
-    return configuration.fontScale || 1.0;
-  } catch (error) {
-    console.error("Error getting font scale:", error);
-    return 1.0;
-  }
-}
-
-/**
- * Enables or disables Edge-to-Edge display mode for the application.
- * When enabled, the app draws behind the system status and navigation bars.
- * When disabled (default Android behavior), the system adds padding automatically.
- * @param enabled Set to true to enable Edge-to-Edge, false to disable it.
- */
-export function setEdgeToEdge(enabled: boolean): void {
-  try {
-    // Ensure we run on the UI thread if called early during startup
-    Utils.executeOnUIThread(() => {
-      const activity =
-        Application.android.startActivity ||
-        Application.android.foregroundActivity;
-      if (!activity) {
-        console.error("setEdgeToEdge: Could not get Activity object.");
-        return;
-      }
-      const window = activity.getWindow();
-      if (!window) {
-        console.error("setEdgeToEdge: Could not get Window object.");
-        return;
-      }
-      // Tell the system whether the app will handle drawing behind system bars
-      // setDecorFitsSystemWindows(window, false) -> enables edge-to-edge
-      // setDecorFitsSystemWindows(window, true)  -> disables edge-to-edge (system handles padding)
-      androidx_core_view_WindowCompat.setDecorFitsSystemWindows(
-        window,
-        !enabled
-      );
-      console.log(`Edge-to-Edge display ${enabled ? "enabled" : "disabled"}.`);
-    });
-  } catch (error) {
-    console.error(`Error setting Edge-to-Edge to ${enabled}:`, error);
+    log.error("Error setting navigation bar appearance:", error);
   }
 }
 
@@ -196,7 +124,7 @@ export function restartApp(): void {
   try {
     const context = Utils.android.getApplicationContext();
     if (!context) {
-      console.error("Restart failed: Could not get application context.");
+      console.error("Restart failed: Could not get application context");
       return;
     }
 
@@ -205,7 +133,7 @@ export function restartApp(): void {
     // Intent to launch the main activity
     const intent = packageManager.getLaunchIntentForPackage(packageName);
     if (!intent) {
-      console.error("Restart failed: Could not get launch intent.");
+      console.error("Restart failed: Could not get launch intent");
       return;
     }
 
@@ -218,7 +146,7 @@ export function restartApp(): void {
     // Start the main activity
     context.startActivity(intent);
 
-    console.log("Triggering app restart...");
+    log.info("Triggering app restart...");
 
     // Terminate the current application process
     // Use killProcess for a slightly more forceful exit than System.exit
@@ -228,12 +156,15 @@ export function restartApp(): void {
   }
 }
 
+/**
+ * Wait for the root view to be ready and return it
+ */
 export async function getRootViewWhenReady() {
   try {
     const rootView = await waitForFunctionResult(
       Application.getRootView.bind(Application)
     );
-    console.log("Root view is ready:", rootView);
+    log.debug("Root view is ready:", rootView);
     return rootView;
   } catch (error) {
     console.error("Failed to get root view:", error);

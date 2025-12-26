@@ -1,5 +1,5 @@
 import { EventData, Page } from "@nativescript/core";
-import { ListItem } from "../../widgets";
+import { ListItem, Switch } from "../../widgets";
 
 /**
  * Storybook view controller for demonstrating Material Design 3 components
@@ -50,6 +50,9 @@ class Storybook {
 
     // Set up handlers for selectable items (with toggle behavior)
     this.setupSelectableItemHandlers(selectableItemIds);
+
+    // Set up handlers for switches
+    this.setupSwitchHandlers();
   }
 
   /**
@@ -90,6 +93,83 @@ class Storybook {
       } else {
         console.warn(
           `Storybook: Selectable list item not found with id: ${id}`
+        );
+      }
+    });
+  }
+
+  /**
+   * Sets up event handlers for all switches in the storybook
+   */
+  private setupSwitchHandlers(): void {
+    if (!this.page) return;
+
+    // Define all standalone switch IDs
+    const switchIds = [
+      "switch1",
+      "switch2",
+      "switch3",
+      "switchTertiary",
+      "switchError",
+      "switchInteractive",
+    ];
+
+    // Set up handlers for all standalone switches
+    switchIds.forEach((id) => {
+      const switchView = this.page.getViewById<Switch>(id);
+      if (switchView) {
+        switchView.on(
+          Switch.checkedChangeEvent,
+          (args: EventData & { value: boolean }) => {
+            console.log(`Switch ${id} changed: ${args.value}`);
+          }
+        );
+      } else {
+        console.warn(`Storybook: Switch not found with id: ${id}`);
+      }
+    });
+
+    // Set up handlers for ListItems with trailing switches
+    this.setupListItemSwitchHandlers();
+  }
+
+  /**
+   * Sets up event handlers for ListItems with trailing switches
+   */
+  private setupListItemSwitchHandlers(): void {
+    if (!this.page) return;
+
+    // Define all list item IDs that have trailing switches
+    const listItemSwitchIds = [
+      "switchListItem",
+      "darkModeListItem",
+      "autoUpdateListItem",
+    ];
+
+    // Set up handlers for ListItems with trailing switches
+    listItemSwitchIds.forEach((id) => {
+      const listItem = this.page.getViewById<ListItem>(id);
+      if (listItem) {
+        // Handle tap on list item (toggles the switch)
+        listItem.on(ListItem.tapEvent, () => {
+          listItem.trailingSwitchChecked = !listItem.trailingSwitchChecked;
+          console.log(
+            `ListItem ${listItem.headline} tapped, switch: ${listItem.trailingSwitchChecked}`
+          );
+        });
+
+        // Handle switch change directly
+        listItem.on(
+          ListItem.switchChangeEvent,
+          (args: EventData & { value: boolean }) => {
+            console.log(
+              `ListItem ${listItem.headline} switch changed: ${args.value}`
+            );
+          }
+        );
+      } else {
+        console.warn(
+          `Storybook: ListItem with switch not found with id: ${id}`
         );
       }
     });

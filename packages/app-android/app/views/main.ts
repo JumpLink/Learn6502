@@ -3,14 +3,19 @@ import {
   ScrollView,
   ScrollEventData,
   Utils,
-  ActionBar,
   Frame,
   Application,
 } from "@nativescript/core";
 
 import { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
-import { setStatusBarAppearance } from "~/utils/system";
+import {
+  setStatusBarAppearance,
+  setNavigationBarAppearance,
+  logger,
+} from "~/utils";
+
+const log = logger.scoped("MainController");
 
 // Import common interfaces and types
 import {
@@ -27,10 +32,7 @@ import type { GamepadKey } from "@learn6502/common-ui";
 
 // Import services
 import { notificationService } from "~/services";
-
-// Import WindowInsetsCompat
-import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
-import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
+import { SystemAppearanceChangeEvent } from "~/types";
 import { MainButton } from "~/widgets";
 import { MainButtonState } from "@learn6502/common-ui";
 import { BottomNavigation } from "~/widgets/bottom-navigation";
@@ -50,7 +52,7 @@ import { gameConsoleView } from "./main/game-console";
  */
 export class MainController implements MainView {
   private page: Page | null = null;
-  private actionBar: ActionBar | null = null;
+  private actionBar: any | null = null;
   private mainButton: MainButton | null = null;
   private bottomNavigation: BottomNavigation | null = null;
   private mainFrame: Frame | null = null;
@@ -74,8 +76,7 @@ export class MainController implements MainView {
 
   constructor() {
     // Private constructor for singleton pattern
-    console.log("MainController: initialized");
-    this.handleWindowInsets = this.handleWindowInsets.bind(this);
+    log.info("Initialized");
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
     this.setupAndroidKeyHandling = this.setupAndroidKeyHandling.bind(this);
     this.setupLearnTutorialSignalListeners =
@@ -129,7 +130,7 @@ export class MainController implements MainView {
 
     // Set up game console service event listener
     gameConsoleController.on("keyPressed", (event) => {
-      console.log("Gamepad key pressed:", event.key, event.keyCode);
+      log.debug("Gamepad key pressed:", event.key, event.keyCode);
       // Add any additional UI feedback or logging here
     });
   }
@@ -138,11 +139,11 @@ export class MainController implements MainView {
    * Sets up game console signal listeners for debugger integration
    */
   private setupGameConsoleSignalListeners(): void {
-    console.log("Setting up game console signal listeners");
+    log.debug("Setting up game console signal listeners");
 
     // Listen for assemble success to update debugger
     gameConsoleController.on("assemble-success", (signal) => {
-      console.log("assemble-success event received:", signal);
+      log.debug("assemble-success event received:", signal);
       if (signal.message) {
         debuggerController.log(signal.message);
       }
@@ -163,7 +164,7 @@ export class MainController implements MainView {
     });
 
     gameConsoleController.on("assemble-failure", (signal) => {
-      console.log("assemble-failure event received:", signal);
+      log.debug("assemble-failure event received:", signal);
       if (signal.message) {
         debuggerController.log(signal.message);
       }
@@ -287,34 +288,11 @@ export class MainController implements MainView {
     });
   }
 
-  /**
-   * Handles window inset changes to apply top margin dynamically.
-   * @param insets The WindowInsetsCompat object containing inset data.
-   */
-  private handleWindowInsets(event: WindowInsetsChangeEvent): void {
-    if (!event.newValue || !this.actionBar) {
-      // Check if content exists and is a View
-      console.warn(
-        `main: handleWindowInsets - Could not apply padding. Insets: ${!!event.newValue}, ActionBar: ${this.actionBar}`
-      );
-      return;
-    }
-
-    const topInsetPixels = event.newValue.getInsets(
-      androidx_core_view_WindowInsetsCompat.Type.systemBars()
-    ).top;
-    const topPaddingDips =
-      Utils.layout.toDeviceIndependentPixels(topInsetPixels);
-    // Apply marginTop to the ActionBar
-    this.actionBar.style.marginTop = topPaddingDips;
-
-    console.log(
-      `main: handleWindowInsets - Applied marginTop: ${topPaddingDips} DIPs to ActionBar (from ${topInsetPixels}px)`
-    );
-  }
-
   private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
-    setStatusBarAppearance("surface", event.newValue === "dark");
+    const isDark = event.newValue === "dark";
+    setStatusBarAppearance(isDark);
+    // Set navigation bar icon appearance (light icons for dark mode, dark icons for light mode)
+    setNavigationBarAppearance(isDark);
   }
 
   /**
@@ -328,7 +306,7 @@ export class MainController implements MainView {
         title: "Code copied to editor",
         timeout: 2,
       });
-      console.log("Learn: Code copied to editor", code);
+      log.debug("Learn: Code copied to editor", code);
     });
   }
 
@@ -338,7 +316,7 @@ export class MainController implements MainView {
   private setupMainStateEventListeners(): void {
     // Listen for state changes
     mainStateController.events.on("state-changed", (state) => {
-      console.log("Main state changed:", state);
+      log.debug("Main state changed:", state);
       this.updateMainUiState();
     });
 
@@ -389,30 +367,44 @@ export class MainController implements MainView {
 
   /**
    * Event handler for the 'loaded' event of the root view.
-   * Applies system bar insets to ensure content is not drawn under system bars
-   * when Edge-to-Edge is enabled.
    * @param args Event arguments containing the view object.
    */
   public onLoaded(args: EventData): void {
     this.page = args.object as Page;
 
     // Find UI elements
-    this.actionBar = this.page.getViewById<ActionBar>("main-action-bar");
+    this.actionBar = this.page.getViewById("main-action-bar");
     this.mainButton = this.page.getViewById<MainButton>("mainButton");
     this.bottomNavigation =
       this.page.getViewById<BottomNavigation>("bottomNavigation");
     this.mainFrame = this.page.getViewById<Frame>("mainFrame");
 
+    // Debug: Check if bottomNavigation was found
+    if (this.bottomNavigation) {
+      log.debug("BottomNavigation found");
+      try {
+        const height = this.bottomNavigation.height;
+        const visibility = this.bottomNavigation.visibility;
+        log.debug(
+          `BottomNavigation - height: ${height}, visibility: ${visibility}`
+        );
+      } catch (error) {
+        log.error("Error checking BottomNavigation properties:", error);
+      }
+    } else {
+      log.error("BottomNavigation NOT FOUND!");
+    }
+
     // Set up system event listeners
-    systemStates.events.on(
-      SystemStates.windowInsetsChangedEvent,
-      this.handleWindowInsets
-    );
     systemStates.events.on(
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
-    setStatusBarAppearance("surface");
+    this.onSystemAppearanceChanged({
+      newValue: systemStates.systemAppearance,
+      oldValue: null,
+      initial: true,
+    });
 
     // Initialize services and controllers
     this.setupAndroidKeyHandling();
@@ -438,23 +430,7 @@ export class MainController implements MainView {
    */
   public onUnloaded(args: EventData): void {
     const view = args.object as Page;
-    console.log("main: unloaded:", view.id);
-
-    // Unsubscribe if handler exists
-    if (this.handleWindowInsets) {
-      systemStates.events.off(
-        SystemStates.windowInsetsChangedEvent,
-        this.handleWindowInsets
-      );
-    }
-
-    // Backward compatibility
-    if (view["insetsHandler"]) {
-      systemStates.events.off(
-        SystemStates.windowInsetsChangedEvent,
-        view["insetsHandler"]
-      );
-    }
+    log.debug("unloaded:", view.id);
 
     // Unsubscribe appearance change handler
     systemStates.events.off(
@@ -571,29 +547,29 @@ export class MainController implements MainView {
    * Assembles the code in the editor
    */
   public assembleGameConsole(): void {
-    console.log("assembleGameConsole");
+    log.debug("assembleGameConsole");
 
     // Navigate to the debugger tab
     this.navigateToView(ViewType.DEBUGGER);
 
     // Get code from editor controller and assemble it
     const code = editorController.code;
-    console.log("Code to assemble:", code);
+    log.debug("Code to assemble:", code);
 
     // Reset the code changed flag BEFORE assembling using mainStateController
     mainStateController.setCodeChanged(false);
 
     // Assemble the code
-    console.log("Calling gameConsoleController.assemble...");
+    log.debug("Calling gameConsoleController.assemble...");
     gameConsoleController.assemble(code);
-    console.log("gameConsoleController.assemble called");
+    log.debug("gameConsoleController.assemble called");
   }
 
   /**
    * Runs the assembled code
    */
   public runGameConsole(): void {
-    console.log("runGameConsole");
+    log.debug("runGameConsole");
 
     // Navigate to the game console tab
     this.navigateToView(ViewType.GAME_CONSOLE);
@@ -606,7 +582,7 @@ export class MainController implements MainView {
    * Pauses the running code
    */
   public pauseGameConsole(): void {
-    console.log("pauseGameConsole");
+    log.debug("pauseGameConsole");
 
     // Pause the simulator
     gameConsoleView.stop();
@@ -616,7 +592,7 @@ export class MainController implements MainView {
    * Resets the simulator
    */
   public reset(): void {
-    console.log("reset");
+    log.debug("reset");
 
     // Reset debugger
     debuggerView.reset();
@@ -629,7 +605,7 @@ export class MainController implements MainView {
    * Executes a single step of the program
    */
   public stepGameConsole(): void {
-    console.log("stepGameConsole");
+    log.debug("stepGameConsole");
 
     // Navigate to the debugger tab
     this.navigateToView(ViewType.DEBUGGER);
@@ -651,7 +627,7 @@ export class MainController implements MainView {
    * @param code The code to set
    */
   public setEditorCode(code: string): void {
-    console.log("setEditorCode", code);
+    log.debug("setEditorCode", code);
 
     // Navigate to the editor tab
     this.navigateToView(ViewType.EDITOR);
@@ -691,37 +667,37 @@ export class MainController implements MainView {
    * Button event handlers
    */
   public openMenu(): void {
-    console.log("openMenu");
+    log.debug("openMenu");
     // TODO: Implement menu functionality
   }
 
   public onAssembleTap(): void {
-    console.log("onAssembleTap");
+    log.debug("onAssembleTap");
     mainStateController.emitAssemble();
   }
 
   public onRunTap(): void {
-    console.log("onRunTap");
+    log.debug("onRunTap");
     mainStateController.emitRun();
   }
 
   public onPauseTap(): void {
-    console.log("onPauseTap");
+    log.debug("onPauseTap");
     mainStateController.emitPause();
   }
 
   public onResumeTap(): void {
-    console.log("onResumeTap");
+    log.debug("onResumeTap");
     mainStateController.emitResume();
   }
 
   public onResetTap(): void {
-    console.log("onResetTap");
+    log.debug("onResetTap");
     mainStateController.emitReset();
   }
 
   public onStepTap(): void {
-    console.log("onStepTap");
+    log.debug("onStepTap");
     mainStateController.emitStep();
   }
 
@@ -752,7 +728,7 @@ export class MainController implements MainView {
    * Initialize the game console controller early so it's available for assembling
    */
   private initializeGameConsoleController(): void {
-    console.log("Initializing gameConsoleController early");
+    log.debug("Initializing gameConsoleController early");
 
     // Use partial initialization to set up assembler functionality without widgets
     gameConsoleController.initPartial({
@@ -762,7 +738,7 @@ export class MainController implements MainView {
       labels: gameConsoleView.labels,
     });
 
-    console.log("gameConsoleController partial initialization complete");
+    log.debug("gameConsoleController partial initialization complete");
   }
 }
 

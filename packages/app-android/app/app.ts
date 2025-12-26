@@ -1,54 +1,65 @@
+/**
+ * Application entry point
+ *
+ * Pattern from reference projects:
+ * - Centralized logger for conditional logging
+ * - Global error handling
+ * - Sequential service initialization
+ */
+
 import { Application, LaunchEventData, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
-import { setEdgeToEdge } from "./utils/index";
+import { logger } from "./utils/index";
 import { systemStates, SystemStates } from "./states";
 import { ThemeService } from "./services";
+import { appVariables } from "./variables";
 
+const log = logger.scoped("App");
+
+// Ensure Android-only execution
 if (!isAndroid) {
   throw new Error("This app is only supported on Android");
 }
 
-// Add global error handling
-global.__errorHandler = function (error, nativeError) {
-  console.log("GLOBAL ERROR CAUGHT:");
-  console.log("JS Error:", error && error.message);
-  if (nativeError) {
-    console.log("Native Error:", nativeError);
-  }
-  return true;
-};
+try {
+  // Add global error handling
+  global.__errorHandler = function (error, nativeError) {
+    console.error("GLOBAL ERROR CAUGHT:");
+    console.error("JS Error:", error && error.message);
+    if (nativeError) {
+      console.error("Native Error:", nativeError);
+    }
+    return true;
+  };
 
-// Initial startup logging
-console.log("App.ts starting...");
-console.log("Is Android:", isAndroid);
+  // Initial startup logging
+  log.info("Starting...");
 
-// Handle the launch event
-systemStates.events.on(SystemStates.launchEvent, (_args: LaunchEventData) => {
-  console.log("Launch event received, setting up the app...");
+  // Handle the launch event
+  systemStates.events.on(SystemStates.launchEvent, (_args: LaunchEventData) => {
+    log.info("Launch event received, setting up the app...");
 
-  try {
-    // Set edge-to-edge display
-    setEdgeToEdge(true);
+    try {
+      // Initialize app variables (action bar height, screen dimensions, etc.)
+      appVariables.initialize();
 
-    // Initialize theme manager when the app is ready
-    console.log("About to initialize theme manager...");
+      // Initialize theme service
+      log.debug("Initializing theme service...");
+      ThemeService.initialize();
 
-    // TODO: Fix app freezing when initializing theme manager
-    const themeService = ThemeService.initialize();
-    // console.log("Theme manager initialized:", themeService !== null);
+      log.info("App initialization complete");
+    } catch (error) {
+      console.error("Error during app initialization:", error);
+    }
+  });
 
-    console.log("App initialization complete");
-  } catch (error) {
-    console.error("Error during app initialization:", error);
-  }
-});
+  // Set localization resources
+  log.debug("Setting application resources...");
+  Application.setResources({ _: localize });
 
-// Log when the application is actually running
-Application.on(Application.resumeEvent, () => {
-  console.log("Application resumed (main activity is running)");
-});
-
-console.log("Setting application resources...");
-Application.setResources({ _: localize });
-console.log("Starting application...");
-Application.run({ moduleName: "app-root" });
+  // Start the application
+  log.info("Starting application...");
+  Application.run({ moduleName: "app-root" });
+} catch (error) {
+  console.error("Fatal error during app startup:", error);
+}

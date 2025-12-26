@@ -2,6 +2,9 @@ import { NotificationService as BaseNotificationService } from "@learn6502/commo
 import type { NotificationOptions, DialogOptions } from "@learn6502/common-ui";
 import { Application } from "@nativescript/core";
 import { alert, confirm } from "@nativescript/core/ui/dialogs";
+import { logger } from "../utils";
+
+const log = logger.scoped("NotificationService");
 
 /**
  * Android-specific implementation of the NotificationService
@@ -10,6 +13,7 @@ import { alert, confirm } from "@nativescript/core/ui/dialogs";
 class NotificationService extends BaseNotificationService {
   constructor() {
     super();
+    log.info("Initialized");
   }
 
   /**
@@ -33,7 +37,7 @@ class NotificationService extends BaseNotificationService {
     // If action is provided, there's no direct way to add an action to Toast
     // A more complex solution with Snackbar would be needed for actions
     if (options.action) {
-      console.warn(
+      log.warn(
         "Toast actions not supported directly in Android. Consider using a dialog instead."
       );
     }

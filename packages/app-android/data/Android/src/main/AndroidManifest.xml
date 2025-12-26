@@ -6,15 +6,15 @@
 		android:smallScreens="true"
 		android:normalScreens="true"
 		android:largeScreens="true"
-		android:xlargeScreens="true"/>
+		android:xlargeScreens="true" />
 
-	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-	<uses-permission android:name="android.permission.INTERNET"/>
-	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-	
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
 	<!-- MinSDK für Material Design 3 Support -->
-	<uses-sdk android:minSdkVersion="21" android:targetSdkVersion="32" />
+	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="35" />
 
 	<application
 		android:name="com.tns.NativeScriptApplication"
@@ -29,8 +29,9 @@
 			android:label="@string/title_activity_kimera"
 			android:configChanges="keyboard|keyboardHidden|orientation|screenSize|smallestScreenSize|screenLayout|locale|uiMode"
 			android:theme="@style/LaunchScreenTheme"
+			android:windowSoftInputMode="adjustResize"
 			android:hardwareAccelerated="true"
-      		android:launchMode="singleTask"
+			android:launchMode="singleTask"
 			android:exported="true">
 
 			<meta-data android:name="SET_THEME_ON_LAUNCH" android:resource="@style/AppTheme" />
@@ -40,6 +41,6 @@
 				<category android:name="android.intent.category.LAUNCHER" />
 			</intent-filter>
 		</activity>
-		<activity android:name="com.tns.ErrorReportActivity"/>
+		<activity android:name="com.tns.ErrorReportActivity" />
 	</application>
 </manifest>
