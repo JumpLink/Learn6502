@@ -21,7 +21,11 @@ import {
 } from "@nativescript/localize";
 import { EventDispatcher } from "@learn6502/6502";
 import { ContrastMode } from "../constants";
-import { contrastLevelToMode } from "../utils";
+// Direct imports to avoid circular dependency (utils/index → color → system.states → utils/index)
+import { contrastLevelToMode } from "../utils/contrast";
+import { logger } from "../utils/logger";
+
+const log = logger.scoped("SystemStates");
 
 import type {
   ContrastChangeEvent,
@@ -147,17 +151,16 @@ export class SystemStates {
 
     androidLaunchEventLocalizationHandler();
 
-    DEV_LOG && console.log("SystemStates:: onLaunch called");
+    log.info("onLaunch called");
 
     // Get initial system appearance
     const systemAppearance = Application.systemAppearance();
-    DEV_LOG && console.log("systemAppearance", systemAppearance);
+    log.debug("systemAppearance", systemAppearance);
     this.systemAppearance = systemAppearance;
 
     // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
     const localeOverriddenSuccessfully = overrideLocale("de-DE");
-    DEV_LOG &&
-      console.log("localeOverriddenSuccessfully", localeOverriddenSuccessfully);
+    log.debug("localeOverriddenSuccessfully", localeOverriddenSuccessfully);
 
     this.events.dispatch("launchEvent", event);
 
@@ -168,8 +171,7 @@ export class SystemStates {
   private listenContrastChange(): void {
     // Listen for contrast changes (API 34+)
     if (android.os.Build.VERSION.SDK_INT < 34) {
-      DEV_LOG &&
-        console.log("ContrastChangeListener requires API level 34+, skipping");
+      log.debug("ContrastChangeListener requires API level 34+, skipping");
       return;
     }
 
@@ -200,7 +202,7 @@ export class SystemStates {
     const contrastListener =
       new android.app.UiModeManager.ContrastChangeListener({
         onContrastChanged: (contrastLevel: number) => {
-          DEV_LOG && console.log("System contrast changed:", contrastLevel);
+          log.debug("System contrast changed:", contrastLevel);
           // Set the contrast property (this will trigger property change event)
           this.contrast = contrastLevelToMode(contrastLevel);
         },
@@ -208,13 +210,13 @@ export class SystemStates {
 
     // Get initial contrast state and dispatch
     const initialContrast = uiModeManager.getContrast();
-    DEV_LOG && console.log("Initial system contrast level:", initialContrast);
+    log.debug("Initial system contrast level:", initialContrast);
 
     // Set the contrast property (this will trigger property change event)
     this.contrast = contrastLevelToMode(initialContrast);
 
     uiModeManager.addContrastChangeListener(mainExecutor, contrastListener);
-    DEV_LOG && console.log("ContrastChangeListener added");
+    log.debug("ContrastChangeListener added");
   }
 
   private listenWindowInsetsChange(): void {
@@ -257,7 +259,7 @@ export class SystemStates {
     );
     // Request initial insets
     rootView.requestApplyInsets();
-    DEV_LOG && console.log("WindowInsets listener attached");
+    log.debug("WindowInsets listener attached");
   }
 
   /**
@@ -288,7 +290,7 @@ export class SystemStates {
       this.events.dispatch("resumeEvent", args);
     });
 
-    DEV_LOG && console.log("SystemStates events setup complete");
+    log.debug("Events setup complete");
   }
 }
 

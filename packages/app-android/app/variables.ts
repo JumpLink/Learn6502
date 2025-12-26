@@ -15,7 +15,10 @@
 import { Application, Screen, Utils } from "@nativescript/core";
 import { EventDispatcher } from "@learn6502/6502";
 import { systemStates, SystemStates } from "./states";
+import { logger } from "./utils";
 import type { WindowInsets, VariablesEventsMap } from "./types";
+
+const log = logger.scoped("AppVariables");
 
 /**
  * Centralized variables manager
@@ -86,11 +89,11 @@ class AppVariables {
    */
   public initialize(): void {
     if (this._initialized) {
-      DEV_LOG && console.log("AppVariables already initialized");
+      log.debug("Already initialized");
       return;
     }
 
-    DEV_LOG && console.log("Initializing AppVariables...");
+    log.info("Initializing...");
     this._initialized = true;
 
     // Listen for window insets changes from systemStates
@@ -106,12 +109,11 @@ class AppVariables {
       this.updateFromConfiguration();
     });
 
-    DEV_LOG &&
-      console.log("AppVariables initialized", {
-        screenDims: `${this.screenWidthDips}x${this.screenHeightDips}`,
-        fontScale: this._fontScale,
-        isRTL: this._isRTL,
-      });
+    log.info("Initialized", {
+      screenDims: `${this.screenWidthDips}x${this.screenHeightDips}`,
+      fontScale: this._fontScale,
+      isRTL: this._isRTL,
+    });
   }
 
   /**
@@ -156,7 +158,7 @@ class AppVariables {
       oldValue,
     });
 
-    DEV_LOG && console.log("Window insets updated:", JSON.stringify(newInsets));
+    log.debug("Window insets updated:", JSON.stringify(newInsets));
   }
 
   /**
@@ -178,7 +180,7 @@ class AppVariables {
         newValue: newFontScale,
         oldValue,
       });
-      DEV_LOG && console.log("Font scale updated:", newFontScale);
+      log.debug("Font scale updated:", newFontScale);
     }
 
     // RTL layout direction
@@ -190,7 +192,7 @@ class AppVariables {
         newValue: newIsRTL,
         oldValue,
       });
-      DEV_LOG && console.log("RTL mode:", newIsRTL);
+      log.debug("RTL mode:", newIsRTL);
     }
 
     // Action bar height
@@ -223,7 +225,7 @@ class AppVariables {
           newValue: newHeight,
           oldValue,
         });
-        DEV_LOG && console.log("Action bar height updated:", newHeight);
+        log.debug("Action bar height updated:", newHeight);
       }
     }
   }

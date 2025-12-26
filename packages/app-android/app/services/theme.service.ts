@@ -2,16 +2,18 @@ import { ThemeService as BaseThemeService } from "@learn6502/common-ui";
 import type { ThemeMode } from "@learn6502/common-ui";
 import { Application, ApplicationSettings } from "@nativescript/core";
 import { systemStates, SystemStates } from "../states";
-import { getRootViewWhenReady, restartApp } from "../utils/index";
+import { getRootViewWhenReady, restartApp, logger } from "../utils/index";
 import { ContrastMode, SETTINGS_THEME, DEFAULT_THEME } from "../constants";
 import type { ContrastChangeEvent } from "~/types";
+
+const log = logger.scoped("ThemeService");
 
 /**
  * Android-specific implementation of the ThemeManager
  * Uses Android's AppCompatDelegate for theming
  *
  * Pattern from reference projects:
- * - Uses DEV_LOG for conditional logging
+ * - Centralized logger for conditional logging
  * - Centralized settings keys from constants.ts
  * - Singleton pattern with lazy initialization
  */
@@ -37,7 +39,7 @@ export class ThemeService extends BaseThemeService {
    */
   public static initialize(): ThemeService {
     if (!ThemeService.instance) {
-      DEV_LOG && console.log("Initializing ThemeService...");
+      log.info("Initializing...");
       ThemeService.instance = new ThemeService();
 
       // Now that the instance is created, perform initialization
@@ -52,7 +54,7 @@ export class ThemeService extends BaseThemeService {
    */
   private constructor() {
     super();
-    DEV_LOG && console.log("ThemeService constructor called");
+    log.debug("Constructor called");
     // NO initialization here to prevent startup deadlocks
   }
 
@@ -61,7 +63,7 @@ export class ThemeService extends BaseThemeService {
    * This keeps the constructor minimal and avoids potential deadlocks
    */
   private initializeManager(): void {
-    DEV_LOG && console.log("ThemeService: initializeManager called");
+    log.debug("initializeManager called");
 
     try {
       // Load theme from settings
@@ -75,10 +77,9 @@ export class ThemeService extends BaseThemeService {
 
       // Add listener for the resume event to handle deferred restart
       systemStates.events.on(SystemStates.resumeEvent, () => {
-        DEV_LOG && console.log("Application resumed");
+        log.debug("Application resumed");
         if (this.restartRequiredOnResume) {
-          DEV_LOG &&
-            console.log("Restart required flag is set, restarting app now");
+          log.debug("Restart required flag is set, restarting app now");
           // Reset the flag before triggering the restart,
           // to avoid infinite loops if the restart fails.
           this.restartRequiredOnResume = false;
@@ -86,7 +87,7 @@ export class ThemeService extends BaseThemeService {
         }
       });
 
-      DEV_LOG && console.log("ThemeService initialization completed");
+      log.info("Initialization completed");
     } catch (error) {
       console.error("Error during ThemeService initialization:", error);
     }
@@ -140,13 +141,13 @@ export class ThemeService extends BaseThemeService {
    */
   private loadThemeFromSettings(): void {
     try {
-      DEV_LOG && console.log("Loading theme from settings...");
+      log.debug("Loading theme from settings...");
       const savedTheme = ApplicationSettings.getString(
         SETTINGS_THEME,
         DEFAULT_THEME
       );
 
-      DEV_LOG && console.log("Saved theme:", savedTheme);
+      log.debug("Saved theme:", savedTheme);
       if (
         savedTheme &&
         (savedTheme === "light" ||
@@ -170,7 +171,7 @@ export class ThemeService extends BaseThemeService {
    */
   private saveThemeToSettings(mode: ThemeMode): void {
     try {
-      DEV_LOG && console.log("Saving theme to settings:", mode);
+      log.debug("Saving theme to settings:", mode);
       ApplicationSettings.setString(SETTINGS_THEME, mode);
     } catch (error) {
       console.error("Error saving theme to settings:", error);
@@ -185,7 +186,7 @@ export class ThemeService extends BaseThemeService {
     systemStates.events.on(
       SystemStates.systemAppearanceChangedEvent,
       (event) => {
-        DEV_LOG && console.log("System appearance changed:", event);
+        log.debug("System appearance changed:", event);
         // Only update isDarkTheme if we're in system mode
         if (this._currentTheme === "system") {
           this._isDarkTheme = systemStates.systemAppearance === "dark";
@@ -214,13 +215,12 @@ export class ThemeService extends BaseThemeService {
     systemStates.events.on(
       SystemStates.contrastChangedEvent,
       async (event: ContrastChangeEvent) => {
-        DEV_LOG && console.log("contrastChangedEvent", event);
+        log.debug("contrastChangedEvent", event);
 
         // WORKAROUND: Flag the app for restart when the contrast mode changes
         // (instead of restarting immediately)
         if (!event.initial) {
-          DEV_LOG &&
-            console.log("Contrast changed, flagging for restart on resume");
+          log.debug("Contrast changed, flagging for restart on resume");
           this.restartRequiredOnResume = true;
         }
 
@@ -266,11 +266,7 @@ export class ThemeService extends BaseThemeService {
         view?._onCssStateChange();
       });
 
-      DEV_LOG &&
-        console.log(
-          "rootView cssClasses",
-          Array.from(rootView.cssClasses.values())
-        );
+      log.debug("rootView cssClasses", Array.from(rootView.cssClasses.values()));
     } catch (error) {
       console.error("Error updating contrast classes:", error);
     }

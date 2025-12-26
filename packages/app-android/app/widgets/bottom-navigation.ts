@@ -5,13 +5,13 @@ import {
   getMaterialColor,
   isDarkMode,
   setNavigationBarAppearance,
+  logger,
 } from "../utils/index";
 import { getResource } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
-
-// Import necessary AndroidX classes
-import androidx_core_view_WindowInsetsCompat = androidx.core.view.WindowInsetsCompat;
 import { SystemAppearanceChangeEvent, WindowInsetsChangeEvent } from "~/types";
+
+const log = logger.scoped("BottomNavigation");
 
 /**
  * Material Design 3 Bottom Navigation component for Android
@@ -314,11 +314,11 @@ export class BottomNavigation extends ContentView {
    * Called when colors change or system theme changes
    */
   private applyTheme(
-    isDarkMode = systemStates.systemAppearance === "dark"
+    _isDarkMode = systemStates.systemAppearance === "dark"
   ): void {
     if (!this.bottomNav) return;
 
-    console.log("applyTheme");
+    log.debug("applyTheme");
 
     // Get colors using the new properties
     const activeTextColor = getMaterialColor(
@@ -450,18 +450,17 @@ export class BottomNavigation extends ContentView {
     this.updateInsets(event.newValue);
   }
 
-  private updateInsets(insets: androidx_core_view_WindowInsetsCompat): void {
+  private updateInsets(
+    insets: androidx.core.view.WindowInsetsCompat | null
+  ): void {
     if (!this.bottomNav || !insets) {
-      // Check bottomNav and insets
-      console.log(
-        "BottomNavigation: onWindowInsetsChanged called but bottomNav or insets are null"
-      );
+      log.debug("updateInsets called but bottomNav or insets are null");
       return;
     }
     try {
       // Get navigation bar insets directly from WindowInsetsCompat
       const bottomInsetPixels = insets.getInsets(
-        androidx_core_view_WindowInsetsCompat.Type.navigationBars()
+        androidx.core.view.WindowInsetsCompat.Type.navigationBars()
       ).bottom;
       // Use getMeasuredHeight which reflects the actual measured size, might be more reliable than getMinimumHeight
       const bottomNavHeightPixels = this.bottomNav.getMinimumHeight(); // measured height not works here so we use getMinimumHeight
@@ -470,9 +469,7 @@ export class BottomNavigation extends ContentView {
       if (bottomNavHeightPixels <= 0) {
         // If measured height is 0, it might mean the view hasn't been laid out yet.
         // We might need to request layout or wait.
-        console.log(
-          "BottomNavigation: onWindowInsetsChanged - Measured height is 0. Requesting layout."
-        );
+        log.debug("updateInsets - Measured height is 0. Requesting layout.");
         // Request layout to potentially trigger a remeasure
         return this.requestLayout();
       }
@@ -484,19 +481,16 @@ export class BottomNavigation extends ContentView {
       // Uniform the navigation bar appearance to match the bottom navigation background color
       setNavigationBarAppearance(undefined, isDarkMode());
 
-      console.log(
-        "BottomNavigation: onWindowInsetsChanged - Native Measured Height (Pixels):",
+      log.debug(
+        "updateInsets - Height:",
         bottomNavHeightPixels,
-        "| Padding Bottom (Pixels):",
+        "| Padding:",
         bottomInsetPixels,
-        "| Total Calculated Height (DIPs):",
+        "| Total:",
         this.height
       );
     } catch (error) {
-      console.error(
-        "BottomNavigation: Error during onWindowInsetsChanged height calculation:",
-        error
-      );
+      log.error("Error during updateInsets:", error);
     }
   }
 
@@ -507,9 +501,7 @@ export class BottomNavigation extends ContentView {
    */
   public selectTab(tabId: string): boolean {
     if (!this.bottomNav || !this.idToMenuId.has(tabId)) {
-      console.log(
-        `BottomNavigation: selectTab - Tab with ID ${tabId} not found`
-      );
+      log.debug(`selectTab - Tab with ID ${tabId} not found`);
       return false;
     }
 

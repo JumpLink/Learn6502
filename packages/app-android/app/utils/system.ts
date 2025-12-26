@@ -10,9 +10,12 @@
 
 import { Application, Utils, View, CoreTypes } from "@nativescript/core";
 import { getMaterialColor } from "./color";
+import { logger } from "./logger";
 import { waitForFunctionResult } from "@learn6502/common-ui";
 import { systemStates } from "../states/system.states";
 import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
+
+const log = logger.scoped("System");
 
 /**
  * Check if the system is currently in dark mode
@@ -194,8 +197,7 @@ export function setEdgeToEdge(enabled: boolean): void {
         window,
         !enabled
       );
-      DEV_LOG &&
-        console.log(`Edge-to-Edge display ${enabled ? "enabled" : "disabled"}`);
+      log.debug(`Edge-to-Edge display ${enabled ? "enabled" : "disabled"}`);
     });
   } catch (error) {
     console.error(`Error setting Edge-to-Edge to ${enabled}:`, error);
@@ -232,7 +234,7 @@ export function restartApp(): void {
     // Start the main activity
     context.startActivity(intent);
 
-    DEV_LOG && console.log("Triggering app restart...");
+    log.info("Triggering app restart...");
 
     // Terminate the current application process
     // Use killProcess for a slightly more forceful exit than System.exit
@@ -250,7 +252,7 @@ export async function getRootViewWhenReady() {
     const rootView = await waitForFunctionResult(
       Application.getRootView.bind(Application)
     );
-    DEV_LOG && console.log("Root view is ready:", rootView);
+    log.debug("Root view is ready:", rootView);
     return rootView;
   } catch (error) {
     console.error("Failed to get root view:", error);
