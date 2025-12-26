@@ -13,10 +13,10 @@ import { logger } from "./logger";
 import { waitForFunctionResult } from "@learn6502/common-ui";
 import { systemStates } from "../states/system.states";
 
-const log = logger.scoped("System");
-
 // Import necessary AndroidX classes for Edge-to-Edge
 import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
+
+const log = logger.scoped("System");
 
 /**
  * Check if the system is currently in dark mode
@@ -113,39 +113,6 @@ export function setNavigationBarAppearance(
     // For Android < 8.1, navigation bar appearance customization is not supported
   } catch (error) {
     log.error("Error setting navigation bar appearance:", error);
-  }
-}
-
-/**
- * Enables Edge-to-Edge display mode for the application.
- * When enabled, the app draws behind the system status and navigation bars.
- * This should be called after theme changes and page navigation to ensure
- * Edge-to-Edge remains active.
- */
-export function enableEdgeToEdge(): void {
-  try {
-    // Ensure we run on the UI thread if called early during startup
-    Utils.executeOnUIThread(() => {
-      const activity =
-        Application.android.startActivity ||
-        Application.android.foregroundActivity;
-      if (!activity) {
-        log.warn("enableEdgeToEdge: Could not get Activity object");
-        return;
-      }
-      const window = activity.getWindow();
-      if (!window) {
-        log.warn("enableEdgeToEdge: Could not get Window object");
-        return;
-      }
-      // Tell the system that the app will handle drawing behind system bars
-      // setDecorFitsSystemWindows(window, false) -> enables edge-to-edge
-      // setDecorFitsSystemWindows(window, true)  -> disables edge-to-edge (system handles padding)
-      androidx_core_view_WindowCompat.setDecorFitsSystemWindows(window, false);
-      log.debug("Edge-to-Edge display enabled");
-    });
-  } catch (error) {
-    log.error("Error enabling Edge-to-Edge:", error);
   }
 }
 

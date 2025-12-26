@@ -72,6 +72,7 @@ class AppVariables {
   /**
    * Initialize the variables manager
    * Should be called once during app launch
+   * Pattern from reference projects (conty, oss-weather, alpimaps)
    */
   public initialize(): void {
     if (this._initialized) {
@@ -85,16 +86,29 @@ class AppVariables {
     // Initial values from system
     this.updateFromConfiguration();
 
-    // Listen for activity start to update RTL
-    Application.android?.on(Application.android.activityStartedEvent, () => {
-      this.updateFromConfiguration();
-    });
+    // Setup Android activity lifecycle handlers (like reference projects)
+    this.setupActivityLifecycleHandlers();
 
     log.info("Initialized", {
       screenDims: `${this.screenWidthDips}x${this.screenHeightDips}`,
       fontScale: this._fontScale,
       isRTL: this._isRTL,
     });
+  }
+
+  /**
+   * Setup Android activity lifecycle event handlers
+   * Pattern from reference projects (conty, oss-weather, alpimaps)
+   */
+  private setupActivityLifecycleHandlers(): void {
+    // Handle activity start - update configuration (RTL, font scale, etc.)
+    Application.android?.on(Application.android.activityStartedEvent, () => {
+      log.debug("Activity started, updating configuration");
+      this.updateFromConfiguration();
+    });
+
+    // Note: Reference projects also handle activityResumedEvent and activityPausedEvent
+    // for orientation listeners, but we don't need that yet
   }
 
   /**

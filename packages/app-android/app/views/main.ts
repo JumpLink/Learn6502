@@ -400,10 +400,11 @@ export class MainController implements MainView {
       SystemStates.systemAppearanceChangedEvent,
       this.onSystemAppearanceChanged
     );
-    const isDark = systemStates.systemAppearance === "dark";
-    setStatusBarAppearance(isDark);
-    // Set navigation bar icon appearance (light icons for dark mode, dark icons for light mode)
-    setNavigationBarAppearance(isDark);
+    this.onSystemAppearanceChanged({
+      newValue: systemStates.systemAppearance,
+      oldValue: null,
+      initial: true,
+    });
 
     // Initialize services and controllers
     this.setupAndroidKeyHandling();

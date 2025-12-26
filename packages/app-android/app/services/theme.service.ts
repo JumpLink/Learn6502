@@ -75,6 +75,9 @@ export class ThemeService extends BaseThemeService {
       // Monitor contrast changes
       this.monitorContrastChanges();
 
+      // Setup Android activity lifecycle handlers (like reference projects)
+      this.setupActivityLifecycleHandlers();
+
       // Add listener for the resume event to handle deferred restart
       systemStates.events.on(SystemStates.resumeEvent, () => {
         log.debug("Application resumed");
@@ -94,6 +97,31 @@ export class ThemeService extends BaseThemeService {
   }
 
   /**
+   * Setup Android activity lifecycle event handlers
+   * Pattern from reference projects (conty, oss-weather, alpimaps)
+   * Based on StackOverflow solution: https://stackoverflow.com/questions/79319740
+   */
+  private setupActivityLifecycleHandlers(): void {
+    // Handle activity start - update theme colors (like reference projects)
+    // This ensures dynamic colors are applied on every activity start
+    Application.android?.on(
+      Application.android.activityStartedEvent,
+      (event: any) => {
+        // Only handle NativeScript activities
+        if (event?.activity?.["isNativeScriptActivity"] === true) {
+          log.debug("Activity started, updating theme colors");
+          const activity =
+            event.activity as androidx.appcompat.app.AppCompatActivity;
+          if (activity) {
+            // Ensure theme is applied
+            activity.getDelegate().applyDayNight();
+          }
+        }
+      }
+    );
+  }
+
+  /**
    * Check if the dark theme is currently active
    */
   protected isCurrentlyDarkTheme(): boolean {
@@ -103,12 +131,14 @@ export class ThemeService extends BaseThemeService {
 
   /**
    * Apply the selected theme to the Android application
+   * Like reference projects: use startActivity and call applyDayNight after setting mode
    */
   protected applyTheme(mode: ThemeMode): void {
     try {
-      const activity = Application.android.foregroundActivity;
+      const activity = Application.android
+        .startActivity as androidx.appcompat.app.AppCompatActivity;
       if (!activity) {
-        console.error("Could not apply theme, no foreground activity");
+        console.error("Could not apply theme, no start activity");
         return;
       }
 
@@ -128,6 +158,9 @@ export class ThemeService extends BaseThemeService {
           activity.getDelegate().setLocalNightMode(-1); // AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
           break;
       }
+
+      // Apply day/night mode like reference projects do
+      activity.getDelegate().applyDayNight();
 
       // Save theme to settings
       this.saveThemeToSettings(mode);
@@ -194,9 +227,10 @@ export class ThemeService extends BaseThemeService {
         }
 
         // Apply day/night mode to the activity
+        // Like reference projects: use startActivity and call applyDayNight
         try {
           const activity = Application.android
-            .foregroundActivity as androidx.appcompat.app.AppCompatActivity;
+            .startActivity as androidx.appcompat.app.AppCompatActivity;
           if (activity) {
             activity.getDelegate().applyDayNight();
           }
