@@ -9,11 +9,7 @@ import {
 
 import { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
-import {
-  setStatusBarAppearance,
-  setNavigationBarAppearance,
-  logger,
-} from "~/utils";
+import { logger } from "~/utils";
 
 const log = logger.scoped("MainController");
 
@@ -289,10 +285,9 @@ export class MainController implements MainView {
   }
 
   private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
-    const isDark = event.newValue === "dark";
-    setStatusBarAppearance(isDark);
-    // Set navigation bar icon appearance (light icons for dark mode, dark icons for light mode)
-    setNavigationBarAppearance(isDark);
+    // Note: Status bar and navigation bar icon colors are automatically handled by
+    // NativeScript's setDarkModeHandler in app.ts, which reacts to theme changes.
+    // No manual intervention needed here.
   }
 
   /**
@@ -371,6 +366,39 @@ export class MainController implements MainView {
    */
   public onLoaded(args: EventData): void {
     this.page = args.object as Page;
+
+    // Handle androidOverflowInset event for edge-to-edge
+    // NativeScript automatically sets up the inset listener when this event is registered
+    // See: references/nativescript/nativescript/packages/core/ui/core/view/index.android.ts:527-580
+    // See: https://docs.nativescript.org/ui/page#android-edge-to-edge-tip
+    this.page.on("androidOverflowInset", (insetArgs: any) => {
+      const { inset } = insetArgs;
+      const { appVariables } = require("~/variables");
+
+      // Store insets in appVariables (as CSS variables)
+      // Pattern from reference projects (conty, oss-weather, alpimaps)
+      appVariables.setWindowInset({
+        top: inset.top || 0,
+        bottom: inset.bottom || 0,
+        left: inset.left || 0,
+        right: inset.right || 0,
+        keyboard: 0, // Keyboard insets are handled separately via IME insets
+      });
+
+      // Consume all insets so they don't propagate to child views
+      // Individual views can use CSS variables (--windowInsetTop, etc.) to apply padding as needed
+      inset.topConsumed = true;
+      inset.bottomConsumed = true;
+      inset.leftConsumed = true;
+      inset.rightConsumed = true;
+
+      log.debug("Android overflow insets handled", {
+        top: inset.top,
+        bottom: inset.bottom,
+        left: inset.left,
+        right: inset.right,
+      });
+    });
 
     // Find UI elements
     this.actionBar = this.page.getViewById("main-action-bar");

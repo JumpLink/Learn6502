@@ -39,6 +39,7 @@ class AppVariables {
   private _actionBarButtonHeight: number = 46;
   private _fontScale: number = 1.0;
   private _isRTL: boolean = false;
+  private _windowInset = { top: 0, left: 0, right: 0, bottom: 0, keyboard: 0 };
   private _initialized: boolean = false;
 
   /**
@@ -70,6 +71,20 @@ class AppVariables {
   }
 
   /**
+   * Window insets for edge-to-edge display
+   * Contains top, left, right, bottom, and keyboard insets
+   */
+  public get windowInset(): {
+    top: number;
+    left: number;
+    right: number;
+    bottom: number;
+    keyboard: number;
+  } {
+    return { ...this._windowInset };
+  }
+
+  /**
    * Initialize the variables manager
    * Should be called once during app launch
    * Pattern from reference projects (conty, oss-weather, alpimaps)
@@ -98,17 +113,15 @@ class AppVariables {
 
   /**
    * Setup Android activity lifecycle event handlers
-   * Pattern from reference projects (conty, oss-weather, alpimaps)
+   * Pattern from reference projects: direct use of Application.android.on() events
    */
   private setupActivityLifecycleHandlers(): void {
     // Handle activity start - update configuration (RTL, font scale, etc.)
+    // This ensures configuration is updated when activity starts (e.g., after theme changes)
     Application.android?.on(Application.android.activityStartedEvent, () => {
       log.debug("Activity started, updating configuration");
       this.updateFromConfiguration();
     });
-
-    // Note: Reference projects also handle activityResumedEvent and activityPausedEvent
-    // for orientation listeners, but we don't need that yet
   }
 
   /**
@@ -177,6 +190,75 @@ class AppVariables {
         });
         log.debug("Action bar height updated:", newHeight);
       }
+    }
+  }
+
+  /**
+   * Set window insets for edge-to-edge display
+   * Pattern from reference projects (conty, oss-weather, alpimaps)
+   * Sets CSS variables and dispatches change event
+   */
+  public setWindowInset(inset: {
+    top: number;
+    left: number;
+    right: number;
+    bottom: number;
+    keyboard?: number;
+  }): void {
+    const newInset = {
+      top: inset.top,
+      left: inset.left,
+      right: inset.right,
+      bottom: inset.bottom,
+      keyboard: inset.keyboard || 0,
+    };
+
+    // Only update if changed
+    if (
+      this._windowInset.top !== newInset.top ||
+      this._windowInset.left !== newInset.left ||
+      this._windowInset.right !== newInset.right ||
+      this._windowInset.bottom !== newInset.bottom ||
+      this._windowInset.keyboard !== newInset.keyboard
+    ) {
+      const oldValue = { ...this._windowInset };
+      this._windowInset = newInset;
+
+      // Set CSS variables on root view style (like reference projects)
+      const rootView = Application.getRootView();
+      if (rootView?.style) {
+        const rootViewStyle = rootView.style;
+        rootViewStyle.setUnscopedCssVariable(
+          "--windowInsetTop",
+          newInset.top + ""
+        );
+        rootViewStyle.setUnscopedCssVariable(
+          "--windowInsetLeft",
+          newInset.left + ""
+        );
+        rootViewStyle.setUnscopedCssVariable(
+          "--windowInsetRight",
+          newInset.right + ""
+        );
+        rootViewStyle.setUnscopedCssVariable(
+          "--windowInsetBottom",
+          newInset.bottom + ""
+        );
+        rootViewStyle.setUnscopedCssVariable(
+          "--windowInsetKeyboard",
+          newInset.keyboard + ""
+        );
+
+        // Trigger CSS state change
+        rootView._onCssStateChange?.();
+      }
+
+      this.events.dispatch("windowInset:changed", {
+        newValue: newInset,
+        oldValue,
+      });
+
+      log.debug("Window inset updated:", newInset);
     }
   }
 }

@@ -10,6 +10,19 @@
 @custom-variant high (&:is(.ns-contrast-high *));
 @custom-variant medium (&:is(.ns-contrast-medium *));
 
+/* Status bar and navigation bar styling */
+/* Pattern from reference projects (conty, oss-weather, alpimaps) */
+/* NativeScript automatically handles icon colors based on status-bar-style */
+page {
+  status-bar-style: light;
+  status-bar-color: transparent;
+  navigation-bar-color: transparent;
+
+  .ns-dark & {
+    status-bar-style: dark;
+  }
+}
+
 /* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss */
 
 HtmlView,

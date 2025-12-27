@@ -2,21 +2,40 @@
  * System utilities for Android
  *
  * Provides helper functions for:
- * - Status bar and navigation bar customization
- * - Edge-to-edge display mode
  * - App restart functionality
  * - Font scale detection
+ * - Type guards for NativeScript activities
+ *
+ * Note: Status bar and navigation bar customization is handled by NativeScript's
+ * built-in Utils.android.setStatusBarColor/setNavigationBarColor methods.
  */
 
 import { Application, Utils } from "@nativescript/core";
 import { logger } from "./logger";
 import { waitForFunctionResult } from "@learn6502/common-ui";
 import { systemStates } from "../states/system.states";
+import { appVariables } from "../variables";
 
-// Import necessary AndroidX classes for Edge-to-Edge
-import androidx_core_view_WindowCompat = androidx.core.view.WindowCompat;
+// Note: Edge-to-edge window setup is handled automatically by NativeScript
+// We only need system utilities here (status bar, navigation bar appearance, etc.)
 
 const log = logger.scoped("System");
+
+/**
+ * Type guard to check if an activity is a NativeScript activity
+ * This provides type-safe checking for the isNativeScriptActivity property
+ */
+export function isNativeScriptActivity(
+  activity: any
+): activity is androidx.appcompat.app.AppCompatActivity & {
+  isNativeScriptActivity: true;
+} {
+  return (
+    activity != null &&
+    typeof activity === "object" &&
+    activity.isNativeScriptActivity === true
+  );
+}
 
 /**
  * Check if the system is currently in dark mode
@@ -26,95 +45,11 @@ export function isDarkMode(): boolean {
 }
 
 /**
- * Sets the status bar icon color (light/dark icons)
- *
- * @param useLightIcons Whether to use light colored icons (true for dark backgrounds)
+ * Note: Status bar and navigation bar icon colors are automatically handled by NativeScript's
+ * setStatusBarColor/setNavigationBarColor with SystemBarStyle.auto().
+ * These methods automatically determine light/dark icons based on the provided colors.
+ * See: references/nativescript/nativescript/packages/core/utils/native-helper-for-android.ts
  */
-export function setStatusBarAppearance(
-  useLightIcons: boolean = isDarkMode()
-): void {
-  try {
-    const window = Application.android.startActivity?.getWindow();
-    if (!window) return;
-
-    // Using WindowInsetsController for Android 11+ (API 30+)
-    if (android.os.Build.VERSION.SDK_INT >= 30) {
-      const controller = window.getDecorView().getWindowInsetsController();
-      if (!controller) return;
-
-      const statusBarAppearance = useLightIcons
-        ? 0
-        : android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS;
-
-      controller.setSystemBarsAppearance(
-        statusBarAppearance,
-        android.view.WindowInsetsController.APPEARANCE_LIGHT_STATUS_BARS
-      );
-    } else {
-      // Backward compatibility for Android < 11
-      const decorView = window.getDecorView();
-      let flags = decorView.getSystemUiVisibility();
-
-      if (!useLightIcons) {
-        // Dark icons on light background
-        flags |= android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-      } else {
-        // Light icons on dark background
-        flags &= ~android.view.View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
-      }
-
-      decorView.setSystemUiVisibility(flags);
-    }
-  } catch (error) {
-    log.error("Error setting status bar appearance:", error);
-  }
-}
-
-/**
- * Sets the navigation bar icon color (light/dark icons)
- *
- * @param useLightIcons Whether to use light colored icons (true for dark backgrounds)
- */
-export function setNavigationBarAppearance(
-  useLightIcons: boolean = isDarkMode()
-): void {
-  try {
-    const window = Application.android.startActivity?.getWindow();
-    if (!window) return;
-
-    // Using WindowInsetsController for Android 11+ (API 30+)
-    if (android.os.Build.VERSION.SDK_INT >= 30) {
-      const controller = window.getDecorView().getWindowInsetsController();
-      if (!controller) return;
-
-      const navigationBarAppearance = useLightIcons
-        ? 0
-        : android.view.WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS;
-
-      controller.setSystemBarsAppearance(
-        navigationBarAppearance,
-        android.view.WindowInsetsController.APPEARANCE_LIGHT_NAVIGATION_BARS
-      );
-    } else if (android.os.Build.VERSION.SDK_INT >= 27) {
-      // Backward compatibility for Android 8.1+ (API 27+)
-      const decorView = window.getDecorView();
-      let flags = decorView.getSystemUiVisibility();
-
-      if (!useLightIcons) {
-        // Dark icons on light background
-        flags |= android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-      } else {
-        // Light icons on dark background
-        flags &= ~android.view.View.SYSTEM_UI_FLAG_LIGHT_NAVIGATION_BAR;
-      }
-
-      decorView.setSystemUiVisibility(flags);
-    }
-    // For Android < 8.1, navigation bar appearance customization is not supported
-  } catch (error) {
-    log.error("Error setting navigation bar appearance:", error);
-  }
-}
 
 /**
  * Restarts the entire Android application.
@@ -170,3 +105,9 @@ export async function getRootViewWhenReady() {
     console.error("Failed to get root view:", error);
   }
 }
+
+/**
+ * Note: Edge-to-edge is automatically enabled by NativeScript in onActivityCreated
+ * See: references/nativescript/nativescript/packages/core/application/application.android.ts:71
+ * We configure colors via Utils.android.setStatusBarColor/setNavigationBarColor in app.ts
+ */

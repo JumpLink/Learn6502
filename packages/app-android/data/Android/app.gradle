@@ -1,6 +1,8 @@
 // You can add your native dependencies here
 dependencies {
   implementation 'com.google.android.material:material:1.12.0'
+  // AndroidX Activity is required by NativeScript for OnBackPressedDispatcher
+  implementation 'androidx.activity:activity:1.9.3'
 }
 
 android {

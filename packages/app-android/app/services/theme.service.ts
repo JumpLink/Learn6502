@@ -3,6 +3,7 @@ import type { ThemeMode } from "@learn6502/common-ui";
 import { Application, ApplicationSettings } from "@nativescript/core";
 import { systemStates, SystemStates } from "../states";
 import { getRootViewWhenReady, restartApp, logger } from "../utils/index";
+import { isNativeScriptActivity } from "../utils/system";
 import { ContrastMode, SETTINGS_THEME, DEFAULT_THEME } from "../constants";
 import type { ContrastChangeEvent } from "~/types";
 
@@ -108,14 +109,10 @@ export class ThemeService extends BaseThemeService {
       Application.android.activityStartedEvent,
       (event: any) => {
         // Only handle NativeScript activities
-        if (event?.activity?.["isNativeScriptActivity"] === true) {
+        if (event?.activity && isNativeScriptActivity(event.activity)) {
           log.debug("Activity started, updating theme colors");
-          const activity =
-            event.activity as androidx.appcompat.app.AppCompatActivity;
-          if (activity) {
-            // Ensure theme is applied
-            activity.getDelegate().applyDayNight();
-          }
+          // Ensure theme is applied
+          event.activity.getDelegate().applyDayNight();
         }
       }
     );

@@ -24,27 +24,21 @@ Android app with deep platform integration.
 - **`nativescript-app-utils`** - App utilities and helpers (common app patterns)
 - **`systemui`** - System UI integration utilities (status bar, navigation bar)
 
-**NativeScript Core Utils** (`references/nativescript/nativescript/packages/core/utils/`):
+**Understanding NativeScript Internals:** The NativeScript source code in `references/nativescript/nativescript/` can be read at various points to understand how NativeScript works internally. Key areas include:
 
-- **Threading:** `dispatchToMainThread()`, `dispatchToUIThread()`, `isMainThread()`, `executeOnMainThread()`, `executeOnUIThread()`, `mainThreadify()`
-- **Native Helpers:** `dataSerialize()`, `dataDeserialize()`, `getWindow()`, `getApplicationContext()`, `getCurrentActivity()`, `getResources()`, `isRealDevice()`
-- **Android Resources:** `Utils.android.resources.getDrawableId()`, `getStringId()`, `getId()`, `getResource()`, `getPaletteColor()`
-- **System UI:** `setStatusBarColor()`, `setNavigationBarColor()`, `setDarkModeHandler()`, `enableEdgeToEdge()`
-- **Input:** `dismissSoftInput()`, `dismissKeyboard()`, `showSoftInput()`
-- **Utilities:** `GC()`, `queueGC()`, `releaseNativeObject()`, `queueMacrotask()`, `openUrl()`, `openFile()`, `copyToClipboard()`
-- **Type Checks:** `isString()`, `isNumber()`, `isBoolean()`, `isFunction()`, `isObject()`, `isDefined()`, `isNullOrUndefined()`
-- **Layout:** `toDevicePixels()`, `toDeviceIndependentPixels()`, `getDisplayDensity()`, `measureNativeView()`
-- **Path/URI:** `isFontIconURI()`, `isSystemURI()`, `isFileOrResourcePath()`, `isDataURI()`, `getFileExtension()`
-- **Array/String:** `mergeSort()`, `hasDuplicates()`, `eliminateDuplicates()`, `escapeRegexSymbols()`, `convertString()`
-- **Async:** `debounce()`, `throttle()` (from `shared.ts`), `lazy()` (lazy initialization)
+- **Core Utils** (`packages/core/utils/`): Threading helpers, native object serialization, Android resource access, system UI management, type checks, layout utilities, path/URI helpers, async utilities (debounce/throttle), and more
+- **UI Components** (`packages/core/ui/`): How NativeScript wraps native views
+- **Platform-specific code** (`.android.ts`, `.ios.ts` files): Platform integration patterns
 
-**Usage Pattern:** Import from `@nativescript/core` (e.g., `import { Utils } from "@nativescript/core"`). For direct access to core utils, reference `references/nativescript/nativescript/packages/core/utils/index.d.ts` for available functions.
+**NativeScript Utils:** Available via `import { Utils } from "@nativescript/core"` or globally as `org.nativescript.widgets.Utils` in native code. Reference `references/nativescript/nativescript/packages/core/utils/index.d.ts` for the complete API. Common categories: threading (main/UI thread dispatch), native helpers (serialization, context access), Android resources, system UI (status/navigation bar), input management, type checks, layout calculations, path/URI utilities, and async helpers.
 
 **Missing Android/Material Types:** When `@nativescript/types-android` lacks types (especially MD3 components like `MaterialSwitch`, `MaterialTimePicker`, etc.):
 
 1. Search `references/nativescript/ui-material-components/src/typings/mdc.android.d.ts` (~22k lines)
 2. Extract only needed class declarations → `app/typings/material.android.d.ts`
 3. Ensure `references.d.ts` includes `/// <reference path="app/typings/material.android.d.ts" />`
+
+**Native API Whitelist (CRITICAL):** When using any Android SDK/AndroidX/Material APIs directly (via `new android.*`, `androidx.*`, `com.google.android.material.*`), **MUST** add entries to `packages/app-android/data/Android/native-api-usage.json`. Format: `"package:Class"` (e.g., `"android.view:View"`, `"com.google.android.material.button:MaterialButton"`). Inner classes: `"package:OuterClass.InnerClass"` (e.g., `"android.view:View.OnClickListener"`). Static fields: `"package:Class.Field"` (e.g., `"android.view:View.VISIBLE"`). Required for R8/ProGuard code shrinking to preserve reflection-accessed APIs. Add immediately when introducing new native API usage; missing entries cause runtime crashes in release builds.
 
 **Architecture Patterns:**
 

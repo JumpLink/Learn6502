@@ -1937,6 +1937,7 @@ __metadata:
     postcss-discard-empty: "npm:^7.0.1"
     postcss-import: "npm:^16.1.1"
     postcss-nested: "npm:^7.0.2"
+    string-replace-loader: "npm:^3.2.0"
     tailwindcss: "npm:^4.1.18"
     typescript: "npm:^5.9.3"
   languageName: unknown
@@ -10734,7 +10735,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"schema-utils@npm:^4.2.0, schema-utils@npm:^4.3.0, schema-utils@npm:^4.3.3":
+"schema-utils@npm:^4, schema-utils@npm:^4.2.0, schema-utils@npm:^4.3.0, schema-utils@npm:^4.3.3":
   version: 4.3.3
   resolution: "schema-utils@npm:4.3.3"
   dependencies:
@@ -11183,6 +11184,17 @@ __metadata:
     fast-fifo: "npm:^1.3.2"
     text-decoder: "npm:^1.1.0"
   checksum: 10c0/15708ce37818d588632fe1104e8febde573e33e8c0868bf583fce0703f3faf8d2a063c278e30df2270206811b69997f64eb78792099933a1fe757e786fbcbd44
+  languageName: node
+  linkType: hard
+
+"string-replace-loader@npm:^3.2.0":
+  version: 3.3.0
+  resolution: "string-replace-loader@npm:3.3.0"
+  dependencies:
+    schema-utils: "npm:^4"
+  peerDependencies:
+    webpack: ^5
+  checksum: 10c0/25bf9bb9d88fa8e8a5d2f41a0a92f3431378efe56773100a7e30f5eb34198eeb2a998c01782c56e892ff3856d081b19b791a25fb0df4603d78f75845e7a01852
   languageName: node
   linkType: hard
 
