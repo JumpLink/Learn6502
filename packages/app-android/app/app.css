@@ -17,10 +17,10 @@ page {
   status-bar-style: light;
   status-bar-color: transparent;
   navigation-bar-color: transparent;
+}
 
-  .ns-dark & {
-    status-bar-style: dark;
-  }
+.ns-dark page {
+  status-bar-style: dark;
 }
 
 /* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss */

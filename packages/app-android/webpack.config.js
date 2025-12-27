@@ -12,11 +12,6 @@ const nativescriptConfig = require("./nativescript.config.js");
 const appId = nativescriptConfig.id;
 
 module.exports = (env) => {
-  // Register Android activity as app component
-  // This ensures NativeScript loads the activity class
-  env.appComponents = env.appComponents || [];
-  env.appComponents.push("~/android/activity.android");
-
   webpack.init(env);
 
   // Learn how to customize:

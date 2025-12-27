@@ -11,31 +11,12 @@
  */
 
 import { Application, Utils } from "@nativescript/core";
-import { logger } from "./logger";
 import { waitForFunctionResult } from "@learn6502/common-ui";
 import { systemStates } from "../states/system.states";
 import { appVariables } from "../variables";
 
 // Note: Edge-to-edge window setup is handled automatically by NativeScript
 // We only need system utilities here (status bar, navigation bar appearance, etc.)
-
-const log = logger.scoped("System");
-
-/**
- * Type guard to check if an activity is a NativeScript activity
- * This provides type-safe checking for the isNativeScriptActivity property
- */
-export function isNativeScriptActivity(
-  activity: any
-): activity is androidx.appcompat.app.AppCompatActivity & {
-  isNativeScriptActivity: true;
-} {
-  return (
-    activity != null &&
-    typeof activity === "object" &&
-    activity.isNativeScriptActivity === true
-  );
-}
 
 /**
  * Check if the system is currently in dark mode
@@ -81,13 +62,13 @@ export function restartApp(): void {
     // Start the main activity
     context.startActivity(intent);
 
-    log.info("Triggering app restart...");
+    DEV_LOG && console.log("[System] Triggering app restart...");
 
     // Terminate the current application process
     // Use killProcess for a slightly more forceful exit than System.exit
     android.os.Process.killProcess(android.os.Process.myPid());
   } catch (error) {
-    console.error("Error restarting application:", error);
+    console.error("[System] Error restarting application:", error);
   }
 }
 
@@ -99,10 +80,10 @@ export async function getRootViewWhenReady() {
     const rootView = await waitForFunctionResult(
       Application.getRootView.bind(Application)
     );
-    log.debug("Root view is ready:", rootView);
+    DEV_LOG && console.log("[System] Root view is ready:", rootView);
     return rootView;
   } catch (error) {
-    console.error("Failed to get root view:", error);
+    console.error("[System] Failed to get root view:", error);
   }
 }
 

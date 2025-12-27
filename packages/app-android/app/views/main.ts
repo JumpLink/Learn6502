@@ -9,9 +9,6 @@ import {
 
 import { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
-import { logger } from "~/utils";
-
-const log = logger.scoped("MainController");
 
 // Import common interfaces and types
 import {
@@ -72,7 +69,7 @@ export class MainController implements MainView {
 
   constructor() {
     // Private constructor for singleton pattern
-    log.info("Initialized");
+    DEV_LOG && console.log("[MainController] Initialized");
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
     this.setupAndroidKeyHandling = this.setupAndroidKeyHandling.bind(this);
     this.setupLearnTutorialSignalListeners =
@@ -126,7 +123,7 @@ export class MainController implements MainView {
 
     // Set up game console service event listener
     gameConsoleController.on("keyPressed", (event) => {
-      log.debug("Gamepad key pressed:", event.key, event.keyCode);
+      DEV_LOG && console.log("[MainController] Gamepad key pressed:", event.key, event.keyCode);
       // Add any additional UI feedback or logging here
     });
   }
@@ -135,11 +132,11 @@ export class MainController implements MainView {
    * Sets up game console signal listeners for debugger integration
    */
   private setupGameConsoleSignalListeners(): void {
-    log.debug("Setting up game console signal listeners");
+    DEV_LOG && console.log("[MainController] Setting up game console signal listeners");
 
     // Listen for assemble success to update debugger
     gameConsoleController.on("assemble-success", (signal) => {
-      log.debug("assemble-success event received:", signal);
+      DEV_LOG && console.log("[MainController] assemble-success event received:", signal);
       if (signal.message) {
         debuggerController.log(signal.message);
       }
@@ -160,7 +157,7 @@ export class MainController implements MainView {
     });
 
     gameConsoleController.on("assemble-failure", (signal) => {
-      log.debug("assemble-failure event received:", signal);
+      DEV_LOG && console.log("[MainController] assemble-failure event received:", signal);
       if (signal.message) {
         debuggerController.log(signal.message);
       }
@@ -301,7 +298,7 @@ export class MainController implements MainView {
         title: "Code copied to editor",
         timeout: 2,
       });
-      log.debug("Learn: Code copied to editor", code);
+      DEV_LOG && console.log("[MainController] Learn: Code copied to editor", code);
     });
   }
 
@@ -311,7 +308,7 @@ export class MainController implements MainView {
   private setupMainStateEventListeners(): void {
     // Listen for state changes
     mainStateController.events.on("state-changed", (state) => {
-      log.debug("Main state changed:", state);
+      DEV_LOG && console.log("[MainController] Main state changed:", state);
       this.updateMainUiState();
     });
 
@@ -392,7 +389,7 @@ export class MainController implements MainView {
       inset.leftConsumed = true;
       inset.rightConsumed = true;
 
-      log.debug("Android overflow insets handled", {
+      DEV_LOG && console.log("[MainController] Android overflow insets handled", {
         top: inset.top,
         bottom: inset.bottom,
         left: inset.left,
@@ -409,18 +406,18 @@ export class MainController implements MainView {
 
     // Debug: Check if bottomNavigation was found
     if (this.bottomNavigation) {
-      log.debug("BottomNavigation found");
+      DEV_LOG && console.log("[MainController] BottomNavigation found");
       try {
         const height = this.bottomNavigation.height;
         const visibility = this.bottomNavigation.visibility;
-        log.debug(
-          `BottomNavigation - height: ${height}, visibility: ${visibility}`
+        DEV_LOG && console.log(
+          `[MainController] BottomNavigation - height: ${height}, visibility: ${visibility}`
         );
       } catch (error) {
-        log.error("Error checking BottomNavigation properties:", error);
+        console.error("[MainController] Error checking BottomNavigation properties:", error);
       }
     } else {
-      log.error("BottomNavigation NOT FOUND!");
+      console.error("[MainController] BottomNavigation NOT FOUND!");
     }
 
     // Set up system event listeners
@@ -458,7 +455,7 @@ export class MainController implements MainView {
    */
   public onUnloaded(args: EventData): void {
     const view = args.object as Page;
-    log.debug("unloaded:", view.id);
+    DEV_LOG && console.log("[MainController] unloaded:", view.id);
 
     // Unsubscribe appearance change handler
     systemStates.events.off(
@@ -575,29 +572,29 @@ export class MainController implements MainView {
    * Assembles the code in the editor
    */
   public assembleGameConsole(): void {
-    log.debug("assembleGameConsole");
+    DEV_LOG && console.log("[MainController] assembleGameConsole");
 
     // Navigate to the debugger tab
     this.navigateToView(ViewType.DEBUGGER);
 
     // Get code from editor controller and assemble it
     const code = editorController.code;
-    log.debug("Code to assemble:", code);
+    DEV_LOG && console.log("[MainController] Code to assemble:", code);
 
     // Reset the code changed flag BEFORE assembling using mainStateController
     mainStateController.setCodeChanged(false);
 
     // Assemble the code
-    log.debug("Calling gameConsoleController.assemble...");
+    DEV_LOG && console.log("[MainController] Calling gameConsoleController.assemble...");
     gameConsoleController.assemble(code);
-    log.debug("gameConsoleController.assemble called");
+    DEV_LOG && console.log("[MainController] gameConsoleController.assemble called");
   }
 
   /**
    * Runs the assembled code
    */
   public runGameConsole(): void {
-    log.debug("runGameConsole");
+    DEV_LOG && console.log("[MainController] runGameConsole");
 
     // Navigate to the game console tab
     this.navigateToView(ViewType.GAME_CONSOLE);
@@ -610,7 +607,7 @@ export class MainController implements MainView {
    * Pauses the running code
    */
   public pauseGameConsole(): void {
-    log.debug("pauseGameConsole");
+    DEV_LOG && console.log("[MainController] pauseGameConsole");
 
     // Pause the simulator
     gameConsoleView.stop();
@@ -620,7 +617,7 @@ export class MainController implements MainView {
    * Resets the simulator
    */
   public reset(): void {
-    log.debug("reset");
+    DEV_LOG && console.log("[MainController] reset");
 
     // Reset debugger
     debuggerView.reset();
@@ -633,7 +630,7 @@ export class MainController implements MainView {
    * Executes a single step of the program
    */
   public stepGameConsole(): void {
-    log.debug("stepGameConsole");
+    DEV_LOG && console.log("[MainController] stepGameConsole");
 
     // Navigate to the debugger tab
     this.navigateToView(ViewType.DEBUGGER);
@@ -655,7 +652,7 @@ export class MainController implements MainView {
    * @param code The code to set
    */
   public setEditorCode(code: string): void {
-    log.debug("setEditorCode", code);
+    DEV_LOG && console.log("[MainController] setEditorCode", code);
 
     // Navigate to the editor tab
     this.navigateToView(ViewType.EDITOR);
@@ -695,37 +692,37 @@ export class MainController implements MainView {
    * Button event handlers
    */
   public openMenu(): void {
-    log.debug("openMenu");
+    DEV_LOG && console.log("[MainController] openMenu");
     // TODO: Implement menu functionality
   }
 
   public onAssembleTap(): void {
-    log.debug("onAssembleTap");
+    DEV_LOG && console.log("[MainController] onAssembleTap");
     mainStateController.emitAssemble();
   }
 
   public onRunTap(): void {
-    log.debug("onRunTap");
+    DEV_LOG && console.log("[MainController] onRunTap");
     mainStateController.emitRun();
   }
 
   public onPauseTap(): void {
-    log.debug("onPauseTap");
+    DEV_LOG && console.log("[MainController] onPauseTap");
     mainStateController.emitPause();
   }
 
   public onResumeTap(): void {
-    log.debug("onResumeTap");
+    DEV_LOG && console.log("[MainController] onResumeTap");
     mainStateController.emitResume();
   }
 
   public onResetTap(): void {
-    log.debug("onResetTap");
+    DEV_LOG && console.log("[MainController] onResetTap");
     mainStateController.emitReset();
   }
 
   public onStepTap(): void {
-    log.debug("onStepTap");
+    DEV_LOG && console.log("[MainController] onStepTap");
     mainStateController.emitStep();
   }
 
@@ -756,7 +753,7 @@ export class MainController implements MainView {
    * Initialize the game console controller early so it's available for assembling
    */
   private initializeGameConsoleController(): void {
-    log.debug("Initializing gameConsoleController early");
+    DEV_LOG && console.log("[MainController] Initializing gameConsoleController early");
 
     // Use partial initialization to set up assembler functionality without widgets
     gameConsoleController.initPartial({
@@ -766,7 +763,7 @@ export class MainController implements MainView {
       labels: gameConsoleView.labels,
     });
 
-    log.debug("gameConsoleController partial initialization complete");
+    DEV_LOG && console.log("[MainController] gameConsoleController partial initialization complete");
   }
 }
 

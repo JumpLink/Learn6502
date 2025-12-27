@@ -1,9 +1,6 @@
 import { FileService as BaseFileService } from "@learn6502/common-ui";
 import { Application } from "@nativescript/core";
 import { Observable } from "@nativescript/core/data/observable";
-import { logger } from "../utils";
-
-const log = logger.scoped("FileService");
 
 /**
  * Android-specific implementation of the FileService
@@ -16,7 +13,7 @@ export class FileService extends BaseFileService {
 
   constructor() {
     super();
-    log.info("Initialized");
+    DEV_LOG && console.log("[FileService] Initialized");
   }
 
   /**

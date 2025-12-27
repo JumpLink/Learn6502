@@ -12,9 +12,6 @@ import {
   View,
   type AndroidActivityBackPressedEventData,
 } from "@nativescript/core";
-import { logger } from "./logger";
-
-const log = logger.scoped("Navigation");
 
 /**
  * Check if a view should handle back button press
@@ -44,8 +41,8 @@ function shouldHandleBackButton(view: View): boolean {
   }
 
   DEV_LOG &&
-    log.debug(
-      "shouldHandleBackButton",
+    console.log(
+      "[Navigation] shouldHandleBackButton",
       view.id,
       (modalParent as any)._modalParent,
       lastModalInStack
@@ -79,14 +76,16 @@ export function handleBackButton(view: View, callback: () => void): boolean {
  */
 export function setupBackButtonHandler(): void {
   if (!Application.android) {
-    log.warn(
-      "Android application not available, skipping back button handler setup"
-    );
+    DEV_LOG &&
+      console.warn(
+        "[Navigation] Android application not available, skipping back button handler setup"
+      );
     return;
   }
 
   if (!Application.android.activityBackPressedEvent) {
-    log.warn("Activity back pressed event not available");
+    DEV_LOG &&
+      console.warn("[Navigation] Activity back pressed event not available");
     return;
   }
 
@@ -136,5 +135,5 @@ export function setupBackButtonHandler(): void {
     }
   );
 
-  log.debug("Back button handler setup complete");
+  DEV_LOG && console.log("[Navigation] Back button handler setup complete");
 }

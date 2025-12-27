@@ -3,12 +3,9 @@ import {
   createColorStateList,
   getMaterialColor,
   getResource,
-  logger,
 } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
-
-const log = logger.scoped("FAB");
 
 /**
  * Material Design 3 Extended Floating Action Button (FAB) component for Android
@@ -281,11 +278,11 @@ export class Fab extends ContentView {
       if (resId) {
         this.nativeFab.setIconResource(resId); // Use setIconResource for Extended FAB
       } else {
-        log.warn(`Icon resource not found: ${iconName}`);
+        DEV_LOG && console.warn(`[FAB] Icon resource not found: ${iconName}`);
         this.nativeFab.setIcon(null); // Clear icon if not found
       }
     } else if (this._icon) {
-      log.warn(`Icon format not supported (expected res://): ${this._icon}`);
+      DEV_LOG && console.warn(`[FAB] Icon format not supported (expected res://): ${this._icon}`);
       this.nativeFab.setIcon(null);
     } else {
       // If no icon is provided, clear it

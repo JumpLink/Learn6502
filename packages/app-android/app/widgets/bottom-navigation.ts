@@ -10,13 +10,10 @@ import {
   createColorStateList,
   getMaterialColor,
   isDarkMode,
-  logger,
 } from "../utils/index";
 import { getResource } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
-
-const log = logger.scoped("BottomNavigation");
 
 /**
  * Material Design 3 Bottom Navigation component for Android
@@ -258,7 +255,7 @@ export class BottomNavigation extends ContentView {
         this.bottomNav.setBackgroundColor(surfaceContainerColor);
       }
     } catch (error) {
-      log.error("Error setting initial background color:", error);
+      console.error("[BottomNavigation] Error setting initial background color:", error);
     }
 
     // Ensure minimum height for visibility
@@ -336,7 +333,7 @@ export class BottomNavigation extends ContentView {
         this.nativeViewProtected?.setBackgroundColor(surfaceContainerColor);
       }
     } catch (error) {
-      log.error("Error setting ContentView background color:", error);
+      console.error("[BottomNavigation] Error setting ContentView background color:", error);
     }
 
     // Log dimensions for debugging
@@ -344,12 +341,12 @@ export class BottomNavigation extends ContentView {
       if (this.bottomNav) {
         const height = this.bottomNav.getHeight();
         const minHeight = this.bottomNav.getMinimumHeight();
-        log.debug(
-          `BottomNavigation initialized - height: ${height}, minHeight: ${minHeight}`
+        DEV_LOG && console.log(
+          `[BottomNavigation] BottomNavigation initialized - height: ${height}, minHeight: ${minHeight}`
         );
       }
-    } catch (error) {
-      log.error("Error logging BottomNavigation dimensions:", error);
+      } catch (error) {
+      console.error("[BottomNavigation] Error logging BottomNavigation dimensions:", error);
     }
   }
 
@@ -377,15 +374,15 @@ export class BottomNavigation extends ContentView {
           const heightInDips =
             Utils.layout.toDeviceIndependentPixels(minHeight);
           this.height = heightInDips;
-          log.debug(
-            `BottomNavigation onLayout: Set explicit height to ${heightInDips} DIPs (${minHeight}px)`
+          DEV_LOG && console.log(
+            `[BottomNavigation] BottomNavigation onLayout: Set explicit height to ${heightInDips} DIPs (${minHeight}px)`
           );
           // Request a new layout pass
           this.requestLayout();
         }
       }
-    } catch (error) {
-      log.error("Error setting BottomNavigation height in onLayout:", error);
+      } catch (error) {
+      console.error("[BottomNavigation] Error setting BottomNavigation height in onLayout:", error);
     }
   }
 
@@ -406,7 +403,7 @@ export class BottomNavigation extends ContentView {
   ): void {
     if (!this.bottomNav) return;
 
-    log.debug("applyTheme");
+    DEV_LOG && console.log("[BottomNavigation] applyTheme");
 
     // Get colors using the new properties
     const activeTextColor = getMaterialColor(
@@ -530,7 +527,7 @@ export class BottomNavigation extends ContentView {
    */
   public selectTab(tabId: string): boolean {
     if (!this.bottomNav || !this.idToMenuId.has(tabId)) {
-      log.debug(`selectTab - Tab with ID ${tabId} not found`);
+      DEV_LOG && console.log(`[BottomNavigation] selectTab - Tab with ID ${tabId} not found`);
       return false;
     }
 

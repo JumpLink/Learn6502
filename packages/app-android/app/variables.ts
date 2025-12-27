@@ -12,21 +12,14 @@
  */
 
 import { Application, Screen, Utils } from "@nativescript/core";
-import { EventDispatcher } from "@learn6502/6502";
 import { systemStates } from "./states";
-import { logger } from "./utils";
-import type { VariablesEventsMap } from "./types";
-
-const log = logger.scoped("AppVariables");
 
 /**
  * Centralized variables manager
  *
  * Provides reactive state for UI dimensions and configurations.
- * Uses EventDispatcher for change notifications.
  */
 class AppVariables {
-  public readonly events = new EventDispatcher<VariablesEventsMap>();
 
   // Screen dimensions (constant after app start)
   public readonly screenHeightDips = Screen.mainScreen.heightDIPs;
@@ -91,11 +84,11 @@ class AppVariables {
    */
   public initialize(): void {
     if (this._initialized) {
-      log.debug("Already initialized");
+      DEV_LOG && console.log("[AppVariables] Already initialized");
       return;
     }
 
-    log.info("Initializing...");
+    DEV_LOG && console.log("[AppVariables] Initializing...");
     this._initialized = true;
 
     // Initial values from system
@@ -104,7 +97,7 @@ class AppVariables {
     // Setup Android activity lifecycle handlers (like reference projects)
     this.setupActivityLifecycleHandlers();
 
-    log.info("Initialized", {
+    DEV_LOG && console.log("[AppVariables] Initialized", {
       screenDims: `${this.screenWidthDips}x${this.screenHeightDips}`,
       fontScale: this._fontScale,
       isRTL: this._isRTL,
@@ -119,7 +112,7 @@ class AppVariables {
     // Handle activity start - update configuration (RTL, font scale, etc.)
     // This ensures configuration is updated when activity starts (e.g., after theme changes)
     Application.android?.on(Application.android.activityStartedEvent, () => {
-      log.debug("Activity started, updating configuration");
+      DEV_LOG && console.log("[AppVariables] Activity started, updating configuration");
       this.updateFromConfiguration();
     });
   }
@@ -137,25 +130,15 @@ class AppVariables {
     // Font scale
     const newFontScale = configuration.fontScale || 1.0;
     if (newFontScale !== this._fontScale) {
-      const oldValue = this._fontScale;
       this._fontScale = newFontScale;
-      this.events.dispatch("fontScale:changed", {
-        newValue: newFontScale,
-        oldValue,
-      });
-      log.debug("Font scale updated:", newFontScale);
+      DEV_LOG && console.log("[AppVariables] Font scale updated:", newFontScale);
     }
 
     // RTL layout direction
     const newIsRTL = configuration.getLayoutDirection() === 1;
     if (newIsRTL !== this._isRTL) {
-      const oldValue = this._isRTL;
       this._isRTL = newIsRTL;
-      this.events.dispatch("rtl:changed", {
-        newValue: newIsRTL,
-        oldValue,
-      });
-      log.debug("RTL mode:", newIsRTL);
+      DEV_LOG && console.log("[AppVariables] RTL mode:", newIsRTL);
     }
 
     // Action bar height
@@ -181,14 +164,9 @@ class AppVariables {
       );
 
       if (newHeight > 0 && newHeight !== this._actionBarHeight) {
-        const oldValue = this._actionBarHeight;
         this._actionBarHeight = newHeight;
         this._actionBarButtonHeight = newHeight - 10;
-        this.events.dispatch("actionBarHeight:changed", {
-          newValue: newHeight,
-          oldValue,
-        });
-        log.debug("Action bar height updated:", newHeight);
+        DEV_LOG && console.log("[AppVariables] Action bar height updated:", newHeight);
       }
     }
   }
@@ -221,7 +199,6 @@ class AppVariables {
       this._windowInset.bottom !== newInset.bottom ||
       this._windowInset.keyboard !== newInset.keyboard
     ) {
-      const oldValue = { ...this._windowInset };
       this._windowInset = newInset;
 
       // Set CSS variables on root view style (like reference projects)
@@ -253,12 +230,7 @@ class AppVariables {
         rootView._onCssStateChange?.();
       }
 
-      this.events.dispatch("windowInset:changed", {
-        newValue: newInset,
-        oldValue,
-      });
-
-      log.debug("Window inset updated:", newInset);
+      DEV_LOG && console.log("[AppVariables] Window inset updated:", newInset);
     }
   }
 }
