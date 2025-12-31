@@ -93,8 +93,7 @@ export class ThemeService extends BaseThemeService {
 
       this.log.debug("Initialization completed");
     } catch (error) {
-      this.log.error("Error during ThemeService initialization:", error);
-      showError(error instanceof Error ? error : new Error(String(error)), {
+      showError(error, {
         forcedMessage: "Failed to initialize theme service",
         showAsNotification: true,
       });
@@ -165,8 +164,7 @@ export class ThemeService extends BaseThemeService {
       // Save theme to settings
       this.saveThemeToSettings(mode);
     } catch (error) {
-      this.log.error("Error applying theme:", error);
-      showError(error instanceof Error ? error : new Error(String(error)), {
+      showError(error, {
         forcedMessage: "Failed to apply theme",
         showAsNotification: true,
       });
@@ -239,9 +237,8 @@ export class ThemeService extends BaseThemeService {
             activity.getDelegate().applyDayNight();
           }
         } catch (error) {
-          this.log.error("Error applying day/night mode:", error);
           // Silent error - theme changes are non-critical
-          showError(error instanceof Error ? error : new Error(String(error)), {
+          showError(error, {
             silent: true,
           });
         }
@@ -271,9 +268,8 @@ export class ThemeService extends BaseThemeService {
         try {
           await this.updateContrastClasses(event.newValue);
         } catch (error) {
-          this.log.error("Error updating contrast classes:", error);
           // Silent error - contrast changes are non-critical
-          showError(error instanceof Error ? error : new Error(String(error)), {
+          showError(error, {
             silent: true,
           });
         }
@@ -319,9 +315,8 @@ export class ThemeService extends BaseThemeService {
           Array.from(rootView.cssClasses.values())
         );
     } catch (error) {
-      this.log.error("Error updating contrast classes:", error);
       // Silent error - contrast changes are non-critical
-      showError(error instanceof Error ? error : new Error(String(error)), {
+      showError(error, {
         silent: true,
       });
     }

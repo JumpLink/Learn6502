@@ -2,10 +2,10 @@
  * Centralized error handling utility
  *
  * Pattern from reference projects (conty, oss-weather, alpimaps)
- * Provides consistent error handling across the app using NativeScript Trace module
+ * Provides consistent error handling across the app
+ * Automatically logs errors using the logger utility
  */
 
-import { Trace } from "@nativescript/core";
 import { alert } from "@nativescript/core/ui/dialogs";
 import { notificationService } from "../services";
 import type { ErrorHandlerOptions, ExtendedError } from "../types";
@@ -33,7 +33,8 @@ function extractErrorMessage(err: Error | string): string {
 
 /**
  * Show error to user with appropriate UI
- * Uses NativeScript Trace module for logging and NativeScript dialogs for UI
+ * Automatically logs errors using the logger utility
+ * Uses NativeScript dialogs for UI
  */
 export async function showError(
   err: Error | string | null | undefined,
@@ -63,14 +64,12 @@ export async function showError(
     // Extract message
     const message = forcedMessage || extractErrorMessage(err);
 
-    // Log error using NativeScript Trace module
-    Trace.write(message, "[ErrorHandler]", Trace.messageType.error);
-    if (error instanceof Error && error.stack) {
-      Trace.write(
-        `Stack: ${error.stack}`,
-        "[ErrorHandler]",
-        Trace.messageType.error
-      );
+    // Log error using logger (automatically handles Error objects with stack traces)
+    // If we have a forced message, log it separately; otherwise let logger format the error
+    if (forcedMessage) {
+      logger.error("ErrorHandler", forcedMessage, error);
+    } else {
+      logger.error("ErrorHandler", error);
     }
 
     // Show as notification if requested
@@ -95,11 +94,6 @@ export async function showError(
     });
   } catch (error) {
     // Fallback if error handling itself fails
-    Trace.write(
-      `Error in showError: ${error}`,
-      "[ErrorHandler]",
-      Trace.messageType.error
-    );
     logger.error("ErrorHandler", "Error in showError:", error);
   }
 }
@@ -113,19 +107,13 @@ export function setupGlobalErrorHandler(): void {
     error: Error | null | undefined,
     nativeError?: unknown
   ): boolean {
-    const errorMessage = error?.message || "Unknown error";
-    Trace.write(
-      `Global error caught: ${errorMessage}`,
-      "[GlobalErrorHandler]",
-      Trace.messageType.error
-    );
+    // Log error using logger (automatically handles Error objects)
+    if (error) {
+      logger.error("GlobalErrorHandler", "Global error caught:", error);
+    }
 
     if (nativeError) {
-      Trace.write(
-        `Native error: ${String(nativeError)}`,
-        "[GlobalErrorHandler]",
-        Trace.messageType.error
-      );
+      logger.error("GlobalErrorHandler", "Native error:", nativeError);
     }
 
     // Show error to user (non-blocking)

@@ -120,14 +120,10 @@ export class FileService extends BaseFileService {
                     filename: fileName,
                   });
                 } catch (error) {
-                  this.log.error("Error reading file:", error);
-                  showError(
-                    error instanceof Error ? error : new Error(String(error)),
-                    {
-                      forcedMessage: "Failed to read file",
-                      showAsNotification: true,
-                    }
-                  );
+                  showError(error, {
+                    forcedMessage: "Failed to read file",
+                    showAsNotification: true,
+                  });
                   resolve(null);
                 }
               } else {
@@ -138,8 +134,7 @@ export class FileService extends BaseFileService {
         );
       });
     } catch (error) {
-      this.log.error("Error opening file:", error);
-      showError(error instanceof Error ? error : new Error(String(error)), {
+      showError(error, {
         forcedMessage: "Failed to open file",
         showAsNotification: true,
       });
@@ -237,14 +232,10 @@ export class FileService extends BaseFileService {
 
                   resolve(true);
                 } catch (error) {
-                  this.log.error("Error saving file:", error);
-                  showError(
-                    error instanceof Error ? error : new Error(String(error)),
-                    {
-                      forcedMessage: "Failed to save file",
-                      showAsNotification: true,
-                    }
-                  );
+                  showError(error, {
+                    forcedMessage: "Failed to save file",
+                    showAsNotification: true,
+                  });
                   resolve(false);
                 }
               } else {
@@ -255,8 +246,7 @@ export class FileService extends BaseFileService {
         );
       });
     } catch (error) {
-      this.log.error("Error in save as:", error);
-      showError(error instanceof Error ? error : new Error(String(error)), {
+      showError(error, {
         forcedMessage: "Failed to save file",
         showAsNotification: true,
       });
@@ -296,8 +286,7 @@ export class FileService extends BaseFileService {
       this.setUnsavedChanges(false);
       return true;
     } catch (error) {
-      this.log.error("Error saving to current file:", error);
-      showError(error instanceof Error ? error : new Error(String(error)), {
+      showError(error, {
         forcedMessage: "Failed to save file",
         showAsNotification: true,
       });

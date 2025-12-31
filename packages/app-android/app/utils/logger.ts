@@ -19,6 +19,45 @@
 
 type LogLevel = "debug" | "info" | "warn" | "error";
 
+/**
+ * Check if a value is an Error instance
+ */
+function isError(value: unknown): value is Error {
+  return value instanceof Error;
+}
+
+/**
+ * Format error arguments for logging
+ * Extracts Error objects and formats them with message and stack trace
+ */
+function formatErrorArgs(args: unknown[]): unknown[] {
+  const formattedArgs: unknown[] = [];
+  let hasError = false;
+  let error: Error | null = null;
+
+  // Separate Error objects from other arguments
+  for (const arg of args) {
+    if (isError(arg)) {
+      hasError = true;
+      error = arg;
+    } else {
+      formattedArgs.push(arg);
+    }
+  }
+
+  // If we found an Error, add its message and stack trace
+  if (hasError && error) {
+    // Add error message
+    formattedArgs.push(`Error: ${error.message || error.toString()}`);
+    // Add stack trace if available
+    if (error.stack) {
+      formattedArgs.push(`\nStack trace:\n${error.stack}`);
+    }
+  }
+
+  return formattedArgs;
+}
+
 class Logger {
   /**
    * Log a debug message (only in development)
@@ -67,12 +106,28 @@ class Logger {
   /**
    * Log an error message (ALWAYS logs, even in production)
    * Errors are important and should always be visible
+   * Automatically detects Error objects and formats them with stack traces
+   *
    * @param tag - Optional tag/component name for context
-   * @param args - Message and additional data
+   * @param args - Message and additional data (Error objects will be formatted automatically)
+   *
+   * @example
+   * ```ts
+   * try {
+   *   // some code
+   * } catch (error) {
+   *   logger.error("FileService", "Failed to save:", error);
+   *   // Logs: [FileService] Failed to save: Error: Cannot write file
+   *   //       Stack trace:
+   *   //       Error: Cannot write file
+   *   //         at FileService.save (file.service.ts:123)
+   * }
+   * ```
    */
   public error(tag: string, ...args: unknown[]): void {
     // Errors always log regardless of DEV_LOG
-    console.error(`[${tag}]`, ...args);
+    const formattedArgs = formatErrorArgs(args);
+    console.error(`[${tag}]`, ...formattedArgs);
   }
 
   /**
@@ -125,9 +180,31 @@ class ScopedLogger {
     }
   }
 
+  /**
+   * Log an error message (ALWAYS logs, even in production)
+   * Errors are important and should always be visible
+   * Automatically detects Error objects and formats them with stack traces
+   *
+   * @param args - Message and additional data (Error objects will be formatted automatically)
+   *
+   * @example
+   * ```ts
+   * const log = logger.scoped("FileService");
+   * try {
+   *   // some code
+   * } catch (error) {
+   *   log.error("Failed to save:", error);
+   *   // Logs: [FileService] Failed to save: Error: Cannot write file
+   *   //       Stack trace:
+   *   //       Error: Cannot write file
+   *   //         at FileService.save (file.service.ts:123)
+   * }
+   * ```
+   */
   public error(...args: unknown[]): void {
     // Errors always log regardless of DEV_LOG
-    console.error(`[${this.tag}]`, ...args);
+    const formattedArgs = formatErrorArgs(args);
+    console.error(`[${this.tag}]`, ...formattedArgs);
   }
 }
 

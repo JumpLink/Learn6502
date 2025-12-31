@@ -123,9 +123,8 @@ export class MainController implements MainView {
           };
         }
       } catch (error) {
-        this.log.error("Error setting up key handling:", error);
         // Silent error - key handling is non-critical
-        showError(error instanceof Error ? error : new Error(String(error)), {
+        showError(error, {
           silent: true,
         });
       }

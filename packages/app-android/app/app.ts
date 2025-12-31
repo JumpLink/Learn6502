@@ -3,7 +3,7 @@
  * Pattern from reference projects: direct Application events, minimal setup
  */
 
-import { Application, isAndroid, Trace } from "@nativescript/core";
+import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { systemStates, SystemStates } from "./states";
 import { ThemeService } from "./services";
@@ -45,18 +45,10 @@ try {
       servicesInitialized = true;
       logger.debug("App", "Services initialized");
     } catch (error) {
-      Trace.write(
-        `Error during service initialization: ${error}`,
-        "[App]",
-        Trace.messageType.error
-      );
-      await showError(
-        error instanceof Error ? error : new Error(String(error)),
-        {
-          forcedMessage: "Failed to initialize application services",
-          showAsNotification: true,
-        }
-      );
+      await showError(error, {
+        forcedMessage: "Failed to initialize application services",
+        showAsNotification: true,
+      });
     }
   }
 
@@ -67,12 +59,6 @@ try {
   Application.setResources({ _: localize });
   Application.run({ moduleName: "app-root" });
 } catch (error) {
-  const errorMessage = error instanceof Error ? error.message : String(error);
-  Trace.write(
-    `Fatal error during startup: ${errorMessage}`,
-    "[App]",
-    Trace.messageType.error
-  );
   // Note: Cannot use showError here as services may not be initialized
   logger.error("App", "Fatal startup error:", error);
 }
