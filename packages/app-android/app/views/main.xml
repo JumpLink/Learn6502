@@ -4,8 +4,8 @@
     unloaded="onUnloaded"
     id="main-page"
     class="bg-surface"
-    androidOverflowEdge="dont-apply">
-    <ActionBar id="main-action-bar" class="bg-surface text-on-surface">
+    androidOverflowEdge="ignore">
+    <ActionBar id="main-action-bar" class="bg-primary text-on-primary mt-safe">
         <!-- explicitly hide the back button -->
         <NavigationButton visibility="collapsed" />
 
@@ -19,8 +19,8 @@
     </ActionBar>
 
     <!-- Use GridLayout to position content and bottom navigation -->
-    <!-- GridLayout receives bottom inset from Page and fires androidOverflowInset event -->
-    <GridLayout id="mainGridLayout" rows="*, auto" columns="*" androidOverflowEdge="dont-apply">
+    <GridLayout id="mainGridLayout" rows="*, auto" columns="*" androidOverflowEdge="ignore"
+        class="bg-surface-container pb-safe">
         <ScrollView id="mainScrollView" row="0">
             <!-- Frame for content switching -->
             <Frame id="mainFrame" defaultPage="views/main/editor" />
@@ -45,7 +45,6 @@
         />
 
         <!-- Bottom navigation bar positioned at the bottom -->
-        <!-- Observes Page androidOverflowInset event to adjust height for bottom inset -->
         <w:BottomNavigation
             id="bottomNavigation"
             row="1"

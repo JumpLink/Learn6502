@@ -296,6 +296,31 @@
         <Label col="0" text="Toggle state:" class="text-on-surface" verticalAlignment="center" />
         <w:Switch id="switchInteractive" col="1" />
       </GridLayout>
+
+      <!-- Safe Area Insets Test -->
+      <Label text="Safe Area Insets" class="text-xl font-bold mb-4 mt-8" />
+      <Label text="CSS Variables Test" class="text-lg font-bold mb-2" />
+      <StackLayout class="bg-surface-container p-4 rounded-lg mb-4">
+        <Label text="Top Inset: var(--safeAreaInsetTop)" class="text-on-surface mb-2" />
+        <StackLayout class="bg-primary pt-safe">
+          <Label text="Top padding applied" class="text-on-primary p-2" />
+        </StackLayout>
+
+        <Label text="Bottom Inset: var(--safeAreaInsetBottom)" class="text-on-surface mb-2 mt-4" />
+        <StackLayout class="bg-secondary pb-safe">
+          <Label text="Bottom padding applied" class="text-on-secondary p-2" />
+        </StackLayout>
+
+        <Label text="Left Inset: var(--safeAreaInsetLeft)" class="text-on-surface mb-2 mt-4" />
+        <StackLayout class="bg-tertiary pl-safe">
+          <Label text="Left padding applied" class="text-on-tertiary p-2" />
+        </StackLayout>
+
+        <Label text="Right Inset: var(--safeAreaInsetRight)" class="text-on-surface mb-2 mt-4" />
+        <StackLayout class="bg-error pr-safe">
+          <Label text="Right padding applied" class="text-on-error p-2" />
+        </StackLayout>
+      </StackLayout>
     </StackLayout>
   </ScrollView>
 </Page>

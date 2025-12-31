@@ -14,12 +14,9 @@ import { logger } from "~/utils";
  * Pattern from reference projects:
  * - Centralized logger for conditional logging
  * - Centralized settings keys from constants.ts
- * - Singleton pattern with lazy initialization
+ * - Direct export as instance (like notificationService)
  */
 export class ThemeService extends BaseThemeService {
-  // Singleton instance
-  private static instance: ThemeService | null = null;
-
   // Instance state
   private restartRequiredOnResume = false;
 
@@ -27,43 +24,20 @@ export class ThemeService extends BaseThemeService {
   private log = logger.scoped("ThemeService");
 
   /**
-   * Get the singleton instance of ThemeService
-   * If the instance doesn't exist, it will NOT be created automatically.
-   * Use initialize() to create the instance when the app is ready.
-   */
-  public static getInstance(): ThemeService | null {
-    return ThemeService.instance;
-  }
-
-  /**
-   * Initialize the ThemeManager singleton when the app is ready
-   * @returns The singleton instance
-   */
-  public static initialize(): ThemeService {
-    if (!ThemeService.instance) {
-      ThemeService.instance = new ThemeService();
-
-      // Now that the instance is created, perform initialization
-      ThemeService.instance.initializeManager();
-    }
-    return ThemeService.instance;
-  }
-
-  /**
-   * Private constructor to enforce singleton pattern
+   * Public constructor - instance is exported directly
    * Keeps the constructor minimal to avoid startup issues
    */
-  private constructor() {
+  public constructor() {
     super();
     this.log.debug("Constructor called");
     // NO initialization here to prevent startup deadlocks
   }
 
   /**
-   * Initialize the manager - called after singleton creation
-   * This keeps the constructor minimal and avoids potential deadlocks
+   * Initialize the ThemeService
+   * Should be called once during app launch
    */
-  private initializeManager(): void {
+  public initialize(): void {
     this.log.debug("initializeManager called");
 
     try {
@@ -321,4 +295,74 @@ export class ThemeService extends BaseThemeService {
       });
     }
   }
+
+  /**
+   * Update CSS variables for safe area insets
+   * These variables can be used throughout the app via var(--safeAreaInset*)
+   * Pattern from reference projects (conty, alpimaps, oss-weather) - using camelCase
+   */
+  public updateSafeAreaInsets(insets: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  }): void {
+    try {
+      const rootViewStyle = Application.getRootView()?.style;
+      if (!rootViewStyle) {
+        this.log.warn(
+          "Root view style not available for setting safe area insets"
+        );
+        return;
+      }
+
+      // Set CSS variables using setUnscopedCssVariable (like reference projects)
+      // Using camelCase naming convention like --windowInsetLeft, --actionBarHeight
+      // Values are set without units (NativeScript uses dip automatically)
+      rootViewStyle.setUnscopedCssVariable(
+        "--safeAreaInsetTop",
+        insets.top + ""
+      );
+      rootViewStyle.setUnscopedCssVariable(
+        "--safeAreaInsetBottom",
+        insets.bottom + ""
+      );
+      rootViewStyle.setUnscopedCssVariable(
+        "--safeAreaInsetLeft",
+        insets.left + ""
+      );
+      rootViewStyle.setUnscopedCssVariable(
+        "--safeAreaInsetRight",
+        insets.right + ""
+      );
+
+      // Trigger CSS state change to apply the new variables (pattern from reference projects)
+      // This ensures all views using these CSS variables are re-rendered
+      const rootView = Application.getRootView();
+      if (rootView) {
+        rootView._onCssStateChange();
+        const rootModalViews = rootView._getRootModalViews();
+        if (rootModalViews) {
+          rootModalViews.forEach((rootModalView) =>
+            rootModalView._onCssStateChange()
+          );
+        }
+      }
+
+      DEV_LOG &&
+        this.log.debug("Safe area insets updated:", {
+          top: insets.top,
+          bottom: insets.bottom,
+          left: insets.left,
+          right: insets.right,
+        });
+    } catch (error) {
+      // Silent error - inset updates are non-critical
+      showError(error, {
+        silent: true,
+      });
+    }
+  }
 }
+
+export const themeService = new ThemeService();

@@ -76,3 +76,58 @@ TextView.no-underline {
   border-width: 0;
   background: transparent;
 }
+
+/* Safe Area Insets CSS Variables
+ * These variables are set dynamically via themeService.updateSafeAreaInsets()
+ * Using camelCase naming convention (like reference projects: --windowInsetLeft, --actionBarHeight)
+ * Initial values are defined here as fallbacks, then updated dynamically at runtime
+ * Available variables:
+ *   --safeAreaInsetTop (for ActionBar)
+ *   --safeAreaInsetBottom (for BottomNavigation)
+ *   --safeAreaInsetLeft
+ *   --safeAreaInsetRight
+ */
+
+/* Initialize CSS variables with default values (pattern from reference projects) */
+.ns-root {
+  --safeAreaInsetTop: 0;
+  --safeAreaInsetBottom: 0;
+  --safeAreaInsetLeft: 0;
+  --safeAreaInsetRight: 0;
+}
+
+/* Safe Area Insets Utility Classes (Tailwind-inspired)
+ * Use these classes to apply safe area insets as padding
+ * Examples: pt-safe, pb-safe, pl-safe, pr-safe
+ */
+.pt-safe {
+  padding-top: var(--safeAreaInsetTop, 0) !important;
+}
+
+.pb-safe {
+  padding-bottom: var(--safeAreaInsetBottom, 0) !important;
+}
+
+.pl-safe {
+  padding-left: var(--safeAreaInsetLeft, 0) !important;
+}
+
+.pr-safe {
+  padding-right: var(--safeAreaInsetRight, 0) !important;
+}
+
+.mt-safe {
+  margin-top: var(--safeAreaInsetTop, 0) !important;
+}
+
+.mb-safe {
+  margin-bottom: var(--safeAreaInsetBottom, 0) !important;
+}
+
+.ml-safe {
+  margin-left: var(--safeAreaInsetLeft, 0) !important;
+}
+
+.mr-safe {
+  margin-right: var(--safeAreaInsetRight, 0) !important;
+}

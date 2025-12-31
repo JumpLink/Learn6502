@@ -6,7 +6,7 @@
 import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { systemStates, SystemStates } from "./states";
-import { ThemeService } from "./services";
+import { themeService } from "./services";
 import { appVariables } from "./variables";
 import { setupBackButtonHandler } from "./utils/navigation";
 import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
@@ -37,7 +37,7 @@ try {
       appVariables.initialize();
 
       // Initialize services sequentially
-      ThemeService.initialize();
+      themeService.initialize();
 
       // Setup navigation handlers
       setupBackButtonHandler();
