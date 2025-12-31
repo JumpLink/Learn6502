@@ -2,7 +2,8 @@
     xmlns:w="~/widgets/index"
     navigatingTo="onNavigatingTo"
     navigatingFrom="onNavigatingFrom"
-    class="bg-surface">
+    class="bg-surface"
+>
     <ActionBar class="bg-surface text-on-surface" title="Editor" flat="true">
         <NavigationButton visibility="collapse" />
     </ActionBar>

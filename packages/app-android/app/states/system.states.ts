@@ -22,6 +22,7 @@ import { EventDispatcher } from "@learn6502/6502";
 import { ContrastMode } from "../constants";
 // Direct imports to avoid circular dependency (utils/index → color → system.states → utils/index)
 import { contrastLevelToMode } from "../utils/contrast";
+import { logger } from "../utils/logger";
 
 import type {
   ContrastChangeEvent,
@@ -37,6 +38,9 @@ export class SystemStates {
    * Event dispatcher for system events with type safety
    */
   public events = new EventDispatcher<SystemEventsMap>();
+
+  // Scoped logger for this class
+  private log = logger.scoped("SystemStates");
 
   /**
    * Event name for property change events
@@ -115,18 +119,18 @@ export class SystemStates {
 
     androidLaunchEventLocalizationHandler();
 
-    DEV_LOG && console.log("[SystemStates] onLaunch called");
+    this.log.debug("onLaunch called");
 
     // Get initial system appearance
     const systemAppearance = Application.systemAppearance();
-    DEV_LOG && console.log("[SystemStates] systemAppearance", systemAppearance);
+    this.log.debug("systemAppearance", systemAppearance);
     this.systemAppearance = systemAppearance;
 
     // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
     const localeOverriddenSuccessfully = overrideLocale("de-DE");
     DEV_LOG &&
-      console.log(
-        "[SystemStates] localeOverriddenSuccessfully",
+      this.log.debug(
+        "localeOverriddenSuccessfully",
         localeOverriddenSuccessfully
       );
 
@@ -140,8 +144,8 @@ export class SystemStates {
     // addContrastChangeListener and getContrast() are only available on Android 15+ (API 35+)
     if (android.os.Build.VERSION.SDK_INT < 35) {
       DEV_LOG &&
-        console.log(
-          "[SystemStates] ContrastChangeListener requires API level 35+, using default contrast"
+        this.log.debug(
+          "ContrastChangeListener requires API level 35+, using default contrast"
         );
       this.contrast = ContrastMode.NORMAL;
       return;
@@ -150,8 +154,8 @@ export class SystemStates {
     const context = Utils.android.getApplicationContext();
     if (!context) {
       DEV_LOG &&
-        console.log(
-          "[SystemStates] Could not get application context for contrast listener, using default contrast"
+        this.log.debug(
+          "Could not get application context for contrast listener, using default contrast"
         );
       this.contrast = ContrastMode.NORMAL;
       return;
@@ -163,8 +167,8 @@ export class SystemStates {
 
     if (!uiModeManager) {
       DEV_LOG &&
-        console.log(
-          "[SystemStates] Could not get UiModeManager service for contrast listener, using default contrast"
+        this.log.debug(
+          "Could not get UiModeManager service for contrast listener, using default contrast"
         );
       this.contrast = ContrastMode.NORMAL;
       return;
@@ -174,8 +178,8 @@ export class SystemStates {
     const mainExecutor = context.getMainExecutor();
     if (!mainExecutor) {
       DEV_LOG &&
-        console.log(
-          "[SystemStates] Could not get main executor for ContrastChangeListener, using default contrast"
+        this.log.debug(
+          "Could not get main executor for ContrastChangeListener, using default contrast"
         );
       this.contrast = ContrastMode.NORMAL;
       return;
@@ -184,11 +188,7 @@ export class SystemStates {
     const contrastListener =
       new android.app.UiModeManager.ContrastChangeListener({
         onContrastChanged: (contrastLevel: number) => {
-          DEV_LOG &&
-            console.log(
-              "[SystemStates] System contrast changed:",
-              contrastLevel
-            );
+          DEV_LOG && this.log.debug("System contrast changed:", contrastLevel);
           // Set the contrast property (this will trigger property change event)
           this.contrast = contrastLevelToMode(contrastLevel);
         },
@@ -200,23 +200,19 @@ export class SystemStates {
     try {
       const initialContrast = uiModeManager.getContrast();
       DEV_LOG &&
-        console.log(
-          "[SystemStates] Initial system contrast level:",
-          initialContrast
-        );
+        this.log.debug("Initial system contrast level:", initialContrast);
 
       // Set the contrast property (this will trigger property change event)
       this.contrast = contrastLevelToMode(initialContrast);
 
       uiModeManager.addContrastChangeListener(mainExecutor, contrastListener);
-      DEV_LOG &&
-        console.log("[SystemStates] ContrastChangeListener added successfully");
+      DEV_LOG && this.log.debug("ContrastChangeListener added successfully");
     } catch (error) {
       // Method might not be available even on API 35+ (e.g., on some devices/emulators)
       // This is expected and not an error - we just use the default contrast mode
       DEV_LOG &&
-        console.log(
-          "[SystemStates] Contrast API methods not available on this device/emulator, using default contrast mode"
+        this.log.debug(
+          "Contrast API methods not available on this device/emulator, using default contrast mode"
         );
       // Fallback: use default contrast mode
       this.contrast = ContrastMode.NORMAL;
@@ -255,7 +251,7 @@ export class SystemStates {
     // via Application.android.on() in the components that need them, following the pattern
     // from reference projects (conty, alpimaps, oss-weather)
 
-    DEV_LOG && console.log("[SystemStates] Events setup complete");
+    this.log.debug("Events setup complete");
   }
 }
 

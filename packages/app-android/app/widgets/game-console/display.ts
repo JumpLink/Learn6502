@@ -15,6 +15,7 @@ import {
 } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core";
 import { Memory, DisplayAddressRange } from "@learn6502/6502";
+import { logger } from "~/utils";
 
 /**
  * Android implementation of the DisplayWidget using native canvas.
@@ -38,6 +39,9 @@ export class Display extends GridLayout implements DisplayWidget {
   private initializationTimeout: any = null;
   private memoryListenerActive: boolean = false;
   private isInitialized: boolean = false;
+
+  // Scoped logger for this class
+  private log = logger.scoped("Display");
 
   constructor() {
     super();
@@ -64,11 +68,11 @@ export class Display extends GridLayout implements DisplayWidget {
     try {
       const context = Utils.android.getApplicationContext();
       if (!context) {
-        console.error("Display: Failed to get application context");
+        this.log.error("Failed to get application context");
         return;
       }
 
-      console.log("Display: Creating native ImageView directly");
+      this.log.debug("Creating native ImageView directly");
 
       // Create the ImageView for our canvas
       this.canvasImageView = new android.widget.ImageView(context);
@@ -77,8 +81,8 @@ export class Display extends GridLayout implements DisplayWidget {
       );
 
       // Create a bitmap and canvas
-      console.log(
-        `Display: Creating bitmap with dimensions ${this.canvasWidth}x${this.canvasHeight}`
+      this.log.debug(
+        `Creating bitmap with dimensions ${this.canvasWidth}x${this.canvasHeight}`
       );
       this.bitmap = android.graphics.Bitmap.createBitmap(
         this.canvasWidth,
@@ -87,14 +91,14 @@ export class Display extends GridLayout implements DisplayWidget {
       );
 
       if (!this.bitmap) {
-        console.error("Display: Failed to create bitmap");
+        this.log.error("Failed to create bitmap");
         return;
       }
 
       this.canvas = new android.graphics.Canvas(this.bitmap);
 
       if (!this.canvas) {
-        console.error("Display: Failed to create canvas");
+        this.log.error("Failed to create canvas");
         return;
       }
 
@@ -107,7 +111,7 @@ export class Display extends GridLayout implements DisplayWidget {
 
       // Calculate pixel size based on display dimensions
       this.pixelSize = this.canvasWidth / this.numX;
-      console.log(`Display: Pixel size calculated as ${this.pixelSize}`);
+      this.log.debug(`Pixel size calculated as ${this.pixelSize}`);
 
       // Add the ImageView as a direct child using ContentView wrapper
       const imageViewWrapper = new ContentView();
@@ -122,7 +126,7 @@ export class Display extends GridLayout implements DisplayWidget {
       // Initial clear
       this.clearCanvas();
 
-      console.log("Display: Successfully initialized canvas directly");
+      this.log.debug("Successfully initialized canvas directly");
 
       // If memory was already set, draw it now
       if (this.memory && this.pendingDraw) {
@@ -132,8 +136,8 @@ export class Display extends GridLayout implements DisplayWidget {
         this.pendingDraw = false;
       }
     } catch (error) {
-      console.error(
-        `Display: Error in canvas initialization - ${error instanceof Error ? error.message : String(error)}`
+      this.log.error(
+        `Error in canvas initialization - ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -148,7 +152,7 @@ export class Display extends GridLayout implements DisplayWidget {
 
     // Mark the listener as active before adding it
     this.memoryListenerActive = true;
-    console.log("Display: Memory change listener initialized");
+    this.log.debug("Memory change listener initialized");
 
     // Listen for memory changes
     this.memory.on("changed", (event) => {
@@ -172,24 +176,24 @@ export class Display extends GridLayout implements DisplayWidget {
    * @param addr Memory address of the pixel to update
    */
   public updatePixel(addr: number): void {
-    console.log(`updatePixel called for address: 0x${addr.toString(16)}`);
+    this.log.debug(`updatePixel called for address: 0x${addr.toString(16)}`);
 
     // Check if canvas is initialized
     if (!this.canvas) {
-      console.error("updatePixel: Canvas is not initialized");
+      this.log.error("updatePixel: Canvas is not initialized");
       this.pendingPixelUpdates.add(addr);
       return;
     }
 
     // Check if memory is initialized
     if (!this.memory) {
-      console.error("updatePixel: Memory is not initialized");
+      this.log.error("updatePixel: Memory is not initialized");
       return;
     }
 
     // Check if paint object is initialized
     if (!this.paintObj) {
-      console.error("updatePixel: Paint object is not initialized");
+      this.log.error("updatePixel: Paint object is not initialized");
       this.pendingPixelUpdates.add(addr);
       return;
     }
@@ -203,7 +207,7 @@ export class Display extends GridLayout implements DisplayWidget {
    */
   private drawSinglePixel(addr: number): void {
     if (!this.canvas || !this.paintObj || !this.bitmap || !this.memory) {
-      console.error("drawSinglePixel: Required components not initialized");
+      this.log.error("drawSinglePixel: Required components not initialized");
       return;
     }
 
@@ -239,7 +243,8 @@ export class Display extends GridLayout implements DisplayWidget {
         right > this.canvasWidth ||
         bottom > this.canvasHeight
       ) {
-        console.error(
+        logger.error(
+          "Display",
           `Invalid pixel coordinates: [${left},${top},${right},${bottom}]`
         );
         return;
@@ -251,7 +256,7 @@ export class Display extends GridLayout implements DisplayWidget {
       // Refresh canvas
       this.refreshCanvas();
     } catch (error) {
-      console.error(
+      this.log.error(
         `Error in drawSinglePixel: ${error instanceof Error ? error.message : String(error)}`
       );
     }
@@ -262,8 +267,8 @@ export class Display extends GridLayout implements DisplayWidget {
    */
   private processPendingUpdates(): void {
     if (this.pendingPixelUpdates.size > 0) {
-      console.log(
-        `Display: Processing ${this.pendingPixelUpdates.size} pending pixel updates`
+      this.log.debug(
+        `Processing ${this.pendingPixelUpdates.size} pending pixel updates`
       );
 
       // Create a copy to avoid modification during iteration
@@ -284,31 +289,29 @@ export class Display extends GridLayout implements DisplayWidget {
    */
   public initialize(memory: Memory): void {
     if (this.isInitialized) {
-      console.log(
-        "Display: Already initialized, skipping duplicate initialization"
-      );
+      this.log.debug("Already initialized, skipping duplicate initialization");
       return;
     }
 
-    console.log("Display: Initializing with memory");
+    this.log.debug("Initializing with memory");
     this.memory = memory;
     this.isInitialized = true;
 
     if (!this.memory) {
-      console.error("Display: Memory initialization failed");
+      this.log.error("Memory initialization failed");
       return;
     }
 
     // Check if our bitmap and canvas are ready
     if (!this.bitmap || !this.canvas) {
-      console.log("Display: Canvas not yet ready, marking pending draw");
+      this.log.debug("Canvas not yet ready, marking pending draw");
       this.pendingDraw = true;
       return;
     }
 
     // Canvas and Memory are ready
     this.setupMemoryListener();
-    console.log("Display: Drawing initial state");
+    this.log.debug("Drawing initial state");
     this.drawAllPixels();
     this.processPendingUpdates();
   }
@@ -326,10 +329,10 @@ export class Display extends GridLayout implements DisplayWidget {
    * Force redraw of all pixels (for compatibility with GNOME implementation)
    */
   public drawAllPixels(): void {
-    console.log("Display: drawAllPixels called");
+    this.log.debug("drawAllPixels called");
 
     if (!this.canvas) {
-      console.log(
+      this.log.debug(
         "drawAllPixels: Canvas is not initialized, will draw when ready"
       );
       // Mark that we need to draw when canvas becomes available
@@ -338,11 +341,11 @@ export class Display extends GridLayout implements DisplayWidget {
     }
 
     if (!this.memory) {
-      console.error("drawAllPixels: Memory is not initialized");
+      this.log.error("drawAllPixels: Memory is not initialized");
       return;
     }
 
-    console.log("Display: drawAllPixels - Starting to draw all pixels");
+    this.log.debug("drawAllPixels - Starting to draw all pixels");
 
     // First clear the canvas
     this.clearCanvas();
@@ -359,9 +362,9 @@ export class Display extends GridLayout implements DisplayWidget {
 
       // Make sure to refresh after drawing all pixels
       this.refreshCanvas();
-      console.log("Display: drawAllPixels - Completed drawing all pixels");
+      this.log.debug("drawAllPixels - Completed drawing all pixels");
     } catch (error) {
-      console.error(
+      this.log.error(
         `Error in drawAllPixels: ${error instanceof Error ? error.message : String(error)}`
       );
     }
@@ -372,22 +375,22 @@ export class Display extends GridLayout implements DisplayWidget {
    */
   private drawPixel(addr: number): void {
     if (!this.canvas) {
-      console.error("drawPixel: Canvas is not initialized");
+      this.log.error("drawPixel: Canvas is not initialized");
       return;
     }
 
     if (!this.paintObj) {
-      console.error("drawPixel: Paint object is not initialized");
+      this.log.error("drawPixel: Paint object is not initialized");
       return;
     }
 
     if (!this.bitmap) {
-      console.error("drawPixel: Bitmap is not initialized");
+      this.log.error("drawPixel: Bitmap is not initialized");
       return;
     }
 
     if (!this.memory) {
-      console.error("drawPixel: Memory is not initialized");
+      this.log.error("drawPixel: Memory is not initialized");
       return;
     }
 
@@ -423,7 +426,8 @@ export class Display extends GridLayout implements DisplayWidget {
         right > this.canvasWidth ||
         bottom > this.canvasHeight
       ) {
-        console.error(
+        logger.error(
+          "Display",
           `Invalid pixel coordinates: [${left},${top},${right},${bottom}]`
         );
         return;
@@ -438,7 +442,7 @@ export class Display extends GridLayout implements DisplayWidget {
         this.refreshCanvas();
       }
     } catch (error) {
-      console.error(
+      this.log.error(
         `Error in drawPixel: ${error instanceof Error ? error.message : String(error)}`
       );
     }
@@ -449,14 +453,14 @@ export class Display extends GridLayout implements DisplayWidget {
    */
   private refreshCanvas(): void {
     if (!this.canvasImageView) {
-      console.error("refreshCanvas: Canvas image view is not initialized");
+      this.log.error("refreshCanvas: Canvas image view is not initialized");
       return;
     }
 
     try {
       this.canvasImageView.invalidate();
     } catch (error) {
-      console.error(
+      this.log.error(
         `Error in refreshCanvas: ${error instanceof Error ? error.message : String(error)}`
       );
     }
@@ -467,7 +471,7 @@ export class Display extends GridLayout implements DisplayWidget {
    */
   private clearCanvas(): void {
     if (!this.canvas) {
-      console.error("clearCanvas: Canvas is not initialized");
+      this.log.error("clearCanvas: Canvas is not initialized");
       return;
     }
 

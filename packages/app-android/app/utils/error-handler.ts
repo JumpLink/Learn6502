@@ -1,0 +1,143 @@
+/**
+ * Centralized error handling utility
+ *
+ * Pattern from reference projects (conty, oss-weather, alpimaps)
+ * Provides consistent error handling across the app using NativeScript Trace module
+ */
+
+import { Trace } from "@nativescript/core";
+import { alert } from "@nativescript/core/ui/dialogs";
+import { notificationService } from "../services";
+import type { ErrorHandlerOptions, ExtendedError } from "../types";
+import { logger } from "./logger";
+
+/**
+ * Check if an error should be ignored
+ */
+function shouldIgnoreError(error: Error | ExtendedError): boolean {
+  return (
+    error instanceof Error &&
+    (error as ExtendedError).customErrorConstructorName === "IgnoreError"
+  );
+}
+
+/**
+ * Extract error message from Error or string
+ */
+function extractErrorMessage(err: Error | string): string {
+  if (typeof err === "string") {
+    return err;
+  }
+  return err.message || err.toString();
+}
+
+/**
+ * Show error to user with appropriate UI
+ * Uses NativeScript Trace module for logging and NativeScript dialogs for UI
+ */
+export async function showError(
+  err: Error | string | null | undefined,
+  options: ErrorHandlerOptions = {}
+): Promise<void> {
+  try {
+    if (!err) {
+      return;
+    }
+
+    const {
+      showAsNotification = false,
+      forcedMessage,
+      silent = false,
+      title,
+    } = options;
+
+    // Convert string to Error for consistent handling
+    const error: Error | ExtendedError =
+      typeof err === "string" ? new Error(err) : err;
+
+    // Check for ignore flag
+    if (shouldIgnoreError(error)) {
+      return;
+    }
+
+    // Extract message
+    const message = forcedMessage || extractErrorMessage(err);
+
+    // Log error using NativeScript Trace module
+    Trace.write(message, "[ErrorHandler]", Trace.messageType.error);
+    if (error instanceof Error && error.stack) {
+      Trace.write(
+        `Stack: ${error.stack}`,
+        "[ErrorHandler]",
+        Trace.messageType.error
+      );
+    }
+
+    // Show as notification if requested
+    if (showAsNotification || (error as ExtendedError).showAsSnack) {
+      notificationService.showNotification({
+        title: message,
+        timeout: 3,
+      });
+      return;
+    }
+
+    // Silent mode - just log, don't show UI
+    if (silent) {
+      return;
+    }
+
+    // Show error dialog
+    await alert({
+      title: title || "Error",
+      message: message.trim(),
+      okButtonText: "OK",
+    });
+  } catch (error) {
+    // Fallback if error handling itself fails
+    Trace.write(
+      `Error in showError: ${error}`,
+      "[ErrorHandler]",
+      Trace.messageType.error
+    );
+    logger.error("ErrorHandler", "Error in showError:", error);
+  }
+}
+
+/**
+ * Setup global error handler
+ * Replaces global.__errorHandler with better implementation
+ */
+export function setupGlobalErrorHandler(): void {
+  global.__errorHandler = function (
+    error: Error | null | undefined,
+    nativeError?: unknown
+  ): boolean {
+    const errorMessage = error?.message || "Unknown error";
+    Trace.write(
+      `Global error caught: ${errorMessage}`,
+      "[GlobalErrorHandler]",
+      Trace.messageType.error
+    );
+
+    if (nativeError) {
+      Trace.write(
+        `Native error: ${String(nativeError)}`,
+        "[GlobalErrorHandler]",
+        Trace.messageType.error
+      );
+    }
+
+    // Show error to user (non-blocking)
+    // showError handles all errors internally, so no catch needed
+    if (error) {
+      showError(error, {
+        showAsNotification: true,
+        silent: false,
+      });
+    }
+
+    // Return true to prevent default error handling
+    return true;
+  };
+}

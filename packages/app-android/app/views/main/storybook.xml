@@ -1,7 +1,8 @@
 <Page xmlns="http://schemas.nativescript.org/tns.xsd"
   xmlns:w="~/widgets/index"
   navigatingTo="onNavigatingTo"
-  class="bg-inverse-surface text-inverse-on-surface">
+  class="bg-inverse-surface text-inverse-on-surface"
+>
   <ActionBar title="Material Design 3 Storybook" class="bg-surface text-on-surface" />
   <ScrollView>
     <StackLayout class="p-4">
@@ -286,7 +287,8 @@
         <w:ListItem id="darkModeListItem" headline="Dark Mode"
           supporting="Use dark theme" showTrailingSwitch="true" showDivider="true" />
         <w:ListItem id="autoUpdateListItem" headline="Auto Update"
-          supporting="Automatically check for updates" showTrailingSwitch="true" trailingSwitchChecked="true" />
+          supporting="Automatically check for updates" showTrailingSwitch="true"
+          trailingSwitchChecked="true" />
       </w:List>
 
       <!-- Standalone Switch -->

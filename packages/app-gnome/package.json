@@ -8,7 +8,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "yarn clear:dist && yarn clear:resources && yarn clear:settings && yarn clear:settings:flatpak && yarn clear:locales",
-    "clear:dist": "rm -rf dist",
+    "clear:dist": "rm -f eu.jumplink.Learn6502",
     "clear:resources": "rm -rf data/eu.jumplink.Learn6502.data.gresource",
     "clear:settings": "GSETTINGS_SCHEMA_DIR=$PWD/data/schemas gsettings reset-recursively eu.jumplink.Learn6502",
     "clear:settings:flatpak": "flatpak run --command=gsettings eu.jumplink.Learn6502 reset-recursively eu.jumplink.Learn6502",

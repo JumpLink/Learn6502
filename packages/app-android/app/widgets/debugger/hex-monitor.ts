@@ -8,6 +8,7 @@ import type {
 import { memoryRegions } from "@learn6502/common-ui";
 import type { Memory } from "@learn6502/6502";
 import { EventDispatcher, num2hex, addr2hex } from "@learn6502/6502";
+import { logger } from "~/utils";
 
 export class HexMonitor extends ScrollView implements HexMonitorWidget {
   readonly events = new EventDispatcher<HexMonitorEventMap>();
@@ -59,7 +60,7 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
 
   public update(memory: Memory): void {
     if (!this.grid) {
-      console.error("HexMonitor: Grid not initialized");
+      logger.error("HexMonitor", "Grid not initialized");
       return;
     }
 

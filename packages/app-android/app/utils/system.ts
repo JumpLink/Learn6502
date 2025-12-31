@@ -3,34 +3,18 @@
  *
  * Provides helper functions for:
  * - App restart functionality
- * - Font scale detection
- * - Type guards for NativeScript activities
  *
  * Note: Status bar and navigation bar customization is handled by NativeScript's
  * built-in Utils.android.setStatusBarColor/setNavigationBarColor methods.
+ * Edge-to-edge window setup is handled automatically by NativeScript in onActivityCreated.
  */
 
 import { Application, Utils } from "@nativescript/core";
 import { waitForFunctionResult } from "@learn6502/common-ui";
-import { systemStates } from "../states/system.states";
-import { appVariables } from "../variables";
+import { logger } from "./logger";
 
-// Note: Edge-to-edge window setup is handled automatically by NativeScript
-// We only need system utilities here (status bar, navigation bar appearance, etc.)
-
-/**
- * Check if the system is currently in dark mode
- */
-export function isDarkMode(): boolean {
-  return systemStates.systemAppearance === "dark";
-}
-
-/**
- * Note: Status bar and navigation bar icon colors are automatically handled by NativeScript's
- * setStatusBarColor/setNavigationBarColor with SystemBarStyle.auto().
- * These methods automatically determine light/dark icons based on the provided colors.
- * See: references/nativescript/nativescript/packages/core/utils/native-helper-for-android.ts
- */
+// Scoped logger for system utilities
+const log = logger.scoped("System");
 
 /**
  * Restarts the entire Android application.
@@ -40,7 +24,7 @@ export function restartApp(): void {
   try {
     const context = Utils.android.getApplicationContext();
     if (!context) {
-      console.error("Restart failed: Could not get application context");
+      log.error("Restart failed: Could not get application context");
       return;
     }
 
@@ -49,7 +33,7 @@ export function restartApp(): void {
     // Intent to launch the main activity
     const intent = packageManager.getLaunchIntentForPackage(packageName);
     if (!intent) {
-      console.error("Restart failed: Could not get launch intent");
+      log.error("Restart failed: Could not get launch intent");
       return;
     }
 
@@ -62,33 +46,29 @@ export function restartApp(): void {
     // Start the main activity
     context.startActivity(intent);
 
-    DEV_LOG && console.log("[System] Triggering app restart...");
+    log.debug("Triggering app restart...");
 
     // Terminate the current application process
     // Use killProcess for a slightly more forceful exit than System.exit
     android.os.Process.killProcess(android.os.Process.myPid());
   } catch (error) {
-    console.error("[System] Error restarting application:", error);
+    log.error("Error restarting application:", error);
   }
 }
 
 /**
  * Wait for the root view to be ready and return it
+ * Uses waitForFunctionResult from common-ui to handle async root view availability
  */
 export async function getRootViewWhenReady() {
   try {
     const rootView = await waitForFunctionResult(
       Application.getRootView.bind(Application)
     );
-    DEV_LOG && console.log("[System] Root view is ready:", rootView);
+    log.debug("Root view is ready:", rootView);
     return rootView;
   } catch (error) {
-    console.error("[System] Failed to get root view:", error);
+    log.error("Failed to get root view:", error);
+    return null;
   }
 }
-
-/**
- * Note: Edge-to-edge is automatically enabled by NativeScript in onActivityCreated
- * See: references/nativescript/nativescript/packages/core/application/application.android.ts:71
- * We configure colors via Utils.android.setStatusBarColor/setNavigationBarColor in app.ts
- */

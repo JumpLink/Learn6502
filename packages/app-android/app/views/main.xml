@@ -19,7 +19,8 @@
     </ActionBar>
 
     <!-- Use GridLayout to position content and bottom navigation -->
-    <GridLayout rows="*, auto" columns="*">
+    <!-- GridLayout receives bottom inset from Page and fires androidOverflowInset event -->
+    <GridLayout id="mainGridLayout" rows="*, auto" columns="*" androidOverflowEdge="dont-apply">
         <ScrollView id="mainScrollView" row="0">
             <!-- Frame for content switching -->
             <Frame id="mainFrame" defaultPage="views/main/editor" />
@@ -44,6 +45,7 @@
         />
 
         <!-- Bottom navigation bar positioned at the bottom -->
+        <!-- Observes Page androidOverflowInset event to adjust height for bottom inset -->
         <w:BottomNavigation
             id="bottomNavigation"
             row="1"

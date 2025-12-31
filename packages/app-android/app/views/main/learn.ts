@@ -2,6 +2,7 @@ import { EventData, Page, ContentView, View } from "@nativescript/core";
 import { TutorialView } from "../../mdx/tutorial-view"; // Adjusted path if necessary
 import type { LearnView, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { learnController } from "@learn6502/common-ui/src/controller";
+import { logger } from "~/utils";
 
 class Learn implements LearnView {
   private page: Page | null = null;
@@ -11,13 +12,14 @@ class Learn implements LearnView {
   private _isInitialized: boolean = false;
   private _lastScrollPosition: number = 0;
 
+  // Scoped logger for this class
+  private log = logger.scoped("Learn");
+
   public onNavigatingTo(args: EventData) {
     const page = args.object as Page;
     this.page = page;
 
-    console.log(
-      `[Learn] onNavigatingTo - isInitialized: ${this._isInitialized}`
-    );
+    this.log.debug(`onNavigatingTo - isInitialized: ${this._isInitialized}`);
 
     if (!this.page) {
       throw new Error("LearnView (Android): Page not found.");
@@ -32,11 +34,11 @@ class Learn implements LearnView {
     }
 
     if (!this._isInitialized) {
-      console.log("[Learn] First initialization");
+      this.log.debug("First initialization");
       this.setupEventListeners();
       this._isInitialized = true;
     } else {
-      console.log("[Learn] Re-connecting to existing state");
+      this.log.debug("Re-connecting to existing state");
       this.setupEventListeners();
       // Restore scroll position if available
       this.restoreScrollPosition();
@@ -46,7 +48,7 @@ class Learn implements LearnView {
   }
 
   public onNavigatingFrom(): void {
-    console.log("[Learn] onNavigatingFrom - preserving state");
+    this.log.debug("onNavigatingFrom - preserving state");
     // Save current scroll position before navigation
     this.saveScrollPosition();
   }
@@ -62,7 +64,7 @@ class Learn implements LearnView {
 
   // TODO: Not used yet
   public onPageUnloaded(args: EventData): void {
-    console.log("[Learn] onPageUnloaded - preserving state");
+    this.log.debug("onPageUnloaded - preserving state");
 
     // Save scroll position before unloading
     this.saveScrollPosition();
@@ -81,13 +83,13 @@ class Learn implements LearnView {
     this.tutorialView = null;
     this.page = null;
 
-    console.log("LearnView (Android): Page unloaded.");
+    this.log.debug("LearnView (Android): Page unloaded.");
   }
 
   // --- LearnView interface methods ---
   public saveScrollPosition(): void {
     // TODO: Implement scroll position saving when TutorialView supports it
-    console.log("[Learn] saveScrollPosition() - placeholder implementation");
+    this.log.debug("saveScrollPosition() - placeholder implementation");
 
     // Optionally update common controller if we want to share scroll position
     // learnController.saveScrollPosition();
@@ -95,7 +97,7 @@ class Learn implements LearnView {
 
   public restoreScrollPosition(): void {
     // TODO: Implement scroll position restoration when TutorialView supports it
-    console.log("[Learn] restoreScrollPosition() - placeholder implementation");
+    this.log.debug("restoreScrollPosition() - placeholder implementation");
   }
 
   /**

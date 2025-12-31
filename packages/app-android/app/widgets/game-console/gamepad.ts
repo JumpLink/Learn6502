@@ -6,6 +6,7 @@ import type {
 } from "@learn6502/common-ui";
 import { getGamepadKeyCode, getGamepadKeyChar } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/6502";
+import { logger } from "~/utils";
 
 /**
  * Android implementation of the Gamepad widget.
@@ -50,8 +51,9 @@ export class Gamepad extends GridLayout implements GamepadWidget {
   public press(keyName: GamepadKey): void {
     const keyCode = getGamepadKeyCode(keyName);
     const keyChar = getGamepadKeyChar(keyName);
-    console.log(
-      `Gamepad: Button ${keyName} pressed, keyCode=${keyCode} (ASCII: ${keyChar})`
+    logger.debug(
+      "Gamepad",
+      `Button ${keyName} pressed, keyCode=${keyCode} (ASCII: ${keyChar})`
     );
 
     this.applyPressEffectToButton(keyName);

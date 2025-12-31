@@ -12,6 +12,7 @@ import {
 } from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
 import { EventDispatcher } from "@learn6502/6502";
+import { logger } from "~/utils";
 
 /**
  * Editor class for handling editor data and operations
@@ -28,6 +29,9 @@ class Editor extends Observable implements EditorView {
 
   // State preservation - now handled by editorController
   private _isInitialized: boolean = false;
+
+  // Scoped logger for this class
+  private log = logger.scoped("Editor");
 
   /**
    * Get the current code in the editor
@@ -149,9 +153,7 @@ class Editor extends Observable implements EditorView {
     const page = args.object as Page;
     page.bindingContext = this;
 
-    console.log(
-      `[Editor] onNavigatingTo - isInitialized: ${this._isInitialized}`
-    );
+    this.log.debug(`onNavigatingTo - isInitialized: ${this._isInitialized}`);
 
     this._sourceView = page.getViewById<SourceView>("sourceView");
     this._helpPanel = page.getViewById<StackLayout>("helpPanel");
@@ -160,7 +162,7 @@ class Editor extends Observable implements EditorView {
     if (this._sourceView) {
       // Initialize controller with SourceView
       if (!this._isInitialized) {
-        console.log("[Editor] First initialization with controller");
+        this.log.debug("First initialization with controller");
         editorController.init(this._sourceView);
 
         // Subscribe to controller events
@@ -176,8 +178,8 @@ class Editor extends Observable implements EditorView {
       // Always restore state when navigating to the view
       this.restoreState();
     } else {
-      console.error(
-        "[Editor] SourceView (sourceView) not found on page. Editor will not function correctly."
+      this.log.error(
+        "SourceView (sourceView) not found on page. Editor will not function correctly."
       );
     }
   }
@@ -189,7 +191,7 @@ class Editor extends Observable implements EditorView {
     // Save current state to controller before navigation
     editorController.saveState();
 
-    console.log("[Editor] State saved to controller before navigation");
+    this.log.debug("State saved to controller before navigation");
   }
 
   /**

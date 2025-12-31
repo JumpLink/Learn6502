@@ -2,9 +2,10 @@ import { ThemeService as BaseThemeService } from "@learn6502/common-ui";
 import type { ThemeMode } from "@learn6502/common-ui";
 import { Application, ApplicationSettings } from "@nativescript/core";
 import { systemStates, SystemStates } from "../states";
-import { getRootViewWhenReady, restartApp } from "../utils/index";
+import { getRootViewWhenReady, restartApp, showError } from "../utils/index";
 import { ContrastMode, SETTINGS_THEME, DEFAULT_THEME } from "../constants";
 import type { ContrastChangeEvent } from "~/types";
+import { logger } from "~/utils";
 
 /**
  * Android-specific implementation of the ThemeManager
@@ -22,6 +23,9 @@ export class ThemeService extends BaseThemeService {
   // Instance state
   private restartRequiredOnResume = false;
 
+  // Scoped logger for this class
+  private log = logger.scoped("ThemeService");
+
   /**
    * Get the singleton instance of ThemeService
    * If the instance doesn't exist, it will NOT be created automatically.
@@ -37,7 +41,6 @@ export class ThemeService extends BaseThemeService {
    */
   public static initialize(): ThemeService {
     if (!ThemeService.instance) {
-      DEV_LOG && console.log("[ThemeService] Initializing...");
       ThemeService.instance = new ThemeService();
 
       // Now that the instance is created, perform initialization
@@ -52,7 +55,7 @@ export class ThemeService extends BaseThemeService {
    */
   private constructor() {
     super();
-    DEV_LOG && console.log("[ThemeService] Constructor called");
+    this.log.debug("Constructor called");
     // NO initialization here to prevent startup deadlocks
   }
 
@@ -61,7 +64,7 @@ export class ThemeService extends BaseThemeService {
    * This keeps the constructor minimal and avoids potential deadlocks
    */
   private initializeManager(): void {
-    DEV_LOG && console.log("[ThemeService] initializeManager called");
+    this.log.debug("initializeManager called");
 
     try {
       // Load theme from settings
@@ -78,9 +81,9 @@ export class ThemeService extends BaseThemeService {
 
       // Add listener for the resume event to handle deferred restart
       systemStates.events.on(SystemStates.resumeEvent, () => {
-        DEV_LOG && console.log("[ThemeService] Application resumed");
+        this.log.debug("Application resumed");
         if (this.restartRequiredOnResume) {
-          DEV_LOG && console.log("[ThemeService] Restart required flag is set, restarting app now");
+          this.log.debug("Restart required flag is set, restarting app now");
           // Reset the flag before triggering the restart,
           // to avoid infinite loops if the restart fails.
           this.restartRequiredOnResume = false;
@@ -88,9 +91,13 @@ export class ThemeService extends BaseThemeService {
         }
       });
 
-      DEV_LOG && console.log("[ThemeService] Initialization completed");
+      this.log.debug("Initialization completed");
     } catch (error) {
-      console.error("Error during ThemeService initialization:", error);
+      this.log.error("Error during ThemeService initialization:", error);
+      showError(error instanceof Error ? error : new Error(String(error)), {
+        forcedMessage: "Failed to initialize theme service",
+        showAsNotification: true,
+      });
     }
   }
 
@@ -102,16 +109,16 @@ export class ThemeService extends BaseThemeService {
   private setupActivityLifecycleHandlers(): void {
     // Handle activity start - update theme colors (like reference projects)
     // This ensures dynamic colors are applied on every activity start
-      Application.android?.on(
-        Application.android.activityStartedEvent,
-        (event: any) => {
-          if (event?.activity) {
-            DEV_LOG && console.log("[ThemeService] Activity started, updating theme colors");
-            // Ensure theme is applied
-            event.activity.getDelegate().applyDayNight();
-          }
+    Application.android?.on(
+      Application.android.activityStartedEvent,
+      (event: any) => {
+        if (event?.activity) {
+          this.log.debug("Activity started, updating theme colors");
+          // Ensure theme is applied
+          event.activity.getDelegate().applyDayNight();
         }
-      );
+      }
+    );
   }
 
   /**
@@ -131,7 +138,7 @@ export class ThemeService extends BaseThemeService {
       const activity = Application.android
         .startActivity as androidx.appcompat.app.AppCompatActivity;
       if (!activity) {
-        console.error("Could not apply theme, no start activity");
+        this.log.error("Could not apply theme, no start activity");
         return;
       }
 
@@ -158,7 +165,11 @@ export class ThemeService extends BaseThemeService {
       // Save theme to settings
       this.saveThemeToSettings(mode);
     } catch (error) {
-      console.error("Error applying theme:", error);
+      this.log.error("Error applying theme:", error);
+      showError(error instanceof Error ? error : new Error(String(error)), {
+        forcedMessage: "Failed to apply theme",
+        showAsNotification: true,
+      });
     }
   }
 
@@ -167,13 +178,13 @@ export class ThemeService extends BaseThemeService {
    */
   private loadThemeFromSettings(): void {
     try {
-      DEV_LOG && console.log("[ThemeService] Loading theme from settings...");
+      this.log.debug("Loading theme from settings...");
       const savedTheme = ApplicationSettings.getString(
         SETTINGS_THEME,
         DEFAULT_THEME
       );
 
-      DEV_LOG && console.log("[ThemeService] Saved theme:", savedTheme);
+      this.log.debug("Saved theme:", savedTheme);
       if (
         savedTheme &&
         (savedTheme === "light" ||
@@ -186,7 +197,7 @@ export class ThemeService extends BaseThemeService {
         this.setTheme("system");
       }
     } catch (error) {
-      console.error("Error loading theme from settings:", error);
+      this.log.error("Error loading theme from settings:", error);
       // Fallback to system theme
       this.setTheme("system");
     }
@@ -197,10 +208,10 @@ export class ThemeService extends BaseThemeService {
    */
   private saveThemeToSettings(mode: ThemeMode): void {
     try {
-      DEV_LOG && console.log("[ThemeService] Saving theme to settings:", mode);
+      this.log.debug("Saving theme to settings:", mode);
       ApplicationSettings.setString(SETTINGS_THEME, mode);
     } catch (error) {
-      console.error("Error saving theme to settings:", error);
+      this.log.error("Error saving theme to settings:", error);
     }
   }
 
@@ -212,7 +223,7 @@ export class ThemeService extends BaseThemeService {
     systemStates.events.on(
       SystemStates.systemAppearanceChangedEvent,
       (event) => {
-        DEV_LOG && console.log("[ThemeService] System appearance changed:", event);
+        DEV_LOG && this.log.debug("System appearance changed:", event);
         // Only update isDarkTheme if we're in system mode
         if (this._currentTheme === "system") {
           this._isDarkTheme = systemStates.systemAppearance === "dark";
@@ -228,7 +239,11 @@ export class ThemeService extends BaseThemeService {
             activity.getDelegate().applyDayNight();
           }
         } catch (error) {
-          console.error("Error applying day/night mode:", error);
+          this.log.error("Error applying day/night mode:", error);
+          // Silent error - theme changes are non-critical
+          showError(error instanceof Error ? error : new Error(String(error)), {
+            silent: true,
+          });
         }
       }
     );
@@ -242,12 +257,13 @@ export class ThemeService extends BaseThemeService {
     systemStates.events.on(
       SystemStates.contrastChangedEvent,
       async (event: ContrastChangeEvent) => {
-        DEV_LOG && console.log("[ThemeService] contrastChangedEvent", event);
+        this.log.debug("contrastChangedEvent", event);
 
         // WORKAROUND: Flag the app for restart when the contrast mode changes
         // (instead of restarting immediately)
         if (!event.initial) {
-          DEV_LOG && console.log("[ThemeService] Contrast changed, flagging for restart on resume");
+          DEV_LOG &&
+            this.log.debug("Contrast changed, flagging for restart on resume");
           this.restartRequiredOnResume = true;
         }
 
@@ -255,7 +271,11 @@ export class ThemeService extends BaseThemeService {
         try {
           await this.updateContrastClasses(event.newValue);
         } catch (error) {
-          console.error("Error updating contrast classes:", error);
+          this.log.error("Error updating contrast classes:", error);
+          // Silent error - contrast changes are non-critical
+          showError(error instanceof Error ? error : new Error(String(error)), {
+            silent: true,
+          });
         }
       }
     );
@@ -293,12 +313,17 @@ export class ThemeService extends BaseThemeService {
         view?._onCssStateChange();
       });
 
-      DEV_LOG && console.log(
-        "[ThemeService] rootView cssClasses",
-        Array.from(rootView.cssClasses.values())
-      );
+      DEV_LOG &&
+        this.log.debug(
+          "rootView cssClasses",
+          Array.from(rootView.cssClasses.values())
+        );
     } catch (error) {
-      console.error("Error updating contrast classes:", error);
+      this.log.error("Error updating contrast classes:", error);
+      // Silent error - contrast changes are non-critical
+      showError(error instanceof Error ? error : new Error(String(error)), {
+        silent: true,
+      });
     }
   }
 }

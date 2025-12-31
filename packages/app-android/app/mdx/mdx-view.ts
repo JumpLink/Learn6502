@@ -6,11 +6,14 @@ import type {
   SourceViewCopyEvent,
 } from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
+import { logger } from "~/utils";
 
 // Define the event map for MdxView, currently just forwarding copy
 export interface MdxViewEventMap {
   copy: SourceViewCopyEvent;
 }
+
+const LOG_MISSING_TRANSLATIONS = false;
 
 export abstract class MdxView extends ContentView {
   // Add events dispatcher
@@ -33,7 +36,10 @@ export abstract class MdxView extends ContentView {
     });
 
     if (!componentView) {
-      console.error(`Failed to load ${this.getViewName()}.xml template`);
+      logger.error(
+        "MdxView",
+        `Failed to load ${this.getViewName()}.xml template`
+      );
       return;
     }
 
@@ -92,16 +98,22 @@ export abstract class MdxView extends ContentView {
       try {
         html = localize(htmlView.html);
       } catch (error) {
-        console.error(`Error localizing HTML string "${originalHtml}":`, error);
+        logger.error(
+          "MdxView",
+          `Error localizing HTML string "${originalHtml}":`,
+          error
+        );
       }
       if (html) {
         htmlView.html = html;
       }
 
       if (originalHtml === html) {
-        console.log(
-          `HTML string "${originalHtml.slice(0, 100)}..." is not localized`
-        );
+        LOG_MISSING_TRANSLATIONS &&
+          logger.debug(
+            "MdxView",
+            `HTML string "${originalHtml.slice(0, 100)}..." is not localized`
+          );
       }
     });
   }

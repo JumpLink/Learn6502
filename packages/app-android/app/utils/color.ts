@@ -1,5 +1,4 @@
 import { Utils } from "@nativescript/core";
-import { getResource } from "./resource";
 import { ContrastMode } from "../constants";
 import { systemStates } from "../states/system.states";
 
@@ -48,9 +47,8 @@ export const getColor = (
   theme: android.content.res.Resources.Theme = context.getTheme(),
   packageName: string = context.getPackageName()
 ) => {
-  return context
-    .getResources()
-    .getColor(getResource(color, "color", context, packageName), theme);
+  const resourceId = Utils.android.resources.getResource(color, "color");
+  return context.getResources().getColor(resourceId, theme);
 };
 
 /**
@@ -81,11 +79,9 @@ export const getMaterialColor = (
   if (contrastMode !== ContrastMode.NORMAL) {
     const contrastedColorName = `${baseColorName}_${contrastMode}Contrast`;
     // Check if the contrasted color resource exists
-    const contrastedResourceId = getResource(
+    const contrastedResourceId = Utils.android.resources.getResource(
       contrastedColorName,
-      "color",
-      context,
-      packageName
+      "color"
     );
 
     if (contrastedResourceId !== 0) {
