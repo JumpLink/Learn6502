@@ -2,11 +2,10 @@ import { ThemeService as BaseThemeService } from "@learn6502/common-ui";
 import type { ThemeMode } from "@learn6502/common-ui";
 import { Application, ApplicationSettings } from "@nativescript/core";
 import { systemStates, SystemStates } from "../states";
-import { getRootViewWhenReady, restartApp, logger } from "../utils/index";
+import { getRootViewWhenReady, restartApp, showError } from "../utils/index";
 import { ContrastMode, SETTINGS_THEME, DEFAULT_THEME } from "../constants";
 import type { ContrastChangeEvent } from "~/types";
-
-const log = logger.scoped("ThemeService");
+import { logger } from "~/utils";
 
 /**
  * Android-specific implementation of the ThemeManager
@@ -15,55 +14,31 @@ const log = logger.scoped("ThemeService");
  * Pattern from reference projects:
  * - Centralized logger for conditional logging
  * - Centralized settings keys from constants.ts
- * - Singleton pattern with lazy initialization
+ * - Direct export as instance (like notificationService)
  */
 export class ThemeService extends BaseThemeService {
-  // Singleton instance
-  private static instance: ThemeService | null = null;
-
   // Instance state
   private restartRequiredOnResume = false;
 
-  /**
-   * Get the singleton instance of ThemeService
-   * If the instance doesn't exist, it will NOT be created automatically.
-   * Use initialize() to create the instance when the app is ready.
-   */
-  public static getInstance(): ThemeService | null {
-    return ThemeService.instance;
-  }
+  // Scoped logger for this class
+  private log = logger.scoped("ThemeService");
 
   /**
-   * Initialize the ThemeManager singleton when the app is ready
-   * @returns The singleton instance
-   */
-  public static initialize(): ThemeService {
-    if (!ThemeService.instance) {
-      log.info("Initializing...");
-      ThemeService.instance = new ThemeService();
-
-      // Now that the instance is created, perform initialization
-      ThemeService.instance.initializeManager();
-    }
-    return ThemeService.instance;
-  }
-
-  /**
-   * Private constructor to enforce singleton pattern
+   * Public constructor - instance is exported directly
    * Keeps the constructor minimal to avoid startup issues
    */
-  private constructor() {
+  public constructor() {
     super();
-    log.debug("Constructor called");
+    this.log.debug("Constructor called");
     // NO initialization here to prevent startup deadlocks
   }
 
   /**
-   * Initialize the manager - called after singleton creation
-   * This keeps the constructor minimal and avoids potential deadlocks
+   * Initialize the ThemeService
+   * Should be called once during app launch
    */
-  private initializeManager(): void {
-    log.debug("initializeManager called");
+  public initialize(): void {
+    this.log.debug("initializeManager called");
 
     try {
       // Load theme from settings
@@ -80,9 +55,9 @@ export class ThemeService extends BaseThemeService {
 
       // Add listener for the resume event to handle deferred restart
       systemStates.events.on(SystemStates.resumeEvent, () => {
-        log.debug("Application resumed");
+        this.log.debug("Application resumed");
         if (this.restartRequiredOnResume) {
-          log.debug("Restart required flag is set, restarting app now");
+          this.log.debug("Restart required flag is set, restarting app now");
           // Reset the flag before triggering the restart,
           // to avoid infinite loops if the restart fails.
           this.restartRequiredOnResume = false;
@@ -90,9 +65,12 @@ export class ThemeService extends BaseThemeService {
         }
       });
 
-      log.info("Initialization completed");
+      this.log.debug("Initialization completed");
     } catch (error) {
-      console.error("Error during ThemeService initialization:", error);
+      showError(error, {
+        forcedMessage: "Failed to initialize theme service",
+        showAsNotification: true,
+      });
     }
   }
 
@@ -107,15 +85,10 @@ export class ThemeService extends BaseThemeService {
     Application.android?.on(
       Application.android.activityStartedEvent,
       (event: any) => {
-        // Only handle NativeScript activities
-        if (event?.activity?.["isNativeScriptActivity"] === true) {
-          log.debug("Activity started, updating theme colors");
-          const activity =
-            event.activity as androidx.appcompat.app.AppCompatActivity;
-          if (activity) {
-            // Ensure theme is applied
-            activity.getDelegate().applyDayNight();
-          }
+        if (event?.activity) {
+          this.log.debug("Activity started, updating theme colors");
+          // Ensure theme is applied
+          event.activity.getDelegate().applyDayNight();
         }
       }
     );
@@ -138,7 +111,7 @@ export class ThemeService extends BaseThemeService {
       const activity = Application.android
         .startActivity as androidx.appcompat.app.AppCompatActivity;
       if (!activity) {
-        console.error("Could not apply theme, no start activity");
+        this.log.error("Could not apply theme, no start activity");
         return;
       }
 
@@ -165,7 +138,10 @@ export class ThemeService extends BaseThemeService {
       // Save theme to settings
       this.saveThemeToSettings(mode);
     } catch (error) {
-      console.error("Error applying theme:", error);
+      showError(error, {
+        forcedMessage: "Failed to apply theme",
+        showAsNotification: true,
+      });
     }
   }
 
@@ -174,13 +150,13 @@ export class ThemeService extends BaseThemeService {
    */
   private loadThemeFromSettings(): void {
     try {
-      log.debug("Loading theme from settings...");
+      this.log.debug("Loading theme from settings...");
       const savedTheme = ApplicationSettings.getString(
         SETTINGS_THEME,
         DEFAULT_THEME
       );
 
-      log.debug("Saved theme:", savedTheme);
+      this.log.debug("Saved theme:", savedTheme);
       if (
         savedTheme &&
         (savedTheme === "light" ||
@@ -193,7 +169,7 @@ export class ThemeService extends BaseThemeService {
         this.setTheme("system");
       }
     } catch (error) {
-      console.error("Error loading theme from settings:", error);
+      this.log.error("Error loading theme from settings:", error);
       // Fallback to system theme
       this.setTheme("system");
     }
@@ -204,10 +180,10 @@ export class ThemeService extends BaseThemeService {
    */
   private saveThemeToSettings(mode: ThemeMode): void {
     try {
-      log.debug("Saving theme to settings:", mode);
+      this.log.debug("Saving theme to settings:", mode);
       ApplicationSettings.setString(SETTINGS_THEME, mode);
     } catch (error) {
-      console.error("Error saving theme to settings:", error);
+      this.log.error("Error saving theme to settings:", error);
     }
   }
 
@@ -219,7 +195,7 @@ export class ThemeService extends BaseThemeService {
     systemStates.events.on(
       SystemStates.systemAppearanceChangedEvent,
       (event) => {
-        log.debug("System appearance changed:", event);
+        DEV_LOG && this.log.debug("System appearance changed:", event);
         // Only update isDarkTheme if we're in system mode
         if (this._currentTheme === "system") {
           this._isDarkTheme = systemStates.systemAppearance === "dark";
@@ -235,7 +211,10 @@ export class ThemeService extends BaseThemeService {
             activity.getDelegate().applyDayNight();
           }
         } catch (error) {
-          console.error("Error applying day/night mode:", error);
+          // Silent error - theme changes are non-critical
+          showError(error, {
+            silent: true,
+          });
         }
       }
     );
@@ -249,12 +228,13 @@ export class ThemeService extends BaseThemeService {
     systemStates.events.on(
       SystemStates.contrastChangedEvent,
       async (event: ContrastChangeEvent) => {
-        log.debug("contrastChangedEvent", event);
+        this.log.debug("contrastChangedEvent", event);
 
         // WORKAROUND: Flag the app for restart when the contrast mode changes
         // (instead of restarting immediately)
         if (!event.initial) {
-          log.debug("Contrast changed, flagging for restart on resume");
+          DEV_LOG &&
+            this.log.debug("Contrast changed, flagging for restart on resume");
           this.restartRequiredOnResume = true;
         }
 
@@ -262,7 +242,10 @@ export class ThemeService extends BaseThemeService {
         try {
           await this.updateContrastClasses(event.newValue);
         } catch (error) {
-          console.error("Error updating contrast classes:", error);
+          // Silent error - contrast changes are non-critical
+          showError(error, {
+            silent: true,
+          });
         }
       }
     );
@@ -300,12 +283,86 @@ export class ThemeService extends BaseThemeService {
         view?._onCssStateChange();
       });
 
-      log.debug(
-        "rootView cssClasses",
-        Array.from(rootView.cssClasses.values())
-      );
+      DEV_LOG &&
+        this.log.debug(
+          "rootView cssClasses",
+          Array.from(rootView.cssClasses.values())
+        );
     } catch (error) {
-      console.error("Error updating contrast classes:", error);
+      // Silent error - contrast changes are non-critical
+      showError(error, {
+        silent: true,
+      });
+    }
+  }
+
+  /**
+   * Update CSS variables for safe area insets
+   * These variables can be used throughout the app via var(--safeAreaInset*)
+   * Pattern from reference projects (conty, alpimaps, oss-weather) - using camelCase
+   */
+  public updateSafeAreaInsets(insets: {
+    top: number;
+    bottom: number;
+    left: number;
+    right: number;
+  }): void {
+    try {
+      const rootViewStyle = Application.getRootView()?.style;
+      if (!rootViewStyle) {
+        this.log.warn(
+          "Root view style not available for setting safe area insets"
+        );
+        return;
+      }
+
+      // Set CSS variables using setUnscopedCssVariable (like reference projects)
+      // Using camelCase naming convention like --windowInsetLeft, --actionBarHeight
+      // Values are set without units (NativeScript uses dip automatically)
+      rootViewStyle.setUnscopedCssVariable(
+        "--safeAreaInsetTop",
+        insets.top + ""
+      );
+      rootViewStyle.setUnscopedCssVariable(
+        "--safeAreaInsetBottom",
+        insets.bottom + ""
+      );
+      rootViewStyle.setUnscopedCssVariable(
+        "--safeAreaInsetLeft",
+        insets.left + ""
+      );
+      rootViewStyle.setUnscopedCssVariable(
+        "--safeAreaInsetRight",
+        insets.right + ""
+      );
+
+      // Trigger CSS state change to apply the new variables (pattern from reference projects)
+      // This ensures all views using these CSS variables are re-rendered
+      const rootView = Application.getRootView();
+      if (rootView) {
+        rootView._onCssStateChange();
+        const rootModalViews = rootView._getRootModalViews();
+        if (rootModalViews) {
+          rootModalViews.forEach((rootModalView) =>
+            rootModalView._onCssStateChange()
+          );
+        }
+      }
+
+      DEV_LOG &&
+        this.log.debug("Safe area insets updated:", {
+          top: insets.top,
+          bottom: insets.bottom,
+          left: insets.left,
+          right: insets.right,
+        });
+    } catch (error) {
+      // Silent error - inset updates are non-critical
+      showError(error, {
+        silent: true,
+      });
     }
   }
 }
+
+export const themeService = new ThemeService();

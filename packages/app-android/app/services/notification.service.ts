@@ -2,9 +2,7 @@ import { NotificationService as BaseNotificationService } from "@learn6502/commo
 import type { NotificationOptions, DialogOptions } from "@learn6502/common-ui";
 import { Application } from "@nativescript/core";
 import { alert, confirm } from "@nativescript/core/ui/dialogs";
-import { logger } from "../utils";
-
-const log = logger.scoped("NotificationService");
+import { logger } from "~/utils";
 
 /**
  * Android-specific implementation of the NotificationService
@@ -13,7 +11,7 @@ const log = logger.scoped("NotificationService");
 class NotificationService extends BaseNotificationService {
   constructor() {
     super();
-    log.info("Initialized");
+    logger.debug("NotificationService", "Initialized");
   }
 
   /**
@@ -37,7 +35,8 @@ class NotificationService extends BaseNotificationService {
     // If action is provided, there's no direct way to add an action to Toast
     // A more complex solution with Snackbar would be needed for actions
     if (options.action) {
-      log.warn(
+      logger.warn(
+        "NotificationService",
         "Toast actions not supported directly in Android. Consider using a dialog instead."
       );
     }
@@ -59,7 +58,11 @@ class NotificationService extends BaseNotificationService {
 
       return result;
     } catch (error) {
-      console.error("Error showing confirm dialog:", error);
+      logger.error(
+        "NotificationService",
+        "Error showing confirm dialog:",
+        error
+      );
       return false;
     }
   }
@@ -75,7 +78,7 @@ class NotificationService extends BaseNotificationService {
         okButtonText: options.confirmLabel || "OK",
       });
     } catch (error) {
-      console.error("Error showing info dialog:", error);
+      logger.error("NotificationService", "Error showing info dialog:", error);
     }
   }
 }

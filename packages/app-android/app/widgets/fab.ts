@@ -1,14 +1,8 @@
-import { ContentView, Property, CSSType } from "@nativescript/core";
-import {
-  createColorStateList,
-  getMaterialColor,
-  getResource,
-  logger,
-} from "../utils/index";
+import { ContentView, Property, CSSType, Utils } from "@nativescript/core";
+import { createColorStateList, getMaterialColor } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
-
-const log = logger.scoped("FAB");
+import { logger } from "~/utils";
 
 /**
  * Material Design 3 Extended Floating Action Button (FAB) component for Android
@@ -277,15 +271,18 @@ export class Fab extends ContentView {
 
     if (this._icon && this._icon.startsWith("res://")) {
       const iconName = this._icon.replace("res://", "");
-      const resId = getResource(iconName, "drawable", this.context);
+      const resId = Utils.android.resources.getResource(iconName, "drawable");
       if (resId) {
         this.nativeFab.setIconResource(resId); // Use setIconResource for Extended FAB
       } else {
-        log.warn(`Icon resource not found: ${iconName}`);
+        logger.warn("FAB", `Icon resource not found: ${iconName}`);
         this.nativeFab.setIcon(null); // Clear icon if not found
       }
     } else if (this._icon) {
-      log.warn(`Icon format not supported (expected res://): ${this._icon}`);
+      logger.warn(
+        "FAB",
+        `Icon format not supported (expected res://): ${this._icon}`
+      );
       this.nativeFab.setIcon(null);
     } else {
       // If no icon is provided, clear it

@@ -17,6 +17,7 @@ import {
   type GameConsoleView,
   type GamepadKey,
 } from "@learn6502/common-ui";
+import { logger } from "~/utils";
 
 /**
  * Android implementation of the Game Console view
@@ -33,6 +34,9 @@ export class GameConsole implements GameConsoleView {
 
   // State preservation
   private _isInitialized: boolean = false;
+
+  // Scoped logger for this class
+  private log = logger.scoped("GameConsole");
 
   constructor() {
     this._memory = new Memory();
@@ -70,14 +74,12 @@ export class GameConsole implements GameConsoleView {
 
   // --- Lifecycle Handlers ---
   public onNavigatingTo(args: EventData): void {
-    console.log(
-      `[GameConsole] onNavigatingTo - isInitialized: ${this._isInitialized}`
-    );
+    this.log.debug(`onNavigatingTo - isInitialized: ${this._isInitialized}`);
     // Navigation handling is separate from loading
   }
 
   public onNavigatingFrom(): void {
-    console.log("[GameConsole] onNavigatingFrom - preserving state");
+    this.log.debug("onNavigatingFrom - preserving state");
     // State is preserved in the singleton instance and gameConsoleController
   }
 
@@ -88,22 +90,22 @@ export class GameConsole implements GameConsoleView {
     this._gamePad = this.page.getViewById<Gamepad>("gamePad");
 
     if (!this._display || !this._gamePad) {
-      console.error("Failed to find required components in game-console view");
+      this.log.error("Failed to find required components in game-console view");
       return;
     }
 
     if (!this._isInitialized) {
-      console.log("[GameConsole] First initialization");
+      this.log.debug("First initialization");
       this.initialize();
       this._isInitialized = true;
     } else {
-      console.log("[GameConsole] Re-connecting widgets to existing state");
+      this.log.debug("Re-connecting widgets to existing state");
       this.reconnectWidgets();
     }
   }
 
   public onUnloaded(args: EventData): void {
-    console.log("[GameConsole] onUnloaded - preserving state");
+    this.log.debug("onUnloaded - preserving state");
     // Don't call close() here as it would reset the state
     // Just clear the widget references
     this.page = null;
@@ -183,7 +185,7 @@ export class GameConsole implements GameConsoleView {
       throw new Error("Missing required components for reconnection");
     }
 
-    console.log("GameConsole: Reconnecting widgets to existing state");
+    this.log.debug("Reconnecting widgets to existing state");
 
     // Re-initialize display with existing memory
     this._display.initialize(this._memory);
@@ -198,7 +200,7 @@ export class GameConsole implements GameConsoleView {
       labels: this._labels,
     });
 
-    console.log("GameConsole: Widget reconnection complete");
+    this.log.debug("Widget reconnection complete");
   }
 
   /**
@@ -209,12 +211,12 @@ export class GameConsole implements GameConsoleView {
       throw new Error("Missing required components");
     }
 
-    console.log("GameConsole: Initializing game console components");
+    this.log.debug("Initializing game console components");
 
     // Check if controller is already partially initialized (from main controller)
     if (gameConsoleController.memory) {
-      console.log(
-        "GameConsole: Controller already partially initialized, doing full initialization"
+      this.log.debug(
+        "Controller already partially initialized, doing full initialization"
       );
       // Do full initialization with display and gamepad widgets
       gameConsoleController.init({
@@ -226,7 +228,7 @@ export class GameConsole implements GameConsoleView {
         labels: this._labels,
       });
     } else {
-      console.log("GameConsole: Full controller initialization from scratch");
+      this.log.debug("Full controller initialization from scratch");
       // Initialize common controller first
       gameConsoleController.init({
         memory: this._memory,
@@ -239,11 +241,9 @@ export class GameConsole implements GameConsoleView {
     }
 
     // Debug output for memory and controller
-    console.log(
-      `GameConsole: Memory initialized (${this._memory ? "ok" : "failed"})`
-    );
-    console.log(
-      `GameConsole: Controller memory initialized (${gameConsoleController.memory ? "ok" : "failed"})`
+    this.log.debug(`Memory initialized (${this._memory ? "ok" : "failed"})`);
+    this.log.debug(
+      `Controller memory initialized (${gameConsoleController.memory ? "ok" : "failed"})`
     );
 
     // Initialize display with memory FIRST
@@ -259,7 +259,7 @@ export class GameConsole implements GameConsoleView {
       "colorChart"
     );
 
-    console.log("GameConsole: Initialization complete");
+    this.log.debug("Initialization complete");
   }
 }
 

@@ -14,12 +14,48 @@ Android app with deep platform integration.
 **APIs:** Direct Android SDK via NativeScript.
 **Build:** NativeScript + Gradle.
 
-**Reference Projects** (git submodules in `references/nativescript/`): `alpimaps`, `conty`, `oss-weather`, `ui-material-components` — use for NativeScript patterns, component architecture, and platform integration best practices.
+**Reference Projects** (git submodules in `references/nativescript/`):
+
+- **`alpimaps`** - Offline maps app (geodata processing, complex UI patterns)
+- **`conty`** - Interactive stories app (offline functionality, state management)
+- **`oss-weather`** - Weather app (Svelte + TypeScript, Material Design patterns)
+- **`ui-material-components`** - Material Design plugins monorepo (MD2 & MD3, component wrappers)
+- **`nativescript`** - NativeScript core framework (understand framework internals, utils, patterns)
+- **`nativescript-app-utils`** - App utilities and helpers (common app patterns)
+- **`systemui`** - System UI integration utilities (status bar, navigation bar)
+
+**Understanding NativeScript Internals:** The NativeScript source code in `references/nativescript/nativescript/` can be read at various points to understand how NativeScript works internally. Key areas include:
+
+- **Core Utils** (`packages/core/utils/`): Threading helpers, native object serialization, Android resource access, system UI management, type checks, layout utilities, path/URI helpers, async utilities (debounce/throttle), and more
+- **UI Components** (`packages/core/ui/`): How NativeScript wraps native views
+- **Platform-specific code** (`.android.ts`, `.ios.ts` files): Platform integration patterns
+
+**NativeScript Utils:** Available via `import { Utils } from "@nativescript/core"` or globally as `org.nativescript.widgets.Utils` in native code. Reference `references/nativescript/nativescript/packages/core/utils/index.d.ts` for the complete API. Common categories: threading (main/UI thread dispatch), native helpers (serialization, context access), Android resources, system UI (status/navigation bar), input management, type checks, layout calculations, path/URI utilities, and async helpers.
 
 **Missing Android/Material Types:** When `@nativescript/types-android` lacks types (especially MD3 components like `MaterialSwitch`, `MaterialTimePicker`, etc.):
 
 1. Search `references/nativescript/ui-material-components/src/typings/mdc.android.d.ts` (~22k lines)
 2. Extract only needed class declarations → `app/typings/material.android.d.ts`
 3. Ensure `references.d.ts` includes `/// <reference path="app/typings/material.android.d.ts" />`
+
+**Native API Whitelist (CRITICAL):** When using any Android SDK/AndroidX/Material APIs directly (via `new android.*`, `androidx.*`, `com.google.android.material.*`), **MUST** add entries to `packages/app-android/data/Android/native-api-usage.json`. Format: `"package:Class"` (e.g., `"android.view:View"`, `"com.google.android.material.button:MaterialButton"`). Inner classes: `"package:OuterClass.InnerClass"` (e.g., `"android.view:View.OnClickListener"`). Static fields: `"package:Class.Field"` (e.g., `"android.view:View.VISIBLE"`). Required for R8/ProGuard code shrinking to preserve reflection-accessed APIs. Add immediately when introducing new native API usage; missing entries cause runtime crashes in release builds.
+
+**Architecture Patterns:**
+
+- **Services:** Centralized services in `app/services/` (lifecycle, theme, notification)
+- **State Management:** Reactive state with `EventDispatcher` from `@learn6502/6502`
+- **Views:** Implement interfaces from `@learn6502/common-ui` (e.g., `MainView`, `GameConsoleView`, `DebuggerView`)
+- **Widgets:** Reusable UI components in `app/widgets/` wrapping native Android widgets
+- **Utils:** Platform-specific utilities in `app/utils/` (system, navigation, logger, resource helpers)
+- **Android Integration:** Custom activity in `app/android/activity.android.ts` extending `AppCompatActivity`
+
+**Common Patterns from References:**
+
+- Centralized logger with scoped logging (`logger.scoped("ComponentName")`)
+- Sequential service initialization in `app.ts`
+- Global error handling via `global.__errorHandler`
+- Edge-to-edge display with window insets handling
+- Theme service managing system appearance changes
+- Lifecycle service handling app state transitions
 
 **Docs:** @NativeScript @Android API Reference

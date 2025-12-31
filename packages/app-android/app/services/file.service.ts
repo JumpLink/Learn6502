@@ -1,9 +1,7 @@
 import { FileService as BaseFileService } from "@learn6502/common-ui";
 import { Application } from "@nativescript/core";
 import { Observable } from "@nativescript/core/data/observable";
-import { logger } from "../utils";
-
-const log = logger.scoped("FileService");
+import { logger, showError } from "~/utils";
 
 /**
  * Android-specific implementation of the FileService
@@ -14,9 +12,12 @@ export class FileService extends BaseFileService {
   private _eventSource = new Observable();
   private currentFilePath: string | null = null;
 
+  // Scoped logger for this class
+  private log = logger.scoped("FileService");
+
   constructor() {
     super();
-    log.info("Initialized");
+    this.log.debug("Initialized");
   }
 
   /**
@@ -30,7 +31,7 @@ export class FileService extends BaseFileService {
       // Get the current activity
       const activity = Application.android.foregroundActivity;
       if (!activity) {
-        console.error("No foreground activity available");
+        this.log.error("No foreground activity available");
         return null;
       }
 
@@ -119,7 +120,10 @@ export class FileService extends BaseFileService {
                     filename: fileName,
                   });
                 } catch (error) {
-                  console.error("Error reading file:", error);
+                  showError(error, {
+                    forcedMessage: "Failed to read file",
+                    showAsNotification: true,
+                  });
                   resolve(null);
                 }
               } else {
@@ -130,7 +134,10 @@ export class FileService extends BaseFileService {
         );
       });
     } catch (error) {
-      console.error("Error opening file:", error);
+      showError(error, {
+        forcedMessage: "Failed to open file",
+        showAsNotification: true,
+      });
       return null;
     }
   }
@@ -146,7 +153,7 @@ export class FileService extends BaseFileService {
       // Get the current activity
       const activity = Application.android.foregroundActivity;
       if (!activity) {
-        console.error("No foreground activity available");
+        this.log.error("No foreground activity available");
         return false;
       }
 
@@ -225,7 +232,10 @@ export class FileService extends BaseFileService {
 
                   resolve(true);
                 } catch (error) {
-                  console.error("Error saving file:", error);
+                  showError(error, {
+                    forcedMessage: "Failed to save file",
+                    showAsNotification: true,
+                  });
                   resolve(false);
                 }
               } else {
@@ -236,7 +246,10 @@ export class FileService extends BaseFileService {
         );
       });
     } catch (error) {
-      console.error("Error in save as:", error);
+      showError(error, {
+        forcedMessage: "Failed to save file",
+        showAsNotification: true,
+      });
       return false;
     }
   }
@@ -253,7 +266,7 @@ export class FileService extends BaseFileService {
       // Get the current activity and content resolver
       const activity = Application.android.foregroundActivity;
       if (!activity) {
-        console.error("No foreground activity available");
+        this.log.error("No foreground activity available");
         return false;
       }
 
@@ -273,7 +286,10 @@ export class FileService extends BaseFileService {
       this.setUnsavedChanges(false);
       return true;
     } catch (error) {
-      console.error("Error saving to current file:", error);
+      showError(error, {
+        forcedMessage: "Failed to save file",
+        showAsNotification: true,
+      });
       return false;
     }
   }

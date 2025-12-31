@@ -1,65 +1,64 @@
 /**
  * Application entry point
- *
- * Pattern from reference projects:
- * - Centralized logger for conditional logging
- * - Global error handling
- * - Sequential service initialization
+ * Pattern from reference projects: direct Application events, minimal setup
  */
 
-import { Application, LaunchEventData, isAndroid } from "@nativescript/core";
+import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
-import { logger } from "./utils/index";
 import { systemStates, SystemStates } from "./states";
-import { ThemeService } from "./services";
+import { themeService } from "./services";
 import { appVariables } from "./variables";
+import { setupBackButtonHandler } from "./utils/navigation";
+import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
+import { logger } from "./utils";
 
-const log = logger.scoped("App");
-
-// Ensure Android-only execution
 if (!isAndroid) {
   throw new Error("This app is only supported on Android");
 }
 
 try {
-  // Add global error handling
-  global.__errorHandler = function (error, nativeError) {
-    console.error("GLOBAL ERROR CAUGHT:");
-    console.error("JS Error:", error && error.message);
-    if (nativeError) {
-      console.error("Native Error:", nativeError);
+  // Setup global error handler
+  setupGlobalErrorHandler();
+
+  logger.debug("App", "Starting...");
+
+  // Service initialization pattern from reference projects
+  let servicesInitialized = false;
+
+  async function initializeServices() {
+    if (servicesInitialized) {
+      return;
     }
-    return true;
-  };
-
-  // Initial startup logging
-  log.info("Starting...");
-
-  // Handle the launch event
-  systemStates.events.on(SystemStates.launchEvent, (_args: LaunchEventData) => {
-    log.info("Launch event received, setting up the app...");
 
     try {
-      // Initialize app variables (action bar height, screen dimensions, etc.)
+      logger.debug("App", "Initializing services...");
+
+      // Initialize app variables first (synchronous)
       appVariables.initialize();
 
-      // Initialize theme service
-      log.debug("Initializing theme service...");
-      ThemeService.initialize();
+      // Initialize services sequentially
+      themeService.initialize();
 
-      log.info("App initialization complete");
+      // Setup navigation handlers
+      setupBackButtonHandler();
+
+      servicesInitialized = true;
+      logger.debug("App", "Services initialized");
     } catch (error) {
-      console.error("Error during app initialization:", error);
+      await showError(error, {
+        forcedMessage: "Failed to initialize application services",
+        showAsNotification: true,
+      });
     }
+  }
+
+  systemStates.events.on(SystemStates.launchEvent, async () => {
+    await initializeServices();
   });
 
-  // Set localization resources
-  log.debug("Setting application resources...");
   Application.setResources({ _: localize });
-
-  // Start the application
-  log.info("Starting application...");
   Application.run({ moduleName: "app-root" });
 } catch (error) {
-  console.error("Fatal error during app startup:", error);
+  // Note: Cannot use showError here as services may not be initialized
+  logger.error("App", "Fatal startup error:", error);
 }

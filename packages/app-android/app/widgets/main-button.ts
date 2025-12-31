@@ -11,6 +11,7 @@ import {
   type MainUiState,
   buttonStateService,
 } from "@learn6502/common-ui";
+import { logger } from "~/utils";
 // Property for the button's state
 const stateProperty = new Property<MainButton, MainButtonState>({
   name: "state",
@@ -268,7 +269,7 @@ export class MainButton extends Fab implements MainButtonWidget {
     // Update button appearance for the new state
     const mode = this.buttonModes[newState];
     if (!mode) {
-      console.error(`MainButton: Invalid state - ${newState}`);
+      logger.error("MainButton", `Invalid state - ${newState}`);
       return;
     }
 

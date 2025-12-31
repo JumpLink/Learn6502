@@ -7,6 +7,10 @@ const production =
 const devLog = !production && !process.env.NO_DEV_LOG;
 const playStoreBuild = !!process.env.PLAY_STORE_BUILD;
 
+// Get app ID from nativescript.config.js
+const nativescriptConfig = require("./nativescript.config.js");
+const appId = nativescriptConfig.id;
+
 module.exports = (env) => {
   webpack.init(env);
 
@@ -35,8 +39,27 @@ module.exports = (env) => {
         __IOS__: JSON.stringify(false),
         // Play Store build flag for conditional features
         PLAY_STORE_BUILD: JSON.stringify(playStoreBuild),
+        // Application ID (used for package references)
+        __APP_ID__: JSON.stringify(appId),
       },
     ]);
+
+    // Add string-replace-loader to replace __PACKAGE__ with app ID
+    // This follows the pattern from reference projects (conty, oss-weather)
+    // __PACKAGE__ is replaced in .ts, .js, .scss, .css files
+    // Note: XML files (like AndroidManifest.xml) are processed separately by NativeScript build system
+    config.module
+      .rule("string-replace-package")
+      .test(/\.(ts|js|scss|css)$/)
+      .exclude.add(/node_modules/)
+      .end()
+      .use("string-replace-loader")
+      .loader("string-replace-loader")
+      .options({
+        search: "__PACKAGE__",
+        replace: appId,
+        flags: "g",
+      });
   });
 
   return webpack.resolveConfig();

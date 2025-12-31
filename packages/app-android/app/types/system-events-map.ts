@@ -19,4 +19,7 @@ export interface SystemEventsMap {
   launchEvent: LaunchEventData;
   resumeEvent: ApplicationEventData;
   suspendEvent: ApplicationEventData;
+
+  // Note: Activity lifecycle events should be handled directly via Application.android.on()
+  // in the components that need them, following the pattern from reference projects
 }

@@ -1,11 +1,15 @@
 import { EventData, Page } from "@nativescript/core";
 import { ListItem, Switch } from "../../widgets";
+import { logger } from "~/utils";
 
 /**
  * Storybook view controller for demonstrating Material Design 3 components
  */
 class Storybook {
   private page: Page | null = null;
+
+  // Scoped logger for this class
+  private log = logger.scoped("Storybook");
 
   /**
    * Called when navigating to the storybook page
@@ -15,7 +19,7 @@ class Storybook {
     const page = args.object as Page;
     this.page = page;
 
-    console.log("storybook: onNavigatingTo", this.page);
+    this.log.debug("onNavigatingTo", this.page);
 
     // Set up list item tap handlers
     this.setupListItemHandlers();
@@ -66,10 +70,10 @@ class Storybook {
       const item = this.page.getViewById<ListItem>(id);
       if (item) {
         item.on(ListItem.tapEvent, () => {
-          console.log(`List item tapped: ${item.headline}`);
+          this.log.debug(`List item tapped: ${item.headline}`);
         });
       } else {
-        console.warn(`Storybook: List item not found with id: ${id}`);
+        this.log.warn(`List item not found with id: ${id}`);
       }
     });
   }
@@ -86,14 +90,12 @@ class Storybook {
       if (item) {
         item.on(ListItem.tapEvent, () => {
           item.selected = !item.selected;
-          console.log(
+          this.log.debug(
             `List item tapped: ${item.headline}, selected: ${item.selected}`
           );
         });
       } else {
-        console.warn(
-          `Storybook: Selectable list item not found with id: ${id}`
-        );
+        this.log.warn(`Selectable list item not found with id: ${id}`);
       }
     });
   }
@@ -121,11 +123,11 @@ class Storybook {
         switchView.on(
           Switch.checkedChangeEvent,
           (args: EventData & { value: boolean }) => {
-            console.log(`Switch ${id} changed: ${args.value}`);
+            this.log.debug(`Switch ${id} changed: ${args.value}`);
           }
         );
       } else {
-        console.warn(`Storybook: Switch not found with id: ${id}`);
+        this.log.warn(`Switch not found with id: ${id}`);
       }
     });
 
@@ -153,7 +155,7 @@ class Storybook {
         // Handle tap on list item (toggles the switch)
         listItem.on(ListItem.tapEvent, () => {
           listItem.trailingSwitchChecked = !listItem.trailingSwitchChecked;
-          console.log(
+          this.log.debug(
             `ListItem ${listItem.headline} tapped, switch: ${listItem.trailingSwitchChecked}`
           );
         });
@@ -162,15 +164,13 @@ class Storybook {
         listItem.on(
           ListItem.switchChangeEvent,
           (args: EventData & { value: boolean }) => {
-            console.log(
+            this.log.debug(
               `ListItem ${listItem.headline} switch changed: ${args.value}`
             );
           }
         );
       } else {
-        console.warn(
-          `Storybook: ListItem with switch not found with id: ${id}`
-        );
+        this.log.warn(`ListItem with switch not found with id: ${id}`);
       }
     });
   }

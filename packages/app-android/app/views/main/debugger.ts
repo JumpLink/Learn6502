@@ -28,6 +28,7 @@ import {
 
 import { notificationService } from "~/services";
 import { gameConsoleView } from "./game-console";
+import { logger } from "~/utils";
 
 class Debugger implements DebuggerView {
   private page: Page | null = null;
@@ -41,6 +42,9 @@ class Debugger implements DebuggerView {
 
   // State preservation
   private _isInitialized: boolean = false;
+
+  // Scoped logger for this class
+  private log = logger.scoped("Debugger");
 
   // Event handlers bound to this instance
   private onCopyToClipboard = this.handleCopyToClipboard.bind(this);
@@ -59,9 +63,7 @@ class Debugger implements DebuggerView {
     const page = args.object as Page;
     this.page = page;
 
-    console.log(
-      `[Debugger] onNavigatingTo - isInitialized: ${this._isInitialized}`
-    );
+    this.log.debug(`onNavigatingTo - isInitialized: ${this._isInitialized}`);
 
     // Get widget references from XML
     this.messageConsole =
@@ -78,7 +80,7 @@ class Debugger implements DebuggerView {
       !this.hexdump ||
       !this.disassembled
     ) {
-      console.error("Failed to find required components in debugger view");
+      this.log.error("Failed to find required components in debugger view");
       return;
     }
 
@@ -87,13 +89,13 @@ class Debugger implements DebuggerView {
 
     // Initialize or re-initialize the debugger controller with widgets
     if (!this._isInitialized) {
-      console.log("[Debugger] First initialization");
+      this.log.debug("First initialization");
       this._isInitialized = true;
 
       // Set up controller event listeners only once
       this.setupControllerEventListeners();
     } else {
-      console.log("[Debugger] Re-initializing with existing state");
+      this.log.debug("Re-initializing with existing state");
     }
 
     // Always re-initialize with current widgets (debuggerController handles state preservation)
@@ -112,7 +114,7 @@ class Debugger implements DebuggerView {
   }
 
   public onNavigatingFrom(): void {
-    console.log("[Debugger] onNavigatingFrom - preserving state");
+    this.log.debug("onNavigatingFrom - preserving state");
 
     // Remove widget event listeners to prevent memory leaks
     this.removeWidgetEventListeners();

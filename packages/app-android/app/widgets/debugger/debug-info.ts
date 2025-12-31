@@ -3,6 +3,7 @@ import type { DebugInfoWidget } from "@learn6502/common-ui";
 import type { Simulator } from "@learn6502/6502";
 import { num2hex, addr2hex } from "@learn6502/6502";
 import { ListItem } from "../list-item";
+import { logger } from "~/utils";
 
 /**
  * DebugInfo widget displaying 6502 CPU registers and status flags
@@ -24,7 +25,7 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
   public onLoaded(): void {
     super.onLoaded();
 
-    console.log("[DebugInfo] onLoaded - loading template");
+    logger.debug("DebugInfo", "onLoaded - loading template");
 
     // Load the XML layout using Builder
     const componentView = Builder.load({
@@ -33,7 +34,7 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
     });
 
     if (!componentView) {
-      console.error("Failed to load debug-info.xml template");
+      logger.error("DebugInfo", "Failed to load debug-info.xml template");
       return;
     }
 
@@ -53,9 +54,9 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
       !this.itemPC ||
       !this.itemFlags
     ) {
-      console.error("DebugInfo: Failed to find list items in template");
+      logger.error("DebugInfo", "Failed to find list items in template");
     } else {
-      console.log("[DebugInfo] All list items loaded successfully");
+      logger.debug("DebugInfo", "All list items loaded successfully");
     }
 
     // Add the componentView to the content

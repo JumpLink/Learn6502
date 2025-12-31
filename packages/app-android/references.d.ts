@@ -30,3 +30,6 @@ declare const __IOS__: boolean;
 
 /** Play Store build flag - used for conditional features */
 declare const PLAY_STORE_BUILD: boolean;
+
+/** Application ID - matches the id from nativescript.config.js */
+declare const __APP_ID__: string;

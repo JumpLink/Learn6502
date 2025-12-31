@@ -1,5 +1,6 @@
 import { TextView, EventData } from "@nativescript/core";
 import type { MessageConsoleWidget } from "@learn6502/common-ui";
+import { logger } from "~/utils";
 
 export class MessageConsole extends TextView implements MessageConsoleWidget {
   constructor() {
@@ -39,7 +40,7 @@ export class MessageConsole extends TextView implements MessageConsoleWidget {
 
   public prompt(message: string, defaultValue?: string): string | null {
     // Not implemented for Android
-    console.warn("MessageConsole.prompt not implemented on Android");
+    logger.warn("MessageConsole", "prompt not implemented on Android");
     return null;
   }
 

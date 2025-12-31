@@ -1,11 +1,13 @@
-import { booleanConverter, ContentView, Property } from "@nativescript/core";
 import {
-  createColorStateList,
-  getMaterialColor,
-  getResource,
-} from "../utils/index";
+  booleanConverter,
+  ContentView,
+  Property,
+  Utils,
+} from "@nativescript/core";
+import { createColorStateList, getMaterialColor } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
+import { logger } from "~/utils";
 
 /**
  * Material Design 3 List Item component for Android
@@ -725,7 +727,7 @@ export class ListItem extends ContentView {
         this.contentLayout.setBackgroundResource(outValue.resourceId);
       }
     } catch (error) {
-      console.error("ListItem: Failed to create ripple effect", error);
+      logger.error("ListItem", "Failed to create ripple effect", error);
     }
   }
 
@@ -821,7 +823,7 @@ export class ListItem extends ContentView {
 
       this.rippleDrawable.setColor(createColorStateList(rippleColorWithAlpha));
     } catch (error) {
-      console.error("ListItem: Failed to update ripple color", error);
+      logger.error("ListItem", "Failed to update ripple color", error);
     }
   }
 
@@ -863,7 +865,7 @@ export class ListItem extends ContentView {
 
     if (this._leadingIcon && this._leadingIcon.startsWith("res://")) {
       const iconName = this._leadingIcon.replace("res://", "");
-      const resId = getResource(iconName, "drawable", this.context);
+      const resId = Utils.android.resources.getResource(iconName, "drawable");
       if (resId) {
         this.leadingIconView.setImageResource(resId);
         this.leadingIconView.setVisibility(android.view.View.VISIBLE);
@@ -871,7 +873,7 @@ export class ListItem extends ContentView {
           this.leadingImageView.setVisibility(android.view.View.GONE);
         }
       } else {
-        console.error(`ListItem: Icon resource not found: ${iconName}`);
+        logger.error("ListItem", `Icon resource not found: ${iconName}`);
         this.leadingIconView.setVisibility(android.view.View.GONE);
       }
     } else {
@@ -887,7 +889,7 @@ export class ListItem extends ContentView {
 
     if (this._leadingImage && this._leadingImage.startsWith("res://")) {
       const imageName = this._leadingImage.replace("res://", "");
-      const resId = getResource(imageName, "drawable", this.context);
+      const resId = Utils.android.resources.getResource(imageName, "drawable");
       if (resId) {
         this.leadingImageView.setImageResource(resId);
         this.leadingImageView.setVisibility(android.view.View.VISIBLE);
@@ -895,7 +897,7 @@ export class ListItem extends ContentView {
           this.leadingIconView.setVisibility(android.view.View.GONE);
         }
       } else {
-        console.error(`ListItem: Image resource not found: ${imageName}`);
+        logger.error("ListItem", `Image resource not found: ${imageName}`);
         this.leadingImageView.setVisibility(android.view.View.GONE);
       }
     } else {
@@ -925,7 +927,7 @@ export class ListItem extends ContentView {
 
     if (this._trailingIcon && this._trailingIcon.startsWith("res://")) {
       const iconName = this._trailingIcon.replace("res://", "");
-      const resId = getResource(iconName, "drawable", this.context);
+      const resId = Utils.android.resources.getResource(iconName, "drawable");
       if (resId) {
         this.trailingIconView.setImageResource(resId);
         this.trailingIconView.setVisibility(android.view.View.VISIBLE);
@@ -934,7 +936,7 @@ export class ListItem extends ContentView {
           this.trailingSwitchView.setVisibility(android.view.View.GONE);
         }
       } else {
-        console.error(`ListItem: Icon resource not found: ${iconName}`);
+        logger.error("ListItem", `Icon resource not found: ${iconName}`);
         this.trailingIconView.setVisibility(android.view.View.GONE);
       }
     } else {
@@ -976,7 +978,7 @@ export class ListItem extends ContentView {
       const isChecked = this._trailingSwitchChecked === true;
       this.trailingSwitchView.setChecked(isChecked);
     } catch (error) {
-      console.error("ListItem: Failed to apply switch checked state", error);
+      logger.error("ListItem", "Failed to apply switch checked state", error);
     } finally {
       this._isUpdatingSwitch = false;
     }
@@ -1018,7 +1020,7 @@ export class ListItem extends ContentView {
       this.trailingSwitchView.setThumbTintList(thumbColorStateList);
       this.trailingSwitchView.setTrackDecorationTintList(borderColorStateList);
     } catch (error) {
-      console.error("ListItem: Failed to apply switch theme", error);
+      logger.error("ListItem", "Failed to apply switch theme", error);
     }
   }
 
@@ -1104,7 +1106,7 @@ export class ListItem extends ContentView {
         android.view.View.IMPORTANT_FOR_ACCESSIBILITY_YES
       );
     } catch (error) {
-      console.error("ListItem: Failed to apply accessibility", error);
+      logger.error("ListItem", "Failed to apply accessibility", error);
     }
   }
 

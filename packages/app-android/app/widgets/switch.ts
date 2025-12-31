@@ -7,6 +7,7 @@ import {
 import { getMaterialColor, createColorStateList } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
+import { logger } from "~/utils";
 
 /**
  * Material Design 3 Switch component for Android
@@ -374,7 +375,7 @@ export class Switch extends ContentView {
       );
       this._nativeSwitch.setTrackDecorationTintList(borderColorStateList);
     } catch (error) {
-      console.error("Switch: Failed to apply theme:", error);
+      logger.error("Switch", "Failed to apply theme:", error);
     }
   }
 

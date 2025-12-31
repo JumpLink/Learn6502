@@ -12,6 +12,7 @@ import type {
   SourceViewEventMap,
   SourceViewWidget,
 } from "@learn6502/common-ui";
+import { logger } from "~/utils";
 
 export class SourceView extends ContentView implements SourceViewWidget {
   // Static properties
@@ -343,7 +344,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
         this.events.dispatch("copy", { code: this.code });
       });
     } else {
-      console.warn("[SourceView] copyButton not found in source-view.xml");
+      logger.warn("SourceView", "copyButton not found in source-view.xml");
     }
 
     this.textView.on("textChange", (args: any) => {
@@ -382,8 +383,9 @@ export class SourceView extends ContentView implements SourceViewWidget {
         })
       );
     } else {
-      console.error(
-        "[SourceView] textEdit (native) is null, couldn't set scroll listener. This may affect line number scrolling synchronization."
+      logger.error(
+        "SourceView",
+        "textEdit (native) is null, couldn't set scroll listener. This may affect line number scrolling synchronization."
       );
     }
 
@@ -462,7 +464,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
           nativeEditText.setSelection(selectionStart, selectionEnd);
         }
       } catch (error) {
-        console.error("[SourceView] Error applying text highlighting:", error);
+        logger.error("SourceView", "Error applying text highlighting:", error);
       }
     }
   }

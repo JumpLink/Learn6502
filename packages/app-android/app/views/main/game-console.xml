@@ -5,9 +5,11 @@
     navigatingTo="onNavigatingTo"
     navigatingFrom="onNavigatingFrom"
     actionBarHidden="true"
-    class="bg-surface text-on-surface">
+    class="bg-surface text-on-surface"
+>
 
-    <GridLayout rows="*, auto" columns="*" horizontalAlignment="center">
+    <GridLayout rows="*, auto" columns="*" horizontalAlignment="center"
+    >
         <!-- Display Area -->
         <w:Display id="display" row="0" marginTop="20" />
 
