@@ -1,12 +1,13 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 
-import { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
+import type { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
 
 import { Display, Gamepad } from "../../widgets/game-console/index.ts";
 import {
   gameConsoleController,
   gameConsoleStateService,
+  createSimulatorStack,
   type GameConsoleView,
 } from "@learn6502/common-ui";
 
@@ -55,10 +56,11 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
-    this._memory = new Memory();
-    this._labels = new Labels();
-    this._simulator = new Simulator(this._memory, this._labels);
-    this._assembler = new Assembler(this._memory, this._labels);
+    const { memory, labels, simulator, assembler } = createSimulatorStack();
+    this._memory = memory;
+    this._labels = labels;
+    this._simulator = simulator;
+    this._assembler = assembler;
 
     this.initialize();
   }

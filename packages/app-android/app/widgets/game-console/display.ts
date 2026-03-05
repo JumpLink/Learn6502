@@ -162,7 +162,7 @@ export class Display extends GridLayout implements DisplayWidget {
       if (gameConsoleStateService.isDisplayAddress(event.addr)) {
         if (this.canvas && this.bitmap && this.paintObj) {
           // Draw the individual pixel directly without calling drawAllPixels
-          this.drawSinglePixel(event.addr);
+          this.drawPixelToCanvas(event.addr);
         } else {
           // Queue the update for later
           this.pendingPixelUpdates.add(event.addr);
@@ -199,65 +199,55 @@ export class Display extends GridLayout implements DisplayWidget {
     }
 
     // Only draw the affected pixel
-    this.drawSinglePixel(addr);
+    this.drawPixelToCanvas(addr);
   }
 
   /**
-   * Draws a single pixel without redrawing the entire screen
+   * Draws a single pixel on the canvas.
+   * @param addr Memory address of the pixel
+   * @param skipRefresh If true, does not call refreshCanvas (for batch drawing)
    */
-  private drawSinglePixel(addr: number): void {
+  private drawPixelToCanvas(addr: number, skipRefresh: boolean = false): void {
     if (!this.canvas || !this.paintObj || !this.bitmap || !this.memory) {
-      this.log.error("drawSinglePixel: Required components not initialized");
       return;
     }
 
     try {
-      // Get color from memory using the service
-      const memValue = this.memory.get(addr) & 0x0f;
       const color = gameConsoleStateService.getColorForAddress(
         this.memory,
         addr
       );
 
-      // Use RGB color values (0-255) for Android
-      const red = Math.round(color.red * 255);
-      const green = Math.round(color.green * 255);
-      const blue = Math.round(color.blue * 255);
+      this.paintObj.setARGB(
+        255,
+        Math.round(color.red * 255),
+        Math.round(color.green * 255),
+        Math.round(color.blue * 255),
+      );
 
-      // Set the paint color
-      this.paintObj.setARGB(255, red, green, blue);
-
-      // Calculate coordinates
       const [x, y] = gameConsoleStateService.addrToCoordinates(addr, this.numX);
-
-      // Calculate pixel rectangle
       const left = x * this.pixelSize;
       const top = y * this.pixelSize;
       const right = (x + 1) * this.pixelSize;
       const bottom = (y + 1) * this.pixelSize;
 
-      // Safety check for canvas dimensions
       if (
         left < 0 ||
         top < 0 ||
         right > this.canvasWidth ||
         bottom > this.canvasHeight
       ) {
-        logger.error(
-          "Display",
-          `Invalid pixel coordinates: [${left},${top},${right},${bottom}]`
-        );
         return;
       }
 
-      // Draw rectangle for the pixel
       this.canvas.drawRect(left, top, right, bottom, this.paintObj);
 
-      // Refresh canvas
-      this.refreshCanvas();
+      if (!skipRefresh) {
+        this.refreshCanvas();
+      }
     } catch (error) {
       this.log.error(
-        `Error in drawSinglePixel: ${error instanceof Error ? error.message : String(error)}`
+        `Error in drawPixelToCanvas: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }
@@ -276,7 +266,7 @@ export class Display extends GridLayout implements DisplayWidget {
       this.pendingPixelUpdates.clear();
 
       for (const addr of updates) {
-        this.drawSinglePixel(addr);
+        this.drawPixelToCanvas(addr);
       }
 
       // Ensure canvas refresh
@@ -357,7 +347,7 @@ export class Display extends GridLayout implements DisplayWidget {
         addr <= DisplayAddressRange.END;
         addr++
       ) {
-        this.drawPixel(addr);
+        this.drawPixelToCanvas(addr, true);
       }
 
       // Make sure to refresh after drawing all pixels
@@ -366,84 +356,6 @@ export class Display extends GridLayout implements DisplayWidget {
     } catch (error) {
       this.log.error(
         `Error in drawAllPixels: ${error instanceof Error ? error.message : String(error)}`
-      );
-    }
-  }
-
-  /**
-   * Draw a single pixel to the canvas.
-   */
-  private drawPixel(addr: number): void {
-    if (!this.canvas) {
-      this.log.error("drawPixel: Canvas is not initialized");
-      return;
-    }
-
-    if (!this.paintObj) {
-      this.log.error("drawPixel: Paint object is not initialized");
-      return;
-    }
-
-    if (!this.bitmap) {
-      this.log.error("drawPixel: Bitmap is not initialized");
-      return;
-    }
-
-    if (!this.memory) {
-      this.log.error("drawPixel: Memory is not initialized");
-      return;
-    }
-
-    try {
-      // Get color from memory using the service
-      const memValue = this.memory.get(addr) & 0x0f;
-      const color = gameConsoleStateService.getColorForAddress(
-        this.memory,
-        addr
-      );
-
-      // Use RGB color values (0-255) for Android
-      const red = Math.round(color.red * 255);
-      const green = Math.round(color.green * 255);
-      const blue = Math.round(color.blue * 255);
-
-      // Set the paint color
-      this.paintObj.setARGB(255, red, green, blue);
-
-      // Calculate coordinates
-      const [x, y] = gameConsoleStateService.addrToCoordinates(addr, this.numX);
-
-      // Calculate pixel rectangle
-      const left = x * this.pixelSize;
-      const top = y * this.pixelSize;
-      const right = (x + 1) * this.pixelSize;
-      const bottom = (y + 1) * this.pixelSize;
-
-      // Safety check for canvas dimensions
-      if (
-        left < 0 ||
-        top < 0 ||
-        right > this.canvasWidth ||
-        bottom > this.canvasHeight
-      ) {
-        logger.error(
-          "Display",
-          `Invalid pixel coordinates: [${left},${top},${right},${bottom}]`
-        );
-        return;
-      }
-
-      // Draw rectangle for the pixel
-      this.canvas.drawRect(left, top, right, bottom, this.paintObj);
-
-      // Refresh the canvas after drawing the pixel
-      if (addr % 16 === 0) {
-        // Only refresh every few pixels for better performance when drawing many
-        this.refreshCanvas();
-      }
-    } catch (error) {
-      this.log.error(
-        `Error in drawPixel: ${error instanceof Error ? error.message : String(error)}`
       );
     }
   }

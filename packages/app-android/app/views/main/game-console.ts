@@ -1,9 +1,9 @@
 import { EventData, Page } from "@nativescript/core";
 import {
-  Memory,
-  Labels,
-  Simulator,
-  Assembler,
+  type Memory,
+  type Labels,
+  type Simulator,
+  type Assembler,
   SimulatorState,
 } from "@learn6502/6502";
 
@@ -14,6 +14,7 @@ import { Display, Gamepad } from "~/widgets/game-console";
 import {
   gameConsoleController,
   gameConsoleStateService,
+  createSimulatorStack,
   type GameConsoleView,
   type GamepadKey,
 } from "@learn6502/common-ui";
@@ -39,10 +40,11 @@ export class GameConsole implements GameConsoleView {
   private log = logger.scoped("GameConsole");
 
   constructor() {
-    this._memory = new Memory();
-    this._labels = new Labels();
-    this._simulator = new Simulator(this._memory, this._labels);
-    this._assembler = new Assembler(this._memory, this._labels);
+    const { memory, labels, simulator, assembler } = createSimulatorStack();
+    this._memory = memory;
+    this._labels = labels;
+    this._simulator = simulator;
+    this._assembler = assembler;
 
     // Bind methods
     this.onLoaded = this.onLoaded.bind(this);
@@ -213,32 +215,16 @@ export class GameConsole implements GameConsoleView {
 
     this.log.debug("Initializing game console components");
 
-    // Check if controller is already partially initialized (from main controller)
-    if (gameConsoleController.memory) {
-      this.log.debug(
-        "Controller already partially initialized, doing full initialization"
-      );
-      // Do full initialization with display and gamepad widgets
-      gameConsoleController.init({
-        memory: this._memory,
-        displayWidget: this._display,
-        gamepadWidget: this._gamePad,
-        simulator: this._simulator,
-        assembler: this._assembler,
-        labels: this._labels,
-      });
-    } else {
-      this.log.debug("Full controller initialization from scratch");
-      // Initialize common controller first
-      gameConsoleController.init({
-        memory: this._memory,
-        displayWidget: this._display,
-        gamepadWidget: this._gamePad,
-        simulator: this._simulator,
-        assembler: this._assembler,
-        labels: this._labels,
-      });
-    }
+    // Full initialization with display and gamepad widgets
+    // (works whether controller was partially initialized from main or not)
+    gameConsoleController.init({
+      memory: this._memory,
+      displayWidget: this._display,
+      gamepadWidget: this._gamePad,
+      simulator: this._simulator,
+      assembler: this._assembler,
+      labels: this._labels,
+    });
 
     // Debug output for memory and controller
     this.log.debug(`Memory initialized (${this._memory ? "ok" : "failed"})`);

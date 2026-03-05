@@ -2,10 +2,8 @@ import {
   Page,
   ScrollView,
   ScrollEventData,
-  Utils,
   Frame,
   Application,
-  GridLayout,
 } from "@nativescript/core";
 
 import { EventData } from "@nativescript/core";
@@ -16,31 +14,34 @@ import {
   MainView,
   ViewType,
   gameConsoleController,
-  learnController,
   debuggerController,
   mainStateController,
   editorController,
+  GameConsoleEventBridge,
+  MainEventBridge,
+  MainButtonState,
 } from "@learn6502/common-ui";
 import { SimulatorState } from "@learn6502/6502";
-import type { GamepadKey } from "@learn6502/common-ui";
 
 // Import services
 import { notificationService } from "~/services";
 import { SystemAppearanceChangeEvent } from "~/types";
 import { MainButton } from "~/widgets";
-import { showError } from "~/utils";
-import { MainButtonState } from "@learn6502/common-ui";
+import { showError, logger } from "~/utils";
 import { BottomNavigation } from "~/widgets/bottom-navigation";
-import { logger } from "~/utils";
 
-// Import debugger view
+// Import views
 import { debuggerView } from "./main/debugger";
-
-// Import editor view
-import { editorView } from "./main/editor";
-
-// Import game console view
 import { gameConsoleView } from "./main/game-console";
+
+/** Notification key to user-facing title mapping */
+const NOTIFICATION_TITLES: Record<string, string> = {
+  "assembled-successfully": "Assembled successfully",
+  "assemble-failed": "Assemble failed",
+  "simulator-failure": "Simulator failure",
+  "labels-failure": "Labels failure",
+  "code-copied-to-editor": "Code copied to editor",
+};
 
 /**
  * MainController class to handle all main page functionality
@@ -59,6 +60,10 @@ export class MainController implements MainView {
   // Scoped logger for this class
   private log = logger.scoped("MainController");
 
+  // Event bridges
+  private gameConsoleBridge: GameConsoleEventBridge;
+  private mainBridge: MainEventBridge;
+
   /**
    * Get the current simulator state
    */
@@ -74,17 +79,55 @@ export class MainController implements MainView {
   }
 
   constructor() {
-    // Private constructor for singleton pattern
     this.log.debug("Initialized");
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
-    this.setupAndroidKeyHandling = this.setupAndroidKeyHandling.bind(this);
-    this.setupLearnTutorialSignalListeners =
-      this.setupLearnTutorialSignalListeners.bind(this);
-    this.setupGameConsoleSignalListeners =
-      this.setupGameConsoleSignalListeners.bind(this);
-    this.setupMainStateEventListeners =
-      this.setupMainStateEventListeners.bind(this);
-    this.setupEditorEventListeners = this.setupEditorEventListeners.bind(this);
+
+    // Initialize GameConsole event bridge
+    this.gameConsoleBridge = new GameConsoleEventBridge({
+      formatAndLog: (message, params) => {
+        // Android: log directly without i18n formatting
+        debuggerController.log(message);
+      },
+      updateDebugger: () => {
+        // Android: update debugger view if available
+        if (gameConsoleView.memory && gameConsoleView.simulator) {
+          debuggerView.update(gameConsoleView.memory, gameConsoleView.simulator);
+        }
+      },
+      updateAssemblerViews: (assembler) => {
+        debuggerView.updateHexdump(assembler);
+        debuggerView.updateDisassembled(assembler);
+      },
+      updateUiState: () => {
+        this.updateMainUiState();
+      },
+      showNotification: (key) => {
+        notificationService.showNotification({
+          title: NOTIFICATION_TITLES[key] || key,
+          timeout: 2,
+        });
+      },
+      updateDebugInfo: (simulator) => {
+        debuggerView.updateDebugInfo(simulator);
+      },
+    });
+
+    // Initialize Main event bridge
+    this.mainBridge = new MainEventBridge({
+      mainView: this,
+      onStateChanged: () => {
+        this.updateMainUiState();
+      },
+      onLearnCodeCopied: (code) => {
+        this.log.debug("Learn: Code copied to editor", code);
+      },
+      showNotification: (key) => {
+        notificationService.showNotification({
+          title: NOTIFICATION_TITLES[key] || key,
+          timeout: 2,
+        });
+      },
+    });
   }
 
   /**
@@ -133,160 +176,6 @@ export class MainController implements MainView {
     // Set up game console service event listener
     gameConsoleController.on("keyPressed", (event) => {
       this.log.debug("Gamepad key pressed:", event.key, event.keyCode);
-      // Add any additional UI feedback or logging here
-    });
-  }
-
-  /**
-   * Sets up game console signal listeners for debugger integration
-   */
-  private setupGameConsoleSignalListeners(): void {
-    this.log.debug("Setting up game console signal listeners");
-
-    // Listen for assemble success to update debugger
-    gameConsoleController.on("assemble-success", (signal) => {
-      this.log.debug("assemble-success event received:", signal);
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-
-      // Update debugger with assembled code
-      if (signal.assembler) {
-        debuggerView.updateHexdump(signal.assembler);
-        debuggerView.updateDisassembled(signal.assembler);
-      }
-
-      // Update UI state
-      this.updateMainUiState();
-
-      notificationService.showNotification({
-        title: "Assembled successfully",
-        timeout: 2,
-      });
-    });
-
-    gameConsoleController.on("assemble-failure", (signal) => {
-      this.log.debug("assemble-failure event received:", signal);
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-
-      notificationService.showNotification({
-        title: "Assemble failed",
-        timeout: 2,
-      });
-    });
-
-    gameConsoleController.on("hexdump", (signal) => {
-      if (signal.message) {
-        debuggerController.log("Hexdump:\n" + signal.message);
-      }
-    });
-
-    gameConsoleController.on("disassembly", (signal) => {
-      if (signal.message) {
-        debuggerController.log("Disassembly:\n" + signal.message);
-      }
-    });
-
-    gameConsoleController.on("assemble-info", (signal) => {
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-    });
-
-    gameConsoleController.on("stop", (signal) => {
-      this.updateMainUiState();
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-    });
-
-    gameConsoleController.on("start", (signal) => {
-      this.updateMainUiState();
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-    });
-
-    gameConsoleController.on("reset", (signal) => {
-      this.updateMainUiState();
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-    });
-
-    gameConsoleController.on("step", (signal) => {
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-
-      // Update debugger with current state from simulator
-      if (signal.simulator) {
-        // We need to get memory from the simulator or game console controller
-        // For now, we'll update debug info only
-        debuggerView.updateDebugInfo(signal.simulator);
-      }
-    });
-
-    gameConsoleController.on("multistep", (signal) => {
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-
-      // Update debugger with current state from simulator
-      if (signal.simulator) {
-        // We need to get memory from the simulator or game console controller
-        // For now, we'll update debug info only
-        debuggerView.updateDebugInfo(signal.simulator);
-      }
-    });
-
-    gameConsoleController.on("goto", (signal) => {
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-
-      // Update debugger with current state from simulator
-      if (signal.simulator) {
-        // We need to get memory from the simulator or game console controller
-        // For now, we'll update debug info only
-        debuggerView.updateDebugInfo(signal.simulator);
-      }
-    });
-
-    gameConsoleController.on("simulator-info", (signal) => {
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-    });
-
-    gameConsoleController.on("simulator-failure", (signal) => {
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-
-      notificationService.showNotification({
-        title: "Simulator failure",
-        timeout: 2,
-      });
-    });
-
-    gameConsoleController.on("labels-info", (signal) => {
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-    });
-
-    gameConsoleController.on("labels-failure", (signal) => {
-      if (signal.message) {
-        debuggerController.log(signal.message);
-      }
-
-      notificationService.showNotification({
-        title: "Labels failure",
-        timeout: 2,
-      });
     });
   }
 
@@ -294,76 +183,6 @@ export class MainController implements MainView {
     // Note: Status bar and navigation bar icon colors are automatically handled by
     // NativeScript's setDarkModeHandler in app.ts, which reacts to theme changes.
     // No manual intervention needed here.
-  }
-
-  /**
-   * Sets up learn tutorial signal listeners
-   */
-  private setupLearnTutorialSignalListeners(): void {
-    learnController.on("copy", ({ code }: { code: string }) => {
-      this.setEditorCode(code);
-      // Show notification using notification service
-      notificationService.showNotification({
-        title: "Code copied to editor",
-        timeout: 2,
-      });
-      this.log.debug("Learn: Code copied to editor", code);
-    });
-  }
-
-  /**
-   * Sets up main state event listeners for platform-independent control
-   */
-  private setupMainStateEventListeners(): void {
-    // Listen for state changes
-    mainStateController.events.on("state-changed", (state) => {
-      this.log.debug("Main state changed:", state);
-      this.updateMainUiState();
-    });
-
-    // Listen for code changed events
-    mainStateController.events.on("state-changed:code-changed", (changed) => {
-      this.updateMainUiState();
-    });
-
-    // Listen for action events
-    mainStateController.events.on("assemble", () => {
-      this.assembleGameConsole();
-    });
-
-    mainStateController.events.on("run", () => {
-      this.runGameConsole();
-    });
-
-    mainStateController.events.on("pause", () => {
-      this.pauseGameConsole();
-    });
-
-    mainStateController.events.on("resume", () => {
-      this.runGameConsole();
-    });
-
-    mainStateController.events.on("reset", () => {
-      this.reset();
-    });
-
-    mainStateController.events.on("step", () => {
-      this.stepGameConsole();
-    });
-
-    mainStateController.events.on("navigate-to-view", ({ viewType }) => {
-      this.navigateToView(viewType as ViewType);
-    });
-  }
-
-  /**
-   * Sets up editor event listeners
-   */
-  private setupEditorEventListeners(): void {
-    // Listen for editor text changes via the controller
-    editorController.events.on("changed", () => {
-      mainStateController.setCodeChanged(true);
-    });
   }
 
   /**
@@ -398,11 +217,12 @@ export class MainController implements MainView {
 
     // Initialize services and controllers
     this.setupAndroidKeyHandling();
-    this.setupLearnTutorialSignalListeners();
     this.initializeGameConsoleController();
-    this.setupGameConsoleSignalListeners();
-    this.setupMainStateEventListeners();
-    this.setupEditorEventListeners();
+
+    // Connect event bridges (replaces manual event listener setup)
+    this.gameConsoleBridge.connect();
+    this.mainBridge.connect();
+
     mainStateController.init();
 
     // Set up main button and scroll behavior
@@ -421,6 +241,10 @@ export class MainController implements MainView {
   public onUnloaded(args: EventData): void {
     const view = args.object as Page;
     this.log.debug("unloaded:", view.id);
+
+    // Disconnect event bridges
+    this.gameConsoleBridge.disconnect();
+    this.mainBridge.disconnect();
 
     // Unsubscribe appearance change handler
     systemStates.events.off(
@@ -528,10 +352,6 @@ export class MainController implements MainView {
 
     return moduleMap[viewType] || null;
   }
-
-  /**
-   * Implementation of MainView methods
-   */
 
   /**
    * Assembles the code in the editor

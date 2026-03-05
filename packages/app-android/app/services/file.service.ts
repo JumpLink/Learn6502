@@ -1,5 +1,8 @@
 import { FileService as BaseFileService } from "@learn6502/common-ui";
-import { Application } from "@nativescript/core";
+import {
+  Application,
+  AndroidActivityResultEventData,
+} from "@nativescript/core";
 import { Observable } from "@nativescript/core/data/observable";
 import { logger, showError } from "~/utils";
 
@@ -50,10 +53,10 @@ export class FileService extends BaseFileService {
         // Start the activity for result
         activity.startActivityForResult(intent, 101);
 
-        // Handle activity result
-        Application.android.on(
+        // Handle activity result (use once to prevent listener accumulation)
+        Application.android.once(
           Application.android.activityResultEvent,
-          (args) => {
+          (args: AndroidActivityResultEventData) => {
             const requestCode = args.requestCode;
             const resultCode = args.resultCode;
             const data = args.intent;
@@ -174,10 +177,10 @@ export class FileService extends BaseFileService {
         // Start the activity for result
         activity.startActivityForResult(intent, 102);
 
-        // Handle activity result
-        Application.android.on(
+        // Handle activity result (use once to prevent listener accumulation)
+        Application.android.once(
           Application.android.activityResultEvent,
-          (args) => {
+          (args: AndroidActivityResultEventData) => {
             const requestCode = args.requestCode;
             const resultCode = args.resultCode;
             const data = args.intent;

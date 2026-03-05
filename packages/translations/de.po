@@ -672,10 +672,6 @@ msgstr "Deaktivieren, um die Leistung zu verbessern"
 msgid "Disassembled"
 msgstr "Disassemblierter Code"
 
-#. TRANSLATORS: Prefix label in Debugger messages when showing disassembly output
-msgid "Disassembly:"
-msgstr "Disassemblierung:"
-
 msgid "Discard"
 msgstr "Verwerfen"
 
@@ -855,10 +851,6 @@ msgstr "Hex-Monitor"
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "Hexdump"
-
-#. TRANSLATORS: Prefix label in Debugger messages when showing hexdump output
-msgid "Hexdump:"
-msgstr "Hexdump:"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1829,6 +1821,12 @@ msgstr "WDM-Ausgabe"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "was die indirekt adressierten Speicheradressen <tt>$0411</tt>, <tt>$0410</tt> und <tt>$040f</tt> repräsentiert (drei Pixel in der Mitte des Displays). Ich betone diesen Punkt, aber es ist wichtig, vollständig zu verstehen, wie indirekte Adressierung funktioniert."
+
+#~ msgid "Disassembly:"
+#~ msgstr "Disassemblierung:"
+
+#~ msgid "Hexdump:"
+#~ msgstr "Hexdump:"
 
 #~ msgid "_Appearance"
 #~ msgstr "_Erscheinungsbild"
