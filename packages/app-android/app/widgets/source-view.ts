@@ -12,6 +12,11 @@ import type {
   SourceViewEventMap,
   SourceViewWidget,
 } from "@learn6502/common-ui";
+import {
+  OPCODE_PATTERN,
+  COMMENT_PATTERN,
+  HEX_VALUE_PATTERN,
+} from "@learn6502/common-ui";
 import { logger } from "~/utils";
 
 export class SourceView extends ContentView implements SourceViewWidget {
@@ -421,8 +426,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
         );
       }
 
-      const opcodePattern =
-        /\b(LDA|LDX|LDY|STA|STX|STY|ADC|SBC|INC|DEC|JMP|JSR|RTS|BEQ|BNE)\b/gi;
+      const opcodePattern = new RegExp(OPCODE_PATTERN, "gi");
       while ((match = opcodePattern.exec(code)) !== null) {
         spannable.setSpan(
           new android.text.style.ForegroundColorSpan(
@@ -440,7 +444,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
         );
       }
 
-      const hexPattern = /(\$[0-9A-F]+|#\$[0-9A-F]+)/gi;
+      const hexPattern = new RegExp(HEX_VALUE_PATTERN, "gi");
       while ((match = hexPattern.exec(code)) !== null) {
         spannable.setSpan(
           new android.text.style.ForegroundColorSpan(

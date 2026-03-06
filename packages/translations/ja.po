@@ -666,10 +666,6 @@ msgstr "無効にするとパフォーマンスが向上します"
 msgid "Disassembled"
 msgstr "逆アセンブル"
 
-#. TRANSLATORS: Prefix label in Debugger messages when showing disassembly output
-msgid "Disassembly:"
-msgstr "逆アセンブル:"
-
 msgid "Discard"
 msgstr "破棄"
 
@@ -849,10 +845,6 @@ msgstr "16進モニター"
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "ヘックスダンプ"
-
-#. TRANSLATORS: Prefix label in Debugger messages when showing hexdump output
-msgid "Hexdump:"
-msgstr "ヘックスダンプ:"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1823,6 +1815,12 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "これは間接参照で得られる <tt>$0411</tt>、<tt>$0410</tt>、<tt>$040f</tt>（画面中央付近の3ピクセル）を表します。くどいようですが、間接アドレッシングの仕組みをしっかり理解することが重要です。"
+
+#~ msgid "Disassembly:"
+#~ msgstr "逆アセンブル:"
+
+#~ msgid "Hexdump:"
+#~ msgstr "ヘックスダンプ:"
 
 #, fuzzy
 #~ msgid "_Appearance"

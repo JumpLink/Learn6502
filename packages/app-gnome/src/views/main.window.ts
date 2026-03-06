@@ -24,6 +24,7 @@ import {
   mainStateController,
   editorController,
   learnController,
+  GameConsoleEventBridge,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -106,6 +107,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Show back button in desktop mode or in mobile mode when Learn is visible and a subpage is open
     this._learnBackButton.visible = isDesktop || (isLearnVisible && hasSubpage);
   }
+
+  // Event bridge for game console signals
+  private gameConsoleBridge: GameConsoleEventBridge | null = null;
 
   // State
   private previousVisibleChild: Gtk.Widget | null = null;
@@ -223,7 +227,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.setupActions();
     this.setupFileActions();
     this.setupMainButton();
-    this.setupGameConsoleSignalListeners();
+    this.setupGameConsoleBridge();
     this.setupKeyboardListener();
     this.setupLearnTutorialSignalListeners();
     this.setupEditorSignalListeners();
@@ -717,173 +721,50 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     }
   }
 
-  private setupGameConsoleSignalListeners(): void {
-    gameConsoleController.on("assemble-success", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
+  /** Notification key to translated GNOME title mapping */
+  private static readonly NOTIFICATION_TITLES: Record<string, () => string> = {
+    // TRANSLATORS: Toast message title after successful assembly
+    "assembled-successfully": () => _("Assembled successfully"),
+    // TRANSLATORS: Toast message title after assembly failure
+    "assemble-failed": () => _("Assemble failed"),
+    // TRANSLATORS: Toast message title when simulator reports a failure
+    "simulator-failure": () => _("Simulator failure"),
+    // TRANSLATORS: Toast message title when labels processing fails
+    "labels-failure": () => _("Labels failure"),
+  };
 
-      this._debugger.updateHexdump(this._gameConsole.assembler);
-      this._debugger.updateDisassembled(this._gameConsole.assembler);
-
-      this.updateDebugger();
-      this.updateRunActions(this._gameConsole.simulator.state);
-
-      this.showToast({
-        // TRANSLATORS: Toast message title after successful assembly
-        title: _("Assembled successfully"),
-        timeout: 2,
-      });
-    });
-
-    gameConsoleController.on("assemble-failure", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-
-      this.showToast({
-        // TRANSLATORS: Toast message title after assembly failure
-        title: _("Assemble failed"),
-        timeout: 2,
-      });
-    });
-
-    gameConsoleController.on("hexdump", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(
-          // TRANSLATORS: Prefix label in Debugger messages when showing hexdump output
-          _("Hexdump:") + "\n" + _(signal.message).format(...params)
-        );
-      }
-    });
-
-    gameConsoleController.on("disassembly", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(
-          // TRANSLATORS: Prefix label in Debugger messages when showing disassembly output
-          _("Disassembly:") + "\n" + _(signal.message).format(...params)
-        );
-      }
-    });
-
-    gameConsoleController.on("assemble-info", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-    });
-
-    gameConsoleController.on("stop", (signal) => {
-      this.updateDebugger();
-      this.updateRunActions(signal.state);
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-    });
-
-    gameConsoleController.on("start", (signal) => {
-      this.updateDebugger();
-      this.updateRunActions(signal.state);
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-    });
-
-    gameConsoleController.on("reset", (signal) => {
-      this.updateDebugger();
-      this.updateRunActions(signal.state);
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-    });
-
-    gameConsoleController.on("step", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-
-      // If stepper is enabled, update the debug info and the monitor every step
-      if (this._gameConsole.simulator.stepperEnabled) {
+  private setupGameConsoleBridge(): void {
+    this.gameConsoleBridge = new GameConsoleEventBridge({
+      formatAndLog: (message, params) => {
+        // GNOME: use gettext formatting for translated messages
+        const formattedParams = params || [];
+        this._debugger.log(_(message).format(...formattedParams));
+      },
+      updateDebugger: () => {
         this.updateDebugger();
-      }
-    });
-
-    gameConsoleController.on("multistep", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-
-      this.updateDebugger();
-    });
-
-    gameConsoleController.on("goto", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-
-      this.updateDebugger();
-    });
-
-    gameConsoleController.on("simulator-info", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-    });
-
-    gameConsoleController.on("simulator-failure", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-
-      this.showToast({
-        // TRANSLATORS: Toast message title when simulator reports a failure
-        title: _("Simulator failure"),
-        timeout: 2,
-      });
-    });
-
-    gameConsoleController.on("labels-info", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-    });
-
-    gameConsoleController.on("labels-failure", (signal) => {
-      if (signal.message) {
-        const params = signal.params || [];
-        this._debugger.log(_(signal.message).format(...params));
-      }
-
-      this.showToast({
-        // TRANSLATORS: Toast message title when labels processing fails
-        title: _("Labels failure"),
-        timeout: 2,
-      });
-    });
-
-    // Listen for stepper state changes from game console
-    gameConsoleController.on(
-      "stepper-changed",
-      (event: { enabled: boolean }) => {
-        // Update debugger controller stepper state to match
-        if (debuggerController.stepperEnabled !== event.enabled) {
-          debuggerController.stepperEnabled = event.enabled;
+      },
+      updateAssemblerViews: (assembler) => {
+        this._debugger.updateHexdump(this._gameConsole.assembler);
+        this._debugger.updateDisassembled(this._gameConsole.assembler);
+      },
+      updateUiState: () => {
+        this.updateRunActions(this._gameConsole.simulator.state);
+      },
+      showNotification: (key) => {
+        const titleFn = MainWindow.NOTIFICATION_TITLES[key];
+        this.showToast({
+          title: titleFn ? titleFn() : key,
+          timeout: 2,
+        });
+      },
+      updateDebugInfo: (simulator) => {
+        // If stepper is enabled, update full debugger; otherwise just debug info
+        if (this._gameConsole.simulator.stepperEnabled) {
+          this.updateDebugger();
         }
-      }
-    );
+      },
+    });
+    this.gameConsoleBridge.connect();
   }
 
   private setupKeyboardListener(): void {

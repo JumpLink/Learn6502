@@ -666,10 +666,6 @@ msgstr "Вимкніть для покращення продуктивност�
 msgid "Disassembled"
 msgstr "Дизасембльовано"
 
-#. TRANSLATORS: Prefix label in Debugger messages when showing disassembly output
-msgid "Disassembly:"
-msgstr "Дизасемблювання:"
-
 msgid "Discard"
 msgstr "Відкинути"
 
@@ -849,10 +845,6 @@ msgstr "Hex-монітор"
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "Hexdump"
-
-#. TRANSLATORS: Prefix label in Debugger messages when showing hexdump output
-msgid "Hexdump:"
-msgstr "Hexdump:"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1823,6 +1815,12 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "що відповідає непрямим адресам <tt>$0411</tt>, <tt>$0410</tt> і <tt>$040f</tt> (три пікселі посеред екрана). Я наголошую на цьому, бо важливо повністю зрозуміти, як працює непряма адресація."
+
+#~ msgid "Disassembly:"
+#~ msgstr "Дизасемблювання:"
+
+#~ msgid "Hexdump:"
+#~ msgstr "Hexdump:"
 
 #~ msgid "_Appearance"
 #~ msgstr "_Вигляд"
