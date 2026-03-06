@@ -358,6 +358,7 @@
   "Submit": "提交",
   "Syntax error line %d: %s": "语法错误 第 %d 行：%s",
   "Teal": "青色",
+  "Tervetuloa! We are happy to welcome Finnish translations, kindly contributed by Jiri Grönroos. Kiitos!": "Tervetuloa! 我们很高兴迎来芬兰语翻译，由 Jiri Grönroos 友情贡献。Kiitos!",
   "Test your creations on a virtual game console": "在虚拟游戏主机上测试你的作品",
   "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below.": "6502 使用 16 位地址总线，这意味着处理器可以访问 65536 字节的内存。请记住一个字节用两个十六进制字符表示，因此内存位置通常表示为 <tt>$0000 - $ffff</tt>。访问这些内存位置有多种方式，详述如下。",
   "The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is only used to set the zero flag - the actual result is discarded. The zero flag is set only if the result of AND-ing the accumulator with argument is zero. When we're looking at powers of two, the zero flag will only be set if the two numbers are not the same. For example, <tt>0001 AND 0001</tt> is not zero, but <tt>0001 AND 0010</tt> is zero.": "<tt>BIT</tt> 指令与 <tt>AND</tt> 相似，但计算结果仅用于设置零标志——实际结果会被丢弃。仅当累加器与参数进行 AND 运算的结果为零时，零标志才会置位。对于 2 的幂，仅当两个数不相同时零标志才会置位。例如，<tt>0001 AND 0001</tt> 不为零，但 <tt>0001 AND 0010</tt> 为零。",
