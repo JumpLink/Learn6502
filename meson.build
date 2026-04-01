@@ -1,5 +1,5 @@
 project('Learn6502',
-          version: '0.6.4',
+          version: '0.6.5',
     meson_version: '>= 1.4.1',
   default_options: [ 'warning_level=2', 'werror=false', ],
 )
