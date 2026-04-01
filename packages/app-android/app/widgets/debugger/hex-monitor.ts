@@ -29,7 +29,7 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
 
   set options(value: HexMonitorOptions) {
     this._options = value;
-    this.events.dispatch("changed", undefined);
+    this.events.dispatch("changed", undefined!);
   }
 
   constructor() {

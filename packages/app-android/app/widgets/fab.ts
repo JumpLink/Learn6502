@@ -90,8 +90,8 @@ export class Fab extends ContentView {
   }
 
   // Property backing fields
-  private _icon: string;
-  private _text: string;
+  private _icon!: string;
+  private _text!: string;
   private _containerColor: string = containerColorProperty.defaultValue;
   private _contentColor: string = contentColorProperty.defaultValue;
 
@@ -176,7 +176,7 @@ export class Fab extends ContentView {
   }
 
   get isExtended(): boolean {
-    return this.nativeFab.isExtended();
+    return this.nativeFab!.isExtended();
   }
 
   constructor() {
@@ -196,10 +196,10 @@ export class Fab extends ContentView {
       );
 
     // Ensure it's clickable
-    this.nativeFab.setClickable(true);
+    this.nativeFab!.setClickable(true);
 
     // Set up click listener to forward the event to NativeScript
-    this.nativeFab.setOnClickListener(
+    this.nativeFab!.setOnClickListener(
       new android.view.View.OnClickListener({
         onClick: (view: android.view.View) => {
           this.notify({ eventName: Fab.tapEvent, object: this });
@@ -217,7 +217,7 @@ export class Fab extends ContentView {
       this.onSystemAppearanceChanged
     );
 
-    return this.nativeFab;
+    return this.nativeFab!;
   }
 
   /**
@@ -276,17 +276,17 @@ export class Fab extends ContentView {
         this.nativeFab.setIconResource(resId); // Use setIconResource for Extended FAB
       } else {
         logger.warn("FAB", `Icon resource not found: ${iconName}`);
-        this.nativeFab.setIcon(null); // Clear icon if not found
+        this.nativeFab.setIcon(null!); // Clear icon if not found
       }
     } else if (this._icon) {
       logger.warn(
         "FAB",
         `Icon format not supported (expected res://): ${this._icon}`
       );
-      this.nativeFab.setIcon(null);
+      this.nativeFab.setIcon(null!);
     } else {
       // If no icon is provided, clear it
-      this.nativeFab.setIcon(null);
+      this.nativeFab.setIcon(null!);
     }
   }
 
@@ -295,7 +295,7 @@ export class Fab extends ContentView {
    */
   private applyText(): void {
     if (!this.nativeFab) return;
-    this.nativeFab.setText(this._text || null); // Set text or clear if null/empty
+    this.nativeFab.setText(this._text || null!); // Set text or clear if null/empty
   }
 
   /**

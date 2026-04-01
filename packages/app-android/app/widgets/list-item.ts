@@ -177,37 +177,37 @@ export class ListItem extends ContentView {
 
   // Private instance properties - Native views
   /** The native Android LinearLayout container */
-  private container: android.widget.LinearLayout;
+  private container!: android.widget.LinearLayout;
   /** The content container (horizontal layout) */
-  private contentLayout: android.widget.LinearLayout;
+  private contentLayout!: android.widget.LinearLayout;
   /** The text container (vertical layout for headline and supporting) */
-  private textLayout: android.widget.LinearLayout;
+  private textLayout!: android.widget.LinearLayout;
   /** The headline TextView */
-  private headlineView: android.widget.TextView;
+  private headlineView!: android.widget.TextView;
   /** The supporting text TextView */
-  private supportingView: android.widget.TextView;
+  private supportingView!: android.widget.TextView;
   /** The leading icon ImageView */
-  private leadingIconView: android.widget.ImageView;
+  private leadingIconView!: android.widget.ImageView;
   /** The leading image (for avatars) */
-  private leadingImageView: android.widget.ImageView;
+  private leadingImageView!: android.widget.ImageView;
   /** The trailing text TextView */
-  private trailingTextView: android.widget.TextView;
+  private trailingTextView!: android.widget.TextView;
   /** The trailing icon ImageView */
-  private trailingIconView: android.widget.ImageView;
+  private trailingIconView!: android.widget.ImageView;
   /** The trailing switch */
-  private trailingSwitchView: com.google.android.material.materialswitch.MaterialSwitch;
+  private trailingSwitchView!: com.google.android.material.materialswitch.MaterialSwitch;
   /** The divider view */
-  private dividerView: android.view.View;
+  private dividerView!: android.view.View;
   /** The ripple drawable for Material Design 3 */
-  private rippleDrawable: android.graphics.drawable.RippleDrawable;
+  private rippleDrawable!: android.graphics.drawable.RippleDrawable;
 
   // Private instance properties - Property backing fields
-  private _headline: string;
-  private _supporting: string;
-  private _leadingIcon: string;
-  private _leadingImage: string;
-  private _trailingText: string;
-  private _trailingIcon: string;
+  private _headline!: string;
+  private _supporting!: string;
+  private _leadingIcon!: string;
+  private _leadingImage!: string;
+  private _trailingText!: string;
+  private _trailingIcon!: string;
   private _showTrailingSwitch: boolean =
     showTrailingSwitchProperty.defaultValue;
   private _trailingSwitchChecked: boolean =
@@ -666,20 +666,20 @@ export class ListItem extends ContentView {
       this.onSystemAppearanceChanged
     );
     if (this.trailingSwitchView) {
-      this.trailingSwitchView.setOnCheckedChangeListener(null);
+      this.trailingSwitchView.setOnCheckedChangeListener(null!);
     }
-    this.container = null;
-    this.contentLayout = null;
-    this.textLayout = null;
-    this.headlineView = null;
-    this.supportingView = null;
-    this.leadingIconView = null;
-    this.leadingImageView = null;
-    this.trailingTextView = null;
-    this.trailingIconView = null;
-    this.trailingSwitchView = null;
-    this.dividerView = null;
-    this.rippleDrawable = null;
+    this.container = null!;
+    this.contentLayout = null!;
+    this.textLayout = null!;
+    this.headlineView = null!;
+    this.supportingView = null!;
+    this.leadingIconView = null!;
+    this.leadingImageView = null!;
+    this.trailingTextView = null!;
+    this.trailingIconView = null!;
+    this.trailingSwitchView = null!;
+    this.dividerView = null!;
+    this.rippleDrawable = null!;
     super.disposeNativeView();
   }
 
@@ -707,8 +707,8 @@ export class ListItem extends ContentView {
       // Create ripple drawable
       this.rippleDrawable = new android.graphics.drawable.RippleDrawable(
         rippleColorStateList,
-        null, // null content drawable (we set background separately)
-        null // null mask (ripple covers entire view)
+        null!, // null content drawable (we set background separately)
+        null! // null mask (ripple covers entire view)
       );
 
       // Apply ripple as foreground (API 23+)

@@ -86,7 +86,7 @@ const indicatorColorProperty = new Property<BottomNavigation, string>({
 
 export class BottomNavigation extends ContentView {
   /** The native Android bottom navigation view */
-  private bottomNav: com.google.android.material.bottomnavigation.BottomNavigationView;
+  private bottomNav!: com.google.android.material.bottomnavigation.BottomNavigationView;
   /** Tabs to be added once the native view is created */
   private pendingTabs: BottomTab[] = [];
   /** Map of tab IDs to BottomTab instances */
@@ -229,7 +229,7 @@ export class BottomNavigation extends ContentView {
     this.bottomNav =
       new com.google.android.material.bottomnavigation.BottomNavigationView(
         this.context,
-        null,
+        null!,
         defStyleAttr
       );
 
@@ -480,7 +480,7 @@ export class BottomNavigation extends ContentView {
       this.onSystemAppearanceChanged
     );
 
-    this.bottomNav = null;
+    this.bottomNav = null!;
     this.tabsById.clear();
     this.idToMenuId.clear();
     super.disposeNativeView();

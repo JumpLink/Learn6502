@@ -67,7 +67,7 @@ class Storybook {
     if (!this.page) return;
 
     itemIds.forEach((id) => {
-      const item = this.page.getViewById<ListItem>(id);
+      const item = this.page!.getViewById<ListItem>(id);
       if (item) {
         item.on(ListItem.tapEvent, () => {
           this.log.debug(`List item tapped: ${item.headline}`);
@@ -86,7 +86,7 @@ class Storybook {
     if (!this.page) return;
 
     itemIds.forEach((id) => {
-      const item = this.page.getViewById<ListItem>(id);
+      const item = this.page!.getViewById<ListItem>(id);
       if (item) {
         item.on(ListItem.tapEvent, () => {
           item.selected = !item.selected;
@@ -118,14 +118,13 @@ class Storybook {
 
     // Set up handlers for all standalone switches
     switchIds.forEach((id) => {
-      const switchView = this.page.getViewById<Switch>(id);
+      const switchView = this.page!.getViewById<Switch>(id);
       if (switchView) {
-        switchView.on(
-          Switch.checkedChangeEvent,
-          (args: EventData & { value: boolean }) => {
-            this.log.debug(`Switch ${id} changed: ${args.value}`);
-          }
-        );
+        switchView.on(Switch.checkedChangeEvent, (args: EventData) => {
+          this.log.debug(
+            `Switch ${id} changed: ${(args as EventData & { value: boolean }).value}`
+          );
+        });
       } else {
         this.log.warn(`Switch not found with id: ${id}`);
       }
@@ -150,7 +149,7 @@ class Storybook {
 
     // Set up handlers for ListItems with trailing switches
     listItemSwitchIds.forEach((id) => {
-      const listItem = this.page.getViewById<ListItem>(id);
+      const listItem = this.page!.getViewById<ListItem>(id);
       if (listItem) {
         // Handle tap on list item (toggles the switch)
         listItem.on(ListItem.tapEvent, () => {
@@ -161,14 +160,11 @@ class Storybook {
         });
 
         // Handle switch change directly
-        listItem.on(
-          ListItem.switchChangeEvent,
-          (args: EventData & { value: boolean }) => {
-            this.log.debug(
-              `ListItem ${listItem.headline} switch changed: ${args.value}`
-            );
-          }
-        );
+        listItem.on(ListItem.switchChangeEvent, (args: EventData) => {
+          this.log.debug(
+            `ListItem ${listItem.headline} switch changed: ${(args as EventData & { value: boolean }).value}`
+          );
+        });
       } else {
         this.log.warn(`ListItem with switch not found with id: ${id}`);
       }

@@ -123,9 +123,9 @@ export class SourceView extends ContentView implements SourceViewWidget {
 
   // Instance properties - private
   private debouncedHighlighting: (code: string) => void;
-  private textView: TextView;
-  private lineNumbersView: TextView;
-  private copyButton: Button;
+  private textView!: TextView;
+  private lineNumbersView!: TextView;
+  private copyButton!: Button;
   private _editable: boolean = true;
   private _lineNumbers: boolean = true;
   private _lineNumberStart: number = 1;

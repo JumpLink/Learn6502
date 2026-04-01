@@ -119,7 +119,7 @@ export class Display extends GridLayout implements DisplayWidget {
       imageViewWrapper.height = this.canvasHeight;
 
       // Override createNativeView to return our ImageView
-      imageViewWrapper.createNativeView = () => this.canvasImageView;
+      imageViewWrapper.createNativeView = () => this.canvasImageView!;
 
       this.addChild(imageViewWrapper);
 
@@ -222,7 +222,7 @@ export class Display extends GridLayout implements DisplayWidget {
         255,
         Math.round(color.red * 255),
         Math.round(color.green * 255),
-        Math.round(color.blue * 255),
+        Math.round(color.blue * 255)
       );
 
       const [x, y] = gameConsoleStateService.addrToCoordinates(addr, this.numX);

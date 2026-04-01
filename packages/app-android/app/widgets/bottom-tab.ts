@@ -12,23 +12,23 @@ export class BottomTab extends View {
   /**
    * The title of the tab displayed in the UI
    */
-  title: string;
+  title!: string;
 
   /**
    * The icon of the tab
    * Should be a resource path starting with res:// (e.g., res://ic_home)
    */
-  icon: string;
+  icon!: string;
 
   /**
    * The unique identifier for the tab
    */
-  id: string;
+  id!: string;
 
   /**
    * The module name for the tab
    * Used for navigation to views/{moduleName}
    * If not specified, the id will be used as the module name
    */
-  moduleName: string;
+  moduleName!: string;
 }

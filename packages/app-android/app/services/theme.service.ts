@@ -261,6 +261,7 @@ export class ThemeService extends BaseThemeService {
 
     try {
       const rootView = await getRootViewWhenReady();
+      if (!rootView) return;
 
       // Remove all contrast classes
       rootView.cssClasses.delete("ns-contrast-normal");
