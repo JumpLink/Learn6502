@@ -1,7 +1,7 @@
 {
   "id": "eu.jumplink.Learn6502",
   "runtime": "org.gnome.Platform",
-  "runtime-version": "49",
+  "runtime-version": "50",
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
     "org.freedesktop.Sdk.Extension.node24",
@@ -17,34 +17,7 @@
     "--socket=fallback-x11",
     "--socket=wayland"
   ],
-  "cleanup": [
-    "/include",
-    "/lib/pkgconfig",
-    "/man",
-    "/share/doc",
-    "/share/gtk-doc",
-    "/share/man",
-    "/share/pkgconfig",
-    "*.la",
-    "*.a",
-    "*.map",
-    "*.d.ts",
-    "*.js.map"
-  ],
   "modules": [
-    {
-      "name": "blueprint-compiler",
-      "buildsystem": "meson",
-      "builddir": true,
-      "cleanup": ["*"],
-      "sources": [
-        {
-          "type": "archive",
-          "url": "https://gitlab.gnome.org/GNOME/blueprint-compiler/-/archive/v0.20.0/blueprint-compiler-v0.20.0.tar.gz",
-          "sha256": "b6d43b474557dc5c591cca693f6d8a82e328fd125261a7e4fe702f2818106427"
-        }
-      ]
-    },
     {
       "name": "Learn6502",
       "buildsystem": "meson",
