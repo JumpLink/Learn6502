@@ -11,10 +11,9 @@
     "noEmitOnError": true,
     "skipLibCheck": true,
     "lib": ["ESNext", "dom"],
-    "baseUrl": ".",
     "paths": {
-      "~/*": ["app/*"],
-      "@/*": ["app/*"]
+      "~/*": ["./app/*"],
+      "@/*": ["./app/*"]
     }
   },
   "include": ["app/**/*"],
