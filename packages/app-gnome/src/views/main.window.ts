@@ -104,8 +104,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     const isLearnVisible = this._stack.get_visible_child() === this._learn;
     const hasSubpage = this._learn.hasVisibleSubpage;
 
-    // Show back button in desktop mode or in mobile mode when Learn is visible and a subpage is open
-    this._learnBackButton.visible = isDesktop || (isLearnVisible && hasSubpage);
+    // Show back button only when a subpage is open (in desktop mode always, in mobile only when Learn is visible)
+    this._learnBackButton.visible = hasSubpage && (isDesktop || isLearnVisible);
   }
 
   // Event bridge for game console signals
