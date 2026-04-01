@@ -80,7 +80,7 @@ export class MainEventBridge {
     };
     editorController.events.on("changed", onEditorChanged);
     this.unsubscribers.push(() =>
-      editorController.events.off("changed", onEditorChanged),
+      editorController.events.off("changed", onEditorChanged)
     );
 
     // Learn events
@@ -105,11 +105,11 @@ export class MainEventBridge {
 
   private onMain<K extends keyof import("../types").MainUiStateEventMap>(
     event: K,
-    callback: (data: import("../types").MainUiStateEventMap[K]) => void,
+    callback: (data: import("../types").MainUiStateEventMap[K]) => void
   ): void {
     mainStateController.events.on(event, callback);
     this.unsubscribers.push(() =>
-      mainStateController.events.off(event, callback),
+      mainStateController.events.off(event, callback)
     );
   }
 }

@@ -17,7 +17,8 @@ function isError(value: unknown): value is Error {
  */
 function stringify(value: unknown): string {
   if (typeof value === "string") return value;
-  if (typeof value === "number" || typeof value === "boolean") return String(value);
+  if (typeof value === "number" || typeof value === "boolean")
+    return String(value);
   if (value === null) return "null";
   if (value === undefined) return "undefined";
   if (isError(value)) {
@@ -66,7 +67,7 @@ export interface LoggerInterface {
 class ScopedLogger implements ScopedLoggerInterface {
   constructor(
     private readonly tag: string,
-    private readonly isDevMode: () => boolean,
+    private readonly isDevMode: () => boolean
   ) {}
 
   public debug(...args: unknown[]): void {

@@ -29,12 +29,12 @@ export interface ErrorHandlerCallbacks {
 export class ErrorHandler {
   constructor(
     private readonly logger: LoggerInterface,
-    private readonly callbacks: ErrorHandlerCallbacks,
+    private readonly callbacks: ErrorHandlerCallbacks
   ) {}
 
   async showError(
     err: Error | string | null | undefined,
-    options: ErrorHandlerOptions = {},
+    options: ErrorHandlerOptions = {}
   ): Promise<void> {
     try {
       if (!err) return;

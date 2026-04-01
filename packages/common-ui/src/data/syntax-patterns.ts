@@ -6,29 +6,73 @@
 /** All 56 official 6502 opcodes */
 export const OPCODES_6502 = [
   // Load/Store
-  "LDA", "LDX", "LDY", "STA", "STX", "STY",
+  "LDA",
+  "LDX",
+  "LDY",
+  "STA",
+  "STX",
+  "STY",
   // Transfer
-  "TAX", "TAY", "TXA", "TYA", "TSX", "TXS",
+  "TAX",
+  "TAY",
+  "TXA",
+  "TYA",
+  "TSX",
+  "TXS",
   // Stack
-  "PHA", "PHP", "PLA", "PLP",
+  "PHA",
+  "PHP",
+  "PLA",
+  "PLP",
   // Arithmetic
-  "ADC", "SBC",
+  "ADC",
+  "SBC",
   // Increment/Decrement
-  "INC", "INX", "INY", "DEC", "DEX", "DEY",
+  "INC",
+  "INX",
+  "INY",
+  "DEC",
+  "DEX",
+  "DEY",
   // Logical
-  "AND", "ORA", "EOR",
+  "AND",
+  "ORA",
+  "EOR",
   // Shift/Rotate
-  "ASL", "LSR", "ROL", "ROR",
+  "ASL",
+  "LSR",
+  "ROL",
+  "ROR",
   // Compare
-  "CMP", "CPX", "CPY", "BIT",
+  "CMP",
+  "CPX",
+  "CPY",
+  "BIT",
   // Branch
-  "BCC", "BCS", "BEQ", "BMI", "BNE", "BPL", "BVC", "BVS",
+  "BCC",
+  "BCS",
+  "BEQ",
+  "BMI",
+  "BNE",
+  "BPL",
+  "BVC",
+  "BVS",
   // Jump/Call
-  "JMP", "JSR", "RTS", "RTI",
+  "JMP",
+  "JSR",
+  "RTS",
+  "RTI",
   // Flags
-  "CLC", "CLD", "CLI", "CLV", "SEC", "SED", "SEI",
+  "CLC",
+  "CLD",
+  "CLI",
+  "CLV",
+  "SEC",
+  "SED",
+  "SEI",
   // System
-  "BRK", "NOP",
+  "BRK",
+  "NOP",
 ] as const;
 
 /** Regex pattern string matching all 6502 opcodes (case-insensitive) */
