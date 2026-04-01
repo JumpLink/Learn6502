@@ -1,6 +1,6 @@
 {
   "name": "@learn6502/app-web",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "description": "A one-stop accessible tutorial on 6502 assembly language programming in the browser",
   "type": "module",
   "private": true,
@@ -18,9 +18,9 @@
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "lightningcss": "^1.31.1",
-    "typescript": "^5.9.3",
-    "vite": "^7.3.1"
+    "lightningcss": "^1.32.0",
+    "typescript": "^6.0.2",
+    "vite": "^8.0.3"
   },
   "dependencies": {
     "@learn6502/6502": "workspace:^"

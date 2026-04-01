@@ -68,6 +68,16 @@
     <content_attribute id="language-humor">mild</content_attribute>
   </content_rating>
   <releases>
+    <release version="0.6.5" date="2026-04-01">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update -->
+        <p>Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.</p>
+        <!-- TRANSLATORS: Release notes for version 0.6.5 - back button fix -->
+        <p>Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.</p>
+        <!-- TRANSLATORS: Release notes for version 0.6.5 - dependency updates -->
+        <p>Under the hood: updated to TypeScript 6, Vite 8, and other dependency upgrades for improved performance and stability.</p>
+      </description>
+    </release>
     <release version="0.6.4" date="2026-03-06">
       <description>
         <!-- TRANSLATORS: Release notes for version 0.6.4 - Finnish translation -->

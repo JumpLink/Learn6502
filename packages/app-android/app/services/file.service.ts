@@ -56,10 +56,12 @@ export class FileService extends BaseFileService {
         // Handle activity result (use once to prevent listener accumulation)
         Application.android.once(
           Application.android.activityResultEvent,
-          (args: AndroidActivityResultEventData) => {
-            const requestCode = args.requestCode;
-            const resultCode = args.resultCode;
-            const data = args.intent;
+          (args) => {
+            const {
+              requestCode,
+              resultCode,
+              intent: data,
+            } = args as AndroidActivityResultEventData;
 
             // Check if it's our file request and it was successful
             if (
@@ -80,9 +82,9 @@ export class FileService extends BaseFileService {
                   const cursor = contentResolver.query(
                     uri,
                     [android.provider.OpenableColumns.DISPLAY_NAME],
-                    null,
-                    null,
-                    null
+                    null!,
+                    null!,
+                    null!
                   );
 
                   if (cursor && cursor.moveToFirst()) {
@@ -180,10 +182,12 @@ export class FileService extends BaseFileService {
         // Handle activity result (use once to prevent listener accumulation)
         Application.android.once(
           Application.android.activityResultEvent,
-          (args: AndroidActivityResultEventData) => {
-            const requestCode = args.requestCode;
-            const resultCode = args.resultCode;
-            const data = args.intent;
+          (args) => {
+            const {
+              requestCode,
+              resultCode,
+              intent: data,
+            } = args as AndroidActivityResultEventData;
 
             // Check if it's our save request and it was successful
             if (
@@ -201,9 +205,9 @@ export class FileService extends BaseFileService {
                   const cursor = contentResolver.query(
                     uri,
                     [android.provider.OpenableColumns.DISPLAY_NAME],
-                    null,
-                    null,
-                    null
+                    null!,
+                    null!,
+                    null!
                   );
 
                   if (cursor && cursor.moveToFirst()) {

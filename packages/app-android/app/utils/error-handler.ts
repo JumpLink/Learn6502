@@ -37,7 +37,7 @@ function extractErrorMessage(err: Error | string): string {
  * Uses NativeScript dialogs for UI
  */
 export async function showError(
-  err: Error | string | null | undefined,
+  err: unknown,
   options: ErrorHandlerOptions = {}
 ): Promise<void> {
   try {
@@ -52,9 +52,11 @@ export async function showError(
       title,
     } = options;
 
-    // Convert string to Error for consistent handling
+    // Convert to Error for consistent handling
     const error: Error | ExtendedError =
-      typeof err === "string" ? new Error(err) : err;
+      err instanceof Error
+        ? err
+        : new Error(typeof err === "string" ? err : String(err));
 
     // Check for ignore flag
     if (shouldIgnoreError(error)) {
@@ -62,7 +64,7 @@ export async function showError(
     }
 
     // Extract message
-    const message = forcedMessage || extractErrorMessage(err);
+    const message = forcedMessage || error.message;
 
     // Log error using logger (automatically handles Error objects with stack traces)
     // If we have a forced message, log it separately; otherwise let logger format the error
@@ -103,7 +105,7 @@ export async function showError(
  * Replaces global.__errorHandler with better implementation
  */
 export function setupGlobalErrorHandler(): void {
-  global.__errorHandler = function (
+  (globalThis as any).__errorHandler = function (
     error: Error | null | undefined,
     nativeError?: unknown
   ): boolean {

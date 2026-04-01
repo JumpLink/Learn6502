@@ -1,7 +1,7 @@
 {
   "name": "@learn6502/app-android",
   "main": "app/app.ts",
-  "version": "0.6.4",
+  "version": "0.6.5",
   "private": true,
   "scripts": {
     "clear": "ns clean",
@@ -14,16 +14,16 @@
   "dependencies": {
     "@learn6502/6502": "workspace:^",
     "@learn6502/common-ui": "workspace:^",
-    "@nativescript/core": "~9.0.17",
+    "@nativescript/core": "~9.0.18",
     "@nativescript/localize": "^5.2.0",
     "@nativescript/tailwind": "^4.0.7",
-    "tailwindcss": "^4.2.1"
+    "tailwindcss": "^4.2.2"
   },
   "devDependencies": {
     "@nativescript/android": "9.0.2",
     "@nativescript/types": "~9.0.0",
-    "@nativescript/webpack": "^5.0.31",
-    "@tailwindcss/postcss": "^4.2.1",
+    "@nativescript/webpack": "^5.0.33",
+    "@tailwindcss/postcss": "^4.2.2",
     "autoprefixer": "^10.4.27",
     "nativescript": "^9.0.5",
     "postcss": "^8.5.8",
@@ -32,6 +32,6 @@
     "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2",
     "string-replace-loader": "^3.3.0",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.2"
   }
 }

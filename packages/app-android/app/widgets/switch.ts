@@ -297,7 +297,7 @@ export class Switch extends ContentView {
     );
 
     if (this._nativeSwitch) {
-      this._nativeSwitch.setOnCheckedChangeListener(null);
+      this._nativeSwitch.setOnCheckedChangeListener(null!);
     }
 
     this._nativeSwitch = null;

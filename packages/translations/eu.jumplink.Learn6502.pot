@@ -6,7 +6,7 @@
 #, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: eu.jumplink.Learn6502 0.6.4\n"
+"Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
@@ -765,6 +765,10 @@ msgstr ""
 msgid "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, S, D) was pressed, and if so, sets the direction of the snake accordingly. Then, <tt>checkCollision</tt> checks to see if the snake collided with itself or the apple. <tt>updateSnake</tt> updates the internal representation of the snake, based on its direction. Next, the apple and snake are drawn. Finally, <tt>spinWheels</tt> makes the processor do some busy work, to stop the game from running too quickly. Think of it like a sleep command. The game keeps running until the snake collides with the wall or itself."
 msgstr ""
 
+#. TRANSLATORS: Release notes for version 0.6.5 - back button fix
+msgid "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open."
+msgstr ""
+
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
 msgstr ""
@@ -1005,6 +1009,10 @@ msgstr ""
 
 #. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
+msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
 msgstr ""
 
 #. TRANSLATORS: Feature list item about learning history while coding
@@ -1697,6 +1705,10 @@ msgid "Unable to find/parse given address/label"
 msgstr ""
 
 msgid "Unable to relocate code outside 64k memory"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.6.5 - dependency updates
+msgid "Under the hood: updated to TypeScript 6, Vite 8, and other dependency upgrades for improved performance and stability."
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx

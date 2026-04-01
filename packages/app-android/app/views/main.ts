@@ -91,7 +91,10 @@ export class MainController implements MainView {
       updateDebugger: () => {
         // Android: update debugger view if available
         if (gameConsoleView.memory && gameConsoleView.simulator) {
-          debuggerView.update(gameConsoleView.memory, gameConsoleView.simulator);
+          debuggerView.update(
+            gameConsoleView.memory,
+            gameConsoleView.simulator
+          );
         }
       },
       updateAssemblerViews: (assembler) => {
@@ -267,12 +270,13 @@ export class MainController implements MainView {
     const scrollThreshold = 15; // Higher threshold to prevent flickering
     let isExtendedByScroll = false;
 
-    scrollView.on(ScrollView.scrollEvent, (event: ScrollEventData) => {
-      const currentScrollY = event.scrollY;
+    scrollView.on(ScrollView.scrollEvent, (event: EventData) => {
+      const scrollEvent = event as ScrollEventData;
+      const currentScrollY = scrollEvent.scrollY;
       const scrollDiff = currentScrollY - lastScrollY;
 
       // Don't interfere with FAB behavior if it's hidden by state
-      if (this.mainButton.getState() === MainButtonState.HIDDEN) {
+      if (this.mainButton!.getState() === MainButtonState.HIDDEN) {
         lastScrollY = currentScrollY;
         return;
       }
@@ -291,11 +295,11 @@ export class MainController implements MainView {
 
       if (shouldBeExtended && !isExtendedByScroll) {
         // Extend the FAB at top/bottom positions
-        this.mainButton.extend();
+        this.mainButton!.extend();
         isExtendedByScroll = true;
       } else if (!shouldBeExtended && isExtendedByScroll) {
         // Shrink the FAB in middle positions
-        this.mainButton.shrink();
+        this.mainButton!.shrink();
         isExtendedByScroll = false;
       }
 

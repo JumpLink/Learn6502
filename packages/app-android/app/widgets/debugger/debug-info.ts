@@ -11,12 +11,12 @@ import { logger } from "~/utils";
  */
 export class DebugInfo extends ContentView implements DebugInfoWidget {
   // ListItem references for registers
-  private itemA: ListItem;
-  private itemX: ListItem;
-  private itemY: ListItem;
-  private itemSP: ListItem;
-  private itemPC: ListItem;
-  private itemFlags: ListItem;
+  private itemA!: ListItem;
+  private itemX!: ListItem;
+  private itemY!: ListItem;
+  private itemSP!: ListItem;
+  private itemPC!: ListItem;
+  private itemFlags!: ListItem;
 
   constructor() {
     super();

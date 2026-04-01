@@ -71,7 +71,7 @@ export const getMaterialColor = (
   color: string,
   context: android.content.Context = Utils.android.getApplicationContext(),
   theme: android.content.res.Resources.Theme = context.getTheme(),
-  contrastMode: ContrastMode = systemStates.contrast,
+  contrastMode: ContrastMode = systemStates.contrast ?? ContrastMode.NORMAL,
   packageName: string = context.getPackageName()
 ) => {
   const baseColorName = `md_theme_${color}`;

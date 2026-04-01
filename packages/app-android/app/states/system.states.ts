@@ -99,7 +99,7 @@ export class SystemStates {
       const oldValue = this._contrast;
       this._contrast = value;
       const changeEvent: ContrastChangeEvent = {
-        newValue: value,
+        newValue: value!,
         oldValue,
         initial: oldValue === null,
       };
