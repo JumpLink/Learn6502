@@ -9,18 +9,18 @@ Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform c
 
 ## Packages
 
-| Package | Path | Purpose | Stack |
-|---|---|---|---|
-| 6502 (core) | `packages/6502/` | Platform-independent assembler, simulator, disassembler | TypeScript, zero deps, no UI |
-| common-ui | `packages/common-ui/` | Shared UI logic, controllers, interfaces — 4-layer architecture | TypeScript, no platform deps |
-| app-gnome | `packages/app-gnome/` | GNOME desktop app | TypeScript, GJS, GTK 4, Adwaita, Vite, Meson |
-| app-web | `packages/app-web/` | Web app | TypeScript, HTML, CSS, Vite, Jekyll |
-| app-android | `packages/app-android/` | Android app | TypeScript, NativeScript, Gradle, Material Design 3 |
-| learn | `packages/learn/` | MDX tutorial content → platform-specific output | MDX, esbuild |
-| examples | `packages/examples/` | 6502 assembly code examples | TypeScript |
-| translations | `packages/translations/` | i18n via gettext `.po` files | gettext, `.po`/`.mo` |
-| vite-plugin-gettext | `packages/vite-plugin-gettext/` | Vite plugin for gettext localization | TypeScript |
-| vite-plugin-blueprint | `packages/vite-plugin-blueprint/` | Vite plugin for Blueprint `.blp` files | TypeScript |
+| Package               | Path                              | Purpose                                                         | Stack                                               |
+| --------------------- | --------------------------------- | --------------------------------------------------------------- | --------------------------------------------------- |
+| 6502 (core)           | `packages/6502/`                  | Platform-independent assembler, simulator, disassembler         | TypeScript, zero deps, no UI                        |
+| common-ui             | `packages/common-ui/`             | Shared UI logic, controllers, interfaces — 4-layer architecture | TypeScript, no platform deps                        |
+| app-gnome             | `packages/app-gnome/`             | GNOME desktop app                                               | TypeScript, GJS, GTK 4, Adwaita, Vite, Meson        |
+| app-web               | `packages/app-web/`               | Web app                                                         | TypeScript, HTML, CSS, Vite, Jekyll                 |
+| app-android           | `packages/app-android/`           | Android app                                                     | TypeScript, NativeScript, Gradle, Material Design 3 |
+| learn                 | `packages/learn/`                 | MDX tutorial content → platform-specific output                 | MDX, esbuild                                        |
+| examples              | `packages/examples/`              | 6502 assembly code examples                                     | TypeScript                                          |
+| translations          | `packages/translations/`          | i18n via gettext `.po` files                                    | gettext, `.po`/`.mo`                                |
+| vite-plugin-gettext   | `packages/vite-plugin-gettext/`   | Vite plugin for gettext localization                            | TypeScript                                          |
+| vite-plugin-blueprint | `packages/vite-plugin-blueprint/` | Vite plugin for Blueprint `.blp` files                          | TypeScript                                          |
 
 ## TypeScript
 
@@ -48,19 +48,21 @@ No platform-specific or UI-framework-specific dependencies allowed — pure Type
 
 ### Layers
 
-| Layer | File pattern | Purpose | Rules |
-|---|---|---|---|
-| Service | `*-service.ts` | Business logic, state calculations | Singleton export, no UI deps, pure functions preferred |
-| Controller | `*-controller.ts` | Coordination, event dispatching | **NEVER implements View interfaces**, delegates ALL logic to services |
-| Interface | `*.ts` | UI contracts for platform widgets | Only UI-specific method signatures, no implementation |
-| Event Map | `*-event-map.ts` | Event type definitions | Type-only |
+| Layer      | File pattern      | Purpose                            | Rules                                                                 |
+| ---------- | ----------------- | ---------------------------------- | --------------------------------------------------------------------- |
+| Service    | `*-service.ts`    | Business logic, state calculations | Singleton export, no UI deps, pure functions preferred                |
+| Controller | `*-controller.ts` | Coordination, event dispatching    | **NEVER implements View interfaces**, delegates ALL logic to services |
+| Interface  | `*.ts`            | UI contracts for platform widgets  | Only UI-specific method signatures, no implementation                 |
+| Event Map  | `*-event-map.ts`  | Event type definitions             | Type-only                                                             |
 
 ### Pattern
 
 ```typescript
 // Service — business logic
 export class ComponentStateService {
-  calculateState(data: Input): Output { /* pure logic */ }
+  calculateState(data: Input): Output {
+    /* pure logic */
+  }
 }
 export const componentStateService = new ComponentStateService();
 
@@ -89,13 +91,13 @@ export interface ComponentView {
 
 ### Reference components
 
-| Component | Service(s) | Controller | Interface |
-|---|---|---|---|
-| Debugger | `debugger-state-service.ts` | `debugger-controller.ts` | `debugger.ts` |
-| GameConsole | `game-console-state-service.ts`, `game-console-input-service.ts` | `game-console-controller.ts` | `game-console.ts` |
-| Learn | `learn-state-service.ts` | `learn-controller.ts` | `learn.ts` |
-| Editor | — | `editor-controller.ts` | `editor.ts` |
-| MainButton | `main-button-state-service.ts` | `main-ui-state-controller.ts` | — |
+| Component   | Service(s)                                                       | Controller                    | Interface         |
+| ----------- | ---------------------------------------------------------------- | ----------------------------- | ----------------- |
+| Debugger    | `debugger-state-service.ts`                                      | `debugger-controller.ts`      | `debugger.ts`     |
+| GameConsole | `game-console-state-service.ts`, `game-console-input-service.ts` | `game-console-controller.ts`  | `game-console.ts` |
+| Learn       | `learn-state-service.ts`                                         | `learn-controller.ts`         | `learn.ts`        |
+| Editor      | —                                                                | `editor-controller.ts`        | `editor.ts`       |
+| MainButton  | `main-button-state-service.ts`                                   | `main-ui-state-controller.ts` | —                 |
 
 ## GNOME — app-gnome
 
@@ -118,6 +120,7 @@ Events: prefer `event-dispatcher.ts` from `packages/6502/` over raw GNOME signal
 **Lifecycle:** Map/Unmap/Unroot for hooks; keep Dispose tiny.
 
 **Do:**
+
 - `vfunc_snapshot()` for rendering; `Gdk.Texture`/`Gdk.Paintable`; `clip+translate` for sprites
 - `append_scaled_texture()` (GTK ≥ 4.10) with `Gsk.ScalingFilter`
 - State as **Properties**; events as **Signals**; bind via Blueprint
@@ -125,6 +128,7 @@ Events: prefer `event-dispatcher.ts` from `packages/6502/` over raw GNOME signal
 - Always call `super.vfunc_*()` when overriding
 
 **Don't:**
+
 - No Cairo/`Gtk.DrawingArea` for perf work (fallback only)
 - Don't mutate `Gdk.Texture` (immutable)
 - Don't call `destroy()` or use `::destroy`
@@ -133,11 +137,11 @@ Events: prefer `event-dispatcher.ts` from `packages/6502/` over raw GNOME signal
 
 ### Lifecycle
 
-| Hook | Action |
-|---|---|
-| `vfunc_map()` | Start timers, connect signals, subscribe models |
-| `vfunc_unmap()` | Stop timers, disconnect everything from map |
-| `vfunc_unroot()` | Drop global/external refs (bus, singletons) |
+| Hook              | Action                                           |
+| ----------------- | ------------------------------------------------ |
+| `vfunc_map()`     | Start timers, connect signals, subscribe models  |
+| `vfunc_unmap()`   | Stop timers, disconnect everything from map      |
+| `vfunc_unroot()`  | Drop global/external refs (bus, singletons)      |
 | `vfunc_dispose()` | Only break external refs — no UI, signals, async |
 
 ```typescript
@@ -195,11 +199,23 @@ import Gtk from "@girs/gtk-4.0";
 import Template from "./my-widget.blp";
 export class MyWidget extends Gtk.Box {
   static {
-    GObject.registerClass({
-      GTypeName: "MyWidget", Template,
-      InternalChildren: ["title", "save"],
-      Properties: { title: GObject.ParamSpec.string("title","Title","", GObject.ParamFlags.READWRITE, "") },
-    }, this);
+    GObject.registerClass(
+      {
+        GTypeName: "MyWidget",
+        Template,
+        InternalChildren: ["title", "save"],
+        Properties: {
+          title: GObject.ParamSpec.string(
+            "title",
+            "Title",
+            "",
+            GObject.ParamFlags.READWRITE,
+            ""
+          ),
+        },
+      },
+      this
+    );
   }
   declare _title: Gtk.Label;
   declare _save: Gtk.Button;
@@ -212,9 +228,14 @@ export class MyWidget extends Gtk.Box {
 Button { action-name: "app.save"; action-target: bind template.doc_id; }
 Entry { text: bind template.title bidirectional; }
 ```
+
 ```typescript
-s.append_scaled_texture(tex, Graphene.Rect.zero(),
-  new Graphene.Rect({ x: 0, y: 0, width: w, height: h }), Gsk.ScalingFilter.NEAREST);
+s.append_scaled_texture(
+  tex,
+  Graphene.Rect.zero(),
+  new Graphene.Rect({ x: 0, y: 0, width: w, height: h }),
+  Gsk.ScalingFilter.NEAREST
+);
 ```
 
 ### Checklist
@@ -242,6 +263,7 @@ Git submodules in `references/nativescript/`:
 ### NativeScript internals
 
 Read `references/nativescript/nativescript/` for framework internals. Key areas:
+
 - Core utils (`packages/core/utils/`): threading, serialization, Android resources, system UI, layout, path/URI, async (debounce/throttle)
 - UI components (`packages/core/ui/`): native view wrapping
 - Platform files (`.android.ts`): integration patterns
@@ -251,6 +273,7 @@ Utils: `import { Utils } from "@nativescript/core"` — threading, native helper
 ### Missing Android/Material types
 
 When `@nativescript/types-android` lacks types (esp. MD3 components):
+
 1. Search `references/nativescript/ui-material-components/src/typings/mdc.android.d.ts` (~22k lines)
 2. Extract needed declarations → `app/typings/material.android.d.ts`
 3. Ensure `references.d.ts` includes `/// <reference path="app/typings/material.android.d.ts" />`
@@ -313,7 +336,7 @@ Persona: native speaker + software engineer + 6502/retro dev interest. Produce a
 ## Documentation
 
 - Clarity, accuracy, consistency, user-centered — always in English
-- Code comments: explain *why*, not *what*
+- Code comments: explain _why_, not _what_
 - TypeScript/JavaScript: JSDoc for functions, classes, complex types
 - Active voice; define jargon when necessary; proper Markdown formatting
 - Test all code examples; verify links work
