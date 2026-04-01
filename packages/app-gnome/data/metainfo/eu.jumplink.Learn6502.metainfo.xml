@@ -250,6 +250,55 @@
     <content_attribute id="language-humor">mild</content_attribute>
   </content_rating>
   <releases>
+    <release version="0.6.5" date="2026-04-01">
+      <description>
+        
+        <p>Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.</p>
+        <p xml:lang="zh-Hans">Learn 6502 现已运行在 GNOME 50 上！感谢 Sabri Ünal 贡献了运行时更新。</p>
+        <p xml:lang="vi">Learn 6502 hiện chạy trên GNOME 50! Cảm ơn Sabri Ünal đã đóng góp bản cập nhật runtime.</p>
+        <p xml:lang="uk">Learn 6502 тепер працює на GNOME 50! Дякуємо Sabri Ünal за внесок в оновлення середовища виконання.</p>
+        <p xml:lang="pt-BR">O Learn 6502 agora roda no GNOME 50! Obrigado a Sabri Ünal por contribuir com a atualização do runtime.</p>
+        <p xml:lang="pt">Learn 6502 agora corre no GNOME 50! Obrigado a Sabri Ünal por contribuir com a atualização do runtime.</p>
+        <p xml:lang="pl">Learn 6502 działa teraz na GNOME 50! Podziękowania dla Sabri Ünal za wniesienie aktualizacji środowiska uruchomieniowego.</p>
+        <p xml:lang="nl">Learn 6502 draait nu op GNOME 50! Met dank aan Sabri Ünal voor het bijdragen van de runtime-update.</p>
+        <p xml:lang="ja">Learn 6502 が GNOME 50 で動作するようになりました！ランタイムの更新に貢献してくださった Sabri Ünal 氏に感謝します。</p>
+        <p xml:lang="ia">Learn 6502 ora functiona sur GNOME 50! Gratias a Sabri Ünal pro contribuer le actualisation del runtime.</p>
+        <p xml:lang="fr">Learn 6502 fonctionne maintenant sur GNOME 50 ! Merci à Sabri Ünal pour sa contribution à la mise à jour du runtime.</p>
+        <p xml:lang="fi">Learn 6502 toimii nyt GNOME 50:llä! Kiitos Sabri Ünalille ajonympäristön päivityksen tekemisestä.</p>
+        <p xml:lang="es">¡Learn 6502 ahora se ejecuta en GNOME 50! Gracias a Sabri Ünal por contribuir la actualización del runtime.</p>
+        <p xml:lang="de">Lerne 6502 läuft jetzt auf GNOME 50! Dank an Sabri Ünal für den Beitrag zum Runtime-Update.</p>
+        
+        <p>Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.</p>
+        <p xml:lang="zh-Hans">修复了学习部分的返回按钮在桌面和平板模式下始终可见的问题，即使没有打开子页面。</p>
+        <p xml:lang="vi">Đã sửa lỗi nút Lui lại trong phần học luôn hiển thị ở chế độ máy tính để bàn và máy tính bảng, ngay cả khi không có trang con nào được mở.</p>
+        <p xml:lang="uk">Виправлено проблему, через яку кнопка «Назад» у розділі навчання була завжди видимою в режимі робочого столу та планшета, навіть коли жодна підсторінка не була відкрита.</p>
+        <p xml:lang="pt-BR">Corrigido um problema onde o botão Voltar na seção de aprendizagem estava sempre visível no modo desktop e tablet, mesmo quando nenhuma subpágina estava aberta.</p>
+        <p xml:lang="pt">Corrigido um problema onde o botão Voltar na secção de aprendizagem estava sempre visível no modo de computador e tablet, mesmo quando não havia subpágina aberta.</p>
+        <p xml:lang="pl">Naprawiono problem, w którym przycisk wstecz w sekcji nauki był zawsze widoczny w trybie desktopowym i tabletowym, nawet gdy żadna podstrona nie była otwarta.</p>
+        <p xml:lang="nl">Een probleem verholpen waarbij de terugknop in het leergedeelte altijd zichtbaar was in desktop- en tabletmodus, zelfs wanneer er geen subpagina geopend was.</p>
+        <p xml:lang="ja">学習セクションの戻るボタンが、サブページが開かれていない状態でもデスクトップモードおよびタブレットモードで常に表示されていた問題を修正しました。</p>
+        <p xml:lang="ia">Corrigite un problema ubi le button retro in le section de apprender era sempre visibile in modo de scriptorio e tabletta, mesmo quando nulle subpagina era aperite.</p>
+        <p xml:lang="fr">Correction d'un problème où le bouton de retour dans la section d'apprentissage était toujours visible en mode bureau et tablette, même lorsqu'aucune sous-page n'était ouverte.</p>
+        <p xml:lang="fi">Korjattu ongelma, jossa opintosivun takaisin-painike oli aina näkyvissä työpöytä- ja tablettitilassa, vaikka alisivua ei ollut avoinna.</p>
+        <p xml:lang="es">Se corrigió un problema en el que el botón de retroceso en la sección de aprendizaje siempre era visible en modo escritorio y tableta, incluso cuando no había una subpágina abierta.</p>
+        <p xml:lang="de">Ein Problem wurde behoben, bei dem der Zurück-Button im Lernbereich im Desktop- und Tablet-Modus immer sichtbar war, auch wenn keine Unterseite geöffnet war.</p>
+        
+        <p>Under the hood: updated to TypeScript 6, Vite 8, and other dependency upgrades for improved performance and stability.</p>
+        <p xml:lang="zh-Hans">底层更新：升级至 TypeScript 6、Vite 8，以及其他依赖升级，以提升性能和稳定性。</p>
+        <p xml:lang="vi">Bên trong: đã cập nhật lên TypeScript 6, Vite 8 và các nâng cấp phụ thuộc khác để cải thiện hiệu suất và độ ổn định.</p>
+        <p xml:lang="uk">Під капотом: оновлено до TypeScript 6, Vite 8 та інших оновлень залежностей для покращення продуктивності та стабільності.</p>
+        <p xml:lang="pt-BR">Por baixo do capô: atualização para TypeScript 6, Vite 8 e outras atualizações de dependências para melhor desempenho e estabilidade.</p>
+        <p xml:lang="pt">Nos bastidores: atualização para TypeScript 6, Vite 8 e outras atualizações de dependências para melhor desempenho e estabilidade.</p>
+        <p xml:lang="pl">Pod maską: zaktualizowano do TypeScript 6, Vite 8 i innych zależności w celu poprawy wydajności i stabilności.</p>
+        <p xml:lang="nl">Onder de motorkap: bijgewerkt naar TypeScript 6, Vite 8 en andere afhankelijkheidsupdates voor betere prestaties en stabiliteit.</p>
+        <p xml:lang="ja">内部改善: TypeScript 6、Vite 8 へのアップデートをはじめ、パフォーマンスと安定性向上のための依存関係の更新を行いました。</p>
+        <p xml:lang="ia">Sub le capote: actualisate a TypeScript 6, Vite 8, e altere actualisationes de dependentias pro meliorate prestation e stabilitate.</p>
+        <p xml:lang="fr">Sous le capot : mise à jour vers TypeScript 6, Vite 8 et d'autres mises à jour de dépendances pour de meilleures performances et stabilité.</p>
+        <p xml:lang="fi">Konepellin alla: päivitetty TypeScript 6:een, Vite 8:aan ja muita riippuvuuspäivityksiä suorituskyvyn ja vakauden parantamiseksi.</p>
+        <p xml:lang="es">Bajo el capó: actualización a TypeScript 6, Vite 8 y otras actualizaciones de dependencias para mejorar el rendimiento y la estabilidad.</p>
+        <p xml:lang="de">Unter der Haube: Update auf TypeScript 6, Vite 8 und weitere Abhängigkeits-Updates für verbesserte Leistung und Stabilität.</p>
+      </description>
+    </release>
     <release version="0.6.4" date="2026-03-06">
       <description>
         
