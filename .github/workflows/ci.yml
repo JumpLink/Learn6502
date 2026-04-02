@@ -1,0 +1,43 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      - name: Check formatting
+        run: yarn check:format
+
+      - name: Build packages
+        run: |
+          yarn workspace @learn6502/6502 run build
+          yarn workspace @learn6502/examples run build
+          yarn workspace @learn6502/learn run build
+
+      - name: Type check
+        run: |
+          yarn workspace @learn6502/6502 run check
+          yarn workspace @learn6502/common-ui run check
+          yarn workspace @learn6502/app-web run check
+          yarn workspace @learn6502/app-gnome run check:typescript
