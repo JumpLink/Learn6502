@@ -7,198 +7,206 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-04-21 13:09+0000\n"
+"Last-Translator: Menachem <alfenmen@gmail.com>\n"
+"Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && n % 10 == 0) ? 2 : 3));\n"
+"X-Generator: Weblate 5.17.1-dev\n"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
-msgstr ""
+msgstr "(למעשה, קבלתי מידע אמין שמעבדי 6502 עדיין מיוצרים על ידי <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> ו<a href=\"https://www.mouser.co.uk/c/?q=65C02\">נמכרים לחובבנים</a>, אז וודאי 6502 <i>אינה</i> שפה נכחדת! מי היה יודע?)"
 
 #. TRANSLATORS: App Store search keyword
 msgid "6502"
-msgstr ""
+msgstr "6502"
 
 #. TRANSLATORS: Info message when the hardware stack underflows and wraps around
+#, fuzzy
 msgid "6502 Stack emptied! Wrapping..."
-msgstr ""
+msgstr "המחסנית של ה־6502 רוקנה! חוזר למטה..."
 
 #. TRANSLATORS: Info message when the hardware stack overflows and wraps around
+#, fuzzy
 msgid "6502 Stack filled! Wrapping..."
-msgstr ""
+msgstr "המחסנית של ה־6502 התמלאה! חוזר למעלה..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "6502 assembly language has a bunch of branching instructions, all of which branch based on whether certain flags are set or not. In this example we'll be looking at <tt>BNE</tt>: \"Branch on not equal\"."
-msgstr ""
+msgstr "לשפת ההרכב של ה־6502 יש כמה פקודות הסתעפות, כולם מסתעפים בהתאם למצבם של דגלים מסוימים, אם הם מוגדרים או לא. בדוגמה זו נסתכל על <tt>BNE</tt>: \"Branch on not equal\" (הסתעף אם לא שווה)."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> made a <a href=\"https://gist.github.com/wkjagt/9043907\">fully annotated gist of this source code</a>, so follow along with that for more details."
-msgstr ""
+msgstr "<a href=\"https://github.com/wkjagt\">וויליאם וואן דער ג&apos;אגט</a> הכין <a href=\"https://gist.github.com/wkjagt/9043907\">תקציר מלא של קוד המקור הזה עם הערות</a>, אז תמשיכו יחד איתו לפירוט נוסף."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
-msgstr ""
+msgstr "<b><tt>$00</tt>-<tt>$01</tt></b>: מקום התפוח"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$02</tt></b>: Snake direction (1=up, 2=right, 4=down, 8=left)"
-msgstr ""
+msgstr "<b><tt>$02</tt></b>: כיוון הנחש (1=למעלה, 2=ימינה, 4=למטה, 8=שמאלה)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$03</tt></b>: Snake length"
-msgstr ""
+msgstr "<b><tt>$03</tt></b>: אורך הנחש"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$0</tt></b>: Black (<tt>#000000</tt>)"
-msgstr ""
+msgstr "<b><tt>$0</tt></b>: שחור (<tt>#000000</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position data (head, body segments, tail)"
-msgstr ""
+msgstr "<b><tt>$10</tt>-<tt>$15</tt></b>: מידע על מיקום הנחש (ראש, חלקי גוף, זנב)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$1</tt></b>: White (<tt>#ffffff</tt>)"
-msgstr ""
+msgstr "<b><tt>$1</tt></b>: לבן (<tt>#ffffff</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$2</tt></b>: Red (<tt>#880000</tt>)"
-msgstr ""
+msgstr "<b><tt>$2</tt></b>: אדום (<tt>#880000</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
+#, fuzzy
 msgid "<b><tt>$3</tt></b>: Cyan (<tt>#aaffee</tt>)"
-msgstr ""
+msgstr "<b><tt>$3</tt></b>: כחול ציאן (<tt>#aaffee</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$4</tt></b>: Purple (<tt>#cc44cc</tt>)"
-msgstr ""
+msgstr "<b><tt>$4</tt></b>: סגול (<tt>#cc44cc</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$5</tt></b>: Green (<tt>#00cc55</tt>)"
-msgstr ""
+msgstr "<b><tt>$5</tt></b>: ירוק (<tt>#00cc55</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$6</tt></b>: Blue (<tt>#0000aa</tt>)"
-msgstr ""
+msgstr "<b><tt>$6</tt></b>: כחול (<tt>#0000aa</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$7</tt></b>: Yellow (<tt>#eeee77</tt>)"
-msgstr ""
+msgstr "<b><tt>$7</tt></b>: צהוב (<tt>#eeee77</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$8</tt></b>: Orange (<tt>#dd8855</tt>)"
-msgstr ""
+msgstr "<b><tt>$8</tt></b>: כתום (<tt>#dd8855</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$9</tt></b>: Brown (<tt>#664400</tt>)"
-msgstr ""
+msgstr "<b><tt>$9</tt></b>: חום (<tt>#664400</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
+#, fuzzy
 msgid "<b><tt>$FE</tt></b>: Random number generator (reads as a random value 0-255)"
-msgstr ""
+msgstr "<b><tt>$FE</tt></b>: מחולל מספרים אקראיים (נקרא כערך אקראי בין 0-255)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$FF</tt></b>: Last pressed key (ASCII code)"
-msgstr ""
+msgstr "<b><tt>$FF</tt></b>: המקש האחרון שנלחץ (בקוד ASCII)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$a</tt></b>: Light red (<tt>#ff7777</tt>)"
-msgstr ""
+msgstr "<b><tt>$a</tt></b>: אדום בהיר (<tt>#ff7777</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$b</tt></b>: Dark grey (<tt>#333333</tt>)"
-msgstr ""
+msgstr "<b><tt>$b</tt></b>: אפור כהה (<tt>#333333</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$c</tt></b>: Grey (<tt>#777777</tt>)"
-msgstr ""
+msgstr "<b><tt>$c</tt></b>: אפור (<tt>#777777</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$d</tt></b>: Light green (<tt>#aaff66</tt>)"
-msgstr ""
+msgstr "<b><tt>$d</tt></b>: ירוק בהיר (<tt>#aaff66</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$e</tt></b>: Light blue (<tt>#0088ff</tt>)"
-msgstr ""
+msgstr "<b><tt>$e</tt></b>: כחול בהיר (<tt>#0088ff</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$f</tt></b>: Light grey (<tt>#bbbbbb</tt>)"
-msgstr ""
+msgstr "<b><tt>$f</tt></b>: אפור בהיר (<tt>#bbbbbb</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>A</b> (Accumulator): Main register for calculations and data manipulation"
-msgstr ""
+msgstr "<b>A</b> (Accumulator, סוכם): האוגר הראשי לחישובים וטיפול בנתונים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>A</b> or Left Arrow key (<tt>$61</tt>)"
-msgstr ""
+msgstr "<b>A</b> או מקש חץ־שמאלה (<tt>$61</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>ADC/SBC</b>: Add/subtract with carry"
-msgstr ""
+msgstr "<b>ADC/SBC</b>: הוספה/הפחתה עם נשא"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
-msgstr ""
+msgstr "<b>ערך־מוחלט,X/Y</b> (<tt>$c000,X</tt>): מוסיף את אוגר X/Y לכתובת מוחלטת"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Absolute</b> (<tt>$c000</tt>): Access any memory location"
-msgstr ""
+msgstr "<b>ערך־מוחלט</b> (<tt>$c000</tt>): ניגש לכתובת זיכרון שרירותית"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Action buttons</b>:"
-msgstr ""
+msgstr "<b>כפתורי פעולה</b>:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>B</b> (Break): Set when BRK instruction is executed"
-msgstr ""
+msgstr "<b>B</b> (Break, הפסק): מוגדר כשהוראת BRK מבוצעת"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
+#, fuzzy
 msgid "<b>BEQ/BNE/BCC/BCS</b>: Branch if equal/not equal/carry clear/carry set"
-msgstr ""
+msgstr "<b>BEQ/BNE/BCC/BCS</b>: הסתעף אם שווה/לא שווה/נשא ריק/נשא מוגדר"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
-msgstr ""
+msgstr "<b>C</b> (Carry, נשא): מוגדר כשפעולה חשבונית חורגת מבייט"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Compare ops</b>: <tt>CMP/CPX/CPY</tt> set <tt>N/Z/C</tt> like a subtraction (register − memory) without storing a result."
-msgstr ""
+msgstr "<b>פעולות השוואה</b>: <tt>CMP/CPX/CPY</tt> מגדירים את <tt>N/Z/C</tt> כמו בהפחתה (אוגר − זיכרון) בלי לשמור תוצאה."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
+#, fuzzy
 msgid "<b>D</b> (Decimal): Set when processor is in BCD (Binary Coded Decimal) mode"
-msgstr ""
+msgstr "<b>D</b> (Decimal, עשרוני): מוגדר כשהמעבד במצב BCD (Binary Coded Decimal)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>D</b> or Right Arrow key (<tt>$64</tt>)"
-msgstr ""
+msgstr "<b>D</b> או מקש חץ־שמאלה (<tt>$64</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
+#, fuzzy
 msgid "<b>Directional controls</b>:"
-msgstr ""
+msgstr "<b>בקרי כיוון</b>:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Display Memory</b>: <tt>$0200</tt>-<tt>$05FF</tt> (used for screen output)"
-msgstr ""
+msgstr "<b>זיכרון תצוגה</b>: <tt>$0200</tt>-<tt>$05FF</tt> (משמש להצגה על המסך)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>E</b> or Space key (<tt>$20</tt>)"
-msgstr ""
+msgstr "<b>E</b> או מקש רווח (<tt>$20</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>I</b> (Interrupt): Set when interrupts are disabled"
-msgstr ""
+msgstr "<b>I</b> (Interrupt, פסיקה): מוגדר כשפסיקות מושבתים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>INX/INY/DEX/DEY</b>: Increment/decrement registers"
-msgstr ""
+msgstr "<b>INX/INY/DEX/DEY</b>: מגדיל/מקטין אוגרים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Immediate</b> (<tt>#$c0</tt>): Use the actual value"
-msgstr ""
+msgstr "<b>מיידי</b> (<tt>#$c0</tt>): משתמש בערך עצמו"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then use result as pointer to get actual target address"
@@ -214,23 +222,23 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>JMP</b>: Unconditional jump"
-msgstr ""
+msgstr "<b>JMP</b>: קפיצה לא מותנת"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>JSR/RTS</b>: Jump to subroutine / Return from subroutine"
-msgstr ""
+msgstr "<b>JSR/RTS</b>: קפוץ לתהליך / חזור מתהליך"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>LDA/LDX/LDY</b>: Load registers"
-msgstr ""
+msgstr "<b>LDA/LDX/LDY</b>: לטעון אוגרים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>N</b> (Negative): Set when bit 7 of result is set"
-msgstr ""
+msgstr "<b>N</b> (Negative, שלילי): מוגדר אם ביט 7 בתוצאה מוגדר"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>PC</b> (Program Counter): Points to the next instruction to execute"
-msgstr ""
+msgstr "<b>PC</b> (Program Counter, מונה התוכנה): מצביע לפקודה הבאה לביצוע"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>PHA/PLA</b>: Push/pull accumulator to/from stack"
@@ -266,7 +274,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
-msgstr ""
+msgstr "<b>מחסנית</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>V</b> (Overflow): Set when arithmetic operation causes signed overflow"
@@ -282,7 +290,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Z</b> (Zero): Set when result is zero"
-msgstr ""
+msgstr "<b>Z</b> (Zero, אפס): מוגדר כשהתוצאה היא אפס"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
@@ -290,19 +298,20 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page</b> (<tt>$c0</tt>): Access memory locations <tt>$00</tt>-<tt>$FF</tt>"
-msgstr ""
+msgstr "<b>דף אפס</b> (<tt>$c0</tt>): ניגש לנקודות הזכרון <tt>$00</tt>-<tt>$FF</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page</b>: <tt>$0000</tt>-<tt>$00FF</tt> (first 256 bytes, faster access)"
-msgstr ""
+msgstr "<b>דף אפס</b>: <tt>$0000</tt>-<tt>$00FF</tt> (256 הבטים הראשונים, גישה מהירה יותר)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
+#, fuzzy
 msgid "<tt>BCC</tt> and <tt>BCS</tt> (\"branch on carry clear\" and \"branch on carry set\") are used to branch on the carry flag. Write a program that uses one of these two."
-msgstr ""
+msgstr "<tt>BCC</tt> ו־<tt>BCS</tt> (\"branch on carry clear\" ו־\"branch on carry set\") משמשים להסתעפות על פי דגל הנשא. כתבו תוכנה שמשתמשת באחת משתיהן."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JMP</tt> is an unconditional jump. Here's a really simple example to show it in action:"
-msgstr ""
+msgstr "<tt>JMP</tt> היא קפיצה לא מותנית. הנה דוגמה ממש פשוטה להראות אותה בפעולה:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JSR</tt> and <tt>RTS</tt> (\"jump to subroutine\" and \"return from subroutine\") are a dynamic duo that you'll usually see used together. <tt>JSR</tt> is used to jump from the current location to another part of the code. <tt>RTS</tt> returns to the previous position. This is basically like calling a function and returning."
@@ -353,47 +362,56 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Absolute: <tt>$c000</tt>"
-msgstr ""
+msgstr "ערך מוחלט: <tt>$c000</tt>"
 
 #. TRANSLATORS: Preferences group title for accent color selection
+#, fuzzy
 msgid "Accent color"
-msgstr ""
+msgstr "גוון"
 
 #. TRANSLATORS: Accessibility label for accent color option Blue
+#, fuzzy
 msgid "Accent: Blue"
-msgstr ""
+msgstr "גוון: כחול"
 
 #. TRANSLATORS: Accessibility label for accent color option Green
+#, fuzzy
 msgid "Accent: Green"
-msgstr ""
+msgstr "גוון: ירוק"
 
 #. TRANSLATORS: Accessibility label for accent color option Orange
+#, fuzzy
 msgid "Accent: Orange"
-msgstr ""
+msgstr "גוון: כתום"
 
 #. TRANSLATORS: Accessibility label for accent color option Pink
+#, fuzzy
 msgid "Accent: Pink"
-msgstr ""
+msgstr "גוון: ורוד"
 
 #. TRANSLATORS: Accessibility label for accent color option Purple
+#, fuzzy
 msgid "Accent: Purple"
-msgstr ""
+msgstr "גוון: סגול"
 
 #. TRANSLATORS: Accessibility label for accent color option Red
+#, fuzzy
 msgid "Accent: Red"
-msgstr ""
+msgstr "גוון: אדום"
 
 #. TRANSLATORS: Accessibility label for accent color option Slate
 msgid "Accent: Slate"
 msgstr ""
 
 #. TRANSLATORS: Accessibility label for accent color option Teal
+#, fuzzy
 msgid "Accent: Teal"
-msgstr ""
+msgstr "גוון: טורקיז"
 
 #. TRANSLATORS: Accessibility label for accent color option Yellow
+#, fuzzy
 msgid "Accent: Yellow"
-msgstr ""
+msgstr "גוון: צהוב"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Accumulator: Main register for calculations"
@@ -429,12 +447,13 @@ msgid "Addressing modes"
 msgstr ""
 
 #. TRANSLATORS: App Store search keyword
+#, fuzzy
 msgid "Adwaita"
-msgstr ""
+msgstr "Adwaita"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After a move in each direction, we also need to check to see if the head would become out of bounds. This is handled differently for each direction. For left and right, we can check to see if the head has effectively \"wrapped around\". Going right from <tt>$021f</tt> by incrementing the least significant byte would lead to <tt>$0220</tt>, but this is actually jumping from the last pixel of the first row to the first pixel of the second row. So, every time we move right, we need to check if the new least significant byte is a multiple of <tt>$20</tt>. This is done using a bit check against the mask <tt>$1f</tt>. Hopefully the illustration below will show you how masking out the lowest 5 bits reveals whether a number is a multiple of <tt>$20</tt> or not."
-msgstr ""
+msgstr "לאחר תזוזה לכל כיוון, אנחנו גם צריכים לבדוק אם הראש יצא מהגבולות. מטפלים בזה אחרת לכל כיוון. לימין ולשמאל, אנחנו יכולים לבדוק אם הראש פשוט \"הסתובב\". הליכה ימינה מ־<tt>$021f</tt> באמצעות הגדלת הבייט הפחות משמעותי תוביל ל־<tt>$0220</tt>, אבל בעצם קפצנו מהפיקסל האחרון של השורה הראשונה לפיקסל הראשון של השורה השנייה. אז, כל פעם שזזים ימינה, אנחנו צריכים לבדוק אם הבייט הפחות משמעותי הוא כפולה של <tt>$20</tt>. עושים את זה באמצעות השוואת הביטים למסכה <tt>$1f</tt>. מקווה שהדוגמה למטה תבאיר איך מיסוך חמשת הביטים התחתונים מגלה אם מספר הוא כפולה של <tt>$20</tt> או לא."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After collision detection, we update the snake's location. This is done at a high level like so: First, move each byte pair of the body up one position in memory. Second, update the head according to the current direction. Finally, if the head is out of bounds, handle it as a collision. I'll illustrate this with some ascii art. Each pair of brackets contains an x,y coordinate rather than a pair of bytes for simplicity."
@@ -475,11 +494,11 @@ msgstr ""
 #. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
-msgstr ""
+msgstr "מראה"
 
 #. TRANSLATORS: Screenshot caption for the appearance settings
 msgid "Appearance settings"
-msgstr ""
+msgstr "הגדרות מראה"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
@@ -495,15 +514,16 @@ msgstr ""
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
 msgid "Assemble"
-msgstr ""
+msgstr "הַרְכֵּב"
 
 #. TRANSLATORS: Toast message title after assembly failure
 msgid "Assemble failed"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
+#, fuzzy
 msgid "Assemble the code and select <b>Step</b> from the Run button's dropdown menu to step through these three instructions. The monitor in the debugger shows a section of memory, and can be helpful to visualise the execution of programs. <tt>STA $01</tt> stores the value of the <tt>A</tt> register at memory location <tt>$01</tt>, and <tt>ADC $01</tt> adds the value stored at the memory location <tt>$01</tt> to the <tt>A</tt> register. <tt>$80 + $80</tt> should equal <tt>$100</tt>, but because this is bigger than a byte, the <tt>A</tt> register is set to <tt>$00</tt> and the carry flag is set. As well as this though, the zero flag is set. The zero flag is set by all instructions where the result is zero."
-msgstr ""
+msgstr "הרכיבו את הקוד וביחרו <b>לצעוד</b> מהתפריט של כפתור ההרצה כדי לצעוד דרך שלושת הפקודות האלו. המנטר במנפה הבגים מראה חלק מהזיכרון, ויכול לעזור להמחיש את הרצתם של תוכנות. הפקודה <tt>STA $01</tt> שומרת את הערך שבאוגר <tt>A</tt> בכתובת הזיכרון <tt>$01</tt>, ו־<tt>ADC $01</tt> מוסיף את הערך ששמור בכתובת הזיכרון <tt>$01</tt> לאוגר <tt>A</tt>. <tt>$80 + $80</tt> אמור להיות שווה <tt>$100</tt>, אבל בגלל שזה גדול יותר מבייט, האוגר <tt>A</tt> מוגדר ל־<tt>$00</tt> ודגל הנשא מוגדר. אך בנוסף לכך, דגל האפס מוגדר. דגל האפס מוגדר על ידי כל פקודה שהתוצאה שלה היא אפס."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the code, then turn on the debugger and step through the code, watching the <tt>A</tt> and <tt>X</tt> registers. Something slightly odd happens on the line <tt>ADC #$c4</tt>. You might expect that adding <tt>$c4</tt> to <tt>$c0</tt> would give <tt>$184</tt>, but this processor gives the result as <tt>$84</tt>. What's up with that?"
@@ -523,7 +543,7 @@ msgstr ""
 
 #. TRANSLATORS: App Store search keyword
 msgid "Assembly"
-msgstr ""
+msgstr "הרכב"
 
 #. TRANSLATORS: File filter name for assembly source files
 msgid "Assembly Files"
@@ -535,11 +555,11 @@ msgstr ""
 
 #. TRANSLATORS: Entry label for example author
 msgid "Author"
-msgstr ""
+msgstr "מחבר"
 
 #. TRANSLATORS: Tooltip text for back button in learn section
 msgid "Back"
-msgstr ""
+msgstr "חזרה"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
@@ -548,11 +568,11 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Blue
 #. TRANSLATORS: Tooltip for primary color option Blue
 msgid "Blue"
-msgstr ""
+msgstr "כחול"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Branching"
-msgstr ""
+msgstr "הסתעפות"
 
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
 msgstr ""
@@ -564,7 +584,7 @@ msgstr ""
 #. Add response buttons
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
-msgstr ""
+msgstr "ביטול"
 
 msgid "Carry Flag: Set when an addition produces a carry-out; clear when a subtraction requires a borrow. Used for multi-byte arithmetic and shifts/rotates (BCS/BCC)."
 msgstr ""
@@ -575,7 +595,7 @@ msgstr ""
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
-msgstr ""
+msgstr "קוד"
 
 #. TRANSLATORS: Success message after assembly with total bytes of machine code
 #, javascript-format
@@ -603,11 +623,11 @@ msgstr ""
 
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Confirm"
-msgstr ""
+msgstr "אישור"
 
 #. TRANSLATORS: Menu item to resume execution after pause
 msgid "Continue"
-msgstr ""
+msgstr "המשך"
 
 #. TRANSLATORS: Toast message title after copying to clipboard
 msgid "Copied to clipboard"
@@ -630,11 +650,11 @@ msgstr ""
 #. TRANSLATORS: Tooltip for dark theme option
 #. TRANSLATORS: Accessibility label for dark theme option
 msgid "Dark style"
-msgstr ""
+msgstr "עיצוב כהה"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
 msgid "Debug"
-msgstr ""
+msgstr "ניפוי שגיאות"
 
 #. TRANSLATORS: Feature list item about debugging tools
 msgid "Debug your programs with real-time inspection tools"
@@ -642,7 +662,7 @@ msgstr ""
 
 #. TRANSLATORS: App Store search keyword
 msgid "Debugger"
-msgstr ""
+msgstr "מנפה שגיאות"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Debugger now only updates when visible, reducing unnecessary processing"
@@ -653,18 +673,19 @@ msgstr ""
 
 #. TRANSLATORS: Entry label for example description
 msgid "Description"
-msgstr ""
+msgstr "תיאור"
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
 msgstr ""
 
 #. TRANSLATORS: Section heading label for the disassembled instructions block
+#, fuzzy
 msgid "Disassembled"
-msgstr ""
+msgstr "פירוק הקוד"
 
 msgid "Discard"
-msgstr ""
+msgstr "השלך"
 
 #. TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
@@ -680,7 +701,7 @@ msgstr ""
 
 #. TRANSLATORS: Button to close dialog after submitting issue on GitHub
 msgid "Done"
-msgstr ""
+msgstr "בוצע"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
@@ -688,7 +709,7 @@ msgstr ""
 
 #. TRANSLATORS: Preference switch label on Debugger page to enable/disable the debugger
 msgid "Enable Debugger"
-msgstr ""
+msgstr "הפעלת מנפה השגיאות"
 
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
@@ -718,7 +739,7 @@ msgstr ""
 #. TRANSLATORS: Title for examples page
 #. TRANSLATORS: Title for examples placeholder
 msgid "Examples"
-msgstr ""
+msgstr "דוגמאות"
 
 #. TRANSLATORS: Switch subtitle describing stepper mode behavior
 msgid "Execute instructions one by one instead of continuously"
@@ -726,11 +747,11 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Exercise"
-msgstr ""
+msgstr "תרגיל"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Exercises"
-msgstr ""
+msgstr "תרגילים"
 
 #. TRANSLATORS: Toast message title when clipboard copy fails
 msgid "Failed to copy to clipboard"
@@ -794,7 +815,7 @@ msgstr ""
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
 msgid "Gamepad key pressed:"
@@ -825,30 +846,32 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
-msgstr ""
+msgstr "ירוק"
 
 #. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
-msgstr ""
+msgstr "עזרה"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Here's an example. Note that immediate operands are still prefixed with a <tt>#</tt>."
 msgstr ""
 
 #. TRANSLATORS: Section heading label for the Hex Monitor block
+#, fuzzy
 msgid "Hex Monitor"
-msgstr ""
+msgstr "צג הקסדצימלי"
 
 #. TRANSLATORS: Section heading label for the Hexdump block
+#, fuzzy
 msgid "Hexdump"
-msgstr ""
+msgstr "חילוץ הקסדצימלי"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
 msgid "Hidden"
-msgstr ""
+msgstr "מוסתר"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "I won't explain in depth how each of the directions work, but the above explanation should give you enough to work it out with a bit of study."
@@ -856,7 +879,7 @@ msgstr ""
 
 #. TRANSLATORS: App Store search keyword
 msgid "IDE"
-msgstr ""
+msgstr "IDE"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "If the result of the addition is larger than a single byte, the address wraps around. For example:"
@@ -875,7 +898,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate: <tt>#$c0</tt>"
-msgstr ""
+msgstr "מיידי: <tt>#$c0</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Implicit"
@@ -930,7 +953,7 @@ msgid "Indexed indirect: <tt>($c0,X)</tt>"
 msgstr ""
 
 msgid "Indexing labels..."
-msgstr ""
+msgstr "תווי אינדוּקס..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect addressing uses an absolute address to look up another address. The first address gives the least significant byte of the address, and the following byte gives the most significant byte. That can be hard to wrap your head around, so here's an example:"
@@ -945,12 +968,13 @@ msgid "Indirect indexed: <tt>($c0),Y</tt>"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
+#, fuzzy
 msgid "Indirect: <tt>($c000)</tt>"
-msgstr ""
+msgstr "עקיף: <tt>($c000)</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Initialization"
-msgstr ""
+msgstr "אתחול"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Instructions"
@@ -962,7 +986,7 @@ msgstr ""
 
 #. TRANSLATORS: Screenshot caption for the interactive tutorial view
 msgid "Interactive tutorial"
-msgstr ""
+msgstr "מדריך אינטראקטיבי"
 
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
@@ -973,15 +997,15 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Introduction"
-msgstr ""
+msgstr "מבוא"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JMP"
-msgstr ""
+msgstr "JMP"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
-msgstr ""
+msgstr "JSR/RTS"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
@@ -1000,11 +1024,11 @@ msgstr ""
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
-msgstr ""
+msgstr "כשל תוויות"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
-msgstr ""
+msgstr "לימוד"
 
 #. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
@@ -1033,7 +1057,7 @@ msgstr ""
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
-msgstr ""
+msgstr "עיצוב בהיר"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1045,7 +1069,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Memory Map"
-msgstr ""
+msgstr "מפת זיכרון"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
@@ -1089,7 +1113,7 @@ msgstr ""
 #. Add OK button
 #. TRANSLATORS: Alert dialog response button label to confirm an action
 msgid "OK"
-msgstr ""
+msgstr "בסדר"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "On reset (simulator): <tt>P = $30</tt> (bit5 and <tt>B</tt> set; <tt>D</tt> and <tt>I</tt> clear)"
@@ -1105,12 +1129,12 @@ msgstr ""
 
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
-msgstr ""
+msgstr "פתיחה..."
 
 #. TRANSLATORS: Toast message title after opening a file, includes filename
 #, javascript-format
 msgid "Opened %s"
-msgstr ""
+msgstr "%s נפתח"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
@@ -1119,7 +1143,7 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Orange
 #. TRANSLATORS: Tooltip for primary color option Orange
 msgid "Orange"
-msgstr ""
+msgstr "כתום"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Organized as four horizontal strips of 32×8 pixels"
@@ -1135,14 +1159,14 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Overall structure"
-msgstr ""
+msgstr "מבנה כללי"
 
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
 msgstr ""
 
 #. TRANSLATORS: Main action button label to pause the running simulator
 msgid "Pause"
-msgstr ""
+msgstr "הפסקה"
 
 #. TRANSLATORS: Closing paragraph targeting the audience
 msgid "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!"
@@ -1151,11 +1175,11 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Pink
 #. TRANSLATORS: Tooltip for primary color option Pink
 msgid "Pink"
-msgstr ""
+msgstr "ורוד"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
-msgstr ""
+msgstr "שחק"
 
 msgid "Preprocessing ..."
 msgstr ""
@@ -1166,7 +1190,7 @@ msgstr ""
 
 #. TRANSLATORS: Label for next button in share dialog
 msgid "Preview"
-msgstr ""
+msgstr "תצוגה מקדימה"
 
 #. TRANSLATORS: Title for preview page in share dialog
 msgid "Preview Your Example"
@@ -1174,7 +1198,7 @@ msgstr ""
 
 #. TRANSLATORS: Tooltip for back button in share dialog
 msgid "Previous"
-msgstr ""
+msgstr "הקודם"
 
 #. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
@@ -1247,7 +1271,7 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
 msgid "Purple"
-msgstr ""
+msgstr "סגול"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Quick tips"
@@ -1255,7 +1279,7 @@ msgstr ""
 
 #. TRANSLATORS: Quit application menu item label
 msgid "Quit"
-msgstr ""
+msgstr "צא"
 
 #. TRANSLATORS: Dropdown option label for random/input IO range
 msgid "Random/Input ($FE-$FF)"
@@ -1268,7 +1292,7 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Red
 #. TRANSLATORS: Tooltip for primary color option Red
 msgid "Red"
-msgstr ""
+msgstr "אדום"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Reduced default hex monitor address range for better efficiency"
@@ -1276,7 +1300,7 @@ msgstr ""
 
 #. TRANSLATORS: Section heading title on Debugger page for registers
 msgid "Registers"
-msgstr ""
+msgstr "אוגרים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Registers and flags"
@@ -1296,11 +1320,11 @@ msgstr ""
 
 #. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
-msgstr ""
+msgstr "איפוס"
 
 #. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
-msgstr ""
+msgstr "להמשיך"
 
 #. TRANSLATORS: Description for preview page with GitHub account info
 msgid "Review how your example will appear to others. Clicking <b>Submit</b> will create a issue on GitHub. You'll need to sign in with your GitHub account to complete the submission."
@@ -1312,7 +1336,7 @@ msgstr ""
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
 msgid "Run"
-msgstr ""
+msgstr "להריץ"
 
 #. TRANSLATORS: Screenshot caption for the snake game running in the virtual console
 msgid "Running Snake game"
@@ -1320,7 +1344,7 @@ msgstr ""
 
 #. TRANSLATORS: Menu item to save the current file
 msgid "Save"
-msgstr ""
+msgstr "שמור"
 
 #. TRANSLATORS: File dialog title for saving a new assembly file
 msgid "Save Assembly File"
@@ -1353,12 +1377,12 @@ msgstr ""
 
 #. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
-msgstr ""
+msgstr "הגדרות"
 
 #. TRANSLATORS: Menu item to share the current code
 #. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
-msgstr ""
+msgstr "שיתוף"
 
 msgid "Share Example"
 msgstr ""
@@ -1374,7 +1398,7 @@ msgstr ""
 
 #. TRANSLATORS: App Store search keyword
 msgid "Simulator"
-msgstr ""
+msgstr "הדמיה"
 
 #. TRANSLATORS: Toast message title when simulator reports a failure
 msgid "Simulator failure"
@@ -1449,24 +1473,27 @@ msgid "Status Flags"
 msgstr ""
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#, fuzzy
 msgid "Step"
-msgstr ""
+msgstr "צעד קדימה"
 
 #. TRANSLATORS: Description for tutorial section
 msgid "Step-by-step guide to 6502 assembly"
 msgstr ""
 
 #. TRANSLATORS: Status line shown when simulator execution stops
+#, fuzzy
 msgid "Stopped"
-msgstr ""
+msgstr "עצר"
 
 #. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
-msgstr ""
+msgstr "עיצוב"
 
 #. TRANSLATORS: Close button on completion page
+#, fuzzy
 msgid "Submit"
-msgstr ""
+msgstr "שלח"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1476,7 +1503,7 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
-msgstr ""
+msgstr "טורקיז"
 
 #. TRANSLATORS: Release notes for version 0.6.4 - Finnish translation
 msgid "Tervetuloa! We are happy to welcome Finnish translations, kindly contributed by Jiri Grönroos. Kiitos!"
@@ -1627,8 +1654,9 @@ msgid "The zero page of memory is used to store a number of game state variables
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
+#, fuzzy
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr ""
+msgstr "אז למה 6502? למה לא שפת סף <i>שימושית</i>, כמו <a href=\"https://he.wikipedia.org/wiki/X86\">x86</a>? ובכן, אני לא חושב שזה שימושי ללמוד x86. אני לא חושב שתצטרכו אי פעם <i>לכתוב</i> שפת סף בעבודה היום יומית ‐ לכמה אנשים זה תרגיל אקדמי, משהו להרחיב את הראש והחשיבה. 6502 נכתב במקור בדור אחר, זמן שבו רוב המתכנתים היו כותבים בשפת סף ישירות, במקום בשפות התכנות הגבוהות החדשות־מעורפלות. אז, היא עוצבה להכתב על ידי בני־אדם. שפות סף יותר מודרניות נועדו להכתב על ידי תוכנות הידור, אז בואו נשאיר אותם להם. בנוסף, 6502 היא <i>כֵּפִית</i>. אף אחד מעולם לא קרא ל־x86 <i>כיף</i>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1660,7 +1688,7 @@ msgstr ""
 
 #. TRANSLATORS: Entry label for example title
 msgid "Title"
-msgstr ""
+msgstr "כותרת"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
@@ -1690,7 +1718,7 @@ msgstr ""
 #. TRANSLATORS: Title for tutorial page
 #. TRANSLATORS: Card title for Tutorial view
 msgid "Tutorial"
-msgstr ""
+msgstr "מדריך"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
@@ -1765,7 +1793,7 @@ msgstr ""
 #. TRANSLATORS: Tooltip for accent color option Yellow
 #. TRANSLATORS: Tooltip for primary color option Yellow
 msgid "Yellow"
-msgstr ""
+msgstr "צהוב"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
@@ -1800,28 +1828,28 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page: <tt>$c0</tt>"
-msgstr ""
+msgstr "דף אפס: <tt>$c0</tt>"
 
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
 msgid "_Preferences"
-msgstr ""
+msgstr "_העדפות"
 
 #. TRANSLATORS: Example author for the Snake game
 #, javascript-format
 msgid "by %s"
-msgstr ""
+msgstr "על ידי %s"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"
-msgstr ""
+msgstr "לימוד"
 
 #. TRANSLATORS: App Store search keyword
 msgid "programming"
-msgstr ""
+msgstr "תכנות"
 
 #. TRANSLATORS: Internal simulator pseudo-op name used when outputting A as a character
 msgid "wdm-output"
-msgstr ""
+msgstr "wdm-output"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
