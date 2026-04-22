@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: 2026-04-21 13:09+0000\n"
+"PO-Revision-Date: 2026-04-23 11:09+0000\n"
 "Last-Translator: Menachem <alfenmen@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
@@ -210,15 +210,15 @@ msgstr "<b>מיידי</b> (<tt>#$c0</tt>): משתמש בערך עצמו"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then use result as pointer to get actual target address"
-msgstr ""
+msgstr "<b>עקיף מאונדקס</b> (<tt>($c0,X)</tt>): מוסיף את X לכתובת דף אפס, ואז משתמש בתוצאה כמצביע כדי לקבל את הכתובת עצמה"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Use zero page address as pointer to get base address, then add Y to that base"
-msgstr ""
+msgstr "<b>מאונדקס עקיף</b> (<tt>($c0),Y</tt>): משתמש בכתובת דף אפס כמצביע לקבלת כתובת בסיס, ואז מוסיף את Y לבסיס הזה"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indirect</b> (<tt>($c000)</tt>): Look up address stored at given location"
-msgstr ""
+msgstr "<b>עקיף</b> (<tt>($c000)</tt>): מחפש בכתובת ששמורה במקום נתון"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>JMP</b>: Unconditional jump"
@@ -242,35 +242,35 @@ msgstr "<b>PC</b> (Program Counter, מונה התוכנה): מצביע לפקו�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>PHA/PLA</b>: Push/pull accumulator to/from stack"
-msgstr ""
+msgstr "<b>PHA/PLA</b>: דוחף את הסוכם אל המחסנית או מושך ממנה"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Program Storage</b>: Starting at <tt>$0600</tt>"
-msgstr ""
+msgstr "<b>זיכרון התוכנה</b>: מתחיל ב־<tt>$0600</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Q</b> or Enter/Return key (<tt>$0D</tt>)"
-msgstr ""
+msgstr "<b>Q</b> או מקש Enter (<tt>$0D</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Relative</b> (<tt>label</tt>): Branch uses signed 8‑bit offset from the next instruction (−128…+127)"
-msgstr ""
+msgstr "<b>יחסי</b> (<tt>תווית</tt>): ההסתעפות משתמשת במספר היסט מסומן של 8 ביט (−128…+127)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>S</b> or Down Arrow key (<tt>$73</tt>)"
-msgstr ""
+msgstr "<b>S</b> או מקש חץ־למטה (<tt>$73</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>SBC needs carry set</b>: Set <tt>C</tt> before subtracting (works as inverse borrow). <tt>C</tt> clear after SBC indicates a borrow occurred."
-msgstr ""
+msgstr "<b>SBC צריך את הנשא מוגדר</b>: הגדירו את <tt>C</tt> לפני ההפחתה (עובד כמו השאלה הפוכה). <tt>C</tt> נקי אחרי SBC מציין שהשאלה קרתה."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>SP</b> (Stack Pointer): Points to current stack position (starts at <tt>$FF</tt>)"
-msgstr ""
+msgstr "<b>SP</b> (מצביע המחסנית): מצביע למקום הנוכחי במחסנית (מתחיל ב־<tt>$FF</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>STA/STX/STY</b>: Store registers to memory"
-msgstr ""
+msgstr "<b>STA/STX/STY</b>: לשמור אוגרים בזיכרון"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
@@ -282,11 +282,11 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>W</b> or Up Arrow key (<tt>$77</tt>)"
-msgstr ""
+msgstr "<b>W</b> או מקש חץ־למעלה (<tt>$77</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>X, Y</b>: Index registers for addressing and counting"
-msgstr ""
+msgstr "<b>X, Y</b>: אוגרי אינדוּקס לספירה והתייחסות לזיכרון"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Z</b> (Zero): Set when result is zero"
@@ -294,7 +294,7 @@ msgstr "<b>Z</b> (Zero, אפס): מוגדר כשהתוצאה היא אפס"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
-msgstr ""
+msgstr "<b>דף אפס,X/Y</b> (<tt>$c0,X</tt>): מוסיף את אוגר X/Y לכתובת דף אפס"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page</b> (<tt>$c0</tt>): Access memory locations <tt>$00</tt>-<tt>$FF</tt>"
@@ -315,31 +315,32 @@ msgstr "<tt>JMP</tt> היא קפיצה לא מותנית. הנה דוגמה ממ
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JSR</tt> and <tt>RTS</tt> (\"jump to subroutine\" and \"return from subroutine\") are a dynamic duo that you'll usually see used together. <tt>JSR</tt> is used to jump from the current location to another part of the code. <tt>RTS</tt> returns to the previous position. This is basically like calling a function and returning."
-msgstr ""
+msgstr "<tt>JSR</tt> ו־<tt>RTS</tt> (\"jump to subroutine\" ו־\"return from subroutine\") הם זוג דינמי שבדרך כלל תראו משמשים יחדיו. <tt>JSR</tt> משמש לקפיצה מהמקום הנוכחי לחלק אחר של הקוד. <tt>RTS</tt> חוזר למקום הקודם. בפשטות זה כמו לקרוא לפונקציה ולחזור ממנה."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>PC</tt> is the program counter - it's how the processor knows at what point in the program it currently is. It's like the current line number of an executing script. In the simulator the code is assembled starting at memory location <tt>$0600</tt>, so <tt>PC</tt> always starts there."
-msgstr ""
+msgstr "<tt>PC</tt> הוא מונה התוכנה - כך המעבד יודע באיזו נקודה בתוכנה הוא כרגע נמצא. זה כמו מספר השורה שבה אוחז סקריפט. בהדמייה הקוד מואסף החל מנקודת הזיכרון <tt>$0600</tt>, אז <tt>PC</tt> תמיד מתחיל שם."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>SP</tt> is the stack pointer. I won't get into the stack yet, but basically this register is decremented every time a byte is pushed onto the stack, and incremented when a byte is popped off the stack."
-msgstr ""
+msgstr "<tt>SP</tt> הוא מצביע המחסנית. אני עוד לא ייכנס למחסנית, אבל בכללות האוגר הזה מופחת כל פעם שבייט נדחף למחסנית, ומוגדל כשמוציאים בייט מהמחסנית."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
+#, fuzzy
 msgid "<tt>X</tt> holds the pixel colour, and <tt>Y</tt> holds the position of the current pixel. The first loop draws the current colour as a pixel (via the <tt>A</tt> register), pushes the colour to the stack, then increments the colour and position. The second loop pops the stack, draws the popped colour as a pixel, then increments the position. As should be expected, this creates a mirrored pattern."
-msgstr ""
+msgstr "<tt>X</tt> מחזיק את צבע הפיקסל, ו־<tt>Y</tt> מחזיק את המיקום של הפיקסל הנוכחי. הלולאה הראשונה צובעת את הצבע הראשון כפיקסל (דרך אוגר <tt>A</tt>), דוחפת את הצבע למחסנית, ואז מגדילה את מספר הצבע והמיקום. הלולאה השנייה מוציאה מהמחסנית, צובעת את הצבע שיצא כפיקסל, ואז מגדילה את המיקום. כצפוי, זה יוצר דפוס משוקף."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>a9</tt> and <tt>c9</tt> are the processor opcodes for immediate-addressed <tt>LDA</tt> and <tt>CMP</tt> respectively. <tt>01</tt> and <tt>02</tt> are the arguments to these instructions. <tt>d0</tt> is the opcode for <tt>BNE</tt>, and its argument is <tt>02</tt>. This means \"skip over the next two bytes\" (<tt>85 22</tt>, the assembled version of <tt>STA $22</tt>). Try editing the code so <tt>STA</tt> takes a two-byte absolute address rather than a single-byte zero page address (e.g. change <tt>STA $22</tt> to <tt>STA $2222</tt>). Reassemble the code and look at the hexdump again - the argument to <tt>BNE</tt> should now be <tt>03</tt>, because the instruction the processor is skipping past is now three bytes long."
-msgstr ""
+msgstr "<tt>a9</tt> ו־<tt>c9</tt> הם מספרי הפקודה (opcode) של המעבד ל־<tt>LDA</tt> ו־<tt>CMP</tt> במיעון מיידי (כסדר הופעתם). <tt>01</tt> ו־<tt>02</tt> הם הארגומנטים לפקודות הללו. <tt>d0</tt> הוא מספר הפקודה ל־<tt>BNE</tt>, והארגומנט שלו הוא <tt>02</tt>. זאת אומרת \"דלג על שני הבתים הבאים\" (<tt>85 22</tt>, הגרסה המואספת של <tt>STA $22</tt>). נסו לערוך את הקוד כך ש־<tt>STA</tt> כתובת מוחלטת של שני בתים במקום כתובת דף אפס של בייט אחד (למשל שנו את <tt>STA $22</tt> ל <tt>STA $2222</tt>). אספו מחדש את הקוד והביטו שוב בחילוץ ההקסדצימלי - עכשיו הארגומנט ל־<tt>BNE</tt> אמור להיות <tt>03</tt>, בגלל שעכשיו הפקודה עליה מדלג המעבד היא באורך שלושה בתים."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>checkSnakeCollision</tt> loops through the snake's body segments, checking each byte pair against the head pair. If there is a match, then game over."
-msgstr ""
+msgstr "<tt>checkSnakeCollision</tt> עובר על חלקי גופו של הנחש, משווה כל זוג בתים עם הזוג של הראש. אם יש התאמה, אז המשחק נגמר."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
-msgstr ""
+msgstr "<tt>init</tt> ו־<tt>loop</tt> תהליכונים. <tt>init</tt> מאתחל את מצב המשחק, ו־<tt>loop</tt> הוא הלולאה הראשית של המשחק."
 
 #. TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
 msgid ""
@@ -347,18 +348,22 @@ msgid ""
 "\n"
 "Should your example be too large, the complete content will be copied to your clipboard for manual pasting into the GitHub issue."
 msgstr ""
+"בדפדפן שלכם נפתחה בעיית GitHub. בבקשה תעברו עלייה ותשלחו אותה שם כדי להשלים את תרומתכם. לאחר אישורה, הדוגמה שלכם תוכנס בגרסה הבאה.\n"
+"\n"
+"למקרה שהדוגמה שלכם גדולה מידי, כל התוכן יועתק ללוח כדי שתוכלו להדביק ידנית לבעיית ה־GitHub."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
-msgstr ""
+msgstr "רשימה מלאה של אוסף פקודות ה־6502 <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">זמינה כאן</a> ו<a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">כאן</a> (אני בדרך כלל מציין לשני האתרים כי יש להם חוזקות וחולשות). האתרים האלה מפרטים את הארגומנטים לכל הפקודות, באיזה אוגרים הם משתמשים, ואיזה דגלים הם מגדירים. הם התנ&quot;ך שלכם."
 
 #. TRANSLATORS: About dialog menu item label
+#, fuzzy
 msgid "About Learn 6502 Assembly"
-msgstr ""
+msgstr "אודות „לימדו שפת סף של 6502”"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Absolute,X and absolute,Y: <tt>$c000,X</tt> and <tt>$c000,Y</tt>"
-msgstr ""
+msgstr "מוחלט,X ו־מוחלט,Y: <tt>$c000,X</tt> ו־<tt>$c000,Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Absolute: <tt>$c000</tt>"
@@ -400,8 +405,9 @@ msgid "Accent: Red"
 msgstr "גוון: אדום"
 
 #. TRANSLATORS: Accessibility label for accent color option Slate
+#, fuzzy
 msgid "Accent: Slate"
-msgstr ""
+msgstr "גוון: בהיר"
 
 #. TRANSLATORS: Accessibility label for accent color option Teal
 #, fuzzy
@@ -415,19 +421,19 @@ msgstr "גוון: צהוב"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Accumulator: Main register for calculations"
-msgstr ""
+msgstr "סוכם: האוגר הראשי לחישובים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Add more instructions to draw extra pixels."
-msgstr ""
+msgstr "הוסיפו עוד פקודות כדי לצבוע פיקסל נוסף."
 
 #. TRANSLATORS: Release notes for version 0.2.0 - file management
 msgid "Added file management to save and load your programs"
-msgstr ""
+msgstr "נוסף ניהול קבצים לשמירת וטעינת תוכניות"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - help feature
 msgid "Added help feature to make code editing easier for beginners"
-msgstr ""
+msgstr "נוספה תכונת עזרה כדי להקל על עריכת קוד למתחילים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Additional button inputs are also available: button A (Enter/Return key, ASCII code <tt>$0D</tt>) and button B (Space key, ASCII code <tt>$20</tt>). These can be used to add more interaction to your games. For directional controls, both WASD keys and arrow keys can be used interchangeably."
@@ -436,15 +442,15 @@ msgstr ""
 #. TRANSLATORS: Error message when an unknown opcode is encountered at address
 #, javascript-format
 msgid "Address %s - unknown opcode"
-msgstr ""
+msgstr "כתובת %s - מספר פקודה לא ידוע"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Addressing Modes"
-msgstr ""
+msgstr "מצבי מיעון"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Addressing modes"
-msgstr ""
+msgstr "מצבי מיעון"
 
 #. TRANSLATORS: App Store search keyword
 #, fuzzy
