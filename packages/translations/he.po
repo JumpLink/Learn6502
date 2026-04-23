@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: 2026-04-23 11:09+0000\n"
+"PO-Revision-Date: 2026-04-24 19:09+0000\n"
 "Last-Translator: Menachem <alfenmen@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
@@ -437,7 +437,7 @@ msgstr "נוספה תכונת עזרה כדי להקל על עריכת קוד ל
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Additional button inputs are also available: button A (Enter/Return key, ASCII code <tt>$0D</tt>) and button B (Space key, ASCII code <tt>$20</tt>). These can be used to add more interaction to your games. For directional controls, both WASD keys and arrow keys can be used interchangeably."
-msgstr ""
+msgstr "ישנם גם מקשי קלט נוספים: כפתור A (מקש Enter, קוד ASCII <tt>$0D</tt>) וכפתור B (מקש רווח, קוד ASCII <tt>$20</tt>). אפשר להשתמש בהם כדי להוסיף יותר אינטראקציה למשחק שלכם. לשליטה כיוונית, אפשר להשתמש במקשי החצים או WASD לסרוגין."
 
 #. TRANSLATORS: Error message when an unknown opcode is encountered at address
 #, javascript-format
@@ -467,15 +467,15 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After the initial block of comments (lines starting with semicolons), the first two lines are:"
-msgstr ""
+msgstr "לאחר גוש הערות בהתחלה (השורות שמתחילות בנקודה־פסיק), שתי השורות הראשונות הן:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After this, the value <tt>2</tt> is added to the accumulator, to create a final random number in the range 2–5."
-msgstr ""
+msgstr "אחרי זה, הערך <tt>2</tt> מוסף לסוכם, כדי ליצור את המספר האקראי הסופי בטווח 2-5."
 
 #. TRANSLATORS: File filter name for all file types
 msgid "All Files"
-msgstr ""
+msgstr "כל הקבצים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "All instructions that support absolute addressing (with the exception of the jump instructions) also have the option to take a single-byte address. This type of addressing is called \"zero page\" - only the first page (the first 256 bytes) of memory is accessible. This is faster, as only one byte needs to be looked up, and takes up less space in the assembled code as well."
@@ -524,7 +524,7 @@ msgstr "הַרְכֵּב"
 
 #. TRANSLATORS: Toast message title after assembly failure
 msgid "Assemble failed"
-msgstr ""
+msgstr "האיסוף נכשל"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 #, fuzzy
@@ -541,7 +541,7 @@ msgstr ""
 
 #. TRANSLATORS: Toast message title after successful assembly
 msgid "Assembled successfully"
-msgstr ""
+msgstr "האיסוף הצליח"
 
 #. TRANSLATORS: Status message shown while assembling source code
 msgid "Assembling code ..."
@@ -553,7 +553,7 @@ msgstr "הרכב"
 
 #. TRANSLATORS: File filter name for assembly source files
 msgid "Assembly Files"
-msgstr ""
+msgstr "קבצי איסוף"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
@@ -618,14 +618,14 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
-msgstr ""
+msgstr "ערכת צבעים"
 
 msgid "Commented Snake Game"
 msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
-msgstr ""
+msgstr "פקודות נפוצות"
 
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Confirm"
@@ -703,7 +703,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Display Organization"
-msgstr ""
+msgstr "ארגון תצוגה"
 
 #. TRANSLATORS: Button to close dialog after submitting issue on GitHub
 msgid "Done"
@@ -1188,7 +1188,7 @@ msgid "Play"
 msgstr "שחק"
 
 msgid "Preprocessing ..."
-msgstr ""
+msgstr "קדם עיבוד..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
@@ -1208,31 +1208,31 @@ msgstr "הקודם"
 
 #. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
-msgstr ""
+msgstr "צבע מרכזי"
 
 #. TRANSLATORS: Accessibility label for primary color option Blue
 msgid "Primary: Blue"
-msgstr ""
+msgstr "מרכזי: כחול"
 
 #. TRANSLATORS: Accessibility label for primary color option Green
 msgid "Primary: Green"
-msgstr ""
+msgstr "מרכזי: ירוק"
 
 #. TRANSLATORS: Accessibility label for primary color option Orange
 msgid "Primary: Orange"
-msgstr ""
+msgstr "מרכזי: כתום"
 
 #. TRANSLATORS: Accessibility label for primary color option Pink
 msgid "Primary: Pink"
-msgstr ""
+msgstr "מרכזי: ורוד"
 
 #. TRANSLATORS: Accessibility label for primary color option Purple
 msgid "Primary: Purple"
-msgstr ""
+msgstr "מרכזי: סגול"
 
 #. TRANSLATORS: Accessibility label for primary color option Red
 msgid "Primary: Red"
-msgstr ""
+msgstr "מרכזי: אדום"
 
 #. TRANSLATORS: Accessibility label for primary color option Slate
 msgid "Primary: Slate"
@@ -1240,15 +1240,15 @@ msgstr ""
 
 #. TRANSLATORS: Accessibility label for primary color option Teal
 msgid "Primary: Teal"
-msgstr ""
+msgstr "מרכזי: טורקיז"
 
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
-msgstr ""
+msgstr "מרכזי: צהוב"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
-msgstr ""
+msgstr "דגלי המעבד"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Processor Status Register"
@@ -1269,7 +1269,7 @@ msgstr ""
 
 #. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"
-msgstr ""
+msgstr "התוכנית עצרה"
 
 msgid "Program vintage game consoles"
 msgstr ""
@@ -1281,7 +1281,7 @@ msgstr "סגול"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Quick tips"
-msgstr ""
+msgstr "טיפים קצרים"
 
 #. TRANSLATORS: Quit application menu item label
 msgid "Quit"
@@ -1289,7 +1289,7 @@ msgstr "צא"
 
 #. TRANSLATORS: Dropdown option label for random/input IO range
 msgid "Random/Input ($FE-$FF)"
-msgstr ""
+msgstr "אקראי/קלט ($FE-$FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Reading the input"
@@ -1358,11 +1358,11 @@ msgstr ""
 
 #. TRANSLATORS: Menu item to save to a new file (Save As)
 msgid "Save as..."
-msgstr ""
+msgstr "שמירה בשם..."
 
 #. TRANSLATORS: Alert dialog heading when unsaved changes are present
 msgid "Save changes?"
-msgstr ""
+msgstr "לשמור שינויים?"
 
 #. TRANSLATORS: Toast message title after saving file successfully, includes filename
 #, javascript-format
@@ -1391,7 +1391,7 @@ msgid "Share"
 msgstr "שיתוף"
 
 msgid "Share Example"
-msgstr ""
+msgstr "שתף דוגמה"
 
 #. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
@@ -1408,7 +1408,7 @@ msgstr "הדמיה"
 
 #. TRANSLATORS: Toast message title when simulator reports a failure
 msgid "Simulator failure"
-msgstr ""
+msgstr "כשל בהדמיה"
 
 #. TRANSLATORS: Tooltip for accent color option Slate
 #. TRANSLATORS: Tooltip for primary color option Slate
@@ -1417,7 +1417,7 @@ msgstr ""
 
 #. TRANSLATORS: Example title for the Snake game
 msgid "Snake Game"
-msgstr ""
+msgstr "משחק סנייק"
 
 #. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
 msgid "Snake Game Data ($00-$15)"
@@ -1457,7 +1457,7 @@ msgstr ""
 
 #. TRANSLATORS: Entry label for optional source URL
 msgid "Source URL"
-msgstr ""
+msgstr "URL למקור"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
@@ -1465,7 +1465,7 @@ msgstr ""
 
 #. TRANSLATORS: Dropdown option label for stack memory range
 msgid "Stack ($0100-$01FF)"
-msgstr ""
+msgstr "מחסנית ($0100-$01FF)"
 
 msgid "Stack Example"
 msgstr ""
