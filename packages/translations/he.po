@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: 2026-04-24 19:09+0000\n"
+"PO-Revision-Date: 2026-04-28 21:09+0000\n"
 "Last-Translator: Menachem <alfenmen@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
@@ -278,7 +278,7 @@ msgstr "<b>מחסנית</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>V</b> (Overflow): Set when arithmetic operation causes signed overflow"
-msgstr ""
+msgstr "<b>V</b> (גלישה): מוגדר כשפעולה אריתמטית גולשת לביט המסמן"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>W</b> or Up Arrow key (<tt>$77</tt>)"
@@ -479,15 +479,15 @@ msgstr "כל הקבצים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "All instructions that support absolute addressing (with the exception of the jump instructions) also have the option to take a single-byte address. This type of addressing is called \"zero page\" - only the first page (the first 256 bytes) of memory is accessible. This is faster, as only one byte needs to be looked up, and takes up less space in the assembled code as well."
-msgstr ""
+msgstr "כל הפקודות שתומכות במיעון מוחלט (חוץ מפקודות הקפיצה) יכולים לקבל גם בייט בודד כנמען. לסוג המיעון הזה קוראים ”דף אפס” - ניתן לגשת איתו רק לדף הזיכרון הראשון (256 הבתים הראשונים). הוא יותר מהיר, כי רק בייט אחד נדרש לחיפוש, וגם הוא תופס פחות מקום בקוד המואסף."
 
 #. TRANSLATORS: Title for final step
 msgid "Almost Done!"
-msgstr ""
+msgstr "כמעט סיימנו!"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
-msgstr ""
+msgstr "גם שימושיים: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "An important thing to notice here is the distinction between <tt>ADC #$01</tt> and <tt>ADC $01</tt>. The first one adds the value <tt>$01</tt> to the <tt>A</tt> register, but the second adds the value stored at memory location <tt>$01</tt> to the <tt>A</tt> register."
@@ -495,7 +495,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
-msgstr ""
+msgstr "כל המספר עם הקידומת <tt>$</tt> בשפת הסף 6502 (ועל כן, בספר זה) הוא בפורמט הקסדצימלי (הקס). אם אתם לא רגילים לספרות הקסדצימליות, אני ממליץ לכם לקרוא את <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">דף הוויקיפדיה</a>. כל מספר עם הקידומת <tt>#</tt> הוא הערך הספרתי עצמו. אחרת הוא מתאר כתובת בזיכרון."
 
 #. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
@@ -508,7 +508,7 @@ msgstr "הגדרות מראה"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
-msgstr ""
+msgstr "שיפורי ארכיטקטורה שמאפשרים שיתוף קוד טוב יותר בין פלטפורמות GNOME, הרשת, ואנדרואיד."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
