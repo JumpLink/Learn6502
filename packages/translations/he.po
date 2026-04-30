@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: 2026-04-28 21:09+0000\n"
+"PO-Revision-Date: 2026-05-01 15:09+0000\n"
 "Last-Translator: Menachem <alfenmen@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.17.1-dev\n"
+"X-Generator: Weblate 5.17.1\n"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
@@ -463,7 +463,7 @@ msgstr "לאחר תזוזה לכל כיוון, אנחנו גם צריכים לב
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After collision detection, we update the snake's location. This is done at a high level like so: First, move each byte pair of the body up one position in memory. Second, update the head according to the current direction. Finally, if the head is out of bounds, handle it as a collision. I'll illustrate this with some ascii art. Each pair of brackets contains an x,y coordinate rather than a pair of bytes for simplicity."
-msgstr ""
+msgstr "אחרי בדיקת ההתנגשויות, אנחנו מעדכנים את מיקום הנחש. בגדול זה נעשה כך: ראשית, מעלים כל זוג בתים של מיקום הגוף מקום אחד בזיכרון. שנית, מעדכנים את מיקום הראש על פי הכיוון הנוכחי. ולבסוף, אם הראש חרג מהגבול, מתיחסים לזה כהתנגשות. אני אצייר את זה עם אותיות. כל זוג סוגריים מכילים נקודת ציון x,y במקום זוג בתים לשם הפשטה."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After the initial block of comments (lines starting with semicolons), the first two lines are:"
@@ -491,7 +491,7 @@ msgstr "גם שימושיים: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "An important thing to notice here is the distinction between <tt>ADC #$01</tt> and <tt>ADC $01</tt>. The first one adds the value <tt>$01</tt> to the <tt>A</tt> register, but the second adds the value stored at memory location <tt>$01</tt> to the <tt>A</tt> register."
-msgstr ""
+msgstr "פרט חשוב להבחין כאן זה ההבדל בין <tt>ADC #$01</tt> לבין <tt>ADC $01</tt>. הראשון מוסיף את הערך <tt>$01</tt> לאוגר <tt>A</tt>, אבל השני מוסיף את הערך ששמור בנקודת הזיכרון <tt>$01</tt> לאוגר <tt>A</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
@@ -512,11 +512,11 @@ msgstr "שיפורי ארכיטקטורה שמאפשרים שיתוף קוד ט�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
-msgstr ""
+msgstr "כל עוד אתם נעים באחד מהרצועות האופקיות הללו, הדברים פשוטים. לדוגמה, כדי לזוז ימינה, פשוט תגדילו את הבייט הפחות משמעותי (למשל <tt>$0200</tt> הופך ל־<tt>$0201</tt>). כדי לרדת למטה, הוסיפו <tt>$20</tt> (למשל <tt>$0200</tt> הופך ל־<tt>$0220</tt>). וההפך לשמאלה ולמעלה."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As stated before, the four directions are represented internally by the numbers 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented by a binary number with a single <tt>1</tt>:"
-msgstr ""
+msgstr "כנזכר לעיל, ארבעת הכיוונים מיוצגים אצלנו עם המספרים 1, 2, 4 ו־8. כל אחד מהמספרים האלה הוא חזקה של 2, לכן הם מייוצגים על ידי מספר בינרי עם <tt>1</tt> בודד:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
 msgid "Assemble"
@@ -533,11 +533,11 @@ msgstr "הרכיבו את הקוד וביחרו <b>לצעוד</b> מהתפריט
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the code, then turn on the debugger and step through the code, watching the <tt>A</tt> and <tt>X</tt> registers. Something slightly odd happens on the line <tt>ADC #$c4</tt>. You might expect that adding <tt>$c4</tt> to <tt>$c0</tt> would give <tt>$184</tt>, but this processor gives the result as <tt>$84</tt>. What's up with that?"
-msgstr ""
+msgstr "איספו את הקוד, ואז הפעילו את מנפה השגיאות ועיברו על הקוד, שימו לב לאוגרים <tt>A</tt> ו־<tt>X</tt>. משהו קצת מוזר קורה בשורה <tt>ADC #$c4</tt>. אתם אולי תצפו שהוספת <tt>$c4</tt> ל־<tt>$c0</tt> תניב <tt>$184</tt>, אבל המעבד הביא את התוצאה כ־<tt>$84</tt>. מה זה אמור להביע?"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the following code, then check the debugger to see the hexdump of the assembled code."
-msgstr ""
+msgstr "איספו את הקוד דלהלן, ואז בדקו את מנפה השגיאות כדי לראות את חילוץ ההקס של הקוד המואסף."
 
 #. TRANSLATORS: Toast message title after successful assembly
 msgid "Assembled successfully"
@@ -545,7 +545,7 @@ msgstr "האיסוף הצליח"
 
 #. TRANSLATORS: Status message shown while assembling source code
 msgid "Assembling code ..."
-msgstr ""
+msgstr "מאסף את הקוד ..."
 
 #. TRANSLATORS: App Store search keyword
 msgid "Assembly"
@@ -621,7 +621,7 @@ msgid "Color Palette"
 msgstr "ערכת צבעים"
 
 msgid "Commented Snake Game"
-msgstr ""
+msgstr "משחק סנייק מוער"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
@@ -637,21 +637,21 @@ msgstr "המשך"
 
 #. TRANSLATORS: Toast message title after copying to clipboard
 msgid "Copied to clipboard"
-msgstr ""
+msgstr "הועתק ללוח"
 
 #. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "העתק ללוח"
 
 #. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
 msgid "Copy to editor"
-msgstr ""
+msgstr "העתק לעורך"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Creating a game"
-msgstr ""
+msgstr "יצירת משחק"
 
 #. TRANSLATORS: Tooltip for dark theme option
 #. TRANSLATORS: Accessibility label for dark theme option
@@ -699,7 +699,7 @@ msgstr ""
 
 #. TRANSLATORS: Dropdown option label for display memory range
 msgid "Display Memory ($0200-$05FF)"
-msgstr ""
+msgstr "זיכרון תצוגה ($0200-$05FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Display Organization"
@@ -719,7 +719,7 @@ msgstr "הפעלת מנפה השגיאות"
 
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
-msgstr ""
+msgstr "הפעלת מצב צעידה"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
@@ -802,19 +802,19 @@ msgstr ""
 #. TRANSLATORS: Tooltip for mode toggle that follows system style
 #. TRANSLATORS: Accessibility label for mode toggle that follows system style
 msgid "Follow system style"
-msgstr ""
+msgstr "השתמש בסגנון המערכת"
 
 #. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
 msgid "Found $d label."
-msgstr ""
+msgstr "נמצאה תווית $d."
 
 #. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
 msgid "Found $d labels."
-msgstr ""
+msgstr "נמצאו $d תוויות."
 
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
-msgstr ""
+msgstr "כל הזיכרון ($0000-$FFFF)"
 
 msgid "Fully commented version of the Snake game"
 msgstr ""
@@ -956,7 +956,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indexed indirect: <tt>($c0,X)</tt>"
-msgstr ""
+msgstr "מאוּנדקס עקיף: <tt>($c0,X)</tt>"
 
 msgid "Indexing labels..."
 msgstr "תווי אינדוּקס..."
@@ -971,7 +971,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed: <tt>($c0),Y</tt>"
-msgstr ""
+msgstr "עקיף מאוּנדקס: <tt>($c0),Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 #, fuzzy
@@ -1015,7 +1015,7 @@ msgstr "JSR/RTS"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
-msgstr ""
+msgstr "קפיצה"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping is like branching with two main differences. First, jumps are not conditionally executed, and second, they take a two-byte absolute address. For small programs, this second detail isn't very important, as you'll mostly be using labels, and the assembler works out the correct memory location from the label. For larger programs though, jumping is the only way to move from one section of the code to another."
@@ -1083,7 +1083,7 @@ msgstr ""
 
 #. TRANSLATORS: Section heading label for console messages block
 msgid "Messages"
-msgstr ""
+msgstr "הודעות"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Nearly all games have at their heart a game loop. All game loops have the same basic form: accept user input, update the game state, and render the game state. This loop is no different."
@@ -1476,7 +1476,7 @@ msgstr ""
 
 #. TRANSLATORS: Section heading title on Debugger page for status flags
 msgid "Status Flags"
-msgstr ""
+msgstr "דגלי מצב"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 #, fuzzy
@@ -1649,7 +1649,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"
-msgstr ""
+msgstr "המחסנית"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
@@ -1702,7 +1702,7 @@ msgstr ""
 
 #. TRANSLATORS: Tooltip text for sidebar toggle button in header bar
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "הצג או הסתר את התפריט הצידי"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try changing the colour of the three pixels."
@@ -1750,7 +1750,7 @@ msgstr ""
 
 #. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
 msgid "Unsaved changes"
-msgstr ""
+msgstr "שינויים לא שמורים"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Updating the game state"
