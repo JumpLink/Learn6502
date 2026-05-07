@@ -4,7 +4,7 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import Gio from "@girs/gio-2.0";
-import mainCss from "../main.css?inline";
+import mainCss from "../main.css";
 import {
   KEY_COLOR_SCHEME,
   KEY_PRIMARY_COLOR,
