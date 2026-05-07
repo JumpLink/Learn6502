@@ -1,9 +1,9 @@
 /// <reference path="./vite-env.d.ts" />
-/// <reference types="vite/client" />
 
 import "@gjsify/vite-plugin-blueprint/src/type.d.ts";
 
-// Declare global variables defined by vite.config.js
+// Declare global variables defined by `gjsify build` via
+// `defineFromEnv` / `defineFromPackageJson` in package.json#gjsify
 declare global {
   /** eu.jumplink.Learn6502 */
   const __APPLICATION_ID__: string;
@@ -22,6 +22,21 @@ declare global {
   /** #!/usr/bin/env -S gjs -m */
   const __GJS_CONSOLE__: string;
   const __PKGDATADIR__: string;
+}
+
+// File loaders for gjsify build (configured via `loaders` in
+// package.json#gjsify and the built-in `cssAsStringPlugin`).
+declare module "*.ui" {
+  const content: string;
+  export default content;
+}
+declare module "*.asm" {
+  const content: string;
+  export default content;
+}
+declare module "*.css" {
+  const content: string;
+  export default content;
 }
 
 // This empty export is necessary to make this a module
