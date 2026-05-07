@@ -24,20 +24,5 @@ declare global {
   const __PKGDATADIR__: string;
 }
 
-// File loaders for gjsify build (configured via `loaders` in
-// package.json#gjsify and the built-in `cssAsStringPlugin`).
-declare module "*.ui" {
-  const content: string;
-  export default content;
-}
-declare module "*.asm" {
-  const content: string;
-  export default content;
-}
-declare module "*.css" {
-  const content: string;
-  export default content;
-}
-
 // This empty export is necessary to make this a module
 export {};
