@@ -23,6 +23,7 @@ yarn_env.set('OUTDIR', meson.current_build_dir())
 yarn_env.set('BUILD_MODE', 'flatpak')
 
 yarn_env.set('PKGDATADIR', pkgdatadir)
+yarn_env.set('RESOURCES_PATH', '/' + application_id.replace('.', '/'))
 
 run_command(yarn, yarn_args, 'workspaces', 'focus', '@learn6502/app-gnome', check: true)
 
