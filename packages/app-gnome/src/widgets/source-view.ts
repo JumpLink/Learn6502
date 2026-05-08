@@ -921,7 +921,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
    * @returns The icon name for the copy button
    */
   public get copyButtonIcon(): string {
-    return this._copyButton.icon_name;
+    return this._copyButton.icon_name ?? "";
   }
 
   /**

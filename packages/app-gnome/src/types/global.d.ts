@@ -1,7 +1,5 @@
 /// <reference path="./vite-env.d.ts" />
 
-import "@gjsify/vite-plugin-blueprint/src/type.d.ts";
-
 // Declare global variables defined by `gjsify build` via
 // `defineFromEnv` / `defineFromPackageJson` in package.json#gjsify
 declare global {

@@ -19,7 +19,9 @@
         "--socket=wayland"
       ],
       "ciContainer": "ghcr.io/flathub-infra/flatpak-github-actions:gnome-50",
-      "ciBranches": ["main"]
+      "ciBranches": [
+        "main"
+      ]
     }
   },
   "scripts": {
@@ -51,8 +53,8 @@
   ],
   "devDependencies": {
     "@gjsify/cli": "^0.3.15",
-    "prettier": "^3.8.1",
-    "typescript": "^6.0.2"
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
   },
   "packageManager": "yarn@4.13.0"
 }
