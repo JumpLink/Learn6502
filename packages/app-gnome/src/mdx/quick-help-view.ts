@@ -1,6 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import QuickHelpTemplate from "@learn6502/learn/dist/quick-help.ui?raw";
+import QuickHelpTemplate from "@learn6502/learn/dist/quick-help.ui";
 import { findIdsInXml } from "../utils.ts";
 import { MdxView } from "./mdx-view.ts";
 
