@@ -12,15 +12,6 @@
       "output": {
         "minify": false
       },
-      "external": [
-        "^gi:",
-        "system",
-        "cairo",
-        "gettext"
-      ],
-      "transform": {
-        "target": "firefox140"
-      },
       "plugins": [
         {
           "name": "@gjsify/vite-plugin-blueprint",
