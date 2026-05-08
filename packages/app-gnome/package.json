@@ -63,23 +63,28 @@
         "default": "/eu/jumplink/Learn6502"
       },
       "__PREFIX__": {
-        "env": "PREFIX"
+        "env": "PREFIX",
+        "default": "."
       },
       "__LIBDIR__": {
-        "env": "LIBDIR"
+        "env": "LIBDIR",
+        "default": "./lib"
       },
       "__DATADIR__": {
-        "env": "DATADIR"
+        "env": "DATADIR",
+        "default": "./data"
       },
       "__BINDIR__": {
-        "env": "BINDIR"
+        "env": "BINDIR",
+        "default": "."
       },
       "__GJS_CONSOLE__": {
         "env": "GJS_CONSOLE",
         "default": "/usr/bin/env -S gjs"
       },
       "__PKGDATADIR__": {
-        "env": "PKGDATADIR"
+        "env": "PKGDATADIR",
+        "default": "./data"
       }
     }
   },
