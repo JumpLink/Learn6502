@@ -88,7 +88,10 @@ function generateIndexContent(
   return `import { default as ${camelCaseName}Code } from "./${asmFile}";
 import ${camelCaseName}Meta from "./${metaFile}";
 import type { ExampleMeta } from "../example-meta.ts";
-const ${camelCaseName}: ExampleMeta = { ...${camelCaseName}Meta, code: ${camelCaseName}Code };
+const ${camelCaseName}: ExampleMeta = {
+  ...${camelCaseName}Meta,
+  code: ${camelCaseName}Code,
+};
 export { ${camelCaseName} };
 `;
 }
