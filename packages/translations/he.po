@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: 2026-05-08 05:50+0000\n"
+"PO-Revision-Date: 2026-05-09 12:11+0000\n"
 "Last-Translator: Menachem <alfenmen@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 5.17.1\n"
+"X-Generator: Weblate 2026.5-dev\n"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
@@ -664,7 +664,7 @@ msgstr "ניפוי שגיאות"
 
 #. TRANSLATORS: Feature list item about debugging tools
 msgid "Debug your programs with real-time inspection tools"
-msgstr ""
+msgstr "נפו שגיאות בתוכנה שלכם עם כלי בדיקה בזמן אמת"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Debugger"
@@ -672,10 +672,10 @@ msgstr "מנפה שגיאות"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Debugger now only updates when visible, reducing unnecessary processing"
-msgstr ""
+msgstr "עכשיו מנפה השגיאות מתעדכן רק כשרואים אותו, וכך חוסך עיבוד מיותר"
 
 msgid "Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic operations. When set, ADC/SBC instructions treat values as decimal digits (0-9) instead of binary. Used for financial calculations and decimal arithmetic."
-msgstr ""
+msgstr "הדגל העשרוני: מאפשר את מצב \"עשרוני בקידוד בינרי\" (BCD) בפעולות אריטמטיות. כאשר מוגדר, פקודות ADC/SBC יתייחסו לערכים כאוסף ספרות עשרוניות (0-9) במקום כ־בינרים. משמש לחישובים פיננסים ואריתמטיקה עשרונית."
 
 #. TRANSLATORS: Entry label for example description
 msgid "Description"
@@ -695,7 +695,7 @@ msgstr "השלך"
 
 #. TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
-msgstr ""
+msgstr "גלו את העולם המקסים של תיכנות מחשבים וקונסולות משחקים קלסים! לימדו את שפת הסף 6502 ‐ אותו הקוד שהפעיל מערכות אייקוניות כמו ה־NES, Commodore 64, ו־Apple II."
 
 #. TRANSLATORS: Dropdown option label for display memory range
 msgid "Display Memory ($0200-$05FF)"
@@ -735,11 +735,11 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
-msgstr ""
+msgstr "למרות שזו תהיה גרסה פשוטה, הקוד יהיה גדול משמעותית מכל הדוגמאות הקודמות. אנחנו נצתרך לעקוב אחר כמה נקודות זיכרון ביחד בשביל שלל חלקי המשחק. אנחנו עדיין יכולים לרשום ולסדר בעצמינו את כל הפרטים החשובים במהלך התוכנה כמו קודם, אבל בקנה מידה גדול, מהר מאוד זה נהיה מעייף ועלול לגרום לבאגים קשים לאיתור. במקום, אנחנו ניתן עכשיו למאסף לעשות חלק מהעבודה הקשה בשבילנו."
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
-msgstr ""
+msgstr "הדוגמה נשלחה לבדיקה"
 
 #. TRANSLATORS: Title for examples section
 #. TRANSLATORS: Title for examples page
@@ -769,23 +769,23 @@ msgstr "לקובץ \"%s\" יש שינויים לא שמורים"
 
 #. TRANSLATORS: Description in share dialog
 msgid "Fill in the information about your 6502 example to share it with the community"
-msgstr ""
+msgstr "מלאו את הפרטים על דוגמת ה־6502 שלכם כדי לשתף אותה עם הקהילה"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Finally, byte <tt>$03</tt> contains the current length of the snake, in terms of bytes in memory (so a length of 4 means 2 pixels)."
-msgstr ""
+msgstr "לבסוף, בייט <tt>$03</tt> מכיל את אורכו הנוכחי של הנחש, במושגים של בתים בזיכרון (כך שאורך של 4 פירושו 2 פיקסלים)."
 
 #. TRANSLATORS: Release notes for version 0.1.0
 msgid "First release of Learn 6502 Assembly for GNOME"
-msgstr ""
+msgstr "הגרסה הראשונה של \"לימוד סף ל־6502\" ל־GNOME"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "First row: <tt>$0200</tt>-<tt>$021F</tt>, second row: <tt>$0220</tt>-<tt>$023F</tt>, etc."
-msgstr ""
+msgstr "השורה הראשונה: <tt>$0200</tt>-<tt>$021F</tt>, השורה השנייה: <tt>$0220</tt>-<tt>$023F</tt>, וכו'."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First we load the value <tt>$08</tt> into the <tt>X</tt> register. The next line is a label. Labels just mark certain points in a program so we can return to them later. After the label we decrement <tt>X</tt>, store it to <tt>$0200</tt> (the top-left pixel), and then compare it to the value <tt>$03</tt>. <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register with another value. If the two values are equal, the <tt>Z</tt> flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
-msgstr ""
+msgstr "קודם אנחנו טוענים את הערך <tt>$08</tt> לאוגר <tt>X</tt>. השורה הבאה היא תווית. תוויות רק מסמנות מקום מסויים בתוכנה כדי שנוכל לחזור אליהם מאוחר יותר. לאחר התווית אנחנו מפחיתים את <tt>X</tt>, שומרים אותו ב־<tt>$0200</tt> (הפיקסל העליון־שמאלי), ואז משווים אותו לערך <tt>$03</tt>. <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> משווה את הערך באוגר <tt>X</tt> עם ערך אחר. אם שני הערכים שווים, הדגל <tt>Z</tt> מוגדר ל־<tt>1</tt>, אחרת הוא מוגדר ל־<tt>0</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, S, D) was pressed, and if so, sets the direction of the snake accordingly. Then, <tt>checkCollision</tt> checks to see if the snake collided with itself or the apple. <tt>updateSnake</tt> updates the internal representation of the snake, based on its direction. Next, the apple and snake are drawn. Finally, <tt>spinWheels</tt> makes the processor do some busy work, to stop the game from running too quickly. Think of it like a sleep command. The game keeps running until the snake collides with the wall or itself."
@@ -797,7 +797,7 @@ msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
-msgstr ""
+msgstr "תוקנה שגיאת בנייה ב־PostmarketOS, משפר את התאימות לניידים"
 
 #. TRANSLATORS: Tooltip for mode toggle that follows system style
 #. TRANSLATORS: Accessibility label for mode toggle that follows system style
@@ -817,7 +817,7 @@ msgid "Full Memory ($0000-$FFFF)"
 msgstr "כל הזיכרון ($0000-$FFFF)"
 
 msgid "Fully commented version of the Snake game"
-msgstr ""
+msgstr "מהדורה מוערת מלאה של משחק הסנייק"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
@@ -829,11 +829,11 @@ msgstr "מקש לוח נלחץ:"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
-msgstr ""
+msgstr "עכשיו המשחקים עוצרים אוטומטית כשעוברים בין מסכים"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
-msgstr ""
+msgstr "גרמנית וספרדית אומתו על ידי תורמים. שאר השפות הם 'טיוטות' שנכתבו בעזרת AI וזקוקים לבדיקה אנושית."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
@@ -844,6 +844,8 @@ msgid ""
 "Got a cool 6502 example?\n"
 "Share it with the community!"
 msgstr ""
+"יש לכם דוגמה מגניבה עם 6502?\n"
+"שתפו אותה עם הקהילה!"
 
 #. TRANSLATORS: Release notes for version 0.6.0 - community contribution feature
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
@@ -881,7 +883,7 @@ msgstr "מוסתר"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "I won't explain in depth how each of the directions work, but the above explanation should give you enough to work it out with a bit of study."
-msgstr ""
+msgstr "אני לא יסביר לעומק איך כל אחד מהכיוונים עובד, אבל ההסבר למעלה אמור לתת לכם מספיק כדי שתוכלו להבין את זה לבד עם קצת מחקר."
 
 #. TRANSLATORS: App Store search keyword
 msgid "IDE"
@@ -889,18 +891,18 @@ msgstr "IDE"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "If the result of the addition is larger than a single byte, the address wraps around. For example:"
-msgstr ""
+msgstr "אם תוצאת החיבור גדולה מבייט בודד, הכתובת סובבת לאחור. לדוגמה:"
 
 #. TRANSLATORS: Call to action for community translation/validation
 msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
 msgstr ""
 
 msgid "If your example is based on or inspired by another example, you can provide the source URL."
-msgstr ""
+msgstr "אם הדוגמה שלכם מבוססת על דוגמה אחרת או קיבלתם השראה ממנה, אתם יכולים לציין את ה־URL של המקור."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
-msgstr ""
+msgstr "מיעון מיידי לא בהכרח עוסק בכתובות זיכרון - זהו מצב שבו משתמשים בערכים עצמם. לדוגמה, <tt>LDX #$01</tt> טוען את הערך <tt>$01</tt> לתוך אוגר <tt>X</tt>. זה מאוד שונה מפקודת דף האפס <tt>LDX $01</tt> שטוענת את הערך בנקודת הזיכרון <tt>$01</tt> לתוך אוגר <tt>X</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate: <tt>#$c0</tt>"
@@ -912,19 +914,20 @@ msgstr "עקיף"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Improved descriptions to be more welcoming for non-technical users"
-msgstr ""
+msgstr "התיאור שופר כדי שיהיה יותר מזמין לאדם הפשוט"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - mobile improvements
 msgid "Improved game screen and controls for mobile devices"
-msgstr ""
+msgstr "המקשים ומסך המשחק שופרו במכשירים ניידים"
 
 #. TRANSLATORS: Release notes for version 0.1.1
+#, fuzzy
 msgid "Improved the game console performance for smoother gameplay"
-msgstr ""
+msgstr "שופרו ביצועי קונסולת המשחק, שהמשחק ירוץ חלק יותר"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In assembly language, you'll usually use labels with branch instructions. When assembled though, this label is converted to a single-byte relative offset (a number of bytes to go backwards or forwards from the next instruction) so branch instructions can only go forward and back around 256 bytes. This means they can only be used to move around local code. For moving further you'll need to use the jumping instructions."
-msgstr ""
+msgstr "בשפת סף, בדרך כלל משתמשים בפקודות הסתעפות עם תוויות. אבל לאחר האיסוף, התווית הופכת לבייט בודד של היסט יחסי (מספר הבתים ללכת אחורה או קדימה מהפקודה הבאה) לכן פקודות הסתעפות יכולים ללכת אחורה וקדימה באזור ה־256 בתים. זה אומר שאפשר להשתמש בהם רק ליד קוד מקומי. כדי ללכת רחוק יותר תצטרכו להשתמש בפקודות הקפיצה."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In the editor <b>type</b> (don't paste) the following code:"
@@ -1614,7 +1617,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next line, <tt>BNE decrement</tt>, will shift execution to the decrement label if the <tt>Z</tt> flag is set to <tt>0</tt> (meaning that the two values in the <tt>CPX</tt> comparison were not equal), otherwise it does nothing and we store <tt>X</tt> to <tt>$0201</tt>, then finish the program."
-msgstr ""
+msgstr "השורה הבאה, <tt>BNE decrement</tt>, תסיט את המעבד לתווית decrement אם הדגל <tt>Z</tt> מוגדר ל־<tt>0</tt> (זאת אומרת ששני הערכים בהשוואה של <tt>CPX</tt> לא היו שווים), אחרת היא לא תעשה כלום ונשמור את <tt>X</tt> ב־<tt>$0201</tt>, ואז נסיים את התוכנית."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>checkCollision</tt>, defers to <tt>checkAppleCollision</tt> and <tt>checkSnakeCollision</tt>. <tt>checkAppleCollision</tt> just checks to see if the two bytes holding the location of the apple match the two bytes holding the location of the head. If they do, the length is increased and a new apple position is generated."
