@@ -5,6 +5,80 @@
   "main": "dist/main.js",
   "type": "module",
   "private": true,
+  "gjsify": {
+    "shebang": "${env:GJS_CONSOLE:-/usr/bin/env -S gjs} -m",
+    "bundler": {
+      "input": "src/main.ts",
+      "output": {
+        "minify": false
+      },
+      "plugins": [
+        {
+          "name": "@gjsify/vite-plugin-blueprint",
+          "options": {
+            "minify": true
+          }
+        },
+        {
+          "name": "@gjsify/vite-plugin-gettext",
+          "export": "msgfmtPlugin",
+          "options": {
+            "poDirectory": "../translations",
+            "outputDirectory": "./data/metainfo",
+            "domain": "eu.jumplink.Learn6502",
+            "format": "xml",
+            "filename": "eu.jumplink.Learn6502.metainfo.xml",
+            "templateFile": "./data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in",
+            "useLocaleStructure": false,
+            "removeComments": true
+          }
+        }
+      ]
+    },
+    "loaders": {
+      ".ui": "text",
+      ".asm": "text"
+    },
+    "defineFromPackageJson": {
+      "__PACKAGE_VERSION__": {
+        "field": "version"
+      }
+    },
+    "defineFromEnv": {
+      "__APPLICATION_ID__": {
+        "env": "APPLICATION_ID",
+        "default": "eu.jumplink.Learn6502"
+      },
+      "__RESOURCES_PATH__": {
+        "env": "RESOURCES_PATH",
+        "default": "/eu/jumplink/Learn6502"
+      },
+      "__PREFIX__": {
+        "env": "PREFIX",
+        "default": "."
+      },
+      "__LIBDIR__": {
+        "env": "LIBDIR",
+        "default": "./lib"
+      },
+      "__DATADIR__": {
+        "env": "DATADIR",
+        "default": "./data"
+      },
+      "__BINDIR__": {
+        "env": "BINDIR",
+        "default": "."
+      },
+      "__GJS_CONSOLE__": {
+        "env": "GJS_CONSOLE",
+        "default": "/usr/bin/env -S gjs"
+      },
+      "__PKGDATADIR__": {
+        "env": "PKGDATADIR",
+        "default": "./data"
+      }
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "yarn clear:dist && yarn clear:resources && yarn clear:settings && yarn clear:settings:flatpak && yarn clear:locales",
@@ -13,11 +87,12 @@
     "clear:settings": "GSETTINGS_SCHEMA_DIR=$PWD/data/schemas gsettings reset-recursively eu.jumplink.Learn6502",
     "clear:settings:flatpak": "flatpak run --command=gsettings eu.jumplink.Learn6502 reset-recursively eu.jumplink.Learn6502",
     "clear:locales": "rm -rf data/locale",
-    "build:vite": "vite build",
-    "build:resources": "glib-compile-resources --sourcedir data data/eu.jumplink.Learn6502.data.gresource.xml",
-    "build:schema": "mkdir -p data/schemas && glib-compile-schemas --strict --targetdir=data/schemas data",
+    "build:gjs": "gjsify build src/main.ts --outfile \"${OUTDIR:-.}/${APPLICATION_ID:-eu.jumplink.Learn6502}\"",
+    "build:resources": "gjsify gresource data/eu.jumplink.Learn6502.data.gresource.xml --sourcedir data",
+    "build:schema": "gjsify gsettings data --targetdir data/schemas --strict",
+    "build:locale": "[ \"${BUILD_MODE:-}\" = \"flatpak\" ] || cp -r ../translations/dist/locale ${DATADIR:-./data}/locale 2>/dev/null || true",
     "build:with-deps": "yarn workspaces foreach -pRv --from @learn6502/app-gnome --topological-dev run build",
-    "build": "yarn build:vite && yarn build:resources && yarn build:schema",
+    "build": "yarn build:gjs && yarn build:resources && yarn build:schema && yarn build:locale",
     "check": "yarn check:typescript && yarn check:metainfo",
     "check:typescript": "tsc",
     "start:app": "GSETTINGS_SCHEMA_DIR=$PWD/data/schemas gjs -m eu.jumplink.Learn6502",
@@ -28,26 +103,24 @@
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "@gjsify/vite-plugin-blueprint": "^0.2.9",
-    "@gjsify/vite-plugin-gettext": "^0.2.9",
-    "lightningcss": "^1.32.0",
-    "typescript": "^6.0.2",
-    "vite": "^8.0.3",
-    "vite-plugin-static-copy": "^4.0.0"
+    "@gjsify/cli": "^0.3.16",
+    "@gjsify/vite-plugin-blueprint": "^0.3.16",
+    "@gjsify/vite-plugin-gettext": "^0.3.16",
+    "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@girs/adw-1": "^1.10.0-4.0.0-beta.44",
-    "@girs/gdk-4.0": "^4.0.0-4.0.0-beta.44",
-    "@girs/gdkpixbuf-2.0": "^2.0.0-4.0.0-beta.44",
-    "@girs/gio-2.0": "^2.88.0-4.0.0-beta.44",
-    "@girs/gjs": "^4.0.0-beta.44",
-    "@girs/glib-2.0": "^2.88.0-4.0.0-beta.44",
-    "@girs/gobject-2.0": "^2.88.0-4.0.0-beta.44",
-    "@girs/gtk-4.0": "^4.22.1-4.0.0-beta.44",
-    "@girs/gtksource-5": "^5.20.0-4.0.0-beta.44",
-    "@girs/javascriptcore-6.0": "^2.51.93-4.0.0-beta.44",
-    "@girs/pango-1.0": "^1.57.0-4.0.0-beta.44",
-    "@girs/webkit-6.0": "^2.51.93-4.0.0-beta.44",
+    "@girs/adw-1": "^1.10.0-4.0.0-rc.13",
+    "@girs/gdk-4.0": "^4.0.0-4.0.0-rc.13",
+    "@girs/gdkpixbuf-2.0": "^2.0.0-4.0.0-rc.13",
+    "@girs/gio-2.0": "^2.88.0-4.0.0-rc.13",
+    "@girs/gjs": "^4.0.0-rc.13",
+    "@girs/glib-2.0": "^2.88.0-4.0.0-rc.13",
+    "@girs/gobject-2.0": "^2.88.0-4.0.0-rc.13",
+    "@girs/gtk-4.0": "^4.23.0-4.0.0-rc.13",
+    "@girs/gtksource-5": "^5.20.0-4.0.0-rc.13",
+    "@girs/javascriptcore-6.0": "^2.52.1-4.0.0-rc.13",
+    "@girs/pango-1.0": "^1.57.1-4.0.0-rc.13",
+    "@girs/webkit-6.0": "^2.52.1-4.0.0-rc.13",
     "@learn6502/6502": "workspace:^",
     "@learn6502/common-ui": "workspace:^",
     "@learn6502/learn": "workspace:^",

@@ -2,11 +2,33 @@
   "name": "learn6502",
   "type": "module",
   "private": true,
+  "gjsify": {
+    "flatpak": {
+      "appId": "eu.jumplink.Learn6502",
+      "runtime": "gnome",
+      "runtimeVersion": "50",
+      "sdkExtensions": [
+        "org.freedesktop.Sdk.Extension.node24",
+        "org.freedesktop.Sdk.Extension.typescript"
+      ],
+      "command": "eu.jumplink.Learn6502",
+      "finishArgs": [
+        "--device=dri",
+        "--share=ipc",
+        "--socket=fallback-x11",
+        "--socket=wayland"
+      ],
+      "ciContainer": "ghcr.io/flathub-infra/flatpak-github-actions:gnome-50",
+      "ciBranches": [
+        "main"
+      ]
+    }
+  },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "setup": "yarn workspaces foreach -v -W -t run setup",
     "build": "yarn workspaces foreach -v -W -t --topological-dev run build",
-    "build:gnome:flatpak": "./build-flatpak.sh",
+    "build:gnome:flatpak": "gjsify flatpak build eu.jumplink.Learn6502.json --install --repo repo --bundle eu.jumplink.Learn6502.flatpak --tarball eu.jumplink.Learn6502.tar.gz --install-deps-from flathub",
     "build:gnome:meson": "meson compile -C _build",
     "build:android": "yarn workspace @learn6502/app-android run build",
     "check": "yarn workspaces foreach -v -W -t run check",
@@ -30,8 +52,9 @@
     "packages/app-web"
   ],
   "devDependencies": {
-    "prettier": "^3.8.1",
-    "typescript": "^6.0.2"
+    "@gjsify/cli": "^0.3.16",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
   },
   "packageManager": "yarn@4.13.0"
 }

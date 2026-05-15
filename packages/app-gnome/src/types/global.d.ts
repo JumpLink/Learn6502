@@ -1,9 +1,7 @@
 /// <reference path="./vite-env.d.ts" />
-/// <reference types="vite/client" />
 
-import "@gjsify/vite-plugin-blueprint/src/type.d.ts";
-
-// Declare global variables defined by vite.config.js
+// Declare global variables defined by `gjsify build` via
+// `defineFromEnv` / `defineFromPackageJson` in package.json#gjsify
 declare global {
   /** eu.jumplink.Learn6502 */
   const __APPLICATION_ID__: string;
