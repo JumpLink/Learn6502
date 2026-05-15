@@ -7,330 +7,331 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: Automatically generated\n"
-"Language-Team: none\n"
+"PO-Revision-Date: 2026-05-11 14:11+0000\n"
+"Last-Translator: Arif Budiman <arifpedia@gmail.com>\n"
+"Language-Team: Indonesian <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/id/>\n"
 "Language: id\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
+"X-Generator: Weblate 2026.5-dev\n"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
-msgstr ""
+msgstr "(Sebenarnya, saya telah diberitahu secara terpercaya bahwa prosesor 6502 masih diproduksi oleh <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> dan <a href=\"https://www.mouser.co.uk/c/?q=65C02\">dijual kepada para penghobi</a>, jadi jelas 6502 <i>bukan</i> bahasa yang sudah mati! Siapa yang tahu?)"
 
 #. TRANSLATORS: App Store search keyword
 msgid "6502"
-msgstr ""
+msgstr "6502"
 
 #. TRANSLATORS: Info message when the hardware stack underflows and wraps around
 msgid "6502 Stack emptied! Wrapping..."
-msgstr ""
+msgstr "Stack 6502 dikosongkan! Melakukan wrapping..."
 
 #. TRANSLATORS: Info message when the hardware stack overflows and wraps around
 msgid "6502 Stack filled! Wrapping..."
-msgstr ""
+msgstr "Stack 6502 penuh! Melakukan wrapping..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "6502 assembly language has a bunch of branching instructions, all of which branch based on whether certain flags are set or not. In this example we'll be looking at <tt>BNE</tt>: \"Branch on not equal\"."
-msgstr ""
+msgstr "Bahasa assembly 6502 memiliki sejumlah instruksi percabangan, yang semuanya melakukan percabangan berdasarkan apakah flag tertentu diset atau tidak. Dalam contoh ini kita akan melihat <tt>BNE</tt>: \"Branch on not equal\"."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> made a <a href=\"https://gist.github.com/wkjagt/9043907\">fully annotated gist of this source code</a>, so follow along with that for more details."
-msgstr ""
+msgstr "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> membuat sebuah <a href=\"https://gist.github.com/wkjagt/9043907\">gist dari kode sumber ini yang telah diberi anotasi lengkap</a>, jadi ikuti itu untuk detail lebih lanjut."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
-msgstr ""
+msgstr "<b><tt>$00</tt>-<tt>$01</tt></b>: Posisi apel"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$02</tt></b>: Snake direction (1=up, 2=right, 4=down, 8=left)"
-msgstr ""
+msgstr "<b><tt>$02</tt></b>: Arah ular (1=atas, 2=kanan, 4=bawah, 8=kiri)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$03</tt></b>: Snake length"
-msgstr ""
+msgstr "<b><tt>$03</tt></b>: Panjang ular"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$0</tt></b>: Black (<tt>#000000</tt>)"
-msgstr ""
+msgstr "<b><tt>$0</tt></b>: Hitam (<tt>#000000</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position data (head, body segments, tail)"
-msgstr ""
+msgstr "<b><tt>$10</tt>-<tt>$15</tt></b>: Data posisi ular (kepala, segmen badan, ekor)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$1</tt></b>: White (<tt>#ffffff</tt>)"
-msgstr ""
+msgstr "<b><tt>$1</tt></b>: Putih (<tt>#ffffff</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$2</tt></b>: Red (<tt>#880000</tt>)"
-msgstr ""
+msgstr "<b><tt>$2</tt></b>: Merah (<tt>#880000</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$3</tt></b>: Cyan (<tt>#aaffee</tt>)"
-msgstr ""
+msgstr "<b><tt>$3</tt></b>: Sian (<tt>#aaffee</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$4</tt></b>: Purple (<tt>#cc44cc</tt>)"
-msgstr ""
+msgstr "<b><tt>$4</tt></b>: Ungu (<tt>#cc44cc</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$5</tt></b>: Green (<tt>#00cc55</tt>)"
-msgstr ""
+msgstr "<b><tt>$5</tt></b>: Hijau (<tt>#00cc55</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$6</tt></b>: Blue (<tt>#0000aa</tt>)"
-msgstr ""
+msgstr "<b><tt>$6</tt></b>: Biru (<tt>#0000aa</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$7</tt></b>: Yellow (<tt>#eeee77</tt>)"
-msgstr ""
+msgstr "<b><tt>$7</tt></b>: Kuning (<tt>#eeee77</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$8</tt></b>: Orange (<tt>#dd8855</tt>)"
-msgstr ""
+msgstr "<b><tt>$8</tt></b>: Oranye (<tt>#dd8855</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$9</tt></b>: Brown (<tt>#664400</tt>)"
-msgstr ""
+msgstr "<b><tt>$9</tt></b>: Cokelat (<tt>#664400</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$FE</tt></b>: Random number generator (reads as a random value 0-255)"
-msgstr ""
+msgstr "<b><tt>$FE</tt></b>: Generator bilangan acak (terbaca sebagai nilai acak 0-255)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$FF</tt></b>: Last pressed key (ASCII code)"
-msgstr ""
+msgstr "<b><tt>$FF</tt></b>: Tombol terakhir yang ditekan (kode ASCII)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$a</tt></b>: Light red (<tt>#ff7777</tt>)"
-msgstr ""
+msgstr "<b><tt>$a</tt></b>: Merah muda (<tt>#ff7777</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$b</tt></b>: Dark grey (<tt>#333333</tt>)"
-msgstr ""
+msgstr "<b><tt>$b</tt></b>: Abu-abu gelap (<tt>#333333</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$c</tt></b>: Grey (<tt>#777777</tt>)"
-msgstr ""
+msgstr "<b><tt>$c</tt></b>: Abu-abu (<tt>#777777</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$d</tt></b>: Light green (<tt>#aaff66</tt>)"
-msgstr ""
+msgstr "<b><tt>$d</tt></b>: Hijau muda (<tt>#aaff66</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$e</tt></b>: Light blue (<tt>#0088ff</tt>)"
-msgstr ""
+msgstr "<b><tt>$e</tt></b>: Biru muda (<tt>#0088ff</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$f</tt></b>: Light grey (<tt>#bbbbbb</tt>)"
-msgstr ""
+msgstr "<b><tt>$f</tt></b>: Abu-abu muda (<tt>#bbbbbb</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>A</b> (Accumulator): Main register for calculations and data manipulation"
-msgstr ""
+msgstr "<b>A</b> (Accumulator): Register utama untuk kalkulasi dan manipulasi data"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>A</b> or Left Arrow key (<tt>$61</tt>)"
-msgstr ""
+msgstr "<b>A</b> atau tombol Panah Kiri (<tt>$61</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>ADC/SBC</b>: Add/subtract with carry"
-msgstr ""
+msgstr "<b>ADC/SBC</b>: Tambah/kurang dengan carry"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Add X/Y register to absolute address"
-msgstr ""
+msgstr "<b>Absolute,X/Y</b> (<tt>$c000,X</tt>): Tambahkan register X/Y ke alamat absolut"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Absolute</b> (<tt>$c000</tt>): Access any memory location"
-msgstr ""
+msgstr "<b>Absolute</b> (<tt>$c000</tt>): Mengakses lokasi memori mana pun"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Action buttons</b>:"
-msgstr ""
+msgstr "<b>Tombol aksi</b>:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>B</b> (Break): Set when BRK instruction is executed"
-msgstr ""
+msgstr "<b>B</b> (Break): Diset saat instruksi BRK dieksekusi"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>BEQ/BNE/BCC/BCS</b>: Branch if equal/not equal/carry clear/carry set"
-msgstr ""
+msgstr "<b>BEQ/BNE/BCC/BCS</b>: Branch jika sama/tidak sama/carry clear/carry set"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>C</b> (Carry): Set when arithmetic operations overflow a byte"
-msgstr ""
+msgstr "<b>C</b> (Carry): Diset saat operasi aritmatika meluap satu byte"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Compare ops</b>: <tt>CMP/CPX/CPY</tt> set <tt>N/Z/C</tt> like a subtraction (register − memory) without storing a result."
-msgstr ""
+msgstr "<b>Operasi perbandingan</b>: <tt>CMP/CPX/CPY</tt> mengeset <tt>N/Z/C</tt> seperti pengurangan (register − memori) tanpa menyimpan hasilnya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>D</b> (Decimal): Set when processor is in BCD (Binary Coded Decimal) mode"
-msgstr ""
+msgstr "<b>D</b> (Decimal): Diset saat prosesor berada dalam mode BCD (Binary Coded Decimal)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>D</b> or Right Arrow key (<tt>$64</tt>)"
-msgstr ""
+msgstr "<b>D</b> atau tombol Panah Kanan (<tt>$64</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Directional controls</b>:"
-msgstr ""
+msgstr "<b>Kontrol arah</b>:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Display Memory</b>: <tt>$0200</tt>-<tt>$05FF</tt> (used for screen output)"
-msgstr ""
+msgstr "<b>Memori Tampilan</b>: <tt>$0200</tt>-<tt>$05FF</tt> (digunakan untuk output layar)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>E</b> or Space key (<tt>$20</tt>)"
-msgstr ""
+msgstr "<b>E</b> atau tombol Spasi (<tt>$20</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>I</b> (Interrupt): Set when interrupts are disabled"
-msgstr ""
+msgstr "<b>I</b> (Interrupt): Diset saat interrupt dinonaktifkan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>INX/INY/DEX/DEY</b>: Increment/decrement registers"
-msgstr ""
+msgstr "<b>INX/INY/DEX/DEY</b>: Increment/decrement register"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Immediate</b> (<tt>#$c0</tt>): Use the actual value"
-msgstr ""
+msgstr "<b>Immediate</b> (<tt>#$c0</tt>): Menggunakan nilai sebenarnya"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Add X to zero page address, then use result as pointer to get actual target address"
-msgstr ""
+msgstr "<b>Indexed Indirect</b> (<tt>($c0,X)</tt>): Tambahkan X ke alamat zero page, lalu gunakan hasilnya sebagai pointer untuk mendapatkan alamat target yang sebenarnya"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Use zero page address as pointer to get base address, then add Y to that base"
-msgstr ""
+msgstr "<b>Indirect Indexed</b> (<tt>($c0),Y</tt>): Gunakan alamat zero page sebagai pointer untuk mendapatkan alamat dasar, lalu tambahkan Y ke dasar tersebut"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Indirect</b> (<tt>($c000)</tt>): Look up address stored at given location"
-msgstr ""
+msgstr "<b>Indirect</b> (<tt>($c000)</tt>): Mencari alamat yang tersimpan di lokasi yang diberikan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>JMP</b>: Unconditional jump"
-msgstr ""
+msgstr "<b>JMP</b>: Lompatan tanpa syarat"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>JSR/RTS</b>: Jump to subroutine / Return from subroutine"
-msgstr ""
+msgstr "<b>JSR/RTS</b>: Lompat ke subrutin / Kembali dari subrutin"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>LDA/LDX/LDY</b>: Load registers"
-msgstr ""
+msgstr "<b>LDA/LDX/LDY</b>: Muat register"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>N</b> (Negative): Set when bit 7 of result is set"
-msgstr ""
+msgstr "<b>N</b> (Negative): Diset saat bit 7 dari hasil diset"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>PC</b> (Program Counter): Points to the next instruction to execute"
-msgstr ""
+msgstr "<b>PC</b> (Program Counter): Menunjuk ke instruksi berikutnya yang akan dieksekusi"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>PHA/PLA</b>: Push/pull accumulator to/from stack"
-msgstr ""
+msgstr "<b>PHA/PLA</b>: Push/pull accumulator ke/dari stack"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Program Storage</b>: Starting at <tt>$0600</tt>"
-msgstr ""
+msgstr "<b>Penyimpanan Program</b>: Dimulai dari <tt>$0600</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Q</b> or Enter/Return key (<tt>$0D</tt>)"
-msgstr ""
+msgstr "<b>Q</b> atau tombol Enter/Return (<tt>$0D</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Relative</b> (<tt>label</tt>): Branch uses signed 8‑bit offset from the next instruction (−128…+127)"
-msgstr ""
+msgstr "<b>Relative</b> (<tt>label</tt>): Branch menggunakan offset 8-bit bertanda dari instruksi berikutnya (−128…+127)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>S</b> or Down Arrow key (<tt>$73</tt>)"
-msgstr ""
+msgstr "<b>S</b> atau tombol Panah Bawah (<tt>$73</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>SBC needs carry set</b>: Set <tt>C</tt> before subtracting (works as inverse borrow). <tt>C</tt> clear after SBC indicates a borrow occurred."
-msgstr ""
+msgstr "<b>SBC memerlukan carry yang diset</b>: Set <tt>C</tt> sebelum melakukan pengurangan (berfungsi sebagai inverse borrow). <tt>C</tt> yang clear setelah SBC menandakan terjadi borrow."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>SP</b> (Stack Pointer): Points to current stack position (starts at <tt>$FF</tt>)"
-msgstr ""
+msgstr "<b>SP</b> (Stack Pointer): Menunjuk ke posisi stack saat ini (dimulai dari <tt>$FF</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>STA/STX/STY</b>: Store registers to memory"
-msgstr ""
+msgstr "<b>STA/STX/STY</b>: Simpan register ke memori"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
-msgstr ""
+msgstr "<b>Stack</b>: <tt>$0100</tt>-<tt>$01FF</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>V</b> (Overflow): Set when arithmetic operation causes signed overflow"
-msgstr ""
+msgstr "<b>V</b> (Overflow): Diset saat operasi aritmatika menyebabkan overflow bertanda"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>W</b> or Up Arrow key (<tt>$77</tt>)"
-msgstr ""
+msgstr "<b>W</b> atau tombol Panah Atas (<tt>$77</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>X, Y</b>: Index registers for addressing and counting"
-msgstr ""
+msgstr "<b>X, Y</b>: Register indeks untuk pengalamatan dan penghitungan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Z</b> (Zero): Set when result is zero"
-msgstr ""
+msgstr "<b>Z</b> (Zero): Diset saat hasil bernilai nol"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Add X/Y register to zero page address"
-msgstr ""
+msgstr "<b>Zero Page,X/Y</b> (<tt>$c0,X</tt>): Tambahkan register X/Y ke alamat zero page"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page</b> (<tt>$c0</tt>): Access memory locations <tt>$00</tt>-<tt>$FF</tt>"
-msgstr ""
+msgstr "<b>Zero Page</b> (<tt>$c0</tt>): Mengakses lokasi memori <tt>$00</tt>-<tt>$FF</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b>Zero Page</b>: <tt>$0000</tt>-<tt>$00FF</tt> (first 256 bytes, faster access)"
-msgstr ""
+msgstr "<b>Zero Page</b>: <tt>$0000</tt>-<tt>$00FF</tt> (256 byte pertama, akses lebih cepat)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>BCC</tt> and <tt>BCS</tt> (\"branch on carry clear\" and \"branch on carry set\") are used to branch on the carry flag. Write a program that uses one of these two."
-msgstr ""
+msgstr "<tt>BCC</tt> dan <tt>BCS</tt> (\"branch on carry clear\" dan \"branch on carry set\") digunakan untuk melakukan branch berdasarkan flag carry. Tulislah sebuah program yang menggunakan salah satu dari keduanya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JMP</tt> is an unconditional jump. Here's a really simple example to show it in action:"
-msgstr ""
+msgstr "<tt>JMP</tt> adalah lompatan tanpa syarat. Berikut contoh sederhana untuk menunjukkan cara kerjanya:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JSR</tt> and <tt>RTS</tt> (\"jump to subroutine\" and \"return from subroutine\") are a dynamic duo that you'll usually see used together. <tt>JSR</tt> is used to jump from the current location to another part of the code. <tt>RTS</tt> returns to the previous position. This is basically like calling a function and returning."
-msgstr ""
+msgstr "<tt>JSR</tt> dan <tt>RTS</tt> (\"jump to subroutine\" dan \"return from subroutine\") adalah pasangan yang biasanya digunakan bersama. <tt>JSR</tt> digunakan untuk melompat dari lokasi saat ini ke bagian lain dari kode. <tt>RTS</tt> kembali ke posisi sebelumnya. Ini pada dasarnya seperti memanggil fungsi dan mengembalikannya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>PC</tt> is the program counter - it's how the processor knows at what point in the program it currently is. It's like the current line number of an executing script. In the simulator the code is assembled starting at memory location <tt>$0600</tt>, so <tt>PC</tt> always starts there."
-msgstr ""
+msgstr "<tt>PC</tt> adalah program counter - inilah cara prosesor mengetahui posisinya saat ini dalam program. Ini seperti nomor baris yang sedang dieksekusi dalam sebuah skrip. Dalam simulator, kode di-assemble mulai dari lokasi memori <tt>$0600</tt>, sehingga <tt>PC</tt> selalu dimulai dari sana."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>SP</tt> is the stack pointer. I won't get into the stack yet, but basically this register is decremented every time a byte is pushed onto the stack, and incremented when a byte is popped off the stack."
-msgstr ""
+msgstr "<tt>SP</tt> adalah stack pointer. Saya tidak akan membahas stack dulu, tetapi pada dasarnya register ini dikurangi setiap kali satu byte di-push ke stack, dan ditambah saat satu byte di-pop dari stack."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>X</tt> holds the pixel colour, and <tt>Y</tt> holds the position of the current pixel. The first loop draws the current colour as a pixel (via the <tt>A</tt> register), pushes the colour to the stack, then increments the colour and position. The second loop pops the stack, draws the popped colour as a pixel, then increments the position. As should be expected, this creates a mirrored pattern."
-msgstr ""
+msgstr "<tt>X</tt> menyimpan warna piksel, dan <tt>Y</tt> menyimpan posisi piksel saat ini. Loop pertama menggambar warna saat ini sebagai piksel (melalui register <tt>A</tt>), men-push warna ke stack, lalu menaikkan warna dan posisi. Loop kedua men-pop stack, menggambar warna yang di-pop sebagai piksel, lalu menaikkan posisi. Seperti yang diharapkan, ini menghasilkan pola cermin."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>a9</tt> and <tt>c9</tt> are the processor opcodes for immediate-addressed <tt>LDA</tt> and <tt>CMP</tt> respectively. <tt>01</tt> and <tt>02</tt> are the arguments to these instructions. <tt>d0</tt> is the opcode for <tt>BNE</tt>, and its argument is <tt>02</tt>. This means \"skip over the next two bytes\" (<tt>85 22</tt>, the assembled version of <tt>STA $22</tt>). Try editing the code so <tt>STA</tt> takes a two-byte absolute address rather than a single-byte zero page address (e.g. change <tt>STA $22</tt> to <tt>STA $2222</tt>). Reassemble the code and look at the hexdump again - the argument to <tt>BNE</tt> should now be <tt>03</tt>, because the instruction the processor is skipping past is now three bytes long."
-msgstr ""
+msgstr "<tt>a9</tt> dan <tt>c9</tt> adalah opcode prosesor untuk <tt>LDA</tt> dan <tt>CMP</tt> beralamat immediate. <tt>01</tt> dan <tt>02</tt> adalah argumen untuk instruksi-instruksi ini. <tt>d0</tt> adalah opcode untuk <tt>BNE</tt>, dan argumennya adalah <tt>02</tt>. Ini berarti \"lewati dua byte berikutnya\" (<tt>85 22</tt>, versi hasil assembly dari <tt>STA $22</tt>). Coba edit kodenya agar <tt>STA</tt> menggunakan alamat absolut dua byte alih-alih alamat zero page satu byte (misalnya ubah <tt>STA $22</tt> menjadi <tt>STA $2222</tt>). Assemble ulang kodenya dan lihat hexdump-nya lagi - argumen untuk <tt>BNE</tt> sekarang seharusnya <tt>03</tt>, karena instruksi yang dilewati prosesor kini memiliki panjang tiga byte."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>checkSnakeCollision</tt> loops through the snake's body segments, checking each byte pair against the head pair. If there is a match, then game over."
-msgstr ""
+msgstr "<tt>checkSnakeCollision</tt> melakukan loop melalui segmen badan ular, memeriksa setiap pasangan byte terhadap pasangan kepala. Jika ada kecocokan, maka game over."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
-msgstr ""
+msgstr "<tt>init</tt> dan <tt>loop</tt> keduanya adalah subrutin. <tt>init</tt> menginisialisasi kondisi awal permainan, dan <tt>loop</tt> adalah loop utama permainan."
 
 #. TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
 msgid ""
@@ -338,1491 +339,1496 @@ msgid ""
 "\n"
 "Should your example be too large, the complete content will be copied to your clipboard for manual pasting into the GitHub issue."
 msgstr ""
+"Sebuah GitHub issue telah dibuka di browser Anda. Harap tinjau dan kirimkan di sana untuk menyelesaikan kontribusi Anda. Setelah disetujui, contoh Anda akan disertakan dalam rilis berikutnya.\n"
+"\n"
+"Jika contoh Anda terlalu besar, seluruh kontennya akan disalin ke clipboard Anda untuk ditempel secara manual ke dalam GitHub issue."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">available here</a> and <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">here</a> (I usually refer to both pages as they have their strengths and weaknesses). These pages detail the arguments to each instruction, which registers they use, and which flags they set. They are your bible."
-msgstr ""
+msgstr "Daftar lengkap set instruksi 6502 tersedia <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">di sini</a> dan <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">di sini</a> (saya biasanya merujuk ke kedua halaman karena masing-masing memiliki kelebihan dan kekurangannya). Halaman-halaman ini merinci argumen untuk setiap instruksi, register yang digunakan, dan flag yang diset. Inilah kitab suci Anda."
 
 #. TRANSLATORS: About dialog menu item label
 msgid "About Learn 6502 Assembly"
-msgstr ""
+msgstr "Tentang Learn 6502 Assembly"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Absolute,X and absolute,Y: <tt>$c000,X</tt> and <tt>$c000,Y</tt>"
-msgstr ""
+msgstr "Absolute,X dan absolute,Y: <tt>$c000,X</tt> dan <tt>$c000,Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Absolute: <tt>$c000</tt>"
-msgstr ""
+msgstr "Absolute: <tt>$c000</tt>"
 
 #. TRANSLATORS: Preferences group title for accent color selection
 msgid "Accent color"
-msgstr ""
+msgstr "Warna aksen"
 
 #. TRANSLATORS: Accessibility label for accent color option Blue
 msgid "Accent: Blue"
-msgstr ""
+msgstr "Aksen: Biru"
 
 #. TRANSLATORS: Accessibility label for accent color option Green
 msgid "Accent: Green"
-msgstr ""
+msgstr "Aksen: Hijau"
 
 #. TRANSLATORS: Accessibility label for accent color option Orange
 msgid "Accent: Orange"
-msgstr ""
+msgstr "Aksen: Oranye"
 
 #. TRANSLATORS: Accessibility label for accent color option Pink
 msgid "Accent: Pink"
-msgstr ""
+msgstr "Aksen: Merah Muda"
 
 #. TRANSLATORS: Accessibility label for accent color option Purple
 msgid "Accent: Purple"
-msgstr ""
+msgstr "Aksen: Ungu"
 
 #. TRANSLATORS: Accessibility label for accent color option Red
 msgid "Accent: Red"
-msgstr ""
+msgstr "Aksen: Merah"
 
 #. TRANSLATORS: Accessibility label for accent color option Slate
 msgid "Accent: Slate"
-msgstr ""
+msgstr "Aksen: Slate"
 
 #. TRANSLATORS: Accessibility label for accent color option Teal
 msgid "Accent: Teal"
-msgstr ""
+msgstr "Aksen: Teal"
 
 #. TRANSLATORS: Accessibility label for accent color option Yellow
 msgid "Accent: Yellow"
-msgstr ""
+msgstr "Aksen: Kuning"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Accumulator: Main register for calculations"
-msgstr ""
+msgstr "Accumulator: Register utama untuk kalkulasi"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Add more instructions to draw extra pixels."
-msgstr ""
+msgstr "Tambahkan lebih banyak instruksi untuk menggambar piksel tambahan."
 
 #. TRANSLATORS: Release notes for version 0.2.0 - file management
 msgid "Added file management to save and load your programs"
-msgstr ""
+msgstr "Menambahkan manajemen file untuk menyimpan dan memuat program Anda"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - help feature
 msgid "Added help feature to make code editing easier for beginners"
-msgstr ""
+msgstr "Menambahkan fitur bantuan untuk memudahkan pengeditan kode bagi pemula"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Additional button inputs are also available: button A (Enter/Return key, ASCII code <tt>$0D</tt>) and button B (Space key, ASCII code <tt>$20</tt>). These can be used to add more interaction to your games. For directional controls, both WASD keys and arrow keys can be used interchangeably."
-msgstr ""
+msgstr "Input tombol tambahan juga tersedia: tombol A (tombol Enter/Return, kode ASCII <tt>$0D</tt>) dan tombol B (tombol Spasi, kode ASCII <tt>$20</tt>). Ini dapat digunakan untuk menambahkan lebih banyak interaksi pada permainan Anda. Untuk kontrol arah, tombol WASD dan tombol panah dapat digunakan secara bergantian."
 
 #. TRANSLATORS: Error message when an unknown opcode is encountered at address
 #, javascript-format
 msgid "Address %s - unknown opcode"
-msgstr ""
+msgstr "Alamat %s - opcode tidak dikenal"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Addressing Modes"
-msgstr ""
+msgstr "Mode Pengalamatan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Addressing modes"
-msgstr ""
+msgstr "Mode pengalamatan"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Adwaita"
-msgstr ""
+msgstr "Adwaita"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After a move in each direction, we also need to check to see if the head would become out of bounds. This is handled differently for each direction. For left and right, we can check to see if the head has effectively \"wrapped around\". Going right from <tt>$021f</tt> by incrementing the least significant byte would lead to <tt>$0220</tt>, but this is actually jumping from the last pixel of the first row to the first pixel of the second row. So, every time we move right, we need to check if the new least significant byte is a multiple of <tt>$20</tt>. This is done using a bit check against the mask <tt>$1f</tt>. Hopefully the illustration below will show you how masking out the lowest 5 bits reveals whether a number is a multiple of <tt>$20</tt> or not."
-msgstr ""
+msgstr "Setelah bergerak ke setiap arah, kita juga perlu memeriksa apakah kepala akan menjadi keluar batas. Ini ditangani secara berbeda untuk setiap arah. Untuk kiri dan kanan, kita dapat memeriksa apakah kepala secara efektif \"melingkar balik\". Bergerak ke kanan dari <tt>$021f</tt> dengan menaikkan byte paling tidak signifikan akan menghasilkan <tt>$0220</tt>, tetapi ini sebenarnya melompat dari piksel terakhir baris pertama ke piksel pertama baris kedua. Jadi, setiap kali kita bergerak ke kanan, kita perlu memeriksa apakah byte paling tidak signifikan yang baru adalah kelipatan dari <tt>$20</tt>. Ini dilakukan menggunakan pemeriksaan bit terhadap mask <tt>$1f</tt>. Semoga ilustrasi di bawah ini akan menunjukkan bagaimana masking pada 5 bit terendah mengungkapkan apakah suatu angka merupakan kelipatan dari <tt>$20</tt> atau tidak."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After collision detection, we update the snake's location. This is done at a high level like so: First, move each byte pair of the body up one position in memory. Second, update the head according to the current direction. Finally, if the head is out of bounds, handle it as a collision. I'll illustrate this with some ascii art. Each pair of brackets contains an x,y coordinate rather than a pair of bytes for simplicity."
-msgstr ""
+msgstr "Setelah deteksi tabrakan, kita memperbarui lokasi ular. Ini dilakukan pada level tinggi seperti ini: Pertama, pindahkan setiap pasangan byte badan satu posisi ke atas dalam memori. Kedua, perbarui kepala sesuai arah saat ini. Terakhir, jika kepala keluar batas, tangani sebagai tabrakan. Saya akan mengilustrasikan ini dengan sedikit ASCII art. Setiap pasang tanda kurung berisi koordinat x,y daripada sepasang byte untuk kesederhanaan."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After the initial block of comments (lines starting with semicolons), the first two lines are:"
-msgstr ""
+msgstr "Setelah blok komentar awal (baris yang dimulai dengan titik koma), dua baris pertama adalah:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "After this, the value <tt>2</tt> is added to the accumulator, to create a final random number in the range 2–5."
-msgstr ""
+msgstr "Setelah ini, nilai <tt>2</tt> ditambahkan ke accumulator, untuk menghasilkan bilangan acak akhir dalam rentang 2–5."
 
 #. TRANSLATORS: File filter name for all file types
 msgid "All Files"
-msgstr ""
+msgstr "Semua File"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "All instructions that support absolute addressing (with the exception of the jump instructions) also have the option to take a single-byte address. This type of addressing is called \"zero page\" - only the first page (the first 256 bytes) of memory is accessible. This is faster, as only one byte needs to be looked up, and takes up less space in the assembled code as well."
-msgstr ""
+msgstr "Semua instruksi yang mendukung pengalamatan absolut (kecuali instruksi lompatan) juga memiliki opsi untuk mengambil alamat satu byte. Jenis pengalamatan ini disebut \"zero page\" - hanya halaman pertama (256 byte pertama) dari memori yang dapat diakses. Ini lebih cepat, karena hanya satu byte yang perlu dicari, dan juga memakan lebih sedikit ruang dalam kode hasil assembly."
 
 #. TRANSLATORS: Title for final step
 msgid "Almost Done!"
-msgstr ""
+msgstr "Hampir Selesai!"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
-msgstr ""
+msgstr "Juga berguna: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "An important thing to notice here is the distinction between <tt>ADC #$01</tt> and <tt>ADC $01</tt>. The first one adds the value <tt>$01</tt> to the <tt>A</tt> register, but the second adds the value stored at memory location <tt>$01</tt> to the <tt>A</tt> register."
-msgstr ""
+msgstr "Hal penting yang perlu diperhatikan di sini adalah perbedaan antara <tt>ADC #$01</tt> dan <tt>ADC $01</tt>. Yang pertama menambahkan nilai <tt>$01</tt> ke register <tt>A</tt>, tetapi yang kedua menambahkan nilai yang tersimpan di lokasi memori <tt>$01</tt> ke register <tt>A</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
-msgstr ""
+msgstr "Angka apa pun yang diawali dengan <tt>$</tt> dalam bahasa assembly 6502 (dan secara ekstensi, dalam buku ini) berada dalam format heksadesimal (hex). Jika Anda tidak familiar dengan bilangan hex, saya sarankan Anda membaca <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">artikel Wikipedia</a>. Apa pun yang diawali dengan <tt>#</tt> adalah nilai angka literal. Angka lain mana pun merujuk ke lokasi memori."
 
 #. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
 msgid "Appearance"
-msgstr ""
+msgstr "Tampilan"
 
 #. TRANSLATORS: Screenshot caption for the appearance settings
 msgid "Appearance settings"
-msgstr ""
+msgstr "Pengaturan tampilan"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
-msgstr ""
+msgstr "Peningkatan arsitektur memungkinkan berbagi kode yang lebih baik antara platform GNOME, Web, dan Android."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
-msgstr ""
+msgstr "Selama Anda bergerak dalam salah satu strip horizontal ini, semuanya sederhana. Misalnya, untuk bergerak ke kanan, cukup naikkan byte paling tidak signifikan (misalnya <tt>$0200</tt> menjadi <tt>$0201</tt>). Untuk turun, tambahkan <tt>$20</tt> (misalnya <tt>$0200</tt> menjadi <tt>$0220</tt>). Kiri dan atas adalah kebalikannya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As stated before, the four directions are represented internally by the numbers 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented by a binary number with a single <tt>1</tt>:"
-msgstr ""
+msgstr "Seperti yang disebutkan sebelumnya, empat arah direpresentasikan secara internal dengan angka 1, 2, 4, dan 8. Setiap angka ini adalah pangkat 2, sehingga direpresentasikan oleh bilangan biner dengan satu <tt>1</tt>:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
 msgid "Assemble"
-msgstr ""
+msgstr "Assemble"
 
 #. TRANSLATORS: Toast message title after assembly failure
 msgid "Assemble failed"
-msgstr ""
+msgstr "Assemble gagal"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the code and select <b>Step</b> from the Run button's dropdown menu to step through these three instructions. The monitor in the debugger shows a section of memory, and can be helpful to visualise the execution of programs. <tt>STA $01</tt> stores the value of the <tt>A</tt> register at memory location <tt>$01</tt>, and <tt>ADC $01</tt> adds the value stored at the memory location <tt>$01</tt> to the <tt>A</tt> register. <tt>$80 + $80</tt> should equal <tt>$100</tt>, but because this is bigger than a byte, the <tt>A</tt> register is set to <tt>$00</tt> and the carry flag is set. As well as this though, the zero flag is set. The zero flag is set by all instructions where the result is zero."
-msgstr ""
+msgstr "Assemble kodenya dan pilih <b>Step</b> dari menu dropdown tombol Run untuk menelusuri ketiga instruksi ini satu per satu. Monitor di debugger menampilkan bagian dari memori, dan dapat membantu memvisualisasikan eksekusi program. <tt>STA $01</tt> menyimpan nilai register <tt>A</tt> di lokasi memori <tt>$01</tt>, dan <tt>ADC $01</tt> menambahkan nilai yang tersimpan di lokasi memori <tt>$01</tt> ke register <tt>A</tt>. <tt>$80 + $80</tt> seharusnya sama dengan <tt>$100</tt>, tetapi karena ini lebih besar dari satu byte, register <tt>A</tt> diset ke <tt>$00</tt> dan flag carry diset. Selain itu, flag zero juga diset. Flag zero diset oleh semua instruksi yang menghasilkan nilai nol."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the code, then turn on the debugger and step through the code, watching the <tt>A</tt> and <tt>X</tt> registers. Something slightly odd happens on the line <tt>ADC #$c4</tt>. You might expect that adding <tt>$c4</tt> to <tt>$c0</tt> would give <tt>$184</tt>, but this processor gives the result as <tt>$84</tt>. What's up with that?"
-msgstr ""
+msgstr "Assemble kodenya, lalu nyalakan debugger dan telusuri kodenya langkah demi langkah, sambil mengamati register <tt>A</tt> dan <tt>X</tt>. Sesuatu yang sedikit aneh terjadi pada baris <tt>ADC #$c4</tt>. Anda mungkin berharap bahwa menambahkan <tt>$c4</tt> ke <tt>$c0</tt> akan menghasilkan <tt>$184</tt>, tetapi prosesor ini memberikan hasil sebagai <tt>$84</tt>. Ada apa dengan itu?"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Assemble the following code, then check the debugger to see the hexdump of the assembled code."
-msgstr ""
+msgstr "Assemble kode berikut, lalu periksa debugger untuk melihat hexdump dari kode yang telah di-assemble."
 
 #. TRANSLATORS: Toast message title after successful assembly
 msgid "Assembled successfully"
-msgstr ""
+msgstr "Berhasil di-assemble"
 
 #. TRANSLATORS: Status message shown while assembling source code
 msgid "Assembling code ..."
-msgstr ""
+msgstr "Sedang meng-assemble kode..."
 
 #. TRANSLATORS: App Store search keyword
 msgid "Assembly"
-msgstr ""
+msgstr "Assembly"
 
 #. TRANSLATORS: File filter name for assembly source files
 msgid "Assembly Files"
-msgstr ""
+msgstr "File Assembly"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
-msgstr ""
+msgstr "Pada level rendah, subrutin ini sedikit lebih kompleks. Pertama, panjang dimuat ke dalam register <tt>X</tt>, yang kemudian dikurangi. Cuplikan di bawah ini menunjukkan memori awal untuk ular."
 
 #. TRANSLATORS: Entry label for example author
 msgid "Author"
-msgstr ""
+msgstr "Penulis"
 
 #. TRANSLATORS: Tooltip text for back button in learn section
 msgid "Back"
-msgstr ""
+msgstr "Kembali"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
-msgstr ""
+msgstr "Karena kondisi permainan disimpan dalam bentuk lokasi piksel, merender permainan sangat mudah. Subrutin pertama, <tt>drawApple</tt>, sangat sederhana. Ini mengeset <tt>Y</tt> ke nol, memuat warna acak ke dalam accumulator, lalu menyimpan nilai ini ke <tt>($00),y</tt>. <tt>$00</tt> adalah tempat lokasi apel disimpan, sehingga <tt>($00),y</tt> didereferensikan ke lokasi memori ini. Baca bagian \"Indirect indexed\" di <a href=\"#addressing\">Mode pengalamatan</a> untuk detail lebih lanjut."
 
 #. TRANSLATORS: Tooltip for accent color option Blue
 #. TRANSLATORS: Tooltip for primary color option Blue
 msgid "Blue"
-msgstr ""
+msgstr "Biru"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Branching"
-msgstr ""
+msgstr "Percabangan"
 
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
-msgstr ""
+msgstr "Flag Break: Diset saat instruksi BRK (Break) dieksekusi. Digunakan untuk membedakan antara interrupt perangkat lunak (BRK) dan interrupt perangkat keras. Membantu mengidentifikasi sumber interrupt dalam rutinitas layanan interrupt."
 
 #. TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
-msgstr ""
+msgstr "Dengan mengirimkan, Anda menyetujui bahwa contoh Anda akan dilisensikan di bawah <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
 
 #. Add response buttons
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
-msgstr ""
+msgstr "Batal"
 
 msgid "Carry Flag: Set when an addition produces a carry-out; clear when a subtraction requires a borrow. Used for multi-byte arithmetic and shifts/rotates (BCS/BCC)."
-msgstr ""
+msgstr "Flag Carry: Diset saat penjumlahan menghasilkan carry-out; clear saat pengurangan memerlukan borrow. Digunakan untuk aritmatika multi-byte dan operasi shift/rotate (BCS/BCC)."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
-msgstr ""
+msgstr "Ubah salah satu piksel untuk digambar di sudut kanan bawah (lokasi memori <tt>$05ff</tt>)."
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
-msgstr ""
+msgstr "Kode"
 
 #. TRANSLATORS: Success message after assembly with total bytes of machine code
 #, javascript-format
 msgid "Code assembled successfully, %d bytes."
-msgstr ""
+msgstr "Kode berhasil di-assemble, %d byte."
 
 #. TRANSLATORS: Toast message title after copying code snippet into the editor
 msgid "Code copied to editor"
-msgstr ""
+msgstr "Kode disalin ke editor"
 
 #. TRANSLATORS: Screenshot caption for the desktop layout
 msgid "Code editor and virtual game console"
-msgstr ""
+msgstr "Editor kode dan konsol permainan virtual"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
-msgstr ""
+msgstr "Palet Warna"
 
 msgid "Commented Snake Game"
-msgstr ""
+msgstr "Permainan Ular Beranotasi"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Common Instructions"
-msgstr ""
+msgstr "Instruksi Umum"
 
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Confirm"
-msgstr ""
+msgstr "Konfirmasi"
 
 #. TRANSLATORS: Menu item to resume execution after pause
 msgid "Continue"
-msgstr ""
+msgstr "Lanjutkan"
 
 #. TRANSLATORS: Toast message title after copying to clipboard
 msgid "Copied to clipboard"
-msgstr ""
+msgstr "Disalin ke clipboard"
 
 #. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
-msgstr ""
+msgstr "Salin ke clipboard"
 
 #. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
 msgid "Copy to editor"
-msgstr ""
+msgstr "Salin ke editor"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Creating a game"
-msgstr ""
+msgstr "Membuat permainan"
 
 #. TRANSLATORS: Tooltip for dark theme option
 #. TRANSLATORS: Accessibility label for dark theme option
 msgid "Dark style"
-msgstr ""
+msgstr "Gaya gelap"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Debugger view
 msgid "Debug"
-msgstr ""
+msgstr "Debug"
 
 #. TRANSLATORS: Feature list item about debugging tools
 msgid "Debug your programs with real-time inspection tools"
-msgstr ""
+msgstr "Debug program Anda dengan alat inspeksi real-time"
 
 #. TRANSLATORS: App Store search keyword
 msgid "Debugger"
-msgstr ""
+msgstr "Debugger"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Debugger now only updates when visible, reducing unnecessary processing"
-msgstr ""
+msgstr "Debugger kini hanya diperbarui saat terlihat, mengurangi pemrosesan yang tidak perlu"
 
 msgid "Decimal Flag: Enables Binary Coded Decimal (BCD) mode for arithmetic operations. When set, ADC/SBC instructions treat values as decimal digits (0-9) instead of binary. Used for financial calculations and decimal arithmetic."
-msgstr ""
+msgstr "Flag Decimal: Mengaktifkan mode Binary Coded Decimal (BCD) untuk operasi aritmatika. Saat diset, instruksi ADC/SBC memperlakukan nilai sebagai digit desimal (0-9) alih-alih biner. Digunakan untuk kalkulasi keuangan dan aritmatika desimal."
 
 #. TRANSLATORS: Entry label for example description
 msgid "Description"
-msgstr ""
+msgstr "Deskripsi"
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
-msgstr ""
+msgstr "Nonaktifkan untuk meningkatkan performa"
 
 #. TRANSLATORS: Section heading label for the disassembled instructions block
 msgid "Disassembled"
-msgstr ""
+msgstr "Telah di-disassemble"
 
 msgid "Discard"
-msgstr ""
+msgstr "Buang"
 
 #. TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
-msgstr ""
+msgstr "Temukan dunia pemrograman komputer klasik dan konsol permainan yang menakjubkan! Pelajari bahasa assembly 6502 - kode yang sama yang menggerakkan sistem ikonik seperti NES, Commodore 64, dan Apple II."
 
 #. TRANSLATORS: Dropdown option label for display memory range
 msgid "Display Memory ($0200-$05FF)"
-msgstr ""
+msgstr "Memori Tampilan ($0200-$05FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Display Organization"
-msgstr ""
+msgstr "Organisasi Tampilan"
 
 #. TRANSLATORS: Button to close dialog after submitting issue on GitHub
 msgid "Done"
-msgstr ""
+msgstr "Selesai"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Each section (<tt>upKey</tt>, <tt>rightKey</tt>, etc.) first checks to see if the current direction is the opposite of the new direction. This requires another little detour."
-msgstr ""
+msgstr "Setiap bagian (<tt>upKey</tt>, <tt>rightKey</tt>, dll.) pertama-tama memeriksa apakah arah saat ini berlawanan dengan arah baru. Ini memerlukan sedikit pengalihan lagi."
 
 #. TRANSLATORS: Preference switch label on Debugger page to enable/disable the debugger
 msgid "Enable Debugger"
-msgstr ""
+msgstr "Aktifkan Debugger"
 
 #. TRANSLATORS: Preference switch label to enable step-by-step execution
 msgid "Enable Stepper Mode"
-msgstr ""
+msgstr "Aktifkan Mode Stepper"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Enhanced app presentation and accessibility"
-msgstr ""
+msgstr "Peningkatan presentasi dan aksesibilitas aplikasi"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Enhanced the hex monitor address range input for easier value editing"
-msgstr ""
+msgstr "Meningkatkan input rentang alamat monitor hex agar lebih mudah mengedit nilai"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
-msgstr ""
+msgstr "Dengan pengetahuan tersebut, Anda seharusnya dapat melihat bahwa instruksi <tt>LDA #$01</tt> memuat nilai hex <tt>$01</tt> ke dalam register <tt>A</tt>. Saya akan membahas lebih detail tentang register di bagian berikutnya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
-msgstr ""
+msgstr "Meskipun ini akan menjadi versi sederhana, kodenya akan jauh lebih besar dari semua contoh sebelumnya. Kita perlu melacak beberapa lokasi memori secara bersamaan untuk berbagai aspek permainan. Kita masih dapat melakukan pencatatan yang diperlukan di seluruh program sendiri, seperti sebelumnya, tetapi pada skala yang lebih besar hal itu dengan cepat menjadi membosankan dan juga dapat menyebabkan bug yang sulit dideteksi. Sebagai gantinya, sekarang kita akan membiarkan assembler melakukan sebagian pekerjaan yang membosankan itu untuk kita."
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
-msgstr ""
+msgstr "Contoh telah dikirimkan untuk ditinjau"
 
 #. TRANSLATORS: Title for examples section
 #. TRANSLATORS: Title for examples page
 #. TRANSLATORS: Title for examples placeholder
 msgid "Examples"
-msgstr ""
+msgstr "Contoh"
 
 #. TRANSLATORS: Switch subtitle describing stepper mode behavior
 msgid "Execute instructions one by one instead of continuously"
-msgstr ""
+msgstr "Eksekusi instruksi satu per satu alih-alih secara berkelanjutan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Exercise"
-msgstr ""
+msgstr "Latihan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Exercises"
-msgstr ""
+msgstr "Latihan-latihan"
 
 #. TRANSLATORS: Toast message title when clipboard copy fails
 msgid "Failed to copy to clipboard"
-msgstr ""
+msgstr "Gagal menyalin ke clipboard"
 
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
-msgstr ""
+msgstr "File \"%s\" memiliki perubahan yang belum disimpan"
 
 #. TRANSLATORS: Description in share dialog
 msgid "Fill in the information about your 6502 example to share it with the community"
-msgstr ""
+msgstr "Isi informasi tentang contoh 6502 Anda untuk dibagikan kepada komunitas"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Finally, byte <tt>$03</tt> contains the current length of the snake, in terms of bytes in memory (so a length of 4 means 2 pixels)."
-msgstr ""
+msgstr "Terakhir, byte <tt>$03</tt> berisi panjang ular saat ini, dalam satuan byte dalam memori (sehingga panjang 4 berarti 2 piksel)."
 
 #. TRANSLATORS: Release notes for version 0.1.0
 msgid "First release of Learn 6502 Assembly for GNOME"
-msgstr ""
+msgstr "Rilis pertama Learn 6502 Assembly untuk GNOME"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "First row: <tt>$0200</tt>-<tt>$021F</tt>, second row: <tt>$0220</tt>-<tt>$023F</tt>, etc."
-msgstr ""
+msgstr "Baris pertama: <tt>$0200</tt>-<tt>$021F</tt>, baris kedua: <tt>$0220</tt>-<tt>$023F</tt>, dst."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First we load the value <tt>$08</tt> into the <tt>X</tt> register. The next line is a label. Labels just mark certain points in a program so we can return to them later. After the label we decrement <tt>X</tt>, store it to <tt>$0200</tt> (the top-left pixel), and then compare it to the value <tt>$03</tt>. <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register with another value. If the two values are equal, the <tt>Z</tt> flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
-msgstr ""
+msgstr "Pertama kita memuat nilai <tt>$08</tt> ke dalam register <tt>X</tt>. Baris berikutnya adalah label. Label hanya menandai titik-titik tertentu dalam program sehingga kita dapat kembali ke sana nanti. Setelah label, kita mengurangi <tt>X</tt>, menyimpannya ke <tt>$0200</tt> (piksel kiri atas), lalu membandingkannya dengan nilai <tt>$03</tt>. <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> membandingkan nilai dalam register <tt>X</tt> dengan nilai lain. Jika kedua nilai sama, flag <tt>Z</tt> diset ke <tt>1</tt>, jika tidak diset ke <tt>0</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, S, D) was pressed, and if so, sets the direction of the snake accordingly. Then, <tt>checkCollision</tt> checks to see if the snake collided with itself or the apple. <tt>updateSnake</tt> updates the internal representation of the snake, based on its direction. Next, the apple and snake are drawn. Finally, <tt>spinWheels</tt> makes the processor do some busy work, to stop the game from running too quickly. Think of it like a sleep command. The game keeps running until the snake collides with the wall or itself."
-msgstr ""
+msgstr "Pertama, <tt>readkeys</tt> memeriksa apakah salah satu tombol arah (W, A, S, D) ditekan, dan jika ya, mengatur arah ular sesuai. Kemudian, <tt>checkCollision</tt> memeriksa apakah ular bertabrakan dengan dirinya sendiri atau apel. <tt>updateSnake</tt> memperbarui representasi internal ular berdasarkan arahnya. Selanjutnya, apel dan ular digambar. Terakhir, <tt>spinWheels</tt> membuat prosesor melakukan beberapa pekerjaan sibuk, agar permainan tidak berjalan terlalu cepat. Bayangkan seperti perintah sleep. Permainan terus berjalan hingga ular bertabrakan dengan dinding atau dirinya sendiri."
 
 #. TRANSLATORS: Release notes for version 0.6.5 - back button fix
 msgid "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open."
-msgstr ""
+msgstr "Memperbaiki masalah di mana tombol kembali di bagian learn selalu terlihat dalam mode desktop dan tablet, bahkan ketika tidak ada subhalaman yang dibuka."
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Fixed build error on PostmarketOS, improving mobile compatibility"
-msgstr ""
+msgstr "Memperbaiki error build di PostmarketOS, meningkatkan kompatibilitas mobile"
 
 #. TRANSLATORS: Tooltip for mode toggle that follows system style
 #. TRANSLATORS: Accessibility label for mode toggle that follows system style
 msgid "Follow system style"
-msgstr ""
+msgstr "Ikuti gaya sistem"
 
 #. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
 msgid "Found $d label."
-msgstr ""
+msgstr "Ditemukan $d label."
 
 #. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
 msgid "Found $d labels."
-msgstr ""
+msgstr "Ditemukan $d label."
 
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
-msgstr ""
+msgstr "Memori Penuh ($0000-$FFFF)"
 
 msgid "Fully commented version of the Snake game"
-msgstr ""
+msgstr "Versi permainan Ular yang diberi komentar lengkap"
 
 #. TRANSLATORS: App Store search keyword
 msgid "GNOME"
-msgstr ""
+msgstr "GNOME"
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
 msgid "Gamepad key pressed:"
-msgstr ""
+msgstr "Tombol gamepad ditekan:"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
-msgstr ""
+msgstr "Permainan kini otomatis dijeda saat berpindah antar layar"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
-msgstr ""
+msgstr "Bahasa Jerman dan Spanyol telah divalidasi oleh kontributor. Bahasa lain adalah draf berbantuan AI dan memerlukan validasi manusia."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
-msgstr ""
+msgstr "Berpindah antar bagian lebih rumit, karena kita juga harus memperhitungkan byte paling signifikan. Misalnya, bergerak ke bawah dari <tt>$02e1</tt> seharusnya menuju ke <tt>$0301</tt>. Untungnya, ini cukup mudah dilakukan. Menambahkan <tt>$20</tt> ke <tt>$e1</tt> menghasilkan <tt>$01</tt> dan mengeset bit carry. Jika bit carry diset, kita tahu kita juga perlu menaikkan byte paling signifikan."
 
 #. TRANSLATORS: Description for examples placeholder
 msgid ""
 "Got a cool 6502 example?\n"
 "Share it with the community!"
 msgstr ""
+"Punya contoh 6502 yang keren?\n"
+"Bagikan kepada komunitas!"
 
 #. TRANSLATORS: Release notes for version 0.6.0 - community contribution feature
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
-msgstr ""
+msgstr "Punya kreasi 6502 yang keren? Bagikan kepada komunitas! Kini Anda dapat mengirimkan contoh kode langsung dari dalam aplikasi. Cukup tekan tombol bagikan, dan kami akan otomatis membuat GitHub issue dan pull request untuk Anda."
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
-msgstr ""
+msgstr "Hijau"
 
 #. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
-msgstr ""
+msgstr "Bantuan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Here's an example. Note that immediate operands are still prefixed with a <tt>#</tt>."
-msgstr ""
+msgstr "Berikut contohnya. Perhatikan bahwa operand immediate masih diawali dengan <tt>#</tt>."
 
 #. TRANSLATORS: Section heading label for the Hex Monitor block
 msgid "Hex Monitor"
-msgstr ""
+msgstr "Monitor Hex"
 
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
-msgstr ""
+msgstr "Hexdump"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
 msgid "Hidden"
-msgstr ""
+msgstr "Tersembunyi"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "I won't explain in depth how each of the directions work, but the above explanation should give you enough to work it out with a bit of study."
-msgstr ""
+msgstr "Saya tidak akan menjelaskan secara mendalam cara kerja masing-masing arah, tetapi penjelasan di atas seharusnya cukup memberi Anda bekal untuk memahaminya dengan sedikit penelaahan."
 
 #. TRANSLATORS: App Store search keyword
 msgid "IDE"
-msgstr ""
+msgstr "IDE"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "If the result of the addition is larger than a single byte, the address wraps around. For example:"
-msgstr ""
+msgstr "Jika hasil penjumlahan lebih besar dari satu byte, alamatnya akan melingkar balik. Misalnya:"
 
 #. TRANSLATORS: Call to action for community translation/validation
 msgid "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue."
-msgstr ""
+msgstr "Jika Anda berbicara salah satu bahasa yang tercantum, mohon bantu tinjau atau perbaiki terjemahannya. Anda dapat berkontribusi melalui tautan dalam aplikasi, platform terjemahan kami, atau dengan membuka issue."
 
 msgid "If your example is based on or inspired by another example, you can provide the source URL."
-msgstr ""
+msgstr "Jika contoh Anda didasarkan pada atau terinspirasi dari contoh lain, Anda dapat menyertakan URL sumbernya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
-msgstr ""
+msgstr "Pengalamatan immediate secara ketat tidak berurusan dengan alamat memori - ini adalah mode di mana nilai aktual digunakan. Misalnya, <tt>LDX #$01</tt> memuat nilai <tt>$01</tt> ke dalam register <tt>X</tt>. Ini sangat berbeda dengan instruksi zero page <tt>LDX $01</tt> yang memuat nilai di lokasi memori <tt>$01</tt> ke dalam register <tt>X</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate: <tt>#$c0</tt>"
-msgstr ""
+msgstr "Immediate: <tt>#$c0</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Implicit"
-msgstr ""
+msgstr "Implisit"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Improved descriptions to be more welcoming for non-technical users"
-msgstr ""
+msgstr "Memperbaiki deskripsi agar lebih ramah bagi pengguna non-teknis"
 
 #. TRANSLATORS: Release notes for version 0.2.0 - mobile improvements
 msgid "Improved game screen and controls for mobile devices"
-msgstr ""
+msgstr "Meningkatkan layar permainan dan kontrol untuk perangkat mobile"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Improved the game console performance for smoother gameplay"
-msgstr ""
+msgstr "Meningkatkan performa konsol permainan untuk gameplay yang lebih lancar"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In assembly language, you'll usually use labels with branch instructions. When assembled though, this label is converted to a single-byte relative offset (a number of bytes to go backwards or forwards from the next instruction) so branch instructions can only go forward and back around 256 bytes. This means they can only be used to move around local code. For moving further you'll need to use the jumping instructions."
-msgstr ""
+msgstr "Dalam bahasa assembly, Anda biasanya akan menggunakan label dengan instruksi percabangan. Namun saat di-assemble, label ini dikonversi menjadi offset relatif satu byte (sejumlah byte untuk mundur atau maju dari instruksi berikutnya) sehingga instruksi branch hanya dapat melompat maju dan mundur sekitar 256 byte. Ini berarti instruksi tersebut hanya dapat digunakan untuk berpindah di sekitar kode lokal. Untuk berpindah lebih jauh, Anda perlu menggunakan instruksi jumping."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In the editor <b>type</b> (don't paste) the following code:"
-msgstr ""
+msgstr "Di editor, <b>ketik</b> (jangan tempel) kode berikut:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this assembler, we can define descriptive constants (or symbols) that represent numbers. The rest of the code can then simply use the constants instead of the literal number, which immediately makes it obvious what we're dealing with. You can use letters, digits and underscores in a name."
-msgstr ""
+msgstr "Dalam assembler ini, kita dapat mendefinisikan konstanta deskriptif (atau simbol) yang mewakili angka. Sisa kode kemudian cukup menggunakan konstanta tersebut alih-alih angka literal, yang langsung memperjelas apa yang sedang kita tangani. Anda dapat menggunakan huruf, digit, dan garis bawah dalam sebuah nama."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this case, <tt>($01)</tt> looks up the two bytes at <tt>$01</tt> and <tt>$02</tt>: <tt>$03</tt> and <tt>$07</tt>. These form the address <tt>$0703</tt>. The value of the <tt>Y</tt> register is added to this address to give the final address <tt>$0704</tt>."
-msgstr ""
+msgstr "Dalam hal ini, <tt>($01)</tt> mencari dua byte di <tt>$01</tt> dan <tt>$02</tt>: <tt>$03</tt> dan <tt>$07</tt>. Ini membentuk alamat <tt>$0703</tt>. Nilai register <tt>Y</tt> ditambahkan ke alamat ini untuk menghasilkan alamat akhir <tt>$0704</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this example, <tt>$f0</tt> contains the value <tt>$01</tt> and <tt>$f1</tt> contains the value <tt>$cc</tt>. The instruction <tt>JMP ($f0)</tt> causes the processor to look up the two bytes at <tt>$f0</tt> and <tt>$f1</tt> (<tt>$01</tt> and <tt>$cc</tt>) and put them together to form the address <tt>$cc01</tt>, which becomes the new program counter. Assemble and step through the program above to see what happens. I'll talk more about <tt>JMP</tt> in the section on <a href=\"#jumping\">Jumping</a>."
-msgstr ""
+msgstr "Dalam contoh ini, <tt>$f0</tt> berisi nilai <tt>$01</tt> dan <tt>$f1</tt> berisi nilai <tt>$cc</tt>. Instruksi <tt>JMP ($f0)</tt> menyebabkan prosesor mencari dua byte di <tt>$f0</tt> dan <tt>$f1</tt> (<tt>$01</tt> dan <tt>$cc</tt>) dan menggabungkannya untuk membentuk alamat <tt>$cc01</tt>, yang menjadi program counter baru. Assemble dan telusuri program di atas langkah demi langkah untuk melihat apa yang terjadi. Saya akan membahas lebih lanjut tentang <tt>JMP</tt> di bagian <a href=\"#jumping\">Jumping</a>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this tiny tutorial I'm going to show you how to get started writing 6502 assembly language. The 6502 processor was massive in the seventies and eighties, powering famous computers like the <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in 6502</a>."
-msgstr ""
+msgstr "Dalam tutorial kecil ini saya akan menunjukkan cara memulai penulisan bahasa assembly 6502. Prosesor 6502 sangat dominan pada tahun tujuh puluhan dan delapan puluhan, menggerakkan komputer-komputer terkenal seperti <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, dan <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender dalam Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">memiliki prosesor 6502 sebagai otaknya</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Bahkan Terminator diprogram dalam 6502</a>."
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Index register X: Used for addressing"
-msgstr ""
+msgstr "Register indeks X: Digunakan untuk pengalamatan"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Index register Y: Used for addressing"
-msgstr ""
+msgstr "Register indeks Y: Digunakan untuk pengalamatan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indexed indirect: <tt>($c0,X)</tt>"
-msgstr ""
+msgstr "Indexed indirect: <tt>($c0,X)</tt>"
 
 msgid "Indexing labels..."
-msgstr ""
+msgstr "Mengindeks label..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect addressing uses an absolute address to look up another address. The first address gives the least significant byte of the address, and the following byte gives the most significant byte. That can be hard to wrap your head around, so here's an example:"
-msgstr ""
+msgstr "Pengalamatan indirect menggunakan alamat absolut untuk mencari alamat lain. Alamat pertama memberikan byte paling tidak signifikan dari alamat tersebut, dan byte berikutnya memberikan byte paling signifikan. Itu mungkin sulit dipahami, jadi berikut contohnya:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed is like indexed indirect but less insane. Instead of adding the <tt>X</tt> register to the address <i>before</i> dereferencing, the zero page address is dereferenced, and the <tt>Y</tt> register is added to the resulting address."
-msgstr ""
+msgstr "Indirect indexed seperti indexed indirect tetapi lebih tidak membingungkan. Alih-alih menambahkan register <tt>X</tt> ke alamat <i>sebelum</i> didereferensikan, alamat zero page didereferensikan terlebih dahulu, dan register <tt>Y</tt> ditambahkan ke alamat yang dihasilkan."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed: <tt>($c0),Y</tt>"
-msgstr ""
+msgstr "Indirect indexed: <tt>($c0),Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect: <tt>($c000)</tt>"
-msgstr ""
+msgstr "Indirect: <tt>($c000)</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Initialization"
-msgstr ""
+msgstr "Inisialisasi"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Instructions"
-msgstr ""
+msgstr "Instruksi"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Instructions in assembly language are like a small set of predefined functions. All instructions take zero or one arguments. Here's some annotated source code to introduce a few different instructions:"
-msgstr ""
+msgstr "Instruksi dalam bahasa assembly seperti sekumpulan fungsi kecil yang telah ditentukan. Semua instruksi mengambil nol atau satu argumen. Berikut beberapa kode sumber beranotasi untuk memperkenalkan beberapa instruksi yang berbeda:"
 
 #. TRANSLATORS: Screenshot caption for the interactive tutorial view
 msgid "Interactive tutorial"
-msgstr ""
+msgstr "Tutorial interaktif"
 
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
-msgstr ""
+msgstr "Tutorial interaktif memandu Anda dari pemula hingga mahir"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
-msgstr ""
+msgstr "Flag Interrupt: Saat diset, menutupi (menonaktifkan) semua interrupt yang dapat di-mask (IRQ). Hanya Non-Maskable Interrupt (NMI) yang masih dapat terjadi. Digunakan untuk bagian kode kritis yang tidak boleh diinterupsi."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Introduction"
-msgstr ""
+msgstr "Pengantar"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JMP"
-msgstr ""
+msgstr "JMP"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "JSR/RTS"
-msgstr ""
+msgstr "JSR/RTS"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping"
-msgstr ""
+msgstr "Jumping"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Jumping is like branching with two main differences. First, jumps are not conditionally executed, and second, they take a two-byte absolute address. For small programs, this second detail isn't very important, as you'll mostly be using labels, and the assembler works out the correct memory location from the label. For larger programs though, jumping is the only way to move from one section of the code to another."
-msgstr ""
+msgstr "Jumping seperti branching dengan dua perbedaan utama. Pertama, lompatan tidak dieksekusi secara kondisional, dan kedua, lompatan mengambil alamat absolut dua byte. Untuk program kecil, detail kedua ini tidak terlalu penting, karena Anda sebagian besar akan menggunakan label, dan assembler menghitung lokasi memori yang benar dari label tersebut. Namun untuk program yang lebih besar, jumping adalah satu-satunya cara untuk berpindah dari satu bagian kode ke bagian lainnya."
 
 #, javascript-format
 msgid "Label already defined at line %s: %d"
-msgstr ""
+msgstr "Label sudah didefinisikan di baris %s: %d"
 
 msgid "Label {label} is already used as a symbol; please rename one of them"
-msgstr ""
+msgstr "Label {label} sudah digunakan sebagai simbol; harap ganti nama salah satunya"
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"
-msgstr ""
+msgstr "Kegagalan label"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
 msgid "Learn"
-msgstr ""
+msgstr "Pelajari"
 
 #. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
-msgstr ""
+msgstr "Pelajari Assembly 6502"
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
-msgstr ""
+msgstr "Learn 6502 kini berjalan di GNOME 50! Terima kasih kepada Sabri Ünal atas kontribusi pembaruan runtime-nya."
 
 #. TRANSLATORS: Feature list item about learning history while coding
 msgid "Learn about computer history while coding"
-msgstr ""
+msgstr "Pelajari sejarah komputer sambil coding"
 
 #. TRANSLATORS: Short description of the Learn view
 #. TRANSLATORS: Short description of the Tutorial view
 msgid "Learn how to program the 6502 microprocessor."
-msgstr ""
+msgstr "Pelajari cara memprogram mikroprosesor 6502."
 
 msgid "Learn how to use the stack with PHA and PLA instructions"
-msgstr ""
+msgstr "Pelajari cara menggunakan stack dengan instruksi PHA dan PLA"
 
 #. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
 msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
-msgstr ""
+msgstr "Belajar dari contoh tidak pernah semudah ini. Selami kode yang berjalan, ubah, rusak, perbaiki lagi - begitulah cara programmer terbaik belajar dulu!"
 
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
-msgstr ""
+msgstr "Gaya terang"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
-msgstr ""
+msgstr "Peningkatan UI besar yang memperkenalkan Floating Action Button modern dengan status dinamis untuk kontrol program yang intuitif, dan widget debugger yang sepenuhnya didesain ulang menggunakan komponen Adwaita modern."
 
 #. TRANSLATORS: Release notes for version 0.2.0 - bug fixes
 msgid "Many minor bugs have been fixed to improve overall usabipty"
-msgstr ""
+msgstr "Banyak bug kecil telah diperbaiki untuk meningkatkan kegunaan secara keseluruhan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Memory Map"
-msgstr ""
+msgstr "Peta Memori"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
-msgstr ""
+msgstr "Lokasi memori <tt>$01</tt> dan <tt>$02</tt> masing-masing berisi nilai <tt>$05</tt> dan <tt>$07</tt>. Bayangkan <tt>($00,X)</tt> sebagai <tt>($00 + X)</tt>. Dalam hal ini <tt>X</tt> adalah <tt>$01</tt>, sehingga ini disederhanakan menjadi <tt>($01)</tt>. Dari sini proses berlanjut seperti pengalamatan indirect standar - dua byte di <tt>$01</tt> dan <tt>$02</tt> (<tt>$05</tt> dan <tt>$07</tt>) dicari untuk membentuk alamat <tt>$0705</tt>. Ini adalah alamat tempat register <tt>Y</tt> disimpan pada instruksi sebelumnya, sehingga register <tt>A</tt> mendapatkan nilai yang sama dengan <tt>Y</tt>, meskipun melalui jalur yang jauh lebih berputar. Anda tidak akan sering melihat ini."
 
 #. TRANSLATORS: Section heading label for console messages block
 msgid "Messages"
-msgstr ""
+msgstr "Pesan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Nearly all games have at their heart a game loop. All game loops have the same basic form: accept user input, update the game state, and render the game state. This loop is no different."
-msgstr ""
+msgstr "Hampir semua permainan memiliki game loop sebagai intinya. Semua game loop memiliki bentuk dasar yang sama: terima input pengguna, perbarui kondisi permainan, dan render kondisi permainan. Loop ini tidak berbeda."
 
 msgid "Negative Flag: Set when the most significant bit (bit 7) of the result is 1. Used for signed number comparisons and indicates if a value is negative in two's complement representation."
-msgstr ""
+msgstr "Flag Negative: Diset saat bit paling signifikan (bit 7) dari hasil adalah 1. Digunakan untuk perbandingan bilangan bertanda dan menandakan apakah suatu nilai negatif dalam representasi komplemen dua."
 
 #. TRANSLATORS: Release notes for version 0.2.0 - tooling additions
 msgid "New tools to examine your code, including disassembler and fast switchable memory viewer"
-msgstr ""
+msgstr "Alat baru untuk memeriksa kode Anda, termasuk disassembler dan penampil memori yang dapat dialihkan dengan cepat"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Next comes <tt>drawSnake</tt>. This is pretty simple too - we first undraw the tail and then draw the head. <tt>X</tt> is set to the length of the snake, so we can index to the right pixel, and we set <tt>A</tt> to zero then perform the write using the indexed indirect addressing mode. Then we reload <tt>X</tt> to index to the head, set <tt>A</tt> to one and store it at <tt>($10,x)</tt>. <tt>$10</tt> stores the two-byte location of the head, so this draws a white pixel at the current head position. As only the head and the tail of the snake move, this is enough to keep the snake moving."
-msgstr ""
+msgstr "Berikutnya adalah <tt>drawSnake</tt>. Ini juga cukup sederhana - pertama kita menghapus ekor lalu menggambar kepala. <tt>X</tt> diset ke panjang ular, sehingga kita dapat mengindeks ke piksel yang tepat, dan kita mengeset <tt>A</tt> ke nol lalu melakukan penulisan menggunakan mode pengalamatan indexed indirect. Kemudian kita memuat ulang <tt>X</tt> untuk mengindeks ke kepala, mengeset <tt>A</tt> ke satu dan menyimpannya di <tt>($10,x)</tt>. <tt>$10</tt> menyimpan lokasi dua byte dari kepala, sehingga ini menggambar piksel putih di posisi kepala saat ini. Karena hanya kepala dan ekor ular yang bergerak, ini sudah cukup untuk membuat ular bergerak."
 
 #. TRANSLATORS: Error shown when jumping to an address/label without providing any input
 msgid "No address or label provided"
-msgstr ""
+msgstr "Tidak ada alamat atau label yang diberikan"
 
 #. TRANSLATORS: Error when no instructions were assembled
 msgid "No code to run."
-msgstr ""
+msgstr "Tidak ada kode untuk dijalankan."
 
 #. TRANSLATORS: App Store description paragraph about onboarding for beginners
 msgid "No prior programming experience needed. Start with interactive lessons and build your skills step by step."
-msgstr ""
+msgstr "Tidak diperlukan pengalaman pemrograman sebelumnya. Mulailah dengan pelajaran interaktif dan bangun keterampilan Anda langkah demi langkah."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Now, let's put all this knowledge to good use, and make a game! We're going to be making a really simple version of the classic game 'Snake'."
-msgstr ""
+msgstr "Sekarang, mari manfaatkan semua pengetahuan ini dengan baik, dan buat sebuah permainan! Kita akan membuat versi sangat sederhana dari permainan klasik 'Snake'."
 
 #. Add OK button
 #. TRANSLATORS: Alert dialog response button label to confirm an action
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "On reset (simulator): <tt>P = $30</tt> (bit5 and <tt>B</tt> set; <tt>D</tt> and <tt>I</tt> clear)"
-msgstr ""
+msgstr "Saat reset (simulator): <tt>P = $30</tt> (bit5 dan <tt>B</tt> diset; <tt>D</tt> dan <tt>I</tt> clear)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Once the values have been shifted down the snake, we have to work out what to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</tt> means \"logical shift right\", or \"shift all the bits one position to the right\". The least significant bit is shifted into the carry flag, so if the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the carry flag set."
-msgstr ""
+msgstr "Setelah nilai-nilai digeser ke bawah ular, kita harus menentukan apa yang harus dilakukan dengan kepala. Arah pertama-tama dimuat ke <tt>A</tt>. <tt>LSR</tt> berarti \"logical shift right\", atau \"geser semua bit satu posisi ke kanan\". Bit paling tidak signifikan digeser ke flag carry, sehingga jika accumulator adalah <tt>1</tt>, setelah <tt>LSR</tt> nilainya menjadi <tt>0</tt> dengan flag carry diset."
 
 #. TRANSLATORS: File dialog title when choosing an assembly source file
 msgid "Open Assembly File"
-msgstr ""
+msgstr "Buka File Assembly"
 
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
-msgstr ""
+msgstr "Buka..."
 
 #. TRANSLATORS: Toast message title after opening a file, includes filename
 #, javascript-format
 msgid "Opened %s"
-msgstr ""
+msgstr "Dibuka %s"
 
 #. TRANSLATORS: Release notes for version 0.1.2
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
-msgstr ""
+msgstr "Mengoptimalkan konfigurasi Flatpak dengan menghapus izin yang tidak diperlukan"
 
 #. TRANSLATORS: Tooltip for accent color option Orange
 #. TRANSLATORS: Tooltip for primary color option Orange
 msgid "Orange"
-msgstr ""
+msgstr "Oranye"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Organized as four horizontal strips of 32×8 pixels"
-msgstr ""
+msgstr "Diorganisir sebagai empat strip horizontal berukuran 32×8 piksel"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Our first program"
-msgstr ""
+msgstr "Program pertama kita"
 
 #, javascript-format
 msgid "Out of range branch on line %d (branches are limited to -128 to +127): %s"
-msgstr ""
+msgstr "Branch di luar jangkauan pada baris %d (branch dibatasi dari -128 hingga +127): %s"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Overall structure"
-msgstr ""
+msgstr "Struktur keseluruhan"
 
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
-msgstr ""
+msgstr "Flag Overflow: Diset saat operasi aritmatika menghasilkan nilai yang tidak dapat direpresentasikan dalam rentang 8-bit bertanda (-128 hingga +127). Digunakan untuk mendeteksi kesalahan aritmatika bertanda dalam kalkulasi."
 
 #. TRANSLATORS: Main action button label to pause the running simulator
 msgid "Pause"
-msgstr ""
+msgstr "Jeda"
 
 #. TRANSLATORS: Closing paragraph targeting the audience
 msgid "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!"
-msgstr ""
+msgstr "Sempurna untuk penghobi, pelajar, dan siapa pun yang penasaran tentang cara kerja komputer sesungguhnya di balik layar!"
 
 #. TRANSLATORS: Tooltip for accent color option Pink
 #. TRANSLATORS: Tooltip for primary color option Pink
 msgid "Pink"
-msgstr ""
+msgstr "Merah Muda"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Game Console view
 msgid "Play"
-msgstr ""
+msgstr "Putar"
 
 msgid "Preprocessing ..."
-msgstr ""
+msgstr "Memproses..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
-msgstr ""
+msgstr "Tekan <b>Step</b> lagi untuk mengeksekusi instruksi kedua. Piksel kiri atas konsol permainan sekarang seharusnya berwarna putih. Simulator ini menggunakan lokasi memori <tt>$0200</tt> hingga <tt>$05ff</tt> untuk menggambar piksel pada tampilannya. Nilai <tt>$00</tt> hingga <tt>$0f</tt> mewakili 16 warna berbeda (<tt>$00</tt> adalah hitam dan <tt>$01</tt> adalah putih), sehingga menyimpan nilai <tt>$01</tt> di lokasi memori <tt>$0200</tt> menggambar piksel putih di sudut kiri atas. Ini lebih sederhana dari cara komputer sebenarnya mengeluarkan video, tetapi sudah cukup untuk saat ini."
 
 #. TRANSLATORS: Label for next button in share dialog
 msgid "Preview"
-msgstr ""
+msgstr "Pratinjau"
 
 #. TRANSLATORS: Title for preview page in share dialog
 msgid "Preview Your Example"
-msgstr ""
+msgstr "Pratinjau Contoh Anda"
 
 #. TRANSLATORS: Tooltip for back button in share dialog
 msgid "Previous"
-msgstr ""
+msgstr "Sebelumnya"
 
 #. TRANSLATORS: Preferences group title for primary color selection
 msgid "Primary color"
-msgstr ""
+msgstr "Warna primer"
 
 #. TRANSLATORS: Accessibility label for primary color option Blue
 msgid "Primary: Blue"
-msgstr ""
+msgstr "Primer: Biru"
 
 #. TRANSLATORS: Accessibility label for primary color option Green
 msgid "Primary: Green"
-msgstr ""
+msgstr "Primer: Hijau"
 
 #. TRANSLATORS: Accessibility label for primary color option Orange
 msgid "Primary: Orange"
-msgstr ""
+msgstr "Primer: Oranye"
 
 #. TRANSLATORS: Accessibility label for primary color option Pink
 msgid "Primary: Pink"
-msgstr ""
+msgstr "Primer: Merah Muda"
 
 #. TRANSLATORS: Accessibility label for primary color option Purple
 msgid "Primary: Purple"
-msgstr ""
+msgstr "Primer: Ungu"
 
 #. TRANSLATORS: Accessibility label for primary color option Red
 msgid "Primary: Red"
-msgstr ""
+msgstr "Primer: Merah"
 
 #. TRANSLATORS: Accessibility label for primary color option Slate
 msgid "Primary: Slate"
-msgstr ""
+msgstr "Primer: Slate"
 
 #. TRANSLATORS: Accessibility label for primary color option Teal
 msgid "Primary: Teal"
-msgstr ""
+msgstr "Primer: Teal"
 
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
-msgstr ""
+msgstr "Primer: Kuning"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
-msgstr ""
+msgstr "Flag Prosesor"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Processor Status Register"
-msgstr ""
+msgstr "Register Status Prosesor"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Program Counter: Points to next instruction"
-msgstr ""
+msgstr "Program Counter: Menunjuk ke instruksi berikutnya"
 
 #. TRANSLATORS: Dropdown option label for program storage range
 msgid "Program Storage ($0600-$FFFF)"
-msgstr ""
+msgstr "Penyimpanan Program ($0600-$FFFF)"
 
 #. TRANSLATORS: Info message shown when program finishes execution at address
 #, javascript-format
 msgid "Program completed at PC=$%s"
-msgstr ""
+msgstr "Program selesai di PC=$%s"
 
 #. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"
-msgstr ""
+msgstr "Program dijeda"
 
 msgid "Program vintage game consoles"
-msgstr ""
+msgstr "Program konsol permainan vintage"
 
 #. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
 msgid "Purple"
-msgstr ""
+msgstr "Ungu"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Quick tips"
-msgstr ""
+msgstr "Tips cepat"
 
 #. TRANSLATORS: Quit application menu item label
 msgid "Quit"
-msgstr ""
+msgstr "Keluar"
 
 #. TRANSLATORS: Dropdown option label for random/input IO range
 msgid "Random/Input ($FE-$FF)"
-msgstr ""
+msgstr "Acak/Input ($FE-$FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Reading the input"
-msgstr ""
+msgstr "Membaca input"
 
 #. TRANSLATORS: Tooltip for accent color option Red
 #. TRANSLATORS: Tooltip for primary color option Red
 msgid "Red"
-msgstr ""
+msgstr "Merah"
 
 #. TRANSLATORS: Release notes for version 0.1.1
 msgid "Reduced default hex monitor address range for better efficiency"
-msgstr ""
+msgstr "Mengurangi rentang alamat monitor hex default untuk efisiensi yang lebih baik"
 
 #. TRANSLATORS: Section heading title on Debugger page for registers
 msgid "Registers"
-msgstr ""
+msgstr "Register"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Registers and flags"
-msgstr ""
+msgstr "Register dan flag"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Relative addressing is used for branching instructions. These instructions take a single byte, which is used as an offset from the following instruction."
-msgstr ""
+msgstr "Pengalamatan relative digunakan untuk instruksi branching. Instruksi ini mengambil satu byte, yang digunakan sebagai offset dari instruksi berikutnya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Relative: <tt>$c0</tt> (or label)"
-msgstr ""
+msgstr "Relative: <tt>$c0</tt> (atau label)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Rendering the game"
-msgstr ""
+msgstr "Merender permainan"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
 msgid "Reset"
-msgstr ""
+msgstr "Reset"
 
 #. TRANSLATORS: Main action button label to continue execution after pause
 msgid "Resume"
-msgstr ""
+msgstr "Lanjutkan"
 
 #. TRANSLATORS: Description for preview page with GitHub account info
 msgid "Review how your example will appear to others. Clicking <b>Submit</b> will create a issue on GitHub. You'll need to sign in with your GitHub account to complete the submission."
-msgstr ""
+msgstr "Tinjau tampilan contoh Anda bagi orang lain. Mengklik <b>Kirim</b> akan membuat sebuah issue di GitHub. Anda perlu masuk dengan akun GitHub Anda untuk menyelesaikan pengiriman."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Rewrite the first example in this section to use the <tt>Y</tt> register instead of the <tt>X</tt> register."
-msgstr ""
+msgstr "Tulis ulang contoh pertama di bagian ini untuk menggunakan register <tt>Y</tt> alih-alih register <tt>X</tt>."
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
 msgid "Run"
-msgstr ""
+msgstr "Jalankan"
 
 #. TRANSLATORS: Screenshot caption for the snake game running in the virtual console
 msgid "Running Snake game"
-msgstr ""
+msgstr "Menjalankan permainan Snake"
 
 #. TRANSLATORS: Menu item to save the current file
 msgid "Save"
-msgstr ""
+msgstr "Simpan"
 
 #. TRANSLATORS: File dialog title for saving a new assembly file
 msgid "Save Assembly File"
-msgstr ""
+msgstr "Simpan File Assembly"
 
 #. TRANSLATORS: Menu item to save to a new file (Save As)
 msgid "Save as..."
-msgstr ""
+msgstr "Simpan sebagai..."
 
 #. TRANSLATORS: Alert dialog heading when unsaved changes are present
 msgid "Save changes?"
-msgstr ""
+msgstr "Simpan perubahan?"
 
 #. TRANSLATORS: Toast message title after saving file successfully, includes filename
 #, javascript-format
 msgid "Saved as %s"
-msgstr ""
+msgstr "Disimpan sebagai %s"
 
 #. TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations
 msgid "Say hello to many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)"
-msgstr ""
+msgstr "Sambut banyak terjemahan baru: Prancis, Interlingua, Portugis, Portugis (Brasil), Belanda, Spanyol, Ukraina, Jepang, dan Mandarin (Sederhana)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
-msgstr ""
+msgstr "Layar dipetakan ke rentang memori <tt>$0200</tt>-<tt>$05FF</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
-msgstr ""
+msgstr "Sungguh, saya pikir memiliki pemahaman tentang bahasa assembly itu berharga. Bahasa assembly adalah tingkat abstraksi terendah dalam komputer - titik di mana kode masih dapat dibaca. Bahasa assembly diterjemahkan langsung ke byte yang dieksekusi oleh prosesor komputer Anda. Jika Anda memahami cara kerjanya, Anda pada dasarnya telah menjadi <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">pesulap</a> komputer."
 
 #. TRANSLATORS: Debugger page settings group title
 msgid "Settings"
-msgstr ""
+msgstr "Pengaturan"
 
 #. TRANSLATORS: Menu item to share the current code
 #. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
-msgstr ""
+msgstr "Bagikan"
 
 msgid "Share Example"
-msgstr ""
+msgstr "Bagikan Contoh"
 
 #. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
 msgid "Share Your Example"
-msgstr ""
+msgstr "Bagikan Contoh Anda"
 
 #. TRANSLATORS: Release notes for version 0.6.2 - CC-BY-4.0 license for shared examples
 msgid "Shared code examples now include CC-BY-4.0 license information, making it clear how the community can use and build upon your contributions."
-msgstr ""
+msgstr "Contoh kode yang dibagikan kini menyertakan informasi lisensi CC-BY-4.0, sehingga jelas bagaimana komunitas dapat menggunakan dan mengembangkan kontribusi Anda."
 
 #. TRANSLATORS: App Store search keyword
 msgid "Simulator"
-msgstr ""
+msgstr "Simulator"
 
 #. TRANSLATORS: Toast message title when simulator reports a failure
 msgid "Simulator failure"
-msgstr ""
+msgstr "Kegagalan simulator"
 
 #. TRANSLATORS: Tooltip for accent color option Slate
 #. TRANSLATORS: Tooltip for primary color option Slate
 msgid "Slate"
-msgstr ""
+msgstr "Slate"
 
 #. TRANSLATORS: Example title for the Snake game
 msgid "Snake Game"
-msgstr ""
+msgstr "Permainan Snake"
 
 #. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
 msgid "Snake Game Data ($00-$15)"
-msgstr ""
+msgstr "Data Permainan Snake ($00-$15)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Snake Game Memory Usage"
-msgstr ""
+msgstr "Penggunaan Memori Permainan Snake"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So far we're only able to write basic programs without any branching logic. Let's change that."
-msgstr ""
+msgstr "Sejauh ini kita hanya dapat menulis program dasar tanpa logika percabangan. Mari kita ubah itu."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then click the button in the top right to assemble the code, then click it again to run the program. You can also access these actions through the dropdown menu."
-msgstr ""
+msgstr "Jadi, mari kita mulai! Aplikasi ini berisi <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">Assembler dan Simulator 6502 berbasis JavaScript</a> yang telah saya adaptasi untuk tutorial interaktif ini. Klik tombol <b>Salin</b> pada blok kode di bawah untuk menyalin contoh kode ke editor. Kemudian klik tombol di kanan atas untuk meng-assemble kode, lalu klik lagi untuk menjalankan program. Anda juga dapat mengakses tindakan-tindakan ini melalui menu dropdown."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", so in this case we'll branch to <tt>illegalMove</tt>, which just returns from the subroutine. Otherwise, the new direction (1 in this case) is stored in the appropriate memory location."
-msgstr ""
+msgstr "Jadi, melihat <tt>upKey</tt>, jika arah saat ini adalah bawah (4), pengujian bit akan menghasilkan nol. <tt>BNE</tt> berarti \"branch jika flag zero clear\", sehingga dalam hal ini kita akan melakukan branch ke <tt>illegalMove</tt>, yang hanya kembali dari subrutin. Jika tidak, arah baru (1 dalam hal ini) disimpan di lokasi memori yang sesuai."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, the instruction <tt>STA $0200</tt> stores the value of the <tt>A</tt> register to memory location <tt>$0200</tt>. Click <b>Step</b> four more times to execute the rest of the instructions, keeping an eye on the <tt>A</tt> register as it changes."
-msgstr ""
+msgstr "Jadi, instruksi <tt>STA $0200</tt> menyimpan nilai register <tt>A</tt> ke lokasi memori <tt>$0200</tt>. Klik <b>Step</b> empat kali lagi untuk mengeksekusi sisa instruksi, sambil mengamati register <tt>A</tt> saat berubah."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, what's this program actually doing? Let's step through it. Hit <b>Reset</b>, then select <b>Step</b> from the dropdown menu. The button will switch to step mode, allowing you to execute the program one instruction at a time. Click once and you'll notice in the debugger that <tt>A=</tt> changed from <tt>$00</tt> to <tt>$01</tt>, and <tt>PC=</tt> changed from <tt>$0600</tt> to <tt>$0602</tt>."
-msgstr ""
+msgstr "Jadi, apa yang sebenarnya dilakukan program ini? Mari kita telusuri langkah demi langkah. Tekan <b>Reset</b>, lalu pilih <b>Step</b> dari menu dropdown. Tombol akan beralih ke mode step, memungkinkan Anda mengeksekusi program satu instruksi sekaligus. Klik sekali dan Anda akan melihat di debugger bahwa <tt>A=</tt> berubah dari <tt>$00</tt> menjadi <tt>$01</tt>, dan <tt>PC=</tt> berubah dari <tt>$0600</tt> menjadi <tt>$0602</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, why would you want to learn 6502? It's a dead language isn't it? Well, so's Latin. And they still teach that. <a href=\"https://en.wikipedia.org/wiki/Q.E.D.\">Q.E.D.</a>"
-msgstr ""
+msgstr "Jadi, mengapa Anda ingin belajar 6502? Ini adalah bahasa yang sudah mati, bukan? Memang begitu juga dengan bahasa Latin. Dan mereka masih mengajarkannya. <a href=\"https://en.wikipedia.org/wiki/Q.E.D.\">Q.E.D.</a>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Some instructions don't deal with memory locations (e.g. <tt>INX</tt> - increment the <tt>X</tt> register). These are said to have implicit addressing - the argument is implied by the instruction."
-msgstr ""
+msgstr "Beberapa instruksi tidak berurusan dengan lokasi memori (misalnya <tt>INX</tt> - naikkan register <tt>X</tt>). Instruksi-instruksi ini dikatakan memiliki pengalamatan implisit - argumennya tersirat oleh instruksi itu sendiri."
 
 #. TRANSLATORS: Entry label for optional source URL
 msgid "Source URL"
-msgstr ""
+msgstr "URL sumber"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Special Memory Locations (in Simulator)"
-msgstr ""
+msgstr "Lokasi Memori Khusus (dalam Simulator)"
 
 #. TRANSLATORS: Dropdown option label for stack memory range
 msgid "Stack ($0100-$01FF)"
-msgstr ""
+msgstr "Stack ($0100-$01FF)"
 
 msgid "Stack Example"
-msgstr ""
+msgstr "Contoh Stack"
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Stack Pointer: Points to stack position"
-msgstr ""
+msgstr "Stack Pointer: Menunjuk ke posisi stack"
 
 #. TRANSLATORS: Section heading title on Debugger page for status flags
 msgid "Status Flags"
-msgstr ""
+msgstr "Flag Status"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
 msgid "Step"
-msgstr ""
+msgstr "Step"
 
 #. TRANSLATORS: Description for tutorial section
 msgid "Step-by-step guide to 6502 assembly"
-msgstr ""
+msgstr "Panduan langkah demi langkah untuk assembly 6502"
 
 #. TRANSLATORS: Status line shown when simulator execution stops
 msgid "Stopped"
-msgstr ""
+msgstr "Dihentikan"
 
 #. TRANSLATORS: Preferences group title for theme style selection
 msgid "Style"
-msgstr ""
+msgstr "Gaya"
 
 #. TRANSLATORS: Close button on completion page
 msgid "Submit"
-msgstr ""
+msgstr "Kirim"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
-msgstr ""
+msgstr "Kesalahan sintaks baris %d: %s"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
-msgstr ""
+msgstr "Teal"
 
 #. TRANSLATORS: Release notes for version 0.6.4 - Finnish translation
 msgid "Tervetuloa! We are happy to welcome Finnish translations, kindly contributed by Jiri Grönroos. Kiitos!"
-msgstr ""
+msgstr "Tervetuloa! Kami dengan senang hati menyambut terjemahan bahasa Finlandia, yang dengan baik hati dikontribusikan oleh Jiri Grönroos. Kiitos!"
 
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
-msgstr ""
+msgstr "Uji kreasi Anda pada konsol permainan virtual"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
-msgstr ""
+msgstr "6502 menggunakan bus alamat 16-bit, yang berarti ada 65536 byte memori yang tersedia untuk prosesor. Ingat bahwa satu byte direpresentasikan oleh dua karakter hex, sehingga lokasi memori umumnya direpresentasikan sebagai <tt>$0000 - $ffff</tt>. Ada berbagai cara untuk merujuk ke lokasi memori ini, seperti yang dijelaskan di bawah."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is only used to set the zero flag - the actual result is discarded. The zero flag is set only if the result of AND-ing the accumulator with argument is zero. When we're looking at powers of two, the zero flag will only be set if the two numbers are not the same. For example, <tt>0001 AND 0001</tt> is not zero, but <tt>0001 AND 0010</tt> is zero."
-msgstr ""
+msgstr "Opcode <tt>BIT</tt> mirip dengan <tt>AND</tt>, tetapi kalkulasinya hanya digunakan untuk mengeset flag zero - hasil aktualnya dibuang. Flag zero hanya diset jika hasil operasi AND antara accumulator dan argumen adalah nol. Saat kita melihat pangkat dua, flag zero hanya akan diset jika kedua angka tidak sama. Misalnya, <tt>0001 AND 0001</tt> bukan nol, tetapi <tt>0001 AND 0010</tt> adalah nol."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>init</tt> subroutine defers to two subroutines, <tt>initSnake</tt> and <tt>generateApplePosition</tt>. <tt>initSnake</tt> sets the snake direction, length, and then loads the initial memory locations of the snake head and body. The byte pair at <tt>$10</tt> contains the screen location of the head, the pair at <tt>$12</tt> contains the location of the single body segment, and <tt>$14</tt> contains the location of the tail (the tail is the last segment of the body and is drawn in black to keep the snake moving). This happens in the following code:"
-msgstr ""
+msgstr "Subrutin <tt>init</tt> mendelegasikan ke dua subrutin, <tt>initSnake</tt> dan <tt>generateApplePosition</tt>. <tt>initSnake</tt> mengatur arah ular, panjang, lalu memuat lokasi memori awal dari kepala dan badan ular. Pasangan byte di <tt>$10</tt> berisi lokasi layar dari kepala, pasangan di <tt>$12</tt> berisi lokasi segmen badan tunggal, dan <tt>$14</tt> berisi lokasi ekor (ekor adalah segmen terakhir dari badan dan digambar dengan warna hitam agar ular tetap bergerak). Ini terjadi dalam kode berikut:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>loop</tt> subroutine itself just calls a number of subroutines sequentially, before looping back on itself:"
-msgstr ""
+msgstr "Subrutin <tt>loop</tt> itu sendiri hanya memanggil sejumlah subrutin secara berurutan, sebelum kembali berulang pada dirinya sendiri:"
 
 #. TRANSLATORS: Detailed description of Accumulator register
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
-msgstr ""
+msgstr "Accumulator (A) adalah register utama untuk operasi aritmatika dan logika. Semua kalkulasi dasar seperti TAMBAH, KURANG, AND, OR, dll. menggunakan register ini. Ini adalah register yang paling sering digunakan dalam pemrograman assembly 6502."
 
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
-msgstr ""
+msgstr "Program Counter berisi alamat memori dari instruksi berikutnya yang akan dieksekusi. Ia secara otomatis bertambah setelah setiap instruksi dan dapat dimodifikasi oleh lompatan, percabangan, panggilan, dan pengembalian. Penting untuk kontrol alur program dan debugging."
 
 #. TRANSLATORS: Detailed description of Stack Pointer register
 msgid "The Stack Pointer manages the call stack for subroutines and interrupts. It starts at $FF (top of stack) and grows downward. Used for PUSH/PULL operations, JSR/RTS calls, and interrupt handling. Critical for nested function calls."
-msgstr ""
+msgstr "Stack Pointer mengelola call stack untuk subrutin dan interrupt. Dimulai dari $FF (bagian atas stack) dan tumbuh ke bawah. Digunakan untuk operasi PUSH/PULL, panggilan JSR/RTS, dan penanganan interrupt. Kritis untuk panggilan fungsi bersarang."
 
 #. TRANSLATORS: Detailed description of X Index register
 msgid "The X Index Register is used for indexed addressing modes and counting operations. It can hold loop counters, array indices, and is essential for accessing memory locations relative to a base address using X as an offset. Special: TSX/TXS transfer X to/from the stack pointer."
-msgstr ""
+msgstr "Register Indeks X digunakan untuk mode pengalamatan terindeks dan operasi penghitungan. Dapat menyimpan penghitung loop, indeks array, dan penting untuk mengakses lokasi memori relatif terhadap alamat dasar menggunakan X sebagai offset. Khusus: TSX/TXS mentransfer X ke/dari stack pointer."
 
 #. TRANSLATORS: Detailed description of Y Index register
 msgid "The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement."
-msgstr ""
+msgstr "Register Indeks Y mirip dengan X dan tidak memiliki fungsi khusus. Umumnya digunakan untuk pengalamatan terindeks dan perpindahan data."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
-msgstr ""
+msgstr "Layar konsol permainan yang hitam kini seharusnya menampilkan tiga \"piksel\" berwarna di kiri atas."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The code block below contains the entire source code of the game. I'll explain how it works in the following sections."
-msgstr ""
+msgstr "Blok kode di bawah berisi seluruh kode sumber permainan. Saya akan menjelaskan cara kerjanya di bagian-bagian berikut."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The effect of this is to mask out the least significant two bits of the accumulator, setting the others to zero. This converts a number in the range of 0–255 to a number in the range of 0–3."
-msgstr ""
+msgstr "Efek dari ini adalah menutupi dua bit paling tidak signifikan dari accumulator, mengatur yang lainnya ke nol. Ini mengkonversi angka dalam rentang 0–255 menjadi angka dalam rentang 0–3."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first instruction causes execution to jump to the <tt>init</tt> label. This sets <tt>X</tt>, then returns to the next instruction, <tt>JSR loop</tt>. This jumps to the <tt>loop</tt> label, which increments <tt>X</tt> until it is equal to <tt>$05</tt>. After that we return to the next instruction, <tt>JSR end</tt>, which jumps to the end of the file. This illustrates how <tt>JSR</tt> and <tt>RTS</tt> can be used together to create modular code."
-msgstr ""
+msgstr "Instruksi pertama menyebabkan eksekusi melompat ke label <tt>init</tt>. Ini mengeset <tt>X</tt>, kemudian kembali ke instruksi berikutnya, <tt>JSR loop</tt>. Ini melompat ke label <tt>loop</tt>, yang menaikkan <tt>X</tt> hingga sama dengan <tt>$05</tt>. Setelah itu kita kembali ke instruksi berikutnya, <tt>JSR end</tt>, yang melompat ke akhir file. Ini mengilustrasikan bagaimana <tt>JSR</tt> dan <tt>RTS</tt> dapat digunakan bersama untuk membuat kode yang modular."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first line shows the <tt>A</tt>, <tt>X</tt> and <tt>Y</tt> registers (<tt>A</tt> is often called the \"accumulator\"). Each register holds a single byte. Most operations work on the contents of these registers."
-msgstr ""
+msgstr "Baris pertama menampilkan register <tt>A</tt>, <tt>X</tt>, dan <tt>Y</tt> (<tt>A</tt> sering disebut \"accumulator\"). Setiap register menyimpan satu byte. Sebagian besar operasi bekerja pada isi register-register ini."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first subroutine, <tt>readKeys</tt>, takes the job of accepting user input. The memory location <tt>$ff</tt> holds the ascii code of the most recent key press in this simulator. The value is loaded into the accumulator, then compared to <tt>$77</tt> (the hex code for W), <tt>$64</tt> (D), <tt>$73</tt> (S) and <tt>$61</tt> (A). If any of these comparisons are successful, the program branches to the appropriate section."
-msgstr ""
+msgstr "Subrutin pertama, <tt>readKeys</tt>, mengambil tugas menerima input pengguna. Lokasi memori <tt>$ff</tt> menyimpan kode ASCII dari penekanan tombol terbaru dalam simulator ini. Nilai dimuat ke dalam accumulator, kemudian dibandingkan dengan <tt>$77</tt> (kode hex untuk W), <tt>$64</tt> (D), <tt>$73</tt> (S), dan <tt>$61</tt> (A). Jika salah satu perbandingan ini berhasil, program melakukan branch ke bagian yang sesuai."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first two bytes hold the location of the apple. This is updated every time the snake eats the apple. Byte <tt>$02</tt> contains the current direction. <tt>1</tt> means up, <tt>2</tt> right, <tt>4</tt> down, and <tt>8</tt> left. The reasoning behind these numbers will become clear later."
-msgstr ""
+msgstr "Dua byte pertama menyimpan lokasi apel. Ini diperbarui setiap kali ular memakan apel. Byte <tt>$02</tt> berisi arah saat ini. <tt>1</tt> berarti atas, <tt>2</tt> kanan, <tt>4</tt> bawah, dan <tt>8</tt> kiri. Alasan di balik angka-angka ini akan menjadi jelas nanti."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The game loop"
-msgstr ""
+msgstr "Game loop"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex should look something like this:"
-msgstr ""
+msgstr "Hex-nya seharusnya terlihat seperti ini:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The hex value <tt>$03</tt> is represented in binary as <tt>00000011</tt>. The <tt>AND</tt> opcode performs a bitwise AND of the argument with the accumulator. For example, if the accumulator contains the binary value <tt>10101010</tt>, then the result of <tt>AND</tt> with <tt>00000011</tt> will be <tt>00000010</tt>."
-msgstr ""
+msgstr "Nilai hex <tt>$03</tt> direpresentasikan dalam biner sebagai <tt>00000011</tt>. Opcode <tt>AND</tt> melakukan operasi AND bitwise antara argumen dengan accumulator. Misalnya, jika accumulator berisi nilai biner <tt>10101010</tt>, maka hasil <tt>AND</tt> dengan <tt>00000011</tt> akan menjadi <tt>00000010</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last section shows the processor flags. Each flag is one bit, so all seven flags live in a single byte. The flags are set by the processor to give information about the previous instruction. More on that later. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Read more about the registers and flags here</a>."
-msgstr ""
+msgstr "Bagian terakhir menampilkan flag prosesor. Setiap flag adalah satu bit, sehingga semua tujuh flag berada dalam satu byte. Flag-flag diset oleh prosesor untuk memberikan informasi tentang instruksi sebelumnya. Lebih lanjut tentang itu nanti. <a href=\"https://web.archive.org/web/20210626024532/http://www.obelisk.me.uk/6502/registers.html\">Baca lebih lanjut tentang register dan flag di sini</a>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last subroutine, <tt>spinWheels</tt>, is just there because the game would run too fast otherwise. All <tt>spinWheels</tt> does is count <tt>X</tt> down from zero until it hits zero again. The first <tt>dex</tt> wraps, making <tt>X</tt> <tt>#$ff</tt>."
-msgstr ""
+msgstr "Subrutin terakhir, <tt>spinWheels</tt>, hanya ada karena permainan akan berjalan terlalu cepat jika tidak ada. Yang dilakukan <tt>spinWheels</tt> hanyalah menghitung mundur <tt>X</tt> dari nol hingga mencapai nol lagi. <tt>dex</tt> pertama melingkar balik, membuat <tt>X</tt> menjadi <tt>#$ff</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive (<tt>BPL</tt> means \"branch if positive\")."
-msgstr ""
+msgstr "Panjang diinisialisasi ke <tt>4</tt>, sehingga <tt>X</tt> dimulai sebagai <tt>3</tt>. <tt>LDA $10,x</tt> memuat nilai <tt>$13</tt> ke dalam <tt>A</tt>, lalu <tt>STA $12,x</tt> menyimpan nilai ini ke <tt>$15</tt>. <tt>X</tt> dikurangi, dan kita melakukan loop. Sekarang <tt>X</tt> adalah <tt>2</tt>, sehingga kita memuat <tt>$12</tt> dan menyimpannya ke <tt>$14</tt>. Ini berulang selama <tt>X</tt> positif (<tt>BPL</tt> berarti \"branch jika positif\")."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next bit updates the head of the snake depending on the direction. This is probably the most complicated part of the code, and it's all reliant on how memory locations map to the screen, so let's look at that in more detail."
-msgstr ""
+msgstr "Bagian berikutnya memperbarui kepala ular tergantung pada arahnya. Ini mungkin bagian paling rumit dari kode, dan semuanya bergantung pada bagaimana lokasi memori dipetakan ke layar, jadi mari kita lihat lebih detail."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next line, <tt>BNE decrement</tt>, will shift execution to the decrement label if the <tt>Z</tt> flag is set to <tt>0</tt> (meaning that the two values in the <tt>CPX</tt> comparison were not equal), otherwise it does nothing and we store <tt>X</tt> to <tt>$0201</tt>, then finish the program."
-msgstr ""
+msgstr "Baris berikutnya, <tt>BNE decrement</tt>, akan mengalihkan eksekusi ke label decrement jika flag <tt>Z</tt> diset ke <tt>0</tt> (yang berarti dua nilai dalam perbandingan <tt>CPX</tt> tidak sama), jika tidak maka tidak melakukan apa-apa dan kita menyimpan <tt>X</tt> ke <tt>$0201</tt>, lalu menyelesaikan program."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>checkCollision</tt>, defers to <tt>checkAppleCollision</tt> and <tt>checkSnakeCollision</tt>. <tt>checkAppleCollision</tt> just checks to see if the two bytes holding the location of the apple match the two bytes holding the location of the head. If they do, the length is increased and a new apple position is generated."
-msgstr ""
+msgstr "Subrutin berikutnya, <tt>checkCollision</tt>, mendelegasikan ke <tt>checkAppleCollision</tt> dan <tt>checkSnakeCollision</tt>. <tt>checkAppleCollision</tt> hanya memeriksa apakah dua byte yang menyimpan lokasi apel cocok dengan dua byte yang menyimpan lokasi kepala. Jika cocok, panjang ditambah dan posisi apel baru dibuat."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
-msgstr ""
+msgstr "Subrutin berikutnya, <tt>generateApplePosition</tt>, mengatur lokasi apel ke posisi acak pada tampilan. Pertama, ia memuat byte acak ke dalam accumulator (<tt>$fe</tt> adalah generator bilangan acak dalam simulator ini). Ini disimpan ke <tt>$00</tt>. Selanjutnya, byte acak yang berbeda dimuat ke dalam accumulator, yang kemudian di-<tt>AND</tt>-kan dengan nilai <tt>$03</tt>. Bagian ini memerlukan sedikit pengalihan."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."
-msgstr ""
+msgstr "Kebalikan dari <tt>ADC</tt> adalah <tt>SBC</tt> (subtract with carry). Tulislah sebuah program yang menggunakan instruksi ini."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>BNE</tt> is <tt>BEQ</tt>. Try writing a program that uses <tt>BEQ</tt>."
-msgstr ""
+msgstr "Kebalikan dari <tt>BNE</tt> adalah <tt>BEQ</tt>. Coba tulis sebuah program yang menggunakan <tt>BEQ</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The problem is, <tt>$184</tt> is too big to fit in a single byte (the max is <tt>$FF</tt>), and the registers can only hold a single byte. It's OK though; the processor isn't actually dumb. If you were looking carefully enough, you'll have noticed that the carry flag was set to <tt>1</tt> after this operation. So that's how you know."
-msgstr ""
+msgstr "Masalahnya adalah, <tt>$184</tt> terlalu besar untuk muat dalam satu byte (maksimumnya adalah <tt>$FF</tt>), dan register hanya dapat menyimpan satu byte. Tidak apa-apa; prosesor sebenarnya tidak bodoh. Jika Anda memperhatikan dengan cukup seksama, Anda akan melihat bahwa flag carry diset ke <tt>1</tt> setelah operasi ini. Jadi begitulah cara Anda mengetahuinya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The processor knows where to return to because <tt>JSR</tt> pushes the address minus one of the next instruction onto the stack before jumping to the given location. <tt>RTS</tt> pops this location, adds one to it, and jumps to that location. An example:"
-msgstr ""
+msgstr "Prosesor mengetahui ke mana harus kembali karena <tt>JSR</tt> mendorong alamat dikurangi satu dari instruksi berikutnya ke stack sebelum melompat ke lokasi yang diberikan. <tt>RTS</tt> mengambil lokasi ini, menambahkan satu padanya, dan melompat ke lokasi tersebut. Contohnya:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The result of this subroutine is to load a random byte into <tt>$00</tt>, and a random number between 2 and 5 into <tt>$01</tt>. Because the least significant byte comes first with indirect addressing, this translates into a memory address between <tt>$0200</tt> and <tt>$05ff</tt>: the exact range used to draw the display."
-msgstr ""
+msgstr "Hasil dari subrutin ini adalah memuat byte acak ke dalam <tt>$00</tt>, dan bilangan acak antara 2 dan 5 ke dalam <tt>$01</tt>. Karena byte paling tidak signifikan didahulukan dalam pengalamatan indirect, ini diterjemahkan menjadi alamat memori antara <tt>$0200</tt> dan <tt>$05ff</tt>: tepat rentang yang digunakan untuk menggambar tampilan."
 
 #. TRANSLATORS: Example description for the Snake game
 msgid "The snake game from the tutorial"
-msgstr ""
+msgstr "Permainan snake dari tutorial"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack"
-msgstr ""
+msgstr "Stack"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
-msgstr ""
+msgstr "Stack dalam prosesor 6502 sama seperti stack lainnya - nilai di-push ke dalamnya dan di-pop (\"pull\" dalam istilah 6502) darinya. Kedalaman stack saat ini diukur oleh stack pointer, sebuah register khusus. Stack berada dalam memori antara <tt>$0100</tt> dan <tt>$01ff</tt>. Stack pointer awalnya adalah <tt>$ff</tt>, yang menunjuk ke lokasi memori <tt>$01ff</tt>. Saat satu byte di-push ke stack, stack pointer menjadi <tt>$fe</tt>, atau lokasi memori <tt>$01fe</tt>, dan seterusnya."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
-msgstr ""
+msgstr "Zero page memori digunakan untuk menyimpan sejumlah variabel kondisi permainan, sebagaimana dicatat dalam blok komentar di bagian atas permainan. Segalanya di <tt>$00</tt>, <tt>$01</tt> dan <tt>$10</tt> ke atas adalah pasangan byte yang merepresentasikan lokasi memori dua byte yang akan dicari menggunakan pengalamatan indirect. Lokasi memori ini semuanya akan berada antara <tt>$0200</tt> dan <tt>$05ff</tt> - bagian memori yang sesuai dengan konsol permainan. Misalnya, jika <tt>$00</tt> dan <tt>$01</tt> berisi nilai <tt>$01</tt> dan <tt>$02</tt>, mereka akan merujuk ke piksel kedua dari tampilan (<tt>$0201</tt> - ingat, byte paling tidak signifikan didahulukan dalam pengalamatan indirect)."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr ""
+msgstr "Lalu mengapa 6502? Mengapa bukan bahasa assembly yang <i>berguna</i>, seperti <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Saya tidak pikir mempelajari x86 itu berguna. Saya rasa Anda tidak akan pernah harus <i>menulis</i> bahasa assembly dalam pekerjaan sehari-hari - bagi sebagian orang ini adalah latihan akademis, sesuatu untuk memperluas pikiran dan cara berpikir Anda. 6502 awalnya ditulis di era yang berbeda, saat sebagian besar pengembang menulis assembly secara langsung, bukan dalam bahasa pemrograman tingkat tinggi yang baru ini. Jadi, ia dirancang untuk ditulis oleh manusia. Bahasa assembly yang lebih modern dimaksudkan untuk ditulis oleh kompiler, jadi mari kita serahkan kepada mereka. Selain itu, 6502 itu <i>menyenangkan</i>. Tidak ada yang pernah menyebut x86 itu <i>menyenangkan</i>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
-msgstr ""
+msgstr "Ada juga alasan yang sangat praktis: pengembangan game retro. Scene homebrew masih hidup dan berkembang—game baru masih <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">dirilis untuk NES</a> (beberapa bahkan sebagai katrij fisik) dan untuk banyak sistem klasik lainnya; NES hanya satu contoh. Bahkan jika target Anda adalah sesuatu seperti SNES, memulai dengan 6502 akan membuahkan hasil: CPU SNES (65C816) kompatibel mundur dengan 6502, sehingga dasar-dasar yang Anda pelajari di sini—register, mode pengalamatan, dan set instruksi inti—langsung dapat diterapkan."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "These are the absolute addressing versions of zero page,X and zero page,Y. For example:"
-msgstr ""
+msgstr "Ini adalah versi pengalamatan absolut dari zero page,X dan zero page,Y. Misalnya:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This is the equivalent of zero page,X, but can only be used with <tt>LDX</tt> and <tt>STX</tt>."
-msgstr ""
+msgstr "Ini adalah setara dari zero page,X, tetapi hanya dapat digunakan dengan <tt>LDX</tt> dan <tt>STX</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This is where addressing gets interesting. In this mode, a zero page address is given, and then the value of the <tt>X</tt> register is added. Here is an example:"
-msgstr ""
+msgstr "Di sinilah pengalamatan menjadi menarik. Dalam mode ini, alamat zero page diberikan, kemudian nilai register <tt>X</tt> ditambahkan. Berikut contohnya:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This loads the value <tt>$11</tt> into the memory location <tt>$10</tt>, the value <tt>$10</tt> into <tt>$12</tt>, and <tt>$0f</tt> into <tt>$14</tt>. It then loads the value <tt>$04</tt> into <tt>$11</tt>, <tt>$13</tt> and <tt>$15</tt>. This leads to memory like this:"
-msgstr ""
+msgstr "Ini memuat nilai <tt>$11</tt> ke lokasi memori <tt>$10</tt>, nilai <tt>$10</tt> ke <tt>$12</tt>, dan <tt>$0f</tt> ke <tt>$14</tt>. Kemudian memuat nilai <tt>$04</tt> ke <tt>$11</tt>, <tt>$13</tt>, dan <tt>$15</tt>. Ini menghasilkan memori seperti ini:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "This one's kinda weird. It's like a cross between zero page,X and indirect. Basically, you take the zero page address, add the value of the <tt>X</tt> register to it, then use that to look up a two-byte address. For example:"
-msgstr ""
+msgstr "Yang satu ini agak aneh. Ini seperti perpaduan antara zero page,X dan indirect. Pada dasarnya, Anda mengambil alamat zero page, menambahkan nilai register <tt>X</tt> padanya, lalu menggunakannya untuk mencari alamat dua byte. Misalnya:"
 
 #. TRANSLATORS: Release notes for version 0.4.0
 msgid "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development."
-msgstr ""
+msgstr "Rilis ini menghadirkan tema terinspirasi handheld yang semarak dengan warna yang dapat dikustomisasi. Kami telah memperkenalkan tata letak tablet dan desktop adaptif yang membuat segalanya tetap terlihat, sempurna untuk sesi coding maraton saat belajar mengembangkan game retro dalam assembly. Terima kasih besar kepada kontributor baru kami @mmartinortiz atas ide tata letak desktop yang bagus. Ada beberapa peningkatan teknis yang keren juga, seperti ketegasan TypeScript, skema gaya GtkSourceView kustom, dan kontrol debugger yang ditingkatkan untuk pengembangan yang lebih lancar."
 
 #. TRANSLATORS: Entry label for example title
 msgid "Title"
-msgstr ""
+msgstr "Judul"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "To test whether the direction is <tt>1</tt>, <tt>2</tt>, <tt>4</tt> or <tt>8</tt>, the code continually shifts right until the carry is set. One <tt>LSR</tt> means \"up\", two means \"right\", and so on."
-msgstr ""
+msgstr "Untuk menguji apakah arahnya adalah <tt>1</tt>, <tt>2</tt>, <tt>4</tt>, atau <tt>8</tt>, kode terus menggeser ke kanan hingga carry diset. Satu <tt>LSR</tt> berarti \"atas\", dua berarti \"kanan\", dan seterusnya."
 
 #. TRANSLATORS: Tooltip text for sidebar toggle button in header bar
 msgid "Toggle Sidebar"
-msgstr ""
+msgstr "Sembunyikan/Tampilkan Sidebar"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try changing the colour of the three pixels."
-msgstr ""
+msgstr "Coba ubah warna ketiga piksel."
 
 #. TRANSLATORS: Description for examples section
 msgid "Try out example programs"
-msgstr ""
+msgstr "Coba program contoh"
 
 #. TRANSLATORS: Description for examples placeholder
 msgid "Try out example programs for the 6502 microprocessor."
-msgstr ""
+msgstr "Coba program contoh untuk mikroprosesor 6502."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the monitor in the debugger to watch a section of memory."
-msgstr ""
+msgstr "Coba tulis cuplikan kode yang menggunakan setiap mode pengalamatan 6502. Ingat, Anda dapat menggunakan monitor memori di debugger untuk mengamati perubahan memori."
 
 #. TRANSLATORS: Title for tutorial section
 #. TRANSLATORS: Title for tutorial page
 #. TRANSLATORS: Card title for Tutorial view
 msgid "Tutorial"
-msgstr ""
+msgstr "Tutorial"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
-msgstr ""
+msgstr "Tutorial <sub>oleh <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, dilisensikan di bawah CC BY 4.0</sub>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
-msgstr ""
+msgstr "Dua instruksi stack adalah <tt>PHA</tt> dan <tt>PLA</tt>, \"push accumulator\" dan \"pull accumulator\". Di bawah ini adalah contoh keduanya dalam aksi."
 
 msgid "Unable to find/parse given address/label"
-msgstr ""
+msgstr "Tidak dapat menemukan/mengurai alamat/label yang diberikan"
 
 msgid "Unable to relocate code outside 64k memory"
-msgstr ""
+msgstr "Tidak dapat merelokasi kode di luar memori 64k"
 
 #. TRANSLATORS: Release notes for version 0.6.5 - dependency updates
 msgid "Under the hood: updated to TypeScript 6, Vite 8, and other dependency upgrades for improved performance and stability."
-msgstr ""
+msgstr "Di balik layar: diperbarui ke TypeScript 6, Vite 8, dan peningkatan dependensi lainnya untuk performa dan stabilitas yang lebih baik."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Unlike zero page,Y, absolute,Y can't be used with <tt>STX</tt> but can be used with <tt>LDA</tt> and <tt>STA</tt>."
-msgstr ""
+msgstr "Berbeda dengan zero page,Y, absolute,Y tidak dapat digunakan dengan <tt>STX</tt> tetapi dapat digunakan dengan <tt>LDA</tt> dan <tt>STA</tt>."
 
 #. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
 msgid "Unsaved changes"
-msgstr ""
+msgstr "Perubahan yang belum disimpan"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Updating the game state"
-msgstr ""
+msgstr "Memperbarui kondisi permainan"
 
 #. TRANSLATORS: Switch label to enable custom accent color
 msgid "Use custom accent color"
-msgstr ""
+msgstr "Gunakan warna aksen kustom"
 
 #. TRANSLATORS: Switch label to enable custom primary color
 msgid "Use custom primary color"
-msgstr ""
+msgstr "Gunakan warna primer kustom"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Values <tt>$00</tt>-<tt>$0F</tt> represent 16 different colors (<tt>$00</tt>=black, <tt>$01</tt>=white)"
-msgstr ""
+msgstr "Nilai <tt>$00</tt>-<tt>$0F</tt> merepresentasikan 16 warna berbeda (<tt>$00</tt>=hitam, <tt>$01</tt>=putih)"
 
 #. TRANSLATORS: Release notes for version 0.6.0 - new examples section
 msgid "We've added a new Examples section to the Learn tab where you can explore and run fully-commented 6502 programs right in the app. Start with our featured Snake game example and see how those pixels come to life!"
-msgstr ""
+msgstr "Kami telah menambahkan bagian Contoh baru di tab Pelajari di mana Anda dapat menjelajahi dan menjalankan program 6502 berkomentari lengkap langsung di aplikasi. Mulailah dengan contoh permainan Snake unggulan kami dan lihat bagaimana piksel-piksel itu menjadi hidup!"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "We've already had a little look at the processor status section (the bit with <tt>A</tt>, <tt>PC</tt> etc.), but what does it all mean?"
-msgstr ""
+msgstr "Kita sudah melihat sekilas bagian status prosesor (bagian dengan <tt>A</tt>, <tt>PC</tt> dll.), tetapi apa artinya semua itu?"
 
 #. TRANSLATORS: Release notes for version 0.6.2 - Polish translation
 msgid "Welcome Polish translation, initially contributed by Micro Wave. Dziękujemy!"
-msgstr ""
+msgstr "Selamat datang terjemahan bahasa Polandia, yang awalnya dikontribusikan oleh Micro Wave. Dziękujemy!"
 
 #. TRANSLATORS: Release notes for version 0.6.3 - Vietnamese translation
 msgid "Welcome Vietnamese translation, fully contributed by Loc Huynh (hthienloc)."
-msgstr ""
+msgstr "Selamat datang terjemahan bahasa Vietnam, yang sepenuhnya dikontribusikan oleh Loc Huynh (hthienloc)."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "With absolute addressing, the full memory location is used as the argument to the instruction. For example:"
-msgstr ""
+msgstr "Dengan pengalamatan absolut, lokasi memori penuh digunakan sebagai argumen untuk instruksi. Misalnya:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
-msgstr ""
+msgstr "Dengan semua contoh ini, Anda mungkin merasa terbantu menggunakan monitor memori di debugger untuk mengamati perubahan memori. Monitor mengambil lokasi memori awal dan sejumlah byte untuk ditampilkan dari lokasi tersebut. Keduanya adalah nilai hex. Misalnya, untuk menampilkan 16 byte memori dari <tt>$c000</tt>, masukkan <tt>c000</tt> dan <tt>10</tt> ke dalam <b>Start</b> dan <b>Length</b>, masing-masing."
 
 #. TRANSLATORS: Feature list item about integrated code editor
 msgid "Write and edit code with a built-in code editor"
-msgstr ""
+msgstr "Tulis dan edit kode dengan editor kode bawaan"
 
 #. TRANSLATORS: Tooltip for accent color option Yellow
 #. TRANSLATORS: Tooltip for primary color option Yellow
 msgid "Yellow"
-msgstr ""
+msgstr "Kuning"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
-msgstr ""
+msgstr "Anda dapat membayangkan layar sebagai empat strip horizontal berukuran 32 × 8 piksel. Strip-strip ini dipetakan ke <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt>, dan <tt>$0500-$05ff</tt>. Baris piksel pertama adalah <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, dst."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
-msgstr ""
+msgstr "Anda sudah melihat <tt>TAX</tt>. Anda mungkin bisa menebak apa yang dilakukan <tt>TAY</tt>, <tt>TXA</tt>, dan <tt>TYA</tt>, tetapi tulislah beberapa kode untuk menguji asumsi Anda."
 
 #. TRANSLATORS: Alert dialog body explaining risk of losing changes
 msgid "Your file has unsaved changes. Changes will be lost if you don't save them."
-msgstr ""
+msgstr "File Anda memiliki perubahan yang belum disimpan. Perubahan akan hilang jika Anda tidak menyimpannya."
 
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
-msgstr ""
+msgstr "Flag Zero: Diset saat hasil operasi adalah nol. Penting untuk percabangan kondisional - sebagian besar instruksi lompatan kondisional (BEQ, BNE) memeriksa flag ini untuk menentukan alur program berdasarkan apakah suatu nilai adalah nol."
 
 #. TRANSLATORS: Dropdown option label for zero-page memory range
 msgid "Zero Page ($0000-$00FF)"
-msgstr ""
+msgstr "Zero Page ($0000-$00FF)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page usage"
-msgstr ""
+msgstr "Penggunaan zero page"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page,X: <tt>$c0,X</tt>"
-msgstr ""
+msgstr "Zero page,X: <tt>$c0,X</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page,Y: <tt>$c0,Y</tt>"
-msgstr ""
+msgstr "Zero page,Y: <tt>$c0,Y</tt>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Zero page: <tt>$c0</tt>"
-msgstr ""
+msgstr "Zero page: <tt>$c0</tt>"
 
 #. TRANSLATORS: Preferences menu item label with underscore for accelerator
 msgid "_Preferences"
-msgstr ""
+msgstr "_Preferensi"
 
 #. TRANSLATORS: Example author for the Snake game
 #, javascript-format
 msgid "by %s"
-msgstr ""
+msgstr "oleh %s"
 
 #. TRANSLATORS: App Store search keyword
 msgid "learning"
-msgstr ""
+msgstr "pembelajaran"
 
 #. TRANSLATORS: App Store search keyword
 msgid "programming"
-msgstr ""
+msgstr "pemrograman"
 
 #. TRANSLATORS: Internal simulator pseudo-op name used when outputting A as a character
 msgid "wdm-output"
-msgstr ""
+msgstr "wdm-output"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
-msgstr ""
+msgstr "yang merepresentasikan lokasi memori beralamat indirect <tt>$0411</tt>, <tt>$0410</tt>, dan <tt>$040f</tt> (tiga piksel di tengah tampilan). Saya menekankan poin ini, tetapi penting untuk benar-benar memahami cara kerja pengalamatan indirect."
