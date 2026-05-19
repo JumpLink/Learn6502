@@ -1,32 +1,32 @@
 {
-    "id": "eu.jumplink.Learn6502",
-    "runtime": "org.gnome.Platform",
-    "runtime-version": "50",
-    "sdk": "org.gnome.Sdk",
-    "sdk-extensions": [
-        "org.freedesktop.Sdk.Extension.node24",
-        "org.freedesktop.Sdk.Extension.typescript"
-    ],
-    "build-options": {
-        "append-path": "/usr/lib/sdk/node24/bin:/usr/lib/sdk/typescript/bin:/app/bin"
-    },
-    "command": "eu.jumplink.Learn6502",
-    "finish-args": [
-        "--device=dri",
-        "--share=ipc",
-        "--socket=fallback-x11",
-        "--socket=wayland"
-    ],
-    "modules": [
+  "id": "eu.jumplink.Learn6502",
+  "runtime": "org.gnome.Platform",
+  "runtime-version": "50",
+  "sdk": "org.gnome.Sdk",
+  "sdk-extensions": [
+    "org.freedesktop.Sdk.Extension.node24",
+    "org.freedesktop.Sdk.Extension.typescript"
+  ],
+  "build-options": {
+    "append-path": "/usr/lib/sdk/node24/bin:/usr/lib/sdk/typescript/bin:/app/bin"
+  },
+  "command": "eu.jumplink.Learn6502",
+  "finish-args": [
+    "--device=dri",
+    "--share=ipc",
+    "--socket=fallback-x11",
+    "--socket=wayland"
+  ],
+  "modules": [
+    {
+      "name": "Learn6502",
+      "buildsystem": "meson",
+      "sources": [
         {
-            "name": "Learn6502",
-            "buildsystem": "meson",
-            "sources": [
-                {
-                    "type": "dir",
-                    "path": "."
-                }
-            ]
+          "type": "dir",
+          "path": "."
         }
-    ]
+      ]
+    }
+  ]
 }
