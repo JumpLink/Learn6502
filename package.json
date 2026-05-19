@@ -5,6 +5,8 @@
   "gjsify": {
     "flatpak": {
       "appId": "eu.jumplink.Learn6502",
+      "kind": "app",
+      "name": "Learn 6502 Assembly",
       "runtime": "gnome",
       "runtimeVersion": "50",
       "sdkExtensions": [
@@ -21,6 +23,334 @@
       "ciContainer": "ghcr.io/flathub-infra/flatpak-github-actions:gnome-50",
       "ciBranches": [
         "main"
+      ],
+      "developer": {
+        "id": "eu.jumplink",
+        "name": "Pascal Garber",
+        "email": "pascal@mailfreund.de",
+        "nameTranslatable": false
+      },
+      "summary": "Program vintage game consoles",
+      "description": [
+        {
+          "p": "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.",
+          "translatorHint": "App Store description paragraph introducing the concept and 6502 platforms"
+        },
+        {
+          "p": "No prior programming experience needed. Start with interactive lessons and build your skills step by step.",
+          "translatorHint": "App Store description paragraph about onboarding for beginners"
+        },
+        {
+          "ul": [
+            {
+              "item": "Interactive tutorials guide you from beginner to advanced",
+              "translatorHint": "Feature list item about interactive tutorials"
+            },
+            {
+              "item": "Write and edit code with a built-in code editor",
+              "translatorHint": "Feature list item about integrated code editor"
+            },
+            {
+              "item": "Debug your programs with real-time inspection tools",
+              "translatorHint": "Feature list item about debugging tools"
+            },
+            {
+              "item": "Test your creations on a virtual game console",
+              "translatorHint": "Feature list item about virtual game console"
+            },
+            {
+              "item": "Learn about computer history while coding",
+              "translatorHint": "Feature list item about learning history while coding"
+            }
+          ]
+        },
+        {
+          "p": "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!",
+          "translatorHint": "Closing paragraph targeting the audience"
+        }
+      ],
+      "license": {
+        "metadata": "CC0-1.0",
+        "project": "GPL-3.0-or-later"
+      },
+      "homepageUrl": "https://flathub.org/apps/eu.jumplink.Learn6502",
+      "bugtrackerUrl": "https://github.com/JumpLink/Learn6502/issues",
+      "vcsBrowserUrl": "https://github.com/JumpLink/Learn6502",
+      "translateUrl": "https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/",
+      "iconRemote": "https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.5.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg",
+      "categories": [
+        "Development",
+        "Education"
+      ],
+      "keywords": [
+        "6502",
+        "Assembly",
+        "programming",
+        "learning",
+        "Simulator",
+        "IDE",
+        "Debugger",
+        "Adwaita",
+        "GNOME"
+      ],
+      "branding": {
+        "accentLight": "#84BBFD",
+        "accentDark": "#1A5FB4"
+      },
+      "icon": "packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg",
+      "contentRating": {
+        "type": "oars-1.1",
+        "attributes": {
+          "social-info": "mild",
+          "language-humor": "mild"
+        }
+      },
+      "kudos": [
+        "ModernToolkit",
+        "HiDpiIcon",
+        "TouchscreenSupport",
+        "UserDocs"
+      ],
+      "provides": {
+        "binaries": [
+          "eu.jumplink.Learn6502"
+        ]
+      },
+      "supports": {
+        "controls": [
+          "keyboard",
+          "pointing",
+          "touch"
+        ]
+      },
+      "requires": {
+        "displayLengthMin": 360
+      },
+      "recommends": {
+        "displayLengthMin": 480
+      },
+      "screenshots": [
+        {
+          "url": "https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/1.png",
+          "caption": "Code editor and virtual game console",
+          "captionTranslatorHint": "Screenshot caption for the desktop layout"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/2.png",
+          "caption": "Appearance settings",
+          "captionTranslatorHint": "Screenshot caption for the appearance settings",
+          "type": "default"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/3.png",
+          "caption": "Running Snake game",
+          "captionTranslatorHint": "Screenshot caption for the snake game running in the virtual console",
+          "type": "default"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/4.png",
+          "caption": "Interactive tutorial",
+          "captionTranslatorHint": "Screenshot caption for the interactive tutorial view",
+          "type": "default"
+        }
+      ],
+      "releases": [
+        {
+          "version": "0.6.5",
+          "date": "2026-04-01",
+          "description": [
+            {
+              "p": "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.",
+              "translatorHint": "Release notes for version 0.6.5 - GNOME 50 runtime update"
+            },
+            {
+              "p": "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.",
+              "translatorHint": "Release notes for version 0.6.5 - back button fix"
+            },
+            {
+              "p": "Under the hood: updated to TypeScript 6, Vite 8, and other dependency upgrades for improved performance and stability.",
+              "translatorHint": "Release notes for version 0.6.5 - dependency updates"
+            }
+          ]
+        },
+        {
+          "version": "0.6.4",
+          "date": "2026-03-06",
+          "description": [
+            {
+              "p": "Tervetuloa! We are happy to welcome Finnish translations, kindly contributed by Jiri Grönroos. Kiitos!",
+              "translatorHint": "Release notes for version 0.6.4 - Finnish translation"
+            }
+          ]
+        },
+        {
+          "version": "0.6.3",
+          "date": "2025-12-24",
+          "description": [
+            {
+              "p": "Welcome Vietnamese translation, fully contributed by Loc Huynh (hthienloc).",
+              "translatorHint": "Release notes for version 0.6.3 - Vietnamese translation"
+            }
+          ]
+        },
+        {
+          "version": "0.6.2",
+          "date": "2025-10-10",
+          "description": [
+            {
+              "p": "Welcome Polish translation, initially contributed by Micro Wave. Dziękujemy!",
+              "translatorHint": "Release notes for version 0.6.2 - Polish translation"
+            },
+            {
+              "p": "Shared code examples now include CC-BY-4.0 license information, making it clear how the community can use and build upon your contributions.",
+              "translatorHint": "Release notes for version 0.6.2 - CC-BY-4.0 license for shared examples"
+            }
+          ]
+        },
+        {
+          "version": "0.6.0",
+          "date": "2025-10-08",
+          "description": [
+            {
+              "p": "We've added a new Examples section to the Learn tab where you can explore and run fully-commented 6502 programs right in the app. Start with our featured Snake game example and see how those pixels come to life!",
+              "translatorHint": "Release notes for version 0.6.0 - new examples section"
+            },
+            {
+              "p": "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you.",
+              "translatorHint": "Release notes for version 0.6.0 - community contribution feature"
+            },
+            {
+              "p": "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!",
+              "translatorHint": "Release notes for version 0.6.0 - learning from examples"
+            }
+          ]
+        },
+        {
+          "version": "0.5.0",
+          "date": "2025-10-02",
+          "description": [
+            {
+              "p": "Say hello to many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)",
+              "translatorHint": "Release notes for version 0.5.0 - language selector and new translations"
+            },
+            {
+              "p": "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation.",
+              "translatorHint": "Note about validation status - keep it concise and encouraging"
+            },
+            {
+              "p": "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.",
+              "translatorHint": "Call to action for community translation/validation"
+            }
+          ]
+        },
+        {
+          "version": "0.4.0",
+          "date": "2025-09-24",
+          "description": [
+            {
+              "p": "This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development.",
+              "translatorHint": "Release notes for version 0.4.0"
+            }
+          ]
+        },
+        {
+          "version": "0.3.0",
+          "date": "2025-09-08",
+          "description": [
+            {
+              "p": "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components.",
+              "translatorHint": "Release notes for version 0.3.0 - UI improvements and debugger redesign"
+            },
+            {
+              "p": "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms.",
+              "translatorHint": "Release notes for version 0.3.0 - architecture enhancements"
+            }
+          ]
+        },
+        {
+          "version": "0.2.0",
+          "date": "2025-04-11",
+          "description": [
+            {
+              "p": "Added help feature to make code editing easier for beginners",
+              "translatorHint": "Release notes for version 0.2.0 - help feature"
+            },
+            {
+              "p": "Improved game screen and controls for mobile devices",
+              "translatorHint": "Release notes for version 0.2.0 - mobile improvements"
+            },
+            {
+              "p": "New tools to examine your code, including disassembler and fast switchable memory viewer",
+              "translatorHint": "Release notes for version 0.2.0 - tooling additions"
+            },
+            {
+              "p": "Many minor bugs have been fixed to improve overall usabipty",
+              "translatorHint": "Release notes for version 0.2.0 - bug fixes"
+            },
+            {
+              "p": "Games now automatically pause when switching between screens",
+              "translatorHint": "Release notes for version 0.2.0 - auto pause"
+            },
+            {
+              "p": "Added file management to save and load your programs",
+              "translatorHint": "Release notes for version 0.2.0 - file management"
+            }
+          ]
+        },
+        {
+          "version": "0.1.2",
+          "date": "2025-04-03",
+          "description": [
+            {
+              "p": "Enhanced app presentation and accessibility",
+              "translatorHint": "Release notes for version 0.1.2"
+            },
+            {
+              "p": "Improved descriptions to be more welcoming for non-technical users",
+              "translatorHint": "Release notes for version 0.1.2"
+            },
+            {
+              "p": "Optimized Flatpak configuration by removing unnecessary permissions",
+              "translatorHint": "Release notes for version 0.1.2"
+            }
+          ]
+        },
+        {
+          "version": "0.1.1",
+          "date": "2025-04-02",
+          "description": [
+            {
+              "p": "Improved the game console performance for smoother gameplay",
+              "translatorHint": "Release notes for version 0.1.1"
+            },
+            {
+              "p": "Enhanced the hex monitor address range input for easier value editing",
+              "translatorHint": "Release notes for version 0.1.1"
+            },
+            {
+              "p": "Reduced default hex monitor address range for better efficiency",
+              "translatorHint": "Release notes for version 0.1.1"
+            },
+            {
+              "p": "Debugger now only updates when visible, reducing unnecessary processing",
+              "translatorHint": "Release notes for version 0.1.1"
+            },
+            {
+              "p": "Fixed build error on PostmarketOS, improving mobile compatibility",
+              "translatorHint": "Release notes for version 0.1.1"
+            }
+          ]
+        },
+        {
+          "version": "0.1.0",
+          "date": "2025-04-02",
+          "description": [
+            {
+              "p": "First release of Learn 6502 Assembly for GNOME",
+              "translatorHint": "Release notes for version 0.1.0"
+            }
+          ]
+        }
       ]
     }
   },
@@ -34,6 +364,7 @@
     "check": "yarn workspaces foreach -v -W -t run check",
     "check:flatpak:repo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo",
     "check:format": "yarn exec prettier . --check",
+    "flatpak:regen": "gjsify flatpak init --force --metainfo packages/app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in --desktop packages/app-gnome/data/eu.jumplink.Learn6502.desktop.in",
     "start": "yarn start:gnome",
     "start:gnome": "yarn workspace @learn6502/app-gnome run start",
     "start:gnome:flatpak": "flatpak run eu.jumplink.Learn6502",
@@ -44,7 +375,7 @@
     "format": "yarn exec prettier . --write",
     "prettier": "node .yarn/sdks/prettier/index.cjs"
   },
-  "author": "Pascal Garber <pascal@mailfreun.de>",
+  "author": "Pascal Garber <pascal@mailfreund.de>",
   "license": "GPL-3.0",
   "workspaces": [
     "packages/*",
@@ -52,7 +383,7 @@
     "packages/app-web"
   ],
   "devDependencies": {
-    "@gjsify/cli": "^0.3.16",
+    "@gjsify/cli": "^0.4.13",
     "prettier": "^3.8.3",
     "typescript": "^6.0.3"
   },

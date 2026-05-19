@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Pascal Garber -->
 <component type="desktop-application">
   <id>eu.jumplink.Learn6502</id>
   <metadata_license>CC0-1.0</metadata_license>
@@ -8,13 +9,9 @@
   <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.5.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
   <description>
     <!-- TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms -->
-    <p>
-      Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.
-    </p>
+    <p>Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.</p>
     <!-- TRANSLATORS: App Store description paragraph about onboarding for beginners -->
-    <p>
-      No prior programming experience needed. Start with interactive lessons and build your skills step by step.
-    </p>
+    <p>No prior programming experience needed. Start with interactive lessons and build your skills step by step.</p>
     <ul>
       <!-- TRANSLATORS: Feature list item about interactive tutorials -->
       <li>Interactive tutorials guide you from beginner to advanced</li>
@@ -28,10 +25,12 @@
       <li>Learn about computer history while coding</li>
     </ul>
     <!-- TRANSLATORS: Closing paragraph targeting the audience -->
-    <p>
-      Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!
-    </p>
+    <p>Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!</p>
   </description>
+  <developer id="eu.jumplink">
+    <name translate="no">Pascal Garber</name>
+    <email>pascal@mailfreund.de</email>
+  </developer>
   <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
   <screenshots>
     <screenshot type="default">
@@ -57,12 +56,8 @@
   </screenshots>
   <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
   <url type="bugtracker">https://github.com/JumpLink/Learn6502/issues</url>
-  <url type="translate">https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/</url>
   <url type="vcs-browser">https://github.com/JumpLink/Learn6502</url>
-  <developer id="eu.jumplink">
-    <name translate="no">Pascal Garber</name>
-    <email>pascal@mailfreund.de</email>
-  </developer>
+  <url type="translate">https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/</url>
   <content_rating type="oars-1.1">
     <content_attribute id="social-info">mild</content_attribute>
     <content_attribute id="language-humor">mild</content_attribute>
@@ -179,6 +174,25 @@
       </description>
     </release>
   </releases>
+  <categories>
+    <category>Development</category>
+    <category>Education</category>
+  </categories>
+  <keywords>
+    <keyword>6502</keyword>
+    <keyword>Assembly</keyword>
+    <keyword>programming</keyword>
+    <keyword>learning</keyword>
+    <keyword>Simulator</keyword>
+    <keyword>IDE</keyword>
+    <keyword>Debugger</keyword>
+    <keyword>Adwaita</keyword>
+    <keyword>GNOME</keyword>
+  </keywords>
+  <branding>
+    <color type="primary" scheme_preference="light">#84BBFD</color>
+    <color type="primary" scheme_preference="dark">#1A5FB4</color>
+  </branding>
   <kudos>
     <kudo>ModernToolkit</kudo>
     <kudo>HiDpiIcon</kudo>
@@ -188,30 +202,6 @@
   <provides>
     <binary>eu.jumplink.Learn6502</binary>
   </provides>
-  <categories>
-    <category>Development</category>
-    <category>Education</category>
-  </categories>
-  <keywords>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>6502</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>Assembly</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>programming</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>learning</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>Simulator</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>IDE</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>Debugger</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>Adwaita</keyword>
-    <!-- TRANSLATORS: App Store search keyword -->
-    <keyword>GNOME</keyword>
-  </keywords>
   <supports>
     <control>keyboard</control>
     <control>pointing</control>
@@ -223,8 +213,4 @@
   <recommends>
     <display_length compare="ge">480</display_length>
   </recommends>
-  <branding>
-    <color type="primary" scheme_preference="light">#84BBFD</color>
-    <color type="primary" scheme_preference="dark">#1A5FB4</color>
-  </branding>
 </component>
