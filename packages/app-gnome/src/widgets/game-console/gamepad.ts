@@ -1,41 +1,28 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
-import {
-  type GamepadKey,
-  type GamepadWidget,
-  type GamepadEventMap,
-  getGamepadKeyCode,
-} from "@learn6502/common-ui";
+import { type GamepadKey, type GamepadWidget, type GamepadEventMap, getGamepadKeyCode } from "@learn6502/common-ui";
 
 import Template from "./gamepad.blp";
 import { EventDispatcher } from "@learn6502/6502";
 
 export class Gamepad extends Adw.Bin implements GamepadWidget {
-  readonly events: EventDispatcher<GamepadEventMap> =
-    new EventDispatcher<GamepadEventMap>();
+  readonly events: EventDispatcher<GamepadEventMap> = new EventDispatcher<GamepadEventMap>();
 
   // Child widgets
-  declare private _buttonLeft: Gtk.Button;
-  declare private _buttonRight: Gtk.Button;
-  declare private _buttonUp: Gtk.Button;
-  declare private _buttonDown: Gtk.Button;
-  declare private _buttonA: Gtk.Button;
-  declare private _buttonB: Gtk.Button;
+  private declare _buttonLeft: Gtk.Button;
+  private declare _buttonRight: Gtk.Button;
+  private declare _buttonUp: Gtk.Button;
+  private declare _buttonDown: Gtk.Button;
+  private declare _buttonA: Gtk.Button;
+  private declare _buttonB: Gtk.Button;
 
   static {
     GObject.registerClass(
       {
         GTypeName: "Gamepad",
         Template,
-        InternalChildren: [
-          "buttonLeft",
-          "buttonRight",
-          "buttonUp",
-          "buttonDown",
-          "buttonA",
-          "buttonB",
-        ],
+        InternalChildren: ["buttonLeft", "buttonRight", "buttonUp", "buttonDown", "buttonA", "buttonB"],
       },
       this
     );

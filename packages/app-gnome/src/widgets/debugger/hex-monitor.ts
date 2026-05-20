@@ -20,12 +20,11 @@ import Template from "./hex-monitor.blp";
  * @emits changed - when the monitor content is updated
  */
 export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
-  readonly events: EventDispatcher<HexMonitorEventMap> =
-    new EventDispatcher<HexMonitorEventMap>();
+  readonly events: EventDispatcher<HexMonitorEventMap> = new EventDispatcher<HexMonitorEventMap>();
 
   // Child widgets
-  declare private _sourceView: SourceView;
-  declare private _memoryRegionDropDown: Gtk.DropDown;
+  private declare _sourceView: SourceView;
+  private declare _memoryRegionDropDown: Gtk.DropDown;
 
   // Signal handler IDs
   private _handlerIds: number[] = [];
@@ -72,12 +71,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
 
   private connectSignals(): void {
     // Connect to dropdown changed signal
-    this._handlerIds.push(
-      this._memoryRegionDropDown.connect(
-        "notify::selected",
-        this.onRegionChanged.bind(this)
-      )
-    );
+    this._handlerIds.push(this._memoryRegionDropDown.connect("notify::selected", this.onRegionChanged.bind(this)));
   }
 
   private disconnectSignals(): void {
@@ -132,8 +126,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
         includeNewline: true,
       });
     } else {
-      content =
-        "Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.";
+      content = "Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.";
     }
 
     this._sourceView.code = content;

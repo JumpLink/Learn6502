@@ -132,15 +132,11 @@ export class UIState {
    * @param state - The new state to apply to the UI.
    */
   private setState(state: State): void {
-    const assembleButton =
-      this.node.querySelector<HTMLInputElement>(".assembleButton");
+    const assembleButton = this.node.querySelector<HTMLInputElement>(".assembleButton");
     const mainButton = this.node.querySelector<HTMLInputElement>(".mainButton");
-    const resetButton =
-      this.node.querySelector<HTMLInputElement>(".resetButton");
-    const hexdumpButton =
-      this.node.querySelector<HTMLInputElement>(".hexdumpButton");
-    const disassembleButton =
-      this.node.querySelector<HTMLInputElement>(".disassembleButton");
+    const resetButton = this.node.querySelector<HTMLInputElement>(".resetButton");
+    const hexdumpButton = this.node.querySelector<HTMLInputElement>(".hexdumpButton");
+    const disassembleButton = this.node.querySelector<HTMLInputElement>(".disassembleButton");
     const debug = this.node.querySelector<HTMLInputElement>(".debug");
     const stepButton = this.node.querySelector<HTMLInputElement>(".stepButton");
     const gotoButton = this.node.querySelector<HTMLInputElement>(".gotoButton");

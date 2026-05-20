@@ -72,10 +72,7 @@ class FileService extends BaseFileService {
   /**
    * Save content to a new file with file selection dialog
    */
-  public async saveFileAs(
-    content: string,
-    suggestedName?: string
-  ): Promise<boolean> {
+  public async saveFileAs(content: string, suggestedName?: string): Promise<boolean> {
     try {
       const fileDialog = new Gtk.FileDialog({
         // TRANSLATORS: File dialog title for saving a new assembly file
@@ -120,23 +117,13 @@ class FileService extends BaseFileService {
   private async saveToFile(file: Gio.File, content: string): Promise<boolean> {
     try {
       // Open stream for writing
-      const stream = await file.replace_async(
-        null,
-        false,
-        Gio.FileCreateFlags.NONE,
-        GLib.PRIORITY_DEFAULT,
-        null
-      );
+      const stream = await file.replace_async(null, false, Gio.FileCreateFlags.NONE, GLib.PRIORITY_DEFAULT, null);
 
       // Convert string to bytes
       const bytes = new TextEncoder().encode(content);
 
       // Write content
-      await stream.write_bytes_async(
-        new GLib.Bytes(bytes),
-        GLib.PRIORITY_DEFAULT,
-        null
-      );
+      await stream.write_bytes_async(new GLib.Bytes(bytes), GLib.PRIORITY_DEFAULT, null);
 
       // Close stream
       await stream.close_async(GLib.PRIORITY_DEFAULT, null);
@@ -160,9 +147,9 @@ class FileService extends BaseFileService {
         // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
         this.unsavedChangesIndicator.tooltip_text = _("Unsaved changes");
       } else {
-        this.unsavedChangesIndicator.tooltip_text = _(
-          'File "%s" has unsaved changes'
-        ).format(this.getCurrentFileName());
+        this.unsavedChangesIndicator.tooltip_text = _('File "%s" has unsaved changes').format(
+          this.getCurrentFileName()
+        );
       }
     }
   }

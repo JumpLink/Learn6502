@@ -200,32 +200,16 @@ export class MainButton extends Fab implements MainButtonWidget {
    * Convenience method to get enabled state for actions
    * Uses the common helper for consistency across platforms
    */
-  public static getActionEnabledState(
-    simulatorState: SimulatorState,
-    hasCode: boolean,
-    codeChanged: boolean
-  ) {
-    return mainStateController.getActionEnabledState(
-      simulatorState,
-      hasCode,
-      codeChanged
-    );
+  public static getActionEnabledState(simulatorState: SimulatorState, hasCode: boolean, codeChanged: boolean) {
+    return mainStateController.getActionEnabledState(simulatorState, hasCode, codeChanged);
   }
 
   /**
    * Instance method to get enabled state for actions
    * Uses the common helper for consistency across platforms
    */
-  public getActionEnabledState(
-    simulatorState: SimulatorState,
-    hasCode: boolean,
-    codeChanged: boolean
-  ) {
-    return mainStateController.getActionEnabledState(
-      simulatorState,
-      hasCode,
-      codeChanged
-    );
+  public getActionEnabledState(simulatorState: SimulatorState, hasCode: boolean, codeChanged: boolean) {
+    return mainStateController.getActionEnabledState(simulatorState, hasCode, codeChanged);
   }
 
   /**

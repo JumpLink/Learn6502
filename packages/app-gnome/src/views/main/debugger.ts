@@ -2,11 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 
-import {
-  HexMonitor,
-  Hexdump,
-  Disassembled,
-} from "../../widgets/debugger/index.ts";
+import { HexMonitor, Hexdump, Disassembled } from "../../widgets/debugger/index.ts";
 
 import Template from "./debugger.blp";
 
@@ -25,18 +21,18 @@ import type { GameConsole } from "./game-console.ts";
 
 export class Debugger extends Adw.Bin implements DebuggerView {
   // Properties
-  declare private _state: DebuggerState;
-  declare private _enabled: boolean;
-  declare public scrollable: boolean;
+  private declare _state: DebuggerState;
+  private declare _enabled: boolean;
+  public declare scrollable: boolean;
 
   // Child widgets
-  declare private _messageConsole: MessageConsoleWidget;
-  declare private _hexMonitor: HexMonitor;
-  declare private _hexdump: Hexdump;
-  declare private _disassembled: Disassembled;
-  declare private _debugInfo: DebugInfoWidget;
-  declare private _stepperSwitch: Adw.SwitchRow;
-  declare private _enabledSwitch: Adw.SwitchRow;
+  private declare _messageConsole: MessageConsoleWidget;
+  private declare _hexMonitor: HexMonitor;
+  private declare _hexdump: Hexdump;
+  private declare _disassembled: Disassembled;
+  private declare _debugInfo: DebugInfoWidget;
+  private declare _stepperSwitch: Adw.SwitchRow;
+  private declare _enabledSwitch: Adw.SwitchRow;
 
   // Reference to game console
   private gameConsole: GameConsole | null = null;
@@ -207,9 +203,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
 
   private setupServiceHandlers(): void {
     if (!this.gameConsole) {
-      console.warn(
-        "[Debugger] GameConsole not set, skipping service initialization"
-      );
+      console.warn("[Debugger] GameConsole not set, skipping service initialization");
       return;
     }
 
@@ -253,9 +247,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     debuggerController.copyToEditor(event.code);
   }
 
-  private onCopyToClipboard(
-    event: HexdumpCopyEvent | HexMonitorCopyEvent
-  ): void {
+  private onCopyToClipboard(event: HexdumpCopyEvent | HexMonitorCopyEvent): void {
     debuggerController.copyToClipboard(event.content);
   }
 
@@ -269,16 +261,10 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this._hexMonitor.events.on("changed", this.onHexMonitorChanged);
 
     // Connect stepper switch signal
-    this._stepperSwitch.connect(
-      "notify::active",
-      this.onStepperSwitchActivated
-    );
+    this._stepperSwitch.connect("notify::active", this.onStepperSwitchActivated);
 
     // Connect enabled switch
-    this._enabledSwitch.connect(
-      "notify::active",
-      this.onEnabledSwitchActivated
-    );
+    this._enabledSwitch.connect("notify::active", this.onEnabledSwitchActivated);
   }
 
   private removeSignalHandlers(): void {
@@ -323,9 +309,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   private updateScrollbarPolicy(): void {
     const scrolledWindow = this.get_first_child() as Gtk.ScrolledWindow;
     if (scrolledWindow) {
-      scrolledWindow.vscrollbar_policy = this.scrollable
-        ? Gtk.PolicyType.AUTOMATIC
-        : Gtk.PolicyType.NEVER;
+      scrolledWindow.vscrollbar_policy = this.scrollable ? Gtk.PolicyType.AUTOMATIC : Gtk.PolicyType.NEVER;
     }
   }
 }

@@ -25,8 +25,8 @@ import Template from "./main-button.blp";
  */
 export class MainButton extends Adw.Bin implements MainButtonWidget {
   // Internal child widgets
-  declare private _button: Gtk.Button;
-  declare private _revealer: Gtk.Revealer;
+  private declare _button: Gtk.Button;
+  private declare _revealer: Gtk.Revealer;
 
   // Signals
   static {
@@ -167,16 +167,8 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
    * Convenience method to get enabled state for actions
    * Delegates to the controller for platform-independent logic
    */
-  public getActionEnabledState(
-    simulatorState: SimulatorState,
-    hasCode: boolean,
-    codeChanged: boolean
-  ) {
-    return mainStateController.getActionEnabledState(
-      simulatorState,
-      hasCode,
-      codeChanged
-    );
+  public getActionEnabledState(simulatorState: SimulatorState, hasCode: boolean, codeChanged: boolean) {
+    return mainStateController.getActionEnabledState(simulatorState, hasCode, codeChanged);
   }
 
   protected addEventListeners(): void {

@@ -24,11 +24,7 @@ class NotificationService extends BaseNotificationService {
     // Use Android's native Toast API
     const context = Application.android.context;
     if (context) {
-      const toast = android.widget.Toast.makeText(
-        context,
-        options.title,
-        android.widget.Toast.LENGTH_SHORT
-      );
+      const toast = android.widget.Toast.makeText(context, options.title, android.widget.Toast.LENGTH_SHORT);
       toast.show();
     }
 
@@ -45,9 +41,7 @@ class NotificationService extends BaseNotificationService {
   /**
    * Display a confirmation dialog using NativeScript confirm dialog
    */
-  protected async displayConfirmDialog(
-    options: DialogOptions
-  ): Promise<boolean> {
+  protected async displayConfirmDialog(options: DialogOptions): Promise<boolean> {
     try {
       const result = await confirm({
         title: options.title,
@@ -58,11 +52,7 @@ class NotificationService extends BaseNotificationService {
 
       return result;
     } catch (error) {
-      logger.error(
-        "NotificationService",
-        "Error showing confirm dialog:",
-        error
-      );
+      logger.error("NotificationService", "Error showing confirm dialog:", error);
       return false;
     }
   }

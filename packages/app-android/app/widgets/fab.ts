@@ -82,8 +82,7 @@ export class Fab extends ContentView {
   /** The native Android Extended FAB view */
   // Use ExtendedFloatingActionButton to support text labels
 
-  private _nativeFab: com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton | null =
-    null;
+  private _nativeFab: com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton | null = null;
 
   public get nativeFab(): com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton | null {
     return this._nativeFab;
@@ -190,10 +189,7 @@ export class Fab extends ContentView {
    */
   public createNativeView(): android.view.View {
     // Use ExtendedFloatingActionButton to support text
-    this._nativeFab =
-      new com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton(
-        this.context
-      );
+    this._nativeFab = new com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton(this.context);
 
     // Ensure it's clickable
     this.nativeFab!.setClickable(true);
@@ -212,10 +208,7 @@ export class Fab extends ContentView {
     this.applyIcon();
     this.applyText();
 
-    systemStates.events.on(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     return this.nativeFab!;
   }
@@ -241,15 +234,10 @@ export class Fab extends ContentView {
    * Applies the current theme colors to the FAB
    * Called when colors change or system theme changes
    */
-  private applyTheme(
-    isDarkMode = systemStates.systemAppearance === "dark"
-  ): void {
+  private applyTheme(isDarkMode = systemStates.systemAppearance === "dark"): void {
     if (!this.nativeFab) return;
 
-    const backgroundColor = getMaterialColor(
-      this._containerColor,
-      this.context
-    );
+    const backgroundColor = getMaterialColor(this._containerColor, this.context);
     const contentColor = getMaterialColor(this._contentColor, this.context);
 
     const backgroundTintList = createColorStateList(backgroundColor);
@@ -279,10 +267,7 @@ export class Fab extends ContentView {
         this.nativeFab.setIcon(null!); // Clear icon if not found
       }
     } else if (this._icon) {
-      logger.warn(
-        "FAB",
-        `Icon format not supported (expected res://): ${this._icon}`
-      );
+      logger.warn("FAB", `Icon format not supported (expected res://): ${this._icon}`);
       this.nativeFab.setIcon(null!);
     } else {
       // If no icon is provided, clear it
@@ -304,10 +289,7 @@ export class Fab extends ContentView {
    */
   public disposeNativeView(): void {
     // Remove theme change listener
-    systemStates.events.off(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
     this._nativeFab = null;
     super.disposeNativeView();
   }

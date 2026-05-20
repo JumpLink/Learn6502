@@ -1,10 +1,5 @@
 import { GridLayout, Label, ScrollView } from "@nativescript/core";
-import type {
-  HexMonitorWidget,
-  HexMonitorOptions,
-  MemoryRegion,
-  HexMonitorEventMap,
-} from "@learn6502/common-ui";
+import type { HexMonitorWidget, HexMonitorOptions, MemoryRegion, HexMonitorEventMap } from "@learn6502/common-ui";
 import { memoryRegions } from "@learn6502/common-ui";
 import type { Memory } from "@learn6502/6502";
 import { EventDispatcher, num2hex, addr2hex } from "@learn6502/6502";
@@ -73,16 +68,9 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
     let currentRow = 0;
 
     // Check if range is valid
-    if (
-      isNaN(start) ||
-      isNaN(length) ||
-      start < 0 ||
-      length <= 0 ||
-      end > 0xffff
-    ) {
+    if (isNaN(start) || isNaN(length) || start < 0 || length <= 0 || end > 0xffff) {
       const errorLabel = new Label();
-      errorLabel.text =
-        "Cannot monitor this range. Valid ranges are between $0000 and $ffff.";
+      errorLabel.text = "Cannot monitor this range. Valid ranges are between $0000 and $ffff.";
       errorLabel.className = "text-sm text-error p-4";
       errorLabel.textWrap = true;
       errorLabel.row = 0;
@@ -102,11 +90,7 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
       this.grid.addChild(addrLabel);
 
       // Memory bytes
-      for (
-        let i = 0;
-        i < bytesPerRow && addr + i <= end && addr + i <= 0xffff;
-        i++
-      ) {
+      for (let i = 0; i < bytesPerRow && addr + i <= end && addr + i <= 0xffff; i++) {
         const byteLabel = new Label();
         const value = memory.get(addr + i);
         byteLabel.text = num2hex(value !== undefined ? value : 0);
@@ -133,9 +117,7 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
     const { start, length } = this._options;
 
     // Find the current region name
-    const region = this.memoryRegions.find(
-      (r) => r.start === start && r.length === length
-    );
+    const region = this.memoryRegions.find((r) => r.start === start && r.length === length);
     const regionName = region ? region.name : `Custom Range`;
 
     return memory.format({

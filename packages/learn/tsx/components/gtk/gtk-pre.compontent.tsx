@@ -19,25 +19,14 @@ export class GtkPre extends GtkWidget {
 
   render() {
     // If the first child is a code component, return it as is
-    if (
-      this.props.children.length > 0 &&
-      this.props.children[0].component === GtkCode
-    ) {
+    if (this.props.children.length > 0 && this.props.children[0].component === GtkCode) {
       // Force the code component to be rendered as a block because it's part of a preformatted text block
       this.props.children[0].props.type = CodeType.BLOCK;
       return this.props.children[0];
     }
     // TODO: add support for preformatted text blocks, e.g. monospace text with line breaks and spaces
     return (
-      <GtkLabel
-        use-markup
-        wrap
-        vexpand-set
-        vexpand
-        justify={Justification.FILL}
-        margin-top={12}
-        margin-bottom={12}
-      >
+      <GtkLabel use-markup wrap vexpand-set vexpand justify={Justification.FILL} margin-top={12} margin-bottom={12}>
         {this.props.children}
       </GtkLabel>
     );

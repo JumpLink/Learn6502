@@ -8,35 +8,35 @@ import Template from "./debug-info.blp";
 
 export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
   // Register value labels (hex)
-  declare private _aValue: Gtk.Label;
-  declare private _xValue: Gtk.Label;
-  declare private _yValue: Gtk.Label;
-  declare private _spValue: Gtk.Label;
-  declare private _pcValue: Gtk.Label;
+  private declare _aValue: Gtk.Label;
+  private declare _xValue: Gtk.Label;
+  private declare _yValue: Gtk.Label;
+  private declare _spValue: Gtk.Label;
+  private declare _pcValue: Gtk.Label;
 
   // Register value labels (decimal)
-  declare private _aValueDec: Gtk.Label;
-  declare private _xValueDec: Gtk.Label;
-  declare private _yValueDec: Gtk.Label;
-  declare private _spValueDec: Gtk.Label;
-  declare private _pcValueDec: Gtk.Label;
+  private declare _aValueDec: Gtk.Label;
+  private declare _xValueDec: Gtk.Label;
+  private declare _yValueDec: Gtk.Label;
+  private declare _spValueDec: Gtk.Label;
+  private declare _pcValueDec: Gtk.Label;
 
   // Register rows (for help subtitles)
-  declare private _rowA: Adw.ActionRow;
-  declare private _rowX: Adw.ActionRow;
-  declare private _rowY: Adw.ActionRow;
-  declare private _rowSP: Adw.ActionRow;
-  declare private _rowPC: Adw.ActionRow;
+  private declare _rowA: Adw.ActionRow;
+  private declare _rowX: Adw.ActionRow;
+  private declare _rowY: Adw.ActionRow;
+  private declare _rowSP: Adw.ActionRow;
+  private declare _rowPC: Adw.ActionRow;
 
   // P bits (bit7..bit0)
-  declare private _p7: Gtk.Label;
-  declare private _p6: Gtk.Label;
-  declare private _p5: Gtk.Label;
-  declare private _p4: Gtk.Label;
-  declare private _p3: Gtk.Label;
-  declare private _p2: Gtk.Label;
-  declare private _p1: Gtk.Label;
-  declare private _p0: Gtk.Label;
+  private declare _p7: Gtk.Label;
+  private declare _p6: Gtk.Label;
+  private declare _p5: Gtk.Label;
+  private declare _p4: Gtk.Label;
+  private declare _p3: Gtk.Label;
+  private declare _p2: Gtk.Label;
+  private declare _p1: Gtk.Label;
+  private declare _p0: Gtk.Label;
 
   static {
     GObject.registerClass(
@@ -116,16 +116,7 @@ export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
     ];
 
     // Update compact flag display (bit view)
-    const pLbls = [
-      this._p7,
-      this._p6,
-      this._p5,
-      this._p4,
-      this._p3,
-      this._p2,
-      this._p1,
-      this._p0,
-    ];
+    const pLbls = [this._p7, this._p6, this._p5, this._p4, this._p3, this._p2, this._p1, this._p0];
     pLbls.forEach((lbl, i) => {
       const v = bits[i];
       lbl.set_label(v ? "1" : "0");

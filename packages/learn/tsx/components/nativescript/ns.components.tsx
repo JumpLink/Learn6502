@@ -20,16 +20,11 @@ export function generateNativeScriptXml(jsx: any): string {
 
       // Convert camelCase attributes to kebab-case
       // Only convert attribute names, not values
-      const nsAttrs = attrs.replace(
-        /\s+([a-zA-Z][a-zA-Z0-9]*)="([^"]*)"/g,
-        (match, attrName, attrValue) => {
-          // Convert camelCase attribute name to kebab-case
-          const kebabAttrName = attrName
-            .replace(/([a-z])([A-Z])/g, "$1-$2")
-            .toLowerCase();
-          return ` ${kebabAttrName}="${attrValue}"`;
-        }
-      );
+      const nsAttrs = attrs.replace(/\s+([a-zA-Z][a-zA-Z0-9]*)="([^"]*)"/g, (match, attrName, attrValue) => {
+        // Convert camelCase attribute name to kebab-case
+        const kebabAttrName = attrName.replace(/([a-z])([A-Z])/g, "$1-$2").toLowerCase();
+        return ` ${kebabAttrName}="${attrValue}"`;
+      });
 
       return `<${nsName}${nsAttrs}>`;
     })
@@ -103,9 +98,7 @@ export const components = {
   // li: (props: any) => <NsHtmlView {...props}><li>{props.children}</li></NsHtmlView>,
 
   // Media
-  img: (props: any) => (
-    <NsImage stretch="aspectFit" marginTop="8" marginBottom="8" {...props} />
-  ),
+  img: (props: any) => <NsImage stretch="aspectFit" marginTop="8" marginBottom="8" {...props} />,
 
   // Code
   // pre: (props: any) => <NsSpan textWrap="true" fontSize="14" backgroundColor="#f0f0f0" padding="8" borderRadius="4" {...props} />,

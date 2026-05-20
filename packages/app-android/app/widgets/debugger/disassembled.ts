@@ -1,8 +1,5 @@
 import { TextView } from "@nativescript/core";
-import type {
-  DisassembledWidget,
-  DisassembledEventMap,
-} from "@learn6502/common-ui";
+import type { DisassembledWidget, DisassembledEventMap } from "@learn6502/common-ui";
 import type { Assembler } from "@learn6502/6502";
 import { EventDispatcher } from "@learn6502/6502";
 
@@ -14,8 +11,7 @@ export class Disassembled extends TextView implements DisassembledWidget {
   constructor() {
     super();
     this.editable = false;
-    this.className =
-      "disassembled bg-surface-container text-on-surface font-mono text-xs";
+    this.className = "disassembled bg-surface-container text-on-surface font-mono text-xs";
     (this as any).textWrap = true;
 
     // Add tap gesture for copying

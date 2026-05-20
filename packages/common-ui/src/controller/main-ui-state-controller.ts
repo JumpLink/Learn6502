@@ -1,8 +1,4 @@
-import type {
-  MainButtonActionState,
-  MainUiStateEventMap,
-  MainUiState,
-} from "../types";
+import type { MainButtonActionState, MainUiStateEventMap, MainUiState } from "../types";
 import { MainButtonState } from "../data/index";
 import { EventDispatcher, SimulatorState } from "@learn6502/6502";
 import { buttonStateService } from "../services";
@@ -40,10 +36,7 @@ class MainUiStateController {
     if (changedProperty) {
       switch (changedProperty) {
         case "mainButtonState":
-          this.events.dispatch(
-            "state-changed:main-button-state",
-            this._mainButtonState
-          );
+          this.events.dispatch("state-changed:main-button-state", this._mainButtonState);
           break;
         case "codeChanged":
           this.events.dispatch("state-changed:code-changed", this._codeChanged);
@@ -52,10 +45,7 @@ class MainUiStateController {
           this.events.dispatch("state-changed:view-type", this._viewType);
           break;
         case "simulatorState":
-          this.events.dispatch(
-            "state-changed:simulator-state",
-            this._simulatorState
-          );
+          this.events.dispatch("state-changed:simulator-state", this._simulatorState);
           break;
       }
     }
@@ -160,16 +150,8 @@ class MainUiStateController {
    * @param codeChanged Whether the code has changed since last assembly
    * @returns Action enablement state object
    */
-  public getActionEnabledState(
-    state: SimulatorState,
-    hasCode: boolean,
-    codeChanged: boolean
-  ): MainButtonActionState {
-    return buttonStateService.getActionEnabledState(
-      state,
-      hasCode,
-      codeChanged
-    );
+  public getActionEnabledState(state: SimulatorState, hasCode: boolean, codeChanged: boolean): MainButtonActionState {
+    return buttonStateService.getActionEnabledState(state, hasCode, codeChanged);
   }
 
   /**

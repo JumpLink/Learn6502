@@ -3,20 +3,15 @@ import Adw from "@girs/adw-1";
 import { SourceView } from "../source-view.ts";
 
 import { type Assembler, EventDispatcher } from "@learn6502/6502";
-import type {
-  DisassembledEventMap,
-  DisassembledWidget,
-  SourceViewCopyEvent,
-} from "@learn6502/common-ui";
+import type { DisassembledEventMap, DisassembledWidget, SourceViewCopyEvent } from "@learn6502/common-ui";
 
 import Template from "./disassembled.blp";
 
 export class Disassembled extends Adw.Bin implements DisassembledWidget {
-  readonly events: EventDispatcher<DisassembledEventMap> =
-    new EventDispatcher<DisassembledEventMap>();
+  readonly events: EventDispatcher<DisassembledEventMap> = new EventDispatcher<DisassembledEventMap>();
 
   // Child widgets
-  declare private _sourceView: SourceView;
+  private declare _sourceView: SourceView;
 
   static {
     GObject.registerClass(
@@ -41,9 +36,7 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
     const disassembledData = assembler.disassemble();
 
     // Extract only the assembly instructions (opCode + formattedArgs)
-    const assemblyCode = disassembledData.instructions
-      .map((inst) => `${inst.opCode} ${inst.formattedArgs}`)
-      .join("\n");
+    const assemblyCode = disassembledData.instructions.map((inst) => `${inst.opCode} ${inst.formattedArgs}`).join("\n");
 
     this._sourceView.buffer.text = assemblyCode;
   }

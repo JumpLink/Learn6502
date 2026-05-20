@@ -76,14 +76,10 @@ export class Display extends GridLayout implements DisplayWidget {
 
       // Create the ImageView for our canvas
       this.canvasImageView = new android.widget.ImageView(context);
-      this.canvasImageView.setScaleType(
-        android.widget.ImageView.ScaleType.FIT_XY
-      );
+      this.canvasImageView.setScaleType(android.widget.ImageView.ScaleType.FIT_XY);
 
       // Create a bitmap and canvas
-      this.log.debug(
-        `Creating bitmap with dimensions ${this.canvasWidth}x${this.canvasHeight}`
-      );
+      this.log.debug(`Creating bitmap with dimensions ${this.canvasWidth}x${this.canvasHeight}`);
       this.bitmap = android.graphics.Bitmap.createBitmap(
         this.canvasWidth,
         this.canvasHeight,
@@ -136,9 +132,7 @@ export class Display extends GridLayout implements DisplayWidget {
         this.pendingDraw = false;
       }
     } catch (error) {
-      this.log.error(
-        `Error in canvas initialization - ${error instanceof Error ? error.message : String(error)}`
-      );
+      this.log.error(`Error in canvas initialization - ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -213,10 +207,7 @@ export class Display extends GridLayout implements DisplayWidget {
     }
 
     try {
-      const color = gameConsoleStateService.getColorForAddress(
-        this.memory,
-        addr
-      );
+      const color = gameConsoleStateService.getColorForAddress(this.memory, addr);
 
       this.paintObj.setARGB(
         255,
@@ -231,12 +222,7 @@ export class Display extends GridLayout implements DisplayWidget {
       const right = (x + 1) * this.pixelSize;
       const bottom = (y + 1) * this.pixelSize;
 
-      if (
-        left < 0 ||
-        top < 0 ||
-        right > this.canvasWidth ||
-        bottom > this.canvasHeight
-      ) {
+      if (left < 0 || top < 0 || right > this.canvasWidth || bottom > this.canvasHeight) {
         return;
       }
 
@@ -246,9 +232,7 @@ export class Display extends GridLayout implements DisplayWidget {
         this.refreshCanvas();
       }
     } catch (error) {
-      this.log.error(
-        `Error in drawPixelToCanvas: ${error instanceof Error ? error.message : String(error)}`
-      );
+      this.log.error(`Error in drawPixelToCanvas: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -257,9 +241,7 @@ export class Display extends GridLayout implements DisplayWidget {
    */
   private processPendingUpdates(): void {
     if (this.pendingPixelUpdates.size > 0) {
-      this.log.debug(
-        `Processing ${this.pendingPixelUpdates.size} pending pixel updates`
-      );
+      this.log.debug(`Processing ${this.pendingPixelUpdates.size} pending pixel updates`);
 
       // Create a copy to avoid modification during iteration
       const updates = Array.from(this.pendingPixelUpdates);
@@ -322,9 +304,7 @@ export class Display extends GridLayout implements DisplayWidget {
     this.log.debug("drawAllPixels called");
 
     if (!this.canvas) {
-      this.log.debug(
-        "drawAllPixels: Canvas is not initialized, will draw when ready"
-      );
+      this.log.debug("drawAllPixels: Canvas is not initialized, will draw when ready");
       // Mark that we need to draw when canvas becomes available
       this.pendingDraw = true;
       return;
@@ -342,11 +322,7 @@ export class Display extends GridLayout implements DisplayWidget {
 
     try {
       // Draw all pixels in the display range
-      for (
-        let addr = DisplayAddressRange.START;
-        addr <= DisplayAddressRange.END;
-        addr++
-      ) {
+      for (let addr = DisplayAddressRange.START; addr <= DisplayAddressRange.END; addr++) {
         this.drawPixelToCanvas(addr, true);
       }
 
@@ -354,9 +330,7 @@ export class Display extends GridLayout implements DisplayWidget {
       this.refreshCanvas();
       this.log.debug("drawAllPixels - Completed drawing all pixels");
     } catch (error) {
-      this.log.error(
-        `Error in drawAllPixels: ${error instanceof Error ? error.message : String(error)}`
-      );
+      this.log.error(`Error in drawAllPixels: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 
@@ -372,9 +346,7 @@ export class Display extends GridLayout implements DisplayWidget {
     try {
       this.canvasImageView.invalidate();
     } catch (error) {
-      this.log.error(
-        `Error in refreshCanvas: ${error instanceof Error ? error.message : String(error)}`
-      );
+      this.log.error(`Error in refreshCanvas: ${error instanceof Error ? error.message : String(error)}`);
     }
   }
 

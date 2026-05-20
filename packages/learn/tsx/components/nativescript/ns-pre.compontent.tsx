@@ -10,10 +10,7 @@ export class NsPre extends Component {
 
   render() {
     // If the first child is a code component, return it without the pre tag
-    if (
-      this.props.children.length > 0 &&
-      this.props.children[0].component === NsCode
-    ) {
+    if (this.props.children.length > 0 && this.props.children[0].component === NsCode) {
       // Force the code component to be rendered as a block because it's part of a preformatted text block
       this.props.children[0].props.type = CodeType.BLOCK;
       return this.props.children[0];

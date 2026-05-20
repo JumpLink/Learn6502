@@ -37,8 +37,7 @@ class ThemeService extends BaseThemeService {
   /** Widgets that should automatically receive theme-related CSS classes. */
   private themedWidgets: Set<Gtk.Widget> = new Set();
   /** Named primary color key when using predefined color families. */
-  private currentPrimaryKey: PrimaryFamilyKey | "none" | null =
-    DEFAULT_PRIMARY_COLOR;
+  private currentPrimaryKey: PrimaryFamilyKey | "none" | null = DEFAULT_PRIMARY_COLOR;
   /** Named accent color key when using predefined color families. */
   private currentAccentKey: PrimaryFamilyKey | "system" = DEFAULT_ACCENT_COLOR;
 
@@ -53,11 +52,7 @@ class ThemeService extends BaseThemeService {
       this.cssProvider.load_from_string(mainCss);
       const display = this.getDisplay();
       if (display) {
-        Gtk.StyleContext.add_provider_for_display(
-          display,
-          this.cssProvider,
-          Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
-        );
+        Gtk.StyleContext.add_provider_for_display(display, this.cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
       }
     }
 
@@ -67,15 +62,9 @@ class ThemeService extends BaseThemeService {
     // Initialize GSettings for theme settings
     this.settings = new Gio.Settings({ schema_id: APPLICATION_ID });
     // Monitor settings changes
-    this.settings.connect(`changed::${KEY_COLOR_SCHEME}`, () =>
-      this.loadThemeFromSettings()
-    );
-    this.settings.connect(`changed::${KEY_PRIMARY_COLOR}`, () =>
-      this.loadPrimaryFromSettings()
-    );
-    this.settings.connect(`changed::${KEY_ACCENT_COLOR}`, () =>
-      this.loadAccentFromSettings()
-    );
+    this.settings.connect(`changed::${KEY_COLOR_SCHEME}`, () => this.loadThemeFromSettings());
+    this.settings.connect(`changed::${KEY_PRIMARY_COLOR}`, () => this.loadPrimaryFromSettings());
+    this.settings.connect(`changed::${KEY_ACCENT_COLOR}`, () => this.loadAccentFromSettings());
 
     // Load initial settings
     this.loadThemeFromSettings();
@@ -90,8 +79,7 @@ class ThemeService extends BaseThemeService {
     this.events.dispatch("system-support-changed", { supported: supports });
     this.styleManager.connect("notify::system-supports-color-schemes", () => {
       this.events.dispatch("system-support-changed", {
-        supported:
-          this.styleManager?.get_system_supports_color_schemes() ?? false,
+        supported: this.styleManager?.get_system_supports_color_schemes() ?? false,
       });
     });
 
@@ -105,10 +93,7 @@ class ThemeService extends BaseThemeService {
     const display = this.getDisplay();
     if (!display) return;
     if (this.variablesProvider) {
-      Gtk.StyleContext.remove_provider_for_display(
-        display,
-        this.variablesProvider
-      );
+      Gtk.StyleContext.remove_provider_for_display(display, this.variablesProvider);
       this.variablesProvider = null;
     }
   }
@@ -134,17 +119,10 @@ class ThemeService extends BaseThemeService {
   private applyVariables(): void {
     const parts: string[] = [];
     if (this.currentAccentKey !== DEFAULT_ACCENT_COLOR) {
-      parts.push(
-        `--learn-accent-color: var(--accent-${this.currentAccentKey});`
-      );
+      parts.push(`--learn-accent-color: var(--accent-${this.currentAccentKey});`);
     }
-    if (
-      this.currentPrimaryKey &&
-      this.currentPrimaryKey !== DEFAULT_PRIMARY_COLOR
-    ) {
-      parts.push(
-        `--learn-primary-color: var(--accent-${this.currentPrimaryKey});`
-      );
+    if (this.currentPrimaryKey && this.currentPrimaryKey !== DEFAULT_PRIMARY_COLOR) {
+      parts.push(`--learn-primary-color: var(--accent-${this.currentPrimaryKey});`);
     }
 
     const css = parts.length ? `:root { ${parts.join(" ")} }` : "";
@@ -177,9 +155,7 @@ class ThemeService extends BaseThemeService {
 
   public setPrimaryColor(hexOrNull: string | null): void {
     // Custom hex colors are not supported - only predefined palette keys
-    console.warn(
-      "setPrimaryColor: Custom hex colors are not supported. Use setPrimaryByKey() instead."
-    );
+    console.warn("setPrimaryColor: Custom hex colors are not supported. Use setPrimaryByKey() instead.");
   }
 
   public clearPrimaryColor(): void {
@@ -279,8 +255,7 @@ class ThemeService extends BaseThemeService {
   }
 
   public getAccentState(): { key: string | null; mode: "system" | "custom" } {
-    if (this.currentAccentKey === DEFAULT_ACCENT_COLOR)
-      return { key: null, mode: "system" };
+    if (this.currentAccentKey === DEFAULT_ACCENT_COLOR) return { key: null, mode: "system" };
     return { key: this.currentAccentKey, mode: "custom" };
   }
 

@@ -32,22 +32,18 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
       const accent = themeService.getAccentState();
       const wantPrimary = primary.mode === "custom";
       const wantAccent = accent.mode === "custom";
-      if (this._rowPrimary.get_active() !== wantPrimary)
-        this._rowPrimary.set_active(wantPrimary);
-      if (this._rowAccent.get_active() !== wantAccent)
-        this._rowAccent.set_active(wantAccent);
+      if (this._rowPrimary.get_active() !== wantPrimary) this._rowPrimary.set_active(wantPrimary);
+      if (this._rowAccent.get_active() !== wantAccent) this._rowAccent.set_active(wantAccent);
     });
 
     // Keep in sync with external changes
     themeService.events.on("primary-changed", ({ mode }) => {
       const want = mode === "custom";
-      if (this._rowPrimary.get_active() !== want)
-        this._rowPrimary.set_active(want);
+      if (this._rowPrimary.get_active() !== want) this._rowPrimary.set_active(want);
     });
     themeService.events.on("accent-changed", ({ mode }) => {
       const want = mode === "custom";
-      if (this._rowAccent.get_active() !== want)
-        this._rowAccent.set_active(want);
+      if (this._rowAccent.get_active() !== want) this._rowAccent.set_active(want);
     });
   }
 }

@@ -73,10 +73,7 @@ export class GameConsoleInputService {
    * @param memory Memory instance to update
    * @returns Object with key information for event dispatching
    */
-  public processGamepadKeyPress(
-    key: GamepadKey,
-    memory: Memory | null
-  ): { key: GamepadKey; keyCode: number } | null {
+  public processGamepadKeyPress(key: GamepadKey, memory: Memory | null): { key: GamepadKey; keyCode: number } | null {
     if (!this._inputEnabled) {
       return null;
     }
@@ -99,10 +96,7 @@ export class GameConsoleInputService {
    * @param memory Memory instance to update
    * @returns Object with key information if handled, null otherwise
    */
-  public handleKeyPress(
-    keyCode: number,
-    memory: Memory | null
-  ): { key: GamepadKey; keyCode: number } | null {
+  public handleKeyPress(keyCode: number, memory: Memory | null): { key: GamepadKey; keyCode: number } | null {
     if (!this._inputEnabled) {
       return null;
     }

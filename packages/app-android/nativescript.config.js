@@ -52,7 +52,5 @@ module.exports = {
   cssParser: "rework",
 
   // Conditional dependencies
-  ignoredNativeDependencies: [].concat(
-    playStoreBuild ? [] : ["@nativescript-community/sentry"]
-  ),
+  ignoredNativeDependencies: [].concat(playStoreBuild ? [] : ["@nativescript-community/sentry"]),
 };

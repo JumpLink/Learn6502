@@ -1,8 +1,4 @@
-import {
-  gettextPlugin,
-  xgettextPlugin,
-  po2jsonPlugin,
-} from "@gjsify/vite-plugin-gettext";
+import { gettextPlugin, xgettextPlugin, po2jsonPlugin } from "@gjsify/vite-plugin-gettext";
 import { readFileSync } from "node:fs";
 
 const APPLICATION_ID = "eu.jumplink.Learn6502";

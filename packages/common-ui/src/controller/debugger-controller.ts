@@ -1,10 +1,4 @@
-import {
-  type Memory,
-  type Simulator,
-  type Assembler,
-  EventDispatcher,
-  throttle,
-} from "@learn6502/6502";
+import { type Memory, type Simulator, type Assembler, EventDispatcher, throttle } from "@learn6502/6502";
 
 import { DebuggerState } from "../data/index.ts";
 import type { DebuggerEventMap } from "../types/index.ts";
@@ -252,10 +246,7 @@ class DebuggerController {
    * @param event Event name to listen for
    * @param callback Function to call when the event occurs
    */
-  public on<K extends keyof DebuggerEventMap>(
-    event: K,
-    callback: (data: DebuggerEventMap[K]) => void
-  ): void {
+  public on<K extends keyof DebuggerEventMap>(event: K, callback: (data: DebuggerEventMap[K]) => void): void {
     this.events.on(event, callback);
   }
 
@@ -264,10 +255,7 @@ class DebuggerController {
    * @param event Event name to remove listener from
    * @param callback Function to remove from listeners
    */
-  public off<K extends keyof DebuggerEventMap>(
-    event: K,
-    callback: (data: DebuggerEventMap[K]) => void
-  ): void {
+  public off<K extends keyof DebuggerEventMap>(event: K, callback: (data: DebuggerEventMap[K]) => void): void {
     this.events.off(event, callback);
   }
 

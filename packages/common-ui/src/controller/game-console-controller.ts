@@ -111,15 +111,8 @@ class GameConsoleController {
    * Partial initialization for assembler-only functionality
    * This allows using the controller for assembling without display/gamepad widgets
    */
-  public initPartial(options: {
-    memory: Memory;
-    simulator?: Simulator;
-    assembler?: Assembler;
-    labels?: Labels;
-  }): void {
-    console.log(
-      "GameConsoleController: Partial initialization (assembler-only)"
-    );
+  public initPartial(options: { memory: Memory; simulator?: Simulator; assembler?: Assembler; labels?: Labels }): void {
+    console.log("GameConsoleController: Partial initialization (assembler-only)");
 
     // Set up memory and other components
     this._memory = options.memory;
@@ -200,12 +193,9 @@ class GameConsoleController {
         this.events.dispatch("simulator-info", event);
       });
 
-      this._simulator.on(
-        "simulator-failure",
-        (event: SimulatorFailureEvent) => {
-          this.events.dispatch("simulator-failure", event);
-        }
-      );
+      this._simulator.on("simulator-failure", (event: SimulatorFailureEvent) => {
+        this.events.dispatch("simulator-failure", event);
+      });
     }
 
     if (this._labels) {
@@ -243,10 +233,7 @@ class GameConsoleController {
    * @param event Event name to listen for
    * @param callback Function to call when the event occurs
    */
-  public on<K extends keyof GameConsoleEventMap>(
-    event: K,
-    callback: (event: GameConsoleEventMap[K]) => void
-  ): void {
+  public on<K extends keyof GameConsoleEventMap>(event: K, callback: (event: GameConsoleEventMap[K]) => void): void {
     this.events.on(event, callback);
   }
 
@@ -255,10 +242,7 @@ class GameConsoleController {
    * @param event Event name to remove listener from
    * @param callback Function to remove from listeners
    */
-  public off<K extends keyof GameConsoleEventMap>(
-    event: K,
-    callback: (event: GameConsoleEventMap[K]) => void
-  ): void {
+  public off<K extends keyof GameConsoleEventMap>(event: K, callback: (event: GameConsoleEventMap[K]) => void): void {
     this.events.off(event, callback);
   }
 
@@ -276,10 +260,7 @@ class GameConsoleController {
       this.gamepadWidget.press(key);
     } else {
       // Use input service to handle key press
-      const keyInfo = gameConsoleInputService.processGamepadKeyPress(
-        key,
-        this._memory
-      );
+      const keyInfo = gameConsoleInputService.processGamepadKeyPress(key, this._memory);
       if (keyInfo) {
         this.events.dispatch("keyPressed", keyInfo);
       }
@@ -301,10 +282,7 @@ class GameConsoleController {
    * @returns True if the key was handled, false otherwise
    */
   public handleKeyPress(keyCode: number): boolean {
-    const keyInfo = gameConsoleInputService.handleKeyPress(
-      keyCode,
-      this._memory
-    );
+    const keyInfo = gameConsoleInputService.handleKeyPress(keyCode, this._memory);
     if (keyInfo) {
       this.events.dispatch("keyPressed", keyInfo);
       return true;
@@ -462,9 +440,7 @@ class GameConsoleController {
    */
   public refreshDisplay(): void {
     if (!this.displayWidget) {
-      console.log(
-        "GameConsoleController: Display widget not initialized, cannot refresh"
-      );
+      console.log("GameConsoleController: Display widget not initialized, cannot refresh");
       return;
     }
 

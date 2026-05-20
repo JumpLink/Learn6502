@@ -1,11 +1,4 @@
-import {
-  Simulator,
-  Memory,
-  addr2hex,
-  num2hex,
-  throttle,
-  Assembler,
-} from "@learn6502/6502";
+import { Simulator, Memory, addr2hex, num2hex, throttle, Assembler } from "@learn6502/6502";
 
 import {
   DebuggerState,
@@ -24,14 +17,7 @@ class DebugInfo implements DebugInfoWidget {
 
   public update(simulator: Simulator): void {
     const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
-    let html =
-      "A=$" +
-      num2hex(regA) +
-      " X=$" +
-      num2hex(regX) +
-      " Y=$" +
-      num2hex(regY) +
-      "<br />";
+    let html = "A=$" + num2hex(regA) + " X=$" + num2hex(regX) + " Y=$" + num2hex(regY) + "<br />";
     html += "SP=$" + num2hex(regSP) + " PC=$" + addr2hex(regPC);
     html += "<br />";
     html += "NV-BDIZC<br />";
@@ -70,12 +56,7 @@ export class Debugger implements DebuggerView {
     this.debugInfo = new DebugInfo(minidebugger);
 
     // Initialize service with widgets and core references
-    debuggerController.init(
-      this.messageConsole,
-      this.debugInfo,
-      this.assembler,
-      this.simulator
-    );
+    debuggerController.init(this.messageConsole, this.debugInfo, this.assembler, this.simulator);
 
     this.setupEventListeners();
     this.onMonitorRangeChange = this.onMonitorRangeChange.bind(this);
@@ -158,13 +139,7 @@ export class Debugger implements DebuggerView {
 
     const end = start + length - 1;
 
-    if (
-      !isNaN(start) &&
-      !isNaN(length) &&
-      start >= 0 &&
-      length > 0 &&
-      end <= 0xffff
-    ) {
+    if (!isNaN(start) && !isNaN(length) && start >= 0 && length > 0 && end <= 0xffff) {
       content = memory.format({
         start,
         length,
@@ -173,8 +148,7 @@ export class Debugger implements DebuggerView {
         includeNewline: true,
       });
     } else {
-      content =
-        "Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.";
+      content = "Cannot monitor this range. Valid ranges are between $0000 and $ffff, inclusive.";
     }
 
     const monitorNode = this.node.querySelector<HTMLElement>(".monitor code");

@@ -46,14 +46,7 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
     this.itemPC = componentView.getViewById<ListItem>("itemPC");
     this.itemFlags = componentView.getViewById<ListItem>("itemFlags");
 
-    if (
-      !this.itemA ||
-      !this.itemX ||
-      !this.itemY ||
-      !this.itemSP ||
-      !this.itemPC ||
-      !this.itemFlags
-    ) {
+    if (!this.itemA || !this.itemX || !this.itemY || !this.itemSP || !this.itemPC || !this.itemFlags) {
       logger.error("DebugInfo", "Failed to find list items in template");
     } else {
       logger.debug("DebugInfo", "All list items loaded successfully");

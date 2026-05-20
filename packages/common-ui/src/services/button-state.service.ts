@@ -48,11 +48,7 @@ export class ButtonStateService {
    * @param codeChanged Whether the code has changed since last assembly
    * @returns Action enablement state object
    */
-  public getActionEnabledState(
-    state: SimulatorState,
-    hasCode: boolean,
-    codeChanged: boolean
-  ): MainButtonActionState {
+  public getActionEnabledState(state: SimulatorState, hasCode: boolean, codeChanged: boolean): MainButtonActionState {
     // Default: disable all actions
     const enabledState: MainButtonActionState = {
       assemble: false,

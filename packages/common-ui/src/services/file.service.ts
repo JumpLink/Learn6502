@@ -19,10 +19,7 @@ export abstract class FileService {
    * @param content Content to save
    * @param suggestedName Optional suggested filename
    */
-  public async saveFile(
-    content: string,
-    suggestedName?: string
-  ): Promise<boolean> {
+  public async saveFile(content: string, suggestedName?: string): Promise<boolean> {
     if (this.currentFileName) {
       const success = await this.saveToCurrentFile(content);
       if (success) {
@@ -40,10 +37,7 @@ export abstract class FileService {
    * @param suggestedName Suggested filename
    * @returns Promise that resolves to true if save succeeded
    */
-  public abstract saveFileAs(
-    content: string,
-    suggestedName?: string
-  ): Promise<boolean>;
+  public abstract saveFileAs(content: string, suggestedName?: string): Promise<boolean>;
 
   /**
    * Platform-specific implementation to save to the current file

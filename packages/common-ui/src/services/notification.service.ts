@@ -98,9 +98,7 @@ export abstract class NotificationService {
   /**
    * Platform-specific implementation for confirmation dialogs
    */
-  protected abstract displayConfirmDialog(
-    options: DialogOptions
-  ): Promise<boolean>;
+  protected abstract displayConfirmDialog(options: DialogOptions): Promise<boolean>;
 
   /**
    * Platform-specific implementation for information dialogs

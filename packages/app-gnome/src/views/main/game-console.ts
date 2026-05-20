@@ -18,8 +18,8 @@ import Template from "./game-console.blp";
  */
 export class GameConsole extends Adw.Bin implements GameConsoleView {
   // Child widgets
-  declare private _display: Display;
-  declare private _gamePad: Gamepad;
+  private declare _display: Display;
+  private declare _gamePad: Gamepad;
 
   static {
     GObject.registerClass(
@@ -107,9 +107,7 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
     gameConsoleController.goto(address);
   }
 
-  public gamepadPress(
-    buttonName: "Left" | "Right" | "Up" | "Down" | "A" | "B"
-  ): void {
+  public gamepadPress(buttonName: "Left" | "Right" | "Up" | "Down" | "A" | "B"): void {
     this._gamePad.press(buttonName);
   }
 
@@ -141,10 +139,7 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
 
     // Add a test pattern to memory to test the display
     // This should be done AFTER display initialization to ensure it's visible
-    gameConsoleStateService.initializeMemoryWithTestPattern(
-      this._memory,
-      "colorChart"
-    );
+    gameConsoleStateService.initializeMemoryWithTestPattern(this._memory, "colorChart");
 
     console.log("GNOME GameConsole: Initialization complete");
   }

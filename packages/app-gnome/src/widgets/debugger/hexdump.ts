@@ -3,19 +3,14 @@ import Adw from "@girs/adw-1";
 import { SourceView } from "../source-view.ts";
 
 import { type Assembler, EventDispatcher } from "@learn6502/6502";
-import {
-  type HexdumpWidget,
-  type HexdumpEventMap,
-  type SourceViewCopyEvent,
-} from "@learn6502/common-ui";
+import { type HexdumpWidget, type HexdumpEventMap, type SourceViewCopyEvent } from "@learn6502/common-ui";
 
 import Template from "./hexdump.blp";
 export class Hexdump extends Adw.Bin implements HexdumpWidget {
-  readonly events: EventDispatcher<HexdumpEventMap> =
-    new EventDispatcher<HexdumpEventMap>();
+  readonly events: EventDispatcher<HexdumpEventMap> = new EventDispatcher<HexdumpEventMap>();
 
   // Child widgets
-  declare private _sourceView: SourceView;
+  private declare _sourceView: SourceView;
 
   static {
     GObject.registerClass(

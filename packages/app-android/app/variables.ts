@@ -24,8 +24,7 @@ class AppVariables {
   // Screen dimensions (constant after app start)
   public readonly screenHeightDips = Screen.mainScreen.heightDIPs;
   public readonly screenWidthDips = Screen.mainScreen.widthDIPs;
-  public readonly screenRatio =
-    Screen.mainScreen.widthDIPs / Screen.mainScreen.heightDIPs;
+  public readonly screenRatio = Screen.mainScreen.widthDIPs / Screen.mainScreen.heightDIPs;
 
   // Private backing fields
   private _actionBarHeight: number = 56; // Default Material action bar height
@@ -142,14 +141,9 @@ class AppVariables {
     const actionBarSizeAttr = 16843499;
     const typedValue = new android.util.TypedValue();
 
-    if (
-      context.getTheme().resolveAttribute(actionBarSizeAttr, typedValue, true)
-    ) {
+    if (context.getTheme().resolveAttribute(actionBarSizeAttr, typedValue, true)) {
       const newHeight = Utils.layout.toDeviceIndependentPixels(
-        android.util.TypedValue.complexToDimensionPixelSize(
-          typedValue.data,
-          context.getResources().getDisplayMetrics()
-        )
+        android.util.TypedValue.complexToDimensionPixelSize(typedValue.data, context.getResources().getDisplayMetrics())
       );
 
       if (newHeight > 0 && newHeight !== this._actionBarHeight) {

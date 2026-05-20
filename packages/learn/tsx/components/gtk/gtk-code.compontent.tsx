@@ -85,11 +85,7 @@ interface GtkCodeProps extends Object {
 export class GtkCode extends GtkWidget<GtkCodeProps> {
   static propertyNames = [...GtkBox.propertyNames];
 
-  static reservedPropertyNames = [
-    ...GtkBox.reservedPropertyNames,
-    "type",
-    "example",
-  ];
+  static reservedPropertyNames = [...GtkBox.reservedPropertyNames, "type", "example"];
 
   static defaultProps = {
     ...GtkWidget.defaultProps,
@@ -129,42 +125,19 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     if (this.props.type === CodeType.BLOCK) {
       return (
         <child>
-          <object
-            class="SourceView"
-            id={`sourceView${GtkCode._codeBlockCounter++}`}
-          >
+          <object class="SourceView" id={`sourceView${GtkCode._codeBlockCounter++}`}>
             {code && <property name="code">{code}</property>}
             {language && <property name="language">{language}</property>}
-            {readonly && (
-              <property name="readonly">{readonly.toString()}</property>
-            )}
-            {copyable && (
-              <property name="copyable">{copyable.toString()}</property>
-            )}
-            {unselectable && (
-              <property name="unselectable">{unselectable.toString()}</property>
-            )}
-            {lineNumbers && (
-              <property name="line-numbers">{lineNumbers.toString()}</property>
-            )}
-            {noLineNumbers && (
-              <property name="no-line-numbers">
-                {noLineNumbers.toString()}
-              </property>
-            )}
-            {lineNumberStart !== undefined && (
-              <property name="line-number-start">{lineNumberStart}</property>
-            )}
+            {readonly && <property name="readonly">{readonly.toString()}</property>}
+            {copyable && <property name="copyable">{copyable.toString()}</property>}
+            {unselectable && <property name="unselectable">{unselectable.toString()}</property>}
+            {lineNumbers && <property name="line-numbers">{lineNumbers.toString()}</property>}
+            {noLineNumbers && <property name="no-line-numbers">{noLineNumbers.toString()}</property>}
+            {lineNumberStart !== undefined && <property name="line-number-start">{lineNumberStart}</property>}
             {!height && fitContentHeight && (
-              <property name="fit-content-height">
-                {fitContentHeight.toString()}
-              </property>
+              <property name="fit-content-height">{fitContentHeight.toString()}</property>
             )}
-            {!width && fitContentWidth && (
-              <property name="fit-content-width">
-                {fitContentWidth.toString()}
-              </property>
-            )}
+            {!width && fitContentWidth && <property name="fit-content-width">{fitContentWidth.toString()}</property>}
             {height && <property name="height">{height}</property>}
             {width && <property name="width">{width}</property>}
           </object>
@@ -247,17 +220,13 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     }
 
     // E.g. height=600
-    const heightModifier = modifiers.find((modifier) =>
-      modifier.startsWith("height=")
-    );
+    const heightModifier = modifiers.find((modifier) => modifier.startsWith("height="));
     if (heightModifier) {
       height = parseInt(heightModifier.slice(heightModifier.indexOf("=") + 1));
     }
 
     // E.g. example-snake
-    const exampleModifier = modifiers.find((modifier) =>
-      modifier.startsWith(examplePrefix)
-    );
+    const exampleModifier = modifiers.find((modifier) => modifier.startsWith(examplePrefix));
     if (exampleModifier) {
       const exampleName = exampleModifier.slice(examplePrefix.length);
       if (EXAMPLE_NAMES.includes(exampleName)) {
@@ -268,20 +237,14 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
     }
 
     // E.g. line-start=0x0600 for 6502's $0600 start address
-    const lineStartModifier = modifiers.find((modifier) =>
-      modifier.startsWith("line-start=")
-    );
+    const lineStartModifier = modifiers.find((modifier) => modifier.startsWith("line-start="));
     if (lineStartModifier) {
       let startValue: number;
-      const valueString = lineStartModifier
-        .slice(lineStartModifier.indexOf("=") + 1)
-        .trim();
+      const valueString = lineStartModifier.slice(lineStartModifier.indexOf("=") + 1).trim();
 
       // Check if it's a hex value (0x... or $...)
       if (valueString.startsWith("0x") || valueString.startsWith("$")) {
-        const hexString = valueString.startsWith("0x")
-          ? valueString.slice(2)
-          : valueString.slice(1);
+        const hexString = valueString.startsWith("0x") ? valueString.slice(2) : valueString.slice(1);
         startValue = parseInt(hexString, 16);
       } else {
         // Decimal value

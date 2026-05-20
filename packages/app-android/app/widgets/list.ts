@@ -90,19 +90,13 @@ export class List extends StackLayout {
   public onLoaded(): void {
     super.onLoaded();
 
-    systemStates.events.on(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     this.applyTheme();
   }
 
   public onUnloaded(): void {
-    systemStates.events.off(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     super.onUnloaded();
   }

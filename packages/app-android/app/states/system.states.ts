@@ -8,27 +8,15 @@
  * Pattern from reference projects: centralized state with EventDispatcher
  */
 
-import {
-  Application,
-  LaunchEventData,
-  type SystemAppearanceChangedEventData,
-  Utils,
-} from "@nativescript/core";
-import {
-  androidLaunchEventLocalizationHandler,
-  overrideLocale,
-} from "@nativescript/localize";
+import { Application, LaunchEventData, type SystemAppearanceChangedEventData, Utils } from "@nativescript/core";
+import { androidLaunchEventLocalizationHandler, overrideLocale } from "@nativescript/localize";
 import { EventDispatcher } from "@learn6502/6502";
 import { ContrastMode } from "../constants";
 // Direct imports to avoid circular dependency (utils/index → color → system.states → utils/index)
 import { contrastLevelToMode } from "../utils/contrast";
 import { logger } from "../utils/logger";
 
-import type {
-  ContrastChangeEvent,
-  SystemAppearanceChangeEvent,
-  SystemEventsMap,
-} from "~/types";
+import type { ContrastChangeEvent, SystemAppearanceChangeEvent, SystemEventsMap } from "~/types";
 
 /**
  * Class for managing system-related states and events
@@ -46,8 +34,7 @@ export class SystemStates {
    * Event name for property change events
    * These constants provide string literals for the events defined in SystemEventsMap
    */
-  public static readonly systemAppearanceChangedEvent =
-    "systemAppearance:changed";
+  public static readonly systemAppearanceChangedEvent = "systemAppearance:changed";
   public static readonly contrastChangedEvent = "contrast:changed";
 
   public static readonly launchEvent = "launchEvent";
@@ -111,10 +98,8 @@ export class SystemStates {
    * Initializes theme-related functionality when the app is ready
    */
   public onLaunch(event: LaunchEventData): void {
-    if (!event.android)
-      throw new Error("SystemStates:: onLaunch - No Android event found");
-    if (this.initialized)
-      throw new Error("SystemStates:: onLaunch - Already initialized");
+    if (!event.android) throw new Error("SystemStates:: onLaunch - No Android event found");
+    if (this.initialized) throw new Error("SystemStates:: onLaunch - Already initialized");
     this.initialized = true;
 
     androidLaunchEventLocalizationHandler();
@@ -128,11 +113,7 @@ export class SystemStates {
 
     // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
     const localeOverriddenSuccessfully = overrideLocale("de-DE");
-    DEV_LOG &&
-      this.log.debug(
-        "localeOverriddenSuccessfully",
-        localeOverriddenSuccessfully
-      );
+    DEV_LOG && this.log.debug("localeOverriddenSuccessfully", localeOverriddenSuccessfully);
 
     this.events.dispatch("launchEvent", event);
 
@@ -143,20 +124,14 @@ export class SystemStates {
     // Listen for contrast changes (API 35+)
     // addContrastChangeListener and getContrast() are only available on Android 15+ (API 35+)
     if (android.os.Build.VERSION.SDK_INT < 35) {
-      DEV_LOG &&
-        this.log.debug(
-          "ContrastChangeListener requires API level 35+, using default contrast"
-        );
+      DEV_LOG && this.log.debug("ContrastChangeListener requires API level 35+, using default contrast");
       this.contrast = ContrastMode.NORMAL;
       return;
     }
 
     const context = Utils.android.getApplicationContext();
     if (!context) {
-      DEV_LOG &&
-        this.log.debug(
-          "Could not get application context for contrast listener, using default contrast"
-        );
+      DEV_LOG && this.log.debug("Could not get application context for contrast listener, using default contrast");
       this.contrast = ContrastMode.NORMAL;
       return;
     }
@@ -166,10 +141,7 @@ export class SystemStates {
     ) as android.app.UiModeManager;
 
     if (!uiModeManager) {
-      DEV_LOG &&
-        this.log.debug(
-          "Could not get UiModeManager service for contrast listener, using default contrast"
-        );
+      DEV_LOG && this.log.debug("Could not get UiModeManager service for contrast listener, using default contrast");
       this.contrast = ContrastMode.NORMAL;
       return;
     }
@@ -177,30 +149,25 @@ export class SystemStates {
     // Get the main executor to run the callback on the main thread
     const mainExecutor = context.getMainExecutor();
     if (!mainExecutor) {
-      DEV_LOG &&
-        this.log.debug(
-          "Could not get main executor for ContrastChangeListener, using default contrast"
-        );
+      DEV_LOG && this.log.debug("Could not get main executor for ContrastChangeListener, using default contrast");
       this.contrast = ContrastMode.NORMAL;
       return;
     }
 
-    const contrastListener =
-      new android.app.UiModeManager.ContrastChangeListener({
-        onContrastChanged: (contrastLevel: number) => {
-          DEV_LOG && this.log.debug("System contrast changed:", contrastLevel);
-          // Set the contrast property (this will trigger property change event)
-          this.contrast = contrastLevelToMode(contrastLevel);
-        },
-      });
+    const contrastListener = new android.app.UiModeManager.ContrastChangeListener({
+      onContrastChanged: (contrastLevel: number) => {
+        DEV_LOG && this.log.debug("System contrast changed:", contrastLevel);
+        // Set the contrast property (this will trigger property change event)
+        this.contrast = contrastLevelToMode(contrastLevel);
+      },
+    });
 
     // Get initial contrast state and dispatch
     // getContrast() and addContrastChangeListener() are only available on Android 15+ (API 35+)
     // Even on API 35+, these methods might not be available on all devices/emulators
     try {
       const initialContrast = uiModeManager.getContrast();
-      DEV_LOG &&
-        this.log.debug("Initial system contrast level:", initialContrast);
+      DEV_LOG && this.log.debug("Initial system contrast level:", initialContrast);
 
       // Set the contrast property (this will trigger property change event)
       this.contrast = contrastLevelToMode(initialContrast);
@@ -211,9 +178,7 @@ export class SystemStates {
       // Method might not be available even on API 35+ (e.g., on some devices/emulators)
       // This is expected and not an error - we just use the default contrast mode
       DEV_LOG &&
-        this.log.debug(
-          "Contrast API methods not available on this device/emulator, using default contrast mode"
-        );
+        this.log.debug("Contrast API methods not available on this device/emulator, using default contrast mode");
       // Fallback: use default contrast mode
       this.contrast = ContrastMode.NORMAL;
     }
@@ -224,9 +189,7 @@ export class SystemStates {
    */
   public setupEvents(): void {
     if (!Application.android) {
-      throw new Error(
-        "SystemStates:: setupEvents - No Android application found"
-      );
+      throw new Error("SystemStates:: setupEvents - No Android application found");
     }
 
     // This registers the onLaunch handler to the native Application event.
@@ -234,13 +197,10 @@ export class SystemStates {
     Application.once(Application.launchEvent, (event) => this.onLaunch(event));
 
     // Listen for theme changes
-    Application.on(
-      Application.systemAppearanceChangedEvent,
-      (event: SystemAppearanceChangedEventData) => {
-        // Update the systemAppearance property (this will trigger property change event)
-        this.systemAppearance = event.newValue;
-      }
-    );
+    Application.on(Application.systemAppearanceChangedEvent, (event: SystemAppearanceChangedEventData) => {
+      // Update the systemAppearance property (this will trigger property change event)
+      this.systemAppearance = event.newValue;
+    });
 
     // Listen for resume events
     Application.on(Application.resumeEvent, (args) => {

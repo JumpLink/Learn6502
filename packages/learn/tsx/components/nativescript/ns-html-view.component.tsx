@@ -7,9 +7,7 @@ interface NsHtmlViewProps {
   className: string;
 }
 
-export class NsHtmlView<
-  P extends NsHtmlViewProps = NsHtmlViewProps,
-> extends Component<P> {
+export class NsHtmlView<P extends NsHtmlViewProps = NsHtmlViewProps> extends Component<P> {
   static propertyNames = ["html", "className"];
 
   static defaultProps = {
@@ -20,11 +18,7 @@ export class NsHtmlView<
     super(props);
   }
 
-  private replaceElement(
-    htmlContent: string,
-    fromElement: string,
-    toElement: string
-  ): string {
+  private replaceElement(htmlContent: string, fromElement: string, toElement: string): string {
     return htmlContent.replace(
       new RegExp(`<${fromElement}>(.*?)<\\/${fromElement}>`, "g"),
       `<${toElement}>$1</${toElement}>`
@@ -35,12 +29,6 @@ export class NsHtmlView<
     const rawHtmlContent = clearExtraSpaces(renderSSR(this.props.children));
     const htmlContentStr = this.replaceElement(rawHtmlContent, "sub", "small");
     console.log("Render HTML View content:", htmlContentStr);
-    return (
-      <ns-html-view
-        class={this.props.className}
-        selectable="true"
-        html={htmlContentStr}
-      />
-    );
+    return <ns-html-view class={this.props.className} selectable="true" html={htmlContentStr} />;
   }
 }

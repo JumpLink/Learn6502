@@ -27,9 +27,7 @@ export class MdxView extends Adw.Bin {
     super(params);
     // Prevent direct instantiation of the base class
     if (this.constructor === MdxView) {
-      throw new Error(
-        "MdxView is a base class and should not be instantiated directly"
-      );
+      throw new Error("MdxView is a base class and should not be instantiated directly");
     }
   }
 

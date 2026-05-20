@@ -15,10 +15,7 @@ import { logger } from "./logger";
  * Check if an error should be ignored
  */
 function shouldIgnoreError(error: Error | ExtendedError): boolean {
-  return (
-    error instanceof Error &&
-    (error as ExtendedError).customErrorConstructorName === "IgnoreError"
-  );
+  return error instanceof Error && (error as ExtendedError).customErrorConstructorName === "IgnoreError";
 }
 
 /**
@@ -36,27 +33,17 @@ function extractErrorMessage(err: Error | string): string {
  * Automatically logs errors using the logger utility
  * Uses NativeScript dialogs for UI
  */
-export async function showError(
-  err: unknown,
-  options: ErrorHandlerOptions = {}
-): Promise<void> {
+export async function showError(err: unknown, options: ErrorHandlerOptions = {}): Promise<void> {
   try {
     if (!err) {
       return;
     }
 
-    const {
-      showAsNotification = false,
-      forcedMessage,
-      silent = false,
-      title,
-    } = options;
+    const { showAsNotification = false, forcedMessage, silent = false, title } = options;
 
     // Convert to Error for consistent handling
     const error: Error | ExtendedError =
-      err instanceof Error
-        ? err
-        : new Error(typeof err === "string" ? err : String(err));
+      err instanceof Error ? err : new Error(typeof err === "string" ? err : String(err));
 
     // Check for ignore flag
     if (shouldIgnoreError(error)) {
@@ -105,10 +92,7 @@ export async function showError(
  * Replaces global.__errorHandler with better implementation
  */
 export function setupGlobalErrorHandler(): void {
-  (globalThis as any).__errorHandler = function (
-    error: Error | null | undefined,
-    nativeError?: unknown
-  ): boolean {
+  (globalThis as any).__errorHandler = function (error: Error | null | undefined, nativeError?: unknown): boolean {
     // Log error using logger (automatically handles Error objects)
     if (error) {
       logger.error("GlobalErrorHandler", "Global error caught:", error);

@@ -3,11 +3,7 @@ import Tutorial from "../tutorial.mdx";
 import QuickHelp from "../quick-help.mdx";
 import { GtkComponents, GtkRoot } from "./components/gtk/index.tsx";
 // import * as HtmlComponents from './components/html/index.tsx'
-import {
-  components as NsComponents,
-  generateNativeScriptXml,
-  NsRoot,
-} from "./components/nativescript/index.tsx";
+import { components as NsComponents, generateNativeScriptXml, NsRoot } from "./components/nativescript/index.tsx";
 import { writeFile } from "node:fs/promises";
 import { withSourceFileContext } from "./utils.ts";
 

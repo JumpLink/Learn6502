@@ -12,15 +12,15 @@ import { themeService } from "../services";
  * Delegates persistence/apply to themeService.
  */
 export class PrimaryColorSelector extends Adw.Bin {
-  declare private _primary_blue: Gtk.CheckButton;
-  declare private _primary_teal: Gtk.CheckButton;
-  declare private _primary_green: Gtk.CheckButton;
-  declare private _primary_yellow: Gtk.CheckButton;
-  declare private _primary_orange: Gtk.CheckButton;
-  declare private _primary_red: Gtk.CheckButton;
-  declare private _primary_pink: Gtk.CheckButton;
-  declare private _primary_purple: Gtk.CheckButton;
-  declare private _primary_slate: Gtk.CheckButton;
+  private declare _primary_blue: Gtk.CheckButton;
+  private declare _primary_teal: Gtk.CheckButton;
+  private declare _primary_green: Gtk.CheckButton;
+  private declare _primary_yellow: Gtk.CheckButton;
+  private declare _primary_orange: Gtk.CheckButton;
+  private declare _primary_red: Gtk.CheckButton;
+  private declare _primary_pink: Gtk.CheckButton;
+  private declare _primary_purple: Gtk.CheckButton;
+  private declare _primary_slate: Gtk.CheckButton;
   private _isUpdatingUi: boolean = false;
   private _enabled: boolean = true;
   private _isReady: boolean = false;

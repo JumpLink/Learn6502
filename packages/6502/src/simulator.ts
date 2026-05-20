@@ -87,12 +87,7 @@ export class Simulator {
 
     // If PC is at the initial address (0x600) and registers are zeroed,
     // this indicates the simulator is in READY state (was reset or not started yet)
-    if (
-      this.regPC === 0x600 &&
-      this.regA === 0 &&
-      this.regX === 0 &&
-      this.regY === 0
-    ) {
+    if (this.regPC === 0x600 && this.regA === 0 && this.regX === 0 && this.regY === 0) {
       // Check if any code is loaded in memory
       let hasCode = false;
 
@@ -132,10 +127,7 @@ export class Simulator {
    * @param event - The event to listen for
    * @param listener - The callback function to execute when the event occurs
    */
-  public on<K extends keyof SimulatorEventsMap>(
-    event: K,
-    listener: (event: SimulatorEventsMap[K]) => void
-  ): void {
+  public on<K extends keyof SimulatorEventsMap>(event: K, listener: (event: SimulatorEventsMap[K]) => void): void {
     this.events.on(event, listener);
   }
 
@@ -144,10 +136,7 @@ export class Simulator {
    * @param event - The event to stop listening for
    * @param listener - The callback function to remove
    */
-  public off<K extends keyof SimulatorEventsMap>(
-    event: K,
-    listener: (event: SimulatorEventsMap[K]) => void
-  ): void {
+  public off<K extends keyof SimulatorEventsMap>(event: K, listener: (event: SimulatorEventsMap[K]) => void): void {
     this.events.off(event, listener);
   }
 
@@ -156,10 +145,7 @@ export class Simulator {
    * @param event - The event to listen for once
    * @param listener - The callback function to execute when the event occurs
    */
-  public once<K extends keyof SimulatorEventsMap>(
-    event: K,
-    listener: (event: SimulatorEventsMap[K]) => void
-  ): void {
+  public once<K extends keyof SimulatorEventsMap>(event: K, listener: (event: SimulatorEventsMap[K]) => void): void {
     this.events.once(event, listener);
   }
 
@@ -247,9 +233,7 @@ export class Simulator {
     }
     if (addr === 0) {
       // TRANSLATORS: Error when the given address or label cannot be parsed or found
-      this.dispatchSimulatorFailureEvent(
-        _("Unable to find/parse given address/label")
-      );
+      this.dispatchSimulatorFailureEvent(_("Unable to find/parse given address/label"));
     } else {
       this.regPC = addr;
     }
@@ -286,10 +270,7 @@ export class Simulator {
     this.dispatchStopEvent(message);
   }
 
-  private dispatchStepEvent(
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchStepEvent(message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("step", {
       simulator: this,
       message,
@@ -298,10 +279,7 @@ export class Simulator {
     });
   }
 
-  private dispatchMultiStepEvent(
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchMultiStepEvent(message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("multistep", {
       simulator: this,
       message,
@@ -310,10 +288,7 @@ export class Simulator {
     });
   }
 
-  private dispatchResetEvent(
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchResetEvent(message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("reset", {
       simulator: this,
       message,
@@ -322,10 +297,7 @@ export class Simulator {
     });
   }
 
-  private dispatchStartEvent(
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchStartEvent(message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("start", {
       simulator: this,
       message,
@@ -334,10 +306,7 @@ export class Simulator {
     });
   }
 
-  private dispatchStopEvent(
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchStopEvent(message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("stop", {
       simulator: this,
       message,
@@ -346,10 +315,7 @@ export class Simulator {
     });
   }
 
-  private dispatchGotoEvent(
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchGotoEvent(message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("goto", {
       simulator: this,
       message,
@@ -358,10 +324,7 @@ export class Simulator {
     });
   }
 
-  private dispatchSimulatorFailureEvent(
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchSimulatorFailureEvent(message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("simulator-failure", {
       simulator: this,
       message,
@@ -370,10 +333,7 @@ export class Simulator {
     });
   }
 
-  private dispatchSimulatorInfoEvent(
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchSimulatorInfoEvent(message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("simulator-info", {
       simulator: this,
       message,
@@ -382,11 +342,7 @@ export class Simulator {
     });
   }
 
-  private dispatchPseudoOpEvent(
-    type: string,
-    message?: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchPseudoOpEvent(type: string, message?: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("pseudo-op", {
       simulator: this,
       type,
@@ -1732,9 +1688,7 @@ export class Simulator {
 
     ierr: () => {
       // TRANSLATORS: Error message when an unknown opcode is encountered at address
-      this.dispatchSimulatorFailureEvent(_("Address %s - unknown opcode"), [
-        addr2hex(this.regPC),
-      ]);
+      this.dispatchSimulatorFailureEvent(_("Address %s - unknown opcode"), [addr2hex(this.regPC)]);
       this._codeRunning = false;
     },
   };
@@ -1848,9 +1802,7 @@ export class Simulator {
       this._programCompleted = true;
       if (this.executeId !== undefined) clearInterval(this.executeId);
       // TRANSLATORS: Info message shown when program finishes execution at address
-      this.dispatchStopEvent(_("Program completed at PC=$%s"), [
-        addr2hex(this.regPC - 1),
-      ]);
+      this.dispatchStopEvent(_("Program completed at PC=$%s"), [addr2hex(this.regPC - 1)]);
     } else {
       this.dispatchStepEvent();
     }

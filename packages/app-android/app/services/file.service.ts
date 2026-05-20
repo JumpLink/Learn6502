@@ -1,8 +1,5 @@
 import { FileService as BaseFileService } from "@learn6502/common-ui";
-import {
-  Application,
-  AndroidActivityResultEventData,
-} from "@nativescript/core";
+import { Application, AndroidActivityResultEventData } from "@nativescript/core";
 import { Observable } from "@nativescript/core/data/observable";
 import { logger, showError } from "~/utils";
 
@@ -39,9 +36,7 @@ export class FileService extends BaseFileService {
       }
 
       // Create an intent for opening a document
-      const intent = new android.content.Intent(
-        android.content.Intent.ACTION_OPEN_DOCUMENT
-      );
+      const intent = new android.content.Intent(android.content.Intent.ACTION_OPEN_DOCUMENT);
       intent.setType("*/*");
       intent.addCategory(android.content.Intent.CATEGORY_OPENABLE);
 
@@ -54,89 +49,74 @@ export class FileService extends BaseFileService {
         activity.startActivityForResult(intent, 101);
 
         // Handle activity result (use once to prevent listener accumulation)
-        Application.android.once(
-          Application.android.activityResultEvent,
-          (args) => {
-            const {
-              requestCode,
-              resultCode,
-              intent: data,
-            } = args as AndroidActivityResultEventData;
+        Application.android.once(Application.android.activityResultEvent, (args) => {
+          const { requestCode, resultCode, intent: data } = args as AndroidActivityResultEventData;
 
-            // Check if it's our file request and it was successful
-            if (
-              requestCode === 101 &&
-              resultCode === android.app.Activity.RESULT_OK &&
-              data
-            ) {
-              const uri = data.getData();
-              if (uri) {
-                try {
-                  // Get content resolver
-                  const contentResolver = activity.getContentResolver();
+          // Check if it's our file request and it was successful
+          if (requestCode === 101 && resultCode === android.app.Activity.RESULT_OK && data) {
+            const uri = data.getData();
+            if (uri) {
+              try {
+                // Get content resolver
+                const contentResolver = activity.getContentResolver();
 
-                  // Get file name from URI
-                  let fileName = "unknown.asm";
+                // Get file name from URI
+                let fileName = "unknown.asm";
 
-                  // Query for file name
-                  const cursor = contentResolver.query(
-                    uri,
-                    [android.provider.OpenableColumns.DISPLAY_NAME],
-                    null!,
-                    null!,
-                    null!
-                  );
+                // Query for file name
+                const cursor = contentResolver.query(
+                  uri,
+                  [android.provider.OpenableColumns.DISPLAY_NAME],
+                  null!,
+                  null!,
+                  null!
+                );
 
-                  if (cursor && cursor.moveToFirst()) {
-                    const nameIndex = cursor.getColumnIndex(
-                      android.provider.OpenableColumns.DISPLAY_NAME
-                    );
-                    if (nameIndex !== -1) {
-                      fileName = cursor.getString(nameIndex);
-                    }
-                    cursor.close();
+                if (cursor && cursor.moveToFirst()) {
+                  const nameIndex = cursor.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME);
+                  if (nameIndex !== -1) {
+                    fileName = cursor.getString(nameIndex);
                   }
-
-                  // Open input stream and read file content
-                  const inputStream = contentResolver.openInputStream(uri);
-                  const reader = new java.io.BufferedReader(
-                    new java.io.InputStreamReader(inputStream)
-                  );
-
-                  let line;
-                  const stringBuilder = new java.lang.StringBuilder();
-                  while ((line = reader.readLine()) !== null) {
-                    stringBuilder.append(line);
-                    stringBuilder.append("\n");
-                  }
-
-                  inputStream.close();
-
-                  // Get file content as string
-                  const fileContent = stringBuilder.toString();
-
-                  // Set current file
-                  this.currentFileName = fileName;
-                  this.currentFilePath = uri.toString();
-
-                  // Return file content and name
-                  resolve({
-                    content: fileContent,
-                    filename: fileName,
-                  });
-                } catch (error) {
-                  showError(error, {
-                    forcedMessage: "Failed to read file",
-                    showAsNotification: true,
-                  });
-                  resolve(null);
+                  cursor.close();
                 }
-              } else {
+
+                // Open input stream and read file content
+                const inputStream = contentResolver.openInputStream(uri);
+                const reader = new java.io.BufferedReader(new java.io.InputStreamReader(inputStream));
+
+                let line;
+                const stringBuilder = new java.lang.StringBuilder();
+                while ((line = reader.readLine()) !== null) {
+                  stringBuilder.append(line);
+                  stringBuilder.append("\n");
+                }
+
+                inputStream.close();
+
+                // Get file content as string
+                const fileContent = stringBuilder.toString();
+
+                // Set current file
+                this.currentFileName = fileName;
+                this.currentFilePath = uri.toString();
+
+                // Return file content and name
+                resolve({
+                  content: fileContent,
+                  filename: fileName,
+                });
+              } catch (error) {
+                showError(error, {
+                  forcedMessage: "Failed to read file",
+                  showAsNotification: true,
+                });
                 resolve(null);
               }
+            } else {
+              resolve(null);
             }
           }
-        );
+        });
       });
     } catch (error) {
       showError(error, {
@@ -150,10 +130,7 @@ export class FileService extends BaseFileService {
   /**
    * Save content to a new file with file selection dialog
    */
-  public async saveFileAs(
-    content: string,
-    suggestedName?: string
-  ): Promise<boolean> {
+  public async saveFileAs(content: string, suggestedName?: string): Promise<boolean> {
     try {
       // Get the current activity
       const activity = Application.android.foregroundActivity;
@@ -163,94 +140,71 @@ export class FileService extends BaseFileService {
       }
 
       // Create intent for creating a new document
-      const intent = new android.content.Intent(
-        android.content.Intent.ACTION_CREATE_DOCUMENT
-      );
+      const intent = new android.content.Intent(android.content.Intent.ACTION_CREATE_DOCUMENT);
       intent.setType("text/plain");
       intent.addCategory(android.content.Intent.CATEGORY_OPENABLE);
 
       // Set suggested file name
-      intent.putExtra(
-        android.content.Intent.EXTRA_TITLE,
-        suggestedName || this.getCurrentFileName() || "untitled.asm"
-      );
+      intent.putExtra(android.content.Intent.EXTRA_TITLE, suggestedName || this.getCurrentFileName() || "untitled.asm");
 
       return new Promise((resolve) => {
         // Start the activity for result
         activity.startActivityForResult(intent, 102);
 
         // Handle activity result (use once to prevent listener accumulation)
-        Application.android.once(
-          Application.android.activityResultEvent,
-          (args) => {
-            const {
-              requestCode,
-              resultCode,
-              intent: data,
-            } = args as AndroidActivityResultEventData;
+        Application.android.once(Application.android.activityResultEvent, (args) => {
+          const { requestCode, resultCode, intent: data } = args as AndroidActivityResultEventData;
 
-            // Check if it's our save request and it was successful
-            if (
-              requestCode === 102 &&
-              resultCode === android.app.Activity.RESULT_OK &&
-              data
-            ) {
-              const uri = data.getData();
-              if (uri) {
-                try {
-                  // Get content resolver
-                  const contentResolver = activity.getContentResolver();
+          // Check if it's our save request and it was successful
+          if (requestCode === 102 && resultCode === android.app.Activity.RESULT_OK && data) {
+            const uri = data.getData();
+            if (uri) {
+              try {
+                // Get content resolver
+                const contentResolver = activity.getContentResolver();
 
-                  // Query for file name
-                  const cursor = contentResolver.query(
-                    uri,
-                    [android.provider.OpenableColumns.DISPLAY_NAME],
-                    null!,
-                    null!,
-                    null!
-                  );
+                // Query for file name
+                const cursor = contentResolver.query(
+                  uri,
+                  [android.provider.OpenableColumns.DISPLAY_NAME],
+                  null!,
+                  null!,
+                  null!
+                );
 
-                  if (cursor && cursor.moveToFirst()) {
-                    const nameIndex = cursor.getColumnIndex(
-                      android.provider.OpenableColumns.DISPLAY_NAME
-                    );
-                    if (nameIndex !== -1) {
-                      this.currentFileName = cursor.getString(nameIndex);
-                    }
-                    cursor.close();
+                if (cursor && cursor.moveToFirst()) {
+                  const nameIndex = cursor.getColumnIndex(android.provider.OpenableColumns.DISPLAY_NAME);
+                  if (nameIndex !== -1) {
+                    this.currentFileName = cursor.getString(nameIndex);
                   }
-
-                  // Open output stream and write content
-                  const outputStream = contentResolver.openOutputStream(
-                    uri,
-                    "wt"
-                  );
-                  const writer = new java.io.BufferedWriter(
-                    new java.io.OutputStreamWriter(outputStream)
-                  );
-
-                  writer.write(content);
-                  writer.flush();
-                  writer.close();
-
-                  // Update current file
-                  this.currentFilePath = uri.toString();
-                  this.setUnsavedChanges(false);
-
-                  resolve(true);
-                } catch (error) {
-                  showError(error, {
-                    forcedMessage: "Failed to save file",
-                    showAsNotification: true,
-                  });
-                  resolve(false);
+                  cursor.close();
                 }
-              } else {
+
+                // Open output stream and write content
+                const outputStream = contentResolver.openOutputStream(uri, "wt");
+                const writer = new java.io.BufferedWriter(new java.io.OutputStreamWriter(outputStream));
+
+                writer.write(content);
+                writer.flush();
+                writer.close();
+
+                // Update current file
+                this.currentFilePath = uri.toString();
+                this.setUnsavedChanges(false);
+
+                resolve(true);
+              } catch (error) {
+                showError(error, {
+                  forcedMessage: "Failed to save file",
+                  showAsNotification: true,
+                });
                 resolve(false);
               }
+            } else {
+              resolve(false);
             }
           }
-        );
+        });
       });
     } catch (error) {
       showError(error, {
@@ -282,9 +236,7 @@ export class FileService extends BaseFileService {
 
       // Open output stream and write content
       const outputStream = contentResolver.openOutputStream(uri, "wt");
-      const writer = new java.io.BufferedWriter(
-        new java.io.OutputStreamWriter(outputStream)
-      );
+      const writer = new java.io.BufferedWriter(new java.io.OutputStreamWriter(outputStream));
 
       writer.write(content);
       writer.flush();

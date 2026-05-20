@@ -32,22 +32,13 @@ export class ErrorHandler {
     private readonly callbacks: ErrorHandlerCallbacks
   ) {}
 
-  async showError(
-    err: Error | string | null | undefined,
-    options: ErrorHandlerOptions = {}
-  ): Promise<void> {
+  async showError(err: Error | string | null | undefined, options: ErrorHandlerOptions = {}): Promise<void> {
     try {
       if (!err) return;
 
-      const {
-        showAsNotification = false,
-        forcedMessage,
-        silent = false,
-        title,
-      } = options;
+      const { showAsNotification = false, forcedMessage, silent = false, title } = options;
 
-      const error: Error | ExtendedError =
-        typeof err === "string" ? new Error(err) : err;
+      const error: Error | ExtendedError = typeof err === "string" ? new Error(err) : err;
 
       if (this.shouldIgnoreError(error)) return;
 
@@ -73,10 +64,7 @@ export class ErrorHandler {
   }
 
   private shouldIgnoreError(error: Error | ExtendedError): boolean {
-    return (
-      error instanceof Error &&
-      (error as ExtendedError).customErrorConstructorName === "IgnoreError"
-    );
+    return error instanceof Error && (error as ExtendedError).customErrorConstructorName === "IgnoreError";
   }
 
   private extractErrorMessage(err: Error | string): string {

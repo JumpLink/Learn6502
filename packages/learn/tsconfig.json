@@ -13,11 +13,5 @@
     "verbatimModuleSyntax": true,
     "isolatedModules": true
   },
-  "include": [
-    "env.d.ts",
-    "./*.mdx",
-    "tsx/**/*.ts",
-    "tsx/**/*.tsx",
-    "tsx/**/*.mdx"
-  ]
+  "include": ["env.d.ts", "./*.mdx", "tsx/**/*.ts", "tsx/**/*.tsx", "tsx/**/*.mdx"]
 }

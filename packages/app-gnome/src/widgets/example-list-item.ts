@@ -9,11 +9,11 @@ import { Display } from "./game-console/display.ts";
 import Template from "./example-list-item.blp";
 
 export class ExampleListItem extends Gtk.Box {
-  declare private _titleLabel: Gtk.Label;
-  declare private _authorLabel: Gtk.Label;
-  declare private _descriptionLabel: Gtk.Label;
-  declare private _display: Display;
-  declare private _sourceView: SourceView;
+  private declare _titleLabel: Gtk.Label;
+  private declare _authorLabel: Gtk.Label;
+  private declare _descriptionLabel: Gtk.Label;
+  private declare _display: Display;
+  private declare _sourceView: SourceView;
 
   private _example: ExampleMeta | null = null;
   private _memory: Memory | null = null;
@@ -23,13 +23,7 @@ export class ExampleListItem extends Gtk.Box {
       {
         GTypeName: "ExampleListItem",
         Template,
-        InternalChildren: [
-          "titleLabel",
-          "authorLabel",
-          "descriptionLabel",
-          "display",
-          "sourceView",
-        ],
+        InternalChildren: ["titleLabel", "authorLabel", "descriptionLabel", "display", "sourceView"],
         Signals: {
           "copy-code": {
             param_types: [GObject.TYPE_STRING],

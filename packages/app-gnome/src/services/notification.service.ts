@@ -50,9 +50,7 @@ class NotificationService extends BaseNotificationService {
   /**
    * Display a confirmation dialog using Adw.AlertDialog
    */
-  protected async displayConfirmDialog(
-    options: DialogOptions
-  ): Promise<boolean> {
+  protected async displayConfirmDialog(options: DialogOptions): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
       // Create dialog
       const dialog = new Adw.AlertDialog({

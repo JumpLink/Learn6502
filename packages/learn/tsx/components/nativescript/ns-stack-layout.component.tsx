@@ -13,8 +13,6 @@ export class NsStackLayout extends Component {
 
   public render() {
     // Using JSX to define the structure that will be parsed by renderSSR
-    return (
-      <ns-stack-layout {...this.props}>{this.props.children}</ns-stack-layout>
-    );
+    return <ns-stack-layout {...this.props}>{this.props.children}</ns-stack-layout>;
   }
 }

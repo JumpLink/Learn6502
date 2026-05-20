@@ -12,10 +12,7 @@ export interface GameConsoleEventBridgeCallbacks {
    * Format a message with params and log it to the debugger console.
    * GNOME uses gettext formatting, Android logs directly.
    */
-  formatAndLog(
-    message: string,
-    params?: (string | number | boolean | null | undefined)[]
-  ): void;
+  formatAndLog(message: string, params?: (string | number | boolean | null | undefined)[]): void;
 
   /** Called when the debugger UI should be refreshed (memory, CPU state). */
   updateDebugger(): void;
@@ -73,19 +70,13 @@ export class GameConsoleEventBridge {
 
     this.on("hexdump", (signal) => {
       if (signal.message) {
-        this.callbacks.formatAndLog(
-          "Hexdump:\n" + signal.message,
-          signal.params
-        );
+        this.callbacks.formatAndLog("Hexdump:\n" + signal.message, signal.params);
       }
     });
 
     this.on("disassembly", (signal) => {
       if (signal.message) {
-        this.callbacks.formatAndLog(
-          "Disassembly:\n" + signal.message,
-          signal.params
-        );
+        this.callbacks.formatAndLog("Disassembly:\n" + signal.message, signal.params);
       }
     });
 

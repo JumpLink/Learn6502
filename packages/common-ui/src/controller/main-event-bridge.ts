@@ -79,9 +79,7 @@ export class MainEventBridge {
       mainStateController.setCodeChanged(true);
     };
     editorController.events.on("changed", onEditorChanged);
-    this.unsubscribers.push(() =>
-      editorController.events.off("changed", onEditorChanged)
-    );
+    this.unsubscribers.push(() => editorController.events.off("changed", onEditorChanged));
 
     // Learn events
     const onLearnCopy = ({ code }: { code: string }) => {
@@ -108,8 +106,6 @@ export class MainEventBridge {
     callback: (data: import("../types").MainUiStateEventMap[K]) => void
   ): void {
     mainStateController.events.on(event, callback);
-    this.unsubscribers.push(() =>
-      mainStateController.events.off(event, callback)
-    );
+    this.unsubscribers.push(() => mainStateController.events.off(event, callback));
   }
 }

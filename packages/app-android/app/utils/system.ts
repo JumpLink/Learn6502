@@ -38,10 +38,7 @@ export function restartApp(): void {
     }
 
     // Use flags to clear the existing task and start a new one
-    intent.addFlags(
-      android.content.Intent.FLAG_ACTIVITY_NEW_TASK |
-        android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK
-    );
+    intent.addFlags(android.content.Intent.FLAG_ACTIVITY_NEW_TASK | android.content.Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
     // Start the main activity
     context.startActivity(intent);
@@ -62,9 +59,7 @@ export function restartApp(): void {
  */
 export async function getRootViewWhenReady() {
   try {
-    const rootView = await waitForFunctionResult(
-      Application.getRootView.bind(Application)
-    );
+    const rootView = await waitForFunctionResult(Application.getRootView.bind(Application));
     log.debug("Root view is ready:", rootView);
     return rootView;
   } catch (error) {

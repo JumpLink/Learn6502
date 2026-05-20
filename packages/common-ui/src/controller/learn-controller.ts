@@ -89,10 +89,7 @@ class LearnController {
    * @param event Event name
    * @param callback Callback to call when event is triggered
    */
-  public on<K extends keyof LearnEventMap>(
-    event: K,
-    callback: (data: LearnEventMap[K]) => void
-  ): void {
+  public on<K extends keyof LearnEventMap>(event: K, callback: (data: LearnEventMap[K]) => void): void {
     this.events.on(event, callback);
   }
 
@@ -101,10 +98,7 @@ class LearnController {
    * @param event Event name
    * @param callback Callback to remove
    */
-  public off<K extends keyof LearnEventMap>(
-    event: K,
-    callback: (data: LearnEventMap[K]) => void
-  ): void {
+  public off<K extends keyof LearnEventMap>(event: K, callback: (data: LearnEventMap[K]) => void): void {
     this.events.off(event, callback);
   }
 
@@ -113,10 +107,7 @@ class LearnController {
    * @param event Event name
    * @param data Event data
    */
-  public dispatch<K extends keyof LearnEventMap>(
-    event: K,
-    data: LearnEventMap[K]
-  ): void {
+  public dispatch<K extends keyof LearnEventMap>(event: K, data: LearnEventMap[K]): void {
     this.events.dispatch(event, data);
   }
 }

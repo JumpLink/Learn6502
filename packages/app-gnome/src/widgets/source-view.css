@@ -16,11 +16,7 @@
     background-color: var(--view-bg-color);
 
     current-line {
-      background-color: color-mix(
-        in oklab,
-        var(--view-bg-color) 88%,
-        var(--window-fg-color)
-      );
+      background-color: color-mix(in oklab, var(--view-bg-color) 88%, var(--window-fg-color));
     }
   }
 }

@@ -10,10 +10,7 @@ import Template from "./source-view.blp";
 
 import { GutterRendererLineNumbers } from "../gutter-renderer-line-numbers.ts";
 import { GutterRendererMode } from "../types/index.ts";
-import type {
-  SourceViewWidget,
-  SourceViewEventMap,
-} from "@learn6502/common-ui";
+import type { SourceViewWidget, SourceViewEventMap } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/6502";
 
 GtkSource.init();
@@ -66,16 +63,15 @@ export namespace SourceView {
  * @emits copy - Emitted when the copy button is clicked with the current code
  */
 export class SourceView extends Adw.Bin implements SourceViewWidget {
-  readonly events: EventDispatcher<SourceViewEventMap> =
-    new EventDispatcher<SourceViewEventMap>();
+  readonly events: EventDispatcher<SourceViewEventMap> = new EventDispatcher<SourceViewEventMap>();
 
   // Child widgets
   /** The ScrolledWindow that contains the SourceView */
-  declare private _scrolledWindow: Gtk.ScrolledWindow;
+  private declare _scrolledWindow: Gtk.ScrolledWindow;
   /** The SourceView that displays the buffer's display */
-  declare private _sourceView: GtkSource.View;
+  private declare _sourceView: GtkSource.View;
   /** The copy button */
-  declare private _copyButton: Gtk.Button;
+  private declare _copyButton: Gtk.Button;
 
   static {
     GObject.registerClass(
@@ -302,10 +298,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
       }
 
       // Set up copy clipboard handling for hex mode
-      this.copyClipboardSignalId = this._sourceView.connect_after(
-        "copy-clipboard",
-        this.onCopyHexClipboard.bind(this)
-      );
+      this.copyClipboardSignalId = this._sourceView.connect_after("copy-clipboard", this.onCopyHexClipboard.bind(this));
     } else {
       // Switch to normal mode if line numbers are enabled
       if (this.lineNumbers) {
@@ -317,10 +310,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
         try {
           this._sourceView.disconnect(this.copyClipboardSignalId);
         } catch (error) {
-          console.error(
-            "[SourceView] Failed to disconnect copy clipboard signal",
-            error
-          );
+          console.error("[SourceView] Failed to disconnect copy clipboard signal", error);
         }
         this.copyClipboardSignalId = undefined;
       }
@@ -395,9 +385,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
       if (!this.renderer) {
         // Initialize our custom renderer with appropriate mode
         const isHexMode = this.language === "hex";
-        this.setupLineNumbers(
-          isHexMode ? GutterRendererMode.HEX : GutterRendererMode.NORMAL
-        );
+        this.setupLineNumbers(isHexMode ? GutterRendererMode.HEX : GutterRendererMode.NORMAL);
       }
     } else {
       // Hide line numbers by removing the renderer
@@ -444,15 +432,9 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
   public set fitContentHeight(value: boolean) {
     const [hPolicy] = this._scrolledWindow.get_policy();
     if (value) {
-      this._scrolledWindow.set_policy(
-        hPolicy || Gtk.PolicyType.AUTOMATIC,
-        Gtk.PolicyType.NEVER
-      );
+      this._scrolledWindow.set_policy(hPolicy || Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.NEVER);
     } else {
-      this._scrolledWindow.set_policy(
-        hPolicy || Gtk.PolicyType.AUTOMATIC,
-        Gtk.PolicyType.AUTOMATIC
-      );
+      this._scrolledWindow.set_policy(hPolicy || Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC);
     }
   }
 
@@ -470,15 +452,9 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
   public set fitContentWidth(value: boolean) {
     const [, vPolicy] = this._scrolledWindow.get_policy();
     if (value) {
-      this._scrolledWindow.set_policy(
-        Gtk.PolicyType.NEVER,
-        vPolicy || Gtk.PolicyType.AUTOMATIC
-      );
+      this._scrolledWindow.set_policy(Gtk.PolicyType.NEVER, vPolicy || Gtk.PolicyType.AUTOMATIC);
     } else {
-      this._scrolledWindow.set_policy(
-        Gtk.PolicyType.AUTOMATIC,
-        vPolicy || Gtk.PolicyType.AUTOMATIC
-      );
+      this._scrolledWindow.set_policy(Gtk.PolicyType.AUTOMATIC, vPolicy || Gtk.PolicyType.AUTOMATIC);
     }
   }
 
@@ -668,23 +644,13 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
   /** Ensure our custom style scheme search paths are registered. */
   private ensureStyleSearchPaths(): void {
     // Development path inside the repo
-    const devPath = GLib.build_filenamev([
-      GLib.get_current_dir(),
-      "packages",
-      "app-gnome",
-      "data",
-      "schemas",
-    ]);
+    const devPath = GLib.build_filenamev([GLib.get_current_dir(), "packages", "app-gnome", "data", "schemas"]);
     const pathsToTry: string[] = [devPath];
 
     // Installed path (Flatpak/meson): share/eu.jumplink.Learn6502/schemas
     const dataDirs = GLib.get_system_data_dirs();
     for (const base of dataDirs) {
-      const candidate = GLib.build_filenamev([
-        base,
-        "eu.jumplink.Learn6502",
-        "schemas",
-      ]);
+      const candidate = GLib.build_filenamev([base, "eu.jumplink.Learn6502", "schemas"]);
       pathsToTry.push(candidate);
     }
 
@@ -801,33 +767,23 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
           start: Gtk.TextIter,
           end: Gtk.TextIter
         ) => {
-          GObject.signal_stop_emission_by_name(
-            this._sourceView,
-            "extend-selection"
-          );
+          GObject.signal_stop_emission_by_name(this._sourceView, "extend-selection");
         }
       )
     );
 
     // Prevent selection
     this._selectableSignalIds.push(
-      this.buffer.connect(
-        "mark-set",
-        (
-          buffer: GtkSource.Buffer,
-          location: Gtk.TextIter,
-          mark: Gtk.TextMark
-        ) => {
-          if (mark.name === "insert" || mark.name === "selection_bound") {
-            const offset = location.get_offset();
-            if (offset !== 0) {
-              location.set_offset(0);
-              this.buffer.move_mark(mark, location);
-              GObject.signal_stop_emission_by_name(this.buffer, "mark-set");
-            }
+      this.buffer.connect("mark-set", (buffer: GtkSource.Buffer, location: Gtk.TextIter, mark: Gtk.TextMark) => {
+        if (mark.name === "insert" || mark.name === "selection_bound") {
+          const offset = location.get_offset();
+          if (offset !== 0) {
+            location.set_offset(0);
+            this.buffer.move_mark(mark, location);
+            GObject.signal_stop_emission_by_name(this.buffer, "mark-set");
           }
         }
-      )
+      })
     );
   }
 
@@ -844,9 +800,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
     const preferredId = isDark ? "Learn6502-dark" : "Learn6502";
     let scheme = this.schemeManager.get_scheme(preferredId);
     if (!scheme) {
-      scheme = this.schemeManager.get_scheme(
-        isDark ? "Adwaita-dark" : "Adwaita"
-      );
+      scheme = this.schemeManager.get_scheme(isDark ? "Adwaita-dark" : "Adwaita");
     }
     if (scheme) this.buffer.set_style_scheme(scheme);
     this._sourceView.set_highlight_current_line(true);

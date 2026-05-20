@@ -1,15 +1,7 @@
 import { Component } from "nano-jsx";
 
 export class NsImage extends Component {
-  static propertyNames = [
-    "src",
-    "imageSource",
-    "stretch",
-    "loadMode",
-    "tintColor",
-    "decodeWidth",
-    "decodeHeight",
-  ];
+  static propertyNames = ["src", "imageSource", "stretch", "loadMode", "tintColor", "decodeWidth", "decodeHeight"];
 
   static defaultProps = {
     stretch: "aspectFit",

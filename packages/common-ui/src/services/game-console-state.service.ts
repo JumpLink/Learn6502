@@ -36,9 +36,7 @@ export class GameConsoleStateService {
       const hex = this._colorPalette[value];
       return hexToRgb(hex);
     } catch (error) {
-      console.error(
-        `Error getting color for address 0x${addr.toString(16)}: ${error}`
-      );
+      console.error(`Error getting color for address 0x${addr.toString(16)}: ${error}`);
       // Return fallback color
       return { red: 1, green: 0, blue: 1 }; // Magenta to indicate error
     }
@@ -85,9 +83,7 @@ export class GameConsoleStateService {
     memory: Memory,
     pattern: "gradient" | "colorChart" | "simple" = "simple"
   ): void {
-    console.log(
-      `GameConsoleStateService: Initializing memory with '${pattern}' test pattern`
-    );
+    console.log(`GameConsoleStateService: Initializing memory with '${pattern}' test pattern`);
 
     switch (pattern) {
       case "gradient":
@@ -109,11 +105,7 @@ export class GameConsoleStateService {
    */
   private initializeSimplePattern(memory: Memory): void {
     // Make sure the display area is clear
-    for (
-      let addr = DisplayAddressRange.START;
-      addr <= DisplayAddressRange.END;
-      addr++
-    ) {
+    for (let addr = DisplayAddressRange.START; addr <= DisplayAddressRange.END; addr++) {
       memory.set(addr, 0);
     }
 
@@ -132,15 +124,9 @@ export class GameConsoleStateService {
    * @param memory Memory instance
    */
   private initializeGradientPattern(memory: Memory): void {
-    for (
-      let addr = DisplayAddressRange.START;
-      addr <= DisplayAddressRange.END;
-      addr++
-    ) {
+    for (let addr = DisplayAddressRange.START; addr <= DisplayAddressRange.END; addr++) {
       const offset = addr - DisplayAddressRange.START;
-      const value = Math.floor(
-        (offset / (DisplayAddressRange.END - DisplayAddressRange.START)) * 16
-      );
+      const value = Math.floor((offset / (DisplayAddressRange.END - DisplayAddressRange.START)) * 16);
       memory.set(addr, value & 0x0f);
     }
   }
@@ -169,11 +155,7 @@ export class GameConsoleStateService {
    * @param height Display height in pixels
    * @returns 2D array of RGB colors
    */
-  public renderFrame(
-    memory: Memory,
-    width: number,
-    height: number
-  ): RGBColor[][] {
+  public renderFrame(memory: Memory, width: number, height: number): RGBColor[][] {
     const frame: RGBColor[][] = [];
 
     for (let y = 0; y < height; y++) {

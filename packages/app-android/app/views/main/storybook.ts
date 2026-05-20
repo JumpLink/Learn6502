@@ -43,11 +43,7 @@ class Storybook {
       "threeLineItem2",
     ];
 
-    const selectableItemIds = [
-      "selectableItem1",
-      "selectableItem2",
-      "selectableItem3",
-    ];
+    const selectableItemIds = ["selectableItem1", "selectableItem2", "selectableItem3"];
 
     // Set up handlers for standard items (non-selectable)
     this.setupStandardItemHandlers(standardItemIds);
@@ -90,9 +86,7 @@ class Storybook {
       if (item) {
         item.on(ListItem.tapEvent, () => {
           item.selected = !item.selected;
-          this.log.debug(
-            `List item tapped: ${item.headline}, selected: ${item.selected}`
-          );
+          this.log.debug(`List item tapped: ${item.headline}, selected: ${item.selected}`);
         });
       } else {
         this.log.warn(`Selectable list item not found with id: ${id}`);
@@ -107,23 +101,14 @@ class Storybook {
     if (!this.page) return;
 
     // Define all standalone switch IDs
-    const switchIds = [
-      "switch1",
-      "switch2",
-      "switch3",
-      "switchTertiary",
-      "switchError",
-      "switchInteractive",
-    ];
+    const switchIds = ["switch1", "switch2", "switch3", "switchTertiary", "switchError", "switchInteractive"];
 
     // Set up handlers for all standalone switches
     switchIds.forEach((id) => {
       const switchView = this.page!.getViewById<Switch>(id);
       if (switchView) {
         switchView.on(Switch.checkedChangeEvent, (args: EventData) => {
-          this.log.debug(
-            `Switch ${id} changed: ${(args as EventData & { value: boolean }).value}`
-          );
+          this.log.debug(`Switch ${id} changed: ${(args as EventData & { value: boolean }).value}`);
         });
       } else {
         this.log.warn(`Switch not found with id: ${id}`);
@@ -141,11 +126,7 @@ class Storybook {
     if (!this.page) return;
 
     // Define all list item IDs that have trailing switches
-    const listItemSwitchIds = [
-      "switchListItem",
-      "darkModeListItem",
-      "autoUpdateListItem",
-    ];
+    const listItemSwitchIds = ["switchListItem", "darkModeListItem", "autoUpdateListItem"];
 
     // Set up handlers for ListItems with trailing switches
     listItemSwitchIds.forEach((id) => {
@@ -154,9 +135,7 @@ class Storybook {
         // Handle tap on list item (toggles the switch)
         listItem.on(ListItem.tapEvent, () => {
           listItem.trailingSwitchChecked = !listItem.trailingSwitchChecked;
-          this.log.debug(
-            `ListItem ${listItem.headline} tapped, switch: ${listItem.trailingSwitchChecked}`
-          );
+          this.log.debug(`ListItem ${listItem.headline} tapped, switch: ${listItem.trailingSwitchChecked}`);
         });
 
         // Handle switch change directly
@@ -174,5 +153,4 @@ class Storybook {
 
 const storybookController = new Storybook();
 
-export const onNavigatingTo =
-  storybookController.onNavigatingTo.bind(storybookController);
+export const onNavigatingTo = storybookController.onNavigatingTo.bind(storybookController);

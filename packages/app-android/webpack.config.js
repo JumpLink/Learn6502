@@ -2,8 +2,7 @@ const webpack = require("@nativescript/webpack");
 const { DefinePlugin } = require("webpack");
 
 // Build configuration flags from environment
-const production =
-  process.env.NODE_ENV === "production" || !!process.env.PRODUCTION;
+const production = process.env.NODE_ENV === "production" || !!process.env.PRODUCTION;
 const devLog = !production && !process.env.NO_DEV_LOG;
 const playStoreBuild = !!process.env.PLAY_STORE_BUILD;
 
@@ -19,12 +18,7 @@ module.exports = (env) => {
 
   webpack.chainWebpack((config) => {
     // Add rule for raw imports with ?raw suffix
-    config.module
-      .rule("raw")
-      .resourceQuery(/raw/)
-      .use("raw-loader")
-      .loader("raw-loader")
-      .end();
+    config.module.rule("raw").resourceQuery(/raw/).use("raw-loader").loader("raw-loader").end();
 
     // Define global constants following the pattern from reference projects
     // These are replaced at compile time by webpack's DefinePlugin
