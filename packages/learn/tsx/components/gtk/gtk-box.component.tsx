@@ -24,9 +24,7 @@ export class GtkBox extends GtkWidget implements GtkOrientable {
   }
 
   public render() {
-    const classes: string[] = this.props.class
-      ? this.props.class.split(" ")
-      : [];
+    const classes: string[] = this.props.class ? this.props.class.split(" ") : [];
     const propKeys = Object.keys(this.props);
     return (
       <child>
@@ -34,11 +32,7 @@ export class GtkBox extends GtkWidget implements GtkOrientable {
           {propKeys
             .map((property) => {
               if (GtkBox.propertyNames.includes(property)) {
-                return (
-                  <property name={property}>
-                    {this.props[property].toString()}
-                  </property>
-                );
+                return <property name={property}>{this.props[property].toString()}</property>;
               }
               if (GtkBox.reservedPropertyNames.includes(property)) {
                 return null;

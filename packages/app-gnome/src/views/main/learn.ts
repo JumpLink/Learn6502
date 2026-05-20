@@ -12,14 +12,14 @@ import { learnController } from "@learn6502/common-ui/src/controller";
 
 export class Learn extends Adw.Bin implements LearnView {
   // Child widgets
-  declare private _navigationView: Adw.NavigationView;
-  declare private _navigationList: Gtk.ListBox;
-  declare private _tutorialRow: Adw.ActionRow;
-  declare private _examplesRow: Adw.ActionRow;
-  declare private _statusPage: Adw.StatusPage;
-  declare private _tutorialView: TutorialView;
-  declare private _examplesStatusPage: Adw.StatusPage;
-  declare private _examplesList: ExamplesList;
+  private declare _navigationView: Adw.NavigationView;
+  private declare _navigationList: Gtk.ListBox;
+  private declare _tutorialRow: Adw.ActionRow;
+  private declare _examplesRow: Adw.ActionRow;
+  private declare _statusPage: Adw.StatusPage;
+  private declare _tutorialView: TutorialView;
+  private declare _examplesStatusPage: Adw.StatusPage;
+  private declare _examplesList: ExamplesList;
 
   // Store the scroll position
   private _lastScrollPosition: number = 0;
@@ -93,8 +93,7 @@ export class Learn extends Adw.Bin implements LearnView {
 
   private getScrolledWindow(): Gtk.ScrolledWindow | null {
     // ScrolledWindow is created by Adw.StatusPage
-    const scrolledWindow =
-      this._statusPage.get_first_child() as Gtk.ScrolledWindow;
+    const scrolledWindow = this._statusPage.get_first_child() as Gtk.ScrolledWindow;
     return scrolledWindow || null;
   }
 
@@ -129,8 +128,7 @@ export class Learn extends Adw.Bin implements LearnView {
         vadjustment &&
         vadjustment.get_upper() > vadjustment.get_page_size() &&
         this._lastScrollPosition > 0 &&
-        this._lastScrollPosition <=
-          vadjustment.get_upper() - vadjustment.get_page_size()
+        this._lastScrollPosition <= vadjustment.get_upper() - vadjustment.get_page_size()
       ) {
         vadjustment.set_value(this._lastScrollPosition);
       }

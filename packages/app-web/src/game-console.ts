@@ -3,10 +3,7 @@ import { Debugger } from "./debugger.js";
 import { Display } from "./display.js";
 import { UIState } from "./ui-state.js";
 import { MessageConsole } from "./message-console.js";
-import {
-  type MessageConsoleWidget,
-  mapKeyboardToGamepadKeyCode,
-} from "@learn6502/common-ui";
+import { type MessageConsoleWidget, mapKeyboardToGamepadKeyCode } from "@learn6502/common-ui";
 
 /**
  * Represents the main widget for the 6502 simulator.
@@ -33,16 +30,10 @@ export class GameConsole {
     this.labels = new Labels();
     this.simulator = new Simulator(this.memory, this.labels);
     this.assembler = new Assembler(this.memory, this.labels);
-    this.debugger = new Debugger(
-      node,
-      this.simulator,
-      this.assembler,
-      this.memory,
-      {
-        start: 0x00,
-        length: 0xff,
-      }
-    );
+    this.debugger = new Debugger(node, this.simulator, this.assembler, this.memory, {
+      start: 0x00,
+      length: 0xff,
+    });
     this.initialize();
   }
 
@@ -62,16 +53,12 @@ export class GameConsole {
    * Sets up event listeners for various UI elements.
    */
   private setupEventListeners(): void {
-    this.node
-      .querySelector(".assembleButton")
-      ?.addEventListener("click", () => {
-        this.simulator.reset();
-        this.labels.reset();
-        this.console.clear();
-        this.assembler.assembleCode(
-          this.node.querySelector<HTMLTextAreaElement>(".code")?.value || ""
-        );
-      });
+    this.node.querySelector(".assembleButton")?.addEventListener("click", () => {
+      this.simulator.reset();
+      this.labels.reset();
+      this.console.clear();
+      this.assembler.assembleCode(this.node.querySelector<HTMLTextAreaElement>(".code")?.value || "");
+    });
 
     this.node.querySelector(".mainButton")?.addEventListener("click", () => {
       this.simulator.stopStepper();
@@ -90,62 +77,43 @@ export class GameConsole {
       });
     });
 
-    this.node
-      .querySelector(".disassembleButton")
-      ?.addEventListener("click", () => {
-        this.assembler.disassemble();
-      });
+    this.node.querySelector(".disassembleButton")?.addEventListener("click", () => {
+      this.assembler.disassemble();
+    });
 
-    this.node
-      .querySelector(".debug")
-      ?.addEventListener("change", (e: Event) => {
-        const debug = (e.target as HTMLInputElement).checked;
-        if (debug) {
-          this.uiState.debugOn();
-          this.simulator.enableStepper();
-        } else {
-          this.uiState.debugOff();
-          this.simulator.stopStepper();
-        }
-      });
+    this.node.querySelector(".debug")?.addEventListener("change", (e: Event) => {
+      const debug = (e.target as HTMLInputElement).checked;
+      if (debug) {
+        this.uiState.debugOn();
+        this.simulator.enableStepper();
+      } else {
+        this.uiState.debugOff();
+        this.simulator.stopStepper();
+      }
+    });
 
-    this.node
-      .querySelector(".monitoring")
-      ?.addEventListener("change", (e: Event) => {
-        const state = (e.target as HTMLInputElement).checked;
-        this.uiState.toggleMonitor(state);
-        this.debugger.toggleMonitor(state);
-      });
+    this.node.querySelector(".monitoring")?.addEventListener("change", (e: Event) => {
+      const state = (e.target as HTMLInputElement).checked;
+      this.uiState.toggleMonitor(state);
+      this.debugger.toggleMonitor(state);
+    });
 
     this.node.querySelectorAll(".start, .length")?.forEach((element) => {
-      element.addEventListener(
-        "blur",
-        this.debugger.onMonitorRangeChange.bind(this.debugger)
-      );
+      element.addEventListener("blur", this.debugger.onMonitorRangeChange.bind(this.debugger));
     });
     this.node
       .querySelector(".stepButton")
-      ?.addEventListener(
-        "click",
-        this.simulator.debugExecStep.bind(this.simulator)
-      );
+      ?.addEventListener("click", this.simulator.debugExecStep.bind(this.simulator));
     this.node.querySelector(".gotoButton")?.addEventListener("click", () => {
-      this.simulator.gotoAddr(
-        this.console.prompt("Enter address or label", "") || ""
-      );
+      this.simulator.gotoAddr(this.console.prompt("Enter address or label", "") || "");
     });
-    this.node
-      .querySelector(".notesButton")
-      ?.addEventListener("click", this.uiState.showNotes.bind(this.uiState));
+    this.node.querySelector(".notesButton")?.addEventListener("click", this.uiState.showNotes.bind(this.uiState));
 
     const editor = this.node.querySelector<HTMLTextAreaElement>(".code");
     editor?.addEventListener("keypress", () => {
       this.simulator.stop();
     });
-    editor?.addEventListener(
-      "keypress",
-      this.uiState.initialize.bind(this.uiState)
-    );
+    editor?.addEventListener("keypress", this.uiState.initialize.bind(this.uiState));
 
     document.addEventListener("keypress", (e: KeyboardEvent) => {
       let value = 0;
@@ -272,8 +240,7 @@ export class GameConsole {
     }
 
     let html = "<html><head>";
-    html +=
-      "<link href='dist/assets/main.css' rel='stylesheet' type='text/css' />";
+    html += "<link href='dist/assets/main.css' rel='stylesheet' type='text/css' />";
     html += "<title>" + title + "</title></head><body>";
     html += "<pre><code>";
 

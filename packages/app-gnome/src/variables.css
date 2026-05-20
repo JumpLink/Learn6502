@@ -2,11 +2,7 @@
 .primary-custom {
   &:not(.is-dark) {
     /* Background */
-    --learn-primary-bg-color: color-mix(
-      in oklab,
-      var(--learn-primary-color, var(--accent-color)) 50%,
-      var(--light-1)
-    );
+    --learn-primary-bg-color: color-mix(in oklab, var(--learn-primary-color, var(--accent-color)) 50%, var(--light-1));
 
     /* View */
     --learn-primary-view-bg-color: color-mix(
@@ -31,11 +27,7 @@
     );
 
     /* Popover */
-    --learn-popover-bg-color: color-mix(
-      in oklab,
-      var(--learn-primary-color, var(--accent-color)) 20%,
-      var(--light-1)
-    );
+    --learn-popover-bg-color: color-mix(in oklab, var(--learn-primary-color, var(--accent-color)) 20%, var(--light-1));
 
     /* Dialog */
     --learn-primary-dialog-bg-color: color-mix(
@@ -55,11 +47,7 @@
 
   &.is-dark {
     /* Background */
-    --learn-primary-bg-color: color-mix(
-      in oklab,
-      var(--learn-primary-color, var(--accent-color)) 60%,
-      var(--dark-5)
-    );
+    --learn-primary-bg-color: color-mix(in oklab, var(--learn-primary-color, var(--accent-color)) 60%, var(--dark-5));
 
     /* View */
     --learn-primary-view-bg-color: color-mix(
@@ -88,11 +76,7 @@
     );
 
     /* Popover */
-    --learn-popover-bg-color: color-mix(
-      in oklab,
-      var(--learn-primary-color, var(--accent-color)) 40%,
-      var(--dark-5)
-    );
+    --learn-popover-bg-color: color-mix(in oklab, var(--learn-primary-color, var(--accent-color)) 40%, var(--dark-5));
 
     /* Dialog */
     --learn-primary-dialog-bg-color: color-mix(

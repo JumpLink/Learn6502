@@ -20,10 +20,7 @@ export class Labels {
    * @param event - The event name to listen for
    * @param listener - Callback function that receives the labels event
    */
-  public on<K extends keyof LabelsEventsMap>(
-    event: K,
-    listener: (event: LabelsEventsMap[K]) => void
-  ): void {
+  public on<K extends keyof LabelsEventsMap>(event: K, listener: (event: LabelsEventsMap[K]) => void): void {
     this.events.on(event, listener);
   }
 
@@ -32,10 +29,7 @@ export class Labels {
    * @param event - The event name to stop listening for
    * @param listener - Callback function to remove
    */
-  public off<K extends keyof LabelsEventsMap>(
-    event: K,
-    listener: (event: LabelsEventsMap[K]) => void
-  ): void {
+  public off<K extends keyof LabelsEventsMap>(event: K, listener: (event: LabelsEventsMap[K]) => void): void {
     this.events.off(event, listener);
   }
 
@@ -44,10 +38,7 @@ export class Labels {
    * @param event - The event name to listen for
    * @param listener - Callback function that receives the labels event
    */
-  public once<K extends keyof LabelsEventsMap>(
-    event: K,
-    listener: (event: LabelsEventsMap[K]) => void
-  ): void {
+  public once<K extends keyof LabelsEventsMap>(event: K, listener: (event: LabelsEventsMap[K]) => void): void {
     this.events.once(event, listener);
   }
 
@@ -67,9 +58,7 @@ export class Labels {
    * @returns True if label was found and updated, false otherwise.
    */
   public setPC(name: string, addr: number): boolean {
-    const index = this.labelIndex.findIndex(
-      (label) => label.split("|")[0] === name
-    );
+    const index = this.labelIndex.findIndex((label) => label.split("|")[0] === name);
     if (index !== -1) {
       this.labelIndex[index] = `${name}|${addr}`;
       return true;
@@ -116,35 +105,22 @@ export class Labels {
    * @param assembler - Assembler instance.
    * @returns True if indexing was successful, false otherwise.
    */
-  public indexLines(
-    lines: string[],
-    symbols: Symbols,
-    assembler: Assembler
-  ): boolean {
+  public indexLines(lines: string[], symbols: Symbols, assembler: Assembler): boolean {
     this.dispatchInfo(_("Indexing labels..."));
     for (let i = 0; i < lines.length; i++) {
       if (!this.indexLine(lines[i], symbols, assembler)) {
-        this.dispatchFailure(_("Label already defined at line %s: %d"), [
-          i + 1,
-          lines[i],
-        ]);
+        this.dispatchFailure(_("Label already defined at line %s: %d"), [i + 1, lines[i]]);
         return false;
       }
     }
     return true;
   }
 
-  private dispatchInfo(
-    message: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchInfo(message: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("labels-info", { labels: this, message, params });
   }
 
-  private dispatchFailure(
-    message: string,
-    params: Array<string | number | boolean> = []
-  ) {
+  private dispatchFailure(message: string, params: Array<string | number | boolean> = []) {
     this.events.dispatch("labels-failure", { labels: this, message, params });
   }
 
@@ -155,11 +131,7 @@ export class Labels {
    * @param assembler - Assembler instance.
    * @returns False if label already exists, true otherwise.
    */
-  private indexLine(
-    input: string,
-    symbols: Symbols,
-    assembler: Assembler
-  ): boolean {
+  private indexLine(input: string, symbols: Symbols, assembler: Assembler): boolean {
     const currentPC = assembler.getCurrentPC();
     assembler.assembleLine(input, 0, symbols); // TODO: find a better way for Labels to have access to assembler
 
@@ -168,12 +140,7 @@ export class Labels {
 
       if (symbols.lookup(label)) {
         // TRANSLATORS: Error when a label name conflicts with a defined symbol
-        this.dispatchFailure(
-          _(
-            "Label {label} is already used as a symbol; please rename one of them"
-          ),
-          [label]
-        );
+        this.dispatchFailure(_("Label {label} is already used as a symbol; please rename one of them"), [label]);
         return false;
       }
 

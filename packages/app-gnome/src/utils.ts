@@ -12,10 +12,7 @@ export const findIdsInXml = (prefix: string, xmlString: string): string[] => {
   return result;
 };
 
-export const copyToClipboard = (
-  text: string,
-  clipboard?: Gdk.Clipboard
-): boolean => {
+export const copyToClipboard = (text: string, clipboard?: Gdk.Clipboard): boolean => {
   if (!clipboard) {
     clipboard = Gdk.Display.get_default()?.get_clipboard();
   }

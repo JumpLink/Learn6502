@@ -4,11 +4,7 @@ import Adw from "@girs/adw-1";
 import GLib from "@girs/glib-2.0";
 
 import { MainWindow, PreferencesDialog } from "./views/index.ts";
-import {
-  APPLICATION_ID,
-  RESOURCES_PATH,
-  PACKAGE_VERSION,
-} from "./constants.ts";
+import { APPLICATION_ID, RESOURCES_PATH, PACKAGE_VERSION } from "./constants.ts";
 import { initResources } from "./resources.ts";
 
 import { themeService } from "./services";

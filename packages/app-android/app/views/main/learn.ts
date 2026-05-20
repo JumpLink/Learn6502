@@ -28,9 +28,7 @@ class Learn implements LearnView {
     this.tutorialView = this.page.getViewById<TutorialView>("tutorialView");
 
     if (!this.tutorialView) {
-      throw new Error(
-        "LearnView (Android): TutorialView not found on the page."
-      );
+      throw new Error("LearnView (Android): TutorialView not found on the page.");
     }
 
     if (!this._isInitialized) {

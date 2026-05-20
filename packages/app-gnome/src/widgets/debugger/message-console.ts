@@ -8,7 +8,7 @@ import { type MessageConsoleWidget } from "@learn6502/common-ui";
 
 export class MessageConsole extends Adw.Bin implements MessageConsoleWidget {
   // Child widgets
-  declare private _textView: Gtk.TextView;
+  private declare _textView: Gtk.TextView;
 
   static {
     GObject.registerClass(
@@ -26,20 +26,17 @@ export class MessageConsole extends Adw.Bin implements MessageConsoleWidget {
   }
 
   public log(message: string) {
-    message =
-      this._textView.buffer.cursor_position > 0 ? "\n" + message : message;
+    message = this._textView.buffer.cursor_position > 0 ? "\n" + message : message;
     this._textView.buffer.insert_at_cursor(message, message.length);
   }
 
   public warn(message: string) {
-    message =
-      this._textView.buffer.cursor_position > 0 ? "\n\n" + message : message;
+    message = this._textView.buffer.cursor_position > 0 ? "\n\n" + message : message;
     this._textView.buffer.insert_at_cursor(message, message.length);
   }
 
   public error(message: string) {
-    message =
-      this._textView.buffer.cursor_position > 0 ? "\n\n" + message : message;
+    message = this._textView.buffer.cursor_position > 0 ? "\n\n" + message : message;
     this._textView.buffer.insert_at_cursor(message, message.length);
   }
 

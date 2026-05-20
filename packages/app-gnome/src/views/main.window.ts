@@ -29,30 +29,30 @@ import {
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
   // Child widgets
-  declare private _editor: Editor;
-  declare private _gameConsole: GameConsole;
-  declare private _learn: Learn;
-  declare private _mainButton: MainButton;
-  declare private _stack: Adw.ViewStack;
-  declare private _switcherBar: Adw.ViewSwitcherBar;
-  declare private _debugger: Debugger;
-  declare private _toastOverlay: Adw.ToastOverlay;
-  declare private _layoutHost: Gtk.Stack;
+  private declare _editor: Editor;
+  private declare _gameConsole: GameConsole;
+  private declare _learn: Learn;
+  private declare _mainButton: MainButton;
+  private declare _stack: Adw.ViewStack;
+  private declare _switcherBar: Adw.ViewSwitcherBar;
+  private declare _debugger: Debugger;
+  private declare _toastOverlay: Adw.ToastOverlay;
+  private declare _layoutHost: Gtk.Stack;
 
-  declare private _unsavedChangesDialog: Adw.AlertDialog;
-  declare private _titleLabel: Gtk.Label;
-  declare private _unsavedChangesIndicator: Gtk.Button;
-  declare private _sidebarToggleButton: Gtk.ToggleButton;
-  declare private _learnBackButton: Gtk.Button;
+  private declare _unsavedChangesDialog: Adw.AlertDialog;
+  private declare _titleLabel: Gtk.Label;
+  private declare _unsavedChangesIndicator: Gtk.Button;
+  private declare _sidebarToggleButton: Gtk.ToggleButton;
+  private declare _learnBackButton: Gtk.Button;
 
   // Three column layout widgets
-  declare private _leftSidebar: Adw.OverlaySplitView;
-  declare private _leftColumn: Gtk.Box;
-  declare private _centerColumn: Gtk.Box;
-  declare private _rightColumn: Gtk.ScrolledWindow;
-  declare private _rightColumnContent: Gtk.Box;
-  declare private _rightTopBox: Gtk.Box;
-  declare private _rightBottomBox: Gtk.Box;
+  private declare _leftSidebar: Adw.OverlaySplitView;
+  private declare _leftColumn: Gtk.Box;
+  private declare _centerColumn: Gtk.Box;
+  private declare _rightColumn: Gtk.ScrolledWindow;
+  private declare _rightColumnContent: Gtk.Box;
+  private declare _rightTopBox: Gtk.Box;
+  private declare _rightBottomBox: Gtk.Box;
   static {
     GObject.registerClass(
       {
@@ -134,10 +134,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     if (!this.isDesktopMode()) return;
 
     const focused: Gtk.Widget | null = this.get_focus() ?? null;
-    const isFocusInsideConsole = this.widgetIsDescendantOf(
-      focused,
-      this._gameConsole
-    );
+    const isFocusInsideConsole = this.widgetIsDescendantOf(focused, this._gameConsole);
     if (!isFocusInsideConsole) {
       // Suppress immediate auto-pause right after starting the program
       if (Date.now() - this.lastRunAtMs < 400) return;
@@ -339,10 +336,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private setupGeneralSignalListeners(): void {
     this.connect("close-request", this.onCloseRequest.bind(this));
-    this._stack.connect(
-      "notify::visible-child",
-      this.onStackVisibleChildChanged.bind(this)
-    );
+    this._stack.connect("notify::visible-child", this.onStackVisibleChildChanged.bind(this));
     this.connect("notify::is-active", this.onFocusChanged.bind(this));
     // Listen to focus changes within the window for desktop-mode pause behavior
     this.connect("notify::focus-widget", this.onFocusWidgetChanged.bind(this));
@@ -365,19 +359,13 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.updateLearnBackButtonVisibility();
 
     // Save scroll position when navigating away from Learn view
-    if (
-      this.previousVisibleChild === this._learn &&
-      currentChild !== this._learn
-    ) {
+    if (this.previousVisibleChild === this._learn && currentChild !== this._learn) {
       this._learn.saveScrollPosition();
     }
 
     // Restore scroll position when returning to Learn view
     // Only restore if we're coming from a different view
-    if (
-      currentChild === this._learn &&
-      this.previousVisibleChild !== this._learn
-    ) {
+    if (currentChild === this._learn && this.previousVisibleChild !== this._learn) {
       // Make sure the Learn widget is properly mapped before restoring
       if (this._learn.get_mapped()) {
         this._learn.restoreScrollPosition();
@@ -395,10 +383,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     }
 
     // Auto-pause program when switching away from game console or debugger while program is running
-    if (
-      this.previousVisibleChild === this._gameConsole ||
-      this.previousVisibleChild === this._debugger
-    ) {
+    if (this.previousVisibleChild === this._gameConsole || this.previousVisibleChild === this._debugger) {
       // Check if simulator is in running state
       const state = this._gameConsole.simulator.state;
       if (state === SimulatorState.RUNNING) {
@@ -440,10 +425,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this.handleChildFocusChangeDebounced();
   }
 
-  private widgetIsDescendantOf(
-    widget: Gtk.Widget | null,
-    ancestor: Gtk.Widget
-  ): boolean {
+  private widgetIsDescendantOf(widget: Gtk.Widget | null, ancestor: Gtk.Widget): boolean {
     let current: Gtk.Widget | null = widget;
     while (current) {
       if (current === ancestor) return true;
@@ -453,34 +435,22 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   }
 
   private setupActions(): void {
-    this.assembleAction.connect(
-      "activate",
-      this.assembleGameConsole.bind(this)
-    );
+    this.assembleAction.connect("activate", this.assembleGameConsole.bind(this));
     this.add_action(this.assembleAction);
 
     this.runSimulatorAction.connect("activate", this.runGameConsole.bind(this));
     this.add_action(this.runSimulatorAction);
 
-    this.resumeSimulatorAction.connect(
-      "activate",
-      this.runGameConsole.bind(this)
-    );
+    this.resumeSimulatorAction.connect("activate", this.runGameConsole.bind(this));
     this.add_action(this.resumeSimulatorAction);
 
-    this.pauseSimulatorAction.connect(
-      "activate",
-      this.pauseGameConsole.bind(this)
-    );
+    this.pauseSimulatorAction.connect("activate", this.pauseGameConsole.bind(this));
     this.add_action(this.pauseSimulatorAction);
 
     this.resetSimulatorAction.connect("activate", this.reset.bind(this));
     this.add_action(this.resetSimulatorAction);
 
-    this.stepSimulatorAction.connect(
-      "activate",
-      this.stepGameConsole.bind(this)
-    );
+    this.stepSimulatorAction.connect("activate", this.stepGameConsole.bind(this));
     this.add_action(this.stepSimulatorAction);
 
     this.shareAction.connect("activate", this.showShareDialog.bind(this));
@@ -503,22 +473,13 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     // Set keyboard shortcuts
     const app = this.get_application();
     if (app) {
-      app.set_accels_for_action(`win.${this.openFileAction.get_name()}`, [
-        "<Control>o",
-      ]);
-      app.set_accels_for_action(`win.${this.saveFileAction.get_name()}`, [
-        "<Control>s",
-      ]);
-      app.set_accels_for_action(`win.${this.saveAsFileAction.get_name()}`, [
-        "<Control><Shift>s",
-      ]);
+      app.set_accels_for_action(`win.${this.openFileAction.get_name()}`, ["<Control>o"]);
+      app.set_accels_for_action(`win.${this.saveFileAction.get_name()}`, ["<Control>s"]);
+      app.set_accels_for_action(`win.${this.saveAsFileAction.get_name()}`, ["<Control><Shift>s"]);
     }
 
     // Connect unsaved changes dialog responses
-    this._unsavedChangesDialog.connect(
-      "response",
-      this.onUnsavedChangesResponse.bind(this)
-    );
+    this._unsavedChangesDialog.connect("response", this.onUnsavedChangesResponse.bind(this));
   }
 
   private setupHelpActions(): void {
@@ -624,10 +585,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private detachFromParent(widget: Gtk.Widget): void {
     const parent = widget.get_parent();
-    if (
-      parent &&
-      (parent as Gtk.Box | Gtk.Grid | Gtk.Fixed | Gtk.Stack).remove
-    ) {
+    if (parent && (parent as Gtk.Box | Gtk.Grid | Gtk.Fixed | Gtk.Stack).remove) {
       (parent as Gtk.Box | Gtk.Grid | Gtk.Fixed | Gtk.Stack).remove(widget);
     }
   }
@@ -710,14 +668,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
   private updateDebugger(): void {
     // Update debugger when visible: either active page in mobile, or desktop mode
-    if (
-      this.isDesktopMode() ||
-      this._stack.get_visible_child() === this._debugger
-    ) {
-      this._debugger.update(
-        this._gameConsole.memory,
-        this._gameConsole.simulator
-      );
+    if (this.isDesktopMode() || this._stack.get_visible_child() === this._debugger) {
+      this._debugger.update(this._gameConsole.memory, this._gameConsole.simulator);
     }
   }
 
@@ -772,12 +724,9 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     const keyController = new Gtk.EventControllerKey();
     this.add_controller(keyController);
 
-    keyController.connect(
-      "key-pressed",
-      (_controller: any, keyval: number, keycode: number, state: any) => {
-        return gameConsoleController.handleKeyPress(keyval);
-      }
-    );
+    keyController.connect("key-pressed", (_controller: any, keyval: number, keycode: number, state: any) => {
+      return gameConsoleController.handleKeyPress(keyval);
+    });
 
     // Register platform-specific keycodes
     gameConsoleController.registerKeyMappings({
@@ -799,15 +748,10 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     gameConsoleController.on("keyPressed", (event) => {
       // If we're in the game console or debugger view, log the key press
       const visibleChild = this._stack.get_visible_child();
-      if (
-        visibleChild === this._gameConsole ||
-        visibleChild === this._debugger
-      ) {
+      if (visibleChild === this._gameConsole || visibleChild === this._debugger) {
         this._debugger.log(
           // TRANSLATORS: Debugger log message when gamepad key is pressed
-          _("Gamepad key pressed:") +
-            " $" +
-            num2hex(event.keyCode).toUpperCase()
+          _("Gamepad key pressed:") + " $" + num2hex(event.keyCode).toUpperCase()
         );
       }
     });
@@ -818,11 +762,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     const hasCode = editorController.hasCode;
 
     // Get enabled states for actions from MainButton helper
-    const enabledState = mainStateController.getActionEnabledState(
-      state,
-      hasCode,
-      this.codeToAssembleChanged
-    );
+    const enabledState = mainStateController.getActionEnabledState(state, hasCode, this.codeToAssembleChanged);
 
     // Set enabled state for all actions
     this.assembleAction.set_enabled(enabledState.assemble);
@@ -935,10 +875,7 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     this._unsavedChangesDialog.present(this);
   }
 
-  private onUnsavedChangesResponse(
-    dialog: Adw.AlertDialog,
-    response: string
-  ): void {
+  private onUnsavedChangesResponse(dialog: Adw.AlertDialog, response: string): void {
     switch (response) {
       case "save":
         // Save file then continue with pending action

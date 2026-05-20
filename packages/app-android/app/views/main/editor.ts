@@ -1,15 +1,5 @@
-import {
-  Observable,
-  Page,
-  EventData,
-  Button,
-  StackLayout,
-} from "@nativescript/core";
-import {
-  EditorView,
-  EditorEventMap,
-  editorController,
-} from "@learn6502/common-ui";
+import { Observable, Page, EventData, Button, StackLayout } from "@nativescript/core";
+import { EditorView, EditorEventMap, editorController } from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
 import { EventDispatcher } from "@learn6502/6502";
 import { logger } from "~/utils";
@@ -19,8 +9,7 @@ import { logger } from "~/utils";
  * Implements the EditorView from common-ui
  */
 class Editor extends Observable implements EditorView {
-  readonly events: EventDispatcher<EditorEventMap> =
-    new EventDispatcher<EditorEventMap>();
+  readonly events: EventDispatcher<EditorEventMap> = new EventDispatcher<EditorEventMap>();
 
   private _sourceView: SourceView | null = null;
   private _helpPanel: StackLayout | null = null;
@@ -116,9 +105,7 @@ class Editor extends Observable implements EditorView {
    * Handle controller help visibility changes
    * @param event The help visibility changed event
    */
-  private onControllerHelpVisibilityChanged = (event: {
-    visible: boolean;
-  }): void => {
+  private onControllerHelpVisibilityChanged = (event: { visible: boolean }): void => {
     this._helpVisible = event.visible;
     this.updateHelpPanelUI();
   };
@@ -129,9 +116,7 @@ class Editor extends Observable implements EditorView {
   private updateHelpPanelUI(): void {
     if (this._helpPanel && this._helpToggleButton) {
       this._helpPanel.visibility = this._helpVisible ? "visible" : "collapsed";
-      this._helpToggleButton.text = this._helpVisible
-        ? "Hide Help"
-        : "Show Help";
+      this._helpToggleButton.text = this._helpVisible ? "Hide Help" : "Show Help";
     }
   }
 
@@ -167,10 +152,7 @@ class Editor extends Observable implements EditorView {
 
         // Subscribe to controller events
         editorController.events.on("changed", this.onControllerCodeChanged);
-        editorController.events.on(
-          "helpVisibilityChanged",
-          this.onControllerHelpVisibilityChanged
-        );
+        editorController.events.on("helpVisibilityChanged", this.onControllerHelpVisibilityChanged);
 
         this._isInitialized = true;
       }
@@ -178,9 +160,7 @@ class Editor extends Observable implements EditorView {
       // Always restore state when navigating to the view
       this.restoreState();
     } else {
-      this.log.error(
-        "SourceView (sourceView) not found on page. Editor will not function correctly."
-      );
+      this.log.error("SourceView (sourceView) not found on page. Editor will not function correctly.");
     }
   }
 

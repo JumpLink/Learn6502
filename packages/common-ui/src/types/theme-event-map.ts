@@ -49,17 +49,7 @@ export interface PrimaryChangedEvent {
   color: string | null;
 
   /** Named key if a predefined family is selected; null/undefined otherwise. */
-  key?:
-    | "blue"
-    | "teal"
-    | "green"
-    | "yellow"
-    | "orange"
-    | "red"
-    | "pink"
-    | "purple"
-    | "slate"
-    | null;
+  key?: "blue" | "teal" | "green" | "yellow" | "orange" | "red" | "pink" | "purple" | "slate" | null;
 
   /** Selection mode: auto (system), custom (by key or color), none. */
   mode?: "auto" | "custom" | "none";
@@ -67,17 +57,7 @@ export interface PrimaryChangedEvent {
 
 export interface AccentChangedEvent {
   /** Named key if a predefined family is selected; null when following system. */
-  key?:
-    | "blue"
-    | "teal"
-    | "green"
-    | "yellow"
-    | "orange"
-    | "red"
-    | "pink"
-    | "purple"
-    | "slate"
-    | null;
+  key?: "blue" | "teal" | "green" | "yellow" | "orange" | "red" | "pink" | "purple" | "slate" | null;
 
   /** Selection mode: system (follow system accent) or custom (by key). */
   mode: "system" | "custom";

@@ -1,11 +1,5 @@
 import { EventData, Page } from "@nativescript/core";
-import {
-  type Memory,
-  type Labels,
-  type Simulator,
-  type Assembler,
-  SimulatorState,
-} from "@learn6502/6502";
+import { type Memory, type Labels, type Simulator, type Assembler, SimulatorState } from "@learn6502/6502";
 
 // Import child widgets
 import { Display, Gamepad } from "~/widgets/game-console";
@@ -228,9 +222,7 @@ export class GameConsole implements GameConsoleView {
 
     // Debug output for memory and controller
     this.log.debug(`Memory initialized (${this._memory ? "ok" : "failed"})`);
-    this.log.debug(
-      `Controller memory initialized (${gameConsoleController.memory ? "ok" : "failed"})`
-    );
+    this.log.debug(`Controller memory initialized (${gameConsoleController.memory ? "ok" : "failed"})`);
 
     // Initialize display with memory FIRST
     this._display.initialize(this._memory);
@@ -240,10 +232,7 @@ export class GameConsole implements GameConsoleView {
 
     // Add test pattern to memory via shared controller AFTER display initialization
     // This ensures the display is ready to receive and show the pattern
-    gameConsoleStateService.initializeMemoryWithTestPattern(
-      this._memory,
-      "colorChart"
-    );
+    gameConsoleStateService.initializeMemoryWithTestPattern(this._memory, "colorChart");
 
     this.log.debug("Initialization complete");
   }

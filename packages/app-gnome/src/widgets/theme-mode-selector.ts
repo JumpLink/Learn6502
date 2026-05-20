@@ -12,9 +12,9 @@ import { themeService } from "../services";
  * Pure UI wiring; delegates changes to themeService.
  */
 export class ThemeModeSelector extends Adw.Bin {
-  declare private _follow: Gtk.CheckButton;
-  declare private _light: Gtk.CheckButton;
-  declare private _dark: Gtk.CheckButton;
+  private declare _follow: Gtk.CheckButton;
+  private declare _light: Gtk.CheckButton;
+  private declare _dark: Gtk.CheckButton;
   private _isUpdatingUi: boolean = false;
 
   static {
@@ -78,10 +78,8 @@ export class ThemeModeSelector extends Adw.Bin {
       const wantLight = theme === "light";
       const wantDark = theme === "dark";
 
-      if (this._follow.get_active() !== wantFollow)
-        this._follow.set_active(wantFollow);
-      if (this._light.get_active() !== wantLight)
-        this._light.set_active(wantLight);
+      if (this._follow.get_active() !== wantFollow) this._follow.set_active(wantFollow);
+      if (this._light.get_active() !== wantLight) this._light.set_active(wantLight);
       if (this._dark.get_active() !== wantDark) this._dark.set_active(wantDark);
     } finally {
       this._isUpdatingUi = false;

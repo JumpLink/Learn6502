@@ -29,9 +29,7 @@ export class GtkLabel extends GtkWidget {
   static reservedPropertyNames = [...GtkWidget.reservedPropertyNames];
 
   render() {
-    const classes: string[] = this.props.class
-      ? this.props.class.split(" ")
-      : [];
+    const classes: string[] = this.props.class ? this.props.class.split(" ") : [];
     const content = clearExtraSpaces(renderSSR(this.props.children));
     const propKeys = Object.keys(this.props);
     return (
@@ -49,11 +47,7 @@ export class GtkLabel extends GtkWidget {
           {propKeys
             .map((property) => {
               if (GtkLabel.propertyNames.includes(property)) {
-                return (
-                  <property name={property}>
-                    {this.props[property].toString()}
-                  </property>
-                );
+                return <property name={property}>{this.props[property].toString()}</property>;
               }
               if (GtkLabel.reservedPropertyNames.includes(property)) {
                 return null;

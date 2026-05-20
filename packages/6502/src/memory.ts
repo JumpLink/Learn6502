@@ -26,10 +26,7 @@ export class Memory {
    * @param event - The event name ("changed")
    * @param listener - Callback function that receives the memory change event
    */
-  public on<K extends keyof MemoryEventsMap>(
-    event: K,
-    listener: (event: MemoryEventsMap[K]) => void
-  ): void {
+  public on<K extends keyof MemoryEventsMap>(event: K, listener: (event: MemoryEventsMap[K]) => void): void {
     this.events.on(event, listener);
   }
 
@@ -38,10 +35,7 @@ export class Memory {
    * @param event - The event name ("changed")
    * @param listener - Callback function that was previously registered
    */
-  public off<K extends keyof MemoryEventsMap>(
-    event: K,
-    listener: (event: MemoryEventsMap[K]) => void
-  ): void {
+  public off<K extends keyof MemoryEventsMap>(event: K, listener: (event: MemoryEventsMap[K]) => void): void {
     this.events.off(event, listener);
   }
 
@@ -50,10 +44,7 @@ export class Memory {
    * @param event - The event name ("changed")
    * @param listener - Callback function that receives the memory change event
    */
-  public once<K extends keyof MemoryEventsMap>(
-    event: K,
-    listener: (event: MemoryEventsMap[K]) => void
-  ): void {
+  public once<K extends keyof MemoryEventsMap>(event: K, listener: (event: MemoryEventsMap[K]) => void): void {
     this.events.once(event, listener);
   }
 

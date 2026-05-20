@@ -6,7 +6,7 @@ import { themeService } from "../services";
 import Template from "./help.window.blp";
 
 export class HelpWindow extends Adw.Window {
-  declare private _quickHelpView: QuickHelpView;
+  private declare _quickHelpView: QuickHelpView;
 
   static {
     GObject.registerClass(

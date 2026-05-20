@@ -21,11 +21,7 @@ export const waitForProperty = async <T = any>(
   obj: any,
   options: WaitForPropertyOptions<T> = {}
 ): Promise<T> => {
-  const {
-    condition = (value: T) => !!value,
-    interval = 100,
-    timeout,
-  } = options;
+  const { condition = (value: T) => !!value, interval = 100, timeout } = options;
 
   const startTime = Date.now();
 
@@ -66,8 +62,7 @@ export const waitForFunctionResult = async <T = any>(
     try {
       result = func();
     } catch (error) {
-      const errorMessage =
-        error instanceof Error ? error.message : String(error);
+      const errorMessage = error instanceof Error ? error.message : String(error);
       console.error("waitForFunctionResult: " + errorMessage);
     }
 

@@ -1,22 +1,7 @@
-import {
-  ContentView,
-  Property,
-  TextView,
-  Builder,
-  booleanConverter,
-  Color,
-  Button,
-} from "@nativescript/core";
+import { ContentView, Property, TextView, Builder, booleanConverter, Color, Button } from "@nativescript/core";
 import { debounce, EventDispatcher } from "@learn6502/6502";
-import type {
-  SourceViewEventMap,
-  SourceViewWidget,
-} from "@learn6502/common-ui";
-import {
-  OPCODE_PATTERN,
-  COMMENT_PATTERN,
-  HEX_VALUE_PATTERN,
-} from "@learn6502/common-ui";
+import type { SourceViewEventMap, SourceViewWidget } from "@learn6502/common-ui";
+import { OPCODE_PATTERN, COMMENT_PATTERN, HEX_VALUE_PATTERN } from "@learn6502/common-ui";
 import { logger } from "~/utils";
 
 export class SourceView extends ContentView implements SourceViewWidget {
@@ -53,8 +38,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
       // Editable state is handled by template binding: editable="{{ editable }}"
       // But we still need to handle native Android-specific properties
       if (target.textView && target.textView.android) {
-        const nativeEditText = target.textView
-          .android as android.widget.EditText;
+        const nativeEditText = target.textView.android as android.widget.EditText;
         nativeEditText.setEnabled(newValue);
       }
     },
@@ -79,8 +63,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueChanged(target, oldValue, newValue) {
       target._selectable = newValue;
       if (target.textView && target.textView.android) {
-        const nativeEditText = target.textView
-          .android as android.widget.EditText;
+        const nativeEditText = target.textView.android as android.widget.EditText;
         nativeEditText.setTextIsSelectable(newValue);
         nativeEditText.setCursorVisible(newValue);
         nativeEditText.setFocusable(newValue);
@@ -118,8 +101,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   });
 
   // Instance properties - public
-  readonly events: EventDispatcher<SourceViewEventMap> =
-    new EventDispatcher<SourceViewEventMap>();
+  readonly events: EventDispatcher<SourceViewEventMap> = new EventDispatcher<SourceViewEventMap>();
 
   // Instance properties - private
   private debouncedHighlighting: (code: string) => void;
@@ -313,8 +295,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     });
 
     this.textView = componentView.getViewById<TextView>("textView");
-    this.lineNumbersView =
-      componentView.getViewById<TextView>("lineNumbersView");
+    this.lineNumbersView = componentView.getViewById<TextView>("lineNumbersView");
     this.copyButton = componentView.getViewById<Button>("copyButton");
 
     if (!this.textView) {
@@ -380,8 +361,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
         new android.view.View.OnScrollChangeListener({
           onScrollChange: (v, scrollX, scrollY, oldScrollX, oldScrollY) => {
             if (this.lineNumbersView && this.lineNumbersView.android) {
-              const lineNumbersEdit = this.lineNumbersView
-                .android as android.widget.EditText;
+              const lineNumbersEdit = this.lineNumbersView.android as android.widget.EditText;
               lineNumbersEdit.scrollTo(0, scrollY);
             }
           },
@@ -405,10 +385,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
       let selectionStart = 0;
       let selectionEnd = 0;
       if (nativeEditText.isFocused()) {
-        selectionStart = Math.min(
-          nativeEditText.getSelectionStart(),
-          code.length
-        );
+        selectionStart = Math.min(nativeEditText.getSelectionStart(), code.length);
         selectionEnd = Math.min(nativeEditText.getSelectionEnd(), code.length);
       }
 
@@ -417,9 +394,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
       let match: RegExpExecArray | null;
       while ((match = commentPattern.exec(code)) !== null) {
         spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(
-            android.graphics.Color.parseColor("#008000")
-          ),
+          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor("#008000")),
           match.index,
           match.index + match[0].length,
           android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -429,9 +404,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
       const opcodePattern = new RegExp(OPCODE_PATTERN, "gi");
       while ((match = opcodePattern.exec(code)) !== null) {
         spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(
-            android.graphics.Color.parseColor("#0000FF")
-          ),
+          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor("#0000FF")),
           match.index,
           match.index + match[0].length,
           android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -447,9 +420,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
       const hexPattern = new RegExp(HEX_VALUE_PATTERN, "gi");
       while ((match = hexPattern.exec(code)) !== null) {
         spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(
-            android.graphics.Color.parseColor("#800080")
-          ),
+          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor("#800080")),
           match.index,
           match.index + match[0].length,
           android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -476,9 +447,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   private updateLineNumbers(code: string) {
     if (this.lineNumbersView) {
       const lines = code.split("\n");
-      const lineNumbersText = lines
-        .map((_, index) => (index + this.lineNumberStart).toString())
-        .join("\n");
+      const lineNumbersText = lines.map((_, index) => (index + this.lineNumberStart).toString()).join("\n");
       this.lineNumbersView.text = lineNumbersText;
     }
   }

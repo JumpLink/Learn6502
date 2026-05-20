@@ -1,9 +1,5 @@
 import { GridLayout, Button, Builder } from "@nativescript/core";
-import type {
-  GamepadKey,
-  GamepadEventMap,
-  GamepadWidget,
-} from "@learn6502/common-ui";
+import type { GamepadKey, GamepadEventMap, GamepadWidget } from "@learn6502/common-ui";
 import { getGamepadKeyCode, getGamepadKeyChar } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/6502";
 import { logger } from "~/utils";
@@ -51,10 +47,7 @@ export class Gamepad extends GridLayout implements GamepadWidget {
   public press(keyName: GamepadKey): void {
     const keyCode = getGamepadKeyCode(keyName);
     const keyChar = getGamepadKeyChar(keyName);
-    logger.debug(
-      "Gamepad",
-      `Button ${keyName} pressed, keyCode=${keyCode} (ASCII: ${keyChar})`
-    );
+    logger.debug("Gamepad", `Button ${keyName} pressed, keyCode=${keyCode} (ASCII: ${keyChar})`);
 
     this.applyPressEffectToButton(keyName);
 

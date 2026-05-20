@@ -1,9 +1,4 @@
-import {
-  booleanConverter,
-  ContentView,
-  Property,
-  Utils,
-} from "@nativescript/core";
+import { booleanConverter, ContentView, Property, Utils } from "@nativescript/core";
 import { createColorStateList, getMaterialColor } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
@@ -208,10 +203,8 @@ export class ListItem extends ContentView {
   private _leadingImage!: string;
   private _trailingText!: string;
   private _trailingIcon!: string;
-  private _showTrailingSwitch: boolean =
-    showTrailingSwitchProperty.defaultValue;
-  private _trailingSwitchChecked: boolean =
-    trailingSwitchCheckedProperty.defaultValue;
+  private _showTrailingSwitch: boolean = showTrailingSwitchProperty.defaultValue;
+  private _trailingSwitchChecked: boolean = trailingSwitchCheckedProperty.defaultValue;
   private _containerColor: string = containerColorProperty.defaultValue;
   private _headlineColor: string = headlineColorProperty.defaultValue;
   private _supportingColor: string = supportingColorProperty.defaultValue;
@@ -451,12 +444,7 @@ export class ListItem extends ContentView {
     const horizontalPadding = this.dpToPx(16);
     // Vertical padding: 8dp for one-line, 12dp for two-line, 12dp for three-line
     const verticalPadding = this.dpToPx(8);
-    this.contentLayout.setPadding(
-      horizontalPadding,
-      verticalPadding,
-      horizontalPadding,
-      verticalPadding
-    );
+    this.contentLayout.setPadding(horizontalPadding, verticalPadding, horizontalPadding, verticalPadding);
 
     // Set minimum height according to Material Design 3 specs
     // One-line: 56dp, Two-line: 72dp, Three-line: 88dp
@@ -488,30 +476,20 @@ export class ListItem extends ContentView {
     // Create leading icon ImageView
     this.leadingIconView = new android.widget.ImageView(this.context);
     const iconSize = this.dpToPx(24); // Material Design 3: 24dp
-    const iconLayoutParams = new android.widget.LinearLayout.LayoutParams(
-      iconSize,
-      iconSize
-    );
+    const iconLayoutParams = new android.widget.LinearLayout.LayoutParams(iconSize, iconSize);
     iconLayoutParams.setMarginEnd(this.dpToPx(16)); // 16dp margin to text
     this.leadingIconView.setLayoutParams(iconLayoutParams);
     this.leadingIconView.setVisibility(android.view.View.GONE);
-    this.leadingIconView.setImportantForAccessibility(
-      android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
-    );
+    this.leadingIconView.setImportantForAccessibility(android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO);
 
     // Create leading image ImageView (for avatars)
     this.leadingImageView = new android.widget.ImageView(this.context);
     const imageSize = this.dpToPx(40); // Material Design 3: 40dp for avatars
-    const imageLayoutParams = new android.widget.LinearLayout.LayoutParams(
-      imageSize,
-      imageSize
-    );
+    const imageLayoutParams = new android.widget.LinearLayout.LayoutParams(imageSize, imageSize);
     imageLayoutParams.setMarginEnd(this.dpToPx(16)); // 16dp margin to text
     this.leadingImageView.setLayoutParams(imageLayoutParams);
     this.leadingImageView.setVisibility(android.view.View.GONE);
-    this.leadingImageView.setImportantForAccessibility(
-      android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
-    );
+    this.leadingImageView.setImportantForAccessibility(android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO);
 
     // Create text container (vertical layout)
     this.textLayout = new android.widget.LinearLayout(this.context);
@@ -531,20 +509,14 @@ export class ListItem extends ContentView {
 
     // Create supporting TextView
     this.supportingView = new android.widget.TextView(this.context);
-    this.supportingView.setTextSize(
-      android.util.TypedValue.COMPLEX_UNIT_SP,
-      14
-    ); // Material Design 3: 14sp
+    this.supportingView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 14); // Material Design 3: 14sp
     this.supportingView.setMaxLines(2); // Default to 2 lines (can be changed for three-line)
     this.supportingView.setEllipsize(android.text.TextUtils.TruncateAt.END);
     this.supportingView.setVisibility(android.view.View.GONE);
 
     // Create trailing text TextView
     this.trailingTextView = new android.widget.TextView(this.context);
-    this.trailingTextView.setTextSize(
-      android.util.TypedValue.COMPLEX_UNIT_SP,
-      12
-    ); // Material Design 3: 12sp for trailing text
+    this.trailingTextView.setTextSize(android.util.TypedValue.COMPLEX_UNIT_SP, 12); // Material Design 3: 12sp for trailing text
     const trailingTextParams = new android.widget.LinearLayout.LayoutParams(
       android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
       android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
@@ -552,29 +524,19 @@ export class ListItem extends ContentView {
     trailingTextParams.setMarginStart(this.dpToPx(16)); // 16dp margin from text
     this.trailingTextView.setLayoutParams(trailingTextParams);
     this.trailingTextView.setVisibility(android.view.View.GONE);
-    this.trailingTextView.setImportantForAccessibility(
-      android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
-    );
+    this.trailingTextView.setImportantForAccessibility(android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO);
 
     // Create trailing icon ImageView
     this.trailingIconView = new android.widget.ImageView(this.context);
     const trailingIconSize = this.dpToPx(24); // Material Design 3: 24dp
-    const trailingIconParams = new android.widget.LinearLayout.LayoutParams(
-      trailingIconSize,
-      trailingIconSize
-    );
+    const trailingIconParams = new android.widget.LinearLayout.LayoutParams(trailingIconSize, trailingIconSize);
     trailingIconParams.setMarginStart(this.dpToPx(16)); // 16dp margin from text
     this.trailingIconView.setLayoutParams(trailingIconParams);
     this.trailingIconView.setVisibility(android.view.View.GONE);
-    this.trailingIconView.setImportantForAccessibility(
-      android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO
-    );
+    this.trailingIconView.setImportantForAccessibility(android.view.View.IMPORTANT_FOR_ACCESSIBILITY_NO);
 
     // Create trailing switch (MaterialSwitch for MD3)
-    this.trailingSwitchView =
-      new com.google.android.material.materialswitch.MaterialSwitch(
-        this.context
-      );
+    this.trailingSwitchView = new com.google.android.material.materialswitch.MaterialSwitch(this.context);
     const trailingSwitchParams = new android.widget.LinearLayout.LayoutParams(
       android.widget.LinearLayout.LayoutParams.WRAP_CONTENT,
       android.widget.LinearLayout.LayoutParams.WRAP_CONTENT
@@ -585,10 +547,7 @@ export class ListItem extends ContentView {
     // Set up checked change listener
     this.trailingSwitchView.setOnCheckedChangeListener(
       new android.widget.CompoundButton.OnCheckedChangeListener({
-        onCheckedChanged: (
-          _buttonView: android.widget.CompoundButton,
-          isChecked: boolean
-        ): void => {
+        onCheckedChanged: (_buttonView: android.widget.CompoundButton, isChecked: boolean): void => {
           if (!this._isUpdatingSwitch) {
             this._trailingSwitchChecked = isChecked;
             this.notify({
@@ -640,10 +599,7 @@ export class ListItem extends ContentView {
     this.applyDivider();
     this.applyAccessibility();
 
-    systemStates.events.on(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     return this.container;
   }
@@ -661,10 +617,7 @@ export class ListItem extends ContentView {
    * Called by NativeScript when the view is no longer needed
    */
   public disposeNativeView(): void {
-    systemStates.events.off(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
     if (this.trailingSwitchView) {
       this.trailingSwitchView.setOnCheckedChangeListener(null!);
     }
@@ -717,13 +670,7 @@ export class ListItem extends ContentView {
       } else {
         // Fallback for older Android versions
         const outValue = new android.util.TypedValue();
-        this.context
-          .getTheme()
-          .resolveAttribute(
-            android.R.attr.selectableItemBackground,
-            outValue,
-            true
-          );
+        this.context.getTheme().resolveAttribute(android.R.attr.selectableItemBackground, outValue, true);
         this.contentLayout.setBackgroundResource(outValue.resourceId);
       }
     } catch (error) {
@@ -743,9 +690,7 @@ export class ListItem extends ContentView {
    * Applies the current theme colors to the list item
    * Called when colors change or system theme changes
    */
-  private applyTheme(
-    isDarkMode = systemStates.systemAppearance === "dark"
-  ): void {
+  private applyTheme(isDarkMode = systemStates.systemAppearance === "dark"): void {
     try {
       // Only apply if container is initialized
       if (!this.container) return;
@@ -993,27 +938,15 @@ export class ListItem extends ContentView {
     try {
       // Get MD3 colors
       const checkedTrackColor = getMaterialColor("primary", this.context);
-      const uncheckedTrackColor = getMaterialColor(
-        "surfaceContainerHighest",
-        this.context
-      );
+      const uncheckedTrackColor = getMaterialColor("surfaceContainerHighest", this.context);
       const checkedThumbColor = getMaterialColor("onPrimary", this.context);
       const uncheckedThumbColor = getMaterialColor("outline", this.context);
       const uncheckedBorderColor = getMaterialColor("outline", this.context);
 
       // Create color state lists
-      const trackColorStateList = createColorStateList(
-        checkedTrackColor,
-        uncheckedTrackColor
-      );
-      const thumbColorStateList = createColorStateList(
-        checkedThumbColor,
-        uncheckedThumbColor
-      );
-      const borderColorStateList = createColorStateList(
-        checkedTrackColor,
-        uncheckedBorderColor
-      );
+      const trackColorStateList = createColorStateList(checkedTrackColor, uncheckedTrackColor);
+      const thumbColorStateList = createColorStateList(checkedThumbColor, uncheckedThumbColor);
+      const borderColorStateList = createColorStateList(checkedTrackColor, uncheckedBorderColor);
 
       // Apply colors
       this.trailingSwitchView.setTrackTintList(trackColorStateList);
@@ -1057,9 +990,7 @@ export class ListItem extends ContentView {
   private applyDivider(): void {
     if (!this.dividerView) return;
 
-    this.dividerView.setVisibility(
-      this._showDivider ? android.view.View.VISIBLE : android.view.View.GONE
-    );
+    this.dividerView.setVisibility(this._showDivider ? android.view.View.VISIBLE : android.view.View.GONE);
   }
 
   /**
@@ -1102,9 +1033,7 @@ export class ListItem extends ContentView {
       }
 
       // Make the content layout important for accessibility
-      this.contentLayout.setImportantForAccessibility(
-        android.view.View.IMPORTANT_FOR_ACCESSIBILITY_YES
-      );
+      this.contentLayout.setImportantForAccessibility(android.view.View.IMPORTANT_FOR_ACCESSIBILITY_YES);
     } catch (error) {
       logger.error("ListItem", "Failed to apply accessibility", error);
     }
@@ -1116,9 +1045,7 @@ export class ListItem extends ContentView {
    * @returns The value in pixels
    */
   private dpToPx(dp: number): number {
-    return Math.round(
-      dp * this.context.getResources().getDisplayMetrics().density
-    );
+    return Math.round(dp * this.context.getResources().getDisplayMetrics().density);
   }
 }
 

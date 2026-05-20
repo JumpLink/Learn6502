@@ -23,10 +23,7 @@ async function findExampleDirectories(): Promise<string[]> {
   const directories = entries
     .filter(
       (entry) =>
-        entry.isDirectory() &&
-        !entry.name.startsWith(".") &&
-        entry.name !== "node_modules" &&
-        entry.name !== "dist"
+        entry.isDirectory() && !entry.name.startsWith(".") && entry.name !== "node_modules" && entry.name !== "dist"
     )
     .map((entry) => entry.name);
   return directories;
@@ -79,11 +76,7 @@ async function extractSlug(dir: string, metaFile: string): Promise<string> {
  * @param metaFile - The meta file name
  * @returns The index.ts content
  */
-function generateIndexContent(
-  slug: string,
-  asmFile: string,
-  metaFile: string
-): string {
+function generateIndexContent(slug: string, asmFile: string, metaFile: string): string {
   const camelCaseName = slugToCamelCase(slug);
   return `import { default as ${camelCaseName}Code } from "./${asmFile}";
 import ${camelCaseName}Meta from "./${metaFile}";
@@ -101,12 +94,8 @@ export { ${camelCaseName} };
  * @param examples - Array of example information
  * @returns The examples.ts content
  */
-function generateExamplesContent(
-  examples: Array<{ dir: string; slug: string }>
-): string {
-  const exports = examples
-    .map(({ dir }) => `export * from "./${dir}";`)
-    .join("\n");
+function generateExamplesContent(examples: Array<{ dir: string; slug: string }>): string {
+  const exports = examples.map(({ dir }) => `export * from "./${dir}";`).join("\n");
   return `${exports}\n`;
 }
 

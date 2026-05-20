@@ -5,13 +5,7 @@
  * Pattern from reference projects (conty, oss-weather, alpimaps).
  */
 
-import {
-  Application,
-  Frame,
-  Page,
-  View,
-  type AndroidActivityBackPressedEventData,
-} from "@nativescript/core";
+import { Application, Frame, Page, View, type AndroidActivityBackPressedEventData } from "@nativescript/core";
 import { logger } from "./logger";
 
 /**
@@ -33,21 +27,13 @@ function shouldHandleBackButton(view: View): boolean {
 
   // Check for modals
   let modalParent = view;
-  const lastModalInStack = (modalParent as any)
-    ._getRootModalViews?.()
-    ?.slice(-1)[0];
+  const lastModalInStack = (modalParent as any)._getRootModalViews?.()?.slice(-1)[0];
 
   while (modalParent.parent && !(modalParent as any)._modalParent) {
     modalParent = modalParent.parent as View;
   }
 
-  logger.debug(
-    "Navigation",
-    "shouldHandleBackButton",
-    view.id,
-    (modalParent as any)._modalParent,
-    lastModalInStack
-  );
+  logger.debug("Navigation", "shouldHandleBackButton", view.id, (modalParent as any)._modalParent, lastModalInStack);
 
   // If there's a modal in the stack that's not the current parent, ignore
   if (lastModalInStack && lastModalInStack !== modalParent) {
@@ -77,65 +63,57 @@ export function handleBackButton(view: View, callback: () => void): boolean {
  */
 export function setupBackButtonHandler(): void {
   if (!Application.android) {
-    DEV_LOG &&
-      logger.warn(
-        "Navigation",
-        "Android application not available, skipping back button handler setup"
-      );
+    DEV_LOG && logger.warn("Navigation", "Android application not available, skipping back button handler setup");
     return;
   }
 
   if (!Application.android.activityBackPressedEvent) {
-    DEV_LOG &&
-      logger.warn("Navigation", "Activity back pressed event not available");
+    DEV_LOG && logger.warn("Navigation", "Activity back pressed event not available");
     return;
   }
 
-  Application.android.on(
-    Application.android.activityBackPressedEvent,
-    (event: AndroidActivityBackPressedEventData) => {
-      const rootView = Application.getRootView();
-      if (!rootView) {
-        return;
+  Application.android.on(Application.android.activityBackPressedEvent, (event: AndroidActivityBackPressedEventData) => {
+    const rootView = Application.getRootView();
+    if (!rootView) {
+      return;
+    }
+
+    let handled = false;
+
+    // Try to handle with Frame navigation first
+    if (rootView instanceof Frame) {
+      if (rootView.canGoBack()) {
+        rootView.goBack();
+        handled = true;
       }
+    } else {
+      // Try to handle with view's onBackPressed
+      const viewArgs = {
+        eventName: "activityBackPressed",
+        object: rootView,
+        activity: event.activity,
+        cancel: false,
+      };
+      rootView.notify(viewArgs);
 
-      let handled = false;
-
-      // Try to handle with Frame navigation first
-      if (rootView instanceof Frame) {
-        if (rootView.canGoBack()) {
-          rootView.goBack();
-          handled = true;
-        }
-      } else {
-        // Try to handle with view's onBackPressed
-        const viewArgs = {
-          eventName: "activityBackPressed",
-          object: rootView,
-          activity: event.activity,
-          cancel: false,
-        };
-        rootView.notify(viewArgs);
-
-        if (viewArgs.cancel || rootView.onBackPressed()) {
-          handled = true;
-        }
-      }
-
-      // If handled, cancel the default behavior
-      if (handled) {
-        event.cancel = true;
-      } else {
-        // If no navigation possible, move app to background
-        // This follows the pattern from reference projects
-        const activity = Application.android.foregroundActivity;
-        if (activity) {
-          activity.moveTaskToBack(true);
-          event.cancel = true;
-        }
+      if (viewArgs.cancel || rootView.onBackPressed()) {
+        handled = true;
       }
     }
-  );
+
+    // If handled, cancel the default behavior
+    if (handled) {
+      event.cancel = true;
+    } else {
+      // If no navigation possible, move app to background
+      // This follows the pattern from reference projects
+      const activity = Application.android.foregroundActivity;
+      if (activity) {
+        activity.moveTaskToBack(true);
+        event.cancel = true;
+      }
+    }
+  });
 
   logger.debug("Navigation", "Back button handler setup complete");
 }

@@ -27,7 +27,7 @@
       "developer": {
         "id": "eu.jumplink",
         "name": "Pascal Garber",
-        "email": "pascal@mailfreund.de",
+        "email": "pascal@mailfreun.de",
         "nameTranslatable": false
       },
       "summary": "Program vintage game consoles",
@@ -363,7 +363,7 @@
     "build:android": "yarn workspace @learn6502/app-android run build",
     "check": "yarn workspaces foreach -v -W -t run check",
     "check:flatpak:repo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo",
-    "check:format": "yarn exec prettier . --check",
+    "check:format": "gjsify format --check",
     "flatpak:regen": "gjsify flatpak init --force --metainfo packages/app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in --desktop packages/app-gnome/data/eu.jumplink.Learn6502.desktop.in",
     "start": "yarn start:gnome",
     "start:gnome": "yarn workspace @learn6502/app-gnome run start",
@@ -372,10 +372,10 @@
     "start:android": "yarn workspace @learn6502/app-android run start",
     "clear": "yarn workspaces foreach -v --parallel -W run clear && yarn _clear",
     "_clear": "rm -rf builddir build-dir .flatpak-builder flatpak-build repo eu.jumplink.Learn6502.tar.gz",
-    "format": "yarn exec prettier . --write",
-    "prettier": "node .yarn/sdks/prettier/index.cjs"
+    "format": "gjsify format",
+    "fix": "gjsify fix"
   },
-  "author": "Pascal Garber <pascal@mailfreund.de>",
+  "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "workspaces": [
     "packages/*",
@@ -383,8 +383,8 @@
     "packages/app-web"
   ],
   "devDependencies": {
-    "@gjsify/cli": "^0.4.13",
-    "prettier": "^3.8.3",
+    "@biomejs/biome": "^2.4.13",
+    "@gjsify/cli": "^0.4.14",
     "typescript": "^6.0.3"
   },
   "packageManager": "yarn@4.13.0"

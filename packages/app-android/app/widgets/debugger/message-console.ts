@@ -17,9 +17,7 @@ export class MessageConsole extends TextView implements MessageConsoleWidget {
   public warn(message: string): void {
     const currentText = this.text || "";
     const warningMessage = `⚠️ ${message}`;
-    const newText = currentText
-      ? `${currentText}\n${warningMessage}`
-      : warningMessage;
+    const newText = currentText ? `${currentText}\n${warningMessage}` : warningMessage;
     this.text = newText;
     this.scrollToBottom();
   }
@@ -27,9 +25,7 @@ export class MessageConsole extends TextView implements MessageConsoleWidget {
   public error(message: string): void {
     const currentText = this.text || "";
     const errorMessage = `❌ ${message}`;
-    const newText = currentText
-      ? `${currentText}\n${errorMessage}`
-      : errorMessage;
+    const newText = currentText ? `${currentText}\n${errorMessage}` : errorMessage;
     this.text = newText;
     this.scrollToBottom();
   }

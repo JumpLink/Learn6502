@@ -3,10 +3,7 @@ import { ContrastMode } from "../constants";
 import { systemStates } from "../states/system.states";
 
 // Credits https://github.com/henrychavez/nativescript-bottom-navigation/blob/bec186cc2a6dbceec17d59416824207c027e169b/src/lib/android/utils.ts
-export function createColorStateList(
-  activeColor: number,
-  inactiveColor?: number
-) {
+export function createColorStateList(activeColor: number, inactiveColor?: number) {
   const ColorStateList = android.content.res.ColorStateList;
 
   if (!inactiveColor) {
@@ -17,10 +14,7 @@ export function createColorStateList(
   stateChecked[0] = android.R.attr.state_checked;
   const stateUnChecked = Array.create("int", 0);
 
-  const states = java.lang.reflect.Array.newInstance(
-    stateChecked.getClass() || stateUnChecked.getClass(),
-    2
-  );
+  const states = java.lang.reflect.Array.newInstance(stateChecked.getClass() || stateUnChecked.getClass(), 2);
   states[0] = stateChecked;
   states[1] = stateUnChecked;
 
@@ -79,10 +73,7 @@ export const getMaterialColor = (
   if (contrastMode !== ContrastMode.NORMAL) {
     const contrastedColorName = `${baseColorName}_${contrastMode}Contrast`;
     // Check if the contrasted color resource exists
-    const contrastedResourceId = Utils.android.resources.getResource(
-      contrastedColorName,
-      "color"
-    );
+    const contrastedResourceId = Utils.android.resources.getResource(contrastedColorName, "color");
 
     if (contrastedResourceId !== 0) {
       // Use the contrasted color if it exists

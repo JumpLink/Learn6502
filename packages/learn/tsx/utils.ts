@@ -16,13 +16,8 @@ export function clearExtraSpaces(text: string): string {
  * @param propertyNames Allowed property names to keep
  * @returns A new object containing only the selected properties
  */
-export function filterProperties(
-  obj: Record<string, any>,
-  propertyNames: string[]
-): Record<string, any> {
-  return Object.fromEntries(
-    Object.entries(obj).filter(([key]) => propertyNames.includes(key))
-  );
+export function filterProperties(obj: Record<string, any>, propertyNames: string[]): Record<string, any> {
+  return Object.fromEntries(Object.entries(obj).filter(([key]) => propertyNames.includes(key)));
 }
 
 // --- Source file context helpers (used during GTK UI generation) ---
@@ -53,10 +48,7 @@ export function getCurrentSourceFile(): string {
  * @param fn Function to execute while the context is active
  * @returns The result of the provided function
  */
-export function withSourceFileContext<T>(
-  sourceFilePath: string,
-  fn: () => T
-): T {
+export function withSourceFileContext<T>(sourceFilePath: string, fn: () => T): T {
   const previous = currentSourceFilePath;
   currentSourceFilePath = sourceFilePath;
   try {

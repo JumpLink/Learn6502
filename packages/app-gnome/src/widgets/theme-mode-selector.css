@@ -13,11 +13,7 @@
     border-radius: 9999px;
 
     &.follow {
-      background-image: linear-gradient(
-        to bottom right,
-        var(--light-swatch) 49.99%,
-        var(--dark-swatch) 50.01%
-      );
+      background-image: linear-gradient(to bottom right, var(--light-swatch) 49.99%, var(--dark-swatch) 50.01%);
     }
 
     &.light {

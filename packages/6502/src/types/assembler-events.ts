@@ -36,5 +36,4 @@ export interface AssemblerInfoEvent extends AssemblerBaseEvent {}
 /**
  * Event emitted when disassembly is generated
  */
-export interface AssemblerDisassemblyEvent
-  extends AssemblerBaseEvent, DisassembledEvent {}
+export interface AssemblerDisassemblyEvent extends AssemblerBaseEvent, DisassembledEvent {}

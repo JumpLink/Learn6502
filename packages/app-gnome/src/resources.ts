@@ -31,16 +31,10 @@ export const initResources = () => {
   if (!searchPath) {
     throw new Error("Search path not found");
   }
-  languageManager.set_search_path([
-    `resource://${RESOURCES_PATH}/lang-specs`,
-    ...searchPath,
-  ]);
+  languageManager.set_search_path([`resource://${RESOURCES_PATH}/lang-specs`, ...searchPath]);
 
   // Register GtkSourceView style schemes from resources
   const schemeManager = GtkSource.StyleSchemeManager.get_default();
   const schemePaths = schemeManager.get_search_path();
-  schemeManager.set_search_path([
-    `resource://${RESOURCES_PATH}/schemas`,
-    ...schemePaths,
-  ]);
+  schemeManager.set_search_path([`resource://${RESOURCES_PATH}/schemas`, ...schemePaths]);
 };

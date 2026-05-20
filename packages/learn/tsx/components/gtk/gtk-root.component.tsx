@@ -1,11 +1,6 @@
 import { Component } from "nano-jsx/esm/index.js";
 import { GtkBox } from "./gtk-box.component.tsx";
-import {
-  Orientation,
-  Align,
-  TextListType,
-  Justification,
-} from "../../enums/gtk.enums.ts";
+import { Orientation, Align, TextListType, Justification } from "../../enums/gtk.enums.ts";
 
 export class GtkRoot extends Component {
   render() {

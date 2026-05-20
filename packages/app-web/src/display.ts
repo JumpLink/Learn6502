@@ -1,8 +1,5 @@
 import { type Memory, DisplayAddressRange } from "@learn6502/6502";
-import {
-  type DisplayWidget,
-  DEFAULT_COLOR_PALETTE,
-} from "@learn6502/common-ui";
+import { type DisplayWidget, DEFAULT_COLOR_PALETTE } from "@learn6502/common-ui";
 
 /**
  * Represents the display for a 6502 simulator.
@@ -26,10 +23,7 @@ export class Display implements DisplayWidget {
     private readonly memory: Memory
   ) {
     this.memory.on("changed", (event) => {
-      if (
-        event.addr >= DisplayAddressRange.START &&
-        event.addr <= DisplayAddressRange.END
-      ) {
+      if (event.addr >= DisplayAddressRange.START && event.addr <= DisplayAddressRange.END) {
         this.updatePixel(event.addr);
       }
     });
@@ -74,23 +68,14 @@ export class Display implements DisplayWidget {
     this.ctx.fillStyle = this.palette[this.memory.get(addr) & 0x0f];
     const y = Math.floor((addr - DisplayAddressRange.START) / this.numY);
     const x = (addr - DisplayAddressRange.START) % this.numX;
-    this.ctx.fillRect(
-      x * this.pixelSize,
-      y * this.pixelSize,
-      this.pixelSize,
-      this.pixelSize
-    );
+    this.ctx.fillRect(x * this.pixelSize, y * this.pixelSize, this.pixelSize, this.pixelSize);
   }
 
   /**
    * Redraws all pixels on the display based on current memory state.
    */
   public drawAllPixels(): void {
-    for (
-      let addr = DisplayAddressRange.START;
-      addr <= DisplayAddressRange.END;
-      addr++
-    ) {
+    for (let addr = DisplayAddressRange.START; addr <= DisplayAddressRange.END; addr++) {
       this.updatePixel(addr);
     }
   }

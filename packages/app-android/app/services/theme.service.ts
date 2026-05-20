@@ -82,16 +82,13 @@ export class ThemeService extends BaseThemeService {
   private setupActivityLifecycleHandlers(): void {
     // Handle activity start - update theme colors (like reference projects)
     // This ensures dynamic colors are applied on every activity start
-    Application.android?.on(
-      Application.android.activityStartedEvent,
-      (event: any) => {
-        if (event?.activity) {
-          this.log.debug("Activity started, updating theme colors");
-          // Ensure theme is applied
-          event.activity.getDelegate().applyDayNight();
-        }
+    Application.android?.on(Application.android.activityStartedEvent, (event: any) => {
+      if (event?.activity) {
+        this.log.debug("Activity started, updating theme colors");
+        // Ensure theme is applied
+        event.activity.getDelegate().applyDayNight();
       }
-    );
+    });
   }
 
   /**
@@ -108,8 +105,7 @@ export class ThemeService extends BaseThemeService {
    */
   protected applyTheme(mode: ThemeMode): void {
     try {
-      const activity = Application.android
-        .startActivity as androidx.appcompat.app.AppCompatActivity;
+      const activity = Application.android.startActivity as androidx.appcompat.app.AppCompatActivity;
       if (!activity) {
         this.log.error("Could not apply theme, no start activity");
         return;
@@ -151,18 +147,10 @@ export class ThemeService extends BaseThemeService {
   private loadThemeFromSettings(): void {
     try {
       this.log.debug("Loading theme from settings...");
-      const savedTheme = ApplicationSettings.getString(
-        SETTINGS_THEME,
-        DEFAULT_THEME
-      );
+      const savedTheme = ApplicationSettings.getString(SETTINGS_THEME, DEFAULT_THEME);
 
       this.log.debug("Saved theme:", savedTheme);
-      if (
-        savedTheme &&
-        (savedTheme === "light" ||
-          savedTheme === "dark" ||
-          savedTheme === "system")
-      ) {
+      if (savedTheme && (savedTheme === "light" || savedTheme === "dark" || savedTheme === "system")) {
         this.setTheme(savedTheme as ThemeMode);
       } else {
         // Use system theme by default
@@ -192,32 +180,28 @@ export class ThemeService extends BaseThemeService {
    */
   private monitorSystemAppearance(): void {
     // Listen for system appearance changes and apply them
-    systemStates.events.on(
-      SystemStates.systemAppearanceChangedEvent,
-      (event) => {
-        DEV_LOG && this.log.debug("System appearance changed:", event);
-        // Only update isDarkTheme if we're in system mode
-        if (this._currentTheme === "system") {
-          this._isDarkTheme = systemStates.systemAppearance === "dark";
-          this.notifyThemeChanged();
-        }
-
-        // Apply day/night mode to the activity
-        // Like reference projects: use startActivity and call applyDayNight
-        try {
-          const activity = Application.android
-            .startActivity as androidx.appcompat.app.AppCompatActivity;
-          if (activity) {
-            activity.getDelegate().applyDayNight();
-          }
-        } catch (error) {
-          // Silent error - theme changes are non-critical
-          showError(error, {
-            silent: true,
-          });
-        }
+    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, (event) => {
+      DEV_LOG && this.log.debug("System appearance changed:", event);
+      // Only update isDarkTheme if we're in system mode
+      if (this._currentTheme === "system") {
+        this._isDarkTheme = systemStates.systemAppearance === "dark";
+        this.notifyThemeChanged();
       }
-    );
+
+      // Apply day/night mode to the activity
+      // Like reference projects: use startActivity and call applyDayNight
+      try {
+        const activity = Application.android.startActivity as androidx.appcompat.app.AppCompatActivity;
+        if (activity) {
+          activity.getDelegate().applyDayNight();
+        }
+      } catch (error) {
+        // Silent error - theme changes are non-critical
+        showError(error, {
+          silent: true,
+        });
+      }
+    });
   }
 
   /**
@@ -225,38 +209,32 @@ export class ThemeService extends BaseThemeService {
    */
   private monitorContrastChanges(): void {
     // Listen for contrast changes
-    systemStates.events.on(
-      SystemStates.contrastChangedEvent,
-      async (event: ContrastChangeEvent) => {
-        this.log.debug("contrastChangedEvent", event);
+    systemStates.events.on(SystemStates.contrastChangedEvent, async (event: ContrastChangeEvent) => {
+      this.log.debug("contrastChangedEvent", event);
 
-        // WORKAROUND: Flag the app for restart when the contrast mode changes
-        // (instead of restarting immediately)
-        if (!event.initial) {
-          DEV_LOG &&
-            this.log.debug("Contrast changed, flagging for restart on resume");
-          this.restartRequiredOnResume = true;
-        }
-
-        // Update CSS classes for contrast mode
-        try {
-          await this.updateContrastClasses(event.newValue);
-        } catch (error) {
-          // Silent error - contrast changes are non-critical
-          showError(error, {
-            silent: true,
-          });
-        }
+      // WORKAROUND: Flag the app for restart when the contrast mode changes
+      // (instead of restarting immediately)
+      if (!event.initial) {
+        DEV_LOG && this.log.debug("Contrast changed, flagging for restart on resume");
+        this.restartRequiredOnResume = true;
       }
-    );
+
+      // Update CSS classes for contrast mode
+      try {
+        await this.updateContrastClasses(event.newValue);
+      } catch (error) {
+        // Silent error - contrast changes are non-critical
+        showError(error, {
+          silent: true,
+        });
+      }
+    });
   }
 
   /**
    * Update CSS classes for the specified contrast mode
    */
-  private async updateContrastClasses(
-    contrast: ContrastMode | null
-  ): Promise<void> {
+  private async updateContrastClasses(contrast: ContrastMode | null): Promise<void> {
     if (!contrast) return;
 
     try {
@@ -284,11 +262,7 @@ export class ThemeService extends BaseThemeService {
         view?._onCssStateChange();
       });
 
-      DEV_LOG &&
-        this.log.debug(
-          "rootView cssClasses",
-          Array.from(rootView.cssClasses.values())
-        );
+      DEV_LOG && this.log.debug("rootView cssClasses", Array.from(rootView.cssClasses.values()));
     } catch (error) {
       // Silent error - contrast changes are non-critical
       showError(error, {
@@ -302,40 +276,21 @@ export class ThemeService extends BaseThemeService {
    * These variables can be used throughout the app via var(--safeAreaInset*)
    * Pattern from reference projects (conty, alpimaps, oss-weather) - using camelCase
    */
-  public updateSafeAreaInsets(insets: {
-    top: number;
-    bottom: number;
-    left: number;
-    right: number;
-  }): void {
+  public updateSafeAreaInsets(insets: { top: number; bottom: number; left: number; right: number }): void {
     try {
       const rootViewStyle = Application.getRootView()?.style;
       if (!rootViewStyle) {
-        this.log.warn(
-          "Root view style not available for setting safe area insets"
-        );
+        this.log.warn("Root view style not available for setting safe area insets");
         return;
       }
 
       // Set CSS variables using setUnscopedCssVariable (like reference projects)
       // Using camelCase naming convention like --windowInsetLeft, --actionBarHeight
       // Values are set without units (NativeScript uses dip automatically)
-      rootViewStyle.setUnscopedCssVariable(
-        "--safeAreaInsetTop",
-        insets.top + ""
-      );
-      rootViewStyle.setUnscopedCssVariable(
-        "--safeAreaInsetBottom",
-        insets.bottom + ""
-      );
-      rootViewStyle.setUnscopedCssVariable(
-        "--safeAreaInsetLeft",
-        insets.left + ""
-      );
-      rootViewStyle.setUnscopedCssVariable(
-        "--safeAreaInsetRight",
-        insets.right + ""
-      );
+      rootViewStyle.setUnscopedCssVariable("--safeAreaInsetTop", insets.top + "");
+      rootViewStyle.setUnscopedCssVariable("--safeAreaInsetBottom", insets.bottom + "");
+      rootViewStyle.setUnscopedCssVariable("--safeAreaInsetLeft", insets.left + "");
+      rootViewStyle.setUnscopedCssVariable("--safeAreaInsetRight", insets.right + "");
 
       // Trigger CSS state change to apply the new variables (pattern from reference projects)
       // This ensures all views using these CSS variables are re-rendered
@@ -344,9 +299,7 @@ export class ThemeService extends BaseThemeService {
         rootView._onCssStateChange();
         const rootModalViews = rootView._getRootModalViews();
         if (rootModalViews) {
-          rootModalViews.forEach((rootModalView) =>
-            rootModalView._onCssStateChange()
-          );
+          rootModalViews.forEach((rootModalView) => rootModalView._onCssStateChange());
         }
       }
 

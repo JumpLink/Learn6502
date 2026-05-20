@@ -14,10 +14,7 @@ export class EventDispatcher<TEventMap extends EventMap = EventMap> {
    * @param event The event name to listen for
    * @param callback The callback function to execute when the event occurs
    */
-  public on<K extends keyof TEventMap>(
-    event: K,
-    callback: EventListener<TEventMap[K]>
-  ): void {
+  public on<K extends keyof TEventMap>(event: K, callback: EventListener<TEventMap[K]>): void {
     if (!this.listeners[event]) {
       this.listeners[event] = [];
     }
@@ -29,16 +26,11 @@ export class EventDispatcher<TEventMap extends EventMap = EventMap> {
    * @param event The event name to remove the listener from
    * @param callback The callback function to remove
    */
-  public off<K extends keyof TEventMap>(
-    event: K,
-    callback: EventListener<TEventMap[K]>
-  ): void {
+  public off<K extends keyof TEventMap>(event: K, callback: EventListener<TEventMap[K]>): void {
     if (!this.listeners[event]) {
       return;
     }
-    this.listeners[event] = this.listeners[event]!.filter(
-      (listener) => listener !== callback
-    );
+    this.listeners[event] = this.listeners[event]!.filter((listener) => listener !== callback);
   }
 
   /**
@@ -46,18 +38,13 @@ export class EventDispatcher<TEventMap extends EventMap = EventMap> {
    * @param event The event name to dispatch
    * @param data The data to pass to the listeners
    */
-  public dispatch<K extends keyof TEventMap>(
-    event: K,
-    data: TEventMap[K]
-  ): void {
+  public dispatch<K extends keyof TEventMap>(event: K, data: TEventMap[K]): void {
     if (!this.listeners[event]) {
       return;
     }
     this.listeners[event]!.forEach((listener) => listener(data));
     // Automatically remove listeners registered with `once`
-    this.listeners[event] = this.listeners[event]!.filter(
-      (listener) => !listener.once
-    );
+    this.listeners[event] = this.listeners[event]!.filter((listener) => !listener.once);
   }
 
   /**
@@ -65,10 +52,7 @@ export class EventDispatcher<TEventMap extends EventMap = EventMap> {
    * @param event The event name to listen for
    * @param callback The callback function to execute when the event occurs
    */
-  public once<K extends keyof TEventMap>(
-    event: K,
-    callback: EventListener<TEventMap[K]>
-  ): void {
+  public once<K extends keyof TEventMap>(event: K, callback: EventListener<TEventMap[K]>): void {
     const onceWrapper = ((data: TEventMap[K]) => {
       callback(data);
       onceWrapper.once = true; // Mark for removal

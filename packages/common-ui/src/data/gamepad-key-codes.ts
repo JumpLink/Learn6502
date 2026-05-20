@@ -44,10 +44,7 @@ export function getGamepadKeyChar(key: GamepadKey): string {
  * @param fallbackKeyCode Optional fallback value for unmapped keys
  * @returns ASCII code for the corresponding gamepad action
  */
-export function mapKeyboardToGamepadKeyCode(
-  keyboardKey: string,
-  fallbackKeyCode?: number
-): number {
+export function mapKeyboardToGamepadKeyCode(keyboardKey: string, fallbackKeyCode?: number): number {
   switch (keyboardKey) {
     case "w":
       return GAMEPAD_KEY_CODES.Up;
@@ -73,9 +70,6 @@ export function mapKeyboardToGamepadKeyCode(
  * @param keyCode The key code to validate
  * @returns True if the key code matches the expected value
  */
-export function isValidGamepadKeyCode(
-  key: GamepadKey,
-  keyCode: number
-): boolean {
+export function isValidGamepadKeyCode(key: GamepadKey, keyCode: number): boolean {
   return getGamepadKeyCode(key) === keyCode;
 }

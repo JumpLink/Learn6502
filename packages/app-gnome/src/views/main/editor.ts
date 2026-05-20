@@ -22,13 +22,13 @@ export class Editor extends Adw.Bin implements EditorView {
   // Child widgets
 
   /** The SourceView that displays the buffer's display */
-  declare private _sourceView: SourceView;
+  private declare _sourceView: SourceView;
 
   /** The QuickHelp that displays the quick help */
-  declare private _quickHelpView: QuickHelpView;
+  private declare _quickHelpView: QuickHelpView;
 
   /** The ScrolledWindow that contains the quick help */
-  declare private _scrolledWindow: Gtk.ScrolledWindow;
+  private declare _scrolledWindow: Gtk.ScrolledWindow;
 
   // State preservation - now handled by editorController
   private _isInitialized: boolean = false;

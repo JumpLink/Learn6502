@@ -1,10 +1,4 @@
-import {
-  Page,
-  ScrollView,
-  ScrollEventData,
-  Frame,
-  Application,
-} from "@nativescript/core";
+import { Page, ScrollView, ScrollEventData, Frame, Application } from "@nativescript/core";
 
 import { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
@@ -91,10 +85,7 @@ export class MainController implements MainView {
       updateDebugger: () => {
         // Android: update debugger view if available
         if (gameConsoleView.memory && gameConsoleView.simulator) {
-          debuggerView.update(
-            gameConsoleView.memory,
-            gameConsoleView.simulator
-          );
+          debuggerView.update(gameConsoleView.memory, gameConsoleView.simulator);
         }
       },
       updateAssemblerViews: (assembler) => {
@@ -198,20 +189,14 @@ export class MainController implements MainView {
     // Find UI elements
     this.actionBar = this.page.getViewById("main-action-bar");
     this.mainButton = this.page.getViewById<MainButton>("mainButton");
-    this.bottomNavigation =
-      this.page.getViewById<BottomNavigation>("bottomNavigation");
+    this.bottomNavigation = this.page.getViewById<BottomNavigation>("bottomNavigation");
     this.mainFrame = this.page.getViewById<Frame>("mainFrame");
 
     // Log if bottomNavigation was found
-    this.log.debug(
-      `BottomNavigation ${this.bottomNavigation ? "found" : "NOT FOUND"}`
-    );
+    this.log.debug(`BottomNavigation ${this.bottomNavigation ? "found" : "NOT FOUND"}`);
 
     // Set up system event listeners
-    systemStates.events.on(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
     this.onSystemAppearanceChanged({
       newValue: systemStates.systemAppearance,
       oldValue: null,
@@ -250,10 +235,7 @@ export class MainController implements MainView {
     this.mainBridge.disconnect();
 
     // Unsubscribe appearance change handler
-    systemStates.events.off(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
   }
 
   public initFabScrollBehavior(): void {
@@ -283,8 +265,7 @@ export class MainController implements MainView {
 
       // Calculate scroll position as percentage (0 = top, 1 = bottom)
       const scrollableHeight = scrollView.scrollableHeight;
-      const scrollPercentage =
-        scrollableHeight > 0 ? currentScrollY / scrollableHeight : 0;
+      const scrollPercentage = scrollableHeight > 0 ? currentScrollY / scrollableHeight : 0;
 
       // Material Design 3 Extended FAB behavior:
       // - At top (scrollPercentage < 0.1): Extended FAB
@@ -463,11 +444,7 @@ export class MainController implements MainView {
       const codeChanged = mainStateController.getCodeChanged();
       const currentState = this.state;
 
-      const enabledState = mainStateController.getActionEnabledState(
-        currentState,
-        hasCode,
-        codeChanged
-      );
+      const enabledState = mainStateController.getActionEnabledState(currentState, hasCode, codeChanged);
 
       // Apply enabled states to button actions
       this.mainButton.setActionEnabledStates(enabledState);

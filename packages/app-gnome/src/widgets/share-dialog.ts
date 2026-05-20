@@ -16,17 +16,17 @@ const GITHUB_OWNER = "JumpLink";
 const GITHUB_REPO = "Learn6502";
 
 export class ShareDialog extends Adw.Dialog {
-  declare private _carousel: Adw.Carousel;
-  declare private _backButton: Gtk.Button;
-  declare private _nextButton: Gtk.Button;
-  declare private _titleEntry: Adw.EntryRow;
-  declare private _authorEntry: Adw.EntryRow;
-  declare private _descriptionEntry: Adw.EntryRow;
-  declare private _sourceUrlEntry: Adw.EntryRow;
-  declare private _examplePreview: ExampleListItem;
-  declare private _submitButton: Gtk.Button;
-  declare private _copyToClipboardButton: Gtk.Button;
-  declare private _closeButton: Gtk.Button;
+  private declare _carousel: Adw.Carousel;
+  private declare _backButton: Gtk.Button;
+  private declare _nextButton: Gtk.Button;
+  private declare _titleEntry: Adw.EntryRow;
+  private declare _authorEntry: Adw.EntryRow;
+  private declare _descriptionEntry: Adw.EntryRow;
+  private declare _sourceUrlEntry: Adw.EntryRow;
+  private declare _examplePreview: ExampleListItem;
+  private declare _submitButton: Gtk.Button;
+  private declare _copyToClipboardButton: Gtk.Button;
+  private declare _closeButton: Gtk.Button;
 
   private _code: string = "";
   private _memory: Memory | null = null;
@@ -177,8 +177,7 @@ export class ShareDialog extends Adw.Dialog {
     const author = this._authorEntry.get_text().trim();
     const description = this._descriptionEntry.get_text().trim();
 
-    const isValid =
-      title.length > 0 && author.length > 0 && description.length > 0;
+    const isValid = title.length > 0 && author.length > 0 && description.length > 0;
 
     // Update next button sensitivity
     this._nextButton.sensitive = isValid;
@@ -208,11 +207,7 @@ export class ShareDialog extends Adw.Dialog {
     }
 
     let hexString = "";
-    for (
-      let addr = DisplayAddressRange.START;
-      addr <= DisplayAddressRange.END;
-      addr++
-    ) {
+    for (let addr = DisplayAddressRange.START; addr <= DisplayAddressRange.END; addr++) {
       const value = this._memory.get(addr);
       hexString += value.toString(16).padStart(2, "0");
     }
@@ -375,9 +370,7 @@ export class ShareDialog extends Adw.Dialog {
     if (result.isTooLong) {
       this._issueBody = result.body;
       copyToClipboard(result.body);
-      console.log(
-        `URL too long (${result.url.length} chars), body copied to clipboard`
-      );
+      console.log(`URL too long (${result.url.length} chars), body copied to clipboard`);
     }
 
     // Emit submit signal with the example data

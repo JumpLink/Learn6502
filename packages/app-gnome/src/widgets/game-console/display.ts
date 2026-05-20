@@ -4,19 +4,16 @@ import Gtk from "@girs/gtk-4.0";
 import type cairo from "cairo";
 import Template from "./display.blp";
 
-import {
-  type DisplayWidget,
-  gameConsoleStateService,
-} from "@learn6502/common-ui";
+import { type DisplayWidget, gameConsoleStateService } from "@learn6502/common-ui";
 import { DEFAULT_DISPLAY_CONFIG } from "@learn6502/common-ui/src/data/display-constants";
 import { type Memory, DisplayAddressRange } from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayWidget {
   // Child widgets
-  declare private _drawingArea: Gtk.DrawingArea; // TODO: Switch to Gdk.Paintable?
+  private declare _drawingArea: Gtk.DrawingArea; // TODO: Switch to Gdk.Paintable?
   // Private backing fields for properties
-  declare private _displayWidth: number;
-  declare private _displayHeight: number;
+  private declare _displayWidth: number;
+  private declare _displayHeight: number;
 
   static {
     GObject.registerClass(
@@ -132,9 +129,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
    * Clears the display.
    */
   public reset(): void {
-    this._drawingArea.set_draw_func(
-      this.drawClear.bind(this) as Gtk.DrawingAreaDrawFunc
-    );
+    this._drawingArea.set_draw_func(this.drawClear.bind(this) as Gtk.DrawingAreaDrawFunc);
     this._drawingArea.queue_draw();
   }
 
@@ -150,9 +145,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
    * Force redraw of all pixels
    */
   public drawAllPixels(): void {
-    this._drawingArea.set_draw_func(
-      this.drawPixels.bind(this) as Gtk.DrawingAreaDrawFunc
-    );
+    this._drawingArea.set_draw_func(this.drawPixels.bind(this) as Gtk.DrawingAreaDrawFunc);
     this._drawingArea.queue_draw();
   }
 
@@ -167,32 +160,18 @@ export class Display extends Adw.Bin implements DisplayWidget {
     return this.grab_focus();
   }
 
-  private drawClear(
-    _drawingArea: Gtk.DrawingArea,
-    cr: cairo.Context,
-    width: number,
-    height: number
-  ) {
+  private drawClear(_drawingArea: Gtk.DrawingArea, cr: cairo.Context, width: number, height: number) {
     const black = { red: 0, green: 0, blue: 0 };
     cr.setSourceRGB(black.red, black.green, black.blue); // Set color to black
     cr.paint(); // Paint the entire drawing area with the color above
   }
 
-  private drawPixels(
-    _drawingArea: Gtk.DrawingArea,
-    cr: cairo.Context,
-    width: number,
-    height: number
-  ) {
+  private drawPixels(_drawingArea: Gtk.DrawingArea, cr: cairo.Context, width: number, height: number) {
     if (!this.memory) {
       return;
     }
     // Iterate over the address range and draw pixels
-    for (
-      let addr = DisplayAddressRange.START;
-      addr <= DisplayAddressRange.END;
-      addr++
-    ) {
+    for (let addr = DisplayAddressRange.START; addr <= DisplayAddressRange.END; addr++) {
       this.drawPixel(cr, addr);
     }
   }
@@ -207,12 +186,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
     const [x, y] = gameConsoleStateService.addrToCoordinates(addr, this.numX);
 
     cr.setSourceRGB(color.red, color.green, color.blue);
-    cr.rectangle(
-      x * this.pixelSize,
-      y * this.pixelSize,
-      this.pixelSize,
-      this.pixelSize
-    );
+    cr.rectangle(x * this.pixelSize, y * this.pixelSize, this.pixelSize, this.pixelSize);
     cr.fill();
   }
 }

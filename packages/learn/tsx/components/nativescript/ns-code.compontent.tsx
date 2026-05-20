@@ -105,8 +105,7 @@ export class NsCode extends Component<NsCodeProps> {
     let copyable = props.copyable || false;
     let unselectable = props.unselectable || false;
     let noLineNumbers = props.noLineNumbers || false;
-    let lineNumbers =
-      props.lineNumbers === undefined ? !noLineNumbers : props.lineNumbers;
+    let lineNumbers = props.lineNumbers === undefined ? !noLineNumbers : props.lineNumbers;
     let fitContentWidth = props.fitContentWidth || false;
     let fitContentHeight = props.fitContentHeight || false;
     let height = props.height;
@@ -181,14 +180,9 @@ export class NsCode extends Component<NsCodeProps> {
       fitContentHeight = true;
     }
 
-    const heightModifier = modifiers.find((modifier) =>
-      modifier.startsWith("height=")
-    );
+    const heightModifier = modifiers.find((modifier) => modifier.startsWith("height="));
     if (heightModifier) {
-      height = parseInt(
-        heightModifier.slice(heightModifier.indexOf("=") + 1),
-        10
-      );
+      height = parseInt(heightModifier.slice(heightModifier.indexOf("=") + 1), 10);
     }
 
     const widthModifier = modifiers.find(
@@ -200,13 +194,9 @@ export class NsCode extends Component<NsCodeProps> {
       width = parseInt(widthModifier.slice(widthModifier.indexOf("=") + 1), 10);
     }
 
-    const exampleModifier = modifiers.find((modifier) =>
-      modifier.startsWith(examplePrefix)
-    );
+    const exampleModifier = modifiers.find((modifier) => modifier.startsWith(examplePrefix));
     if (exampleModifier) {
-      const exampleName = exampleModifier.slice(
-        examplePrefix.length
-      ) as keyof typeof Examples;
+      const exampleName = exampleModifier.slice(examplePrefix.length) as keyof typeof Examples;
       if (EXAMPLE_NAMES.includes(exampleName)) {
         code = Examples[exampleName].code;
       } else {
@@ -214,19 +204,13 @@ export class NsCode extends Component<NsCodeProps> {
       }
     }
 
-    const lineStartModifier = modifiers.find((modifier) =>
-      modifier.startsWith("line-start=")
-    );
+    const lineStartModifier = modifiers.find((modifier) => modifier.startsWith("line-start="));
     if (lineStartModifier) {
       let startValue: number;
-      const valueString = lineStartModifier
-        .slice(lineStartModifier.indexOf("=") + 1)
-        .trim();
+      const valueString = lineStartModifier.slice(lineStartModifier.indexOf("=") + 1).trim();
 
       if (valueString.startsWith("0x") || valueString.startsWith("$")) {
-        const hexString = valueString.startsWith("0x")
-          ? valueString.slice(2)
-          : valueString.slice(1);
+        const hexString = valueString.startsWith("0x") ? valueString.slice(2) : valueString.slice(1);
         startValue = parseInt(hexString, 16);
       } else {
         startValue = parseInt(valueString, 10);

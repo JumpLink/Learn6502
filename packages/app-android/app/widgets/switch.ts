@@ -1,9 +1,4 @@
-import {
-  ContentView,
-  Property,
-  CSSType,
-  booleanConverter,
-} from "@nativescript/core";
+import { ContentView, Property, CSSType, booleanConverter } from "@nativescript/core";
 import { getMaterialColor, createColorStateList } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
 import { SystemAppearanceChangeEvent } from "~/types";
@@ -110,18 +105,15 @@ export class Switch extends ContentView {
   public static checkedChangeEvent = "checkedChange";
 
   // Private instance properties - Native view
-  private _nativeSwitch: com.google.android.material.materialswitch.MaterialSwitch | null =
-    null;
+  private _nativeSwitch: com.google.android.material.materialswitch.MaterialSwitch | null = null;
 
   // Private instance properties - Property backing fields
   private _checked: boolean = checkedProperty.defaultValue;
   private _enabled: boolean = enabledProperty.defaultValue;
   private _checkedTrackColor: string = checkedTrackColorProperty.defaultValue;
-  private _uncheckedTrackColor: string =
-    uncheckedTrackColorProperty.defaultValue;
+  private _uncheckedTrackColor: string = uncheckedTrackColorProperty.defaultValue;
   private _checkedThumbColor: string = checkedThumbColorProperty.defaultValue;
-  private _uncheckedThumbColor: string =
-    uncheckedThumbColorProperty.defaultValue;
+  private _uncheckedThumbColor: string = uncheckedThumbColorProperty.defaultValue;
 
   /** Flag to prevent event loops when setting checked state programmatically */
   private _isUpdating: boolean = false;
@@ -240,18 +232,12 @@ export class Switch extends ContentView {
    * @returns The native Android view
    */
   public createNativeView(): android.view.View {
-    this._nativeSwitch =
-      new com.google.android.material.materialswitch.MaterialSwitch(
-        this.context
-      );
+    this._nativeSwitch = new com.google.android.material.materialswitch.MaterialSwitch(this.context);
 
     // Set up checked change listener
     this._nativeSwitch.setOnCheckedChangeListener(
       new android.widget.CompoundButton.OnCheckedChangeListener({
-        onCheckedChanged: (
-          buttonView: android.widget.CompoundButton,
-          isChecked: boolean
-        ): void => {
+        onCheckedChanged: (buttonView: android.widget.CompoundButton, isChecked: boolean): void => {
           if (!this._isUpdating) {
             this._checked = isChecked;
             this.notify({
@@ -270,10 +256,7 @@ export class Switch extends ContentView {
     this.applyEnabled();
 
     // Listen for system appearance changes
-    systemStates.events.on(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     return this._nativeSwitch;
   }
@@ -291,10 +274,7 @@ export class Switch extends ContentView {
    * Called by NativeScript when the view is no longer needed
    */
   public disposeNativeView(): void {
-    systemStates.events.off(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     if (this._nativeSwitch) {
       this._nativeSwitch.setOnCheckedChangeListener(null!);
@@ -324,42 +304,22 @@ export class Switch extends ContentView {
    * Applies the current theme colors to the switch
    * Called when colors change or system theme changes
    */
-  private applyTheme(
-    _isDarkMode = systemStates.systemAppearance === "dark"
-  ): void {
+  private applyTheme(_isDarkMode = systemStates.systemAppearance === "dark"): void {
     if (!this._nativeSwitch) return;
 
     try {
       // Get colors from Material Design 3 theme
-      const checkedTrackColor = getMaterialColor(
-        this._checkedTrackColor,
-        this.context
-      );
-      const uncheckedTrackColor = getMaterialColor(
-        this._uncheckedTrackColor,
-        this.context
-      );
-      const checkedThumbColor = getMaterialColor(
-        this._checkedThumbColor,
-        this.context
-      );
-      const uncheckedThumbColor = getMaterialColor(
-        this._uncheckedThumbColor,
-        this.context
-      );
+      const checkedTrackColor = getMaterialColor(this._checkedTrackColor, this.context);
+      const uncheckedTrackColor = getMaterialColor(this._uncheckedTrackColor, this.context);
+      const checkedThumbColor = getMaterialColor(this._checkedThumbColor, this.context);
+      const uncheckedThumbColor = getMaterialColor(this._uncheckedThumbColor, this.context);
 
       // Create track color state list (checked/unchecked states)
       // Note: createColorStateList uses checked state as first param, unchecked as second
-      const trackColorStateList = createColorStateList(
-        checkedTrackColor,
-        uncheckedTrackColor
-      );
+      const trackColorStateList = createColorStateList(checkedTrackColor, uncheckedTrackColor);
 
       // Create thumb color state list (checked/unchecked states)
-      const thumbColorStateList = createColorStateList(
-        checkedThumbColor,
-        uncheckedThumbColor
-      );
+      const thumbColorStateList = createColorStateList(checkedThumbColor, uncheckedThumbColor);
 
       // Apply colors
       this._nativeSwitch.setTrackTintList(trackColorStateList);
@@ -369,10 +329,7 @@ export class Switch extends ContentView {
       // Checked: border matches track color, Unchecked: border is "outline"
       // See: https://m3.material.io/components/switch/specs
       const uncheckedBorderColor = getMaterialColor("outline", this.context);
-      const borderColorStateList = createColorStateList(
-        checkedTrackColor,
-        uncheckedBorderColor
-      );
+      const borderColorStateList = createColorStateList(checkedTrackColor, uncheckedBorderColor);
       this._nativeSwitch.setTrackDecorationTintList(borderColorStateList);
     } catch (error) {
       logger.error("Switch", "Failed to apply theme:", error);

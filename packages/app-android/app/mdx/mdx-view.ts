@@ -1,10 +1,7 @@
 import { ContentView, Builder, HtmlView, View } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { EventDispatcher } from "@learn6502/6502";
-import type {
-  SourceViewEventMap,
-  SourceViewCopyEvent,
-} from "@learn6502/common-ui";
+import type { SourceViewEventMap, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
 import { logger } from "~/utils";
 
@@ -36,10 +33,7 @@ export abstract class MdxView extends ContentView {
     });
 
     if (!componentView) {
-      logger.error(
-        "MdxView",
-        `Failed to load ${this.getViewName()}.xml template`
-      );
+      logger.error("MdxView", `Failed to load ${this.getViewName()}.xml template`);
       return;
     }
 
@@ -98,11 +92,7 @@ export abstract class MdxView extends ContentView {
       try {
         html = localize(htmlView.html);
       } catch (error) {
-        logger.error(
-          "MdxView",
-          `Error localizing HTML string "${originalHtml}":`,
-          error
-        );
+        logger.error("MdxView", `Error localizing HTML string "${originalHtml}":`, error);
       }
       if (html) {
         htmlView.html = html;
@@ -110,10 +100,7 @@ export abstract class MdxView extends ContentView {
 
       if (originalHtml === html) {
         LOG_MISSING_TRANSLATIONS &&
-          logger.debug(
-            "MdxView",
-            `HTML string "${originalHtml.slice(0, 100)}..." is not localized`
-          );
+          logger.debug("MdxView", `HTML string "${originalHtml.slice(0, 100)}..." is not localized`);
       }
     });
   }

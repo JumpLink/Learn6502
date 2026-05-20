@@ -1,10 +1,4 @@
-import {
-  ContentView,
-  Property,
-  Frame,
-  Utils,
-  GridLayout,
-} from "@nativescript/core";
+import { ContentView, Property, Frame, Utils, GridLayout } from "@nativescript/core";
 import { BottomTab } from "./bottom-tab";
 import { createColorStateList, getMaterialColor } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
@@ -220,18 +214,13 @@ export class BottomNavigation extends ContentView {
     // Use custom style defined in styles.xml
     const defStyleAttr = this.context
       .getResources()
-      .getIdentifier(
-        "bottomNavigationStyle",
-        "attr",
-        this.context.getPackageName()
-      );
+      .getIdentifier("bottomNavigationStyle", "attr", this.context.getPackageName());
 
-    this.bottomNav =
-      new com.google.android.material.bottomnavigation.BottomNavigationView(
-        this.context,
-        null!,
-        defStyleAttr
-      );
+    this.bottomNav = new com.google.android.material.bottomnavigation.BottomNavigationView(
+      this.context,
+      null!,
+      defStyleAttr
+    );
 
     this.bottomNav.setClipToPadding(false);
 
@@ -242,22 +231,12 @@ export class BottomNavigation extends ContentView {
     // CRITICAL: Set initial background color immediately after creation
     // This prevents any black background from showing during initialization
     try {
-      const surfaceContainerColor = getMaterialColor(
-        "surfaceContainer",
-        this.context
-      );
-      if (
-        surfaceContainerColor !== undefined &&
-        surfaceContainerColor !== null
-      ) {
+      const surfaceContainerColor = getMaterialColor("surfaceContainer", this.context);
+      if (surfaceContainerColor !== undefined && surfaceContainerColor !== null) {
         this.bottomNav.setBackgroundColor(surfaceContainerColor);
       }
     } catch (error) {
-      logger.error(
-        "BottomNavigation",
-        "Error setting initial background color:",
-        error
-      );
+      logger.error("BottomNavigation", "Error setting initial background color:", error);
     }
 
     // Ensure minimum height for visibility
@@ -266,46 +245,35 @@ export class BottomNavigation extends ContentView {
 
     // Set label visibility mode
     this.bottomNav.setLabelVisibilityMode(
-      com.google.android.material.bottomnavigation.LabelVisibilityMode
-        .LABEL_VISIBILITY_LABELED
+      com.google.android.material.bottomnavigation.LabelVisibilityMode.LABEL_VISIBILITY_LABELED
     );
 
     // Set up item selection listener
     this.bottomNav.setOnItemSelectedListener(
-      new com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener(
-        {
-          onNavigationItemSelected: (
-            menuItem: android.view.MenuItem
-          ): boolean => {
-            const menuId = menuItem.getItemId();
-            // Find the tab with this menu ID and navigate to its page
-            for (const [tabId, menuItemId] of this.idToMenuId.entries()) {
-              if (menuItemId === menuId) {
-                const tab = this.tabsById.get(tabId);
-                if (!tab) {
-                  logger.error(
-                    "BottomNavigation",
-                    `onNavigationItemSelected - Tab with ID ${tabId} not found`
-                  );
-                  return false;
-                }
-                this.navigateToTab(tab);
-                return true;
+      new com.google.android.material.navigation.NavigationBarView.OnItemSelectedListener({
+        onNavigationItemSelected: (menuItem: android.view.MenuItem): boolean => {
+          const menuId = menuItem.getItemId();
+          // Find the tab with this menu ID and navigate to its page
+          for (const [tabId, menuItemId] of this.idToMenuId.entries()) {
+            if (menuItemId === menuId) {
+              const tab = this.tabsById.get(tabId);
+              if (!tab) {
+                logger.error("BottomNavigation", `onNavigationItemSelected - Tab with ID ${tabId} not found`);
+                return false;
               }
+              this.navigateToTab(tab);
+              return true;
             }
-            return false;
-          },
-        }
-      )
+          }
+          return false;
+        },
+      })
     );
 
     // Apply current theme
     this.applyTheme();
 
-    systemStates.events.on(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     // Process any pending tabs that were added before view creation
     if (this.pendingTabs.length > 0) {
@@ -325,30 +293,17 @@ export class BottomNavigation extends ContentView {
 
     // Set background color on the ContentView wrapper itself
     try {
-      const surfaceContainerColor = getMaterialColor(
-        "surfaceContainer",
-        this.context
-      );
-      if (
-        surfaceContainerColor !== undefined &&
-        surfaceContainerColor !== null
-      ) {
+      const surfaceContainerColor = getMaterialColor("surfaceContainer", this.context);
+      if (surfaceContainerColor !== undefined && surfaceContainerColor !== null) {
         this.nativeViewProtected?.setBackgroundColor(surfaceContainerColor);
       }
     } catch (error) {
-      logger.error(
-        "BottomNavigation",
-        "Error setting ContentView background color:",
-        error
-      );
+      logger.error("BottomNavigation", "Error setting ContentView background color:", error);
     }
 
     // Store base height from XML attribute (default: 80 DIPs)
     // Note: height might be a string (e.g., "80") or number, so we parse it
-    const currentHeight =
-      typeof this.height === "string"
-        ? parseFloat(this.height)
-        : (this.height as number) || 0;
+    const currentHeight = typeof this.height === "string" ? parseFloat(this.height) : (this.height as number) || 0;
 
     if (currentHeight > 0) {
       this.baseHeight = currentHeight;
@@ -365,11 +320,7 @@ export class BottomNavigation extends ContentView {
         );
       }
     } catch (error) {
-      logger.error(
-        "BottomNavigation",
-        "Error logging BottomNavigation dimensions:",
-        error
-      );
+      logger.error("BottomNavigation", "Error logging BottomNavigation dimensions:", error);
     }
   }
 
@@ -377,12 +328,7 @@ export class BottomNavigation extends ContentView {
    * Called after the view is laid out
    * Ensures the BottomNavigation has a proper height
    */
-  public onLayout(
-    left: number,
-    top: number,
-    right: number,
-    bottom: number
-  ): void {
+  public onLayout(left: number, top: number, right: number, bottom: number): void {
     super.onLayout(left, top, right, bottom);
 
     // CRITICAL: Force the native view to have a height if it's still 0
@@ -394,8 +340,7 @@ export class BottomNavigation extends ContentView {
 
         if (currentHeight === 0 && minHeight > 0) {
           // Convert pixels to DIPs and set explicit height
-          const heightInDips =
-            Utils.layout.toDeviceIndependentPixels(minHeight);
+          const heightInDips = Utils.layout.toDeviceIndependentPixels(minHeight);
           this.height = heightInDips;
           logger.debug(
             "BottomNavigation",
@@ -406,11 +351,7 @@ export class BottomNavigation extends ContentView {
         }
       }
     } catch (error) {
-      logger.error(
-        "BottomNavigation",
-        "Error setting BottomNavigation height in onLayout:",
-        error
-      );
+      logger.error("BottomNavigation", "Error setting BottomNavigation height in onLayout:", error);
     }
   }
 
@@ -426,41 +367,21 @@ export class BottomNavigation extends ContentView {
    * Applies the current theme colors to the bottom navigation
    * Called when colors change or system theme changes
    */
-  private applyTheme(
-    _isDarkMode = systemStates.systemAppearance === "dark"
-  ): void {
+  private applyTheme(_isDarkMode = systemStates.systemAppearance === "dark"): void {
     if (!this.bottomNav) return;
 
     logger.debug("BottomNavigation", "applyTheme");
 
     // Get colors using the new properties
-    const activeTextColor = getMaterialColor(
-      this._activeTextColor,
-      this.context
-    );
-    const inactiveTextColor = getMaterialColor(
-      this._inactiveTextColor,
-      this.context
-    );
-    const activeIconColor = getMaterialColor(
-      this._activeIconColor,
-      this.context
-    );
-    const inactiveIconColor = getMaterialColor(
-      this._inactiveIconColor,
-      this.context
-    );
+    const activeTextColor = getMaterialColor(this._activeTextColor, this.context);
+    const inactiveTextColor = getMaterialColor(this._inactiveTextColor, this.context);
+    const activeIconColor = getMaterialColor(this._activeIconColor, this.context);
+    const inactiveIconColor = getMaterialColor(this._inactiveIconColor, this.context);
     const indicatorColor = getMaterialColor(this._indicatorColor, this.context);
 
     // Create separate state lists for text and icons
-    const textStateList = createColorStateList(
-      activeTextColor,
-      inactiveTextColor
-    );
-    const iconStateList = createColorStateList(
-      activeIconColor,
-      inactiveIconColor
-    );
+    const textStateList = createColorStateList(activeTextColor, inactiveTextColor);
+    const iconStateList = createColorStateList(activeIconColor, inactiveIconColor);
     const indicatorStateList = createColorStateList(indicatorColor);
 
     // Apply the state lists
@@ -475,10 +396,7 @@ export class BottomNavigation extends ContentView {
    */
   public disposeNativeView(): void {
     // Remove listeners
-    systemStates.events.off(
-      SystemStates.systemAppearanceChangedEvent,
-      this.onSystemAppearanceChanged
-    );
+    systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     this.bottomNav = null!;
     this.tabsById.clear();
@@ -555,10 +473,7 @@ export class BottomNavigation extends ContentView {
    */
   public selectTab(tabId: string): boolean {
     if (!this.bottomNav || !this.idToMenuId.has(tabId)) {
-      logger.debug(
-        "BottomNavigation",
-        `selectTab - Tab with ID ${tabId} not found`
-      );
+      logger.debug("BottomNavigation", `selectTab - Tab with ID ${tabId} not found`);
       return false;
     }
 
