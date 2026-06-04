@@ -20,9 +20,10 @@
     "tailwindcss": "^4.2.4"
   },
   "devDependencies": {
+    "@gjsify/nativescript-vite": "^0.4.37",
     "@nativescript/android": "9.0.4",
     "@nativescript/types": "~9.0.0",
-    "@nativescript/webpack": "^5.0.35",
+    "@nativescript/vite": "^2.0.3",
     "@tailwindcss/postcss": "^4.2.4",
     "autoprefixer": "^10.5.0",
     "nativescript": "^9.0.6",
@@ -31,7 +32,7 @@
     "postcss-discard-empty": "^8.0.0",
     "postcss-import": "^16.1.1",
     "postcss-nested": "^7.0.2",
-    "string-replace-loader": "^3.3.0",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "vite": "^8.0.16"
   }
 }

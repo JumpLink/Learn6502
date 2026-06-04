@@ -13,8 +13,8 @@ declare module "*?raw" {
   export default src;
 }
 
-// Global build-time constants (set by webpack DefinePlugin)
-// These follow the pattern from reference projects (conty, oss-weather)
+// Global build-time constants (set by Vite `define` in vite.config.ts; __ANDROID__/
+// __IOS__ are provided by gjsifyNativescript()'s platform defines)
 
 /** Development logging flag - true in development, false in production */
 declare const DEV_LOG: boolean;
