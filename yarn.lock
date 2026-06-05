@@ -5554,6 +5554,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/app-web@workspace:packages/app-web"
   dependencies:
+    "@gjsify/cli": "npm:^0.4.14"
     "@learn6502/6502": "workspace:^"
     lightningcss: "npm:^1.32.0"
     typescript: "npm:^6.0.3"
@@ -5584,6 +5585,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/learn@workspace:packages/learn"
   dependencies:
+    "@gjsify/cli": "npm:^0.4.14"
     "@learn6502/examples": "workspace:^"
     "@mdx-js/esbuild": "npm:^3.1.1"
     "@types/mdx": "npm:^2.0.13"
