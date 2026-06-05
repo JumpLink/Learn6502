@@ -7,13 +7,14 @@
   "scripts": {
     "build:mdx": "node esbuild.js",
     "build:js": "node dist/index.js",
-    "build": "yarn build:mdx && yarn build:js && yarn build:copy",
+    "build": "gjsify run build:mdx && gjsify run build:js && gjsify run build:copy",
     "build:copy": "cp -r dist/tutorial.ns.xml ../app-android/app/mdx/tutorial.xml && cp -r dist/quick-help.ns.xml ../app-android/app/mdx/quick-help.xml",
     "clear": "rm -rf dist"
   },
   "author": "Nick Morgan, Pascal Garber",
   "license": "CC-BY-4.0",
   "devDependencies": {
+    "@gjsify/cli": "^0.4.14",
     "@mdx-js/esbuild": "^3.1.1",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25.6.2",
