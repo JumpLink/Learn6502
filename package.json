@@ -372,8 +372,10 @@
     "start:android": "gjsify workspace @learn6502/app-android start",
     "clear": "gjsify foreach -v -p clear && gjsify run _clear",
     "_clear": "rm -rf builddir build-dir .flatpak-builder flatpak-build repo eu.jumplink.Learn6502.tar.gz",
-    "format": "gjsify format",
-    "fix": "gjsify fix"
+    "format": "gjsify format --write",
+    "fix": "gjsify fix",
+    "lint": "gjsify lint",
+    "check:lint": "gjsify lint"
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
@@ -383,8 +385,9 @@
     "packages/app-web"
   ],
   "devDependencies": {
-    "@biomejs/biome": "^2.4.13",
-    "@gjsify/cli": "^0.4.14",
+    "@gjsify/cli": "^0.4.37",
+    "oxfmt": "^0.53.0",
+    "oxlint": "^1.68.0",
     "typescript": "^6.0.3"
   },
   "packageManager": "yarn@4.13.0"

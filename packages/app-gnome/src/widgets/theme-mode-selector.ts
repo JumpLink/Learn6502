@@ -12,9 +12,9 @@ import { themeService } from "../services";
  * Pure UI wiring; delegates changes to themeService.
  */
 export class ThemeModeSelector extends Adw.Bin {
-  private declare _follow: Gtk.CheckButton;
-  private declare _light: Gtk.CheckButton;
-  private declare _dark: Gtk.CheckButton;
+  declare private _follow: Gtk.CheckButton;
+  declare private _light: Gtk.CheckButton;
+  declare private _dark: Gtk.CheckButton;
   private _isUpdatingUi: boolean = false;
 
   static {

@@ -1,7 +1,7 @@
 import { ContentView, Property, CSSType, booleanConverter } from "@nativescript/core";
 import { getMaterialColor, createColorStateList } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
-import { SystemAppearanceChangeEvent } from "~/types";
+import type { SystemAppearanceChangeEvent } from "~/types";
 import { logger } from "~/utils";
 
 /**

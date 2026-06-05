@@ -12,15 +12,15 @@ import { themeService } from "../services";
  * Delegates persistence/apply to themeService.
  */
 export class AccentColorSelector extends Adw.Bin {
-  private declare _accent_blue: Gtk.CheckButton;
-  private declare _accent_teal: Gtk.CheckButton;
-  private declare _accent_green: Gtk.CheckButton;
-  private declare _accent_yellow: Gtk.CheckButton;
-  private declare _accent_orange: Gtk.CheckButton;
-  private declare _accent_red: Gtk.CheckButton;
-  private declare _accent_pink: Gtk.CheckButton;
-  private declare _accent_purple: Gtk.CheckButton;
-  private declare _accent_slate: Gtk.CheckButton;
+  declare private _accent_blue: Gtk.CheckButton;
+  declare private _accent_teal: Gtk.CheckButton;
+  declare private _accent_green: Gtk.CheckButton;
+  declare private _accent_yellow: Gtk.CheckButton;
+  declare private _accent_orange: Gtk.CheckButton;
+  declare private _accent_red: Gtk.CheckButton;
+  declare private _accent_pink: Gtk.CheckButton;
+  declare private _accent_purple: Gtk.CheckButton;
+  declare private _accent_slate: Gtk.CheckButton;
   private _isUpdatingUi: boolean = false;
   private _enabled: boolean = true;
   private _isReady: boolean = false;

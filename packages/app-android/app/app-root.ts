@@ -1,5 +1,5 @@
-import type { EventData } from "@nativescript/core";
-import { Frame, Utils } from "@nativescript/core";
+import type { EventData, Frame } from "@nativescript/core";
+import { Utils } from "@nativescript/core";
 import { logger } from "~/utils";
 import { themeService } from "~/services";
 

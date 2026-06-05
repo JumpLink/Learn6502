@@ -6,7 +6,7 @@ import * as Examples from "@learn6502/examples";
 
 const EXAMPLE_NAMES = Object.keys(Examples);
 
-interface GtkCodeProps extends Object {
+interface GtkCodeProps {
   /**
    * The example to display, if not provided, the children will be used.
    */

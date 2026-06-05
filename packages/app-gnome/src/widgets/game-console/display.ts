@@ -1,6 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import Gtk from "@girs/gtk-4.0";
+import type Gtk from "@girs/gtk-4.0";
 import type cairo from "cairo";
 import Template from "./display.blp";
 
@@ -10,10 +10,10 @@ import { type Memory, DisplayAddressRange } from "@learn6502/6502";
 
 export class Display extends Adw.Bin implements DisplayWidget {
   // Child widgets
-  private declare _drawingArea: Gtk.DrawingArea; // TODO: Switch to Gdk.Paintable?
+  declare private _drawingArea: Gtk.DrawingArea; // TODO: Switch to Gdk.Paintable?
   // Private backing fields for properties
-  private declare _displayWidth: number;
-  private declare _displayHeight: number;
+  declare private _displayWidth: number;
+  declare private _displayHeight: number;
 
   static {
     GObject.registerClass(

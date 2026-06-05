@@ -1,4 +1,4 @@
-import { PropertyChangeEvent } from "./property-change-event";
+import type { PropertyChangeEvent } from "./property-change-event";
 
 /**
  * Interface for system appearance change events

@@ -5,8 +5,9 @@ import Gdk from "@girs/gdk-4.0";
 import GLib from "@girs/glib-2.0";
 
 import type { ExampleMeta } from "@learn6502/examples";
-import { DisplayAddressRange, Memory } from "@learn6502/6502";
-import { ExampleListItem } from "./example-list-item.ts";
+import type { Memory } from "@learn6502/6502";
+import { DisplayAddressRange } from "@learn6502/6502";
+import type { ExampleListItem } from "./example-list-item.ts";
 import { copyToClipboard } from "../utils.ts";
 
 import Template from "./share-dialog.blp";
@@ -16,17 +17,17 @@ const GITHUB_OWNER = "JumpLink";
 const GITHUB_REPO = "Learn6502";
 
 export class ShareDialog extends Adw.Dialog {
-  private declare _carousel: Adw.Carousel;
-  private declare _backButton: Gtk.Button;
-  private declare _nextButton: Gtk.Button;
-  private declare _titleEntry: Adw.EntryRow;
-  private declare _authorEntry: Adw.EntryRow;
-  private declare _descriptionEntry: Adw.EntryRow;
-  private declare _sourceUrlEntry: Adw.EntryRow;
-  private declare _examplePreview: ExampleListItem;
-  private declare _submitButton: Gtk.Button;
-  private declare _copyToClipboardButton: Gtk.Button;
-  private declare _closeButton: Gtk.Button;
+  declare private _carousel: Adw.Carousel;
+  declare private _backButton: Gtk.Button;
+  declare private _nextButton: Gtk.Button;
+  declare private _titleEntry: Adw.EntryRow;
+  declare private _authorEntry: Adw.EntryRow;
+  declare private _descriptionEntry: Adw.EntryRow;
+  declare private _sourceUrlEntry: Adw.EntryRow;
+  declare private _examplePreview: ExampleListItem;
+  declare private _submitButton: Gtk.Button;
+  declare private _copyToClipboardButton: Gtk.Button;
+  declare private _closeButton: Gtk.Button;
 
   private _code: string = "";
   private _memory: Memory | null = null;

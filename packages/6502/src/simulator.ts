@@ -1,5 +1,5 @@
-import { Memory } from "./memory.js";
-import { Labels } from "./labels.js";
+import type { Memory } from "./memory.js";
+import type { Labels } from "./labels.js";
 import { EventDispatcher } from "./event-dispatcher.js";
 
 import type { SimulatorEventsMap } from "./types/index.js";

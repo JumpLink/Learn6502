@@ -1,6 +1,6 @@
 import { Component } from "nano-jsx/esm/index.js";
 
-export class GtkWidget<P extends Object = any, S = any> extends Component<P, S> {
+export class GtkWidget<P extends object = any, S = any> extends Component<P, S> {
   static propertyNames = [
     "can-focus",
     "can-target",

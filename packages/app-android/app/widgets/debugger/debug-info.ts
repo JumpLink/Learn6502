@@ -2,7 +2,7 @@ import { ContentView, Builder } from "@nativescript/core";
 import type { DebugInfoWidget } from "@learn6502/common-ui";
 import type { Simulator } from "@learn6502/6502";
 import { num2hex, addr2hex } from "@learn6502/6502";
-import { ListItem } from "../list-item";
+import type { ListItem } from "../list-item";
 import { logger } from "~/utils";
 
 /**

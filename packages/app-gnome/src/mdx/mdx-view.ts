@@ -1,6 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import { SourceView } from "../widgets/source-view.ts";
+import type { SourceView } from "../widgets/source-view.ts";
 import type { SourceViewCopyEvent } from "@learn6502/common-ui";
 
 /**

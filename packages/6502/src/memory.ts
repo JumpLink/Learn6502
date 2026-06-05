@@ -16,7 +16,7 @@ export class Memory {
    * Creates a new Memory instance.
    */
   constructor() {
-    this.memArray = new Array(0x10000);
+    this.memArray = Array.from({ length: 0x10000 });
 
     this.storeKeypress = this.storeKeypress.bind(this);
   }

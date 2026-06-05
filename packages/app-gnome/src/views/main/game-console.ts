@@ -3,7 +3,7 @@ import Adw from "@girs/adw-1";
 
 import type { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
 
-import { Display, Gamepad } from "../../widgets/game-console/index.ts";
+import type { Display, Gamepad } from "../../widgets/game-console/index.ts";
 import {
   gameConsoleController,
   gameConsoleStateService,
@@ -18,8 +18,8 @@ import Template from "./game-console.blp";
  */
 export class GameConsole extends Adw.Bin implements GameConsoleView {
   // Child widgets
-  private declare _display: Display;
-  private declare _gamePad: Gamepad;
+  declare private _display: Display;
+  declare private _gamePad: Gamepad;
 
   static {
     GObject.registerClass(

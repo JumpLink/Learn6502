@@ -1,7 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import Gtk from "@girs/gtk-4.0";
-import { SourceView } from "../source-view.ts";
+import type Gtk from "@girs/gtk-4.0";
+import type { SourceView } from "../source-view.ts";
 
 import { EventDispatcher, type Memory } from "@learn6502/6502";
 import {
@@ -23,8 +23,8 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
   readonly events: EventDispatcher<HexMonitorEventMap> = new EventDispatcher<HexMonitorEventMap>();
 
   // Child widgets
-  private declare _sourceView: SourceView;
-  private declare _memoryRegionDropDown: Gtk.DropDown;
+  declare private _sourceView: SourceView;
+  declare private _memoryRegionDropDown: Gtk.DropDown;
 
   // Signal handler IDs
   private _handlerIds: number[] = [];

@@ -1,10 +1,10 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import Gtk from "@girs/gtk-4.0";
+import type Gtk from "@girs/gtk-4.0";
 import GLib from "@girs/glib-2.0";
 
-import { TutorialView } from "../../mdx/tutorial-view.ts";
-import { ExamplesList } from "../../widgets/examples-list.ts";
+import type { TutorialView } from "../../mdx/tutorial-view.ts";
+import type { ExamplesList } from "../../widgets/examples-list.ts";
 
 import Template from "./learn.blp";
 import type { LearnView } from "@learn6502/common-ui";
@@ -12,14 +12,14 @@ import { learnController } from "@learn6502/common-ui/src/controller";
 
 export class Learn extends Adw.Bin implements LearnView {
   // Child widgets
-  private declare _navigationView: Adw.NavigationView;
-  private declare _navigationList: Gtk.ListBox;
-  private declare _tutorialRow: Adw.ActionRow;
-  private declare _examplesRow: Adw.ActionRow;
-  private declare _statusPage: Adw.StatusPage;
-  private declare _tutorialView: TutorialView;
-  private declare _examplesStatusPage: Adw.StatusPage;
-  private declare _examplesList: ExamplesList;
+  declare private _navigationView: Adw.NavigationView;
+  declare private _navigationList: Gtk.ListBox;
+  declare private _tutorialRow: Adw.ActionRow;
+  declare private _examplesRow: Adw.ActionRow;
+  declare private _statusPage: Adw.StatusPage;
+  declare private _tutorialView: TutorialView;
+  declare private _examplesStatusPage: Adw.StatusPage;
+  declare private _examplesList: ExamplesList;
 
   // Store the scroll position
   private _lastScrollPosition: number = 0;

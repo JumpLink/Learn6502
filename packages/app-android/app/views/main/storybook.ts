@@ -1,4 +1,4 @@
-import { EventData, Page } from "@nativescript/core";
+import type { EventData, Page } from "@nativescript/core";
 import { ListItem, Switch } from "../../widgets";
 import { logger } from "~/utils";
 

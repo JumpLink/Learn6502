@@ -1,5 +1,5 @@
-import { Memory } from "./memory.js";
-import { Labels } from "./labels.js";
+import type { Memory } from "./memory.js";
+import type { Labels } from "./labels.js";
 import { EventDispatcher } from "./event-dispatcher.js";
 import { _, addr2hex, num2hex } from "./utils.js";
 import { ADDRESSING_MODES, INSTRUCTION_LENGTH } from "./constants.js";
@@ -639,7 +639,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^#([\w\$%]+)$/i);
+    const match_data = param.match(/^#([\w$%]+)$/i);
     if (match_data) {
       const operand = this.tryParseByteOperand(match_data[1], symbols);
       if (operand >= 0) {
@@ -684,7 +684,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^\(([\w\$]+)\)$/i);
+    const match_data = param.match(/^\(([\w$]+)\)$/i);
     if (match_data) {
       const operand = this.tryParseWordOperand(match_data[1], symbols);
       if (operand >= 0) {
@@ -705,7 +705,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^\(([\w\$]+),X\)$/i);
+    const match_data = param.match(/^\(([\w$]+),X\)$/i);
     if (match_data) {
       const operand = this.tryParseByteOperand(match_data[1], symbols);
       if (operand >= 0) {
@@ -726,7 +726,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^\(([\w\$]+)\),Y$/i);
+    const match_data = param.match(/^\(([\w$]+)\),Y$/i);
     if (match_data) {
       const operand = this.tryParseByteOperand(match_data[1], symbols);
       if (operand >= 0) {
@@ -783,7 +783,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^([\w\$]+),X$/i);
+    const match_data = param.match(/^([\w$]+),X$/i);
     if (match_data) {
       const operand = this.tryParseWordOperand(match_data[1], symbols);
       if (operand >= 0) {
@@ -824,7 +824,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^([\w\$]+),Y$/i);
+    const match_data = param.match(/^([\w$]+),Y$/i);
     if (match_data) {
       const operand = this.tryParseWordOperand(match_data[1], symbols);
       if (operand >= 0) {
@@ -863,7 +863,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^([\w\$]+),X$/i);
+    const match_data = param.match(/^([\w$]+),X$/i);
     if (match_data) {
       const operand = this.tryParseByteOperand(match_data[1], symbols);
       if (operand >= 0) {
@@ -886,7 +886,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^([\w\$]+),Y$/i);
+    const match_data = param.match(/^([\w$]+),Y$/i);
     if (match_data) {
       const operand = this.tryParseByteOperand(match_data[1], symbols);
       if (operand >= 0) {
@@ -910,7 +910,7 @@ export class Assembler {
       return false;
     }
 
-    const match_data = param.match(/^([\w\$]+)$/i);
+    const match_data = param.match(/^([\w$]+)$/i);
     if (match_data) {
       const operand = this.tryParseWordOperand(match_data[1], symbols);
       if (operand >= 0) {

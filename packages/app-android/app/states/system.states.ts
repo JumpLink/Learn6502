@@ -8,7 +8,8 @@
  * Pattern from reference projects: centralized state with EventDispatcher
  */
 
-import { Application, LaunchEventData, type SystemAppearanceChangedEventData, Utils } from "@nativescript/core";
+import type { LaunchEventData } from "@nativescript/core";
+import { Application, type SystemAppearanceChangedEventData, Utils } from "@nativescript/core";
 import { androidLaunchEventLocalizationHandler, overrideLocale } from "@nativescript/localize";
 import { EventDispatcher } from "@learn6502/6502";
 import { ContrastMode } from "../constants";

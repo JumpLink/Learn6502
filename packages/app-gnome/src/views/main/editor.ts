@@ -1,9 +1,9 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import Gtk from "@girs/gtk-4.0";
-import GtkSource from "@girs/gtksource-5";
-import { SourceView } from "../../widgets/source-view.ts";
-import { QuickHelpView } from "../../mdx/quick-help-view.ts";
+import type Gtk from "@girs/gtk-4.0";
+import type GtkSource from "@girs/gtksource-5";
+import type { SourceView } from "../../widgets/source-view.ts";
+import type { QuickHelpView } from "../../mdx/quick-help-view.ts";
 import { EventDispatcher } from "@learn6502/6502";
 import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
 import { editorController } from "@learn6502/common-ui";
@@ -22,13 +22,13 @@ export class Editor extends Adw.Bin implements EditorView {
   // Child widgets
 
   /** The SourceView that displays the buffer's display */
-  private declare _sourceView: SourceView;
+  declare private _sourceView: SourceView;
 
   /** The QuickHelp that displays the quick help */
-  private declare _quickHelpView: QuickHelpView;
+  declare private _quickHelpView: QuickHelpView;
 
   /** The ScrolledWindow that contains the quick help */
-  private declare _scrolledWindow: Gtk.ScrolledWindow;
+  declare private _scrolledWindow: Gtk.ScrolledWindow;
 
   // State preservation - now handled by editorController
   private _isInitialized: boolean = false;

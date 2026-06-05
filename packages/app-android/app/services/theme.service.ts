@@ -3,7 +3,8 @@ import type { ThemeMode } from "@learn6502/common-ui";
 import { Application, ApplicationSettings } from "@nativescript/core";
 import { systemStates, SystemStates } from "../states";
 import { getRootViewWhenReady, restartApp, showError } from "../utils/index";
-import { ContrastMode, SETTINGS_THEME, DEFAULT_THEME } from "../constants";
+import type { ContrastMode } from "../constants";
+import { SETTINGS_THEME, DEFAULT_THEME } from "../constants";
 import type { ContrastChangeEvent } from "~/types";
 import { logger } from "~/utils";
 

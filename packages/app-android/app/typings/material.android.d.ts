@@ -9,11 +9,11 @@
  * @see https://m3.material.io/components
  */
 
-declare module com {
-  export module google {
-    export module android {
-      export module material {
-        export module materialswitch {
+declare namespace com {
+  export namespace google {
+    export namespace android {
+      export namespace material {
+        export namespace materialswitch {
           /**
            * Material Design 3 Switch component
            *

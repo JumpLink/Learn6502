@@ -1,4 +1,5 @@
-import { GridLayout, Button, Builder } from "@nativescript/core";
+import type { Button } from "@nativescript/core";
+import { GridLayout, Builder } from "@nativescript/core";
 import type { GamepadKey, GamepadEventMap, GamepadWidget } from "@learn6502/common-ui";
 import { getGamepadKeyCode, getGamepadKeyChar } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/6502";
