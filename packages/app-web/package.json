@@ -9,10 +9,10 @@
     "clear": "rm -rf dist _site",
     "setup": "yarn exec 'gem install bundler jekyll' && yarn exec 'bundle install'",
     "build:vite": "vite build",
-    "build": "yarn build:vite",
+    "build": "gjsify run build:vite",
     "check": "tsc --noEmit",
-    "start:app": "gjs -m dist/main.js",
-    "debug:app": "GTK_DEBUG=interactive gjs -m dist/main.js",
+    "start:app": "gjsify run dist/main.js",
+    "debug:app": "GTK_DEBUG=interactive gjsify run dist/main.js",
     "start": "yarn exec 'bundle exec jekyll serve'"
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
