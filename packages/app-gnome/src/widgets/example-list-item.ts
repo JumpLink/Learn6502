@@ -3,17 +3,17 @@ import Gtk from "@girs/gtk-4.0";
 
 import type { ExampleMeta } from "@learn6502/examples";
 import { Memory, DisplayAddressRange } from "@learn6502/6502";
-import { SourceView } from "./source-view.ts";
-import { Display } from "./game-console/display.ts";
+import type { SourceView } from "./source-view.ts";
+import type { Display } from "./game-console/display.ts";
 
 import Template from "./example-list-item.blp";
 
 export class ExampleListItem extends Gtk.Box {
-  private declare _titleLabel: Gtk.Label;
-  private declare _authorLabel: Gtk.Label;
-  private declare _descriptionLabel: Gtk.Label;
-  private declare _display: Display;
-  private declare _sourceView: SourceView;
+  declare private _titleLabel: Gtk.Label;
+  declare private _authorLabel: Gtk.Label;
+  declare private _descriptionLabel: Gtk.Label;
+  declare private _display: Display;
+  declare private _sourceView: SourceView;
 
   private _example: ExampleMeta | null = null;
   private _memory: Memory | null = null;

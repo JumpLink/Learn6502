@@ -1,4 +1,5 @@
-import { GridLayout, Label, ScrollView } from "@nativescript/core";
+import type { GridLayout } from "@nativescript/core";
+import { Label, ScrollView } from "@nativescript/core";
 import type { HexMonitorWidget, HexMonitorOptions, MemoryRegion, HexMonitorEventMap } from "@learn6502/common-ui";
 import { memoryRegions } from "@learn6502/common-ui";
 import type { Memory } from "@learn6502/6502";

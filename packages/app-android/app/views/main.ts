@@ -1,11 +1,12 @@
-import { Page, ScrollView, ScrollEventData, Frame, Application } from "@nativescript/core";
+import type { Page, ScrollEventData, Frame } from "@nativescript/core";
+import { ScrollView, Application } from "@nativescript/core";
 
-import { EventData } from "@nativescript/core";
+import type { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
 
 // Import common interfaces and types
+import type { MainView } from "@learn6502/common-ui";
 import {
-  MainView,
   ViewType,
   gameConsoleController,
   debuggerController,
@@ -15,14 +16,14 @@ import {
   MainEventBridge,
   MainButtonState,
 } from "@learn6502/common-ui";
-import { SimulatorState } from "@learn6502/6502";
+import type { SimulatorState } from "@learn6502/6502";
 
 // Import services
 import { notificationService } from "~/services";
-import { SystemAppearanceChangeEvent } from "~/types";
-import { MainButton } from "~/widgets";
+import type { SystemAppearanceChangeEvent } from "~/types";
+import type { MainButton } from "~/widgets";
 import { showError, logger } from "~/utils";
-import { BottomNavigation } from "~/widgets/bottom-navigation";
+import type { BottomNavigation } from "~/widgets/bottom-navigation";
 
 // Import views
 import { debuggerView } from "./main/debugger";

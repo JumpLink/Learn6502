@@ -1,6 +1,8 @@
-import { Observable, Page, EventData, Button, StackLayout } from "@nativescript/core";
-import { EditorView, EditorEventMap, editorController } from "@learn6502/common-ui";
-import { SourceView } from "~/widgets/source-view";
+import type { Page, EventData, Button, StackLayout } from "@nativescript/core";
+import { Observable } from "@nativescript/core";
+import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
+import { editorController } from "@learn6502/common-ui";
+import type { SourceView } from "~/widgets/source-view";
 import { EventDispatcher } from "@learn6502/6502";
 import { logger } from "~/utils";
 

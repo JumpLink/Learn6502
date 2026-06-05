@@ -1,0 +1,51 @@
+{
+  "$schema": "./node_modules/oxlint/configuration_schema.json",
+  "categories": {
+    "correctness": "error"
+  },
+  "rules": {
+    "typescript/consistent-type-imports": "warn",
+    "typescript/no-explicit-any": "warn",
+    "typescript/no-non-null-assertion": "off",
+    "unicorn/prefer-node-protocol": "error",
+    "eslint/no-unused-expressions": [
+      "error",
+      { "allowShortCircuit": true, "allowTernary": true, "allowTaggedTemplates": true }
+    ],
+    "typescript/triple-slash-reference": "off",
+    "eslint/no-unused-vars": [
+      "warn",
+      {
+        "argsIgnorePattern": "^_",
+        "varsIgnorePattern": "^_",
+        "caughtErrorsIgnorePattern": "^_",
+        "destructuredArrayIgnorePattern": "^_"
+      }
+    ]
+  },
+  "ignorePatterns": [
+    "**/node_modules",
+    "**/dist",
+    "**/lib",
+    "**/build",
+    "**/build-dir",
+    "**/builddir",
+    "**/flatpak-build",
+    "**/.flatpak-builder",
+    "**/repo",
+    "**/coverage",
+    "**/refs",
+    "**/references",
+    "**/@types",
+    "**/templates",
+    "**/prebuilds",
+    "**/.yarn",
+    "**/_site",
+    "**/_includes",
+    "**/platforms",
+    "packages/app-android/app/i18n",
+    "**/*.gresource",
+    "**/*.compiled",
+    "**/*.metainfo.xml"
+  ]
+}

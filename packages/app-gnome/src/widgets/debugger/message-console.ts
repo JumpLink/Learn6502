@@ -1,6 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import Gtk from "@girs/gtk-4.0";
+import type Gtk from "@girs/gtk-4.0";
 
 import Template from "./message-console.blp";
 
@@ -8,7 +8,7 @@ import { type MessageConsoleWidget } from "@learn6502/common-ui";
 
 export class MessageConsole extends Adw.Bin implements MessageConsoleWidget {
   // Child widgets
-  private declare _textView: Gtk.TextView;
+  declare private _textView: Gtk.TextView;
 
   static {
     GObject.registerClass(

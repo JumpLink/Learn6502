@@ -2,11 +2,12 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 
-import { HexMonitor, Hexdump, Disassembled } from "../../widgets/debugger/index.ts";
+import type { HexMonitor, Hexdump, Disassembled } from "../../widgets/debugger/index.ts";
 
 import Template from "./debugger.blp";
 
-import { type Memory, type Simulator, Assembler } from "@learn6502/6502";
+import type { Assembler } from "@learn6502/6502";
+import { type Memory, type Simulator } from "@learn6502/6502";
 import {
   type DebuggerView,
   type MessageConsoleWidget,
@@ -21,18 +22,18 @@ import type { GameConsole } from "./game-console.ts";
 
 export class Debugger extends Adw.Bin implements DebuggerView {
   // Properties
-  private declare _state: DebuggerState;
-  private declare _enabled: boolean;
-  public declare scrollable: boolean;
+  declare private _state: DebuggerState;
+  declare private _enabled: boolean;
+  declare public scrollable: boolean;
 
   // Child widgets
-  private declare _messageConsole: MessageConsoleWidget;
-  private declare _hexMonitor: HexMonitor;
-  private declare _hexdump: Hexdump;
-  private declare _disassembled: Disassembled;
-  private declare _debugInfo: DebugInfoWidget;
-  private declare _stepperSwitch: Adw.SwitchRow;
-  private declare _enabledSwitch: Adw.SwitchRow;
+  declare private _messageConsole: MessageConsoleWidget;
+  declare private _hexMonitor: HexMonitor;
+  declare private _hexdump: Hexdump;
+  declare private _disassembled: Disassembled;
+  declare private _debugInfo: DebugInfoWidget;
+  declare private _stepperSwitch: Adw.SwitchRow;
+  declare private _enabledSwitch: Adw.SwitchRow;
 
   // Reference to game console
   private gameConsole: GameConsole | null = null;

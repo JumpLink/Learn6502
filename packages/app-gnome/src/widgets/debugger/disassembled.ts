@@ -1,6 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import { SourceView } from "../source-view.ts";
+import type { SourceView } from "../source-view.ts";
 
 import { type Assembler, EventDispatcher } from "@learn6502/6502";
 import type { DisassembledEventMap, DisassembledWidget, SourceViewCopyEvent } from "@learn6502/common-ui";
@@ -11,7 +11,7 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
   readonly events: EventDispatcher<DisassembledEventMap> = new EventDispatcher<DisassembledEventMap>();
 
   // Child widgets
-  private declare _sourceView: SourceView;
+  declare private _sourceView: SourceView;
 
   static {
     GObject.registerClass(

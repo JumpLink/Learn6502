@@ -7,9 +7,10 @@ import GLib from "@girs/glib-2.0";
 
 import { SimulatorState, num2hex, debounce } from "@learn6502/6502";
 
-import { Learn, Editor, GameConsole, Debugger } from "./main";
+import type { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
-import { MainButton, ShareDialog } from "../widgets";
+import type { MainButton } from "../widgets";
+import { ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 import { settings } from "../settings.ts";
@@ -29,30 +30,30 @@ import {
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
   // Child widgets
-  private declare _editor: Editor;
-  private declare _gameConsole: GameConsole;
-  private declare _learn: Learn;
-  private declare _mainButton: MainButton;
-  private declare _stack: Adw.ViewStack;
-  private declare _switcherBar: Adw.ViewSwitcherBar;
-  private declare _debugger: Debugger;
-  private declare _toastOverlay: Adw.ToastOverlay;
-  private declare _layoutHost: Gtk.Stack;
+  declare private _editor: Editor;
+  declare private _gameConsole: GameConsole;
+  declare private _learn: Learn;
+  declare private _mainButton: MainButton;
+  declare private _stack: Adw.ViewStack;
+  declare private _switcherBar: Adw.ViewSwitcherBar;
+  declare private _debugger: Debugger;
+  declare private _toastOverlay: Adw.ToastOverlay;
+  declare private _layoutHost: Gtk.Stack;
 
-  private declare _unsavedChangesDialog: Adw.AlertDialog;
-  private declare _titleLabel: Gtk.Label;
-  private declare _unsavedChangesIndicator: Gtk.Button;
-  private declare _sidebarToggleButton: Gtk.ToggleButton;
-  private declare _learnBackButton: Gtk.Button;
+  declare private _unsavedChangesDialog: Adw.AlertDialog;
+  declare private _titleLabel: Gtk.Label;
+  declare private _unsavedChangesIndicator: Gtk.Button;
+  declare private _sidebarToggleButton: Gtk.ToggleButton;
+  declare private _learnBackButton: Gtk.Button;
 
   // Three column layout widgets
-  private declare _leftSidebar: Adw.OverlaySplitView;
-  private declare _leftColumn: Gtk.Box;
-  private declare _centerColumn: Gtk.Box;
-  private declare _rightColumn: Gtk.ScrolledWindow;
-  private declare _rightColumnContent: Gtk.Box;
-  private declare _rightTopBox: Gtk.Box;
-  private declare _rightBottomBox: Gtk.Box;
+  declare private _leftSidebar: Adw.OverlaySplitView;
+  declare private _leftColumn: Gtk.Box;
+  declare private _centerColumn: Gtk.Box;
+  declare private _rightColumn: Gtk.ScrolledWindow;
+  declare private _rightColumnContent: Gtk.Box;
+  declare private _rightTopBox: Gtk.Box;
+  declare private _rightBottomBox: Gtk.Box;
   static {
     GObject.registerClass(
       {

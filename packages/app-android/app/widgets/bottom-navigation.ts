@@ -2,7 +2,7 @@ import { ContentView, Property, Frame, Utils, GridLayout } from "@nativescript/c
 import { BottomTab } from "./bottom-tab";
 import { createColorStateList, getMaterialColor } from "../utils/index";
 import { systemStates, SystemStates } from "../states";
-import { SystemAppearanceChangeEvent } from "~/types";
+import type { SystemAppearanceChangeEvent } from "~/types";
 import { logger } from "~/utils";
 
 /**

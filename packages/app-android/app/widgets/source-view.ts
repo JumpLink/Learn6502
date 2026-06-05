@@ -1,4 +1,5 @@
-import { ContentView, Property, TextView, Builder, booleanConverter, Color, Button } from "@nativescript/core";
+import type { TextView, Button } from "@nativescript/core";
+import { ContentView, Property, Builder, booleanConverter, Color } from "@nativescript/core";
 import { debounce, EventDispatcher } from "@learn6502/6502";
 import type { SourceViewEventMap, SourceViewWidget } from "@learn6502/common-ui";
 import { OPCODE_PATTERN, COMMENT_PATTERN, HEX_VALUE_PATTERN } from "@learn6502/common-ui";

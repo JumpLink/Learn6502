@@ -1,6 +1,6 @@
-import { ContrastChangeEvent } from "./contrast-change-event";
-import { SystemAppearanceChangeEvent } from "./system-appearance-change-event";
-import { ApplicationEventData, LaunchEventData } from "@nativescript/core";
+import type { ContrastChangeEvent } from "./contrast-change-event";
+import type { SystemAppearanceChangeEvent } from "./system-appearance-change-event";
+import type { ApplicationEventData, LaunchEventData } from "@nativescript/core";
 
 /**
  * Map of all system events and their corresponding payload types

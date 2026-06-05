@@ -1,8 +1,8 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import Gtk from "@girs/gtk-4.0";
+import type Gtk from "@girs/gtk-4.0";
 
-import { SimulatorState } from "@learn6502/6502";
+import type { SimulatorState } from "@learn6502/6502";
 import {
   MainButtonState,
   type MainButtonMode,
@@ -25,8 +25,8 @@ import Template from "./main-button.blp";
  */
 export class MainButton extends Adw.Bin implements MainButtonWidget {
   // Internal child widgets
-  private declare _button: Gtk.Button;
-  private declare _revealer: Gtk.Revealer;
+  declare private _button: Gtk.Button;
+  declare private _revealer: Gtk.Revealer;
 
   // Signals
   static {

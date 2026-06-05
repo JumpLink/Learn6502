@@ -1,5 +1,6 @@
-import { EventData, Page, ContentView, View } from "@nativescript/core";
-import { TutorialView } from "../../mdx/tutorial-view"; // Adjusted path if necessary
+import type { EventData } from "@nativescript/core";
+import { Page, ContentView, View } from "@nativescript/core";
+import type { TutorialView } from "../../mdx/tutorial-view"; // Adjusted path if necessary
 import type { LearnView, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { learnController } from "@learn6502/common-ui/src/controller";
 import { logger } from "~/utils";

@@ -1,9 +1,5 @@
-import {
-  DisplayWidget,
-  gameConsoleController,
-  DEFAULT_DISPLAY_CONFIG,
-  gameConsoleStateService,
-} from "@learn6502/common-ui";
+import type { DisplayWidget } from "@learn6502/common-ui";
+import { gameConsoleController, DEFAULT_DISPLAY_CONFIG, gameConsoleStateService } from "@learn6502/common-ui";
 import {
   CreateViewEventData,
   GridLayout,
@@ -14,7 +10,8 @@ import {
   CoreTypes,
 } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core";
-import { Memory, DisplayAddressRange } from "@learn6502/6502";
+import type { Memory } from "@learn6502/6502";
+import { DisplayAddressRange } from "@learn6502/6502";
 import { logger } from "~/utils";
 
 /**

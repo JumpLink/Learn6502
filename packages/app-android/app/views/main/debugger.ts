@@ -1,7 +1,8 @@
-import { EventData, Page, GridLayout, ScrollView, TextView, LayoutBase, Application } from "@nativescript/core";
+import type { EventData, Page } from "@nativescript/core";
+import { GridLayout, ScrollView, TextView, LayoutBase, Application } from "@nativescript/core";
+import type { DebuggerView } from "@learn6502/common-ui";
 import {
   debuggerController,
-  DebuggerView,
   DebuggerState,
   mainStateController,
   editorController,
@@ -10,7 +11,7 @@ import {
 import type { Memory, Simulator, Assembler } from "@learn6502/6502";
 
 // Import custom widgets
-import { MessageConsole, DebugInfo, HexMonitor, Hexdump, Disassembled } from "~/widgets/debugger";
+import type { MessageConsole, DebugInfo, HexMonitor, Hexdump, Disassembled } from "~/widgets/debugger";
 
 import { notificationService } from "~/services";
 import { gameConsoleView } from "./game-console";

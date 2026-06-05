@@ -1,5 +1,5 @@
-import { ContrastMode } from "../constants";
-import { PropertyChangeEvent } from "./property-change-event";
+import type { ContrastMode } from "../constants";
+import type { PropertyChangeEvent } from "./property-change-event";
 
 /**
  * Interface for contrast change events

@@ -5,7 +5,8 @@
  * Pattern from reference projects (conty, oss-weather, alpimaps).
  */
 
-import { Application, Frame, Page, View, type AndroidActivityBackPressedEventData } from "@nativescript/core";
+import type { View } from "@nativescript/core";
+import { Application, Frame, Page, type AndroidActivityBackPressedEventData } from "@nativescript/core";
 import { logger } from "./logger";
 
 /**

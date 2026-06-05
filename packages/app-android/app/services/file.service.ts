@@ -1,5 +1,6 @@
 import { FileService as BaseFileService } from "@learn6502/common-ui";
-import { Application, AndroidActivityResultEventData } from "@nativescript/core";
+import type { AndroidActivityResultEventData } from "@nativescript/core";
+import { Application } from "@nativescript/core";
 import { Observable } from "@nativescript/core/data/observable";
 import { logger, showError } from "~/utils";
 

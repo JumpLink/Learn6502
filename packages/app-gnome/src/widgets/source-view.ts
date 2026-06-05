@@ -67,11 +67,11 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
 
   // Child widgets
   /** The ScrolledWindow that contains the SourceView */
-  private declare _scrolledWindow: Gtk.ScrolledWindow;
+  declare private _scrolledWindow: Gtk.ScrolledWindow;
   /** The SourceView that displays the buffer's display */
-  private declare _sourceView: GtkSource.View;
+  declare private _sourceView: GtkSource.View;
   /** The copy button */
-  private declare _copyButton: Gtk.Button;
+  declare private _copyButton: Gtk.Button;
 
   static {
     GObject.registerClass(

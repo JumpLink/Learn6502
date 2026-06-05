@@ -1,8 +1,9 @@
-import { EventData, Page } from "@nativescript/core";
-import { type Memory, type Labels, type Simulator, type Assembler, SimulatorState } from "@learn6502/6502";
+import type { EventData, Page } from "@nativescript/core";
+import type { SimulatorState } from "@learn6502/6502";
+import { type Memory, type Labels, type Simulator, type Assembler } from "@learn6502/6502";
 
 // Import child widgets
-import { Display, Gamepad } from "~/widgets/game-console";
+import type { Display, Gamepad } from "~/widgets/game-console";
 
 // Import common controller
 import {

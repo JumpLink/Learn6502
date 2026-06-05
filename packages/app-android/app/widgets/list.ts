@@ -1,7 +1,7 @@
 import { StackLayout, Property } from "@nativescript/core";
 import { ListItem } from "./list-item";
 import { systemStates, SystemStates } from "../states";
-import { SystemAppearanceChangeEvent } from "~/types";
+import type { SystemAppearanceChangeEvent } from "~/types";
 
 /**
  * Material Design 3 List component for Android

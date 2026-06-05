@@ -1,4 +1,5 @@
-import { ContentView, Builder, HtmlView, View } from "@nativescript/core";
+import type { View } from "@nativescript/core";
+import { ContentView, Builder, HtmlView } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { EventDispatcher } from "@learn6502/6502";
 import type { SourceViewEventMap, SourceViewCopyEvent } from "@learn6502/common-ui";
