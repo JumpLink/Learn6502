@@ -8,12 +8,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "rm -rf dist",
-    "check": "tsc --noEmit",
+    "check": "gjsify tsc --noEmit",
     "build": "echo \"tsc\" && tsc --declaration"
   },
   "author": "Stian Soreng, Nick Morgan, Pascal Garber",
   "license": "GPL-3.0-only",
   "devDependencies": {
+    "@gjsify/cli": "^0.4.41",
     "typescript": "^6.0.3"
   }
 }

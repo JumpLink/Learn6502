@@ -9,7 +9,7 @@
     "start:clean": "ns run android --clean",
     "start:debug": "ns debug android",
     "start:emulator": "$HOME/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36",
-    "check": "tsc --noEmit"
+    "check": "gjsify tsc --noEmit"
   },
   "dependencies": {
     "@learn6502/6502": "workspace:^",
@@ -20,6 +20,7 @@
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
+    "@gjsify/cli": "^0.4.41",
     "@gjsify/nativescript-vite": "^0.4.41",
     "@nativescript/android": "9.0.4",
     "@nativescript/types": "~9.0.0",

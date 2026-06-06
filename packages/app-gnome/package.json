@@ -94,7 +94,7 @@
     "build:with-deps": "yarn workspaces foreach -pRv --from @learn6502/app-gnome --topological-dev run build",
     "build": "gjsify run build:gjs && gjsify run build:resources && gjsify run build:schema && gjsify run build:locale",
     "check": "gjsify run check:typescript && gjsify run check:metainfo",
-    "check:typescript": "tsc",
+    "check:typescript": "gjsify tsc",
     "start:app": "GSETTINGS_SCHEMA_DIR=$PWD/data/schemas gjsify run eu.jumplink.Learn6502",
     "debug:app": "GTK_DEBUG=interactive GSETTINGS_SCHEMA_DIR=$PWD/data/schemas gjsify run eu.jumplink.Learn6502",
     "start": "gjsify run start:app",
@@ -103,7 +103,7 @@
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "@gjsify/cli": "^0.4.37",
+    "@gjsify/cli": "^0.4.41",
     "@gjsify/vite-plugin-blueprint": "^0.4.37",
     "@gjsify/vite-plugin-gettext": "^0.4.37",
     "typescript": "^6.0.3"

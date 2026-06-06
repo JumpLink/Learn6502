@@ -38,9 +38,50 @@ jobs:
           yarn workspace @learn6502/examples run build
           yarn workspace @learn6502/learn run build
 
-      - name: Type check
+  type-check:
+    # The `check` scripts run `gjsify tsc` — a Node-free TypeScript compiler
+    # bundled for GJS (`@gjsify/tsc`, the `dist/tsc.gjs.mjs` GJS bundle). It is
+    # spawned via `gjs`, which ubuntu-latest does not ship, so this job runs in a
+    # Fedora 43 container (GJS 1.86 / SpiderMonkey 140 — the gjsify target). The
+    # gjsify CLI itself (format/lint above) runs on Node and stays on ubuntu.
+    name: Type check (GJS 1.86)
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:43
+
+    steps:
+      - name: Install container prerequisites (incl. gjs)
+        run: dnf install -y git tar xz findutils gjs
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Enable Corepack
+        run: corepack enable
+
+      - name: Install dependencies
+        run: yarn install --immutable
+
+      # Build the workspace deps that publish built output (`@learn6502/6502`,
+      # `examples`, `learn` ship `dist/*.d.ts`; `common-ui` exports source).
+      # Without this, type-checking common-ui/app-* fails with TS2307 "Cannot
+      # find module '@learn6502/6502'" — its types only exist after `tsc
+      # --declaration`. (The Code Quality job builds these on its own runner.)
+      - name: Build workspace dependencies
+        run: |
+          yarn workspace @learn6502/6502 run build
+          yarn workspace @learn6502/examples run build
+          yarn workspace @learn6502/learn run build
+
+      - name: Type check (gjsify tsc under GJS)
         run: |
           yarn workspace @learn6502/6502 run check
           yarn workspace @learn6502/common-ui run check
           yarn workspace @learn6502/app-web run check
           yarn workspace @learn6502/app-gnome run check:typescript
+          yarn workspace @learn6502/app-android run check
