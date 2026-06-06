@@ -3573,6 +3573,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gjsify/console@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/console@npm:0.4.41"
+  checksum: 10c0/c7d3f3344375c1e57dc488a345e61d362b213cfaa88f38c7abd69bd652071678fa06190a47cb01ebf075d679877d79c6f375dd1c8fa30a574e35979215acdb3d
+  languageName: node
+  linkType: hard
+
 "@gjsify/constants@npm:^0.4.37":
   version: 0.4.37
   resolution: "@gjsify/constants@npm:0.4.37"
@@ -3671,10 +3678,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gjsify/empty@npm:^0.4.37":
-  version: 0.4.37
-  resolution: "@gjsify/empty@npm:0.4.37"
-  checksum: 10c0/1cd21d7f2ae3da6f82e79a70e65fa4e79fdec42a143a079a9554258d9ddebcc1c25bfae78b140e670f3b1a6a76d2e47eaef3c331a3e80d1095fa245772a25ca0
+"@gjsify/empty@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/empty@npm:0.4.41"
+  checksum: 10c0/7bf6840b68faa042433d40b8b0e28b742e49b486bf138d89fe83ac5daacd6aafc1d0bb58a7130b71cb69f4361d244f28b6613b9364953d43f4a07145a10f5faf
   languageName: node
   linkType: hard
 
@@ -3839,11 +3846,11 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gjsify/nativescript-vite@npm:^0.4.37":
-  version: 0.4.37
-  resolution: "@gjsify/nativescript-vite@npm:0.4.37"
+"@gjsify/nativescript-vite@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/nativescript-vite@npm:0.4.41"
   dependencies:
-    "@gjsify/vite-plugin-gjsify": "npm:^0.4.37"
+    "@gjsify/vite-plugin-gjsify": "npm:^0.4.41"
   peerDependencies:
     "@nativescript/canvas": "*"
     "@nativescript/canvas-polyfill": "*"
@@ -3864,7 +3871,7 @@ __metadata:
       optional: true
     vite:
       optional: true
-  checksum: 10c0/fec7d9ac9e1e12c4c392a4652a15d0e0c1a3100b3133d4fcd420b67081e0ece79252892a97e12d3ffcf0961d54ea741314822717927653db3210d6816158af1a
+  checksum: 10c0/a904c607c4a7ed9154d8a3d35252ae90082b242f2fe8e7ecea5ab005db32b06ad7876a7981d460677ee3eb25bc02d51ed120f57b03f087f4fa540007b945fc2e
   languageName: node
   linkType: hard
 
@@ -4009,6 +4016,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gjsify/resolve-npm@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/resolve-npm@npm:0.4.41"
+  checksum: 10c0/a596628eac6c67be6caf002537023e4ec8a807e0b88bc77aac37af8d69433884a7b7cd7a3a98f860802f0e541fd56b32304d4362d6bae8673439938ef7a8420e
+  languageName: node
+  linkType: hard
+
 "@gjsify/rolldown-plugin-deepkit@npm:^0.4.37":
   version: 0.4.37
   resolution: "@gjsify/rolldown-plugin-deepkit@npm:0.4.37"
@@ -4021,6 +4035,21 @@ __metadata:
     rolldown:
       optional: true
   checksum: 10c0/0ea748653d1d5dba990c2724659864b2bdd82cbfb7d85095ee6df94011af6903cb7a40ad854227716e7b7f0857a074ff8ddfbf2d7219de60df4cf8802ad03e5b
+  languageName: node
+  linkType: hard
+
+"@gjsify/rolldown-plugin-deepkit@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/rolldown-plugin-deepkit@npm:0.4.41"
+  dependencies:
+    "@deepkit/type-compiler": "npm:^1.0.19"
+    typescript: "npm:^6.0.3"
+  peerDependencies:
+    rolldown: ^1.0.3
+  peerDependenciesMeta:
+    rolldown:
+      optional: true
+  checksum: 10c0/4db496e101458e7b8cc40847e248c393f8d118cc05421499c73e641d3165d2f42357c2d62e031d4b7e8669026c6cc4940b5ff96368ea88d2a605d29baa9f3438
   languageName: node
   linkType: hard
 
@@ -4050,6 +4079,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gjsify/rolldown-plugin-gjsify@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/rolldown-plugin-gjsify@npm:0.4.41"
+  dependencies:
+    "@gjsify/console": "npm:^0.4.41"
+    "@gjsify/resolve-npm": "npm:^0.4.41"
+    "@gjsify/rolldown-plugin-deepkit": "npm:^0.4.41"
+    "@gjsify/rolldown-plugin-pnp": "npm:^0.4.41"
+    "@gjsify/vite-plugin-blueprint": "npm:^0.4.41"
+    "@rollup/pluginutils": "npm:^5.4.0"
+    acorn: "npm:^8.16.0"
+    acorn-walk: "npm:^8.3.5"
+    fast-glob: "npm:^3.3.3"
+    lightningcss: "npm:^1.32.0"
+  peerDependencies:
+    "@gjsify/lightningcss-native": ^0.4.41
+    rolldown: ^1.0.3
+  peerDependenciesMeta:
+    "@gjsify/lightningcss-native":
+      optional: true
+    rolldown:
+      optional: true
+  checksum: 10c0/0e147f67632b79aab45293ab86530aa2efc33edc89fce068009bf5dd420476f31348c9b7a956e02cc8d7897424b6c1c6fe2e69c006359110a694c2faa91abf50
+  languageName: node
+  linkType: hard
+
 "@gjsify/rolldown-plugin-pnp@npm:^0.4.37":
   version: 0.4.37
   resolution: "@gjsify/rolldown-plugin-pnp@npm:0.4.37"
@@ -4059,6 +4114,18 @@ __metadata:
     rolldown:
       optional: true
   checksum: 10c0/0587605d2b58baae2e2fd08055687892ee2496ad23bf8124690073f4d9e77b44d44ab9aafe80387b4021d1d3f4016227b8c021ab12d23ff9d2b9c762bb2d80c1
+  languageName: node
+  linkType: hard
+
+"@gjsify/rolldown-plugin-pnp@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/rolldown-plugin-pnp@npm:0.4.41"
+  peerDependencies:
+    rolldown: ^1.0.3
+  peerDependenciesMeta:
+    rolldown:
+      optional: true
+  checksum: 10c0/3290554c1610e92c55fa2ec30300663be5328f6d15a69c1e16d1fb04513130f8807fe99698dd29ad0898396b20068c31643d7aa0dfede7ea60a56e5a11a96898
   languageName: node
   linkType: hard
 
@@ -4245,6 +4312,24 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@gjsify/vite-plugin-blueprint@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/vite-plugin-blueprint@npm:0.4.41"
+  dependencies:
+    execa: "npm:^9.6.1"
+    minify-xml: "npm:^4.5.2"
+  peerDependencies:
+    rolldown: ^1.0.3
+    vite: ^8.0.14
+  peerDependenciesMeta:
+    rolldown:
+      optional: true
+    vite:
+      optional: true
+  checksum: 10c0/406a109b6dbea938272f1a127f7f0b1947e3a3bdcfed31126f04538ccb541168e1bd11d8dac6739af5a3addbca21f27ab57174df6e8761e4e46823c9e4e24b9d
+  languageName: node
+  linkType: hard
+
 "@gjsify/vite-plugin-gettext@npm:^0.4.37":
   version: 0.4.37
   resolution: "@gjsify/vite-plugin-gettext@npm:0.4.37"
@@ -4264,21 +4349,21 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@gjsify/vite-plugin-gjsify@npm:^0.4.37":
-  version: 0.4.37
-  resolution: "@gjsify/vite-plugin-gjsify@npm:0.4.37"
+"@gjsify/vite-plugin-gjsify@npm:^0.4.41":
+  version: 0.4.41
+  resolution: "@gjsify/vite-plugin-gjsify@npm:0.4.41"
   dependencies:
-    "@gjsify/empty": "npm:^0.4.37"
-    "@gjsify/resolve-npm": "npm:^0.4.37"
-    "@gjsify/rolldown-plugin-deepkit": "npm:^0.4.37"
-    "@gjsify/rolldown-plugin-gjsify": "npm:^0.4.37"
-    "@gjsify/vite-plugin-blueprint": "npm:^0.4.37"
+    "@gjsify/empty": "npm:^0.4.41"
+    "@gjsify/resolve-npm": "npm:^0.4.41"
+    "@gjsify/rolldown-plugin-deepkit": "npm:^0.4.41"
+    "@gjsify/rolldown-plugin-gjsify": "npm:^0.4.41"
+    "@gjsify/vite-plugin-blueprint": "npm:^0.4.41"
   peerDependencies:
     vite: ^8.0.14
   peerDependenciesMeta:
     vite:
       optional: true
-  checksum: 10c0/115eb1c325f8f185ec94e24f099dbb64eec4ad9f1e95f0901b048ca3db2060183e820431eeaa58e236726e18ddd98f41ff63a2c690c84dec959af1bc8d311bc6
+  checksum: 10c0/47541851450bee1c13f237977b701e273f1de566b986a668525ee818f8443c7bb143b61ac4dadb2f25b01d8490f2bf1dac20e30cb66e24a468ccaa4261005a64
   languageName: node
   linkType: hard
 
@@ -5311,7 +5396,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@learn6502/app-android@workspace:packages/app-android"
   dependencies:
-    "@gjsify/nativescript-vite": "npm:^0.4.37"
+    "@gjsify/nativescript-vite": "npm:^0.4.41"
     "@learn6502/6502": "workspace:^"
     "@learn6502/common-ui": "workspace:^"
     "@nativescript/android": "npm:9.0.4"

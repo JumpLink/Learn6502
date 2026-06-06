@@ -5,9 +5,6 @@
 
 import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
-// Register `xmlns`-referenced barrel modules (widgets/index, mdx/index) so the XML
-// parser can resolve custom elements under the Vite build. See the file for details.
-import "./register-xml-modules";
 import { systemStates, SystemStates } from "./states";
 import { themeService } from "./services";
 import { appVariables } from "./variables";
