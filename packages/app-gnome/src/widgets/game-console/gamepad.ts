@@ -1,6 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import type Gtk from "@girs/gtk-4.0";
+import Gtk from "@girs/gtk-4.0";
 import { type GamepadKey, type GamepadWidget, type GamepadEventMap, getGamepadKeyCode } from "@learn6502/common-ui";
 
 import Template from "./gamepad.blp";
@@ -30,6 +30,13 @@ export class Gamepad extends Adw.Bin implements GamepadWidget {
 
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
+
+    if (this.get_direction() !== Gtk.TextDirection.RTL) {
+      this._buttonLeft.parent!.set_direction(Gtk.TextDirection.LTR);
+
+      // Swap icons
+      [this._buttonLeft.iconName, this._buttonRight.iconName] = [this._buttonRight.iconName, this._buttonLeft.iconName];
+    }
 
     this._buttonUp.connect("clicked", () => {
       this.press("Up");
