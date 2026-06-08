@@ -8,7 +8,9 @@ template $MainButton  : Adw.Bin {
     reveal-child: true;
     vexpand: true;
     valign: end;
-    margin-end: 0;
+    // Logical margin so the FAB keeps its edge spacing in RTL too (end = right
+    // in LTR, left in RTL). A physical CSS padding-right does not mirror.
+    margin-end: 16;
     margin-bottom: 0;
     child: Gtk.Button button {
       vexpand: true;
