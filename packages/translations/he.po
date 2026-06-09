@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: 2026-06-05 06:47+0000\n"
+"PO-Revision-Date: 2026-06-09 16:01+0000\n"
 "Last-Translator: Menachem <alfenmen@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
@@ -474,7 +474,7 @@ msgstr "פרט חשוב להבחין כאן זה ההבדל בין <tt>ADC #$01<
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
-msgstr "כל המספר עם הקידומת <tt>$</tt> בשפת הסף 6502 (ועל כן, בספר זה) הוא בפורמט הקסדצימלי (הקס). אם אתם לא רגילים לספרות הקסדצימליות, אני ממליץ לכם לקרוא את <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">דף הוויקיפדיה</a>. כל מספר עם הקידומת <tt>#</tt> הוא הערך הספרתי עצמו. אחרת הוא מתאר כתובת בזיכרון."
+msgstr "כל המספר עם הקידומת <tt>$</tt> בשפת הסף 6502 (ועל כן, בספר זה) הוא בפורמט הקסדצימלי (הקס). אם אתם לא רגילים לספרות הקסדצימליות, אני ממליץ לכם לקרוא את <a href=\"https://he.wikipedia.org/wiki/%D7%91%D7%A1%D7%99%D7%A1_%D7%94%D7%A7%D7%A1%D7%93%D7%A6%D7%99%D7%9E%D7%9C%D7%99\">דף הוויקיפדיה</a>. כל מספר עם הקידומת <tt>#</tt> הוא הערך הספרתי עצמו. אחרת הוא מתאר כתובת בזיכרון."
 
 #. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
@@ -921,7 +921,7 @@ msgstr "בדוגמה הזאת, <tt>$f0</tt> מכיל את הערך <tt>$01</tt> 
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this tiny tutorial I'm going to show you how to get started writing 6502 assembly language. The 6502 processor was massive in the seventies and eighties, powering famous computers like the <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in 6502</a>."
-msgstr "במדריך הקטנטן הזה אני הולך להראות לכם איך להתחיל בכתיבת שפת סף של 6502. המעבד 6502 היה מאוד פופולרי בשנות השבעים והשמונים, והפעיל מחשבים מפורסמים כמו ה־<a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">אטארי 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">קומודור 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, וה־<a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. ל־”בנדר” ב־”פיוצ'רמה” <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">היה מעבד 6502 בתור מוח</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">אפילו ה”טרמינטור” תוכנת ב־6502</a>."
+msgstr "במדריך הקטנטן הזה אני הולך להראות לכם איך להתחיל בכתיבת שפת סף של 6502. המעבד 6502 היה מאוד פופולרי בשנות השבעים והשמונים, והפעיל מחשבים מפורסמים כמו ה־<a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://he.wikipedia.org/wiki/%D7%90%D7%98%D7%90%D7%A8%D7%99_2600\">אטארי 2600</a>, <a href=\"https://he.wikipedia.org/wiki/%D7%A7%D7%95%D7%9E%D7%95%D7%93%D7%95%D7%A8_64\">קומודור 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, וה־<a href=\"https://he.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. ל־”בנדר” ב־”פיוצ'רמה” <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">היה מעבד 6502 בתור מוח</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">אפילו ה”טרמינטור” תוכנת ב־6502</a>."
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Index register X: Used for addressing"
@@ -1027,7 +1027,7 @@ msgstr "למדו על ההיסטוריה של המחשבים תוך כדי תכ�
 #. TRANSLATORS: Short description of the Learn view
 #. TRANSLATORS: Short description of the Tutorial view
 msgid "Learn how to program the 6502 microprocessor."
-msgstr "לימדו איך לתכנת את המעבד הקטן 6502."
+msgstr "לימדו כיצד לתכנת את ה־6502."
 
 msgid "Learn how to use the stack with PHA and PLA instructions"
 msgstr "לימדו איך להשתמש במחסנית עם הפקודות PHA ו־PLA"
@@ -1409,7 +1409,7 @@ msgstr "בנתיים אנחנו יכולים לכתוב רק תוכנות פשו
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then click the button in the top right to assemble the code, then click it again to run the program. You can also access these actions through the dropdown menu."
-msgstr "אז בואו נתחיל! הישומון הזה מכיל <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">מאסף וסימולטור של 6502 בג&quote;אווהסקריפט</a> שהתאמתי למדריך האינטראקיבי הזה. לחצו על הכפתור <b>העתק</b> במסגרת הקוד למטה כדי להעתיק את דוגמת הקוד לעורך. אחר כך תלחצו על הכפתור למעלה מימין כדי לאסף את הקוד, ואז לחצו עליו שוב כדי להריץ את התוכנה. אתם גם יכולים לגשת לפעולות האלו דרך התפריט."
+msgstr "אז בואו נתחיל! הישומון הזה מכיל <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">מאסף וסימולטור של 6502 בג'אווה־סקריפט</a> שהתאמתי למדריך האינטראקיבי הזה. לחצו על הכפתור <b>העתק</b> בחלונית הקוד למטה כדי להעתיק את דוגמת הקוד לעורך. אחר כך תלחצו על הכפתור למעלה משמאל כדי לאסף את הקוד, ואז לחצו עליו שוב כדי להריץ את התוכנה. אתם יכולים לגשת לפעולות האלו גם דרך התפריט."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", so in this case we'll branch to <tt>illegalMove</tt>, which just returns from the subroutine. Otherwise, the new direction (1 in this case) is stored in the appropriate memory location."
@@ -1530,7 +1530,7 @@ msgstr "אוגר האינדוּקס Y דומה ל־X ואין לו שום יכו
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
-msgstr "המסך השחור של קונסולת המשחק אמור להציג עכשיו שלושה \"פיקסלים\" צבועים למעלה משמאל."
+msgstr "עכשיו המסך השחור של קונסולת המשחק אמור להציג שלושה \"פיקסלים\" צבועים למעלה משמאל."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The code block below contains the entire source code of the game. I'll explain how it works in the following sections."
@@ -1634,7 +1634,7 @@ msgstr "דף האפס של הזיכרון משמש לשמירת מספר משת�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr "אז למה 6502? למה לא שפת סף <i>שימושית</i>, כמו <a href=\"https://he.wikipedia.org/wiki/X86\">x86</a>? ובכן, אני לא חושב שזה שימושי ללמוד x86. אני לא חושב שתצטרכו אי פעם <i>לכתוב</i> שפת סף בעבודה היום יומית ‐ לכמה אנשים זה תרגיל אקדמי, משהו לפתח את הראש והחשיבה. 6502 נכתב מלכתחילה בדור אחר, בזמן שבו רוב המתכנתים היו כותבים ישירות בשפת סף, ולא בשפות התכנות הגבוהות החדשות־מעורפלות. אז, היא עוצבה להכתב על ידי בני־אדם. שפות סף יותר מודרניות נועדו להכתב על ידי תוכנות הידור, אז נשאיר אותם להם. בנוסף, 6502 היא <i>כֵּפִית</i>. אף אחד מעולם לא קרא ל־x86 <i>כיף</i>."
+msgstr "אז למה 6502? למה לא שפת סף <i>שימושית</i>, כמו <a href=\"https://he.wikipedia.org/wiki/X86\">x86</a>? ובכן, אני לא חושב שזה שימושי ללמוד x86. אני לא חושב שתצטרכו אי פעם <i>לכתוב</i> שפת סף בעבודה היום יומית ‐ למספר אנשים זה תרגיל אקדמי, משהו לפתח את הראש והמחשבה. 6502 נכתב מלכתחילה בדור אחר, בזמן שבו רוב המתכנתים היו כותבים ישירות בשפת סף, ולא בשפות התכנות הגבוהות החדשות־מעורפלות. לכן היא עוצבה להכתב על ידי בני־אדם. שפות סף יותר מודרניות נועדו להכתב על ידי תוכנות הידור, אז נשאיר אותם להם. בנוסף, 6502 היא <i>כֵּפִית</i>. אף אחד מעולם לא קרא ל־x86 <i>כיף</i>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1700,7 +1700,7 @@ msgstr "מדריך"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
-msgstr "מדריך <sub>של <a href=\"https://www.skilldrick.co.uk/\">ניק מורגן</a>, מורשה תחת CC BY 4.0</sub>"
+msgstr "מדריך <sub>של <a href=\"https://www.skilldrick.co.uk/\">ניק מורגן</a>, תחת רישיון CC BY 4.0</sub>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
