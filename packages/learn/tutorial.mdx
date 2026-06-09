@@ -47,8 +47,8 @@ There's also a very practical reason: retro game development. The homebrew scene
 
 So, let's dive in! This application contains a [JavaScript 6502 Assembler and Simulator](https://github.com/JumpLink/Learn6502/tree/main/packages/6502) that I have adapted for this interactive tutorial.
 Click the **Copy** button in the code block below to copy the example code to the editor.
-Then click the button in the top right to assemble the code, then click it again to run the program.
-You can also access these actions through the dropdown menu.
+Then use **Assemble** to assemble the code, and **Run** to run it.
+You can find these actions as buttons or in the menu.
 
 ```6502-assembler:copyable
 LDA #$01
@@ -63,9 +63,9 @@ The black game console screen now should show three coloured "pixels" at the
 top left.
 
 So, what's this program actually doing? Let's step through it. Hit **Reset**,
-then select **Step** from the dropdown menu. The button will switch to step mode,
-allowing you to execute the program one instruction at a time.
-Click once and you'll notice in the debugger that `A=` changed from `$00` to `$01`, and `PC=` changed from `$0600` to `$0602`.
+then use **Step** to execute the program one instruction at a time.
+The **Debug** view shows the registers and memory — it's a separate tab on a small window, and the panel below the game console on a wide one.
+Click **Step** once and you'll notice in the debug view that `A=` changed from `$00` to `$01`, and `PC=` changed from `$0600` to `$0602`.
 
 Any numbers prefixed with `$` in 6502 assembly language (and by extension, in
 this book) are in hexadecimal (hex) format. If you're not familiar with hex
@@ -132,7 +132,7 @@ ADC #$c4  ;Add the hex value $c4 to the A register
 BRK       ;Break - we're done
 ```
 
-Assemble the code, then turn on the debugger and step through the code, watching
+Assemble the code, then open the **Debug** view and step through the code, watching
 the `A` and `X` registers. Something slightly odd happens on the line `ADC #$c4`.
 You might expect that adding `$c4` to `$c0` would give `$184`, but this
 processor gives the result as `$84`. What's up with that?
@@ -155,8 +155,8 @@ An important thing to notice here is the distinction between `ADC #$01` and
 `ADC $01`. The first one adds the value `$01` to the `A` register, but the
 second adds the value stored at memory location `$01` to the `A` register.
 
-Assemble the code and select **Step** from the Run button's dropdown menu to step through these three
-instructions. The monitor in the debugger shows a section of memory, and can be helpful to
+Assemble the code and use **Step** to step through these three
+instructions. The **Hex Monitor** in the debug view shows a section of memory, and can be helpful to
 visualise the execution of programs. `STA $01` stores the value of the `A`
 register at memory location `$01`, and `ADC $01` adds the value stored at the
 memory location `$01` to the `A` register. `$80 + $80` should equal `$100`, but
@@ -233,11 +233,10 @@ memory available to the processor. Remember that a byte is represented by two
 hex characters, so the memory locations are generally represented as `$0000 -
 $ffff`. There are various ways to refer to these memory locations, as detailed below.
 
-With all these examples you might find it helpful to use the memory monitor in the debugger to
-watch the memory change. The monitor takes a starting memory location and a
-number of bytes to display from that location. Both of these are hex values.
-For example, to display 16 bytes of memory from `$c000`, enter `c000` and `10`
-into **Start** and **Length**, respectively.
+With all these examples you might find it helpful to use the **Hex Monitor** in the debug view to
+watch the memory change. Pick a memory region from the list to see that section — for example,
+**Display Memory ($0200–$05FF)** to watch the screen pixels, or **Zero Page ($0000–$00FF)** to
+inspect the first 256 bytes.
 
 ### Absolute: `$c000`
 
@@ -302,7 +301,7 @@ instruction `LDX $01` which loads the value at memory location `$01` into the
 Relative addressing is used for branching instructions. These instructions take
 a single byte, which is used as an offset from the following instruction.
 
-Assemble the following code, then check the debugger to see the hexdump of the assembled code.
+Assemble the following code, then open the **Debug** view and check the **Hexdump** to see the assembled code.
 
 ```6502-assembler:copyable
 LDA #$01
@@ -406,7 +405,7 @@ to this address to give the final address `$0704`.
 ### Exercise
 
 1. Try to write code snippets that use each of the 6502 addressing modes.
-   Remember, you can use the monitor in the debugger to watch a section of memory.
+   Remember, you can use the **Hex Monitor** in the debug view to watch a section of memory.
 
 ## The stack
 

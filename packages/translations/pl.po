@@ -21,7 +21,6 @@ msgstr ""
 msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
 msgstr "(W sumie, wiarygodne źródła mnie poinformowały, że procesory 6502 są jeszcze produkowane przez <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> i <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sprzedawane do hobbystów</a>, zatem 6502 <i>nie</i> jest martwym językiem! Któż to mógł wiedzieć?)"
 
-#. TRANSLATORS: App Store search keyword
 msgid "6502"
 msgstr "6502"
 
@@ -432,7 +431,6 @@ msgstr "Tryby adresowania"
 msgid "Addressing modes"
 msgstr "Tryby adresowania"
 
-#. TRANSLATORS: App Store search keyword
 msgid "Adwaita"
 msgstr "Adwaita"
 
@@ -506,16 +504,16 @@ msgid "Assemble failed"
 msgstr "Złożenie nie powiodło się"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "Assemble the code and select <b>Step</b> from the Run button's dropdown menu to step through these three instructions. The monitor in the debugger shows a section of memory, and can be helpful to visualise the execution of programs. <tt>STA $01</tt> stores the value of the <tt>A</tt> register at memory location <tt>$01</tt>, and <tt>ADC $01</tt> adds the value stored at the memory location <tt>$01</tt> to the <tt>A</tt> register. <tt>$80 + $80</tt> should equal <tt>$100</tt>, but because this is bigger than a byte, the <tt>A</tt> register is set to <tt>$00</tt> and the carry flag is set. As well as this though, the zero flag is set. The zero flag is set by all instructions where the result is zero."
-msgstr "Złóż kod i wybierz <b>Krok</b> z menu rozwijanego przycisku Uruchom, aby przejść przez te trzy instrukcje. Monitor w debuggerze pokazuje sekcję pamięci i może pomóc wizualizować wykonywanie programów. <tt>STA $01</tt> przechowuje wartość rejestru <tt>A</tt> w lokalizacji pamięci <tt>$01</tt>, a <tt>ADC $01</tt> dodaje wartość przechowywaną w lokalizacji pamięci <tt>$01</tt> do rejestru <tt>A</tt>. <tt>$80 + $80</tt> powinno równać się <tt>$100</tt>, ale ponieważ jest to większe niż bajt, rejestr <tt>A</tt> jest ustawiany na <tt>$00</tt> i flaga carry jest ustawiana. Oprócz tego jednak, flaga zero jest ustawiana. Flaga zero jest ustawiana przez wszystkie instrukcje, gdzie wynik jest zerem."
+msgid "Assemble the code and use <b>Step</b> to step through these three instructions. The <b>Hex Monitor</b> in the debug view shows a section of memory, and can be helpful to visualise the execution of programs. <tt>STA $01</tt> stores the value of the <tt>A</tt> register at memory location <tt>$01</tt>, and <tt>ADC $01</tt> adds the value stored at the memory location <tt>$01</tt> to the <tt>A</tt> register. <tt>$80 + $80</tt> should equal <tt>$100</tt>, but because this is bigger than a byte, the <tt>A</tt> register is set to <tt>$00</tt> and the carry flag is set. As well as this though, the zero flag is set. The zero flag is set by all instructions where the result is zero."
+msgstr "Złóż kod i użyj <b>Krok</b>, aby przejść przez te trzy instrukcje. <b>Monitor heksadecymalny</b> w widoku debuguj pokazuje sekcję pamięci i może pomóc wizualizować wykonywanie programów. <tt>STA $01</tt> przechowuje wartość rejestru <tt>A</tt> w lokalizacji pamięci <tt>$01</tt>, a <tt>ADC $01</tt> dodaje wartość przechowywaną w lokalizacji pamięci <tt>$01</tt> do rejestru <tt>A</tt>. <tt>$80 + $80</tt> powinno równać się <tt>$100</tt>, ale ponieważ jest to większe niż bajt, rejestr <tt>A</tt> jest ustawiany na <tt>$00</tt> i flaga carry jest ustawiana. Oprócz tego jednak ustawiana jest też flaga zero. Flaga zero jest ustawiana przez wszystkie instrukcje, gdzie wynik jest zerem."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "Assemble the code, then turn on the debugger and step through the code, watching the <tt>A</tt> and <tt>X</tt> registers. Something slightly odd happens on the line <tt>ADC #$c4</tt>. You might expect that adding <tt>$c4</tt> to <tt>$c0</tt> would give <tt>$184</tt>, but this processor gives the result as <tt>$84</tt>. What's up with that?"
-msgstr "Złóż kod, następnie włącz debugger i przejdź przez kod krok po kroku, obserwując rejestry <tt>A</tt> i <tt>X</tt>. Coś trochę dziwnego dzieje się w linii <tt>ADC #$c4</tt>. Mogłeś oczekiwać, że dodanie <tt>$c4</tt> do <tt>$c0</tt> da <tt>$184</tt>, ale ten procesor daje wynik jako <tt>$84</tt>. Co się dzieje?"
+msgid "Assemble the code, then open the <b>Debug</b> view and step through the code, watching the <tt>A</tt> and <tt>X</tt> registers. Something slightly odd happens on the line <tt>ADC #$c4</tt>. You might expect that adding <tt>$c4</tt> to <tt>$c0</tt> would give <tt>$184</tt>, but this processor gives the result as <tt>$84</tt>. What's up with that?"
+msgstr "Złóż kod, następnie otwórz widok <b>Debuguj</b> i przejdź przez kod krok po kroku, obserwując rejestry <tt>A</tt> i <tt>X</tt>. Coś trochę dziwnego dzieje się w linii <tt>ADC #$c4</tt>. Mogłeś oczekiwać, że dodanie <tt>$c4</tt> do <tt>$c0</tt> da <tt>$184</tt>, ale ten procesor daje wynik jako <tt>$84</tt>. Co się dzieje?"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "Assemble the following code, then check the debugger to see the hexdump of the assembled code."
-msgstr "Złóż następujący kod, następnie sprawdź debugger, aby zobaczyć hexdump złożonego kodu."
+msgid "Assemble the following code, then open the <b>Debug</b> view and check the <b>Hexdump</b> to see the assembled code."
+msgstr "Złóż następujący kod, następnie otwórz widok <b>Debuguj</b> i sprawdź <b>Hexdump</b>, aby zobaczyć złożony kod."
 
 #. TRANSLATORS: Toast message title after successful assembly
 msgid "Assembled successfully"
@@ -525,7 +523,6 @@ msgstr "Złożono pomyślnie"
 msgid "Assembling code ..."
 msgstr "Składanie kodu ..."
 
-#. TRANSLATORS: App Store search keyword
 msgid "Assembly"
 msgstr "Asembler"
 
@@ -640,11 +637,14 @@ msgstr "Ciemny styl"
 msgid "Debug"
 msgstr "Debuguj"
 
+#. TRANSLATORS: Debugger page settings group title — makes clear this is for debug controls, not app-wide settings
+msgid "Debug Settings"
+msgstr "Ustawienia debugowania"
+
 #. TRANSLATORS: Feature list item about debugging tools
 msgid "Debug your programs with real-time inspection tools"
 msgstr "Debuguj swoje programy za pomocą narzędzi inspekcji w czasie rzeczywistym"
 
-#. TRANSLATORS: App Store search keyword
 msgid "Debugger"
 msgstr "Debugger"
 
@@ -796,7 +796,6 @@ msgstr "Pełna pamięć ($0000-$FFFF)"
 msgid "Fully commented version of the Snake game"
 msgstr "W pełni skomentowana wersja gry Snake"
 
-#. TRANSLATORS: App Store search keyword
 msgid "GNOME"
 msgstr "GNOME"
 
@@ -860,7 +859,6 @@ msgstr "Ukryty"
 msgid "I won't explain in depth how each of the directions work, but the above explanation should give you enough to work it out with a bit of study."
 msgstr "Nie będę wyjaśniać w głębi, jak działa każdy z kierunków, ale powyższe wyjaśnienie powinno dać Ci wystarczająco dużo, aby to rozgryźć przy odrobinie studiowania."
 
-#. TRANSLATORS: App Store search keyword
 msgid "IDE"
 msgstr "IDE"
 
@@ -1001,6 +999,7 @@ msgstr "Skakanie jest jak rozgałęzianie z dwiema głównymi różnicami. Po pi
 msgid "Label already defined at line %s: %d"
 msgstr "Etykieta już zdefiniowana w linii %s: %d"
 
+#. TRANSLATORS: Error when a label name conflicts with a defined symbol
 msgid "Label {label} is already used as a symbol; please rename one of them"
 msgstr "Etykieta {label} jest już używana jako symbol; proszę zmienić nazwę jednej z nich"
 
@@ -1135,6 +1134,7 @@ msgstr "Zorganizowane jako cztery poziome pasy 32×8 pikseli"
 msgid "Our first program"
 msgstr "Nasz pierwszy program"
 
+#. TRANSLATORS: Error when a relative branch target is out of the valid range
 #, javascript-format
 msgid "Out of range branch on line %d (branches are limited to -128 to +127): %s"
 msgstr "Rozgałęzienie poza zakresem w linii %d (rozgałęzienia są ograniczone do -128 do +127): %s"
@@ -1357,10 +1357,6 @@ msgstr "Ekran mapuje się na zakres pamięci <tt>$0200</tt>-<tt>$05FF</tt>"
 msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
 msgstr "Poważnie jednak, myślę, że warto rozumieć język asemblera. Język asemblera to najniższy poziom abstrakcji w komputerach - punkt, w którym kod jest nadal czytelny. Język asemblera tłumaczy się bezpośrednio na bajty wykonywane przez procesor komputera. Jeśli rozumiesz, jak to działa, stałeś się zasadniczo komputerowym <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magikiem</a>."
 
-#. TRANSLATORS: Debugger page settings group title
-msgid "Settings"
-msgstr "Ustawienia"
-
 #. TRANSLATORS: Menu item to share the current code
 #. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
@@ -1378,7 +1374,6 @@ msgstr "Udostępnij swój przykład"
 msgid "Shared code examples now include CC-BY-4.0 license information, making it clear how the community can use and build upon your contributions."
 msgstr "Udostępnione przykłady kodu zawierają teraz informacje o licencji CC-BY-4.0, co wyjaśnia, w jaki sposób społeczność może korzystać z Twoich wkładów i na nich budować."
 
-#. TRANSLATORS: App Store search keyword
 msgid "Simulator"
 msgstr "Symulator"
 
@@ -1408,8 +1403,8 @@ msgid "So far we're only able to write basic programs without any branching logi
 msgstr "Do tej pory potrafimy pisać tylko podstawowe programy bez jakiejkolwiek logiki rozgałęzień. Zmieńmy to."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then click the button in the top right to assemble the code, then click it again to run the program. You can also access these actions through the dropdown menu."
-msgstr "Zacznijmy więc! Ta aplikacja zawiera <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a>, który zaadoptowałem do tego interaktywnego tutorialu. Kliknij przycisk <b>Kopiuj</b> w bloku kodu poniżej, aby skopiować przykładowy kod do edytora. Następnie kliknij przycisk w prawym górnym rogu, aby złożyć kod, a potem ponownie, aby uruchomić program. Możesz również uzyskać dostęp do tych akcji przez menu rozwijane."
+msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then use <b>Assemble</b> to assemble the code, and <b>Run</b> to run it. You can find these actions as buttons or in the menu."
+msgstr "Zacznijmy więc! Ta aplikacja zawiera <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a>, który zaadoptowałem do tego interaktywnego tutorialu. Kliknij przycisk <b>Kopiuj</b> w bloku kodu poniżej, aby skopiować przykładowy kod do edytora. Następnie użyj <b>Złóż</b>, aby złożyć kod, oraz <b>Uruchom</b>, aby go uruchomić. Te akcje znajdziesz jako przyciski lub w menu."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", so in this case we'll branch to <tt>illegalMove</tt>, which just returns from the subroutine. Otherwise, the new direction (1 in this case) is stored in the appropriate memory location."
@@ -1420,8 +1415,8 @@ msgid "So, the instruction <tt>STA $0200</tt> stores the value of the <tt>A</tt>
 msgstr "Instrukcja <tt>STA $0200</tt> więc przechowuje wartość rejestru <tt>A</tt> w lokalizacji pamięci <tt>$0200</tt>. Kliknij <b>Krok</b> cztery razy więcej, aby wykonać resztę instrukcji, obserwując rejestr <tt>A</tt>, jak się zmienia."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "So, what's this program actually doing? Let's step through it. Hit <b>Reset</b>, then select <b>Step</b> from the dropdown menu. The button will switch to step mode, allowing you to execute the program one instruction at a time. Click once and you'll notice in the debugger that <tt>A=</tt> changed from <tt>$00</tt> to <tt>$01</tt>, and <tt>PC=</tt> changed from <tt>$0600</tt> to <tt>$0602</tt>."
-msgstr "Co więc tak naprawdę robi ten program? Przejdźmy przez niego krok po kroku. Naciśnij <b>Reset</b>, następnie wybierz <b>Krok</b> z menu rozwijanego. Przycisk przełączy się na tryb krokowy, pozwalając wykonać program jedną instrukcję na raz. Kliknij raz i zauważysz w debuggerze, że <tt>A=</tt> zmieniło się z <tt>$00</tt> na <tt>$01</tt>, a <tt>PC=</tt> zmieniło się z <tt>$0600</tt> na <tt>$0602</tt>."
+msgid "So, what's this program actually doing? Let's step through it. Hit <b>Reset</b>, then use <b>Step</b> to execute the program one instruction at a time. The <b>Debug</b> view shows the registers and memory — it's a separate tab on a small window, and the panel below the game console on a wide one. Click <b>Step</b> once and you'll notice in the debug view that <tt>A=</tt> changed from <tt>$00</tt> to <tt>$01</tt>, and <tt>PC=</tt> changed from <tt>$0600</tt> to <tt>$0602</tt>."
+msgstr "Co więc tak naprawdę robi ten program? Przejdźmy przez niego krok po kroku. Naciśnij <b>Resetuj</b>, następnie użyj <b>Krok</b>, aby wykonać program jedną instrukcję na raz. Widok <b>Debuguj</b> pokazuje rejestry i pamięć — w małym oknie jest osobną kartą, a w szerokim panelem pod konsolą gry. Kliknij <b>Krok</b> raz, a zauważysz w widoku debuguj, że <tt>A=</tt> zmieniło się z <tt>$00</tt> na <tt>$01</tt>, a <tt>PC=</tt> zmieniło się z <tt>$0600</tt> na <tt>$0602</tt>."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, why would you want to learn 6502? It's a dead language isn't it? Well, so's Latin. And they still teach that. <a href=\"https://en.wikipedia.org/wiki/Q.E.D.\">Q.E.D.</a>"
@@ -1689,8 +1684,8 @@ msgid "Try out example programs for the 6502 microprocessor."
 msgstr "Wypróbuj przykładowe programy dla mikroprocesora 6502."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the monitor in the debugger to watch a section of memory."
-msgstr "Spróbuj napisać fragmenty kodu, które używają każdego z trybów adresowania 6502. Pamiętaj, możesz użyć monitora w debuggerze, aby obserwować sekcję pamięci."
+msgid "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory."
+msgstr "Spróbuj napisać fragmenty kodu, które używają każdego z trybów adresowania 6502. Pamiętaj, możesz użyć <b>Monitora heksadecymalnego</b> w widoku debuguj, aby obserwować sekcję pamięci."
 
 #. TRANSLATORS: Title for tutorial section
 #. TRANSLATORS: Title for tutorial page
@@ -1706,9 +1701,11 @@ msgstr "Tutorial <sub>autorstwa <a href=\"https://www.skilldrick.co.uk/\">Nicka 
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
 msgstr "Dwie z instrukcji stosu to <tt>PHA</tt> i <tt>PLA</tt>, \"włóż akumulator\" i \"pobierz akumulator\". Poniżej jest przykład tych dwóch w akcji."
 
+#. TRANSLATORS: Error when the given address or label cannot be parsed or found
 msgid "Unable to find/parse given address/label"
 msgstr "Nie można znaleźć/przeanalizować podanego adresu/etykiety"
 
+#. TRANSLATORS: Error when setting the program counter outside the 64KB address space
 msgid "Unable to relocate code outside 64k memory"
 msgstr "Nie można relokować kodu poza pamięcią 64k"
 
@@ -1761,8 +1758,8 @@ msgid "With absolute addressing, the full memory location is used as the argumen
 msgstr "Przy adresowaniu absolutnym pełna lokalizacja pamięci jest używana jako argument instrukcji. Na przykład:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
-msgstr "Ze wszystkimi tymi przykładami możesz uznać za pomocne użycie monitora pamięci w debuggerze, aby obserwować zmianę pamięci. Monitor przyjmuje początkową lokalizację pamięci i liczbę bajtów do wyświetlenia z tej lokalizacji. Oba są wartościami heksadecymalnymi. Na przykład, aby wyświetlić 16 bajtów pamięci z <tt>$c000</tt>, wprowadź <tt>c000</tt> i <tt>10</tt> do <b>Start</b> i <b>Length</b> odpowiednio."
+msgid "With all these examples you might find it helpful to use the <b>Hex Monitor</b> in the debug view to watch the memory change. Pick a memory region from the list to see that section — for example, <b>Display Memory ($0200–$05FF)</b> to watch the screen pixels, or <b>Zero Page ($0000–$00FF)</b> to inspect the first 256 bytes."
+msgstr "Przy wszystkich tych przykładach pomocne może okazać się użycie <b>Monitora heksadecymalnego</b> w widoku debuguj, aby obserwować zmiany pamięci. Wybierz region pamięci z listy, aby zobaczyć tę sekcję — na przykład <b>Pamięć wyświetlacza ($0200–$05FF)</b>, aby obserwować piksele ekranu, lub <b>Zero Page ($0000–$00FF)</b>, aby zbadać pierwsze 256 bajtów."
 
 #. TRANSLATORS: Feature list item about integrated code editor
 msgid "Write and edit code with a built-in code editor"
@@ -1817,11 +1814,9 @@ msgstr "_Preferencje"
 msgid "by %s"
 msgstr "autorstwa %s"
 
-#. TRANSLATORS: App Store search keyword
 msgid "learning"
 msgstr "nauka"
 
-#. TRANSLATORS: App Store search keyword
 msgid "programming"
 msgstr "programowanie"
 
@@ -1832,6 +1827,9 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "co reprezentuje pośrednio adresowane lokalizacje pamięci <tt>$0411</tt>, <tt>$0410</tt> i <tt>$040f</tt> (trzy piksele w środku wyświetlacza). Pracuję nad tym punktem, ale ważne jest, aby w pełni zrozumieć, jak działa adresowanie pośrednie."
+
+#~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
+#~ msgstr "Ze wszystkimi tymi przykładami możesz uznać za pomocne użycie monitora pamięci w debuggerze, aby obserwować zmianę pamięci. Monitor przyjmuje początkową lokalizację pamięci i liczbę bajtów do wyświetlenia z tej lokalizacji. Oba są wartościami heksadecymalnymi. Na przykład, aby wyświetlić 16 bajtów pamięci z <tt>$c000</tt>, wprowadź <tt>c000</tt> i <tt>10</tt> do <b>Start</b> i <b>Length</b> odpowiednio."
 
 #~ msgid "Disassembly:"
 #~ msgstr "Deasemblacja:"
