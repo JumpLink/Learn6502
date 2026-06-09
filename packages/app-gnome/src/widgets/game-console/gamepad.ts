@@ -31,7 +31,7 @@ export class Gamepad extends Adw.Bin implements GamepadWidget {
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
 
-    if (this.get_direction() !== Gtk.TextDirection.RTL) {
+    if (this.get_direction() === Gtk.TextDirection.RTL) {
       this._buttonLeft.parent!.set_direction(Gtk.TextDirection.LTR);
 
       // Swap icons
