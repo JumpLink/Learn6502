@@ -31,10 +31,13 @@ export class Gamepad extends Adw.Bin implements GamepadWidget {
   constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
 
+    // The d-pad is a spatial control, not text: keep its inner layout
+    // left-to-right in every locale. In RTL, GTK mirrors the d-pad box, which
+    // moves the buttons but not their physical rounded corners (so the cross
+    // breaks) and flips the go-previous/go-next arrows.
     if (this.get_direction() === Gtk.TextDirection.RTL) {
       this._buttonLeft.parent!.set_direction(Gtk.TextDirection.LTR);
 
-      // Swap icons
       [this._buttonLeft.iconName, this._buttonRight.iconName] = [this._buttonRight.iconName, this._buttonLeft.iconName];
     }
 
