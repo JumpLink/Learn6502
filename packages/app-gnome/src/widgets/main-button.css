@@ -1,6 +1,7 @@
 #main-button {
   revealer {
-    padding-right: 16;
+    /* Horizontal spacing lives on the revealer's logical margin-end (set in
+       main-button.blp) so it mirrors in RTL; padding-right would not. */
     padding-bottom: 16;
     button {
       padding: 12;
