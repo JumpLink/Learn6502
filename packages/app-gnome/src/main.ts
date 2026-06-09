@@ -2,6 +2,8 @@ import "./types/global.d.ts";
 import "@girs/gjs/dom";
 import "@girs/gjs";
 import { loop } from "./bootstrap.ts";
+// Register all custom GObject types before any window template is built (see file header).
+import "./register-types.ts";
 import { programInvocationName, exit } from "system";
 import { Application } from "./application.ts";
 
