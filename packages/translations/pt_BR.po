@@ -1237,10 +1237,18 @@ msgstr "Contador de Programa: Aponta para a próxima instrução"
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "Armazenamento de Programa ($0600-$FFFF)"
 
+#. TRANSLATORS: Toast message title when the program has finished execution
+msgid "Program completed"
+msgstr "Programa concluído"
+
 #. TRANSLATORS: Info message shown when program finishes execution at address
 #, javascript-format
 msgid "Program completed at PC=$%s"
 msgstr "Programa concluído em PC=$%s"
+
+#. TRANSLATORS: Info message when trying to step although the program has already finished
+msgid "Program completed. Reset to step through the program again."
+msgstr "Programa concluído. Reinicie para percorrer o programa passo a passo novamente."
 
 #. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"

@@ -1238,10 +1238,18 @@ msgstr "Programmateller: Wijst naar de volgende instructie"
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "Programmaopslag ($0600-$FFFF)"
 
+#. TRANSLATORS: Toast message title when the program has finished execution
+msgid "Program completed"
+msgstr "Programma voltooid"
+
 #. TRANSLATORS: Info message shown when program finishes execution at address
 #, javascript-format
 msgid "Program completed at PC=$%s"
 msgstr "Programma voltooid op PC=$%s"
+
+#. TRANSLATORS: Info message when trying to step although the program has already finished
+msgid "Program completed. Reset to step through the program again."
+msgstr "Programma voltooid. Reset om het programma opnieuw stap voor stap te doorlopen."
 
 #. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"

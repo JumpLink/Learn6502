@@ -1238,10 +1238,18 @@ msgstr "Program Counter: Menunjuk ke instruksi berikutnya"
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "Penyimpanan Program ($0600-$FFFF)"
 
+#. TRANSLATORS: Toast message title when the program has finished execution
+msgid "Program completed"
+msgstr "Program selesai"
+
 #. TRANSLATORS: Info message shown when program finishes execution at address
 #, javascript-format
 msgid "Program completed at PC=$%s"
 msgstr "Program selesai di PC=$%s"
+
+#. TRANSLATORS: Info message when trying to step although the program has already finished
+msgid "Program completed. Reset to step through the program again."
+msgstr "Program selesai. Reset untuk menjalankan program langkah demi langkah lagi."
 
 #. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"

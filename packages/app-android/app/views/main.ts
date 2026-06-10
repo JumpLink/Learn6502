@@ -36,6 +36,7 @@ const NOTIFICATION_TITLES: Record<string, string> = {
   "simulator-failure": "Simulator failure",
   "labels-failure": "Labels failure",
   "code-copied-to-editor": "Code copied to editor",
+  "program-completed": "Program completed",
 };
 
 /**

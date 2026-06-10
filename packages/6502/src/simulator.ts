@@ -67,6 +67,12 @@ export class Simulator {
    * @returns The current state of the simulator as defined in SimulatorState enum
    */
   public get state(): SimulatorState {
+    // A completed program takes precedence over the stepper flag, so the UI
+    // can reflect completion even while debugging (see issue #109)
+    if (this._programCompleted) {
+      return SimulatorState.COMPLETED;
+    }
+
     if (this.stepper) {
       // We're in debug mode with stepper enabled
       if (this._codeRunning) {
@@ -78,11 +84,6 @@ export class Simulator {
 
     if (this._codeRunning) {
       return SimulatorState.RUNNING;
-    }
-
-    // If program has completed its execution
-    if (this._programCompleted) {
-      return SimulatorState.COMPLETED;
     }
 
     // If PC is at the initial address (0x600) and registers are zeroed,
@@ -200,11 +201,15 @@ export class Simulator {
 
   /**
    * Executes a single instruction in debug mode
-   * This allows stepping through code even when codeRunning is false
+   * This allows stepping through code even when codeRunning is false.
+   * Refuses to step past the end of a completed program (see issue #109);
+   * the simulator must be reset before stepping again.
    */
   public debugExecStep() {
     if (this._programCompleted) {
-      this._programCompleted = false;
+      // TRANSLATORS: Info message when trying to step although the program has already finished
+      this.dispatchSimulatorInfoEvent(_("Program completed. Reset to step through the program again."));
+      return;
     }
     this.execute(true);
   }
@@ -685,8 +690,9 @@ export class Simulator {
 
   private instructions = {
     i00: () => {
+      // BRK terminates the program, also when single-stepping in debug mode
       this._codeRunning = false;
-      //BRK
+      this._programCompleted = true;
     },
 
     i01: () => {
@@ -1689,7 +1695,9 @@ export class Simulator {
     ierr: () => {
       // TRANSLATORS: Error message when an unknown opcode is encountered at address
       this.dispatchSimulatorFailureEvent(_("Address %s - unknown opcode"), [addr2hex(this.regPC)]);
+      // An unknown opcode terminates the program, also when single-stepping
       this._codeRunning = false;
+      this._programCompleted = true;
     },
   };
 
@@ -1797,7 +1805,9 @@ export class Simulator {
     this.setRandomByte();
     this.executeNextInstruction();
 
-    if (this.regPC === 0 || (!this._codeRunning && !debugging)) {
+    // _programCompleted is set by the executed instruction (BRK or unknown
+    // opcode) and must end execution in debug mode too (see issue #109)
+    if (this.regPC === 0 || this._programCompleted || (!this._codeRunning && !debugging)) {
       this._codeRunning = false;
       this._programCompleted = true;
       if (this.executeId !== undefined) clearInterval(this.executeId);
