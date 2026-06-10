@@ -684,6 +684,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     "simulator-failure": () => _("Simulator failure"),
     // TRANSLATORS: Toast message title when labels processing fails
     "labels-failure": () => _("Labels failure"),
+    // TRANSLATORS: Toast message title when the program has finished execution
+    "program-completed": () => _("Program completed"),
   };
 
   private setupGameConsoleBridge(): void {

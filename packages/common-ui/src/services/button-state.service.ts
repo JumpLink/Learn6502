@@ -89,8 +89,9 @@ export class ButtonStateService {
         break;
 
       case SimulatorState.COMPLETED:
+        // No stepping past the end of a completed program (see issue #109),
+        // the user has to reset or run again
         enabledState.run = true;
-        enabledState.step = true;
         enabledState.reset = true;
         break;
 

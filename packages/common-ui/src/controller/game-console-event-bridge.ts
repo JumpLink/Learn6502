@@ -1,4 +1,5 @@
-import type { Assembler, Simulator, SimulatorState } from "@learn6502/6502";
+import { SimulatorState } from "@learn6502/6502";
+import type { Assembler, Simulator } from "@learn6502/6502";
 import { gameConsoleController } from "./game-console-controller.ts";
 import { debuggerController } from "./debugger-controller.ts";
 
@@ -91,6 +92,11 @@ export class GameConsoleEventBridge {
       this.callbacks.updateUiState(signal.state);
       if (signal.message) {
         this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      // Prompt the user when the program has finished execution, e.g. while
+      // watching the debugger instead of the console output (see issue #109)
+      if (signal.state === SimulatorState.COMPLETED) {
+        this.callbacks.showNotification("program-completed");
       }
     });
 
