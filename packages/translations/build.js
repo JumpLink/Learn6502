@@ -8,6 +8,7 @@ const VERSION = JSON.parse(readFileSync("./package.json", "utf8")).version;
 const xgettext = xgettextPlugin({
   sources: [
     "../6502/src/**/*.{ts,tsx,js}",
+    "../common-ui/src/**/*.{ts,tsx,js}",
     "../app-gnome/src/**/*.{ts,tsx,js,blp,xml,ui,desktop}",
     "../app-gnome/data/**/*.xml.in",
     "../examples/**/*.ts",
