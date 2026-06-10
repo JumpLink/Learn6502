@@ -1,7 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
-import { Buffer } from "node:buffer";
 
 import Template from "./message-console.blp";
 
@@ -28,17 +27,17 @@ export class MessageConsole extends Adw.Bin implements MessageConsoleWidget {
 
   public log(message: string) {
     message = this._textView.buffer.cursor_position > 0 ? "\n" + message : message;
-    this._textView.buffer.insert_at_cursor(message, Buffer.byteLength(message));
+    this._textView.buffer.insert_at_cursor(message, message.length);
   }
 
   public warn(message: string) {
     message = this._textView.buffer.cursor_position > 0 ? "\n\n" + message : message;
-    this._textView.buffer.insert_at_cursor(message, Buffer.byteLength(message));
+    this._textView.buffer.insert_at_cursor(message, message.length);
   }
 
   public error(message: string) {
     message = this._textView.buffer.cursor_position > 0 ? "\n\n" + message : message;
-    this._textView.buffer.insert_at_cursor(message, Buffer.byteLength(message));
+    this._textView.buffer.insert_at_cursor(message, message.length);
   }
 
   public clear() {
