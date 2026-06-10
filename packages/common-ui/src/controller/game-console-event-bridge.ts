@@ -10,8 +10,9 @@ import { debuggerController } from "./debugger-controller.ts";
  */
 export interface GameConsoleEventBridgeCallbacks {
   /**
-   * Format a message with params and log it to the debugger console.
-   * GNOME uses gettext formatting, Android logs directly.
+   * Translate a message, substitute its printf-style params and log it to the
+   * debugger console. GNOME uses gettext + String.format, Android uses
+   * localize(), Web substitutes params with formatMessage() (English only).
    */
   formatAndLog(message: string, params?: (string | number | boolean | null | undefined)[]): void;
 

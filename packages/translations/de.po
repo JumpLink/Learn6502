@@ -786,12 +786,14 @@ msgstr "Build-Fehler unter PostmarketOS behoben, verbessert Kompatibilität mit 
 msgid "Follow system style"
 msgstr "Systemstil verwenden"
 
-#. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
-msgid "Found $d label."
+#. TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d label."
 msgstr "%d Label gefunden."
 
-#. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
-msgid "Found $d labels."
+#. TRANSLATORS: Informational message after indexing multiple labels; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d labels."
 msgstr "%d Labels gefunden."
 
 #. TRANSLATORS: Dropdown option label for full memory range
@@ -1000,13 +1002,15 @@ msgstr "Springen"
 msgid "Jumping is like branching with two main differences. First, jumps are not conditionally executed, and second, they take a two-byte absolute address. For small programs, this second detail isn't very important, as you'll mostly be using labels, and the assembler works out the correct memory location from the label. For larger programs though, jumping is the only way to move from one section of the code to another."
 msgstr "Springen ist wie Verzweigen mit zwei Hauptunterschieden. Erstens werden Sprünge nicht bedingt ausgeführt, und zweitens verwenden sie eine zweibyte absolute Adresse. Für kleine Programme ist dieses zweite Detail nicht sehr wichtig, da du hauptsächlich Labels verwendest und der Assembler die korrekte Speicheradresse aus dem Label ermittelt. Für größere Programme ist Springen jedoch der einzige Weg, um von einem Codeabschnitt zu einem anderen zu gelangen."
 
+#. TRANSLATORS: Error when a label name conflicts with a defined symbol; %s is the label name
 #, javascript-format
-msgid "Label already defined at line %s: %d"
-msgstr "Label wurde bereits in Zeile %d definiert: %s"
+msgid "Label %s is already used as a symbol; please rename one of them"
+msgstr "Label %s wird bereits als Symbol verwendet; bitte eines davon umbenennen"
 
-#. TRANSLATORS: Error when a label name conflicts with a defined symbol
-msgid "Label {label} is already used as a symbol; please rename one of them"
-msgstr "Label {label} wird bereits als Symbol verwendet; bitte eines davon umbenennen"
+#. TRANSLATORS: Error when a label is defined twice; %d is the line number, %s the line content
+#, javascript-format
+msgid "Label already defined at line %d: %s"
+msgstr "Label wurde bereits in Zeile %d definiert: %s"
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"

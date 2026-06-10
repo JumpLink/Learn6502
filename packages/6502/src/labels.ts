@@ -83,11 +83,11 @@ export class Labels {
     const count = this.labelIndex.length;
     const plural = count !== 1;
     if (plural) {
-      // TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
-      this.dispatchInfo(_("Found $d labels."), [count]);
+      // TRANSLATORS: Informational message after indexing multiple labels; %d will be replaced by a number
+      this.dispatchInfo(_("Found %d labels."), [count]);
     } else {
-      // TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
-      this.dispatchInfo(_("Found $d label."), [count]);
+      // TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
+      this.dispatchInfo(_("Found %d label."), [count]);
     }
   }
 
@@ -109,7 +109,8 @@ export class Labels {
     this.dispatchInfo(_("Indexing labels..."));
     for (let i = 0; i < lines.length; i++) {
       if (!this.indexLine(lines[i], symbols, assembler)) {
-        this.dispatchFailure(_("Label already defined at line %s: %d"), [i + 1, lines[i]]);
+        // TRANSLATORS: Error when a label is defined twice; %d is the line number, %s the line content
+        this.dispatchFailure(_("Label already defined at line %d: %s"), [i + 1, lines[i]]);
         return false;
       }
     }
@@ -139,8 +140,8 @@ export class Labels {
       const label = input.replace(/(^\w+):.*$/, "$1");
 
       if (symbols.lookup(label)) {
-        // TRANSLATORS: Error when a label name conflicts with a defined symbol
-        this.dispatchFailure(_("Label {label} is already used as a symbol; please rename one of them"), [label]);
+        // TRANSLATORS: Error when a label name conflicts with a defined symbol; %s is the label name
+        this.dispatchFailure(_("Label %s is already used as a symbol; please rename one of them"), [label]);
         return false;
       }
 

@@ -781,13 +781,15 @@ msgstr "修复了 PostmarketOS 上的构建错误，提升了移动端兼容性"
 msgid "Follow system style"
 msgstr "跟随系统样式"
 
-#. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
-msgid "Found $d label."
-msgstr "找到 $d 个标签。"
+#. TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d label."
+msgstr "找到 %d 个标签。"
 
-#. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
-msgid "Found $d labels."
-msgstr "找到 $d 个标签。"
+#. TRANSLATORS: Informational message after indexing multiple labels; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d labels."
+msgstr "找到 %d 个标签。"
 
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
@@ -995,13 +997,15 @@ msgstr "跳转指令"
 msgid "Jumping is like branching with two main differences. First, jumps are not conditionally executed, and second, they take a two-byte absolute address. For small programs, this second detail isn't very important, as you'll mostly be using labels, and the assembler works out the correct memory location from the label. For larger programs though, jumping is the only way to move from one section of the code to another."
 msgstr "跳转与分支类似，但有两点不同：第一，跳转不是条件执行；第二，跳转接受两字节的绝对地址。对于小型程序，这一点不太重要，因为通常使用标签，汇编器会根据标签计算出正确的内存地址。对于较大的程序，跳转是从代码的一处移动到另一处的唯一方式。"
 
+#. TRANSLATORS: Error when a label name conflicts with a defined symbol; %s is the label name
 #, javascript-format
-msgid "Label already defined at line %s: %d"
-msgstr "标签已在第 %s 行定义：%d"
+msgid "Label %s is already used as a symbol; please rename one of them"
+msgstr "标签 %s 已被用作符号；请重命名其中一个"
 
-#. TRANSLATORS: Error when a label name conflicts with a defined symbol
-msgid "Label {label} is already used as a symbol; please rename one of them"
-msgstr "标签 {label} 已被用作符号；请重命名其中一个"
+#. TRANSLATORS: Error when a label is defined twice; %d is the line number, %s the line content
+#, javascript-format
+msgid "Label already defined at line %d: %s"
+msgstr "标签已在第 %d 行定义：%s"
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"

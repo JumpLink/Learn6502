@@ -1,5 +1,6 @@
 import type { Page, ScrollEventData, Frame } from "@nativescript/core";
 import { ScrollView, Application } from "@nativescript/core";
+import { localize } from "@nativescript/localize";
 
 import type { EventData } from "@nativescript/core";
 import { systemStates, SystemStates } from "~/states";
@@ -81,8 +82,14 @@ export class MainController implements MainView {
     // Initialize GameConsole event bridge
     this.gameConsoleBridge = new GameConsoleEventBridge({
       formatAndLog: (message, params) => {
-        // Android: log directly without i18n formatting
-        debuggerController.log(message);
+        // Android: translate via i18n resources; localize() also substitutes
+        // printf-style placeholders (%s, %d) in the translated message
+        try {
+          debuggerController.log(localize(message, ...(params ?? []).map(String)));
+        } catch (error) {
+          this.log.error(`Failed to localize message "${message}":`, error);
+          debuggerController.log(message);
+        }
       },
       updateDebugger: () => {
         // Android: update debugger view if available

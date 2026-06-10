@@ -1,4 +1,4 @@
-import { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
+import { Memory, Labels, Simulator, Assembler, formatMessage } from "@learn6502/6502";
 import { Debugger } from "./debugger.js";
 import { Display } from "./display.js";
 import { UIState } from "./ui-state.js";
@@ -130,14 +130,14 @@ export class GameConsole {
       this.memory.set(this.assembler.getCurrentPC(), 0x00); // Set a null byte at the end of the code
 
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
     this.assembler.on("assemble-failure", (event) => {
       this.uiState.initialize();
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
@@ -152,7 +152,7 @@ export class GameConsole {
 
     this.assembler.on("assemble-info", (event) => {
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
@@ -161,14 +161,14 @@ export class GameConsole {
     this.simulator.on("stop", (event) => {
       this.uiState.stop();
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
     this.simulator.on("start", (event) => {
       this.uiState.play();
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
@@ -182,13 +182,13 @@ export class GameConsole {
 
     this.simulator.on("simulator-info", (event) => {
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
     this.simulator.on("simulator-failure", (event) => {
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
@@ -196,13 +196,13 @@ export class GameConsole {
 
     this.labels.on("labels-info", (event) => {
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
     this.labels.on("labels-failure", (event) => {
       if (event.message) {
-        this.console.log(event.message);
+        this.console.log(formatMessage(event.message, event.params));
       }
     });
 
