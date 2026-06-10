@@ -667,6 +667,15 @@ msgstr "禁用以提升性能"
 msgid "Disassembled"
 msgstr "反汇编"
 
+#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
+#, javascript-format
+msgid ""
+"Disassembly:\n"
+"%s"
+msgstr ""
+"反汇编:\n"
+"%s"
+
 msgid "Discard"
 msgstr "放弃"
 
@@ -674,7 +683,7 @@ msgstr "放弃"
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
 msgstr "探索经典计算机与游戏机编程的迷人世界！学习 6502 汇编语言——这正是驱动 NES、Commodore 64 和 Apple II 等标志性系统的代码。"
 
-#. TRANSLATORS: Dropdown option label for display memory range
+#. TRANSLATORS: Memory region label for the display/screen buffer ($0200-$05FF)
 msgid "Display Memory ($0200-$05FF)"
 msgstr "显示内存（$0200–$05FF）"
 
@@ -791,7 +800,7 @@ msgstr "找到 %d 个标签。"
 msgid "Found %d labels."
 msgstr "找到 %d 个标签。"
 
-#. TRANSLATORS: Dropdown option label for full memory range
+#. TRANSLATORS: Memory region label covering the full address space
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "全部内存（$0000–$FFFF）"
 
@@ -834,8 +843,8 @@ msgstr "有自己很酷的6502作品吗？与社区分享吧！您现在可以�
 msgid "Green"
 msgstr "绿色"
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
+#. TRANSLATORS: Help window title
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "帮助"
@@ -851,6 +860,15 @@ msgstr "十六进制监视器"
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "十六进制转储"
+
+#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
+#, javascript-format
+msgid ""
+"Hexdump:\n"
+"%s"
+msgstr ""
+"十六进制转储:\n"
+"%s"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1238,7 +1256,7 @@ msgstr "处理器状态寄存器"
 msgid "Program Counter: Points to next instruction"
 msgstr "<b>PC</b>（程序计数器）：指向下一条将要执行的指令"
 
-#. TRANSLATORS: Dropdown option label for program storage range
+#. TRANSLATORS: Memory region label for program storage area ($0600-$FFFF)
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "程序存储（$0600–$FFFF）"
 
@@ -1275,7 +1293,7 @@ msgstr "快速提示"
 msgid "Quit"
 msgstr "退出"
 
-#. TRANSLATORS: Dropdown option label for random/input IO range
+#. TRANSLATORS: Memory region label for random number and input registers ($FE-$FF)
 msgid "Random/Input ($FE-$FF)"
 msgstr "随机/输入（$FE–$FF）"
 
@@ -1402,7 +1420,7 @@ msgstr "板岩灰"
 msgid "Snake Game"
 msgstr "贪吃蛇游戏"
 
-#. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
+#. TRANSLATORS: Tutorial-specific region used by the Snake game
 msgid "Snake Game Data ($00-$15)"
 msgstr "贪吃蛇游戏数据（$00–$15）"
 
@@ -1446,7 +1464,7 @@ msgstr "源 URL"
 msgid "Special Memory Locations (in Simulator)"
 msgstr "特殊内存位置（模拟器）"
 
-#. TRANSLATORS: Dropdown option label for stack memory range
+#. TRANSLATORS: Memory region label for the hardware stack ($0100-$01FF)
 msgid "Stack ($0100-$01FF)"
 msgstr "栈（$0100–$01FF）"
 
@@ -1797,7 +1815,8 @@ msgstr "你的文件有未保存的更改。如不保存，这些更改将会丢
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
 msgstr "零标志（Z）：当运算结果为零时置位。对条件分支至关重要——大多数条件跳转（BEQ、BNE）会检查该标志以依据是否为零来决定流程。"
 
-#. TRANSLATORS: Dropdown option label for zero-page memory range
+#. We use the pseudo i18n function to localize the memory region names
+#. TRANSLATORS: Memory region label for the zero page ($0000-$00FF)
 msgid "Zero Page ($0000-$00FF)"
 msgstr "零页（$0000–$00FF）"
 
@@ -1842,12 +1861,6 @@ msgstr "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "在这些示例中，使用调试器的内存监视器观察内存变化会很有帮助。监视器需要一个起始内存位置和从该位置开始显示的字节数，二者均为十六进制值。比如，要显示自 <tt>$c000</tt> 起的 16 字节，请在 <b>Start</b> 输入 <tt>c000</tt>，在 <b>Length</b> 输入 <tt>10</tt>。"
-
-#~ msgid "Disassembly:"
-#~ msgstr "反汇编："
-
-#~ msgid "Hexdump:"
-#~ msgstr "十六进制转储："
 
 #~ msgid "_Appearance"
 #~ msgstr "_外观"

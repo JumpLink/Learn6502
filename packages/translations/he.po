@@ -667,6 +667,15 @@ msgstr "השבתה תשפר את הביצועים"
 msgid "Disassembled"
 msgstr "פענוח"
 
+#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
+#, javascript-format
+msgid ""
+"Disassembly:\n"
+"%s"
+msgstr ""
+"פענוח:\n"
+"%s"
+
 msgid "Discard"
 msgstr "השלך"
 
@@ -674,7 +683,7 @@ msgstr "השלך"
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
 msgstr "גלו את העולם המקסים של תיכנות מחשבים וקונסולות משחקים קלסים! לימדו את שפת הסף 6502 ‐ אותו הקוד שהפעיל מערכות אייקוניות כמו ה־NES, Commodore 64, ו־Apple II."
 
-#. TRANSLATORS: Dropdown option label for display memory range
+#. TRANSLATORS: Memory region label for the display/screen buffer ($0200-$05FF)
 msgid "Display Memory ($0200-$05FF)"
 msgstr "זיכרון תצוגה ($0200-$05FF)"
 
@@ -791,7 +800,7 @@ msgstr "נמצאה תווית %d."
 msgid "Found %d labels."
 msgstr "נמצאו %d תוויות."
 
-#. TRANSLATORS: Dropdown option label for full memory range
+#. TRANSLATORS: Memory region label covering the full address space
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "כל הזיכרון ($0000-$FFFF)"
 
@@ -834,8 +843,8 @@ msgstr "יצרתם משהו מגניב עם 6502? שתפו אותו עם הקה�
 msgid "Green"
 msgstr "ירוק"
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
+#. TRANSLATORS: Help window title
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "עזרה"
@@ -851,6 +860,15 @@ msgstr "צג הקסדצימלי"
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "חילוץ הקסדצימלי"
+
+#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
+#, javascript-format
+msgid ""
+"Hexdump:\n"
+"%s"
+msgstr ""
+"חילוץ הקסדצימלי:\n"
+"%s"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1238,7 +1256,7 @@ msgstr "אוגר מצב המעבד"
 msgid "Program Counter: Points to next instruction"
 msgstr "מצביע התוכנה: מצביע על הפקודה הבאה"
 
-#. TRANSLATORS: Dropdown option label for program storage range
+#. TRANSLATORS: Memory region label for program storage area ($0600-$FFFF)
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "אכסון התוכנה ($0600-$FFFF)"
 
@@ -1275,7 +1293,7 @@ msgstr "טיפים קצרים"
 msgid "Quit"
 msgstr "צא"
 
-#. TRANSLATORS: Dropdown option label for random/input IO range
+#. TRANSLATORS: Memory region label for random number and input registers ($FE-$FF)
 msgid "Random/Input ($FE-$FF)"
 msgstr "אקראי/קלט ($FE-$FF)"
 
@@ -1402,7 +1420,7 @@ msgstr "אפור"
 msgid "Snake Game"
 msgstr "משחק סנייק"
 
-#. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
+#. TRANSLATORS: Tutorial-specific region used by the Snake game
 msgid "Snake Game Data ($00-$15)"
 msgstr "נתונים של משחק הסנייק ($00-$15)"
 
@@ -1446,7 +1464,7 @@ msgstr "URL למקור"
 msgid "Special Memory Locations (in Simulator)"
 msgstr "נקודות זיכרון מיוחדות (בסימולטור)"
 
-#. TRANSLATORS: Dropdown option label for stack memory range
+#. TRANSLATORS: Memory region label for the hardware stack ($0100-$01FF)
 msgid "Stack ($0100-$01FF)"
 msgstr "מחסנית ($0100-$01FF)"
 
@@ -1797,7 +1815,8 @@ msgstr "בקובץ שלך ישנם שינויים לא שמורים. ללא שמ
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
 msgstr "דגל האפס: מוגדר כשהתוצאה של פעולה היא אפס. חיוני להסתעפות מותנית - רוב פקודות הקפיצה המותנות (BEQ, BNE) בודקים את הדגל הזה לראות אם ערך מסוים היה אפס כדי לקבוע את זרימת התוכנה."
 
-#. TRANSLATORS: Dropdown option label for zero-page memory range
+#. We use the pseudo i18n function to localize the memory region names
+#. TRANSLATORS: Memory region label for the zero page ($0000-$00FF)
 msgid "Zero Page ($0000-$00FF)"
 msgstr "דף אפס ($0000-$00FF)"
 
