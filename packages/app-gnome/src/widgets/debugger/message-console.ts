@@ -27,17 +27,17 @@ export class MessageConsole extends Adw.Bin implements MessageConsoleWidget {
 
   public log(message: string) {
     message = this._textView.buffer.cursor_position > 0 ? "\n" + message : message;
-    this._textView.buffer.insert_at_cursor(message, message.length);
+    this._textView.buffer.insert_at_cursor(message, -1);
   }
 
   public warn(message: string) {
     message = this._textView.buffer.cursor_position > 0 ? "\n\n" + message : message;
-    this._textView.buffer.insert_at_cursor(message, message.length);
+    this._textView.buffer.insert_at_cursor(message, -1);
   }
 
   public error(message: string) {
     message = this._textView.buffer.cursor_position > 0 ? "\n\n" + message : message;
-    this._textView.buffer.insert_at_cursor(message, message.length);
+    this._textView.buffer.insert_at_cursor(message, -1);
   }
 
   public clear() {
