@@ -1238,10 +1238,18 @@ msgstr "Bộ Đếm Chương Trình: Trỏ tới lệnh tiếp theo"
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "Lưu Trữ Chương Trình ($0600-$FFFF)"
 
+#. TRANSLATORS: Toast message title when the program has finished execution
+msgid "Program completed"
+msgstr "Chương trình đã hoàn thành"
+
 #. TRANSLATORS: Info message shown when program finishes execution at address
 #, javascript-format
 msgid "Program completed at PC=$%s"
 msgstr "Chương trình hoàn thành tại PC=$%s"
+
+#. TRANSLATORS: Info message when trying to step although the program has already finished
+msgid "Program completed. Reset to step through the program again."
+msgstr "Chương trình đã hoàn thành. Đặt lại để chạy từng bước qua chương trình lần nữa."
 
 #. TRANSLATORS: Toast message title shown when pausing the game console
 msgid "Program paused"
