@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: 2026-06-09 16:01+0000\n"
+"PO-Revision-Date: 2026-06-11 05:51+0000\n"
 "Last-Translator: Menachem <alfenmen@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
@@ -472,7 +472,7 @@ msgstr "פרט חשוב להבחין כאן זה ההבדל בין <tt>ADC #$01<
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
-msgstr "כל המספר עם הקידומת <tt>$</tt> בשפת הסף 6502 (ועל כן, בספר זה) הוא בפורמט הקסדצימלי (הקס). אם אתם לא רגילים לספרות הקסדצימליות, אני ממליץ לכם לקרוא את <a href=\"https://he.wikipedia.org/wiki/%D7%91%D7%A1%D7%99%D7%A1_%D7%94%D7%A7%D7%A1%D7%93%D7%A6%D7%99%D7%9E%D7%9C%D7%99\">דף הוויקיפדיה</a>. כל מספר עם הקידומת <tt>#</tt> הוא הערך הספרתי עצמו. אחרת הוא מתאר כתובת בזיכרון."
+msgstr "בשפת הסף 6502 (ועל כן, בספר זה) כל מספר עם הקידומת <tt>$</tt> הוא בפורמט הקסדצימלי (הקס). אם אתם לא רגילים לספרות הקסדצימליות, אני ממליץ לכם לקרוא את <a href=\"https://he.wikipedia.org/wiki/%D7%91%D7%A1%D7%99%D7%A1_%D7%94%D7%A7%D7%A1%D7%93%D7%A6%D7%99%D7%9E%D7%9C%D7%99\">דף הוויקיפדיה</a>. כל מספר עם הקידומת <tt>#</tt> הוא הערך הספרתי עצמו. אחרת הוא מתאר כתובת בזיכרון."
 
 #. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
@@ -954,7 +954,7 @@ msgid "Indexed indirect: <tt>($c0,X)</tt>"
 msgstr "מאוּנדקס עקיף: <tt>($c0,X)</tt>"
 
 msgid "Indexing labels..."
-msgstr "תווי אינדוּקס..."
+msgstr "מאנדקס תוויות..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect addressing uses an absolute address to look up another address. The first address gives the least significant byte of the address, and the following byte gives the most significant byte. That can be hard to wrap your head around, so here's an example:"
