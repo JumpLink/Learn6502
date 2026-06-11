@@ -550,6 +550,11 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
     this._scrolledWindow.set_direction(Gtk.TextDirection.LTR);
     this._sourceView.set_direction(Gtk.TextDirection.LTR);
     this._copyButton.set_direction(Gtk.TextDirection.LTR);
+    // The scrollbars are internal children created before the pin above, so
+    // they kept the RTL default and mapped the scroll position mirrored to
+    // the LTR code content (thumb at the right while showing the left edge)
+    this._scrolledWindow.get_hscrollbar().set_direction(Gtk.TextDirection.LTR);
+    this._scrolledWindow.get_vscrollbar().set_direction(Gtk.TextDirection.LTR);
     this.setupScrolledWindow();
 
     // Setup action group and actions
