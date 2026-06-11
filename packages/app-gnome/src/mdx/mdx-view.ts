@@ -7,6 +7,12 @@ import type { SourceViewCopyEvent } from "@learn6502/common-ui";
 /** RIGHT-TO-LEFT MARK (U+200F) — an invisible character with strong RTL directionality. */
 const RLM = "\u200F";
 
+/** FIRST STRONG ISOLATE (U+2068) — starts a bidi-isolated run whose direction is detected from its content. */
+const FSI = "\u2068";
+
+/** POP DIRECTIONAL ISOLATE (U+2069) — ends a bidi-isolated run. */
+const PDI = "\u2069";
+
 /**
  * Base class for rendering MDX content in GTK
  * Provides common functionality for handling source views and other MDX elements
@@ -65,6 +71,9 @@ export class MdxView extends Adw.Bin {
    * layout in RTL locales. Prepending an invisible RIGHT-TO-LEFT MARK gives
    * every paragraph an RTL first strong character instead.
    *
+   * Inline code spans are additionally bidi-isolated so that neutral
+   * punctuation next to them resolves against the RTL paragraph direction.
+   *
    * @see https://github.com/JumpLink/Learn6502/issues/116
    */
   protected applyRtlBaseDirection(widget: Gtk.Widget): void {
@@ -77,10 +86,29 @@ export class MdxView extends Adw.Bin {
         child.label = child.label
           .split("\n")
           .map((line) => (line.startsWith(RLM) ? line : RLM + line))
+          .map((line) => this.isolateInlineCode(line))
           .join("\n");
       }
       this.applyRtlBaseDirection(child);
     }
+  }
+
+  /**
+   * Wrap the content of inline code spans in bidi isolates.
+   *
+   * Without isolation, neutral characters (quotes, dots, colons) between an
+   * LTR code span and an adjacent LTR word join them into one left-to-right
+   * run, so the punctuation jumps to its LTR position inside RTL text — e.g.
+   * in `<tt>BNE</tt>: "Branch on not equal"` the colon and the opening quote
+   * stuck to the LTR run while the closing quote resolved right-to-left.
+   * Isolating the span makes all surrounding punctuation resolve uniformly
+   * against the RTL paragraph direction; the bidi algorithm still renders the
+   * isolated code itself left-to-right.
+   *
+   * @see https://github.com/JumpLink/Learn6502/issues/117
+   */
+  private isolateInlineCode(markup: string): string {
+    return markup.replace(/<tt>(?!\u2068)/g, `<tt>${FSI}`).replace(/(?<!\u2069)<\/tt>/g, `${PDI}</tt>`);
   }
 }
 
