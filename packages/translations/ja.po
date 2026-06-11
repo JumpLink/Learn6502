@@ -666,6 +666,15 @@ msgstr "無効にするとパフォーマンスが向上します"
 msgid "Disassembled"
 msgstr "逆アセンブル"
 
+#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
+#, javascript-format
+msgid ""
+"Disassembly:\n"
+"%s"
+msgstr ""
+"逆アセンブル:\n"
+"%s"
+
 msgid "Discard"
 msgstr "破棄"
 
@@ -673,7 +682,7 @@ msgstr "破棄"
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
 msgstr "クラシックなコンピューターやゲーム機のプログラミングの世界へ！6502 アセンブリ言語を学びましょう。これは NES、Commodore 64、Apple II などを動かしたコードです。"
 
-#. TRANSLATORS: Dropdown option label for display memory range
+#. TRANSLATORS: Memory region label for the display/screen buffer ($0200-$05FF)
 msgid "Display Memory ($0200-$05FF)"
 msgstr "表示メモリ ($0200-$05FF)"
 
@@ -790,7 +799,7 @@ msgstr "ラベルを %d 件見つけました。"
 msgid "Found %d labels."
 msgstr "ラベルを %d 件見つけました。"
 
-#. TRANSLATORS: Dropdown option label for full memory range
+#. TRANSLATORS: Memory region label covering the full address space
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "全メモリ ($0000-$FFFF)"
 
@@ -833,8 +842,8 @@ msgstr "独自のクールな6502作品をお持ちですか？コミュニテ�
 msgid "Green"
 msgstr "緑"
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
+#. TRANSLATORS: Help window title
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "ヘルプ"
@@ -850,6 +859,15 @@ msgstr "16進モニター"
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "ヘックスダンプ"
+
+#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
+#, javascript-format
+msgid ""
+"Hexdump:\n"
+"%s"
+msgstr ""
+"ヘックスダンプ:\n"
+"%s"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1237,7 +1255,7 @@ msgstr "プロセッサステータスレジスタ"
 msgid "Program Counter: Points to next instruction"
 msgstr "プログラムカウンタ: 次の命令を指す"
 
-#. TRANSLATORS: Dropdown option label for program storage range
+#. TRANSLATORS: Memory region label for program storage area ($0600-$FFFF)
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "プログラム領域 ($0600-$FFFF)"
 
@@ -1274,7 +1292,7 @@ msgstr "クイックヒント"
 msgid "Quit"
 msgstr "終了"
 
-#. TRANSLATORS: Dropdown option label for random/input IO range
+#. TRANSLATORS: Memory region label for random number and input registers ($FE-$FF)
 msgid "Random/Input ($FE-$FF)"
 msgstr "乱数/入力 ($FE-$FF)"
 
@@ -1401,7 +1419,7 @@ msgstr "スレート"
 msgid "Snake Game"
 msgstr "スネークゲーム"
 
-#. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
+#. TRANSLATORS: Tutorial-specific region used by the Snake game
 msgid "Snake Game Data ($00-$15)"
 msgstr "スネークゲームデータ ($00-$15)"
 
@@ -1445,7 +1463,7 @@ msgstr "ソースURL"
 msgid "Special Memory Locations (in Simulator)"
 msgstr "特別なメモリ位置（シミュレーター）"
 
-#. TRANSLATORS: Dropdown option label for stack memory range
+#. TRANSLATORS: Memory region label for the hardware stack ($0100-$01FF)
 msgid "Stack ($0100-$01FF)"
 msgstr "スタック ($0100-$01FF)"
 
@@ -1796,7 +1814,8 @@ msgstr "ファイルに未保存の変更があります。保存しない場合
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
 msgstr "ゼロフラグ: 演算結果が0のときにセット。条件分岐で重要で、BEQ/BNE など多くの命令が値が0かどうかの判定に用います。"
 
-#. TRANSLATORS: Dropdown option label for zero-page memory range
+#. We use the pseudo i18n function to localize the memory region names
+#. TRANSLATORS: Memory region label for the zero page ($0000-$00FF)
 msgid "Zero Page ($0000-$00FF)"
 msgstr "ゼロページ ($0000-$00FF)"
 
@@ -1841,12 +1860,6 @@ msgstr "これは間接参照で得られる <tt>$0411</tt>、<tt>$0410</tt>、<
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "これらの例では、デバッガーのメモリモニターで変化を観察すると理解が進みます。開始アドレスと表示バイト数（ともに16進）を指定します。例えば <tt>$c000</tt> から 16 バイトを表示するには、<b>Start</b> に <tt>c000</tt>、<b>Length</b> に <tt>10</tt> を入力します。"
-
-#~ msgid "Disassembly:"
-#~ msgstr "逆アセンブル:"
-
-#~ msgid "Hexdump:"
-#~ msgstr "ヘックスダンプ:"
 
 #, fuzzy
 #~ msgid "_Appearance"

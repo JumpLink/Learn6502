@@ -1,4 +1,4 @@
-import { SimulatorState } from "@learn6502/6502";
+import { SimulatorState, _ } from "@learn6502/6502";
 import type { Assembler, Simulator } from "@learn6502/6502";
 import { gameConsoleController } from "./game-console-controller.ts";
 import { debuggerController } from "./debugger-controller.ts";
@@ -72,13 +72,15 @@ export class GameConsoleEventBridge {
 
     this.on("hexdump", (signal) => {
       if (signal.message) {
-        this.callbacks.formatAndLog("Hexdump:\n" + signal.message, signal.params);
+        // TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
+        this.callbacks.formatAndLog(_("Hexdump:\n%s"), [signal.message]);
       }
     });
 
     this.on("disassembly", (signal) => {
       if (signal.message) {
-        this.callbacks.formatAndLog("Disassembly:\n" + signal.message, signal.params);
+        // TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
+        this.callbacks.formatAndLog(_("Disassembly:\n%s"), [signal.message]);
       }
     });
 

@@ -667,6 +667,15 @@ msgstr "Vô hiệu hóa để cải thiện hiệu suất"
 msgid "Disassembled"
 msgstr "Đã tháo rời"
 
+#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
+#, javascript-format
+msgid ""
+"Disassembly:\n"
+"%s"
+msgstr ""
+"Đã tháo rời:\n"
+"%s"
+
 msgid "Discard"
 msgstr "Loại bỏ"
 
@@ -674,7 +683,7 @@ msgstr "Loại bỏ"
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
 msgstr "Khám phá thế giới hấp dẫn của việc lập trình máy tính cổ điển và máy chơi game! Tìm hiểu ngôn ngữ hợp ngữ 6502 - cùng mã hỗ trợ các hệ thống mang tính biểu tượng như NES, Commodore 64 và Apple II."
 
-#. TRANSLATORS: Dropdown option label for display memory range
+#. TRANSLATORS: Memory region label for the display/screen buffer ($0200-$05FF)
 msgid "Display Memory ($0200-$05FF)"
 msgstr "Bộ Nhớ Hiển Thị ($0200-$05FF)"
 
@@ -791,7 +800,7 @@ msgstr "Đã tìm thấy nhãn %d."
 msgid "Found %d labels."
 msgstr "Đã tìm thấy nhãn %d."
 
-#. TRANSLATORS: Dropdown option label for full memory range
+#. TRANSLATORS: Memory region label covering the full address space
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Bộ Nhớ Đầy ($0000-$FFFF)"
 
@@ -834,8 +843,8 @@ msgstr "Bạn có sáng tạo 6502 thú vị của riêng mình không? Hãy chi
 msgid "Green"
 msgstr "Xanh lá"
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
+#. TRANSLATORS: Help window title
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Trợ giúp"
@@ -851,6 +860,15 @@ msgstr "Hex Monitor"
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "Hexdump"
+
+#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
+#, javascript-format
+msgid ""
+"Hexdump:\n"
+"%s"
+msgstr ""
+"Hexdump:\n"
+"%s"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1238,7 +1256,7 @@ msgstr "Thanh ghi Trạng Thái Bộ Xử Lý"
 msgid "Program Counter: Points to next instruction"
 msgstr "Bộ Đếm Chương Trình: Trỏ tới lệnh tiếp theo"
 
-#. TRANSLATORS: Dropdown option label for program storage range
+#. TRANSLATORS: Memory region label for program storage area ($0600-$FFFF)
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "Lưu Trữ Chương Trình ($0600-$FFFF)"
 
@@ -1275,7 +1293,7 @@ msgstr "Mẹo nhanh"
 msgid "Quit"
 msgstr "Thoát"
 
-#. TRANSLATORS: Dropdown option label for random/input IO range
+#. TRANSLATORS: Memory region label for random number and input registers ($FE-$FF)
 msgid "Random/Input ($FE-$FF)"
 msgstr "Ngẫu Nhiên/Đầu Vào ($FE-$FF)"
 
@@ -1402,7 +1420,7 @@ msgstr "Đá Phiến"
 msgid "Snake Game"
 msgstr "Trò Chơi Rắn Săn Mồi"
 
-#. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
+#. TRANSLATORS: Tutorial-specific region used by the Snake game
 msgid "Snake Game Data ($00-$15)"
 msgstr "Dữ Liệu Trò Chơi Rắn Săn Mồi($00-$15)"
 
@@ -1446,7 +1464,7 @@ msgstr "URL Nguồn"
 msgid "Special Memory Locations (in Simulator)"
 msgstr "Vị Trí Bộ Nhớ Đặc Biệt (trong Trình Mô Phỏng)"
 
-#. TRANSLATORS: Dropdown option label for stack memory range
+#. TRANSLATORS: Memory region label for the hardware stack ($0100-$01FF)
 msgid "Stack ($0100-$01FF)"
 msgstr "Ngăn Xếp ($0100-$01FF)"
 
@@ -1797,7 +1815,8 @@ msgstr "Tệp của bạn có những thay đổi chưa được lưu. Các thay
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
 msgstr "Cờ 0: Đặt khi kết quả của thao tác bằng 0. Cần thiết cho việc phân nhánh có điều kiện - hầu hết các lệnh nhảy có điều kiện (BEQ, BNE) đều kiểm tra cờ này để xác định luồng chương trình dựa trên việc giá trị có bằng 0 hay không."
 
-#. TRANSLATORS: Dropdown option label for zero-page memory range
+#. We use the pseudo i18n function to localize the memory region names
+#. TRANSLATORS: Memory region label for the zero page ($0000-$00FF)
 msgid "Zero Page ($0000-$00FF)"
 msgstr "Trang Không ($0000-$00FF)"
 
@@ -1842,9 +1861,3 @@ msgstr "đại diện cho các vị trí bộ nhớ được đánh địa chỉ
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "Với tất cả các ví dụ này, bạn có thể thấy hữu ích khi sử dụng trình giám sát bộ nhớ trong trình gỡ lỗi để xem sự thay đổi bộ nhớ. Màn hình lấy vị trí bộ nhớ bắt đầu và một số byte để hiển thị từ vị trí đó. Cả hai đều là giá trị hex. Ví dụ: để hiển thị 16 byte bộ nhớ từ <tt>$c000</tt>, hãy nhập <tt>c000</tt> và <tt>10</tt> vào <b>Bắt Đầu</b> và <b>Độ Dài</b> tương ứng."
-
-#~ msgid "Disassembly:"
-#~ msgstr "Tháo gỡ:"
-
-#~ msgid "Hexdump:"
-#~ msgstr "Hexdump:"

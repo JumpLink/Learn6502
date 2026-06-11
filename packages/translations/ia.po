@@ -665,6 +665,15 @@ msgstr "Dishabilitar pro meliorar prestation"
 msgid "Disassembled"
 msgstr "Disassemblate"
 
+#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
+#, javascript-format
+msgid ""
+"Disassembly:\n"
+"%s"
+msgstr ""
+"Disassemblate:\n"
+"%s"
+
 msgid "Discard"
 msgstr "Abandonar"
 
@@ -672,7 +681,7 @@ msgstr "Abandonar"
 msgid "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II."
 msgstr "Discoperi le mundo fascinante de programmar computatores classic e consolas de joco! Apprende lingua de assemblage 6502 - le mesme codice que alimentava systemas iconic como le NES, Commodore 64, e Apple II."
 
-#. TRANSLATORS: Dropdown option label for display memory range
+#. TRANSLATORS: Memory region label for the display/screen buffer ($0200-$05FF)
 msgid "Display Memory ($0200-$05FF)"
 msgstr "Memoria de schermo ($0200-$05FF)"
 
@@ -789,7 +798,7 @@ msgstr "Trovate %d etiquetta."
 msgid "Found %d labels."
 msgstr "Trovate %d etiquettas."
 
-#. TRANSLATORS: Dropdown option label for full memory range
+#. TRANSLATORS: Memory region label covering the full address space
 msgid "Full Memory ($0000-$FFFF)"
 msgstr "Memoria complete ($0000-$FFFF)"
 
@@ -832,8 +841,8 @@ msgstr "Ha tu un proprie creation 6502 interessante? Comparti lo con le communit
 msgid "Green"
 msgstr "Verde"
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
+#. TRANSLATORS: Help window title
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Adjuta"
@@ -849,6 +858,15 @@ msgstr "Monitor hex"
 #. TRANSLATORS: Section heading label for the Hexdump block
 msgid "Hexdump"
 msgstr "Hexdump"
+
+#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
+#, javascript-format
+msgid ""
+"Hexdump:\n"
+"%s"
+msgstr ""
+"Hexdump:\n"
+"%s"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1236,7 +1254,7 @@ msgstr "Registro de stato del processor"
 msgid "Program Counter: Points to next instruction"
 msgstr "Contator de programma: Punta al proxime instruction"
 
-#. TRANSLATORS: Dropdown option label for program storage range
+#. TRANSLATORS: Memory region label for program storage area ($0600-$FFFF)
 msgid "Program Storage ($0600-$FFFF)"
 msgstr "Immagazinage de programma ($0600-$FFFF)"
 
@@ -1273,7 +1291,7 @@ msgstr "Consilios rapide"
 msgid "Quit"
 msgstr "Quitar"
 
-#. TRANSLATORS: Dropdown option label for random/input IO range
+#. TRANSLATORS: Memory region label for random number and input registers ($FE-$FF)
 msgid "Random/Input ($FE-$FF)"
 msgstr "Casual/Entrata ($FE-$FF)"
 
@@ -1400,7 +1418,7 @@ msgstr "Ardesia"
 msgid "Snake Game"
 msgstr "Executante joco Snake"
 
-#. TRANSLATORS: Dropdown option label for tutorial-specific snake game data range
+#. TRANSLATORS: Tutorial-specific region used by the Snake game
 msgid "Snake Game Data ($00-$15)"
 msgstr "Datos de joco Snake ($00-$15)"
 
@@ -1444,7 +1462,7 @@ msgstr "URL del fonte"
 msgid "Special Memory Locations (in Simulator)"
 msgstr "Locationes special de memoria (in Simulator)"
 
-#. TRANSLATORS: Dropdown option label for stack memory range
+#. TRANSLATORS: Memory region label for the hardware stack ($0100-$01FF)
 msgid "Stack ($0100-$01FF)"
 msgstr "Pila ($0100-$01FF)"
 
@@ -1795,7 +1813,8 @@ msgstr "Tu file ha cambiamentos non salvate. Cambiamentos sera perdite si tu non
 msgid "Zero Flag: Set when the result of an operation is zero. Essential for conditional branching - most conditional jump instructions (BEQ, BNE) check this flag to determine program flow based on whether a value is zero."
 msgstr "Bandiera Zero: Definite quando le resultato de un operation es zero. Essential pro ramification conditional - le majoritate de instructiones de salto conditional (BEQ, BNE) verifica iste bandiera pro determinar fluxo de programma basate sur si un valor es zero."
 
-#. TRANSLATORS: Dropdown option label for zero-page memory range
+#. We use the pseudo i18n function to localize the memory region names
+#. TRANSLATORS: Memory region label for the zero page ($0000-$00FF)
 msgid "Zero Page ($0000-$00FF)"
 msgstr "Pagina Zero ($0000-$00FF)"
 
@@ -1840,12 +1859,6 @@ msgstr "que representa le locationes de memoria indirectemente adressate <tt>$04
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "Con tote iste exemplos tu poterea trovar lo utile usar le monitor de memoria in le debugger pro reguardar le memoria cambiar. Le monitor prende un location de memoria initial e un numero de bytes pro monstrar de ille location. Ambe de iste es valores hex. Pro exemplo, pro monstrar 16 bytes de memoria de <tt>$c000</tt>, entra <tt>c000</tt> e <tt>10</tt> in <b>Start</b> e <b>Longitude</b>, respectivemente."
-
-#~ msgid "Disassembly:"
-#~ msgstr "Disassemblage:"
-
-#~ msgid "Hexdump:"
-#~ msgstr "Hexdump:"
 
 #~ msgid "_Appearance"
 #~ msgstr "_Apparentia"
