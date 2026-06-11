@@ -780,13 +780,15 @@ msgstr "Corrigido erro de compilação no PostmarketOS, melhorando a compatibili
 msgid "Follow system style"
 msgstr "Seguir estilo do sistema"
 
-#. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
-msgid "Found $d label."
-msgstr "Encontrado $d rótulo."
+#. TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d label."
+msgstr "Encontrado %d rótulo."
 
-#. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
-msgid "Found $d labels."
-msgstr "Encontrados $d rótulos."
+#. TRANSLATORS: Informational message after indexing multiple labels; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d labels."
+msgstr "Encontrados %d rótulos."
 
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
@@ -994,13 +996,15 @@ msgstr "Saltando"
 msgid "Jumping is like branching with two main differences. First, jumps are not conditionally executed, and second, they take a two-byte absolute address. For small programs, this second detail isn't very important, as you'll mostly be using labels, and the assembler works out the correct memory location from the label. For larger programs though, jumping is the only way to move from one section of the code to another."
 msgstr "Saltar é como ramificar com duas diferenças principais. Primeiro, os saltos não são executados condicionalmente, e segundo, eles tomam um endereço absoluto de dois bytes. Para programas pequenos, este segundo detalhe não é muito importante, pois vais usar principalmente rótulos, e o assemblador calcula a localização de memória correta a partir do rótulo. Para programas maiores, porém, saltar é a única forma de se mover de uma secção do código para outra."
 
+#. TRANSLATORS: Error when a label name conflicts with a defined symbol; %s is the label name
 #, javascript-format
-msgid "Label already defined at line %s: %d"
-msgstr "Rótulo já definido na linha %s: %d"
+msgid "Label %s is already used as a symbol; please rename one of them"
+msgstr "O rótulo %s já está a ser usado como símbolo; por favor renomeia um deles"
 
-#. TRANSLATORS: Error when a label name conflicts with a defined symbol
-msgid "Label {label} is already used as a symbol; please rename one of them"
-msgstr "O rótulo {label} já está a ser usado como símbolo; por favor renomeia um deles"
+#. TRANSLATORS: Error when a label is defined twice; %d is the line number, %s the line content
+#, javascript-format
+msgid "Label already defined at line %d: %s"
+msgstr "Rótulo já definido na linha %d: %s"
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"

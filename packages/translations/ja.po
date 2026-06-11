@@ -780,13 +780,15 @@ msgstr "PostmarketOS のビルドエラーを修正し、モバイル互換性�
 msgid "Follow system style"
 msgstr "システムのスタイルに従う"
 
-#. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
-msgid "Found $d label."
-msgstr "ラベルを $d 件見つけました。"
+#. TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d label."
+msgstr "ラベルを %d 件見つけました。"
 
-#. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
-msgid "Found $d labels."
-msgstr "ラベルを $d 件見つけました。"
+#. TRANSLATORS: Informational message after indexing multiple labels; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d labels."
+msgstr "ラベルを %d 件見つけました。"
 
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
@@ -994,13 +996,15 @@ msgstr "ジャンプ"
 msgid "Jumping is like branching with two main differences. First, jumps are not conditionally executed, and second, they take a two-byte absolute address. For small programs, this second detail isn't very important, as you'll mostly be using labels, and the assembler works out the correct memory location from the label. For larger programs though, jumping is the only way to move from one section of the code to another."
 msgstr "ジャンプは分岐に似ていますが2点異なります。1つ目は条件付きではないこと、2つ目は2バイトの絶対アドレスを取ることです。小規模なプログラムでは主にラベルを使うため重要ではありませんが、大規模になるとセクション間の移動はジャンプが唯一の手段になります。"
 
+#. TRANSLATORS: Error when a label name conflicts with a defined symbol; %s is the label name
 #, javascript-format
-msgid "Label already defined at line %s: %d"
-msgstr "ラベルは行 %s ですでに定義されています: %d"
+msgid "Label %s is already used as a symbol; please rename one of them"
+msgstr "ラベル %s は既にシンボルとして使用されています。いずれかの名前を変更してください"
 
-#. TRANSLATORS: Error when a label name conflicts with a defined symbol
-msgid "Label {label} is already used as a symbol; please rename one of them"
-msgstr "ラベル {label} は既にシンボルとして使用されています。いずれかの名前を変更してください"
+#. TRANSLATORS: Error when a label is defined twice; %d is the line number, %s the line content
+#, javascript-format
+msgid "Label already defined at line %d: %s"
+msgstr "ラベルは行 %d ですでに定義されています: %s"
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"

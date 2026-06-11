@@ -781,13 +781,15 @@ msgstr "Korjattu käännösvirhe PostmarketOS:ssa, mikä parantaa mobiiliyhteens
 msgid "Follow system style"
 msgstr "Seuraa järjestelmän tyyliä"
 
-#. TRANSLATORS: Informational message after indexing a single label; $d will be replaced by a number
-msgid "Found $d label."
-msgstr "Löydettiin $d otsikko."
+#. TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d label."
+msgstr "Löydettiin %d otsikko."
 
-#. TRANSLATORS: Informational message after indexing multiple labels; $d will be replaced by a number
-msgid "Found $d labels."
-msgstr "Löydettiin $d otsikkoa."
+#. TRANSLATORS: Informational message after indexing multiple labels; %d will be replaced by a number
+#, javascript-format
+msgid "Found %d labels."
+msgstr "Löydettiin %d otsikkoa."
 
 #. TRANSLATORS: Dropdown option label for full memory range
 msgid "Full Memory ($0000-$FFFF)"
@@ -995,13 +997,15 @@ msgstr "Hyppääminen"
 msgid "Jumping is like branching with two main differences. First, jumps are not conditionally executed, and second, they take a two-byte absolute address. For small programs, this second detail isn't very important, as you'll mostly be using labels, and the assembler works out the correct memory location from the label. For larger programs though, jumping is the only way to move from one section of the code to another."
 msgstr "Hyppääminen on kuin haarautumista kahdella pääerolla. Ensinnäkin hyppyjä ei suoriteta ehdollisesti, ja toiseksi ne ottavat kaksitavuisen absoluuttisen osoitteen. Pienille ohjelmille tämä toinen yksityiskohta ei ole kovin tärkeä, koska käytät enimmäkseen otsikoita ja assembleri laskee oikean muistiosoitteen otsikoista. Suuremmissa ohjelmissa hyppääminen on kuitenkin ainoa tapa siirtyä koodin osasta toiseen."
 
+#. TRANSLATORS: Error when a label name conflicts with a defined symbol; %s is the label name
 #, javascript-format
-msgid "Label already defined at line %s: %d"
-msgstr "Otsikko on jo määritelty rivillä %s: %d"
+msgid "Label %s is already used as a symbol; please rename one of them"
+msgstr "Otsikko %s on jo käytössä symbolina; nimeä toinen niistä uudelleen"
 
-#. TRANSLATORS: Error when a label name conflicts with a defined symbol
-msgid "Label {label} is already used as a symbol; please rename one of them"
-msgstr "Otsikko {label} on jo käytössä symbolina; nimeä toinen niistä uudelleen"
+#. TRANSLATORS: Error when a label is defined twice; %d is the line number, %s the line content
+#, javascript-format
+msgid "Label already defined at line %d: %s"
+msgstr "Otsikko on jo määritelty rivillä %d: %s"
 
 #. TRANSLATORS: Toast message title when labels processing fails
 msgid "Labels failure"

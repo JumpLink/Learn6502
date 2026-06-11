@@ -106,3 +106,32 @@ export const debounce = <T extends (...args: any[]) => void>(
 
 /** Pseudo i18n function */
 export const _ = (str: string) => str;
+
+/**
+ * Replaces printf-style placeholders (%s, %d, %%) in a message with the given parameters.
+ *
+ * Used by platforms without their own message formatting: the GNOME app
+ * translates with gettext and formats with GJS's String.format instead,
+ * the Android app with localize() from @nativescript/localize.
+ * Placeholders without a matching parameter are left untouched.
+ *
+ * @param message - Message containing printf-style placeholders.
+ * @param params - Parameters to substitute for the placeholders, in order.
+ * @returns The message with all placeholders replaced.
+ */
+export function formatMessage(
+  message: string,
+  params: ReadonlyArray<string | number | boolean | null | undefined> = []
+): string {
+  let index = 0;
+  return message.replace(/%[%sd]/g, (specifier) => {
+    if (specifier === "%%") {
+      return "%";
+    }
+    if (index >= params.length) {
+      return specifier;
+    }
+    const param = params[index++];
+    return specifier === "%d" ? String(Number(param)) : String(param);
+  });
+}
