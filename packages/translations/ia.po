@@ -665,14 +665,9 @@ msgstr "Dishabilitar pro meliorar prestation"
 msgid "Disassembled"
 msgstr "Disassemblate"
 
-#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
-#, javascript-format
-msgid ""
-"Disassembly:\n"
-"%s"
-msgstr ""
-"Disassemblate:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the disassembly was generated
+msgid "Disassembly generated."
+msgstr "Disassemblage generate."
 
 msgid "Discard"
 msgstr "Abandonar"
@@ -841,8 +836,8 @@ msgstr "Ha tu un proprie creation 6502 interessante? Comparti lo con le communit
 msgid "Green"
 msgstr "Verde"
 
-#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Help window title
+#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Adjuta"
@@ -859,14 +854,9 @@ msgstr "Monitor hex"
 msgid "Hexdump"
 msgstr "Hexdump"
 
-#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
-#, javascript-format
-msgid ""
-"Hexdump:\n"
-"%s"
-msgstr ""
-"Hexdump:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the hexdump was generated
+msgid "Hexdump generated."
+msgstr "Hexdump generate."
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1856,6 +1846,22 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "que representa le locationes de memoria indirectemente adressate <tt>$0411</tt>, <tt>$0410</tt> e <tt>$040f</tt> (tres pixeles in le medio del schermo). Io labora iste puncto, ma illo es importante pro plenemente comprehender como adressage indirecte functiona."
+
+#, javascript-format
+#~ msgid ""
+#~ "Disassembly:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Disassemblate:\n"
+#~ "%s"
+
+#, javascript-format
+#~ msgid ""
+#~ "Hexdump:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Hexdump:\n"
+#~ "%s"
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "Con tote iste exemplos tu poterea trovar lo utile usar le monitor de memoria in le debugger pro reguardar le memoria cambiar. Le monitor prende un location de memoria initial e un numero de bytes pro monstrar de ille location. Ambe de iste es valores hex. Pro exemplo, pro monstrar 16 bytes de memoria de <tt>$c000</tt>, entra <tt>c000</tt> e <tt>10</tt> in <b>Start</b> e <b>Longitude</b>, respectivemente."

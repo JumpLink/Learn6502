@@ -70,17 +70,19 @@ export class GameConsoleEventBridge {
       this.callbacks.showNotification("assemble-failed");
     });
 
+    // The dump contents are shown in the dedicated hexdump/disassembly
+    // views (see updateAssemblerViews), so the console only gets a note
     this.on("hexdump", (signal) => {
       if (signal.message) {
-        // TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
-        this.callbacks.formatAndLog(_("Hexdump:\n%s"), [signal.message]);
+        // TRANSLATORS: Logged to the message console when the hexdump was generated
+        this.callbacks.formatAndLog(_("Hexdump generated."));
       }
     });
 
     this.on("disassembly", (signal) => {
       if (signal.message) {
-        // TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
-        this.callbacks.formatAndLog(_("Disassembly:\n%s"), [signal.message]);
+        // TRANSLATORS: Logged to the message console when the disassembly was generated
+        this.callbacks.formatAndLog(_("Disassembly generated."));
       }
     });
 

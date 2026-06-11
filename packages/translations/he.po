@@ -667,14 +667,9 @@ msgstr "השבתה תשפר את הביצועים"
 msgid "Disassembled"
 msgstr "פענוח"
 
-#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
-#, javascript-format
-msgid ""
-"Disassembly:\n"
-"%s"
-msgstr ""
-"פענוח:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the disassembly was generated
+msgid "Disassembly generated."
+msgstr "פענוח נוצר."
 
 msgid "Discard"
 msgstr "השלך"
@@ -843,8 +838,8 @@ msgstr "יצרתם משהו מגניב עם 6502? שתפו אותו עם הקה�
 msgid "Green"
 msgstr "ירוק"
 
-#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Help window title
+#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "עזרה"
@@ -861,14 +856,9 @@ msgstr "צג הקסדצימלי"
 msgid "Hexdump"
 msgstr "חילוץ הקסדצימלי"
 
-#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
-#, javascript-format
-msgid ""
-"Hexdump:\n"
-"%s"
-msgstr ""
-"חילוץ הקסדצימלי:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the hexdump was generated
+msgid "Hexdump generated."
+msgstr "חילוץ הקסדצימלי נוצר."
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1858,6 +1848,22 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "שמייצג את הכתובות העקיפות <tt>$0411</tt>, <tt>$0410</tt> ו־<tt>$040f</tt> (שלשה פיקסלים במרכז המסך). אני חורש על הנקודה הזאת, אבל היא חיונית להבנה איך מיעון עקיף עובד במלואו."
+
+#, javascript-format
+#~ msgid ""
+#~ "Disassembly:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "פענוח:\n"
+#~ "%s"
+
+#, javascript-format
+#~ msgid ""
+#~ "Hexdump:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "חילוץ הקסדצימלי:\n"
+#~ "%s"
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "עם כל הדוגמאות האלה יתכן ותמצאו עזר במעקב אחר שינויים בזיכרון עם מנטר הזיכרון במנפה השגיאות. המנטר לוקח כתובת התחלתית ואת מספר הבתים להציג החל מכתובת זו. שניהם בערכים הקסדצימלים. לדוגמה, כדי להציג 16 בתים מהזיכרון ב־<tt>$c000</tt>, הזינו <tt>c000</tt> ו־<tt>10</tt> ל־ <b>Start</b> ו־<b>Length</b>, בהתאם."

@@ -667,14 +667,9 @@ msgstr "Poista käytöstä parantaaksesi suorituskykyä"
 msgid "Disassembled"
 msgstr "Takaisinkäännetty"
 
-#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
-#, javascript-format
-msgid ""
-"Disassembly:\n"
-"%s"
-msgstr ""
-"Takaisinkäännetty:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the disassembly was generated
+msgid "Disassembly generated."
+msgstr "Takaisinkäännös luotu."
 
 msgid "Discard"
 msgstr "Hylkää"
@@ -843,8 +838,8 @@ msgstr "Onko sinulla oma hieno 6502-luomus? Jaa se yhteisön kanssa! Voit nyt l�
 msgid "Green"
 msgstr "Vihreä"
 
-#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Help window title
+#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Ohje"
@@ -861,14 +856,9 @@ msgstr "Heksamonitori"
 msgid "Hexdump"
 msgstr "Heksavedos"
 
-#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
-#, javascript-format
-msgid ""
-"Hexdump:\n"
-"%s"
-msgstr ""
-"Heksavedos:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the hexdump was generated
+msgid "Hexdump generated."
+msgstr "Heksavedos luotu."
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1858,6 +1848,22 @@ msgstr "wdm-tulostus"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "joka edustaa epäsuorasti osoitettuja muistiosoitteita <tt>$0411</tt>, <tt>$0410</tt> ja <tt>$040f</tt> (kolme pikseliä näytön keskellä). Jankutan tästä, mutta on tärkeää ymmärtää perusteellisesti, miten epäsuora osoitteistus toimii."
+
+#, javascript-format
+#~ msgid ""
+#~ "Disassembly:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Takaisinkäännetty:\n"
+#~ "%s"
+
+#, javascript-format
+#~ msgid ""
+#~ "Hexdump:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Heksavedos:\n"
+#~ "%s"
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "Kaikkien näiden esimerkkien kanssa voi olla hyödyllistä käyttää vianjäljittimen muistimonitoria muistin muutosten tarkkailuun. Monitori ottaa alkumuistiosoitteen ja näytettävien tavujen määrän. Molemmat ovat heksadesimaaliarvoja. Esimerkiksi näyttääksesi 16 tavua muistista alkaen osoitteesta <tt>$c000</tt>, syötä <tt>c000</tt> ja <tt>10</tt> <b>Alku</b>- ja <b>Pituus</b>-kenttiin."
