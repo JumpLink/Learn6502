@@ -541,10 +541,15 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
       ...rest
     } = params;
     super(rest);
-    // Source code is inherently LTR content, so the whole widget is exempt
-    // from RTL mirroring — like in any code editor, the gutter, scrollbar
-    // and the floating copy button keep their LTR positions.
+    // Source code is inherently LTR content, so the widget is exempt from
+    // RTL mirroring — like in any code editor, the gutter, scrollbar and
+    // the floating copy button keep their LTR positions. GTK does not
+    // propagate the direction to existing children, so every widget that
+    // resolves its own alignment or margins must be pinned individually.
     this.set_direction(Gtk.TextDirection.LTR);
+    this._scrolledWindow.set_direction(Gtk.TextDirection.LTR);
+    this._sourceView.set_direction(Gtk.TextDirection.LTR);
+    this._copyButton.set_direction(Gtk.TextDirection.LTR);
     this.setupScrolledWindow();
 
     // Setup action group and actions
