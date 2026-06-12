@@ -1,0 +1,10 @@
+#gamepad #buttonCenter {
+  /* The center filler is an empty button, so it keeps the default button
+     padding (10px per side) instead of the 5px the surrounding icon buttons
+     get from .image-button. Combined with osd's 32px min-width that pushes
+     its minimum width to 52px, overruling the 50px width-request shared by
+     all d-pad cells and offsetting the up/down buttons by 1px per side.
+     Match the icon buttons' padding so every cell stays exactly 50px. */
+  padding-left: 5px;
+  padding-right: 5px;
+}
