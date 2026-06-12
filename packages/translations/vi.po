@@ -487,6 +487,10 @@ msgstr "Cài đặt giao diện"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Những cải tiến về kiến trúc cho phép chia sẻ mã tốt hơn giữa các nền tảng Gnome, Web và Android."
 
+#. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
+msgid "As always, this release includes many small fixes and improvements."
+msgstr "Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
 msgstr "Miễn là bạn đang di chuyển trong một trong những dải ngang này, mọi thứ đều đơn giản. Ví dụ: để di chuyển sang phải, chỉ cần tăng byte có ý nghĩa nhỏ nhất (ví dụ: <tt>$0200</tt> trở thành <tt>$0201</tt>). Để đi xuống, hãy thêm <tt>$20</tt> (ví dụ: <tt>$0200</tt> trở thành <tt>$0220</tt>). Trái và trên là ngược lại."
@@ -837,6 +841,10 @@ msgstr "Bạn có sáng tạo 6502 thú vị của riêng mình không? Hãy chi
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
 msgstr "Xanh lá"
+
+#. TRANSLATORS: Release notes for version 0.7.0 - right-to-left (RTL) support
+msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
+msgstr "Tiếng Do Thái cũng là ngôn ngữ viết từ phải sang trái đầu tiên của chúng tôi: nhờ việc kiểm thử và những đóng góp của Menachem, ứng dụng hiện đã hỗ trợ bố cục từ phải sang trái, sẵn sàng cho nhiều ngôn ngữ RTL khác."
 
 #. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
@@ -1373,9 +1381,17 @@ msgstr "Chào nhiều bản dịch mới: tiếng Pháp, tiếng Interlingua, ti
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
 msgstr "Ánh xạ màn hình tới phạm vi bộ nhớ <tt>$0200</tt>-<tt>$05FF</tt>"
 
+#. TRANSLATORS: Release notes for version 0.7.0 - Indonesian translation. Keep the greeting 'Selamat datang!', the thanks 'Terima kasih!' and the name 'Arif Budiman' as they are.
+msgid "Selamat datang! We also welcome Indonesian translations, kindly contributed by Arif Budiman. Terima kasih!"
+msgstr "Selamat datang! Chúng tôi cũng chào đón bản dịch tiếng Indonesia, được Arif Budiman nhiệt tình đóng góp. Terima kasih!"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
 msgstr "Nghiêm túc mà nói, tôi nghĩ việc hiểu biết về hợp ngữ là điều có giá trị. Hợp ngữ là mức độ trừu tượng thấp nhất trong máy tính - điểm mà mã vẫn có thể đọc được. Hợp ngữ dịch trực tiếp sang các byte được bộ xử lý máy tính của bạn thực thi. Nếu bạn hiểu cách thức hoạt động của nó thì về cơ bản bạn đã trở thành một <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">ảo thuật gia</a> máy tính."
+
+#. TRANSLATORS: Release notes for version 0.7.0 - Hebrew translation. Keep the greeting 'Shalom!', the thanks 'Toda raba!' and the name 'Menachem (naattxx)' as they are.
+msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by Menachem (naattxx). Toda raba!"
+msgstr "Shalom! Chúng tôi vui mừng chào đón bản dịch tiếng Do Thái, được đóng góp hoàn toàn bởi Menachem (naattxx). Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
 #. TRANSLATORS: Toolbar button tooltip to share the current code
