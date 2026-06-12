@@ -541,20 +541,10 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
       ...rest
     } = params;
     super(rest);
-    // Source code is inherently LTR content, so the widget is exempt from
-    // RTL mirroring — like in any code editor, the gutter, scrollbar and
-    // the floating copy button keep their LTR positions. GTK does not
-    // propagate the direction to existing children, so every widget that
-    // resolves its own alignment or margins must be pinned individually.
-    this.set_direction(Gtk.TextDirection.LTR);
-    this._scrolledWindow.set_direction(Gtk.TextDirection.LTR);
-    this._sourceView.set_direction(Gtk.TextDirection.LTR);
-    this._copyButton.set_direction(Gtk.TextDirection.LTR);
-    // The scrollbars are internal children created before the pin above, so
-    // they kept the RTL default and mapped the scroll position mirrored to
-    // the LTR code content (thumb at the right while showing the left edge)
-    this._scrolledWindow.get_hscrollbar().set_direction(Gtk.TextDirection.LTR);
-    this._scrolledWindow.get_vscrollbar().set_direction(Gtk.TextDirection.LTR);
+    // Source code is inherently LTR content, so the whole widget is exempt
+    // from RTL mirroring — like in any code editor, the gutter, scrollbar
+    // and the floating copy button keep their LTR positions.
+    this.pinDirectionLtr(this);
     this.setupScrolledWindow();
 
     // Setup action group and actions
@@ -803,6 +793,22 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
 
   private emitChanged() {
     this.events.dispatch("changed", { code: this.code });
+  }
+
+  /**
+   * Pin the widget and all its current descendants to LTR.
+   *
+   * gtk_widget_set_direction does not propagate to children, and some of
+   * the widgets that resolve a direction themselves are internal — like the
+   * GtkRange inside each scrollbar, which maps the scroll position: left
+   * unpinned it keeps the RTL default and shows the thumb mirrored to the
+   * LTR code content (at the right end while the view shows the left edge).
+   */
+  private pinDirectionLtr(widget: Gtk.Widget): void {
+    widget.set_direction(Gtk.TextDirection.LTR);
+    for (let child = widget.get_first_child(); child !== null; child = child.get_next_sibling()) {
+      this.pinDirectionLtr(child);
+    }
   }
 
   /**
