@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: eu.jumplink.Learn6502 0.6.5\n"
 "Report-Msgid-Bugs-To: https://github.com/JumpLink/Learn6502/issues\n"
 "POT-Creation-Date: 2025-09-09 21:21+0200\n"
-"PO-Revision-Date: 2026-06-11 05:51+0000\n"
+"PO-Revision-Date: 2026-06-12 19:13+0000\n"
 "Last-Translator: Menachem <alfenmen@gmail.com>\n"
 "Language-Team: Hebrew <https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/he/>\n"
 "Language: he\n"
@@ -15,7 +15,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1) ? 0 : ((n == 2) ? 1 : ((n > 10 && n % 10 == 0) ? 2 : 3));\n"
-"X-Generator: Weblate 2026.6\n"
+"X-Generator: Weblate 2026.7.dev0\n"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
@@ -306,7 +306,7 @@ msgstr "<tt>JMP</tt> היא קפיצה לא מותנית. הנה דוגמה ממ
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>JSR</tt> and <tt>RTS</tt> (\"jump to subroutine\" and \"return from subroutine\") are a dynamic duo that you'll usually see used together. <tt>JSR</tt> is used to jump from the current location to another part of the code. <tt>RTS</tt> returns to the previous position. This is basically like calling a function and returning."
-msgstr "<tt>JSR</tt> ו־<tt>RTS</tt> (\"jump to subroutine\" ו־\"return from subroutine\") הם זוג דינמי שבדרך כלל תראו משמשים יחדיו. <tt>JSR</tt> משמש לקפיצה מהמקום הנוכחי לחלק אחר של הקוד. <tt>RTS</tt> חוזר למקום הקודם. בפשטות זה כמו לקרוא לפונקציה ולחזור ממנה."
+msgstr "<tt>JSR</tt> ו־<tt>RTS</tt> (\"קפוץ לתהליכון\" ו־\"חזור מתהליכון\") הם זוג דינמי שבדרך כלל תראו משמשים יחדיו. <tt>JSR</tt> משמש לקפיצה מהמקום הנוכחי לחלק אחר של הקוד. <tt>RTS</tt> חוזר למקום הקודם. בפשטות זה כמו לקרוא לפונקציה ולחזור ממנה."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>PC</tt> is the program counter - it's how the processor knows at what point in the program it currently is. It's like the current line number of an executing script. In the simulator the code is assembled starting at memory location <tt>$0600</tt>, so <tt>PC</tt> always starts there."
@@ -314,7 +314,7 @@ msgstr "<tt>PC</tt> הוא מונה התוכנה - כך המעבד יודע בא
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>SP</tt> is the stack pointer. I won't get into the stack yet, but basically this register is decremented every time a byte is pushed onto the stack, and incremented when a byte is popped off the stack."
-msgstr "<tt>SP</tt> הוא מצביע המחסנית. אני עוד לא ייכנס למחסנית, אבל בכללות האוגר הזה מופחת כל פעם שבייט נדחף למחסנית, ומוגדל כשמוציאים בייט מהמחסנית."
+msgstr "<tt>SP</tt> הוא מצביע המחסנית. אני לא ייכנס עכשיו למחסנית, אבל בכללות האוגר הזה מופחת כל פעם שבייט נדחף למחסנית, ומוגדל כשמוציאים בייט מהמחסנית."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>X</tt> holds the pixel colour, and <tt>Y</tt> holds the position of the current pixel. The first loop draws the current colour as a pixel (via the <tt>A</tt> register), pushes the colour to the stack, then increments the colour and position. The second loop pops the stack, draws the popped colour as a pixel, then increments the position. As should be expected, this creates a mirrored pattern."
@@ -330,7 +330,7 @@ msgstr "<tt>checkSnakeCollision</tt> עובר על חלקי גופו של הנח
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
-msgstr "<tt>init</tt> ו־<tt>loop</tt> תהליכונים. <tt>init</tt> מאתחל את מצב המשחק, ו־<tt>loop</tt> הוא הלולאה הראשית של המשחק."
+msgstr "<tt>init</tt> ו־<tt>loop</tt> הם תהליכונים. <tt>init</tt> מאתחל את המשחק, ו־<tt>loop</tt> הוא הלולאה הראשית של המשחק."
 
 #. TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
 msgid ""
@@ -472,7 +472,7 @@ msgstr "פרט חשוב להבחין כאן זה ההבדל בין <tt>ADC #$01<
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Any numbers prefixed with <tt>$</tt> in 6502 assembly language (and by extension, in this book) are in hexadecimal (hex) format. If you're not familiar with hex numbers, I recommend you read <a href=\"https://en.wikipedia.org/wiki/Hexadecimal\">the Wikipedia article</a>. Anything prefixed with <tt>#</tt> is a literal number value. Any other number refers to a memory location."
-msgstr "בשפת הסף 6502 (ועל כן, בספר זה) כל מספר עם הקידומת <tt>$</tt> הוא בפורמט הקסדצימלי (הקס). אם אתם לא רגילים לספרות הקסדצימליות, אני ממליץ לכם לקרוא את <a href=\"https://he.wikipedia.org/wiki/%D7%91%D7%A1%D7%99%D7%A1_%D7%94%D7%A7%D7%A1%D7%93%D7%A6%D7%99%D7%9E%D7%9C%D7%99\">דף הוויקיפדיה</a>. כל מספר עם הקידומת <tt>#</tt> הוא הערך הספרתי עצמו. אחרת הוא מתאר כתובת בזיכרון."
+msgstr "בשפת הסף 6502 (ועל כן, בספר זה) כל מספר עם הקידומת <tt>$</tt> הוא בפורמט הקסדצימלי. אם אתם לא רגילים לספרות הקסדצימליות, אני ממליץ לכם לקרוא את <a href=\"https://he.wikipedia.org/wiki/%D7%91%D7%A1%D7%99%D7%A1_%D7%94%D7%A7%D7%A1%D7%93%D7%A6%D7%99%D7%9E%D7%9C%D7%99\">דף הוויקיפדיה</a>. כל מספר עם הקידומת <tt>#</tt> הוא הערך הספרתי עצמו. אחרת הוא מתאר כתובת בזיכרון."
 
 #. TRANSLATORS: Preferences dialog title
 #. TRANSLATORS: Preferences page title for Appearance settings
@@ -716,7 +716,7 @@ msgstr "עם הידע הזה, אתם תוכלו לראות שהפקודה <tt>LD
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
-msgstr "למרות שזו תהיה גרסה פשוטה, הקוד יהיה גדול משמעותית מכל הדוגמאות הקודמות. אנחנו נצתרך לעקוב אחר כמה נקודות זיכרון ביחד בשביל שלל חלקי המשחק. אנחנו עדיין יכולים לרשום ולסדר בעצמינו את כל הפרטים החשובים במהלך התוכנה כמו קודם, אבל בקנה מידה גדול, מהר מאוד זה נהיה מעייף ועלול לגרום לבאגים קשים לאיתור. במקום, אנחנו ניתן עכשיו למאסף לעשות חלק מהעבודה הקשה בשבילנו."
+msgstr "למרות שזו תהיה גרסה פשוטה, הקוד יהיה גדול משמעותית מכל הדוגמאות הקודמות. אנחנו נצתרך לעקוב אחר כמה נקודות זיכרון ביחד בשביל שלל חלקי המשחק. אנחנו עדיין יכולים לרשום ולסדר בעצמינו את כל הפרטים החשובים במהלך התוכנה כמו קודם, אבל בקנה מידה גדול, זה מהר מאוד נהיה מעייף ועלול לגרום לבאגים קשים לאיתור. במקום, אנחנו ניתן עכשיו למאסף לעשות חלק מהעבודה הקשה בשבילנו."
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -819,7 +819,7 @@ msgstr "גרמנית וספרדית אומתו על ידי תורמים. שאר 
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
-msgstr "לעבור בין קטעים זה קצת יותר מסובך, כי צריך לקחת בחשבון גם את הבייט היותר משמעותי. לדוגמה, ירידה מטה מ־<tt>$02e1</tt> אמורה להוביל אל <tt>$0301</tt>. למזלנו, זה די קל לביצוע. כשמוסיפים <tt>$20</tt> ל־<tt>$e1</tt> מקבלים <tt>$01</tt> ודגל הנשא מוגדר. אם דגל הנשא הוגדר, אנחנו יודעים שצריך להגדיל גם את הבייט היותר משמעותי."
+msgstr "לעבור בין קטעים זה קצת יותר מסובך, כי צריך לקחת בחשבון גם את הבייט המשמעותי. לדוגמה, ירידה מטה מ־<tt>$02e1</tt> אמורה להוביל אל <tt>$0301</tt>. למזלנו, זה די קל לביצוע. כשמוסיפים <tt>$20</tt> ל־<tt>$e1</tt> מקבלים <tt>$01</tt> ודגל הנשא מוגדר. אם דגל הנשא הוגדר, אנחנו יודעים שצריך להגדיל גם את הבייט המשמעותי."
 
 #. TRANSLATORS: Description for examples placeholder
 msgid ""
@@ -1066,7 +1066,7 @@ msgstr "מפת זיכרון"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
-msgstr "נקודות הזיכרון <tt>$01</tt> ו־<tt>$02</tt> מכילים את הערכים <tt>$05</tt> ו־<tt>$07</tt> בהתאם. תחשבו על <tt>($00,X)</tt> כ־<tt>($00 + X)</tt>. במקרה הזה <tt>X</tt> שווה ל־<tt>$01</tt>, אז זה פשוט <tt>($01)</tt>. מכאן ממשיכים כמו מיעון עקיף רגיל - שתי הבתים ב־<tt>$01</tt> ו־<tt>$02</tt> (<tt>$05</tt> ו־<tt>$07</tt>) יוצרים את הכתובת <tt>$0705</tt>. זו הכתובת ששמרנו אליה את האוגר <tt>Y</tt> בפקודה הקודמת, אז האוגר <tt>A</tt> מקבל את אותו ערך כמו <tt>Y</tt>, אך דרך מסלול עקלקל ביותר. לא תראו את זה הרבה."
+msgstr "נקודות הזיכרון <tt>$01</tt> ו־<tt>$02</tt> מכילות את הערכים <tt>$05</tt> ו־<tt>$07</tt> בהתאם. תחשבו על <tt>($00,X)</tt> כ־<tt>($00 + X)</tt>. במקרה הזה <tt>X</tt> שווה ל־<tt>$01</tt>, אז זה פשוט <tt>($01)</tt>. מכאן ממשיכים כמו מיעון עקיף רגיל - שתי הבתים ב־<tt>$01</tt> ו־<tt>$02</tt> (<tt>$05</tt> ו־<tt>$07</tt>) יוצרים את הכתובת <tt>$0705</tt>. זו הכתובת ששמרנו אליה את האוגר <tt>Y</tt> בפקודה הקודמת, אז האוגר <tt>A</tt> מקבל את אותו ערך כמו <tt>Y</tt>, אך דרך מסלול עקלקל ביותר. לא תראו את זה הרבה."
 
 #. TRANSLATORS: Section heading label for console messages block
 msgid "Messages"
@@ -1180,7 +1180,7 @@ msgstr "קדם עיבוד..."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
-msgstr "ליחצו <b>צעד</b> שוב כדי להריץ את הפקודה הבאה. עכשיו הפיקסל העליון־שמאלי של קונסולת המשחק אמור להיות לבן. הסימולטור הזה משתמש בנקודות הזכרון בין <tt>$0200</tt> ל־<tt>$05ff</tt> כדי לצבוע פיקסלים במסך שלו. הערכים <tt>$00</tt> עד <tt>$0f</tt> מייצגים 16 צבעים שונים (<tt>$00</tt> זה שחור ו־<tt>$01</tt> זה לבן), אז שמירת הערך <tt>$01</tt> בנקודת הזכרון <tt>$0200</tt> צובעת בלבן את הפיקסל העליון־שמאלי. זה יותר פשוט מאיך שמחשב אמיתי יוציא ווידאו, אבל יספיק לעכשיו."
+msgstr "לחצו <b>צעד</b> שוב כדי להריץ את הפקודה הבאה. עכשיו הפיקסל העליון־שמאלי של קונסולת המשחק אמור להיות לבן. הסימולטור הזה משתמש בנקודות הזכרון בין <tt>$0200</tt> ל־<tt>$05ff</tt> כדי לצבוע פיקסלים במסך שלו. הערכים <tt>$00</tt> עד <tt>$0f</tt> מייצגים 16 צבעים שונים (<tt>$00</tt> זה שחור ו־<tt>$01</tt> זה לבן), אז שמירת הערך <tt>$01</tt> בנקודת הזכרון <tt>$0200</tt> צובעת בלבן את הפיקסל העליון־שמאלי. זה יותר פשוט מאיך שמחשב אמיתי מוציא ווידאו, אבל זה יספיק לעכשיו."
 
 #. TRANSLATORS: Label for next button in share dialog
 msgid "Preview"
@@ -1509,7 +1509,7 @@ msgstr "בידקו את היצירות שלכם על קונסולת משחק ו�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
-msgstr "ה־6502 משתמש בנתיב מידע של 16 ביטים, זאת אומרת ש־65536 בתים של זיכרון זמינים למעבד. זיכרו שבייט מיוצג עם שתי תווים הקסדצימלים, אז בדרך כלל מציגים את כתובות הזיכרון כ־<tt>$0000 - $ffff</tt>. ישנם דרכים רבות לפנות לכתובות האלה, כמפורט למטה."
+msgstr "ה־6502 משתמש בנתיב מידע של 16 ביטים, זאת אומרת ש־65536 בתים של זיכרון זמינים למעבד. זיכרו שבייט מיוצג עם שתי תווים הקסדצימלים, אז בדרך כלל מציגים את כתובות הזיכרון כטווח <tt>$0000 - $ffff</tt>. ישנם דרכים רבות לפנות לכתובות האלה, כמפורט למטה."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is only used to set the zero flag - the actual result is discarded. The zero flag is set only if the result of AND-ing the accumulator with argument is zero. When we're looking at powers of two, the zero flag will only be set if the two numbers are not the same. For example, <tt>0001 AND 0001</tt> is not zero, but <tt>0001 AND 0010</tt> is zero."
@@ -1621,7 +1621,7 @@ msgstr "ההפך מ־<tt>BNE</tt> זה <tt>BEQ</tt>. נסו לכתוב תוכנ�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The problem is, <tt>$184</tt> is too big to fit in a single byte (the max is <tt>$FF</tt>), and the registers can only hold a single byte. It's OK though; the processor isn't actually dumb. If you were looking carefully enough, you'll have noticed that the carry flag was set to <tt>1</tt> after this operation. So that's how you know."
-msgstr "הבעיה היא, ש־<tt>$184</tt> מידי גדול בשביל להיכנס לבייט (המקסימום הוא <tt>$FF</tt>), והאוגרים יכולים להכיל רק בייט בודד. אבל זה בסדר; למעשה המעבד לא טיפש. אם עקבתם מספיק בזהירות, וודאי הבחנתם שדגל הנשא הוגדר ל־<tt>1</tt> אחר הפעולה הזאת. וכך תוכלו לדעת."
+msgstr "הבעיה היא, ש־<tt>$184</tt> גדול מהכיל בבייט בודד (המקסימום הוא <tt>$FF</tt>), והאוגרים יכולים להכיל רק בייט בודד. אבל זה בסדר; למעשה המעבד לא טיפש. אם עקבתם מספיק בזהירות, וודאי הבחנתם שדגל הנשא הוגדר ל־<tt>1</tt> אחר הפעולה הזאת. וכך תוכלו לדעת."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The processor knows where to return to because <tt>JSR</tt> pushes the address minus one of the next instruction onto the stack before jumping to the given location. <tt>RTS</tt> pops this location, adds one to it, and jumps to that location. An example:"
@@ -1645,7 +1645,7 @@ msgstr "המחסנית במעבד 6502 היא בדיוק כמו כל מחסני�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
-msgstr "דף האפס של הזיכרון משמש לשמירת מספר משתנים של מצב המשחק, כמצויין בההערה בתחילה המשחק. הכל ב־<tt>$00</tt>, <tt>$01</tt> ו־<tt>$10</tt> ומעלה מורכב מזוגות בתים שמייצגים נקודות זיכרון בנות שתי בתים שיגשו אליהן במיעון עקיף. כל נקודות הזיכרון האלו יהיו בין <tt>$0200</tt> ו־<tt>$05ff</tt> - קטע הזיכרון שמחובר למסך המשחק. לדוגמה, אם <tt>$00</tt> ו־<tt>$01</tt> יכילו את הערכים <tt>$01</tt> ו־<tt>$02</tt>, הכוונה בהם היא לפיקסל השני של המסך ( <tt>$0201</tt> - זיכרו, הבייט השולי מגיע ראשון במיעון עקיף)."
+msgstr "דף האפס של הזיכרון משמש לשמירת מספר משתנים של מצב המשחק, כמצויין בההערה בתחילה המשחק. הכל ב־<tt>$00</tt>, <tt>$01</tt> ו־<tt>$10</tt> ומעלה מורכב מזוגות בתים שמייצגים נקודות זיכרון בנות שתי בתים שיגשו אליהן במיעון עקיף. כל נקודות הזיכרון האלו יהיו בין <tt>$0200</tt> ו־<tt>$05ff</tt> - קטע הזיכרון שמחובר למסך המשחק. לדוגמה, אם <tt>$00</tt> ו־<tt>$01</tt> יכילו את הערכים <tt>$01</tt> ו־<tt>$02</tt>, הכוונה בהם היא לפיקסל השני של המסך (<tt>$0201</tt> – זיכרו, הבייט השולי מגיע ראשון במיעון עקיף)."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
@@ -1779,7 +1779,7 @@ msgstr "במיעון מוחלט, משתמשים בכתובת הזכרון המל
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "With all these examples you might find it helpful to use the <b>Hex Monitor</b> in the debug view to watch the memory change. Pick a memory region from the list to see that section — for example, <b>Display Memory ($0200–$05FF)</b> to watch the screen pixels, or <b>Zero Page ($0000–$00FF)</b> to inspect the first 256 bytes."
-msgstr "עם כל הדוגמאות האלה אולי תמצאו עזר ב<b>צג ההקסדצימלי</b> בתצוגת ניפוי השגיאות כדי לעקוב אחר השינויים בזיכרון. בחרו אזור זיכרון מהרשימה כדי לראות את הקטע הזה — לדוגמה, <b>זיכרון תצוגה ($0200–$05FF)</b> כדי לצפות בפיקסלים שבמסך, או <b>דף אפס ($0000–$00FF)</b> כדי לבחון את 256 הבתים הראשונים."
+msgstr "בין כל הדוגמאות האלה אולי תמצאו עזר ב<b>צג ההקסדצימלי</b> בתצוגת ניפוי השגיאות כדי לעקוב אחר השינויים בזיכרון. בחרו אזור זיכרון מהרשימה כדי לראות את הקטע הזה — לדוגמה, <b>זיכרון תצוגה ($0200–$05FF)</b> כדי לצפות בפיקסלים שבמסך, או <b>דף אפס ($0000–$00FF)</b> כדי לבחון את 256 הבתים הראשונים."
 
 #. TRANSLATORS: Feature list item about integrated code editor
 msgid "Write and edit code with a built-in code editor"
