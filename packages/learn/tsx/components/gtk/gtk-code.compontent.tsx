@@ -160,7 +160,9 @@ export class GtkCode extends GtkWidget<GtkCodeProps> {
    */
   protected parseAttributes(props: GtkCodeProps): Partial<GtkCodeProps> {
     let language = props.language || "";
-    let readonly = props.readonly || false;
+    // MDX code blocks are documentation, so they always render read-only;
+    // the only editable SourceView is the editor itself
+    let readonly = props.readonly ?? true;
     let copyable = props.copyable || false;
     let unselectable = props.unselectable || false;
     let noLineNumbers = props.noLineNumbers || false;

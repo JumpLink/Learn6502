@@ -173,10 +173,25 @@ template $MainWindow: Adw.ApplicationWindow {
                     hexpand: true;
                     vexpand: true;
 
-                    // Center column (Editor)
-                    Box centerColumn {
+                    // Center column (Editor) with the run toolbar anchored to
+                    // its edge, so it tracks the editor across all breakpoints
+                    // and text directions instead of relying on a fixed margin
+                    Overlay centerOverlay {
                       hexpand: true;
                       vexpand: true;
+
+                      child: Box centerColumn {
+                        hexpand: true;
+                        vexpand: true;
+                      };
+
+                      [overlay]
+                      $Toolbar runToolbar {
+                        halign: end;
+                        valign: start;
+                        margin-end: 12;
+                        margin-top: 12;
+                      }
                     }
 
                     Separator {}
@@ -229,13 +244,6 @@ template $MainWindow: Adw.ApplicationWindow {
         margin-bottom: 0;
       }
 
-      [overlay]
-      $Toolbar runToolbar {
-        halign: end;
-        valign: start;
-        margin-end: 360;
-        margin-top: 46;
-      }
     };
 
     [bottom]

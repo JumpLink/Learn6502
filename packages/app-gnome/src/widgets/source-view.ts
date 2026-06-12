@@ -262,6 +262,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
    */
   public set editable(value: boolean) {
     this._sourceView.set_editable(value);
+    this.updateCurrentLineHighlight();
   }
 
   /**
@@ -315,7 +316,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
         this.copyClipboardSignalId = undefined;
       }
     }
-    this._sourceView.highlight_current_line = true;
+    this.updateCurrentLineHighlight();
   }
 
   /**
@@ -796,6 +797,14 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
   }
 
   /**
+   * Highlight the cursor line only while editing: in read-only code blocks
+   * the idle cursor (sitting at the last line) would look like a selection.
+   */
+  private updateCurrentLineHighlight() {
+    this._sourceView.highlight_current_line = this._sourceView.editable;
+  }
+
+  /**
    * Pin the widget and all its current descendants to LTR.
    *
    * gtk_widget_set_direction does not propagate to children, and some of
@@ -823,7 +832,7 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
       scheme = this.schemeManager.get_scheme(isDark ? "Adwaita-dark" : "Adwaita");
     }
     if (scheme) this.buffer.set_style_scheme(scheme);
-    this._sourceView.set_highlight_current_line(true);
+    this.updateCurrentLineHighlight();
   }
 
   /**
