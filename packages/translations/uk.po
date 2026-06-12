@@ -486,6 +486,10 @@ msgstr "Налаштування вигляду"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Поліпшення архітектури забезпечують кращий обмін кодом між платформами GNOME, Web та Android."
 
+#. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
+msgid "As always, this release includes many small fixes and improvements."
+msgstr "Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
 msgstr "Поки ви рухаєтеся в межах однієї з цих горизонтальних смуг, все просто. Наприклад, щоб рухатися вправо, просто збільште молодший байт (наприклад, <tt>$0200</tt> стає <tt>$0201</tt>). Щоб рухатися вниз, додайте <tt>$20</tt> (наприклад, <tt>$0200</tt> стає <tt>$0220</tt>). Вліво та вгору — навпаки."
@@ -836,6 +840,10 @@ msgstr "Є власна класна розробка на 6502? Поділіт�
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
 msgstr "Зелений"
+
+#. TRANSLATORS: Release notes for version 0.7.0 - right-to-left (RTL) support
+msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
+msgstr "Іврит — це також наша перша мова з письмом справа наліво: завдяки тестуванню та внескам Menachem застосунок тепер підтримує розташування справа наліво й готовий до нових мов RTL."
 
 #. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
@@ -1372,9 +1380,17 @@ msgstr "Зустрічайте багато нових перекладів: ф�
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
 msgstr "Екран відповідає діапазону пам'яті <tt>$0200</tt>-<tt>$05FF</tt>"
 
+#. TRANSLATORS: Release notes for version 0.7.0 - Indonesian translation. Keep the greeting 'Selamat datang!', the thanks 'Terima kasih!' and the name 'Arif Budiman' as they are.
+msgid "Selamat datang! We also welcome Indonesian translations, kindly contributed by Arif Budiman. Terima kasih!"
+msgstr "Selamat datang! Ми також вітаємо індонезійський переклад, люб'язно наданий Arif Budiman. Terima kasih!"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
 msgstr "Серйозно, розуміння мови асемблера — цінне. Асемблер — це найнижчий рівень абстракції, на якому код ще читабельний, і він безпосередньо відображається у байти, що виконує процесор. Зрозумівши, як це працює, ви фактично стаєте <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">маґом</a> у програмуванні."
+
+#. TRANSLATORS: Release notes for version 0.7.0 - Hebrew translation. Keep the greeting 'Shalom!', the thanks 'Toda raba!' and the name 'Menachem (naattxx)' as they are.
+msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by Menachem (naattxx). Toda raba!"
+msgstr "Shalom! Ми раді вітати переклад на іврит, повністю наданий Menachem (naattxx). Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
 #. TRANSLATORS: Toolbar button tooltip to share the current code

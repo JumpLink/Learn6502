@@ -488,6 +488,10 @@ msgstr "Paramètres d'apparence"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Les améliorations de l'architecture permettent un meilleur partage de code entre les plateformes GNOME, Web et Android."
 
+#. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
+msgid "As always, this release includes many small fixes and improvements."
+msgstr "Comme toujours, cette version inclut de nombreux petits correctifs et améliorations."
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
 msgstr "Tant que vous vous déplacez dans une de ces bandes horizontales, les choses sont simples. Par exemple, pour aller à droite, il suffit d'incrémenter l'octet le moins significatif (par ex. <tt>$0200</tt> devient <tt>$0201</tt>). Pour descendre, ajoutez <tt>$20</tt> (par ex. <tt>$0200</tt> devient <tt>$0220</tt>). Gauche et haut sont l'inverse."
@@ -838,6 +842,10 @@ msgstr "Vous avez votre propre création 6502 ? Partagez-la avec la communauté 
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
 msgstr "Vert"
+
+#. TRANSLATORS: Release notes for version 0.7.0 - right-to-left (RTL) support
+msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
+msgstr "L'hébreu est aussi notre première langue s'écrivant de droite à gauche : grâce aux tests et aux contributions de Menachem, l'application prend désormais en charge les mises en page de droite à gauche, la préparant à d'autres langues RTL."
 
 #. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
@@ -1374,9 +1382,17 @@ msgstr "Découvrez de nombreuses nouvelles traductions : français, interlingua,
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
 msgstr "L'écran correspond à la plage mémoire <tt>$0200</tt>-<tt>$05FF</tt>"
 
+#. TRANSLATORS: Release notes for version 0.7.0 - Indonesian translation. Keep the greeting 'Selamat datang!', the thanks 'Terima kasih!' and the name 'Arif Budiman' as they are.
+msgid "Selamat datang! We also welcome Indonesian translations, kindly contributed by Arif Budiman. Terima kasih!"
+msgstr "Selamat datang ! Nous accueillons également la traduction en indonésien, aimablement contribuée par Arif Budiman. Terima kasih !"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
 msgstr "Sérieusement, je pense qu'il est précieux de comprendre le langage assembleur. Le langage assembleur est le niveau d'abstraction le plus bas en informatique - le point où le code reste lisible. Le langage assembleur se traduit directement en octets exécutés par le processeur de votre ordinateur. Si vous comprenez comment ça marche, vous devenez en quelque sorte un <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magicien</a> de l'informatique."
+
+#. TRANSLATORS: Release notes for version 0.7.0 - Hebrew translation. Keep the greeting 'Shalom!', the thanks 'Toda raba!' and the name 'Menachem (naattxx)' as they are.
+msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by Menachem (naattxx). Toda raba!"
+msgstr "Shalom ! Nous sommes heureux d'accueillir la traduction en hébreu, entièrement contribuée par Menachem (naattxx). Toda raba !"
 
 #. TRANSLATORS: Menu item to share the current code
 #. TRANSLATORS: Toolbar button tooltip to share the current code
