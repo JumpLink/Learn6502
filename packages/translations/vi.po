@@ -667,14 +667,9 @@ msgstr "Vô hiệu hóa để cải thiện hiệu suất"
 msgid "Disassembled"
 msgstr "Đã tháo rời"
 
-#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
-#, javascript-format
-msgid ""
-"Disassembly:\n"
-"%s"
-msgstr ""
-"Đã tháo rời:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the disassembly was generated
+msgid "Disassembly generated."
+msgstr "Đã tạo mã tháo rời."
 
 msgid "Discard"
 msgstr "Loại bỏ"
@@ -843,8 +838,8 @@ msgstr "Bạn có sáng tạo 6502 thú vị của riêng mình không? Hãy chi
 msgid "Green"
 msgstr "Xanh lá"
 
-#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Help window title
+#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Trợ giúp"
@@ -861,14 +856,9 @@ msgstr "Hex Monitor"
 msgid "Hexdump"
 msgstr "Hexdump"
 
-#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
-#, javascript-format
-msgid ""
-"Hexdump:\n"
-"%s"
-msgstr ""
-"Hexdump:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the hexdump was generated
+msgid "Hexdump generated."
+msgstr "Đã tạo hexdump."
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1858,6 +1848,22 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "đại diện cho các vị trí bộ nhớ được đánh địa chỉ gián tiếp <tt>$0411</tt>, <tt>$0410</tt> và <tt>$040f</tt> (ba pixel ở giữa màn hình). Tôi đang nghiên cứu vấn đề này, nhưng điều quan trọng là phải hiểu rõ cách thức hoạt động của địa chỉ gián tiếp."
+
+#, javascript-format
+#~ msgid ""
+#~ "Disassembly:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Đã tháo rời:\n"
+#~ "%s"
+
+#, javascript-format
+#~ msgid ""
+#~ "Hexdump:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "Hexdump:\n"
+#~ "%s"
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "Với tất cả các ví dụ này, bạn có thể thấy hữu ích khi sử dụng trình giám sát bộ nhớ trong trình gỡ lỗi để xem sự thay đổi bộ nhớ. Màn hình lấy vị trí bộ nhớ bắt đầu và một số byte để hiển thị từ vị trí đó. Cả hai đều là giá trị hex. Ví dụ: để hiển thị 16 byte bộ nhớ từ <tt>$c000</tt>, hãy nhập <tt>c000</tt> và <tt>10</tt> vào <b>Bắt Đầu</b> và <b>Độ Dài</b> tương ứng."

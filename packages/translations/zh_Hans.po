@@ -667,14 +667,9 @@ msgstr "禁用以提升性能"
 msgid "Disassembled"
 msgstr "反汇编"
 
-#. TRANSLATORS: Heading shown in the message console above the disassembly output; %s is the disassembly
-#, javascript-format
-msgid ""
-"Disassembly:\n"
-"%s"
-msgstr ""
-"反汇编:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the disassembly was generated
+msgid "Disassembly generated."
+msgstr "已生成反汇编。"
 
 msgid "Discard"
 msgstr "放弃"
@@ -843,8 +838,8 @@ msgstr "有自己很酷的6502作品吗？与社区分享吧！您现在可以�
 msgid "Green"
 msgstr "绿色"
 
-#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Help window title
+#. TRANSLATORS: Help menu item label
 #. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "帮助"
@@ -861,14 +856,9 @@ msgstr "十六进制监视器"
 msgid "Hexdump"
 msgstr "十六进制转储"
 
-#. TRANSLATORS: Heading shown in the message console above the hexdump output; %s is the hexdump
-#, javascript-format
-msgid ""
-"Hexdump:\n"
-"%s"
-msgstr ""
-"十六进制转储:\n"
-"%s"
+#. TRANSLATORS: Logged to the message console when the hexdump was generated
+msgid "Hexdump generated."
+msgstr "已生成十六进制转储。"
 
 #. Fallback icon, won't be shown
 #. TRANSLATORS: Main action button label when hidden (fallback)
@@ -1858,6 +1848,22 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 与 <tt>$040f</tt>（显示中部的三个像素）。之所以反复强调，是因为完全理解间接寻址的工作方式非常重要。"
+
+#, javascript-format
+#~ msgid ""
+#~ "Disassembly:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "反汇编:\n"
+#~ "%s"
+
+#, javascript-format
+#~ msgid ""
+#~ "Hexdump:\n"
+#~ "%s"
+#~ msgstr ""
+#~ "十六进制转储:\n"
+#~ "%s"
 
 #~ msgid "With all these examples you might find it helpful to use the memory monitor in the debugger to watch the memory change. The monitor takes a starting memory location and a number of bytes to display from that location. Both of these are hex values. For example, to display 16 bytes of memory from <tt>$c000</tt>, enter <tt>c000</tt> and <tt>10</tt> into <b>Start</b> and <b>Length</b>, respectively."
 #~ msgstr "在这些示例中，使用调试器的内存监视器观察内存变化会很有帮助。监视器需要一个起始内存位置和从该位置开始显示的字节数，二者均为十六进制值。比如，要显示自 <tt>$c000</tt> 起的 16 字节，请在 <b>Start</b> 输入 <tt>c000</tt>，在 <b>Length</b> 输入 <tt>10</tt>。"
