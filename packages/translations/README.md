@@ -82,14 +82,14 @@ To test your translations locally in the GNOME app:
 # From the repository root
 
 # 1) Build translations (creates MO files under packages/translations/dist/locale)
-yarn workspace @learn6502/translations run build
+gjsify workspace @learn6502/translations build
 
 # 2) Build the GNOME app (copies MO files for local runs)
-yarn workspace @learn6502/app-gnome run build
+gjsify workspace @learn6502/app-gnome build
 
 # 3) Start the app in a specific language (examples)
-LANGUAGE=nl yarn start:gnome     # Dutch
-LANGUAGE=es yarn start:gnome     # Spanish
+LANGUAGE=nl gjsify run start:gnome     # Dutch
+LANGUAGE=es gjsify run start:gnome     # Spanish
 ```
 
 If translations do not appear, verify the compiled file exists at:

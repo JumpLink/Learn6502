@@ -10,13 +10,13 @@ To build and run the application locally:
 
 ```bash
 # Install dependencies
-yarn install
+gjsify install
 
-# Build the application and its dependencies in this yarn workspace
-yarn build:with-deps
+# Build the application and its dependencies in this workspace
+gjsify run build:with-deps
 
 # Start the application
-yarn start
+gjsify run start
 ```
 
 ### Flatpak Build
@@ -40,5 +40,5 @@ The application depends on several GNOME libraries and internal packages:
   - `@learn6502/translations`: Localization support
 
 ```bash
-yarn start
+gjsify run start
 ```

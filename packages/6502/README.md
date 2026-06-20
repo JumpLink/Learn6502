@@ -25,7 +25,7 @@ This package is used internally by both the GNOME application and web version to
 To build this package:
 
 ```bash
-yarn build
+gjsify run build
 ```
 
 ## License
