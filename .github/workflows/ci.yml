@@ -44,11 +44,10 @@ jobs:
       - name: Lint
         run: gjsify lint
 
-      - name: Build packages
-        run: |
-          gjsify workspace @learn6502/6502 build
-          gjsify workspace @learn6502/examples build
-          gjsify workspace @learn6502/learn build
+      # Note: package builds + type-checks run in the `type-check` job below,
+      # which is on Fedora (has `gjs`). `6502`'s build is `gjsify tsc` and
+      # `app-gnome`'s `check` is `gjsify tsc`, both of which spawn `gjs` —
+      # unavailable on ubuntu — so this job stays format + lint only.
 
   type-check:
     # The `check` scripts run `gjsify tsc` — a Node-free TypeScript compiler
