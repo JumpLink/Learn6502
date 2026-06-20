@@ -9,7 +9,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "rm -rf dist",
     "check": "gjsify tsc --noEmit",
-    "build": "echo \"tsc\" && tsc --declaration"
+    "build": "gjsify tsc --declaration"
   },
   "author": "Stian Soreng, Nick Morgan, Pascal Garber",
   "license": "GPL-3.0-only",

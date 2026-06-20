@@ -7,13 +7,13 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "rm -rf dist _site",
-    "setup": "yarn exec 'gem install bundler jekyll' && yarn exec 'bundle install'",
+    "setup": "gem install bundler jekyll && bundle install",
     "build:vite": "vite build",
     "build": "gjsify run build:vite",
     "check": "gjsify tsc --noEmit",
     "start:app": "gjsify run dist/main.js",
     "debug:app": "GTK_DEBUG=interactive gjsify run dist/main.js",
-    "start": "yarn exec 'bundle exec jekyll serve'"
+    "start": "bundle exec jekyll serve"
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
