@@ -10,8 +10,17 @@
       "runtime": "gnome",
       "runtimeVersion": "50",
       "sdkExtensions": [
-        "org.freedesktop.Sdk.Extension.node24",
-        "org.freedesktop.Sdk.Extension.typescript"
+        "org.freedesktop.Sdk.Extension.node24"
+      ],
+      "modules": [
+        {
+          "name": "Learn6502",
+          "buildsystem": "meson",
+          "sources": [
+            { "type": "dir", "path": "." },
+            "gjsify-sources.json"
+          ]
+        }
       ],
       "command": "eu.jumplink.Learn6502",
       "finishArgs": [
