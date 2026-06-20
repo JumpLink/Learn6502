@@ -4,11 +4,10 @@
   "runtime-version": "50",
   "sdk": "org.gnome.Sdk",
   "sdk-extensions": [
-    "org.freedesktop.Sdk.Extension.node24",
-    "org.freedesktop.Sdk.Extension.typescript"
+    "org.freedesktop.Sdk.Extension.node24"
   ],
   "build-options": {
-    "append-path": "/usr/lib/sdk/node24/bin:/usr/lib/sdk/typescript/bin:/app/bin"
+    "append-path": "/usr/lib/sdk/node24/bin:/app/bin"
   },
   "command": "eu.jumplink.Learn6502",
   "finish-args": [
@@ -25,7 +24,8 @@
         {
           "type": "dir",
           "path": "."
-        }
+        },
+        "gjsify-sources.json"
       ]
     }
   ]
