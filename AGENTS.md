@@ -4,7 +4,7 @@ Prefer retrieval-led reasoning over pre-training-led reasoning when referencing 
 
 ## Project
 
-Yarn 4 monorepo — 6502 assembly learning environment with GNOME, Web, and Android apps.
+Monorepo managed with `gjsify install` (`gjsify-lock.json`) — 6502 assembly learning environment with GNOME, Web, and Android apps. (The Flatpak build still vendors deps via the committed Yarn Berry cache pending its own gjsify migration.)
 Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform code in `app-*` packages; refactor freely across packages when it improves architecture.
 
 ## Packages
@@ -34,8 +34,8 @@ Applies to all `.ts`/`.tsx` files.
 ## Commits
 
 - No unprompted commits — always ask permission first
-- Validate before commit: `yarn format` → `yarn check:format` → `yarn build`
-- `yarn check` (full type check) only after larger changes — very slow
+- Validate before commit: `gjsify format` → `gjsify format --check` → `gjsify build`
+- `gjsify check` (full type check) only after larger changes — very slow
 - Atomic, self-contained commits; working code only
 - Format: `<type>[scope]: <description>` — imperative mood, ≤50 char subject
 - Platform prefixes: `Android:` | `Web:` | `Gnome:` | `Common:` | `Core:` | `Learn:` | `Translations:`
@@ -331,7 +331,7 @@ Persona: native speaker + software engineer + 6502/retro dev interest. Produce a
 
 **Reference:** Other language files in `packages/translations/*.po` (de, es, fr, ia, nl) as context.
 
-**Validate:** `yarn workspace @learn6502/translations run build`
+**Validate:** `gjsify workspace @learn6502/translations build`
 
 ## Documentation
 

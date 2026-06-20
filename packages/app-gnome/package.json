@@ -96,7 +96,7 @@
     "build:resources": "gjsify gresource data/eu.jumplink.Learn6502.data.gresource.xml --sourcedir data",
     "build:schema": "gjsify gsettings data --targetdir data/schemas --strict",
     "build:locale": "[ \"${BUILD_MODE:-}\" = \"flatpak\" ] || (rm -rf ${DATADIR:-./data}/locale && cp -r ../translations/dist/locale ${DATADIR:-./data}/locale) 2>/dev/null || true",
-    "build:with-deps": "yarn workspaces foreach -pRv --from @learn6502/app-gnome --topological-dev run build",
+    "build:with-deps": "gjsify workspace @learn6502/app-gnome build --with-dependencies",
     "build": "gjsify run build:gjs && gjsify run build:resources && gjsify run build:schema && gjsify run build:locale",
     "check": "gjsify run check:typescript && gjsify run check:metainfo",
     "check:typescript": "gjsify tsc",

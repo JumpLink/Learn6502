@@ -20,23 +20,35 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Enable Corepack
-        run: corepack enable
+      # Content-addressed tarball store: a warm cache lets `gjsify install
+      # --immutable` skip the download phase (reads tarballs by SRI integrity).
+      - name: Cache gjsify tarball store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/gjsify/tarballs
+          key: gjsify-tarballs-${{ hashFiles('gjsify-lock.json') }}
+          restore-keys: gjsify-tarballs-
+
+      # Bootstrap the gjsify CLI globally so `gjsify install` is runnable before
+      # node_modules exists (the chicken-and-egg). After install, package scripts
+      # resolve the workspace-local `node_modules/.bin/gjsify`.
+      - name: Install gjsify CLI
+        run: npm install -g @gjsify/cli@^0.8.0
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: gjsify install --immutable
 
       - name: Check formatting
-        run: yarn check:format
+        run: gjsify format --check
 
       - name: Lint
-        run: yarn lint
+        run: gjsify lint
 
       - name: Build packages
         run: |
-          yarn workspace @learn6502/6502 run build
-          yarn workspace @learn6502/examples run build
-          yarn workspace @learn6502/learn run build
+          gjsify workspace @learn6502/6502 build
+          gjsify workspace @learn6502/examples build
+          gjsify workspace @learn6502/learn build
 
   type-check:
     # The `check` scripts run `gjsify tsc` — a Node-free TypeScript compiler
@@ -61,27 +73,33 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Cache gjsify tarball store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/gjsify/tarballs
+          key: gjsify-tarballs-${{ hashFiles('gjsify-lock.json') }}
+          restore-keys: gjsify-tarballs-
+
+      - name: Install gjsify CLI
+        run: npm install -g @gjsify/cli@^0.8.0
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: gjsify install --immutable
 
       # Build the workspace deps that publish built output (`@learn6502/6502`,
       # `examples`, `learn` ship `dist/*.d.ts`; `common-ui` exports source).
       # Without this, type-checking common-ui/app-* fails with TS2307 "Cannot
-      # find module '@learn6502/6502'" — its types only exist after `tsc
-      # --declaration`. (The Code Quality job builds these on its own runner.)
+      # find module '@learn6502/6502'" — its types only exist after a build.
       - name: Build workspace dependencies
         run: |
-          yarn workspace @learn6502/6502 run build
-          yarn workspace @learn6502/examples run build
-          yarn workspace @learn6502/learn run build
+          gjsify workspace @learn6502/6502 build
+          gjsify workspace @learn6502/examples build
+          gjsify workspace @learn6502/learn build
 
       - name: Type check (gjsify tsc under GJS)
         run: |
-          yarn workspace @learn6502/6502 run check
-          yarn workspace @learn6502/common-ui run check
-          yarn workspace @learn6502/app-web run check
-          yarn workspace @learn6502/app-gnome run check:typescript
-          yarn workspace @learn6502/app-android run check
+          gjsify workspace @learn6502/6502 check
+          gjsify workspace @learn6502/common-ui check
+          gjsify workspace @learn6502/app-web check
+          gjsify workspace @learn6502/app-gnome check:typescript
+          gjsify workspace @learn6502/app-android check
