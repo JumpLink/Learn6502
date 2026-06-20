@@ -27,7 +27,7 @@ The transformation process is handled by TypeScript components in the `tsx/` dir
 To build the transformed content:
 
 ```bash
-yarn build
+gjsify run build
 ```
 
 This will generate the necessary output files in the `dist/` directory.

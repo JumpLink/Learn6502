@@ -15,10 +15,10 @@ The original version can still be found at http://skilldrick.github.io/easy6502/
 To run the web version locally, execute the following commands:
 
 ```
-    yarn install
-    yarn setup
-    yarn build
-    yarn start
+    gjsify install
+    gjsify run setup
+    gjsify run build
+    gjsify run start
 ```
 
 This will serve the site at http://localhost:4000.

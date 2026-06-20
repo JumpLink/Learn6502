@@ -122,18 +122,9 @@ dist
 # Stores VSCode versions used for testing VSCode extensions
 .vscode-test
 
-# https://yarnpkg.com/getting-started/qa#which-files-should-be-gitignored
-.yarn/*
-!.yarn/cache
-# To large to commit
-.yarn/cache/@nativescript-android-*
-.yarn/cache/@nativescript-types-android-npm-*
-
-!.yarn/patches
-!.yarn/plugins
-!.yarn/releases
-!.yarn/sdks
-!.yarn/versions
+# Yarn is no longer used — the project installs with `gjsify install`
+# (gjsify-lock.json) and the Flatpak build vendors deps via gjsify-sources.json.
+.yarn/
 
 # Vite
 vite.config.js.timestamp*

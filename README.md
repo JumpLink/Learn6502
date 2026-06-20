@@ -45,24 +45,24 @@ To get started with local development:
 
 ```bash
 # Install dependencies
-yarn install
+gjsify install
 
 # Build all packages
-yarn build
+gjsify run build
 
 # Start the GNOME application
-yarn start:gnome
+gjsify run start:gnome
 ```
 
 ### Flatpak Build
 
 ### Building
 
-To build the packages, run `yarn build` in the root of the repository.
+To build the packages, run `gjsify run build` in the root of the repository.
 
 ### Running
 
-To run the packages, run `yarn start:gnome` for the GNOME app or `yarn start:web` for the web app.
+To run the packages, run `gjsify run start:gnome` for the GNOME app or `gjsify run start:web` for the web app.
 
 ## Contributing
 
