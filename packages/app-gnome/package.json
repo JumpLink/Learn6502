@@ -77,6 +77,11 @@
         "env": "PKGDATADIR",
         "default": "./data"
       }
+    },
+    "storybook": {
+      "applicationId": "eu.jumplink.Learn6502.Storybook",
+      "title": "Learn6502 Storybook",
+      "globals": "auto,dom"
     }
   },
   "scripts": {
@@ -98,29 +103,31 @@
     "start:app": "GSETTINGS_SCHEMA_DIR=$PWD/data/schemas gjsify run eu.jumplink.Learn6502",
     "debug:app": "GTK_DEBUG=interactive GSETTINGS_SCHEMA_DIR=$PWD/data/schemas gjsify run eu.jumplink.Learn6502",
     "start": "gjsify run start:app",
-    "check:metainfo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream data/metainfo/eu.jumplink.Learn6502.metainfo.xml"
+    "check:metainfo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream data/metainfo/eu.jumplink.Learn6502.metainfo.xml",
+    "storybook": "gjsify storybook"
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "@gjsify/cli": "^0.4.41",
-    "@gjsify/vite-plugin-blueprint": "^0.4.37",
-    "@gjsify/vite-plugin-gettext": "^0.4.37",
+    "@gjsify/cli": "^0.8.0",
+    "@gjsify/vite-plugin-blueprint": "^0.8.0",
+    "@gjsify/vite-plugin-gettext": "^0.8.0",
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@girs/adw-1": "^1.10.0-4.0.0-rc.13",
-    "@girs/gdk-4.0": "^4.0.0-4.0.0-rc.13",
-    "@girs/gdkpixbuf-2.0": "^2.0.0-4.0.0-rc.13",
-    "@girs/gio-2.0": "^2.88.0-4.0.0-rc.13",
-    "@girs/gjs": "^4.0.0-rc.13",
-    "@girs/glib-2.0": "^2.88.0-4.0.0-rc.13",
-    "@girs/gobject-2.0": "^2.88.0-4.0.0-rc.13",
-    "@girs/gtk-4.0": "^4.23.0-4.0.0-rc.13",
-    "@girs/gtksource-5": "^5.20.0-4.0.0-rc.13",
-    "@girs/javascriptcore-6.0": "^2.52.1-4.0.0-rc.13",
-    "@girs/pango-1.0": "^1.57.1-4.0.0-rc.13",
-    "@girs/webkit-6.0": "^2.52.1-4.0.0-rc.13",
+    "@girs/adw-1": "1.10.0-4.0.4",
+    "@girs/gdk-4.0": "4.0.0-4.0.4",
+    "@girs/gdkpixbuf-2.0": "2.0.0-4.0.4",
+    "@girs/gio-2.0": "2.88.0-4.0.4",
+    "@girs/gjs": "4.0.4",
+    "@girs/glib-2.0": "2.88.0-4.0.4",
+    "@girs/gobject-2.0": "2.88.0-4.0.4",
+    "@girs/gtk-4.0": "4.23.0-4.0.4",
+    "@girs/gtksource-5": "5.20.0-4.0.4",
+    "@girs/javascriptcore-6.0": "2.52.1-4.0.4",
+    "@girs/pango-1.0": "1.57.1-4.0.4",
+    "@girs/webkit-6.0": "2.52.1-4.0.4",
+    "@gjsify/storybook": "^0.8.0",
     "@learn6502/6502": "workspace:^",
     "@learn6502/common-ui": "workspace:^",
     "@learn6502/learn": "workspace:^",
