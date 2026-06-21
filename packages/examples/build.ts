@@ -1,9 +1,12 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { fileURLToPath } from "node:url";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+// Resolve example directories + generated files relative to the package root.
+// The build is always run from there (`gjsify workspace @learn6502/examples
+// build`), so cwd is the package dir. Using cwd instead of `import.meta.url`
+// keeps paths correct when this script is bundled to `dist/` for the Node-free
+// GJS build (where `import.meta.url` would point at `dist/`, not the package).
+const __dirname = process.cwd();
 
 /**
  * Convert a slug to camelCase

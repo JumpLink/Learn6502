@@ -9,9 +9,7 @@
       "name": "Learn 6502 Assembly",
       "runtime": "gnome",
       "runtimeVersion": "50",
-      "sdkExtensions": [
-        "org.freedesktop.Sdk.Extension.node24"
-      ],
+      "sdkExtensions": [],
       "modules": [
         {
           "name": "Learn6502",
@@ -414,7 +412,9 @@
     "packages/*"
   ],
   "devDependencies": {
-    "@gjsify/cli": "^0.8.0",
+    "@gjsify/cli": "^0.10.0",
+    "@gjsify/lightningcss-native": "^0.10.0",
+    "@gjsify/rolldown-native": "^0.10.0",
     "oxfmt": "^0.53.0",
     "oxlint": "^1.68.0",
     "typescript": "^6.0.3"

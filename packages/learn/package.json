@@ -5,20 +5,59 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build:mdx": "node esbuild.js",
-    "build:js": "node dist/index.js",
+    "build:mdx": "gjsify build tsx/index.tsx --app gjs --outfile dist/index.js",
+    "build:js": "gjsify run dist/index.js",
     "build": "gjsify run build:mdx && gjsify run build:js && gjsify run build:copy",
     "build:copy": "cp -r dist/tutorial.ns.xml ../app-android/app/mdx/tutorial.xml && cp -r dist/quick-help.ns.xml ../app-android/app/mdx/quick-help.xml",
     "clear": "rm -rf dist"
   },
   "author": "Nick Morgan, Pascal Garber",
   "license": "CC-BY-4.0",
+  "gjsify": {
+    "globals": "auto",
+    "excludeGlobals": [
+      "document",
+      "Image",
+      "HTMLCanvasElement",
+      "HTMLImageElement",
+      "HTMLElement",
+      "MutationObserver",
+      "ResizeObserver",
+      "IntersectionObserver",
+      "FontFace",
+      "matchMedia",
+      "location",
+      "navigator"
+    ],
+    "loaders": {
+      ".asm": "text"
+    },
+    "bundler": {
+      "transform": {
+        "jsx": {
+          "runtime": "automatic",
+          "importSource": "nano-jsx/esm"
+        },
+        "define": {
+          "window": "undefined"
+        }
+      },
+      "plugins": [
+        {
+          "name": "@mdx-js/rollup",
+          "options": {
+            "jsxImportSource": "nano-jsx/esm"
+          }
+        }
+      ]
+    }
+  },
   "devDependencies": {
-    "@gjsify/cli": "^0.8.0",
-    "@mdx-js/esbuild": "^3.1.1",
+    "@gjsify/cli": "^0.10.0",
+    "@gjsify/dom-elements": "^0.10.0",
+    "@mdx-js/rollup": "^3.1.1",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25.9.1",
-    "esbuild": "^0.28.0",
     "nano-jsx": "^0.2.1",
     "typescript": "^6.0.3"
   },

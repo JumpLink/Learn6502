@@ -11,7 +11,9 @@
     "./examples": "./examples.ts"
   },
   "scripts": {
-    "build": "node --experimental-specifier-resolution=node --experimental-strip-types --no-warnings build.ts"
+    "build:gen": "gjsify build build.ts --app gjs --outfile dist/build.js",
+    "build:run": "gjsify run dist/build.js",
+    "build": "gjsify run build:gen && gjsify run build:run"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",
