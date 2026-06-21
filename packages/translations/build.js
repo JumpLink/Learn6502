@@ -56,3 +56,10 @@ await xgettext.buildStart();
 await gettext.buildStart();
 // Start the conversion process
 await po2json.buildStart();
+
+// Force a clean exit. Under GJS the gettext plugins' `Gio.Subprocess` calls
+// (xgettext/msgfmt) leave the GLib main loop armed, so this one-shot generator
+// would not exit on its own — and a node-free `gjsify workspace` build would
+// hang waiting for it. On Node the event loop is already empty, so this is just
+// an immediate clean exit after all work is done.
+globalThis.process?.exit?.(0);

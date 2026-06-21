@@ -2,18 +2,29 @@ gnome = import('gnome')
 
 dependency('gjs-1.0', version: '>= 1.80.2')
 gjs_console = find_program('gjs-console', required: true)
-node = find_program('node')
 
 # node_modules is materialised by the offline `gjsify install` in the root
 # meson.build (it must run from the repo root, where gjsify-lock.json lives).
-# The build runs through the workspace-local gjsify CLI under Node (npm rolldown
-# + learn's esbuild MDX build). It is invoked from the repo root via `sh -c`
-# (like the old yarn `--cwd` did) because `gjsify workspace` resolves the
-# monorepo from cwd, and meson's custom_target cwd is the build dir. Going fully
-# Node-free is a follow-up (port learn off esbuild, then drop the node24 ext).
-gjsify_cli = meson.project_source_root() / 'node_modules' / '@gjsify' / 'cli' / 'lib' / 'index.js'
+# The build runs FULLY NODE-FREE: the committed `@gjsify/cli` GJS bundle under
+# `gjs-console -m`, with `@gjsify/rolldown-native` (the Vala/Rust bundler
+# engine) + `@gjsify/lightningcss-native` on GI_TYPELIB_PATH/LD_LIBRARY_PATH.
+# learn's MDX build runs `@mdx-js/rollup` under GJS via the CLI's by-name
+# plugin auto-bundling (gjsify v0.9.0); translations' gettext + app-gnome's
+# blueprint/gettext plugins all run in-process under the same gjs. Invoked from
+# the repo root via `sh -c` because `gjsify workspace` resolves the monorepo
+# from cwd, and meson's custom_target cwd is the build dir.
+gjsify_cli = meson.project_source_root() / 'node_modules' / '@gjsify' / 'cli' / 'dist' / 'cli.gjs.mjs'
+
+# Native bundler/CSS engines ship per-arch prebuilt typelibs + shared objects.
+prebuild_arch = host_machine.cpu_family() == 'aarch64' ? 'linux-aarch64' : 'linux-x86_64'
+gjsify_nm = meson.project_source_root() / 'node_modules' / '@gjsify'
+rolldown_prebuild = gjsify_nm / 'rolldown-native' / 'prebuilds' / prebuild_arch
+lightningcss_prebuild = gjsify_nm / 'lightningcss-native' / 'prebuilds' / prebuild_arch
 
 build_env = environment()
+# Append (not set) so the runtime's own Gtk/Adw/Gio typelibs stay reachable.
+build_env.append('GI_TYPELIB_PATH', rolldown_prebuild, lightningcss_prebuild, separator: ':')
+build_env.append('LD_LIBRARY_PATH', rolldown_prebuild, lightningcss_prebuild, separator: ':')
 build_env.set('GJS_CONSOLE', gjs_console.full_path())
 build_env.set('PACKAGE_VERSION', meson.project_version())
 build_env.set('APPLICATION_ID', application_id)
@@ -36,7 +47,7 @@ custom_target('gjsify-build',
   input: src_files,
   command: [
     'sh', '-c',
-    'cd "' + meson.project_source_root() + '" && exec "' + node.full_path() + '" "' + gjsify_cli + '" workspace @learn6502/app-gnome build --with-dependencies',
+    'cd "' + meson.project_source_root() + '" && exec "' + gjs_console.full_path() + '" -m "' + gjsify_cli + '" workspace @learn6502/app-gnome build --with-dependencies',
   ],
   output: application_id,
   build_by_default: true,
