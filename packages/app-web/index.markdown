@@ -46,7 +46,7 @@ leave it to them. Plus, 6502 is _fun_. Nobody ever called x86 _fun_.
 <h2 id="first-program">Our first program</h2>
 
 So, let's dive in! That thing below is a little [JavaScript 6502 assembler and
-simulator](https://github.com/JumpLink/Learn6502/tree/main/packages/6502) that I adapted for this book.
+simulator](https://github.com/JumpLink/Learn6502/tree/main/packages/core) that I adapted for this book.
 Click **Assemble** then **Run** to assemble and run the snippet of assembly language.
 
 {% include start.html %}

@@ -9,7 +9,7 @@ alwaysApply: false
 Android app with deep platform integration.
 **Stack:** TypeScript + NativeScript (no Angular/Vue).
 **UI:** Custom TypeScript components wrapping native Android widgets (e.g., `fab.ts` → `ExtendedFloatingActionButton`), Material Design 3, native look/feel.
-**Events:** Use `packages/6502/event-dispatcher.ts` for cross-platform consistency.
+**Events:** Use `packages/core/event-dispatcher.ts` for cross-platform consistency.
 **Focus:** Platform integration, touch-friendly UI, mobile performance, reuse `6502` core + `common-ui`.
 **APIs:** Direct Android SDK via NativeScript.
 **Build:** NativeScript + Gradle.

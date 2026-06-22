@@ -11,7 +11,7 @@ Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform c
 
 | Package               | Path                              | Purpose                                                         | Stack                                               |
 | --------------------- | --------------------------------- | --------------------------------------------------------------- | --------------------------------------------------- |
-| 6502 (core)           | `packages/6502/`                  | Platform-independent assembler, simulator, disassembler         | TypeScript, zero deps, no UI                        |
+| 6502 (core)           | `packages/core/`                  | Platform-independent assembler, simulator, disassembler         | TypeScript, zero deps, no UI                        |
 | common-ui             | `packages/common-ui/`             | Shared UI logic, controllers, interfaces — 4-layer architecture | TypeScript, no platform deps                        |
 | app-gnome             | `packages/app-gnome/`             | GNOME desktop app                                               | TypeScript, GJS, GTK 4, Adwaita, Vite, Meson        |
 | app-web               | `packages/app-web/`               | Web app                                                         | TypeScript, HTML, CSS, Vite, Jekyll                 |
@@ -105,7 +105,7 @@ Applies to all files in `packages/app-gnome/`. Blueprint rules apply to all `.bl
 
 Native GNOME desktop app — deep integration, GNOME HIG adherence.
 Stack: TypeScript + GJS + GTK 4 + Adwaita + Vite + Meson.
-Events: prefer `event-dispatcher.ts` from `packages/6502/` over raw GNOME signals.
+Events: prefer `event-dispatcher.ts` from `packages/core/` over raw GNOME signals.
 
 ### Adwaita styling references
 
@@ -253,7 +253,7 @@ s.append_scaled_texture(
 Applies to all files in `packages/app-android/`.
 
 Stack: TypeScript + NativeScript (no Angular/Vue). UI: custom TS components wrapping native Android widgets, Material Design 3.
-Events: `packages/6502/event-dispatcher.ts`. Build: NativeScript + Gradle.
+Events: `packages/core/event-dispatcher.ts`. Build: NativeScript + Gradle.
 
 ### Reference projects
 

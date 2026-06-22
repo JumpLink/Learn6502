@@ -1438,8 +1438,8 @@ msgid "So far we're only able to write basic programs without any branching logi
 msgstr "これまでは分岐のない基本的なプログラムしか書けませんでした。ここから変えていきましょう。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
-msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then use <b>Assemble</b> to assemble the code, and <b>Run</b> to run it. You can find these actions as buttons or in the menu."
-msgstr "それでは始めましょう！このアプリには、このインタラクティブチュートリアル向けに調整した<a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/6502\">JavaScript 6502 アセンブラとシミュレーター</a>が含まれています。下のコードブロックにある<b>コピー</b>ボタンを押して例のコードをエディターへコピーし、<b>アセンブル</b>でコードをアセンブルし、<b>実行</b>で実行します。これらの操作はボタンまたはメニューから行えます。"
+msgid "So, let's dive in! This application contains a <a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/core\">JavaScript 6502 Assembler and Simulator</a> that I have adapted for this interactive tutorial. Click the <b>Copy</b> button in the code block below to copy the example code to the editor. Then use <b>Assemble</b> to assemble the code, and <b>Run</b> to run it. You can find these actions as buttons or in the menu."
+msgstr "それでは始めましょう！このアプリには、このインタラクティブチュートリアル向けに調整した<a href=\"https://github.com/JumpLink/Learn6502/tree/main/packages/core\">JavaScript 6502 アセンブラとシミュレーター</a>が含まれています。下のコードブロックにある<b>コピー</b>ボタンを押して例のコードをエディターへコピーし、<b>アセンブル</b>でコードをアセンブルし、<b>実行</b>で実行します。これらの操作はボタンまたはメニューから行えます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", so in this case we'll branch to <tt>illegalMove</tt>, which just returns from the subroutine. Otherwise, the new direction (1 in this case) is stored in the appropriate memory location."
