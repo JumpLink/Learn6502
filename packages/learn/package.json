@@ -1,5 +1,6 @@
 {
   "name": "@learn6502/learn",
+  "private": true,
   "version": "0.7.0",
   "description": "Learn 6502 assembly",
   "type": "module",
@@ -47,6 +48,6 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@learn6502/examples": "workspace:^"
+    "@learn6502/examples": "^0.7.0"
   }
 }

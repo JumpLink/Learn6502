@@ -1,0 +1,75 @@
+# Verifies the repo installs + resolves its workspaces with every supported
+# package manager — npm, yarn, pnpm and gjsify. Deliberately NOT run per-PR
+# (the normal CI on every PR uses gjsify): this is manual (`workflow_dispatch`)
+# plus a weekly safety-net cron, so a regression in the multi-PM contract
+# (e.g. someone reintroduces the `workspace:` protocol, which npm/yarn-v1 can't
+# resolve) is still caught without taxing every PR.
+name: Package Managers
+
+on:
+  workflow_dispatch:
+  schedule:
+    # Weekly, Monday 05:00 UTC — light insurance, not per-PR.
+    - cron: "0 5 * * 1"
+
+jobs:
+  install-and-resolve:
+    name: ${{ matrix.pm }}
+    runs-on: ubuntu-latest
+    # Fedora ships gjs (SpiderMonkey) — needed by `gjsify tsc`, which the
+    # build/check scripts spawn. Mirrors the CI `type-check` job's container.
+    container:
+      image: fedora:43
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          # npm/yarn-v1/pnpm only work because internal deps use plain `^x.y.z`
+          # ranges (NOT the `workspace:` protocol). pnpm additionally needs the
+          # committed pnpm-workspace.yaml (+ nodeLinker: hoisted) in the repo.
+          - pm: npm
+            setup: ""
+            install: "npm install"
+          - pm: yarn
+            setup: "npm install -g yarn"
+            install: "yarn install"
+          - pm: pnpm
+            setup: "npm install -g pnpm"
+            install: "pnpm install"
+          - pm: gjsify
+            setup: "npm install -g @gjsify/cli@^0.10.0"
+            install: "gjsify install"
+
+    steps:
+      - name: Install system prerequisites (incl. gjs)
+        run: dnf install -y git tar xz findutils gjs
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Setup + install with ${{ matrix.pm }}
+        # Matrix values are trusted workflow constants; passed via env (not
+        # inlined into the script) per the GitHub-Actions injection guidance.
+        env:
+          SETUP: ${{ matrix.setup }}
+          INSTALL: ${{ matrix.install }}
+        run: |
+          set -eux
+          if [ -n "$SETUP" ]; then sh -c "$SETUP"; fi
+          sh -c "$INSTALL"
+
+      - name: Verify workspace resolution (build 6502 → type-check common-ui)
+        # common-ui imports @learn6502/6502; this only type-checks if the PM
+        # symlinked the workspace + resolved the internal `^x.y.z` range to the
+        # local package. The lightest decisive cross-workspace check (gjs only,
+        # no GTK build deps). The full app-gnome build is covered by flatpak.yml.
+        run: |
+          set -eux
+          export PATH="$PWD/node_modules/.bin:$PATH"
+          gjsify workspace @learn6502/6502 build
+          gjsify workspace @learn6502/common-ui check

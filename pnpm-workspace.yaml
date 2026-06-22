@@ -1,0 +1,5 @@
+# pnpm reads workspace members from this file (it does NOT read the package.json
+# "workspaces" field). Install behaviour (link-workspace-packages, node-linker)
+# lives in .npmrc.
+packages:
+  - "packages/*"
