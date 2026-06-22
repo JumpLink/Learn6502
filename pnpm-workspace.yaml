@@ -1,5 +1,20 @@
-# pnpm reads workspace members from this file (it does NOT read the package.json
-# "workspaces" field). Install behaviour (link-workspace-packages, node-linker)
-# lives in .npmrc.
+# pnpm config lives here (pnpm 10 reads settings from pnpm-workspace.yaml, NOT
+# the package.json "workspaces" field, and — unlike npm — not reliably from a
+# project .npmrc).
+#
+# - linkWorkspacePackages: the internal deps use plain `^x.y.z` ranges (not the
+#   `workspace:` protocol). pnpm 10 defaults this to false, so without it pnpm
+#   fetches @learn6502/* from the registry (404, unpublished) instead of linking
+#   the local workspace.
+# - nodeLinker: flat node_modules (like npm/yarn/gjsify). pnpm's default strict
+#   symlinked layout hides the gjsify bundler's node-builtin polyfills
+#   (@gjsify/node-globals etc.) → `--globals auto` fails the build with
+#   "Unsupported URI scheme for importing: node".
+# - minimumReleaseAge: 0 disables pnpm's new-version quarantine. The other PMs
+#   (npm/yarn/gjsify) have no such gate, so this keeps pnpm consistent and stops
+#   it blocking freshly-published @gjsify/* right after a gjsify release.
 packages:
   - "packages/*"
+linkWorkspacePackages: true
+nodeLinker: hoisted
+minimumReleaseAge: 0
