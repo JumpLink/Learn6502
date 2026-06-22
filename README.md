@@ -32,7 +32,7 @@ This project is a fork of the [original web-based easy6502 tutorial](https://git
 - [app-gnome](./packages/app-gnome/): Main GNOME desktop application with Adwaita styling
 - [app-android](./packages/app-android/): Android application with NativeScript
 - [app-web](./packages/app-web/): Web application version
-- [6502](./packages/6502/): Core 6502 assembler, simulator, and disassembler
+- [core](./packages/core/): Core 6502 assembler, simulator, and disassembler (published as `@learn6502/core`)
 - [common-ui](./packages/common-ui/): Shared UI components and controllers
 - [learn](./packages/learn/): Tutorial content and learning materials
 - [translations](./packages/translations/): Localization files and build system
