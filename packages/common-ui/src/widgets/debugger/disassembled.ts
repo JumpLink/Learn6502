@@ -1,4 +1,4 @@
-import type { Assembler, EventDispatcher } from "@learn6502/6502";
+import type { Assembler, EventDispatcher } from "@learn6502/core";
 import type { DisassembledEventMap } from "../../types/index.js";
 
 export interface DisassembledWidget {

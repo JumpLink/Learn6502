@@ -1,7 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 
-import type { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
+import type { Memory, Labels, Simulator, Assembler } from "@learn6502/core";
 
 import type { Display, Gamepad } from "../../widgets/game-console/index.ts";
 import {

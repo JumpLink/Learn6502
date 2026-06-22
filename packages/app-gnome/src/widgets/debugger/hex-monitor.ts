@@ -3,7 +3,7 @@ import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
 import type { SourceView } from "../source-view.ts";
 
-import { EventDispatcher, type Memory } from "@learn6502/6502";
+import { EventDispatcher, type Memory } from "@learn6502/core";
 import {
   type HexMonitorOptions,
   type HexMonitorWidget,

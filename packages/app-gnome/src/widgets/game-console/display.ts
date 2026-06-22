@@ -6,7 +6,7 @@ import Template from "./display.blp";
 
 import { type DisplayWidget, gameConsoleStateService } from "@learn6502/common-ui";
 import { DEFAULT_DISPLAY_CONFIG } from "@learn6502/common-ui/src/data/display-constants";
-import { type Memory, DisplayAddressRange } from "@learn6502/6502";
+import { type Memory, DisplayAddressRange } from "@learn6502/core";
 
 export class Display extends Adw.Bin implements DisplayWidget {
   // Child widgets

@@ -8,7 +8,7 @@ import {
   editorController,
   ViewType,
 } from "@learn6502/common-ui";
-import type { Memory, Simulator, Assembler } from "@learn6502/6502";
+import type { Memory, Simulator, Assembler } from "@learn6502/core";
 
 // Import custom widgets
 import type { MessageConsole, DebugInfo, HexMonitor, Hexdump, Disassembled } from "~/widgets/debugger";

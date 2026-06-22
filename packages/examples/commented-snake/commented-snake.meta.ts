@@ -1,4 +1,4 @@
-import { _ } from "@learn6502/6502";
+import { _ } from "@learn6502/core";
 import type { ExampleMetaJson } from "../example-meta.ts";
 export default {
   slug: "commented-snake",

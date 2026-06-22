@@ -64,12 +64,12 @@ jobs:
           sh -c "$INSTALL"
 
       - name: Verify workspace resolution (build 6502 → type-check common-ui)
-        # common-ui imports @learn6502/6502; this only type-checks if the PM
+        # common-ui imports @learn6502/core; this only type-checks if the PM
         # symlinked the workspace + resolved the internal `^x.y.z` range to the
         # local package. The lightest decisive cross-workspace check (gjs only,
         # no GTK build deps). The full app-gnome build is covered by flatpak.yml.
         run: |
           set -eux
           export PATH="$PWD/node_modules/.bin:$PATH"
-          gjsify workspace @learn6502/6502 build
+          gjsify workspace @learn6502/core build
           gjsify workspace @learn6502/common-ui check

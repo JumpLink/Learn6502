@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Gtk from "@girs/gtk-4.0";
 
 import type { ExampleMeta } from "@learn6502/examples";
-import { Memory, DisplayAddressRange } from "@learn6502/6502";
+import { Memory, DisplayAddressRange } from "@learn6502/core";
 import type { SourceView } from "./source-view.ts";
 import type { Display } from "./game-console/display.ts";
 

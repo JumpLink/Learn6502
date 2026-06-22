@@ -43,7 +43,7 @@ Android app with deep platform integration.
 **Architecture Patterns:**
 
 - **Services:** Centralized services in `app/services/` (lifecycle, theme, notification)
-- **State Management:** Reactive state with `EventDispatcher` from `@learn6502/6502`
+- **State Management:** Reactive state with `EventDispatcher` from `@learn6502/core`
 - **Views:** Implement interfaces from `@learn6502/common-ui` (e.g., `MainView`, `GameConsoleView`, `DebuggerView`)
 - **Widgets:** Reusable UI components in `app/widgets/` wrapping native Android widgets
 - **Utils:** Platform-specific utilities in `app/utils/` (system, navigation, logger, resource helpers)

@@ -1,5 +1,5 @@
-import { SimulatorState, _ } from "@learn6502/6502";
-import type { Assembler, Simulator } from "@learn6502/6502";
+import { SimulatorState, _ } from "@learn6502/core";
+import type { Assembler, Simulator } from "@learn6502/core";
 import { gameConsoleController } from "./game-console-controller.ts";
 import { debuggerController } from "./debugger-controller.ts";
 

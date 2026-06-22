@@ -407,7 +407,7 @@
     "check:lint": "gjsify lint",
     "changeset": "changeset",
     "changeset:version": "changeset version",
-    "changeset:publish": "gjsify workspace @learn6502/6502 build && changeset publish"
+    "changeset:publish": "gjsify workspace @learn6502/core build && changeset publish"
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",

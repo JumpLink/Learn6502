@@ -291,7 +291,7 @@ Required for R8/ProGuard code shrinking. Missing entries cause **runtime crashes
 ### Architecture
 
 - Services: `app/services/` (lifecycle, theme, notification)
-- State: reactive with `EventDispatcher` from `@learn6502/6502`
+- State: reactive with `EventDispatcher` from `@learn6502/core`
 - Views: implement interfaces from `@learn6502/common-ui`
 - Widgets: `app/widgets/` wrapping native Android widgets
 - Utils: `app/utils/` (system, navigation, logger, resources)

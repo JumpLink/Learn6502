@@ -1,4 +1,4 @@
-import { type Memory } from "@learn6502/6502";
+import { type Memory } from "@learn6502/core";
 import { getGamepadKeyCode } from "../data/index.ts";
 import type { GamepadKey } from "../types/index.ts";
 

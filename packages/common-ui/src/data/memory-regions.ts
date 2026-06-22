@@ -1,4 +1,4 @@
-import { _ } from "@learn6502/6502";
+import { _ } from "@learn6502/core";
 import type { MemoryRegion } from "../types/index.js";
 
 /**

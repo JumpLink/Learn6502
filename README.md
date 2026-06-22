@@ -76,7 +76,7 @@ To run the packages, run `gjsify run start:gnome` for the GNOME app or `gjsify r
 
 ### Releasing
 
-Versioning, changelogs and npm publishing are managed with [Changesets](https://github.com/changesets/changesets) (see [`.changeset/README.md`](.changeset/README.md)). Add a changeset with your change (`gjsify run changeset`, or `npm`/`yarn`/`pnpm run changeset`). All `@learn6502/*` packages are version-locked and bump together; only `@learn6502/6502` is published to npm (the rest are private). Maintainer release: `… run changeset:version` then `… run changeset:publish`.
+Versioning, changelogs and npm publishing are managed with [Changesets](https://github.com/changesets/changesets) (see [`.changeset/README.md`](.changeset/README.md)). Add a changeset with your change (`gjsify run changeset`, or `npm`/`yarn`/`pnpm run changeset`). All `@learn6502/*` packages are version-locked and bump together; only `@learn6502/core` is published to npm (the rest are private). Maintainer release: `… run changeset:version` then `… run changeset:publish`.
 
 ## Contributing
 

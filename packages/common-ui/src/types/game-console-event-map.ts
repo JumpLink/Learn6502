@@ -15,7 +15,7 @@ import {
   type SimulatorPseudoOpEvent,
   type LabelsInfoEvent,
   type LabelsFailureEvent,
-} from "@learn6502/6502";
+} from "@learn6502/core";
 import type { GamepadEvent } from "./gamepad-event";
 
 /**

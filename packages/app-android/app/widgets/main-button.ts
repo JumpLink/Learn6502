@@ -1,7 +1,7 @@
 import type { EventData } from "@nativescript/core";
 import { Property, CSSType } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
-import type { SimulatorState } from "@learn6502/6502"; // Import shared simulator state
+import type { SimulatorState } from "@learn6502/core"; // Import shared simulator state
 import { Fab } from "./fab"; // Import the base Fab class
 import {
   MainButtonState,

@@ -1,4 +1,4 @@
-import type { Memory, Simulator, Assembler } from "@learn6502/6502";
+import type { Memory, Simulator, Assembler } from "@learn6502/core";
 import type { DebuggerState } from "../data/index.ts";
 
 /**

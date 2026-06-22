@@ -1,6 +1,6 @@
 import type { ThemeMode } from "../types";
 import type { ThemeEventMap } from "../types/theme-event-map";
-import { EventDispatcher } from "../../../6502/src/event-dispatcher";
+import { EventDispatcher } from "@learn6502/core";
 
 /**
  * Abstract class for theme services

@@ -1,4 +1,4 @@
-import { EventDispatcher } from "@learn6502/6502";
+import { EventDispatcher } from "@learn6502/core";
 import type { LearnEventMap } from "../types/learn-event-map";
 import { learnStateService } from "../services/index.ts";
 

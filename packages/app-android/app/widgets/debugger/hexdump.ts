@@ -1,7 +1,7 @@
 import { TextView } from "@nativescript/core";
 import type { HexdumpWidget, HexdumpEventMap } from "@learn6502/common-ui";
-import type { Assembler } from "@learn6502/6502";
-import { EventDispatcher } from "@learn6502/6502";
+import type { Assembler } from "@learn6502/core";
+import { EventDispatcher } from "@learn6502/core";
 
 export class Hexdump extends TextView implements HexdumpWidget {
   readonly events = new EventDispatcher<HexdumpEventMap>();

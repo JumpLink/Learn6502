@@ -17,7 +17,7 @@ import {
   MainEventBridge,
   MainButtonState,
 } from "@learn6502/common-ui";
-import type { SimulatorState } from "@learn6502/6502";
+import type { SimulatorState } from "@learn6502/core";
 
 // Import services
 import { notificationService } from "~/services";

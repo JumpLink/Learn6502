@@ -6,8 +6,8 @@ import type { HexMonitor, Hexdump, Disassembled } from "../../widgets/debugger/i
 
 import Template from "./debugger.blp";
 
-import type { Assembler } from "@learn6502/6502";
-import { type Memory, type Simulator } from "@learn6502/6502";
+import type { Assembler } from "@learn6502/core";
+import { type Memory, type Simulator } from "@learn6502/core";
 import {
   type DebuggerView,
   type MessageConsoleWidget,

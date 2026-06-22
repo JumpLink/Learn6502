@@ -5,7 +5,7 @@ import Gdk from "@girs/gdk-4.0";
 import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
 
-import { SimulatorState, num2hex, debounce } from "@learn6502/6502";
+import { SimulatorState, num2hex, debounce } from "@learn6502/core";
 
 import type { Learn, Editor, GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";

@@ -10,8 +10,8 @@ import {
   CoreTypes,
 } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core";
-import type { Memory } from "@learn6502/6502";
-import { DisplayAddressRange } from "@learn6502/6502";
+import type { Memory } from "@learn6502/core";
+import { DisplayAddressRange } from "@learn6502/core";
 import { logger } from "~/utils";
 
 /**

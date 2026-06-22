@@ -1,6 +1,6 @@
 import type { MainButtonState } from "../data/index.ts";
 import type { ViewType } from "../views/main";
-import type { SimulatorState } from "@learn6502/6502";
+import type { SimulatorState } from "@learn6502/core";
 
 /**
  * Complete state object containing all UI states

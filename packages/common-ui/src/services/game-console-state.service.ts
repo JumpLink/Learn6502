@@ -1,4 +1,4 @@
-import { type Memory, DisplayAddressRange, hexToRgb } from "@learn6502/6502";
+import { type Memory, DisplayAddressRange, hexToRgb } from "@learn6502/core";
 import { DEFAULT_COLOR_PALETTE } from "../data/index.ts";
 import type { RGBColor } from "../types/index.ts";
 

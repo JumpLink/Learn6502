@@ -1,4 +1,4 @@
-import { Memory, Labels, Simulator, Assembler, formatMessage } from "@learn6502/6502";
+import { Memory, Labels, Simulator, Assembler, formatMessage } from "@learn6502/core";
 import { Debugger } from "./debugger.js";
 import { Display } from "./display.js";
 import { UIState } from "./ui-state.js";

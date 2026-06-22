@@ -1,4 +1,4 @@
-import type { EventDispatcher } from "@learn6502/6502";
+import type { EventDispatcher } from "@learn6502/core";
 import type { SourceViewEventMap } from "../types/source-view-event-map";
 
 /**

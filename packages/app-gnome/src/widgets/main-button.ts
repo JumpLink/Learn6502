@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
 
-import type { SimulatorState } from "@learn6502/6502";
+import type { SimulatorState } from "@learn6502/core";
 import {
   MainButtonState,
   type MainButtonMode,

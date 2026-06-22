@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type { SourceView } from "../source-view.ts";
 
-import { type Assembler, EventDispatcher } from "@learn6502/6502";
+import { type Assembler, EventDispatcher } from "@learn6502/core";
 import { type HexdumpWidget, type HexdumpEventMap, type SourceViewCopyEvent } from "@learn6502/common-ui";
 
 import Template from "./hexdump.blp";
