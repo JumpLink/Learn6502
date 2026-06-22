@@ -404,7 +404,10 @@
     "format": "gjsify format --write",
     "fix": "gjsify fix",
     "lint": "gjsify lint",
-    "check:lint": "gjsify lint"
+    "check:lint": "gjsify lint",
+    "changeset": "changeset",
+    "changeset:version": "changeset version",
+    "changeset:publish": "gjsify workspace @learn6502/6502 build && changeset publish"
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
@@ -412,6 +415,7 @@
     "packages/*"
   ],
   "devDependencies": {
+    "@changesets/cli": "^2.27.0",
     "@gjsify/cli": "^0.10.0",
     "@gjsify/lightningcss-native": "^0.10.0",
     "@gjsify/rolldown-native": "^0.10.0",

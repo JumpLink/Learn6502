@@ -1,5 +1,6 @@
 {
   "name": "@learn6502/common-ui",
+  "private": true,
   "version": "0.7.0",
   "description": "Common UI components",
   "type": "module",
@@ -14,6 +15,6 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@learn6502/6502": "workspace:^"
+    "@learn6502/6502": "^0.7.0"
   }
 }

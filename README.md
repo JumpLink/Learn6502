@@ -41,18 +41,28 @@ This project is a fork of the [original web-based easy6502 tutorial](https://git
 
 ### Local Development
 
-To get started with local development:
+The repository works with **gjsify** (recommended), **npm**, **yarn** or **pnpm** — use whichever you're comfortable with.
 
 ```bash
-# Install dependencies
+# Recommended — gjsify (the canonical toolchain)
 gjsify install
-
-# Build all packages
 gjsify run build
-
-# Start the GNOME application
 gjsify run start:gnome
 ```
+
+Prefer npm / yarn / pnpm? They all work too — each installs the workspaces and resolves the internal dependencies; the build itself still runs through gjsify (it's a dev dependency, so its bin is available after any install):
+
+```bash
+npm install        # or:  yarn install   |   pnpm install
+npm run build && npm run start:gnome      # or the yarn / pnpm equivalent
+```
+
+Notes:
+
+- **gjsify is the canonical path** — the committed `gjsify-lock.json` and the offline Flatpak build use it. npm/yarn/pnpm generate their own lockfiles (gitignored); they're fine for local dev, please don't commit them.
+- **pnpm** relies on the committed `pnpm-workspace.yaml` (pnpm doesn't read the `workspaces` field) plus `.npmrc` — `link-workspace-packages=true` (so plain `^` ranges link the local workspaces) and `node-linker=hoisted` (flat layout the gjsify bundler needs).
+- The internal packages use plain `^x.y.z` ranges (not the `workspace:` protocol), which is why every manager — including npm and classic yarn — can resolve them.
+- A manual **Package Managers** CI workflow verifies all four managers install + resolve the workspaces; trigger it from the Actions tab if you touch the dependency wiring.
 
 ### Flatpak Build
 
@@ -63,6 +73,10 @@ To build the packages, run `gjsify run build` in the root of the repository.
 ### Running
 
 To run the packages, run `gjsify run start:gnome` for the GNOME app or `gjsify run start:web` for the web app.
+
+### Releasing
+
+Versioning, changelogs and npm publishing are managed with [Changesets](https://github.com/changesets/changesets) (see [`.changeset/README.md`](.changeset/README.md)). Add a changeset with your change (`gjsify run changeset`, or `npm`/`yarn`/`pnpm run changeset`). All `@learn6502/*` packages are version-locked and bump together; only `@learn6502/6502` is published to npm (the rest are private). Maintainer release: `… run changeset:version` then `… run changeset:publish`.
 
 ## Contributing
 
