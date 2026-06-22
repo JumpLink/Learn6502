@@ -1,4 +1,4 @@
-import { Memory, Labels, Simulator, Assembler } from "@learn6502/6502";
+import { Memory, Labels, Simulator, Assembler } from "@learn6502/core";
 
 export interface SimulatorStack {
   memory: Memory;

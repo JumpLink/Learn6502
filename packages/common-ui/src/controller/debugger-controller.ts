@@ -1,4 +1,4 @@
-import { type Memory, type Simulator, type Assembler, EventDispatcher, throttle } from "@learn6502/6502";
+import { type Memory, type Simulator, type Assembler, EventDispatcher, throttle } from "@learn6502/core";
 
 import { DebuggerState } from "../data/index.ts";
 import type { DebuggerEventMap } from "../types/index.ts";

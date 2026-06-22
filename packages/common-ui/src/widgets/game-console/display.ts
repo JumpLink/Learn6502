@@ -1,4 +1,4 @@
-import type { Memory } from "@learn6502/6502";
+import type { Memory } from "@learn6502/core";
 
 /**
  * Interface for display widgets across different platforms

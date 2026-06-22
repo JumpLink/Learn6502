@@ -1,4 +1,4 @@
-import { SimulatorState } from "@learn6502/6502";
+import { SimulatorState } from "@learn6502/core";
 import { MainButtonState } from "../data/index";
 import { ViewType } from "../views/main";
 import type { MainButtonActionState } from "../types";

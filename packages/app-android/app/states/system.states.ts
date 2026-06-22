@@ -11,7 +11,7 @@
 import type { LaunchEventData } from "@nativescript/core";
 import { Application, type SystemAppearanceChangedEventData, Utils } from "@nativescript/core";
 import { androidLaunchEventLocalizationHandler, overrideLocale } from "@nativescript/localize";
-import { EventDispatcher } from "@learn6502/6502";
+import { EventDispatcher } from "@learn6502/core";
 import { ContrastMode } from "../constants";
 // Direct imports to avoid circular dependency (utils/index → color → system.states → utils/index)
 import { contrastLevelToMode } from "../utils/contrast";

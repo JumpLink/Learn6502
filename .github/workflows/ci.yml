@@ -85,19 +85,19 @@ jobs:
       - name: Install dependencies
         run: gjsify install --immutable
 
-      # Build the workspace deps that publish built output (`@learn6502/6502`,
+      # Build the workspace deps that publish built output (`@learn6502/core`,
       # `examples`, `learn` ship `dist/*.d.ts`; `common-ui` exports source).
       # Without this, type-checking common-ui/app-* fails with TS2307 "Cannot
-      # find module '@learn6502/6502'" — its types only exist after a build.
+      # find module '@learn6502/core'" — its types only exist after a build.
       - name: Build workspace dependencies
         run: |
-          gjsify workspace @learn6502/6502 build
+          gjsify workspace @learn6502/core build
           gjsify workspace @learn6502/examples build
           gjsify workspace @learn6502/learn build
 
       - name: Type check (gjsify tsc under GJS)
         run: |
-          gjsify workspace @learn6502/6502 check
+          gjsify workspace @learn6502/core check
           gjsify workspace @learn6502/common-ui check
           gjsify workspace @learn6502/app-web check
           gjsify workspace @learn6502/app-gnome check:typescript

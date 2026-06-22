@@ -1,4 +1,4 @@
-import { type Memory, DisplayAddressRange } from "@learn6502/6502";
+import { type Memory, DisplayAddressRange } from "@learn6502/core";
 import { type DisplayWidget, DEFAULT_COLOR_PALETTE } from "@learn6502/common-ui";
 
 /**

@@ -35,7 +35,7 @@ The application depends on several GNOME libraries and internal packages:
 
 - GNOME libraries (GJS, GTK, Adwaita, etc.)
 - Internal packages:
-  - `@learn6502/6502`: 6502 simulator and assembler
+  - `@learn6502/core`: 6502 simulator and assembler
   - `@learn6502/learn`: Tutorial content
   - `@learn6502/translations`: Localization support
 

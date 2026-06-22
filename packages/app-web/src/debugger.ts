@@ -1,5 +1,5 @@
-import type { Simulator, Memory, Assembler } from "@learn6502/6502";
-import { addr2hex, num2hex, throttle } from "@learn6502/6502";
+import type { Simulator, Memory, Assembler } from "@learn6502/core";
+import { addr2hex, num2hex, throttle } from "@learn6502/core";
 
 import {
   DebuggerState,

@@ -5,8 +5,8 @@ import Gdk from "@girs/gdk-4.0";
 import GLib from "@girs/glib-2.0";
 
 import type { ExampleMeta } from "@learn6502/examples";
-import type { Memory } from "@learn6502/6502";
-import { DisplayAddressRange } from "@learn6502/6502";
+import type { Memory } from "@learn6502/core";
+import { DisplayAddressRange } from "@learn6502/core";
 import type { ExampleListItem } from "./example-list-item.ts";
 import { copyToClipboard } from "../utils.ts";
 

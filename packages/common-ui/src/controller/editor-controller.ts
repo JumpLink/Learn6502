@@ -1,4 +1,4 @@
-import { EventDispatcher } from "@learn6502/6502";
+import { EventDispatcher } from "@learn6502/core";
 import type { SourceViewWidget } from "../widgets/source-view";
 import type { EditorEventMap } from "../types/editor-event-map";
 

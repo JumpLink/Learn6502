@@ -1,7 +1,7 @@
 import type { View } from "@nativescript/core";
 import { ContentView, Builder, HtmlView } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
-import { EventDispatcher } from "@learn6502/6502";
+import { EventDispatcher } from "@learn6502/core";
 import type { SourceViewEventMap, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
 import { logger } from "~/utils";

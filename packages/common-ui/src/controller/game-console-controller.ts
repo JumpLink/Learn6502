@@ -21,7 +21,7 @@ import {
   type SimulatorPseudoOpEvent,
   type LabelsInfoEvent,
   type LabelsFailureEvent,
-} from "@learn6502/6502";
+} from "@learn6502/core";
 import { getGamepadKeyCode } from "../data";
 import type { GamepadKey, GameConsoleEventMap } from "../types";
 import type { DisplayWidget, GamepadWidget } from "../widgets/game-console";

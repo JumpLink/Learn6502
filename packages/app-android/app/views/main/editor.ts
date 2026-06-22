@@ -3,7 +3,7 @@ import { Observable } from "@nativescript/core";
 import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
 import { editorController } from "@learn6502/common-ui";
 import type { SourceView } from "~/widgets/source-view";
-import { EventDispatcher } from "@learn6502/6502";
+import { EventDispatcher } from "@learn6502/core";
 import { logger } from "~/utils";
 
 /**

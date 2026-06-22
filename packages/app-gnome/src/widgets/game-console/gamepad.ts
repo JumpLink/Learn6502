@@ -4,7 +4,7 @@ import Gtk from "@girs/gtk-4.0";
 import { type GamepadKey, type GamepadWidget, type GamepadEventMap, getGamepadKeyCode } from "@learn6502/common-ui";
 
 import Template from "./gamepad.blp";
-import { EventDispatcher } from "@learn6502/6502";
+import { EventDispatcher } from "@learn6502/core";
 
 export class Gamepad extends Adw.Bin implements GamepadWidget {
   readonly events: EventDispatcher<GamepadEventMap> = new EventDispatcher<GamepadEventMap>();

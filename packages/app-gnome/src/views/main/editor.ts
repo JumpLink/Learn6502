@@ -4,7 +4,7 @@ import type Gtk from "@girs/gtk-4.0";
 import type GtkSource from "@girs/gtksource-5";
 import type { SourceView } from "../../widgets/source-view.ts";
 import type { QuickHelpView } from "../../mdx/quick-help-view.ts";
-import { EventDispatcher } from "@learn6502/6502";
+import { EventDispatcher } from "@learn6502/core";
 import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
 import { editorController } from "@learn6502/common-ui";
 

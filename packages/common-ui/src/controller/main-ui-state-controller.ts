@@ -1,6 +1,6 @@
 import type { MainButtonActionState, MainUiStateEventMap, MainUiState } from "../types";
 import { MainButtonState } from "../data/index";
-import { EventDispatcher, SimulatorState } from "@learn6502/6502";
+import { EventDispatcher, SimulatorState } from "@learn6502/core";
 import { buttonStateService } from "../services";
 import { ViewType } from "../views/main";
 
