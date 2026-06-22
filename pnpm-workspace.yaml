@@ -13,8 +13,13 @@
 # - minimumReleaseAge: 0 disables pnpm's new-version quarantine. The other PMs
 #   (npm/yarn/gjsify) have no such gate, so this keeps pnpm consistent and stops
 #   it blocking freshly-published @gjsify/* right after a gjsify release.
+# - dangerouslyAllowAllBuilds: pnpm 10 blocks dependency build scripts by default
+#   and exits non-zero (ERR_PNPM_IGNORED_BUILDS) in CI/non-interactive runs.
+#   npm and yarn RUN dep build scripts by default, so this just makes pnpm match
+#   them (the dep set is identical and already trusted under the other PMs).
 packages:
   - "packages/*"
 linkWorkspacePackages: true
 nodeLinker: hoisted
 minimumReleaseAge: 0
+dangerouslyAllowAllBuilds: true
