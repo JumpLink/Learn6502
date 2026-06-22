@@ -60,7 +60,7 @@ npm run build && npm run start:gnome      # or the yarn / pnpm equivalent
 Notes:
 
 - **gjsify is the canonical path** — the committed `gjsify-lock.json` and the offline Flatpak build use it. npm/yarn/pnpm generate their own lockfiles (gitignored); they're fine for local dev, please don't commit them.
-- **pnpm** relies on the committed `pnpm-workspace.yaml` (pnpm doesn't read the `workspaces` field) plus `.npmrc` — `link-workspace-packages=true` (so plain `^` ranges link the local workspaces) and `node-linker=hoisted` (flat layout the gjsify bundler needs).
+- **pnpm** relies on the committed `pnpm-workspace.yaml` (pnpm reads its workspace members + settings there, not the `workspaces` field or a project `.npmrc`) — `linkWorkspacePackages: true` (so plain `^` ranges link the local workspaces) + `nodeLinker: hoisted` (flat layout the gjsify bundler needs).
 - The internal packages use plain `^x.y.z` ranges (not the `workspace:` protocol), which is why every manager — including npm and classic yarn — can resolve them.
 - A manual **Package Managers** CI workflow verifies all four managers install + resolve the workspaces; trigger it from the Actions tab if you touch the dependency wiring.
 
