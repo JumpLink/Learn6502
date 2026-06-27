@@ -1,9 +1,12 @@
-import type { EventData, Page } from "@nativescript/core";
+import type { View } from "@nativescript/core";
+import { GridLayout, ItemSpec, StackLayout } from "@nativescript/core";
+import { AdwButton, AdwImageButton } from "@gjsify/adwaita-nativescript";
+import { goUpSymbolic, goDownSymbolic, goPreviousSymbolic, goNextSymbolic } from "@gjsify/adwaita-icons/actions";
 import type { SimulatorState } from "@learn6502/core";
 import { type Memory, type Labels, type Simulator, type Assembler } from "@learn6502/core";
 
 // Import child widgets
-import type { Display, Gamepad } from "~/widgets/game-console";
+import { Display, Gamepad } from "~/widgets/game-console";
 
 // Import common controller
 import {
@@ -14,12 +17,14 @@ import {
   type GamepadKey,
 } from "@learn6502/common-ui";
 import { logger } from "~/utils";
+import type { ScreenModule } from "./editor";
 
 /**
- * Android implementation of the Game Console view
+ * Game Console view — implements GameConsoleView. Now a content view (Display +
+ * Gamepad) added to the shell's AdwViewStack. The simulator stack + controller
+ * wiring are unchanged; only the widget construction moved off the Page.
  */
 export class GameConsole implements GameConsoleView {
-  private page: Page | null = null;
   private _display: Display | null = null;
   private _gamePad: Gamepad | null = null;
 
@@ -28,10 +33,7 @@ export class GameConsole implements GameConsoleView {
   private _simulator: Simulator;
   private _assembler: Assembler;
 
-  // State preservation
-  private _isInitialized: boolean = false;
-
-  // Scoped logger for this class
+  private _isInitialized = false;
   private log = logger.scoped("GameConsole");
 
   constructor() {
@@ -40,110 +42,159 @@ export class GameConsole implements GameConsoleView {
     this._labels = labels;
     this._simulator = simulator;
     this._assembler = assembler;
-
-    // Bind methods
-    this.onLoaded = this.onLoaded.bind(this);
-    this.onUnloaded = this.onUnloaded.bind(this);
-    this.onNavigatingTo = this.onNavigatingTo.bind(this);
-    this.onNavigatingFrom = this.onNavigatingFrom.bind(this);
   }
 
-  // --- Public Properties (Read-only access) ---
+  // --- Read-only access ---
   get memory(): Memory {
     return this._memory;
   }
-
   get labels(): Labels {
     return this._labels;
   }
-
   get simulator(): Simulator {
     return this._simulator;
   }
-
   get assembler(): Assembler {
     return this._assembler;
   }
-
   get state(): SimulatorState {
     return this._simulator.state;
   }
 
-  // --- Lifecycle Handlers ---
-  public onNavigatingTo(args: EventData): void {
-    this.log.debug(`onNavigatingTo - isInitialized: ${this._isInitialized}`);
-    // Navigation handling is separate from loading
+  /** Build the Display (in an Adwaita card) over an Adwaita gamepad, wiring the
+   *  controller once the display loads. Mirrors the GNOME GameConsole: a framed
+   *  DrawingArea above a d-pad of icon buttons + circular A/B buttons. */
+  build(): View {
+    const display = new Display();
+    // The Gamepad widget is kept ONLY as the GamepadWidget the controller is
+    // initialised with (it carries the keyboard→gamepad bridge); the on-screen
+    // controls are the Adwaita buttons below, which feed gamepadPress directly.
+    const gamePad = new Gamepad();
+    this._display = display;
+    this._gamePad = gamePad;
+
+    const root = new StackLayout();
+    root.orientation = "vertical";
+    root.horizontalAlignment = "center";
+    root.verticalAlignment = "middle";
+
+    // Display in an Adwaita card (GNOME wraps the DrawingArea in a Gtk.Frame).
+    const displayCard = new StackLayout();
+    displayCard.className = "card";
+    displayCard.horizontalAlignment = "center";
+    displayCard.addChild(display);
+    root.addChild(displayCard);
+
+    const pad = this.buildGamepad();
+    pad.marginTop = 30;
+    pad.marginBottom = 30;
+    root.addChild(pad);
+
+    // The Display needs a native canvas before it can initialise with memory, so
+    // wire the controller once it is loaded (the NS counterpart of the old Page
+    // `onLoaded`).
+    display.on("loaded", () => {
+      if (!this._isInitialized) {
+        this.log.debug("First initialization");
+        this.initialize();
+        this._isInitialized = true;
+      } else {
+        this.log.debug("Re-connecting widgets to existing state");
+        this.reconnectWidgets();
+      }
+    });
+
+    return root;
   }
 
-  public onNavigatingFrom(): void {
-    this.log.debug("onNavigatingFrom - preserving state");
-    // State is preserved in the singleton instance and gameConsoleController
-  }
+  /** The on-screen gamepad: a d-pad of Adwaita image-buttons + circular A/B
+   *  buttons, mirroring the GNOME Gamepad. Each press routes to the simulator via
+   *  gameConsoleController.gamepadPress. */
+  private buildGamepad(): View {
+    const press = (key: GamepadKey): void => gameConsoleController.gamepadPress(key);
 
-  public onLoaded(args: EventData): void {
-    this.page = args.object as Page;
+    const dirButton = (icon: string, key: GamepadKey): AdwImageButton => {
+      const b = new AdwImageButton();
+      b.icon = icon;
+      b.iconSize = 22;
+      b.iconColor = "#ffffff";
+      b.width = 52;
+      b.height = 52;
+      b.className = `${b.className} gamepad-dpad-button`.trim();
+      b.addEventListener("tap", () => press(key));
+      return b;
+    };
 
-    this._display = this.page.getViewById<Display>("display");
-    this._gamePad = this.page.getViewById<Gamepad>("gamePad");
-
-    if (!this._display || !this._gamePad) {
-      this.log.error("Failed to find required components in game-console view");
-      return;
+    const dpad = new GridLayout();
+    for (let i = 0; i < 3; i++) {
+      dpad.addRow(new ItemSpec(1, "auto"));
+      dpad.addColumn(new ItemSpec(1, "auto"));
     }
+    const place = (v: View, r: number, c: number): void => {
+      GridLayout.setRow(v, r);
+      GridLayout.setColumn(v, c);
+      dpad.addChild(v);
+    };
+    place(dirButton(goUpSymbolic, "Up"), 0, 1);
+    place(dirButton(goPreviousSymbolic, "Left"), 1, 0);
+    place(dirButton(goNextSymbolic, "Right"), 1, 2);
+    place(dirButton(goDownSymbolic, "Down"), 2, 1);
 
-    if (!this._isInitialized) {
-      this.log.debug("First initialization");
-      this.initialize();
-      this._isInitialized = true;
-    } else {
-      this.log.debug("Re-connecting widgets to existing state");
-      this.reconnectWidgets();
-    }
+    const actButton = (label: string, key: GamepadKey, topMargin: number, bottomMargin: number): AdwButton => {
+      const b = new AdwButton();
+      b.text = label;
+      b.width = 58;
+      b.height = 58;
+      b.marginTop = topMargin;
+      b.marginBottom = bottomMargin;
+      b.className = `${b.className} gamepad-action-button`.trim();
+      b.addEventListener("tap", () => press(key));
+      return b;
+    };
+
+    const actions = new StackLayout();
+    actions.orientation = "horizontal";
+    actions.verticalAlignment = "middle";
+    actions.marginLeft = 24;
+    const bBtn = actButton("B", "B", 56, 0);
+    bBtn.marginRight = 12;
+    actions.addChild(bBtn);
+    actions.addChild(actButton("A", "A", 0, 56));
+
+    const controls = new StackLayout();
+    controls.orientation = "horizontal";
+    controls.horizontalAlignment = "center";
+    controls.addChild(dpad);
+    controls.addChild(actions);
+    return controls;
   }
 
-  public onUnloaded(args: EventData): void {
-    this.log.debug("onUnloaded - preserving state");
-    // Don't call close() here as it would reset the state
-    // Just clear the widget references
-    this.page = null;
-    this._display = null;
-    this._gamePad = null;
-  }
-
-  // --- Public Methods (API for external interaction) ---
-  public assemble(code: string): void {
+  // --- API for external interaction ---
+  assemble(code: string): void {
     gameConsoleController.assemble(code);
   }
-
-  public run(): void {
+  run(): void {
     gameConsoleController.run();
   }
-
-  public hexdump(): void {
+  hexdump(): void {
     gameConsoleController.hexdump();
   }
-
-  public disassemble(): void {
+  disassemble(): void {
     gameConsoleController.disassemble();
   }
-
-  public stop(): void {
+  stop(): void {
     gameConsoleController.stop();
   }
-
-  public reset(): void {
+  reset(): void {
     gameConsoleController.reset();
   }
-
-  public step(): void {
+  step(): void {
     gameConsoleController.step();
   }
-
-  public goto(address: string): void {
+  goto(address: string): void {
     gameConsoleController.goto(address);
   }
-
-  public gamepadPress(buttonName: GamepadKey): void {
+  gamepadPress(buttonName: GamepadKey): void {
     if (this._gamePad) {
       this._gamePad.press(buttonName);
     } else {
@@ -151,43 +202,19 @@ export class GameConsole implements GameConsoleView {
     }
   }
 
-  /** Call this when the view is about to be destroyed. */
-  public close(): void {
+  close(): void {
     this.stop();
     gameConsoleController.close();
     this._isInitialized = false;
   }
 
-  /**
-   * Get initialization status
-   */
   get isInitialized(): boolean {
     return this._isInitialized;
   }
 
-  /**
-   * Force re-initialization (useful for testing or reset scenarios)
-   */
-  resetInitialization(): void {
-    this._isInitialized = false;
-    this.close();
-  }
-
-  // --- Private Methods ---
-  /**
-   * Reconnect widgets to existing controller state
-   */
   private reconnectWidgets(): void {
-    if (!this._display || !this._gamePad) {
-      throw new Error("Missing required components for reconnection");
-    }
-
-    this.log.debug("Reconnecting widgets to existing state");
-
-    // Re-initialize display with existing memory
+    if (!this._display || !this._gamePad) return;
     this._display.initialize(this._memory);
-
-    // Re-initialize the controller with existing state and new widgets
     gameConsoleController.init({
       memory: this._memory,
       displayWidget: this._display,
@@ -196,22 +223,12 @@ export class GameConsole implements GameConsoleView {
       assembler: this._assembler,
       labels: this._labels,
     });
-
-    this.log.debug("Widget reconnection complete");
   }
 
-  /**
-   * Initializes the simulator and sets up event listeners.
-   */
   private initialize(): void {
-    if (!this._display || !this._gamePad) {
-      throw new Error("Missing required components");
-    }
-
+    if (!this._display || !this._gamePad) return;
     this.log.debug("Initializing game console components");
 
-    // Full initialization with display and gamepad widgets
-    // (works whether controller was partially initialized from main or not)
     gameConsoleController.init({
       memory: this._memory,
       displayWidget: this._display,
@@ -221,18 +238,8 @@ export class GameConsole implements GameConsoleView {
       labels: this._labels,
     });
 
-    // Debug output for memory and controller
-    this.log.debug(`Memory initialized (${this._memory ? "ok" : "failed"})`);
-    this.log.debug(`Controller memory initialized (${gameConsoleController.memory ? "ok" : "failed"})`);
-
-    // Initialize display with memory FIRST
     this._display.initialize(this._memory);
-
-    // Reset simulator to initial state
     this._simulator.reset();
-
-    // Add test pattern to memory via shared controller AFTER display initialization
-    // This ensures the display is ready to receive and show the pattern
     gameConsoleStateService.initializeMemoryWithTestPattern(this._memory, "colorChart");
 
     this.log.debug("Initialization complete");
@@ -242,11 +249,12 @@ export class GameConsole implements GameConsoleView {
 // Create singleton instance of the view controller
 export const gameConsoleView = new GameConsole();
 
-// Export bound public methods for XML binding
-export const onLoaded = gameConsoleView.onLoaded;
-export const onUnloaded = gameConsoleView.onUnloaded;
-export const onNavigatingTo = gameConsoleView.onNavigatingTo;
-export const onNavigatingFrom = gameConsoleView.onNavigatingFrom;
+/** Build the game console screen for the shell's AdwViewStack. */
+export function buildGameConsoleScreen(): ScreenModule {
+  return {
+    view: gameConsoleView.build(),
+  };
+}
 
 // Re-export the controller for external components
 export { gameConsoleController };

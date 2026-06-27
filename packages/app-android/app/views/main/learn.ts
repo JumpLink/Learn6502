@@ -1,123 +1,104 @@
-import type { EventData } from "@nativescript/core";
-import { Page, ContentView, View } from "@nativescript/core";
-import type { TutorialView } from "../../mdx/tutorial-view"; // Adjusted path if necessary
+import type { View } from "@nativescript/core";
+import { ScrollView, StackLayout } from "@nativescript/core";
+import {
+  AdwActionRow,
+  AdwClamp,
+  AdwIcon,
+  AdwNavigationView,
+  AdwPreferencesGroup,
+  AdwStatusPage,
+} from "@gjsify/adwaita-nativescript";
+import { goNextSymbolic } from "@gjsify/adwaita-icons/actions";
+import { localize as _ } from "@nativescript/localize";
 import type { LearnView, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { learnController } from "@learn6502/common-ui/src/controller";
+import { TutorialView } from "~/mdx/tutorial-view";
 import { logger } from "~/utils";
+import type { ScreenModule } from "./editor";
 
+/**
+ * Learn view — implements LearnView. Now a scrollable content view (the MDX
+ * TutorialView) added to the shell's AdwViewStack. Copy-to-editor events are still
+ * routed through learnController.
+ */
 class Learn implements LearnView {
-  private page: Page | null = null;
   private tutorialView: TutorialView | null = null;
-
-  // State preservation
-  private _isInitialized: boolean = false;
-  private _lastScrollPosition: number = 0;
-
-  // Scoped logger for this class
+  private _initialized = false;
   private log = logger.scoped("Learn");
 
-  public onNavigatingTo(args: EventData) {
-    const page = args.object as Page;
-    this.page = page;
+  /** Build the Learn navigation (mirrors the GNOME Adw.NavigationView): a main
+   *  page with a boxed-list of Tutorial / Examples rows that push to subpages.
+   *  Wires the tutorial copy events (once). */
+  build(): View {
+    const tutorialView = new TutorialView();
+    tutorialView.className = "mx-4";
+    this.tutorialView = tutorialView;
 
-    this.log.debug(`onNavigatingTo - isInitialized: ${this._isInitialized}`);
-
-    if (!this.page) {
-      throw new Error("LearnView (Android): Page not found.");
+    if (!this._initialized) {
+      tutorialView.events.on("copy", (event: SourceViewCopyEvent) => {
+        learnController.dispatch("copy", { code: event.code });
+      });
+      this._initialized = true;
     }
 
-    this.tutorialView = this.page.getViewById<TutorialView>("tutorialView");
+    const nav = new AdwNavigationView();
 
-    if (!this.tutorialView) {
-      throw new Error("LearnView (Android): TutorialView not found on the page.");
-    }
+    // --- Main page: a boxed list with Tutorial + Examples rows ---
+    const group = new AdwPreferencesGroup();
+    group.addRow(this.navRow(_("Tutorial"), _("Step-by-step guide to 6502 assembly"), () => nav.push("tutorial")));
+    group.addRow(this.navRow(_("Examples"), _("Try out example programs"), () => nav.push("examples")));
+    const mainColumn = new StackLayout();
+    mainColumn.className = "p-4";
+    mainColumn.addChild(group);
+    const mainClamp = new AdwClamp();
+    mainClamp.maximumSize = 600;
+    mainClamp.setChild(mainColumn);
 
-    if (!this._isInitialized) {
-      this.log.debug("First initialization");
-      this.setupEventListeners();
-      this._isInitialized = true;
-    } else {
-      this.log.debug("Re-connecting to existing state");
-      this.setupEventListeners();
-      // Restore scroll position if available
-      this.restoreScrollPosition();
-    }
+    // --- Tutorial page: the MDX TutorialView ---
+    const tutorialScroll = new ScrollView();
+    tutorialScroll.content = tutorialView;
 
-    this.page.on(Page.unloadedEvent, this.onPageUnloaded, this);
+    // --- Examples page: placeholder (ExamplesList not yet ported to Android) ---
+    const examples = new AdwStatusPage();
+    examples.title = _("Examples");
+    examples.description = _("Example programs are coming to the Android app.");
+
+    nav.add(mainClamp, "main");
+    nav.add(tutorialScroll, "tutorial");
+    nav.add(examples, "examples");
+    return nav;
   }
 
-  public onNavigatingFrom(): void {
-    this.log.debug("onNavigatingFrom - preserving state");
-    // Save current scroll position before navigation
-    this.saveScrollPosition();
+  /** An activatable boxed-list row with a trailing go-next chevron. */
+  private navRow(title: string, subtitle: string, onTap: () => void): AdwActionRow {
+    const row = new AdwActionRow();
+    row.title = title;
+    row.subtitle = subtitle;
+    const chevron = new AdwIcon();
+    chevron.icon = goNextSymbolic;
+    row.setSuffix(chevron);
+    row.addEventListener("tap", onTap);
+    return row;
   }
 
-  private setupEventListeners(): void {
-    if (!this.tutorialView) return;
-
-    this.tutorialView.events.on("copy", (event: SourceViewCopyEvent) => {
-      // Dispatch copy event through controller
-      learnController.dispatch("copy", { code: event.code });
-    });
+  // --- LearnView interface ---
+  saveScrollPosition(): void {
+    this.log.debug("saveScrollPosition() - placeholder");
   }
 
-  // TODO: Not used yet
-  public onPageUnloaded(args: EventData): void {
-    this.log.debug("onPageUnloaded - preserving state");
-
-    // Save scroll position before unloading
-    this.saveScrollPosition();
-
-    // Clean up: remove event listeners to prevent memory leaks
-    if (this.tutorialView) {
-      // Assuming EventDispatcher might need a more specific way to remove listeners
-      // or it cleans up internally when the TutorialView is destroyed.
-      // For now, no explicit .off() for tutorialView.events if not available/needed.
-    }
-    if (this.page) {
-      this.page.off(Page.unloadedEvent, this.onPageUnloaded, this);
-    }
-
-    // Clear references but don't reset initialization state
-    this.tutorialView = null;
-    this.page = null;
-
-    this.log.debug("LearnView (Android): Page unloaded.");
-  }
-
-  // --- LearnView interface methods ---
-  public saveScrollPosition(): void {
-    // TODO: Implement scroll position saving when TutorialView supports it
-    this.log.debug("saveScrollPosition() - placeholder implementation");
-
-    // Optionally update common controller if we want to share scroll position
-    // learnController.saveScrollPosition();
-  }
-
-  public restoreScrollPosition(): void {
-    // TODO: Implement scroll position restoration when TutorialView supports it
-    this.log.debug("restoreScrollPosition() - placeholder implementation");
-  }
-
-  /**
-   * Get initialization status
-   */
-  get isInitialized(): boolean {
-    return this._isInitialized;
-  }
-
-  /**
-   * Force re-initialization (useful for testing or reset scenarios)
-   */
-  resetInitialization(): void {
-    this._isInitialized = false;
-    this._lastScrollPosition = 0;
+  restoreScrollPosition(): void {
+    this.log.debug("restoreScrollPosition() - placeholder");
   }
 }
 
-// Create singleton instance of our view controller
 const learnView = new Learn();
 
-export const onNavigatingTo = learnView.onNavigatingTo.bind(learnView);
-export const onNavigatingFrom = learnView.onNavigatingFrom.bind(learnView);
+/** Build the learn screen for the shell's AdwViewStack. */
+export function buildLearnScreen(): ScreenModule {
+  return {
+    view: learnView.build(),
+    onHide: () => learnView.saveScrollPosition(),
+  };
+}
+
 export { learnView };
