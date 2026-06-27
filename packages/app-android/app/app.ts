@@ -5,6 +5,7 @@
 
 import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
+import { registerAdwaita } from "@gjsify/adwaita-nativescript";
 import { systemStates, SystemStates } from "./states";
 import { themeService } from "./services";
 import { appVariables } from "./variables";
@@ -55,6 +56,10 @@ try {
   systemStates.events.on(SystemStates.launchEvent, async () => {
     await initializeServices();
   });
+
+  // Register the native Adwaita widgets (AdwToolbarView / AdwViewStack / …) as NS
+  // XML elements so the Adwaita shell + screens resolve. Idempotent; no-op off NS.
+  registerAdwaita();
 
   Application.setResources({ _: localize });
   Application.run({ moduleName: "app-root" });

@@ -6,6 +6,19 @@
 @import 'css/_dark-mc.css';
 @import 'css/_dark-hc.css';
 
+/* The Libadwaita look for the @gjsify/adwaita-nativescript widgets (rows / groups
+   / header bar / view switcher / …). Copied from
+   @gjsify/adwaita-nativescript/theme/adwaita.css for reliable NS @import
+   resolution; keep in sync with the package on a widget bump. Light + .ns-dark. */
+@import '~/adwaita.css';
+
+/* Adwaita Sans (the GNOME UI font). Android resolves the family by the TTF file
+   name in app/fonts/ (AdwaitaSans-Regular.ttf); iOS resolves by the PostScript
+   name ("Adwaita Sans"). Listing both keeps one rule cross-platform. */
+Page {
+  font-family: 'AdwaitaSans-Regular', 'Adwaita Sans';
+}
+
 @custom-variant dark (&:is(.ns-dark *));
 @custom-variant high (&:is(.ns-contrast-high *));
 @custom-variant medium (&:is(.ns-contrast-medium *));
@@ -124,4 +137,46 @@ TextView.no-underline {
 
 .mr-safe {
   margin-right: var(--safeAreaInsetRight, 0) !important;
+}
+
+/* Adwaita floating action button (the main Assemble / Run / … button). */
+.adw-fab {
+  background-color: #3584e4;
+  border-radius: 9999;
+  padding: 10 18 10 18;
+  margin: 16;
+  android-elevation: 0;
+}
+
+.adw-fab-label {
+  color: #ffffff;
+  font-weight: 700;
+  margin-left: 8;
+  vertical-align: middle;
+}
+
+.ns-dark .adw-fab {
+  background-color: #3584e4;
+}
+
+/* Gamepad — the GNOME version uses `.osd` (dark translucent) buttons: rounded for
+   the d-pad, circular for A/B. */
+.gamepad-dpad-button {
+  background-color: rgba(0, 0, 0, 0.55);
+  border-radius: 12;
+  margin: 1;
+}
+
+.gamepad-action-button {
+  background-color: rgba(0, 0, 0, 0.55);
+  color: #ffffff;
+  border-radius: 29;
+  font-weight: 700;
+  font-size: 20;
+  android-elevation: 0;
+}
+
+.ns-dark .gamepad-dpad-button,
+.ns-dark .gamepad-action-button {
+  background-color: rgba(255, 255, 255, 0.14);
 }
