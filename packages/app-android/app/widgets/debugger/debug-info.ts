@@ -87,6 +87,7 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
     box.addChild(dec);
     row.setSuffix(box);
 
+    group.addRow(row);
     return { hex, dec };
   }
 
