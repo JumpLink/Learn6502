@@ -1,89 +1,153 @@
-import { ContentView, Builder } from "@nativescript/core";
+import { ContentView, GridLayout, ItemSpec, Label, StackLayout } from "@nativescript/core";
+import { localize as _ } from "@nativescript/localize";
 import type { DebugInfoWidget } from "@learn6502/common-ui";
 import type { Simulator } from "@learn6502/core";
 import { num2hex, addr2hex } from "@learn6502/core";
-import type { ListItem } from "../list-item";
-import { logger } from "~/utils";
+import { AdwActionRow, AdwPreferencesGroup } from "@gjsify/adwaita-nativescript";
+
+/** A register row's two value labels (hex on top, decimal dim below). */
+interface RegisterValue {
+  hex: Label;
+  dec: Label;
+}
 
 /**
- * DebugInfo widget displaying 6502 CPU registers and status flags
- * Uses Material Design 3 List and ListItem components for a modern look
+ * DebugInfo — 6502 CPU registers and the status-flag bits, rendered as native
+ * Adwaita boxed lists (`AdwPreferencesGroup` + `AdwActionRow`) to match the GNOME
+ * debugger (`debug-info.blp`): a "Registers" group with five rows (A/X/Y/SP/PC,
+ * each showing `$hex` over a dim decimal), and a "Status Flags" group whose single
+ * row carries the N V - B D I Z C bit display in its suffix.
  */
 export class DebugInfo extends ContentView implements DebugInfoWidget {
-  // ListItem references for registers
-  private itemA!: ListItem;
-  private itemX!: ListItem;
-  private itemY!: ListItem;
-  private itemSP!: ListItem;
-  private itemPC!: ListItem;
-  private itemFlags!: ListItem;
+  private readonly regA: RegisterValue;
+  private readonly regX: RegisterValue;
+  private readonly regY: RegisterValue;
+  private readonly regSP: RegisterValue;
+  private readonly regPC: RegisterValue;
+
+  /** Bit labels p7..p0 (N V - B D I Z C), dimmed when the bit is 0. */
+  private readonly bitLabels: Label[] = [];
 
   constructor() {
     super();
+
+    const column = new StackLayout();
+    column.orientation = "vertical";
+
+    // --- Registers ---
+    const registers = new AdwPreferencesGroup();
+    registers.title = _("Registers");
+    registers.marginBottom = 12;
+
+    this.regA = this.addRegisterRow(registers, "A", _("Accumulator: Main register for calculations"));
+    this.regX = this.addRegisterRow(registers, "X", _("Index register X: Used for addressing"));
+    this.regY = this.addRegisterRow(registers, "Y", _("Index register Y: Used for addressing"));
+    this.regSP = this.addRegisterRow(registers, "SP", _("Stack Pointer: Points to stack position"));
+    this.regPC = this.addRegisterRow(registers, "PC", _("Program Counter: Points to next instruction"));
+
+    column.addChild(registers);
+
+    // --- Status Flags ---
+    const flags = new AdwPreferencesGroup();
+    flags.title = _("Status Flags");
+
+    const flagsRow = new AdwActionRow();
+    flagsRow.title = "P (SR)";
+    flagsRow.subtitle = _("Processor Status Register");
+    flagsRow.setSuffix(this.buildFlagsGrid());
+    flags.addRow(flagsRow);
+
+    column.addChild(flags);
+
+    this.content = column;
   }
 
-  public onLoaded(): void {
-    super.onLoaded();
+  /** Add an `AdwActionRow` for a register and return its hex/decimal value labels. */
+  private addRegisterRow(group: AdwPreferencesGroup, name: string, subtitle: string): RegisterValue {
+    const row = new AdwActionRow();
+    row.title = name;
+    row.subtitle = subtitle;
 
-    logger.debug("DebugInfo", "onLoaded - loading template");
+    const box = new StackLayout();
+    box.orientation = "vertical";
+    box.horizontalAlignment = "right";
 
-    // Load the XML layout using Builder
-    const componentView = Builder.load({
-      path: "~/widgets/debugger",
-      name: "debug-info",
+    const hex = new Label();
+    hex.fontFamily = "monospace";
+    hex.horizontalAlignment = "right";
+    hex.text = "$00";
+
+    const dec = new Label();
+    dec.className = "adw-row-subtitle";
+    dec.fontFamily = "monospace";
+    dec.horizontalAlignment = "right";
+    dec.text = "0";
+
+    box.addChild(hex);
+    box.addChild(dec);
+    row.setSuffix(box);
+
+    return { hex, dec };
+  }
+
+  /** The compact N V - B D I Z C header + bit display shown in the flags row suffix. */
+  private buildFlagsGrid(): GridLayout {
+    const grid = new GridLayout();
+    grid.horizontalAlignment = "right";
+    grid.addRow(new ItemSpec(1, "auto"));
+    grid.addRow(new ItemSpec(1, "auto"));
+    for (let i = 0; i < 8; i++) {
+      grid.addColumn(new ItemSpec(1, "auto"));
+    }
+
+    const headers = ["N", "V", "-", "B", "D", "I", "Z", "C"];
+    headers.forEach((text, col) => {
+      const header = new Label();
+      header.text = text;
+      header.className = "adw-row-subtitle";
+      header.width = 16;
+      header.horizontalAlignment = "center";
+      if (text === "-") header.opacity = 0.4;
+      GridLayout.setRow(header, 0);
+      GridLayout.setColumn(header, col);
+      grid.addChild(header);
     });
 
-    if (!componentView) {
-      logger.error("DebugInfo", "Failed to load debug-info.xml template");
-      return;
+    for (let col = 0; col < 8; col++) {
+      const bit = new Label();
+      bit.text = "0";
+      bit.fontFamily = "monospace";
+      bit.width = 16;
+      bit.horizontalAlignment = "center";
+      GridLayout.setRow(bit, 1);
+      GridLayout.setColumn(bit, col);
+      grid.addChild(bit);
+      this.bitLabels.push(bit);
     }
 
-    // Get references to list items from template
-    this.itemA = componentView.getViewById<ListItem>("itemA");
-    this.itemX = componentView.getViewById<ListItem>("itemX");
-    this.itemY = componentView.getViewById<ListItem>("itemY");
-    this.itemSP = componentView.getViewById<ListItem>("itemSP");
-    this.itemPC = componentView.getViewById<ListItem>("itemPC");
-    this.itemFlags = componentView.getViewById<ListItem>("itemFlags");
-
-    if (!this.itemA || !this.itemX || !this.itemY || !this.itemSP || !this.itemPC || !this.itemFlags) {
-      logger.error("DebugInfo", "Failed to find list items in template");
-    } else {
-      logger.debug("DebugInfo", "All list items loaded successfully");
-    }
-
-    // Add the componentView to the content
-    this.content = componentView;
+    return grid;
   }
 
   public update(simulator: Simulator): void {
-    // Get register values from simulator.info
     const { regA, regX, regY, regP, regPC, regSP } = simulator.info;
 
-    // Update register values with both hex and decimal representation
-    if (this.itemA) {
-      this.itemA.trailingText = `$${num2hex(regA)} (${regA})`;
-    }
-    if (this.itemX) {
-      this.itemX.trailingText = `$${num2hex(regX)} (${regX})`;
-    }
-    if (this.itemY) {
-      this.itemY.trailingText = `$${num2hex(regY)} (${regY})`;
-    }
-    if (this.itemSP) {
-      this.itemSP.trailingText = `$${num2hex(regSP)} (${regSP})`;
-    }
-    if (this.itemPC) {
-      this.itemPC.trailingText = `$${addr2hex(regPC)} (${regPC})`;
-    }
+    this.setValue(this.regA, `$${num2hex(regA)}`, regA);
+    this.setValue(this.regX, `$${num2hex(regX)}`, regX);
+    this.setValue(this.regY, `$${num2hex(regY)}`, regY);
+    this.setValue(this.regSP, `$${num2hex(regSP)}`, regSP);
+    this.setValue(this.regPC, `$${addr2hex(regPC)}`, regPC);
 
-    // Update flags (N V - B D I Z C format, bits 7-0)
-    if (this.itemFlags) {
-      let flagsText = "";
-      for (let i = 7; i >= 0; i--) {
-        flagsText += (regP >> i) & 1;
-      }
-      this.itemFlags.trailingText = flagsText;
+    // Flags N V - B D I Z C (bit7..bit0); dim a bit when it is 0.
+    for (let i = 0; i < 8; i++) {
+      const value = (regP >> (7 - i)) & 1;
+      const label = this.bitLabels[i];
+      label.text = value ? "1" : "0";
+      label.opacity = value ? 1 : 0.4;
     }
+  }
+
+  private setValue(target: RegisterValue, hex: string, dec: number): void {
+    target.hex.text = hex;
+    target.dec.text = `${dec}`;
   }
 }
