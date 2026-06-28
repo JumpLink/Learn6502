@@ -7,17 +7,15 @@
         row="0" col="0" rowSpan="2"
         editable="false"
         fontFamily="monospace"
-        color="#888888"
         height="100%"
         visibility="{{ lineNumbers ? 'visible' : 'collapsed' }}"
-        class="text-base p-0 m-0 vertical-top w-10 no-underline" />
+        class="text-base p-0 m-0 vertical-top w-10 no-underline text-on-surface-variant" />
     <TextView id="textView"
         row="0" col="1" rowSpan="2"
         editable="{{ editable }}"
         fontFamily="monospace"
-        color="#ffffff"
         height="100%"
-        class="text-base p-0 m-0 vertical-top no-underline" />
+        class="text-base p-0 m-0 vertical-top no-underline text-on-surface" />
     <Button id="copyButton"
         row="0" col="1"
         horizontalAlignment="right"
