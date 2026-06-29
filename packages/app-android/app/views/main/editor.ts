@@ -13,6 +13,9 @@ export interface ScreenModule {
   view: View;
   onShow?(): void;
   onHide?(): void;
+  /** Handle the hardware back button while this screen is active. Return true if
+   *  the screen consumed it (e.g. popped an internal navigation stack). */
+  onBack?(): boolean;
 }
 
 /**

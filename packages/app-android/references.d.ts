@@ -10,6 +10,13 @@ declare module "*?raw" {
   export default src;
 }
 
+// 6502 assembly example sources (loaded as text by the asmTextLoader Vite plugin;
+// see vite.config.ts). Mirrors @learn6502/examples' own ambient declaration.
+declare module "*.asm" {
+  const content: string;
+  export default content;
+}
+
 // Global build-time constants (set by Vite `define` in vite.config.ts; __ANDROID__/
 // __IOS__ are provided by gjsifyNativescript()'s platform defines)
 
@@ -30,3 +37,6 @@ declare const PLAY_STORE_BUILD: boolean;
 
 /** Application ID - matches the id from nativescript.config.js */
 declare const __APP_ID__: string;
+
+/** Application version - injected from package.json at build time */
+declare const __APP_VERSION__: string;

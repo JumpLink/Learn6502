@@ -10,6 +10,21 @@ import { Application, Frame, Page, type AndroidActivityBackPressedEventData } fr
 import { logger } from "./logger";
 
 /**
+ * App-level back handler, consulted before the default Frame / background logic.
+ * The shell registers one so the active screen can consume the hardware back
+ * button (e.g. the Learn screen pops its internal Adw.NavigationView). Returns
+ * true when it handled the press. Needed because the app's root is a single-page
+ * Frame: `Frame.canGoBack()` is always false, so the default handler would
+ * background the app on every back press without this hook.
+ */
+let appBackHandler: (() => boolean) | null = null;
+
+/** Register (or clear, with `null`) the app-level back handler. */
+export function setAppBackHandler(handler: (() => boolean) | null): void {
+  appBackHandler = handler;
+}
+
+/**
  * Check if a view should handle back button press
  * Based on pattern from reference projects
  */
@@ -74,6 +89,12 @@ export function setupBackButtonHandler(): void {
   }
 
   Application.android.on(Application.android.activityBackPressedEvent, (event: AndroidActivityBackPressedEventData) => {
+    // Give the active screen first chance (e.g. pop the Learn navigation stack).
+    if (appBackHandler?.()) {
+      event.cancel = true;
+      return;
+    }
+
     const rootView = Application.getRootView();
     if (!rootView) {
       return;
