@@ -3,7 +3,22 @@ import { ContentView, Property, Builder, booleanConverter, Color } from "@native
 import { debounce, EventDispatcher } from "@learn6502/core";
 import type { SourceViewEventMap, SourceViewWidget } from "@learn6502/common-ui";
 import { OPCODE_PATTERN, COMMENT_PATTERN, HEX_VALUE_PATTERN } from "@learn6502/common-ui";
+import { adwaitaColorScheme, onAdwaitaColorSchemeChanged } from "@gjsify/adwaita-nativescript";
+import type { AdwColorScheme } from "@gjsify/adwaita-nativescript";
 import { logger } from "~/utils";
+
+/**
+ * 6502 syntax-highlight colours per Adwaita colour scheme — muted Adwaita named
+ * colours on the light surface, the brighter dark-scheme variants on the dark
+ * one, so the tokens stay legible in both (matching the GNOME GtkSourceView).
+ * The base text + gutter colours follow the theme via their CSS classes
+ * (`text-on-surface` / `text-on-surface-variant`); only these per-token spans
+ * are applied natively and so need an explicit per-scheme value.
+ */
+const SYNTAX_COLORS: Record<AdwColorScheme, { comment: string; opcode: string; hex: string }> = {
+  light: { comment: "#3a944a", opcode: "#3584e4", hex: "#9141ac" },
+  dark: { comment: "#8ff0a4", opcode: "#78aeed", hex: "#dc8add" },
+};
 
 export class SourceView extends ContentView implements SourceViewWidget {
   // Static properties
@@ -117,6 +132,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   private _copyButtonIcon: string = "";
   private _copyButtonTooltip: string = "";
   private _pendingCode: string = "";
+  private _unsubscribeScheme: (() => void) | null = null;
 
   // Constructor
   constructor() {
@@ -302,7 +318,10 @@ export class SourceView extends ContentView implements SourceViewWidget {
     if (!this.textView) {
       throw new Error("Failed to find textView in source-view.xml");
     }
-    this.textView.color = new Color("white");
+    // Text colour follows the Adwaita theme via the `text-on-surface` CSS class
+    // (dark on the light surface, light on the dark one) — a hardcoded white was
+    // invisible on the light theme. A transparent background lets the surface
+    // (`bg-surface` on the GridLayout) show through.
     this.textView.backgroundColor = new Color("transparent");
 
     if (this.textView.android) {
@@ -318,7 +337,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     if (!this.lineNumbersView) {
       throw new Error("Failed to find lineNumbersView in source-view.xml");
     }
-    this.lineNumbersView.color = new Color("lightgray");
+    // Gutter colour follows the theme via `text-on-surface-variant` (dimmed fg).
     this.lineNumbersView.backgroundColor = new Color("transparent");
     // Visibility is handled by template binding: visibility="{{ lineNumbers ? 'visible' : 'collapsed' }}"
 
@@ -377,12 +396,25 @@ export class SourceView extends ContentView implements SourceViewWidget {
 
     // Apply current selectable state
     this.selectable = this._selectable;
+
+    // Re-tint the syntax highlighting when the Adwaita colour scheme flips (the
+    // base text + gutter recolour automatically via their CSS classes).
+    this._unsubscribeScheme = onAdwaitaColorSchemeChanged(() => {
+      this.applyHighlighting(this.code);
+    });
+  }
+
+  onUnloaded() {
+    this._unsubscribeScheme?.();
+    this._unsubscribeScheme = null;
+    super.onUnloaded();
   }
 
   // Instance methods - private
   private applyHighlighting(code: string) {
     if (this.textView?.android) {
       const nativeEditText = this.textView.android as android.widget.EditText;
+      const palette = SYNTAX_COLORS[adwaitaColorScheme()];
       let selectionStart = 0;
       let selectionEnd = 0;
       if (nativeEditText.isFocused()) {
@@ -395,7 +427,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
       let match: RegExpExecArray | null;
       while ((match = commentPattern.exec(code)) !== null) {
         spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor("#008000")),
+          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor(palette.comment)),
           match.index,
           match.index + match[0].length,
           android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -405,7 +437,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
       const opcodePattern = new RegExp(OPCODE_PATTERN, "gi");
       while ((match = opcodePattern.exec(code)) !== null) {
         spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor("#0000FF")),
+          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor(palette.opcode)),
           match.index,
           match.index + match[0].length,
           android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
@@ -421,7 +453,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
       const hexPattern = new RegExp(HEX_VALUE_PATTERN, "gi");
       while ((match = hexPattern.exec(code)) !== null) {
         spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor("#800080")),
+          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor(palette.hex)),
           match.index,
           match.index + match[0].length,
           android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE

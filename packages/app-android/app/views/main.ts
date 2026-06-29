@@ -13,6 +13,7 @@ import {
   AdwViewStack,
   AdwViewSwitcherBar,
   AdwToastOverlay,
+  AdwAboutDialog,
   MENU_ITEM_ACTIVATED,
   NOTIFY_VISIBLE_CHILD,
   setAdwaitaColorScheme,
@@ -39,6 +40,7 @@ import type { SimulatorState } from "@learn6502/core";
 import { notificationService } from "~/services";
 import type { SystemAppearanceChangeEvent } from "~/types";
 import { showError, logger } from "~/utils";
+import { setAppBackHandler } from "~/utils/navigation";
 
 // Adwaita FAB + screen builders
 import { AdwMainButton, type MainButtonAction } from "~/widgets/adw-main-button";
@@ -84,6 +86,7 @@ export class MainController implements MainView {
   private _stack: AdwViewStack | null = null;
   private _fab: AdwMainButton | null = null;
   private _toast: AdwToastOverlay | null = null;
+  private _about: AdwAboutDialog | null = null;
   private _screens: Record<string, ScreenModule> = {};
   private _currentName: string | null = null;
 
@@ -127,7 +130,7 @@ export class MainController implements MainView {
         this.updateMainUiState();
       },
       showNotification: (key) => {
-        notificationService.showNotification({ title: NOTIFICATION_TITLES[key] || key, timeout: 2 });
+        notificationService.showNotification({ title: _(NOTIFICATION_TITLES[key] || key), timeout: 2 });
       },
       updateDebugInfo: (simulator) => {
         debuggerView.updateDebugInfo(simulator);
@@ -143,7 +146,7 @@ export class MainController implements MainView {
         this.log.debug("Learn: Code copied to editor", code);
       },
       showNotification: (key) => {
-        notificationService.showNotification({ title: NOTIFICATION_TITLES[key] || key, timeout: 2 });
+        notificationService.showNotification({ title: _(NOTIFICATION_TITLES[key] || key), timeout: 2 });
       },
     });
   }
@@ -173,6 +176,14 @@ export class MainController implements MainView {
     // Build the Adwaita shell and install it as the page content.
     this.page.content = this.buildShell();
 
+    // Hardware back: let the active screen consume it (e.g. the Learn screen pops
+    // its internal Adw.NavigationView). Registered with the global back handler so
+    // it runs before the default Frame / move-to-background logic.
+    setAppBackHandler(() => {
+      const screen = this._currentName ? this._screens[this._currentName] : undefined;
+      return screen?.onBack?.() ?? false;
+    });
+
     // Start on the editor (the Material default).
     this.navigateToView(ViewType.EDITOR);
   }
@@ -180,6 +191,7 @@ export class MainController implements MainView {
   public onUnloaded(args: EventData): void {
     const view = args.object as Page;
     this.log.debug("unloaded:", view.id);
+    setAppBackHandler(null);
     this.gameConsoleBridge.disconnect();
     this.mainBridge.disconnect();
     systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
@@ -209,7 +221,7 @@ export class MainController implements MainView {
     menu.icon = openMenuSymbolic;
     menu.menuTitle = "Learn6502";
     menu.menuItems = [
-      { id: "about", label: _("About Learn6502") },
+      { id: "about", label: _("About Learn 6502 Assembly") },
       { id: "help", label: _("Help") },
       { id: "quit", label: _("Quit") },
     ];
@@ -250,6 +262,20 @@ export class MainController implements MainView {
     GridLayout.setRow(fab, 0);
     GridLayout.setColumn(fab, 0);
     overlay.addChild(fab);
+
+    // About dialog — an in-page modal card painted over everything (last child of
+    // the overlay grid), revealed from the app menu. Mirrors the GNOME app's
+    // Adw.AboutDialog.new_from_appdata(metainfo, version).
+    const about = new AdwAboutDialog();
+    about.applicationName = _("Learn 6502 Assembly");
+    about.version = __APP_VERSION__;
+    about.developerName = "Pascal Garber";
+    about.comments = _("Program vintage game consoles");
+    about.website = "https://flathub.org/apps/eu.jumplink.Learn6502";
+    this._about = about;
+    GridLayout.setRow(about, 0);
+    GridLayout.setColumn(about, 0);
+    overlay.addChild(about);
 
     const toast = new AdwToastOverlay();
     toast.setContent(overlay);
@@ -349,7 +375,7 @@ export class MainController implements MainView {
   private onMenuItem(id: string): void {
     switch (id) {
       case "about":
-        this._toast?.showToast(_("Learn6502 — learn 6502 assembly interactively."));
+        this._about?.present();
         break;
       case "help":
         this.navigateToView(ViewType.LEARN);

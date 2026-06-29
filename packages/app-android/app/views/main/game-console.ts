@@ -1,7 +1,7 @@
 import type { View } from "@nativescript/core";
 import { GridLayout, ItemSpec, StackLayout } from "@nativescript/core";
 import { AdwButton, AdwImageButton } from "@gjsify/adwaita-nativescript";
-import { goUpSymbolic, goDownSymbolic, goPreviousSymbolic, goNextSymbolic } from "@gjsify/adwaita-icons/actions";
+import { dpadUpSymbolic, dpadDownSymbolic, dpadLeftSymbolic, dpadRightSymbolic } from "~/icons";
 import type { SimulatorState } from "@learn6502/core";
 import { type Memory, type Labels, type Simulator, type Assembler } from "@learn6502/core";
 
@@ -113,13 +113,29 @@ export class GameConsole implements GameConsoleView {
   private buildGamepad(): View {
     const press = (key: GamepadKey): void => gameConsoleController.gamepadPress(key);
 
-    const dirButton = (icon: string, key: GamepadKey): AdwImageButton => {
+    // A connected d-pad cross like GNOME's (osd buttons with `rounded-*-none`):
+    // the direction buttons touch and round only their OUTER corners, and a
+    // disabled hub fills the centre. `dpad-*-symbolic` are the Learn6502 icons.
+    const R = 13;
+    const dirButton = (
+      icon: string,
+      key: GamepadKey,
+      tl: number,
+      tr: number,
+      br: number,
+      bl: number
+    ): AdwImageButton => {
       const b = new AdwImageButton();
       b.icon = icon;
       b.iconSize = 22;
       b.iconColor = "#ffffff";
       b.width = 52;
       b.height = 52;
+      b.margin = 0;
+      b.borderTopLeftRadius = tl;
+      b.borderTopRightRadius = tr;
+      b.borderBottomRightRadius = br;
+      b.borderBottomLeftRadius = bl;
       b.className = `${b.className} gamepad-dpad-button`.trim();
       b.addEventListener("tap", () => press(key));
       return b;
@@ -135,10 +151,18 @@ export class GameConsole implements GameConsoleView {
       GridLayout.setColumn(v, c);
       dpad.addChild(v);
     };
-    place(dirButton(goUpSymbolic, "Up"), 0, 1);
-    place(dirButton(goPreviousSymbolic, "Left"), 1, 0);
-    place(dirButton(goNextSymbolic, "Right"), 1, 2);
-    place(dirButton(goDownSymbolic, "Down"), 2, 1);
+    place(dirButton(dpadUpSymbolic, "Up", R, R, 0, 0), 0, 1);
+    place(dirButton(dpadLeftSymbolic, "Left", R, 0, 0, R), 1, 0);
+    place(dirButton(dpadRightSymbolic, "Right", 0, R, R, 0), 1, 2);
+    place(dirButton(dpadDownSymbolic, "Down", 0, 0, R, R), 2, 1);
+    // Centre hub — a non-interactive OSD square that joins the cross.
+    const hub = new StackLayout();
+    hub.width = 52;
+    hub.height = 52;
+    hub.margin = 0;
+    hub.borderRadius = 0;
+    hub.className = "gamepad-dpad-button";
+    place(hub, 1, 1);
 
     const actButton = (label: string, key: GamepadKey, topMargin: number, bottomMargin: number): AdwButton => {
       const b = new AdwButton();

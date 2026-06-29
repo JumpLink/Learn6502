@@ -29,3 +29,12 @@ tmp/
 
 # mdx results
 app/mdx/*.xml
+
+# Committed @nativescript/localize hook registration (this project uses
+# gjsify-managed node_modules, so `npm install` never injects these hooks;
+# without them `ns prepare` won't regenerate res/values-*/strings.xml).
+!hooks/
+!hooks/before-checkForChanges/
+!hooks/before-checkForChanges/nativescript-localize.js
+!hooks/before-watchPatterns/
+!hooks/before-watchPatterns/nativescript-localize.js

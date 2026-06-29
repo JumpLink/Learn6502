@@ -80,9 +80,14 @@ class Debugger implements DebuggerView {
 
     column.addChild(settings);
 
-    // --- Widget sections (each framed as a card), in the GNOME debugger order:
-    //     registers, hex monitor, hexdump, disassembled, then messages. ---
-    column.addChild(this.section(_("Registers & Flags"), this.debugInfo));
+    // --- Widget sections, in the GNOME debugger order: registers, hex monitor,
+    //     hexdump, disassembled, then messages. The register/flags display is an
+    //     Adwaita boxed list (its own groups), so it goes in unframed — matching
+    //     GNOME's debugInfoBox; the rest get a heading + card frame. ---
+    const registersBox = new StackLayout();
+    registersBox.className = "mb-16";
+    registersBox.addChild(this.debugInfo);
+    column.addChild(registersBox);
     column.addChild(this.section(_("Hex Monitor"), this.hexMonitor)); // HexMonitor is itself a ScrollView
     column.addChild(this.section(_("Hexdump"), this.scrolled(this.hexdump, 200)));
     column.addChild(this.section(_("Disassembled"), this.scrolled(this.disassembled, 200)));
