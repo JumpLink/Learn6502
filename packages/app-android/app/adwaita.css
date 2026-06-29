@@ -522,6 +522,9 @@ Page.adw-window {
 
 .adw-status-page {
     background-color: #fafafb;
+    /* Fill the parent so the centered content stack sits in the vertical middle
+     * (Adw.StatusPage is a full-page empty state), not hugging the top. */
+    height: 100%;
 }
 
 .adw-status-page-content {

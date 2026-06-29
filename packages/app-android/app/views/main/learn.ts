@@ -1,5 +1,5 @@
 import type { View } from "@nativescript/core";
-import { ScrollView, StackLayout } from "@nativescript/core";
+import { ScrollView } from "@nativescript/core";
 import {
   AdwActionRow,
   AdwClamp,
@@ -9,6 +9,7 @@ import {
   AdwStatusPage,
 } from "@gjsify/adwaita-nativescript";
 import { goNextSymbolic } from "@gjsify/adwaita-icons/actions";
+import { schoolSymbolic, openBookSymbolic, codeSymbolic } from "~/icons";
 import { localize as _ } from "@nativescript/localize";
 import type { LearnView, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { learnController } from "@learn6502/common-ui/src/controller";
@@ -43,16 +44,22 @@ class Learn implements LearnView {
 
     const nav = new AdwNavigationView();
 
-    // --- Main page: a boxed list with Tutorial + Examples rows ---
+    // --- Main page: an AdwStatusPage hero (icon + title + description) over a
+    //     boxed list of Tutorial + Examples rows, matching the GNOME learn.blp. ---
     const group = new AdwPreferencesGroup();
-    group.addRow(this.navRow(_("Tutorial"), _("Step-by-step guide to 6502 assembly"), () => nav.push("tutorial")));
-    group.addRow(this.navRow(_("Examples"), _("Try out example programs"), () => nav.push("examples")));
-    const mainColumn = new StackLayout();
-    mainColumn.className = "p-4";
-    mainColumn.addChild(group);
+    group.addRow(
+      this.navRow(_("Tutorial"), _("Step-by-step guide to 6502 assembly"), openBookSymbolic, () => nav.push("tutorial"))
+    );
+    group.addRow(this.navRow(_("Examples"), _("Try out example programs"), codeSymbolic, () => nav.push("examples")));
     const mainClamp = new AdwClamp();
     mainClamp.maximumSize = 600;
-    mainClamp.setChild(mainColumn);
+    mainClamp.setChild(group);
+
+    const mainPage = new AdwStatusPage();
+    mainPage.icon = schoolSymbolic;
+    mainPage.title = _("Learn");
+    mainPage.description = _("Learn how to program the 6502 microprocessor.");
+    mainPage.setChild(mainClamp);
 
     // --- Tutorial page: the MDX TutorialView ---
     const tutorialScroll = new ScrollView();
@@ -63,17 +70,21 @@ class Learn implements LearnView {
     examples.title = _("Examples");
     examples.description = _("Example programs are coming to the Android app.");
 
-    nav.add(mainClamp, "main");
+    nav.add(mainPage, "main");
     nav.add(tutorialScroll, "tutorial");
     nav.add(examples, "examples");
     return nav;
   }
 
-  /** An activatable boxed-list row with a trailing go-next chevron. */
-  private navRow(title: string, subtitle: string, onTap: () => void): AdwActionRow {
+  /** An activatable boxed-list row: a leading symbolic icon, title + subtitle,
+   *  and a trailing go-next chevron (matches the GNOME Adw.ActionRow). */
+  private navRow(title: string, subtitle: string, iconSvg: string, onTap: () => void): AdwActionRow {
     const row = new AdwActionRow();
     row.title = title;
     row.subtitle = subtitle;
+    const prefix = new AdwIcon();
+    prefix.icon = iconSvg;
+    row.setPrefix(prefix);
     const chevron = new AdwIcon();
     chevron.icon = goNextSymbolic;
     row.setSuffix(chevron);
