@@ -43,6 +43,7 @@
     "@gjsify/storybook@^0.10.0",
     "@gjsify/vite-plugin-blueprint@^0.10.0",
     "@gjsify/vite-plugin-gettext@^0.10.0",
+    "@gjsify/adwaita-web@^0.14.0",
     "lightningcss@^1.32.0",
     "@types/node@^25.9.1",
     "@gjsify/dom-elements@^0.10.0",
@@ -1565,6 +1566,15 @@
         "@gjsify/adwaita-fonts": "^0.14.0",
         "@gjsify/adwaita-icons": "^0.14.0",
         "@gjsify/native-platform": "^0.14.0"
+      }
+    },
+    "node_modules/@gjsify/adwaita-web": {
+      "version": "0.14.0",
+      "resolved": "https://registry.npmjs.org/@gjsify/adwaita-web/-/adwaita-web-0.14.0.tgz",
+      "integrity": "sha512-jiU7EJrtgc6bMesHNmMJ3vBomHY/kIlSTTNhS9mkH0yzlDVdcAl60ohSoqgpzpNqX4h8002QXjfJqO7RvYZVVw==",
+      "dependencies": {
+        "@gjsify/adwaita-fonts": "^0.14.0",
+        "@gjsify/adwaita-icons": "^0.14.0"
       }
     },
     "node_modules/@gjsify/assert": {

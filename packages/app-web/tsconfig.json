@@ -5,6 +5,17 @@
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
+    "paths": {
+      // Workaround (spike finding, feeds gjsify ADR 0004): the published
+      // @gjsify/adwaita-web points its exports "types" at src/index.ts, but the
+      // shipped src is missing styles.generated.ts and @gjsify/adwaita-fonts
+      // ships no index.d.ts — type-checking the TS source fails (TS2882/TS7016).
+      // The package DOES ship built declarations under lib/types, so remap the
+      // type resolution there until the gjsify-side packaging is fixed.
+      // Vite ignores tsconfig paths, so the runtime import still uses the real
+      // package entry.
+      "@gjsify/adwaita-web": ["../../node_modules/@gjsify/adwaita-web/lib/types/index.d.ts"]
+    },
     "allowImportingTsExtensions": true,
     "noEmit": true,
     "strict": true,
@@ -14,5 +25,5 @@
     "alwaysStrict": true,
     "diagnostics": true
   },
-  "files": ["src/main.ts"]
+  "files": ["src/main.ts", "src/debugger-spike.ts", "src/types/adwaita-fonts.d.ts"]
 }

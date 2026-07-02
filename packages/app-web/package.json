@@ -6,10 +6,11 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clear": "rm -rf dist _site",
+    "clear": "rm -rf dist dist-spike _site",
     "setup": "gem install bundler jekyll && bundle install",
     "build:vite": "vite build",
-    "build": "gjsify run build:vite",
+    "build:spike": "vite build --config vite.spike.config.js",
+    "build": "gjsify run build:vite && gjsify run build:spike",
     "check": "gjsify tsc --noEmit",
     "start:app": "gjsify run dist/main.js",
     "debug:app": "GTK_DEBUG=interactive gjsify run dist/main.js",
@@ -24,6 +25,8 @@
     "vite": "^8.0.16"
   },
   "dependencies": {
+    "@gjsify/adwaita-web": "^0.14.0",
+    "@learn6502/common-ui": "^0.7.0",
     "@learn6502/core": "^0.7.0"
   }
 }

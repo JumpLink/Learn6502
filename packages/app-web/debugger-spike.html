@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Learn 6502 — DebuggerView spike (ADR 0007)</title>
+    <style>
+      /* Dev-only spike page chrome; everything else is styled by adwaita-web.
+         The adwaita-web skin themes via CSS variables (auto light/dark through
+         prefers-color-scheme) but expects the window container — normally an
+         <adw-window> — to paint the root surface. This page has no window
+         chrome, so bind the body to the same tokens. */
+      :root {
+        color-scheme: light dark;
+      }
+      body {
+        margin: 0;
+        background: var(--window-bg-color, #fafafb);
+        color: var(--window-fg-color, rgb(0 0 6 / 80%));
+        font-family: "Adwaita Sans", "Cantarell", sans-serif;
+      }
+      main {
+        max-width: 700px;
+        margin: 0 auto;
+        padding: 12px 12px 48px;
+      }
+      .learn-spike-editor {
+        display: block;
+        width: 100%;
+        box-sizing: border-box;
+        min-height: 180px;
+        margin-bottom: 12px;
+        padding: 10px 14px;
+        font-family: ui-monospace, "Adwaita Mono", monospace;
+        font-size: 0.9em;
+        border-radius: 12px;
+        border: 1px solid var(--border-color, rgb(0 0 0 / 15%));
+        background: var(--view-bg-color, #fff);
+        color: var(--view-fg-color, #000);
+        resize: vertical;
+      }
+      .learn-spike-toolbar {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        flex-wrap: wrap;
+      }
+      .learn-spike-state {
+        margin-left: auto;
+        opacity: 0.6;
+        font-size: 0.85em;
+      }
+    </style>
+  </head>
+  <body>
+    <script type="module" src="/src/debugger-spike.ts"></script>
+  </body>
+</html>
