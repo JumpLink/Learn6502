@@ -2,7 +2,7 @@ import { renderSSR } from "nano-jsx/esm/index.js";
 import Tutorial from "../tutorial.mdx";
 import QuickHelp from "../quick-help.mdx";
 import { GtkComponents, GtkRoot } from "./components/gtk/index.tsx";
-// import * as HtmlComponents from './components/html/index.tsx'
+import { HtmlComponents, HtmlRoot } from "./components/html/index.tsx";
 import { components as NsComponents, generateNativeScriptXml, NsRoot } from "./components/nativescript/index.tsx";
 import { writeFile } from "node:fs/promises";
 import { withSourceFileContext } from "./utils.ts";
@@ -74,5 +74,23 @@ const quickHelpXml = generateNativeScriptXml(
 await saveNativeScriptXml("quick-help", quickHelpXml);
 
 // Generate HTML files
-await generateHtml("tutorial", renderSSR(<Tutorial />));
-await generateHtml("quick-help", renderSSR(<QuickHelp />));
+await generateHtml(
+  "tutorial",
+  withSourceFileContext("packages/learn/tutorial.mdx", () =>
+    renderSSR(
+      <HtmlRoot class="TutorialView">
+        <Tutorial components={HtmlComponents} />
+      </HtmlRoot>
+    )
+  )
+);
+await generateHtml(
+  "quick-help",
+  withSourceFileContext("packages/learn/quick-help.mdx", () =>
+    renderSSR(
+      <HtmlRoot class="QuickHelpView">
+        <QuickHelp components={HtmlComponents} />
+      </HtmlRoot>
+    )
+  )
+);
