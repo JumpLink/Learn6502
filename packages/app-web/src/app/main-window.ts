@@ -22,10 +22,11 @@
  * single ⇄ three swap is a `matchMedia` query mirroring its 800×600 / 1000×600
  * thresholds.
  *
- * Phase 1 scope: only the Debugger is a REAL view (the ADR-0007 spike's
- * `AdwDebuggerView`, wired through the shared `GameConsoleEventBridge`). Learn,
- * Editor and GameConsole are `adw-status-page` placeholders that later phases
- * replace.
+ * Phase 1 shipped the Debugger as the first REAL view (the ADR-0007 spike's
+ * `AdwDebuggerView`, wired through the shared `GameConsoleEventBridge`).
+ * Phase 2 adds Learn (`AdwLearnView`, rendering `@learn6502/learn`'s
+ * generated tutorial HTML). Editor and GameConsole remain `adw-status-page`
+ * placeholders that later phases replace.
  */
 
 import {
@@ -56,6 +57,7 @@ import {
 import { Assembler, Labels, Memory, Simulator, SimulatorState, formatMessage } from "@learn6502/core";
 
 import { AdwDebuggerView } from "../views/adw-debugger.js";
+import { AdwLearnView } from "../widgets/learn/index.js";
 import { injectShellStyles } from "./styles.js";
 
 /** Notification key → toast title (the GNOME twin's NOTIFICATION_TITLES, English only). */
@@ -98,8 +100,9 @@ export class MainWindow implements MainView {
   private readonly simulator = new Simulator(this.memory, this.labels);
   private readonly assembler = new Assembler(this.memory, this.labels);
 
-  // The one real view; the rest are placeholders (Phase 1).
+  // Real views; Editor and GameConsole remain placeholders (later phases).
   private readonly debuggerView = new AdwDebuggerView();
+  private readonly learnView = new AdwLearnView();
 
   // Persistent per-view slot wrappers, re-homed between the two layouts.
   private readonly slots: ViewSlot[];
@@ -254,14 +257,10 @@ export class MainWindow implements MainView {
   }
 
   private buildViews(): void {
-    // Learn / Editor / GameConsole placeholders; Debugger is the real view.
-    this.learnSlot.appendChild(
-      this.placeholder(
-        "go-home",
-        "Learn 6502 Assembly",
-        "The interactive tutorial moves into this shell in a later phase."
-      )
-    );
+    // Editor / GameConsole placeholders; Learn and Debugger are real views.
+    this.learnView.classList.add("shell-view-slot");
+    this.learnSlot.appendChild(this.learnView);
+
     this.editorSlot.appendChild(
       this.placeholder(
         "document-edit",
@@ -500,6 +499,10 @@ export class MainWindow implements MainView {
       ) {
         this.pauseGameConsole();
       }
+      // Preserve the tutorial's reading position across mobile tab switches
+      // (the GNOME twin's saveScrollPosition/restoreScrollPosition seam).
+      if (previous === ViewType.LEARN && slot.type !== ViewType.LEARN) this.learnView.saveScrollPosition();
+      if (slot.type === ViewType.LEARN) this.learnView.restoreScrollPosition();
       if (slot.type === ViewType.DEBUGGER) this.updateDebugger();
     });
 
