@@ -20,6 +20,11 @@
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
+  "gjsify": {
+    "loaders": {
+      ".html": "text"
+    }
+  },
   "devDependencies": {
     "@gjsify/cli": "^0.16.1",
     "@gjsify/vite-plugin-gjsify": "^0.16.1",
@@ -30,6 +35,7 @@
   "dependencies": {
     "@gjsify/adwaita-web": "^0.16.1",
     "@learn6502/common-ui": "^0.7.0",
-    "@learn6502/core": "^0.7.0"
+    "@learn6502/core": "^0.7.0",
+    "@learn6502/learn": "^0.7.0"
   }
 }
