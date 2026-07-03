@@ -10,7 +10,7 @@
     "setup": "gem install bundler jekyll && bundle install",
     "build:vite": "vite build",
     "build": "gjsify run build:vite",
-    "build:app": "gjsify build src/app/main.ts --app browser --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty && node scripts/write-app-html.mjs",
+    "build:app": "gjsify build app.html --app browser --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty",
     "dev:app": "vite --config vite.app.config.ts",
     "preview:app": "vite preview --config vite.app.config.ts",
     "check": "gjsify tsc --noEmit",
@@ -26,14 +26,14 @@
     }
   },
   "devDependencies": {
-    "@gjsify/cli": "^0.16.1",
-    "@gjsify/vite-plugin-gjsify": "^0.16.1",
+    "@gjsify/cli": "^0.16.3",
+    "@gjsify/vite-plugin-gjsify": "^0.16.3",
     "lightningcss": "^1.32.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.16"
   },
   "dependencies": {
-    "@gjsify/adwaita-web": "^0.16.1",
+    "@gjsify/adwaita-web": "^0.16.3",
     "@learn6502/common-ui": "^0.7.0",
     "@learn6502/core": "^0.7.0",
     "@learn6502/learn": "^0.7.0"

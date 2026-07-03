@@ -14,7 +14,10 @@ import { gjsifyBrowser } from "@gjsify/vite-plugin-gjsify";
 // dev experience matches the shipped bundle (minus css-as-string, which a real
 // browser app wants routed through Vite's native CSS pipeline).
 export default defineConfig({
-  plugins: [...gjsifyBrowser()],
+  // `cssAsString: true` makes `import css from './x.css'` yield the CSS string
+  // in dev (matching `gjsify build --app browser`), so the shell + widget
+  // styles apply identically dev/prod via a <style> element.
+  plugins: [...gjsifyBrowser({ cssAsString: true })],
   server: { open: "/app.html" },
   build: {
     outDir: "dist-app",
