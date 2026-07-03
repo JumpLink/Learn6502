@@ -6,10 +6,13 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clear": "rm -rf dist _site",
+    "clear": "rm -rf dist dist-app _site",
     "setup": "gem install bundler jekyll && bundle install",
     "build:vite": "vite build",
     "build": "gjsify run build:vite",
+    "build:app": "gjsify build src/app/main.ts --app browser --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty && node scripts/write-app-html.mjs",
+    "dev:app": "vite --config vite.app.config.ts",
+    "preview:app": "vite preview --config vite.app.config.ts",
     "check": "gjsify tsc --noEmit",
     "start:app": "gjsify run dist/main.js",
     "debug:app": "GTK_DEBUG=interactive gjsify run dist/main.js",
@@ -18,12 +21,15 @@
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "devDependencies": {
-    "@gjsify/cli": "^0.10.0",
+    "@gjsify/cli": "^0.16.1",
+    "@gjsify/vite-plugin-gjsify": "^0.16.1",
     "lightningcss": "^1.32.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.16"
   },
   "dependencies": {
+    "@gjsify/adwaita-web": "^0.16.1",
+    "@learn6502/common-ui": "^0.7.0",
     "@learn6502/core": "^0.7.0"
   }
 }
