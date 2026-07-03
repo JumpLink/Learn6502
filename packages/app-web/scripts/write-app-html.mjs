@@ -4,11 +4,11 @@
 // (adwaita-web skin, shell layout, debugger widgets) is self-injected by the
 // bundle at runtime, so the page needs nothing but the module script.
 
-import { mkdirSync, writeFileSync } from 'node:fs';
-import { dirname, join } from 'node:path';
-import { fileURLToPath } from 'node:url';
+import { mkdirSync, writeFileSync } from "node:fs";
+import { dirname, join } from "node:path";
+import { fileURLToPath } from "node:url";
 
-const distApp = join(dirname(fileURLToPath(import.meta.url)), '..', 'dist-app');
+const distApp = join(dirname(fileURLToPath(import.meta.url)), "..", "dist-app");
 mkdirSync(distApp, { recursive: true });
 
 const html = `<!doctype html>
@@ -25,5 +25,5 @@ const html = `<!doctype html>
 </html>
 `;
 
-writeFileSync(join(distApp, 'index.html'), html);
-console.log('[app-web] wrote dist-app/index.html');
+writeFileSync(join(distApp, "index.html"), html);
+console.log("[app-web] wrote dist-app/index.html");

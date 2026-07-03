@@ -144,11 +144,11 @@ let injected = false;
 
 /** Inject the shell layout stylesheet once (idempotent, browser-only). */
 export function injectShellStyles(): void {
-    if (injected || typeof document === 'undefined') return;
-    injected = true;
-    if (document.getElementById('learn6502-shell-style')) return;
-    const style = document.createElement('style');
-    style.id = 'learn6502-shell-style';
-    style.textContent = SHELL_CSS;
-    document.head.appendChild(style);
+  if (injected || typeof document === "undefined") return;
+  injected = true;
+  if (document.getElementById("learn6502-shell-style")) return;
+  const style = document.createElement("style");
+  style.id = "learn6502-shell-style";
+  style.textContent = SHELL_CSS;
+  document.head.appendChild(style);
 }

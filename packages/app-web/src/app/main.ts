@@ -9,8 +9,8 @@
  * final phase of the rewrite.
  */
 
-import '@gjsify/adwaita-web'; // registers the custom elements + self-injects the skin
-import { MainWindow } from './main-window.js';
+import "@gjsify/adwaita-web"; // registers the custom elements + self-injects the skin
+import { MainWindow } from "./main-window.js";
 
 const mainWindow = new MainWindow();
 mainWindow.mount(document.body);

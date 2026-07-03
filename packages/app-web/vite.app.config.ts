@@ -1,5 +1,5 @@
-import { defineConfig } from 'vite';
-import { gjsifyBrowser } from '@gjsify/vite-plugin-gjsify';
+import { defineConfig } from "vite";
+import { gjsifyBrowser } from "@gjsify/vite-plugin-gjsify";
 
 // Dev-server config for the new Adwaita SPA shell (`app.html` → src/app/main.ts).
 //
@@ -14,10 +14,10 @@ import { gjsifyBrowser } from '@gjsify/vite-plugin-gjsify';
 // dev experience matches the shipped bundle (minus css-as-string, which a real
 // browser app wants routed through Vite's native CSS pipeline).
 export default defineConfig({
-    plugins: [...gjsifyBrowser()],
-    server: { open: '/app.html' },
-    build: {
-        outDir: 'dist-app',
-        rollupOptions: { input: 'app.html' },
-    },
+  plugins: [...gjsifyBrowser()],
+  server: { open: "/app.html" },
+  build: {
+    outDir: "dist-app",
+    rollupOptions: { input: "app.html" },
+  },
 });
