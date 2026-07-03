@@ -1,108 +1,15 @@
 /**
- * Shared stylesheet for the Learn view's rendered tutorial content.
- * Self-injected on import — the same pattern `@gjsify/adwaita-web` and the
- * debugger widgets (`widgets/debugger/styles.ts`) use.
- *
- * `@learn6502/learn`'s HTML render target (`HtmlComponents`) emits a small,
- * deliberately generic vocabulary instead of anything adwaita-web-specific
- * (see `packages/learn/tsx/components/html/`): a `learn-view` root, `adw-box`
- * flex containers, `title-1`..`title-4`/`body` Adwaita typography classes,
- * and `adw-list` for `<ol>`/`<ul>`. None of these exist in the adwaita-web
- * skin (which only styles its own custom elements), so the consuming app
- * owns their look — this is that stylesheet. Typography sizes/weights match
- * libadwaita's `_labels.scss` (`.title-1`..`.title-4`, `.body`) so the
- * rendered tutorial reads like native GNOME Learn6502.
+ * Self-injects the Learn view's stylesheet (`./styles.css`) on import — the
+ * same pattern `@gjsify/adwaita-web` and the debugger widgets
+ * (`widgets/debugger/styles.ts`) use. The CSS is authored in a real `.css`
+ * file and imported as a string via gjsify's css-as-string.
  */
 
-const LEARN_CSS = /* css */ `
-learn-view {
-  display: block;
-  height: 100%;
-  overflow-y: auto;
-  box-sizing: border-box;
-}
-
-/* The rendered fragment's root carries BOTH "adw-box adw-box--vertical" (its
-   HtmlBox wrapper) and "learn-view" (HtmlRoot's own marker class) — the
-   .adw-box rules below already give it its vertical flex layout. */
-
-learn-view .adw-box {
-  display: flex;
-}
-
-learn-view .adw-box--vertical {
-  flex-direction: column;
-  gap: 12px;
-}
-
-learn-view .adw-box--horizontal {
-  flex-direction: row;
-  gap: 12px;
-  align-items: center;
-}
-
-/* Adwaita typography style classes (libadwaita _labels.scss parity). */
-learn-view .title-1 {
-  font-weight: 800;
-  font-size: 181%;
-  margin: 0.6em 0 0.3em;
-}
-
-learn-view .title-2 {
-  font-weight: 800;
-  font-size: 136%;
-  margin: 0.6em 0 0.3em;
-}
-
-learn-view .title-3 {
-  font-weight: 700;
-  font-size: 136%;
-  margin: 0.6em 0 0.3em;
-}
-
-learn-view .title-4 {
-  font-weight: 700;
-  font-size: 118%;
-  margin: 0.6em 0 0.3em;
-}
-
-learn-view .body {
-  font-weight: 400;
-  line-height: 140%;
-  margin: 0 0 0.6em;
-}
-
-learn-view .adw-list {
-  margin: 0 0 0.6em;
-  padding-inline-start: 1.4em;
-  line-height: 140%;
-}
-
-learn-view .adw-list li {
-  margin-bottom: 0.3em;
-}
-
-learn-view code {
-  font-family: ui-monospace, "Adwaita Mono", monospace;
-  font-size: 0.9em;
-  background: var(--card-bg-color, rgb(0 0 0 / 6%));
-  border-radius: 4px;
-  padding: 0.1em 0.35em;
-}
-
-/* Fenced code blocks upgrade to <adw-source-view> (registered by
-   @gjsify/adwaita-web/source-view); give the block some breathing room. */
-learn-view adw-source-view {
-  display: block;
-  margin: 0.6em 0 1em;
-  border-radius: 12px;
-  overflow: hidden;
-}
-`;
+import learnCss from "./styles.css";
 
 if (typeof document !== "undefined" && !document.getElementById("learn-view-style")) {
   const style = document.createElement("style");
   style.id = "learn-view-style";
-  style.textContent = LEARN_CSS;
+  style.textContent = learnCss;
   document.head.appendChild(style);
 }
