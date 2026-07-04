@@ -24,9 +24,10 @@
  *
  * Phase 1 shipped the Debugger as the first REAL view (the ADR-0007 spike's
  * `AdwDebuggerView`, wired through the shared `GameConsoleEventBridge`).
- * Phase 2 adds Learn (`AdwLearnView`, rendering `@learn6502/learn`'s
- * generated tutorial HTML). Editor and GameConsole remain `adw-status-page`
- * placeholders that later phases replace.
+ * Phase 2 added Learn (`AdwLearnView`, rendering `@learn6502/learn`'s generated
+ * tutorial HTML). Phase 3 adds the Editor (`AdwEditorView`, the CodeMirror
+ * `<adw-source-view>` + quick-help sheet). GameConsole remains an
+ * `adw-status-page` placeholder that a later phase replaces.
  */
 
 import {
@@ -57,6 +58,7 @@ import {
 import { Assembler, Labels, Memory, Simulator, SimulatorState, formatMessage } from "@learn6502/core";
 
 import { AdwDebuggerView } from "../views/adw-debugger.js";
+import { AdwEditorView } from "../widgets/editor/index.js";
 import { AdwLearnView } from "../widgets/learn/index.js";
 import { injectShellStyles } from "./styles.js";
 
@@ -69,7 +71,7 @@ const NOTIFICATION_TITLES: Record<string, string> = {
   "program-completed": "Program completed",
 };
 
-/** A small demo program so Assemble → Debug works before the editor phase lands. */
+/** The starter program the Editor opens with — Assemble, then Run or Step. */
 const DEMO_PROGRAM = `; Fill the display page at $0200 with random colors.
 ; Assemble, then Run or Step to watch the debugger update.
   LDX #$00
@@ -100,8 +102,9 @@ export class MainWindow implements MainView {
   private readonly simulator = new Simulator(this.memory, this.labels);
   private readonly assembler = new Assembler(this.memory, this.labels);
 
-  // Real views; Editor and GameConsole remain placeholders (later phases).
+  // Real views; GameConsole remains a placeholder (later phase).
   private readonly debuggerView = new AdwDebuggerView();
+  private readonly editorView = new AdwEditorView();
   private readonly learnView = new AdwLearnView();
 
   // Persistent per-view slot wrappers, re-homed between the two layouts.
@@ -257,17 +260,13 @@ export class MainWindow implements MainView {
   }
 
   private buildViews(): void {
-    // Editor / GameConsole placeholders; Learn and Debugger are real views.
+    // GameConsole is still a placeholder; Learn, Editor and Debugger are real.
     this.learnView.classList.add("shell-view-slot");
     this.learnSlot.appendChild(this.learnView);
 
-    this.editorSlot.appendChild(
-      this.placeholder(
-        "document-edit",
-        "Editor",
-        "The CodeMirror source editor arrives in a later phase. A demo program is loaded — try Assemble, then Run or Step."
-      )
-    );
+    this.editorView.classList.add("shell-view-slot");
+    this.editorSlot.appendChild(this.editorView);
+
     this.gameConsoleSlot.appendChild(
       this.placeholder(
         "application-x-executable",
@@ -329,6 +328,12 @@ export class MainWindow implements MainView {
     ];
     menuButton.addEventListener("menu-item-activated", (event) => {
       const id = (event as CustomEvent<{ id: string }>).detail.id;
+      if (id === "help") {
+        // Reveal the Editor's 6502 quick-help sheet (the GNOME twin's help).
+        this.navigateToView(ViewType.EDITOR);
+        editorController.setHelpVisible(true);
+        return;
+      }
       this.showToast(`Menu: ${id} (coming soon)`);
     });
 
@@ -435,6 +440,10 @@ export class MainWindow implements MainView {
       this.showToast("Code copied to editor");
     });
 
+    // A user edit in the Editor marks the program dirty (the MainEventBridge
+    // seam the GNOME/Android main views use — the web shell wires it directly).
+    editorController.events.on("changed", () => mainStateController.setCodeChanged(true));
+
     // Main UI state → run-control enablement.
     mainStateController.events.on("state-changed", () => this.updateRunActions(this.simulator.state));
     mainStateController.events.on("state-changed:code-changed", (changed: boolean) => {
@@ -502,6 +511,7 @@ export class MainWindow implements MainView {
       // Preserve the tutorial's reading position across mobile tab switches
       // (the GNOME twin's saveScrollPosition/restoreScrollPosition seam).
       if (previous === ViewType.LEARN && slot.type !== ViewType.LEARN) this.learnView.saveScrollPosition();
+      if (previous === ViewType.EDITOR && slot.type !== ViewType.EDITOR) this.editorView.saveState();
       if (slot.type === ViewType.LEARN) this.learnView.restoreScrollPosition();
       if (slot.type === ViewType.DEBUGGER) this.updateDebugger();
     });
