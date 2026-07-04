@@ -25,9 +25,10 @@
  * Phase 1 shipped the Debugger as the first REAL view (the ADR-0007 spike's
  * `AdwDebuggerView`, wired through the shared `GameConsoleEventBridge`).
  * Phase 2 added Learn (`AdwLearnView`, rendering `@learn6502/learn`'s generated
- * tutorial HTML). Phase 3 adds the Editor (`AdwEditorView`, the CodeMirror
- * `<adw-source-view>` + quick-help sheet). GameConsole remains an
- * `adw-status-page` placeholder that a later phase replaces.
+ * tutorial HTML). Phase 3 added the Editor (`AdwEditorView`, the CodeMirror
+ * `<adw-source-view>` + quick-help sheet). Phase 4 adds the GameConsole
+ * (`AdwGameConsoleView`, the `<canvas>` display + d-pad gamepad), upgrading the
+ * shared `gameConsoleController` from assembler-only to full display + input.
  */
 
 import {
@@ -35,7 +36,6 @@ import {
   AdwHeaderBar,
   AdwMenuButton,
   AdwOverlaySplitView,
-  AdwStatusPage,
   AdwToastOverlay,
   AdwToolbarView,
   AdwViewStack,
@@ -59,6 +59,7 @@ import { Assembler, Labels, Memory, Simulator, SimulatorState, formatMessage } f
 
 import { AdwDebuggerView } from "../views/adw-debugger.js";
 import { AdwEditorView } from "../widgets/editor/index.js";
+import { AdwGameConsoleView } from "../widgets/game-console/index.js";
 import { AdwLearnView } from "../widgets/learn/index.js";
 import { injectShellStyles } from "./styles.js";
 
@@ -102,9 +103,10 @@ export class MainWindow implements MainView {
   private readonly simulator = new Simulator(this.memory, this.labels);
   private readonly assembler = new Assembler(this.memory, this.labels);
 
-  // Real views; GameConsole remains a placeholder (later phase).
+  // Every view is now real (Learn, Editor, Debugger, GameConsole).
   private readonly debuggerView = new AdwDebuggerView();
   private readonly editorView = new AdwEditorView();
+  private readonly gameConsoleView = new AdwGameConsoleView();
   private readonly learnView = new AdwLearnView();
 
   // Persistent per-view slot wrappers, re-homed between the two layouts.
@@ -260,31 +262,18 @@ export class MainWindow implements MainView {
   }
 
   private buildViews(): void {
-    // GameConsole is still a placeholder; Learn, Editor and Debugger are real.
+    // All four views are real: Learn, Editor, Debugger and GameConsole.
     this.learnView.classList.add("shell-view-slot");
     this.learnSlot.appendChild(this.learnView);
 
     this.editorView.classList.add("shell-view-slot");
     this.editorSlot.appendChild(this.editorView);
 
-    this.gameConsoleSlot.appendChild(
-      this.placeholder(
-        "application-x-executable",
-        "Game Console",
-        "The display + gamepad view lands in a later phase. Assembled programs already run — watch the Debugger."
-      )
-    );
+    this.gameConsoleView.classList.add("shell-view-slot");
+    this.gameConsoleSlot.appendChild(this.gameConsoleView);
 
     this.debuggerView.classList.add("shell-view-slot");
     this.debuggerSlot.appendChild(this.debuggerView);
-  }
-
-  private placeholder(icon: string, title: string, description: string): AdwStatusPage {
-    const page = new AdwStatusPage();
-    page.setAttribute("icon", icon);
-    page.setAttribute("title", title);
-    page.setAttribute("description", description);
-    return page;
   }
 
   private buildChrome(): AdwWindow {
@@ -397,14 +386,11 @@ export class MainWindow implements MainView {
   // --- Controller wiring (the shared common-ui pipeline) ---
 
   private setupControllers(): void {
-    // GameConsole controller in assembler-only mode (no display/gamepad yet),
-    // exactly like the ADR-0007 spike.
-    gameConsoleController.initPartial({
-      memory: this.memory,
-      simulator: this.simulator,
-      assembler: this.assembler,
-      labels: this.labels,
-    });
+    // Full GameConsole: the real display + gamepad view over the shared
+    // gameConsoleController (upgrades the shell from the assembler-only
+    // initPartial). The view uses the shell's simulator stack (shared with the
+    // Debugger) rather than owning its own, so pass it in.
+    this.gameConsoleView.initialize(this.memory, this.simulator, this.assembler, this.labels);
 
     // The real Debugger view over the shared debuggerController.
     this.debuggerView.initialize(this.assembler, this.simulator);
