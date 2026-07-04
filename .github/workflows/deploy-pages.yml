@@ -1,0 +1,92 @@
+name: Deploy Pages
+
+# Builds the app-web Adwaita SPA (`gjsify build --app browser`) and deploys it to
+# GitHub Pages — the successor to the legacy Jekyll build of the classic tutorial
+# (removed in the app-web rewrite). Point Settings → Pages → Source at
+# "GitHub Actions" for this workflow to serve the site.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "packages/app-web/**"
+      - "packages/learn/**"
+      - "packages/common-ui/**"
+      - "packages/core/**"
+      - "packages/examples/**"
+      - "gjsify-lock.json"
+      - ".github/workflows/deploy-pages.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Allow one concurrent deployment; don't cancel an in-progress publish.
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Build web app
+    runs-on: ubuntu-latest
+    # `gjsify build`/`gjsify tsc` spawn `gjs` (unavailable on ubuntu-latest), so
+    # build in a Fedora 43 container (GJS 1.86 / SpiderMonkey 140) — the same
+    # environment as the CI type-check job.
+    container:
+      image: fedora:43
+    steps:
+      - name: Install container prerequisites (incl. gjs)
+        run: dnf install -y git tar xz findutils gjs
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Cache gjsify tarball store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/gjsify/tarballs
+          key: gjsify-tarballs-${{ hashFiles('gjsify-lock.json') }}
+          restore-keys: gjsify-tarballs-
+
+      - name: Install gjsify CLI
+        run: npm install -g @gjsify/cli@^0.8.0
+
+      - name: Install dependencies
+        run: gjsify install --immutable
+
+      # app-web imports `@learn6502/learn/dist/tutorial.html` (and the examples'
+      # `.asm`), so the workspace deps that publish built output must be built
+      # first — the same set the CI type-check job builds.
+      - name: Build workspace dependencies
+        run: |
+          gjsify workspace @learn6502/core build
+          gjsify workspace @learn6502/examples build
+          gjsify workspace @learn6502/learn build
+
+      - name: Build web app
+        run: gjsify workspace @learn6502/app-web build:app
+
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: packages/app-web/dist-app
+
+  deploy:
+    name: Deploy to GitHub Pages
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
