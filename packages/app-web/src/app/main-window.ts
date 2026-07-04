@@ -293,7 +293,12 @@ export class MainWindow implements MainView {
 
     this.configureIconButton(this.learnBackButton, "go-previous", "Back");
     this.learnBackButton.setAttribute("slot", "start");
-    this.learnBackButton.hidden = true; // no Learn subpages until the Learn phase
+    this.learnBackButton.hidden = true; // shown only when a Learn subpage is open
+    this.learnBackButton.addEventListener("click", () => this.learnView.navigateBack());
+    // The Learn view reports when its visible sub-page changes (Tutorial /
+    // Examples pushed or popped) so the shell can reveal its back button —
+    // the web stand-in for the GNOME twin's `hasVisibleSubpage` property.
+    this.learnView.addEventListener("subpage-changed", () => this.updateLearnBackButton());
 
     this.runControls.className = "shell-run-controls";
     this.runControls.setAttribute("slot", "start");
@@ -500,6 +505,7 @@ export class MainWindow implements MainView {
       if (previous === ViewType.EDITOR && slot.type !== ViewType.EDITOR) this.editorView.saveState();
       if (slot.type === ViewType.LEARN) this.learnView.restoreScrollPosition();
       if (slot.type === ViewType.DEBUGGER) this.updateDebugger();
+      this.updateLearnBackButton();
     });
 
     // Initial layout is applied by mount() once the tree is connected.
@@ -510,6 +516,17 @@ export class MainWindow implements MainView {
   private applyLayout(): void {
     if (this.isDesktop()) this.mountThreeColumnLayout();
     else this.mountSingleLayout();
+    this.updateLearnBackButton();
+  }
+
+  /**
+   * Reveal the header back button when the Learn view has a sub-page open AND
+   * the Learn view is on screen — the whole sidebar on desktop, or the active
+   * tab on mobile (the GNOME twin gates its back button the same way).
+   */
+  private updateLearnBackButton(): void {
+    const learnOnScreen = this.isDesktop() || this.currentView === ViewType.LEARN;
+    this.learnBackButton.hidden = !(learnOnScreen && this.learnView.hasVisibleSubpage);
   }
 
   private isDesktop(): boolean {
