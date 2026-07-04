@@ -6,17 +6,12 @@
   "private": true,
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "clear": "rm -rf dist dist-app _site",
-    "setup": "gem install bundler jekyll && bundle install",
-    "build:vite": "vite build",
-    "build": "gjsify run build:vite",
+    "clear": "rm -rf dist-app",
+    "build": "gjsify run build:app",
     "build:app": "gjsify build app.html --app browser --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty",
     "dev:app": "vite --config vite.app.config.ts",
     "preview:app": "vite preview --config vite.app.config.ts",
-    "check": "gjsify tsc --noEmit",
-    "start:app": "gjsify run dist/main.js",
-    "debug:app": "GTK_DEBUG=interactive gjsify run dist/main.js",
-    "start": "bundle exec jekyll serve"
+    "check": "gjsify tsc --noEmit"
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",

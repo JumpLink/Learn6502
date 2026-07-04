@@ -310,8 +310,12 @@ Required for R8/ProGuard code shrinking. Missing entries cause **runtime crashes
 
 Applies to all files in `packages/app-web/`.
 
-Web app version. Stack: TypeScript + HTML + CSS + Vite + Jekyll (static site generation).
-Focus: browser compatibility, responsive design, leverage `6502` core + `common-ui`.
+Web app version. An Adwaita single-page app on `@gjsify/adwaita-web`, sharing the
+`common-ui` controllers + `core` with app-gnome (the four views are the web twins
+of the GNOME views). Production build = `gjsify build --app browser` (→ `dist-app/`,
+deployed to GitHub Pages); dev = Vite + HMR (`vite.app.config.ts`). The classic
+skilldrick Jekyll tutorial was removed in the app-web rewrite.
+Focus: browser compatibility, responsive design, leverage `core` + `common-ui`.
 
 ## Translations
 
