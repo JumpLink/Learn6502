@@ -1,0 +1,29 @@
+{
+  "name": "@learn6502/cli",
+  "version": "0.7.0",
+  "description": "Headless 6502 assembler / simulator — the command-line frontend built on the shared core + common-ui",
+  "type": "module",
+  "private": true,
+  "bin": {
+    "learn6502": "./dist/cli.js"
+  },
+  "scripts": {
+    "build": "gjsify build src/main.ts --app node --outfile dist/cli.js",
+    "check": "gjsify tsc --noEmit",
+    "start": "node dist/cli.js"
+  },
+  "author": "Pascal Garber",
+  "license": "GPL-3.0",
+  "gjsify": {
+    "shebang": "/usr/bin/env node"
+  },
+  "devDependencies": {
+    "@gjsify/cli": "^0.16.3",
+    "@types/node": "^25.9.1",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@learn6502/common-ui": "^0.7.0",
+    "@learn6502/core": "^0.7.0"
+  }
+}
