@@ -37,6 +37,7 @@ export class SourceView extends HTMLElement implements SourceViewWidget {
   private pendingLineNumbers = true;
   private pendingSelectable = true;
   private pendingCopyable = false;
+  private pendingFillHeight = true;
 
   private readonly onCodeChanged = (event: Event): void => {
     const detail = (event as CustomEvent<{ code: string }>).detail;
@@ -117,6 +118,16 @@ export class SourceView extends HTMLElement implements SourceViewWidget {
     if (this.editor) this.editor.language = this.pendingLanguage;
   }
 
+  /** Whether the editor fills its host's height (vs. sizing to its content). */
+  get fillHeight(): boolean {
+    return this.editor ? this.editor.fillHeight : this.pendingFillHeight;
+  }
+
+  set fillHeight(value: boolean) {
+    this.pendingFillHeight = !!value;
+    if (this.editor) this.editor.fillHeight = this.pendingFillHeight;
+  }
+
   /** Move keyboard focus into the CodeMirror editor. */
   public focus(): boolean {
     this.editor?.view?.focus();
@@ -134,7 +145,7 @@ export class SourceView extends HTMLElement implements SourceViewWidget {
     editor.lineNumbers = this.pendingLineNumbers;
     editor.selectable = this.pendingSelectable;
     editor.copyable = this.pendingCopyable;
-    editor.fillHeight = true;
+    editor.fillHeight = this.pendingFillHeight;
     editor.code = this.pendingCode;
 
     editor.addEventListener("code-changed", this.onCodeChanged);

@@ -2,3 +2,5 @@ import "@gjsify/adwaita-web/source-view"; // registers <adw-source-view> (CodeMi
 import "./styles.js";
 
 export * from "./learn-view.js";
+export * from "./examples-list.js";
+export * from "./example-list-item.js";

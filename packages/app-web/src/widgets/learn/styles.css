@@ -15,11 +15,28 @@
  * self-injected on import (see ./styles.ts).
  */
 
+/* learn-view is `display: block; height: 100%` via the shell's `.shell-view-slot`
+   class (whose specificity beats a bare `learn-view` rule); just clip the
+   absolutely-positioned nav pages to it. */
 learn-view {
-  display: block;
+  overflow: hidden;
+  box-sizing: border-box;
+}
+
+/* The navigation view fills the Learn pane. Its own stylesheet makes it a flex
+   column whose visible page fills (position: absolute; inset: 0) — do NOT
+   override its `display`; only give it a height for that flex layout to fill. */
+learn-view adw-navigation-view {
   height: 100%;
+}
+
+/* The page's direct child fills (`.adw-navigation-page > *` in the nav's own
+   CSS); this makes it the internal scroll container. */
+.learn-page-scroller {
+  min-height: 0;
   overflow-y: auto;
   box-sizing: border-box;
+  padding: 12px;
 }
 
 /* The rendered fragment's root carries BOTH "adw-box adw-box--vertical" (its
@@ -97,4 +114,104 @@ learn-view adw-source-view {
   margin: 0.6em 0 1em;
   border-radius: 12px;
   overflow: hidden;
+}
+
+/* --- Landing page (Tutorial / Examples boxed list) --- */
+
+.learn-landing {
+  padding-block: 12px;
+}
+
+.learn-row-chevron {
+  color: var(--dim-label-color, rgb(0 0 0 / 45%));
+  font-size: 1.2em;
+}
+
+/* --- Examples page --- */
+
+.learn-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding-block: 12px;
+}
+
+learn-examples-list {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+.learn-share {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  text-align: center;
+  padding: 12px 24px 24px;
+}
+
+.learn-share-button {
+  display: inline-block;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  background: var(--accent-bg-color, #3584e4);
+  color: var(--accent-fg-color, #fff);
+  font-weight: 700;
+  text-decoration: none;
+}
+
+/* --- Example list item card --- */
+
+learn-example-list-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 12px;
+  border-radius: 12px;
+  background: var(--card-bg-color, rgb(0 0 0 / 4%));
+}
+
+.example-header {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.example-thumbnail {
+  flex: 0 0 auto;
+  inline-size: 72px;
+  block-size: 72px;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.example-thumbnail .game-console-screen {
+  inline-size: 72px;
+  max-inline-size: 72px;
+  block-size: 72px;
+}
+
+.example-text {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-inline-size: 0;
+}
+
+.example-title {
+  font-weight: 700;
+}
+
+.example-author,
+.dim-label {
+  color: var(--dim-label-color, rgb(0 0 0 / 55%));
+  font-size: 0.9em;
+}
+
+.example-source-view {
+  display: block;
+  max-block-size: 220px;
+  overflow: auto;
+  border-radius: 8px;
 }

@@ -22,7 +22,8 @@
   "license": "GPL-3.0",
   "gjsify": {
     "loaders": {
-      ".html": "text"
+      ".html": "text",
+      ".asm": "text"
     }
   },
   "devDependencies": {
@@ -36,6 +37,7 @@
     "@gjsify/adwaita-web": "^0.16.3",
     "@learn6502/common-ui": "^0.7.0",
     "@learn6502/core": "^0.7.0",
+    "@learn6502/examples": "^0.7.0",
     "@learn6502/learn": "^0.7.0"
   }
 }
