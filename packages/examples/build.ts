@@ -9,12 +9,18 @@ import path from "node:path";
 const __dirname = process.cwd();
 
 /**
- * Convert a slug to camelCase
+ * Convert a slug to a camelCase JavaScript identifier
  * @param slug - The slug to convert (e.g., "commented-snake")
  * @returns The camelCase version (e.g., "commentedSnake")
+ *
+ * Every dash has to go, not just the ones before a letter: slugs may contain
+ * digits, and `-([a-z])` left "line-buster-6502" as "lineBuster-6502" — an
+ * identifier the generated index.ts cannot even parse. A slug may also start
+ * with a digit, which no identifier can, so prefix those.
  */
 function slugToCamelCase(slug: string): string {
-  return slug.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase());
+  const camelCase = slug.replace(/-+([a-z0-9])/g, (_, character: string) => character.toUpperCase());
+  return /^[0-9]/.test(camelCase) ? `example${camelCase[0].toUpperCase()}${camelCase.slice(1)}` : camelCase;
 }
 
 /**
@@ -29,7 +35,10 @@ async function findExampleDirectories(): Promise<string[]> {
         entry.isDirectory() && !entry.name.startsWith(".") && entry.name !== "node_modules" && entry.name !== "dist"
     )
     .map((entry) => entry.name);
-  return directories;
+  // Sorted, because readdir order is filesystem-dependent and this output is
+  // committed: without it the generated examples.ts reorders itself per machine
+  // and the examples show up in a different order in the app.
+  return directories.sort();
 }
 
 /**
@@ -165,8 +174,15 @@ async function buildExamples(): Promise<void> {
   console.log(`   Skipped: ${skipped}`);
 }
 
-// Run the build
-buildExamples().catch((error) => {
+// Run the build. This MUST be awaited at the top level: under GJS the module's
+// synchronous body finishing is what ends the process, so a fire-and-forget
+// `buildExamples().catch(...)` was torn down mid-chain — it printed the first
+// "Processing directory" line, wrote no index.ts, regenerated no examples.ts,
+// and still exited 0. Top-level await keeps module evaluation pending until the
+// build is actually done.
+try {
+  await buildExamples();
+} catch (error) {
   console.error("Build failed:", error);
   process.exit(1);
-});
+}
