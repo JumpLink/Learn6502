@@ -42,6 +42,11 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v6
 
+      # The container's git is not the one checkout configured, so claim the
+      # work tree once here rather than in front of every git command.
+      - name: Trust the work tree
+        run: git config --global --add safe.directory "$GITHUB_WORKSPACE"
+
       # Works for both triggers: the issue payload is absent on a manual
       # dispatch, and the body must reach the renderer as a file rather than an
       # expression so issue text can never be interpolated into a shell command.
@@ -63,13 +68,23 @@ jobs:
             core.setOutput("login", issue.user.login);
             core.setOutput("user_id", String(issue.user.id));
 
-      # Runs before the dependency install so an unusable submission fails in
-      # seconds and the contributor gets the reason instead of a red run.
+      # Before the render step, which needs `node` on PATH: JS actions run on
+      # the runner's own node mounted into the container, but a `run:` step only
+      # sees what the image ships, and fedora:43 ships no node.
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      # Still ahead of the dependency install, so an unusable submission fails
+      # in seconds and the contributor gets the reason instead of a red run.
+      # $RUNNER_TEMP, not `runner.temp`: in a container job the expression yields
+      # the host path while the env var yields the mounted one.
       - name: Render example files from the issue
         id: render
-        env:
-          EXAMPLE_ERROR_FILE: ${{ runner.temp }}/example-error.txt
-        run: node .github/scripts/example-from-issue.mjs "${RUNNER_TEMP}/issue-body.md" .
+        run: |
+          export EXAMPLE_ERROR_FILE="$RUNNER_TEMP/example-error.txt"
+          node .github/scripts/example-from-issue.mjs "$RUNNER_TEMP/issue-body.md" .
 
       - name: Create branch
         env:
@@ -78,11 +93,6 @@ jobs:
           BR="examples/issue-${ISSUE}"
           echo "BRANCH=$BR" >> "$GITHUB_ENV"
           git switch -c "$BR"
-
-      - name: Setup Node.js
-        uses: actions/setup-node@v6
-        with:
-          node-version: "24"
 
       - name: Cache gjsify tarball store
         uses: actions/cache@v4
@@ -161,7 +171,6 @@ jobs:
           AUTHOR_NAME: ${{ steps.issue.outputs.login }}
           AUTHOR_EMAIL: ${{ steps.issue.outputs.user_id }}+${{ steps.issue.outputs.login }}@users.noreply.github.com
         run: |
-          git config --global --add safe.directory "$GITHUB_WORKSPACE"
           git add "$BASE_DIR" packages/examples/examples.ts
           git -c user.name="github-actions[bot]" \
               -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
@@ -237,17 +246,31 @@ jobs:
         if: failure() && steps.issue.outputs.number != ''
         uses: actions/github-script@v8
         env:
-          EXAMPLE_ERROR_FILE: ${{ runner.temp }}/example-error.txt
           ISSUE: ${{ steps.issue.outputs.number }}
         with:
           script: |
             const fs = require("node:fs");
             const runUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
-            const reason = fs.existsSync(process.env.EXAMPLE_ERROR_FILE)
-              ? fs.readFileSync(process.env.EXAMPLE_ERROR_FILE, "utf8").trim()
-              : `The example could not be built. See the [workflow run](${runUrl}) for details.`;
-            await github.rest.issues.createComment({
-              ...context.repo,
-              issue_number: Number(process.env.ISSUE),
-              body: `❌ This submission could not be turned into a pull request.\n\n${reason}\n\nEdit the issue and re-run the [workflow](${runUrl}) once it is fixed — no need to open a new issue.`,
-            });
+            // Same $RUNNER_TEMP the render step wrote to — see the note there.
+            const errorFile = `${process.env.RUNNER_TEMP}/example-error.txt`;
+
+            // Only the renderer writes that file, and only for input it
+            // rejected. Anything else that fails is the automation's problem,
+            // and telling a contributor to fix their submission would send them
+            // hunting for a bug that is not theirs — which is exactly what
+            // happened while this workflow was broken.
+            const body = fs.existsSync(errorFile)
+              ? [
+                  "❌ This submission could not be turned into a pull request.",
+                  "",
+                  fs.readFileSync(errorFile, "utf8").trim(),
+                  "",
+                  `Edit the issue and re-run the [workflow](${runUrl}) once it is fixed — no need to open a new issue.`,
+                ].join("\n")
+              : [
+                  "⚠️ The automation that turns this submission into a pull request failed.",
+                  "",
+                  `Nothing is wrong with your example — the [workflow run](${runUrl}) broke before it got that far. A maintainer will take a look and re-run it.`,
+                ].join("\n");
+
+            await github.rest.issues.createComment({ ...context.repo, issue_number: Number(process.env.ISSUE), body });

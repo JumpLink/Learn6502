@@ -76,7 +76,11 @@ function renderMeta(metadata) {
     `  description: _(${tsString(metadata.description)}),`,
     `  author: ${tsString(metadata.author)},`,
     `  license: ${tsString(metadata.license)},`,
-    `  displayMemory: ${tsString(metadata.displayMemory)},`,
+    // 2048 characters never fit the print width, so emit the wrapped form the
+    // formatter would produce anyway — the committed file is then already
+    // canonical and `gjsify format` has nothing to rewrite.
+    "  displayMemory:",
+    `    ${tsString(metadata.displayMemory)},`,
   ];
   if (metadata.sourceUrl) lines.push(`  sourceUrl: ${tsString(metadata.sourceUrl)},`);
   if (metadata.githubUsername) lines.push(`  githubUsername: ${tsString(metadata.githubUsername)},`);
