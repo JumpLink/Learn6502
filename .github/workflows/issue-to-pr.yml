@@ -2,108 +2,81 @@ name: "Issue → PR: Add Example"
 
 on:
   issues:
-    types: [opened]
+    types: [opened, reopened]
+  # Lets a submission be retried after a failed run — the issue event only ever
+  # fires once, so without this a broken workflow strands every example that was
+  # submitted while it was broken.
+  workflow_dispatch:
+    inputs:
+      issue:
+        description: "Number of the [example] issue to convert into a pull request"
+        required: true
+        type: string
 
 permissions:
   contents: write
   pull-requests: write
   issues: write
 
+concurrency:
+  group: issue-to-pr-${{ github.event.issue.number || inputs.issue }}
+  cancel-in-progress: false
+
 jobs:
   make-pr:
-    if: startsWith(github.event.issue.title, '[example]')
+    # The `issues` event fires for every new issue; only submissions are ours.
+    # A manual dispatch always runs — that is how an issue gets retried.
+    if: github.event_name == 'workflow_dispatch' || startsWith(github.event.issue.title, '[example]')
     runs-on: ubuntu-latest
+    # `@learn6502/examples`' build script and `gjsify tsc` are bundled for GJS
+    # and spawned via `gjs`, which ubuntu-latest does not ship (the old plain
+    # runner failed here with `spawn gjs ENOENT`). Same Fedora 43 container the
+    # CI type-check job uses: GJS 1.86 / SpiderMonkey 140, the gjsify target.
+    container:
+      image: fedora:43
+
     steps:
-      - uses: actions/checkout@v6
+      - name: Install container prerequisites (incl. gjs)
+        run: dnf install -y git tar xz findutils gjs
 
-      - name: Extract metadata and code from issue body
-        id: extract
-        run: |
-          set -euo pipefail
-          node -e '
-            const fs = require("fs");
-            const body = process.env.ISSUE_BODY;
-            
-            // Extract JSON metadata
-            const jsonMatch = body.match(/```json\s*([\s\S]*?)```/);
-            if (!jsonMatch) { console.error("JSON block not found"); process.exit(1); }
-            const metadata = JSON.parse(jsonMatch[1]);
-            
-            // Extract assembly code
-            const codeMatch = body.match(/```assembly\s*([\s\S]*?)```/);
-            if (!codeMatch) { console.error("Assembly code block not found"); process.exit(2); }
-            const code = codeMatch[1];
-            
-            // Validate slug
-            const ok = /^[a-z0-9]([a-z0-9-]*[a-z0-9])?$/.test(metadata.slug || "");
-            if (!ok) { console.error("Invalid slug"); process.exit(3); }
-            
-            // Combine metadata and code into payload (temporary file, not committed)
-            const payload = { ...metadata, code };
-            fs.writeFileSync("payload.json", JSON.stringify(payload, null, 2));
-          '
-        env:
-          ISSUE_BODY: ${{ github.event.issue.body }}
+      - name: Checkout repository
+        uses: actions/checkout@v6
 
-      - name: Render files from payload
+      # Works for both triggers: the issue payload is absent on a manual
+      # dispatch, and the body must reach the renderer as a file rather than an
+      # expression so issue text can never be interpolated into a shell command.
+      - name: Resolve the submission issue
+        id: issue
+        uses: actions/github-script@v8
+        with:
+          script: |
+            const fs = require("node:fs");
+            const raw = context.payload.issue?.number ?? context.payload.inputs?.issue;
+            const number = Number(raw);
+            if (!Number.isInteger(number) || number <= 0) {
+              core.setFailed(`Not a valid issue number: ${raw}`);
+              return;
+            }
+            const { data: issue } = await github.rest.issues.get({ ...context.repo, issue_number: number });
+            fs.writeFileSync(`${process.env.RUNNER_TEMP}/issue-body.md`, issue.body ?? "");
+            core.setOutput("number", String(number));
+            core.setOutput("login", issue.user.login);
+            core.setOutput("user_id", String(issue.user.id));
+
+      # Runs before the dependency install so an unusable submission fails in
+      # seconds and the contributor gets the reason instead of a red run.
+      - name: Render example files from the issue
         id: render
-        run: |
-          set -euo pipefail
-          jq -r . payload.json > /dev/null
-
-          SLUG="$(jq -r .slug payload.json)"
-          TITLE="$(jq -r .title payload.json)"
-          DESC="$(jq -r .description payload.json)"
-          AUTHOR="$(jq -r .author payload.json)"
-          LICENSE="$(jq -r '.license // "CC-BY-4.0"' payload.json)"
-          SRC_URL="$(jq -r '.sourceUrl // empty' payload.json)"
-          GH_USER="$(jq -r '.githubUsername // empty' payload.json)"
-          CODE="$(jq -r .code payload.json)"
-          DISP="$(jq -r .displayMemory payload.json)"
-
-          BASE_DIR="packages/examples/${SLUG}"
-          CODE_PATH="${BASE_DIR}/${SLUG}.asm"
-          META_PATH="${BASE_DIR}/${SLUG}.meta.ts"
-          mkdir -p "$BASE_DIR"
-
-          # Write code directly to file
-          printf "%s" "$CODE" > "$CODE_PATH"
-
-          # Helper function for JSON escaping
-          esc() { printf "%s" "$1" | python3 -c 'import sys,json;print(json.dumps(sys.stdin.read())[1:-1])'; }
-
-          # Build the TypeScript file content
-          {
-            echo 'import { _ } from "@learn6502/core";'
-            echo 'import type { ExampleMetaJson } from "../example-meta.ts";'
-            echo 'export default {'
-            echo "  slug: \"$(esc "$SLUG")\","
-            echo "  title: _(\"$(esc "$TITLE")\"),"
-            echo "  description: _(\"$(esc "$DESC")\"),"
-            echo "  author: \"$(esc "$AUTHOR")\","
-            echo "  license: \"$(esc "$LICENSE")\","
-            echo "  displayMemory: \"$(esc "$DISP")\","
-            if [ -n "$SRC_URL" ]; then
-              echo "  sourceUrl: \"$(esc "$SRC_URL")\","
-            fi
-            if [ -n "$GH_USER" ]; then
-              echo "  githubUsername: \"$(esc "$GH_USER")\","
-            fi
-            echo '} as ExampleMetaJson;'
-          } > "$META_PATH"
-
-          echo "CODE_PATH=$CODE_PATH" >> $GITHUB_OUTPUT
-          echo "META_PATH=$META_PATH" >> $GITHUB_OUTPUT
-          echo "BASE_DIR=$BASE_DIR" >> $GITHUB_OUTPUT
-          echo "SLUG=$SLUG" >> $GITHUB_OUTPUT
-
-          # Remove temporary file to prevent accidental commit
-          rm -f payload.json
+        env:
+          EXAMPLE_ERROR_FILE: ${{ runner.temp }}/example-error.txt
+        run: node .github/scripts/example-from-issue.mjs "${RUNNER_TEMP}/issue-body.md" .
 
       - name: Create branch
+        env:
+          ISSUE: ${{ steps.issue.outputs.number }}
         run: |
-          BR="examples/issue-${{ github.event.issue.number }}"
-          echo "BRANCH=$BR" >> $GITHUB_ENV
+          BR="examples/issue-${ISSUE}"
+          echo "BRANCH=$BR" >> "$GITHUB_ENV"
           git switch -c "$BR"
 
       - name: Setup Node.js
@@ -111,67 +84,170 @@ jobs:
         with:
           node-version: "24"
 
-      - name: Enable Corepack
-        run: corepack enable
+      - name: Cache gjsify tarball store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/gjsify/tarballs
+          key: gjsify-tarballs-${{ hashFiles('gjsify-lock.json') }}
+          restore-keys: gjsify-tarballs-
+
+      # Bootstrap only — `gjsify install` has to be runnable before
+      # node_modules exists. The build steps below use the workspace-local CLI.
+      - name: Install gjsify CLI
+        run: npm install -g @gjsify/cli@^0.8.0
 
       - name: Install dependencies
-        run: yarn install --immutable
+        run: gjsify install --immutable
 
+      # From here on `gjsify` resolves to the version `gjsify-lock.json` pins,
+      # not the floating bootstrap copy — the packages declare what they build
+      # with, and a PR must be built by that.
+      - name: Use the workspace-pinned gjsify CLI
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
+
+      # `@learn6502/core` publishes `dist/`, so it has to exist before anything
+      # importing it (the examples' meta files, the CLI bundle) can be built.
+      - name: Build core
+        run: gjsify workspace @learn6502/core build
+
+      # Regenerates the new example's `index.ts` plus the `examples.ts` barrel
+      # that exports every example — this is what puts it in front of users.
       - name: Build examples
-        run: yarn workspace @learn6502/examples run build
+        run: gjsify workspace @learn6502/examples build
+
+      # The build once exited 0 having generated nothing at all, which would
+      # have shipped an example no app can see. Assert the result instead of
+      # trusting the exit code.
+      - name: Verify the example is exported
+        env:
+          SLUG: ${{ steps.render.outputs.slug }}
+          BASE_DIR: ${{ steps.render.outputs.base_dir }}
+        run: |
+          test -f "$BASE_DIR/index.ts" \
+            || { echo "::error::$BASE_DIR/index.ts was not generated — the examples build did nothing."; exit 1; }
+          grep -qF "\"./$SLUG\"" packages/examples/examples.ts \
+            || { echo "::error::$SLUG is missing from packages/examples/examples.ts."; exit 1; }
+
+      # Type-checks the generated `index.ts` against a consumer — a slug can
+      # produce code that parses nowhere (a dash left in an identifier), and
+      # that must fail here rather than in the pull request's CI. `learn` builds
+      # after `examples` because it depends on it, and `app-web`'s types resolve
+      # to the built output of both.
+      - name: Type check the generated example
+        run: |
+          gjsify workspace @learn6502/learn build
+          gjsify workspace @learn6502/app-web check
+
+      # The gate the old workflow never had: a submission that does not
+      # assemble must not reach a pull request. Uses the headless CLI frontend,
+      # i.e. the same assembler the apps run.
+      - name: Assemble the submitted example
+        env:
+          CODE_PATH: ${{ steps.render.outputs.code_path }}
+        run: |
+          gjsify workspace @learn6502/cli build
+          node packages/cli/dist/cli.js assemble "$CODE_PATH"
 
       - name: Format code
-        run: yarn format
+        run: gjsify format --write
 
+      # Explicit paths, never `git add -A`: the install and build steps leave
+      # generated files around, and only the example belongs in the commit.
       - name: Commit with author = issue opener
         env:
-          AUTHOR_NAME: ${{ github.event.issue.user.login }}
-          AUTHOR_EMAIL: ${{ github.event.issue.user.id }}+${{ github.event.issue.user.login }}@users.noreply.github.com
+          SLUG: ${{ steps.render.outputs.slug }}
+          BASE_DIR: ${{ steps.render.outputs.base_dir }}
+          ISSUE: ${{ steps.issue.outputs.number }}
+          AUTHOR_NAME: ${{ steps.issue.outputs.login }}
+          AUTHOR_EMAIL: ${{ steps.issue.outputs.user_id }}+${{ steps.issue.outputs.login }}@users.noreply.github.com
         run: |
-          git add -A
+          git config --global --add safe.directory "$GITHUB_WORKSPACE"
+          git add "$BASE_DIR" packages/examples/examples.ts
           git -c user.name="github-actions[bot]" \
               -c user.email="41898282+github-actions[bot]@users.noreply.github.com" \
               commit --author="${AUTHOR_NAME} <${AUTHOR_EMAIL}>" \
-              -m "feat(example): add ${{ steps.render.outputs.SLUG }} (from issue #${{ github.event.issue.number }})
-              
-              Co-authored-by: ${{ github.event.issue.user.login }} <${{ github.event.issue.user.id }}+${{ github.event.issue.user.login }}@users.noreply.github.com>
-              Signed-off-by: ${{ github.event.issue.user.login }} <${{ github.event.issue.user.id }}+${{ github.event.issue.user.login }}@users.noreply.github.com>
-              "
+              -m "Examples: add ${SLUG} (from issue #${ISSUE})" \
+              -m "Co-authored-by: ${AUTHOR_NAME} <${AUTHOR_EMAIL}>
+          Signed-off-by: ${AUTHOR_NAME} <${AUTHOR_EMAIL}>"
 
+      # The branch belongs to this workflow alone and a re-dispatch regenerates
+      # it from the issue, so overwriting it is the intended behaviour — review
+      # fixes belong on the pull request, not on a branch that gets rebuilt.
       - name: Push
-        run: git push -u origin "$BRANCH"
+        run: git push --force origin "HEAD:refs/heads/${BRANCH}"
 
-      - name: Open PR
+      # Every value reaches the script through `env`, never through an
+      # expression spliced into the JS source — issue text must not be able to
+      # become code.
+      - name: Open or update the pull request
         id: open_pr
         uses: actions/github-script@v8
+        env:
+          SLUG: ${{ steps.render.outputs.slug }}
+          ISSUE: ${{ steps.issue.outputs.number }}
+          META_PATH: ${{ steps.render.outputs.meta_path }}
+          CODE_PATH: ${{ steps.render.outputs.code_path }}
         with:
           script: |
-            const { data: pr } = await github.rest.pulls.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              title: 'Add example: ${{ steps.render.outputs.SLUG }} (from issue #${{ github.event.issue.number }})',
-              head: '${{ env.BRANCH }}',
-              base: 'main',
-              body: `Generated from issue #${{ github.event.issue.number }} by workflow.
+            const { BRANCH, SLUG, ISSUE, META_PATH, CODE_PATH } = process.env;
+            const title = `Examples: add ${SLUG} (from issue #${ISSUE})`;
+            const body = [
+              `Generated from issue #${ISSUE} by the \`issue-to-pr\` workflow.`,
+              "",
+              "Files:",
+              `- \`${META_PATH}\``,
+              `- \`${CODE_PATH}\``,
+              "",
+              "The submitted source assembles with `learn6502 assemble`.",
+              "",
+              `Closes #${ISSUE}`,
+            ].join("\n");
 
-            Files:
-            - \`${{ steps.render.outputs.META_PATH }}\`
-            - \`${{ steps.render.outputs.CODE_PATH }}\`
-
-            Closes #${{ github.event.issue.number }}`
+            // A retried dispatch pushes to the same branch, so reuse the pull
+            // request already open for it instead of failing on a duplicate.
+            const { data: existing } = await github.rest.pulls.list({
+              ...context.repo,
+              head: `${context.repo.owner}:${BRANCH}`,
+              state: "open",
             });
-            console.log(`Pull request created: ${pr.html_url}`);
-            core.setOutput('pr_number', pr.number);
-            core.setOutput('pr_url', pr.html_url);
+            const pr = existing.length
+              ? (await github.rest.pulls.update({ ...context.repo, pull_number: existing[0].number, title, body })).data
+              : (await github.rest.pulls.create({ ...context.repo, title, head: BRANCH, base: "main", body })).data;
+
+            core.setOutput("pr_number", String(pr.number));
+            core.setOutput("pr_url", pr.html_url);
+            core.notice(`Pull request ready: ${pr.html_url}`);
 
       - name: Comment on issue
-        id: comment
         uses: actions/github-script@v8
+        env:
+          ISSUE: ${{ steps.issue.outputs.number }}
+          PR_NUMBER: ${{ steps.open_pr.outputs.pr_number }}
         with:
           script: |
             await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '✅ Pull request created: #${{ steps.open_pr.outputs.pr_number }}\n\nYour example will be reviewed and merged soon. Thank you for contributing! 🎉'
-            })
+              ...context.repo,
+              issue_number: Number(process.env.ISSUE),
+              body: `✅ Pull request created: #${process.env.PR_NUMBER}\n\nYour example assembles and has been added to the examples package. It will be reviewed and merged soon. Thank you for contributing! 🎉`,
+            });
+
+      # Without this a rejected submission is silent: the issue just sits there
+      # and the contributor never learns what to fix.
+      - name: Report the failure on the issue
+        if: failure() && steps.issue.outputs.number != ''
+        uses: actions/github-script@v8
+        env:
+          EXAMPLE_ERROR_FILE: ${{ runner.temp }}/example-error.txt
+          ISSUE: ${{ steps.issue.outputs.number }}
+        with:
+          script: |
+            const fs = require("node:fs");
+            const runUrl = `${process.env.GITHUB_SERVER_URL}/${process.env.GITHUB_REPOSITORY}/actions/runs/${process.env.GITHUB_RUN_ID}`;
+            const reason = fs.existsSync(process.env.EXAMPLE_ERROR_FILE)
+              ? fs.readFileSync(process.env.EXAMPLE_ERROR_FILE, "utf8").trim()
+              : `The example could not be built. See the [workflow run](${runUrl}) for details.`;
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: Number(process.env.ISSUE),
+              body: `❌ This submission could not be turned into a pull request.\n\n${reason}\n\nEdit the issue and re-run the [workflow](${runUrl}) once it is fixed — no need to open a new issue.`,
+            });
