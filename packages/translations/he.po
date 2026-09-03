@@ -1118,7 +1118,7 @@ msgstr "בסדר"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "On reset (simulator): <tt>P = $30</tt> (bit5 and <tt>B</tt> set; <tt>D</tt> and <tt>I</tt> clear)"
-msgstr "לאחר איפוס (סימולטור): <tt>P = $30</tt> (ביט 5 ו־B מוגדרים; <tt>D</tt> ו־<tt>I</tt> ריקים)"
+msgstr "לאחר איפוס (סימולטור): <tt>P = $30</tt> (ביט 5 ו־<tt>B</tt> מוגדרים; <tt>D</tt> ו־<tt>I</tt> ריקים)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Once the values have been shifted down the snake, we have to work out what to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</tt> means \"logical shift right\", or \"shift all the bits one position to the right\". The least significant bit is shifted into the carry flag, so if the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the carry flag set."

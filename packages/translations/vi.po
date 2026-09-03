@@ -1573,7 +1573,7 @@ msgstr "ác dụng của việc này là che giấu hai bit có ý nghĩa nhỏ 
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first instruction causes execution to jump to the <tt>init</tt> label. This sets <tt>X</tt>, then returns to the next instruction, <tt>JSR loop</tt>. This jumps to the <tt>loop</tt> label, which increments <tt>X</tt> until it is equal to <tt>$05</tt>. After that we return to the next instruction, <tt>JSR end</tt>, which jumps to the end of the file. This illustrates how <tt>JSR</tt> and <tt>RTS</tt> can be used together to create modular code."
-msgstr "Lệnh đầu tiên khiến việc thực thi nhảy tới nhãn <tt>init</tt>. Lệnh này đặt <tt>X</tt>, sau đó quay lại lệnh tiếp theo, <tt>vòng lặp JSR</tt>. Điều này chuyển tới nhãn <tt>vòng lặp</tt>, nhãn này tăng dần <tt>X</tt> cho đến khi bằng <tt>$05</tt>. Sau đó, chúng ta quay lại lệnh tiếp theo, <tt>JSR end</tt>, lệnh này sẽ nhảy xuống cuối tệp. Điều này minh họa cách <tt>JSR</tt> và <tt>RTS</tt> có thể được sử dụng cùng nhau để tạo mã mô-đun."
+msgstr "Lệnh đầu tiên khiến việc thực thi nhảy tới nhãn <tt>init</tt>. Lệnh này đặt <tt>X</tt>, sau đó quay lại lệnh tiếp theo, <tt>JSR loop</tt>. Điều này chuyển tới nhãn <tt>loop</tt>, nhãn này tăng dần <tt>X</tt> cho đến khi bằng <tt>$05</tt>. Sau đó, chúng ta quay lại lệnh tiếp theo, <tt>JSR end</tt>, lệnh này sẽ nhảy xuống cuối tệp. Điều này minh họa cách <tt>JSR</tt> và <tt>RTS</tt> có thể được sử dụng cùng nhau để tạo mã mô-đun."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first line shows the <tt>A</tt>, <tt>X</tt> and <tt>Y</tt> registers (<tt>A</tt> is often called the \"accumulator\"). Each register holds a single byte. Most operations work on the contents of these registers."
@@ -1617,7 +1617,7 @@ msgstr "Bit tiếp theo cập nhật phần đầu của con rắn tùy theo hư
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next line, <tt>BNE decrement</tt>, will shift execution to the decrement label if the <tt>Z</tt> flag is set to <tt>0</tt> (meaning that the two values in the <tt>CPX</tt> comparison were not equal), otherwise it does nothing and we store <tt>X</tt> to <tt>$0201</tt>, then finish the program."
-msgstr "Dòng tiếp theo, <tt>Giảm BNE</tt>, sẽ chuyển việc thực thi sang nhãn giảm nếu cờ <tt>Z</tt> được đặt thành <tt>0</tt> (có nghĩa là hai giá trị trong so sánh <tt>CPX</tt> không bằng nhau), nếu không thì không làm gì cả và chúng tôi lưu trữ <tt>X</tt> thành <tt>$0201</tt>, sau đó kết thúc chương trình."
+msgstr "Dòng tiếp theo, <tt>BNE decrement</tt>, sẽ chuyển việc thực thi sang nhãn decrement nếu cờ <tt>Z</tt> được đặt thành <tt>0</tt> (có nghĩa là hai giá trị trong so sánh <tt>CPX</tt> không bằng nhau), nếu không thì không làm gì cả và chúng tôi lưu trữ <tt>X</tt> thành <tt>$0201</tt>, sau đó kết thúc chương trình."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>checkCollision</tt>, defers to <tt>checkAppleCollision</tt> and <tt>checkSnakeCollision</tt>. <tt>checkAppleCollision</tt> just checks to see if the two bytes holding the location of the apple match the two bytes holding the location of the head. If they do, the length is increased and a new apple position is generated."

@@ -576,7 +576,7 @@ msgstr "进位标志（C）：加法产生进位时置位；减法需要借位�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Change one of the pixels to draw at the bottom-right corner (memory location <tt>$05ff</tt>)."
-msgstr "试着修改内存中最后一个像素的颜色 (内存地址 $05ff)。"
+msgstr "试着修改内存中最后一个像素的颜色 (内存地址 <tt>$05ff</tt>)。"
 
 #. TRANSLATORS: ViewSwitcher/tab title for the Editor view
 msgid "Code"
@@ -770,7 +770,7 @@ msgstr "第一行：<tt>$0200</tt>-<tt>$021F</tt>，第二行：<tt>$0220</tt>-<
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First we load the value <tt>$08</tt> into the <tt>X</tt> register. The next line is a label. Labels just mark certain points in a program so we can return to them later. After the label we decrement <tt>X</tt>, store it to <tt>$0200</tt> (the top-left pixel), and then compare it to the value <tt>$03</tt>. <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> compares the value in the <tt>X</tt> register with another value. If the two values are equal, the <tt>Z</tt> flag is set to <tt>1</tt>, otherwise it is set to <tt>0</tt>."
-msgstr "首先将值 <tt>$08</tt> 加载到寄存器 <tt>X</tt>。下一行是一个标签。标签用于标记程序中的位置，以便稍后返回。经过标签后对 <tt>X</tt> 递减，将其存入 <tt>$0200</tt>（左上角像素），然后与 <tt>$03</tt> 比较。<a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> 比较 <tt>X</tt> 寄存器与另一个值；若相等则置位 <tt>Z</tt>，否则清零。"
+msgstr "首先将值 <tt>$08</tt> 加载到寄存器 <tt>X</tt>。下一行是一个标签。标签用于标记程序中的位置，以便稍后返回。经过标签后对 <tt>X</tt> 递减，将其存入 <tt>$0200</tt>（左上角像素），然后与 <tt>$03</tt> 比较。<a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html#CPX\"><tt>CPX</tt></a> 比较 <tt>X</tt> 寄存器与另一个值；若两值相等，则 <tt>Z</tt> 标志置为 <tt>1</tt>，否则置为 <tt>0</tt>。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "First, <tt>readkeys</tt> checks to see if one of the direction keys (W, A, S, D) was pressed, and if so, sets the direction of the snake accordingly. Then, <tt>checkCollision</tt> checks to see if the snake collided with itself or the apple. <tt>updateSnake</tt> updates the internal representation of the snake, based on its direction. Next, the apple and snake are drawn. Finally, <tt>spinWheels</tt> makes the processor do some busy work, to stop the game from running too quickly. Think of it like a sleep command. The game keeps running until the snake collides with the wall or itself."
@@ -1188,7 +1188,7 @@ msgstr "预处理…"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Press <b>Step</b> again to execute the second instruction. The top-left pixel of the game console should now be white. This simulator uses the memory locations <tt>$0200</tt> to <tt>$05ff</tt> to draw pixels on its display. The values <tt>$00</tt> to <tt>$0f</tt> represent 16 different colours (<tt>$00</tt> is black and <tt>$01</tt> is white), so storing the value <tt>$01</tt> at memory location <tt>$0200</tt> draws a white pixel at the top left corner. This is simpler than how an actual computer would output video, but it'll do for now."
-msgstr "再次点击<b>单步</b>执行第二条指令。第一个像素变为白色。显示器使用内存地址<tt>$0200</tt>到<tt>$05ff</tt>存储像素值。<tt>$00</tt>表示黑色,<tt>$01</tt>表示白色。<tt>STA $0200</tt>将寄存器<tt>A</tt>的值(<tt>$01</tt>)存储到内存地址<tt>$0200</tt>,绘制一个白色像素。"
+msgstr "再次点击<b>单步</b>执行第二条指令。游戏机的左上角像素现在应为白色。此模拟器使用内存地址 <tt>$0200</tt> 到 <tt>$05ff</tt> 在显示器上绘制像素。<tt>$00</tt> 到 <tt>$0f</tt> 表示 16 种不同的颜色（<tt>$00</tt> 为黑色，<tt>$01</tt> 为白色），因此将值 <tt>$01</tt> 存入内存地址 <tt>$0200</tt>，就会在左上角绘制一个白色像素。这比真实计算机输出视频的方式简单，但目前够用了。"
 
 #. TRANSLATORS: Label for next button in share dialog
 msgid "Preview"
@@ -1605,7 +1605,7 @@ msgstr "最后一部分展示处理器标志。每个标志占一位，因此七
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last subroutine, <tt>spinWheels</tt>, is just there because the game would run too fast otherwise. All <tt>spinWheels</tt> does is count <tt>X</tt> down from zero until it hits zero again. The first <tt>dex</tt> wraps, making <tt>X</tt> <tt>#$ff</tt>."
-msgstr "最后一个子程序 <tt>spinWheels</tt> 用于避免游戏运行过快。它仅将 <tt>X</tt> 从零向下计数，直到再次回到零。第一次 <tt>dex</tt> 会回绕，使 <tt>X</tt> 变为 <tt>#$ff</tt>。"
+msgstr "最后一个子程序 <tt>spinWheels</tt> 用于避免游戏运行过快。<tt>spinWheels</tt> 仅将 <tt>X</tt> 从零向下计数，直到再次回到零。第一次 <tt>dex</tt> 会回绕，使 <tt>X</tt> 变为 <tt>#$ff</tt>。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive (<tt>BPL</tt> means \"branch if positive\")."
@@ -1808,7 +1808,7 @@ msgstr "黄色"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
-msgstr "可以将屏幕看作 4 个横向条，每个条 32 × 8 像素。它们映射到 <tt>$0200–$02ff</tt>、<tt>$0300–$03ff</tt>、<tt>$0400–$04ff</tt> 和 <tt>$0500–$05ff</tt>。第一行像素是 <tt>$0200–$021f</tt>、<tt>$0220–$023f</tt>、<tt>$0240–$025f</tt> 等。"
+msgstr "可以将屏幕看作 4 个横向条，每个条 32 × 8 像素。它们映射到 <tt>$0200-$02ff</tt>、<tt>$0300-$03ff</tt>、<tt>$0400-$04ff</tt> 和 <tt>$0500-$05ff</tt>。第一行像素是 <tt>$0200-$021f</tt>、<tt>$0220-$023f</tt>、<tt>$0240-$025f</tt> 等。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
