@@ -19,9 +19,11 @@
  * and a `Gtk.Label` whose markup fails to parse renders as an empty string — a
  * whole tutorial paragraph gone, with no error anywhere.
  *
- * Run via `gjsify workspace @learn6502/learn check`, which rebuilds `dist/`
- * first: a check that reads whatever artifact happened to be lying around is
- * the same defect it exists to catch.
+ * Run via `gjsify workspace @learn6502/learn check`, which clears and rebuilds
+ * `dist/` first: a check that reads whatever artifact happened to be lying
+ * around is the same defect it exists to catch, and a leftover from the
+ * previous run makes an emitter that stopped writing look like one that wrote
+ * the same thing again.
  */
 
 import { existsSync, readFileSync } from "node:fs";
@@ -85,10 +87,18 @@ const ENTITY = /^&(?:amp|lt|gt|quot|apos|#\d+|#x[0-9a-fA-F]+);/;
 const ATTRIBUTE = /([a-zA-Z_:][\w.:-]*)\s*=\s*(?:"([^"]*)"|'([^']*)')/g;
 
 const TRANSLATABLE_LABEL = /<property name="label" translatable="yes"([^>]*)>([\s\S]*?)<\/property>/g;
-const BLOCK_CODE_UI = /<object class="SourceView"[^>]*>\s*<property name="code">([\s\S]*?)<\/property>/g;
+// The whole `SourceView` element, not `<property name="code">` pinned to the
+// front of it: property order carries no meaning in XML and `Gtk.Builder`
+// ignores it, so an extractor that depends on it turns a legitimate emitter
+// refactor into a red build — and, worse, reports the loss against the *other*
+// targets, which are the ones that did not change.
+const BLOCK_CODE_UI_OBJECT = /<object class="SourceView"[^>]*>([\s\S]*?)<\/object>/g;
+const CODE_PROPERTY = /<property name="code">([\s\S]*?)<\/property>/;
 const INLINE_CODE_LABEL = /<tt>([\s\S]*?)<\/tt>/g;
 const INLINE_CODE_HTML = /<code[^>]*>([\s\S]*?)<\/code>/g;
 const BLOCK_CODE_HTML = /<adw-source-view\b[^>]*?\scode="([^"]*)"/g;
+/** The elements `html.components.tsx` renders prose into, each a `.ui` label. */
+const HTML_TEXT_BLOCK = /<(p|h1|h2|h3|h4|li)\b[^>]*>([\s\S]*?)<\/\1>/g;
 const HTML_ATTRIBUTE = /\bhtml="([^"]*)"/g;
 const SOURCE_VIEW_CODE = /<w:SourceView\b[^>]*?\scode="([^"]*)"/g;
 
@@ -279,6 +289,40 @@ function labelMarkupErrors(markup) {
   return scanMarkup(markup, { tags: LABEL_TAGS, tagAttributes: LABEL_TAG_ATTRIBUTES, fragment: true }).errors;
 }
 
+/** Readable text of a markup fragment, normalised for comparison across targets. */
+function plainText(markup) {
+  return unescapeXml(markup.replace(/<[^>]*>/g, ""))
+    .replace(/\s+/g, " ")
+    .trim();
+}
+
+/**
+ * Block-code literals of a `.ui`, with the number of `SourceView` objects they
+ * came from.
+ *
+ * The two numbers are reported separately because an editor widget with no code
+ * in it is a defect the comparison against the other targets cannot see: it
+ * removes the literal from both sides at once.
+ */
+function uiBlockCode(ui) {
+  const objects = [...ui.matchAll(BLOCK_CODE_UI_OBJECT)];
+  const codes = objects
+    .map((object) => CODE_PROPERTY.exec(object[1]))
+    .filter((code) => code !== null)
+    .map((code) => unescapeXml(code[1]));
+  return { objects: objects.length, codes };
+}
+
+/** The prose of a `.ui`, one entry per translatable label. */
+function uiProse(ui) {
+  return translatableLabels(ui).map((label) => plainText(label.markup));
+}
+
+/** The prose of an `.html`, one entry per rendered text block. */
+function htmlProse(html) {
+  return [...html.matchAll(HTML_TEXT_BLOCK)].map((match) => plainText(match[2])).filter(Boolean);
+}
+
 /** Inline and block code literals as they reach each of the three targets. */
 function codeLiterals(document) {
   const ui = read(`${document}.ui`);
@@ -290,7 +334,7 @@ function codeLiterals(document) {
       inline: translatableLabels(ui).flatMap((label) =>
         [...label.markup.matchAll(INLINE_CODE_LABEL)].map((match) => unescapeXml(match[1]))
       ),
-      block: [...ui.matchAll(BLOCK_CODE_UI)].map((match) => unescapeXml(match[1])),
+      block: uiBlockCode(ui).codes,
     },
     ns: {
       // Inline code is escaped inside the `html` attribute of an `HtmlView`;
@@ -338,6 +382,42 @@ const SELF_TEST = [
   ["document", "<interface>a & b</interface>", "reject"],
 ];
 
+/**
+ * Extractors run over shapes the emitter is allowed to produce.
+ *
+ * The markup rules have SELF_TEST; the extractors had nothing, and an extractor
+ * that quietly matches less than it should is the worse failure: it does not
+ * report anything, it shrinks the reference set the comparison is made against.
+ * Property order is the concrete case — XML gives it no meaning, so the emitter
+ * may reorder freely and the extraction has to survive it.
+ */
+const EXTRACTION_TEST = [
+  [
+    "block code is found whatever order the object's properties are in",
+    () =>
+      [
+        '<property name="code">LDA #$01</property><property name="language">6502</property>',
+        '<property name="language">6502</property><property name="code">LDA #$01</property>',
+      ]
+        .map((properties) => uiBlockCode(`<object class="SourceView" id="a">${properties}</object>`))
+        .every((found) => found.objects === 1 && found.codes.join() === "LDA #$01"),
+  ],
+  [
+    "an editor with no code is counted but yields no literal",
+    () => {
+      const found = uiBlockCode('<object class="SourceView" id="a"><property name="language">6502</property></object>');
+      return found.objects === 1 && found.codes.length === 0;
+    },
+  ],
+  ["a label's prose survives its markup", () => plainText("Use <tt>LDA</tt>\n and <b>Step</b>") === "Use LDA and Step"],
+  [
+    "prose is found under every element the html target renders text into",
+    () =>
+      htmlProse('<h2 class="t">Registers</h2><p>The <code>A</code> register</p><ul><li>one</li></ul>').join("|") ===
+      "Registers|The A register|one",
+  ],
+];
+
 /** Self-test results that came out the wrong way round. */
 function selfTestFailures() {
   const wrong = [];
@@ -351,7 +431,10 @@ function selfTestFailures() {
 }
 
 function check() {
-  const selfTest = selfTestFailures();
+  const selfTest = [
+    ...selfTestFailures(),
+    ...EXTRACTION_TEST.filter(([, holds]) => !holds()).map(([what]) => `extraction no longer holds: ${what}`),
+  ];
   if (selfTest.length) {
     console.error("The structural rules no longer classify their own test cases:");
     for (const failure of selfTest) console.error(`  ${failure}`);
@@ -405,8 +488,26 @@ function check() {
     const labels = translatableLabels(ui);
     if (!labels.length) report(`${document}.ui`, ["no translatable labels — the renderer produced no text"]);
 
+    // Rule 4 — the `.ui` carries every paragraph the `.html` does.
+    // The `.ui` is what `xgettext` extracts the catalogs from, so prose that
+    // stops reaching it is a string that stops existing for every translator,
+    // and neither the catalogs nor any other rule here can miss what is no
+    // longer there. The `.html` is the independent witness: it is rendered from
+    // the same MDX in the same run, so the two have to agree paragraph for
+    // paragraph. (The `.ns.xml` is not usable for this — it groups list items
+    // into one `HtmlView`, so it has no per-paragraph structure to compare.)
+    const prose = { ui: count(uiProse(ui)), html: count(htmlProse(read(`${document}.html`))) };
+    report(
+      document,
+      missing(prose.html, prose.ui).map((text) => `paragraph rendered to html but not to the .ui: ${clip(text)}`)
+    );
+    report(
+      document,
+      missing(prose.ui, prose.html).map((text) => `paragraph rendered to the .ui but not to html: ${clip(text)}`)
+    );
+
     for (const label of labels) {
-      // Rule 4 — every translatable string carries its translator comment.
+      // Rule 5 — every translatable string carries its translator comment.
       // xgettext copies `comments=` into the POT as the `#.` line, which is the
       // only context a translator gets: the catalogs are generated with
       // `noLocation`, so without it the string arrives with no provenance at
@@ -414,17 +515,27 @@ function check() {
       if (!label.comment?.startsWith("TRANSLATORS:"))
         report(`${document}.ui`, [`translatable label without a TRANSLATORS comment: ${clip(label.markup)}`]);
 
-      // Rule 5 — the label markup parses as Pango markup.
+      // Rule 6 — the label markup parses as Pango markup.
       for (const error of labelMarkupErrors(label.markup))
         report(`${document}.ui`, [`unrenderable label markup — ${error}: ${clip(label.markup)}`]);
     }
 
-    // Rule 6 — the same code literals reach all three targets.
+    // Rule 7 — the same code literals reach all three targets.
     // They are what the reader retypes into the editor, and each target encodes
     // them differently (`<tt>` on GTK, an escaped `w:SourceView` on
     // NativeScript, `<code>` on the web), so a renderer change that drops or
     // mangles one of them shows up nowhere else.
     const literals = codeLiterals(document);
+
+    // An editor widget with no code in it is invisible to the comparison below,
+    // because it removes the literal from the `.ui` reference set and from the
+    // target at the same time.
+    const editors = uiBlockCode(ui);
+    if (editors.objects !== editors.codes.length)
+      report(`${document}.ui`, [
+        `${editors.objects - editors.codes.length} SourceView object(s) without a code property`,
+      ]);
+
     for (const kind of ["inline", "block"]) {
       const reference = count(literals.ui[kind]);
       for (const target of ["ns", "html"]) {
@@ -449,7 +560,8 @@ function check() {
   }
 
   console.log(
-    `All generated artifacts passed structural validation (${DOCUMENTS.length} documents × 3 targets, ${SELF_TEST.length} self-test cases).`
+    `All generated artifacts passed structural validation (${DOCUMENTS.length} documents × 3 targets, ` +
+      `${SELF_TEST.length + EXTRACTION_TEST.length} self-test cases).`
   );
   return 0;
 }

@@ -45,9 +45,11 @@ This will generate the necessary output files in the `dist/` directory.
 gjsify workspace @learn6502/learn check
 ```
 
-`check.js` rebuilds `dist/` and then validates the generated artifacts structurally — no byte
-snapshot, so it survives reformatting the emitter but still fails on the changes that cost a
-reader something. CI runs it on every pull request. It asserts that:
+`check.js` clears and rebuilds `dist/`, then validates the generated artifacts structurally — no
+byte snapshot, so it survives reformatting the emitter but still fails on the changes that cost a
+reader something. The clear is part of the rule, not tidiness: with the previous run's output
+still on disk, an emitter that stops writing a target is read as one that wrote the same thing
+again. CI runs it on every pull request. It asserts that:
 
 - all six artifacts were written;
 - the `.ui` and `.ns.xml` are well-formed XML with the expected root, and contain only elements
@@ -58,8 +60,17 @@ reader something. CI runs it on every pull request. It asserts that:
 - every label is markup Pango accepts. A `Gtk.Label` whose markup fails to parse renders as an
   empty string, so an HTML-only entity such as `&ndash;` costs the reader the whole paragraph —
   write the character itself (`–`, `×`) in the MDX;
+- the `.ui` carries every paragraph the `.html` does. The `.ui` is what `xgettext` builds the
+  catalogs from, so prose that stops reaching it stops existing for every translator, and nothing
+  downstream can miss what is no longer there — the `.html`, rendered from the same MDX in the
+  same run, is the witness;
 - the same code literals reach all three targets. They are what the reader retypes into the
   editor, and each target encodes them differently (`<tt>`, an escaped `w:SourceView`, `<code>`).
+
+The rules run after their own self-tests: the markup rules against fragments each parser accepts
+or rejects, and the extractors against shapes the emitter is allowed to produce. An extractor that
+quietly matches less than it should is the worse failure of the two, because it shrinks the set a
+rule compares against instead of reporting anything.
 
 It says nothing about whether the tutorial is *correct*; that still needs a reader.
 
