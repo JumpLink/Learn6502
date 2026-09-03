@@ -7,33 +7,25 @@ import { components as NsComponents, generateNativeScriptXml, NsRoot } from "./c
 import { writeFile } from "node:fs/promises";
 import { withSourceFileContext } from "./utils.ts";
 
+// A failed write is not recoverable here and must not be swallowed: the build
+// would exit 0 having left the previous run's artifact in place, and everything
+// downstream — the check, and `xgettext` reading `dist/*.ui` — would then pass
+// over output that no longer matches the source.
+
 async function generateGtkUiXml(fileName: string, component: string) {
   const output = `<?xml version="1.0" encoding="UTF-8"?>` + component;
-
-  try {
-    await writeFile(`dist/${fileName}.ui`, output, "utf-8");
-    console.log(`Output saved to ${fileName}.ui`);
-  } catch (error) {
-    console.error("Error saving file:", error);
-  }
+  await writeFile(`dist/${fileName}.ui`, output, "utf-8");
+  console.log(`Output saved to ${fileName}.ui`);
 }
 
 async function saveNativeScriptXml(fileName: string, component: string) {
-  try {
-    await writeFile(`dist/${fileName}.ns.xml`, component, "utf-8");
-    console.log(`Output saved to ${fileName}.ns.xml`);
-  } catch (error) {
-    console.error("Error saving NativeScript XML file:", error);
-  }
+  await writeFile(`dist/${fileName}.ns.xml`, component, "utf-8");
+  console.log(`Output saved to ${fileName}.ns.xml`);
 }
 
 async function generateHtml(fileName: string, component: string) {
-  try {
-    await writeFile(`dist/${fileName}.html`, component, "utf-8");
-    console.log(`Output saved to ${fileName}.html`);
-  } catch (error) {
-    console.error("Error saving file:", error);
-  }
+  await writeFile(`dist/${fileName}.html`, component, "utf-8");
+  console.log(`Output saved to ${fileName}.html`);
 }
 
 // Generate GTK UI files
