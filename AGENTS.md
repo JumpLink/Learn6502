@@ -317,6 +317,24 @@ deployed to GitHub Pages); dev = Vite + HMR (`vite.app.config.ts`). The classic
 skilldrick Jekyll tutorial was removed in the app-web rewrite.
 Focus: browser compatibility, responsive design, leverage `core` + `common-ui`.
 
+## Learn — tutorial content
+
+Applies to `packages/learn/` (`tutorial.mdx`, `quick-help.mdx`, `tsx/`).
+
+One MDX source, three artifacts, three consumers: `dist/*.ui` (app-gnome, via `Gtk.Builder`),
+`dist/*.ns.xml` (app-android) and `dist/*.html` (app-web) — plus `packages/translations`, which
+extracts the tutorial's translatable strings from `dist/*.ui`.
+
+**HTML entities are not markup here.** `Gtk.Label` renders an empty string when its markup fails
+to parse, and Pango knows only `&amp; &lt; &gt; &quot; &apos;` plus numeric references. Write the
+character itself — `–`, `×`, a real non-breaking space — never `&ndash;`, `&times;` or `&nbsp;`:
+those cost the reader the entire paragraph, silently.
+
+**Validate:** `gjsify workspace @learn6502/learn check` (rebuilds `dist/`, then checks XML
+well-formedness, the element vocabulary, TRANSLATORS comments, label markup and code literals
+across all three targets — also run in CI). Details in
+[packages/learn/README.md](packages/learn/README.md).
+
 ## Translations
 
 Applies to all `.po` files in `packages/translations/`.

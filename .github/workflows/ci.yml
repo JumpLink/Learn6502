@@ -102,6 +102,15 @@ jobs:
           gjsify workspace @learn6502/examples build
           gjsify workspace @learn6502/learn build
 
+      # The tutorial is rendered into three unrelated artifacts and only
+      # app-gnome fails loudly on a broken one — at runtime, in whatever
+      # paragraph the reader opens. This validates all three. It rebuilds
+      # `packages/learn/dist` itself rather than trusting the step above:
+      # checking whatever artifact happens to be on disk is the defect that
+      # emptied the catalogs on 2026-09-03.
+      - name: Validate generated tutorial artifacts
+        run: gjsify workspace @learn6502/learn check
+
       - name: Type check (gjsify tsc under GJS)
         run: |
           gjsify workspace @learn6502/core check
