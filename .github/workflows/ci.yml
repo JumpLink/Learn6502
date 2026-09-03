@@ -85,6 +85,13 @@ jobs:
       - name: Install dependencies
         run: gjsify install --immutable
 
+      # Ahead of the type checks so a broken catalog is reported as itself.
+      # `msgfmt` only asks whether a `msgstr` is non-empty, so this is the only
+      # gate that sees markup Pango cannot parse or a translated code
+      # identifier — both of which have reached `main` before.
+      - name: Validate translation catalogs
+        run: gjsify workspace @learn6502/translations check
+
       # Build the workspace deps that publish built output (`@learn6502/core`,
       # `examples`, `learn` ship `dist/*.d.ts`; `common-ui` exports source).
       # Without this, type-checking common-ui/app-* fails with TS2307 "Cannot
