@@ -11,13 +11,8 @@
     "po"
   ],
   "scripts": {
-    "build:learn": "gjsify workspace @learn6502/learn build",
-    "build:gen": "gjsify build build.js --app gjs --outfile dist/build.gen.js",
-    "build:run": "gjsify run dist/build.gen.js",
-    "build": "gjsify run build:learn && gjsify run build:gen && gjsify run build:run",
-    "check:gen": "gjsify build check.js --app gjs --outfile dist/check.gen.js",
-    "check:run": "gjsify run dist/check.gen.js",
-    "check": "gjsify run check:gen && gjsify run check:run",
+    "build": "gjsify workspace @learn6502/learn build && gjsify build build.js --app gjs --outfile dist/build.gen.js && gjsify run dist/build.gen.js",
+    "check": "gjsify build check.js --app gjs --outfile dist/check.gen.js && gjsify run dist/check.gen.js",
     "clear": "rm -rf dist"
   },
   "devDependencies": {

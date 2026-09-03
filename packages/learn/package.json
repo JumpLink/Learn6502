@@ -6,13 +6,9 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build:mdx": "gjsify build tsx/index.tsx --app gjs --globals node --outfile dist/index.js",
-    "build:js": "gjsify run dist/index.js",
-    "build": "gjsify run build:mdx && gjsify run build:js && gjsify run build:copy",
+    "build": "gjsify build tsx/index.tsx --app gjs --globals node --outfile dist/index.js && gjsify run dist/index.js && gjsify run build:copy",
     "build:copy": "cp -r dist/tutorial.ns.xml ../app-android/app/mdx/tutorial.xml && cp -r dist/quick-help.ns.xml ../app-android/app/mdx/quick-help.xml",
-    "check:gen": "gjsify build check.js --app gjs --outfile dist/check.gen.js",
-    "check:run": "gjsify run dist/check.gen.js",
-    "check": "gjsify run build && gjsify run check:gen && gjsify run check:run",
+    "check": "gjsify run build && gjsify build check.js --app gjs --outfile dist/check.gen.js && gjsify run dist/check.gen.js",
     "clear": "rm -rf dist"
   },
   "author": "Nick Morgan, Pascal Garber",

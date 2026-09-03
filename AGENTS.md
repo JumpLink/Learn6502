@@ -22,6 +22,20 @@ Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform c
 | vite-plugin-gettext   | `packages/vite-plugin-gettext/`   | Vite plugin for gettext localization                            | TypeScript                                          |
 | vite-plugin-blueprint | `packages/vite-plugin-blueprint/` | Vite plugin for Blueprint `.blp` files                          | TypeScript                                          |
 
+## Package scripts
+
+A `build` or `check` script must be a **chain**, never a lone `gjsify …` command. Measured on the
+pinned CLI (0.16.3, `runScript` in `@gjsify/cli/dist/cli.gjs.mjs`): when a script body tokenizes
+as a single plain `gjsify …` command the CLI dispatches it in-process and then exits with
+`process.exitCode ?? 0` — `gjsify build` and `gjsify run` report failure without setting it, so
+the script exits 0 while its work failed, and every caller above it sees green. Any shell operator
+in the body disables that path. `gjsify tsc` is unaffected (it spawns `gjs`).
+
+This is why `learn`, `translations` and `examples` have no `:gen`/`:run` sub-scripts. Splitting a
+chain back into single-command steps disarms the gate silently: it was how
+`gjsify workspace @learn6502/translations check` reported "All translations passed" over catalogs
+it had just emptied. Fix belongs upstream in gjsify; until then, keep the chains.
+
 ## TypeScript
 
 Applies to all `.ts`/`.tsx` files.
