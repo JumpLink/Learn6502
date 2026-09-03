@@ -12,9 +12,7 @@
     "./examples": "./examples.ts"
   },
   "scripts": {
-    "build:gen": "gjsify build build.ts --app gjs --outfile dist/build.js",
-    "build:run": "gjsify run dist/build.js",
-    "build": "gjsify run build:gen && gjsify run build:run"
+    "build": "gjsify build build.ts --app gjs --outfile dist/build.js && gjsify run dist/build.js"
   },
   "devDependencies": {
     "@types/node": "^25.9.1",

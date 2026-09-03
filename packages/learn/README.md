@@ -8,11 +8,18 @@ The main tutorial content is stored in `tutorial.mdx`, which is based on Nick Mo
 
 ## Transformation Capabilities
 
-The package includes tools to transform the MDX content into different formats:
+Each MDX document is rendered into one artifact per platform, and each artifact has exactly one
+consumer:
 
-- **GNOME Application**: The content is transformed into GNOME Blueprint UI files (`.ui`) for use in the native GNOME application
-- **Web Version**: Planned support for generating web-compatible content
-- **Android App**: Potential future support for Android application content
+| Artifact                | Consumer    | Loaded by                                             |
+| ----------------------- | ----------- | ----------------------------------------------------- |
+| `dist/*.ui`             | app-gnome   | `Gtk.Builder`, as a `MdxView` template                |
+| `dist/*.ns.xml`         | app-android | NativeScript `Builder.load` (copied to `app/mdx/`)    |
+| `dist/*.html`           | app-web     | imported by the web tutorial view                     |
+
+`packages/translations` is a fourth consumer: its `xgettext` run extracts the tutorial's
+translatable strings from `dist/*.ui`, which is why `@learn6502/translations`'s build builds this
+package first.
 
 ## Development
 
@@ -31,6 +38,41 @@ gjsify run build
 ```
 
 This will generate the necessary output files in the `dist/` directory.
+
+### Checking
+
+```bash
+gjsify workspace @learn6502/learn check
+```
+
+`check.js` clears and rebuilds `dist/`, then validates the generated artifacts structurally — no
+byte snapshot, so it survives reformatting the emitter but still fails on the changes that cost a
+reader something. The clear is part of the rule, not tidiness: with the previous run's output
+still on disk, an emitter that stops writing a target is read as one that wrote the same thing
+again. CI runs it on every pull request. It asserts that:
+
+- all six artifacts were written;
+- the `.ui` and `.ns.xml` are well-formed XML with the expected root, and contain only elements
+  and object classes their consumer can resolve — `Gtk.Builder` and NativeScript's `Builder.load`
+  both refuse the whole document otherwise;
+- every translatable label carries its `TRANSLATORS:` comment, which is the only context a
+  translator gets (the catalogs are generated with `noLocation`);
+- every label is markup Pango accepts. A `Gtk.Label` whose markup fails to parse renders as an
+  empty string, so an HTML-only entity such as `&ndash;` costs the reader the whole paragraph —
+  write the character itself (`–`, `×`) in the MDX;
+- the `.ui` carries every paragraph the `.html` does. The `.ui` is what `xgettext` builds the
+  catalogs from, so prose that stops reaching it stops existing for every translator, and nothing
+  downstream can miss what is no longer there — the `.html`, rendered from the same MDX in the
+  same run, is the witness;
+- the same code literals reach all three targets. They are what the reader retypes into the
+  editor, and each target encodes them differently (`<tt>`, an escaped `w:SourceView`, `<code>`).
+
+The rules run after their own self-tests: the markup rules against fragments each parser accepts
+or rejects, and the extractors against shapes the emitter is allowed to produce. An extractor that
+quietly matches less than it should is the worse failure of the two, because it shrinks the set a
+rule compares against instead of reporting anything.
+
+It says nothing about whether the tutorial is *correct*; that still needs a reader.
 
 ## License
 

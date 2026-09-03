@@ -648,10 +648,10 @@ with `00000011` will be `00000010`.
 
 The effect of this is to mask out the least significant two bits of the
 accumulator, setting the others to zero. This converts a number in the range of
-0&ndash;255 to a number in the range of 0&ndash;3.
+0–255 to a number in the range of 0–3.
 
 After this, the value `2` is added to the accumulator, to create a final random
-number in the range 2&ndash;5.
+number in the range 2–5.
 
 The result of this subroutine is to load a random byte into `$00`, and a random
 number between 2 and 5 into `$01`. Because the least significant byte comes
@@ -765,7 +765,7 @@ The next bit updates the head of the snake depending on the direction. This is
 probably the most complicated part of the code, and it's all reliant on how
 memory locations map to the screen, so let's look at that in more detail.
 
-You can think of the screen as four horizontal strips of 32 &times; 8 pixels.
+You can think of the screen as four horizontal strips of 32 × 8 pixels.
 These strips map to `$0200-$02ff`, `$0300-$03ff`, `$0400-$04ff` and `$0500-$05ff`.
 The first rows of pixels are `$0200-$021f`, `$0220-$023f`, `$0240-$025f`, etc.
 

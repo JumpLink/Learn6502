@@ -29,6 +29,13 @@ Support for every new language is welcome.
 - **UI Elements & Messages**: Managed through `.po` files
 - **Tutorial Content**: Located in [packages/learn/tutorial.mdx](https://github.com/JumpLink/Learn6502/blob/main/packages/learn/tutorial.mdx)
 
+The tutorial's strings — 219 of the 457 in the catalogs — do not reach `xgettext` from the MDX
+directly. They are extracted from `packages/learn/dist/*.ui`, which `@learn6502/learn` generates,
+so `build` below builds that package first, and stops if that build fails. Do not extract without
+it: with those files missing — or present but empty, which is what a half-finished build leaves —
+extraction quietly produces a POT without the tutorial and rewrites all sixteen catalogs to match.
+`build.js` refuses to extract unless the files are there *and* carry translatable strings.
+
 ## Translation Guidelines
 
 1. **Do not translate**:

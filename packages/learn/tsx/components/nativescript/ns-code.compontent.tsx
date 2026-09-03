@@ -248,7 +248,7 @@ export class NsCode extends Component<NsCodeProps> {
       codeContent = renderSSR(codeContent);
     }
 
-    if (codeContent.endsWith("\\n")) {
+    if (codeContent.endsWith("\n")) {
       codeContent = codeContent.slice(0, -1);
     }
 
