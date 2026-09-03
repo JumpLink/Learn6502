@@ -44,6 +44,33 @@ Support for every new language is welcome.
 3. **External links**:
    - You may replace links to English pages with equivalent high-quality pages in the target language.
    - Prefer reputable sources (e.g., Wikipedia) when a high-quality article exists in the target language.
+   - In-document anchors like `href="#jumping"` navigate inside the tutorial — keep the fragment as it is.
+   - Write `&` as `&amp;`, in a URL as well as in prose. A bare `&` — or an HTML-only entity like
+     `&nbsp;` — is a markup error, and the GNOME app renders the whole paragraph as nothing.
+
+4. **Inline `<tt>` is code**, not prose: subroutine names, labels, opcodes, registers and addresses
+   the reader looks up in the editor. Copy it through unchanged. A translated `<tt>illegalMove</tt>`
+   describes code the reader cannot find, and a translated `<tt>JSR end</tt>` no longer assembles.
+   `<b>` may hold either — translate a UI button label like `<b>Step</b>`, matching how that button
+   is translated elsewhere in the catalog, and leave code like `<b>BVS/BVC</b>` alone.
+
+### Checking your work
+
+```bash
+gjsify workspace @learn6502/translations check
+```
+
+`msgfmt` only asks whether a `msgstr` is non-empty, so a catalog can report 100% translated while
+shipping strings the GNOME app cannot render. The `check` script reads what `msgfmt` does not, and
+CI runs it on every pull request:
+
+- the markup parses — every tag, attribute and `&` entity is one `GtkLabel` accepts, because a label
+  whose markup fails to parse renders as nothing at all;
+- every tag the English opens is still there, so no emphasis and no link is dropped in translation;
+- `<tt>` content is unchanged, per the rule above;
+- format placeholders match — none dropped, none added.
+
+It says nothing about language quality; that still needs a native speaker.
 
 ## Resources
 
@@ -71,6 +98,7 @@ Below is an overview of all languages, their sources, and human validation statu
 | Finnish              | fi      | Contributed by Jiri Grönroos                                                                  | Jiri Grönroos | Validated        |
 | Hebrew               | he      | Contributed by Menachem (@naattxx)                                                            | @naattxx      | Validated        |
 | Indonesian           | id      | Contributed by Arif Budiman (@arifpedia)                                                      | @arifpedia    | Validated        |
+| Tamil                | ta      | Contributed by தமிழ் நேரம் (@TamilNeram) via Weblate                                          | —             | Needs validation |
 
 To volunteer as a validator, please use [Weblate](https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/) or report your feedback in the [issue tracker](https://github.com/JumpLink/Learn6502/issues).
 

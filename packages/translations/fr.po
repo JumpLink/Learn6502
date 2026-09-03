@@ -1626,7 +1626,7 @@ msgstr "La sous-routine suivante, <tt>checkCollision</tt>, délègue à <tt>chec
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
-msgstr "La sous-routine suivante, <tt>generateApplePosition</tt>, définit l'emplacement de la pomme à une position aléatoire sur l'affichage. D'abord, elle charge un octet aléatoire dans l'accumulateur (<tt>$fe</tt> est un générateur de nombres aléatoires dans ce simulateur). Celle-ci est stockée dans <tt>$00</tt>. Ensuite, un octet aléatoire différent est chargé dans l'accumulateur, qui est ensuite ET logique avec la valeur <tt>$03</tt>. Cette partie nécessite un petit détour."
+msgstr "La sous-routine suivante, <tt>generateApplePosition</tt>, définit l'emplacement de la pomme à une position aléatoire sur l'affichage. D'abord, elle charge un octet aléatoire dans l'accumulateur (<tt>$fe</tt> est un générateur de nombres aléatoires dans ce simulateur). Celle-ci est stockée dans <tt>$00</tt>. Ensuite, un octet aléatoire différent est chargé dans l'accumulateur, qui subit ensuite un <tt>AND</tt> avec la valeur <tt>$03</tt>. Cette partie nécessite un petit détour."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."

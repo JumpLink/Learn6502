@@ -496,7 +496,7 @@ msgstr "これらの横帯の中で動く限りは簡単です。右へは下位
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As stated before, the four directions are represented internally by the numbers 1, 2, 4 and 8. Each of these numbers is a power of 2, thus they are represented by a binary number with a single <tt>1</tt>:"
-msgstr "前述のとおり、4つの方向は内部的には 1, 2, 4, 8 で表されます。いずれも 2 の冪なので、ビットが1つだけ立った2進数になります:"
+msgstr "前述のとおり、4つの方向は内部的には 1, 2, 4, 8 で表されます。いずれも 2 の冪なので、<tt>1</tt> がひとつだけ立った2進数になります:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
 msgid "Assemble"
@@ -959,7 +959,7 @@ msgstr "間接アドレッシングは絶対アドレスを使って別のアド
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed is like indexed indirect but less insane. Instead of adding the <tt>X</tt> register to the address <i>before</i> dereferencing, the zero page address is dereferenced, and the <tt>Y</tt> register is added to the resulting address."
-msgstr "間接インデックスはインデックス間接に似ていますが、参照の手順が逆です。参照<b>前</b>に <tt>X</tt> を足す代わりに、ゼロページアドレスを参照して得たアドレスに <tt>Y</tt> を足します。"
+msgstr "間接インデックスはインデックス間接に似ていますが、参照の手順が逆です。参照<i>前</i>に <tt>X</tt> を足す代わりに、ゼロページアドレスを参照して得たアドレスに <tt>Y</tt> を足します。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed: <tt>($c0),Y</tt>"
@@ -1073,7 +1073,7 @@ msgstr "メモリマップ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Memory locations <tt>$01</tt> and <tt>$02</tt> contain the values <tt>$05</tt> and <tt>$07</tt> respectively. Think of <tt>($00,X)</tt> as <tt>($00 + X)</tt>. In this case <tt>X</tt> is <tt>$01</tt>, so this simplifies to <tt>($01)</tt>. From here things proceed like standard indirect addressing - the two bytes at <tt>$01</tt> and <tt>$02</tt> (<tt>$05</tt> and <tt>$07</tt>) are looked up to form the address <tt>$0705</tt>. This is the address that the <tt>Y</tt> register was stored into in the previous instruction, so the <tt>A</tt> register gets the same value as <tt>Y</tt>, albeit through a much more circuitous route. You won't see this much."
-msgstr "メモリ <tt>$01</tt> と <tt>$02</tt> にはそれぞれ <tt>$05</tt> と <tt>$07</tt> が入っています。<tt>($00,X)</tt> は <tt>($00 + X)</tt> と考えられ、ここでは <tt>X=$01</tt> なので <tt>($01)</tt> になります。以降は通常の間接参照と同様で、<tt>$01</tt> と <tt>$02</tt> の2バイト（<tt>$05</tt> と <tt>$07</tt>）から <tt>$0705</tt> を形成します。これは直前の命令で <tt>Y</tt> を格納したアドレスなので、回り道ながら <tt>A</tt> は <tt>Y</tt> と同じ値になります。実際にはあまり見かけません。"
+msgstr "メモリ <tt>$01</tt> と <tt>$02</tt> にはそれぞれ <tt>$05</tt> と <tt>$07</tt> が入っています。<tt>($00,X)</tt> は <tt>($00 + X)</tt> と考えられ、ここでは <tt>X</tt> が <tt>$01</tt> なので <tt>($01)</tt> になります。以降は通常の間接参照と同様で、<tt>$01</tt> と <tt>$02</tt> の2バイト（<tt>$05</tt> と <tt>$07</tt>）から <tt>$0705</tt> を形成します。これは直前の命令で <tt>Y</tt> を格納したアドレスなので、回り道ながら <tt>A</tt> は <tt>Y</tt> と同じ値になります。実際にはあまり見かけません。"
 
 #. TRANSLATORS: Section heading label for console messages block
 msgid "Messages"
@@ -1604,11 +1604,11 @@ msgstr "最後のセクションはプロセッサフラグです。各フラグ
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The last subroutine, <tt>spinWheels</tt>, is just there because the game would run too fast otherwise. All <tt>spinWheels</tt> does is count <tt>X</tt> down from zero until it hits zero again. The first <tt>dex</tt> wraps, making <tt>X</tt> <tt>#$ff</tt>."
-msgstr "最後の <tt>spinWheels</tt> はゲームが速すぎないようにするための遅延です。<tt>X</tt> を 0 から減らし 0 に戻るまで数えます。最初の <tt>dex</tt> はラップして <tt>X</tt> は <tt>#$ff</tt> になります。"
+msgstr "最後の <tt>spinWheels</tt> はゲームが速すぎないようにするための遅延です。<tt>spinWheels</tt> は <tt>X</tt> を 0 から減らし 0 に戻るまで数えるだけです。最初の <tt>dex</tt> はラップして <tt>X</tt> は <tt>#$ff</tt> になります。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive (<tt>BPL</tt> means \"branch if positive\")."
-msgstr "長さは <tt>4</tt> なので <tt>X</tt> は <tt>3</tt> から開始します。<tt>LDA $10,x</tt> で <tt>$13</tt> を <tt>A</tt> に、<tt>STA $12,x</tt> でそれを <tt>$15</tt> に保存。<tt>X</tt> をデクリメントしてループします。次に <tt>X=2</tt> なので <tt>$12</tt> を読み <tt>$14</tt> に保存します。<tt>X</tt> が正の間（<tt>BPL</tt>）ループします。"
+msgstr "長さは <tt>4</tt> なので <tt>X</tt> は <tt>3</tt> から開始します。<tt>LDA $10,x</tt> で <tt>$13</tt> を <tt>A</tt> に、<tt>STA $12,x</tt> でそれを <tt>$15</tt> に保存。<tt>X</tt> をデクリメントしてループします。次に <tt>X</tt> は <tt>2</tt> なので <tt>$12</tt> を読み <tt>$14</tt> に保存します。<tt>X</tt> が正の間（<tt>BPL</tt>）ループします。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next bit updates the head of the snake depending on the direction. This is probably the most complicated part of the code, and it's all reliant on how memory locations map to the screen, so let's look at that in more detail."
@@ -1664,7 +1664,7 @@ msgstr "ゼロページには、ゲーム状態の変数がいくつか格納さ
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr "ではなぜ 6502 なのか？<a href=\"https://ja.wikipedia.org/wiki/X86\">x86</a> のような「実用的」なアセンブリでは？私は x86 を学ぶ必要性は高くないと思います。仕事でアセンブリを書く機会はほぼありません。これは思考を広げる学術的な練習でもあります。6502 は多くの開発者が高級言語ではなく直接アセンブリを書いていた時代に、人間が書く前提で設計されました。現代のアセンブリはコンパイラが出力するためのものです。しかも 6502 は「楽しい」。x86 を「楽しい」と言う人はいません。"
+msgstr "ではなぜ 6502 なのか？<a href=\"https://ja.wikipedia.org/wiki/X86\">x86</a> のような<i>実用的</i>なアセンブリでは？私は x86 を学ぶ必要性は高くないと思います。仕事でアセンブリを<i>書く</i>機会はほぼありません。これは思考を広げる学術的な練習でもあります。6502 は多くの開発者が高級言語ではなく直接アセンブリを書いていた時代に、人間が書く前提で設計されました。現代のアセンブリはコンパイラが出力するためのものです。しかも 6502 は<i>楽しい</i>。x86 を<i>楽しい</i>と言う人はいません。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."

@@ -19,7 +19,7 @@ msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "(Actually, I've been reliably informed that 6502 processors are still being produced by <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> and <a href=\"https://www.mouser.co.uk/c/?q=65C02\">sold to hobbyists</a>, so clearly 6502 <i>isn&apos;t</i> a dead language! Who knew?)"
-msgstr "(உண்மையில், 6502 செயலிகள் இன்னும் <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">மேற்கத்திய வடிவமைப்பு மையம்</a> மற்றும் <a href=\"https://www.mouser.co.uk/cists பெறுநர் 6502 செயலிகள் தயாரிக்கப்படுகின்றன என்று எனக்கு நம்பத்தகுந்த செய்தி கிடைத்தது. தெளிவாக 6502 <i>இல்லை</i> என்பது யாருக்குத் தெரியும்?)"
+msgstr "(உண்மையில், 6502 செயலிகளை <a href=\"https://www.westerndesigncenter.com/wdc/w65c02s-chip.php\">Western Design Center</a> இன்னும் தயாரித்து வருகிறது என்றும், அவை <a href=\"https://www.mouser.co.uk/c/?q=65C02\">பொழுதுபோக்கு ஆர்வலர்களுக்கு விற்கப்படுகின்றன</a> என்றும் எனக்கு நம்பத்தகுந்த தகவல் கிடைத்துள்ளது. எனவே 6502 ஒரு செத்த மொழி <i>அல்ல</i> என்பது தெளிவு! யாருக்குத் தெரியும்?)"
 
 msgid "6502"
 msgstr "6502"
@@ -38,7 +38,7 @@ msgstr "6502 அசெம்பிளி மொழியில் பல கி�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> made a <a href=\"https://gist.github.com/wkjagt/9043907\">fully annotated gist of this source code</a>, so follow along with that for more details."
-msgstr "<a href=\"https://github.com/wkjagt\">Willem வேன் der Jagt</a> இந்த மூலக் குறியீட்டின் முழு விவரக்குறிப்புச் சுருக்கத்தை</a> உருவாக்கினார், மேலும் விவரங்களுக்கு அதைப் பின்பற்றவும்."
+msgstr "<a href=\"https://github.com/wkjagt\">Willem van der Jagt</a> இந்த மூலக் குறியீட்டிற்கு <a href=\"https://gist.github.com/wkjagt/9043907\">முழுமையாக விளக்கமளிக்கப்பட்ட ஒரு gist</a> உருவாக்கியுள்ளார்; மேலும் விவரங்களுக்கு அதைப் பின்தொடரவும்."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$00</tt>-<tt>$01</tt></b>: Apple position"
@@ -58,7 +58,7 @@ msgstr "<b><tt>$0</tt></b>: கருப்பு (<tt>#000000</tt>)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position data (head, body segments, tail)"
-msgstr "<b><tt>$10</tt>-<tt>$15</tt></b>: Snake position தகவல்கள் (head, body segments, tail)"
+msgstr "<b><tt>$10</tt>-<tt>$15</tt></b>: பாம்பின் இருப்பிடத் தரவு (தலை, உடல் பகுதிகள், வால்)"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "<b><tt>$1</tt></b>: White (<tt>#ffffff</tt>)"
@@ -326,11 +326,11 @@ msgstr "<tt>a9</tt> மற்றும் <tt>c9</tt> ஆகியவை மு�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>checkSnakeCollision</tt> loops through the snake's body segments, checking each byte pair against the head pair. If there is a match, then game over."
-msgstr "<tt>செக் பாம்பு மோதல்</tt> பாம்பின் உடல் பகுதிகள் வழியாகச் சென்று, ஒவ்வொரு பைட் சோடியையும் தலை சோடிக்கு எதிராகச் சரிபார்க்கிறது. போட்டி இருந்தால், ஆட்டம் முடிந்தது."
+msgstr "<tt>checkSnakeCollision</tt> பாம்பின் உடல் பகுதிகள் வழியாகச் சுழன்று, ஒவ்வொரு பைட் சோடியையும் தலைச் சோடியுடன் ஒப்பிடுகிறது. பொருத்தம் இருந்தால், ஆட்டம் முடிந்தது."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "<tt>init</tt> and <tt>loop</tt> are both subroutines. <tt>init</tt> initializes the game state, and <tt>loop</tt> is the main game loop."
-msgstr "<tt>init</tt> மற்றும் <tt>லூப்</tt> இரண்டும் சப்ரூட்டின்கள். <tt>init</tt> கேம் நிலையை துவக்குகிறது, மேலும் <tt>லூப்</tt> என்பது முக்கிய கேம் லூப் ஆகும்."
+msgstr "<tt>init</tt> மற்றும் <tt>loop</tt> இரண்டும் சப்ரூட்டின்கள். <tt>init</tt> ஆட்ட நிலையைத் துவக்குகிறது, <tt>loop</tt> என்பது முதன்மையான ஆட்ட வளையம் ஆகும்."
 
 #. TRANSLATORS: Instructions for completing submission on GitHub, including info about large examples
 msgid ""
@@ -348,7 +348,7 @@ msgstr "6502 அறிவுறுத்தல் தொகுப்பின்
 
 #. TRANSLATORS: About dialog menu item label
 msgid "About Learn 6502 Assembly"
-msgstr "பற்றி அறிய 6502 பேரவை"
+msgstr "6502 அசெம்பிளியைக் கற்றுக்கொள் பற்றி"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Absolute,X and absolute,Y: <tt>$c000,X</tt> and <tt>$c000,Y</tt>"
@@ -464,7 +464,7 @@ msgstr "கிட்டத்தட்ட முடிந்தது!"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Also useful: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
-msgstr "மேலும் பயனுள்ளதாக இருக்கும்: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVC/"
+msgstr "மேலும் பயனுள்ளவை: <b>BIT</b>, <b>CMP/CPX/CPY</b>, <b>PHP/PLP</b>, <b>TSX/TXS</b>, <b>SED/CLD</b>, <b>SEI/CLI</b>, <b>BMI/BPL</b>, <b>BVS/BVC</b>"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "An important thing to notice here is the distinction between <tt>ADC #$01</tt> and <tt>ADC $01</tt>. The first one adds the value <tt>$01</tt> to the <tt>A</tt> register, but the second adds the value stored at memory location <tt>$01</tt> to the <tt>A</tt> register."
@@ -528,11 +528,11 @@ msgid "Assembling code ..."
 msgstr "குறியீட்டை அசெம்பிள் செய்கிறது..."
 
 msgid "Assembly"
-msgstr "கூட்டி"
+msgstr "அசெம்பிளி"
 
 #. TRANSLATORS: File filter name for assembly source files
 msgid "Assembly Files"
-msgstr "பேரவை கோப்புகள்"
+msgstr "அசெம்பிளி கோப்புகள்"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "At a low level, this subroutine is slightly more complex. First, the length is loaded into the <tt>X</tt> register, which is then decremented. The snippet below shows the starting memory for the snake."
@@ -762,7 +762,7 @@ msgstr "இறுதியாக, பைட் <tt>$03</tt> என்பது �
 
 #. TRANSLATORS: Release notes for version 0.1.0
 msgid "First release of Learn 6502 Assembly for GNOME"
-msgstr "க்னோமிற்கான Learn 6502 சட்டசபையின் முதல் வெளியீடு"
+msgstr "க்னோமிற்கான 6502 அசெம்பிளியைக் கற்றுக்கொள் இன் முதல் வெளியீடு"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "First row: <tt>$0200</tt>-<tt>$021F</tt>, second row: <tt>$0220</tt>-<tt>$023F</tt>, etc."
@@ -815,15 +815,15 @@ msgstr "கேம்பேட் விசை அழுத்தப்பட்�
 
 #. TRANSLATORS: Release notes for version 0.2.0 - auto pause
 msgid "Games now automatically pause when switching between screens"
-msgstr "Games now automatically இடைநிறுத்தம் when switching between screens"
+msgstr "திரைகளுக்கு இடையே மாறும்போது கேம்கள் இப்போது தானாகவே இடைநிறுத்தப்படும்"
 
 #. TRANSLATORS: Note about validation status - keep it concise and encouraging
 msgid "German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation."
-msgstr "செர்மன் and ச்பானிச் have been validated by contributors. மற்றொன்று மொழிகள் அரே AI‑assisted drafts and need human validation."
+msgstr "செர்மன், ச்பானிச் மொழிகள் பங்களிப்பாளர்களால் சரிபார்க்கப்பட்டுள்ளன. மற்ற மொழிகள் AI உதவியுடன் உருவாக்கப்பட்ட வரைவுகள்; அவற்றுக்கு மனிதர்களின் சரிபார்ப்பு தேவை."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Going between sections is more complicated, as we have to take into account the most significant byte as well. For example, going down from <tt>$02e1</tt> should lead to <tt>$0301</tt>. Luckily, this is fairly easy to accomplish. Adding <tt>$20</tt> to <tt>$e1</tt> results in <tt>$01</tt> and sets the carry bit. If the carry bit was set, we know we also need to increment the most significant byte."
-msgstr "Going between பிரிவுகள் is more complicated, அச் we have பெறுநர் take into account the பெரும்பாலானவை significant byte அச் well. க்கு example, going down இருந்து <tt>$02e1</tt> should ஈயம் பெறுநர் <tt>$0301</tt>. Luckily, this is fairly easy பெறுநர் accomplish. Adding <tt>$20</tt> பெறுநர் <tt>$e1</tt> முடிவுகள் in <tt>$01</tt> and sets the carry bit. If the carry துணுக்கு was set, we know we also need பெறுநர் increment the பெரும்பாலானவை significant byte."
+msgstr "பிரிவுகளுக்கு இடையே நகர்வது இன்னும் சிக்கலானது, ஏனெனில் உயர் வரிசைப் பைட்டையும் கணக்கில் கொள்ள வேண்டும். எடுத்துக்காட்டாக, <tt>$02e1</tt> இலிருந்து கீழே செல்வது <tt>$0301</tt> க்கு இட்டுச்செல்ல வேண்டும். நல்லவேளையாக, இதைச் செய்வது மிகவும் எளிது. <tt>$e1</tt> உடன் <tt>$20</tt> ஐச் சேர்த்தால் <tt>$01</tt> கிடைக்கும், மேலும் கேரி பிட் அமைக்கப்படும். கேரி பிட் அமைக்கப்பட்டிருந்தால், உயர் வரிசைப் பைட்டையும் அதிகரிக்க வேண்டும் என்பது நமக்குத் தெரியும்."
 
 #. TRANSLATORS: Description for examples placeholder
 msgid ""
@@ -835,7 +835,7 @@ msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.6.0 - community contribution feature
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
-msgstr "Got your own cool 6502 creation? பங்கு it with the community! You can now submit your குறியீடு examples directly இருந்து within the app. Just hit the பங்கு button, and we'll automatically create a GitHub சிக்கல் and pull request க்கு you."
+msgstr "உங்களுடைய சொந்த 6502 படைப்பு ஏதேனும் உள்ளதா? அதைச் சமூகத்துடன் பகிருங்கள்! இப்போது உங்கள் குறியீட்டு எடுத்துக்காட்டுகளை நேரடியாகப் பயன்பாட்டிற்குள்ளிருந்தே சமர்ப்பிக்கலாம். பகிர் பொத்தானை அழுத்தினால் போதும் — உங்களுக்காக GitHub சிக்கலையும் இழுக்கக் கோரிக்கையையும் நாங்கள் தானாகவே உருவாக்கிவிடுவோம்."
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
@@ -854,7 +854,7 @@ msgstr "உதவி"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Here's an example. Note that immediate operands are still prefixed with a <tt>#</tt>."
-msgstr "இதோ ஒரு சான்று. குறிப்பு that immediate operands அரே still prefixed with a <tt>#</tt>."
+msgstr "இதோ ஒரு சான்று. உடனடி மதிப்புகள் இன்னும் <tt>#</tt> முன்னொட்டுடன் இருப்பதைக் கவனிக்கவும்."
 
 #. TRANSLATORS: Section heading label for the Hex Monitor block
 msgid "Hex Monitor"
@@ -917,7 +917,7 @@ msgstr "மென்மையான விளையாட்டுக்கா�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In assembly language, you'll usually use labels with branch instructions. When assembled though, this label is converted to a single-byte relative offset (a number of bytes to go backwards or forwards from the next instruction) so branch instructions can only go forward and back around 256 bytes. This means they can only be used to move around local code. For moving further you'll need to use the jumping instructions."
-msgstr "பேரவை மொழியில், நீங்கள் வழக்கமாக கிளை வழிமுறைகளுடன் லேபிள்களைப் பயன்படுத்துவீர்கள். இருப்பினும், அசெம்பிள் செய்யும் போது, இந்த சிட்டை ஒற்றை-பைட் ரிலேடிவ் ஆஃப்செட்டாக மாற்றப்படுகிறது (அடுத்த அறிவுறுத்தலில் இருந்து பின்னோக்கி அல்லது முன்னோக்கிச் செல்ல பல பைட்டுகள்) எனவே கிளை அறிவுறுத்தல்கள் 256 பைட்டுகள் மட்டுமே முன்னோக்கிச் செல்ல முடியும். அதாவது, உள்ளக குறியீட்டை நகர்த்துவதற்கு மட்டுமே அவற்றைப் பயன்படுத்த முடியும். மேலும் செல்ல, நீங்கள் சம்பிங் வழிமுறைகளைப் பயன்படுத்த வேண்டும்."
+msgstr "அசெம்பிளி மொழியில், நீங்கள் வழக்கமாகக் கிளை வழிமுறைகளுடன் லேபிள்களைப் பயன்படுத்துவீர்கள். இருப்பினும், அசெம்பிள் செய்யும் போது, இந்த லேபிள் ஒற்றை-பைட் ரிலேடிவ் ஆஃப்செட்டாக மாற்றப்படுகிறது (அடுத்த வழிமுறையிலிருந்து பின்னோக்கி அல்லது முன்னோக்கிச் செல்ல வேண்டிய பைட்டுகளின் எண்ணிக்கை). எனவே கிளை வழிமுறைகள் சுமார் 256 பைட்டுகள் மட்டுமே முன்னோக்கியும் பின்னோக்கியும் செல்ல முடியும். அதாவது, அவற்றை உள்ளக குறியீட்டினுள் நகர்வதற்கு மட்டுமே பயன்படுத்த முடியும். அதற்கு மேல் செல்ல, நீங்கள் தாவல் வழிமுறைகளைப் பயன்படுத்த வேண்டும்."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In the editor <b>type</b> (don't paste) the following code:"
@@ -937,7 +937,7 @@ msgstr "இந்த எடுத்துக்காட்டில், <tt>$f
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "In this tiny tutorial I'm going to show you how to get started writing 6502 assembly language. The 6502 processor was massive in the seventies and eighties, powering famous computers like the <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, and the <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a>. Bender in Futurama <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">has a 6502 processor for a brain</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Even the Terminator was programmed in 6502</a>."
-msgstr "இந்த சிறிய டுடோரியலில், 6502 அசெம்பிளி மொழியை எவ்வாறு எழுதுவது என்பதை நான் உங்களுக்குக் காண்பிக்கப் போகிறேன். 6502 செயலி எழுபதுகள் மற்றும் எண்பதுகளில் மிகப்பெரியதாக இருந்தது, <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC மைக்ரோ</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600, 2600, 26> போன்ற பிரபலமான கணினிகளை இயக்கும். href=\"https://en.wikipedia.org/wiki/Commodore_64\">கொமடோர் 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">ஆப்பிள் II</a>, மற்றும் <a href=\"https://en.wikipedia.org/Enintendo_Nintendo அமைப்பு</a>. Futurama இல் பெண்டர் <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">ஒரு மூளைக்கான 6502 செயலி உள்ளது</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">டெர்மினேட்டர் கூட 6502 இல் திட்டமிடப்பட்டது</a>."
+msgstr "இந்த சிறிய டுடோரியலில், 6502 அசெம்பிளி மொழியை எழுதத் தொடங்குவது எப்படி என்பதை உங்களுக்குக் காண்பிக்கப் போகிறேன். 6502 செயலி எழுபதுகளிலும் எண்பதுகளிலும் மிகவும் பரவலாக இருந்தது; <a href=\"https://en.wikipedia.org/wiki/BBC_Micro\">BBC Micro</a>, <a href=\"https://en.wikipedia.org/wiki/Atari_2600\">Atari 2600</a>, <a href=\"https://en.wikipedia.org/wiki/Commodore_64\">Commodore 64</a>, <a href=\"https://en.wikipedia.org/wiki/Apple_II\">Apple II</a>, <a href=\"https://en.wikipedia.org/wiki/Nintendo_Entertainment_System\">Nintendo Entertainment System</a> போன்ற புகழ்பெற்ற கணினிகளை இயக்கியது. Futurama இல் வரும் Bender இன் <a href=\"https://www.transbyte.org/SID/SID-files/Bender_6502.jpg\">மூளையாக ஒரு 6502 செயலி உள்ளது</a>. <a href=\"https://www.pagetable.com/docs/terminator/00-37-23.jpg\">Terminator கூட 6502 இல் நிரலாக்கப்பட்டிருந்தது</a>."
 
 #. TRANSLATORS: Register name and description in debugger
 msgid "Index register X: Used for addressing"
@@ -960,7 +960,7 @@ msgstr "மறைமுக முகவரியானது மற்றொர�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed is like indexed indirect but less insane. Instead of adding the <tt>X</tt> register to the address <i>before</i> dereferencing, the zero page address is dereferenced, and the <tt>Y</tt> register is added to the resulting address."
-msgstr "மறைமுக குறியீடானது குறியிடப்பட்ட மறைமுகம் போன்றது ஆனால் குறைவான பைத்தியம். < tt>X</ tt> பதிவை <i>முன்</i> dereferencing என்ற முகவரியில் சேர்ப்பதற்குப் பதிலாக, பூச்சியப் பக்கத்தின் முகவரி dereferences செய்யப்பட்டு, அதன் விளைவாக வரும் முகவரியில் <tt>Y</tt> பதிவேடு சேர்க்கப்படும்."
+msgstr "மறைமுக அட்டவணையிடல் என்பது அட்டவணையிடப்பட்ட மறைமுகத்தைப் போன்றது, ஆனால் அவ்வளவு சிக்கலானது அல்ல. மறைமுகமாக அணுகுவதற்கு <i>முன்</i> முகவரியுடன் <tt>X</tt> பதிவைச் சேர்ப்பதற்குப் பதிலாக, பூச்சியப் பக்க முகவரி முதலில் அணுகப்படுகிறது, பின்னர் அதன் விளைவாக வரும் முகவரியுடன் <tt>Y</tt> பதிவு சேர்க்கப்படுகிறது."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Indirect indexed: <tt>($c0),Y</tt>"
@@ -1033,7 +1033,7 @@ msgstr "கற்றுக்கொள்ளுங்கள்"
 
 #. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
-msgstr "6502 சட்டசபையை அறிக"
+msgstr "6502 அசெம்பிளியைக் கற்றுக்கொள்"
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
@@ -1126,7 +1126,7 @@ msgstr "மதிப்புகள் பாம்புக்கு கீழ�
 
 #. TRANSLATORS: File dialog title when choosing an assembly source file
 msgid "Open Assembly File"
-msgstr "பேரவை கோப்பைத் திறக்கவும்"
+msgstr "அசெம்பிளி கோப்பைத் திறக்கவும்"
 
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
@@ -1358,7 +1358,7 @@ msgstr "சேமி"
 
 #. TRANSLATORS: File dialog title for saving a new assembly file
 msgid "Save Assembly File"
-msgstr "பேரவை கோப்பை சேமிக்கவும்"
+msgstr "அசெம்பிளி கோப்பைச் சேமிக்கவும்"
 
 #. TRANSLATORS: Menu item to save to a new file (Save As)
 msgid "Save as..."
@@ -1387,7 +1387,7 @@ msgstr "வரவேற்கிறோம்! இந்தோனேசிய ம
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Seriously though, I think it's valuable to have an understanding of assembly language. Assembly language is the lowest level of abstraction in computers - the point at which the code is still readable. Assembly language translates directly to the bytes that are executed by your computer's processor. If you understand how it works, you've basically become a computer <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">magician</a>."
-msgstr "தீவிரமாக இருந்தாலும், பேரவை மொழியைப் புரிந்துகொள்வது மதிப்புமிக்கது என்று நான் நினைக்கிறேன். அசெம்பிளி மொழி என்பது கணினிகளில் சுருக்கத்தின் மிகக் குறைந்த நிலை - குறியீடு இன்னும் படிக்கக்கூடிய புள்ளியாகும். உங்கள் கணினியின் செயலி மூலம் செயல்படுத்தப்படும் பைட்டுகளுக்கு பேரவை மொழி நேரடியாக மொழிபெயர்க்கப்படுகிறது. இது எவ்வாறு செயல்படுகிறது என்பதை நீங்கள் புரிந்து கொண்டால், நீங்கள் அடிப்படையில் கணினி <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">வித்தைக்காரர்</a> ஆகிவிடுவீர்கள்."
+msgstr "நகைச்சுவை ஒருபுறம் இருக்க, அசெம்பிளி மொழியைப் புரிந்துகொள்வது மதிப்புமிக்கது என்று நான் நினைக்கிறேன். அசெம்பிளி மொழி என்பது கணினிகளில் சுருக்கத்தின் மிகக் கீழ் நிலை — குறியீடு இன்னும் படிக்கக்கூடியதாக இருக்கும் புள்ளி. அசெம்பிளி மொழி, உங்கள் கணினியின் செயலி இயக்கும் பைட்டுகளுக்கு நேரடியாக மொழிபெயர்க்கப்படுகிறது. இது எவ்வாறு செயல்படுகிறது என்பதை நீங்கள் புரிந்துகொண்டால், நீங்கள் அடிப்படையில் ஒரு கணினி <a href=\"https://www.skilldrick.co.uk/2011/04/magic-in-software-development/\">வித்தைக்காரர்</a> ஆகிவிடுவீர்கள்."
 
 #. TRANSLATORS: Release notes for version 0.7.0 - Hebrew translation. Keep the greeting 'Shalom!', the thanks 'Toda raba!' and the name 'Menachem (naattxx)' as they are.
 msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by Menachem (naattxx). Toda raba!"
@@ -1444,7 +1444,7 @@ msgstr "எனவே, உள்ளே நுழைவோம்! இந்தப�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, looking at <tt>upKey</tt>, if the current direction is down (4), the bit test will be zero. <tt>BNE</tt> means \"branch if the zero flag is clear\", so in this case we'll branch to <tt>illegalMove</tt>, which just returns from the subroutine. Otherwise, the new direction (1 in this case) is stored in the appropriate memory location."
-msgstr "So, looking at <tt>upKey</tt>, if the மின்னோட்ட்ம், ஓட்டம் direction is down (4), the bit தேர்வு will be zero. <tt>BNE</tt> என்பது \"பூச்சியக் கொடி தெளிவாக இருந்தால் கிளை\" என்று பொருள்படும், எனவே இந்த விசயத்தில் நாம் சப்ரூட்டினிலிருந்து திரும்பும் <tt>சட்டவிரோத நகர்வு</tt> க்கு பிரிவோம். Otherwise, the புதிய direction (1 in this case) is stored in the appropriate memory location."
+msgstr "எனவே <tt>upKey</tt> ஐப் பாருங்கள்: தற்போதைய திசை கீழ்நோக்கி (4) இருந்தால், பிட் சோதனை பூச்சியமாக இருக்கும். <tt>BNE</tt> என்பது \"பூச்சியக் கொடி அமைக்கப்படவில்லை என்றால் கிளை பிரி\" என்று பொருள்படும். எனவே இந்த விசயத்தில் நாம் <tt>illegalMove</tt> க்குக் கிளை பிரிவோம்; அது சப்ரூட்டினிலிருந்து வெறுமனே திரும்பிவிடும். இல்லையெனில், புதிய திசை (இங்கே 1) உரிய நினைவக இடத்தில் சேமிக்கப்படும்."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "So, the instruction <tt>STA $0200</tt> stores the value of the <tt>A</tt> register to memory location <tt>$0200</tt>. Click <b>Step</b> four more times to execute the rest of the instructions, keeping an eye on the <tt>A</tt> register as it changes."
@@ -1491,7 +1491,7 @@ msgstr "படி"
 
 #. TRANSLATORS: Description for tutorial section
 msgid "Step-by-step guide to 6502 assembly"
-msgstr "6502 சட்டசபைக்கு படிப்படியான வழிகாட்டி"
+msgstr "6502 அசெம்பிளிக்கான படிப்படியான வழிகாட்டி"
 
 #. TRANSLATORS: Status line shown when simulator execution stops
 msgid "Stopped"
@@ -1529,19 +1529,19 @@ msgstr "6502 ஆனது 16-பிட் முகவரி பச்சைப�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>BIT</tt> opcode is similar to <tt>AND</tt>, but the calculation is only used to set the zero flag - the actual result is discarded. The zero flag is set only if the result of AND-ing the accumulator with argument is zero. When we're looking at powers of two, the zero flag will only be set if the two numbers are not the same. For example, <tt>0001 AND 0001</tt> is not zero, but <tt>0001 AND 0010</tt> is zero."
-msgstr "<tt>BIT</tt> ஆப்கோட் <tt>AND</tt> ஐப் போன்றது, ஆனால் கணக்கீடு பூச்சியக் கொடியை அமைக்க மட்டுமே பயன்படுத்தப்படுகிறது - உண்மையான முடிவு நிராகரிக்கப்பட்டது. வாதத்துடன் கூடிய AND-ing இன் முடிவு பூச்சியமாக இருந்தால் மட்டுமே பூச்சியக் கொடி அமைக்கப்படும். நாம் இரண்டின் சக்திகளைப் பார்க்கும்போது, இரண்டு எண்களும் ஒரே மாதிரியாக இல்லாவிட்டால் மட்டுமே பூச்சியக் கொடி அமைக்கப்படும். எடுத்துக்காட்டாக, <tt>0001 மற்றும் 0001</tt> என்பது பூச்சியம் அல்ல, ஆனால் <tt>0001 மற்றும் 0010</tt> என்பது பூச்சியம்."
+msgstr "<tt>BIT</tt> ஆப்கோட் <tt>AND</tt> ஐப் போன்றது, ஆனால் கணக்கீடு பூச்சியக் கொடியை அமைக்க மட்டுமே பயன்படுகிறது — உண்மையான முடிவு நிராகரிக்கப்படுகிறது. திரட்டியை வாதத்துடன் AND செய்த முடிவு பூச்சியமாக இருந்தால் மட்டுமே பூச்சியக் கொடி அமைக்கப்படும். இரண்டின் அடுக்குகளைப் பார்க்கும்போது, இரண்டு எண்களும் ஒன்றாக இல்லாவிட்டால் மட்டுமே பூச்சியக் கொடி அமைக்கப்படும். எடுத்துக்காட்டாக, <tt>0001 AND 0001</tt> பூச்சியம் அல்ல, ஆனால் <tt>0001 AND 0010</tt> பூச்சியம்."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>init</tt> subroutine defers to two subroutines, <tt>initSnake</tt> and <tt>generateApplePosition</tt>. <tt>initSnake</tt> sets the snake direction, length, and then loads the initial memory locations of the snake head and body. The byte pair at <tt>$10</tt> contains the screen location of the head, the pair at <tt>$12</tt> contains the location of the single body segment, and <tt>$14</tt> contains the location of the tail (the tail is the last segment of the body and is drawn in black to keep the snake moving). This happens in the following code:"
-msgstr "<tt>init</tt> சப்ரூட்டீன் <tt>initSnake</tt> மற்றும் <tt>GenerateApplePosition</tt> ஆகிய இரண்டு சப்ரூட்டின்களை ஒத்திவைக்கிறது. <tt>initSnake</tt> பாம்பின் திசை, நீளம் ஆகியவற்றை அமைத்து, பின்னர் பாம்பின் தலை மற்றும் உடலின் ஆரம்ப நினைவக இடங்களை ஏற்றுகிறது. <tt>$10</tt> இல் உள்ள பைட் இணை தலையின் திரை இருப்பிடத்தைக் கொண்டுள்ளது, <tt>$12</tt> இல் உள்ள இணை ஒற்றை உடல் பிரிவின் இருப்பிடத்தைக் கொண்டுள்ளது, <tt>$14</tt> வால் இருப்பிடத்தைக் கொண்டுள்ளது (வால் உடலின் கடைசிப் பகுதி மற்றும் பாம்பை நகர்த்துவதற்காக கருப்பு நிறத்தில் வரையப்பட்டுள்ளது). இது பின்வரும் குறியீட்டில் நிகழ்கிறது:"
+msgstr "<tt>init</tt> சப்ரூட்டின், <tt>initSnake</tt> மற்றும் <tt>generateApplePosition</tt> ஆகிய இரண்டு சப்ரூட்டின்களிடம் வேலையை ஒப்படைக்கிறது. <tt>initSnake</tt> பாம்பின் திசையையும் நீளத்தையும் அமைத்து, பின்னர் பாம்பின் தலை மற்றும் உடலின் தொடக்க நினைவக இடங்களை ஏற்றுகிறது. <tt>$10</tt> இல் உள்ள பைட் சோடி தலையின் திரை இருப்பிடத்தைக் கொண்டுள்ளது, <tt>$12</tt> இல் உள்ள சோடி ஒற்றை உடல் பகுதியின் இருப்பிடத்தைக் கொண்டுள்ளது, <tt>$14</tt> வாலின் இருப்பிடத்தைக் கொண்டுள்ளது (வால் என்பது உடலின் கடைசிப் பகுதி; பாம்பு நகர்ந்துகொண்டே இருப்பதற்காக அது கருப்பு நிறத்தில் வரையப்படுகிறது). இது பின்வரும் குறியீட்டில் நிகழ்கிறது:"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The <tt>loop</tt> subroutine itself just calls a number of subroutines sequentially, before looping back on itself:"
-msgstr "<tt>லூப்</tt> சப்ரூட்டீன் தன்னைத்தானே மீண்டும் வளையச்செய்யும் முன், தொடர்ச்சியாக பல சப்ரூட்டின்களை அழைக்கிறது:"
+msgstr "<tt>loop</tt> சப்ரூட்டின், தன்னைத்தானே மீண்டும் அழைப்பதற்கு முன், தொடர்ச்சியாகப் பல சப்ரூட்டின்களை அழைக்கிறது:"
 
 #. TRANSLATORS: Detailed description of Accumulator register
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
-msgstr "அக்யூமுலேட்டர் (A) என்பது எண்கணிதம் மற்றும் வழக்கு செயல்பாடுகளுக்கான முதன்மைப் பதிவேடாகும். ADD, SUBTRACT, AND, OR, போன்ற அனைத்து அடிப்படைக் கணக்கீடுகளும் இந்தப் பதிவேட்டைப் பயன்படுத்துகின்றன. இது 6502 பேரவை நிரலாக்கத்தில் அடிக்கடி பயன்படுத்தப்படும் பதிவு."
+msgstr "திரட்டி (A) என்பது எண்கணித மற்றும் தருக்கச் செயல்பாடுகளுக்கான முதன்மைப் பதிவு. ADD, SUBTRACT, AND, OR போன்ற அனைத்து அடிப்படைக் கணக்கீடுகளும் இந்தப் பதிவைப் பயன்படுத்துகின்றன. 6502 அசெம்பிளி நிரலாக்கத்தில் மிக அடிக்கடி பயன்படுத்தப்படும் பதிவு இதுவே."
 
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
@@ -1573,7 +1573,7 @@ msgstr "இதன் விளைவு, திரட்டியின் ம�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first instruction causes execution to jump to the <tt>init</tt> label. This sets <tt>X</tt>, then returns to the next instruction, <tt>JSR loop</tt>. This jumps to the <tt>loop</tt> label, which increments <tt>X</tt> until it is equal to <tt>$05</tt>. After that we return to the next instruction, <tt>JSR end</tt>, which jumps to the end of the file. This illustrates how <tt>JSR</tt> and <tt>RTS</tt> can be used together to create modular code."
-msgstr "முதல் அறிவுறுத்தலானது இயக்கத்தை <tt>init</tt> லேபிளுக்கு மாற்றுகிறது. இது <tt>X</tt>ஐ அமைக்கிறது, பின்னர் அடுத்த அறிவுறுத்தலான <tt>JSR loop</tt>க்குத் திரும்புகிறது. இது <tt>லூப்</tt> லேபிளுக்குத் தாவுகிறது, இது <tt>$05</tt>க்கு சமமாக இருக்கும் வரை <tt>X</tt> அதிகரிக்கிறது. அதன் பிறகு நாம் அடுத்த அறிவுறுத்தலுக்குத் திரும்புவோம், <tt>JSR முடிவு</tt>, இது கோப்பின் இறுதிக்குத் தாவுகிறது. மட்டு குறியீட்டை உருவாக்க <tt>JSR</tt> மற்றும் <tt>RTS</tt> எவ்வாறு ஒன்றாகப் பயன்படுத்தப்படலாம் என்பதை இது விளக்குகிறது."
+msgstr "முதல் வழிமுறை, இயக்கத்தை <tt>init</tt> லேபிளுக்குத் தாவச் செய்கிறது. இது <tt>X</tt> ஐ அமைத்துவிட்டு, அடுத்த வழிமுறையான <tt>JSR loop</tt> க்குத் திரும்புகிறது. இது <tt>loop</tt> லேபிளுக்குத் தாவுகிறது; அது <tt>X</tt> ஐ <tt>$05</tt> க்குச் சமமாகும் வரை அதிகரிக்கிறது. அதன் பிறகு நாம் அடுத்த வழிமுறையான <tt>JSR end</tt> க்குத் திரும்புகிறோம்; அது கோப்பின் இறுதிக்குத் தாவுகிறது. தொகுதி வாரியான குறியீட்டை உருவாக்க <tt>JSR</tt> மற்றும் <tt>RTS</tt> ஆகியவற்றை எவ்வாறு சேர்த்துப் பயன்படுத்தலாம் என்பதை இது விளக்குகிறது."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first line shows the <tt>A</tt>, <tt>X</tt> and <tt>Y</tt> registers (<tt>A</tt> is often called the \"accumulator\"). Each register holds a single byte. Most operations work on the contents of these registers."
@@ -1617,7 +1617,7 @@ msgstr "அடுத்த பிட் திசையைப் பொறுத
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next line, <tt>BNE decrement</tt>, will shift execution to the decrement label if the <tt>Z</tt> flag is set to <tt>0</tt> (meaning that the two values in the <tt>CPX</tt> comparison were not equal), otherwise it does nothing and we store <tt>X</tt> to <tt>$0201</tt>, then finish the program."
-msgstr "அடுத்த வரி, <tt>BNE decrement</tt>, <tt>Z</tt> கொடியை <tt>0</tt> என அமைத்தால், செயல்பாட்டினை குறைப்பு லேபிளுக்கு மாற்றும் (அதாவது <tt>CPX</tt> ஒப்பீட்டில் உள்ள இரண்டு மதிப்புகளும் சமமாக இல்லை), இல்லையெனில் அது ஒன்றும் செய்யாது, நாங்கள் <tt>X</tt> ஐச் சேமித்து, பின்னர் <tt>$0."
+msgstr "அடுத்த வரி, <tt>BNE decrement</tt>, <tt>Z</tt> கொடி <tt>0</tt> ஆக அமைக்கப்பட்டிருந்தால் (அதாவது <tt>CPX</tt> ஒப்பீட்டில் உள்ள இரண்டு மதிப்புகளும் சமமாக இல்லை என்றால்) இயக்கத்தை decrement லேபிளுக்கு மாற்றும்; இல்லையெனில் அது ஒன்றும் செய்யாது, நாம் <tt>X</tt> ஐ <tt>$0201</tt> இல் சேமித்துவிட்டு நிரலை முடிக்கிறோம்."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>checkCollision</tt>, defers to <tt>checkAppleCollision</tt> and <tt>checkSnakeCollision</tt>. <tt>checkAppleCollision</tt> just checks to see if the two bytes holding the location of the apple match the two bytes holding the location of the head. If they do, the length is increased and a new apple position is generated."
@@ -1625,7 +1625,7 @@ msgstr "அடுத்த சப்ரூட்டீன், <tt>checkCollision
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
-msgstr "அடுத்த சப்ரூட்டீன், <tt>GenerateApplePosition</tt>, ஆப்பிளின் இருப்பிடத்தை காட்சியில் சீரற்ற நிலைக்கு அமைக்கிறது. முதலில், இது ஒரு சீரற்ற பைட்டை திரட்டியில் ஏற்றுகிறது (<tt>$fe</tt> என்பது இந்த சிமுலேட்டரில் உள்ள ஒரு சீரற்ற எண் செனரேட்டர்). இது <tt>$00</tt> இல் சேமிக்கப்படுகிறது. அடுத்து, வேறு ஒரு சீரற்ற பைட் திரட்டியில் ஏற்றப்படும், அது <tt>$03</tt> மதிப்புடன் <tt>AND</tt>-ed. இந்த பகுதிக்கு சற்று மாற்றுப்பாதை தேவைப்படுகிறது."
+msgstr "அடுத்த சப்ரூட்டின், <tt>generateApplePosition</tt>, ஆப்பிளின் இருப்பிடத்தைக் காட்சியில் ஒரு சீரற்ற நிலைக்கு அமைக்கிறது. முதலில், இது ஒரு சீரற்ற பைட்டைத் திரட்டியில் ஏற்றுகிறது (<tt>$fe</tt> என்பது இந்த சிமுலேட்டரில் உள்ள சீரற்ற எண் உருவாக்கி). இது <tt>$00</tt> இல் சேமிக்கப்படுகிறது. அடுத்து, வேறொரு சீரற்ற பைட் திரட்டியில் ஏற்றப்பட்டு, அது <tt>$03</tt> மதிப்புடன் <tt>AND</tt> செய்யப்படுகிறது. இந்தப் பகுதிக்குச் சற்று மாற்றுப்பாதை தேவைப்படுகிறது."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."
@@ -1665,7 +1665,7 @@ msgstr "நினைவகத்தின் பூச்சியப் பக�
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
-msgstr "பிறகு ஏன் 6502? <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a> போன்ற <i>பயனுள்ள</i> பேரவை மொழி ஏன் இல்லை? சரி, நான் x86 கற்றல் பயனுள்ளதாக இல்லை என்று நினைக்கிறேன். உங்கள் நாள் வேலையில் நீங்கள் பேரவை மொழியை எப்பொழுதும் எழுத வேண்டும் என்று நான் நினைக்கவில்லை - சிலருக்கு இது ஒரு கல்விப் பயிற்சி, உங்கள் மனதையும் உங்கள் சிந்தனையையும் விரிவுபடுத்தும் ஒன்று. 6502 முதலில் வேறு ஒரு வயதில் எழுதப்பட்டது, பெரும்பாலான உருவாக்குபவர்கள் இந்த புதிய-விசித்திரமான உயர்-நிலை நிரலாக்க மொழிகளில் அல்லாமல், நேரடியாக அசெம்பிளி எழுதும் காலகட்டம். எனவே, இது மனிதர்களால் எழுத வடிவமைக்கப்பட்டுள்ளது. நவீன அசெம்பிளி மொழிகள் தொகுப்பாளர்களால் எழுதப்பட வேண்டும், எனவே அதை அவர்களிடமே விட்டுவிடுவோம். கூடுதலாக, 6502 <i>வேடிக்கை</i>. யாரும் x86 ஐ <i>fun</i> என்று அழைக்கவில்லை."
+msgstr "பிறகு ஏன் 6502? <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a> போன்ற <i>பயனுள்ள</i> அசெம்பிளி மொழி ஏன் இல்லை? சரி, x86 கற்பது பயனுள்ளது என்று நான் நினைக்கவில்லை. உங்கள் அன்றாட வேலையில் நீங்கள் எப்போதாவது அசெம்பிளி மொழியை <i>எழுத</i> வேண்டியிருக்கும் என்றும் நான் நினைக்கவில்லை — சிலருக்கு இது ஒரு கல்விப் பயிற்சி, மனதையும் சிந்தனையையும் விரிவுபடுத்தும் ஒன்று. 6502 வேறொரு காலகட்டத்தில் உருவாக்கப்பட்டது; அப்போது பெரும்பாலான உருவாக்குநர்கள் இந்தப் புதிய உயர்நிலை நிரலாக்க மொழிகளில் அல்லாமல், நேரடியாக அசெம்பிளி எழுதிக்கொண்டிருந்தார்கள். எனவே இது மனிதர்கள் எழுதுவதற்கென வடிவமைக்கப்பட்டது. நவீன அசெம்பிளி மொழிகள் தொகுப்பிகள் எழுதுவதற்கானவை; எனவே அதை அவற்றிடமே விட்டுவிடுவோம். மேலும், 6502 <i>வேடிக்கையானது</i>. x86 ஐ <i>வேடிக்கையானது</i> என்று யாரும் சொன்னதில்லை."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."

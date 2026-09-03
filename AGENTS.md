@@ -335,7 +335,7 @@ Persona: native speaker + software engineer + 6502/retro dev interest. Produce a
 
 **Reference:** Other language files in `packages/translations/*.po` (de, es, fr, ia, nl) as context.
 
-**Validate:** `gjsify workspace @learn6502/translations build`
+**Validate:** `gjsify workspace @learn6502/translations check` (structure: markup, tags, `<tt>` literals, placeholders — also run in CI), then `build`
 
 ## Documentation
 
