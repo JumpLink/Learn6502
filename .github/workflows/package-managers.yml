@@ -37,7 +37,7 @@ jobs:
             setup: "npm install -g pnpm"
             install: "pnpm install"
           - pm: gjsify
-            setup: "npm install -g @gjsify/cli@^0.10.0"
+            setup: "npm install -g @gjsify/cli@0.48.0"
             install: "gjsify install"
 
     steps:

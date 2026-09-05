@@ -57,10 +57,28 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@^0.8.0
+        run: npm install -g @gjsify/cli@0.48.0
 
       - name: Install dependencies
         run: gjsify install --immutable
+
+      # From here on `gjsify` resolves to the version `gjsify-lock.json` pins,
+      # not the globally installed bootstrap copy. Without this the two drift:
+      # this workflow ran the bootstrap CLI for every step while the tree
+      # resolved a different one, so a green run measured a toolchain nobody
+      # develops against. Same step as in issue-to-pr.yml.
+      - name: Use the workspace-pinned gjsify CLI
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
+
+      # The PATH step above is silent when it does not take effect, and a CLI
+      # that merely *runs* proves nothing about which one it is. Assert it.
+      - name: Assert the CLI is the locked one
+        run: |
+          set -eu
+          locked=$(node -p "require('./node_modules/@gjsify/cli/package.json').version")
+          actual=$(gjsify --version)
+          echo "gjsify: $(command -v gjsify) -> $actual (lockfile: $locked)"
+          [ "$actual" = "$locked" ] || { echo "::error::gjsify $actual != locked $locked"; exit 1; }
 
       # app-web imports `@learn6502/learn/dist/tutorial.html` (and the examples'
       # `.asm`), so the workspace deps that publish built output must be built

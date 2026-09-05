@@ -102,16 +102,17 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       # Bootstrap only — `gjsify install` has to be runnable before
-      # node_modules exists. The build steps below use the workspace-local CLI.
+      # node_modules exists. Pinned exactly to what `gjsify-lock.json` resolves;
+      # the build steps below use the workspace-local CLI regardless.
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@^0.8.0
+        run: npm install -g @gjsify/cli@0.48.0
 
       - name: Install dependencies
         run: gjsify install --immutable
 
       # From here on `gjsify` resolves to the version `gjsify-lock.json` pins,
-      # not the floating bootstrap copy — the packages declare what they build
-      # with, and a PR must be built by that.
+      # not the globally installed bootstrap copy — the packages declare what
+      # they build with, and a PR must be built by that.
       - name: Use the workspace-pinned gjsify CLI
         run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
 
