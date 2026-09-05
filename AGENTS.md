@@ -14,27 +14,32 @@ Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform c
 | 6502 (core)           | `packages/core/`                  | Platform-independent assembler, simulator, disassembler         | TypeScript, zero deps, no UI                        |
 | common-ui             | `packages/common-ui/`             | Shared UI logic, controllers, interfaces — 4-layer architecture | TypeScript, no platform deps                        |
 | app-gnome             | `packages/app-gnome/`             | GNOME desktop app                                               | TypeScript, GJS, GTK 4, Adwaita, Vite, Meson        |
-| app-web               | `packages/app-web/`               | Web app                                                         | TypeScript, HTML, CSS, Vite, Jekyll                 |
+| app-web               | `packages/app-web/`               | Web app                                                         | TypeScript, HTML, CSS, Vite, `@gjsify/adwaita-web`  |
 | app-android           | `packages/app-android/`           | Android app                                                     | TypeScript, NativeScript, Gradle, Material Design 3 |
 | learn                 | `packages/learn/`                 | MDX tutorial content → platform-specific output                 | MDX, esbuild                                        |
 | examples              | `packages/examples/`              | 6502 assembly code examples                                     | TypeScript                                          |
 | translations          | `packages/translations/`          | i18n via gettext `.po` files                                    | gettext, `.po`/`.mo`                                |
-| vite-plugin-gettext   | `packages/vite-plugin-gettext/`   | Vite plugin for gettext localization                            | TypeScript                                          |
-| vite-plugin-blueprint | `packages/vite-plugin-blueprint/` | Vite plugin for Blueprint `.blp` files                          | TypeScript                                          |
+| cli                   | `packages/cli/`                   | Headless assembler / simulator command-line frontend            | TypeScript, Node                                    |
 
 ## Package scripts
 
-A `build` or `check` script must be a **chain**, never a lone `gjsify …` command. Measured on the
-pinned CLI (0.16.3, `runScript` in `@gjsify/cli/dist/cli.gjs.mjs`): when a script body tokenizes
-as a single plain `gjsify …` command the CLI dispatches it in-process and then exits with
-`process.exitCode ?? 0` — `gjsify build` and `gjsify run` report failure without setting it, so
-the script exits 0 while its work failed, and every caller above it sees green. Any shell operator
-in the body disables that path. `gjsify tsc` is unaffected (it spawns `gjs`).
+A `build` or `check` script should stay a **chain** rather than a lone `gjsify …` command.
 
-This is why `learn`, `translations` and `examples` have no `:gen`/`:run` sub-scripts. Splitting a
-chain back into single-command steps disarms the gate silently: it was how
-`gjsify workspace @learn6502/translations check` reported "All translations passed" over catalogs
-it had just emptied. Fix belongs upstream in gjsify; until then, keep the chains.
+The reason was a real defect. On the CLI this repo used to pin (0.16.3, `runScript`): a script
+body that tokenized as a single plain `gjsify …` command was dispatched in-process and the
+wrapper then exited with `process.exitCode ?? 0` — and `gjsify build`/`gjsify run` reported
+failure without setting it, so the script exited 0 while its work had failed and every caller
+above it saw green. That is how `gjsify workspace @learn6502/translations check` once reported
+"All translations passed" over catalogs it had just emptied (issue #180), and it is why `learn`,
+`translations` and `examples` have no `:gen`/`:run` sub-scripts.
+
+**Fixed upstream in gjsify 0.23.0** — the in-process path now tracks the failure in a local
+variable instead of reading a `process.exitCode` its commands never set. Re-measured on the
+pinned 0.48.0: a script whose whole body is `gjsify run <throwing bundle>` exits **1**, and
+`gjsify workspace @learn6502/app-web build:app` (a single-command script) propagated a failing
+bundle as exit 1. The residual hole is narrower but not zero — a dispatched command that
+neither throws nor sets `process.exitCode` still yields 0 — so keep the chains: they cost
+nothing and they do not depend on the fix holding.
 
 ## TypeScript
 
@@ -48,7 +53,8 @@ Applies to all `.ts`/`.tsx` files.
 ## Commits
 
 - No unprompted commits — always ask permission first
-- Validate before commit: `gjsify format` → `gjsify format --check` → `gjsify build`
+- Validate before commit: `gjsify format` (writes — `--write` defaults to true since
+  gjsify 0.29.0; `--no-write` reports drift) → `gjsify format --check` → `gjsify build`
 - `gjsify check` (full type check) only after larger changes — very slow
 - Atomic, self-contained commits; working code only
 - Format: `<type>[scope]: <description>` — imperative mood, ≤50 char subject
