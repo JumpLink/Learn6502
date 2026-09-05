@@ -1,4 +1,4 @@
-import { AdwClamp } from "@gjsify/adwaita-web";
+import { Adw } from "@gjsify/adwaita-web";
 import quickHelpHtml from "@learn6502/learn/dist/quick-help.html";
 
 /**
@@ -23,7 +23,7 @@ export class QuickHelp extends HTMLElement {
     if (this.built) return;
     this.built = true;
 
-    const clamp = new AdwClamp();
+    const clamp = new Adw.Clamp();
     clamp.setAttribute("maximum-size", "600");
     // Trusted build output (the learn package's own MDX render target), not
     // user input.

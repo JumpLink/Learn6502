@@ -1,4 +1,4 @@
-import { AdwComboRow, AdwPreferencesGroup } from "@gjsify/adwaita-web";
+import { Adw } from "@gjsify/adwaita-web";
 import type { HexMonitorEventMap, HexMonitorOptions, HexMonitorWidget, MemoryRegion } from "@learn6502/common-ui";
 import { memoryRegions } from "@learn6502/common-ui";
 import type { Memory } from "@learn6502/core";
@@ -64,11 +64,11 @@ export class HexMonitor extends HTMLElement implements HexMonitorWidget {
   private ensureBuilt(): void {
     if (this.output) return;
 
-    const group = new AdwPreferencesGroup();
+    const group = new Adw.PreferencesGroup();
 
-    const regionRow = new AdwComboRow();
+    const regionRow = new Adw.ComboRow();
     regionRow.setAttribute("title", "Memory region");
-    regionRow.setAttribute("items", JSON.stringify(this.memoryRegions.map((region) => region.name)));
+    regionRow.setAttribute("model", JSON.stringify(this.memoryRegions.map((region) => region.name)));
     regionRow.setAttribute("selected", "0");
     regionRow.addEventListener("notify::selected", (event) => {
       const { selected } = (event as CustomEvent<{ selected: number }>).detail;

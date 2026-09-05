@@ -1,4 +1,4 @@
-import { AdwActionRow, AdwPreferencesGroup } from "@gjsify/adwaita-web";
+import { Adw } from "@gjsify/adwaita-web";
 import type { DebugInfoWidget } from "@learn6502/common-ui";
 import type { Simulator } from "@learn6502/core";
 import { addr2hex, num2hex } from "@learn6502/core";
@@ -50,7 +50,7 @@ export class DebugInfo extends HTMLElement implements DebugInfoWidget {
     if (this.registers) return;
     this.registers = new Map();
 
-    const registers = new AdwPreferencesGroup();
+    const registers = new Adw.PreferencesGroup();
     registers.setAttribute("title", "Registers");
 
     this.addRegisterRow(registers, "A", "Accumulator: Main register for calculations");
@@ -59,10 +59,10 @@ export class DebugInfo extends HTMLElement implements DebugInfoWidget {
     this.addRegisterRow(registers, "SP", "Stack Pointer: Points to stack position");
     this.addRegisterRow(registers, "PC", "Program Counter: Points to next instruction");
 
-    const flags = new AdwPreferencesGroup();
+    const flags = new Adw.PreferencesGroup();
     flags.setAttribute("title", "Status Flags");
 
-    const flagsRow = new AdwActionRow();
+    const flagsRow = new Adw.ActionRow();
     flagsRow.setAttribute("title", "P (SR)");
     flagsRow.setAttribute("subtitle", "Processor Status Register");
     flagsRow.appendChild(this.buildFlagsGrid());
@@ -72,8 +72,8 @@ export class DebugInfo extends HTMLElement implements DebugInfoWidget {
   }
 
   /** Add an `<adw-action-row>` for a register and remember its value labels. */
-  private addRegisterRow(group: AdwPreferencesGroup, name: string, subtitle: string): void {
-    const row = new AdwActionRow();
+  private addRegisterRow(group: Adw.PreferencesGroup, name: string, subtitle: string): void {
+    const row = new Adw.ActionRow();
     row.setAttribute("title", name);
     row.setAttribute("subtitle", subtitle);
 

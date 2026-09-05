@@ -1,4 +1,4 @@
-import { AdwActionRow, AdwClamp, AdwNavigationPage, AdwNavigationView, AdwPreferencesGroup } from "@gjsify/adwaita-web";
+import { Adw } from "@gjsify/adwaita-web";
 import type { LearnView } from "@learn6502/common-ui";
 import { learnController } from "@learn6502/common-ui";
 import tutorialHtml from "@learn6502/learn/dist/tutorial.html";
@@ -13,7 +13,7 @@ const SHARE_URL = "https://github.com/JumpLink/Learn6502";
  * `@gjsify/adwaita-web`, the web twin of app-gnome's `Learn extends Adw.Bin`
  * (`learn.blp`) and app-android's `Learn`.
  *
- * Structure mirrors `learn.blp`: an `AdwNavigationView` with a landing page
+ * Structure mirrors `learn.blp`: an `Adw.NavigationView` with a landing page
  * (a boxed list of "Tutorial" and "Examples" rows) that pushes to either the
  * Tutorial page (the generated `@learn6502/learn` HTML with `<adw-source-view>`
  * upgrades) or the Examples page (`ExamplesList` + a share prompt). The shell's
@@ -28,7 +28,7 @@ const SHARE_URL = "https://github.com/JumpLink/Learn6502";
 export class AdwLearnView extends HTMLElement implements LearnView {
   private built = false;
   private lastScrollPosition = 0;
-  private navigationView: AdwNavigationView | null = null;
+  private navigationView: Adw.NavigationView | null = null;
   private tutorialScroller: HTMLDivElement | null = null;
 
   /** A tutorial code block's copy button bubbles a `copy` CustomEvent up here. */
@@ -73,7 +73,7 @@ export class AdwLearnView extends HTMLElement implements LearnView {
     if (this.built) return;
     this.built = true;
 
-    const nav = new AdwNavigationView();
+    const nav = new Adw.NavigationView();
     nav.append(this.buildLandingPage(nav), this.buildTutorialPage(), this.buildExamplesPage());
     nav.addEventListener("notify::visible-page", () => {
       this.dispatchEvent(
@@ -86,12 +86,12 @@ export class AdwLearnView extends HTMLElement implements LearnView {
   }
 
   /** Landing page: a boxed list with Tutorial + Examples rows (learn.blp). */
-  private buildLandingPage(nav: AdwNavigationView): AdwNavigationPage {
-    const page = new AdwNavigationPage();
+  private buildLandingPage(nav: Adw.NavigationView): Adw.NavigationPage {
+    const page = new Adw.NavigationPage();
     page.setAttribute("title", "Learn");
     page.setAttribute("tag", "main");
 
-    const group = new AdwPreferencesGroup();
+    const group = new Adw.PreferencesGroup();
     group.appendChild(this.buildNavRow("Tutorial", "Step-by-step guide to 6502 assembly", () => nav.push("tutorial")));
     group.appendChild(this.buildNavRow("Examples", "Try out example programs", () => nav.push("examples")));
 
@@ -103,12 +103,12 @@ export class AdwLearnView extends HTMLElement implements LearnView {
     return page;
   }
 
-  private buildNavRow(title: string, subtitle: string, onActivate: () => void): AdwActionRow {
-    const row = new AdwActionRow();
+  private buildNavRow(title: string, subtitle: string, onActivate: () => void): Adw.ActionRow {
+    const row = new Adw.ActionRow();
     row.setAttribute("title", title);
     row.setAttribute("subtitle", subtitle);
     row.setAttribute("activatable", "");
-    // Declare the chevron as a suffix slot child — AdwActionRow consumes
+    // Declare the chevron as a suffix slot child — Adw.ActionRow consumes
     // `slot="suffix"` children at connect time (its `suffixSection` is not
     // available before then).
     const chevron = document.createElement("span");
@@ -121,12 +121,12 @@ export class AdwLearnView extends HTMLElement implements LearnView {
   }
 
   /** Tutorial page: the generated tutorial HTML in a clamp, scrollable. */
-  private buildTutorialPage(): AdwNavigationPage {
-    const page = new AdwNavigationPage();
+  private buildTutorialPage(): Adw.NavigationPage {
+    const page = new Adw.NavigationPage();
     page.setAttribute("title", "Tutorial");
     page.setAttribute("tag", "tutorial");
 
-    const clamp = new AdwClamp();
+    const clamp = new Adw.Clamp();
     clamp.setAttribute("maximum-size", "600");
     // Trusted build output (the learn package's own MDX render target).
     clamp.innerHTML = tutorialHtml;
@@ -140,8 +140,8 @@ export class AdwLearnView extends HTMLElement implements LearnView {
   }
 
   /** Examples page: the examples list + a "share your example" prompt. */
-  private buildExamplesPage(): AdwNavigationPage {
-    const page = new AdwNavigationPage();
+  private buildExamplesPage(): Adw.NavigationPage {
+    const page = new Adw.NavigationPage();
     page.setAttribute("title", "Examples");
     page.setAttribute("tag", "examples");
 
@@ -165,7 +165,7 @@ export class AdwLearnView extends HTMLElement implements LearnView {
     column.className = "learn-examples";
     column.append(list, share);
 
-    const clamp = new AdwClamp();
+    const clamp = new Adw.Clamp();
     clamp.setAttribute("maximum-size", "600");
     clamp.appendChild(column);
 

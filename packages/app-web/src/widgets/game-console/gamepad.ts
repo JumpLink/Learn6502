@@ -1,4 +1,4 @@
-import { AdwButton } from "@gjsify/adwaita-web";
+import { Gtk } from "@gjsify/adwaita-web";
 import { type GamepadEventMap, type GamepadKey, type GamepadWidget, getGamepadKeyCode } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
 
@@ -51,7 +51,7 @@ export class Gamepad extends HTMLElement implements GamepadWidget {
     pad.className = "game-console-gamepad";
 
     for (const { key, glyph, area } of BUTTONS) {
-      const button = new AdwButton();
+      const button = new Gtk.Button();
       button.setAttribute("label", glyph);
       button.setAttribute("circular", "");
       button.classList.add("gamepad-button", `gamepad-button--${area}`);

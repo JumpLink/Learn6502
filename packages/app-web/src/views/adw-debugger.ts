@@ -1,4 +1,4 @@
-import { AdwClamp, AdwPreferencesGroup, AdwSwitchRow } from "@gjsify/adwaita-web";
+import { Adw } from "@gjsify/adwaita-web";
 import type { DebuggerView, DisassembledCopyEvent, HexdumpCopyEvent, HexMonitorCopyEvent } from "@learn6502/common-ui";
 import { DebuggerState, debuggerController } from "@learn6502/common-ui";
 import type { Assembler, Memory, Simulator } from "@learn6502/core";
@@ -23,8 +23,8 @@ export class AdwDebuggerView extends HTMLElement implements DebuggerView {
   private hexMonitor: HexMonitor | null = null;
   private hexdump: Hexdump | null = null;
   private disassembled: Disassembled | null = null;
-  private enabledRow: AdwSwitchRow | null = null;
-  private stepperRow: AdwSwitchRow | null = null;
+  private enabledRow: Adw.SwitchRow | null = null;
+  private stepperRow: Adw.SwitchRow | null = null;
 
   // Reference to the last memory update for refreshing when monitor options change
   private memory: Memory | null = null;
@@ -141,10 +141,10 @@ export class AdwDebuggerView extends HTMLElement implements DebuggerView {
     const column = document.createElement("div");
 
     // --- Debug Settings (Adwaita boxed list, like the GNOME/Android twins) ---
-    const settings = new AdwPreferencesGroup();
+    const settings = new Adw.PreferencesGroup();
     settings.setAttribute("title", "Debug Settings");
 
-    this.enabledRow = new AdwSwitchRow();
+    this.enabledRow = new Adw.SwitchRow();
     this.enabledRow.setAttribute("title", "Enable debugger");
     this.enabledRow.active = debuggerController.state !== DebuggerState.DISABLED;
     this.enabledRow.addEventListener("notify::active", () => {
@@ -152,7 +152,7 @@ export class AdwDebuggerView extends HTMLElement implements DebuggerView {
     });
     settings.appendChild(this.enabledRow);
 
-    this.stepperRow = new AdwSwitchRow();
+    this.stepperRow = new Adw.SwitchRow();
     this.stepperRow.setAttribute("title", "Stepping mode");
     this.stepperRow.active = debuggerController.stepperEnabled;
     this.stepperRow.addEventListener("notify::active", () => {
@@ -173,7 +173,7 @@ export class AdwDebuggerView extends HTMLElement implements DebuggerView {
 
     this.setupWidgetEventListeners();
 
-    const clamp = new AdwClamp();
+    const clamp = new Adw.Clamp();
     clamp.setAttribute("maximum-size", "700");
     clamp.appendChild(column);
     this.replaceChildren(clamp);

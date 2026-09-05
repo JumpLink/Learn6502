@@ -8,15 +8,15 @@
  * reimplemented here.
  *
  * Structure (mapped to app-gnome's `main.window.blp`):
- *   AdwToolbarView
- *     [top]    AdwHeaderBar — window title, sidebar toggle, learn-back button,
- *              run controls, primary AdwMenuButton
- *     content  AdwToastOverlay > #layout-host, which holds EITHER
- *                • the mobile single AdwViewStack  (one view at a time), or
- *                • the desktop AdwOverlaySplitView (Learn sidebar | Editor |
+ *   Adw.ToolbarView
+ *     [top]    Adw.HeaderBar — window title, sidebar toggle, learn-back button,
+ *              run controls, primary Gtk.MenuButton
+ *     content  Adw.ToastOverlay > #layout-host, which holds EITHER
+ *                • the mobile single Adw.ViewStack  (one view at a time), or
+ *                • the desktop Adw.OverlaySplitView (Learn sidebar | Editor |
  *                  GameConsole-over-Debugger), mirroring the Gtk.Stack
  *                  "single"/"three" layoutHost swap
- *     [bottom]  AdwViewSwitcherBar — mobile tab bar bound to the stack
+ *     [bottom]  Adw.ViewSwitcherBar — mobile tab bar bound to the stack
  *
  * The Adw.Breakpoint that drives app-gnome's layout has no web primitive, so the
  * single ⇄ three swap is a `matchMedia` query mirroring its 800×600 / 1000×600
@@ -31,18 +31,7 @@
  * shared `gameConsoleController` from assembler-only to full display + input.
  */
 
-import {
-  AdwButton,
-  AdwHeaderBar,
-  AdwMenuButton,
-  AdwOverlaySplitView,
-  AdwToastOverlay,
-  AdwToolbarView,
-  AdwViewStack,
-  AdwViewSwitcherBar,
-  AdwWindow,
-  AdwWindowTitle,
-} from "@gjsify/adwaita-web";
+import { Adw, Gtk } from "@gjsify/adwaita-web";
 import {
   DebuggerState,
   GameConsoleEventBridge,
@@ -95,7 +84,7 @@ interface ViewSlot {
 
 export class MainWindow implements MainView {
   /** The root element to mount into the document. */
-  public readonly root: AdwWindow;
+  public readonly root: Adw.Window;
 
   // Core simulator objects (what GameConsole owns on every platform).
   private readonly memory = new Memory();
@@ -117,23 +106,23 @@ export class MainWindow implements MainView {
   private readonly gameConsoleSlot = this.makeSlot();
 
   // Chrome.
-  private readonly toastOverlay = new AdwToastOverlay();
-  private readonly switcherBar = new AdwViewSwitcherBar();
-  private readonly titleWidget = new AdwWindowTitle();
+  private readonly toastOverlay = new Adw.ToastOverlay();
+  private readonly switcherBar = new Adw.ViewSwitcherBar();
+  private readonly titleWidget = new Adw.WindowTitle();
   private readonly runControls = document.createElement("div");
-  private readonly sidebarToggle = new AdwButton();
-  private readonly learnBackButton = new AdwButton();
-  private readonly assembleButton = new AdwButton();
-  private readonly runButton = new AdwButton();
-  private readonly pauseButton = new AdwButton();
-  private readonly stepButton = new AdwButton();
-  private readonly resetButton = new AdwButton();
+  private readonly sidebarToggle = new Gtk.Button();
+  private readonly learnBackButton = new Gtk.Button();
+  private readonly assembleButton = new Gtk.Button();
+  private readonly runButton = new Gtk.Button();
+  private readonly pauseButton = new Gtk.Button();
+  private readonly stepButton = new Gtk.Button();
+  private readonly resetButton = new Gtk.Button();
 
   // Layout hosts.
   private readonly layoutHost = document.createElement("div");
   private readonly mobileLayout = document.createElement("div");
   private readonly desktopLayout = document.createElement("div");
-  private readonly splitView = new AdwOverlaySplitView();
+  private readonly splitView = new Adw.OverlaySplitView();
   private readonly sidebarColumn = document.createElement("div");
   private readonly centerColumn = document.createElement("div");
   private readonly rightTop = document.createElement("div");
@@ -144,7 +133,7 @@ export class MainWindow implements MainView {
   private readonly wideMq = window.matchMedia("(min-width: 1000px) and (min-height: 600px)");
 
   // The live mobile stack (recreated on each switch to the single layout).
-  private mobileStack: AdwViewStack | null = null;
+  private mobileStack: Adw.ViewStack | null = null;
 
   // State.
   private currentView: ViewType = ViewType.LEARN;
@@ -184,7 +173,7 @@ export class MainWindow implements MainView {
   /**
    * Attach the shell to the document, then mount the initial layout. The
    * layout MUST be applied after the tree is connected: a freshly created
-   * AdwViewStack rebuilds its pages from declared children on connect, which
+   * Adw.ViewStack rebuilds its pages from declared children on connect, which
    * would wipe imperatively-added pages if we mounted while detached.
    */
   public mount(parent: HTMLElement): void {
@@ -276,14 +265,14 @@ export class MainWindow implements MainView {
     this.debuggerSlot.appendChild(this.debuggerView);
   }
 
-  private buildChrome(): AdwWindow {
-    const window_ = new AdwWindow();
+  private buildChrome(): Adw.Window {
+    const window_ = new Adw.Window();
     window_.id = "application-window";
 
-    const toolbarView = new AdwToolbarView();
+    const toolbarView = new Adw.ToolbarView();
 
     // --- Header bar (slot=top) ---
-    const header = new AdwHeaderBar();
+    const header = new Adw.HeaderBar();
     header.setAttribute("slot", "top");
 
     this.configureIconButton(this.sidebarToggle, "sidebar-show", "Toggle Sidebar");
@@ -312,10 +301,10 @@ export class MainWindow implements MainView {
     this.titleWidget.setAttribute("slot", "center");
     this.titleWidget.setAttribute("title", "Learn 6502 Assembly");
 
-    const menuButton = new AdwMenuButton();
+    const menuButton = new Gtk.MenuButton();
     menuButton.setAttribute("slot", "end");
     menuButton.menuTitle = "Main Menu";
-    menuButton.menuItems = [
+    menuButton.menuModel = [
       { id: "help", label: "Help" },
       { id: "shortcuts", label: "Keyboard Shortcuts" },
       { id: "about", label: "About Learn 6502 Assembly" },
@@ -376,13 +365,13 @@ export class MainWindow implements MainView {
     this.layoutHost.append(this.mobileLayout, this.desktopLayout);
   }
 
-  private configureIconButton(button: AdwButton, icon: string, tooltip: string): void {
+  private configureIconButton(button: Gtk.Button, icon: string, tooltip: string): void {
     button.setAttribute("icon", icon);
     button.setAttribute("tooltip", tooltip);
     button.setAttribute("flat", "");
   }
 
-  private configureTextButton(button: AdwButton, label: string, onClick: () => void, variant?: "suggested"): void {
+  private configureTextButton(button: Gtk.Button, label: string, onClick: () => void, variant?: "suggested"): void {
     button.setAttribute("label", label);
     if (variant) button.setAttribute(variant, "");
     button.addEventListener("click", onClick);
@@ -465,7 +454,7 @@ export class MainWindow implements MainView {
     this.setButtonEnabled(this.resetButton, enabled.reset);
   }
 
-  private setButtonEnabled(button: AdwButton, enabled: boolean): void {
+  private setButtonEnabled(button: Gtk.Button, enabled: boolean): void {
     if (enabled) button.removeAttribute("disabled");
     else button.setAttribute("disabled", "");
   }
@@ -535,8 +524,8 @@ export class MainWindow implements MainView {
 
   /** Mount the mobile single layout: one fresh ViewStack + revealed switcher. */
   private mountSingleLayout(): void {
-    const stack = new AdwViewStack();
-    // Connect first (empty), THEN add pages — AdwViewStack.connectedCallback
+    const stack = new Adw.ViewStack();
+    // Connect first (empty), THEN add pages — Adw.ViewStack.connectedCallback
     // rebuilds from declared children and would otherwise wipe pre-adds.
     this.mobileLayout.replaceChildren(stack);
     for (const slot of this.slots) {
@@ -547,7 +536,7 @@ export class MainWindow implements MainView {
     this.mobileStack = stack;
 
     this.switcherBar.setStack(stack);
-    this.switcherBar.revealed = true;
+    this.switcherBar.reveal = true;
     this.sidebarToggle.hidden = true;
     // Run controls are desktop-only (the GNOME twin shows a FAB on mobile;
     // that MainButton lands in a later phase). Keep the title for context.
@@ -567,7 +556,7 @@ export class MainWindow implements MainView {
     this.homeSlot(this.debuggerSlot, this.rightBottom);
 
     this.switcherBar.setStack(null);
-    this.switcherBar.revealed = false;
+    this.switcherBar.reveal = false;
     this.mobileStack = null;
     this.mobileLayout.replaceChildren();
 
