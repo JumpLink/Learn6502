@@ -32,12 +32,38 @@ Page.adw-window {
     margin: 12 12 6 12;
 }
 
+/* The header box: title + description column, optional trailing suffix. The two
+ * metric rules below are libadwaita's, keyed off `is_single_line`
+ * (stylesheet/widgets/_preferences.scss:6-13): a header carrying a description
+ * is two lines and takes a 6 bottom gap, a title-only or suffix-only header is
+ * one line and takes a 34 height floor instead. Spelled as base + override
+ * rather than with `:not(.single-line)` — the NS CSS subset has no `:not()`. */
+.adw-preferences-group-header {
+    margin: 6 2 6 2;
+}
+
+.adw-preferences-group-header.single-line {
+    margin: 6 2 0 2;
+    min-height: 34;
+}
+
 .adw-preferences-group-title {
     font-size: 11;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.55);
-    margin: 6 2 6 2;
+    margin: 0;
     /* NS has no text-transform; author titles in upper-case in markup if desired. */
+}
+
+/* Dimmed description line below the title.
+ *
+ * The 6 above it is `box.labels`'s `border-spacing: 6px` (_preferences.scss:7-9)
+ * — the labels box carries nothing else, and the NS subset has no property for a
+ * spacing, so the gap rides on the second child. It was 2. */
+.adw-preferences-group-description {
+    font-size: 12;
+    color: rgba(0, 0, 0, 0.55);
+    margin: 6 0 0 0;
 }
 
 /* The boxed list: rounded card holding the rows. */
@@ -46,6 +72,59 @@ Page.adw-window {
     background-color: #ffffff;
     border-radius: 12;
     margin: 0;
+}
+
+/* ===== Card (the documented `.card` style class) ===== */
+
+/* One surface, two spellings — the pattern `.boxed-list` above already uses.
+ * Upstream `.card` and the boxed list ARE the same recipe
+ * (stylesheet/widgets/_misc.scss:197-236); `@gjsify/adwaita-web` factors both out
+ * of a single `%card` placeholder, so this repeats the colours above rather than
+ * inventing a second card. `.adw-card` is the spelling a view copied from the
+ * browser twin carries, and it was styled by NOTHING here: a NativeScript view
+ * setting `className = 'adw-card'` rendered a transparent box with square corners.
+ *
+ * No box-shadow, no border: the NS CSS subset has neither, which is why
+ * `.boxed-list` has neither. The padding is the one thing the ELEMENT adds over
+ * the bare class in the browser port (`--spacing-l`, 18) — a bare `.card` in
+ * libadwaita deliberately has none, but every NS view reaching for this name is
+ * the element's analogue. */
+.card,
+.adw-card {
+    background-color: #ffffff;
+    color: rgba(0, 0, 6, 0.8);
+    border-radius: 12;
+}
+
+/* The padding is the ELEMENT's, not the class's, and both other renderers split them
+ * exactly here: libadwaita's `%card` recipe is background / foreground / radius / shadow
+ * and no padding (_misc.scss:197-236), and `@gjsify/adwaita-web` puts
+ * `padding: var(--spacing-l)` on `adw-card, .adw-card` alone (scss/_card.scss:16-23,
+ * `--spacing-l: 18px`). A bare `.card` is a surface you fill yourself. */
+.adw-card {
+    padding: 18;
+}
+
+/* ===== Label utility classes ===== */
+
+/* `.dimmed` is the whole of libadwaita's `dim_label`: an opacity, applied wherever the
+ * class lands. This theme only had it as `.adw-shortcut-label .dimmed` below — a
+ * SCOPED rule for the separator inside a shortcut label — so a Label carrying `dimmed`
+ * anywhere else rendered at full strength. The storybook's shortcut-label story does
+ * exactly that (`shortcut-label.ns.ts:70`, a Label added to the GridLayout as a SIBLING
+ * of the AdwShortcutLabel), while its browser twin sets the same class and hits
+ * `@gjsify/adwaita-web`'s unscoped rule (scss/_labels.scss:48) — one renderer dimmed
+ * that column, the other did not.
+ *
+ * Opacity only, so there is no dark-scheme twin: `--dim-opacity: 55%`
+ * (_colors.scss:319) is the same number in both. The scoped rule below still adds the
+ * separator's size, colour and padding on top of it, at higher specificity.
+ *
+ * It is also the first of `_labels.scss`'s utility set to land here; the rest
+ * (`.title-1`…`.title-4`, `.accent`/`.success`/`.warning`, `.heading`, `.numeric`, …)
+ * is an open entry in status/open-todos.md. */
+.dimmed {
+    opacity: 0.55;
 }
 
 /* ===== Rows ===== */
@@ -143,19 +222,98 @@ Page.adw-window {
     margin: 0;
 }
 
-.adw-entry-field {
+/* The text input itself, in BOTH entries: never any chrome of its own. Whatever
+ * surrounds it paints the Adwaita surface — the row for `.adw-entry-field`, the
+ * `.adw-entry` box for `.adw-entry-input`. (The widgets also set these two
+ * inline, which is the only thing that removes Android's Material underline;
+ * they are restated here so the rule is readable from the stylesheet.) */
+.adw-entry-field,
+.adw-entry-input {
     font-size: 15;
     color: rgba(0, 0, 0, 0.8);
     background-color: transparent;
-    /* No Material underline — Adwaita EntryRow has no field border. */
+    /* No Material underline — no Adwaita entry has a field border. */
     border-width: 0;
     padding: 0;
+}
+
+/* Row only: the gap between the shrunken floating title and the value. */
+.adw-entry-field {
     margin: 2 0 0 0;
+}
+
+/* The large placeholder shown while the row is EMPTY. `empty_title` carries
+ * `.title` AND `.dimmed` (adw-entry-row.ui), so it is a full-size title at
+ * `--dim-opacity` 55% (_colors.scss:319) — not a full-strength one. It inherits
+ * `.adw-row-title`'s size and colour and only dims here.
+ *
+ * `opacity`, not a dimmer `color` as most of this file spells "dim": the two
+ * titles are the endpoints of a cross-fade, so what this reproduces IS an alpha,
+ * and one value then answers both schemes. */
+.adw-entry-empty-title {
+    opacity: 0.55;
+}
+
+/* The trailing cluster — caps-lock indicator, apply button, pencil.
+ *
+ * libadwaita separates the three with `margin-left: 6px` EACH (_lists.scss:200-203,
+ * LTR), not with a spacing on the box that holds them: the NS subset has no
+ * `border-spacing`, so the same 6 rides on the children, as it does between the
+ * keycaps in `.adw-shortcut-label`.
+ *
+ * Their 24×24 + 5 padding box (_lists.scss:194-198) is deliberately NOT
+ * reproduced. It is a hit/alignment box around a 16 glyph, and NS would read a
+ * `min-width` on an `Image` as room to SCALE the bitmap into — an icon half
+ * again too large rather than a roomier one. The glyph size is GtkImage's own. */
+.adw-entry-indicator,
+.adw-entry-edit {
+    margin: 0 0 0 6;
+}
+
+/* The caps-lock warning sits at `$dimmer_opacity` 30% (_colors.scss:309, applied
+ * _lists.scss:209-214) — dimmer than `.dimmed`, because it is a passive warning
+ * rather than a label. */
+.adw-entry-indicator {
+    opacity: 0.3;
+}
+
+/* `apply_button` is built `suggested-action circular` (adw-entry-row.ui:91-102):
+ * an ACCENT-FILLED round button, not the flat rounded square every other
+ * `AdwImageButton` is. Compound selector so it beats the later `.adw-image-button`
+ * rule, as `.adw-spin-button` does. The 34×34 the base gives it already IS
+ * `%circular_button`'s minimum (_buttons.scss:312-317), so only the fill, the
+ * full radius and the 6 gap change. The checkmark is turned white in the widget:
+ * `--accent-fg-color` lands on a bitmap fill, which no CSS rule here can reach. */
+.adw-image-button.adw-entry-apply {
+    background-color: #3584e4;
+    border-radius: 9999;
+    margin: 0 0 0 6;
+}
+
+.adw-image-button.adw-entry-apply:highlighted {
+    background-color: #1c71d8;
 }
 
 .adw-password-field {
     /* secure handled in code; styling identical to a normal entry field. */
     color: rgba(0, 0, 0, 0.8);
+}
+
+/* ===== Entry (STANDALONE — the filled, rounded field, not a row) ===== */
+
+/* The BOX carries the surface, because the field cannot: an entry's fill has to
+ * answer the light/dark question, and the inline `backgroundColor` that strips
+ * the Material underline is not overridable from CSS. Metrics are `entry`'s own
+ * — 34 min-height and 9px horizontal padding (_entries.scss:4-6) — over
+ * `$button_color`, i.e. currentColor at 10% (_entries.scss:9 with
+ * _buttons.scss:1), the same fill `.adw-button` carries, at `$button_radius`
+ * 9px (_common.scss:8). */
+.adw-entry {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 9;
+    min-height: 34;
+    padding: 0 9 0 9;
+    margin: 0;
 }
 
 /* ===== Combo row (inline value + chevron) ===== */
@@ -171,10 +329,51 @@ Page.adw-window {
 }
 
 .adw-combo-chevron {
-    /* An AdwIcon (Image) rendering `pan-down-symbolic`; size + dim colour are set
+    /* A GtkImage (Image) rendering `pan-down-symbolic`; size + dim colour are set
      * on the widget. Only the gap to the value label is styled here. */
     margin: 0 0 0 2;
     vertical-align: middle;
+}
+
+/* ===== Drop down (STANDALONE — the toolbar twin of the combo row) ===== */
+
+/* A plain Adwaita button carrying a label and an arrow. `_dropdowns.scss`
+ * declares no padding for it, and which of `.text-button` / `.image-text-button`
+ * GTK stamps on a dropdown's button is NOT verifiable in this tree (`refs/gtk`
+ * is empty), so these are the BASE `button` metrics: `padding: 5px 10px` over
+ * `min-height: 24px` — 34 in total, the same height as an entry — at
+ * `$button_radius` 9px with the `$button_color` fill (_buttons.scss:19-30). */
+.adw-drop-down {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 9;
+    min-height: 34;
+    padding: 5 10 5 10;
+    margin: 0;
+}
+
+/* `button { font-weight: bold }` (_buttons.scss:24). The label carries the
+ * colour because NS does not inherit `color` to a child Label. */
+.adw-drop-down-label {
+    font-size: 15;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+    vertical-align: center;
+}
+
+/* `dropdown > button > box { border-spacing: 6px }` (_dropdowns.scss:2-3) — the
+ * gap between label and arrow. The arrow's 16px size (_dropdowns.scss:10-13) is
+ * the GtkImage default, and its colour follows the light/dark scheme, so neither
+ * is set anywhere. */
+.adw-drop-down-chevron {
+    margin: 0 0 0 6;
+    vertical-align: middle;
+}
+
+/* Pressed — `$button_active_color`, in the shade `.adw-button:highlighted`
+ * already uses. Wired by `attachRowPressFeedback()` (NS only auto-highlights a
+ * Button, and this one is a StackLayout). */
+.adw-drop-down:highlighted {
+    background-color: rgba(0, 0, 0, 0.19);
 }
 
 /* ===== Spin row (− value + stepper) ===== */
@@ -243,14 +442,24 @@ Page.adw-window {
 
 /* ===== Expander row (disclosure) ===== */
 
+/* The disclosure chevron. `expander-widget > box > title > expander` sits at 70%
+ * and goes opaque on hover/press (_expanders.scss:16-21); NS has no hover, so the
+ * resting 70% is the whole of it.
+ *
+ * The `width: 32` / `height: 32` that used to be here NEVER APPLIED. NativeScript
+ * ignores a CSS value for a property the widget has set as a LOCAL one
+ * (properties/index.js:585-598), and `GtkImage` assigns `width`/`height` in its
+ * constructor — so the chevron has always been the 16 `expander`'s own minimum
+ * asks for (_expanders.scss:2-3), which is right, while the stylesheet claimed
+ * a 32 tap target it never got. `color` and `font-size` were dead for the other
+ * reason: it is an `Image` of a pre-coloured bitmap.
+ *
+ * The tap target is a separate matter, filed as #1155 — libadwaita toggles from
+ * the HEADER ROW ("must be activatable to toggle expansion by clicking or
+ * tapping anywhere on it", adw-expander-row.ui:25-27), and this port listens on
+ * the chevron alone. */
 .adw-expander-toggle {
-    width: 32;
-    height: 32;
-    /* Flat chevron affordance — transparent, no button chrome. */
-    background-color: transparent;
-    color: rgba(0, 0, 0, 0.55);
-    font-size: 16;
-    padding: 0;
+    opacity: 0.7;
     margin: 0;
 }
 
@@ -368,6 +577,14 @@ Page.adw-window {
     margin: 0 0 0 8;
 }
 
+/* `button-style` (Since 1.7). ADW_BANNER_BUTTON_SUGGESTED adds `.suggested-action`
+ * to the banner button (adw-banner.c:769) — the accent appearance, restated here
+ * because the banner button is not an `.adw-button`. */
+.adw-banner-button.suggested-action {
+    background-color: #3584e4;
+    color: #ffffff;
+}
+
 /* ===== Avatar (circular initials) ===== */
 
 .adw-avatar {
@@ -439,22 +656,48 @@ Page.adw-window {
     background-color: #fafafb;
 }
 
+/* The header-bar background, so the status-bar inset the widget pads with is painted
+ * in the header colour: the chrome reaches the screen edge, the header content stops
+ * short of the clock.
+ *
+ * The PADDING is no longer here. It used to be `padding-top: var(--safeAreaInsetTop,
+ * 0)`, with "the host app feeds the variable" — and nothing in this repo ever fed it,
+ * on any platform, so the fallback was the only value it ever had. It could not have
+ * worked either way: this NS CSS subset has no custom properties at all, which is the
+ * same reason the accent has to be inlined as a literal. AdwToolbarView applies the
+ * real reading now (#1128). */
 .adw-toolbar-view-top {
-    /* Match the header-bar background so the TOP safe-area inset (status bar) is
-     * painted in the header colour — the chrome reaches the screen edge but the
-     * header content does not slide under the clock. Host app feeds the inset
-     * into --safeAreaInsetTop (falls back to 0 when unset). */
     background-color: #ffffff;
-    padding-top: var(--safeAreaInsetTop, 0);
 }
 
 .adw-toolbar-view-bottom {
     background-color: #ffffff;
     border-top-width: 1;
     border-top-color: rgba(0, 0, 0, 0.1);
-    /* BOTTOM safe-area inset (nav bar / gesture pill) painted in the bottom-bar
-     * colour. Host app feeds --safeAreaInsetBottom (falls back to 0). */
-    padding-bottom: var(--safeAreaInsetBottom, 0);
+}
+
+/* top-bar-style / bottom-bar-style = raised: an opaque background with a
+ * persistent separator. Adwaita uses a shadow there and swaps it for a subtler
+ * hairline under `.border` (adw-toolbar-view.c:1011-1024); the NS CSS subset has
+ * no shadow, so `raised` carries the hairline and `.border` darkens it — the same
+ * ordering of emphasis, in the vocabulary the platform has. */
+.adw-toolbar-view-top.raised {
+    background-color: #ffffff;
+    border-bottom-width: 1;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.adw-toolbar-view-top.raised.border {
+    border-bottom-color: rgba(0, 0, 0, 0.24);
+}
+
+.adw-toolbar-view-bottom.raised {
+    background-color: #ffffff;
+    border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+.adw-toolbar-view-bottom.raised.border {
+    border-top-color: rgba(0, 0, 0, 0.24);
 }
 
 /* ===== View stack (page container) ===== */
@@ -506,16 +749,153 @@ Page.adw-window {
     color: #3584e4;
 }
 
+/* AdwIndicatorBin's badge — the unread count, or (with .needs-attention and no
+ * count) a bare dot. Reference: refs/libadwaita/src/adw-indicator-bin.c */
+.adw-viewswitcherbar-button-badge {
+    font-size: 10;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #3584e4;
+    border-radius: 8;
+    padding: 0 4 0 4;
+    horizontal-align: center;
+    text-align: center;
+}
+
+.adw-viewswitcherbar-button-badge.needs-attention {
+    width: 6;
+    height: 6;
+    padding: 0;
+    border-radius: 3;
+}
+
 /* ===== Wrap box ===== */
 
-.adw-wrap-box {
-    margin: 6;
+/* Adw.WrapBox has NO margin of its own — it is a bare layout container whose
+ * only spacing is `child-spacing` / `line-spacing`, both defaulting to 0
+ * (adw-wrap-box.c:285-287, :393-395). The 6 DIP margin that used to sit here was
+ * invented, and stacked on top of the port's equally invented 6 DIP spacing
+ * default, so an EMPTY wrap box occupied 12 DIPs. Spacing comes from the child
+ * margins the widget applies (widgets/wrap-box-layout.ts), never from here. */
+
+/* ===== Data grid (an aligned numeric grid — a financial statement) ===== */
+
+/* ONE GridLayout with the CELLS as direct children, because NativeScript has no
+ * subgrid: a per-row grid would resolve its own `auto` tracks from its own row's
+ * content and stagger the columns. So everything the browser paints on a row
+ * ELEMENT is painted here on a full-width StackLayout that sits UNDER that row's
+ * cells and spans every column — which is also why the two are styled by SIBLING
+ * selectors below rather than by a descendant one. */
+.adw-data-grid {
+    background-color: transparent;
+}
+
+/* Airy Adwaita cell density, matching the boxed-list row rhythm (the browser's
+ * --spacing-s / --spacing-m, 9 and 12). Single-line is set on the widget: a
+ * wrapped figure column stops being a column of figures. */
+.adw-data-grid-cell {
+    font-size: 15;
+    color: rgba(0, 0, 0, 0.8);
+    padding: 9 12 9 12;
+    vertical-align: center;
+}
+
+/* Alignment. NS has no logical `start`/`end` text alignment, so the two ends are
+ * spelled left/right — this port lays out LTR throughout (widgets/split-view-state.ts
+ * records the same limitation for the split views). */
+.adw-data-grid-cell.align-start {
+    text-align: left;
+}
+
+.adw-data-grid-cell.align-end {
+    text-align: right;
+}
+
+.adw-data-grid-cell.align-center {
+    text-align: center;
+}
+
+/* `.numeric` is `font-variant-numeric: tabular-nums` in libadwaita
+ * (_labels.scss:86-88) and the NS CSS subset has NO font-feature property at all,
+ * so a numeric column gets its right EDGE from the shared track and proportional
+ * digits INSIDE the number. `.mono` is the way to real tabular figures here,
+ * because a fixed-pitch face is tabular by construction. `@gjsify/adwaita-fonts`
+ * ships no mono TTF today, so unless the app installs one the generic tail is
+ * what resolves. */
+.adw-data-grid-cell.mono {
+    font-family: 'Adwaita Mono', 'AdwaitaMono-Regular', monospace;
+}
+
+/* Header row — dim and small with a hairline underline (the Adwaita list-column
+ * heading), never sortable. NS has no text-transform, so the labels are NOT
+ * upper-cased here; author them as you want them read. */
+.adw-data-grid-row.header {
+    border-bottom-width: 1;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.adw-data-grid-cell.header-cell {
+    font-size: 12;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.55);
+}
+
+/* A section header spans all columns as a bold group title (a BWA's sections),
+ * with extra space above it to open the group. */
+.adw-data-grid-cell.section-cell {
+    font-weight: 700;
+    padding: 15 12 9 12;
+}
+
+/* A subtotal is bold with a hairline rule above it (Gesamtleistung, Rohertrag…).
+ * The rule is on the row background, the weight on the cells: siblings. */
+.adw-data-grid-row.variant-subtotal {
+    border-top-width: 1;
+    border-top-color: rgba(0, 0, 0, 0.1);
+}
+
+.adw-data-grid-cell.variant-subtotal {
+    font-weight: 700;
+}
+
+/* The final total is bold with a STRONGER rule above (the accounting result —
+ * Betriebsergebnis) plus a thin one below, evoking the ruled grand-total line. */
+.adw-data-grid-row.variant-total {
+    border-top-width: 2;
+    border-top-color: rgba(0, 0, 0, 0.1);
+    border-bottom-width: 1;
+    border-bottom-color: rgba(0, 0, 0, 0.1);
+}
+
+.adw-data-grid-cell.variant-total {
+    font-weight: 800;
+}
+
+/* Optional interactive rows (master-detail). Hairline separators only where
+ * Adwaita would — NOT zebra striping — so no default row borders. NS has no
+ * hover, so the pressed shade is the whole affordance. */
+.adw-data-grid-row.interactive {
+    border-radius: 9;
+}
+
+/* Pressed — `$button_active_color`, the shade `.adw-button:highlighted` uses.
+ * `attachRowPressFeedback()` is wired on EVERY data row's background and gated
+ * HERE: a non-interactive row gets the `highlighted` pseudo-class and no rule
+ * claims it, so nothing lights up under a finger that cannot activate anything. */
+.adw-data-grid-row.interactive:highlighted {
+    background-color: rgba(0, 0, 0, 0.19);
 }
 
 /* ===== Spinner ===== */
 
+/* Adw.Spinner is a NEUTRAL indicator, not an accent-coloured one: the paintable
+   strokes with `gtk_widget_get_color()` — the widget's TEXT colour
+   (adw-spinner-paintable.c:432). This carried the Adwaita accent blue, which put
+   the two ports in open disagreement: adwaita-web's `_spinner.scss` uses
+   `currentColor` and says so in a comment. Nothing compared them, because no
+   conformance vector covers colour. */
 .adw-spinner {
-    color: #3584e4;
+    color: rgba(0, 0, 0, 0.8);
 }
 
 /* ===== Status page (empty state) ===== */
@@ -531,7 +911,7 @@ Page.adw-window {
     padding: 24 32 24 32;
 }
 
-/* The symbolic icon (AdwIcon) — only spacing; size/colour are baked by AdwIcon. */
+/* The symbolic icon (GtkImage) — only spacing; size/colour are baked by GtkImage. */
 .adw-status-page-icon {
     margin: 0 0 12 0;
 }
@@ -577,13 +957,41 @@ Page.adw-window {
     margin: 0;
 }
 
+/* The two glyphs either side of the centered title. `row.button > box` spaces its
+ * three children with `border-spacing: 6px` (_lists.scss:458-462), which the NS
+ * subset has no property for — so the 6 rides on the icons, mirrored.
+ *
+ * MARGIN ONLY. Both are `GtkImage`s, i.e. `Image`s showing a bitmap that was
+ * rendered in its fill colour, so `color` here reaches nothing and `font-size`
+ * has no text to size. They used to be declared anyway, which put a dead accent
+ * declaration in the runtime-accent table as well; the colour now follows the
+ * accent through `iconColor`, which is the only thing that can carry it. */
 .adw-button-row-start-icon {
-    font-size: 15;
-    color: #3584e4;
-    margin: 0 8 0 0;
+    margin: 0 6 0 0;
+}
+
+.adw-button-row-end-icon {
+    margin: 0 0 0 6;
 }
 
 /* ===== Button content (icon + label) ===== */
+
+/* The class AdwButtonContent stamps on the button hosting it
+ * (adw-button-content.c:115), removed again on unroot (:126).
+ *
+ * libadwaita: `button.image-text-button { padding-left: 9px; padding-right: 9px }`
+ * (_buttons.scss:77-80) — against the 17px a plain `.text-button` gets (:72-75),
+ * which this theme approximates as the 16 on `.adw-button` above. The rule lived
+ * in NEITHER renderer, so every icon+label button was drawn with the wrong
+ * horizontal padding.
+ *
+ * Only the PADDING half of that block applies: the same selector also declares
+ * `> box, > box > box { border-spacing: 4px }` (:82-84) and neither matches
+ * through the `buttoncontent` node (:47-52). The icon↔label gap stays the 6 from
+ * `buttoncontent > box` (:626-628), which is the icon's right margin below. */
+.adw-button.image-text-button {
+    padding: 5 9 5 9;
+}
 
 .adw-button-content {
     margin: 0;
@@ -604,7 +1012,7 @@ Page.adw-window {
 
 /* On a suggested/destructive button the label must take the button's foreground
  * (the explicit dark label colour above would otherwise win over the inherited
- * one). The matching ICON colour is pre-baked by the caller via AdwIcon.iconColor. */
+ * one). The matching ICON colour is pre-baked by the caller via GtkImage.iconColor. */
 .adw-button.suggested-action .adw-button-content-label {
     color: #ffffff;
 }
@@ -751,6 +1159,25 @@ Page.adw-window {
     vertical-align: center;
 }
 
+/* AdwIndicatorBin's badge on the classic switcher's buttons. */
+.adw-view-switcher-button-badge {
+    font-size: 10;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #3584e4;
+    border-radius: 8;
+    padding: 0 4 0 4;
+    margin: 0 0 0 5;
+    vertical-align: center;
+}
+
+.adw-view-switcher-button-badge.needs-attention {
+    width: 6;
+    height: 6;
+    padding: 0;
+    border-radius: 3;
+}
+
 /* ===== Inline view switcher (compact pill bar) ===== */
 
 .adw-inline-view-switcher-bar {
@@ -784,6 +1211,25 @@ Page.adw-window {
 .adw-inline-view-switcher-button-icon {
     margin: 0 5 0 0;
     vertical-align: center;
+}
+
+/* AdwIndicatorBin's badge on the inline switcher's toggles. */
+.adw-inline-view-switcher-button-badge {
+    font-size: 10;
+    font-weight: 700;
+    color: #ffffff;
+    background-color: #3584e4;
+    border-radius: 8;
+    padding: 0 4 0 4;
+    margin: 0 0 0 5;
+    vertical-align: center;
+}
+
+.adw-inline-view-switcher-button-badge.needs-attention {
+    width: 6;
+    height: 6;
+    padding: 0;
+    border-radius: 3;
 }
 
 /* ===== Tab view (top tab strip) ===== */
@@ -868,10 +1314,23 @@ Page.adw-window {
     background-color: #fafafb;
 }
 
+/* The divider is on the side the sidebar is DRAWN on, which is `:dir()` x `.end`
+ * in _sidebars.scss:21-39 — not a fixed right edge. The widget adds
+ * `.adw-sidebar-at-visual-start` when the pane leads, so an `end` sidebar, and a
+ * `start` one under RTL, get their divider on the correct edge instead of
+ * drawing it inside the content. */
 .adw-split-view-sidebar {
     background-color: #ebebed;
+}
+
+.adw-split-view-sidebar.adw-sidebar-at-visual-start {
     border-right-width: 1;
     border-right-color: rgba(0, 0, 0, 0.1);
+}
+
+.adw-split-view-sidebar.adw-sidebar-at-visual-end {
+    border-left-width: 1;
+    border-left-color: rgba(0, 0, 0, 0.1);
 }
 
 .adw-split-view-content {
@@ -1044,6 +1503,66 @@ Page.adw-window {
     margin: 0;
 }
 
+/* ===== Shortcut label (keycaps) =====
+ *
+ * libadwaita: `_shortcuts-dialog.scss:33-58` — 6 spacing at BOTH levels, keycaps
+ * filled with 10% of the current colour, an inset bottom edge, 6 radius, 6
+ * padding, 20 minimum width, and `> .dimmed { padding: 6 0 }` so a separator
+ * lines up with the caps beside it.
+ *
+ * Two substitutions the NS subset forces, both visible rather than silent:
+ *   - `color-mix(in srgb, currentColor 10%, transparent)` has no NS spelling, so
+ *     the fill is written out per scheme against that scheme's foreground;
+ *   - `box-shadow: inset 0 -2px` has none either (NS box-shadow is outer-only),
+ *     so the key's bottom edge is a 2 bottom BORDER. It occupies layout where the
+ *     shadow did not, which grows a keycap by 2 — the closest the subset gets.
+ */
+
+.adw-shortcut-label {
+    background-color: transparent;
+}
+
+/* The 6 that GTK gets from `border-spacing`, which puts it BETWEEN children
+ * only. NS has no `gap` and the subset no `:first-child`, so the widget adds
+ * this class to every child after the first. */
+.adw-shortcut-label-spaced {
+    margin-left: 6;
+}
+
+/* Scoped, because `keycap` is libadwaita's generic name and this theme is one
+ * flat file — an app with its own `.keycap` must not inherit these metrics. */
+.adw-shortcut-label .keycap {
+    background-color: rgba(0, 0, 0, 0.08);
+    border-radius: 6;
+    border-bottom-width: 2;
+    border-bottom-color: rgba(0, 0, 6, 0.07);
+    padding: 6;
+    min-width: 20;
+}
+
+.adw-shortcut-label-cap-text {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 14;
+    text-align: center;
+}
+
+/* `%s <small><b>%s</b></small>` (adw-shortcut-label.c:195) — the L/R marker is
+ * smaller and bold, and rides inside its keycap rather than beside it. */
+.adw-shortcut-label-side {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 11;
+    font-weight: 700;
+    margin-left: 2;
+}
+
+/* `dim_label` — `--dim-opacity: 55%` (`_colors.scss:319`). */
+.adw-shortcut-label .dimmed {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 14;
+    opacity: 0.55;
+    padding: 6 0 6 0;
+}
+
 /* ===== Dark variant (.ns-dark on the page/root) ===== */
 
 .ns-dark .adw-window,
@@ -1053,7 +1572,8 @@ Page.ns-dark.adw-window {
     color: #ffffff;
 }
 
-.ns-dark .adw-preferences-group-title {
+.ns-dark .adw-preferences-group-title,
+.ns-dark .adw-preferences-group-description {
     color: rgba(255, 255, 255, 0.55);
 }
 
@@ -1061,6 +1581,12 @@ Page.ns-dark.adw-window {
  * (see the light `.adw-row` note) so the card's rounded corners show. */
 .ns-dark .boxed-list,
 .ns-dark .adw-preferences-group-listbox {
+    background-color: #34343a;
+    color: #ffffff;
+}
+
+.ns-dark .card,
+.ns-dark .adw-card {
     background-color: #34343a;
     color: #ffffff;
 }
@@ -1101,8 +1627,37 @@ Page.ns-dark.adw-window {
 }
 
 .ns-dark .adw-entry-field,
+.ns-dark .adw-entry-input,
 .ns-dark .adw-password-field {
     color: #ffffff;
+}
+
+/* The apply button keeps the SAME accent in both schemes (`--accent-bg-color`
+ * does not change), so only the press shade is restated — and it HAS to be.
+ * NativeScript sums specificity flat (class, attribute and pseudo-class are 10
+ * each; css-selector.js:205,292) and breaks ties by source order, so the light
+ * `.adw-image-button.adw-entry-apply:highlighted` (30) TIES the generic
+ * `.ns-dark .adw-image-button:highlighted` (30) further down and loses to it.
+ * Naming the scheme here (40) is what settles it; without this rule a pressed
+ * apply button flashes grey on a dark page.
+ *
+ * It carries the SHADE role, the same one the light press uses — `.ns-dark
+ * .adw-avatar` already spells a shade under a dark selector, and the role is
+ * scheme-independent by construction (accent-theme.ts). The dark button press two
+ * sections down used to hand-pick its own literal instead; #1154 made it carry
+ * this same role, so the two dark presses now agree. */
+.ns-dark .adw-image-button.adw-entry-apply:highlighted {
+    background-color: #1c71d8;
+}
+
+/* The two dims are alphas, not colours — they answer both schemes unchanged, so
+ * `.adw-entry-empty-title` and `.adw-entry-indicator` need no dark counterpart. */
+
+/* ===== Dark: entry (standalone) ===== */
+
+/* The dark `$button_color`: currentColor at 10% over a white foreground. */
+.ns-dark .adw-entry {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 /* ===== Dark: combo row ===== */
@@ -1113,6 +1668,20 @@ Page.ns-dark.adw-window {
 
 .ns-dark .adw-combo-chevron {
     color: rgba(255, 255, 255, 0.45);
+}
+
+/* ===== Dark: drop down ===== */
+
+.ns-dark .adw-drop-down {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
+.ns-dark .adw-drop-down-label {
+    color: #ffffff;
+}
+
+.ns-dark .adw-drop-down:highlighted {
+    background-color: rgba(255, 255, 255, 0.22);
 }
 
 /* ===== Dark: spin row ===== */
@@ -1141,11 +1710,9 @@ Page.ns-dark.adw-window {
 
 /* ===== Dark: expander row ===== */
 
-.ns-dark .adw-expander-toggle {
-    /* Flat chevron — transparent, dim foreground. */
-    background-color: transparent;
-    color: rgba(255, 255, 255, 0.55);
-}
+/* No dark counterpart for the chevron: the 70% is an alpha over whatever the
+ * bitmap was rendered in, and GtkImage re-renders that on a scheme change. The
+ * `color` this rule used to set reached an `Image` and did nothing. */
 
 .ns-dark .adw-expander-disclosure {
     background-color: #222226;
@@ -1182,8 +1749,16 @@ Page.ns-dark.adw-window {
     background-color: rgba(255, 255, 255, 0.22);
 }
 
+/* The SHADE, not a lighter press. libadwaita presses an opaque button — which is
+ * what `.suggested-action` extends — with `background-image: image(RGB(0 0 6 /
+ * 20%))`, a darkening overlay that is identical in both schemes
+ * (_buttons.scss:165-167). The lighter press two rules up belongs to the plain
+ * button, whose fill is itself an overlay; an accent button has no lighter state
+ * in either scheme. This used to hand-pick `#2c75d6`, a third literal the accent
+ * override could not reach, so the button turned orange and its pressed state
+ * flashed blue (#1154). */
 .ns-dark .adw-button.suggested-action:highlighted {
-    background-color: #2c75d6;
+    background-color: #1c71d8;
 }
 
 .ns-dark .adw-button.destructive-action:highlighted {
@@ -1259,6 +1834,24 @@ Page.ns-dark.adw-window {
     border-top-color: rgba(255, 255, 255, 0.12);
 }
 
+.ns-dark .adw-toolbar-view-top.raised {
+    background-color: #2e2e32;
+    border-bottom-color: rgba(255, 255, 255, 0.12);
+}
+
+.ns-dark .adw-toolbar-view-top.raised.border {
+    border-bottom-color: rgba(255, 255, 255, 0.28);
+}
+
+.ns-dark .adw-toolbar-view-bottom.raised {
+    background-color: #2e2e32;
+    border-top-color: rgba(255, 255, 255, 0.12);
+}
+
+.ns-dark .adw-toolbar-view-bottom.raised.border {
+    border-top-color: rgba(255, 255, 255, 0.28);
+}
+
 /* ===== Dark: view switcher bar ===== */
 
 .ns-dark .adw-viewswitcherbar {
@@ -1278,10 +1871,40 @@ Page.ns-dark.adw-window {
     color: #78aeed;
 }
 
+/* ===== Dark: data grid ===== */
+
+.ns-dark .adw-data-grid-cell {
+    color: #ffffff;
+}
+
+/* Restated at three classes so it beats the two-class rule above — the light
+ * `.adw-data-grid-cell.header-cell` and this one would otherwise tie, and the
+ * later (dark) rule would repaint the dim heading in full white. */
+.ns-dark .adw-data-grid-cell.header-cell {
+    color: rgba(255, 255, 255, 0.55);
+}
+
+.ns-dark .adw-data-grid-row.header {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.ns-dark .adw-data-grid-row.variant-subtotal {
+    border-top-color: rgba(255, 255, 255, 0.1);
+}
+
+.ns-dark .adw-data-grid-row.variant-total {
+    border-top-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+}
+
+.ns-dark .adw-data-grid-row.interactive:highlighted {
+    background-color: rgba(255, 255, 255, 0.22);
+}
+
 /* ===== Dark: spinner ===== */
 
 .ns-dark .adw-spinner {
-    color: #78aeed;
+    color: #ffffff;
 }
 
 /* ===== Dark: status page ===== */
@@ -1405,7 +2028,14 @@ Page.ns-dark.adw-window {
 .ns-dark .adw-split-view-sidebar,
 .ns-dark .adw-overlay-active {
     background-color: #2a2a2e;
+}
+
+.ns-dark .adw-split-view-sidebar.adw-sidebar-at-visual-start {
     border-right-color: rgba(255, 255, 255, 0.12);
+}
+
+.ns-dark .adw-split-view-sidebar.adw-sidebar-at-visual-end {
+    border-left-color: rgba(255, 255, 255, 0.12);
 }
 
 .ns-dark .adw-split-view-content {
@@ -1487,4 +2117,21 @@ Page.ns-dark.adw-window {
 
 .ns-dark .adw-preferences-dialog-close {
     color: rgba(255, 255, 255, 0.55);
+}
+
+/* ===== Dark: shortcut label =====
+ * The fill is 10% of the foreground, which is `#ffffff` here rather than the
+ * light scheme's near-black — the one reason these rules exist at all. The
+ * bottom edge follows `--card-shade-color`, which darkens in the dark theme
+ * (`_theme.scss:28`: 0.36 against the light scheme's 0.07). */
+
+.ns-dark .adw-shortcut-label .keycap {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-bottom-color: rgba(0, 0, 6, 0.36);
+}
+
+.ns-dark .adw-shortcut-label-cap-text,
+.ns-dark .adw-shortcut-label-side,
+.ns-dark .adw-shortcut-label .dimmed {
+    color: #ffffff;
 }

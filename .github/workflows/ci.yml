@@ -30,13 +30,32 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       # Bootstrap the gjsify CLI globally so `gjsify install` is runnable before
-      # node_modules exists (the chicken-and-egg). After install, package scripts
-      # resolve the workspace-local `node_modules/.bin/gjsify`.
+      # node_modules exists (the chicken-and-egg). Pinned EXACTLY to the version
+      # `gjsify-lock.json` resolves, so bootstrap and locked toolchain are the
+      # same CLI.
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@^0.8.0
+        run: npm install -g @gjsify/cli@0.48.0
 
       - name: Install dependencies
         run: gjsify install --immutable
+
+      # From here on `gjsify` resolves to the version `gjsify-lock.json` pins,
+      # not the globally installed bootstrap copy. Without this the two drift:
+      # this workflow ran the bootstrap CLI for every step while the tree
+      # resolved a different one, so a green run measured a toolchain nobody
+      # develops against. Same step as in issue-to-pr.yml.
+      - name: Use the workspace-pinned gjsify CLI
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
+
+      # The PATH step above is silent when it does not take effect, and a CLI
+      # that merely *runs* proves nothing about which one it is. Assert it.
+      - name: Assert the CLI is the locked one
+        run: |
+          set -eu
+          locked=$(node -p "require('./node_modules/@gjsify/cli/package.json').version")
+          actual=$(gjsify --version)
+          echo "gjsify: $(command -v gjsify) -> $actual (lockfile: $locked)"
+          [ "$actual" = "$locked" ] || { echo "::error::gjsify $actual != locked $locked"; exit 1; }
 
       - name: Check formatting
         run: gjsify format --check
@@ -62,7 +81,19 @@ jobs:
 
     steps:
       - name: Install container prerequisites (incl. gjs)
-        run: dnf install -y git tar xz findutils gjs
+        # json-glib + libsoup3 are dlopened by @gjsify/rolldown-native's typelib
+        # since 0.48.0; without them GJS logs a GIRepository warning, the bundler
+        # engine fails to load, and the first script that needs it dies with
+        # "Unsupported type void". Neither ships in the bare fedora image.
+        # The GTK packages are for the LEARN build, not for GTK code. The CLI
+        # auto-bundles the by-name `@mdx-js/rollup` plugin, and that bundle is
+        # always built with `--globals auto` (`bundlePluginForGjs` passes no
+        # globals policy), which since 0.48.0 detects HTMLCanvasElement/document/
+        # navigator in the plugin's graph and injects GTK-backed registers — so
+        # the bundle demands Pango/Gdk/GdkPixbuf typelibs at import. learn's own
+        # `--globals node` does not reach it. This container was deliberately
+        # GTK-less; restoring that needs an upstream fix in gjsify.
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -80,10 +111,28 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@^0.8.0
+        run: npm install -g @gjsify/cli@0.48.0
 
       - name: Install dependencies
         run: gjsify install --immutable
+
+      # From here on `gjsify` resolves to the version `gjsify-lock.json` pins,
+      # not the globally installed bootstrap copy. Without this the two drift:
+      # this workflow ran the bootstrap CLI for every step while the tree
+      # resolved a different one, so a green run measured a toolchain nobody
+      # develops against. Same step as in issue-to-pr.yml.
+      - name: Use the workspace-pinned gjsify CLI
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
+
+      # The PATH step above is silent when it does not take effect, and a CLI
+      # that merely *runs* proves nothing about which one it is. Assert it.
+      - name: Assert the CLI is the locked one
+        run: |
+          set -eu
+          locked=$(node -p "require('./node_modules/@gjsify/cli/package.json').version")
+          actual=$(gjsify --version)
+          echo "gjsify: $(command -v gjsify) -> $actual (lockfile: $locked)"
+          [ "$actual" = "$locked" ] || { echo "::error::gjsify $actual != locked $locked"; exit 1; }
 
       # Ahead of the type checks so a broken catalog is reported as itself.
       # `msgfmt` only asks whether a `msgstr` is non-empty, so this is the only

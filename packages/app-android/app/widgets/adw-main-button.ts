@@ -1,6 +1,6 @@
 import { Label, StackLayout } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
-import { AdwIcon, attachRowPressFeedback } from "@gjsify/adwaita-nativescript";
+import { Gtk, attachRowPressFeedback } from "@gjsify/adwaita-nativescript";
 import {
   systemRunSymbolic,
   mediaPlaybackStartSymbolic,
@@ -40,7 +40,7 @@ export class AdwMainButton extends StackLayout {
   /** Invoked on tap with the current mode's action. Wired by the shell. */
   public onAction: ((action: MainButtonAction) => void) | null = null;
 
-  private readonly _icon: AdwIcon;
+  private readonly _icon: Gtk.Image;
   private readonly _label: Label;
   private _state: MainButtonState = MainButtonState.ASSEMBLE;
 
@@ -49,7 +49,7 @@ export class AdwMainButton extends StackLayout {
     this.orientation = "horizontal";
     this.className = "adw-fab";
 
-    const icon = new AdwIcon();
+    const icon = new Gtk.Image();
     icon.iconColor = "#ffffff"; // pinned white on the accent pill, both schemes
     icon.verticalAlignment = "middle";
     this._icon = icon;
@@ -83,7 +83,7 @@ export class AdwMainButton extends StackLayout {
       return;
     }
     this.visibility = "visible";
-    this._icon.icon = mode.icon;
+    this._icon.iconName = mode.icon;
     this._label.text = _(mode.label);
   }
 }

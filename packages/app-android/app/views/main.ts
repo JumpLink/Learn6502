@@ -6,14 +6,8 @@ import { systemStates, SystemStates } from "~/states";
 
 // Adwaita native widgets
 import {
-  AdwToolbarView,
-  AdwHeaderBar,
-  AdwWindowTitle,
-  AdwMenuButton,
-  AdwViewStack,
-  AdwViewSwitcherBar,
-  AdwToastOverlay,
-  AdwAboutDialog,
+  Adw,
+  Gtk,
   MENU_ITEM_ACTIVATED,
   NOTIFY_VISIBLE_CHILD,
   setAdwaitaColorScheme,
@@ -60,7 +54,7 @@ const NOTIFICATION_TITLES: Record<string, string> = {
   "program-completed": "Program completed",
 };
 
-/** AdwViewStack page name <-> ViewType. */
+/** Adw.ViewStack page name <-> ViewType. */
 const VIEW_TO_NAME: Partial<Record<ViewType, string>> = {
   [ViewType.LEARN]: "learn",
   [ViewType.EDITOR]: "code",
@@ -75,18 +69,18 @@ const NAME_TO_VIEW: Record<string, ViewType> = {
 };
 
 /**
- * MainController — builds the Adwaita shell (AdwToolbarView: header bar + a
- * bottom AdwViewSwitcherBar driving an AdwViewStack of the four screens, with an
+ * MainController — builds the Adwaita shell (Adw.ToolbarView: header bar + a
+ * bottom Adw.ViewSwitcherBar driving an Adw.ViewStack of the four screens, with an
  * Adwaita FAB overlaid). Implements MainView; all 6502 logic stays in the
  * common-ui controllers + event bridges (wired identically to the Material shell).
  */
 export class MainController implements MainView {
   private page: Page | null = null;
 
-  private _stack: AdwViewStack | null = null;
+  private _stack: Adw.ViewStack | null = null;
   private _fab: AdwMainButton | null = null;
-  private _toast: AdwToastOverlay | null = null;
-  private _about: AdwAboutDialog | null = null;
+  private _toast: Adw.ToastOverlay | null = null;
+  private _about: Adw.AboutDialog | null = null;
   private _screens: Record<string, ScreenModule> = {};
   private _currentName: string | null = null;
 
@@ -209,18 +203,18 @@ export class MainController implements MainView {
 
   // --- Shell construction ---
   private buildShell(): View {
-    const toolbar = new AdwToolbarView();
+    const toolbar = new Adw.ToolbarView();
 
     // Header bar: title + app menu.
-    const header = new AdwHeaderBar();
-    const title = new AdwWindowTitle();
+    const header = new Adw.HeaderBar();
+    const title = new Adw.WindowTitle();
     title.title = "Learn6502";
     header.setTitleWidget(title);
 
-    const menu = new AdwMenuButton();
-    menu.icon = openMenuSymbolic;
+    const menu = new Gtk.MenuButton();
+    menu.iconName = openMenuSymbolic;
     menu.menuTitle = "Learn6502";
-    menu.menuItems = [
+    menu.menuModel = [
       { id: "about", label: _("About Learn 6502 Assembly") },
       { id: "help", label: _("Help") },
       { id: "quit", label: _("Quit") },
@@ -233,7 +227,7 @@ export class MainController implements MainView {
     toolbar.addTopBar(header);
 
     // Stack of the four screens.
-    const stack = new AdwViewStack();
+    const stack = new Adw.ViewStack();
     this._stack = stack;
     const learn = buildLearnScreen();
     const code = buildEditorScreen();
@@ -266,7 +260,7 @@ export class MainController implements MainView {
     // About dialog — an in-page modal card painted over everything (last child of
     // the overlay grid), revealed from the app menu. Mirrors the GNOME app's
     // Adw.AboutDialog.new_from_appdata(metainfo, version).
-    const about = new AdwAboutDialog();
+    const about = new Adw.AboutDialog();
     about.applicationName = _("Learn 6502 Assembly");
     about.version = __APP_VERSION__;
     about.developerName = "Pascal Garber";
@@ -277,13 +271,13 @@ export class MainController implements MainView {
     GridLayout.setColumn(about, 0);
     overlay.addChild(about);
 
-    const toast = new AdwToastOverlay();
+    const toast = new Adw.ToastOverlay();
     toast.setContent(overlay);
     this._toast = toast;
     toolbar.setContent(toast);
 
     // Bottom view switcher bar bound to the stack.
-    const switcher = new AdwViewSwitcherBar();
+    const switcher = new Adw.ViewSwitcherBar();
     switcher.setStack(stack);
     toolbar.addBottomBar(switcher);
 

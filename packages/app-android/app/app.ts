@@ -57,7 +57,7 @@ try {
     await initializeServices();
   });
 
-  // Register the native Adwaita widgets (AdwToolbarView / AdwViewStack / …) as NS
+  // Register the native Adwaita widgets (Adw.ToolbarView / Adw.ViewStack / …) as NS
   // XML elements so the Adwaita shell + screens resolve. Idempotent; no-op off NS.
   registerAdwaita();
 

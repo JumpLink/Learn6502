@@ -1,6 +1,7 @@
 import type { View } from "@nativescript/core";
+import { asView } from "~/utils/as-view";
 import { Observable, ScrollView } from "@nativescript/core";
-import { AdwBottomSheet, AdwClamp } from "@gjsify/adwaita-nativescript";
+import { Adw } from "@gjsify/adwaita-nativescript";
 import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
 import { editorController } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
@@ -21,7 +22,7 @@ export interface ScreenModule {
 /**
  * Editor view — implements EditorView from common-ui. The Material Page+ActionBar
  * is gone; the editor is now a content view (a SourceView) added to the shell's
- * AdwViewStack. All editing logic still lives in editorController.
+ * Adw.ViewStack. All editing logic still lives in editorController.
  */
 class Editor extends Observable implements EditorView {
   readonly events: EventDispatcher<EditorEventMap> = new EventDispatcher<EditorEventMap>();
@@ -84,17 +85,17 @@ class Editor extends Observable implements EditorView {
     }
 
     // GNOME wraps the editor in an Adw.BottomSheet whose sheet is the quick help
-    // (a ScrolledWindow > Adw.Clamp > QuickHelpView). The NS AdwBottomSheet opens
+    // (a ScrolledWindow > Adw.Clamp > QuickHelpView). The NS Adw.BottomSheet opens
     // via its drag handle (no separate "Help" bottom-bar button).
-    const sheet = new AdwBottomSheet();
+    const sheet = new Adw.BottomSheet();
     sheet.setContent(sourceView);
 
-    const helpClamp = new AdwClamp();
+    const helpClamp = new Adw.Clamp();
     helpClamp.maximumSize = 600;
     const helpScroll = new ScrollView();
     helpScroll.content = new QuickHelpView();
     helpClamp.setChild(helpScroll);
-    sheet.setSheet(helpClamp);
+    sheet.setSheet(asView(helpClamp));
 
     return sheet;
   }
@@ -107,7 +108,7 @@ class Editor extends Observable implements EditorView {
 
 export const editorView = new Editor();
 
-/** Build the editor screen for the shell's AdwViewStack. */
+/** Build the editor screen for the shell's Adw.ViewStack. */
 export function buildEditorScreen(): ScreenModule {
   return {
     view: editorView.build(),

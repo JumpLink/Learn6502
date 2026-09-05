@@ -1,4 +1,4 @@
-import { AdwClamp } from "@gjsify/adwaita-web";
+import { Adw } from "@gjsify/adwaita-web";
 import type { GameConsoleView, GamepadKey } from "@learn6502/common-ui";
 import { gameConsoleController, gameConsoleStateService } from "@learn6502/common-ui";
 import type { Assembler, Labels, Memory, Simulator } from "@learn6502/core";
@@ -150,7 +150,7 @@ export class AdwGameConsoleView extends HTMLElement implements GameConsoleView {
     column.className = "game-console-column";
     column.append(this.displayWidget, this.gamepadWidget);
 
-    const clamp = new AdwClamp();
+    const clamp = new Adw.Clamp();
     clamp.setAttribute("maximum-size", "400");
     clamp.appendChild(column);
     this.replaceChildren(clamp);

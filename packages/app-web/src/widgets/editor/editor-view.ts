@@ -1,4 +1,4 @@
-import { AdwBottomSheet, AdwBottomSheetContent, AdwBottomSheetSheet, AdwButton } from "@gjsify/adwaita-web";
+import { Adw, Gtk, AdwBottomSheetContent, AdwBottomSheetSheet } from "@gjsify/adwaita-web";
 import { EventDispatcher } from "@learn6502/core";
 import type {
   EditorChangedEvent,
@@ -30,8 +30,8 @@ export class AdwEditorView extends HTMLElement implements EditorView {
 
   private readonly sourceView = new SourceView();
   private readonly quickHelp = new QuickHelp();
-  private readonly bottomSheet = new AdwBottomSheet();
-  private readonly helpButton = new AdwButton();
+  private readonly bottomSheet = new Adw.BottomSheet();
+  private readonly helpButton = new Gtk.Button();
 
   private built = false;
   private initialized = false;
@@ -97,7 +97,7 @@ export class AdwEditorView extends HTMLElement implements EditorView {
 
     // Persistent content: the source editor filling the pane, with a "Help"
     // bar pinned below it (the web stand-in for editor.blp's bottom-bar Label).
-    // AdwBottomSheet re-homes the CHILDREN of <adw-bottom-sheet-content> into
+    // Adw.BottomSheet re-homes the CHILDREN of <adw-bottom-sheet-content> into
     // its own container, so wrap the column in a single element that survives
     // that move intact.
     this.sourceView.classList.add("editor-source-view");

@@ -37,7 +37,18 @@ jobs:
 
     steps:
       - name: Install container prerequisites (incl. gjs)
-        run: dnf install -y git tar xz findutils gjs
+        # json-glib + libsoup3 back @gjsify/rolldown-native's typelib since 0.48.0
+        # and are absent from the bare fedora image; without them the bundler
+        # engine fails to load and the build dies with "Unsupported type void".
+        # pango + gtk4 + gdk-pixbuf2 are for the `@learn6502/learn` build below,
+        # not for GTK code — the same reason ci.yml and deploy-pages.yml carry
+        # them. The CLI auto-bundles the by-name `@mdx-js/rollup` plugin with
+        # `--globals auto`, which since 0.48.0 injects GTK-backed registers, so
+        # importing that plugin bundle demands the Pango/Gdk/GdkPixbuf typelibs.
+        # Measured in a fedora:43 container with only the first line installed:
+        # `gjsify workspace @learn6502/learn build` exits 1 with "Requiring
+        # Pango, version 1.0: Typelib file for namespace 'Pango' ... not found".
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -102,16 +113,17 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       # Bootstrap only — `gjsify install` has to be runnable before
-      # node_modules exists. The build steps below use the workspace-local CLI.
+      # node_modules exists. Pinned exactly to what `gjsify-lock.json` resolves;
+      # the build steps below use the workspace-local CLI regardless.
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@^0.8.0
+        run: npm install -g @gjsify/cli@0.48.0
 
       - name: Install dependencies
         run: gjsify install --immutable
 
       # From here on `gjsify` resolves to the version `gjsify-lock.json` pins,
-      # not the floating bootstrap copy — the packages declare what they build
-      # with, and a PR must be built by that.
+      # not the globally installed bootstrap copy — the packages declare what
+      # they build with, and a PR must be built by that.
       - name: Use the workspace-pinned gjsify CLI
         run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
 

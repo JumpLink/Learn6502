@@ -1,13 +1,7 @@
 import type { View } from "@nativescript/core";
+import { asView } from "~/utils/as-view";
 import { ScrollView } from "@nativescript/core";
-import {
-  AdwActionRow,
-  AdwClamp,
-  AdwIcon,
-  AdwNavigationView,
-  AdwPreferencesGroup,
-  AdwStatusPage,
-} from "@gjsify/adwaita-nativescript";
+import { Adw, Gtk } from "@gjsify/adwaita-nativescript";
 import { goNextSymbolic } from "@gjsify/adwaita-icons/actions";
 import { schoolSymbolic, openBookSymbolic, codeSymbolic } from "~/icons";
 import { localize as _ } from "@nativescript/localize";
@@ -21,12 +15,12 @@ import type { ScreenModule } from "./editor";
 
 /**
  * Learn view — implements LearnView. Now a scrollable content view (the MDX
- * TutorialView) added to the shell's AdwViewStack. Copy-to-editor events are still
+ * TutorialView) added to the shell's Adw.ViewStack. Copy-to-editor events are still
  * routed through learnController.
  */
 class Learn implements LearnView {
   private tutorialView: TutorialView | null = null;
-  private nav: AdwNavigationView | null = null;
+  private nav: Adw.NavigationView | null = null;
   private _initialized = false;
   private log = logger.scoped("Learn");
 
@@ -45,25 +39,25 @@ class Learn implements LearnView {
       this._initialized = true;
     }
 
-    const nav = new AdwNavigationView();
+    const nav = new Adw.NavigationView();
     this.nav = nav;
 
-    // --- Main page: an AdwStatusPage hero (icon + title + description) over a
+    // --- Main page: an Adw.StatusPage hero (icon + title + description) over a
     //     boxed list of Tutorial + Examples rows, matching the GNOME learn.blp. ---
-    const group = new AdwPreferencesGroup();
+    const group = new Adw.PreferencesGroup();
     group.addRow(
       this.navRow(_("Tutorial"), _("Step-by-step guide to 6502 assembly"), openBookSymbolic, () => nav.push("tutorial"))
     );
     group.addRow(this.navRow(_("Examples"), _("Try out example programs"), codeSymbolic, () => nav.push("examples")));
-    const mainClamp = new AdwClamp();
+    const mainClamp = new Adw.Clamp();
     mainClamp.maximumSize = 600;
     mainClamp.setChild(group);
 
-    const mainPage = new AdwStatusPage();
-    mainPage.icon = schoolSymbolic;
+    const mainPage = new Adw.StatusPage();
+    mainPage.iconName = schoolSymbolic;
     mainPage.title = _("Learn");
     mainPage.description = _("Learn how to program the 6502 microprocessor.");
-    mainPage.setChild(mainClamp);
+    mainPage.setChild(asView(mainClamp));
 
     // --- Tutorial page: the MDX TutorialView ---
     const tutorialScroll = new ScrollView();
@@ -72,7 +66,7 @@ class Learn implements LearnView {
     // --- Examples page: a boxed list of example programs (ports the GNOME
     //     ExamplesList). Tapping a row loads it into the editor + switches to the
     //     Code view, the same path the tutorial's copy buttons use. ---
-    const examplesGroup = new AdwPreferencesGroup();
+    const examplesGroup = new Adw.PreferencesGroup();
     for (const example of Object.values(Examples) as ExampleMeta[]) {
       examplesGroup.addRow(
         this.exampleRow(example, () => {
@@ -80,27 +74,27 @@ class Learn implements LearnView {
         })
       );
     }
-    const examplesClamp = new AdwClamp();
+    const examplesClamp = new Adw.Clamp();
     examplesClamp.maximumSize = 600;
     examplesClamp.setChild(examplesGroup);
 
-    const examples = new AdwStatusPage();
-    examples.icon = codeSymbolic;
+    const examples = new Adw.StatusPage();
+    examples.iconName = codeSymbolic;
     examples.title = _("Examples");
     examples.description = _("Try out example programs for the 6502 microprocessor.");
-    examples.setChild(examplesClamp);
+    examples.setChild(asView(examplesClamp));
     const examplesScroll = new ScrollView();
     examplesScroll.content = examples;
 
     nav.add(mainPage, "main");
     nav.add(tutorialScroll, "tutorial");
     nav.add(examplesScroll, "examples");
-    return nav;
+    return asView(nav);
   }
 
   /** A tappable example row: a code icon, the example title + description, and a
    *  go-next chevron. Tapping loads the example into the editor. */
-  private exampleRow(example: ExampleMeta, onTap: () => void): AdwActionRow {
+  private exampleRow(example: ExampleMeta, onTap: () => void): Adw.ActionRow {
     return this.navRow(_(example.title), _(example.description), codeSymbolic, onTap);
   }
 
@@ -112,15 +106,15 @@ class Learn implements LearnView {
 
   /** An activatable boxed-list row: a leading symbolic icon, title + subtitle,
    *  and a trailing go-next chevron (matches the GNOME Adw.ActionRow). */
-  private navRow(title: string, subtitle: string, iconSvg: string, onTap: () => void): AdwActionRow {
-    const row = new AdwActionRow();
+  private navRow(title: string, subtitle: string, iconSvg: string, onTap: () => void): Adw.ActionRow {
+    const row = new Adw.ActionRow();
     row.title = title;
     row.subtitle = subtitle;
-    const prefix = new AdwIcon();
-    prefix.icon = iconSvg;
+    const prefix = new Gtk.Image();
+    prefix.iconName = iconSvg;
     row.setPrefix(prefix);
-    const chevron = new AdwIcon();
-    chevron.icon = goNextSymbolic;
+    const chevron = new Gtk.Image();
+    chevron.iconName = goNextSymbolic;
     row.setSuffix(chevron);
     row.addEventListener("tap", onTap);
     return row;
@@ -138,7 +132,7 @@ class Learn implements LearnView {
 
 const learnView = new Learn();
 
-/** Build the learn screen for the shell's AdwViewStack. */
+/** Build the learn screen for the shell's Adw.ViewStack. */
 export function buildLearnScreen(): ScreenModule {
   return {
     view: learnView.build(),

@@ -1,10 +1,10 @@
-import { AdwButton, AdwCard } from "@gjsify/adwaita-web";
+import { Gtk, AdwCard } from "@gjsify/adwaita-web";
 
 /** The parts of a monospace code card with a floating copy button. */
 export interface CodeCard {
   card: AdwCard;
   code: HTMLElement;
-  copyButton: AdwButton;
+  copyButton: Gtk.Button;
 }
 
 /**
@@ -20,7 +20,7 @@ export function buildCodeCard(copyTooltip: string): CodeCard {
   const code = document.createElement("code");
   pre.appendChild(code);
 
-  const copyButton = new AdwButton();
+  const copyButton = new Gtk.Button();
   copyButton.className = "learn-copy-button";
   copyButton.setAttribute("icon", "edit-copy");
   copyButton.setAttribute("flat", "");

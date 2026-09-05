@@ -1,4 +1,5 @@
 import type { View } from "@nativescript/core";
+import { asView } from "~/utils/as-view";
 import { Application, Label, ScrollView, StackLayout } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 import type { DebuggerView } from "@learn6502/common-ui";
@@ -10,7 +11,7 @@ import {
   ViewType,
 } from "@learn6502/common-ui";
 import type { Memory, Simulator, Assembler } from "@learn6502/core";
-import { AdwClamp, AdwPreferencesGroup, AdwSwitchRow, NOTIFY_ACTIVE } from "@gjsify/adwaita-nativescript";
+import { Adw, NOTIFY_ACTIVE } from "@gjsify/adwaita-nativescript";
 
 // Import custom widgets
 import { MessageConsole, DebugInfo, HexMonitor, Hexdump, Disassembled } from "~/widgets/debugger";
@@ -23,7 +24,7 @@ import type { ScreenModule } from "./editor";
 /**
  * Debugger view — implements DebuggerView. Now a scrollable Adwaita content view
  * (a boxed-list settings group + framed sections for the register/monitor/dump
- * widgets) added to the shell's AdwViewStack. All logic stays in debuggerController.
+ * widgets) added to the shell's Adw.ViewStack. All logic stays in debuggerController.
  */
 class Debugger implements DebuggerView {
   private messageConsole: MessageConsole | null = null;
@@ -59,10 +60,10 @@ class Debugger implements DebuggerView {
     column.className = "p-4";
 
     // --- Debug Settings (Adwaita boxed list) ---
-    const settings = new AdwPreferencesGroup();
+    const settings = new Adw.PreferencesGroup();
     settings.title = _("Debug Settings");
 
-    const enabledRow = new AdwSwitchRow();
+    const enabledRow = new Adw.SwitchRow();
     enabledRow.title = _("Enable debugger");
     enabledRow.active = debuggerController.state !== DebuggerState.DISABLED;
     enabledRow.addEventListener(NOTIFY_ACTIVE, () => {
@@ -70,7 +71,7 @@ class Debugger implements DebuggerView {
     });
     settings.addRow(enabledRow);
 
-    const stepperRow = new AdwSwitchRow();
+    const stepperRow = new Adw.SwitchRow();
     stepperRow.title = _("Stepping mode");
     stepperRow.active = debuggerController.stepperEnabled;
     stepperRow.addEventListener(NOTIFY_ACTIVE, () => {
@@ -111,12 +112,12 @@ class Debugger implements DebuggerView {
       this.hexdump
     );
 
-    const clamp = new AdwClamp();
+    const clamp = new Adw.Clamp();
     clamp.maximumSize = 700;
     clamp.setChild(column);
 
     const scroll = new ScrollView();
-    scroll.content = clamp;
+    scroll.content = asView(clamp);
     return scroll;
   }
 
@@ -218,7 +219,7 @@ class Debugger implements DebuggerView {
 // Create a singleton instance
 const debuggerView = new Debugger();
 
-/** Build the debugger screen for the shell's AdwViewStack. */
+/** Build the debugger screen for the shell's Adw.ViewStack. */
 export function buildDebuggerScreen(): ScreenModule {
   return {
     view: debuggerView.build(),

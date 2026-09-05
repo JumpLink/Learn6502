@@ -1,6 +1,6 @@
 import type { View } from "@nativescript/core";
 import { GridLayout, ItemSpec, StackLayout } from "@nativescript/core";
-import { AdwButton, AdwImageButton } from "@gjsify/adwaita-nativescript";
+import { Gtk, AdwImageButton } from "@gjsify/adwaita-nativescript";
 import { dpadUpSymbolic, dpadDownSymbolic, dpadLeftSymbolic, dpadRightSymbolic } from "~/icons";
 import type { SimulatorState } from "@learn6502/core";
 import { type Memory, type Labels, type Simulator, type Assembler } from "@learn6502/core";
@@ -21,7 +21,7 @@ import type { ScreenModule } from "./editor";
 
 /**
  * Game Console view — implements GameConsoleView. Now a content view (Display +
- * Gamepad) added to the shell's AdwViewStack. The simulator stack + controller
+ * Gamepad) added to the shell's Adw.ViewStack. The simulator stack + controller
  * wiring are unchanged; only the widget construction moved off the Page.
  */
 export class GameConsole implements GameConsoleView {
@@ -126,7 +126,7 @@ export class GameConsole implements GameConsoleView {
       bl: number
     ): AdwImageButton => {
       const b = new AdwImageButton();
-      b.icon = icon;
+      b.iconName = icon;
       b.iconSize = 22;
       b.iconColor = "#ffffff";
       b.width = 52;
@@ -164,8 +164,8 @@ export class GameConsole implements GameConsoleView {
     hub.className = "gamepad-dpad-button";
     place(hub, 1, 1);
 
-    const actButton = (label: string, key: GamepadKey, topMargin: number, bottomMargin: number): AdwButton => {
-      const b = new AdwButton();
+    const actButton = (label: string, key: GamepadKey, topMargin: number, bottomMargin: number): Gtk.Button => {
+      const b = new Gtk.Button();
       b.text = label;
       b.width = 58;
       b.height = 58;
@@ -273,7 +273,7 @@ export class GameConsole implements GameConsoleView {
 // Create singleton instance of the view controller
 export const gameConsoleView = new GameConsole();
 
-/** Build the game console screen for the shell's AdwViewStack. */
+/** Build the game console screen for the shell's Adw.ViewStack. */
 export function buildGameConsoleScreen(): ScreenModule {
   return {
     view: gameConsoleView.build(),

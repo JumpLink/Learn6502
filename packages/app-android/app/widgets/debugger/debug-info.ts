@@ -3,7 +3,7 @@ import { localize as _ } from "@nativescript/localize";
 import type { DebugInfoWidget } from "@learn6502/common-ui";
 import type { Simulator } from "@learn6502/core";
 import { num2hex, addr2hex } from "@learn6502/core";
-import { AdwActionRow, AdwPreferencesGroup } from "@gjsify/adwaita-nativescript";
+import { Adw } from "@gjsify/adwaita-nativescript";
 
 /** A register row's two value labels (hex on top, decimal dim below). */
 interface RegisterValue {
@@ -13,7 +13,7 @@ interface RegisterValue {
 
 /**
  * DebugInfo — 6502 CPU registers and the status-flag bits, rendered as native
- * Adwaita boxed lists (`AdwPreferencesGroup` + `AdwActionRow`) to match the GNOME
+ * Adwaita boxed lists (`Adw.PreferencesGroup` + `Adw.ActionRow`) to match the GNOME
  * debugger (`debug-info.blp`): a "Registers" group with five rows (A/X/Y/SP/PC,
  * each showing `$hex` over a dim decimal), and a "Status Flags" group whose single
  * row carries the N V - B D I Z C bit display in its suffix.
@@ -35,7 +35,7 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
     column.orientation = "vertical";
 
     // --- Registers ---
-    const registers = new AdwPreferencesGroup();
+    const registers = new Adw.PreferencesGroup();
     registers.title = _("Registers");
     registers.marginBottom = 12;
 
@@ -48,10 +48,10 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
     column.addChild(registers);
 
     // --- Status Flags ---
-    const flags = new AdwPreferencesGroup();
+    const flags = new Adw.PreferencesGroup();
     flags.title = _("Status Flags");
 
-    const flagsRow = new AdwActionRow();
+    const flagsRow = new Adw.ActionRow();
     flagsRow.title = "P (SR)";
     flagsRow.subtitle = _("Processor Status Register");
     flagsRow.setSuffix(this.buildFlagsGrid());
@@ -62,9 +62,9 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
     this.content = column;
   }
 
-  /** Add an `AdwActionRow` for a register and return its hex/decimal value labels. */
-  private addRegisterRow(group: AdwPreferencesGroup, name: string, subtitle: string): RegisterValue {
-    const row = new AdwActionRow();
+  /** Add an `Adw.ActionRow` for a register and return its hex/decimal value labels. */
+  private addRegisterRow(group: Adw.PreferencesGroup, name: string, subtitle: string): RegisterValue {
+    const row = new Adw.ActionRow();
     row.title = name;
     row.subtitle = subtitle;
 
