@@ -37,7 +37,10 @@ jobs:
 
     steps:
       - name: Install container prerequisites (incl. gjs)
-        run: dnf install -y git tar xz findutils gjs
+        # json-glib + libsoup3 back @gjsify/rolldown-native's typelib since 0.48.0
+        # and are absent from the bare fedora image; without them the bundler
+        # engine fails to load and the build dies with "Unsupported type void".
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3
 
       - name: Checkout repository
         uses: actions/checkout@v6

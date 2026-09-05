@@ -43,11 +43,25 @@ blueprint_files = run_command('sh', '-c', 'ls src/**/*.blp', check: true).stdout
 # ui_files = run_command('sh', '-c', 'ls ../learn/dist/**/*.ui', check: true).stdout().strip().split('\n')
 src_files = files(ts_files, blueprint_files)
 
+# The dependency builds are spelled out rather than left to `gjsify workspace
+# --with-dependencies`. That flag walks only deps declared with the `workspace:`
+# protocol (`collectTransitiveClosure` in the CLI), and this monorepo declares
+# its internal deps as plain `^x.y.z` ranges on purpose — see the note in
+# pnpm-workspace.yaml. So the flag collects NOTHING here, builds no dependency,
+# and still exits 0: the app-gnome bundle was then assembled without
+# `@learn6502/core` or learn's generated `.ui`, which `gjsify build --app gjs`
+# rejects as unresolved bare specifiers. Same order the CI workflows use.
+gjsify_deps = ['core', 'examples', 'learn']
+build_deps_cmd = ''
+foreach dep : gjsify_deps
+  build_deps_cmd += '"' + gjs_console.full_path() + '" -m "' + gjsify_cli + '" workspace @learn6502/' + dep + ' build && '
+endforeach
+
 custom_target('gjsify-build',
   input: src_files,
   command: [
     'sh', '-c',
-    'cd "' + meson.project_source_root() + '" && exec "' + gjs_console.full_path() + '" -m "' + gjsify_cli + '" workspace @learn6502/app-gnome build --with-dependencies',
+    'cd "' + meson.project_source_root() + '" && ' + build_deps_cmd + 'exec "' + gjs_console.full_path() + '" -m "' + gjsify_cli + '" workspace @learn6502/app-gnome build',
   ],
   output: application_id,
   build_by_default: true,
