@@ -15,7 +15,7 @@ Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform c
 | common-ui             | `packages/common-ui/`             | Shared UI logic, controllers, interfaces — 4-layer architecture | TypeScript, no platform deps                        |
 | app-gnome             | `packages/app-gnome/`             | GNOME desktop app                                               | TypeScript, GJS, GTK 4, Adwaita, Vite, Meson        |
 | app-web               | `packages/app-web/`               | Web app                                                         | TypeScript, HTML, CSS, Vite, `@gjsify/adwaita-web`  |
-| app-android           | `packages/app-android/`           | Android app                                                     | TypeScript, NativeScript, Gradle, Material Design 3 |
+| app-android           | `packages/app-android/`           | Android app                                                     | TypeScript, NativeScript, Gradle, `@gjsify/adwaita-nativescript` |
 | learn                 | `packages/learn/`                 | MDX tutorial content → platform-specific output                 | MDX, esbuild                                        |
 | examples              | `packages/examples/`              | 6502 assembly code examples                                     | TypeScript                                          |
 | translations          | `packages/translations/`          | i18n via gettext `.po` files                                    | gettext, `.po`/`.mo`                                |
