@@ -85,7 +85,15 @@ jobs:
         # since 0.48.0; without them GJS logs a GIRepository warning, the bundler
         # engine fails to load, and the first script that needs it dies with
         # "Unsupported type void". Neither ships in the bare fedora image.
-        run: dnf install -y git tar xz findutils gjs json-glib libsoup3
+        # The GTK packages are for the LEARN build, not for GTK code. The CLI
+        # auto-bundles the by-name `@mdx-js/rollup` plugin, and that bundle is
+        # always built with `--globals auto` (`bundlePluginForGjs` passes no
+        # globals policy), which since 0.48.0 detects HTMLCanvasElement/document/
+        # navigator in the plugin's graph and injects GTK-backed registers — so
+        # the bundle demands Pango/Gdk/GdkPixbuf typelibs at import. learn's own
+        # `--globals node` does not reach it. This container was deliberately
+        # GTK-less; restoring that needs an upstream fix in gjsify.
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2
 
       - name: Checkout repository
         uses: actions/checkout@v6
