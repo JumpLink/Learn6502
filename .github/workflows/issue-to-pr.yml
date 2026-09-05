@@ -40,7 +40,15 @@ jobs:
         # json-glib + libsoup3 back @gjsify/rolldown-native's typelib since 0.48.0
         # and are absent from the bare fedora image; without them the bundler
         # engine fails to load and the build dies with "Unsupported type void".
-        run: dnf install -y git tar xz findutils gjs json-glib libsoup3
+        # pango + gtk4 + gdk-pixbuf2 are for the `@learn6502/learn` build below,
+        # not for GTK code — the same reason ci.yml and deploy-pages.yml carry
+        # them. The CLI auto-bundles the by-name `@mdx-js/rollup` plugin with
+        # `--globals auto`, which since 0.48.0 injects GTK-backed registers, so
+        # importing that plugin bundle demands the Pango/Gdk/GdkPixbuf typelibs.
+        # Measured in a fedora:43 container with only the first line installed:
+        # `gjsify workspace @learn6502/learn build` exits 1 with "Requiring
+        # Pango, version 1.0: Typelib file for namespace 'Pango' ... not found".
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2
 
       - name: Checkout repository
         uses: actions/checkout@v6
