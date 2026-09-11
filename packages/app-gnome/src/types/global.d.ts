@@ -20,6 +20,14 @@ declare global {
   /** #!/usr/bin/env -S gjs -m */
   const __GJS_CONSOLE__: string;
   const __PKGDATADIR__: string;
+
+  /**
+   * The bundle's own `import.meta.url`, set by `gjsify build` on the first line
+   * of every bundle it writes. `var` rather than `const` because it is assigned
+   * at run time (`globalThis.__gjsifyBundleUrl ??= import.meta.url`) and absent
+   * when the sources are loaded unbundled.
+   */
+  var __gjsifyBundleUrl: string | undefined;
 }
 
 // This empty export is necessary to make this a module

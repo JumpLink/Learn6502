@@ -3,15 +3,18 @@ import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import GtkSource from "@girs/gtksource-5";
 
-import { APPLICATION_ID, RESOURCES_PATH, PKGDATADIR } from "./constants.ts";
+import { APPLICATION_ID, RESOURCES_PATH } from "./constants.ts";
+import { dataSearchPathForDiagnostics, resolveDataFile } from "./install-paths.ts";
 
 export const initResources = () => {
   // Register resources
-  const resourceDataPath = Gio.File.new_for_path(PKGDATADIR)
-    .resolve_relative_path(`./${APPLICATION_ID}.data.gresource`)
-    .get_path();
+  const resourceName = `${APPLICATION_ID}.data.gresource`;
+  const resourceDataPath = resolveDataFile(resourceName);
   if (!resourceDataPath) {
-    throw new Error("Resource data path not found");
+    // Name the file and every directory that was consulted: the app is dead
+    // without its resources, and "not found" alone does not say whether the
+    // bundle was relocated or the data was never staged beside it.
+    throw new Error(`${resourceName} not found in ${dataSearchPathForDiagnostics().join(", ")}`);
   }
 
   const resourceData = Gio.Resource.load(resourceDataPath);
