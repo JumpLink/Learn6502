@@ -4,8 +4,9 @@ import Adw from "@girs/adw-1";
 import GLib from "@girs/glib-2.0";
 
 import { MainWindow, PreferencesDialog } from "./views/index.ts";
-import { APPLICATION_ID, RESOURCES_PATH, PACKAGE_VERSION } from "./constants.ts";
+import { APPLICATION_ID } from "./constants.ts";
 import { initResources } from "./resources.ts";
+import { createAboutDialog } from "./about-dialog.ts";
 
 import { themeService } from "./services";
 
@@ -58,11 +59,7 @@ export class Application extends Adw.Application {
   }
 
   private onShowAboutDialog() {
-    const aboutDialog = Adw.AboutDialog.new_from_appdata(
-      `${RESOURCES_PATH}/metainfo/${APPLICATION_ID}.metainfo.xml`,
-      PACKAGE_VERSION
-    );
-    aboutDialog.present(this.get_active_window());
+    createAboutDialog().present(this.get_active_window());
   }
 
   vfunc_activate() {
