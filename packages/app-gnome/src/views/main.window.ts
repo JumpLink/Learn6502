@@ -859,8 +859,8 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     dialog.setMemory(this._gameConsole.memory);
 
     // Handle submit event
-    dialog.connect("submit", (_dialog: ShareDialog, example: unknown) => {
-      console.log("Example submitted:", example);
+    dialog.connect("submit", (submitted: ShareDialog) => {
+      console.log("Example submitted:", submitted.submittedExample);
       // TODO: Implement GitHub PR creation logic here
       this.showToast({
         // TRANSLATORS: Toast message when example is submitted

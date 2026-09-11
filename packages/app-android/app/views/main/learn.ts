@@ -45,19 +45,19 @@ class Learn implements LearnView {
     // --- Main page: an Adw.StatusPage hero (icon + title + description) over a
     //     boxed list of Tutorial + Examples rows, matching the GNOME learn.blp. ---
     const group = new Adw.PreferencesGroup();
-    group.addRow(
+    group.add(
       this.navRow(_("Tutorial"), _("Step-by-step guide to 6502 assembly"), openBookSymbolic, () => nav.push("tutorial"))
     );
-    group.addRow(this.navRow(_("Examples"), _("Try out example programs"), codeSymbolic, () => nav.push("examples")));
+    group.add(this.navRow(_("Examples"), _("Try out example programs"), codeSymbolic, () => nav.push("examples")));
     const mainClamp = new Adw.Clamp();
     mainClamp.maximumSize = 600;
-    mainClamp.setChild(group);
+    mainClamp.set_child(group);
 
     const mainPage = new Adw.StatusPage();
     mainPage.iconName = schoolSymbolic;
     mainPage.title = _("Learn");
     mainPage.description = _("Learn how to program the 6502 microprocessor.");
-    mainPage.setChild(asView(mainClamp));
+    mainPage.set_child(asView(mainClamp));
 
     // --- Tutorial page: the MDX TutorialView ---
     const tutorialScroll = new ScrollView();
@@ -68,7 +68,7 @@ class Learn implements LearnView {
     //     Code view, the same path the tutorial's copy buttons use. ---
     const examplesGroup = new Adw.PreferencesGroup();
     for (const example of Object.values(Examples) as ExampleMeta[]) {
-      examplesGroup.addRow(
+      examplesGroup.add(
         this.exampleRow(example, () => {
           learnController.dispatch("copy", { code: example.code });
         })
@@ -76,13 +76,13 @@ class Learn implements LearnView {
     }
     const examplesClamp = new Adw.Clamp();
     examplesClamp.maximumSize = 600;
-    examplesClamp.setChild(examplesGroup);
+    examplesClamp.set_child(examplesGroup);
 
     const examples = new Adw.StatusPage();
     examples.iconName = codeSymbolic;
     examples.title = _("Examples");
     examples.description = _("Try out example programs for the 6502 microprocessor.");
-    examples.setChild(asView(examplesClamp));
+    examples.set_child(asView(examplesClamp));
     const examplesScroll = new ScrollView();
     examplesScroll.content = examples;
 
@@ -112,10 +112,10 @@ class Learn implements LearnView {
     row.subtitle = subtitle;
     const prefix = new Gtk.Image();
     prefix.iconName = iconSvg;
-    row.setPrefix(prefix);
+    row.add_prefix(prefix);
     const chevron = new Gtk.Image();
     chevron.iconName = goNextSymbolic;
-    row.setSuffix(chevron);
+    row.add_suffix(chevron);
     row.addEventListener("tap", onTap);
     return row;
   }

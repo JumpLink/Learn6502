@@ -34,7 +34,7 @@ jobs:
       # `gjsify-lock.json` resolves, so bootstrap and locked toolchain are the
       # same CLI.
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.48.0
+        run: npm install -g @gjsify/cli@0.49.0
 
       - name: Install dependencies
         run: gjsify install --immutable
@@ -56,6 +56,27 @@ jobs:
           actual=$(gjsify --version)
           echo "gjsify: $(command -v gjsify) -> $actual (lockfile: $locked)"
           [ "$actual" = "$locked" ] || { echo "::error::gjsify $actual != locked $locked"; exit 1; }
+
+      # One version lives in eleven places — the root manifest `gjsify ship`
+      # stamps into every artifact, the nine package manifests, and the
+      # AppStream release list users see in a store. Nothing keeps them in step
+      # on its own (changesets' `fixed` pattern does not match the private root
+      # package, and the release list is written by hand), so a tag can produce
+      # a `.deb` labelled one version from a tree that says another.
+      - name: Check version consistency
+        run: gjsify run check:versions
+
+      # The Flatpak build has no network: flatpak-builder fills a cache from
+      # `gjsify-sources.json` and Meson then runs `gjsify install --immutable`
+      # against it. A tarball the lockfile pins and the sources array omits is a
+      # download that cannot happen, and the sandbox reports it as
+      # `meson.build:23 … failed with status 1` and nothing else. The two files
+      # are re-cut by different commands, so they come apart whenever a
+      # dependency is added without `gjsify flatpak sources` — which is exactly
+      # how this branch turned the Flatpak job red while every local check
+      # passed.
+      - name: Check the Flatpak offline sources
+        run: gjsify run check:flatpak:sources
 
       - name: Check formatting
         run: gjsify format --check
@@ -111,7 +132,7 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.48.0
+        run: npm install -g @gjsify/cli@0.49.0
 
       - name: Install dependencies
         run: gjsify install --immutable

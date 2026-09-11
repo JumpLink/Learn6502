@@ -2,6 +2,7 @@ import Gio from "@girs/gio-2.0";
 import Gtk from "@girs/gtk-4.0";
 import GLib from "@girs/glib-2.0";
 import { APPLICATION_ID, PACKAGE_VERSION, PREFIX, LIBDIR, DATADIR } from "./constants.ts";
+import { localeDir } from "./install-paths.ts";
 
 // Promisify
 Gio._promisify(Gio.OutputStream.prototype, "write_bytes_async", "write_bytes_finish");
@@ -25,7 +26,7 @@ imports.package.init({
 // Initialize gettext and format
 pkg.initGettext();
 pkg.initFormat();
-imports.gettext.bindtextdomain(APPLICATION_ID, DATADIR + "/locale");
+imports.gettext.bindtextdomain(APPLICATION_ID, localeDir());
 imports.gettext.textdomain(APPLICATION_ID);
 
 // Initialize main loop

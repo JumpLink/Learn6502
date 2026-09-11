@@ -85,17 +85,21 @@ class Editor extends Observable implements EditorView {
     }
 
     // GNOME wraps the editor in an Adw.BottomSheet whose sheet is the quick help
-    // (a ScrolledWindow > Adw.Clamp > QuickHelpView). The NS Adw.BottomSheet opens
-    // via its drag handle (no separate "Help" bottom-bar button).
+    // (a ScrolledWindow > Adw.Clamp > QuickHelpView). The NS Adw.BottomSheet has no
+    // gesture of its own — its drag handle is decorative (`can_target = FALSE`, as in
+    // libadwaita) — so the sheet is revealed only by writing `sheet.open = true`.
+    // TODO: give the editor an affordance that does so; the quick help is currently
+    // unreachable on Android (it has been since this screen was written, not since
+    // the 0.49.0 bump).
     const sheet = new Adw.BottomSheet();
-    sheet.setContent(sourceView);
+    sheet.set_content(sourceView);
 
     const helpClamp = new Adw.Clamp();
     helpClamp.maximumSize = 600;
     const helpScroll = new ScrollView();
     helpScroll.content = new QuickHelpView();
-    helpClamp.setChild(helpScroll);
-    sheet.setSheet(asView(helpClamp));
+    helpClamp.set_child(helpScroll);
+    sheet.set_sheet(asView(helpClamp));
 
     return sheet;
   }

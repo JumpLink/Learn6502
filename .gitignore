@@ -139,3 +139,7 @@ eu.jumplink.Learn6502.tar.gz
 .idea/
 # gjsify flatpak offline tarball cache (fetched by flatpak-builder, build output)
 flatpak-gjsify-cache/
+
+# `gjsify ship` working tree: the staged payload, the per-format overlays and
+# the finished artifacts. All of it is rebuilt from the bundle on every run.
+/ship/

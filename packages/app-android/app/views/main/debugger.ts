@@ -69,7 +69,7 @@ class Debugger implements DebuggerView {
     enabledRow.addEventListener(NOTIFY_ACTIVE, () => {
       debuggerController.state = enabledRow.active ? DebuggerState.ACTIVE : DebuggerState.DISABLED;
     });
-    settings.addRow(enabledRow);
+    settings.add(enabledRow);
 
     const stepperRow = new Adw.SwitchRow();
     stepperRow.title = _("Stepping mode");
@@ -77,7 +77,7 @@ class Debugger implements DebuggerView {
     stepperRow.addEventListener(NOTIFY_ACTIVE, () => {
       debuggerController.stepperEnabled = stepperRow.active;
     });
-    settings.addRow(stepperRow);
+    settings.add(stepperRow);
 
     column.addChild(settings);
 
@@ -114,7 +114,7 @@ class Debugger implements DebuggerView {
 
     const clamp = new Adw.Clamp();
     clamp.maximumSize = 700;
-    clamp.setChild(column);
+    clamp.set_child(column);
 
     const scroll = new ScrollView();
     scroll.content = asView(clamp);

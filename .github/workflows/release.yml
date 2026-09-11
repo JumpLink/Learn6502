@@ -1,0 +1,364 @@
+name: Release
+
+# Turns a tag into downloadable artifacts. Until now `v0.7.0` and every release
+# before it carried NO assets at all (measured 2026-09-11): the only way to get
+# Learn6502 was Flathub, which leaves out Windows, macOS, every non-Flatpak
+# Linux, and anyone archiving a copy (issue #93).
+#
+# Everything but the Flatpak comes out of `gjsify ship`, which assembles one
+# payload and wraps it per operating system. Assembly is NOT host-bound — the
+# macOS `.app` and the Windows program directory are staged on the same Linux
+# runner as the `.deb` — so this is one job rather than a matrix, and the
+# artifacts of a release cannot disagree about which build they came from.
+
+on:
+  push:
+    tags: ["v*"]
+  # Re-cut assets for a tag that already exists, without moving the tag.
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Tag to build from (e.g. v0.8.0). Empty = the selected branch."
+        required: false
+        default: ""
+        type: string
+      publish:
+        description: "Attach the artifacts to the GitHub release (needs a tag)"
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: write
+
+# Two tags pushed seconds apart would otherwise run twice against one release
+# and upload in whichever order finished last. Queued rather than cancelled:
+# a half-uploaded release is worse than a slow one.
+concurrency:
+  group: release-${{ github.workflow }}-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
+env:
+  # Bootstrap pin. Must equal the version `gjsify-lock.json` resolves — the
+  # assertion step below fails the run when the two drift, the same guard
+  # ci.yml uses.
+  GJSIFY_CLI_VERSION: "0.49.0"
+
+jobs:
+  artifacts:
+    name: Build artifacts
+    runs-on: ubuntu-latest
+    # Fedora for the same reason ci.yml uses it: the build spawns `gjs`, which
+    # ubuntu-latest does not ship.
+    container:
+      image: fedora:43
+
+    steps:
+      # A superset of ci.yml's list, because this workflow is the first to run
+      # things ci.yml never does — it builds the app-gnome bundle and the
+      # catalogues, where ci.yml only type-checks them. Each addition is a tool
+      # some step shells out to:
+      #   glib2-devel        `glib-compile-resources`, for `build:resources`.
+      #                      Plain glib2 carries only `glib-compile-schemas`.
+      #   gettext            `xgettext`/`msgfmt`, which the gettext plugins spawn
+      #                      for `translations build` and for app-gnome's
+      #                      MetaInfo merge.
+      #   blueprint-compiler the 24 `.blp` templates app-gnome imports.
+      #   msitools           `wixl`, for the `.msi`.
+      #   zip                the browser archive.
+      # `.deb`, `.rpm` and both ship ZIPs need nothing: the CLI writes them
+      # itself. `glib-compile-schemas` is what every ship target does need, and
+      # it comes from glib2.
+      - name: Install container prerequisites
+        run: |
+          dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 \
+                         glib2 glib2-devel gettext blueprint-compiler msitools zip \
+                         xorg-x11-server-Xvfb
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Cache gjsify tarball store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/gjsify/tarballs
+          key: gjsify-tarballs-${{ hashFiles('gjsify-lock.json') }}
+          restore-keys: gjsify-tarballs-
+
+      - name: Install gjsify CLI
+        run: npm install -g @gjsify/cli@${{ env.GJSIFY_CLI_VERSION }}
+
+      - name: Install dependencies
+        run: gjsify install --immutable
+
+      - name: Use the workspace-pinned gjsify CLI
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Assert the CLI is the locked one
+        run: |
+          set -eu
+          locked=$(node -p "require('./node_modules/@gjsify/cli/package.json').version")
+          actual=$(gjsify --version)
+          echo "gjsify: $(command -v gjsify) -> $actual (lockfile: $locked)"
+          [ "$actual" = "$locked" ] || { echo "::error::gjsify $actual != locked $locked"; exit 1; }
+
+      # The version the artifacts are NAMED for comes from the same field
+      # `gjsify ship` stamps into the package metadata, so a mislabelled file is
+      # impossible. On a tag push it is additionally checked against the tag.
+      - name: Resolve and check the version
+        id: version
+        run: |
+          set -eu
+          version=$(node -p "require('./package.json').version")
+          echo "version=$version" >> "$GITHUB_OUTPUT"
+          # The nine package manifests and the AppStream release list have to
+          # agree with it before anything is labelled.
+          node build-aux/check-versions.js
+          ref="${{ inputs.tag || github.ref_name }}"
+          case "$ref" in
+            v*)
+              [ "${ref#v}" = "$version" ] || {
+                echo "::error::tag $ref does not match package.json version $version"
+                exit 1
+              } ;;
+            *)
+              echo "::notice::$ref is not a tag — building a dry run of $version" ;;
+          esac
+          echo "building artifacts for $version (ref $ref)"
+
+      - name: Build workspace dependencies
+        run: |
+          gjsify workspace @learn6502/core build
+          gjsify workspace @learn6502/examples build
+          gjsify workspace @learn6502/learn build
+          gjsify workspace @learn6502/translations build
+
+      # Both shipped bundles at once: the `--app gjs` one Linux runs, and the
+      # `--app node` one macOS and Windows run (neither has a GJS host).
+      - name: Build the shipped bundles
+        run: gjsify workspace @learn6502/app-gnome build:ship
+
+      # The macOS and Windows artifacts run this bundle and nothing else, and a
+      # bundle can fail before a window exists: `GObject.registerClass` runs in
+      # a static initializer at IMPORT, so a signal declared with a GType
+      # node-gi does not have kills the process on the first line of
+      # application code. That is not hypothetical — it shipped, and was found
+      # by running the `.app` on a real Mac rather than by any check here.
+      #
+      # Starting it under Node on THIS runner reproduces that class exactly,
+      # because the failure is in the bundle rather than in the host. Xvfb
+      # because the app opens a window; the marker is the app's own last line
+      # of start-up, so a process that merely survives is not enough.
+      #
+      # What this does NOT cover: it runs from `packages/app-gnome`, where the
+      # baked `./data` prefix still resolves, so the relocated data path is not
+      # exercised here. That half is only real once the payload has been staged
+      # and moved, and it is checked by running the `.app` and the Windows
+      # directory on their own systems.
+      - name: Smoke-test the node bundle
+        working-directory: packages/app-gnome
+        env:
+          GSETTINGS_SCHEMA_DIR: ${{ github.workspace }}/packages/app-gnome/data/schemas
+        run: |
+          set -eu
+          log=$(mktemp)
+          # Exit 124 is the timeout firing, which is the SUCCESS shape here: the
+          # app is still up. Any other non-zero means it died on its own.
+          status=0
+          xvfb-run -a timeout 30 node dist/node/eu.jumplink.Learn6502.mjs > "$log" 2>&1 || status=$?
+          cat "$log"
+          if [ "$status" -ne 124 ] && [ "$status" -ne 0 ]; then
+            echo "::error::the node bundle exited with $status instead of staying up"
+            exit 1
+          fi
+          grep -q "GameConsole: Initialization complete" "$log" || {
+            echo "::error::the node bundle started but never finished initialising"
+            exit 1
+          }
+
+      - name: Build the browser app
+        run: gjsify workspace @learn6502/app-web build:app
+
+      - name: Package for Linux
+        run: gjsify ship linux --skip-build
+
+      # The macOS and Windows runtimes are os/cpu-gated, so a plain install on
+      # this host skips them and `ship` would stage a bundle with no interpreter
+      # and no GTK — it says so loudly, but it still exits 0. Naming the target
+      # installs them; `gjsify install` skips its prune step whenever a target is
+      # typed, so the Linux prebuilds this CLI itself runs on survive.
+      - name: Package for macOS (arm64)
+        run: |
+          gjsify install --os darwin --cpu arm64 --immutable
+          gjsify ship darwin --arch arm64 --skip-build --target macos-app-zip
+
+      - name: Package for macOS (x64)
+        run: |
+          gjsify install --os darwin --cpu x64 --immutable
+          gjsify ship darwin --arch x64 --skip-build --target macos-app-zip
+
+      - name: Package for Windows (x64)
+        run: |
+          gjsify install --os win32 --cpu x64 --immutable
+          gjsify ship windows --arch x64 --skip-build --target windows-dir-zip,msi
+
+      # The browser build is two files and no server-side anything, but its entry
+      # is an ES module, so a browser refuses it over file:// — the note ships
+      # with the archive rather than being left for the downloader to discover.
+      - name: Package the browser app
+        run: |
+          set -eu
+          version='${{ steps.version.outputs.version }}'
+          cd packages/app-web
+          mv dist-app "Learn6502-$version-web"
+          cd "Learn6502-$version-web"
+          cat > README.txt <<'EOF'
+          Learn 6502 Assembly — browser build
+          
+          Serve this directory over HTTP and open it in a browser, for example:
+          
+              python3 -m http.server 8000
+          
+          then visit http://localhost:8000/
+          
+          Opening index.html directly from disk does not work: the entry point is
+          an ES module, and browsers refuse to load modules from a file:// URL.
+          
+          The same build runs online at https://jumplink.github.io/Learn6502/
+          EOF
+          # Packed from the parent so the archive has ONE top-level directory.
+          # Unzipping a flat archive scatters index.html, app.js and README.txt
+          # into whatever directory the reader happens to be standing in — the
+          # same reason `windows-dir-zip` wraps its tree in a named folder.
+          cd ..
+          zip -qr "$GITHUB_WORKSPACE/ship/out/Learn6502-$version-web.zip" "Learn6502-$version-web"
+
+      # `ship` names a macOS ZIP and a Windows ZIP with the SAME pattern —
+      # `<binaryName>-<version>-<release>.<arch>.zip` — so on a downloads page
+      # the only thing telling them apart is that macOS spells x64 `x86_64`
+      # while Windows spells it `x64`. That is an accident of two arch tables,
+      # not a label, and it leaves `…-1.arm64.zip` saying nothing about which OS
+      # it is for. Renamed here until the format rows carry the OS themselves.
+      # fixed upstream in gjsify: ship's macos-app-zip and windows-dir-zip share
+      # a fileName pattern with no OS in it — drop this step when that lands.
+      - name: Name the archives after their operating system
+        working-directory: ship/out
+        run: |
+          set -eu
+          version='${{ steps.version.outputs.version }}'
+          mv "eu.jumplink.Learn6502-$version-1.arm64.zip"  "Learn6502-$version-macOS-arm64.zip"
+          mv "eu.jumplink.Learn6502-$version-1.x86_64.zip" "Learn6502-$version-macOS-x86_64.zip"
+          mv "eu.jumplink.Learn6502-$version-1.x64.zip"    "Learn6502-$version-Windows-x64.zip"
+          mv "eu.jumplink.Learn6502-$version-1.x64.msi"    "Learn6502-$version-Windows-x64.msi"
+
+      # `ship` exits 0 after writing nothing when every target is filtered away,
+      # so each artifact is asserted by name rather than assumed. The names are
+      # the ones `utils/ship/formats.ts` renders, not guesses: macOS labels x64
+      # as `x86_64` (`MACOS_ARCH`) and Windows as `x64` (`WINDOWS_ARCH`).
+      - name: Assert every artifact arrived
+        working-directory: ship/out
+        run: |
+          set -eu
+          ls -la
+          version='${{ steps.version.outputs.version }}'
+          missing=0
+          for f in \
+            "eu.jumplink.Learn6502_$version-1_all.deb" \
+            "eu.jumplink.Learn6502-$version-1.noarch.rpm" \
+            "Learn6502-$version-macOS-arm64.zip" \
+            "Learn6502-$version-macOS-x86_64.zip" \
+            "Learn6502-$version-Windows-x64.zip" \
+            "Learn6502-$version-Windows-x64.msi" \
+            "Learn6502-$version-web.zip"
+          do
+            if [ ! -s "$f" ]; then
+              echo "::error::missing or empty artifact: $f"
+              missing=1
+            fi
+          done
+          [ "$missing" -eq 0 ]
+
+      # ~900 MB of this is already-compressed ZIPs; the default level 6 would
+      # spend minutes re-compressing them on the way up and again on the way
+      # down for no gain.
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: release-artifacts
+          path: ship/out/*
+          compression-level: 0
+          if-no-files-found: error
+
+  flatpak:
+    name: Flatpak bundle
+    runs-on: ubuntu-latest
+    container:
+      image: ghcr.io/flathub-infra/flatpak-github-actions:gnome-50
+      options: --privileged
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+          submodules: false
+
+      # The action uploads the bundle itself (`upload-artifact` defaults to
+      # true), so there is no upload step here — a second one would just publish
+      # the same file twice. `artifact-name` is pinned rather than left to its
+      # default (the bundle name tagged with the architecture), so the download
+      # in `publish` does not depend on how that default is spelled.
+      - name: Build Flatpak
+        uses: flatpak/flatpak-github-actions/flatpak-builder@v6
+        with:
+          manifest-path: eu.jumplink.Learn6502.json
+          bundle: eu.jumplink.Learn6502.flatpak
+          artifact-name: flatpak-bundle
+          cache-key: flatpak-builder-${{ github.sha }}
+
+  publish:
+    name: Attach to the release
+    needs: [artifacts, flatpak]
+    # A branch dry run produces artifacts and stops: `inputs.publish` alone is not
+    # enough, because the name it would upload to is a branch, not a release.
+    if: ${{ startsWith(github.ref, 'refs/tags/v') || (inputs.publish && inputs.tag != '') }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Download every artifact
+        uses: actions/download-artifact@v4
+        with:
+          path: assets
+          merge-multiple: true
+
+      # A tag push creates no release on its own, and `gh release upload` against
+      # a tag that has none fails with "release not found" after every artifact
+      # has already been built. Create it first when it is missing — as a draft,
+      # so the notes can be written before anyone is notified — and leave an
+      # existing one alone, which is what makes re-running this on a tag safe.
+      - name: Attach them to the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -eu
+          ls -la assets/
+          [ -n "$(ls -A assets)" ] || { echo "::error::no assets were downloaded"; exit 1; }
+          if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "no release for $TAG yet — creating it as a draft"
+            gh release create "$TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "$TAG" \
+              --draft \
+              --generate-notes
+          fi
+          gh release upload "$TAG" assets/* --clobber --repo "$GITHUB_REPOSITORY"
+          echo "Attached $(ls assets | wc -l) asset(s) to $TAG:"
+          ls assets/
