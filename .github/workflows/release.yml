@@ -63,7 +63,16 @@ jobs:
       #   gettext            `xgettext`/`msgfmt`, which the gettext plugins spawn
       #                      for `translations build` and for app-gnome's
       #                      MetaInfo merge.
-      #   blueprint-compiler the 24 `.blp` templates app-gnome imports.
+      #   blueprint-compiler the 24 `.blp` templates app-gnome imports, plus
+      #                      libadwaita and gtksourceview5 for the TYPELIBS it
+      #                      resolves `using Adw 1` and `using GtkSource 5`
+      #                      against — blueprintcompiler/gir.py reads them
+      #                      through GIRepository, so the compiler alone is not
+      #                      enough. Measured: without libadwaita exactly the 22
+      #                      `.blp` files that say `using Adw 1` failed to load
+      #                      and the two that do not succeeded, and rolldown
+      #                      reported only "Could not load <file>" — the
+      #                      compiler's own message never reaches the log.
       #   msitools           `wixl`, for the `.msi`.
       #   zip                the browser archive.
       # `.deb`, `.rpm` and both ship ZIPs need nothing: the CLI writes them
@@ -72,8 +81,8 @@ jobs:
       - name: Install container prerequisites
         run: |
           dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 \
-                         glib2 glib2-devel gettext blueprint-compiler msitools zip \
-                         xorg-x11-server-Xvfb
+                         glib2 glib2-devel gettext blueprint-compiler libadwaita gtksourceview5 \
+                         msitools zip xorg-x11-server-Xvfb
 
       - name: Checkout repository
         uses: actions/checkout@v6
