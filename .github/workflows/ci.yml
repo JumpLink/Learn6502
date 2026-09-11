@@ -66,6 +66,18 @@ jobs:
       - name: Check version consistency
         run: gjsify run check:versions
 
+      # The Flatpak build has no network: flatpak-builder fills a cache from
+      # `gjsify-sources.json` and Meson then runs `gjsify install --immutable`
+      # against it. A tarball the lockfile pins and the sources array omits is a
+      # download that cannot happen, and the sandbox reports it as
+      # `meson.build:23 … failed with status 1` and nothing else. The two files
+      # are re-cut by different commands, so they come apart whenever a
+      # dependency is added without `gjsify flatpak sources` — which is exactly
+      # how this branch turned the Flatpak job red while every local check
+      # passed.
+      - name: Check the Flatpak offline sources
+        run: gjsify run check:flatpak:sources
+
       - name: Check formatting
         run: gjsify format --check
 
