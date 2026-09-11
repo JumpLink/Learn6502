@@ -1,8 +1,28 @@
 {
   "name": "learn6502",
+  "version": "0.7.0",
   "type": "module",
   "private": true,
   "gjsify": {
+    "ship": {
+      "binaryName": "eu.jumplink.Learn6502",
+      "bundle": {
+        "linux": "packages/app-gnome/dist/gjs/eu.jumplink.Learn6502",
+        "darwin": "packages/app-gnome/dist/node/eu.jumplink.Learn6502.mjs",
+        "win32": "packages/app-gnome/dist/node/eu.jumplink.Learn6502.mjs"
+      },
+      "app": {
+        "darwin": "node",
+        "win32": "node"
+      },
+      "icon": "packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg",
+      "schemas": "packages/app-gnome/data/eu.jumplink.Learn6502.gschema.xml",
+      "localeDir": "packages/translations/dist/locale",
+      "licenseFile": "LICENSE",
+      "extraFiles": {
+        "lib/eu.jumplink.Learn6502/eu.jumplink.Learn6502.data.gresource": "packages/app-gnome/data/eu.jumplink.Learn6502.data.gresource"
+      }
+    },
     "flatpak": {
       "appId": "eu.jumplink.Learn6502",
       "kind": "app",
@@ -393,6 +413,7 @@
     "check": "gjsify foreach -v -t check",
     "check:flatpak:repo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo",
     "check:format": "gjsify format --check",
+    "check:versions": "node build-aux/check-versions.js",
     "flatpak:regen": "gjsify flatpak init --force --metainfo packages/app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in --desktop packages/app-gnome/data/eu.jumplink.Learn6502.desktop.in",
     "start": "gjsify run start:gnome",
     "start:gnome": "gjsify workspace @learn6502/app-gnome start",

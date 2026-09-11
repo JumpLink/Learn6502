@@ -41,6 +41,49 @@ bundle as exit 1. The residual hole is narrower but not zero — a dispatched co
 neither throws nor sets `process.exitCode` still yields 0 — so keep the chains: they cost
 nothing and they do not depend on the fix holding.
 
+## Releases
+
+A tag produces artifacts. Until 0.7.0 it produced none — Flathub was the only way
+to get the app, which leaves out Windows, macOS, every non-Flatpak Linux and
+anyone archiving a copy (issue #93). `.github/workflows/release.yml` builds the
+`.deb`, the `.rpm`, a macOS `.app` (arm64 + x86_64), a Windows program directory
+and `.msi`, the browser build and the Flatpak bundle, and attaches them to the
+GitHub release.
+
+Everything but the Flatpak comes from `gjsify ship`, configured in the **root**
+`package.json#gjsify.ship`. Not in app-gnome: `ship` takes its metadata from
+`gjsify.flatpak`, which lives in the root, and one manifest means the AppStream
+data has one home rather than two that drift.
+
+**Two bundles, one source.** Linux runs `--app gjs`. macOS and Windows have no
+GJS host at all, so they run `--app node` through `@gjsify/node-gi`.
+`gjsify workspace @learn6502/app-gnome build:ship` builds both, into `dist/gjs/`
+and `dist/node/`. The ordinary `build` is untouched — it stays the fast path for
+development and is what Meson calls.
+
+**Data is found beside the bundle, not at a baked prefix.** Meson and Flatpak
+install to a prefix known before the bundle is written, so `__PKGDATADIR__` is
+right there. A `.app` is dragged anywhere and a Windows directory is unzipped
+anywhere, so it is wrong there by construction. `src/install-paths.ts` looks next
+to the bundle first — via `__gjsifyBundleUrl`, which every gjsify bundle sets on
+its first line — and falls back to the baked prefix. `ship` stages the whole
+directory the bundle lives in into `lib/<binaryName>/` and maps that per layout,
+so one relative step answers on all three. **Anything the app loads at run time
+belongs in that directory**, declared through `gjsify.ship.extraFiles`.
+
+**The macOS and Windows runtimes are os/cpu-gated.** A plain `gjsify install` on
+a Linux runner skips them, and `ship` then stages a bundle with no interpreter
+and no GTK — it says so loudly and still exits 0. `gjsify install --os darwin
+--cpu arm64` (and the win32 pair) installs them; `gjsify install` skips its prune
+step whenever a target is typed, so the Linux prebuilds the CLI itself runs on
+survive.
+
+**One version, eleven places.** `gjsify run check:versions` holds the root
+manifest, the nine package manifests and the AppStream release list to a single
+value, and CI runs it on every push. Changesets' `fixed: [["@learn6502/*"]]` does
+not match the private root package and the release list is written by hand, so
+without it a tag can label a `.deb` from a tree that says something else.
+
 ## TypeScript
 
 Applies to all `.ts`/`.tsx` files.

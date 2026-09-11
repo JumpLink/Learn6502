@@ -57,6 +57,15 @@ jobs:
           echo "gjsify: $(command -v gjsify) -> $actual (lockfile: $locked)"
           [ "$actual" = "$locked" ] || { echo "::error::gjsify $actual != locked $locked"; exit 1; }
 
+      # One version lives in eleven places — the root manifest `gjsify ship`
+      # stamps into every artifact, the nine package manifests, and the
+      # AppStream release list users see in a store. Nothing keeps them in step
+      # on its own (changesets' `fixed` pattern does not match the private root
+      # package, and the release list is written by hand), so a tag can produce
+      # a `.deb` labelled one version from a tree that says another.
+      - name: Check version consistency
+        run: gjsify run check:versions
+
       - name: Check formatting
         run: gjsify format --check
 
