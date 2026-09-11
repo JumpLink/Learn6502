@@ -16,6 +16,40 @@ import Template from "./share-dialog.blp";
 const GITHUB_OWNER = "JumpLink";
 const GITHUB_REPO = "Learn6502";
 
+/**
+ * The signals this widget registers, on top of Adw.Dialog's.
+ *
+ * @girs 5.0.0 keys `connect`, `connect_after` and `emit` to a per-class
+ * `SignalSignatures` map. A subclass that registers its own signals is not in
+ * its parent's map, so `connect("…")` is rejected by name and the callback's
+ * parameters degrade to implicit `any` — two errors from one cause.
+ *
+ * Declaration merging rather than overriding the inherited methods: it ADDS
+ * overloads beside the ones Adw.Dialog already has, so both the inherited
+ * signals and these resolve, and nothing needs an `any` escape hatch.
+ */
+export namespace ShareDialog {
+  export interface SignalSignatures extends Adw.Dialog.SignalSignatures {
+    submit: () => void;
+  }
+}
+
+export interface ShareDialog {
+  $signals: ShareDialog.SignalSignatures;
+  connect<K extends keyof ShareDialog.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, ShareDialog.SignalSignatures[K]>
+  ): number;
+  connect_after<K extends keyof ShareDialog.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, ShareDialog.SignalSignatures[K]>
+  ): number;
+  emit<K extends keyof ShareDialog.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<ShareDialog.SignalSignatures[K]>
+  ): void;
+}
+
 export class ShareDialog extends Adw.Dialog {
   declare private _carousel: Adw.Carousel;
   declare private _backButton: Gtk.Button;

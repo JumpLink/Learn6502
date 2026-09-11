@@ -18,6 +18,40 @@ const PDI = "\u2069";
  * Provides common functionality for handling source views and other MDX elements
  * This class is designed to be extended by concrete implementations with specific templates
  */
+/**
+ * The signals this widget registers, on top of Adw.Bin's.
+ *
+ * @girs 5.0.0 keys `connect`, `connect_after` and `emit` to a per-class
+ * `SignalSignatures` map. A subclass that registers its own signals is not in
+ * its parent's map, so `connect("…")` is rejected by name and the callback's
+ * parameters degrade to implicit `any` — two errors from one cause.
+ *
+ * Declaration merging rather than overriding the inherited methods: it ADDS
+ * overloads beside the ones Adw.Bin already has, so both the inherited
+ * signals and these resolve, and nothing needs an `any` escape hatch.
+ */
+export namespace MdxView {
+  export interface SignalSignatures extends Adw.Bin.SignalSignatures {
+    copy: (code: string) => void;
+  }
+}
+
+export interface MdxView {
+  $signals: MdxView.SignalSignatures;
+  connect<K extends keyof MdxView.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, MdxView.SignalSignatures[K]>
+  ): number;
+  connect_after<K extends keyof MdxView.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, MdxView.SignalSignatures[K]>
+  ): number;
+  emit<K extends keyof MdxView.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<MdxView.SignalSignatures[K]>
+  ): void;
+}
+
 export class MdxView extends Adw.Bin {
   static {
     GObject.registerClass(

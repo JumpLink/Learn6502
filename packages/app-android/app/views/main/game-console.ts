@@ -127,7 +127,9 @@ export class GameConsole implements GameConsoleView {
     ): AdwImageButton => {
       const b = new AdwImageButton();
       b.iconName = icon;
-      b.iconSize = 22;
+      // @girs/adwaita-nativescript 0.50.0: iconSize is the enum nick, and a
+      // size in DIPs is pixelSize (gjsify#1584). 22 was always a pixel count.
+      b.pixelSize = 22;
       b.iconColor = "#ffffff";
       b.width = 52;
       b.height = 52;
