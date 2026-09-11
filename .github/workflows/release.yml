@@ -30,6 +30,13 @@ on:
 permissions:
   contents: write
 
+# Two tags pushed seconds apart would otherwise run twice against one release
+# and upload in whichever order finished last. Queued rather than cancelled:
+# a half-uploaded release is worse than a slow one.
+concurrency:
+  group: release-${{ github.workflow }}-${{ inputs.tag || github.ref_name }}
+  cancel-in-progress: false
+
 env:
   # Bootstrap pin. Must equal the version `gjsify-lock.json` resolves — the
   # assertion step below fails the run when the two drift, the same guard
@@ -41,15 +48,31 @@ jobs:
     name: Build artifacts
     runs-on: ubuntu-latest
     # Fedora for the same reason ci.yml uses it: the build spawns `gjs`, which
-    # ubuntu-latest does not ship. msitools supplies `wixl`, the only external
-    # tool any of these formats needs (`.deb`, `.rpm` and both ZIPs are written
-    # by the CLI itself).
+    # ubuntu-latest does not ship.
     container:
       image: fedora:43
 
     steps:
+      # A superset of ci.yml's list, because this workflow is the first to run
+      # things ci.yml never does — it builds the app-gnome bundle and the
+      # catalogues, where ci.yml only type-checks them. Each addition is a tool
+      # some step shells out to:
+      #   glib2-devel        `glib-compile-resources`, for `build:resources`.
+      #                      Plain glib2 carries only `glib-compile-schemas`.
+      #   gettext            `xgettext`/`msgfmt`, which the gettext plugins spawn
+      #                      for `translations build` and for app-gnome's
+      #                      MetaInfo merge.
+      #   blueprint-compiler the 24 `.blp` templates app-gnome imports.
+      #   msitools           `wixl`, for the `.msi`.
+      #   zip                the browser archive.
+      # `.deb`, `.rpm` and both ship ZIPs need nothing: the CLI writes them
+      # itself. `glib-compile-schemas` is what every ship target does need, and
+      # it comes from glib2.
       - name: Install container prerequisites
-        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 glib2 msitools zip
+        run: |
+          dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 \
+                         glib2 glib2-devel gettext blueprint-compiler msitools zip \
+                         xorg-x11-server-Xvfb
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -119,6 +142,44 @@ jobs:
       - name: Build the shipped bundles
         run: gjsify workspace @learn6502/app-gnome build:ship
 
+      # The macOS and Windows artifacts run this bundle and nothing else, and a
+      # bundle can fail before a window exists: `GObject.registerClass` runs in
+      # a static initializer at IMPORT, so a signal declared with a GType
+      # node-gi does not have kills the process on the first line of
+      # application code. That is not hypothetical — it shipped, and was found
+      # by running the `.app` on a real Mac rather than by any check here.
+      #
+      # Starting it under Node on THIS runner reproduces that class exactly,
+      # because the failure is in the bundle rather than in the host. Xvfb
+      # because the app opens a window; the marker is the app's own last line
+      # of start-up, so a process that merely survives is not enough.
+      #
+      # What this does NOT cover: it runs from `packages/app-gnome`, where the
+      # baked `./data` prefix still resolves, so the relocated data path is not
+      # exercised here. That half is only real once the payload has been staged
+      # and moved, and it is checked by running the `.app` and the Windows
+      # directory on their own systems.
+      - name: Smoke-test the node bundle
+        working-directory: packages/app-gnome
+        env:
+          GSETTINGS_SCHEMA_DIR: ${{ github.workspace }}/packages/app-gnome/data/schemas
+        run: |
+          set -eu
+          log=$(mktemp)
+          # Exit 124 is the timeout firing, which is the SUCCESS shape here: the
+          # app is still up. Any other non-zero means it died on its own.
+          status=0
+          xvfb-run -a timeout 30 node dist/node/eu.jumplink.Learn6502.mjs > "$log" 2>&1 || status=$?
+          cat "$log"
+          if [ "$status" -ne 124 ] && [ "$status" -ne 0 ]; then
+            echo "::error::the node bundle exited with $status instead of staying up"
+            exit 1
+          fi
+          grep -q "GameConsole: Initialization complete" "$log" || {
+            echo "::error::the node bundle started but never finished initialising"
+            exit 1
+          }
+
       - name: Build the browser app
         run: gjsify workspace @learn6502/app-web build:app
 
@@ -132,17 +193,17 @@ jobs:
       # typed, so the Linux prebuilds this CLI itself runs on survive.
       - name: Package for macOS (arm64)
         run: |
-          gjsify install --os darwin --cpu arm64
+          gjsify install --os darwin --cpu arm64 --immutable
           gjsify ship darwin --arch arm64 --skip-build --target macos-app-zip
 
       - name: Package for macOS (x64)
         run: |
-          gjsify install --os darwin --cpu x64
+          gjsify install --os darwin --cpu x64 --immutable
           gjsify ship darwin --arch x64 --skip-build --target macos-app-zip
 
       - name: Package for Windows (x64)
         run: |
-          gjsify install --os win32 --cpu x64
+          gjsify install --os win32 --cpu x64 --immutable
           gjsify ship windows --arch x64 --skip-build --target windows-dir-zip,msi
 
       # The browser build is two files and no server-side anything, but its entry
@@ -151,7 +212,10 @@ jobs:
       - name: Package the browser app
         run: |
           set -eu
-          cd packages/app-web/dist-app
+          version='${{ steps.version.outputs.version }}'
+          cd packages/app-web
+          mv dist-app "Learn6502-$version-web"
+          cd "Learn6502-$version-web"
           cat > README.txt <<'EOF'
           Learn 6502 Assembly — browser build
           
@@ -166,7 +230,12 @@ jobs:
           
           The same build runs online at https://jumplink.github.io/Learn6502/
           EOF
-          zip -r "$GITHUB_WORKSPACE/ship/out/Learn6502-${{ steps.version.outputs.version }}-web.zip" .
+          # Packed from the parent so the archive has ONE top-level directory.
+          # Unzipping a flat archive scatters index.html, app.js and README.txt
+          # into whatever directory the reader happens to be standing in — the
+          # same reason `windows-dir-zip` wraps its tree in a named folder.
+          cd ..
+          zip -qr "$GITHUB_WORKSPACE/ship/out/Learn6502-$version-web.zip" "Learn6502-$version-web"
 
       # `ship` names a macOS ZIP and a Windows ZIP with the SAME pattern —
       # `<binaryName>-<version>-<release>.<arch>.zip` — so on a downloads page
@@ -213,11 +282,15 @@ jobs:
           done
           [ "$missing" -eq 0 ]
 
+      # ~900 MB of this is already-compressed ZIPs; the default level 6 would
+      # spend minutes re-compressing them on the way up and again on the way
+      # down for no gain.
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
           name: release-artifacts
           path: ship/out/*
+          compression-level: 0
           if-no-files-found: error
 
   flatpak:
@@ -272,6 +345,7 @@ jobs:
         run: |
           set -eu
           ls -la assets/
+          [ -n "$(ls -A assets)" ] || { echo "::error::no assets were downloaded"; exit 1; }
           if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
             echo "no release for $TAG yet — creating it as a draft"
             gh release create "$TAG" \

@@ -26,14 +26,26 @@ import { DATADIR, PKGDATADIR } from "./constants.ts";
  * The directory the running bundle sits in, or `null` when that cannot be
  * established.
  *
- * `__gjsifyBundleUrl` is set by every `gjsify build` bundle on its first line,
- * from its own `import.meta.url`. Reading it rather than `programInvocationName`
- * matters for the shipped layouts: what the user launches there is a wrapper
- * script in `bin/` (or `Contents/MacOS/`), so the invocation name points at the
- * launcher's directory, which is not where the data was staged.
+ * Two spellings, because the bundlers differ and only one of them was obvious.
+ * `--app gjs` bundles open with `globalThis.__gjsifyBundleUrl ??=
+ * import.meta.url`, a banner that exists precisely because gjsify's own module
+ * rewriter may rewrite a per-module `import.meta.url` inside a GJS bundle — so
+ * on that target the banner is the only trustworthy anchor. `--app node`
+ * bundles carry no banner: it rides on the `process` stub, which Node does not
+ * need, so there `import.meta.url` is both untouched and correct.
+ *
+ * Reading either rather than `programInvocationName` matters for the shipped
+ * layouts: what the user launches is a wrapper in `bin/` or `Contents/MacOS/`,
+ * so the invocation name points at the launcher's directory and not at the
+ * staged data.
+ *
+ * Measured: with only the banner consulted, the `.app` on macOS 15.7.9 died in
+ * `initResources` with "not found in ./data" — the node bundle has no banner,
+ * the search fell through to the baked prefix, and the baked prefix is a
+ * relative path that means nothing inside a bundle a user dragged somewhere.
  */
 const bundleDir = (): string | null => {
-  const url = globalThis.__gjsifyBundleUrl;
+  const url = globalThis.__gjsifyBundleUrl ?? import.meta.url;
   if (!url) {
     return null;
   }

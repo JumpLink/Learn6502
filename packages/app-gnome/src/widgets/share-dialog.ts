@@ -33,6 +33,7 @@ export class ShareDialog extends Adw.Dialog {
   private _memory: Memory | null = null;
   private _currentPage: number = 0;
   private _issueBody: string = "";
+  private _submittedExample: ExampleMeta | null = null;
 
   static {
     GObject.registerClass(
@@ -53,13 +54,34 @@ export class ShareDialog extends Adw.Dialog {
           "closeButton",
         ],
         Signals: {
-          submit: {
-            param_types: [GObject.TYPE_JSOBJECT],
-          },
+          // No `param_types`. The obvious spelling here is
+          // `[GObject.TYPE_JSOBJECT]`, and it worked — under GJS only.
+          // `JSObject` is a boxed type GJS registers from its own SpiderMonkey
+          // glue; libgobject does not know it, so on a `--app node` host
+          // `GObject.TYPE_JSOBJECT` is `undefined` and `registerClass` refuses
+          // the signal before a window is ever built. Measured on macOS 15.7.9
+          // from the shipped `.app`: "signal 'submit' param_types[0] is not a
+          // type ... got undefined", and the process died at import.
+          //
+          // The submitted example is read from {@link submittedExample}
+          // instead. A signal says that something happened; the object it
+          // happened to is where the data lives, and that spelling is portable
+          // to every host this app is shipped for.
+          submit: {},
         },
       },
       this
     );
+  }
+
+  /**
+   * The example the user submitted, or `null` before they have.
+   *
+   * Read this in a `submit` handler; the signal carries no parameters, for the
+   * reason written at its declaration.
+   */
+  public get submittedExample(): ExampleMeta | null {
+    return this._submittedExample;
   }
 
   constructor(params?: Partial<Adw.Dialog.ConstructorProps>) {
@@ -374,8 +396,10 @@ export class ShareDialog extends Adw.Dialog {
       console.log(`URL too long (${result.url.length} chars), body copied to clipboard`);
     }
 
-    // Emit submit signal with the example data
-    this.emit("submit", example);
+    // Publish the payload before announcing it: a handler runs synchronously
+    // inside `emit`, so the getter has to already answer.
+    this._submittedExample = example;
+    this.emit("submit");
 
     // Navigate to completion page
     this.navigateToPage(2);
