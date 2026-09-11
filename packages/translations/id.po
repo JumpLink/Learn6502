@@ -562,6 +562,10 @@ msgstr "Percabangan"
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
 msgstr "Flag Break: Diset saat instruksi BRK (Break) dieksekusi. Digunakan untuk membedakan antara interrupt perangkat lunak (BRK) dan interrupt perangkat keras. Membantu mengidentifikasi sumber interrupt dalam rutinitas layanan interrupt."
 
+#. TRANSLATORS: Example description for Line Buster 6502
+msgid "Break the blocks with the paddle and ball."
+msgstr ""
+
 #. TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
 msgstr "Dengan mengirimkan, Anda menyetujui bahwa contoh Anda akan dilisensikan di bawah <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
@@ -662,6 +666,10 @@ msgstr "Flag Decimal: Mengaktifkan mode Binary Coded Decimal (BCD) untuk operasi
 #. TRANSLATORS: Entry label for example description
 msgid "Description"
 msgstr "Deskripsi"
+
+#. TRANSLATORS: Example title for Dino Run
+msgid "Dino Run"
+msgstr ""
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
@@ -1059,6 +1067,10 @@ msgstr "Belajar dari contoh tidak pernah semudah ini. Selami kode yang berjalan,
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
 msgstr "Gaya terang"
+
+#. TRANSLATORS: Example title for Line Buster 6502
+msgid "Line Buster 6502"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1626,6 +1638,10 @@ msgstr "Subrutin berikutnya, <tt>checkCollision</tt>, mendelegasikan ke <tt>chec
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
 msgstr "Subrutin berikutnya, <tt>generateApplePosition</tt>, mengatur lokasi apel ke posisi acak pada tampilan. Pertama, ia memuat byte acak ke dalam accumulator (<tt>$fe</tt> adalah generator bilangan acak dalam simulator ini). Ini disimpan ke <tt>$00</tt>. Selanjutnya, byte acak yang berbeda dimuat ke dalam accumulator, yang kemudian di-<tt>AND</tt>-kan dengan nilai <tt>$03</tt>. Bagian ini memerlukan sedikit pengalihan."
+
+#. TRANSLATORS: Example description for Dino Run
+msgid "The offline browser run game made for 5602 assembly"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."

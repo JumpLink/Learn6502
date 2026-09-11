@@ -561,6 +561,10 @@ msgstr "分岐"
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
 msgstr "ブレークフラグ: BRK（ブレーク）命令実行時にセット。ソフトウェア割り込み（BRK）とハードウェア割り込みの区別に用いられ、割り込みサービスルーチンで発生源の特定に役立ちます。"
 
+#. TRANSLATORS: Example description for Line Buster 6502
+msgid "Break the blocks with the paddle and ball."
+msgstr ""
+
 #. TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
 msgstr "送信することで、あなたの例が <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a> の下でライセンスされることに同意します。"
@@ -661,6 +665,10 @@ msgstr "デシマルフラグ: 算術演算をBCD (十進化) モードにしま
 #. TRANSLATORS: Entry label for example description
 msgid "Description"
 msgstr "説明"
+
+#. TRANSLATORS: Example title for Dino Run
+msgid "Dino Run"
+msgstr ""
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
@@ -1058,6 +1066,10 @@ msgstr "例から学ぶことがこれほど簡単になったことはありま
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
 msgstr "ライトスタイル"
+
+#. TRANSLATORS: Example title for Line Buster 6502
+msgid "Line Buster 6502"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1625,6 +1637,10 @@ msgstr "次の <tt>checkCollision</tt> は <tt>checkAppleCollision</tt> と <tt>
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
 msgstr "次の <tt>generateApplePosition</tt> はりんごの位置をランダムに設定します。まず乱数バイトをアキュムレータへ読み込み（このシミュレーターでは <tt>$fe</tt> が乱数源）、<tt>$00</tt> に保存。次に別の乱数を読み込み、<tt>$03</tt> と <tt>AND</tt> します。ここで少し寄り道が必要です。"
+
+#. TRANSLATORS: Example description for Dino Run
+msgid "The offline browser run game made for 5602 assembly"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."

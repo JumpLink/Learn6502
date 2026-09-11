@@ -562,6 +562,10 @@ msgstr "分支"
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
 msgstr "中断标志（B）：执行 BRK（中断）指令时置位。用于区分软件中断（BRK）与硬件中断，帮助在中断服务程序中识别中断来源。"
 
+#. TRANSLATORS: Example description for Line Buster 6502
+msgid "Break the blocks with the paddle and ball."
+msgstr ""
+
 #. TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
 msgstr "提交即表示您同意您的示例将根据 <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a> 进行许可。"
@@ -662,6 +666,10 @@ msgstr "十进制标志（D）：启用 BCD（压缩十进制）模式。置位�
 #. TRANSLATORS: Entry label for example description
 msgid "Description"
 msgstr "描述"
+
+#. TRANSLATORS: Example title for Dino Run
+msgid "Dino Run"
+msgstr ""
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
@@ -1059,6 +1067,10 @@ msgstr "通过示例学习从未如此简单。深入研究可运行的代码，
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
 msgstr "浅色样式"
+
+#. TRANSLATORS: Example title for Line Buster 6502
+msgid "Line Buster 6502"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1626,6 +1638,10 @@ msgstr "接下来的子程序 <tt>checkCollision</tt> 进一步调用 <tt>checkA
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
 msgstr "接下来的子程序 <tt>generateApplePosition</tt> 将苹果位置设置为屏幕上的随机位置。首先，将一个随机字节载入累加器（本模拟器中 <tt>$fe</tt> 为随机数生成器），并存入 <tt>$00</tt>。随后再载入一个不同的随机字节，与 <tt>$03</tt> 进行 <tt>AND</tt> 运算。此处需要一点额外说明。"
+
+#. TRANSLATORS: Example description for Dino Run
+msgid "The offline browser run game made for 5602 assembly"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."

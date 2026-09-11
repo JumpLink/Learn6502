@@ -562,6 +562,10 @@ msgstr "கிளையிடுதல்"
 msgid "Break Flag: Set when a BRK (Break) instruction is executed. Used to distinguish between software interrupts (BRK) and hardware interrupts. Helps identify the source of an interrupt in interrupt service routines."
 msgstr "பிரேக் ஃபிளாக்: BRK (பிரேக்) அறிவுறுத்தல் செயல்படுத்தப்படும் போது அமைக்கவும். மென்பொருள் குறுக்கீடுகள் (BRK) மற்றும் வன்பொருள் குறுக்கீடுகளை வேறுபடுத்திப் பார்க்கப் பயன்படுகிறது. குறுக்கீடு பணி நடைமுறைகளில் குறுக்கீட்டின் மூலத்தைக் கண்டறிய உதவுகிறது."
 
+#. TRANSLATORS: Example description for Line Buster 6502
+msgid "Break the blocks with the paddle and ball."
+msgstr ""
+
 #. TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
 msgstr "சமர்ப்பிப்பதன் மூலம், உங்கள் எடுத்துக்காட்டு <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a> இன் கீழ் உரிமம் பெறப்படும் என்பதை ஒப்புக்கொள்கிறீர்கள்."
@@ -662,6 +666,10 @@ msgstr "தசமக் கொடி: எண்கணித செயல்ப�
 #. TRANSLATORS: Entry label for example description
 msgid "Description"
 msgstr "விவரம்"
+
+#. TRANSLATORS: Example title for Dino Run
+msgid "Dino Run"
+msgstr ""
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
@@ -1059,6 +1067,10 @@ msgstr "சான்று மூலம் கற்றல் எப்போத
 #. TRANSLATORS: Accessibility label for light theme option
 msgid "Light style"
 msgstr "ஒளி பாணி"
+
+#. TRANSLATORS: Example title for Line Buster 6502
+msgid "Line Buster 6502"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1626,6 +1638,10 @@ msgstr "அடுத்த சப்ரூட்டீன், <tt>checkCollision
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple location to a random position on the display. First, it loads a random byte into the accumulator (<tt>$fe</tt> is a random number generator in this simulator). This is stored into <tt>$00</tt>. Next, a different random byte is loaded into the accumulator, which is then <tt>AND</tt>-ed with the value <tt>$03</tt>. This part requires a bit of a detour."
 msgstr "அடுத்த சப்ரூட்டின், <tt>generateApplePosition</tt>, ஆப்பிளின் இருப்பிடத்தைக் காட்சியில் ஒரு சீரற்ற நிலைக்கு அமைக்கிறது. முதலில், இது ஒரு சீரற்ற பைட்டைத் திரட்டியில் ஏற்றுகிறது (<tt>$fe</tt> என்பது இந்த சிமுலேட்டரில் உள்ள சீரற்ற எண் உருவாக்கி). இது <tt>$00</tt> இல் சேமிக்கப்படுகிறது. அடுத்து, வேறொரு சீரற்ற பைட் திரட்டியில் ஏற்றப்பட்டு, அது <tt>$03</tt> மதிப்புடன் <tt>AND</tt> செய்யப்படுகிறது. இந்தப் பகுதிக்குச் சற்று மாற்றுப்பாதை தேவைப்படுகிறது."
+
+#. TRANSLATORS: Example description for Dino Run
+msgid "The offline browser run game made for 5602 assembly"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."
