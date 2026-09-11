@@ -8,6 +8,40 @@ import type { Display } from "./game-console/display.ts";
 
 import Template from "./example-list-item.blp";
 
+/**
+ * The signals this widget registers, on top of Gtk.Box's.
+ *
+ * @girs 5.0.0 keys `connect`, `connect_after` and `emit` to a per-class
+ * `SignalSignatures` map. A subclass that registers its own signals is not in
+ * its parent's map, so `connect("…")` is rejected by name and the callback's
+ * parameters degrade to implicit `any` — two errors from one cause.
+ *
+ * Declaration merging rather than overriding the inherited methods: it ADDS
+ * overloads beside the ones Gtk.Box already has, so both the inherited
+ * signals and these resolve, and nothing needs an `any` escape hatch.
+ */
+export namespace ExampleListItem {
+  export interface SignalSignatures extends Gtk.Box.SignalSignatures {
+    "copy-code": (code: string) => void;
+  }
+}
+
+export interface ExampleListItem {
+  $signals: ExampleListItem.SignalSignatures;
+  connect<K extends keyof ExampleListItem.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, ExampleListItem.SignalSignatures[K]>
+  ): number;
+  connect_after<K extends keyof ExampleListItem.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, ExampleListItem.SignalSignatures[K]>
+  ): number;
+  emit<K extends keyof ExampleListItem.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<ExampleListItem.SignalSignatures[K]>
+  ): void;
+}
+
 export class ExampleListItem extends Gtk.Box {
   declare private _titleLabel: Gtk.Label;
   declare private _authorLabel: Gtk.Label;

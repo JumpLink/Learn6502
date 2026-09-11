@@ -69,7 +69,7 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.49.0
+        run: npm install -g @gjsify/cli@0.50.0
 
       - name: Install dependencies
         run: gjsify install --immutable

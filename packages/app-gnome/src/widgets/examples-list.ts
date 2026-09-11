@@ -7,6 +7,40 @@ import { ExampleListItem } from "./example-list-item.ts";
 
 import Template from "./examples-list.blp";
 
+/**
+ * The signals this widget registers, on top of Gtk.Box's.
+ *
+ * @girs 5.0.0 keys `connect`, `connect_after` and `emit` to a per-class
+ * `SignalSignatures` map. A subclass that registers its own signals is not in
+ * its parent's map, so `connect("…")` is rejected by name and the callback's
+ * parameters degrade to implicit `any` — two errors from one cause.
+ *
+ * Declaration merging rather than overriding the inherited methods: it ADDS
+ * overloads beside the ones Gtk.Box already has, so both the inherited
+ * signals and these resolve, and nothing needs an `any` escape hatch.
+ */
+export namespace ExamplesList {
+  export interface SignalSignatures extends Gtk.Box.SignalSignatures {
+    "copy-code": (code: string) => void;
+  }
+}
+
+export interface ExamplesList {
+  $signals: ExamplesList.SignalSignatures;
+  connect<K extends keyof ExamplesList.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, ExamplesList.SignalSignatures[K]>
+  ): number;
+  connect_after<K extends keyof ExamplesList.SignalSignatures>(
+    signal: K,
+    callback: GObject.SignalCallback<this, ExamplesList.SignalSignatures[K]>
+  ): number;
+  emit<K extends keyof ExamplesList.SignalSignatures>(
+    signal: K,
+    ...args: GObject.GjsParameters<ExamplesList.SignalSignatures[K]>
+  ): void;
+}
+
 export class ExamplesList extends Gtk.Box {
   private examples: ExampleMeta[] = Object.values(Examples);
 
