@@ -176,6 +176,16 @@ TextView.no-underline {
   android-elevation: 0;
 }
 
+/* The A/B letters live in the button's own `.adw-button-label` child since
+   Gtk.Button became a GridLayout (gjsify 0.49.0). The theme gives that label an
+   explicit near-black colour at 15pt, which beats the colour/size inherited from
+   the rule above — so the OSD letters have to be restated here, the same way the
+   theme restates them for `.adw-button.suggested-action .adw-button-label`. */
+.gamepad-action-button .adw-button-label {
+  color: #ffffff;
+  font-size: 20;
+}
+
 .ns-dark .gamepad-dpad-button,
 .ns-dark .gamepad-action-button {
   background-color: rgba(255, 255, 255, 0.14);

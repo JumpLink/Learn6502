@@ -209,7 +209,7 @@ export class MainController implements MainView {
     const header = new Adw.HeaderBar();
     const title = new Adw.WindowTitle();
     title.title = "Learn6502";
-    header.setTitleWidget(title);
+    header.set_title_widget(title);
 
     const menu = new Gtk.MenuButton();
     menu.iconName = openMenuSymbolic;
@@ -223,8 +223,8 @@ export class MainController implements MainView {
       const id = (e as unknown as { id: string }).id;
       this.onMenuItem(id);
     });
-    header.packEnd(menu);
-    toolbar.addTopBar(header);
+    header.pack_end(menu);
+    toolbar.add_top_bar(header);
 
     // Stack of the four screens.
     const stack = new Adw.ViewStack();
@@ -272,14 +272,14 @@ export class MainController implements MainView {
     overlay.addChild(about);
 
     const toast = new Adw.ToastOverlay();
-    toast.setContent(overlay);
+    toast.set_child(overlay);
     this._toast = toast;
-    toolbar.setContent(toast);
+    toolbar.set_content(toast);
 
     // Bottom view switcher bar bound to the stack.
     const switcher = new Adw.ViewSwitcherBar();
-    switcher.setStack(stack);
-    toolbar.addBottomBar(switcher);
+    switcher.set_stack(stack);
+    toolbar.add_bottom_bar(switcher);
 
     return toolbar;
   }

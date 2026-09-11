@@ -499,6 +499,49 @@ Page.adw-window {
     padding: 10 32 10 32;
 }
 
+/* `%circular_button` — the explicit exception to the 9px rounded square: a full
+ * circle at 34×34 with no padding (_buttons.scss:312-317). It is the shape an
+ * icon-only button takes, which is why the rule arrives with the icon: while
+ * `Gtk.Button` was the platform's text-only `Button` the variant "had no counterpart
+ * at all", and a class with no rule would have drawn a rounded rectangle instead. The
+ * 34 is the same number `.adw-image-button` above carries, from the same line. */
+.adw-button.circular {
+    width: 34;
+    height: 34;
+    border-radius: 9999;
+    padding: 0;
+}
+
+/* The button's OWN label, and it exists because the button is a `GridLayout`.
+ *
+ * `.adw-button` above declares `color` and `font-weight`; a `GridLayout` has no text,
+ * so neither reaches anything and the label would render at the platform default —
+ * silently, since a wrong font is not an error. `.adw-button-content-label` next to it
+ * had to exist for the same reason, and these are the same numbers: the 15pt / 700 of
+ * libadwaita's `button { font-weight: bold }` (_buttons.scss:1) over the label colour
+ * `.adw-button` carries.
+ *
+ * NOT MERGED WITH `.adw-button-content-label`: that class is `Adw.ButtonContent`'s and
+ * comes with the icon's 6 right-margin and the content's own padding rule; a plain
+ * text button has neither, and one selector for both would give every text button
+ * `image-text-button` spacing. */
+.adw-button-label {
+    font-size: 15;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+/* On a suggested/destructive button the label takes the button's intent colour — the
+ * explicit label colour above would otherwise win over the inherited one, which is the
+ * same override `.adw-button-content-label` needs two blocks down. */
+.adw-button.suggested-action .adw-button-label {
+    color: #ffffff;
+}
+
+.adw-button.destructive-action .adw-button-label {
+    color: #c01c28;
+}
+
 /* Pressed (`:highlighted`) — Adwaita darkens the button on press rather than
  * showing a Material ripple. Mirrors adwaita-web's `:active` shades
  * (`--button-active-color` / darker `--accent-color`). Pill inherits the base. */
@@ -1738,6 +1781,21 @@ Page.ns-dark.adw-window {
 .ns-dark .adw-button.flat {
     background-color: transparent;
     color: #ffffff;
+}
+
+/* Dark: the button's own label. Same three colours the dark `.adw-button` rules
+ * carry — near-white on the plain and flat button, white on suggested, the dark
+ * destructive red. */
+.ns-dark .adw-button-label {
+    color: #ffffff;
+}
+
+.ns-dark .adw-button.suggested-action .adw-button-label {
+    color: #ffffff;
+}
+
+.ns-dark .adw-button.destructive-action .adw-button-label {
+    color: #ff7b80;
 }
 
 /* Dark pressed (`:highlighted`) — Adwaita's lighter-overlay press shade. */

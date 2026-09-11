@@ -54,8 +54,8 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
     const flagsRow = new Adw.ActionRow();
     flagsRow.title = "P (SR)";
     flagsRow.subtitle = _("Processor Status Register");
-    flagsRow.setSuffix(this.buildFlagsGrid());
-    flags.addRow(flagsRow);
+    flagsRow.add_suffix(this.buildFlagsGrid());
+    flags.add(flagsRow);
 
     column.addChild(flags);
 
@@ -85,9 +85,9 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
 
     box.addChild(hex);
     box.addChild(dec);
-    row.setSuffix(box);
+    row.add_suffix(box);
 
-    group.addRow(row);
+    group.add(row);
     return { hex, dec };
   }
 

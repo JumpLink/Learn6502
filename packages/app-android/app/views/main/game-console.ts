@@ -166,12 +166,15 @@ export class GameConsole implements GameConsoleView {
 
     const actButton = (label: string, key: GamepadKey, topMargin: number, bottomMargin: number): Gtk.Button => {
       const b = new Gtk.Button();
-      b.text = label;
+      b.label = label;
       b.width = 58;
       b.height = 58;
       b.marginTop = topMargin;
       b.marginBottom = bottomMargin;
-      b.className = `${b.className} gamepad-action-button`.trim();
+      // `add_css_class` rather than a `className` concat: the button keeps its style
+      // classes in a list `className` is derived from, so appending to `className`
+      // directly would leave `styleClasses` reading back empty.
+      b.add_css_class("gamepad-action-button");
       b.addEventListener("tap", () => press(key));
       return b;
     };
