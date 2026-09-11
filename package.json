@@ -415,6 +415,7 @@
     "check:format": "gjsify format --check",
     "check:versions": "node build-aux/check-versions.js",
     "check:flatpak:sources": "node build-aux/check-flatpak-sources.js",
+    "check:about": "node build-aux/check-about-metadata.js",
     "flatpak:regen": "gjsify flatpak init --force --metainfo packages/app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in --desktop packages/app-gnome/data/eu.jumplink.Learn6502.desktop.in",
     "start": "gjsify run start:gnome",
     "start:gnome": "gjsify workspace @learn6502/app-gnome start",

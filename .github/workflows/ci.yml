@@ -78,6 +78,16 @@ jobs:
       - name: Check the Flatpak offline sources
         run: gjsify run check:flatpak:sources
 
+      # The About dialog is built from AppStream metadata by hand on Windows and
+      # macOS: `Adw.AboutDialog.new_from_appdata()` does not exist there, because
+      # gvsbuild patches the AppStream entry points out of libadwaita. That
+      # fallback extracts a handful of fields with its own matching, so a
+      # restructured metainfo file empties the About dialog on exactly the two
+      # platforms no CI job opens a window on — while Linux, which uses the
+      # upstream constructor and never runs the fallback, stays green.
+      - name: Check the About dialog metadata
+        run: gjsify run check:about
+
       - name: Check formatting
         run: gjsify format --check
 
