@@ -234,19 +234,18 @@ jobs:
           ref: ${{ inputs.tag || github.ref }}
           submodules: false
 
+      # The action uploads the bundle itself (`upload-artifact` defaults to
+      # true), so there is no upload step here — a second one would just publish
+      # the same file twice. `artifact-name` is pinned rather than left to its
+      # default (the bundle name tagged with the architecture), so the download
+      # in `publish` does not depend on how that default is spelled.
       - name: Build Flatpak
         uses: flatpak/flatpak-github-actions/flatpak-builder@v6
         with:
           manifest-path: eu.jumplink.Learn6502.json
           bundle: eu.jumplink.Learn6502.flatpak
+          artifact-name: flatpak-bundle
           cache-key: flatpak-builder-${{ github.sha }}
-
-      - name: Upload the bundle
-        uses: actions/upload-artifact@v4
-        with:
-          name: flatpak-bundle
-          path: eu.jumplink.Learn6502.flatpak
-          if-no-files-found: error
 
   publish:
     name: Attach to the release
@@ -261,6 +260,11 @@ jobs:
           path: assets
           merge-multiple: true
 
+      # A tag push creates no release on its own, and `gh release upload` against
+      # a tag that has none fails with "release not found" after every artifact
+      # has already been built. Create it first when it is missing — as a draft,
+      # so the notes can be written before anyone is notified — and leave an
+      # existing one alone, which is what makes re-running this on a tag safe.
       - name: Attach them to the release
         env:
           GH_TOKEN: ${{ github.token }}
@@ -268,4 +272,14 @@ jobs:
         run: |
           set -eu
           ls -la assets/
+          if ! gh release view "$TAG" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            echo "no release for $TAG yet — creating it as a draft"
+            gh release create "$TAG" \
+              --repo "$GITHUB_REPOSITORY" \
+              --title "$TAG" \
+              --draft \
+              --generate-notes
+          fi
           gh release upload "$TAG" assets/* --clobber --repo "$GITHUB_REPOSITORY"
+          echo "Attached $(ls assets | wc -l) asset(s) to $TAG:"
+          ls assets/
