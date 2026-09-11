@@ -174,7 +174,19 @@ jobs:
       - name: Smoke-test the node bundle
         working-directory: packages/app-gnome
         env:
-          GSETTINGS_SCHEMA_DIR: ${{ github.workspace }}/packages/app-gnome/data/schemas
+          # A RELATIVE path, resolved against `working-directory`. The obvious
+          # `${{ github.workspace }}` is the HOST path in a container job
+          # (`/home/runner/work/...`), while the repo is mounted at `/__w/...`
+          # inside — an absolute expression here points at nothing.
+          GSETTINGS_SCHEMA_DIR: data/schemas
+          # The renderer is not what this test is about, and the runner has no
+          # GPU: GSK's default picks GL, Xvfb's software stack has no
+          # `libGLESv2.so.2`, and GTK aborts with SIGABRT — AFTER the app has
+          # finished starting, so the marker below is already in the log when it
+          # dies. Measured here, and the same thing that makes a GTK window
+          # render black on the macOS test VM. Cairo removes a dependency this
+          # check never needed; a real `.deb` pulls mesa through gtk4.
+          GSK_RENDERER: cairo
         run: |
           set -eu
           log=$(mktemp)
