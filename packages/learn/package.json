@@ -1,7 +1,7 @@
 {
   "name": "@learn6502/learn",
   "private": true,
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Learn 6502 assembly",
   "type": "module",
   "main": "index.js",
@@ -38,8 +38,8 @@
     }
   },
   "devDependencies": {
-    "@gjsify/cli": "^0.50.0",
-    "@gjsify/dom-elements": "^0.50.0",
+    "@gjsify/cli": "^0.51.0",
+    "@gjsify/dom-elements": "^0.51.0",
     "@mdx-js/rollup": "^3.1.1",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25.9.1",
@@ -47,6 +47,6 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@learn6502/examples": "^0.7.0"
+    "@learn6502/examples": "^0.8.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@learn6502/app-web",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "A one-stop accessible tutorial on 6502 assembly language programming in the browser",
   "type": "module",
   "private": true,
@@ -22,17 +22,17 @@
     }
   },
   "devDependencies": {
-    "@gjsify/cli": "^0.50.0",
-    "@gjsify/vite-plugin-gjsify": "^0.50.0",
+    "@gjsify/cli": "^0.51.0",
+    "@gjsify/vite-plugin-gjsify": "^0.51.0",
     "lightningcss": "^1.32.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.16"
   },
   "dependencies": {
-    "@gjsify/adwaita-web": "^0.50.0",
-    "@learn6502/common-ui": "^0.7.0",
-    "@learn6502/core": "^0.7.0",
-    "@learn6502/examples": "^0.7.0",
-    "@learn6502/learn": "^0.7.0"
+    "@gjsify/adwaita-web": "^0.51.0",
+    "@learn6502/common-ui": "^0.8.0",
+    "@learn6502/core": "^0.8.0",
+    "@learn6502/examples": "^0.8.0",
+    "@learn6502/learn": "^0.8.0"
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@learn6502/translations",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "description": "Translations for Learn 6502 Assembly",
   "author": "Pascal Garber <pascal@mailfreun.de>",
@@ -16,10 +16,10 @@
     "clear": "rm -rf dist"
   },
   "devDependencies": {
-    "@gjsify/vite-plugin-gettext": "^0.50.0",
+    "@gjsify/vite-plugin-gettext": "^0.51.0",
     "vite": "^8.0.16"
   },
   "dependencies": {
-    "@learn6502/learn": "^0.7.0"
+    "@learn6502/learn": "^0.8.0"
   }
 }

@@ -42,7 +42,7 @@ env:
   # Bootstrap pin. Must equal the version `gjsify-lock.json` resolves — the
   # assertion step below fails the run when the two drift, the same guard
   # ci.yml uses.
-  GJSIFY_CLI_VERSION: "0.50.0"
+  GJSIFY_CLI_VERSION: "0.51.0"
 
 jobs:
   artifacts:
