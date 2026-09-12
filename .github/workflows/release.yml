@@ -497,6 +497,30 @@ jobs:
           token: ${{ env.FLATHUB_TOKEN }}
           path: flathub
 
+      # THE OFFLINE TARBALLS, which the manifest cannot get from the git
+      # checkout. Flathub builds with the network unshared and `meson.build`
+      # runs `gjsify install --immutable`, which reads a cache flatpak-builder
+      # pre-populates from this source list. Until 0.7.0 the checkout carried a
+      # committed Yarn Berry cache and was self-contained; 0.8.0 dropped it, and
+      # the 0.8.0 Flathub build died on exactly that — the manifest here had
+      # never listed the replacement, and a release only ever touches the two
+      # git fields, so nothing pointed at it. Copied on every release rather
+      # than left to drift: the file changes whenever a dependency does.
+      - name: Fetch the offline sources from the tag
+        if: ${{ env.FLATHUB_TOKEN != '' }}
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ steps.rel.outputs.tag }}
+        run: |
+          set -eu
+          gh api "repos/$GITHUB_REPOSITORY/contents/gjsify-sources.json?ref=$TAG" \
+            -H "Accept: application/vnd.github.raw" > flathub/gjsify-sources.json
+          # An API error would otherwise land in the file as a JSON error object,
+          # which is still valid JSON and still commits cleanly.
+          count=$(jq 'if type == "array" then length else -1 end' flathub/gjsify-sources.json)
+          [ "$count" -gt 0 ] || { echo "::error::gjsify-sources.json is not a source array"; exit 1; }
+          echo "$count tarball source(s) at $TAG"
+
       - name: Bump the pin and open a PR
         if: ${{ env.FLATHUB_TOKEN != '' }}
         env:
@@ -511,17 +535,43 @@ jobs:
           # jq rather than sed: the two fields sit inside one source object, and
           # a textual replacement would also hit any other "tag"/"commit" the
           # manifest grows later.
-          before=$(jq -r '.modules[] | select(.name=="Learn6502") | .sources[0].tag' "$manifest")
+          #
+          # `type=="object"` guards every walk over `.sources`, and it is not
+          # defensive noise. A flatpak-builder source list holds OBJECTS and
+          # BARE STRINGS, the string naming a file next to the manifest, and
+          # this manifest now carries one ("gjsify-sources.json"). Without the
+          # guard `select(.type=="git")` reaches into that string and jq exits
+          # with `Cannot index string with string "type"`. Caught by rehearsing
+          # this script twice in a row: the first run added the string, the
+          # second died on it — so the failure would have landed one release
+          # after the change that caused it.
+          git_source='.sources[] | select(type=="object" and .type=="git")'
+          before=$(jq -r ".modules[] | select(.name==\"Learn6502\") | $git_source | .tag" "$manifest")
           jq --arg t "$TAG" --arg c "$COMMIT" \
-            '(.modules[] | select(.name=="Learn6502") | .sources[] | select(.type=="git"))
-               |= (.tag = $t | .commit = $c)' \
+            "(.modules[] | select(.name==\"Learn6502\") | $git_source)
+               |= (.tag = \$t | .commit = \$c)" \
             "$manifest" > "$manifest.new"
           mv "$manifest.new" "$manifest"
 
-          after=$(jq -r '.modules[] | select(.name=="Learn6502") | .sources[0].tag' "$manifest")
-          [ "$after" = "$TAG" ] || { echo "::error::the pin did not change — manifest shape moved?"; exit 1; }
-          if [ "$before" = "$after" ]; then
-            echo "already at $TAG — nothing to open"
+          after=$(jq -r ".modules[] | select(.name==\"Learn6502\") | $git_source | .tag" "$manifest")
+          [ "$after" = "$TAG" ] || { echo "::error::the pin did not change, manifest shape moved?"; exit 1; }
+
+          # The source entry for the file the step above fetched. Added rather
+          # than assumed: it is one string in an array nobody looks at between
+          # releases, and its absence is invisible until a build runs offline.
+          if ! jq -e '.modules[] | select(.name=="Learn6502") | .sources
+                      | index("gjsify-sources.json")' "$manifest" >/dev/null; then
+            jq '(.modules[] | select(.name=="Learn6502") | .sources) += ["gjsify-sources.json"]' \
+              "$manifest" > "$manifest.new"
+            mv "$manifest.new" "$manifest"
+            echo "added the gjsify-sources.json source entry"
+          fi
+
+          git add "$manifest" gjsify-sources.json
+          # Not `$before = $after`: the tarball list changes whenever a
+          # dependency does, so a release can need a PR with the pin unmoved.
+          if git diff --cached --quiet; then
+            echo "already at $TAG with the same sources, nothing to open"
             exit 0
           fi
 
@@ -529,7 +579,7 @@ jobs:
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git checkout -b "$branch"
-          git commit -am "Update Learn6502.git to ${TAG#v}"
+          git commit -m "Update Learn6502.git to ${TAG#v}"
           git push -u origin "$branch" --force
           gh pr create \
             --repo flathub/eu.jumplink.Learn6502 \
