@@ -423,6 +423,11 @@ jobs:
     needs: [publish]
     if: ${{ startsWith(github.ref, 'refs/tags/v') || (inputs.publish && inputs.tag != '') }}
     runs-on: ubuntu-latest
+    # `secrets` is not a context an `if:` can read — only `env` is. Mapping it
+    # here once is the documented way to branch on a secret's presence, and it
+    # keeps the value itself out of every condition below.
+    env:
+      FLATHUB_TOKEN: ${{ secrets.FLATHUB_TOKEN }}
 
     steps:
       - name: Resolve the tag and its commit
@@ -448,7 +453,7 @@ jobs:
       # It says what is left instead, with both values filled in, which is the
       # difference between a forgotten step and a thirty-second one.
       - name: Announce what is needed when the token is absent
-        if: ${{ !secrets.FLATHUB_TOKEN }}
+        if: ${{ env.FLATHUB_TOKEN == '' }}
         env:
           TAG: ${{ steps.rel.outputs.tag }}
           COMMIT: ${{ steps.rel.outputs.commit }}
@@ -470,17 +475,17 @@ jobs:
           echo "::warning::Flathub manifest not bumped — no FLATHUB_TOKEN; see the job summary"
 
       - name: Check out the Flathub manifest
-        if: ${{ secrets.FLATHUB_TOKEN }}
+        if: ${{ env.FLATHUB_TOKEN != '' }}
         uses: actions/checkout@v6
         with:
           repository: flathub/eu.jumplink.Learn6502
-          token: ${{ secrets.FLATHUB_TOKEN }}
+          token: ${{ env.FLATHUB_TOKEN }}
           path: flathub
 
       - name: Bump the pin and open a PR
-        if: ${{ secrets.FLATHUB_TOKEN }}
+        if: ${{ env.FLATHUB_TOKEN != '' }}
         env:
-          GH_TOKEN: ${{ secrets.FLATHUB_TOKEN }}
+          GH_TOKEN: ${{ env.FLATHUB_TOKEN }}
           TAG: ${{ steps.rel.outputs.tag }}
           COMMIT: ${{ steps.rel.outputs.commit }}
         working-directory: flathub
