@@ -2,6 +2,18 @@
 <schemalist gettext-domain="eu.jumplink.Learn6502">
 	<schema id="eu.jumplink.Learn6502" path="/eu/jumplink/Learn6502/">
         <!-- Theme settings -->
+        <key name="ui-font" type="s">
+            <default>'size'</default>
+            <summary>Interface font policy</summary>
+            <description>Which font the interface is drawn with. 'system' leaves
+            the host's own setting alone — on Windows that is Segoe UI 9pt, which
+            is smaller than the 11pt GNOME's stylesheets are drawn against.
+            'size' keeps the host's typeface and raises only the size, never
+            lowering it. 'adwaita' uses the GNOME typeface the runtime bundles,
+            and is only offered where that typeface actually reached the font
+            map. On Linux the host font is already GNOME's, so all three agree.</description>
+        </key>
+
         <key name="color-scheme" type="i">
             <default>0</default>
             <summary>Color scheme preference</summary>

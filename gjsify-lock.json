@@ -43,6 +43,7 @@
     "@gjsify/node-gi@^0.51.0",
     "@gjsify/vite-plugin-blueprint@^0.51.0",
     "@gjsify/vite-plugin-gettext@^0.51.0",
+    "@gjsify/gtk-host@^0.51.0",
     "@gjsify/gtk-runtime-darwin-arm64@^0.51.0",
     "@gjsify/gtk-runtime-darwin-x64@^0.51.0",
     "@gjsify/gtk-runtime-win32-x64@^0.51.0",
@@ -2126,6 +2127,24 @@
       "dependencies": {
         "@gjsify/dom-events": "^0.51.0"
       }
+    },
+    "node_modules/@gjsify/gtk-host": {
+      "version": "0.51.0",
+      "resolved": "https://registry.npmjs.org/@gjsify/gtk-host/-/gtk-host-0.51.0.tgz",
+      "integrity": "sha512-51mnabzej1xTPYT3mnJHTT2P4yo2TFD9ZCztyoXJGFGJlgkmYWdMuaeaZ4TvWHDD++FC1AO5EAayTt84ZFVicg==",
+      "dependencies": {
+        "@girs/gjs": "5.0.0",
+        "@girs/adw-1": "5.0.0",
+        "@girs/gdk-4.0": "5.0.0",
+        "@girs/gio-2.0": "5.0.0",
+        "@girs/gtk-4.0": "5.0.0",
+        "@girs/glib-2.0": "5.0.0",
+        "@girs/pango-1.0": "5.0.0",
+        "@girs/gobject-2.0": "5.0.0",
+        "@girs/pangocairo-1.0": "5.0.0",
+        "@gjsify/adwaita-core": "^0.51.0"
+      },
+      "optional": true
     },
     "node_modules/@gjsify/gtk-runtime-darwin-arm64": {
       "version": "0.51.0",
