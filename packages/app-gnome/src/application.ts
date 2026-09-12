@@ -9,6 +9,8 @@ import { initResources } from "./resources.ts";
 import { createAboutDialog } from "./about-dialog.ts";
 
 import { themeService } from "./services";
+import { uiFontService } from "./services/ui-font.service.ts";
+import { settings } from "./settings.ts";
 
 export class Application extends Adw.Application {
   static {
@@ -32,6 +34,17 @@ export class Application extends Adw.Application {
 
   protected onStartup(): void {
     themeService.init();
+    // The interface font, before anything draws — and NOT before this point.
+    //
+    // `Gtk.Settings.get_default()` answers null until the toolkit is
+    // initialised, and `applyUiFontPolicy` then leaves the setting alone. This
+    // ran at module scope in bootstrap.ts and did exactly that: the app printed
+    // `-> unparsed (unchanged)` on macOS and on Windows, so the whole setting
+    // was inert on the one platform it exists for. `startup` is the earliest
+    // moment GTK is up, and it is still before any window is built — which is
+    // what the baseline capture needs (once a policy has written
+    // `gtk-font-name`, the way back to `system` is gone).
+    uiFontService.init(settings);
     initResources();
   }
 

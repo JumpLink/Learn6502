@@ -231,6 +231,21 @@ jobs:
             echo "::error::the node bundle started but never finished initialising"
             exit 1
           }
+          # THE INTERFACE FONT ACTUALLY REACHED Gtk.Settings. Not a formality:
+          # the policy was applied at module scope once, where
+          # `Gtk.Settings.get_default()` is still null, so it silently did
+          # nothing on every platform while printing a line that read like a
+          # host needing no correction. Asserting the EFFECT — the font name the
+          # setting carries afterwards — is the only form of this check that
+          # could have failed then.
+          grep -q 'ui-font: .*gtk-font-name is now "[^"]\+"' "$log" || {
+            echo "::error::the app never reported an applied gtk-font-name"
+            exit 1
+          }
+          if grep -qE 'ui-font: .*-> uninitialised|gtk-font-name is now "\(no Gtk.Settings\)"' "$log"; then
+            echo "::error::the UI font policy ran before the toolkit was up, so it did nothing"
+            exit 1
+          fi
 
       - name: Build the browser app
         run: gjsify workspace @learn6502/app-web build:app

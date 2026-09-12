@@ -1,4 +1,5 @@
 import Gio from "@girs/gio-2.0";
+import Gtk from "@girs/gtk-4.0";
 import {
   adwaitaUiFontAvailability,
   applyUiFontPolicy,
@@ -65,9 +66,21 @@ export class UiFontService {
     // needs no bundled face.
     const effective = policy === "adwaita" && !this.adwaitaAvailable ? "size" : policy;
     const plan = applyUiFontPolicy(effective);
-    console.log(
-      `ui-font: policy=${policy}${effective !== policy ? ` (as ${effective}: the GNOME typeface is not on this font map)` : ""} -> ${plan.kind}${plan.next ? ` "${plan.next}"` : " (unchanged)"}`
-    );
+
+    // REPORT THE SETTING, NOT ONLY THE PLAN. Every `kind` this can return leaves
+    // `gtk-font-name` alone except `raised`, `family` and `restored`, so a line
+    // that printed the plan alone read the same whether the policy had done its
+    // job or never run — which is how the too-early call in bootstrap.ts stayed
+    // invisible through two platform test rounds. The font name is the effect.
+    const applied = Gtk.Settings.get_default()?.gtk_font_name ?? "(no Gtk.Settings)";
+    const note = effective !== policy ? ` (as ${effective}: the GNOME typeface is not on this font map)` : "";
+    console.log(`ui-font: policy=${policy}${note} -> ${plan.kind}; gtk-font-name is now "${applied}"`);
+
+    // `uninitialised` is not a host that needed nothing — it is this service
+    // running before GTK, and the setting doing nothing at all.
+    if (plan.kind === "uninitialised") {
+      console.error("ui-font: the policy did not run — init() was called before the toolkit was up");
+    }
   }
 }
 
