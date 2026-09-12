@@ -1,6 +1,6 @@
 {
   "name": "@learn6502/cli",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Headless 6502 assembler / simulator — the command-line frontend built on the shared core + common-ui",
   "type": "module",
   "private": true,
@@ -18,12 +18,12 @@
     "shebang": "/usr/bin/env node"
   },
   "devDependencies": {
-    "@gjsify/cli": "^0.50.0",
+    "@gjsify/cli": "^0.51.1",
     "@types/node": "^25.9.1",
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@learn6502/common-ui": "^0.7.0",
-    "@learn6502/core": "^0.7.0"
+    "@learn6502/common-ui": "^0.8.0",
+    "@learn6502/core": "^0.8.0"
   }
 }

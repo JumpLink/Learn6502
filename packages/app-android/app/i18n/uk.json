@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "Виправлено проблему, через яку кнопка «Назад» у розділі навчання була завжди видимою в режимі робочого столу та планшета, навіть коли жодна підсторінка не була відкрита.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "Виправлено помилку збірки на PostmarketOS, покращуючи сумісність з мобільними пристроями",
   "Follow system style": "Дотримуватися системного стилю",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Для Linux тепер є й AppImage: один файл, без встановлення, стане в пригоді на дистрибутиві, для якого ми не збираємо пакунок.",
   "Found %d label.": "Знайдено %d мітку.",
   "Found %d labels.": "Знайдено %d міток.",
   "Full Memory ($0000-$FFFF)": "Вся пам'ять ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "Якщо результат додавання перевищує один байт, адреса «обгортається» по колу. Наприклад:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "Якщо ви володієте однією з указаних мов, допоможіть, будь ласка, переглянути або покращити переклади. Ви можете зробити внесок через посилання в застосунку, на нашій платформі перекладу або створивши issue.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "Якщо ваш приклад базується на іншому прикладі або натхненний ним, ви можете вказати URL джерела.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "Якщо мова системи — китайська, застосунок знову показується китайською. Раніше він помилково повертався до англійської.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "Безпосередня адресація не працює напряму з адресами пам’яті — у цьому режимі використовуються реальні значення. Наприклад, <tt>LDX #$01</tt> завантажує значення <tt>$01</tt> у регістр <tt>X</tt>. Це відрізняється від інструкції нульової сторінки <tt>LDX $01</tt>, яка завантажує значення з комірки <tt>$01</tt> у регістр <tt>X</tt>.",
   "Immediate: <tt>#$c0</tt>": "Immediate: <tt>#$c0</tt>",
   "Implicit": "Неявна",
@@ -251,6 +253,7 @@
   "Learn": "Навчання",
   "Learn 6502 Assembly": "Вивчення асемблера 6502",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 тепер працює на GNOME 50! Дякуємо Sabri Ünal за внесок в оновлення середовища виконання.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 тепер працює також на Windows і macOS. Якщо ви хотіли порадити його другові, який не користується Linux, тепер це можливо.",
   "Learn about computer history while coding": "Дізнавайтеся про історію комп'ютерів під час написання коду",
   "Learn how to program the 6502 microprocessor.": "Навчіться програмувати мікропроцесор 6502.",
   "Learn how to use the stack with PHA and PLA instructions": "Навчіться використовувати стек за допомогою інструкцій PHA та PLA",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "Спробуйте написати фрагменти коду з кожним режимом адресації 6502. Пам’ятайте: ви можете скористатися <b>Hex-монітором</b> у вкладці налагодження, щоб спостерігати за ділянкою пам’яті.",
   "Tutorial": "Посібник",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "Посібник <sub>авторства <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, ліцензія CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "Дві нові програми-приклади, і обидві надійшли від вас: Dino Run від Jacob і Line Buster 6502 від edit12. Це перші приклади, надіслані кнопкою «Поділитися», і ми будемо раді новим.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "Дві стекові інструкції — це <tt>PHA</tt> і <tt>PLA</tt> («покласти акумулятор» і «зняти акумулятор»). Нижче наведено приклад їх роботи.",
   "Unable to find/parse given address/label": "Не вдалося знайти/розібрати вказану адресу/мітку",
   "Unable to relocate code outside 64k memory": "Не вдалося перемістити код за межі 64K пам’яті",
@@ -455,5 +459,6 @@
   "programming": "програмування",
   "wdm-output": "wdm-output",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "що відповідає непрямим адресам <tt>$0411</tt>, <tt>$0410</tt> і <tt>$040f</tt> (три пікселі посеред екрана). Я наголошую на цьому, бо важливо повністю зрозуміти, як працює непряма адресація.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! Ми раді вітати тамільський переклад, наданий தமிழ்நேரம். நன்றி!",
   "app.name": "Вивчення асемблера 6502"
 }

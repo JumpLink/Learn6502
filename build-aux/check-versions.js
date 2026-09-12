@@ -1,5 +1,5 @@
 /**
- * One version, four places that must agree.
+ * One version, six kinds of place that must agree.
  *
  * `gjsify ship` stamps `package.json#version` into every artifact it writes —
  * the `.deb` control file, the RPM header, `CFBundleShortVersionString`, the
@@ -61,11 +61,45 @@ if (!newest) {
   );
 }
 
+// Meson's `project(version:)`. It is NOT a fifth copy of the same string for
+// tidiness: `packages/app-gnome/meson.build` passes `meson.project_version()`
+// through as `PACKAGE_VERSION`, which is the version the About dialog shows. The
+// Flatpak — the build Flathub ships — is the one built through Meson, so leaving
+// this behind means the store's copy of the app tells users the previous
+// version while every artifact `gjsify ship` writes tells them the new one.
+// Missed exactly that way on the 0.8.0 branch: eleven places agreed, About said
+// 0.7.0, and this script reported success.
+const meson = readFileSync("meson.build", "utf8");
+const mesonVersion = /^\s*version:\s*'([^']*)'/m.exec(meson)?.[1];
+if (!mesonVersion) {
+  problems.push("meson.build has no `project(version:)`; PACKAGE_VERSION would be empty");
+} else if (mesonVersion !== expected) {
+  problems.push(
+    `meson.build is ${mesonVersion}, root package.json is ${expected} — ` +
+      "this is the version the About dialog shows in the Flatpak build",
+  );
+}
+
+// The MetaInfo source. `gjsify flatpak init` renders `gjsify.flatpak.releases`
+// into it, but the file is committed and edited by hand between renders, so the
+// two can disagree — and it is this file, not the manifest field, that Meson
+// installs and AppStream validates.
+const METAINFO = "packages/app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml.in";
+const metainfoVersion = /<release\s+version="([^"]*)"/.exec(readFileSync(METAINFO, "utf8"))?.[1];
+if (!metainfoVersion) {
+  problems.push(`${METAINFO} lists no <release>; AppStream would announce no release at all`);
+} else if (metainfoVersion !== expected) {
+  problems.push(`${METAINFO} announces ${metainfoVersion}, root package.json is ${expected}`);
+}
+
 if (problems.length) {
   console.error(`Version mismatch across ${problems.length} place(s):`);
   for (const problem of problems) console.error(`  ${problem}`);
   console.error("\nEvery place above must carry the same version before a release is tagged.");
   process.exitCode = 1;
 } else {
-  console.log(`All versions agree on ${expected} (root, ${readdirSync("packages").length} packages, AppStream).`);
+  console.log(
+    `All versions agree on ${expected} ` +
+      `(root, ${readdirSync("packages").length} packages, meson.build, AppStream manifest + MetaInfo).`,
+  );
 }

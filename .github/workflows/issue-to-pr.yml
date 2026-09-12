@@ -116,7 +116,7 @@ jobs:
       # node_modules exists. Pinned exactly to what `gjsify-lock.json` resolves;
       # the build steps below use the workspace-local CLI regardless.
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.50.0
+        run: npm install -g @gjsify/cli@0.51.1
 
       - name: Install dependencies
         run: gjsify install --immutable

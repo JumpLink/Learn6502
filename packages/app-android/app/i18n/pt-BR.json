@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "Corrigido um problema onde o botão Voltar na seção de aprendizagem estava sempre visível no modo desktop e tablet, mesmo quando nenhuma subpágina estava aberta.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "Corrigido erro de compilação no PostmarketOS, melhorando a compatibilidade móvel",
   "Follow system style": "Seguir estilo do sistema",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Para Linux também há um AppImage agora: um único arquivo, sem instalação, útil em uma distribuição para a qual não geramos pacotes.",
   "Found %d label.": "Encontrado %d rótulo.",
   "Found %d labels.": "Encontrados %d rótulos.",
   "Full Memory ($0000-$FFFF)": "Memória Completa ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "Se o resultado da adição for maior do que um único byte, o endereço dá a volta. Por exemplo:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "Se você fala uma das línguas listadas, por favor ajude a revisar ou melhorar as traduções. Você pode contribuir pelos links no aplicativo, pela nossa plataforma de tradução ou abrindo uma issue.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "Se seu exemplo for baseado ou inspirado em outro exemplo, você pode fornecer a URL de origem.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "Se o idioma do seu sistema for chinês, o aplicativo volta a aparecer em chinês. Antes ele caía para o inglês por engano.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "O endereçamento imediato não trata estritamente de endereços de memória - este é o modo onde valores reais são usados. Por exemplo, <tt>LDX #$01</tt> carrega o valor <tt>$01</tt> no registro <tt>X</tt>. Isto é muito diferente da instrução da página zero <tt>LDX $01</tt> que carrega o valor no endereço de memória <tt>$01</tt> no registro <tt>X</tt>.",
   "Immediate: <tt>#$c0</tt>": "Imediato: <tt>#$c0</tt>",
   "Implicit": "Implícito",
@@ -251,6 +253,7 @@
   "Learn": "Aprender",
   "Learn 6502 Assembly": "Aprenda Assembly 6502",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "O Learn 6502 agora roda no GNOME 50! Obrigado a Sabri Ünal por contribuir com a atualização do runtime.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "O Learn 6502 agora roda também no Windows e no macOS. Se você queria indicá-lo a um amigo que não usa Linux, agora pode.",
   "Learn about computer history while coding": "Aprenda sobre a história dos computadores enquanto programa",
   "Learn how to program the 6502 microprocessor.": "Aprenda a programar o microprocessador 6502.",
   "Learn how to use the stack with PHA and PLA instructions": "Aprenda a usar a pilha com as instruções PHA e PLA",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "Tente escrever trechos de código que usem cada um dos modos de endereçamento do 6502. Lembre-se: você pode usar o <b>Monitor Hex</b> na visão de depuração para observar uma seção da memória.",
   "Tutorial": "Tutorial",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "Tutorial <sub>por <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licenciado sob CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "Dois novos programas de exemplo, e os dois vieram de vocês: Dino Run, de Jacob, e Line Buster 6502, de edit12. São os primeiros exemplos enviados pelo botão de compartilhar, e adoraríamos receber mais.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "Duas das instruções da pilha são <tt>PHA</tt> e <tt>PLA</tt>, \"push accumulator\" e \"pull accumulator\". Abaixo há um exemplo destas duas em ação.",
   "Unable to find/parse given address/label": "Impossível encontrar/analisar o endereço/etiqueta fornecido",
   "Unable to relocate code outside 64k memory": "Impossível realocar código fora da memória de 64k",
@@ -455,5 +459,6 @@
   "programming": "programação",
   "wdm-output": "wdm-output",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "que representa as endereços de memória endereçadas indiretamente <tt>$0411</tt>, <tt>$0410</tt> e <tt>$040f</tt> (três pixels no meio da tela). Estou a insistir neste ponto, mas é importante compreender completamente como o endereçamento indireto funciona.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! Estamos felizes em dar as boas-vindas à tradução em tâmil, contribuída por தமிழ்நேரம். நன்றி!",
   "app.name": "Aprenda Assembly 6502"
 }

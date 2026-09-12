@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "Ein Problem wurde behoben, bei dem der Zurück-Button im Lernbereich im Desktop- und Tablet-Modus immer sichtbar war, auch wenn keine Unterseite geöffnet war.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "Build-Fehler unter PostmarketOS behoben, verbessert Kompatibilität mit Mobilgeräten",
   "Follow system style": "Systemstil verwenden",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Für Linux gibt es jetzt auch ein AppImage: eine Datei, keine Installation, praktisch auf einer Distribution, für die wir kein Paket bauen.",
   "Found %d label.": "%d Label gefunden.",
   "Found %d labels.": "%d Labels gefunden.",
   "Full Memory ($0000-$FFFF)": "Gesamter Speicher ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "Wenn das Ergebnis der Addition größer als ein einzelnes Byte ist, wird die Adresse umgebrochen. Zum Beispiel:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "Wenn du eine der aufgeführten Sprachen sprichst, hilf bitte beim Überprüfen oder Verbessern der Übersetzungen. Du kannst über die In‑App‑Links, unsere Übersetzungsplattform oder durch das Eröffnen eines Issues beitragen.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "Wenn dein Beispiel auf einem anderen Beispiel basiert oder davon inspiriert ist, kannst du die Quell-URL angeben.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "Wenn deine Systemsprache Chinesisch ist, erscheint die App wieder auf Chinesisch. Sie war versehentlich auf Englisch zurückgefallen.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "Die unmittelbare Adressierung beschäftigt sich nicht direkt mit Speicheradressen - dies ist der Modus, in dem tatsächliche Werte verwendet werden. Zum Beispiel lädt <tt>LDX #$01</tt> den Wert <tt>$01</tt> in das <tt>X</tt>-Register. Dies unterscheidet sich deutlich von der Nullseiten-Anweisung <tt>LDX $01</tt>, die den Wert an der Speicheradresse <tt>$01</tt> in das <tt>X</tt>-Register lädt.",
   "Immediate: <tt>#$c0</tt>": "Unmittelbar: <tt>#$c0</tt>",
   "Implicit": "Implizit",
@@ -251,6 +253,7 @@
   "Learn": "Lernen",
   "Learn 6502 Assembly": "Lerne 6502 Assembler",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Lerne 6502 läuft jetzt auf GNOME 50! Dank an Sabri Ünal für den Beitrag zum Runtime-Update.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 läuft jetzt auch unter Windows und macOS. Wenn du es jemandem zeigen wolltest, der kein Linux nutzt, geht das jetzt.",
   "Learn about computer history while coding": "Erfahre mehr über Computer-Geschichte beim Programmieren",
   "Learn how to program the 6502 microprocessor.": "Lerne, wie man den 6502-Mikroprozessor programmiert.",
   "Learn how to use the stack with PHA and PLA instructions": "Lerne, wie man den Stack mit den Befehlen PHA und PLA verwendet",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "Versuche Code-Beispiele zu schreiben, die jeden der 6502-Adressierungsmodi verwenden. Denk daran, dass du den <b>Hex-Monitor</b> in der Debug-Ansicht verwenden kannst, um einen Speicherbereich zu beobachten.",
   "Tutorial": "Tutorial",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "Tutorial <sub>von <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, lizenziert unter CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "Zwei neue Beispielprogramme, und beide kommen von euch: Dino Run von Jacob und Line Buster 6502 von edit12. Es sind die ersten Beispiele, die über den Teilen-Button eingereicht wurden, und wir hätten gern mehr davon.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "Zwei der Stack-Anweisungen sind <tt>PHA</tt> und <tt>PLA</tt>, \"push accumulator\" und \"pull accumulator\". Unten ist ein Beispiel dieser beiden in Aktion.",
   "Unable to find/parse given address/label": "Die angegebene Adresse/Label konnte nicht gefunden oder verarbeitet werden",
   "Unable to relocate code outside 64k memory": "Code kann nicht außerhalb des 64k Speicherbereichs verschoben werden",
@@ -455,5 +459,6 @@
   "programming": "Programmierung",
   "wdm-output": "WDM-Ausgabe",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "was die indirekt adressierten Speicheradressen <tt>$0411</tt>, <tt>$0410</tt> und <tt>$040f</tt> repräsentiert (drei Pixel in der Mitte des Displays). Ich betone diesen Punkt, aber es ist wichtig, vollständig zu verstehen, wie indirekte Adressierung funktioniert.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! Wir freuen uns über die tamilische Übersetzung, beigesteuert von தமிழ்நேரம். நன்றி!",
   "app.name": "Lerne 6502 Assembler"
 }

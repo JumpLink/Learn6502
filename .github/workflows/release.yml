@@ -42,7 +42,7 @@ env:
   # Bootstrap pin. Must equal the version `gjsify-lock.json` resolves — the
   # assertion step below fails the run when the two drift, the same guard
   # ci.yml uses.
-  GJSIFY_CLI_VERSION: "0.50.0"
+  GJSIFY_CLI_VERSION: "0.51.1"
 
 jobs:
   artifacts:
@@ -82,7 +82,35 @@ jobs:
         run: |
           dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 \
                          glib2 glib2-devel gettext blueprint-compiler libadwaita gtksourceview5 \
-                         msitools zip xorg-x11-server-Xvfb
+                         msitools zip xorg-x11-server-Xvfb squashfs-tools file
+
+      # `appimagetool` is the one tool here that is DOWNLOADED rather than
+      # installed: nothing packages it — not Fedora, not Debian. Pinned by
+      # version AND digest, the same shape gjsify's own CI image uses.
+      #
+      # The RUNTIME is pinned separately and this is the load-bearing half.
+      # appimagetool embeds ~940 KB of ELF into every artifact and, left alone,
+      # fetches it per `$ARCH` from type2-runtime's ROLLING `continuous` tag on
+      # every pack — measured: `continuous` and the dated release are the same
+      # 944632 bytes with different content. Without this pin the bytes a user
+      # downloads and executes would come from a tag nothing here can name, and
+      # two packs of one build would not be byte-identical.
+      - name: Install appimagetool and pin its runtime
+        env:
+          APPIMAGETOOL_VERSION: "1.9.1"
+          APPIMAGETOOL_SHA256: "ed4ce84f0d9caff66f50bcca6ff6f35aae54ce8135408b3fa33abfc3cb384eb0"
+          APPIMAGE_RUNTIME_VERSION: "20251108"
+          APPIMAGE_RUNTIME_X86_64_SHA256: "2fca8b443c92510f1483a883f60061ad09b46b978b2631c807cd873a47ec260d"
+        run: |
+          set -eu
+          curl -fsSL -o /usr/local/bin/appimagetool \
+            "https://github.com/AppImage/appimagetool/releases/download/${APPIMAGETOOL_VERSION}/appimagetool-x86_64.AppImage"
+          echo "${APPIMAGETOOL_SHA256}  /usr/local/bin/appimagetool" | sha256sum -c -
+          chmod +x /usr/local/bin/appimagetool
+          mkdir -p /usr/local/share/gjsify/appimage-runtime
+          curl -fsSL -o /usr/local/share/gjsify/appimage-runtime/runtime-x86_64 \
+            "https://github.com/AppImage/type2-runtime/releases/download/${APPIMAGE_RUNTIME_VERSION}/runtime-x86_64"
+          echo "${APPIMAGE_RUNTIME_X86_64_SHA256}  /usr/local/share/gjsify/appimage-runtime/runtime-x86_64" | sha256sum -c -
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -203,12 +231,32 @@ jobs:
             echo "::error::the node bundle started but never finished initialising"
             exit 1
           }
+          # THE INTERFACE FONT ACTUALLY REACHED Gtk.Settings. Not a formality:
+          # the policy was applied at module scope once, where
+          # `Gtk.Settings.get_default()` is still null, so it silently did
+          # nothing on every platform while printing a line that read like a
+          # host needing no correction. Asserting the EFFECT — the font name the
+          # setting carries afterwards — is the only form of this check that
+          # could have failed then.
+          grep -q 'ui-font: .*gtk-font-name is now "[^"]\+"' "$log" || {
+            echo "::error::the app never reported an applied gtk-font-name"
+            exit 1
+          }
+          if grep -qE 'ui-font: .*-> uninitialised|gtk-font-name is now "\(no Gtk.Settings\)"' "$log"; then
+            echo "::error::the UI font policy ran before the toolkit was up, so it did nothing"
+            exit 1
+          fi
 
       - name: Build the browser app
         run: gjsify workspace @learn6502/app-web build:app
 
+      # `appimage` is opt-in through `--target` because it needs a tool this CLI
+      # does not carry (ADR 0024). The default set stays deb + rpm; naming the
+      # targets explicitly means a missing `appimagetool` fails this step loudly
+      # instead of quietly shipping one format fewer — which is exactly how
+      # issue #93 went unanswered while Linux artifacts existed.
       - name: Package for Linux
-        run: gjsify ship linux --skip-build
+        run: gjsify ship linux --skip-build --target deb,rpm,appimage
 
       # The macOS and Windows runtimes are os/cpu-gated, so a plain install on
       # this host skips them and `ship` would stage a bundle with no interpreter
@@ -278,6 +326,7 @@ jobs:
           for f in \
             "eu.jumplink.Learn6502_$version-1_all.deb" \
             "eu.jumplink.Learn6502-$version-1.noarch.rpm" \
+            "eu.jumplink.Learn6502-$version-1.x86_64.AppImage" \
             "eu.jumplink.Learn6502-$version-1.macos.arm64.zip" \
             "eu.jumplink.Learn6502-$version-1.macos.x86_64.zip" \
             "eu.jumplink.Learn6502-$version-1.windows.x64.zip" \
@@ -368,3 +417,133 @@ jobs:
           gh release upload "$TAG" assets/* --clobber --repo "$GITHUB_REPOSITORY"
           echo "Attached $(ls assets | wc -l) asset(s) to $TAG:"
           ls assets/
+
+  # ── Flathub ─────────────────────────────────────────────────────────────
+  # Flathub builds from its OWN repository, and that manifest pins this one by
+  # tag AND commit:
+  #
+  #     {"type": "git", "url": ".../Learn6502.git", "tag": "v0.7.0",
+  #      "commit": "d98a373…"}
+  #
+  # Two fields. That is the whole update — `gjsify-sources.json` lives in THIS
+  # repo and travels with the tag — and it is exactly why it gets forgotten:
+  # too small to remember, in a repository nobody has open. The failure mode is
+  # silent and long-lived: GitHub carries the new version while every Flathub
+  # user stays on the old one, and nothing anywhere goes red.
+  #
+  # This opens the PR; it does not merge it. Flathub runs its own build and
+  # linter, and a human should see that verdict.
+  flathub:
+    name: Flathub manifest bump
+    needs: [publish]
+    if: ${{ startsWith(github.ref, 'refs/tags/v') || (inputs.publish && inputs.tag != '') }}
+    runs-on: ubuntu-latest
+    # `secrets` is not a context an `if:` can read — only `env` is. Mapping it
+    # here once is the documented way to branch on a secret's presence, and it
+    # keeps the value itself out of every condition below.
+    env:
+      FLATHUB_TOKEN: ${{ secrets.FLATHUB_TOKEN }}
+
+    steps:
+      - name: Resolve the tag and its commit
+        id: rel
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ inputs.tag || github.ref_name }}
+        run: |
+          set -eu
+          sha=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$TAG" --jq '.object.sha')
+          # An annotated tag's ref points at the TAG OBJECT, not the commit. The
+          # manifest wants the commit, so dereference when the object is a tag.
+          type=$(gh api "repos/$GITHUB_REPOSITORY/git/ref/tags/$TAG" --jq '.object.type')
+          if [ "$type" = "tag" ]; then
+            sha=$(gh api "repos/$GITHUB_REPOSITORY/git/tags/$sha" --jq '.object.sha')
+          fi
+          echo "tag=$TAG" >> "$GITHUB_OUTPUT"
+          echo "commit=$sha" >> "$GITHUB_OUTPUT"
+          echo "$TAG -> $sha (ref object was a $type)"
+
+      # Cross-repository, so `github.token` cannot do it. Without the secret the
+      # release is NOT failed — every artifact is already published and correct.
+      # It says what is left instead, with both values filled in, which is the
+      # difference between a forgotten step and a thirty-second one.
+      - name: Announce what is needed when the token is absent
+        if: ${{ env.FLATHUB_TOKEN == '' }}
+        env:
+          TAG: ${{ steps.rel.outputs.tag }}
+          COMMIT: ${{ steps.rel.outputs.commit }}
+        run: |
+          {
+            echo "### Flathub bump still to do — by hand"
+            echo
+            echo "No \`FLATHUB_TOKEN\` secret, so this job cannot open the PR."
+            echo "In [flathub/eu.jumplink.Learn6502](https://github.com/flathub/eu.jumplink.Learn6502),"
+            echo "set both fields of the single git source:"
+            echo
+            echo '```json'
+            echo "\"tag\": \"$TAG\","
+            echo "\"commit\": \"$COMMIT\""
+            echo '```'
+            echo
+            echo "Until that lands, Flathub serves the PREVIOUS release."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "::warning::Flathub manifest not bumped — no FLATHUB_TOKEN; see the job summary"
+
+      - name: Check out the Flathub manifest
+        if: ${{ env.FLATHUB_TOKEN != '' }}
+        uses: actions/checkout@v6
+        with:
+          repository: flathub/eu.jumplink.Learn6502
+          token: ${{ env.FLATHUB_TOKEN }}
+          path: flathub
+
+      - name: Bump the pin and open a PR
+        if: ${{ env.FLATHUB_TOKEN != '' }}
+        env:
+          GH_TOKEN: ${{ env.FLATHUB_TOKEN }}
+          TAG: ${{ steps.rel.outputs.tag }}
+          COMMIT: ${{ steps.rel.outputs.commit }}
+        working-directory: flathub
+        run: |
+          set -eu
+          manifest=eu.jumplink.Learn6502.json
+
+          # jq rather than sed: the two fields sit inside one source object, and
+          # a textual replacement would also hit any other "tag"/"commit" the
+          # manifest grows later.
+          before=$(jq -r '.modules[] | select(.name=="Learn6502") | .sources[0].tag' "$manifest")
+          jq --arg t "$TAG" --arg c "$COMMIT" \
+            '(.modules[] | select(.name=="Learn6502") | .sources[] | select(.type=="git"))
+               |= (.tag = $t | .commit = $c)' \
+            "$manifest" > "$manifest.new"
+          mv "$manifest.new" "$manifest"
+
+          after=$(jq -r '.modules[] | select(.name=="Learn6502") | .sources[0].tag' "$manifest")
+          [ "$after" = "$TAG" ] || { echo "::error::the pin did not change — manifest shape moved?"; exit 1; }
+          if [ "$before" = "$after" ]; then
+            echo "already at $TAG — nothing to open"
+            exit 0
+          fi
+
+          branch="bump-$TAG"
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git commit -am "Update Learn6502.git to ${TAG#v}"
+          git push -u origin "$branch" --force
+          gh pr create \
+            --repo flathub/eu.jumplink.Learn6502 \
+            --head "$branch" \
+            --title "Update Learn6502.git to ${TAG#v}" \
+            --body-file - <<BODY
+          Automated from JumpLink/Learn6502's release workflow on \`$TAG\`.
+
+          Pins the single git source to the released tag and its commit:
+
+              tag:    $before -> $TAG
+              commit: $COMMIT
+
+          Artifacts for this tag are attached to the GitHub release; this PR
+          only moves what Flathub builds from. Not merged automatically —
+          Flathub's own build and linter should report first.
+          BODY

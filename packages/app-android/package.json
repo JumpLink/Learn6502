@@ -1,7 +1,7 @@
 {
   "name": "@learn6502/app-android",
   "main": "app/app.ts",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "private": true,
   "scripts": {
     "clear": "ns clean",
@@ -12,18 +12,18 @@
     "check": "gjsify tsc --noEmit"
   },
   "dependencies": {
-    "@gjsify/adwaita-icons": "^0.50.0",
-    "@gjsify/adwaita-nativescript": "^0.50.0",
-    "@learn6502/core": "^0.7.0",
-    "@learn6502/common-ui": "^0.7.0",
+    "@gjsify/adwaita-icons": "^0.51.1",
+    "@gjsify/adwaita-nativescript": "^0.51.1",
+    "@learn6502/core": "^0.8.0",
+    "@learn6502/common-ui": "^0.8.0",
     "@nativescript/core": "9.1.0-alpha.11",
     "@nativescript/localize": "^5.2.0",
     "@nativescript/tailwind": "^4.0.9",
     "tailwindcss": "^4.3.0"
   },
   "devDependencies": {
-    "@gjsify/cli": "^0.50.0",
-    "@gjsify/nativescript-vite": "^0.50.0",
+    "@gjsify/cli": "^0.51.1",
+    "@gjsify/nativescript-vite": "^0.51.1",
     "@nativescript/android": "9.1.0-alpha.6",
     "@nativescript/types": "~9.0.0",
     "@nativescript/vite": "8.0.0-alpha.57",

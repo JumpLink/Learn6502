@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "Een probleem verholpen waarbij de terugknop in het leergedeelte altijd zichtbaar was in desktop- en tabletmodus, zelfs wanneer er geen subpagina geopend was.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "Buildfout op PostmarketOS verholpen, mobiele compatibiliteit verbeterd",
   "Follow system style": "Systeemstijl volgen",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Voor Linux is er nu ook een AppImage: één bestand, geen installatie, handig op een distributie waarvoor we geen pakket maken.",
   "Found %d label.": "%d label gevonden.",
   "Found %d labels.": "%d labels gevonden.",
   "Full Memory ($0000-$FFFF)": "Volledig geheugen ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "Als het resultaat van de optelling groter is dan één byte, loopt het adres rond. Bijvoorbeeld:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "Spreek je een van de genoemde talen? Help dan de vertalingen te beoordelen of te verbeteren. Je kunt bijdragen via de links in de app, ons vertaalplatform of door een issue te openen.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "Als je voorbeeld gebaseerd is op of geïnspireerd door een ander voorbeeld, kun je de bron-URL opgeven.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "Als je systeemtaal Chinees is, verschijnt de app weer in het Chinees. Hij viel per ongeluk terug op het Engels.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "Onmiddellijke adressering werkt niet strikt met geheugenadressen – dit is de modus waarin letterlijke waarden worden gebruikt. <tt>LDX #$01</tt> laadt bijvoorbeeld de waarde <tt>$01</tt> in het <tt>X</tt>-register. Dit is heel anders dan de nulpagina‑instructie <tt>LDX $01</tt>, die de waarde op geheugenlocatie <tt>$01</tt> in het <tt>X</tt>-register laadt.",
   "Immediate: <tt>#$c0</tt>": "Onmiddellijk: <tt>#$c0</tt>",
   "Implicit": "Impliciet",
@@ -251,6 +253,7 @@
   "Learn": "Leren",
   "Learn 6502 Assembly": "Learn 6502 Assembly",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 draait nu op GNOME 50! Met dank aan Sabri Ünal voor het bijdragen van de runtime-update.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 draait nu ook op Windows en macOS. Als je het aan iemand wilde laten zien die geen Linux gebruikt, kan dat nu.",
   "Learn about computer history while coding": "Leer over computerhistorie tijdens het programmeren",
   "Learn how to program the 6502 microprocessor.": "Leer hoe je de 6502‑microprocessor programmeert.",
   "Learn how to use the stack with PHA and PLA instructions": "Leer hoe je de stack gebruikt met PHA- en PLA-instructies",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "Probeer codefragmenten te schrijven die elk van de 6502‑adresseringsmodi gebruiken. Onthoud: je kunt de <b>Hexmonitor</b> in de Debug-weergave gebruiken om een geheugensectie te bekijken.",
   "Tutorial": "Tutorial",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "Tutorial <sub>door <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, gelicenseerd onder CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "Twee nieuwe voorbeeldprogramma's, en ze komen allebei van jullie: Dino Run van Jacob en Line Buster 6502 van edit12. Het zijn de eerste voorbeelden die via de deelknop zijn ingestuurd, en we ontvangen er graag meer.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "Twee stack‑instructies zijn <tt>PHA</tt> en <tt>PLA</tt>, \"push accumulator\" en \"pull accumulator\". Hieronder een voorbeeld waarin beide voorkomen.",
   "Unable to find/parse given address/label": "Kan opgegeven adres/label niet vinden/parseren",
   "Unable to relocate code outside 64k memory": "Kan code niet verplaatsen buiten 64k geheugen",
@@ -455,5 +459,6 @@
   "programming": "programmeren",
   "wdm-output": "wdm‑output",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "dit vertegenwoordigt de indirect geadresseerde geheugenlocaties <tt>$0411</tt>, <tt>$0410</tt> en <tt>$040f</tt> (drie pixels in het midden van het scherm). Ik ham er op door, maar het is belangrijk om volledig te begrijpen hoe indirecte adressering werkt.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! We zijn blij met de Tamil-vertaling, bijgedragen door தமிழ்நேரம். நன்றி!",
   "app.name": "Learn 6502 Assembly"
 }

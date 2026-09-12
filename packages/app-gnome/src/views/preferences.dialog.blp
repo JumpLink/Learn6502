@@ -63,5 +63,19 @@ template $PreferencesDialog: Adw.PreferencesDialog {
         enabled: bind rowAccent.active;
       }
     }
+
+    Adw.PreferencesGroup fontGroup {
+      // TRANSLATORS: Preferences group title for the interface font
+      title: _("Interface font");
+      // TRANSLATORS: Explains the font setting. GTK takes the interface font
+      // from the operating system, and outside GNOME that font is smaller than
+      // the one the app is designed for.
+      description: _("The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller.");
+
+      Adw.ComboRow rowUiFont {
+        // TRANSLATORS: Label of the row that chooses the interface font
+        title: _("Font");
+      }
+    }
   }
 }

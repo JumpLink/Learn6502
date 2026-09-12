@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "修复了学习部分的返回按钮在桌面和平板模式下始终可见的问题，即使没有打开子页面。",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "修复了 PostmarketOS 上的构建错误，提升了移动端兼容性",
   "Follow system style": "跟随系统样式",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Linux 现在还有 AppImage：一个文件，无需安装，在我们没有打包的发行版上也能用。",
   "Found %d label.": "找到 %d 个标签。",
   "Found %d labels.": "找到 %d 个标签。",
   "Full Memory ($0000-$FFFF)": "全部内存（$0000–$FFFF）",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "如果加法结果超过一个字节，地址会回绕。例如：",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "如果你会其中任意一种语言，欢迎协助审阅或改进翻译。你可以通过应用内链接、我们的翻译平台，或提交 Issue 来贡献。",
   "If your example is based on or inspired by another example, you can provide the source URL.": "如果您的示例基于或受到另一个示例的启发，您可以提供源 URL。",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "如果您的系统语言是中文，应用会重新以中文显示。此前它曾错误地回退到英文。",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "立即寻址并不直接处理内存地址——该模式使用字面值。例如，<tt>LDX #$01</tt> 将值 <tt>$01</tt> 载入 <tt>X</tt> 寄存器。这与零页指令 <tt>LDX $01</tt>（将内存位置 <tt>$01</tt> 的值载入 <tt>X</tt>）完全不同。",
   "Immediate: <tt>#$c0</tt>": "立即寻址：<tt>#$c0</tt>",
   "Implicit": "隐式",
@@ -251,6 +253,7 @@
   "Learn": "学习",
   "Learn 6502 Assembly": "学习 6502 汇编",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 现已运行在 GNOME 50 上！感谢 Sabri Ünal 贡献了运行时更新。",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 现在也能在 Windows 和 macOS 上运行。如果您一直想把它推荐给不用 Linux 的朋友，现在可以了。",
   "Learn about computer history while coding": "一边编码一边了解计算机历史",
   "Learn how to program the 6502 microprocessor.": "学习如何为 6502 微处理器编程。",
   "Learn how to use the stack with PHA and PLA instructions": "学习如何使用 PHA 和 PLA 指令操作栈",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "试着编写分别使用 6502 各种寻址模式的代码片段。记得，你可以使用 <b>调试</b> 视图中的 <b>十六进制监视器</b> 观察一段内存。",
   "Tutorial": "教程",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "教程 <sub>作者 <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>，基于 CC BY 4.0 许可</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "两个新的示例程序，都来自大家：Jacob 的 Dino Run 和 edit12 的 Line Buster 6502。它们是通过分享按钮提交的首批示例，我们希望收到更多。",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "两条与栈有关的指令是 <tt>PHA</tt> 与 <tt>PLA</tt>，分别是\"压栈累加器\"和\"出栈累加器\"。下面是它们的示例。",
   "Unable to find/parse given address/label": "无法找到/解析给定的地址/标签",
   "Unable to relocate code outside 64k memory": "无法将代码重定位到 64K 内存之外",
@@ -455,5 +459,6 @@
   "programming": "编程",
   "wdm-output": "wdm-output",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "其表示间接寻址到的内存位置 <tt>$0411</tt>、<tt>$0410</tt> 与 <tt>$040f</tt>（显示中部的三个像素）。之所以反复强调，是因为完全理解间接寻址的工作方式非常重要。",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! 我们很高兴迎来泰米尔语翻译，由 தமிழ்நேரம் 贡献。நன்றி!",
   "app.name": "学习 6502 汇编"
 }

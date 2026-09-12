@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "Correction d'un problème où le bouton de retour dans la section d'apprentissage était toujours visible en mode bureau et tablette, même lorsqu'aucune sous-page n'était ouverte.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "Correction d'une erreur de compilation sur PostmarketOS, améliorant la compatibilité mobile",
   "Follow system style": "Suivre le style du système",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Pour Linux, il y a maintenant aussi une AppImage : un fichier, aucune installation, utile sur une distribution pour laquelle nous ne fournissons pas de paquet.",
   "Found %d label.": "Trouvé %d étiquette.",
   "Found %d labels.": "Trouvé %d étiquettes.",
   "Full Memory ($0000-$FFFF)": "Mémoire complète ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "Si le résultat de l'addition est plus grand qu'un seul octet, l'adresse revient au début. Par exemple :",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "Si vous parlez l'une des langues listées, aidez‑nous à relire ou à améliorer les traductions. Vous pouvez contribuer via les liens dans l'application, notre plateforme de traduction ou en ouvrant un ticket.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "Si votre exemple est basé sur ou inspiré d'un autre exemple, vous pouvez fournir l'URL source.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "Si la langue de votre système est le chinois, l'application s'affiche à nouveau en chinois. Elle basculait vers l'anglais par erreur.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "L'adressage immédiat ne traite pas strictement des adresses mémoire - c'est le mode où les valeurs réelles sont utilisées. Par exemple, <tt>LDX #$01</tt> charge la valeur <tt>$01</tt> dans le registre <tt>X</tt>. C'est très différent de l'instruction de page zéro <tt>LDX $01</tt> qui charge la valeur à l'emplacement mémoire <tt>$01</tt> dans le registre <tt>X</tt>.",
   "Immediate: <tt>#$c0</tt>": "Immédiat : <tt>#$c0</tt>",
   "Implicit": "Implicite",
@@ -251,6 +253,7 @@
   "Learn": "Apprendre",
   "Learn 6502 Assembly": "Apprendre l'assembleur 6502",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 fonctionne maintenant sur GNOME 50 ! Merci à Sabri Ünal pour sa contribution à la mise à jour du runtime.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 fonctionne maintenant aussi sur Windows et macOS. Si vous vouliez le montrer à quelqu'un qui n'est pas sous Linux, c'est désormais possible.",
   "Learn about computer history while coding": "Apprenez l'histoire de l'informatique tout en codant",
   "Learn how to program the 6502 microprocessor.": "Apprenez à programmer le microprocesseur 6502.",
   "Learn how to use the stack with PHA and PLA instructions": "Apprenez à utiliser la pile avec les instructions PHA et PLA",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "Essayez d'écrire des extraits de code qui utilisent chacun des modes d'adressage 6502. Rappelez-vous, vous pouvez utiliser le <b>Moniteur hexadécimal</b> dans la vue <b>Déboguer</b> pour surveiller une section de mémoire.",
   "Tutorial": "Tutoriel",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "Tutoriel <sub>par <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, sous licence CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "Deux nouveaux programmes d'exemple, et tous les deux viennent de vous : Dino Run par Jacob et Line Buster 6502 par edit12. Ce sont les premiers exemples envoyés avec le bouton de partage, et nous aimerions en recevoir d'autres.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "Deux des instructions de pile sont <tt>PHA</tt> et <tt>PLA</tt>, \"push accumulator\" et \"pull accumulator\". Ci-dessous un exemple de ces deux en action.",
   "Unable to find/parse given address/label": "Impossible de trouver/analyser l'adresse/étiquette donnée",
   "Unable to relocate code outside 64k memory": "Impossible de déplacer le code en dehors de la mémoire 64k",
@@ -455,5 +459,6 @@
   "programming": "programmation",
   "wdm-output": "sortie-wdm",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "qui représente les emplacements mémoire adressés indirectement <tt>$0411</tt>, <tt>$0410</tt> et <tt>$040f</tt> (trois pixels au milieu de l'affichage). J'insiste sur ce point, mais il est important de bien comprendre comment fonctionne l'adressage indirect.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம் ! Nous sommes heureux d'accueillir la traduction en tamoul, contribuée par தமிழ்நேரம். நன்றி !",
   "app.name": "Apprendre l'assembleur 6502"
 }

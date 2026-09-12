@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "Đã sửa lỗi nút Lui lại trong phần học luôn hiển thị ở chế độ máy tính để bàn và máy tính bảng, ngay cả khi không có trang con nào được mở.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "Đã sửa lỗi xây dựng trên PostmarketOS, cải thiện khả năng tương thích với thiết bị di động",
   "Follow system style": "Theo phong cách hệ thống",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Với Linux hiện cũng có AppImage: một tệp duy nhất, không cần cài đặt, hữu ích trên bản phân phối mà chúng tôi không đóng gói sẵn.",
   "Found %d label.": "Đã tìm thấy nhãn %d.",
   "Found %d labels.": "Đã tìm thấy nhãn %d.",
   "Full Memory ($0000-$FFFF)": "Bộ Nhớ Đầy ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "Nếu kết quả của phép cộng lớn hơn một byte đơn thì địa chỉ sẽ bao quanh. Ví dụ:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "Nếu bạn nói một trong những ngôn ngữ được liệt kê, vui lòng giúp xem xét hoặc cải thiện bản dịch. Bạn có thể đóng góp thông qua các liên kết trong ứng dụng, nền tảng dịch thuật của chúng tôi hoặc bằng cách mở một số báo.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "Nếu ví dụ của bạn dựa trên hoặc lấy cảm hứng từ một ví dụ khác, bạn có thể cung cấp URL nguồn.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "Nếu ngôn ngữ hệ thống của bạn là tiếng Trung, ứng dụng hiển thị lại bằng tiếng Trung. Trước đây nó đã nhầm lẫn quay về tiếng Anh.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "Địa chỉ ngay lập tức không xử lý nghiêm ngặt các địa chỉ bộ nhớ - đây là chế độ sử dụng các giá trị thực. Ví dụ: <tt>LDX #$01</tt> tải giá trị <tt>$01</tt> vào thanh ghi <tt>X</tt>. Điều này rất khác với lệnh trang không <tt>LDX $01</tt> tải giá trị tại vị trí bộ nhớ <tt>$01</tt> vào thanh ghi <tt>X</tt>.",
   "Immediate: <tt>#$c0</tt>": "Ngay lập tức: <tt>#$c0</tt>",
   "Implicit": "Ngầm định",
@@ -251,6 +253,7 @@
   "Learn": "Học",
   "Learn 6502 Assembly": "Học Hợp Ngữ 6502",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 hiện chạy trên GNOME 50! Cảm ơn Sabri Ünal đã đóng góp bản cập nhật runtime.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 hiện cũng chạy trên Windows và macOS. Nếu bạn muốn giới thiệu nó cho một người bạn không dùng Linux, bây giờ bạn có thể làm điều đó.",
   "Learn about computer history while coding": "Tìm hiểu về lịch sử máy tính khi code",
   "Learn how to program the 6502 microprocessor.": "Tìm hiểu cách lập trình bộ vi xử lý 6502.",
   "Learn how to use the stack with PHA and PLA instructions": "Tìm hiểu cách sử dụng ngăn xếp với hướng dẫn PHA và PLA",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "Hãy thử viết các đoạn mã sử dụng từng chế độ địa chỉ của 6502. Hãy nhớ rằng, bạn có thể sử dụng <b>Hex Monitor</b> trong khung gỡ lỗi để xem một phần bộ nhớ.",
   "Tutorial": "Hướng dẫn",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "Hướng dẫn <sub>của <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, được cấp phép theo CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "Hai chương trình ví dụ mới, và cả hai đều đến từ các bạn: Dino Run của Jacob, và Line Buster 6502 của edit12. Đây là những ví dụ đầu tiên được gửi bằng nút chia sẻ, và chúng tôi rất mong nhận thêm.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "Hai trong số các lệnh ngăn xếp là <tt>PHA</tt> và <tt>PLA</tt>, \"bộ tích lũy đẩy\" và \"bộ tích lũy kéo\". Dưới đây là một ví dụ về hai hoạt động này.",
   "Unable to find/parse given address/label": "Không thể tìm/phân tích địa chỉ/nhãn đã cho",
   "Unable to relocate code outside 64k memory": "Không thể di chuyển code ra ngoài bộ nhớ 64k",
@@ -455,5 +459,6 @@
   "programming": "lập trình",
   "wdm-output": "wdm-output",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "đại diện cho các vị trí bộ nhớ được đánh địa chỉ gián tiếp <tt>$0411</tt>, <tt>$0410</tt> và <tt>$040f</tt> (ba pixel ở giữa màn hình). Tôi đang nghiên cứu vấn đề này, nhưng điều quan trọng là phải hiểu rõ cách thức hoạt động của địa chỉ gián tiếp.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! Chúng tôi vui mừng chào đón bản dịch tiếng Tamil, được đóng góp bởi தமிழ்நேரம். நன்றி!",
   "app.name": "Học Hợp Ngữ 6502"
 }

@@ -34,7 +34,7 @@ jobs:
       # `gjsify-lock.json` resolves, so bootstrap and locked toolchain are the
       # same CLI.
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.50.0
+        run: npm install -g @gjsify/cli@0.51.1
 
       - name: Install dependencies
         run: gjsify install --immutable
@@ -142,7 +142,7 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.50.0
+        run: npm install -g @gjsify/cli@0.51.1
 
       - name: Install dependencies
         run: gjsify install --immutable

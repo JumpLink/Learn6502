@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "Memperbaiki masalah di mana tombol kembali di bagian learn selalu terlihat dalam mode desktop dan tablet, bahkan ketika tidak ada subhalaman yang dibuka.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "Memperbaiki error build di PostmarketOS, meningkatkan kompatibilitas mobile",
   "Follow system style": "Ikuti gaya sistem",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Untuk Linux kini tersedia juga AppImage: satu file, tanpa instalasi, berguna pada distribusi yang tidak kami buatkan paketnya.",
   "Found %d label.": "Ditemukan %d label.",
   "Found %d labels.": "Ditemukan %d label.",
   "Full Memory ($0000-$FFFF)": "Memori Penuh ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "Jika hasil penjumlahan lebih besar dari satu byte, alamatnya akan melingkar balik. Misalnya:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "Jika Anda berbicara salah satu bahasa yang tercantum, mohon bantu tinjau atau perbaiki terjemahannya. Anda dapat berkontribusi melalui tautan dalam aplikasi, platform terjemahan kami, atau dengan membuka issue.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "Jika contoh Anda didasarkan pada atau terinspirasi dari contoh lain, Anda dapat menyertakan URL sumbernya.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "Jika bahasa sistem Anda adalah bahasa Mandarin, aplikasi kembali tampil dalam bahasa Mandarin. Sebelumnya aplikasi keliru beralih ke bahasa Inggris.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "Pengalamatan immediate secara ketat tidak berurusan dengan alamat memori - ini adalah mode di mana nilai aktual digunakan. Misalnya, <tt>LDX #$01</tt> memuat nilai <tt>$01</tt> ke dalam register <tt>X</tt>. Ini sangat berbeda dengan instruksi zero page <tt>LDX $01</tt> yang memuat nilai di lokasi memori <tt>$01</tt> ke dalam register <tt>X</tt>.",
   "Immediate: <tt>#$c0</tt>": "Immediate: <tt>#$c0</tt>",
   "Implicit": "Implisit",
@@ -251,6 +253,7 @@
   "Learn": "Pelajari",
   "Learn 6502 Assembly": "Pelajari Assembly 6502",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 kini berjalan di GNOME 50! Terima kasih kepada Sabri Ünal atas kontribusi pembaruan runtime-nya.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 kini juga berjalan di Windows dan macOS. Jika Anda ingin menunjukkannya kepada teman yang tidak memakai Linux, sekarang Anda bisa.",
   "Learn about computer history while coding": "Pelajari sejarah komputer sambil coding",
   "Learn how to program the 6502 microprocessor.": "Pelajari cara memprogram mikroprosesor 6502.",
   "Learn how to use the stack with PHA and PLA instructions": "Pelajari cara menggunakan stack dengan instruksi PHA dan PLA",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "Coba tulis cuplikan kode yang menggunakan setiap mode pengalamatan 6502. Ingat, Anda dapat menggunakan <b>Monitor Hex</b> pada tampilan debug untuk mengamati sebagian dari memori.",
   "Tutorial": "Tutorial",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "Tutorial <sub>oleh <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, dilisensikan di bawah CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "Dua program contoh baru, dan keduanya datang dari Anda: Dino Run oleh Jacob, dan Line Buster 6502 oleh edit12. Keduanya adalah contoh pertama yang dikirim dengan tombol bagikan, dan kami masih menantikan lebih banyak.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "Dua instruksi stack adalah <tt>PHA</tt> dan <tt>PLA</tt>, \"push accumulator\" dan \"pull accumulator\". Di bawah ini adalah contoh keduanya dalam aksi.",
   "Unable to find/parse given address/label": "Tidak dapat menemukan/mengurai alamat/label yang diberikan",
   "Unable to relocate code outside 64k memory": "Tidak dapat merelokasi kode di luar memori 64k",
@@ -455,5 +459,6 @@
   "programming": "pemrograman",
   "wdm-output": "wdm-output",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "yang merepresentasikan lokasi memori beralamat indirect <tt>$0411</tt>, <tt>$0410</tt>, dan <tt>$040f</tt> (tiga piksel di tengah tampilan). Saya menekankan poin ini, tetapi penting untuk benar-benar memahami cara kerja pengalamatan indirect.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! Kami dengan senang hati menyambut terjemahan bahasa Tamil, yang dikontribusikan oleh தமிழ்நேரம். நன்றி!",
   "app.name": "Pelajari Assembly 6502"
 }

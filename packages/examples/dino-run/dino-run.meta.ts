@@ -5,7 +5,7 @@ export default {
   // TRANSLATORS: Example title for Dino Run
   title: _("Dino Run"),
   // TRANSLATORS: Example description for Dino Run
-  description: _("The offline browser run game made for 5602 assembly"),
+  description: _("The offline browser run game made for 6502 assembly"),
   author: "Jacob",
   license: "CC-BY-4.0",
   displayMemory:

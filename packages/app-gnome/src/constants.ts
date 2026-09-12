@@ -15,6 +15,7 @@ export const PKGDATADIR = __PKGDATADIR__;
 export const KEY_COLOR_SCHEME = "color-scheme"; // 0=follow,1=light,2=dark
 export const KEY_PRIMARY_COLOR = "primary-color"; // 'none' | predefined key
 export const KEY_ACCENT_COLOR = "accent-color"; // 'system' | predefined key
+export const KEY_UI_FONT = "ui-font"; // 'system' | 'size' | 'adwaita'
 
 // Color scheme enum for better type safety
 export enum ColorScheme {

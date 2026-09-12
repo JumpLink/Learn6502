@@ -1,6 +1,6 @@
 {
   "name": "@learn6502/app-gnome",
-  "version": "0.7.0",
+  "version": "0.8.0",
   "description": "Learn 6502 assembly by developing games on a virtual console",
   "main": "dist/main.js",
   "type": "module",
@@ -113,18 +113,19 @@
   "author": "Pascal Garber <pascal@mailfreun.de>",
   "license": "GPL-3.0",
   "optionalDependencies": {
-    "@gjsify/gtk-runtime-darwin-arm64": "^0.50.0",
-    "@gjsify/gtk-runtime-darwin-x64": "^0.50.0",
-    "@gjsify/gtk-runtime-win32-x64": "^0.50.0",
-    "@gjsify/node-runtime-darwin-arm64": "^0.50.0",
-    "@gjsify/node-runtime-darwin-x64": "^0.50.0",
-    "@gjsify/node-runtime-win32-x64": "^0.50.0"
+    "@gjsify/gtk-host": "^0.51.1",
+    "@gjsify/gtk-runtime-darwin-arm64": "^0.51.1",
+    "@gjsify/gtk-runtime-darwin-x64": "^0.51.1",
+    "@gjsify/gtk-runtime-win32-x64": "^0.51.1",
+    "@gjsify/node-runtime-darwin-arm64": "^0.51.1",
+    "@gjsify/node-runtime-darwin-x64": "^0.51.1",
+    "@gjsify/node-runtime-win32-x64": "^0.51.1"
   },
   "devDependencies": {
-    "@gjsify/cli": "^0.50.0",
-    "@gjsify/node-gi": "^0.50.0",
-    "@gjsify/vite-plugin-blueprint": "^0.50.0",
-    "@gjsify/vite-plugin-gettext": "^0.50.0",
+    "@gjsify/cli": "^0.51.1",
+    "@gjsify/node-gi": "^0.51.1",
+    "@gjsify/vite-plugin-blueprint": "^0.51.1",
+    "@gjsify/vite-plugin-gettext": "^0.51.1",
     "typescript": "^6.0.3"
   },
   "dependencies": {
@@ -140,10 +141,10 @@
     "@girs/javascriptcore-6.0": "5.0.0",
     "@girs/pango-1.0": "5.0.0",
     "@girs/webkit-6.0": "5.0.0",
-    "@gjsify/storybook": "^0.50.0",
-    "@learn6502/core": "^0.7.0",
-    "@learn6502/common-ui": "^0.7.0",
-    "@learn6502/learn": "^0.7.0",
-    "@learn6502/translations": "^0.7.0"
+    "@gjsify/storybook": "^0.51.1",
+    "@learn6502/core": "^0.8.0",
+    "@learn6502/common-ui": "^0.8.0",
+    "@learn6502/learn": "^0.8.0",
+    "@learn6502/translations": "^0.8.0"
   }
 }

@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "Korjattu ongelma, jossa opintosivun takaisin-painike oli aina näkyvissä työpöytä- ja tablettitilassa, vaikka alisivua ei ollut avoinna.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "Korjattu käännösvirhe PostmarketOS:ssa, mikä parantaa mobiiliyhteensopivuutta",
   "Follow system style": "Seuraa järjestelmän tyyliä",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Linuxille on nyt saatavilla myös AppImage: yksi tiedosto, ei asennusta, kätevä jakelussa, jolle emme tee omaa pakettia.",
   "Found %d label.": "Löydettiin %d otsikko.",
   "Found %d labels.": "Löydettiin %d otsikkoa.",
   "Full Memory ($0000-$FFFF)": "Koko muisti ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "Jos yhteenlaskun tulos on suurempi kuin yksi tavu, osoite kiertyy ympäri. Esimerkiksi:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "Jos puhut jotakin listatuista kielistä, auta tarkistamaan tai parantamaan käännöksiä. Voit osallistua sovelluksen sisäisten linkkien, käännösalustamme tai issuen avaamisen kautta.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "Jos esimerkkisi pohjautuu tai on saanut inspiraatiota toisesta esimerkistä, voit lisätä lähteen URL-osoitteen tähän.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "Jos järjestelmäsi kieli on kiina, sovellus näkyy taas kiinaksi. Se oli vahingossa palautunut englantiin.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "Välitön osoitteistus ei varsinaisesti käsittele muistiosoitteita – tämä on tila, jossa käytetään todellisia arvoja. Esimerkiksi <tt>LDX #$01</tt> lataa arvon <tt>$01</tt> <tt>X</tt>-rekisteriin. Tämä on hyvin erilainen kuin nollasivun käsky <tt>LDX $01</tt>, joka lataa muistiosoitteessa <tt>$01</tt> olevan arvon <tt>X</tt>-rekisteriin.",
   "Immediate: <tt>#$c0</tt>": "Välitön: <tt>#$c0</tt>",
   "Implicit": "Implisiittinen",
@@ -251,6 +253,7 @@
   "Learn": "Opi",
   "Learn 6502 Assembly": "Opi 6502 Assembly",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 toimii nyt GNOME 50:llä! Kiitos Sabri Ünalille ajonympäristön päivityksen tekemisestä.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 toimii nyt myös Windowsilla ja macOS:llä. Jos olet halunnut vinkata siitä ystävälle, joka ei käytä Linuxia, nyt se onnistuu.",
   "Learn about computer history while coding": "Opi tietokonehistoriaa samalla kun koodaat",
   "Learn how to program the 6502 microprocessor.": "Opi ohjelmoimaan 6502-mikroprosessoria.",
   "Learn how to use the stack with PHA and PLA instructions": "Opi käyttämään pinoa PHA- ja PLA-konekäskyillä",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "Kokeile kirjoittaa koodinpätkiä, jotka käyttävät kutakin 6502:n osoitteistustilaa. Muista, että voit käyttää vianjäljitysnäkymän <b>Heksamonitoria</b> muistin osan tarkkailuun.",
   "Tutorial": "Opas",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "Opas, <sub>tehnyt <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, lisenssi CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "Kaksi uutta esimerkkiohjelmaa, ja molemmat tulivat teiltä: Dino Run, tekijänä Jacob, ja Line Buster 6502, tekijänä edit12. Ne ovat ensimmäiset jaa-painikkeella lähetetyt esimerkit, ja otamme mielellämme vastaan lisää.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "Kaksi pinokäskyistä ovat <tt>PHA</tt> ja <tt>PLA</tt>, \"push accumulator\" (työnnä akkumulaattori) ja \"pull accumulator\" (vedä akkumulaattori). Alla on esimerkki näiden kahden toiminnasta.",
   "Unable to find/parse given address/label": "Annettua osoitetta/otsikkoa ei löydy tai sitä ei voi jäsentää",
   "Unable to relocate code outside 64k memory": "Koodia ei voi siirtää 64 kt:n muistin ulkopuolelle",
@@ -455,5 +459,6 @@
   "programming": "ohjelmointi",
   "wdm-output": "wdm-tulostus",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "joka edustaa epäsuorasti osoitettuja muistiosoitteita <tt>$0411</tt>, <tt>$0410</tt> ja <tt>$040f</tt> (kolme pikseliä näytön keskellä). Jankutan tästä, mutta on tärkeää ymmärtää perusteellisesti, miten epäsuora osoitteistus toimii.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! Olemme iloisia voidessamme toivottaa tervetulleeksi tamilinkieliset käännökset, jotka தமிழ்நேரம் on toimittanut. நன்றி!",
   "app.name": "Opi 6502 Assembly"
 }

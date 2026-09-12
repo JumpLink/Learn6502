@@ -485,6 +485,7 @@ msgstr "Configurationes de apparentia"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Meliorationes de architectura habilita melior participation de codice inter plataformas GNOME, Web, e Android."
 
+#. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
 msgstr "Como sempre, iste version include multe parve correctiones e meliorationes."
@@ -562,7 +563,7 @@ msgstr "Bandiera de interruption: Definite quando un instruction BRK (Break) es 
 
 #. TRANSLATORS: Example description for Line Buster 6502
 msgid "Break the blocks with the paddle and ball."
-msgstr ""
+msgstr "Rumpe le blocos con le paletta e le balla."
 
 #. TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
@@ -667,7 +668,7 @@ msgstr "Description"
 
 #. TRANSLATORS: Example title for Dino Run
 msgid "Dino Run"
-msgstr ""
+msgstr "Dino Run"
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
@@ -795,6 +796,10 @@ msgstr "Corrigite error de construction sur PostmarketOS, meliorante compatibili
 msgid "Follow system style"
 msgstr "Sequer stilo de systema"
 
+#. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
+msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
+msgstr "Pro Linux il ha ora anque un AppImage: un sol file, sin installation, utile sur un distribution pro le qual nos non offere un pacchetto."
+
 #. TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
 #, javascript-format
 msgid "Found %d label."
@@ -896,6 +901,10 @@ msgstr "Si tu parla un del linguas listate, per favor adjuta nos a revisar o mel
 
 msgid "If your example is based on or inspired by another example, you can provide the source URL."
 msgstr "Si tu exemplo es basate sur o inspirate per un altere exemplo, tu pote fornir le URL del fonte."
+
+#. TRANSLATORS: Release notes for version 0.8.0 - Chinese language code fix
+msgid "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake."
+msgstr "Si le lingua de tu systema es le chinese, le application appare de novo in chinese. Antea illo passava al anglese per error."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1045,6 +1054,10 @@ msgstr "Apprender Assemblage 6502"
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
 msgstr "Learn 6502 ora functiona sur GNOME 50! Gratias a Sabri Ünal pro contribuer le actualisation del runtime."
 
+#. TRANSLATORS: Release notes for version 0.8.0 - Windows and macOS builds. "Learn 6502" is the app name: use whatever spelling your catalogue already uses for it (some localise it), and keep "Windows", "macOS" and "Linux" as they are.
+msgid "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that."
+msgstr "Learn 6502 ora functiona anque sur Windows e macOS. Si tu voleva monstrar lo a un amico qui non usa Linux, ora tu pote facer lo."
+
 #. TRANSLATORS: Feature list item about learning history while coding
 msgid "Learn about computer history while coding"
 msgstr "Apprende a proposito de historia de computator durante que tu codifica"
@@ -1068,7 +1081,7 @@ msgstr "Stilo clar"
 
 #. TRANSLATORS: Example title for Line Buster 6502
 msgid "Line Buster 6502"
-msgstr ""
+msgstr "Line Buster 6502"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1401,7 +1414,7 @@ msgstr "Seriosamente tamen, io pensa que es valuable haber un comprension de lin
 
 #. TRANSLATORS: Release notes for version 0.7.0 - Hebrew translation. Keep the greeting 'Shalom!', the thanks 'Toda raba!' and the name 'Menachem (naattxx)' as they are.
 msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by Menachem (naattxx). Toda raba!"
-msgstr "Shalom! Nos es un placer dar le benvenita al traduction hebree, integremente contribuite per Menachem (naattxx). Toda raba!"
+msgstr "Shalom! Nos es felice de dar le benvenita al traduction hebree, integremente contribuite per Menachem (naattxx). Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
 #. TRANSLATORS: Toolbar button tooltip to share the current code
@@ -1527,7 +1540,7 @@ msgstr "Turquoise"
 
 #. TRANSLATORS: Release notes for version 0.6.4 - Finnish translation
 msgid "Tervetuloa! We are happy to welcome Finnish translations, kindly contributed by Jiri Grönroos. Kiitos!"
-msgstr "Tervetuloa! Nos es un placer dar le benvenita al traduction finnese, gentilmente contribute per Jiri Grönroos. Kiitos!"
+msgstr "Tervetuloa! Nos es felice de dar le benvenita al traduction finnese, gentilmente contribute per Jiri Grönroos. Kiitos!"
 
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
@@ -1638,8 +1651,8 @@ msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple locat
 msgstr "Le proxime subrutina, <tt>generateApplePosition</tt>, defini le location del pomo a un position casual sur le schermo. Prime, illo carga un byte casual in le accumulator (<tt>$fe</tt> es un generator de numeros casual in iste simulator). Iste es immagazinate in <tt>$00</tt>. Sequente, un differente byte casual es cargate in le accumulator, que es pois <tt>AND</tt>-ed con le valor <tt>$03</tt>. Iste parte require un micre detour."
 
 #. TRANSLATORS: Example description for Dino Run
-msgid "The offline browser run game made for 5602 assembly"
-msgstr ""
+msgid "The offline browser run game made for 6502 assembly"
+msgstr "Le joco de cursa sin connexion del navigator, in Assemblage 6502"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."
@@ -1746,6 +1759,10 @@ msgstr "Tutorial"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
 msgstr "Tutorial <sub>per <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licentiate sub CC BY 4.0</sub>"
+
+#. TRANSLATORS: Release notes for version 0.8.0 - the first two community examples. Keep the example titles "Dino Run" and "Line Buster 6502" and the names "Jacob" and "edit12" as they are.
+msgid "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more."
+msgstr "Duo nove programmas de exemplo, e ambes veni de vos: Dino Run de Jacob, e Line Buster 6502 de edit12. Illos es le prime exemplos inviate con le button de compartir, e nos volerea reciper plus."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
@@ -1878,6 +1895,10 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "que representa le locationes de memoria indirectemente adressate <tt>$0411</tt>, <tt>$0410</tt> e <tt>$040f</tt> (tres pixeles in le medio del schermo). Io labora iste puncto, ma illo es importante pro plenemente comprehender como adressage indirecte functiona."
+
+#. TRANSLATORS: Release notes for version 0.8.0 - Tamil translation. Keep the greeting 'வணக்கம்', the thanks 'நன்றி' and the translator's name 'தமிழ்நேரம்' exactly as they are.
+msgid "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!"
+msgstr "வணக்கம்! Nos es felice de dar le benvenita al traduction tamil, contribuite per தமிழ்நேரம். நன்றி!"
 
 #, javascript-format
 #~ msgid ""
