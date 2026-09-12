@@ -486,6 +486,7 @@ msgstr "外観設定"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "アーキテクチャを強化し、GNOME・Web・Android 間のコード共有を改善"
 
+#. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
 msgstr "いつものように、このリリースには多くの小さな修正と改善が含まれています。"
@@ -563,7 +564,7 @@ msgstr "ブレークフラグ: BRK（ブレーク）命令実行時にセット�
 
 #. TRANSLATORS: Example description for Line Buster 6502
 msgid "Break the blocks with the paddle and ball."
-msgstr ""
+msgstr "パドルとボールでブロックを崩しましょう。"
 
 #. TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
@@ -668,7 +669,7 @@ msgstr "説明"
 
 #. TRANSLATORS: Example title for Dino Run
 msgid "Dino Run"
-msgstr ""
+msgstr "Dino Run"
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
@@ -796,6 +797,10 @@ msgstr "PostmarketOS のビルドエラーを修正し、モバイル互換性�
 msgid "Follow system style"
 msgstr "システムのスタイルに従う"
 
+#. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
+msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
+msgstr "Linux 向けには AppImage も用意しました。ファイルは1つだけ、インストールは不要で、パッケージを提供していないディストリビューションでも使えます。"
+
 #. TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
 #, javascript-format
 msgid "Found %d label."
@@ -897,6 +902,10 @@ msgstr "記載のいずれかの言語を話す方は、翻訳のレビューや
 
 msgid "If your example is based on or inspired by another example, you can provide the source URL."
 msgstr "例が別の例に基づいている、またはインスピレーションを受けている場合は、ソースURLを入力できます。"
+
+#. TRANSLATORS: Release notes for version 0.8.0 - Chinese language code fix
+msgid "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake."
+msgstr "システムの言語が中国語の場合、アプリは再び中国語で表示されます。これまでは誤って英語で表示されていました。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1046,6 +1055,10 @@ msgstr "6502アセンブリを学ぶ"
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
 msgstr "Learn 6502 が GNOME 50 で動作するようになりました！ランタイムの更新に貢献してくださった Sabri Ünal 氏に感謝します。"
 
+#. TRANSLATORS: Release notes for version 0.8.0 - Windows and macOS builds. "Learn 6502" is the app name: use whatever spelling your catalogue already uses for it (some localise it), and keep "Windows", "macOS" and "Linux" as they are.
+msgid "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that."
+msgstr "Learn 6502 は Windows と macOS でも動作するようになりました。Linux を使っていない友人にすすめたいと思っていた方は、これで紹介できます。"
+
 #. TRANSLATORS: Feature list item about learning history while coding
 msgid "Learn about computer history while coding"
 msgstr "コーディングしながらコンピュータの歴史も学べます"
@@ -1069,7 +1082,7 @@ msgstr "ライトスタイル"
 
 #. TRANSLATORS: Example title for Line Buster 6502
 msgid "Line Buster 6502"
-msgstr ""
+msgstr "Line Buster 6502"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1639,8 +1652,8 @@ msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple locat
 msgstr "次の <tt>generateApplePosition</tt> はりんごの位置をランダムに設定します。まず乱数バイトをアキュムレータへ読み込み（このシミュレーターでは <tt>$fe</tt> が乱数源）、<tt>$00</tt> に保存。次に別の乱数を読み込み、<tt>$03</tt> と <tt>AND</tt> します。ここで少し寄り道が必要です。"
 
 #. TRANSLATORS: Example description for Dino Run
-msgid "The offline browser run game made for 5602 assembly"
-msgstr ""
+msgid "The offline browser run game made for 6502 assembly"
+msgstr "6502アセンブリで作られた、ブラウザのオフラインのランゲーム"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."
@@ -1747,6 +1760,10 @@ msgstr "チュートリアル"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
 msgstr "チュートリアル <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, CC BY 4.0</sub>"
+
+#. TRANSLATORS: Release notes for version 0.8.0 - the first two community examples. Keep the example titles "Dino Run" and "Line Buster 6502" and the names "Jacob" and "edit12" as they are.
+msgid "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more."
+msgstr "新しいサンプルプログラムが2つ、どちらも皆さんからのものです。Jacob による Dino Run と、edit12 による Line Buster 6502 です。共有ボタンから送られてきた最初の例で、これからもお待ちしています。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
@@ -1879,6 +1896,10 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "これは間接参照で得られる <tt>$0411</tt>、<tt>$0410</tt>、<tt>$040f</tt>（画面中央付近の3ピクセル）を表します。くどいようですが、間接アドレッシングの仕組みをしっかり理解することが重要です。"
+
+#. TRANSLATORS: Release notes for version 0.8.0 - Tamil translation. Keep the greeting 'வணக்கம்', the thanks 'நன்றி' and the translator's name 'தமிழ்நேரம்' exactly as they are.
+msgid "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!"
+msgstr "வணக்கம்! タミル語の翻訳が加わりました。翻訳してくださった தமிழ்நேரம் に感謝します。நன்றி!"
 
 #, javascript-format
 #~ msgid ""

@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "学習セクションの戻るボタンが、サブページが開かれていない状態でもデスクトップモードおよびタブレットモードで常に表示されていた問題を修正しました。",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "PostmarketOS のビルドエラーを修正し、モバイル互換性を向上",
   "Follow system style": "システムのスタイルに従う",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Linux 向けには AppImage も用意しました。ファイルは1つだけ、インストールは不要で、パッケージを提供していないディストリビューションでも使えます。",
   "Found %d label.": "ラベルを %d 件見つけました。",
   "Found %d labels.": "ラベルを %d 件見つけました。",
   "Full Memory ($0000-$FFFF)": "全メモリ ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "加算結果が1バイトを超えると、アドレスは折り返します。例えば:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "記載のいずれかの言語を話す方は、翻訳のレビューや改善にご協力ください。アプリ内リンク、翻訳プラットフォーム、またはIssueの作成から参加できます。",
   "If your example is based on or inspired by another example, you can provide the source URL.": "例が別の例に基づいている、またはインスピレーションを受けている場合は、ソースURLを入力できます。",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "システムの言語が中国語の場合、アプリは再び中国語で表示されます。これまでは誤って英語で表示されていました。",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "即値アドレッシングは厳密にはメモリアドレスを扱いません。値そのものを使う方式です。例えば <tt>LDX #$01</tt> は値 <tt>$01</tt> を <tt>X</tt> にロードします。これは <tt>LDX $01</tt>（メモリ <tt>$01</tt> の値を <tt>X</tt> にロード）とは全く異なります。",
   "Immediate: <tt>#$c0</tt>": "即値: <tt>#$c0</tt>",
   "Implicit": "暗黙",
@@ -251,6 +253,7 @@
   "Learn": "学習",
   "Learn 6502 Assembly": "6502アセンブリを学ぶ",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 が GNOME 50 で動作するようになりました！ランタイムの更新に貢献してくださった Sabri Ünal 氏に感謝します。",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 は Windows と macOS でも動作するようになりました。Linux を使っていない友人にすすめたいと思っていた方は、これで紹介できます。",
   "Learn about computer history while coding": "コーディングしながらコンピュータの歴史も学べます",
   "Learn how to program the 6502 microprocessor.": "6502 マイクロプロセッサのプログラミングを学びましょう。",
   "Learn how to use the stack with PHA and PLA instructions": "PHA命令とPLA命令でスタックを扱う方法を学びましょう",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "6502の各アドレッシングモードを使うコード片を書いてみましょう。デバッグビューの<b>16進モニター</b>でメモリの一部を観察できます。",
   "Tutorial": "チュートリアル",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "チュートリアル <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "新しいサンプルプログラムが2つ、どちらも皆さんからのものです。Jacob による Dino Run と、edit12 による Line Buster 6502 です。共有ボタンから送られてきた最初の例で、これからもお待ちしています。",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "スタック命令の例として <tt>PHA</tt>（アキュムレータをプッシュ）と <tt>PLA</tt>（プル）があります。以下はその例です。",
   "Unable to find/parse given address/label": "指定されたアドレス/ラベルを見つける/解析できません",
   "Unable to relocate code outside 64k memory": "64K メモリ外へコードを再配置できません",
@@ -455,5 +459,6 @@
   "programming": "プログラミング",
   "wdm-output": "wdm-output",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "これは間接参照で得られる <tt>$0411</tt>、<tt>$0410</tt>、<tt>$040f</tt>（画面中央付近の3ピクセル）を表します。くどいようですが、間接アドレッシングの仕組みをしっかり理解することが重要です。",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! タミル語の翻訳が加わりました。翻訳してくださった தமிழ்நேரம் に感謝します。நன்றி!",
   "app.name": "6502アセンブリを学ぶ"
 }

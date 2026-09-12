@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "எந்த துணைப் பக்கமும் திறக்கப்படாவிட்டாலும், கற்றல் பிரிவில் உள்ள பின் பொத்தான் எப்போதும் டெச்க்டாப் மற்றும் டேப்லெட் பயன்முறையில் காணக்கூடிய சிக்கல் சரி செய்யப்பட்டது.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "PostmarketOS இல் நிலையான உருவாக்க பிழை, மொபைல் இணக்கத்தன்மையை மேம்படுத்துகிறது",
   "Follow system style": "கணினி பாணியைப் பின்பற்றவும்",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "Linux-க்கு இப்போது ஒரு AppImage-ம் உள்ளது: ஒரே கோப்பு, நிறுவல் தேவையில்லை, நாங்கள் தொகுப்பு வழங்காத விநியோகங்களிலும் இது பயன்படும்.",
   "Found %d label.": "%d சிட்டை கிடைத்தது.",
   "Found %d labels.": "%d லேபிள்கள் உள்ளன.",
   "Full Memory ($0000-$FFFF)": "முழு நினைவகம் ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "கூட்டல் முடிவு ஒரு பைட்டை விட பெரியதாக இருந்தால், முகவரி சுற்றி இருக்கும். உதாரணமாக:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "பட்டியலிடப்பட்ட மொழிகளில் ஏதேனும் ஒன்றை நீங்கள் பேசினால், மொழிபெயர்ப்புகளை மதிப்பாய்வு செய்ய அல்லது மேம்படுத்த உதவவும். பயன்பாட்டு இணைப்புகள், எங்கள் மொழிபெயர்ப்பு தளம் அல்லது சிக்கலைத் திறப்பதன் மூலம் நீங்கள் பங்களிக்கலாம்.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "உங்கள் சான்று வேறொரு உதாரணத்தை அடிப்படையாகக் கொண்டதாக இருந்தால் அல்லது ஊக்கம் பெற்றிருந்தால், நீங்கள் மூல முகவரி ஐ வழங்கலாம்.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "உங்கள் கணினியின் மொழி சீனமாக இருந்தால், பயன்பாடு மீண்டும் சீனத்தில் காட்டப்படும். இதுவரை அது தவறுதலாக ஆங்கிலத்திற்கு மாறி வந்தது.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "உடனடி முகவரியிடல் நினைவக முகவரிகளை கண்டிப்பாக கையாளாது - இது உண்மையான மதிப்புகள் பயன்படுத்தப்படும் பயன்முறையாகும். எடுத்துக்காட்டாக, <tt>LDX #$01</tt> <tt>$01</tt> மதிப்பை <tt>X</tt> பதிவேட்டில் ஏற்றுகிறது. இது பூச்சியப் பக்க அறிவுறுத்தலுக்கு மிகவும் வேறுபட்டது <tt>LDX $01</tt> இது நினைவக இருப்பிடமான <tt>$01</tt> மதிப்பை <tt>X</tt> பதிவேட்டில் ஏற்றுகிறது.",
   "Immediate: <tt>#$c0</tt>": "உடனடி: <tt>#$c0</tt>",
   "Implicit": "மறைமுகமானது",
@@ -251,6 +253,7 @@
   "Learn": "கற்றுக்கொள்ளுங்கள்",
   "Learn 6502 Assembly": "6502 அசெம்பிளியைக் கற்றுக்கொள்",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "Learn 6502 இப்போது GNOME 50 இல் இயங்குகிறது! இயக்க நேர புதுப்பிப்புக்கு பங்களித்த சப்ரி Ünalக்கு நன்றி.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 இப்போது Windows மற்றும் macOS இலும் இயங்குகிறது. Linux பயன்படுத்தாத ஒரு நண்பருக்கு இதை அறிமுகப்படுத்த நினைத்திருந்தால், இப்போது அதைச் செய்யலாம்.",
   "Learn about computer history while coding": "குறியீட்டு முறையின் போது கணினி வரலாற்றைப் பற்றி அறிந்து கொள்ளுங்கள்",
   "Learn how to program the 6502 microprocessor.": "6502 நுண்செயலியை எவ்வாறு நிரல் செய்வது என்பதை அறிக.",
   "Learn how to use the stack with PHA and PLA instructions": "PHA மற்றும் PLA வழிமுறைகளுடன் அடுக்கை எவ்வாறு பயன்படுத்துவது என்பதை அறிக",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "6502 முகவரி முறைகள் ஒவ்வொன்றையும் பயன்படுத்தும் குறியீடு துணுக்குகளை எழுத முயற்சிக்கவும். நினைவகத்தின் ஒரு பகுதியைக் காண பிழைத்திருத்தக் காட்சியில் <b>Hex Monitor</b>ஐப் பயன்படுத்தலாம் என்பதை நினைவில் கொள்ளவும்.",
   "Tutorial": "பயிற்சி",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "<a href=\"https://www.skilldrick.co.uk/\">நிக் மோர்கன்</a> மூலம் <sub>டுடோரியல், CC BY 4.0</sub> இன் கீழ் உரிமம் பெற்றது",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "இரண்டு புதிய எடுத்துக்காட்டு நிரல்கள், இரண்டுமே உங்களிடமிருந்து வந்தவை: Jacob எழுதிய Dino Run, edit12 எழுதிய Line Buster 6502. பகிர் பொத்தான் மூலம் அனுப்பப்பட்ட முதல் எடுத்துக்காட்டுகள் இவை; இன்னும் பல வர வேண்டும் என்று விரும்புகிறோம்.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "இரண்டு அடுக்கு வழிமுறைகள் <tt>PHA</tt> மற்றும் <tt>PLA</tt>, \"புச் அக்யூமுலேட்டர்\" மற்றும் \"புல் அக்முலேட்டர்\". இந்த இரண்டு செயல்பாட்டின் சான்று கீழே உள்ளது.",
   "Unable to find/parse given address/label": "கொடுக்கப்பட்ட முகவரி/லேபிளைக் கண்டறிய/பாகுபடுத்த முடியவில்லை",
   "Unable to relocate code outside 64k memory": "64k நினைவகத்திற்கு வெளியே குறியீட்டை இடமாற்ற முடியவில்லை",
@@ -455,5 +459,6 @@
   "programming": "நிரலாக்கம்",
   "wdm-output": "wdm-வெளியீடு",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "இது மறைமுகமாக முகவரியிடப்பட்ட நினைவக இருப்பிடங்களைக் குறிக்கிறது <tt>$0411</tt>, <tt>$0410</tt> மற்றும் <tt>$040f</tt> (காட்சியின் நடுவில் மூன்று பிக்சல்கள்). நான் இந்த கட்டத்தில் உழைக்கிறேன், ஆனால் மறைமுக முகவரி எவ்வாறு செயல்படுகிறது என்பதை முழுமையாக புரிந்துகொள்வது முதன்மை.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! தமிழ்நேரம் அவர்கள் பங்களித்த தமிழ் மொழிபெயர்ப்புகளை வரவேற்பதில் நாங்கள் மகிழ்ச்சியடைகிறோம். நன்றி!",
   "app.name": "6502 அசெம்பிளியைக் கற்றுக்கொள்"
 }

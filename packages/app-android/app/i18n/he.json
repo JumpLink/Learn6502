@@ -190,6 +190,7 @@
   "Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.": "תוקנה בעיה שכפתור החזרה באזור הלימוד תמיד היה גלוי במצב שולחן עבודה וטאבלט, גם כששום נושא לא היה פתוח.",
   "Fixed build error on PostmarketOS, improving mobile compatibility": "תוקנה שגיאת בנייה ב־PostmarketOS, משפר את התאימות לניידים",
   "Follow system style": "השתמש בסגנון המערכת",
+  "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.": "ל־Linux יש עכשיו גם AppImage: קובץ אחד, בלי התקנה, שימושי בהפצה שאין לנו חבילה עבורה.",
   "Found %d label.": "נמצאה תווית %d.",
   "Found %d labels.": "נמצאו %d תוויות.",
   "Full Memory ($0000-$FFFF)": "כל הזיכרון ($0000-$FFFF)",
@@ -214,6 +215,7 @@
   "If the result of the addition is larger than a single byte, the address wraps around. For example:": "אם תוצאת החיבור גדולה מבייט בודד, הכתובת סובבת לאחור. לדוגמה:",
   "If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.": "אם דוברים את אחת מהשפות ברשימה, בבקשה תעזרו להגיה או לשפר את התרגום. אתם יכולים לתרום דרך הקישורים ביישום, מערכת התרגום שלנו, או על ידי פתיחת סוגייה.",
   "If your example is based on or inspired by another example, you can provide the source URL.": "אם הדוגמה שלכם מבוססת על דוגמה אחרת או קיבלתם השראה ממנה, אתם יכולים לציין את ה־URL של המקור.",
+  "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.": "אם שפת המערכת שלכם היא סינית, היישום שוב מוצג בסינית. עד כה הוא חזר בטעות לאנגלית.",
   "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register.": "מיעון מיידי לא בהכרח עוסק בכתובות זיכרון - זהו מצב שבו משתמשים בערכים עצמם. לדוגמה, <tt>LDX #$01</tt> טוען את הערך <tt>$01</tt> לתוך אוגר <tt>X</tt>. זה מאוד שונה מפקודת דף האפס <tt>LDX $01</tt> שטוענת את הערך בנקודת הזיכרון <tt>$01</tt> לתוך אוגר <tt>X</tt>.",
   "Immediate: <tt>#$c0</tt>": "מיידי: <tt>#$c0</tt>",
   "Implicit": "עקיף",
@@ -251,6 +253,7 @@
   "Learn": "למידה",
   "Learn 6502 Assembly": "לימוד שפת הסף של 6502",
   "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.": "לימוד 6502 עכשיו רץ על GNOME 50! תודה ל־Sabri Ünal על תרומתו לעדכון סביבת ההרצה.",
+  "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.": "Learn 6502 עכשיו רץ גם על Windows ו־macOS. אם רציתם להפנות אליו חבר שלא משתמש ב־Linux, עכשיו אתם יכולים.",
   "Learn about computer history while coding": "למדו על ההיסטוריה של המחשבים תוך כדי תכנות",
   "Learn how to program the 6502 microprocessor.": "לימדו כיצד לתכנת את ה־6502.",
   "Learn how to use the stack with PHA and PLA instructions": "לימדו איך להשתמש במחסנית עם הפקודות PHA ו־PLA",
@@ -422,6 +425,7 @@
   "Try to write code snippets that use each of the 6502 addressing modes. Remember, you can use the <b>Hex Monitor</b> in the debug view to watch a section of memory.": "נסו לכתוב קטעי קוד שמשתמשים בכל אחד ממצבי המיעון של ה־6502. זיכרו, אתם יכולים להשתמש ב<b>צג ההקסדצימלי</b> בתצוגת ניפוי השגיאות כדי לצפות בקטע מהזיכרון.",
   "Tutorial": "מדריך",
   "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>": "מדריך <sub>של <a href=\"https://www.skilldrick.co.uk/\">ניק מורגן</a>, תחת רישיון CC BY 4.0</sub>",
+  "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.": "שתי תוכניות דוגמה חדשות, ושתיהן הגיעו מכם: Dino Run של Jacob, ו־Line Buster 6502 של edit12. אלו הדוגמאות הראשונות שנשלחו עם כפתור השיתוף, ונשמח לעוד.",
   "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action.": "שניים מפקודות המחסנית הם <tt>PHA</tt> ו־<tt>PLA</tt>, \"דחוף את הסוכם\" ו־\"משוך את הסוכם\". למטה ישנה דוגמה של שניהם בפעולה.",
   "Unable to find/parse given address/label": "לא ניתן לאתר או לעבד את הכתובת/תווית שניתנה",
   "Unable to relocate code outside 64k memory": "אי אפשר להעביר קוד אל מחוץ ל־64 קילובייט של זיכרון",
@@ -455,5 +459,6 @@
   "programming": "תכנות",
   "wdm-output": "wdm-output",
   "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works.": "שמייצג את הכתובות העקיפות <tt>$0411</tt>, <tt>$0410</tt> ו־<tt>$040f</tt> (שלשה פיקסלים במרכז המסך). אני חורש על הנקודה הזאת, אבל היא חיונית להבנה איך מיעון עקיף עובד במלואו.",
+  "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!": "வணக்கம்! אנחנו שמחים לקבל בברכה את התרגום לטמילית, שנתרם על ידי தமிழ்நேரம். நன்றி!",
   "app.name": "לימוד שפת הסף של 6502"
 }

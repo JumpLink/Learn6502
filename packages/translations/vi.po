@@ -487,6 +487,7 @@ msgstr "Cài đặt giao diện"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Những cải tiến về kiến trúc cho phép chia sẻ mã tốt hơn giữa các nền tảng Gnome, Web và Android."
 
+#. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
 msgstr "Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ."
@@ -564,7 +565,7 @@ msgstr "Cờ ngắt: Đặt khi lệnh BRK (Ngắt) được thực thi. Đượ
 
 #. TRANSLATORS: Example description for Line Buster 6502
 msgid "Break the blocks with the paddle and ball."
-msgstr ""
+msgstr "Phá các khối bằng thanh đỡ và bóng."
 
 #. TRANSLATORS: License notice shown in the share dialog. Keep the URL intact.
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
@@ -669,7 +670,7 @@ msgstr "Mô tả"
 
 #. TRANSLATORS: Example title for Dino Run
 msgid "Dino Run"
-msgstr ""
+msgstr "Dino Run"
 
 #. TRANSLATORS: Switch subtitle explaining performance impact of debugger
 msgid "Disable to improve performance"
@@ -797,6 +798,10 @@ msgstr "Đã sửa lỗi xây dựng trên PostmarketOS, cải thiện khả nă
 msgid "Follow system style"
 msgstr "Theo phong cách hệ thống"
 
+#. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
+msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
+msgstr "Với Linux hiện cũng có AppImage: một tệp duy nhất, không cần cài đặt, hữu ích trên bản phân phối mà chúng tôi không đóng gói sẵn."
+
 #. TRANSLATORS: Informational message after indexing a single label; %d will be replaced by a number
 #, javascript-format
 msgid "Found %d label."
@@ -898,6 +903,10 @@ msgstr "Nếu bạn nói một trong những ngôn ngữ được liệt kê, vu
 
 msgid "If your example is based on or inspired by another example, you can provide the source URL."
 msgstr "Nếu ví dụ của bạn dựa trên hoặc lấy cảm hứng từ một ví dụ khác, bạn có thể cung cấp URL nguồn."
+
+#. TRANSLATORS: Release notes for version 0.8.0 - Chinese language code fix
+msgid "If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake."
+msgstr "Nếu ngôn ngữ hệ thống của bạn là tiếng Trung, ứng dụng hiển thị lại bằng tiếng Trung. Trước đây nó đã nhầm lẫn quay về tiếng Anh."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Immediate addressing doesn't strictly deal with memory addresses - this is the mode where actual values are used. For example, <tt>LDX #$01</tt> loads the value <tt>$01</tt> into the <tt>X</tt> register. This is very different to the zero page instruction <tt>LDX $01</tt> which loads the value at memory location <tt>$01</tt> into the <tt>X</tt> register."
@@ -1047,6 +1056,10 @@ msgstr "Học Hợp Ngữ 6502"
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
 msgstr "Learn 6502 hiện chạy trên GNOME 50! Cảm ơn Sabri Ünal đã đóng góp bản cập nhật runtime."
 
+#. TRANSLATORS: Release notes for version 0.8.0 - Windows and macOS builds. "Learn 6502" is the app name: use whatever spelling your catalogue already uses for it (some localise it), and keep "Windows", "macOS" and "Linux" as they are.
+msgid "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that."
+msgstr "Learn 6502 hiện cũng chạy trên Windows và macOS. Nếu bạn muốn giới thiệu nó cho một người bạn không dùng Linux, bây giờ bạn có thể làm điều đó."
+
 #. TRANSLATORS: Feature list item about learning history while coding
 msgid "Learn about computer history while coding"
 msgstr "Tìm hiểu về lịch sử máy tính khi code"
@@ -1070,7 +1083,7 @@ msgstr "Phong cách sáng"
 
 #. TRANSLATORS: Example title for Line Buster 6502
 msgid "Line Buster 6502"
-msgstr ""
+msgstr "Line Buster 6502"
 
 #. TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign
 msgid "Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components."
@@ -1640,8 +1653,8 @@ msgid "The next subroutine, <tt>generateApplePosition</tt>, sets the apple locat
 msgstr "Chương trình con tiếp theo, <tt>generateApplePosition</tt>, đặt vị trí quả táo ở một vị trí ngẫu nhiên trên màn hình. Đầu tiên, nó tải một byte ngẫu nhiên vào bộ tích lũy (<tt>$fe</tt> là bộ tạo số ngẫu nhiên trong trình mô phỏng này). Số tiền này được lưu trữ trong <tt>$00</tt>. Tiếp theo, một byte ngẫu nhiên khác được tải vào bộ tích lũy, sau đó được <tt>AND</tt>-ed với giá trị <tt>$03</tt>. Phần này cần đi đường vòng một chút."
 
 #. TRANSLATORS: Example description for Dino Run
-msgid "The offline browser run game made for 5602 assembly"
-msgstr ""
+msgid "The offline browser run game made for 6502 assembly"
+msgstr "Trò chơi chạy offline của trình duyệt, viết bằng hợp ngữ 6502"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The opposite of <tt>ADC</tt> is <tt>SBC</tt> (subtract with carry). Write a program that uses this instruction."
@@ -1748,6 +1761,10 @@ msgstr "Hướng dẫn"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Tutorial <sub>by <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, licensed under CC BY 4.0</sub>"
 msgstr "Hướng dẫn <sub>của <a href=\"https://www.skilldrick.co.uk/\">Nick Morgan</a>, được cấp phép theo CC BY 4.0</sub>"
+
+#. TRANSLATORS: Release notes for version 0.8.0 - the first two community examples. Keep the example titles "Dino Run" and "Line Buster 6502" and the names "Jacob" and "edit12" as they are.
+msgid "Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more."
+msgstr "Hai chương trình ví dụ mới, và cả hai đều đến từ các bạn: Dino Run của Jacob, và Line Buster 6502 của edit12. Đây là những ví dụ đầu tiên được gửi bằng nút chia sẻ, và chúng tôi rất mong nhận thêm."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Two of the stack instructions are <tt>PHA</tt> and <tt>PLA</tt>, \"push accumulator\" and \"pull accumulator\". Below is an example of these two in action."
@@ -1880,6 +1897,10 @@ msgstr "wdm-output"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "which represents the indirectly-addressed memory locations <tt>$0411</tt>, <tt>$0410</tt> and <tt>$040f</tt> (three pixels in the middle of the display). I'm labouring this point, but it's important to fully grok how indirect addressing works."
 msgstr "đại diện cho các vị trí bộ nhớ được đánh địa chỉ gián tiếp <tt>$0411</tt>, <tt>$0410</tt> và <tt>$040f</tt> (ba pixel ở giữa màn hình). Tôi đang nghiên cứu vấn đề này, nhưng điều quan trọng là phải hiểu rõ cách thức hoạt động của địa chỉ gián tiếp."
+
+#. TRANSLATORS: Release notes for version 0.8.0 - Tamil translation. Keep the greeting 'வணக்கம்', the thanks 'நன்றி' and the translator's name 'தமிழ்நேரம்' exactly as they are.
+msgid "வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!"
+msgstr "வணக்கம்! Chúng tôi vui mừng chào đón bản dịch tiếng Tamil, được đóng góp bởi தமிழ்நேரம். நன்றி!"
 
 #, javascript-format
 #~ msgid ""
