@@ -429,7 +429,7 @@
     "lint": "gjsify lint",
     "check:lint": "gjsify lint",
     "changeset": "changeset",
-    "changeset:version": "changeset version",
+    "changeset:version": "changeset version && node build-aux/sync-root-version.js && gjsify run check:versions",
     "changeset:publish": "gjsify workspace @learn6502/core build && changeset publish"
   },
   "author": "Pascal Garber <pascal@mailfreun.de>",
