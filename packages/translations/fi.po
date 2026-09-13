@@ -798,6 +798,10 @@ msgstr "Korjattu käännösvirhe PostmarketOS:ssa, mikä parantaa mobiiliyhteens
 msgid "Follow system style"
 msgstr "Seuraa järjestelmän tyyliä"
 
+#. TRANSLATORS: Label of the row that chooses the interface font
+msgid "Font"
+msgstr ""
+
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
 msgstr "Linuxille on nyt saatavilla myös AppImage: yksi tiedosto, ei asennusta, kätevä jakelussa, jolle emme tee omaa pakettia."
@@ -820,6 +824,11 @@ msgid "Fully commented version of the Snake game"
 msgstr "Matopelin täysin kommentoitu versio"
 
 msgid "GNOME"
+msgstr "GNOME"
+
+#. TRANSLATORS: Font option — the GNOME typeface shipped with the app
+#, fuzzy
+msgid "GNOME font"
 msgstr "GNOME"
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
@@ -1006,6 +1015,10 @@ msgstr "Vuorovaikutteinen opas"
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "Vuorovaikutteiset oppaat ohjaavat sinut aloittelijasta edistyneeksi"
+
+#. TRANSLATORS: Preferences group title for the interface font
+msgid "Interface font"
+msgstr ""
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Keskeytyslippu: Kun asetettu, estää (poistaa käytöstä) kaikki peruutettavat keskeytykset (IRQ). Vain ei-peruutettavat keskeytykset (NMI) voivat silti tapahtua. Käytetään kriittisille koodiosioille, joita ei saa keskeyttää."
@@ -1535,6 +1548,14 @@ msgstr "Lähetä"
 msgid "Syntax error line %d: %s"
 msgstr "Syntaksivirhe rivillä %d: %s"
 
+#. TRANSLATORS: Font option — use the operating system's own font, untouched
+msgid "System font"
+msgstr ""
+
+#. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
+msgid "System font, GNOME size"
+msgstr ""
+
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
@@ -1583,6 +1604,12 @@ msgstr "X-indeksirekisteriä käytetään indeksoituihin osoitteistustiloihin ja
 #. TRANSLATORS: Detailed description of Y Index register
 msgid "The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement."
 msgstr "Y-indeksirekisteri on samanlainen kuin X eikä sillä ole erityistoimintoja. Yleisesti käytetään indeksoituun osoitteistukseen ja datan siirtoon."
+
+#. TRANSLATORS: Explains the font setting. GTK takes the interface font
+#. from the operating system, and outside GNOME that font is smaller than
+#. the one the app is designed for.
+msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."

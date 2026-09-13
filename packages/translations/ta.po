@@ -798,6 +798,10 @@ msgstr "PostmarketOS இல் நிலையான உருவாக்க �
 msgid "Follow system style"
 msgstr "கணினி பாணியைப் பின்பற்றவும்"
 
+#. TRANSLATORS: Label of the row that chooses the interface font
+msgid "Font"
+msgstr ""
+
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
 msgstr "Linux-க்கு இப்போது ஒரு AppImage-ம் உள்ளது: ஒரே கோப்பு, நிறுவல் தேவையில்லை, நாங்கள் தொகுப்பு வழங்காத விநியோகங்களிலும் இது பயன்படும்."
@@ -820,6 +824,11 @@ msgid "Fully commented version of the Snake game"
 msgstr "ச்னேக் கேமின் முழுமையாக கருத்துரைக்கப்பட்ட பதிப்பு"
 
 msgid "GNOME"
+msgstr "க்னோம்"
+
+#. TRANSLATORS: Font option — the GNOME typeface shipped with the app
+#, fuzzy
+msgid "GNOME font"
 msgstr "க்னோம்"
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
@@ -1006,6 +1015,10 @@ msgstr "ஊடாடும் பயிற்சி"
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "இன்டராக்டிவ் டுடோரியல்கள் தொடக்கநிலையிலிருந்து மேம்பட்ட வரை உங்களுக்கு வழிகாட்டும்"
+
+#. TRANSLATORS: Preferences group title for the interface font
+msgid "Interface font"
+msgstr ""
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "குறுக்கீடு கொடி: அமைக்கப்படும் போது, அனைத்து மாச்க் செய்யக்கூடிய குறுக்கீடுகளையும் (IRQ) முகமூடிகள் (முடக்குகிறது). மாச்கபிள் அல்லாத குறுக்கீடுகள் (NMI) மட்டுமே இன்னும் ஏற்படலாம். குறுக்கீடு செய்யாத குறியீட்டின் முக்கியமான பிரிவுகளுக்குப் பயன்படுத்தப்படுகிறது."
@@ -1535,6 +1548,14 @@ msgstr "சமர்ப்பிக்கவும்"
 msgid "Syntax error line %d: %s"
 msgstr "தொடரியல் பிழை வரி %d: %s"
 
+#. TRANSLATORS: Font option — use the operating system's own font, untouched
+msgid "System font"
+msgstr ""
+
+#. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
+msgid "System font, GNOME size"
+msgstr ""
+
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
@@ -1583,6 +1604,12 @@ msgstr "ஃச் குறியீட்டுப் பதிவேடு க
 #. TRANSLATORS: Detailed description of Y Index register
 msgid "The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement."
 msgstr "ஒய் குறியீட்டுப் பதிவு ஃச் ஐப் போன்றது மற்றும் சிறப்பு செயல்பாடுகள் இல்லை. குறியீட்டு முகவரி மற்றும் தரவு இயக்கத்திற்கு பொதுவாகப் பயன்படுத்தப்படுகிறது."
+
+#. TRANSLATORS: Explains the font setting. GTK takes the interface font
+#. from the operating system, and outside GNOME that font is smaller than
+#. the one the app is designed for.
+msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."

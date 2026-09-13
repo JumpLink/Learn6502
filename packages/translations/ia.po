@@ -796,6 +796,10 @@ msgstr "Corrigite error de construction sur PostmarketOS, meliorante compatibili
 msgid "Follow system style"
 msgstr "Sequer stilo de systema"
 
+#. TRANSLATORS: Label of the row that chooses the interface font
+msgid "Font"
+msgstr ""
+
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
 msgstr "Pro Linux il ha ora anque un AppImage: un sol file, sin installation, utile sur un distribution pro le qual nos non offere un pacchetto."
@@ -818,6 +822,11 @@ msgid "Fully commented version of the Snake game"
 msgstr "Version completemente commentate del joco Snake"
 
 msgid "GNOME"
+msgstr "GNOME"
+
+#. TRANSLATORS: Font option — the GNOME typeface shipped with the app
+#, fuzzy
+msgid "GNOME font"
 msgstr "GNOME"
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
@@ -1004,6 +1013,10 @@ msgstr "Tutorial interactive"
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "Tutoriales interactive te guia de initiator a avantiate"
+
+#. TRANSLATORS: Preferences group title for the interface font
+msgid "Interface font"
+msgstr ""
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Bandiera de interruption: Quando definite, mascara (dishabilita) tote interruptiones mascabile (IRQ). Solo interruptiones non mascabile (NMI) pote ancora occurer. Usate pro sectiones critical de codice que non debe esser interruptite."
@@ -1533,6 +1546,15 @@ msgstr "Submitter"
 msgid "Syntax error line %d: %s"
 msgstr "Error de syntaxe linea %d: %s"
 
+#. TRANSLATORS: Font option — use the operating system's own font, untouched
+#, fuzzy
+msgid "System font"
+msgstr "Predefinition del systema"
+
+#. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
+msgid "System font, GNOME size"
+msgstr ""
+
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
@@ -1581,6 +1603,12 @@ msgstr "Le Registro de indice X es usate pro modos de adressage indexate e opera
 #. TRANSLATORS: Detailed description of Y Index register
 msgid "The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement."
 msgstr "Le Registro de indice Y es simile a X e ha nulle functiones special. Communmente usate pro adressage indexate e movimento de datos."
+
+#. TRANSLATORS: Explains the font setting. GTK takes the interface font
+#. from the operating system, and outside GNOME that font is smaller than
+#. the one the app is designed for.
+msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1975,9 +2003,6 @@ msgstr "வணக்கம்! Nos es felice de dar le benvenita al traduction t
 
 #~ msgid "Spanish"
 #~ msgstr "Espaniol"
-
-#~ msgid "System Default"
-#~ msgstr "Predefinition del systema"
 
 #~ msgid "The language change will take full effect after restarting the application."
 #~ msgstr "Le cambio de lingua prendera effecto complete post reinitiar le application."

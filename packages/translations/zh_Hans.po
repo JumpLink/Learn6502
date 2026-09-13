@@ -798,6 +798,10 @@ msgstr "修复了 PostmarketOS 上的构建错误，提升了移动端兼容性"
 msgid "Follow system style"
 msgstr "跟随系统样式"
 
+#. TRANSLATORS: Label of the row that chooses the interface font
+msgid "Font"
+msgstr ""
+
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
 msgstr "Linux 现在还有 AppImage：一个文件，无需安装，在我们没有打包的发行版上也能用。"
@@ -820,6 +824,11 @@ msgid "Fully commented version of the Snake game"
 msgstr "完整注释版贪吃蛇游戏"
 
 msgid "GNOME"
+msgstr "GNOME"
+
+#. TRANSLATORS: Font option — the GNOME typeface shipped with the app
+#, fuzzy
+msgid "GNOME font"
 msgstr "GNOME"
 
 #. TRANSLATORS: Debugger log message when gamepad key is pressed
@@ -1006,6 +1015,10 @@ msgstr "交互式教程"
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "交互式教程将带你从入门到进阶"
+
+#. TRANSLATORS: Preferences group title for the interface font
+msgid "Interface font"
+msgstr ""
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "中断禁用标志（I）：置位时屏蔽所有可屏蔽中断（IRQ），仅不可屏蔽中断（NMI）仍会发生。用于必须不可被打断的关键代码区。"
@@ -1535,6 +1548,15 @@ msgstr "提交"
 msgid "Syntax error line %d: %s"
 msgstr "语法错误 第 %d 行：%s"
 
+#. TRANSLATORS: Font option — use the operating system's own font, untouched
+#, fuzzy
+msgid "System font"
+msgstr "系统默认"
+
+#. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
+msgid "System font, GNOME size"
+msgstr ""
+
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
@@ -1583,6 +1605,12 @@ msgstr "X 索引寄存器用于索引寻址与计数操作。可保存循环计�
 #. TRANSLATORS: Detailed description of Y Index register
 msgid "The Y Index Register is similar to X and has no special functions. Commonly used for indexed addressing and data movement."
 msgstr "Y 索引寄存器与 X 类似，无特殊功能。常用于索引寻址与数据移动。"
+
+#. TRANSLATORS: Explains the font setting. GTK takes the interface font
+#. from the operating system, and outside GNOME that font is smaller than
+#. the one the app is designed for.
+msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1977,9 +2005,6 @@ msgstr "வணக்கம்! 我们很高兴迎来泰米尔语翻译，由 த
 
 #~ msgid "Spanish"
 #~ msgstr "西班牙语"
-
-#~ msgid "System Default"
-#~ msgstr "系统默认"
 
 #~ msgid "The language change will take full effect after restarting the application."
 #~ msgstr "语言更改将在重启应用程序后完全生效。"
