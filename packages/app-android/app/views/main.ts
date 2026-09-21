@@ -12,7 +12,7 @@ import {
   NOTIFY_VISIBLE_CHILD,
   setAdwaitaColorScheme,
 } from "@gjsify/adwaita-nativescript";
-import { openMenuSymbolic, documentEditSymbolic } from "@gjsify/adwaita-icons/actions";
+import { openMenuSymbolic, documentEditSymbolic, goPreviousSymbolic } from "@gjsify/adwaita-icons/actions";
 import { accessoriesDictionarySymbolic } from "@gjsify/adwaita-icons/legacy";
 import { applicationsEngineeringSymbolic, applicationsGamesSymbolic } from "@gjsify/adwaita-icons/categories";
 
@@ -40,7 +40,7 @@ import { setAppBackHandler } from "~/utils/navigation";
 import { AdwMainButton, type MainButtonAction } from "~/widgets/adw-main-button";
 import type { ScreenModule } from "./main/editor";
 import { buildEditorScreen } from "./main/editor";
-import { buildLearnScreen } from "./main/learn";
+import { buildLearnScreen, learnView } from "./main/learn";
 import { buildDebuggerScreen, debuggerView } from "./main/debugger";
 import { buildGameConsoleScreen, gameConsoleView } from "./main/game-console";
 
@@ -78,6 +78,7 @@ export class MainController implements MainView {
   private page: Page | null = null;
 
   private _stack: Adw.ViewStack | null = null;
+  private _learnBackButton: Gtk.Button | null = null;
   private _fab: AdwMainButton | null = null;
   private _toast: Adw.ToastOverlay | null = null;
   private _about: Adw.AboutDialog | null = null;
@@ -101,6 +102,7 @@ export class MainController implements MainView {
   constructor() {
     this.log.debug("Initialized");
     this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
+    this.onLearnSubpageChanged = this.onLearnSubpageChanged.bind(this);
 
     this.gameConsoleBridge = new GameConsoleEventBridge({
       formatAndLog: (message, params) => {
@@ -158,6 +160,7 @@ export class MainController implements MainView {
     }
 
     systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
+    learnView.events.on("subpage-changed", this.onLearnSubpageChanged);
 
     this.setupAndroidKeyHandling();
     this.initializeGameConsoleController();
@@ -189,6 +192,12 @@ export class MainController implements MainView {
     this.gameConsoleBridge.disconnect();
     this.mainBridge.disconnect();
     systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
+    learnView.events.off("subpage-changed", this.onLearnSubpageChanged);
+  }
+
+  /** Learn's navigation stack changed — re-evaluate the header back button. */
+  private onLearnSubpageChanged(): void {
+    this.updateLearnBackButtonVisibility();
   }
 
   private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
@@ -210,6 +219,17 @@ export class MainController implements MainView {
     const title = new Adw.WindowTitle();
     title.title = "Learn6502";
     header.set_title_widget(title);
+
+    // Back button for the Learn tab's own navigation stack (Tutorial/Examples
+    // subpages) — the GNOME/Web twins' `learnBackButton`. Hidden until a
+    // subpage is open; see updateLearnBackButtonVisibility().
+    const learnBack = new Gtk.Button();
+    learnBack.iconName = goPreviousSymbolic;
+    learnBack.accessibilityLabel = _("Back");
+    learnBack.visibility = "collapsed";
+    learnBack.addEventListener("tap", () => learnView.navigateBack());
+    this._learnBackButton = learnBack;
+    header.pack_start(learnBack);
 
     const menu = new Gtk.MenuButton();
     menu.iconName = openMenuSymbolic;
@@ -303,6 +323,16 @@ export class MainController implements MainView {
     this._activeView = viewType;
     mainStateController.setViewType(viewType);
     this.updateMainUiState();
+    this.updateLearnBackButtonVisibility();
+  }
+
+  /** Show the header back button only while the Learn tab is active AND has a
+   *  subpage open — there is no desktop/three-column mode on Android, so unlike
+   *  the GNOME twin this is the whole condition (mirrors its mobile branch). */
+  private updateLearnBackButtonVisibility(): void {
+    if (!this._learnBackButton) return;
+    const visible = this._activeView === ViewType.LEARN && learnView.hasVisibleSubpage;
+    this._learnBackButton.visibility = visible ? "visible" : "collapsed";
   }
 
   // --- MainView implementation ---
