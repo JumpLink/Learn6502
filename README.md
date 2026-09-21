@@ -64,6 +64,30 @@ Notes:
 - The internal packages use plain `^x.y.z` ranges (not the `workspace:` protocol), which is why every manager — including npm and classic yarn — can resolve them.
 - A manual **Package Managers** CI workflow verifies all four managers install + resolve the workspaces; trigger it from the Actions tab if you touch the dependency wiring.
 
+### Developing against a local gjsify checkout
+
+The `@gjsify/*` packages are pinned to registry versions, so a change that spans the platform and
+this app would otherwise cost an npm release per iteration. `gjsify link` points this project at a
+local gjsify checkout instead:
+
+```bash
+gjsify link /path/to/gjsify      # build the checkout first — a link does not build
+gjsify unlink                    # undo, and reinstall the registry copies
+```
+
+- **Nothing tracked changes.** The override lives in `.gjsify-link.json`, hidden through
+  `.git/info/exclude`; `gjsify-lock.json` and `package.json` stay byte-identical, and every later
+  `gjsify install` re-applies the links and names them instead of silently replacing them.
+- **`gjsify install --immutable` refuses while a link is active** — deliberately. CI and the
+  offline Flatpak build use `--immutable` because they must build exactly what is committed, so
+  run `gjsify unlink` before you expect either of them to work.
+- Bootstrapping is self-resolving: the first `link` has to be run with the *checkout's* `gjsify`
+  binary (`<checkout>/node_modules/.bin/gjsify link …`), because the pinned CLI predates the
+  command. `@gjsify/cli` is among the linked packages, so afterwards this project's own
+  `gjsify` is the checkout's.
+- `packages/node-gi/*` is outside the checkout's root `workspaces`, so `@gjsify/node-gi` and the
+  `gtk-runtime-*` / `node-runtime-*` bundles are not linkable this way.
+
 ### Flatpak Build
 
 ### Building
