@@ -1,9 +1,6 @@
 // Android types (no iOS - this app is Android-only)
 /// <reference path="../../node_modules/@nativescript/types-android/lib/android-35.d.ts" />
 
-// Theme switcher types
-/// <reference path="../../node_modules/@nativescript/theme-switcher/shims.d.ts" />
-
 // Raw file imports
 declare module "*?raw" {
   const src: string;
