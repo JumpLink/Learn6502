@@ -1,14 +1,6 @@
 import type { DisplayWidget } from "@learn6502/common-ui";
 import { gameConsoleController, DEFAULT_DISPLAY_CONFIG, gameConsoleStateService } from "@learn6502/common-ui";
-import {
-  CreateViewEventData,
-  GridLayout,
-  Placeholder,
-  Utils,
-  Builder,
-  ContentView,
-  CoreTypes,
-} from "@nativescript/core";
+import { GridLayout, Utils, ContentView, CoreTypes } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core";
 import type { Memory } from "@learn6502/core";
 import { DisplayAddressRange } from "@learn6502/core";
