@@ -128,9 +128,6 @@ export class MainController implements MainView {
       showNotification: (key) => {
         notificationService.showNotification({ title: _(NOTIFICATION_TITLES[key] || key), timeout: 2 });
       },
-      updateDebugInfo: (simulator) => {
-        debuggerView.updateDebugInfo(simulator);
-      },
     });
 
     this.mainBridge = new MainEventBridge({
