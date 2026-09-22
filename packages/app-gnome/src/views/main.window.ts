@@ -712,12 +712,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
           timeout: 2,
         });
       },
-      updateDebugInfo: (simulator) => {
-        // If stepper is enabled, update full debugger; otherwise just debug info
-        if (this._gameConsole.simulator.stepperEnabled) {
-          this.updateDebugger();
-        }
-      },
     });
     this.gameConsoleBridge.connect();
   }

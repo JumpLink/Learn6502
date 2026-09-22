@@ -1,5 +1,5 @@
 import { SimulatorState, _ } from "@learn6502/core";
-import type { Assembler, Simulator } from "@learn6502/core";
+import type { Assembler } from "@learn6502/core";
 import { gameConsoleController } from "./game-console-controller.ts";
 import { debuggerController } from "./debugger-controller.ts";
 
@@ -27,9 +27,6 @@ export interface GameConsoleEventBridgeCallbacks {
 
   /** Show a notification with a translatable key. */
   showNotification(key: string): void;
-
-  /** Called when a step/multistep/goto occurs and debugger may need update. */
-  updateDebugInfo(simulator: Simulator): void;
 }
 
 type EventUnsubscriber = () => void;
@@ -125,8 +122,15 @@ export class GameConsoleEventBridge {
       if (signal.message) {
         this.callbacks.formatAndLog(signal.message, signal.params);
       }
-      if (signal.simulator) {
-        this.callbacks.updateDebugInfo(signal.simulator);
+      // "step" is not the Step button: Simulator.execute() emits it for every
+      // executed instruction, and a free run runs execute() 97 times per
+      // multiExecute() tick. Refreshing the debugger here is therefore only
+      // affordable while the stepper is on — multiExecute() then returns
+      // early, so one event is one press of Step, and the memory monitor has
+      // to be redrawn or the step leaves stale bytes on screen. A free run is
+      // covered by the "multistep" handler below, whose update is throttled.
+      if (signal.simulator.stepperEnabled) {
+        this.callbacks.updateDebugger();
       }
     });
 

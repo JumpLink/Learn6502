@@ -400,9 +400,6 @@ export class MainWindow implements MainView {
       },
       updateUiState: () => this.updateRunActions(this.simulator.state),
       showNotification: (key) => this.showToast(NOTIFICATION_TITLES[key] ?? key),
-      updateDebugInfo: () => {
-        if (this.simulator.stepperEnabled) this.updateDebugger();
-      },
     });
     this.bridge.connect();
 
