@@ -143,25 +143,17 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   // Instance methods - public
-  /**
-   * Get the source code
-   */
-  get code(): string {
-    return this.textView ? this.textView.text : this._pendingCode;
-  }
-
-  /**
-   * Set the source code
-   */
-  set code(value: string) {
-    if (this.code === value) return;
-
-    this._pendingCode = value;
-    if (this.textView && this.textView.text !== value) {
-      this.textView.text = value;
-    }
-    this.notifyPropertyChange("code", value);
-  }
+  //
+  // NOTE — `code` has NO accessor here on purpose. `codeProperty.register(SourceView)`
+  // (bottom of this file) defines `code` on the prototype itself, so a `get code()` /
+  // `set code()` written in the class body is overwritten before any instance exists.
+  // A pair of them lived here and looked authoritative; reads went to NativeScript's
+  // property store instead, which is why the editor's text never reached the
+  // assembler. Reading and writing both go through the property now: the widget
+  // pushes with `nativeValueChange` (see `textChange`), and `valueChanged` writes
+  // the other way.
+  /** Defined on the prototype by `codeProperty.register()`; declared so TypeScript sees it. */
+  declare code: string;
 
   /**
    * Get whether the source view has code
@@ -356,6 +348,29 @@ export class SourceView extends ContentView implements SourceViewWidget {
     this.textView.on("textChange", (args: any) => {
       if (this.textView) {
         const newText = args.value as string;
+
+        // THE TYPED TEXT GOES BACK INTO THE `code` PROPERTY, and without this line
+        // nothing ever reads what the user wrote.
+        //
+        // `SourceView.codeProperty.register(SourceView)` at the bottom of this file
+        // does `Object.defineProperty` on the prototype, which REPLACES the
+        // `get code()` written above — those accessors are dead from the moment the
+        // module loads. So `sourceView.code` is NativeScript's stored property value,
+        // and typing changes the inner TextView, never that store.
+        //
+        // Measured on the emulator (2026-09-22), after typing `LDA #$01`:
+        //   textChange fired  "LDA #$01"   <- the event is fine
+        //   textView.text     "LDA #$01"   <- the inner widget is fine
+        //   native getText()  "LDA #$01"   <- Android is fine
+        //   editorController.code  ""      <- what Assemble actually assembled
+        // The toast then said only "Assemble failed", because an empty program is a
+        // failed assembly and the port never showed the assembler's own message.
+        // The same program assembles headlessly: `learn6502 assemble` -> 2 bytes.
+        //
+        // `nativeValueChange` is the direction NativeScript provides for exactly
+        // this: the native side moved, tell the property, and do NOT re-enter
+        // `valueChanged`'s write-back into the widget the value just came from.
+        SourceView.codeProperty.nativeValueChange(this, newText);
 
         this.debouncedHighlighting(newText);
         this.updateLineNumbers(newText);
