@@ -7,7 +7,7 @@ tab), scroll to the Hex Monitor section. Crops are `1020x1155+30+185` out of the
 1080x2400 frame, taken from `uiautomator dump` bounds for the `Hex-Monitor`
 heading (`[42,198][1037,243]` before, `[42,204][1037,249]` after).
 
-## `hexmon-before-after.png`
+## `before-after.png`
 
 Left, before the change: the Hex Monitor card is empty, and logcat carries
 `E JS : CONSOLE ERROR: [HexMonitor] Grid not initialized` — `getViewById("grid")`
@@ -19,7 +19,7 @@ had written the zero page at the last monitor refresh; that is the correct dump 
 a freshly initialised machine, and the same 33 `$00` rows appear in the GNOME and
 web debuggers in that state.
 
-## `hexmon-16-bytes-clipped.png`
+## `clipped-16.png`
 
 An intermediate build that kept the original sixteen bytes per row. The addresses
 step by `$10` but only eleven byte columns are drawn — `$0b` to `$0f` of every row
