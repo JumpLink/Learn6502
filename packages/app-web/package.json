@@ -9,6 +9,7 @@
     "clear": "rm -rf dist-app",
     "build": "gjsify run build:app",
     "build:app": "gjsify build app.html --app browser --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty",
+    "start": "gjsify run dev:app",
     "dev:app": "vite --config vite.app.config.ts",
     "preview:app": "vite preview --config vite.app.config.ts",
     "check": "gjsify tsc --noEmit"

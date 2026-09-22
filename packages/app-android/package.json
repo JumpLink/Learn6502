@@ -5,6 +5,7 @@
   "private": true,
   "scripts": {
     "clear": "ns clean",
+    "build": "ns build android",
     "start": "ns run android",
     "start:clean": "ns run android --clean",
     "start:debug": "ns debug android",

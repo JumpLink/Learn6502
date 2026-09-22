@@ -88,6 +88,15 @@ jobs:
       - name: Check the About dialog metadata
         run: gjsify run check:about
 
+      # `gjsify workspace <name> <script>` fails hard on a missing script,
+      # unlike `gjsify foreach`, which just skips it — so a caller pointing at
+      # a renamed or never-added script sits broken until someone runs it.
+      # Found twice this way: root `build:android` named a `build` script
+      # `app-android` never had, and `start:web` still named the `start`
+      # script the Jekyll -> Vite rewrite renamed to `dev:app`.
+      - name: Check workspace script references
+        run: gjsify run check:workspace-scripts
+
       - name: Check formatting
         run: gjsify format --check
 
