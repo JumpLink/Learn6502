@@ -15,6 +15,11 @@ import { EventDispatcher, num2hex, addr2hex } from "@learn6502/core";
  */
 const BYTES_PER_ROW = 8;
 
+/** A `GridLayout` row/column spec of `count` content-sized tracks. */
+function autoTrack(count: number): string {
+  return Array.from({ length: count }, () => "auto").join(",");
+}
+
 export class HexMonitor extends ScrollView implements HexMonitorWidget {
   readonly events = new EventDispatcher<HexMonitorEventMap>();
 
@@ -65,7 +70,7 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
 
     this.grid = new GridLayout();
     this.grid.className = "p-2";
-    this.grid.columns = new Array(BYTES_PER_ROW + 1).fill("auto").join(",");
+    this.grid.columns = autoTrack(BYTES_PER_ROW + 1);
     this.content = this.grid;
 
     // Registered once. `update()` runs on every debugger refresh, so subscribing
@@ -101,7 +106,7 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
 
     // A GridLayout with no row specs has a single implicit row, so every label
     // would be clamped into it and stack on top of the first one.
-    this.grid.rows = new Array(Math.ceil(length / BYTES_PER_ROW)).fill("auto").join(",");
+    this.grid.rows = autoTrack(Math.ceil(length / BYTES_PER_ROW));
 
     for (let addr = start; addr <= end && addr <= 0xffff; addr += BYTES_PER_ROW) {
       // Address label
