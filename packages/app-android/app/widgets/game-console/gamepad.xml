@@ -1,22 +1,22 @@
-<GridLayout xmlns="http://schemas.nativescript.org/tns.xsd" columns="auto,auto" rows="auto" loaded="onLoaded">
+<GridLayout xmlns="http://schemas.nativescript.org/tns.xsd" xmlns:gtk="~/gtk" columns="auto,auto" rows="auto" loaded="onLoaded">
     <!-- D-Pad Column -->
     <GridLayout rows="auto, auto, auto" columns="auto, auto, auto" col="0" row="0" verticalAlignment="bottom" horizontalAlignment="left" marginRight="30">
         <!-- Row 1 -->
-        <Button id="buttonUp" text="▲" row="0" col="1" class="gamepad-button dpad-button"/>
+        <gtk:Button id="buttonUp" label="▲" row="0" col="1" styleClasses="gamepad-button dpad-button"/>
 
         <!-- Row 2 -->
-        <Button id="buttonLeft" text="◀" row="1" col="0" class="gamepad-button dpad-button"/>
+        <gtk:Button id="buttonLeft" label="◀" row="1" col="0" styleClasses="gamepad-button dpad-button"/>
         <!-- Center Placeholder (optional) -->
         <!-- <Label text=" " row="1" col="1" class="gamepad-button dpad-center"/> -->
-        <Button id="buttonRight" text="▶" row="1" col="2" class="gamepad-button dpad-button"/>
+        <gtk:Button id="buttonRight" label="▶" row="1" col="2" styleClasses="gamepad-button dpad-button"/>
 
         <!-- Row 3 -->
-        <Button id="buttonDown" text="▼" row="2" col="1" class="gamepad-button dpad-button"/>
+        <gtk:Button id="buttonDown" label="▼" row="2" col="1" styleClasses="gamepad-button dpad-button"/>
     </GridLayout>
 
     <!-- A/B Buttons Column -->
     <GridLayout rows="auto, auto" columns="auto" col="1" row="0" verticalAlignment="bottom" horizontalAlignment="right">
-         <Button id="buttonB" text="B" row="0" col="0" class="gamepad-button action-button B-button" marginBottom="20"/>
-         <Button id="buttonA" text="A" row="1" col="0" class="gamepad-button action-button A-button"/>
+         <gtk:Button id="buttonB" label="B" row="0" col="0" styleClasses="gamepad-button action-button B-button" marginBottom="20"/>
+         <gtk:Button id="buttonA" label="A" row="1" col="0" styleClasses="gamepad-button action-button A-button"/>
     </GridLayout>
 </GridLayout> 

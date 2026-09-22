@@ -139,20 +139,25 @@ TextView.no-underline {
   margin-right: var(--safeAreaInsetRight, 0) !important;
 }
 
-/* Adwaita floating action button (the main Assemble / Run / … button). */
+/* Adwaita floating action button (the main Assemble / Run / … button): a
+   `Gtk.Button` carrying `Adw.ButtonContent`. `height: auto` overrides the fixed 38
+   `.adw-button` sets — the FAB sizes to its icon+label plus this padding, as the old
+   hand-built StackLayout did. */
 .adw-fab {
   background-color: #3584e4;
   border-radius: 9999;
   padding: 10 18 10 18;
   margin: 16;
+  height: auto;
   android-elevation: 0;
 }
 
-.adw-fab-label {
+/* `Adw.ButtonContent`'s label defaults to Adwaita's dark button text and only turns
+   white for `.suggested-action` or dark mode (`.adw-button-content-label` /
+   `.ns-dark .adw-button-content-label` in the theme) — the FAB's accent background
+   needs it white unconditionally, like the old `.adw-fab-label` did. */
+.adw-fab .adw-button-content-label {
   color: #ffffff;
-  font-weight: 700;
-  margin-left: 8;
-  vertical-align: middle;
 }
 
 .ns-dark .adw-fab {

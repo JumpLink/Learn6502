@@ -1,6 +1,5 @@
-import { Label, StackLayout } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
-import { Gtk, attachRowPressFeedback } from "@gjsify/adwaita-nativescript";
+import { Adw, Gtk, GTK_BUTTON_CLICKED } from "@gjsify/adwaita-nativescript";
 import {
   systemRunSymbolic,
   mediaPlaybackStartSymbolic,
@@ -31,39 +30,38 @@ const MODES: Partial<Record<MainButtonState, MainButtonMode>> = {
 };
 
 /**
- * Adwaita-styled floating action button: a pill holding a white symbolic icon +
- * label on the accent background. It is stateless w.r.t. the simulator — the shell
- * computes the MainButtonState and calls setState(); a tap invokes
- * onAction(currentAction). Replaces the Material `MainButton`/`Fab` widget.
+ * Adwaita-styled floating action button: a `Gtk.Button` holding an `Adw.ButtonContent`
+ * (white symbolic icon + label) on the accent `.adw-fab` pill background. It is
+ * stateless w.r.t. the simulator — the shell computes the MainButtonState and calls
+ * setState(); a tap invokes onAction(currentAction). Replaces the Material
+ * `MainButton`/`Fab` widget.
  */
-export class AdwMainButton extends StackLayout {
+export class AdwMainButton extends Gtk.Button {
   /** Invoked on tap with the current mode's action. Wired by the shell. */
   public onAction: ((action: MainButtonAction) => void) | null = null;
 
-  private readonly _icon: Gtk.Image;
-  private readonly _label: Label;
+  // Not `_content`: `Gtk.Button` already declares a private field of that name
+  // (its own single-child slot), and TypeScript refuses two private declarations
+  // of the same name across a base/subclass pair.
+  private readonly _buttonContent: Adw.ButtonContent;
   private _state: MainButtonState = MainButtonState.ASSEMBLE;
 
   constructor() {
     super();
-    this.orientation = "horizontal";
-    this.className = "adw-fab";
+    // `add_css_class`, not a `className` assignment: the button's constructor already
+    // put `adw-button` there, and a raw overwrite would drop it — worse, it would come
+    // back on the next `styleClasses`/`add_css_class` call, which rebuilds `className`
+    // from the tracked list and has no idea `adw-fab` was ever there.
+    this.add_css_class("adw-fab");
 
-    const icon = new Gtk.Image();
-    icon.iconColor = "#ffffff"; // pinned white on the accent pill, both schemes
-    icon.verticalAlignment = "middle";
-    this._icon = icon;
-    this.addChild(icon);
+    // Icon+label IS `Adw.ButtonContent`. `Gtk.Button` already wires the press-darken
+    // (`attachRowPressFeedback`, in its own constructor) — the only app-specific parts
+    // left are the MainButtonState machine below and the `.adw-fab` pill styling.
+    const buttonContent = new Adw.ButtonContent({ iconColor: "#ffffff" }); // pinned white on the accent pill, both schemes
+    this._buttonContent = buttonContent;
+    this.child = buttonContent;
 
-    const label = new Label();
-    label.className = "adw-fab-label";
-    label.verticalAlignment = "middle";
-    this._label = label;
-    this.addChild(label);
-
-    // Adwaita buttons darken on press; NS only auto-applies that to `Button`.
-    attachRowPressFeedback(this);
-    this.addEventListener("tap", () => {
+    this.addEventListener(GTK_BUTTON_CLICKED, () => {
       const mode = MODES[this._state];
       if (mode && this.onAction) this.onAction(mode.action);
     });
@@ -83,7 +81,7 @@ export class AdwMainButton extends StackLayout {
       return;
     }
     this.visibility = "visible";
-    this._icon.iconName = mode.icon;
-    this._label.text = _(mode.label);
+    this._buttonContent.iconName = mode.icon;
+    this._buttonContent.label = _(mode.label);
   }
 }
