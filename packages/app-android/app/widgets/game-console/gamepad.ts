@@ -1,5 +1,5 @@
-import type { Button } from "@nativescript/core";
 import { GridLayout, Builder } from "@nativescript/core";
+import { Gtk } from "@gjsify/adwaita-nativescript";
 import type { GamepadKey, GamepadEventMap, GamepadWidget } from "@learn6502/common-ui";
 import { getGamepadKeyCode, getGamepadKeyChar } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
@@ -12,12 +12,12 @@ export class Gamepad extends GridLayout implements GamepadWidget {
   readonly events = new EventDispatcher<GamepadEventMap>();
 
   // Button references
-  private buttonUp: Button | null = null;
-  private buttonDown: Button | null = null;
-  private buttonLeft: Button | null = null;
-  private buttonRight: Button | null = null;
-  private buttonA: Button | null = null;
-  private buttonB: Button | null = null;
+  private buttonUp: Gtk.Button | null = null;
+  private buttonDown: Gtk.Button | null = null;
+  private buttonLeft: Gtk.Button | null = null;
+  private buttonRight: Gtk.Button | null = null;
+  private buttonA: Gtk.Button | null = null;
+  private buttonB: Gtk.Button | null = null;
 
   constructor() {
     super();
@@ -30,12 +30,12 @@ export class Gamepad extends GridLayout implements GamepadWidget {
 
       this.addChild(componentView);
 
-      this.buttonUp = componentView.getViewById<Button>("buttonUp");
-      this.buttonDown = componentView.getViewById<Button>("buttonDown");
-      this.buttonLeft = componentView.getViewById<Button>("buttonLeft");
-      this.buttonRight = componentView.getViewById<Button>("buttonRight");
-      this.buttonA = componentView.getViewById<Button>("buttonA");
-      this.buttonB = componentView.getViewById<Button>("buttonB");
+      this.buttonUp = componentView.getViewById<Gtk.Button>("buttonUp");
+      this.buttonDown = componentView.getViewById<Gtk.Button>("buttonDown");
+      this.buttonLeft = componentView.getViewById<Gtk.Button>("buttonLeft");
+      this.buttonRight = componentView.getViewById<Gtk.Button>("buttonRight");
+      this.buttonA = componentView.getViewById<Gtk.Button>("buttonA");
+      this.buttonB = componentView.getViewById<Gtk.Button>("buttonB");
       this.buttonUp?.on("tap", () => this.press("Up"));
       this.buttonDown?.on("tap", () => this.press("Down"));
       this.buttonLeft?.on("tap", () => this.press("Left"));
@@ -59,7 +59,7 @@ export class Gamepad extends GridLayout implements GamepadWidget {
   }
 
   private applyPressEffectToButton(keyName: GamepadKey): void {
-    let button: Button | null = null;
+    let button: Gtk.Button | null = null;
 
     switch (keyName) {
       case "Up":
