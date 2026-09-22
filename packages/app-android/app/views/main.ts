@@ -294,8 +294,16 @@ export class MainController implements MainView {
     toolbar.set_content(toast);
 
     // Bottom view switcher bar bound to the stack.
+    //
+    // REVEALED, explicitly. `Adw.ViewSwitcherBar:reveal` defaults to FALSE — in a GNOME
+    // window the bar is asked for by an `Adw.Breakpoint` (`setters { bar.reveal: true; }`)
+    // once the window goes narrow, and a desktop-width window keeps it collapsed in favour
+    // of the header-bar switcher. Android has no wide branch: this shell is the narrow
+    // layout, always. Without this line the bar measured THREE PIXELS on the emulator and
+    // the app had no visible way to change page at all.
     const switcher = new Adw.ViewSwitcherBar();
     switcher.set_stack(stack);
+    switcher.reveal = true;
     toolbar.add_bottom_bar(switcher);
 
     return toolbar;
