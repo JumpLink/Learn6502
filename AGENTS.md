@@ -47,6 +47,26 @@ bundle as exit 1. The residual hole is narrower but not zero — a dispatched co
 neither throws nor sets `process.exitCode` still yields 0 — so keep the chains: they cost
 nothing and they do not depend on the fix holding.
 
+**A `gjsify workspace <name> <script>` entry point has to establish its own precondition.**
+Root `build:android` ran `ns build android` directly: without `@learn6502/core` built first that
+failed loudly (a real session had to run `gjsify workspace @learn6502/core build` by hand to get
+an APK at all), but `app-android` never declared `@learn6502/learn` as a dependency — even though
+`learn`'s `build` script copies its generated `tutorial.ns.xml`/`quick-help.ns.xml` straight into
+`app-android/app/mdx/`. That relationship is a file copy across a workspace boundary, not an
+import, so it is invisible to both module resolution and `--with-dependencies`. The APK still
+built successfully with an empty `app/mdx/` and only crashed on-device opening the tutorial
+(`Builder.load` finding nothing). `build:android`/`start:android` now declare `@learn6502/learn`
+as a real dependency and pass `--with-dependencies` (`-t`/`-d`), which walks a target's declared
+`dependencies` and runs each one's `build` script first — including a plain `^x.y.z` range, not
+only the `workspace:` protocol (fixed upstream in gjsify, see `packages/app-gnome/meson.build`
+for the now-stale workaround it predates). A new entry point is safe from a clean checkout only
+when it either fails loudly on a missing precondition (`start:gnome`/`start:web` do — they run an
+already-built bundle, or resolve imports through a bundler that errors hard on a missing module)
+or establishes it via `--with-dependencies` backed by a real dependency edge for every workspace
+it needs — including one it only reaches through a copied file. `check-workspace-scripts.js`
+cannot check this mechanically: it would have to know whether a given script fails loud or ships
+silently, which is a design decision, not something to guess.
+
 ## Releases
 
 A tag produces artifacts. Until 0.7.0 it produced none — Flathub was the only way
