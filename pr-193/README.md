@@ -1,11 +1,18 @@
 # PR #193 — Android: build the hex monitor grid in code
 
-Screenshots from an `Medium_Phone_API_36` emulator (1080x2400, 420 dpi), Learn6502
-debug build, German locale. Both shots were driven the same way: load an example
-into the editor, tap the action button to assemble (which lands on the Debugger
-tab), scroll to the Hex Monitor section. Crops are `1020x1155+30+185` out of the
-1080x2400 frame, taken from `uiautomator dump` bounds for the `Hex-Monitor`
-heading (`[42,198][1037,243]` before, `[42,204][1037,249]` after).
+Screenshots from a `Medium_Phone_API_36` emulator (1080x2400, 420 dpi), Learn6502
+debug build, German locale, headless (`-no-window`, `swangle_indirect`).
+
+Both shots end the same way: assemble from the action button, which lands on the
+Debugger tab, then scroll to the Hex Monitor section. They differ in how the code
+got into the editor — the before shot was typed in through `adb shell input text`,
+the after shot loaded the commented Snake example from Learn > Beispiele. That has
+no bearing on what the monitor shows: it renders `$0000-$00ff`, and neither
+program had run at the last monitor refresh.
+
+Crops are `1020x1155+30+185` out of the 1080x2400 frame, aligned on the
+`Hex-Monitor` heading as `uiautomator dump` reports it (`[42,198][1037,243]`
+before, `[42,187][1037,228]` after).
 
 ## `before-after.png`
 
@@ -14,10 +21,11 @@ Left, before the change: the Hex Monitor card is empty, and logcat carries
 found nothing, because `hex-monitor.xml` was never loaded.
 
 Right, after: the grid renders, one address label plus eight byte columns per row,
-`$0000` to `$00ff` scrollable inside the card. The bytes read `00` because nothing
-had written the zero page at the last monitor refresh; that is the correct dump of
-a freshly initialised machine, and the same 33 `$00` rows appear in the GNOME and
-web debuggers in that state.
+`$0000` to `$00ff` scrollable inside the card. Taken from the APK built from the
+final commit of the branch. The bytes read `00` because nothing had written the
+zero page at the last monitor refresh; that is the correct dump of a freshly
+assembled machine, and the GNOME and web debuggers show the same 00s in that
+state.
 
 ## `clipped-16.png`
 
