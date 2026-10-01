@@ -40,8 +40,8 @@ above it saw green. That is how `gjsify workspace @learn6502/translations check`
 `translations` and `examples` have no `:gen`/`:run` sub-scripts.
 
 **Fixed upstream in gjsify 0.23.0** — the in-process path now tracks the failure in a local
-variable instead of reading a `process.exitCode` its commands never set. Re-measured on the
-pinned 0.48.0: a script whose whole body is `gjsify run <throwing bundle>` exits **1**, and
+variable instead of reading a `process.exitCode` its commands never set. Measured on 0.48.0:
+a script whose whole body is `gjsify run <throwing bundle>` exits **1**, and
 `gjsify workspace @learn6502/app-web build:app` (a single-command script) propagated a failing
 bundle as exit 1. The residual hole is narrower but not zero — a dispatched command that
 neither throws nor sets `process.exitCode` still yields 0 — so keep the chains: they cost
@@ -58,14 +58,17 @@ built successfully with an empty `app/mdx/` and only crashed on-device opening t
 (`Builder.load` finding nothing). `build:android`/`start:android` now declare `@learn6502/learn`
 as a real dependency and pass `--with-dependencies` (`-t`/`-d`), which walks a target's declared
 `dependencies` and runs each one's `build` script first — including a plain `^x.y.z` range, not
-only the `workspace:` protocol (fixed upstream in gjsify, see `packages/app-gnome/meson.build`
-for the now-stale workaround it predates). A new entry point is safe from a clean checkout only
-when it either fails loudly on a missing precondition (`start:gnome`/`start:web` do — they run an
-already-built bundle, or resolve imports through a bundler that errors hard on a missing module)
-or establishes it via `--with-dependencies` backed by a real dependency edge for every workspace
-it needs — including one it only reaches through a copied file. `check-workspace-scripts.js`
-cannot check this mechanically: it would have to know whether a given script fails loud or ships
-silently, which is a design decision, not something to guess.
+only the `workspace:` protocol. That second half was fixed upstream in **gjsify 0.52.0**
+(gjsify#1587): before it, the closure matched only the protocol, so on a monorepo declaring its
+internal deps as plain ranges the flag built nothing and still exited 0. `packages/app-gnome/meson.build`
+therefore spelled its three dependency builds out by hand until then, and now uses the flag. A new
+entry point is safe from a clean checkout only when it either fails loudly on a missing
+precondition (`start:gnome`/`start:web` do — they run an already-built bundle, or resolve imports
+through a bundler that errors hard on a missing module) or establishes it via
+`--with-dependencies` backed by a real dependency edge for every workspace it needs — including
+one it only reaches through a copied file. `check-workspace-scripts.js` cannot check this
+mechanically: it would have to know whether a given script fails loud or ships silently, which is
+a design decision, not something to guess.
 
 ## Releases
 
