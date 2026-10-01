@@ -110,7 +110,7 @@
     "check:metainfo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder appstream data/metainfo/eu.jumplink.Learn6502.metainfo.xml",
     "storybook": "gjsify storybook"
   },
-  "author": "Pascal Garber <pascal@mailfreun.de>",
+  "author": "Pascal Garber <pascal@jumplink.eu>",
   "license": "GPL-3.0",
   "optionalDependencies": {
     "@gjsify/gtk-host": "^0.51.1",
