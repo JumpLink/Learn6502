@@ -101,7 +101,7 @@ class Editor extends Observable implements EditorView {
     helpClamp.set_child(helpScroll);
     sheet.set_sheet(asView(helpClamp));
 
-    return sheet;
+    return asView(sheet);
   }
 
   /** Persist the code (called when leaving the editor screen). */
