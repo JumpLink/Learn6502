@@ -57,7 +57,7 @@
       "developer": {
         "id": "eu.jumplink",
         "name": "Pascal Garber",
-        "email": "pascal@mailfreun.de",
+        "email": "pascal@jumplink.eu",
         "nameTranslatable": false
       },
       "summary": "Program vintage game consoles",
@@ -470,7 +470,7 @@
     "changeset:version": "changeset version && node build-aux/sync-root-version.js && gjsify run check:versions",
     "changeset:publish": "gjsify workspace @learn6502/core build && changeset publish"
   },
-  "author": "Pascal Garber <pascal@mailfreun.de>",
+  "author": "Pascal Garber <pascal@jumplink.eu>",
   "license": "GPL-3.0",
   "workspaces": [
     "packages/*"
