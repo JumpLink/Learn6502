@@ -2,10 +2,10 @@ import { _ } from "@learn6502/core";
 import type { ExampleMetaJson } from "../example-meta.ts";
 export default {
   slug: "even-odd",
-  // TRANSLATORS: Example title for even odd
-  title: _("even odd"),
-  // TRANSLATORS: Example description for even odd
-  description: _("checks if A is even, places 1 or 0 in A on result"),
+  // TRANSLATORS: Example title for Even Odd
+  title: _("Even Odd"),
+  // TRANSLATORS: Example description for Even Odd
+  description: _("Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"),
   author: "pinjontall94",
   license: "CC-BY-4.0",
   displayMemory:
