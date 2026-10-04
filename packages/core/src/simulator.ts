@@ -1574,7 +1574,7 @@ export class Simulator {
       const zp = (this.popByte() + this.regX) & 0xff;
       const addr = this.memory.getWord(zp);
       const value = this.memory.get(addr);
-      this.doCompare(this.regA, value);
+      this.testSBC(value);
       //SBC
     },
 
@@ -1587,7 +1587,7 @@ export class Simulator {
     ie5: () => {
       const addr = this.popByte();
       const value = this.memory.get(addr);
-      this.doCompare(this.regA, value);
+      this.testSBC(value);
       //SBC
     },
 
