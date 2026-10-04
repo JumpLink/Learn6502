@@ -1,4 +1,4 @@
-import type { TextView, Button } from "@nativescript/core";
+import type { TextView, View } from "@nativescript/core";
 import { ContentView, Property, Builder, booleanConverter, Color } from "@nativescript/core";
 import { debounce, EventDispatcher } from "@learn6502/core";
 import type { SourceViewEventMap, SourceViewWidget } from "@learn6502/common-ui";
@@ -123,7 +123,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   private debouncedHighlighting: (code: string) => void;
   private textView!: TextView;
   private lineNumbersView!: TextView;
-  private copyButton!: Button;
+  private copyButton!: View;
   private _editable: boolean = true;
   private _lineNumbers: boolean = true;
   private _lineNumberStart: number = 1;
@@ -305,7 +305,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
 
     this.textView = componentView.getViewById<TextView>("textView");
     this.lineNumbersView = componentView.getViewById<TextView>("lineNumbersView");
-    this.copyButton = componentView.getViewById<Button>("copyButton");
+    this.copyButton = componentView.getViewById<View>("copyButton");
 
     if (!this.textView) {
       throw new Error("Failed to find textView in source-view.xml");
