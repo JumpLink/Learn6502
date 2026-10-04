@@ -13,7 +13,8 @@
     <style name="LaunchScreenTheme" parent="LaunchScreenThemeBase">
     </style>
 
-    <!-- Default style for DatePicker - in spinner mode -->
+    <!-- Platform (not com.google.android.material) date/time picker widgets, forced
+         to spinner mode. Both parents exist since API 21, which is the minSdk. -->
     <style name="SpinnerDatePicker" parent="android:Widget.Material.Light.DatePicker">
         <!-- set the default mode for the date picker (supported values: spinner, calendar)  -->
         <item name="android:datePickerMode">spinner</item>

@@ -344,13 +344,15 @@ s.append_scaled_texture(
 
 Applies to all files in `packages/app-android/`.
 
-Stack: TypeScript + NativeScript (no Angular/Vue). UI: custom TS components wrapping native Android widgets, Material Design 3.
+Stack: TypeScript + NativeScript (no Angular/Vue). UI: native Adwaita widgets from `@gjsify/adwaita-nativescript` (`Gtk.*`/`Adw.*`, XML barrels in `app/gtk.ts` and `app/widgets/`), styled by `app/adwaita.css`. No Material/MDC.
 Events: `packages/core/event-dispatcher.ts`. Build: NativeScript + Gradle.
+
+Screens are built in code today (TS classes). They are migrating to the shared `.blp` templates from app-gnome, imported through the `.blp?shared-tree` exit of `@gjsify/vite-plugin-blueprint` — prefer that over hand-written view trees for anything with a GNOME twin.
 
 ### Reference projects
 
 Git submodules in `references/nativescript/`:
-`alpimaps` (offline maps) | `conty` (interactive stories) | `oss-weather` (Svelte+TS, MD patterns) | `ui-material-components` (MD2/MD3 wrappers) | `nativescript` (framework core) | `nativescript-app-utils` (helpers) | `systemui` (status/nav bar)
+`alpimaps` (offline maps) | `conty` (interactive stories) | `oss-weather` (Svelte+TS) | `nativescript` (framework core) | `nativescript-app-utils` (helpers) | `systemui` (status/nav bar)
 
 ### NativeScript internals
 
@@ -362,19 +364,11 @@ Read `references/nativescript/nativescript/` for framework internals. Key areas:
 
 Utils: `import { Utils } from "@nativescript/core"` — threading, native helpers, Android resources, system UI, input, layout, path/URI, async. Full API in `references/nativescript/nativescript/packages/core/utils/index.d.ts`.
 
-### Missing Android/Material types
-
-When `@nativescript/types-android` lacks types (esp. MD3 components):
-
-1. Search `references/nativescript/ui-material-components/src/typings/mdc.android.d.ts` (~22k lines)
-2. Extract needed declarations → `app/typings/material.android.d.ts`
-3. Ensure `references.d.ts` includes `/// <reference path="app/typings/material.android.d.ts" />`
-
 ### Native API whitelist — CRITICAL
 
-Any direct Android SDK/AndroidX/Material API usage (`new android.*`, `androidx.*`, `com.google.android.material.*`) **MUST** be added to `packages/app-android/data/Android/native-api-usage.json`.
+Any direct Android SDK/AndroidX API usage (`new android.*`, `androidx.*`) **MUST** be added to `packages/app-android/data/Android/native-api-usage.json`.
 
-Format: `"package:Class"` — e.g. `"android.view:View"`, `"com.google.android.material.button:MaterialButton"`
+Format: `"package:Class"` — e.g. `"android.view:View"`, `"androidx.appcompat.app:AppCompatActivity"`
 Inner classes: `"package:Outer.Inner"` — e.g. `"android.view:View.OnClickListener"`
 Static fields: `"package:Class.Field"` — e.g. `"android.view:View.VISIBLE"`
 
@@ -385,9 +379,9 @@ Required for R8/ProGuard code shrinking. Missing entries cause **runtime crashes
 - Services: `app/services/` (lifecycle, theme, notification)
 - State: reactive with `EventDispatcher` from `@learn6502/core`
 - Views: implement interfaces from `@learn6502/common-ui`
-- Widgets: `app/widgets/` wrapping native Android widgets
+- Widgets: `app/widgets/` (Adwaita `Gtk.*`/`Adw.*` composites) + `app/gtk.ts` XML barrel
 - Utils: `app/utils/` (system, navigation, logger, resources)
-- Activity: `app/android/activity.android.ts` extending `AppCompatActivity`
+- Theme: `data/Android/.../styles.xml` is AppCompat `NoActionBar` plumbing only; colours come from CSS
 
 ### Common patterns
 
