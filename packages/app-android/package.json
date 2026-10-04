@@ -9,7 +9,7 @@
     "start": "ns run android",
     "start:clean": "ns run android --clean",
     "start:debug": "ns debug android",
-    "start:emulator": "$HOME/Android/Sdk/emulator/emulator -avd Medium_Phone_API_36",
+    "start:emulator": "../../../../scripts/android_emulator.sh start Tablet_API_36",
     "check": "gjsify tsc --noEmit"
   },
   "dependencies": {
