@@ -1,4 +1,5 @@
 <GridLayout xmlns="http://schemas.nativescript.org/tns.xsd"
+    xmlns:gtk="~/gtk"
     rows="auto, *"
     columns="auto, *"
     height="100%" width="100%"
@@ -16,11 +17,11 @@
         fontFamily="monospace"
         height="100%"
         class="text-base p-0 m-0 vertical-top no-underline text-on-surface" />
-    <Button id="copyButton"
+    <gtk:Button id="copyButton"
         row="0" col="1"
         horizontalAlignment="right"
         verticalAlignment="top"
-        text="COPY"
+        label="COPY"
         visibility="{{ copyable ? 'visible' : 'collapsed' }}"
-        class="m-2 p-2" />
+        styleClasses="flat" margin="8" />
 </GridLayout>
