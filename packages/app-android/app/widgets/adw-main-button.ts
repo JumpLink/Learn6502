@@ -33,8 +33,7 @@ const MODES: Partial<Record<MainButtonState, MainButtonMode>> = {
  * Adwaita-styled floating action button: a `Gtk.Button` holding an `Adw.ButtonContent`
  * (white symbolic icon + label) on the accent `.adw-fab` pill background. It is
  * stateless w.r.t. the simulator — the shell computes the MainButtonState and calls
- * setState(); a tap invokes onAction(currentAction). Replaces the Material
- * `MainButton`/`Fab` widget.
+ * setState(); a tap invokes onAction(currentAction).
  */
 export class AdwMainButton extends Gtk.Button {
   /** Invoked on tap with the current mode's action. Wired by the shell. */

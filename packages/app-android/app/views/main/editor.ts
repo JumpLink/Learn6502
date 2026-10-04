@@ -20,9 +20,9 @@ export interface ScreenModule {
 }
 
 /**
- * Editor view — implements EditorView from common-ui. The Material Page+ActionBar
- * is gone; the editor is now a content view (a SourceView) added to the shell's
- * Adw.ViewStack. All editing logic still lives in editorController.
+ * Editor view — implements EditorView from common-ui. The editor is a content
+ * view (a SourceView) added to the shell's Adw.ViewStack, not a page of its own.
+ * All editing logic still lives in editorController.
  */
 class Editor extends Observable implements EditorView {
   readonly events: EventDispatcher<EditorEventMap> = new EventDispatcher<EditorEventMap>();

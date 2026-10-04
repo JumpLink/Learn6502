@@ -72,7 +72,7 @@ const NAME_TO_VIEW: Record<string, ViewType> = {
  * MainController — builds the Adwaita shell (Adw.ToolbarView: header bar + a
  * bottom Adw.ViewSwitcherBar driving an Adw.ViewStack of the four screens, with an
  * Adwaita FAB overlaid). Implements MainView; all 6502 logic stays in the
- * common-ui controllers + event bridges (wired identically to the Material shell).
+ * common-ui controllers + event bridges.
  */
 export class MainController implements MainView {
   private page: Page | null = null;
@@ -178,7 +178,7 @@ export class MainController implements MainView {
       return screen?.onBack?.() ?? false;
     });
 
-    // Start on the editor (the Material default).
+    // Start on the editor, the default screen.
     this.navigateToView(ViewType.EDITOR);
   }
 
@@ -423,7 +423,7 @@ export class MainController implements MainView {
     this._fab.setState(state);
   }
 
-  // --- Setup helpers (unchanged from the Material shell) ---
+  // --- Setup helpers ---
   private setupAndroidKeyHandling(): void {
     const KEY_UP = 19;
     const KEY_DOWN = 20;

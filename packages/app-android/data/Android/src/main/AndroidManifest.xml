@@ -13,7 +13,7 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-	<!-- MinSDK für Material Design 3 Support -->
+	<!-- minSdk 23 (Android 6) is what @nativescript/core and AppCompat require -->
 	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="35" />
 
 	<application
