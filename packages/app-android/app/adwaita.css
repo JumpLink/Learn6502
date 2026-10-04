@@ -122,7 +122,7 @@ Page.adw-window {
  *
  * It is also the first of `_labels.scss`'s utility set to land here; the rest
  * (`.title-1`…`.title-4`, `.accent`/`.success`/`.warning`, `.heading`, `.numeric`, …)
- * is an open entry in status/open-todos.md. */
+ * is an open entry in status/open-todos/README.md. */
 .dimmed {
     opacity: 0.55;
 }
@@ -200,6 +200,14 @@ Page.adw-window {
 
 .adw-switch {
     color: #3584e4;
+}
+
+/* NativeScript's `color` tints the thumb in BOTH states, so an off switch kept its
+ * accent thumb. `AdwSwitchRow` adds `.off` while unchecked: the slider goes neutral
+ * and only the on state carries the accent. A white thumb vanished against the white
+ * row (the Android thumb overhangs the track), so it is a mid grey. */
+.adw-switch.off {
+    color: #9a9996;
 }
 
 /* ===== Preferences page (ScrollView wrapper) ===== */
@@ -494,9 +502,30 @@ Page.adw-window {
     color: rgba(0, 0, 0, 0.8);
 }
 
+/* `%pill_button` — `padding: 10px 32px; border-radius: 9999px` (_buttons.scss:322-326,
+ * pin 42f647ff). The padding is the whole variant, and it is why this rule HAS to
+ * restate the height.
+ *
+ * `.adw-button` above pins `height: 38`, and a NativeScript `height` is an EXACT box
+ * where GTK's `min-height` is a floor — the same non-equivalence ADR 0034 measured for
+ * `adw-spinner.size`. So a variant that doubles the vertical padding cannot grow the
+ * box it sits in: the base budgets 38 − (5 + 5) = 28 for the label, and this one left
+ * 38 − (10 + 10) = 18 for a `.adw-button-label` at `font-size: 15`, whose line box does
+ * not fit in 18. The pill was clipped, and every consumer that wanted one had to
+ * override the height itself — which is how the defect surfaced, in Learn6502.
+ *
+ * 48 is 28 + (10 + 10): the base's own content box under this variant's padding. GTK
+ * derives the same direction from the same numbers — `min-height: 24px` + 5px twice is
+ * 34, + 10px twice is 44 — so the pill is taller than the plain button there too.
+ *
+ * THE RULE THIS VARIANT BROKE, stated because the next variant will meet it: in this
+ * stylesheet a class that changes vertical padding on a widget whose base pins an exact
+ * `height` must restate that height. `.adw-button.circular` does (34), and both split
+ * button halves do (38) beside their own padding. This one did not, and nothing said so. */
 .adw-button.pill {
     border-radius: 9999;
     padding: 10 32 10 32;
+    height: 48;
 }
 
 /* `%circular_button` — the explicit exception to the 9px rounded square: a full
@@ -558,6 +587,21 @@ Page.adw-window {
 }
 
 .adw-button.destructive-action:highlighted {
+    background-color: rgba(224, 27, 36, 0.24);
+}
+
+/* `Gtk.ToggleButton:active` — `button:checked` takes the pressed shade
+ * (`$button_active_color`, _buttons.scss). `checked` is a STATE class the widget wears
+ * (`GtkToggleButton`), never a member of `styleClasses`. */
+.adw-button.checked {
+    background-color: rgba(0, 0, 0, 0.19);
+}
+
+.adw-button.suggested-action.checked {
+    background-color: #1c71d8;
+}
+
+.adw-button.destructive-action.checked {
     background-color: rgba(224, 27, 36, 0.24);
 }
 
@@ -693,6 +737,23 @@ Page.adw-window {
     vertical-align: center;
 }
 
+/* ===== Action bar (Gtk.ActionBar) ===== */
+
+/* libadwaita `actionbar > revealer > box`: the headerbar surface with a TOP hairline
+   (an inset shadow there; the NS subset has none, so a border) and 7/6px padding. */
+.adw-action-bar {
+    background-color: #ffffff;
+    border-top-width: 1;
+    border-top-color: rgba(0, 0, 0, 0.1);
+    padding: 7 6 6 6;
+}
+
+.adw-action-bar-start,
+.adw-action-bar-end {
+    margin: 0;
+    vertical-align: center;
+}
+
 /* ===== Toolbar view ===== */
 
 .adw-toolbar-view {
@@ -710,13 +771,21 @@ Page.adw-window {
  * same reason the accent has to be inlined as a literal. AdwToolbarView applies the
  * real reading now (#1128). */
 .adw-toolbar-view-top {
-    background-color: #ffffff;
+    /* `top-bar-style: flat` (the default): the bar is the window background, with no
+     * separator — the header bar inside it is flat too (`.adw-toolbar-view-top
+     * .adw-header-bar` below). `.raised` brings the header colour and the hairline. */
+    background-color: #fafafb;
 }
 
 .adw-toolbar-view-bottom {
-    background-color: #ffffff;
-    border-top-width: 1;
-    border-top-color: rgba(0, 0, 0, 0.1);
+    background-color: #fafafb;
+}
+
+/* A header bar in a toolbar view paints nothing of its own: the bar around it owns the
+ * colour (window background when flat, header colour when raised) and the hairline. */
+.adw-toolbar-view-top .adw-header-bar {
+    background-color: transparent;
+    border-bottom-width: 0;
 }
 
 /* top-bar-style / bottom-bar-style = raised: an opaque background with a
@@ -736,6 +805,7 @@ Page.adw-window {
 
 .adw-toolbar-view-bottom.raised {
     background-color: #ffffff;
+    border-top-width: 1;
     border-top-color: rgba(0, 0, 0, 0.1);
 }
 
@@ -752,9 +822,10 @@ Page.adw-window {
 /* ===== View switcher bar (narrow policy: bottom bar, icon over label) ===== */
 
 .adw-viewswitcherbar {
-    background-color: #ffffff;
-    border-top-width: 1;
-    border-top-color: rgba(0, 0, 0, 0.1);
+    /* Transparent: the bar takes the colour (and, when raised, the hairline) of the
+     * toolbar it sits in. It carried its own #fff and top border, which drew a second
+     * line under the toolbar view's. */
+    background-color: transparent;
 }
 
 .adw-viewswitcherbar-box {
@@ -776,6 +847,12 @@ Page.adw-window {
     background-color: rgba(0, 0, 0, 0.05);
 }
 
+/* `button.flat:checked` — the selected pill, not an accent colour (_buttons.scss
+ * flat `:checked` = $selected_color); the label keeps the window foreground. */
+.adw-viewswitcherbar-button.active {
+    background-color: rgba(0, 0, 0, 0.1);
+}
+
 .adw-viewswitcherbar-button-icon {
     margin: 0 0 2 0;
     horizontal-align: center;
@@ -783,13 +860,10 @@ Page.adw-window {
 
 .adw-viewswitcherbar-button-label {
     font-size: 11;
-    color: rgba(0, 0, 0, 0.6);
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
     horizontal-align: center;
     text-align: center;
-}
-
-.adw-viewswitcherbar-button.active .adw-viewswitcherbar-button-label {
-    color: #3584e4;
 }
 
 /* AdwIndicatorBin's badge — the unread count, or (with .needs-attention and no
@@ -983,6 +1057,15 @@ Page.adw-window {
     margin: 16 0 0 0;
 }
 
+/* `.compact` (libadwaita `_misc.scss`, statuspage.compact): tighter margins and `.title-2`. */
+.adw-status-page.compact .adw-status-page-content {
+    padding: 12 24 12 24;
+}
+
+.adw-status-page.compact .adw-status-page-title {
+    font-size: 15;
+}
+
 /* ===== Button row (full-width tappable row) ===== */
 
 .adw-button-row {
@@ -1167,9 +1250,9 @@ Page.adw-window {
 }
 
 .adw-view-switcher-bar {
-    background-color: rgba(0, 0, 0, 0.05);
-    border-radius: 9;
-    padding: 2;
+    /* libadwaita's `viewswitcher` is a bare row of flat toggles: no frame, no fill. */
+    background-color: transparent;
+    padding: 0;
     margin: 6;
 }
 
@@ -1178,13 +1261,13 @@ Page.adw-window {
  * right margin. Active = raised white pill. */
 .adw-view-switcher-button {
     background-color: transparent;
-    border-radius: 7;
+    border-radius: 9;
     padding: 5 14 5 14;
     margin: 0;
 }
 
 .adw-view-switcher-button.active {
-    background-color: #ffffff;
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 .adw-view-switcher-button:highlighted {
@@ -1192,7 +1275,7 @@ Page.adw-window {
 }
 
 .adw-view-switcher-button-label {
-    color: rgba(0, 0, 0, 0.75);
+    color: rgba(0, 0, 0, 0.8);
     font-weight: 700;
     vertical-align: center;
 }
@@ -1326,7 +1409,10 @@ Page.adw-window {
     background-color: transparent;
 }
 
-.adw-carousel-dots {
+/* The two indicators an app binds to a carousel (`Adw.CarouselIndicatorDots` /
+   `…Lines`): a centred row of markers, the current one `active`. */
+.adw-carousel-indicator-dots,
+.adw-carousel-indicator-lines {
     padding: 8 0 8 0;
 }
 
@@ -1338,6 +1424,20 @@ Page.adw-window {
 
 .adw-carousel-dot.active {
     color: #3584e4;
+}
+
+/* LINE_LENGTH 35, LINE_WIDTH 3, LINE_SPACING 5 (adw-carousel-indicator-lines.c); the
+   opacity ramp is reduced to the two ends it runs between, 0.3 and 0.9. */
+.adw-carousel-line {
+    width: 35;
+    height: 3;
+    border-radius: 1.5;
+    margin: 0 2.5 0 2.5;
+    background-color: rgba(0, 0, 6, 0.24);
+}
+
+.adw-carousel-line.active {
+    background-color: rgba(0, 0, 6, 0.72);
 }
 
 /* ===== Navigation view ===== */
@@ -1431,6 +1531,12 @@ Page.adw-window {
 
 /* ===== Bottom sheet ===== */
 
+/* The scrim a modal sheet lays over its content while open — libadwaita's
+   `> dimming` (_bottom-sheet.scss), at the strength `<adw-bottom-sheet>` paints it. */
+.adw-bottom-sheet-dimming {
+    background-color: rgba(0, 0, 6, 0.32);
+}
+
 .adw-bottom-sheet-panel {
     background-color: #ffffff;
     border-top-left-radius: 16;
@@ -1444,13 +1550,107 @@ Page.adw-window {
     margin: 0 0 6 0;
 }
 
+/* The collapsed form the sheet morphs out of, and the only thing a user can tap to
+   open it. Flat and radius-less inside the panel, like libadwaita's
+   `> sheet > stack > button` (_bottom-sheet.scss). */
+.adw-bottom-sheet-bottom-bar {
+    padding: 8 0;
+}
+
+.adw-bottom-sheet-bottom-bar:highlighted {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* can-open off: the bar stays tappable and loses only its press feedback, because
+   upstream refuses the click in the handler rather than disabling the button
+   (adw-bottom-sheet.c:2033-2036). */
+.adw-bottom-sheet-inert:highlighted {
+    background-color: transparent;
+}
+
+/* ===== Check button, separator, frame, text view ===== */
+
+/* `check` (_checks.scss): a rounded square, neutral until `checked`/`inconsistent`, then the
+ * accent fill; the white checkmark is the indicator's own image. */
+.adw-check-button {
+    padding: 6 0 6 0;
+}
+
+.adw-check-indicator {
+    width: 20;
+    height: 20;
+    border-radius: 5;
+    background-color: rgba(0, 0, 0, 0.15);
+    margin: 0 8 0 0;
+}
+
+.adw-check-indicator.checked,
+.adw-check-indicator.inconsistent {
+    background-color: #3584e4;
+}
+
+.adw-check-label {
+    font-size: 15;
+    color: rgba(0, 0, 0, 0.8);
+}
+
+.adw-check-button:highlighted {
+    background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* `separator` (_misc.scss): a 1px line in the border colour. */
+.adw-separator {
+    background-color: rgba(0, 0, 0, 0.15);
+}
+
+.adw-separator.horizontal {
+    height: 1;
+    horizontal-align: stretch;
+}
+
+.adw-separator.vertical {
+    width: 1;
+    vertical-align: stretch;
+}
+
+/* `frame` (`.frame` / `frame > border`): one hairline around the child. */
+.adw-frame {
+    border-width: 1;
+    border-color: rgba(0, 0, 0, 0.15);
+}
+
+.adw-frame-label {
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.8);
+    margin: 0 0 4 0;
+}
+
+/* `textview` (_views.scss): the view surface, with the entry's padding. */
+.adw-text-view {
+    background-color: #ffffff;
+    border-radius: 9;
+    padding: 8 9 8 9;
+}
+
+.adw-text-view-input {
+    color: rgba(0, 0, 0, 0.8);
+    font-size: 15;
+}
+
+.adw-text-view.monospace .adw-text-view-input {
+    font-family: monospace;
+}
+
 /* ===== Toast (transient snackbar) ===== */
 
+/* `toast` (_misc.scss:38-60): $toast_bg_color #505053 / white in BOTH schemes — it is
+ * the one libadwaita surface that does not switch — a 150px (pill) radius, 6px padding
+ * with 12 on the leading side, 12px margin and 24 below. */
 .adw-toast {
-    background-color: #303034;
-    border-radius: 12;
-    padding: 10 12 10 16;
-    margin: 0 12 16 12;
+    background-color: #505053;
+    border-radius: 9999;
+    padding: 6 6 6 12;
+    margin: 12 12 24 12;
 }
 
 .adw-toast-title {
@@ -1460,12 +1660,12 @@ Page.adw-window {
 }
 
 .adw-toast-button {
-    background-color: rgba(255, 255, 255, 0.16);
+    background-color: transparent;
     color: #ffffff;
-    border-radius: 8;
+    border-radius: 9999;
     font-weight: 700;
     padding: 4 12 4 12;
-    margin: 0 0 0 8;
+    margin: 0 0 0 6;
 }
 
 /* ===== About / Preferences dialogs (in-page modal overlay) ===== */
@@ -1544,6 +1744,30 @@ Page.adw-window {
 
 .adw-preferences-dialog-body {
     margin: 0;
+}
+
+/* ===== Adw.Dialog =====
+ *
+ * The scrim dims the whole window; the card is Adwaita's dialog surface — the window
+ * fill, the 15-ish window radius, no padding of its own (the dialog's child brings its
+ * header bar and its content margins). `.adw-dialog-card` sits in the middle by default
+ * and at the bottom edge, full width, for `presentation-mode: bottom-sheet`. */
+.adw-dialog {
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.adw-dialog-card {
+    background-color: #fafafb;
+    border-radius: 16;
+    margin: 24;
+}
+
+/* ===== Gtk.ListBox selected row =====
+ *
+ * `row:selected` is the 10% currentColor fill (_lists.scss). The rows of a boxed list are
+ * transparent over the card, so a true rgba overlay applies directly. */
+.adw-list-row-selected {
+    background-color: rgba(0, 0, 0, 0.1);
 }
 
 /* ===== Shortcut label (keycaps) =====
@@ -1655,6 +1879,10 @@ Page.ns-dark.adw-window {
 
 .ns-dark .adw-switch {
     color: #78aeed;
+}
+
+.ns-dark .adw-switch.off {
+    color: #9a9996;
 }
 
 /* ===== Dark: preferences page ===== */
@@ -1803,6 +2031,10 @@ Page.ns-dark.adw-window {
     background-color: rgba(255, 255, 255, 0.22);
 }
 
+.ns-dark .adw-button.checked {
+    background-color: rgba(255, 255, 255, 0.22);
+}
+
 .ns-dark .adw-button.flat:highlighted {
     background-color: rgba(255, 255, 255, 0.22);
 }
@@ -1820,6 +2052,14 @@ Page.ns-dark.adw-window {
 }
 
 .ns-dark .adw-button.destructive-action:highlighted {
+    background-color: rgba(192, 28, 40, 0.3);
+}
+
+.ns-dark .adw-button.suggested-action.checked {
+    background-color: #1c71d8;
+}
+
+.ns-dark .adw-button.destructive-action.checked {
     background-color: rgba(192, 28, 40, 0.3);
 }
 
@@ -1872,6 +2112,11 @@ Page.ns-dark.adw-window {
     border-bottom-color: rgba(255, 255, 255, 0.12);
 }
 
+.ns-dark .adw-action-bar {
+    background-color: #2e2e32;
+    border-top-color: rgba(255, 255, 255, 0.12);
+}
+
 .ns-dark .adw-header-bar.flat {
     background-color: transparent;
     border-bottom-width: 0;
@@ -1884,12 +2129,17 @@ Page.ns-dark.adw-window {
 }
 
 .ns-dark .adw-toolbar-view-top {
-    background-color: #2e2e32;
+    background-color: #222226;
+}
+
+/* Outranks `.ns-dark .adw-header-bar` above: inside a toolbar view the bar paints. */
+.ns-dark .adw-toolbar-view-top .adw-header-bar {
+    background-color: transparent;
+    border-bottom-width: 0;
 }
 
 .ns-dark .adw-toolbar-view-bottom {
-    background-color: #2e2e32;
-    border-top-color: rgba(255, 255, 255, 0.12);
+    background-color: #222226;
 }
 
 .ns-dark .adw-toolbar-view-top.raised {
@@ -1903,6 +2153,7 @@ Page.ns-dark.adw-window {
 
 .ns-dark .adw-toolbar-view-bottom.raised {
     background-color: #2e2e32;
+    border-top-width: 1;
     border-top-color: rgba(255, 255, 255, 0.12);
 }
 
@@ -1913,8 +2164,11 @@ Page.ns-dark.adw-window {
 /* ===== Dark: view switcher bar ===== */
 
 .ns-dark .adw-viewswitcherbar {
-    background-color: #2e2e32;
-    border-top-color: rgba(255, 255, 255, 0.12);
+    background-color: transparent;
+}
+
+.ns-dark .adw-viewswitcherbar-button.active {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .ns-dark .adw-viewswitcherbar-button:highlighted {
@@ -1922,11 +2176,7 @@ Page.ns-dark.adw-window {
 }
 
 .ns-dark .adw-viewswitcherbar-button-label {
-    color: rgba(255, 255, 255, 0.7);
-}
-
-.ns-dark .adw-viewswitcherbar-button.active .adw-viewswitcherbar-button-label {
-    color: #78aeed;
+    color: #ffffff;
 }
 
 /* ===== Dark: data grid ===== */
@@ -1997,6 +2247,18 @@ Page.ns-dark.adw-window {
     color: #ffffff;
 }
 
+/* The destructive content label needs the DARK scheme's red, and it needs its own rule
+ * because the light one out-specifies the block above: `.adw-button.destructive-action
+ * .adw-button-content-label` is three classes to that selector's two, so `#c01c28` — a
+ * colour picked to sit on the light scheme's `rgba(224, 27, 36, 0.12)` — was winning on
+ * the dark scheme's `rgba(192, 28, 40, 0.18)`. `.adw-button-label` got this override
+ * (above); `.adw-button-content-label` was left behind, which is the asymmetry the
+ * comment on `.adw-button-label` warns about read from the other side. The suggested
+ * variant needs none: its `#ffffff` is right on `#3584e4` in both schemes. */
+.ns-dark .adw-button.destructive-action .adw-button-content-label {
+    color: #ff7b80;
+}
+
 /* ===== Dark: split button ===== */
 
 .ns-dark .adw-split-button-action,
@@ -2029,17 +2291,26 @@ Page.ns-dark.adw-window {
 
 /* ===== Dark: view switcher ===== */
 
-.ns-dark .adw-view-switcher-bar,
+.ns-dark .adw-view-switcher-bar {
+    background-color: transparent;
+}
+
 .ns-dark .adw-inline-view-switcher-bar {
     background-color: rgba(255, 255, 255, 0.08);
 }
 
-.ns-dark .adw-view-switcher-button-label,
+.ns-dark .adw-view-switcher-button-label {
+    color: #ffffff;
+}
+
+.ns-dark .adw-view-switcher-button.active {
+    background-color: rgba(255, 255, 255, 0.1);
+}
+
 .ns-dark .adw-inline-view-switcher-button-label {
     color: rgba(255, 255, 255, 0.7);
 }
 
-.ns-dark .adw-view-switcher-button.active,
 .ns-dark .adw-inline-view-switcher-button.active {
     background-color: #45454c;
 }
@@ -2067,6 +2338,14 @@ Page.ns-dark.adw-window {
 
 .ns-dark .adw-carousel-dot.active {
     color: #78aeed;
+}
+
+.ns-dark .adw-carousel-line {
+    background-color: rgba(255, 255, 255, 0.3);
+}
+
+.ns-dark .adw-carousel-line.active {
+    background-color: rgba(255, 255, 255, 0.9);
 }
 
 /* ===== Dark: navigation view ===== */
@@ -2137,10 +2416,64 @@ Page.ns-dark.adw-window {
     color: rgba(255, 255, 255, 0.3);
 }
 
-/* ===== Dark: toast (dark base already; tune for dark page) ===== */
+.ns-dark .adw-bottom-sheet-bottom-bar:highlighted {
+    background-color: rgba(255, 255, 255, 0.07);
+}
 
+.ns-dark .adw-bottom-sheet-inert:highlighted {
+    background-color: transparent;
+}
+
+/* ===== Dark: check button, separator, frame, text view ===== */
+
+.ns-dark .adw-check-indicator {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.ns-dark .adw-check-indicator.checked,
+.ns-dark .adw-check-indicator.inconsistent {
+    background-color: #3584e4;
+}
+
+.ns-dark .adw-check-label,
+.ns-dark .adw-frame-label {
+    color: #ffffff;
+}
+
+.ns-dark .adw-check-button:highlighted {
+    background-color: rgba(255, 255, 255, 0.07);
+}
+
+.ns-dark .adw-separator,
+.ns-dark .adw-frame {
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.ns-dark .adw-separator {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.ns-dark .adw-text-view {
+    background-color: #2a2a2e;
+}
+
+.ns-dark .adw-text-view-input {
+    color: #ffffff;
+}
+
+/* ===== Dark: toast ===== */
+
+/* Restated rather than left to the base rule: the toast is the same #505053 in the dark
+ * scheme (it used to be #45454c here and #303034 in light, neither of which is
+ * libadwaita's), and a `.ns-dark` rule is what keeps it from picking up a later
+ * `.adw-toast` override written for the light page. */
 .ns-dark .adw-toast {
-    background-color: #45454c;
+    background-color: #505053;
+}
+
+.ns-dark .adw-toast-title,
+.ns-dark .adw-toast-button {
+    color: #ffffff;
 }
 
 /* ===== Dark: about / preferences dialogs ===== */
@@ -2148,6 +2481,18 @@ Page.ns-dark.adw-window {
 .ns-dark .adw-about-dialog,
 .ns-dark .adw-preferences-dialog {
     background-color: rgba(0, 0, 0, 0.55);
+}
+
+.ns-dark .adw-dialog {
+    background-color: rgba(0, 0, 0, 0.55);
+}
+
+.ns-dark .adw-dialog-card {
+    background-color: #2e2e32;
+}
+
+.ns-dark .adw-list-row-selected {
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 .ns-dark .adw-about-dialog-card,
