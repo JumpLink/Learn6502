@@ -12,9 +12,9 @@ import {
   NOTIFY_VISIBLE_CHILD,
   setAdwaitaColorScheme,
 } from "@gjsify/adwaita-nativescript";
-import { openMenuSymbolic, documentEditSymbolic, goPreviousSymbolic } from "@gjsify/adwaita-icons/actions";
-import { accessoriesDictionarySymbolic } from "@gjsify/adwaita-icons/legacy";
-import { applicationsEngineeringSymbolic, applicationsGamesSymbolic } from "@gjsify/adwaita-icons/categories";
+import { openMenuSymbolic, goPreviousSymbolic } from "@gjsify/adwaita-icons/actions";
+// The tab icons are the GNOME app's own (school / code / bug / nintendo-controller).
+import { schoolSymbolic, codeSymbolic, bugSymbolic, nintendoControllerSymbolic } from "~/icons";
 
 // Common interfaces and controllers
 import type { MainView } from "@learn6502/common-ui";
@@ -251,10 +251,10 @@ export class MainController implements MainView {
     const debug = buildDebuggerScreen();
     const play = buildGameConsoleScreen();
     this._screens = { learn, code, debug, play };
-    stack.add(learn.view, "learn", _("Learn"), accessoriesDictionarySymbolic);
-    stack.add(code.view, "code", _("Code"), documentEditSymbolic);
-    stack.add(debug.view, "debug", _("Debug"), applicationsEngineeringSymbolic);
-    stack.add(play.view, "play", _("Play"), applicationsGamesSymbolic);
+    stack.add(learn.view, "learn", _("Learn"), schoolSymbolic);
+    stack.add(code.view, "code", _("Code"), codeSymbolic);
+    stack.add(debug.view, "debug", _("Debug"), bugSymbolic);
+    stack.add(play.view, "play", _("Play"), nintendoControllerSymbolic);
     stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(stack.visibleChildName));
 
     // Content = a toast overlay wrapping [stack + FAB].
