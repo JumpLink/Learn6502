@@ -71,6 +71,11 @@ Page.adw-window {
 .adw-preferences-group-listbox {
     background-color: #ffffff;
     border-radius: 12;
+    /* libadwaita's `%card` shadow is a 1px ring of rgba(0,0,0,.08) on light; NS has no
+     * box-shadow, so a border stands in. Without it a white card on the #fafafb window is
+     * near-invisible. Dark has no ring (the card is already lighter than the window). */
+    border-width: 1;
+    border-color: rgba(0, 0, 0, 0.1);
     margin: 0;
 }
 
@@ -94,6 +99,8 @@ Page.adw-window {
     background-color: #ffffff;
     color: rgba(0, 0, 6, 0.8);
     border-radius: 12;
+    border-width: 1;
+    border-color: rgba(0, 0, 0, 0.1);
 }
 
 /* The padding is the ELEMENT's, not the class's, and both other renderers split them
@@ -1848,12 +1855,14 @@ Page.ns-dark.adw-window {
  * (see the light `.adw-row` note) so the card's rounded corners show. */
 .ns-dark .boxed-list,
 .ns-dark .adw-preferences-group-listbox {
+    border-color: transparent;
     background-color: #34343a;
     color: #ffffff;
 }
 
 .ns-dark .card,
 .ns-dark .adw-card {
+    border-color: transparent;
     background-color: #34343a;
     color: #ffffff;
 }
