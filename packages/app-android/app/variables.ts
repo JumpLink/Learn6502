@@ -2,7 +2,6 @@
  * Central app variables and reactive state management
  *
  * This module provides centralized access to:
- * - Action bar dimensions
  * - Screen dimensions
  * - Font scale settings
  * - RTL layout detection
@@ -27,28 +26,12 @@ class AppVariables {
   public readonly screenRatio = Screen.mainScreen.widthDIPs / Screen.mainScreen.heightDIPs;
 
   // Private backing fields
-  private _actionBarHeight: number = 56; // Default Material action bar height
-  private _actionBarButtonHeight: number = 46;
   private _fontScale: number = 1.0;
   private _isRTL: boolean = false;
   private _initialized: boolean = false;
 
   // Scoped logger for this class
   private log = logger.scoped("AppVariables");
-
-  /**
-   * Action bar height in DIPs
-   */
-  public get actionBarHeight(): number {
-    return this._actionBarHeight;
-  }
-
-  /**
-   * Action bar button height in DIPs (typically actionBarHeight - 10)
-   */
-  public get actionBarButtonHeight(): number {
-    return this._actionBarButtonHeight;
-  }
 
   /**
    * System font scale factor (1.0 = normal)
@@ -127,30 +110,6 @@ class AppVariables {
     if (newIsRTL !== this._isRTL) {
       this._isRTL = newIsRTL;
       this.log.debug("RTL mode:", newIsRTL);
-    }
-
-    // Action bar height
-    this.updateActionBarHeight(context);
-  }
-
-  /**
-   * Update action bar height from system dimensions
-   */
-  private updateActionBarHeight(context: android.content.Context): void {
-    // actionBarSize attribute ID: 16843499
-    const actionBarSizeAttr = 16843499;
-    const typedValue = new android.util.TypedValue();
-
-    if (context.getTheme().resolveAttribute(actionBarSizeAttr, typedValue, true)) {
-      const newHeight = Utils.layout.toDeviceIndependentPixels(
-        android.util.TypedValue.complexToDimensionPixelSize(typedValue.data, context.getResources().getDisplayMetrics())
-      );
-
-      if (newHeight > 0 && newHeight !== this._actionBarHeight) {
-        this._actionBarHeight = newHeight;
-        this._actionBarButtonHeight = newHeight - 10;
-        DEV_LOG && this.log.debug("Action bar height updated:", newHeight);
-      }
     }
   }
 }
