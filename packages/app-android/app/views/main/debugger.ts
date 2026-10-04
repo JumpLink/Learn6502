@@ -128,7 +128,7 @@ class Debugger implements DebuggerView {
 
     const heading = new Label();
     heading.text = title;
-    heading.className = "heading mb-8";
+    heading.className = "heading text-on-surface mb-8";
     wrap.addChild(heading);
 
     const card = new StackLayout();
