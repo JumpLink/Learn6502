@@ -145,10 +145,13 @@ TextView.no-underline {
    hand-built StackLayout did. */
 .adw-fab {
   background-color: #3584e4;
-  border-radius: 9999;
-  padding: 10 18 10 18;
+  border-radius: 28;
+  padding: 0 20 0 20;
   margin: 16;
-  height: auto;
+  /* 56dp, the Material FAB size, as a MINIMUM width too: a short label ("Run") made the
+     pill narrower than it is tall. Fixed height + radius = height/2 keeps it a full pill. */
+  min-width: 56;
+  height: 56;
   android-elevation: 0;
 }
 
