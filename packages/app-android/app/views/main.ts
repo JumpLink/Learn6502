@@ -16,6 +16,8 @@ import { openMenuSymbolic, goPreviousSymbolic } from "@gjsify/adwaita-icons/acti
 // The tab icons are the GNOME app's own (school / code / bug / nintendo-controller).
 import { schoolSymbolic, codeSymbolic, bugSymbolic, nintendoControllerSymbolic } from "~/icons";
 
+import { applyBreakpoints } from "@gjsify/adwaita-nativescript/builder";
+
 // Common interfaces and controllers
 import type { MainView } from "@learn6502/common-ui";
 import {
@@ -305,6 +307,24 @@ export class MainController implements MainView {
     switcher.set_stack(stack);
     switcher.reveal = true;
     toolbar.add_bottom_bar(switcher);
+
+    // The GNOME window's `Adw.Breakpoint`s (main.window.blp) as the same data a `.blp` projects
+    // to. Phone widths keep the plain header; a tablet gets the subtitle under the title. Last
+    // match wins and the original is restored, as libadwaita does.
+    applyBreakpoints(
+      toolbar,
+      [
+        {
+          condition: "max-width: 799sp or max-height: 599sp",
+          setters: [{ object: "title", property: "subtitle", value: "" }],
+        },
+        {
+          condition: "min-width: 800sp and min-height: 600sp",
+          setters: [{ object: "title", property: "subtitle", value: _("Program vintage game consoles") }],
+        },
+      ],
+      { title },
+    );
 
     return toolbar;
   }
