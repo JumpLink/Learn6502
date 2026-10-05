@@ -1,24 +1,10 @@
-import type { TextView, View } from "@nativescript/core";
-import { ContentView, Property, Builder, booleanConverter, Color } from "@nativescript/core";
-import { debounce, EventDispatcher } from "@learn6502/core";
+import type { View } from "@nativescript/core";
+import { ContentView, Property, Builder, booleanConverter } from "@nativescript/core";
+import { EventDispatcher } from "@learn6502/core";
 import type { SourceViewEventMap, SourceViewWidget } from "@learn6502/common-ui";
-import { OPCODE_PATTERN, COMMENT_PATTERN, HEX_VALUE_PATTERN } from "@learn6502/common-ui";
-import { adwaitaColorScheme, onAdwaitaColorSchemeChanged } from "@gjsify/adwaita-nativescript";
-import type { AdwColorScheme } from "@gjsify/adwaita-nativescript";
+import { GtkSource } from "@gjsify/gtksource-nativescript";
+import { registerGtkSourceData } from "~/services/gtksource-setup";
 import { logger } from "~/utils";
-
-/**
- * 6502 syntax-highlight colours per Adwaita colour scheme — muted Adwaita named
- * colours on the light surface, the brighter dark-scheme variants on the dark
- * one, so the tokens stay legible in both (matching the GNOME GtkSourceView).
- * The base text + gutter colours follow the theme via their CSS classes
- * (`text-on-surface` / `text-on-surface-variant`); only these per-token spans
- * are applied natively and so need an explicit per-scheme value.
- */
-const SYNTAX_COLORS: Record<AdwColorScheme, { comment: string; opcode: string; hex: string }> = {
-  light: { comment: "#3a944a", opcode: "#3584e4", hex: "#9141ac" },
-  dark: { comment: "#8ff0a4", opcode: "#78aeed", hex: "#dc8add" },
-};
 
 export class SourceView extends ContentView implements SourceViewWidget {
   // Static properties
@@ -27,10 +13,10 @@ export class SourceView extends ContentView implements SourceViewWidget {
     defaultValue: "",
     affectsLayout: true,
     valueChanged(target, oldValue, newValue) {
-      if (target.textView && target.textView.text !== newValue) {
-        target.textView.text = newValue;
+      if (target.sourceView && target.sourceView.buffer.text !== newValue) {
+        target.sourceView.buffer.text = newValue;
       }
-      // Store the code value for later use when textView is loaded
+      // Store the code value for later use when the GtkSource.View is loaded
       target._pendingCode = newValue;
     },
   });
@@ -51,12 +37,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._editable = newValue;
-      // Editable state is handled by template binding: editable="{{ editable }}"
-      // But we still need to handle native Android-specific properties
-      if (target.textView && target.textView.android) {
-        const nativeEditText = target.textView.android as android.widget.EditText;
-        nativeEditText.setEnabled(newValue);
-      }
+      if (target.sourceView) target.sourceView.editable = newValue;
     },
   });
 
@@ -65,10 +46,8 @@ export class SourceView extends ContentView implements SourceViewWidget {
     defaultValue: 1,
     valueConverter: (v) => parseInt(v, 10),
     valueChanged(target, oldValue, newValue) {
+      // GtkSource.View numbers from 1; kept only so the widget contract holds.
       target._lineNumberStart = newValue;
-      if (target.textView) {
-        target.updateLineNumbers(target.textView.text);
-      }
     },
   });
 
@@ -78,13 +57,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._selectable = newValue;
-      if (target.textView && target.textView.android) {
-        const nativeEditText = target.textView.android as android.widget.EditText;
-        nativeEditText.setTextIsSelectable(newValue);
-        nativeEditText.setCursorVisible(newValue);
-        nativeEditText.setFocusable(newValue);
-        nativeEditText.setFocusableInTouchMode(newValue);
-      }
+      target.applySelectable();
     },
   });
 
@@ -120,9 +93,8 @@ export class SourceView extends ContentView implements SourceViewWidget {
   readonly events: EventDispatcher<SourceViewEventMap> = new EventDispatcher<SourceViewEventMap>();
 
   // Instance properties - private
-  private debouncedHighlighting: (code: string) => void;
-  private textView!: TextView;
-  private lineNumbersView!: TextView;
+  private sourceView!: InstanceType<typeof GtkSource.View>;
+  private bufferHandler: number | null = null;
   private copyButton!: View;
   private _editable: boolean = true;
   private _lineNumbers: boolean = true;
@@ -132,14 +104,10 @@ export class SourceView extends ContentView implements SourceViewWidget {
   private _copyButtonIcon: string = "";
   private _copyButtonTooltip: string = "";
   private _pendingCode: string = "";
-  private _unsubscribeScheme: (() => void) | null = null;
 
   // Constructor
   constructor() {
     super();
-    this.debouncedHighlighting = debounce((code: string) => {
-      this.applyHighlighting(code);
-    }, 150);
   }
 
   // Instance methods - public
@@ -193,12 +161,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   set editable(value: boolean) {
     if (this._editable === value) return;
     this._editable = value;
-    // Editable state is handled by template binding: editable="{{ editable }}"
-    // But we still need to handle native Android-specific properties
-    if (this.textView && this.textView.android) {
-      const nativeEditText = this.textView.android as android.widget.EditText;
-      nativeEditText.setEnabled(value);
-    }
+    if (this.sourceView) this.sourceView.editable = value;
     this.notifyPropertyChange("editable", value);
   }
 
@@ -216,10 +179,8 @@ export class SourceView extends ContentView implements SourceViewWidget {
 
   set lineNumberStart(value: number) {
     if (this._lineNumberStart === value) return;
+    // GtkSource.View always numbers from 1; kept so the widget contract holds.
     this._lineNumberStart = value;
-    if (this.textView) {
-      this.updateLineNumbers(this.textView.text);
-    }
     this.notifyPropertyChange("lineNumberStart", value);
   }
 
@@ -230,13 +191,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   set selectable(value: boolean) {
     if (this._selectable === value) return;
     this._selectable = value;
-    if (this.textView && this.textView.android) {
-      const nativeEditText = this.textView.android as android.widget.EditText;
-      nativeEditText.setTextIsSelectable(value);
-      nativeEditText.setCursorVisible(value);
-      nativeEditText.setFocusable(value);
-      nativeEditText.setFocusableInTouchMode(value);
-    }
+    this.applySelectable();
     this.notifyPropertyChange("selectable", value);
   }
 
@@ -289,49 +244,29 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   focus(): boolean {
-    if (this.textView) {
-      return this.textView.focus();
-    }
-    return false;
+    return this.sourceView ? this.sourceView.focus() : false;
   }
 
   onLoaded() {
     super.onLoaded();
 
+    registerGtkSourceData();
     const componentView = Builder.load({
       path: "~/widgets",
       name: "source-view",
     });
 
-    this.textView = componentView.getViewById<TextView>("textView");
-    this.lineNumbersView = componentView.getViewById<TextView>("lineNumbersView");
+    this.sourceView = componentView.getViewById<InstanceType<typeof GtkSource.View>>("sourceView");
     this.copyButton = componentView.getViewById<View>("copyButton");
 
-    if (!this.textView) {
-      throw new Error("Failed to find textView in source-view.xml");
-    }
-    // Text colour follows the Adwaita theme via the `text-on-surface` CSS class
-    // (dark on the light surface, light on the dark one) — a hardcoded white was
-    // invisible on the light theme. A transparent background lets the surface
-    // (`bg-surface` on the GridLayout) show through.
-    this.textView.backgroundColor = new Color("transparent");
-
-    if (this.textView.android) {
-      const nativeEditText = this.textView.android as android.widget.EditText;
-      // These native Android properties are not covered by template binding
-      nativeEditText.setTextIsSelectable(this.selectable);
-      nativeEditText.setCursorVisible(this.selectable);
-      nativeEditText.setFocusable(this.selectable);
-      nativeEditText.setFocusableInTouchMode(this.selectable);
-      nativeEditText.setEnabled(this.editable);
+    if (!this.sourceView) {
+      throw new Error("Failed to find sourceView in source-view.xml");
     }
 
-    if (!this.lineNumbersView) {
-      throw new Error("Failed to find lineNumbersView in source-view.xml");
-    }
-    // Gutter colour follows the theme via `text-on-surface-variant` (dimmed fg).
-    this.lineNumbersView.backgroundColor = new Color("transparent");
-    // Visibility is handled by template binding: visibility="{{ lineNumbers ? 'visible' : 'collapsed' }}"
+    const buffer = this.sourceView.buffer;
+    buffer.language = GtkSource.LanguageManager.getDefault().getLanguage("6502-assembler");
+    buffer.styleScheme = GtkSource.StyleSchemeManager.getDefault().getScheme("Learn6502");
+    this.sourceView.editable = this.editable;
 
     if (this.copyButton) {
       if (this.copyButtonTooltip) {
@@ -345,159 +280,44 @@ export class SourceView extends ContentView implements SourceViewWidget {
       logger.warn("SourceView", "copyButton not found in source-view.xml");
     }
 
-    this.textView.on("textChange", (args: any) => {
-      if (this.textView) {
-        const newText = args.value as string;
-
-        // THE TYPED TEXT GOES BACK INTO THE `code` PROPERTY, and without this line
-        // nothing ever reads what the user wrote.
-        //
-        // `SourceView.codeProperty.register(SourceView)` at the bottom of this file
-        // does `Object.defineProperty` on the prototype, which REPLACES the
-        // `get code()` written above — those accessors are dead from the moment the
-        // module loads. So `sourceView.code` is NativeScript's stored property value,
-        // and typing changes the inner TextView, never that store.
-        //
-        // Measured on the emulator (2026-09-22), after typing `LDA #$01`:
-        //   textChange fired  "LDA #$01"   <- the event is fine
-        //   textView.text     "LDA #$01"   <- the inner widget is fine
-        //   native getText()  "LDA #$01"   <- Android is fine
-        //   editorController.code  ""      <- what Assemble actually assembled
-        // The toast then said only "Assemble failed", because an empty program is a
-        // failed assembly and the port never showed the assembler's own message.
-        // The same program assembles headlessly: `learn6502 assemble` -> 2 bytes.
-        //
-        // `nativeValueChange` is the direction NativeScript provides for exactly
-        // this: the native side moved, tell the property, and do NOT re-enter
-        // `valueChanged`'s write-back into the widget the value just came from.
-        SourceView.codeProperty.nativeValueChange(this, newText);
-
-        this.debouncedHighlighting(newText);
-        this.updateLineNumbers(newText);
-        this.events.dispatch("changed", { code: newText });
-      }
+    // The typed text goes back into the `code` property: `codeProperty.register()` below
+    // replaces any accessor written in the class body, so without `nativeValueChange`
+    // nothing would ever read what the user wrote (the assembler got an empty program).
+    // `nativeValueChange` skips `valueChanged`'s write-back into the widget the value came from.
+    this.bufferHandler = buffer.connect("changed", () => {
+      const newText = buffer.text;
+      SourceView.codeProperty.nativeValueChange(this, newText);
+      this.events.dispatch("changed", { code: newText });
     });
 
+    // The `{{ lineNumbers }}` / `{{ copyable }}` bindings in source-view.xml read from this widget.
+    componentView.bindingContext = this;
     this.content = componentView;
 
-    // Apply pending code if it was set before textView was loaded
-    if (this._pendingCode && this.textView.text !== this._pendingCode) {
-      this.textView.text = this._pendingCode;
-      this.debouncedHighlighting(this._pendingCode);
-      this.updateLineNumbers(this._pendingCode);
-    } else if (this.textView.text) {
-      // Update line numbers for any existing text
-      this.updateLineNumbers(this.textView.text);
+    // Apply code that was set before the view was loaded
+    if (this._pendingCode && buffer.text !== this._pendingCode) {
+      buffer.text = this._pendingCode;
     }
 
-    const textEdit = this.textView.android as android.widget.EditText;
-    if (textEdit) {
-      textEdit.setOnScrollChangeListener(
-        new android.view.View.OnScrollChangeListener({
-          onScrollChange: (v, scrollX, scrollY, oldScrollX, oldScrollY) => {
-            if (this.lineNumbersView && this.lineNumbersView.android) {
-              const lineNumbersEdit = this.lineNumbersView.android as android.widget.EditText;
-              lineNumbersEdit.scrollTo(0, scrollY);
-            }
-          },
-        })
-      );
-    } else {
-      logger.error(
-        "SourceView",
-        "textEdit (native) is null, couldn't set scroll listener. This may affect line number scrolling synchronization."
-      );
-    }
-
-    // Apply current selectable state
-    this.selectable = this._selectable;
-
-    // Re-tint the syntax highlighting when the Adwaita colour scheme flips (the
-    // base text + gutter recolour automatically via their CSS classes).
-    this._unsubscribeScheme = onAdwaitaColorSchemeChanged(() => {
-      this.applyHighlighting(this.code);
-    });
+    this.applySelectable();
   }
 
   onUnloaded() {
-    this._unsubscribeScheme?.();
-    this._unsubscribeScheme = null;
+    if (this.sourceView && this.bufferHandler !== null) {
+      this.sourceView.buffer.disconnect(this.bufferHandler);
+    }
+    this.bufferHandler = null;
     super.onUnloaded();
   }
 
   // Instance methods - private
-  private applyHighlighting(code: string) {
-    if (this.textView?.android) {
-      const nativeEditText = this.textView.android as android.widget.EditText;
-      const palette = SYNTAX_COLORS[adwaitaColorScheme()];
-      let selectionStart = 0;
-      let selectionEnd = 0;
-      if (nativeEditText.isFocused()) {
-        selectionStart = Math.min(nativeEditText.getSelectionStart(), code.length);
-        selectionEnd = Math.min(nativeEditText.getSelectionEnd(), code.length);
-      }
-
-      const spannable = new android.text.SpannableString(code);
-      const commentPattern = /;.*/g;
-      let match: RegExpExecArray | null;
-      while ((match = commentPattern.exec(code)) !== null) {
-        spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor(palette.comment)),
-          match.index,
-          match.index + match[0].length,
-          android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-      }
-
-      const opcodePattern = new RegExp(OPCODE_PATTERN, "gi");
-      while ((match = opcodePattern.exec(code)) !== null) {
-        spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor(palette.opcode)),
-          match.index,
-          match.index + match[0].length,
-          android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-        spannable.setSpan(
-          new android.text.style.StyleSpan(android.graphics.Typeface.BOLD),
-          match.index,
-          match.index + match[0].length,
-          android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-      }
-
-      const hexPattern = new RegExp(HEX_VALUE_PATTERN, "gi");
-      while ((match = hexPattern.exec(code)) !== null) {
-        spannable.setSpan(
-          new android.text.style.ForegroundColorSpan(android.graphics.Color.parseColor(palette.hex)),
-          match.index,
-          match.index + match[0].length,
-          android.text.Spannable.SPAN_EXCLUSIVE_EXCLUSIVE
-        );
-      }
-
-      try {
-        nativeEditText.setText(spannable as any);
-        if (
-          nativeEditText.isFocused() &&
-          selectionStart >= 0 &&
-          selectionEnd >= 0 &&
-          selectionStart <= code.length &&
-          selectionEnd <= code.length
-        ) {
-          nativeEditText.setSelection(selectionStart, selectionEnd);
-        }
-      } catch (error) {
-        logger.error("SourceView", "Error applying text highlighting:", error);
-      }
-    }
-  }
-
-  private updateLineNumbers(code: string) {
-    if (this.lineNumbersView) {
-      const lines = code.split("\n");
-      const lineNumbersText = lines.map((_, index) => (index + this.lineNumberStart).toString()).join("\n");
-      this.lineNumbersView.text = lineNumbersText;
-    }
+  private applySelectable() {
+    const nativeEditText = this.sourceView?.android as android.widget.EditText | undefined;
+    if (!nativeEditText) return;
+    nativeEditText.setTextIsSelectable(this._selectable);
+    nativeEditText.setCursorVisible(this._selectable);
+    nativeEditText.setFocusable(this._selectable);
+    nativeEditText.setFocusableInTouchMode(this._selectable);
   }
 }
 
