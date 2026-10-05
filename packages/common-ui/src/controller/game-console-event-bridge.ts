@@ -1,0 +1,201 @@
+import { SimulatorState, _ } from "@learn6502/core";
+import type { Assembler } from "@learn6502/core";
+import { gameConsoleController } from "./game-console-controller.ts";
+import { debuggerController } from "./debugger-controller.ts";
+
+/**
+ * Callbacks that platforms must implement for platform-specific behavior.
+ * The bridge handles all shared event wiring logic and delegates
+ * platform-specific concerns (i18n, UI updates) to these callbacks.
+ */
+export interface GameConsoleEventBridgeCallbacks {
+  /**
+   * Translate a message, substitute its printf-style params and log it to the
+   * debugger console. GNOME uses gettext + String.format, Android uses
+   * localize(), Web substitutes params with formatMessage() (English only).
+   */
+  formatAndLog(message: string, params?: (string | number | boolean | null | undefined)[]): void;
+
+  /** Called when the debugger UI should be refreshed (memory, CPU state). */
+  updateDebugger(): void;
+
+  /** Called after successful assembly to update hexdump/disassembly views. */
+  updateAssemblerViews(assembler: Assembler): void;
+
+  /** Called when simulator state changes (start/stop/reset) to update UI. */
+  updateUiState(state?: SimulatorState): void;
+
+  /** Show a notification with a translatable key. */
+  showNotification(key: string): void;
+}
+
+type EventUnsubscriber = () => void;
+
+/**
+ * Bridges gameConsoleController events to debuggerController and platform UI.
+ *
+ * This eliminates ~150 lines of duplicated event listener setup
+ * from both Android MainController and GNOME MainWindow.
+ */
+export class GameConsoleEventBridge {
+  private unsubscribers: EventUnsubscriber[] = [];
+
+  constructor(private readonly callbacks: GameConsoleEventBridgeCallbacks) {}
+
+  /**
+   * Connect all event listeners. Call during view initialization.
+   */
+  connect(): void {
+    this.disconnect();
+
+    this.on("assemble-success", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      if (signal.assembler) {
+        this.callbacks.updateAssemblerViews(signal.assembler);
+      }
+      this.callbacks.updateDebugger();
+      this.callbacks.updateUiState();
+      this.callbacks.showNotification("assembled-successfully");
+    });
+
+    this.on("assemble-failure", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      this.callbacks.showNotification("assemble-failed");
+    });
+
+    // The dump contents are shown in the dedicated hexdump/disassembly
+    // views (see updateAssemblerViews), so the console only gets a note
+    this.on("hexdump", (signal) => {
+      if (signal.message) {
+        // TRANSLATORS: Logged to the message console when the hexdump was generated
+        this.callbacks.formatAndLog(_("Hexdump generated."));
+      }
+    });
+
+    this.on("disassembly", (signal) => {
+      if (signal.message) {
+        // TRANSLATORS: Logged to the message console when the disassembly was generated
+        this.callbacks.formatAndLog(_("Disassembly generated."));
+      }
+    });
+
+    this.on("assemble-info", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+    });
+
+    this.on("stop", (signal) => {
+      this.callbacks.updateDebugger();
+      this.callbacks.updateUiState(signal.state);
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      // Prompt the user when the program has finished execution, e.g. while
+      // watching the debugger instead of the console output (see issue #109)
+      if (signal.state === SimulatorState.COMPLETED) {
+        this.callbacks.showNotification("program-completed");
+      }
+    });
+
+    this.on("start", (signal) => {
+      this.callbacks.updateDebugger();
+      this.callbacks.updateUiState(signal.state);
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+    });
+
+    this.on("reset", (signal) => {
+      this.callbacks.updateDebugger();
+      this.callbacks.updateUiState(signal.state);
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+    });
+
+    this.on("step", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      // "step" is not the Step button: Simulator.execute() emits it for every
+      // executed instruction, and a free run runs execute() 97 times per
+      // multiExecute() tick. Refreshing the debugger here is therefore only
+      // affordable while the stepper is on — multiExecute() then returns
+      // early, so one event is one press of Step, and the memory monitor has
+      // to be redrawn or the step leaves stale bytes on screen. A free run is
+      // covered by the "multistep" handler below, whose update is throttled.
+      if (signal.simulator.stepperEnabled) {
+        this.callbacks.updateDebugger();
+      }
+    });
+
+    this.on("multistep", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      this.callbacks.updateDebugger();
+    });
+
+    this.on("goto", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      this.callbacks.updateDebugger();
+    });
+
+    this.on("simulator-info", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+    });
+
+    this.on("simulator-failure", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      this.callbacks.showNotification("simulator-failure");
+    });
+
+    this.on("labels-info", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+    });
+
+    this.on("labels-failure", (signal) => {
+      if (signal.message) {
+        this.callbacks.formatAndLog(signal.message, signal.params);
+      }
+      this.callbacks.showNotification("labels-failure");
+    });
+
+    this.on("stepper-changed", (event) => {
+      if (debuggerController.stepperEnabled !== event.enabled) {
+        debuggerController.stepperEnabled = event.enabled;
+      }
+    });
+  }
+
+  /**
+   * Disconnect all event listeners. Call during view teardown.
+   */
+  disconnect(): void {
+    for (const unsub of this.unsubscribers) {
+      unsub();
+    }
+    this.unsubscribers = [];
+  }
+
+  private on<K extends keyof import("../types").GameConsoleEventMap>(
+    event: K,
+    callback: (data: import("../types").GameConsoleEventMap[K]) => void
+  ): void {
+    gameConsoleController.on(event, callback);
+    this.unsubscribers.push(() => gameConsoleController.off(event, callback));
+  }
+}

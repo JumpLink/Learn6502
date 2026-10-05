@@ -1,0 +1,81 @@
+using Gtk 4.0;
+using Adw 1;
+// This template is based on a Workbench example and just a example of how to use the Adw.PreferencesDialog
+template $PreferencesDialog: Adw.PreferencesDialog {
+  content-width: 800;
+  content-height: 600;
+  // TRANSLATORS: Preferences dialog title
+  title: _("Appearance");
+
+  // Adw.PreferencesPage generalPage {
+  //   // TRANSLATORS: Preferences page title for General settings
+  //   title: _("General");
+  //   icon-name: "preferences-system-symbolic";
+  // }
+
+  Adw.PreferencesPage appearancePage {
+    css-classes: ["appearance-page"];
+    // TRANSLATORS: Preferences page title for Appearance settings
+    title: _("Appearance");
+    icon-name: "brush-monitor-symbolic";
+
+    Adw.PreferencesGroup themeGroup {
+      // TRANSLATORS: Preferences group title for theme style selection
+      title: _("Style");
+
+      $ThemeModeSelector {
+        css-classes: ["card", "theme-mode-selector"];
+      }
+    }
+
+    Adw.PreferencesGroup primaryGroup {
+      css-classes: ["custom-color-group"];
+      // TRANSLATORS: Preferences group title for primary color selection
+      title: _("Primary color");
+
+      Adw.SwitchRow rowPrimary {
+        // TRANSLATORS: Switch label to enable custom primary color
+        title: _("Use custom primary color");
+        // TS syncs on map; default off to avoid early notify loops
+        active: false;
+      }
+
+      $PrimaryColorSelector {
+        css-classes: ["card", "rounded-t-none", "primary-color-selector"];
+        enabled: bind rowPrimary.active;
+      }
+    }
+
+    Adw.PreferencesGroup accentGroup {
+      css-classes: ["custom-color-group"];
+      // TRANSLATORS: Preferences group title for accent color selection
+      title: _("Accent color");
+
+      Adw.SwitchRow rowAccent {
+        // TRANSLATORS: Switch label to enable custom accent color
+        title: _("Use custom accent color");
+        // TS syncs on map; default off to avoid early notify loops
+        active: false;
+      }
+
+      $AccentColorSelector {
+        css-classes: ["card", "rounded-t-none", "accent-color-selector"];
+        enabled: bind rowAccent.active;
+      }
+    }
+
+    Adw.PreferencesGroup fontGroup {
+      // TRANSLATORS: Preferences group title for the interface font
+      title: _("Interface font");
+      // TRANSLATORS: Explains the font setting. GTK takes the interface font
+      // from the operating system, and outside GNOME that font is smaller than
+      // the one the app is designed for.
+      description: _("The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller.");
+
+      Adw.ComboRow rowUiFont {
+        // TRANSLATORS: Label of the row that chooses the interface font
+        title: _("Font");
+      }
+    }
+  }
+}

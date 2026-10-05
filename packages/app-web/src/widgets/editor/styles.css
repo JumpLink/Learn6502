@@ -1,0 +1,53 @@
+/* Editor view — fill the pane so the CodeMirror editor gets the full height,
+   with the "Help" bar pinned below it (the web stand-in for editor.blp's
+   Adw.BottomSheet bottom-bar). */
+
+learn-editor {
+  display: block;
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+learn-editor adw-bottom-sheet {
+  display: block;
+  block-size: 100%;
+}
+
+/* AdwBottomSheet's own content container (our .editor-content column lives
+   inside it) must stretch so the CodeMirror editor gets the full pane. */
+learn-editor .adw-bottom-sheet-content {
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.editor-content {
+  display: flex;
+  flex-direction: column;
+  block-size: 100%;
+  min-block-size: 0;
+}
+
+.editor-source-view {
+  display: block;
+  flex: 1 1 auto;
+  min-block-size: 0;
+  overflow: auto;
+}
+
+/* The source view fills its host; the CodeMirror surface scrolls internally. */
+.editor-source-view adw-source-view {
+  block-size: 100%;
+}
+
+.editor-help-bar {
+  display: flex;
+  justify-content: center;
+  padding: 12px;
+  border-block-start: 1px solid var(--border-color, rgba(0, 0, 0, 0.1));
+}
+
+.editor-help-scroller {
+  overflow-y: auto;
+  max-block-size: 60vh;
+  padding: 12px;
+}

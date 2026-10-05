@@ -1,0 +1,1268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<component type="desktop-application">
+  <id>eu.jumplink.Learn6502</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Learn 6502 Assembly</name>
+  <name xml:lang="zh-Hans">学习 6502 汇编</name>
+  <name xml:lang="vi">Học Hợp Ngữ 6502</name>
+  <name xml:lang="uk">Вивчення асемблера 6502</name>
+  <name xml:lang="ta">6502 அசெம்பிளியைக் கற்றுக்கொள்</name>
+  <name xml:lang="pt-BR">Aprenda Assembly 6502</name>
+  <name xml:lang="pt">Aprenda Assembly 6502</name>
+  <name xml:lang="pl">Naucz się Asemblera 6502</name>
+  <name xml:lang="nl">Learn 6502 Assembly</name>
+  <name xml:lang="ja">6502アセンブリを学ぶ</name>
+  <name xml:lang="id">Pelajari Assembly 6502</name>
+  <name xml:lang="ia">Apprender Assemblage 6502</name>
+  <name xml:lang="he">לימוד שפת הסף של 6502</name>
+  <name xml:lang="fr">Apprendre l'assembleur 6502</name>
+  <name xml:lang="fi">Opi 6502 Assembly</name>
+  <name xml:lang="es">Aprende 6502 Assembly</name>
+  <name xml:lang="de">Lerne 6502 Assembler</name>
+  <summary>Program vintage game consoles</summary>
+  <summary xml:lang="zh-Hans">为复古游戏主机编程</summary>
+  <summary xml:lang="vi">Chương trình máy chơi game cổ điển</summary>
+  <summary xml:lang="uk">Програмуйте вінтажні ігрові консолі</summary>
+  <summary xml:lang="ta">நிரல் விண்டேச் கேம் கன்சோல்கள்</summary>
+  <summary xml:lang="pt-BR">Programa consoles de jogos vintage</summary>
+  <summary xml:lang="pt">Programa consolas de jogos vintage</summary>
+  <summary xml:lang="pl">Programuj klasyczne konsole do gier</summary>
+  <summary xml:lang="nl">Programmeer vintage spelconsoles</summary>
+  <summary xml:lang="ja">レトロなゲーム機をプログラミング</summary>
+  <summary xml:lang="id">Program konsol permainan vintage</summary>
+  <summary xml:lang="ia">Programmar consolas de joco vintage</summary>
+  <summary xml:lang="he">תכנתו קונסולות משחק ישנות</summary>
+  <summary xml:lang="fr">Programmer des consoles de jeux vintage</summary>
+  <summary xml:lang="fi">Ohjelmoi vintage-pelikonsoleita</summary>
+  <summary xml:lang="es">Programa consolas de videojuegos clásicas</summary>
+  <summary xml:lang="de">Programmiere Retro-Spielekonsolen</summary>
+  <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.5.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
+  <description>
+    
+    <p>Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.</p>
+    <p xml:lang="zh-Hans">探索经典计算机与游戏机编程的迷人世界！学习 6502 汇编语言——这正是驱动 NES、Commodore 64 和 Apple II 等标志性系统的代码。</p>
+    <p xml:lang="vi">Khám phá thế giới hấp dẫn của việc lập trình máy tính cổ điển và máy chơi game! Tìm hiểu ngôn ngữ hợp ngữ 6502 - cùng mã hỗ trợ các hệ thống mang tính biểu tượng như NES, Commodore 64 và Apple II.</p>
+    <p xml:lang="uk">Відкрийте для себе захоплюючий світ програмування класичних комп'ютерів і ігрових консолей! Вивчайте мову асемблера 6502 — той самий код, що живив легендарні системи, такі як NES, Commodore 64 і Apple II.</p>
+    <p xml:lang="ta">கிளாசிக் கம்ப்யூட்டர்கள் மற்றும் கேம் கன்சோல்களின் கண்கவர் உலகத்தைக் கண்டறியவும்! 6502 அசெம்பிளி மொழியைக் கற்றுக்கொள்ளுங்கள் - NES, Commodore 64 மற்றும் அரத்திப்பழம், குமளிப்பழம் II போன்ற சின்னச் சின்ன அமைப்புகளை இயக்கும் அதே குறியீடு.</p>
+    <p xml:lang="pt-BR">Descubra o fascinante mundo da programação de computadores clássicos e consoles de jogos! Aprenda a linguagem assembly 6502 - o mesmo código que alimentou sistemas icónicos como o NES, Commodore 64 e Apple II.</p>
+    <p xml:lang="pt">Descobre o fascinante mundo da programação de computadores clássicos e consolas de jogos! Aprende a linguagem assembly 6502 - o mesmo código que alimentou sistemas icónicos como o NES, Commodore 64 e Apple II.</p>
+    <p xml:lang="pl">Odkryj fascynujący świat programowania klasycznych komputerów i konsol do gier! Naucz się języka asemblera 6502 - tego samego kodu, który napędzał ikoniczne systemy jak NES, Commodore 64 i Apple II.</p>
+    <p xml:lang="nl">Ontdek de fascinerende wereld van het programmeren van klassieke computers en spelconsoles! Leer 6502‑assembleertaal – dezelfde code die iconische systemen als de NES, Commodore 64 en Apple II aandreef.</p>
+    <p xml:lang="ja">クラシックなコンピューターやゲーム機のプログラミングの世界へ！6502 アセンブリ言語を学びましょう。これは NES、Commodore 64、Apple II などを動かしたコードです。</p>
+    <p xml:lang="id">Temukan dunia pemrograman komputer klasik dan konsol permainan yang menakjubkan! Pelajari bahasa assembly 6502 - kode yang sama yang menggerakkan sistem ikonik seperti NES, Commodore 64, dan Apple II.</p>
+    <p xml:lang="ia">Discoperi le mundo fascinante de programmar computatores classic e consolas de joco! Apprende lingua de assemblage 6502 - le mesme codice que alimentava systemas iconic como le NES, Commodore 64, e Apple II.</p>
+    <p xml:lang="he">גלו את העולם המקסים של תיכנות מחשבים וקונסולות משחקים קלסים! לימדו את שפת הסף 6502 ‐ אותו הקוד שהפעיל מערכות אייקוניות כמו ה־NES, Commodore 64, ו־Apple II.</p>
+    <p xml:lang="fr">Découvrez le monde fascinant de la programmation des ordinateurs et consoles de jeux classiques ! Apprenez le langage assembleur 6502 - le même code qui alimentait des systèmes emblématiques comme la NES, le Commodore 64 et l'Apple II.</p>
+    <p xml:lang="fi">Löydä vanhojen tietokoneiden ja pelikonsolien ohjelmoinnin kiehtova maailma! Opi 6502-assemblykieltä - samaa koodia, joka oli ikonisten järjestelmien, kuten NES, Commodore 64 ja Apple II, takana.</p>
+    <p xml:lang="es">Descubre el fascinante mundo de la programación de ordenadores y consolas clásicas. Aprende el lenguaje ensamblador 6502: el mismo código que impulsó sistemas icónicos como NES, Commodore 64 y Apple II.</p>
+    <p xml:lang="de">Entdecke die faszinierende Welt der Programmierung klassischer Computer und Spielekonsolen! Lerne die 6502-Assemblersprache - denselben Code, der legendäre Systeme wie NES, Commodore 64 und Apple II antrieb.</p>
+    
+    <p>No prior programming experience needed. Start with interactive lessons and build your skills step by step.</p>
+    <p xml:lang="zh-Hans">无需编程经验。通过交互式课程循序渐进地提升你的技能。</p>
+    <p xml:lang="vi">Không cần kinh nghiệm lập trình trước đó. Bắt đầu với các bài học tương tác và từng bước xây dựng kỹ năng của bạn.</p>
+    <p xml:lang="uk">Попередній досвід програмування не потрібен. Почніть з інтерактивних уроків і розвивайте навички крок за кроком.</p>
+    <p xml:lang="ta">முன் நிரலாக்க பட்டறிவு தேவையில்லை. ஊடாடும் பாடங்களுடன் தொடங்கி, படிப்படியாக உங்கள் திறமைகளை வளர்த்துக் கொள்ளுங்கள்.</p>
+    <p xml:lang="pt-BR">Não é necessária experiência prévia em programação. Comece com lições interativas e desenvolva as suas competências passo a passo.</p>
+    <p xml:lang="pt">Não é necessária experiência prévia em programação. Comece com lições interativas e desenvolva as suas competências passo a passo.</p>
+    <p xml:lang="pl">Nie potrzeba wcześniejszego doświadczenia w programowaniu. Zacznij od interaktywnych lekcji i buduj swoje umiejętności krok po kroku.</p>
+    <p xml:lang="nl">Geen programmeerervaring vereist. Begin met interactieve lessen en bouw je vaardigheden stap voor stap op.</p>
+    <p xml:lang="ja">事前のプログラミング経験は不要。インタラクティブなレッスンで一歩ずつスキルを身につけましょう。</p>
+    <p xml:lang="id">Tidak diperlukan pengalaman pemrograman sebelumnya. Mulailah dengan pelajaran interaktif dan bangun keterampilan Anda langkah demi langkah.</p>
+    <p xml:lang="ia">Nulle experientia de programmation previe necessari. Comencia con lectiones interactive e construe tu habilitates passo a passo.</p>
+    <p xml:lang="he">לא נדרש רקע בתכנות. התחילו עם שיעורים אינטראקטיבים וציברו מיומנות שלב אחר שלב.</p>
+    <p xml:lang="fr">Aucune expérience préalable en programmation n'est nécessaire. Commencez avec des leçons interactives et développez vos compétences étape par étape.</p>
+    <p xml:lang="fi">Aiempaa ohjelmointikokemusta ei tarvita. Aloita vuorovaikutteisin oppitunnein ja rakenna taitosi vaiheittain.</p>
+    <p xml:lang="es">No se necesita experiencia previa en programación. Comienza con lecciones interactivas y desarrolla tus habilidades paso a paso.</p>
+    <p xml:lang="de">Keine vorherigen Programmierkenntnisse erforderlich. Beginne mit interaktiven Lektionen und baue deine Fähigkeiten Schritt für Schritt auf.</p>
+    <ul>
+      
+      <li>Interactive tutorials guide you from beginner to advanced</li>
+      <li xml:lang="zh-Hans">交互式教程将带你从入门到进阶</li>
+      <li xml:lang="vi">Hướng dẫn tương tác hướng dẫn bạn từ cơ bản đến nâng cao</li>
+      <li xml:lang="uk">Інтерактивні посібники ведуть вас від початківця до просунутого рівня</li>
+      <li xml:lang="ta">இன்டராக்டிவ் டுடோரியல்கள் தொடக்கநிலையிலிருந்து மேம்பட்ட வரை உங்களுக்கு வழிகாட்டும்</li>
+      <li xml:lang="pt-BR">Tutoriais interativos guiam você do iniciante ao avançado</li>
+      <li xml:lang="pt">Tutorials interativos guiam-te do principiante ao avançado</li>
+      <li xml:lang="pl">Interaktywne tutoriale prowadzą Cię od początkującego do zaawansowanego</li>
+      <li xml:lang="nl">Interactieve tutorials begeleiden je van beginner tot gevorderd</li>
+      <li xml:lang="ja">インタラクティブチュートリアルで初心者から上級者までガイド</li>
+      <li xml:lang="id">Tutorial interaktif memandu Anda dari pemula hingga mahir</li>
+      <li xml:lang="ia">Tutoriales interactive te guia de initiator a avantiate</li>
+      <li xml:lang="he">מדריכים אינטראקטיבים יובילו אתכם ממתחילים למתקדמים</li>
+      <li xml:lang="fr">Des tutoriels interactifs vous guident du niveau débutant au niveau avancé</li>
+      <li xml:lang="fi">Vuorovaikutteiset oppaat ohjaavat sinut aloittelijasta edistyneeksi</li>
+      <li xml:lang="es">Los tutoriales interactivos te guían de principiante a avanzado</li>
+      <li xml:lang="de">Interaktive Tutorials führen dich vom Anfänger zum Fortgeschrittenen</li>
+      
+      <li>Write and edit code with a built-in code editor</li>
+      <li xml:lang="zh-Hans">使用内置代码编辑器编写与编辑代码</li>
+      <li xml:lang="vi">Viết và chỉnh sửa code bằng trình chỉnh sửa code tích hợp</li>
+      <li xml:lang="uk">Пишіть і редагуйте код у вбудованому редакторі</li>
+      <li xml:lang="ta">உள்ளமைக்கப்பட்ட குறியீடு திருத்தி மூலம் குறியீட்டை எழுதி திருத்தவும்</li>
+      <li xml:lang="pt-BR">Escreva e edita código com um editor de código integrado</li>
+      <li xml:lang="pt">Escreve e edita código com um editor de código integrado</li>
+      <li xml:lang="pl">Pisz i edytuj kod z wbudowanym edytorem kodu</li>
+      <li xml:lang="nl">Schrijf en bewerk code met een ingebouwde code‑editor</li>
+      <li xml:lang="ja">内蔵コードエディターでコードを作成・編集</li>
+      <li xml:lang="id">Tulis dan edit kode dengan editor kode bawaan</li>
+      <li xml:lang="ia">Scribe e edita codice con un editor de codice integrate</li>
+      <li xml:lang="he">כתבו ועירכו קוד עם עורך קוד מובנה</li>
+      <li xml:lang="fr">Écrivez et modifiez du code avec un éditeur de code intégré</li>
+      <li xml:lang="fi">Kirjoita ja muokkaa koodia sisäänrakennetulla koodimuokkaimella</li>
+      <li xml:lang="es">Escribe y edita código con un editor integrado</li>
+      <li xml:lang="de">Schreibe und bearbeite Code mit einem integrierten Code-Editor</li>
+      
+      <li>Debug your programs with real-time inspection tools</li>
+      <li xml:lang="zh-Hans">使用实时检查工具调试你的程序</li>
+      <li xml:lang="vi">Gỡ lỗi chương trình của bạn bằng các công cụ kiểm tra thời gian thực</li>
+      <li xml:lang="uk">Налагоджуйте свої програми за допомогою інструментів інспекції в реальному часі</li>
+      <li xml:lang="ta">நிகழ்நேர ஆய்வுக் கருவிகள் மூலம் உங்கள் நிரல்களை பிழைத்திருத்தம் செய்யவும்</li>
+      <li xml:lang="pt-BR">Depure seus programas com ferramentas de inspeção em tempo real</li>
+      <li xml:lang="pt">Depure os seus programas com ferramentas de inspeção em tempo real</li>
+      <li xml:lang="pl">Debuguj swoje programy za pomocą narzędzi inspekcji w czasie rzeczywistym</li>
+      <li xml:lang="nl">Debug je programma's met inspectietools in real‑time</li>
+      <li xml:lang="ja">リアルタイム検査ツールでプログラムをデバッグ</li>
+      <li xml:lang="id">Debug program Anda dengan alat inspeksi real-time</li>
+      <li xml:lang="ia">Debug tu programmas con instrumentes de inspection in tempo real</li>
+      <li xml:lang="he">נפו שגיאות בתוכנה שלכם עם כלי בדיקה בזמן אמת</li>
+      <li xml:lang="fr">Déboguez vos programmes avec des outils d'inspection en temps réel</li>
+      <li xml:lang="fi">Etsi vikoja ohjelmistasi reaaliaikaisilla tarkastustyökaluilla</li>
+      <li xml:lang="es">Depura tus programas con herramientas de inspección en tiempo real</li>
+      <li xml:lang="de">Debugge deine Programme mit Echtzeit-Inspektionswerkzeugen</li>
+      
+      <li>Test your creations on a virtual game console</li>
+      <li xml:lang="zh-Hans">在虚拟游戏主机上测试你的作品</li>
+      <li xml:lang="vi">Kiểm tra sự sáng tạo của bạn trên bảng điều khiển trò chơi ảo</li>
+      <li xml:lang="uk">Тестуйте свої творіння на віртуальній ігровій консолі</li>
+      <li xml:lang="ta">உங்கள் படைப்புகளை மெய்நிகர் கேம் கன்சோலில் சோதிக்கவும்</li>
+      <li xml:lang="pt-BR">Teste suas criações no console de jogos virtual</li>
+      <li xml:lang="pt">Testa as tuas criações numa consola de jogos virtual</li>
+      <li xml:lang="pl">Testuj swoje kreacje na wirtualnej konsoli do gier</li>
+      <li xml:lang="nl">Test je creaties op een virtuele spelconsole</li>
+      <li xml:lang="ja">仮想ゲームコンソールで作品をテスト</li>
+      <li xml:lang="id">Uji kreasi Anda pada konsol permainan virtual</li>
+      <li xml:lang="ia">Testa tu creationes sur un consola de joco virtual</li>
+      <li xml:lang="he">בידקו את היצירות שלכם על קונסולת משחק ווירטואלית</li>
+      <li xml:lang="fr">Testez vos créations sur une console de jeu virtuelle</li>
+      <li xml:lang="fi">Testaa luomuksiasi virtuaalisella pelikonsolilla</li>
+      <li xml:lang="es">Prueba tus creaciones en una consola de juegos virtual</li>
+      <li xml:lang="de">Teste deine Kreationen auf einer virtuellen Spielkonsole</li>
+      
+      <li>Learn about computer history while coding</li>
+      <li xml:lang="zh-Hans">一边编码一边了解计算机历史</li>
+      <li xml:lang="vi">Tìm hiểu về lịch sử máy tính khi code</li>
+      <li xml:lang="uk">Дізнавайтеся про історію комп'ютерів під час написання коду</li>
+      <li xml:lang="ta">குறியீட்டு முறையின் போது கணினி வரலாற்றைப் பற்றி அறிந்து கொள்ளுங்கள்</li>
+      <li xml:lang="pt-BR">Aprenda sobre a história dos computadores enquanto programa</li>
+      <li xml:lang="pt">Aprenda sobre a história dos computadores enquanto programa</li>
+      <li xml:lang="pl">Poznaj historię komputerów podczas kodowania</li>
+      <li xml:lang="nl">Leer over computerhistorie tijdens het programmeren</li>
+      <li xml:lang="ja">コーディングしながらコンピュータの歴史も学べます</li>
+      <li xml:lang="id">Pelajari sejarah komputer sambil coding</li>
+      <li xml:lang="ia">Apprende a proposito de historia de computator durante que tu codifica</li>
+      <li xml:lang="he">למדו על ההיסטוריה של המחשבים תוך כדי תכנות</li>
+      <li xml:lang="fr">Apprenez l'histoire de l'informatique tout en codant</li>
+      <li xml:lang="fi">Opi tietokonehistoriaa samalla kun koodaat</li>
+      <li xml:lang="es">Aprende sobre la historia de la informática mientras programas</li>
+      <li xml:lang="de">Erfahre mehr über Computer-Geschichte beim Programmieren</li>
+    </ul>
+    
+    <p>Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!</p>
+    <p xml:lang="zh-Hans">非常适合爱好者、学生，以及对计算机底层工作原理感兴趣的任何人！</p>
+    <p xml:lang="vi">Hoàn hảo cho những người có sở thích, sinh viên và bất kỳ ai tò mò về cách thức hoạt động thực sự của máy tính!</p>
+    <p xml:lang="uk">Ідеально для любителів, студентів і всіх, хто цікавиться тим, як насправді працюють комп'ютери!</p>
+    <p xml:lang="ta">பொழுதுபோக்காளர்கள், மாணவர்கள் மற்றும் கணினிகள் உண்மையில் எவ்வாறு வேலை செய்கின்றன என்பதைப் பற்றி ஆர்வமுள்ள எவருக்கும் ஏற்றது!</p>
+    <p xml:lang="pt-BR">Perfeito para hobbistas, estudantes, e qualquer pessoa curiosa sobre como os computadores realmente funcionam por baixo!</p>
+    <p xml:lang="pt">Perfeito para amadores, estudantes, e qualquer pessoa curiosa sobre como os computadores realmente funcionam por baixo!</p>
+    <p xml:lang="pl">Idealny dla hobbystów, studentów i wszystkich, którzy są ciekawi, jak naprawdę działają komputery pod maską!</p>
+    <p xml:lang="nl">Perfect voor hobbyisten, studenten en iedereen die nieuwsgierig is hoe computers onder de motorkap echt werken!</p>
+    <p xml:lang="ja">趣味の開発者、学生、そしてコンピュータの仕組みに興味があるすべての人に最適です！</p>
+    <p xml:lang="id">Sempurna untuk penghobi, pelajar, dan siapa pun yang penasaran tentang cara kerja komputer sesungguhnya di balik layar!</p>
+    <p xml:lang="ia">Perfecte pro hobbyistas, studentes, e quicunque curiose a proposito de como computatores realmente functiona sub le capote!</p>
+    <p xml:lang="he">מושלם לחובבנים, סטודנטים, ולכל מי שסקרן איך באמת מחשבים עובדים מאחורי הקלעים!</p>
+    <p xml:lang="fr">Parfait pour les amateurs, les étudiants et tous ceux qui sont curieux de savoir comment fonctionnent réellement les ordinateurs sous le capot !</p>
+    <p xml:lang="fi">Täydellinen harrastelijoille, opiskelijoille ja kaikille tietokoneen toiminnasta konepellin alla kiinnostuneille!</p>
+    <p xml:lang="es">Perfecto para aficionados, estudiantes y cualquier persona curiosa por cómo funcionan realmente los ordenadores por dentro.</p>
+    <p xml:lang="de">Perfekt für Hobbyisten, Studenten und alle, die neugierig sind, wie Computer wirklich unter der Haube funktionieren!</p>
+  </description>
+  <developer id="eu.jumplink">
+    <name translate="no">Pascal Garber</name>
+    <email>pascal@jumplink.eu</email>
+  </developer>
+  <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/1.png</image>
+      
+      <caption>Code editor and virtual game console</caption>
+      <caption xml:lang="zh-Hans">代码编辑器与虚拟游戏主机</caption>
+      <caption xml:lang="vi">Trình chỉnh sửa mã và bảng điều khiển trò chơi ảo</caption>
+      <caption xml:lang="uk">Редактор коду та віртуальна ігрова консоль</caption>
+      <caption xml:lang="ta">குறியீடு எடிட்டர் மற்றும் மெய்நிகர் கேம் கன்சோல்</caption>
+      <caption xml:lang="pt-BR">Editor de código e console de jogo virtual</caption>
+      <caption xml:lang="pt">Editor de código e consola de jogo virtual</caption>
+      <caption xml:lang="pl">Edytor kodu i wirtualna konsola gry</caption>
+      <caption xml:lang="nl">Code-editor en virtuele spelconsole</caption>
+      <caption xml:lang="ja">コードエディターと仮想ゲームコンソール</caption>
+      <caption xml:lang="id">Editor kode dan konsol permainan virtual</caption>
+      <caption xml:lang="ia">Editor de codice e consola de joco virtual</caption>
+      <caption xml:lang="he">עורך קוד וקונסולת משחקים וירטואלית</caption>
+      <caption xml:lang="fr">Éditeur de code et console de jeu virtuelle</caption>
+      <caption xml:lang="fi">Koodimuokkain ja virtuaalipelikonsoli</caption>
+      <caption xml:lang="es">Editor de código y consola de juegos virtual</caption>
+      <caption xml:lang="de">Code-Editor und virtuelle Spielkonsole</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/2.png</image>
+      
+      <caption>Appearance settings</caption>
+      <caption xml:lang="zh-Hans">外观设置</caption>
+      <caption xml:lang="vi">Cài đặt giao diện</caption>
+      <caption xml:lang="uk">Налаштування вигляду</caption>
+      <caption xml:lang="ta">தோற்ற அமைப்புகள்</caption>
+      <caption xml:lang="pt-BR">Configurações de aparência</caption>
+      <caption xml:lang="pt">Definições de aparência</caption>
+      <caption xml:lang="pl">Ustawienia wyglądu</caption>
+      <caption xml:lang="nl">Uiterlijk-instellingen</caption>
+      <caption xml:lang="ja">外観設定</caption>
+      <caption xml:lang="id">Pengaturan tampilan</caption>
+      <caption xml:lang="ia">Configurationes de apparentia</caption>
+      <caption xml:lang="he">הגדרות מראה</caption>
+      <caption xml:lang="fr">Paramètres d'apparence</caption>
+      <caption xml:lang="fi">Ulkoasun asetukset</caption>
+      <caption xml:lang="es">Configuración de apariencia</caption>
+      <caption xml:lang="de">Erscheinungsbild-Einstellungen</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/3.png</image>
+      
+      <caption>Running Snake game</caption>
+      <caption xml:lang="zh-Hans">运行中的贪吃蛇</caption>
+      <caption xml:lang="vi">Đang chạy trò chơi Rắn Săn Mồi</caption>
+      <caption xml:lang="uk">Гра «Змійка» запущена</caption>
+      <caption xml:lang="ta">ஓடும் பாம்பு விளையாட்டு</caption>
+      <caption xml:lang="pt-BR">Executando jogo Snake</caption>
+      <caption xml:lang="pt">Executando jogo Snake</caption>
+      <caption xml:lang="pl">Uruchomiona gra Snake</caption>
+      <caption xml:lang="nl">Snake-spel dat draait</caption>
+      <caption xml:lang="ja">実行中のスネークゲーム</caption>
+      <caption xml:lang="id">Menjalankan permainan Snake</caption>
+      <caption xml:lang="ia">Executante joco Snake</caption>
+      <caption xml:lang="he">משחק סנייק פועל</caption>
+      <caption xml:lang="fr">Jeu Snake en cours d'exécution</caption>
+      <caption xml:lang="fi">Suoritetaan matopeli</caption>
+      <caption xml:lang="es">Juego de la serpiente ejecutándose</caption>
+      <caption xml:lang="de">Snake-Spiel läuft</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/4.png</image>
+      
+      <caption>Interactive tutorial</caption>
+      <caption xml:lang="zh-Hans">交互式教程</caption>
+      <caption xml:lang="vi">Hướng dẫn tương tác</caption>
+      <caption xml:lang="uk">Інтерактивний посібник</caption>
+      <caption xml:lang="ta">ஊடாடும் பயிற்சி</caption>
+      <caption xml:lang="pt-BR">Tutorial interativo</caption>
+      <caption xml:lang="pt">Tutorial interativo</caption>
+      <caption xml:lang="pl">Interaktywny tutorial</caption>
+      <caption xml:lang="nl">Interactieve tutorial</caption>
+      <caption xml:lang="ja">インタラクティブチュートリアル</caption>
+      <caption xml:lang="id">Tutorial interaktif</caption>
+      <caption xml:lang="ia">Tutorial interactive</caption>
+      <caption xml:lang="he">מדריך אינטראקטיבי</caption>
+      <caption xml:lang="fr">Tutoriel interactif</caption>
+      <caption xml:lang="fi">Vuorovaikutteinen opas</caption>
+      <caption xml:lang="es">Tutorial interactivo</caption>
+      <caption xml:lang="de">Interaktives Tutorial</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
+  <url type="bugtracker">https://github.com/JumpLink/Learn6502/issues</url>
+  <url type="vcs-browser">https://github.com/JumpLink/Learn6502</url>
+  <url type="translate">https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/</url>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-info">mild</content_attribute>
+    <content_attribute id="language-humor">mild</content_attribute>
+  </content_rating>
+  <releases>
+    <release version="0.8.0" date="2026-09-12">
+      <description>
+        
+        <p>Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.</p>
+        <p xml:lang="zh-Hans">Learn 6502 现在也能在 Windows 和 macOS 上运行。如果您一直想把它推荐给不用 Linux 的朋友，现在可以了。</p>
+        <p xml:lang="vi">Learn 6502 hiện cũng chạy trên Windows và macOS. Nếu bạn muốn giới thiệu nó cho một người bạn không dùng Linux, bây giờ bạn có thể làm điều đó.</p>
+        <p xml:lang="uk">Learn 6502 тепер працює також на Windows і macOS. Якщо ви хотіли порадити його другові, який не користується Linux, тепер це можливо.</p>
+        <p xml:lang="ta">Learn 6502 இப்போது Windows மற்றும் macOS இலும் இயங்குகிறது. Linux பயன்படுத்தாத ஒரு நண்பருக்கு இதை அறிமுகப்படுத்த நினைத்திருந்தால், இப்போது அதைச் செய்யலாம்.</p>
+        <p xml:lang="pt-BR">O Learn 6502 agora roda também no Windows e no macOS. Se você queria indicá-lo a um amigo que não usa Linux, agora pode.</p>
+        <p xml:lang="pt">Learn 6502 corre agora também no Windows e no macOS. Se queria mostrá-lo a alguém que não usa Linux, já o pode fazer.</p>
+        <p xml:lang="pl">Learn 6502 działa teraz także na Windowsie i macOS. Jeśli chcesz polecić go znajomemu, który nie korzysta z Linuxa, teraz jest to możliwe.</p>
+        <p xml:lang="nl">Learn 6502 draait nu ook op Windows en macOS. Als je het aan iemand wilde laten zien die geen Linux gebruikt, kan dat nu.</p>
+        <p xml:lang="ja">Learn 6502 は Windows と macOS でも動作するようになりました。Linux を使っていない友人にすすめたいと思っていた方は、これで紹介できます。</p>
+        <p xml:lang="id">Learn 6502 kini juga berjalan di Windows dan macOS. Jika Anda ingin menunjukkannya kepada teman yang tidak memakai Linux, sekarang Anda bisa.</p>
+        <p xml:lang="ia">Learn 6502 ora functiona anque sur Windows e macOS. Si tu voleva monstrar lo a un amico qui non usa Linux, ora tu pote facer lo.</p>
+        <p xml:lang="he">Learn 6502 עכשיו רץ גם על Windows ו־macOS. אם רציתם להפנות אליו חבר שלא משתמש ב־Linux, עכשיו אתם יכולים.</p>
+        <p xml:lang="fr">Learn 6502 fonctionne maintenant aussi sur Windows et macOS. Si vous vouliez le montrer à quelqu'un qui n'est pas sous Linux, c'est désormais possible.</p>
+        <p xml:lang="fi">Learn 6502 toimii nyt myös Windowsilla ja macOS:llä. Jos olet halunnut vinkata siitä ystävälle, joka ei käytä Linuxia, nyt se onnistuu.</p>
+        <p xml:lang="es">Learn 6502 ahora también se ejecuta en Windows y macOS. Si querías enseñárselo a alguien que no usa Linux, ya puedes hacerlo.</p>
+        <p xml:lang="de">Learn 6502 läuft jetzt auch unter Windows und macOS. Wenn du es jemandem zeigen wolltest, der kein Linux nutzt, geht das jetzt.</p>
+        
+        <p>For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.</p>
+        <p xml:lang="zh-Hans">Linux 现在还有 AppImage：一个文件，无需安装，在我们没有打包的发行版上也能用。</p>
+        <p xml:lang="vi">Với Linux hiện cũng có AppImage: một tệp duy nhất, không cần cài đặt, hữu ích trên bản phân phối mà chúng tôi không đóng gói sẵn.</p>
+        <p xml:lang="uk">Для Linux тепер є й AppImage: один файл, без встановлення, стане в пригоді на дистрибутиві, для якого ми не збираємо пакунок.</p>
+        <p xml:lang="ta">Linux-க்கு இப்போது ஒரு AppImage-ம் உள்ளது: ஒரே கோப்பு, நிறுவல் தேவையில்லை, நாங்கள் தொகுப்பு வழங்காத விநியோகங்களிலும் இது பயன்படும்.</p>
+        <p xml:lang="pt-BR">Para Linux também há um AppImage agora: um único arquivo, sem instalação, útil em uma distribuição para a qual não geramos pacotes.</p>
+        <p xml:lang="pt">Para Linux existe agora também uma AppImage: um ficheiro, sem instalação, útil numa distribuição para a qual não criamos pacotes.</p>
+        <p xml:lang="pl">Dla Linuxa jest teraz także AppImage: jeden plik, bez instalacji, przydatny w dystrybucji, dla której nie przygotowujemy pakietu.</p>
+        <p xml:lang="nl">Voor Linux is er nu ook een AppImage: één bestand, geen installatie, handig op een distributie waarvoor we geen pakket maken.</p>
+        <p xml:lang="ja">Linux 向けには AppImage も用意しました。ファイルは1つだけ、インストールは不要で、パッケージを提供していないディストリビューションでも使えます。</p>
+        <p xml:lang="id">Untuk Linux kini tersedia juga AppImage: satu file, tanpa instalasi, berguna pada distribusi yang tidak kami buatkan paketnya.</p>
+        <p xml:lang="ia">Pro Linux il ha ora anque un AppImage: un sol file, sin installation, utile sur un distribution pro le qual nos non offere un pacchetto.</p>
+        <p xml:lang="he">ל־Linux יש עכשיו גם AppImage: קובץ אחד, בלי התקנה, שימושי בהפצה שאין לנו חבילה עבורה.</p>
+        <p xml:lang="fr">Pour Linux, il y a maintenant aussi une AppImage : un fichier, aucune installation, utile sur une distribution pour laquelle nous ne fournissons pas de paquet.</p>
+        <p xml:lang="fi">Linuxille on nyt saatavilla myös AppImage: yksi tiedosto, ei asennusta, kätevä jakelussa, jolle emme tee omaa pakettia.</p>
+        <p xml:lang="es">Para Linux ahora también hay una AppImage: un archivo, sin instalación, útil en una distribución para la que no publicamos paquetes.</p>
+        <p xml:lang="de">Für Linux gibt es jetzt auch ein AppImage: eine Datei, keine Installation, praktisch auf einer Distribution, für die wir kein Paket bauen.</p>
+        
+        <p>Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.</p>
+        <p xml:lang="zh-Hans">两个新的示例程序，都来自大家：Jacob 的 Dino Run 和 edit12 的 Line Buster 6502。它们是通过分享按钮提交的首批示例，我们希望收到更多。</p>
+        <p xml:lang="vi">Hai chương trình ví dụ mới, và cả hai đều đến từ các bạn: Dino Run của Jacob, và Line Buster 6502 của edit12. Đây là những ví dụ đầu tiên được gửi bằng nút chia sẻ, và chúng tôi rất mong nhận thêm.</p>
+        <p xml:lang="uk">Дві нові програми-приклади, і обидві надійшли від вас: Dino Run від Jacob і Line Buster 6502 від edit12. Це перші приклади, надіслані кнопкою «Поділитися», і ми будемо раді новим.</p>
+        <p xml:lang="ta">இரண்டு புதிய எடுத்துக்காட்டு நிரல்கள், இரண்டுமே உங்களிடமிருந்து வந்தவை: Jacob எழுதிய Dino Run, edit12 எழுதிய Line Buster 6502. பகிர் பொத்தான் மூலம் அனுப்பப்பட்ட முதல் எடுத்துக்காட்டுகள் இவை; இன்னும் பல வர வேண்டும் என்று விரும்புகிறோம்.</p>
+        <p xml:lang="pt-BR">Dois novos programas de exemplo, e os dois vieram de vocês: Dino Run, de Jacob, e Line Buster 6502, de edit12. São os primeiros exemplos enviados pelo botão de compartilhar, e adoraríamos receber mais.</p>
+        <p xml:lang="pt">Dois novos programas de exemplo, e ambos vieram de vocês: Dino Run, de Jacob, e Line Buster 6502, de edit12. São os primeiros exemplos enviados através do botão de partilha, e gostaríamos de receber mais.</p>
+        <p xml:lang="pl">Dwa nowe przykładowe programy i oba pochodzą od was: Dino Run autorstwa Jacob oraz Line Buster 6502 autorstwa edit12. To pierwsze przykłady nadesłane przyciskiem udostępniania i chętnie zobaczymy więcej.</p>
+        <p xml:lang="nl">Twee nieuwe voorbeeldprogramma's, en ze komen allebei van jullie: Dino Run van Jacob en Line Buster 6502 van edit12. Het zijn de eerste voorbeelden die via de deelknop zijn ingestuurd, en we ontvangen er graag meer.</p>
+        <p xml:lang="ja">新しいサンプルプログラムが2つ、どちらも皆さんからのものです。Jacob による Dino Run と、edit12 による Line Buster 6502 です。共有ボタンから送られてきた最初の例で、これからもお待ちしています。</p>
+        <p xml:lang="id">Dua program contoh baru, dan keduanya datang dari Anda: Dino Run oleh Jacob, dan Line Buster 6502 oleh edit12. Keduanya adalah contoh pertama yang dikirim dengan tombol bagikan, dan kami masih menantikan lebih banyak.</p>
+        <p xml:lang="ia">Duo nove programmas de exemplo, e ambes veni de vos: Dino Run de Jacob, e Line Buster 6502 de edit12. Illos es le prime exemplos inviate con le button de compartir, e nos volerea reciper plus.</p>
+        <p xml:lang="he">שתי תוכניות דוגמה חדשות, ושתיהן הגיעו מכם: Dino Run של Jacob, ו־Line Buster 6502 של edit12. אלו הדוגמאות הראשונות שנשלחו עם כפתור השיתוף, ונשמח לעוד.</p>
+        <p xml:lang="fr">Deux nouveaux programmes d'exemple, et tous les deux viennent de vous : Dino Run par Jacob et Line Buster 6502 par edit12. Ce sont les premiers exemples envoyés avec le bouton de partage, et nous aimerions en recevoir d'autres.</p>
+        <p xml:lang="fi">Kaksi uutta esimerkkiohjelmaa, ja molemmat tulivat teiltä: Dino Run, tekijänä Jacob, ja Line Buster 6502, tekijänä edit12. Ne ovat ensimmäiset jaa-painikkeella lähetetyt esimerkit, ja otamme mielellämme vastaan lisää.</p>
+        <p xml:lang="es">Dos nuevos programas de ejemplo, y los dos llegan de la comunidad: Dino Run, de Jacob, y Line Buster 6502, de edit12. Son los primeros ejemplos enviados con el botón de compartir, y nos gustaría recibir más.</p>
+        <p xml:lang="de">Zwei neue Beispielprogramme, und beide kommen von euch: Dino Run von Jacob und Line Buster 6502 von edit12. Es sind die ersten Beispiele, die über den Teilen-Button eingereicht wurden, und wir hätten gern mehr davon.</p>
+        
+        <p>வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="zh-Hans">வணக்கம்! 我们很高兴迎来泰米尔语翻译，由 தமிழ்நேரம் 贡献。நன்றி!</p>
+        <p xml:lang="vi">வணக்கம்! Chúng tôi vui mừng chào đón bản dịch tiếng Tamil, được đóng góp bởi தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="uk">வணக்கம்! Ми раді вітати тамільський переклад, наданий தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="ta">வணக்கம்! தமிழ்நேரம் அவர்கள் பங்களித்த தமிழ் மொழிபெயர்ப்புகளை வரவேற்பதில் நாங்கள் மகிழ்ச்சியடைகிறோம். நன்றி!</p>
+        <p xml:lang="pt-BR">வணக்கம்! Estamos felizes em dar as boas-vindas à tradução em tâmil, contribuída por தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="pt">வணக்கம்! Temos o prazer de dar as boas-vindas à tradução em tâmil, contribuída por தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="pl">வணக்கம்! Z radością witamy tamilskie tłumaczenie, którego autorem jest தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="nl">வணக்கம்! We zijn blij met de Tamil-vertaling, bijgedragen door தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="ja">வணக்கம்! タミル語の翻訳が加わりました。翻訳してくださった தமிழ்நேரம் に感謝します。நன்றி!</p>
+        <p xml:lang="id">வணக்கம்! Kami dengan senang hati menyambut terjemahan bahasa Tamil, yang dikontribusikan oleh தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="ia">வணக்கம்! Nos es felice de dar le benvenita al traduction tamil, contribuite per தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="he">வணக்கம்! אנחנו שמחים לקבל בברכה את התרגום לטמילית, שנתרם על ידי தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="fr">வணக்கம் ! Nous sommes heureux d'accueillir la traduction en tamoul, contribuée par தமிழ்நேரம். நன்றி !</p>
+        <p xml:lang="fi">வணக்கம்! Olemme iloisia voidessamme toivottaa tervetulleeksi tamilinkieliset käännökset, jotka தமிழ்நேரம் on toimittanut. நன்றி!</p>
+        <p xml:lang="es">வணக்கம்! Nos alegra dar la bienvenida a la traducción al tamil, aportada por தமிழ்நேரம். நன்றி!</p>
+        <p xml:lang="de">வணக்கம்! Wir freuen uns über die tamilische Übersetzung, beigesteuert von தமிழ்நேரம். நன்றி!</p>
+        
+        <p>If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.</p>
+        <p xml:lang="zh-Hans">如果您的系统语言是中文，应用会重新以中文显示。此前它曾错误地回退到英文。</p>
+        <p xml:lang="vi">Nếu ngôn ngữ hệ thống của bạn là tiếng Trung, ứng dụng hiển thị lại bằng tiếng Trung. Trước đây nó đã nhầm lẫn quay về tiếng Anh.</p>
+        <p xml:lang="uk">Якщо мова системи — китайська, застосунок знову показується китайською. Раніше він помилково повертався до англійської.</p>
+        <p xml:lang="ta">உங்கள் கணினியின் மொழி சீனமாக இருந்தால், பயன்பாடு மீண்டும் சீனத்தில் காட்டப்படும். இதுவரை அது தவறுதலாக ஆங்கிலத்திற்கு மாறி வந்தது.</p>
+        <p xml:lang="pt-BR">Se o idioma do seu sistema for chinês, o aplicativo volta a aparecer em chinês. Antes ele caía para o inglês por engano.</p>
+        <p xml:lang="pt">Se o idioma do seu sistema for chinês, a aplicação volta a aparecer em chinês. Por engano, estava a recorrer ao inglês.</p>
+        <p xml:lang="pl">Jeśli językiem systemu jest chiński, aplikacja znów wyświetla się po chińsku. Wcześniej przez pomyłkę wracała do angielskiego.</p>
+        <p xml:lang="nl">Als je systeemtaal Chinees is, verschijnt de app weer in het Chinees. Hij viel per ongeluk terug op het Engels.</p>
+        <p xml:lang="ja">システムの言語が中国語の場合、アプリは再び中国語で表示されます。これまでは誤って英語で表示されていました。</p>
+        <p xml:lang="id">Jika bahasa sistem Anda adalah bahasa Mandarin, aplikasi kembali tampil dalam bahasa Mandarin. Sebelumnya aplikasi keliru beralih ke bahasa Inggris.</p>
+        <p xml:lang="ia">Si le lingua de tu systema es le chinese, le application appare de novo in chinese. Antea illo passava al anglese per error.</p>
+        <p xml:lang="he">אם שפת המערכת שלכם היא סינית, היישום שוב מוצג בסינית. עד כה הוא חזר בטעות לאנגלית.</p>
+        <p xml:lang="fr">Si la langue de votre système est le chinois, l'application s'affiche à nouveau en chinois. Elle basculait vers l'anglais par erreur.</p>
+        <p xml:lang="fi">Jos järjestelmäsi kieli on kiina, sovellus näkyy taas kiinaksi. Se oli vahingossa palautunut englantiin.</p>
+        <p xml:lang="es">Si el idioma de tu sistema es chino, la aplicación vuelve a mostrarse en chino. Antes recurría al inglés por error.</p>
+        <p xml:lang="de">Wenn deine Systemsprache Chinesisch ist, erscheint die App wieder auf Chinesisch. Sie war versehentlich auf Englisch zurückgefallen.</p>
+        
+        <p>As always, this release includes many small fixes and improvements.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
+        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
+        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
+        <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
+        <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
+        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
+        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
+      </description>
+    </release>
+    <release version="0.7.0" date="2026-06-12">
+      <description>
+        
+        <p>Shalom! We are happy to welcome Hebrew translations, fully contributed by Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="zh-Hans">Shalom! 我们很高兴迎来希伯来语翻译，由 Menachem (naattxx) 完整贡献。Toda raba!</p>
+        <p xml:lang="vi">Shalom! Chúng tôi vui mừng chào đón bản dịch tiếng Do Thái, được đóng góp hoàn toàn bởi Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="uk">Shalom! Ми раді вітати переклад на іврит, повністю наданий Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="ta">சாலோம்! Menachem (naattxx) மூலம் முழுமையாகப் பங்களித்த ஈப்ரு மொழிபெயர்ப்புகளை வரவேற்பதில் நாங்கள் மகிழ்ச்சியடைகிறோம். தோடா ரபா!</p>
+        <p xml:lang="pt-BR">Shalom! Estamos felizes em dar as boas-vindas à tradução em hebraico, totalmente contribuída por Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="pt">Shalom! Temos o prazer de dar as boas-vindas à tradução em hebraico, integralmente contribuída por Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="pl">Shalom! Z radością witamy hebrajskie tłumaczenie, którego autorem w całości jest Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="nl">Shalom! We zijn blij met de Hebreeuwse vertaling, volledig bijgedragen door Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="ja">Shalom! ヘブライ語の翻訳が加わりました。全文を翻訳してくださった Menachem (naattxx) に感謝します。Toda raba!</p>
+        <p xml:lang="id">Shalom! Kami dengan senang hati menyambut terjemahan bahasa Ibrani, yang sepenuhnya dikontribusikan oleh Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="ia">Shalom! Nos es felice de dar le benvenita al traduction hebree, integremente contribuite per Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="he">שלום! אנחנו שמחים לקבל בברכה את התרגום לעברית, שנתרם במלואו על ידי מנחם (naattxx). תודה רבה!</p>
+        <p xml:lang="fr">Shalom ! Nous sommes heureux d'accueillir la traduction en hébreu, entièrement contribuée par Menachem (naattxx). Toda raba !</p>
+        <p xml:lang="fi">Shalom! Olemme iloisia voidessamme toivottaa tervetulleeksi hepreankieliset käännökset, jotka Menachem (naattxx) on kokonaisuudessaan toimittanut. Toda raba!</p>
+        <p xml:lang="es">Shalom! Nos alegra dar la bienvenida a la traducción al hebreo, aportada íntegramente por Menachem (naattxx). Toda raba!</p>
+        <p xml:lang="de">Shalom! Wir freuen uns über die hebräische Übersetzung, vollständig beigesteuert von Menachem (naattxx). Toda raba!</p>
+        
+        <p>Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages.</p>
+        <p xml:lang="zh-Hans">希伯来语也是我们首个从右向左书写的语言：得益于 Menachem 的测试和贡献，应用现已支持从右向左的布局，为支持更多 RTL 语言做好了准备。</p>
+        <p xml:lang="vi">Tiếng Do Thái cũng là ngôn ngữ viết từ phải sang trái đầu tiên của chúng tôi: nhờ việc kiểm thử và những đóng góp của Menachem, ứng dụng hiện đã hỗ trợ bố cục từ phải sang trái, sẵn sàng cho nhiều ngôn ngữ RTL khác.</p>
+        <p xml:lang="uk">Іврит — це також наша перша мова з письмом справа наліво: завдяки тестуванню та внескам Menachem застосунок тепер підтримує розташування справа наліво й готовий до нових мов RTL.</p>
+        <p xml:lang="ta">எங்களின் முதல் வலமிருந்து இடமாக ஈப்ரு மொழியும் உள்ளது: மெனாகெமின் சோதனை மற்றும் பங்களிப்புகளுக்கு நன்றி, ஆப்ச் இப்போது வலமிருந்து இடமாக தளவமைப்புகளை ஆதரிக்கிறது, மேலும் RTL மொழிகளுக்கு அதை ஆயத்தம் செய்கிறது.</p>
+        <p xml:lang="pt-BR">O hebraico também é nosso primeiro idioma escrito da direita para a esquerda: graças aos testes e contribuições de Menachem, o aplicativo agora oferece suporte a layouts da direita para a esquerda, preparando-o para mais idiomas RTL.</p>
+        <p xml:lang="pt">O hebraico é também a nossa primeira língua escrita da direita para a esquerda: graças aos testes e contribuições de Menachem, a aplicação suporta agora disposições da direita para a esquerda, ficando preparada para mais línguas RTL.</p>
+        <p xml:lang="pl">Hebrajski to także nasz pierwszy język pisany od prawej do lewej: dzięki testom i wkładowi Menachema aplikacja obsługuje teraz układy od prawej do lewej i jest przygotowana na kolejne języki RTL.</p>
+        <p xml:lang="nl">Hebreeuws is ook onze eerste taal die van rechts naar links wordt geschreven: dankzij het testen en de bijdragen van Menachem ondersteunt de app nu lay-outs van rechts naar links en is ze voorbereid op meer RTL-talen.</p>
+        <p xml:lang="ja">ヘブライ語は、右から左に書く初めての言語でもあります。Menachem のテストと貢献のおかげで、アプリは右から左へのレイアウトに対応し、さらなるRTL言語への準備が整いました。</p>
+        <p xml:lang="id">Bahasa Ibrani juga merupakan bahasa pertama kami yang ditulis dari kanan ke kiri: berkat pengujian dan kontribusi Menachem, aplikasi kini mendukung tata letak kanan-ke-kiri dan siap untuk lebih banyak bahasa RTL.</p>
+        <p xml:lang="ia">Le hebreo es etiam nostre prime lingua scribite de dextra a sinistra: gratias al tests e contributiones de Menachem, le application ora supporta dispositiones de dextra a sinistra e es preparate pro plus linguas RTL.</p>
+        <p xml:lang="he">עברית היא גם שפת הימין-לשמאל הראשונה שלנו: הודות לבדיקות ולתרומות של מנחם, היישום תומך כעת בפריסות מימין לשמאל ומוכן לשפות RTL נוספות.</p>
+        <p xml:lang="fr">L'hébreu est aussi notre première langue s'écrivant de droite à gauche : grâce aux tests et aux contributions de Menachem, l'application prend désormais en charge les mises en page de droite à gauche, la préparant à d'autres langues RTL.</p>
+        <p xml:lang="fi">Heprea on myös ensimmäinen oikealta vasemmalle kirjoitettava kielemme: Menachemin testauksen ja avustusten ansiosta sovellus tukee nyt oikealta vasemmalle -asetteluja ja on valmiina useammille RTL-kielille.</p>
+        <p xml:lang="es">El hebreo es además nuestro primer idioma escrito de derecha a izquierda: gracias a las pruebas y contribuciones de Menachem, la aplicación ahora admite diseños de derecha a izquierda y está preparada para más idiomas RTL.</p>
+        <p xml:lang="de">Hebräisch ist außerdem unsere erste Sprache, die von rechts nach links geschrieben wird: Dank Menachems Tests und Beiträgen unterstützt die App jetzt Layouts von rechts nach links und ist damit auf weitere RTL-Sprachen vorbereitet.</p>
+        
+        <p>Selamat datang! We also welcome Indonesian translations, kindly contributed by Arif Budiman. Terima kasih!</p>
+        <p xml:lang="zh-Hans">Selamat datang! 我们也迎来了印度尼西亚语翻译，由 Arif Budiman 友情贡献。Terima kasih!</p>
+        <p xml:lang="vi">Selamat datang! Chúng tôi cũng chào đón bản dịch tiếng Indonesia, được Arif Budiman nhiệt tình đóng góp. Terima kasih!</p>
+        <p xml:lang="uk">Selamat datang! Ми також вітаємо індонезійський переклад, люб'язно наданий Arif Budiman. Terima kasih!</p>
+        <p xml:lang="ta">வரவேற்கிறோம்! இந்தோனேசிய மொழிபெயர்ப்புகளையும் வரவேற்கிறோம், அன்புடன் ஆரிஃப் புடிமான் பங்களித்தார். நன்றி!</p>
+        <p xml:lang="pt-BR">Selamat datang! Também damos as boas-vindas à tradução em indonésio, gentilmente contribuída por Arif Budiman. Terima kasih!</p>
+        <p xml:lang="pt">Selamat datang! Damos também as boas-vindas à tradução em indonésio, gentilmente contribuída por Arif Budiman. Terima kasih!</p>
+        <p xml:lang="pl">Selamat datang! Witamy również indonezyjskie tłumaczenie, którego autorem jest Arif Budiman. Terima kasih!</p>
+        <p xml:lang="nl">Selamat datang! We verwelkomen ook de Indonesische vertaling, vriendelijk bijgedragen door Arif Budiman. Terima kasih!</p>
+        <p xml:lang="ja">Selamat datang! インドネシア語の翻訳も加わりました。Arif Budiman のご協力に感謝します。Terima kasih!</p>
+        <p xml:lang="id">Selamat datang! Kami juga menyambut terjemahan bahasa Indonesia, yang dengan baik hati dikontribusikan oleh Arif Budiman. Terima kasih!</p>
+        <p xml:lang="ia">Selamat datang! Nos anque da le benvenita al traduction indonesian, gentilmente contribuite per Arif Budiman. Terima kasih!</p>
+        <p xml:lang="he">Selamat datang! אנחנו מקבלים בברכה גם את התרגום לאינדונזית, באדיבותו של Arif Budiman. Terima kasih!</p>
+        <p xml:lang="fr">Selamat datang ! Nous accueillons également la traduction en indonésien, aimablement contribuée par Arif Budiman. Terima kasih !</p>
+        <p xml:lang="fi">Selamat datang! Toivotamme tervetulleeksi myös indonesiankieliset käännökset, jotka Arif Budiman on ystävällisesti toimittanut. Terima kasih!</p>
+        <p xml:lang="es">Selamat datang! También damos la bienvenida a la traducción al indonesio, amablemente aportada por Arif Budiman. Terima kasih!</p>
+        <p xml:lang="de">Selamat datang! Wir freuen uns auch über die indonesische Übersetzung, freundlicherweise beigesteuert von Arif Budiman. Terima kasih!</p>
+        
+        <p>As always, this release includes many small fixes and improvements.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
+        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
+        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
+        <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
+        <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
+        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
+        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
+      </description>
+    </release>
+    <release version="0.6.5" date="2026-04-01">
+      <description>
+        
+        <p>Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.</p>
+        <p xml:lang="zh-Hans">Learn 6502 现已运行在 GNOME 50 上！感谢 Sabri Ünal 贡献了运行时更新。</p>
+        <p xml:lang="vi">Learn 6502 hiện chạy trên GNOME 50! Cảm ơn Sabri Ünal đã đóng góp bản cập nhật runtime.</p>
+        <p xml:lang="uk">Learn 6502 тепер працює на GNOME 50! Дякуємо Sabri Ünal за внесок в оновлення середовища виконання.</p>
+        <p xml:lang="ta">Learn 6502 இப்போது GNOME 50 இல் இயங்குகிறது! இயக்க நேர புதுப்பிப்புக்கு பங்களித்த சப்ரி Ünalக்கு நன்றி.</p>
+        <p xml:lang="pt-BR">O Learn 6502 agora roda no GNOME 50! Obrigado a Sabri Ünal por contribuir com a atualização do runtime.</p>
+        <p xml:lang="pt">Learn 6502 agora corre no GNOME 50! Obrigado a Sabri Ünal por contribuir com a atualização do runtime.</p>
+        <p xml:lang="pl">Learn 6502 działa teraz na GNOME 50! Podziękowania dla Sabri Ünal za wniesienie aktualizacji środowiska uruchomieniowego.</p>
+        <p xml:lang="nl">Learn 6502 draait nu op GNOME 50! Met dank aan Sabri Ünal voor het bijdragen van de runtime-update.</p>
+        <p xml:lang="ja">Learn 6502 が GNOME 50 で動作するようになりました！ランタイムの更新に貢献してくださった Sabri Ünal 氏に感謝します。</p>
+        <p xml:lang="id">Learn 6502 kini berjalan di GNOME 50! Terima kasih kepada Sabri Ünal atas kontribusi pembaruan runtime-nya.</p>
+        <p xml:lang="ia">Learn 6502 ora functiona sur GNOME 50! Gratias a Sabri Ünal pro contribuer le actualisation del runtime.</p>
+        <p xml:lang="he">לימוד 6502 עכשיו רץ על GNOME 50! תודה ל־Sabri Ünal על תרומתו לעדכון סביבת ההרצה.</p>
+        <p xml:lang="fr">Learn 6502 fonctionne maintenant sur GNOME 50 ! Merci à Sabri Ünal pour sa contribution à la mise à jour du runtime.</p>
+        <p xml:lang="fi">Learn 6502 toimii nyt GNOME 50:llä! Kiitos Sabri Ünalille ajonympäristön päivityksen tekemisestä.</p>
+        <p xml:lang="es">¡Learn 6502 ahora se ejecuta en GNOME 50! Gracias a Sabri Ünal por contribuir la actualización del runtime.</p>
+        <p xml:lang="de">Lerne 6502 läuft jetzt auf GNOME 50! Dank an Sabri Ünal für den Beitrag zum Runtime-Update.</p>
+        
+        <p>Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.</p>
+        <p xml:lang="zh-Hans">修复了学习部分的返回按钮在桌面和平板模式下始终可见的问题，即使没有打开子页面。</p>
+        <p xml:lang="vi">Đã sửa lỗi nút Lui lại trong phần học luôn hiển thị ở chế độ máy tính để bàn và máy tính bảng, ngay cả khi không có trang con nào được mở.</p>
+        <p xml:lang="uk">Виправлено проблему, через яку кнопка «Назад» у розділі навчання була завжди видимою в режимі робочого столу та планшета, навіть коли жодна підсторінка не була відкрита.</p>
+        <p xml:lang="ta">எந்த துணைப் பக்கமும் திறக்கப்படாவிட்டாலும், கற்றல் பிரிவில் உள்ள பின் பொத்தான் எப்போதும் டெச்க்டாப் மற்றும் டேப்லெட் பயன்முறையில் காணக்கூடிய சிக்கல் சரி செய்யப்பட்டது.</p>
+        <p xml:lang="pt-BR">Corrigido um problema onde o botão Voltar na seção de aprendizagem estava sempre visível no modo desktop e tablet, mesmo quando nenhuma subpágina estava aberta.</p>
+        <p xml:lang="pt">Corrigido um problema onde o botão Voltar na secção de aprendizagem estava sempre visível no modo de computador e tablet, mesmo quando não havia subpágina aberta.</p>
+        <p xml:lang="pl">Naprawiono problem, w którym przycisk wstecz w sekcji nauki był zawsze widoczny w trybie desktopowym i tabletowym, nawet gdy żadna podstrona nie była otwarta.</p>
+        <p xml:lang="nl">Een probleem verholpen waarbij de terugknop in het leergedeelte altijd zichtbaar was in desktop- en tabletmodus, zelfs wanneer er geen subpagina geopend was.</p>
+        <p xml:lang="ja">学習セクションの戻るボタンが、サブページが開かれていない状態でもデスクトップモードおよびタブレットモードで常に表示されていた問題を修正しました。</p>
+        <p xml:lang="id">Memperbaiki masalah di mana tombol kembali di bagian learn selalu terlihat dalam mode desktop dan tablet, bahkan ketika tidak ada subhalaman yang dibuka.</p>
+        <p xml:lang="ia">Corrigite un problema ubi le button retro in le section de apprender era sempre visibile in modo de scriptorio e tabletta, mesmo quando nulle subpagina era aperite.</p>
+        <p xml:lang="he">תוקנה בעיה שכפתור החזרה באזור הלימוד תמיד היה גלוי במצב שולחן עבודה וטאבלט, גם כששום נושא לא היה פתוח.</p>
+        <p xml:lang="fr">Correction d'un problème où le bouton de retour dans la section d'apprentissage était toujours visible en mode bureau et tablette, même lorsqu'aucune sous-page n'était ouverte.</p>
+        <p xml:lang="fi">Korjattu ongelma, jossa opintosivun takaisin-painike oli aina näkyvissä työpöytä- ja tablettitilassa, vaikka alisivua ei ollut avoinna.</p>
+        <p xml:lang="es">Se corrigió un problema en el que el botón de retroceso en la sección de aprendizaje siempre era visible en modo escritorio y tableta, incluso cuando no había una subpágina abierta.</p>
+        <p xml:lang="de">Ein Problem wurde behoben, bei dem der Zurück-Button im Lernbereich im Desktop- und Tablet-Modus immer sichtbar war, auch wenn keine Unterseite geöffnet war.</p>
+        
+        <p>Under the hood: updated to TypeScript 6, Vite 8, and other dependency upgrades for improved performance and stability.</p>
+        <p xml:lang="zh-Hans">底层更新：升级至 TypeScript 6、Vite 8，以及其他依赖升级，以提升性能和稳定性。</p>
+        <p xml:lang="vi">Bên trong: đã cập nhật lên TypeScript 6, Vite 8 và các nâng cấp phụ thuộc khác để cải thiện hiệu suất và độ ổn định.</p>
+        <p xml:lang="uk">Під капотом: оновлено до TypeScript 6, Vite 8 та інших оновлень залежностей для покращення продуктивності та стабільності.</p>
+        <p xml:lang="ta">ஊட்டின் கீழ்: மேம்படுத்தப்பட்ட செயல்திறன் மற்றும் நிலைத்தன்மைக்காக டைப்ச்கிரிப்ட் 6, வைட் 8 மற்றும் பிற சார்பு மேம்படுத்தல்கள்.</p>
+        <p xml:lang="pt-BR">Por baixo do capô: atualização para TypeScript 6, Vite 8 e outras atualizações de dependências para melhor desempenho e estabilidade.</p>
+        <p xml:lang="pt">Nos bastidores: atualização para TypeScript 6, Vite 8 e outras atualizações de dependências para melhor desempenho e estabilidade.</p>
+        <p xml:lang="pl">Pod maską: zaktualizowano do TypeScript 6, Vite 8 i innych zależności w celu poprawy wydajności i stabilności.</p>
+        <p xml:lang="nl">Onder de motorkap: bijgewerkt naar TypeScript 6, Vite 8 en andere afhankelijkheidsupdates voor betere prestaties en stabiliteit.</p>
+        <p xml:lang="ja">内部改善: TypeScript 6、Vite 8 へのアップデートをはじめ、パフォーマンスと安定性向上のための依存関係の更新を行いました。</p>
+        <p xml:lang="id">Di balik layar: diperbarui ke TypeScript 6, Vite 8, dan peningkatan dependensi lainnya untuk performa dan stabilitas yang lebih baik.</p>
+        <p xml:lang="ia">Sub le capote: actualisate a TypeScript 6, Vite 8, e altere actualisationes de dependentias pro meliorate prestation e stabilitate.</p>
+        <p xml:lang="he">מאחורי הקלעים: עידכון ל־TypeScript 6, Vite 8, ושאר עידכוני תלות לשיפור הביצועים והיציבות.</p>
+        <p xml:lang="fr">Sous le capot : mise à jour vers TypeScript 6, Vite 8 et d'autres mises à jour de dépendances pour de meilleures performances et stabilité.</p>
+        <p xml:lang="fi">Konepellin alla: päivitetty TypeScript 6:een, Vite 8:aan ja muita riippuvuuspäivityksiä suorituskyvyn ja vakauden parantamiseksi.</p>
+        <p xml:lang="es">Bajo el capó: actualización a TypeScript 6, Vite 8 y otras actualizaciones de dependencias para mejorar el rendimiento y la estabilidad.</p>
+        <p xml:lang="de">Unter der Haube: Update auf TypeScript 6, Vite 8 und weitere Abhängigkeits-Updates für verbesserte Leistung und Stabilität.</p>
+      </description>
+    </release>
+    <release version="0.6.4" date="2026-03-06">
+      <description>
+        
+        <p>Tervetuloa! We are happy to welcome Finnish translations, kindly contributed by Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="zh-Hans">Tervetuloa! 我们很高兴迎来芬兰语翻译，由 Jiri Grönroos 友情贡献。Kiitos!</p>
+        <p xml:lang="vi">Tervetuloa! Chúng tôi vui mừng chào đón bản dịch tiếng Phần Lan, được đóng góp bởi Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="uk">Tervetuloa! Ми раді вітати фінський переклад, люб'язно наданий Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="ta">வருக! பின்னிச் மொழிபெயர்ப்புகளை வரவேற்பதில் நாங்கள் மகிழ்ச்சியடைகிறோம், அன்புடன் சிரி க்ரோன்ரூச் பங்களித்தார். நன்றி!</p>
+        <p xml:lang="pt-BR">Tervetuloa! Temos o prazer de dar as boas-vindas à tradução finlandesa, gentilmente contribuída por Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="pt">Tervetuloa! Temos o prazer de dar as boas-vindas à tradução finlandesa, gentilmente contribuída por Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="pl">Tervetuloa! Z przyjemnością witamy fińskie tłumaczenie, udostępnione dzięki uprzejmości Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="nl">Tervetuloa! We verwelkomen met plezier de Finse vertaling, vriendelijk bijgedragen door Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="ja">Tervetuloa! フィンランド語の翻訳が加わりました。Jiri Grönroos氏のご協力に感謝します。Kiitos!</p>
+        <p xml:lang="id">Tervetuloa! Kami dengan senang hati menyambut terjemahan bahasa Finlandia, yang dengan baik hati dikontribusikan oleh Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="ia">Tervetuloa! Nos es felice de dar le benvenita al traduction finnese, gentilmente contribute per Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="he">Tervetuloa! אנחנו שמחים להזמין את התרגום לפינית. באדיבותו של Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="fr">Tervetuloa ! Nous avons le plaisir d'accueillir la traduction finnoise, aimablement contribuée par Jiri Grönroos. Kiitos !</p>
+        <p xml:lang="fi">Tervetuloa! Olemme iloisia voidessamme toivottaa tervetulleeksi suomenkieliset käännökset, ystävällisesti Jiri Grönroosin toimittamana. Kiitos!</p>
+        <p xml:lang="es">Tervetuloa! Nos alegra dar la bienvenida a la traducción al finés, amablemente contribuida por Jiri Grönroos. Kiitos!</p>
+        <p xml:lang="de">Tervetuloa! Wir freuen uns über die finnische Übersetzung, freundlicherweise beigesteuert von Jiri Grönroos. Kiitos!</p>
+      </description>
+    </release>
+    <release version="0.6.3" date="2025-12-24">
+      <description>
+        
+        <p>Welcome Vietnamese translation, fully contributed by Loc Huynh (hthienloc).</p>
+        <p xml:lang="zh-Hans">欢迎越南语翻译，完全由 Loc Huynh (hthienloc) 贡献。</p>
+        <p xml:lang="vi">Chào mừng bản dịch tiếng Việt, được đóng góp hoàn toàn bởi Loc Huynh (hthienloc).</p>
+        <p xml:lang="uk">Ласкаво просимо в'єтнамський переклад, повністю наданий Loc Huynh (hthienloc).</p>
+        <p xml:lang="ta">வியட்நாமிய மொழிபெயர்ப்பை வரவேற்கிறோம், மக்கள் உய்ன் (hthienloc) மூலம் முழுமையாகப் பங்களித்தார்.</p>
+        <p xml:lang="pt-BR">Bem-vindo à tradução vietnamita, totalmente contribuída por Loc Huynh (hthienloc).</p>
+        <p xml:lang="pt">Bem-vindo à tradução vietnamita, totalmente contribuída por Loc Huynh (hthienloc).</p>
+        <p xml:lang="pl">Witamy tłumaczenie na język wietnamski, w pełni wniesione przez Loc Huynh (hthienloc).</p>
+        <p xml:lang="nl">Welkom bij de Vietnamese vertaling, volledig bijgedragen door Loc Huynh (hthienloc).</p>
+        <p xml:lang="ja">ベトナム語翻訳へようこそ。Loc Huynh (hthienloc) によって全面的に貢献されました。</p>
+        <p xml:lang="id">Selamat datang terjemahan bahasa Vietnam, yang sepenuhnya dikontribusikan oleh Loc Huynh (hthienloc).</p>
+        <p xml:lang="ia">Benvenite al traduction vietnamese, totalmente contribute per Loc Huynh (hthienloc).</p>
+        <p xml:lang="he">מקבלים בברכה את התרגום לווייאטנמית, נתרם במלואו על ידי Loc Huynh (hthienloc).</p>
+        <p xml:lang="fr">Bienvenue à la traduction vietnamienne, entièrement contribuée par Loc Huynh (hthienloc).</p>
+        <p xml:lang="fi">Tervetuloa vietnaminkielinen käännös, kokonaan Loc Huynhin (hthienloc) tekemä.</p>
+        <p xml:lang="es">Bienvenida la traducción al vietnamita, totalmente contribuida por Loc Huynh (hthienloc).</p>
+        <p xml:lang="de">Willkommen zur vietnamesischen Übersetzung, vollständig beigetragen von Loc Huynh (hthienloc).</p>
+      </description>
+    </release>
+    <release version="0.6.2" date="2025-10-10">
+      <description>
+        
+        <p>Welcome Polish translation, initially contributed by Micro Wave. Dziękujemy!</p>
+        <p xml:lang="zh-Hans">欢迎波兰语翻译，最初由 Micro Wave 贡献。Dziękujemy!</p>
+        <p xml:lang="vi">Chào mừng bản dịch tiếng Ba Lan, ban đầu được đóng góp bởi Micro Wave. Dziękujemy!</p>
+        <p xml:lang="uk">Ласкаво просимо польський переклад, спочатку наданий Micro Wave. Dziękujemy!</p>
+        <p xml:lang="ta">போலிச் மொழிபெயர்ப்பை வரவேற்கிறோம், ஆரம்பத்தில் மைக்ரோ வேவ் பங்களித்தது. Dziękujemy!</p>
+        <p xml:lang="pt-BR">Bem-vindo à tradução polonesa, inicialmente contribuída por Micro Wave. Dziękujemy!</p>
+        <p xml:lang="pt">Bem-vindo à tradução polaca, inicialmente contribuída por Micro Wave. Dziękujemy!</p>
+        <p xml:lang="pl">Witamy tłumaczenie na język polski, początkowo wniesione przez Micro Wave. Dziękujemy!</p>
+        <p xml:lang="nl">Welkom bij de Poolse vertaling, aanvankelijk bijgedragen door Micro Wave. Dziękujemy!</p>
+        <p xml:lang="ja">ポーランド語翻訳へようこそ。Micro Wave によって最初に貢献されました。Dziękujemy!</p>
+        <p xml:lang="id">Selamat datang terjemahan bahasa Polandia, yang awalnya dikontribusikan oleh Micro Wave. Dziękujemy!</p>
+        <p xml:lang="ia">Benvenite al traduction polonese, initialmente contribute per Micro Wave. Dziękujemy!</p>
+        <p xml:lang="he">מקבלים בברכה את התרגום לפולנית, במקור נתרם על ידי Micro Wave. Dziękujemy!</p>
+        <p xml:lang="fr">Bienvenue à la traduction polonaise, initialement contribuée par Micro Wave. Dziękujemy!</p>
+        <p xml:lang="fi">Tervetuloa puolankielinen käännös, alunperin Micro Waven tekemä. Dziękujemy!</p>
+        <p xml:lang="es">Bienvenida la traducción al polaco, inicialmente contribuida por Micro Wave. Dziękujemy!</p>
+        <p xml:lang="de">Willkommen zur polnischen Übersetzung, ursprünglich beigetragen von Micro Wave. Dziękujemy!</p>
+        
+        <p>Shared code examples now include CC-BY-4.0 license information, making it clear how the community can use and build upon your contributions.</p>
+        <p xml:lang="zh-Hans">共享的代码示例现在包含 CC-BY-4.0 许可证信息，明确说明社区如何使用和基于您的贡献进行构建。</p>
+        <p xml:lang="vi">Các ví dụ về mã được chia sẻ hiện bao gồm thông tin giấy phép CC-BY-4.0, làm rõ cách cộng đồng có thể sử dụng và xây dựng dựa trên những đóng góp của bạn.</p>
+        <p xml:lang="uk">Поділені приклади коду тепер містять інформацію про ліцензію CC-BY-4.0, що робить зрозумілим, як спільнота може використовувати та будувати на основі ваших внесків.</p>
+        <p xml:lang="ta">பகிரப்பட்ட குறியீடு எடுத்துக்காட்டுகளில் இப்போது CC-BY-4.0 உரிமத் செய்தி அடங்கும், உங்கள் பங்களிப்புகளை சமூகம் எவ்வாறு பயன்படுத்தலாம் மற்றும் உருவாக்கலாம் என்பதைத் தெளிவாக்குகிறது.</p>
+        <p xml:lang="pt-BR">Os exemplos de código compartilhados agora incluem informações de licença CC-BY-4.0, esclarecendo como a comunidade pode usar e construir sobre suas contribuições.</p>
+        <p xml:lang="pt">Os exemplos de código partilhados agora incluem informações de licença CC-BY-4.0, esclarecendo como a comunidade pode usar e construir sobre as suas contribuições.</p>
+        <p xml:lang="pl">Udostępnione przykłady kodu zawierają teraz informacje o licencji CC-BY-4.0, co wyjaśnia, w jaki sposób społeczność może korzystać z Twoich wkładów i na nich budować.</p>
+        <p xml:lang="nl">Gedeelde codevoorbeelden bevatten nu CC-BY-4.0 licentie-informatie, waardoor duidelijk wordt hoe de gemeenschap uw bijdragen kan gebruiken en daarop kan voortbouwen.</p>
+        <p xml:lang="ja">共有されたコード例には、CC-BY-4.0 ライセンス情報が含まれるようになり、コミュニティがあなたの貢献を利用して構築する方法が明確になります。</p>
+        <p xml:lang="id">Contoh kode yang dibagikan kini menyertakan informasi lisensi CC-BY-4.0, sehingga jelas bagaimana komunitas dapat menggunakan dan mengembangkan kontribusi Anda.</p>
+        <p xml:lang="ia">Exemplos de codice compartite ora include information de licentia CC-BY-4.0, clarificante como le communitate pote usar e construer super tu contributiones.</p>
+        <p xml:lang="he">עכשיו דוגמאות קוד משותפות כוללים מידע על רשיון CC-BY-4.0, כדי להבאיר איך הקהילה יכולה להשתמש ולהתבסס על תרומותכם.</p>
+        <p xml:lang="fr">Les exemples de code partagés incluent désormais les informations de licence CC-BY-4.0, clarifiant comment la communauté peut utiliser et s'appuyer sur vos contributions.</p>
+        <p xml:lang="fi">Jaetut koodiesimerkit sisältävät nyt CC-BY-4.0-lisenssitiedot, mikä selventää, miten yhteisö voi käyttää ja rakentaa osallistumistesi pohjalle.</p>
+        <p xml:lang="es">Los ejemplos de código compartidos ahora incluyen información de licencia CC-BY-4.0, aclarando cómo la comunidad puede usar y construir sobre tus contribuciones.</p>
+        <p xml:lang="de">Geteilte Codebeispiele enthalten jetzt CC-BY-4.0-Lizenzinformationen, wodurch klar wird, wie die Community Ihre Beiträge nutzen und darauf aufbauen kann.</p>
+      </description>
+    </release>
+    <release version="0.6.0" date="2025-10-08">
+      <description>
+        
+        <p>We've added a new Examples section to the Learn tab where you can explore and run fully-commented 6502 programs right in the app. Start with our featured Snake game example and see how those pixels come to life!</p>
+        <p xml:lang="zh-Hans">我们在学习标签中添加了新的示例部分，您可以直接在应用程序中探索和运行带有完整注释的6502程序。从我们精选的贪吃蛇游戏示例开始，看看这些像素如何焕发生机！</p>
+        <p xml:lang="vi">Chúng tôi đã thêm phần Ví Dụ mới vào tab Tìm hiểu nơi bạn có thể khám phá và chạy các chương trình 6502 được nhận xét đầy đủ ngay trong ứng dụng. Hãy bắt đầu với ví dụ về trò chơi Rắn Săn Mồi nổi bật của chúng tôi và xem những pixel đó trở nên sống động như thế nào!</p>
+        <p xml:lang="uk">Ми додали новий розділ «Приклади» на вкладці «Навчання», де ви можете досліджувати та запускати повністю прокоментовані програми 6502 безпосередньо в додатку. Почніть із нашого прикладу гри Snake і побачте, як оживають пікселі!</p>
+        <p xml:lang="ta">கற்றல் தாவலில் ஒரு புதிய எடுத்துக்காட்டுகள் பகுதியைச் சேர்த்துள்ளோம், அங்கு நீங்கள் பயன்பாட்டில் உள்ள 6502 நிரல்களை முழுவதுமாக ஆராய்ந்து இயக்கலாம். எங்களின் பிரத்யேக பாம்பு கேம் உதாரணத்துடன் தொடங்கி, அந்த படப்புள்ளிகள் எவ்வாறு உயிர் பெறுகின்றன என்பதைப் பாருங்கள்!</p>
+        <p xml:lang="pt-BR">Adicionamos uma nova seção de Exemplos na aba Aprender, onde você pode explorar e executar programas 6502 totalmente comentados diretamente no aplicativo. Comece com nosso exemplo do jogo Snake e veja como esses pixels ganham vida!</p>
+        <p xml:lang="pt">Adicionámos uma nova secção de Exemplos no separador Aprender onde pode explorar e executar programas 6502 totalmente comentados diretamente na aplicação. Comece com o nosso exemplo do jogo Snake e veja como os píxeis ganham vida!</p>
+        <p xml:lang="pl">Dodaaliśmy nową sekcję Przykłady do karty Ucz się, gdzie możesz eksplorować i uruchamiać w pełni skomentowane programy 6502 bezpośrednio w aplikacji. Zacznij od naszego wyróżnionego przykładu gry Snake i zobacz, jak te piksele ożywają!</p>
+        <p xml:lang="nl">We hebben een nieuwe sectie Voorbeelden toegevoegd aan het tabblad Leren, waar je volledig geannoteerde 6502-programma's direct in de app kunt verkennen en uitvoeren. Begin met ons Snake-spelvoorbeeld en zie hoe die pixels tot leven komen!</p>
+        <p xml:lang="ja">学習タブに新しい「例」セクションを追加しました。ここでは、完全にコメントされた6502プログラムをアプリ内で直接探索して実行できます。特集のスネークゲームの例から始めて、ピクセルが生き生きと動く様子をご覧ください！</p>
+        <p xml:lang="id">Kami telah menambahkan bagian Contoh baru di tab Pelajari di mana Anda dapat menjelajahi dan menjalankan program 6502 berkomentari lengkap langsung di aplikasi. Mulailah dengan contoh permainan Snake unggulan kami dan lihat bagaimana piksel-piksel itu menjadi hidup!</p>
+        <p xml:lang="ia">Nos ha addite un nove section de Exemplos al scheda Apprender ubi tu pote explorar e executar programmas 6502 plenmente commentate directemente in le application. Comencia con nostre exemplo del joco Snake e vide como iste pixeles prende vita!</p>
+        <p xml:lang="he">הוספנו קטע "דוגמאות" חדש ללשונית הלימוד שבו תוכלו לגלות ולהריץ תוכניות 6502 מוערות־במלואן הישר מהישום. תתחילו מדוגמת משחק ה־"סנייק" שלנו ותראו איך הפיקסלים מתעוררים לתחייה!</p>
+        <p xml:lang="fr">Nous avons ajouté une nouvelle section Exemples dans l'onglet Apprendre où vous pouvez explorer et exécuter des programmes 6502 entièrement commentés directement dans l'application. Commencez avec notre exemple du jeu Snake et voyez comment ces pixels prennent vie !</p>
+        <p xml:lang="fi">Olemme lisänneet uuden Esimerkit-osion Opi-välilehteen, jossa voit tutkia ja suorittaa täysin kommentoituja 6502-ohjelmia suoraan sovelluksessa. Aloita esitellystä matopeliesimerkistä ja katso, miten pikselit heräävät henkiin!</p>
+        <p xml:lang="es">Hemos añadido una nueva sección de Ejemplos en la pestaña Aprender donde puedes explorar y ejecutar programas 6502 completamente comentados directamente en la aplicación. ¡Comienza con nuestro ejemplo del juego Snake y observa cómo cobran vida los píxeles!</p>
+        <p xml:lang="de">Wir haben eine neue Beispiele-Sektion im Lernen-Tab hinzugefügt, wo du vollständig kommentierte 6502-Programme direkt in der App erkunden und ausführen kannst. Beginne mit unserem Snake-Spiel-Beispiel und sieh zu, wie die Pixel zum Leben erwachen!</p>
+        
+        <p>Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you.</p>
+        <p xml:lang="zh-Hans">有自己很酷的6502作品吗？与社区分享吧！您现在可以直接从应用程序内提交代码示例。只需点击分享按钮，我们将自动为您创建GitHub issue和pull request。</p>
+        <p xml:lang="vi">Bạn có sáng tạo 6502 thú vị của riêng mình không? Hãy chia sẻ nó với cộng đồng! Bây giờ bạn có thể gửi ví dụ mã của mình trực tiếp từ trong ứng dụng. Chỉ cần nhấn nút chia sẻ và chúng tôi sẽ tự động tạo issue GitHub và pull request cho bạn.</p>
+        <p xml:lang="uk">Є власна класна розробка на 6502? Поділіться нею зі спільнотою! Тепер ви можете надсилати свої приклади коду безпосередньо з додатку. Просто натисніть кнопку «Поділитися», і ми автоматично створимо для вас issue та pull request на GitHub.</p>
+        <p xml:lang="ta">உங்களுடைய சொந்த 6502 படைப்பு ஏதேனும் உள்ளதா? அதைச் சமூகத்துடன் பகிருங்கள்! இப்போது உங்கள் குறியீட்டு எடுத்துக்காட்டுகளை நேரடியாகப் பயன்பாட்டிற்குள்ளிருந்தே சமர்ப்பிக்கலாம். பகிர் பொத்தானை அழுத்தினால் போதும் — உங்களுக்காக GitHub சிக்கலையும் இழுக்கக் கோரிக்கையையும் நாங்கள் தானாகவே உருவாக்கிவிடுவோம்.</p>
+        <p xml:lang="pt-BR">Tem sua própria criação 6502 legal? Compartilhe com a comunidade! Agora você pode enviar seus exemplos de código diretamente do aplicativo. Basta apertar o botão de compartilhar e criaremos automaticamente uma issue e pull request no GitHub para você.</p>
+        <p xml:lang="pt">Tem a sua própria criação 6502? Partilhe-a com a comunidade! Agora pode submeter os seus exemplos de código diretamente da aplicação. Basta premir o botão de partilha e criaremos automaticamente um issue e pull request no GitHub para si.</p>
+        <p xml:lang="pl">Masz swoją własną fajną kreację 6502? Podziel się nią ze społecznością! Możesz teraz przesyłać przykłady kodu bezpośrednio z aplikacji. Wystarczy nacisnąć przycisk udostępniania, a automatycznie utworzymy dla Ciebie zgłoszenie i pull request na GitHub.</p>
+        <p xml:lang="nl">Heb je je eigen coole 6502-creatie? Deel het met de gemeenschap! Je kunt nu je codevoorbeelden direct vanuit de app indienen. Druk gewoon op de deelknop en we maken automatisch een GitHub-issue en pull request voor je aan.</p>
+        <p xml:lang="ja">独自のクールな6502作品をお持ちですか？コミュニティと共有しましょう！アプリから直接コード例を投稿できるようになりました。共有ボタンを押すだけで、GitHubのissueとプルリクエストが自動的に作成されます。</p>
+        <p xml:lang="id">Punya kreasi 6502 yang keren? Bagikan kepada komunitas! Kini Anda dapat mengirimkan contoh kode langsung dari dalam aplikasi. Cukup tekan tombol bagikan, dan kami akan otomatis membuat GitHub issue dan pull request untuk Anda.</p>
+        <p xml:lang="ia">Ha tu un proprie creation 6502 interessante? Comparti lo con le communitate! Tu pote ora submitter tu exemplos de codice directemente desde le application. Simplemente preme le button de compartir e nos creara automaticamente un issue e pull request de GitHub pro te.</p>
+        <p xml:lang="he">יצרתם משהו מגניב עם 6502? שתפו אותו עם הקהילה! עכשיו אתם יכולים לשתף את דוגמאות הקוד שלכם ישר מהיישום. פשוט הקישו על כפתור השיתוף, ואנחנו ניצור אוטומטית סוגיה ובקשת שילוב ב־Github בשבילכם.</p>
+        <p xml:lang="fr">Vous avez votre propre création 6502 ? Partagez-la avec la communauté ! Vous pouvez maintenant soumettre vos exemples de code directement depuis l'application. Appuyez simplement sur le bouton de partage et nous créerons automatiquement un issue et une pull request GitHub pour vous.</p>
+        <p xml:lang="fi">Onko sinulla oma hieno 6502-luomus? Jaa se yhteisön kanssa! Voit nyt lähettää koodiesimerkejäsi suoraan sovelluksesta. Paina vain jaa-painiketta, niin luomme automaattisesti GitHub-issuen ja pull requestin puolestasi.</p>
+        <p xml:lang="es">¿Tienes tu propia creación 6502? ¡Compártela con la comunidad! Ahora puedes enviar tus ejemplos de código directamente desde la aplicación. Solo presiona el botón de compartir y crearemos automáticamente un issue y pull request de GitHub para ti.</p>
+        <p xml:lang="de">Hast du eine coole 6502-Kreation? Teile sie mit der Community! Du kannst jetzt deine Code-Beispiele direkt aus der App einreichen. Einfach auf den Teilen-Button klicken, und wir erstellen automatisch ein GitHub Issue und Pull Request für dich.</p>
+        
+        <p>Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!</p>
+        <p xml:lang="zh-Hans">通过示例学习从未如此简单。深入研究可运行的代码，调整它，弄坏它，再修复它——最优秀的程序员当年就是这样学习的！</p>
+        <p xml:lang="vi">Học bằng ví dụ chưa bao giờ dễ dàng hơn thế. Đi sâu vào mã đang hoạt động, chỉnh sửa, phá vỡ nó, sửa lại - đó là cách các lập trình viên giỏi nhất đã học ngày xưa!</p>
+        <p xml:lang="uk">Навчання на прикладах ще ніколи не було таким простим. Занурюйтесь у робочий код, змінюйте його, ламайте, виправляйте знову — саме так навчалися найкращі програмісти колись!</p>
+        <p xml:lang="ta">சான்று மூலம் கற்றல் எப்போதும் எளிதாக இருந்ததில்லை. வேலை செய்யும் குறியீட்டில் மூழ்கி, அதை மாற்றவும், அதை உடைக்கவும், அதை மீண்டும் சரிசெய்யவும் - அந்த நாளில் சிறந்த புரோகிராமர்கள் கற்றுக்கொண்டது இதுதான்!</p>
+        <p xml:lang="pt-BR">Aprender com exemplos nunca foi tão fácil. Mergulhe em código funcional, modifique-o, quebre-o, conserte-o novamente - foi assim que os melhores programadores aprenderam antigamente!</p>
+        <p xml:lang="pt">Aprender através de exemplos nunca foi tão fácil. Mergulhe em código funcional, modifique-o, quebre-o, corrija-o novamente - foi assim que os melhores programadores aprenderam antigamente!</p>
+        <p xml:lang="pl">Uczenie się przez przykłady nigdy nie było łatwiejsze. Zanurz się w działającym kodzie, dostosuj go, zepsuj, napraw ponownie - tak uczyli się najlepsi programiści kiedyś!</p>
+        <p xml:lang="nl">Leren aan de hand van voorbeelden is nog nooit zo eenvoudig geweest. Duik in werkende code, pas het aan, maak het kapot, repareer het weer - zo leerden de beste programmeurs vroeger!</p>
+        <p xml:lang="ja">例から学ぶことがこれほど簡単になったことはありません。動作するコードに飛び込んで、調整し、壊して、また直す――かつて最高のプログラマーたちはそうやって学んだのです！</p>
+        <p xml:lang="id">Belajar dari contoh tidak pernah semudah ini. Selami kode yang berjalan, ubah, rusak, perbaiki lagi - begitulah cara programmer terbaik belajar dulu!</p>
+        <p xml:lang="ia">Apprender per exemplos nunquam ha essite plus facile. Immerse te in codice functionante, modifica lo, rumpe lo, repara lo de novo - assi apprendeva le melior programmatores in le passato!</p>
+        <p xml:lang="he">לימוד עם דוגמאות מעולם לא היה קל יותר. תצללו אל תוך קוד עובד, תשנו אותו, תהרסו אותו, תתקנו אותו שוב - כך למדו המתכנתים הטובים ביותר באותם ימים!</p>
+        <p xml:lang="fr">Apprendre par l'exemple n'a jamais été aussi facile. Plongez dans du code fonctionnel, modifiez-le, cassez-le, réparez-le à nouveau - c'est ainsi que les meilleurs programmeurs ont appris autrefois !</p>
+        <p xml:lang="fi">Esimerkeistä oppiminen ei ole koskaan ollut helpompaa. Sukella toimivaan koodiin, muokkaa sitä, riko se, korjaa se taas – näin parhaat ohjelmoijat oppivat aikoinaan!</p>
+        <p xml:lang="es">Aprender con ejemplos nunca ha sido tan fácil. Sumérgete en código funcional, modifícalo, rómpelo, arréglalo de nuevo. ¡Así es como los mejores programadores aprendieron en su día!</p>
+        <p xml:lang="de">Lernen durch Beispiele war noch nie so einfach. Tauche in funktionierenden Code ein, passe ihn an, bring ihn kaputt, repariere ihn wieder - so haben die besten Programmierer früher gelernt!</p>
+      </description>
+    </release>
+    <release version="0.5.0" date="2025-10-02">
+      <description>
+        
+        <p>Say hello to many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)</p>
+        <p xml:lang="zh-Hans">多项新增翻译：法语、国际语、葡萄牙语、葡萄牙语（巴西）、荷兰语、西班牙语、乌克兰语、日语和简体中文</p>
+        <p xml:lang="vi">Chào nhiều bản dịch mới: tiếng Pháp, tiếng Interlingua, tiếng Bồ Đào Nha, tiếng Bồ Đào Nha (Brazil), tiếng Hà Lan, tiếng Tây Ban Nha, tiếng Ukraina, tiếng Nhật và tiếng Trung (Giản thể)</p>
+        <p xml:lang="uk">Зустрічайте багато нових перекладів: французька, інтерлінгва, португальська, португальська (Бразилія), нідерландська, іспанська, українська, японська та китайська (спрощена)</p>
+        <p xml:lang="ta">பல புதிய மொழிபெயர்ப்புகளுக்கு வணக்கம் சொல்லுங்கள்: பிரஞ்சு, இண்டர்லிங்வா, போர்த்துகீசியம், போர்த்துகீசியம் (பிரேசில்), டச்சு, ச்பானிச், உக்ரைனியன், சப்பானியம் மற்றும் சீனம் (எளிமைப்படுத்தப்பட்டது)</p>
+        <p xml:lang="pt-BR">Conheça muitas traduções novas: Francês, Interlíngua, Português, Português (Brasil), Holandês, Espanhol, Ucraniano, Japonês e Chinês (Simplificado)</p>
+        <p xml:lang="pt">Apresentamos muitas novas traduções: Francês, Interlíngua, Português, Português (Brasil), Neerlandês, Espanhol, Ucraniano, Japonês e Chinês (Simplificado)</p>
+        <p xml:lang="pl">Powiedz cześć wielu świeżym tłumaczeniom: francuski, interlingua, portugalski, portugalski (Brazylia), holenderski, hiszpański, ukraiński, japoński i chiński (uproszczony)</p>
+        <p xml:lang="nl">Maak kennis met veel nieuwe vertalingen: Frans, Interlingua, Portugees, Portugees (Brazilië), Nederlands, Spaans, Oekraïens, Japans en Vereenvoudigd Chinees</p>
+        <p xml:lang="ja">多数の新規翻訳が加わりました：フランス語、インターリングア、ポルトガル語、ポルトガル語（ブラジル）、オランダ語、スペイン語、ウクライナ語、日本語、中国語（簡体字）</p>
+        <p xml:lang="id">Sambut banyak terjemahan baru: Prancis, Interlingua, Portugis, Portugis (Brasil), Belanda, Spanyol, Ukraina, Jepang, dan Mandarin (Sederhana)</p>
+        <p xml:lang="ia">Saluta multe traductiones fresc: francese, interlingua, portugese, portugese (Brasil), nederlandese, espaniol, ukraino, japonese e chinese (simplificate)</p>
+        <p xml:lang="he">תגידו שלום להרבה תרגומים טריים: צרפתית, אינטרלינגואה, פורטוגזית, פורטוגזית (ברזילאית), גרמנית, ספרדית, אוקראינית, יפנית וסינית (מופשטת)</p>
+        <p xml:lang="fr">Découvrez de nombreuses nouvelles traductions : français, interlingua, portugais, portugais (Brésil), néerlandais, espagnol, ukrainien, japonais et chinois (simplifié)</p>
+        <p xml:lang="fi">Monet tuoreet käännökset: ranska, interlingua, portugali, brasilianportugali, hollanti, espanja, ukraina, japani ja kiina (yksinkertaistettu)</p>
+        <p xml:lang="es">Dale la bienvenida a muchas traducciones nuevas: Francés, Interlingua, Portugués, Portugués (Brasil), Neerlandés, Español, Ucraniano, Japonés y Chino (simplificado)</p>
+        <p xml:lang="de">Begrüße viele neue Übersetzungen: Französisch, Interlingua, Portugiesisch, Portugiesisch (Brasilien), Niederländisch, Spanisch, Ukrainisch, Japanisch und Chinesisch (Vereinfacht)</p>
+        
+        <p>German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation.</p>
+        <p xml:lang="zh-Hans">德语和西班牙语已由贡献者验证。其他语言为 AI 辅助的初稿，需要人工校对。</p>
+        <p xml:lang="vi">Tiếng Đức và tiếng Tây Ban Nha đã được xác nhận bởi những người đóng góp. Các ngôn ngữ khác là bản nháp được AI hỗ trợ và cần con người xác nhận.</p>
+        <p xml:lang="uk">Німецьку та іспанську перевірили учасники проєкту. Інші мови — це чернетки з підтримкою ШІ, яким потрібна перевірка людьми.</p>
+        <p xml:lang="ta">செர்மன், ச்பானிச் மொழிகள் பங்களிப்பாளர்களால் சரிபார்க்கப்பட்டுள்ளன. மற்ற மொழிகள் AI உதவியுடன் உருவாக்கப்பட்ட வரைவுகள்; அவற்றுக்கு மனிதர்களின் சரிபார்ப்பு தேவை.</p>
+        <p xml:lang="pt-BR">Alemão e Espanhol foram validados por colaboradores. As demais línguas são rascunhos assistidos por IA e precisam de validação humana.</p>
+        <p xml:lang="pt">Alemão e Espanhol foram validados por colaboradores. As restantes línguas são rascunhos assistidos por IA e necessitam de validação humana.</p>
+        <p xml:lang="pl">Niemiecki i hiszpański zostały zatwierdzone przez współtwórców. Inne języki to szkice wspomagane przez AI i wymagają walidacji ludzkiej.</p>
+        <p xml:lang="nl">Duits en Spaans zijn door bijdragers gevalideerd. De overige talen zijn AI‑ondersteunde conceptversies en hebben menselijke validatie nodig.</p>
+        <p xml:lang="ja">ドイツ語とスペイン語はコントリビューターにより検証済みです。その他の言語はAI支援の下書きであり、人による検証が必要です。</p>
+        <p xml:lang="id">Bahasa Jerman dan Spanyol telah divalidasi oleh kontributor. Bahasa lain adalah draf berbantuan AI dan memerlukan validasi manusia.</p>
+        <p xml:lang="ia">Le german e le espaniol ha essite validate per collaboratores. Le altere linguas es projectos assistite per IA e necessita validation human.</p>
+        <p xml:lang="he">גרמנית וספרדית אומתו על ידי תורמים. שאר השפות הם 'טיוטות' שנכתבו בעזרת AI וזקוקים לבדיקה אנושית.</p>
+        <p xml:lang="fr">L'allemand et l'espagnol ont été validés par des contributeurs. Les autres langues sont des brouillons assistés par IA et nécessitent une validation humaine.</p>
+        <p xml:lang="fi">Saksa ja espanja on tarkistettu avustajien toimesta. Muut kielet ovat tekoälyavusteisia luonnoksia ja tarvitsevat ihmisen tarkistuksen.</p>
+        <p xml:lang="es">Alemán y Español han sido validados por colaboradores. Los demás idiomas son borradores asistidos por IA y necesitan validación humana.</p>
+        <p xml:lang="de">Deutsch und Spanisch wurden von Mitwirkenden validiert. Die anderen Sprachen sind KI‑unterstützte Entwürfe und benötigen eine menschliche Validierung.</p>
+        
+        <p>If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.</p>
+        <p xml:lang="zh-Hans">如果你会其中任意一种语言，欢迎协助审阅或改进翻译。你可以通过应用内链接、我们的翻译平台，或提交 Issue 来贡献。</p>
+        <p xml:lang="vi">Nếu bạn nói một trong những ngôn ngữ được liệt kê, vui lòng giúp xem xét hoặc cải thiện bản dịch. Bạn có thể đóng góp thông qua các liên kết trong ứng dụng, nền tảng dịch thuật của chúng tôi hoặc bằng cách mở một số báo.</p>
+        <p xml:lang="uk">Якщо ви володієте однією з указаних мов, допоможіть, будь ласка, переглянути або покращити переклади. Ви можете зробити внесок через посилання в застосунку, на нашій платформі перекладу або створивши issue.</p>
+        <p xml:lang="ta">பட்டியலிடப்பட்ட மொழிகளில் ஏதேனும் ஒன்றை நீங்கள் பேசினால், மொழிபெயர்ப்புகளை மதிப்பாய்வு செய்ய அல்லது மேம்படுத்த உதவவும். பயன்பாட்டு இணைப்புகள், எங்கள் மொழிபெயர்ப்பு தளம் அல்லது சிக்கலைத் திறப்பதன் மூலம் நீங்கள் பங்களிக்கலாம்.</p>
+        <p xml:lang="pt-BR">Se você fala uma das línguas listadas, por favor ajude a revisar ou melhorar as traduções. Você pode contribuir pelos links no aplicativo, pela nossa plataforma de tradução ou abrindo uma issue.</p>
+        <p xml:lang="pt">Se fala uma das línguas listadas, por favor ajude a rever ou melhorar as traduções. Pode contribuir através das ligações na aplicação, da nossa plataforma de tradução ou abrindo um issue.</p>
+        <p xml:lang="pl">Jeśli mówisz jednym z wymienionych języków, pomóż przejrzeć lub poprawić tłumaczenia. Możesz przyczynić się poprzez linki w aplikacji, naszą platformę tłumaczeń lub otwierając zgłoszenie.</p>
+        <p xml:lang="nl">Spreek je een van de genoemde talen? Help dan de vertalingen te beoordelen of te verbeteren. Je kunt bijdragen via de links in de app, ons vertaalplatform of door een issue te openen.</p>
+        <p xml:lang="ja">記載のいずれかの言語を話す方は、翻訳のレビューや改善にご協力ください。アプリ内リンク、翻訳プラットフォーム、またはIssueの作成から参加できます。</p>
+        <p xml:lang="id">Jika Anda berbicara salah satu bahasa yang tercantum, mohon bantu tinjau atau perbaiki terjemahannya. Anda dapat berkontribusi melalui tautan dalam aplikasi, platform terjemahan kami, atau dengan membuka issue.</p>
+        <p xml:lang="ia">Si tu parla un del linguas listate, per favor adjuta nos a revisar o meliorar le traductiones. Tu pote contribuer via le ligamines intra le application, in nostre platforma de traduction o per aperir un issue.</p>
+        <p xml:lang="he">אם דוברים את אחת מהשפות ברשימה, בבקשה תעזרו להגיה או לשפר את התרגום. אתם יכולים לתרום דרך הקישורים ביישום, מערכת התרגום שלנו, או על ידי פתיחת סוגייה.</p>
+        <p xml:lang="fr">Si vous parlez l'une des langues listées, aidez‑nous à relire ou à améliorer les traductions. Vous pouvez contribuer via les liens dans l'application, notre plateforme de traduction ou en ouvrant un ticket.</p>
+        <p xml:lang="fi">Jos puhut jotakin listatuista kielistä, auta tarkistamaan tai parantamaan käännöksiä. Voit osallistua sovelluksen sisäisten linkkien, käännösalustamme tai issuen avaamisen kautta.</p>
+        <p xml:lang="es">Si hablas uno de los idiomas listados, por favor ayuda a revisar o mejorar las traducciones. Puedes contribuir mediante los enlaces dentro de la app, nuestra plataforma de traducción o abriendo un issue.</p>
+        <p xml:lang="de">Wenn du eine der aufgeführten Sprachen sprichst, hilf bitte beim Überprüfen oder Verbessern der Übersetzungen. Du kannst über die In‑App‑Links, unsere Übersetzungsplattform oder durch das Eröffnen eines Issues beitragen.</p>
+      </description>
+    </release>
+    <release version="0.4.0" date="2025-09-24">
+      <description>
+        
+        <p>This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development.</p>
+        <p xml:lang="zh-Hans">本次发布带来了充满掌机灵感的主题与可自定义配色；引入了自适应的平板与桌面布局，让一切尽在眼前，非常适合学习汇编开发复古游戏时的长时间编码。特别感谢新贡献者 @mmartinortiz 提供的优秀桌面布局思路。还包括多项技术改进，如更严格的 TypeScript 设置、自定义 GtkSourceView 样式方案，以及增强的调试器控件，以获得更顺畅的开发体验。</p>
+        <p xml:lang="vi">Bản phát hành này mang đến chủ đề sống động lấy cảm hứng từ thiết bị cầm tay với màu sắc có thể tùy chỉnh. Chúng tôi đã giới thiệu bố cục máy tính để bàn và máy tính bảng thích ứng giúp giữ mọi thứ trong tầm nhìn, hoàn hảo cho những buổi viết mã kéo dài khi học cách phát triển các trò chơi cổ điển trong tổ hợp. Xin chân thành cảm ơn cộng tác viên mới của chúng tôi @mmartinortiz về những ý tưởng bố cục máy tính tuyệt vời. Ngoài ra còn có một số cải tiến kỹ thuật thú vị, như độ nghiêm ngặt của TypeScript, lược đồ kiểu GtkSourceView tùy chỉnh và các điều khiển trình gỡ lỗi nâng cao để phát triển mượt mà hơn.</p>
+        <p xml:lang="uk">У цьому випуску — яскрава тема в стилі портативних пристроїв із настроюваними кольорами. Ми додали адаптивні макети для планшетів і робочих станцій, які тримають усе в полі зору — ідеально для довгих сесій навчання розробці ретроігор на асемблері. Величезна подяка нашому новому контриб’ютору @mmartinortiz за класні ідеї десктопного макета. Є й технічні покращення: посилена строгість TypeScript, власні схеми стилів GtkSourceView та розширені елементи керування налагоджувачем для плавнішої роботи.</p>
+        <p xml:lang="ta">இந்த வெளியீடு தனிப்பயனாக்கக்கூடிய வண்ணங்களுடன் துடிப்பான கையடக்க-ஈர்க்கப்பட்ட தீமிங்கைக் கொண்டுவருகிறது. அடாப்டிவ் டேப்லெட் மற்றும் டெச்க்டாப் தளவமைப்புகளை நாங்கள் அறிமுகப்படுத்தியுள்ளோம், அவை அனைத்தையும் பார்வைக்கு வைத்திருக்கின்றன, அவை அசெம்பிளியில் ரெட்ரோ கேம்களை உருவாக்க கற்றுக்கொள்ளும் போது அந்த மராத்தான் குறியீட்டு அமர்வுகளுக்கு ஏற்றது. சிறந்த டெச்க்டாப் தளவமைப்பு யோசனைகளுக்கு எங்கள் புதிய பங்களிப்பாளரான @mmartinortiz க்கு மிக்க நன்றி. டைப்ச்கிரிப்ட் கண்டிப்பு, தனிப்பயன் GtkSourceView பாணி திட்டங்கள் மற்றும் மென்மையான வளர்ச்சிக்கான மேம்படுத்தப்பட்ட பிழைத்திருத்தக் கட்டுப்பாடுகள் போன்ற சில சிறந்த தொழில்நுட்ப மேம்பாடுகள் உள்ளன.</p>
+        <p xml:lang="pt-BR">Esta versão traz temas vibrantes inspirados em dispositivos portáteis com cores personalizáveis. Introduzimos layouts adaptativos para tablet e computador que mantêm tudo à vista, perfeitos para aquelas sessões maratona de programação ao aprender a desenvolver jogos retro em assembly. Um grande agradecimento ao nosso novo colaborador @mmartinortiz pelas excelentes ideias de layout para computador. Também há algumas melhorias técnicas interessantes, como rigor TypeScript, esquemas de estilo GtkSourceView personalizados e controles de depuração melhorados para um desenvolvimento mais suave.</p>
+        <p xml:lang="pt">Esta versão traz temas vibrantes inspirados em dispositivos portáteis com cores personalizáveis. Introduzimos layouts adaptativos para tablet e computador que mantêm tudo à vista, perfeitos para aquelas sessões maratona de programação ao aprender a desenvolver jogos retro em assembly. Um grande agradecimento ao nosso novo colaborador @mmartinortiz pelas excelentes ideias de layout para computador. Também há algumas melhorias técnicas interessantes, como rigor TypeScript, esquemas de estilo GtkSourceView personalizados e controlos de depuração melhorados para um desenvolvimento mais suave.</p>
+        <p xml:lang="pl">To wydanie przynosi żywe motywy inspirowane handheldami z konfigurowalnymi kolorami. Wprowadziliśmy adaptacyjne układy tabletów i desktopów, które utrzymują wszystko w widoku, idealne na te maratony kodowania podczas nauki tworzenia retro gier w asemblerze. Duże podziękowania dla naszego nowego współtwórcy @mmartinortiz za świetne pomysły na układ desktop. Są też fajne ulepszenia techniczne, jak ścisłość TypeScript, niestandardowe schematy stylów GtkSourceView i ulepszone kontrole debuggera dla płynniejszego rozwoju.</p>
+        <p xml:lang="nl">Deze release brengt levendige handheld-geïnspireerde thema's met aanpasbare kleuren. We hebben adaptieve tablet- en desktop-layouts geïntroduceerd die alles in beeld houden, perfect voor die marathon-codingsessies bij het leren ontwikkelen van retro-games in assembly. Grote dank aan onze nieuwe bijdrager @mmartinortiz voor de geweldige desktop-layout-ideeën. Er zijn ook enkele coole technische verbeteringen, zoals TypeScript-striktheid, aangepaste GtkSourceView-stijlschema's en verbeterde debugger-besturingen voor soepelere ontwikkeling.</p>
+        <p xml:lang="ja">本リリースでは携帯機風の鮮やかなテーマとカスタムカラー、タブレット/デスクトップ向けのアダプティブなレイアウトを導入し、長時間の学習にも見通しよく作業できます。新規コントリビューター @mmartinortiz に感謝します。TypeScript の厳格化、GtkSourceView のカスタムスタイル、強化されたデバッガー操作など技術面の改善も多数含みます。</p>
+        <p xml:lang="id">Rilis ini menghadirkan tema terinspirasi handheld yang semarak dengan warna yang dapat dikustomisasi. Kami telah memperkenalkan tata letak tablet dan desktop adaptif yang membuat segalanya tetap terlihat, sempurna untuk sesi coding maraton saat belajar mengembangkan game retro dalam assembly. Terima kasih besar kepada kontributor baru kami @mmartinortiz atas ide tata letak desktop yang bagus. Ada beberapa peningkatan teknis yang keren juga, seperti ketegasan TypeScript, skema gaya GtkSourceView kustom, dan kontrol debugger yang ditingkatkan untuk pengembangan yang lebih lancar.</p>
+        <p xml:lang="ia">Iste liberation porta theming vibrante inspirate per apparatos manual con colores customisabile. Nos ha introducite dispositiones adaptive pro tabletta e scriptorio que mantene toto in vista, perfecte pro ille sessiones de codification marathon quando apprender a disveloppar jocos retro in assemblage. Grande gratias a nostre nove contributor @mmartinortiz pro le grande ideas de disposition de scriptorio. Il ha alcun fresias meliorationes technic tamben, como strictessa TypeScript, schemas de stilo GtkSourceView custom, e controles de debugger meliorate pro disveloppamento plus suave.</p>
+        <p xml:lang="he">העדכון הזה מביא עיצוב תוסס בהשראת קונסולות יד עם צבעים בהתאמה אישית. הוספנו פריסות גמישות ששומרים על התצוגה בטאבלט ושולחן העבודה, מושלמים לאותם "מרתונים" ארוכים של תכנות כשלומדים לפתח משחקי רטרו בשפת סף. תודה רבה לתורם החדש שלנו @mmartinortiz על הרעיונות הנפלאים לפריסות שולחניות. יש גם מספר שיפורים טכנים מגניבים, כמו מצב מחמיר ב־TypeScript, עיצובי GtkSourceView מותאמים אישית, ושיפור המקשים במנפה השגיאות להקלה על חווית הפיתוח.</p>
+        <p xml:lang="fr">Cette version apporte un thème vibrant inspiré des consoles portables avec des couleurs personnalisables. Nous avons introduit des mises en page adaptatives pour tablettes et ordinateurs de bureau qui gardent tout en vue, parfaites pour ces sessions de codage marathon quand on apprend à développer des jeux rétro en assembleur. Gros merci à notre nouveau contributeur @mmartinortiz pour les excellentes idées de mise en page de bureau. Il y a aussi des améliorations techniques cool, comme la stricte vérification TypeScript, des schémas de style GtkSourceView personnalisés, et des contrôles de débogueur améliorés pour un développement plus fluide.</p>
+        <p xml:lang="fi">Tämä julkaisu tuo mukanaan värikkään käsikonsoli-inspiroituneen teeman muokattavin värein. Olemme lisänneet mukautuvat tabletti- ja työpöytäasettelut, jotka pitävät kaiken näkyvissä – täydellistä pitkiin koodaussessioihin, kun opettelee retropelien kehittämistä assemblyllä. Suuret kiitokset uudelle avustajalle @mmartinortiz loistavista työpöytäasetteluideoista. Mukana on myös hienoja teknisiä parannuksia, kuten TypeScript-tiukkuus, mukautetut GtkSourceView-tyylimallit ja parannetut vianjäljitysohjaimet sujuvampaan kehitykseen.</p>
+        <p xml:lang="es">Esta versión trae un tema vibrante inspirado en dispositivos portátiles con colores personalizables. Hemos introducido diseños adaptativos para tabletas y escritorio que mantienen todo a la vista, perfectos para esas sesiones de programación maratónicas al aprender a desarrollar juegos retro en ensamblador. Muchas gracias a nuestro nuevo colaborador @mmartinortiz por las excelentes ideas de diseño de escritorio. También hay algunas mejoras técnicas geniales, como el rigor de TypeScript, esquemas de estilo GtkSourceView personalizados y controles de depuración mejorados para un desarrollo más fluido.</p>
+        <p xml:lang="de">Diese Version bringt lebendiges, handheld-inspiriertes Theming mit anpassbaren Farben. Wir haben adaptive Tablet- und Desktop-Layouts eingeführt, die alles im Blick behalten - perfekt für diese Marathon-Codingsessions beim Lernen der Retro-Spielentwicklung in Assembly. Großer Dank an unseren neuen Mitwirkenden @mmartinortiz für die großartigen Desktop-Layout-Ideen. Es gibt auch einige coole technische Verbesserungen wie TypeScript-Strictness, benutzerdefinierte GtkSourceView-Style-Schemes und erweiterte Debugger-Steuerungen für flüssigere Entwicklung.</p>
+      </description>
+    </release>
+    <release version="0.3.0" date="2025-09-08">
+      <description>
+        
+        <p>Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components.</p>
+        <p xml:lang="zh-Hans">重大 UI 改进：引入具有动态状态的现代悬浮操作按钮以直观控制程序，并使用现代 Adwaita 组件彻底重构调试器部件。</p>
+        <p xml:lang="vi">Các cải tiến chính về giao diện người dùng giới thiệu Nút Hành Động Nổi hiện đại với các trạng thái động để điều khiển chương trình trực quan và tiện ích trình gỡ lỗi được thiết kế lại hoàn toàn bằng cách sử dụng các thành phần Adwaita hiện đại.</p>
+        <p xml:lang="uk">Суттєві поліпшення інтерфейсу: сучасна плаваюча кнопка дії з динамічними станами для інтуїтивного керування програмою та повністю перероблений віджет налагоджувача на сучасних компонентах Adwaita.</p>
+        <p xml:lang="ta">உள்ளுணர்வு நிரல் கட்டுப்பாட்டுக்கான மாறும் நிலைகளுடன் கூடிய நவீன மிதக்கும் செயல் பட்டன் மற்றும் நவீன அத்வைதா கூறுகளைப் பயன்படுத்தி முற்றிலும் மறுவடிவமைப்பு செய்யப்பட்ட பிழைத்திருத்த விட்செட்டை அறிமுகப்படுத்தும் முக்கிய இடைமுகம் மேம்பாடுகள்.</p>
+        <p xml:lang="pt-BR">Principais melhorias na UI introduzindo um moderno Botão de Ação Flutuante com estados dinâmicos para controle intuitivo do programa, e um widget de depuração completamente redesenhado usando componentes Adwaita modernos.</p>
+        <p xml:lang="pt">Principais melhorias na UI introduzindo um moderno Botão de Ação Flutuante com estados dinâmicos para controlo intuitivo do programa, e um widget de depuração completamente redesenhado usando componentes Adwaita modernos.</p>
+        <p xml:lang="pl">Główne ulepszenia UI wprowadzające nowoczesny przycisk Floating Action Button ze stanami dynamicznymi do intuicyjnej kontroli programu oraz całkowicie przeprojektowany widget debuggera używający nowoczesnych komponentów Adwaita.</p>
+        <p xml:lang="nl">Grote UI‑verbeteringen met een moderne Floating Action Button met dynamische toestanden voor intuïtieve programmacontrole en een volledig herontworpen debugger‑widget met moderne Adwaita‑componenten.</p>
+        <p xml:lang="ja">動的状態を備えたモダンなフローティングアクションボタンを導入し直感的な操作を実現。さらに Adwaita コンポーネントでデバッガーウィジェットを全面刷新しました。</p>
+        <p xml:lang="id">Peningkatan UI besar yang memperkenalkan Floating Action Button modern dengan status dinamis untuk kontrol program yang intuitif, dan widget debugger yang sepenuhnya didesain ulang menggunakan komponen Adwaita modern.</p>
+        <p xml:lang="ia">Major meliorationes de UI introducente un moderne Button de Action Flottante con statos dynamic pro controlo de programma intuitive, e un widget de debugger completemente redesignate usante componentes moderne Adwaita.</p>
+        <p xml:lang="he">שיפורי ממשק גדולים כולל כפתור פעולה צף (FAB) מודרני וגמיש לשליטה נוחה על תוכניות, ומנפה שגיאות שעוצב לגמרי מחדש עם רכיבי Adwaita מודרנים.</p>
+        <p xml:lang="fr">Améliorations majeures de l'interface utilisateur introduisant un bouton d'action flottant moderne avec des états dynamiques pour un contrôle intuitif du programme, et un widget de débogage entièrement repensé utilisant des composants Adwaita modernes.</p>
+        <p xml:lang="fi">Merkittäviä käyttöliittymäparannuksia: moderni kelluva toimintopainike dynaamisilla tiloilla intuitiiviseen ohjelman hallintaan ja täysin uudelleen suunniteltu vianjäljityskomponentti moderneilla Adwaita-komponenteilla.</p>
+        <p xml:lang="es">Importantes mejoras de UI con un botón de acción flotante moderno y estados dinámicos para un control intuitivo del programa, y un widget de depurador completamente rediseñado usando componentes modernos de Adwaita.</p>
+        <p xml:lang="de">Wichtige UI-Verbesserungen mit Einführung eines modernen Floating Action Buttons mit dynamischen Zuständen für intuitive Programmkontrolle und einem vollständig neu gestalteten Debugger-Widget mit modernen Adwaita-Komponenten.</p>
+        
+        <p>Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms.</p>
+        <p xml:lang="zh-Hans">架构增强改进了 GNOME、Web 与 Android 平台之间的代码共享。</p>
+        <p xml:lang="vi">Những cải tiến về kiến trúc cho phép chia sẻ mã tốt hơn giữa các nền tảng Gnome, Web và Android.</p>
+        <p xml:lang="uk">Поліпшення архітектури забезпечують кращий обмін кодом між платформами GNOME, Web та Android.</p>
+        <p xml:lang="ta">கட்டிடக்கலை மேம்பாடுகள் க்னோம், வெப் மற்றும் ஆண்ட்ராய்டு இயங்குதளங்களுக்கு இடையே சிறந்த குறியீடு பகிர்வை செயல்படுத்துகின்றன.</p>
+        <p xml:lang="pt-BR">Melhorias de arquitetura permitem uma melhor partilha de código entre as plataformas GNOME, Web e Android.</p>
+        <p xml:lang="pt">Melhorias de arquitetura permitem uma melhor partilha de código entre as plataformas GNOME, Web e Android.</p>
+        <p xml:lang="pl">Ulepszenia architektury umożliwiają lepszy podział kodu między platformami GNOME, Web i Android.</p>
+        <p xml:lang="nl">Architectuurverbeteringen maken betere code‑deling tussen GNOME‑, web‑ en Android‑platforms mogelijk.</p>
+        <p xml:lang="ja">アーキテクチャを強化し、GNOME・Web・Android 間のコード共有を改善</p>
+        <p xml:lang="id">Peningkatan arsitektur memungkinkan berbagi kode yang lebih baik antara platform GNOME, Web, dan Android.</p>
+        <p xml:lang="ia">Meliorationes de architectura habilita melior participation de codice inter plataformas GNOME, Web, e Android.</p>
+        <p xml:lang="he">שיפורי ארכיטקטורה שמאפשרים שיתוף קוד טוב יותר בין פלטפורמות GNOME, הרשת, ואנדרואיד.</p>
+        <p xml:lang="fr">Les améliorations de l'architecture permettent un meilleur partage de code entre les plateformes GNOME, Web et Android.</p>
+        <p xml:lang="fi">Arkkitehtuuriparannukset mahdollistavat paremman koodin jakamisen GNOME-, web- ja Android-alustojen välillä.</p>
+        <p xml:lang="es">Las mejoras de arquitectura permiten un mejor intercambio de código entre GNOME, Web y Android.</p>
+        <p xml:lang="de">Architekturverbesserungen ermöglichen bessere Code-Teilung zwischen GNOME, Web und Android-Plattformen.</p>
+      </description>
+    </release>
+    <release version="0.2.0" date="2025-04-11">
+      <description>
+        
+        <p>Added help feature to make code editing easier for beginners</p>
+        <p xml:lang="zh-Hans">新增帮助功能，便于初学者编辑代码</p>
+        <p xml:lang="vi">Đã thêm tính năng trợ giúp để giúp người mới bắt đầu chỉnh sửa mã dễ dàng hơn</p>
+        <p xml:lang="uk">Додано функцію допомоги, щоб полегшити редагування коду для початківців</p>
+        <p xml:lang="ta">தொடக்கநிலையாளர்களுக்கு குறியீட்டைத் திருத்துவதை எளிதாக்க உதவி நற்பொருத்தம் சேர்க்கப்பட்டது</p>
+        <p xml:lang="pt-BR">Adicionada funcionalidade de ajuda para tornar a edição de código mais fácil para iniciantes</p>
+        <p xml:lang="pt">Adicionada funcionalidade de ajuda para tornar a edição de código mais fácil para principiantes</p>
+        <p xml:lang="pl">Dodano funkcję pomocy, aby ułatwić edycję kodu początkującym</p>
+        <p xml:lang="nl">Hulpfunctie toegevoegd om het bewerken van code voor beginners te vereenvoudigen</p>
+        <p xml:lang="ja">ヘルプ機能を追加し、初心者のコード編集を支援</p>
+        <p xml:lang="id">Menambahkan fitur bantuan untuk memudahkan pengeditan kode bagi pemula</p>
+        <p xml:lang="ia">Addite function de adjuta pro facer le edition de codice plus facile pro initiantes</p>
+        <p xml:lang="he">נוספה תכונת עזרה כדי להקל על עריכת קוד למתחילים</p>
+        <p xml:lang="fr">Ajout d'une fonction d'aide pour faciliter l'édition du code pour les débutants</p>
+        <p xml:lang="fi">Lisätty ohjetoiminto koodin muokkaamisen helpottamiseksi aloittelijoille</p>
+        <p xml:lang="es">Se añadió una función de ayuda para facilitar la edición de código a principiantes</p>
+        <p xml:lang="de">Hilfefunktion hinzugefügt, um die Codebearbeitung für Anfänger zu erleichtern</p>
+        
+        <p>Improved game screen and controls for mobile devices</p>
+        <p xml:lang="zh-Hans">改进移动设备的游戏屏幕和控件</p>
+        <p xml:lang="vi">Cải thiện màn hình và điều khiển trò chơi cho thiết bị di động</p>
+        <p xml:lang="uk">Покращено ігровий екран і керування для мобільних пристроїв</p>
+        <p xml:lang="ta">மொபைல் சாதனங்களுக்கான மேம்படுத்தப்பட்ட கேம் திரை மற்றும் கட்டுப்பாடுகள்</p>
+        <p xml:lang="pt-BR">Melhorada a tela do jogo e os controles para dispositivos móveis</p>
+        <p xml:lang="pt">Melhorado o ecrã do jogo e os controlos para dispositivos móveis</p>
+        <p xml:lang="pl">Poprawiony ekran gry i sterowanie dla urządzeń mobilnych</p>
+        <p xml:lang="nl">Spelscherm en besturing voor mobiele apparaten verbeterd</p>
+        <p xml:lang="ja">モバイル向けにゲーム画面と操作性を改善</p>
+        <p xml:lang="id">Meningkatkan layar permainan dan kontrol untuk perangkat mobile</p>
+        <p xml:lang="ia">Meliorate schermo de joco e controles pro dispositivos mobile</p>
+        <p xml:lang="he">המקשים ומסך המשחק שופרו במכשירים ניידים</p>
+        <p xml:lang="fr">Amélioration de l'écran de jeu et des contrôles pour les appareils mobiles</p>
+        <p xml:lang="fi">Parannettu pelinäkymää ja ohjaimia mobiililaitteille</p>
+        <p xml:lang="es">Mejoradas la pantalla del juego y los controles para dispositivos móviles</p>
+        <p xml:lang="de">Verbesserte Spieloberfläche und Steuerung für mobile Geräte</p>
+        
+        <p>New tools to examine your code, including disassembler and fast switchable memory viewer</p>
+        <p xml:lang="zh-Hans">新增检查代码的工具，包括反汇编器与可快速切换的内存查看器</p>
+        <p xml:lang="vi">Các công cụ mới để kiểm tra mã của bạn, bao gồm trình dịch ngược và trình xem bộ nhớ có thể chuyển đổi nhanh</p>
+        <p xml:lang="uk">Нові інструменти для аналізу коду, зокрема дизасемблер і швидкий переглядач пам’яті</p>
+        <p xml:lang="ta">பிரித்தெடுத்தல் மற்றும் வேகமாக மாறக்கூடிய நினைவக பார்வையாளர் உட்பட உங்கள் குறியீட்டை ஆய்வு செய்வதற்கான புதிய கருவிகள்</p>
+        <p xml:lang="pt-BR">Novas ferramentas para examinar seu código, incluindo desmontador e visualizador de memória alternável rápido</p>
+        <p xml:lang="pt">Novas ferramentas para examinar o teu código, incluindo desmontador e visualizador de memória alternável rápido</p>
+        <p xml:lang="pl">Nowe narzędzia do badania kodu, włączając deasembler i szybki przełączalny przeglądarkę pamięci</p>
+        <p xml:lang="nl">Nieuwe tools om je code te onderzoeken, inclusief disassembler en snel schakelbare geheugenviewer</p>
+        <p xml:lang="ja">コード検査用の新ツール（逆アセンブラーと高速切替可能なメモリビューア）を追加</p>
+        <p xml:lang="id">Alat baru untuk memeriksa kode Anda, termasuk disassembler dan penampil memori yang dapat dialihkan dengan cepat</p>
+        <p xml:lang="ia">Nove instrumentes pro examinar tu codice, includente disassemblator e visor de memoria rapidemente commutabile</p>
+        <p xml:lang="he">כלים חדשים לבדיקת הקוד שלכם, כולל מפענח קוד (דיסאסמבלר) ומציג זיכרון מהיר</p>
+        <p xml:lang="fr">Nouveaux outils pour examiner votre code, y compris un désassembleur et un visualiseur de mémoire rapidement commutable</p>
+        <p xml:lang="fi">Uusia työkaluja koodin tutkimiseen, mukaan lukien takaisinkääntäjä ja nopeasti vaihdettava muistinäkymä</p>
+        <p xml:lang="es">Nuevas herramientas para examinar tu código, incluyendo desensamblador y visor de memoria con cambio rápido</p>
+        <p xml:lang="de">Neue Werkzeuge zur Code-Analyse, einschließlich Disassembler und schnell umschaltbarer Speicheransicht</p>
+        
+        <p>Many minor bugs have been fixed to improve overall usabipty</p>
+        <p xml:lang="zh-Hans">修复了许多小问题以提升整体可用性</p>
+        <p xml:lang="vi">Nhiều lỗi nhỏ đã được sửa để cải thiện khả năng sử dụng tổng thể</p>
+        <p xml:lang="uk">Виправлено багато дрібних помилок для підвищення загальної зручності використання</p>
+        <p xml:lang="ta">ஒட்டுமொத்த உபயோகத்தை மேம்படுத்த பல சிறிய பிழைகள் சரி செய்யப்பட்டுள்ளன</p>
+        <p xml:lang="pt-BR">Muitos bugs menores foram corrigidos para melhorar a usabilidade geral</p>
+        <p xml:lang="pt">Muitos bugs menores foram corrigidos para melhorar a usabilidade geral</p>
+        <p xml:lang="pl">Naprawiono wiele drobnych błędów, aby poprawić ogólną użyteczność</p>
+        <p xml:lang="nl">Veel kleine bugs verholpen om de algehele bruikbaarheid te verbeteren</p>
+        <p xml:lang="ja">多数の軽微な不具合を修正し、全体の使い勝手を向上</p>
+        <p xml:lang="id">Banyak bug kecil telah diperbaiki untuk meningkatkan kegunaan secara keseluruhan</p>
+        <p xml:lang="ia">Multe bugs minor ha essite corrigite pro meliorar usabilitate general</p>
+        <p xml:lang="he">הרבה באגים קטנים תוקנו לשיפור חווית השימוש הכללית</p>
+        <p xml:lang="fr">De nombreux bugs mineurs ont été corrigés pour améliorer l'utilisabilité générale</p>
+        <p xml:lang="fi">Useita pieniä virheitä on korjattu yleisen käytettävyyden parantamiseksi</p>
+        <p xml:lang="es">Se han corregido numerosos errores menores para mejorar la usabilidad general</p>
+        <p xml:lang="de">Zahlreiche kleine Fehler wurden behoben, um die allgemeine Benutzerfreundlichkeit zu verbessern</p>
+        
+        <p>Games now automatically pause when switching between screens</p>
+        <p xml:lang="zh-Hans">切换屏幕时游戏现在会自动暂停</p>
+        <p xml:lang="vi">Trò chơi hiện tự động tạm dừng khi chuyển đổi giữa các màn hình</p>
+        <p xml:lang="uk">Ігри тепер автоматично призупиняються при перемиканні між екранами</p>
+        <p xml:lang="ta">திரைகளுக்கு இடையே மாறும்போது கேம்கள் இப்போது தானாகவே இடைநிறுத்தப்படும்</p>
+        <p xml:lang="pt-BR">Os jogos agora param automaticamente ao alternar entre telas</p>
+        <p xml:lang="pt">Os jogos agora param automaticamente ao alternar entre ecrãs</p>
+        <p xml:lang="pl">Gry automatycznie pauzują przy przełączaniu między ekranami</p>
+        <p xml:lang="nl">Games pauzeren nu automatisch bij het wisselen tussen schermen</p>
+        <p xml:lang="ja">画面切り替え時にゲームが自動一時停止するようになりました</p>
+        <p xml:lang="id">Permainan kini otomatis dijeda saat berpindah antar layar</p>
+        <p xml:lang="ia">Jocos ora automaticamente pausa quando cambi inter schermos</p>
+        <p xml:lang="he">עכשיו המשחקים עוצרים אוטומטית כשעוברים בין מסכים</p>
+        <p xml:lang="fr">Les jeux se mettent maintenant automatiquement en pause lors du changement d'écran</p>
+        <p xml:lang="fi">Pelit keskeytyvät nyt automaattisesti näkymien välillä vaihdettaessa</p>
+        <p xml:lang="es">Los juegos ahora se pausan automáticamente al cambiar entre pantallas</p>
+        <p xml:lang="de">Spiele werden jetzt automatisch pausiert, wenn zwischen Bildschirmen gewechselt wird</p>
+        
+        <p>Added file management to save and load your programs</p>
+        <p xml:lang="zh-Hans">新增文件管理，可保存和加载你的程序</p>
+        <p xml:lang="vi">Đã thêm quản lý tệp để lưu và tải chương trình của bạn</p>
+        <p xml:lang="uk">Додано керування файлами для збереження та завантаження ваших програм</p>
+        <p xml:lang="ta">உங்கள் நிரல்களைச் சேமிக்கவும் ஏற்றவும் கோப்பு மேலாண்மை சேர்க்கப்பட்டது</p>
+        <p xml:lang="pt-BR">Adicionada gerenciamento de arquivos para salvar e carregar seus programas</p>
+        <p xml:lang="pt">Adicionada gestão de ficheiros para guardar e carregar os seus programas</p>
+        <p xml:lang="pl">Dodano zarządzanie plikami do zapisywania i ładowania Twoich programów</p>
+        <p xml:lang="nl">Bestandsbeheer toegevoegd om je programma's op te slaan en te laden</p>
+        <p xml:lang="ja">ファイル管理を追加し、プログラムの保存と読み込みに対応</p>
+        <p xml:lang="id">Menambahkan manajemen file untuk menyimpan dan memuat program Anda</p>
+        <p xml:lang="ia">Addite gestion de files pro salvar e cargar tu programmas</p>
+        <p xml:lang="he">נוסף ניהול קבצים לשמירת וטעינת תוכניות</p>
+        <p xml:lang="fr">Ajout de la gestion des fichiers pour sauvegarder et charger vos programmes</p>
+        <p xml:lang="fi">Lisätty tiedostonhallinta ohjelmien tallentamiseen ja lataamiseen</p>
+        <p xml:lang="es">Se añadió la gestión de archivos para guardar y cargar tus programas</p>
+        <p xml:lang="de">Dateiverwaltung zum Speichern und Laden von Programmen hinzugefügt</p>
+      </description>
+    </release>
+    <release version="0.1.2" date="2025-04-03">
+      <description>
+        
+        <p>Enhanced app presentation and accessibility</p>
+        <p xml:lang="zh-Hans">改进了应用呈现与无障碍性</p>
+        <p xml:lang="vi">Khả năng truy cập và trình bày ứng dụng nâng cao</p>
+        <p xml:lang="uk">Покращено представлення застосунку та доступність</p>
+        <p xml:lang="ta">மேம்படுத்தப்பட்ட பயன்பாட்டு விளக்கக்காட்சி மற்றும் அணுகல்தன்மை</p>
+        <p xml:lang="pt-BR">Melhorada a apresentação da aplicativo e acessibilidade</p>
+        <p xml:lang="pt">Melhorada a apresentação da aplicação e acessibilidade</p>
+        <p xml:lang="pl">Ulepszona prezentacja aplikacji i dostępność</p>
+        <p xml:lang="nl">Verbeterde app‑presentatie en toegankelijkheid</p>
+        <p xml:lang="ja">アプリの見た目とアクセシビリティを改善</p>
+        <p xml:lang="id">Peningkatan presentasi dan aksesibilitas aplikasi</p>
+        <p xml:lang="ia">Meliorate presentation del app e accessibilitate</p>
+        <p xml:lang="he">שיפורי תצוגה ונגישות</p>
+        <p xml:lang="fr">Amélioration de la présentation et de l'accessibilité de l'application</p>
+        <p xml:lang="fi">Parannettu sovelluksen esitystapaa ja saavutettavuutta</p>
+        <p xml:lang="es">Mejorada la presentación de la app y la accesibilidad</p>
+        <p xml:lang="de">Verbesserte App-Darstellung und Zugänglichkeit</p>
+        
+        <p>Improved descriptions to be more welcoming for non-technical users</p>
+        <p xml:lang="zh-Hans">改进描述，使其对非技术用户更加友好</p>
+        <p xml:lang="vi">Cải thiện mô tả để thân thiện hơn với người dùng không rành về kỹ thuật</p>
+        <p xml:lang="uk">Покращено описи, щоб бути привітнішими для нетехнічних користувачів</p>
+        <p xml:lang="ta">தொழில்நுட்பம் அல்லாத பயனர்களுக்கு அதிக வரவேற்பு அளிக்கும் வகையில் மேம்படுத்தப்பட்ட விளக்கங்கள்</p>
+        <p xml:lang="pt-BR">Melhoradas as descrições para serem mais acolhedoras para usuários não técnicos</p>
+        <p xml:lang="pt">Melhoradas as descrições para serem mais acolhedoras para utilizadores não técnicos</p>
+        <p xml:lang="pl">Poprawione opisy, aby były bardziej przyjazne dla użytkowników nietechnicznych</p>
+        <p xml:lang="nl">Verbeterde beschrijvingen om niet‑technische gebruikers beter te verwelkomen</p>
+        <p xml:lang="ja">非技術ユーザーにも分かりやすい説明に改善</p>
+        <p xml:lang="id">Memperbaiki deskripsi agar lebih ramah bagi pengguna non-teknis</p>
+        <p xml:lang="ia">Meliorate descriptiones pro esser plus accogliente pro usatores non technic</p>
+        <p xml:lang="he">התיאור שופר כדי שיהיה יותר מזמין לאדם הפשוט</p>
+        <p xml:lang="fr">Amélioration des descriptions pour être plus accueillantes pour les utilisateurs non techniques</p>
+        <p xml:lang="fi">Parannettu kuvauksia vastaanottavaisemmiksi ei-teknisille käyttäjille</p>
+        <p xml:lang="es">Descripciones mejoradas para ser más acogedoras para usuarios no técnicos</p>
+        <p xml:lang="de">Verbesserte Beschreibungen für nicht-technische Benutzer</p>
+        
+        <p>Optimized Flatpak configuration by removing unnecessary permissions</p>
+        <p xml:lang="zh-Hans">通过移除不必要的权限优化了 Flatpak 配置</p>
+        <p xml:lang="vi">Cấu hình Flatpak được tối ưu hóa bằng cách loại bỏ các quyền không cần thiết</p>
+        <p xml:lang="uk">Оптимізовано конфігурацію Flatpak шляхом видалення непотрібних дозволів</p>
+        <p xml:lang="ta">தேவையற்ற அனுமதிகளை அகற்றுவதன் மூலம் உகந்த Flatpak உள்ளமைவு</p>
+        <p xml:lang="pt-BR">Configuração Flatpak otimizada removendo permissões desnecessárias</p>
+        <p xml:lang="pt">Configuração Flatpak otimizada removendo permissões desnecessárias</p>
+        <p xml:lang="pl">Zoptymalizowano konfigurację Flatpak poprzez usunięcie niepotrzebnych uprawnień</p>
+        <p xml:lang="nl">Flatpak‑configuratie geoptimaliseerd door onnodige permissies te verwijderen</p>
+        <p xml:lang="ja">不要な権限を削除して Flatpak 設定を最適化</p>
+        <p xml:lang="id">Mengoptimalkan konfigurasi Flatpak dengan menghapus izin yang tidak diperlukan</p>
+        <p xml:lang="ia">Optimisate configuration Flatpak per remover permissiones non necessari</p>
+        <p xml:lang="he">ייעול תצורת Flatpak בהסרת הרשאות מיותרות</p>
+        <p xml:lang="fr">Configuration Flatpak optimisée en supprimant les permissions inutiles</p>
+        <p xml:lang="fi">Optimoitu Flatpak-konfiguraatio poistamalla tarpeettomat käyttöoikeudet</p>
+        <p xml:lang="es">Configuración de Flatpak optimizada eliminando permisos innecesarios</p>
+        <p xml:lang="de">Optimierte Flatpak-Konfiguration durch Entfernen unnötiger Berechtigungen</p>
+      </description>
+    </release>
+    <release version="0.1.1" date="2025-04-02">
+      <description>
+        
+        <p>Improved the game console performance for smoother gameplay</p>
+        <p xml:lang="zh-Hans">改进游戏控制台性能，实现更流畅的游戏体验</p>
+        <p xml:lang="vi">Cải thiện hiệu suất bảng điều khiển trò chơi để chơi game mượt mà hơn</p>
+        <p xml:lang="uk">Покращено продуктивність ігрової консолі для плавнішого геймплею</p>
+        <p xml:lang="ta">மென்மையான விளையாட்டுக்காக கேம் கன்சோல் செயல்திறன் மேம்படுத்தப்பட்டது</p>
+        <p xml:lang="pt-BR">Melhorado o desempenho do console de jogos para uma jogabilidade mais suave</p>
+        <p xml:lang="pt">Melhorado o desempenho da consola de jogos para uma jogabilidade mais suave</p>
+        <p xml:lang="pl">Poprawiono wydajność konsoli gry dla płynniejszej rozgrywki</p>
+        <p xml:lang="nl">Prestaties van de spelconsole verbeterd voor soepelere gameplay</p>
+        <p xml:lang="ja">ゲームコンソールの性能を改善し、より滑らかなプレイに</p>
+        <p xml:lang="id">Meningkatkan performa konsol permainan untuk gameplay yang lebih lancar</p>
+        <p xml:lang="ia">Meliorate le prestation del consola de joco pro joco plus suave</p>
+        <p xml:lang="he">שופרו ביצועי קונסולת המשחק ועכשיו משחקים ירוצו חלק יותר</p>
+        <p xml:lang="fr">Amélioration des performances de la console de jeu pour une expérience de jeu plus fluide</p>
+        <p xml:lang="fi">Parannettu pelikonsolin suorituskykyä sujuvamman pelaamisen takaamiseksi</p>
+        <p xml:lang="es">Mejorado el rendimiento de la consola de juegos para una jugabilidad más fluida</p>
+        <p xml:lang="de">Verbesserte Leistung der Spielekonsole für flüssigeres Gameplay</p>
+        
+        <p>Enhanced the hex monitor address range input for easier value editing</p>
+        <p xml:lang="zh-Hans">改进十六进制监视器的地址范围输入，便于编辑数值</p>
+        <p xml:lang="vi">Cải tiến đầu vào phạm vi địa chỉ màn hình hex để chỉnh sửa giá trị dễ dàng hơn</p>
+        <p xml:lang="uk">Покращено введення діапазону адрес hex-монітора для легшого редагування значень</p>
+        <p xml:lang="ta">எளிதாக மதிப்பு திருத்துதல் செய்ய ஃச் மானிட்டர் முகவரி வரம்பு உள்ளீடு மேம்படுத்தப்பட்டது</p>
+        <p xml:lang="pt-BR">Melhorada a entrada de faixa de endereços do monitor hex para facilitar a edição de valores</p>
+        <p xml:lang="pt">Melhorada a entrada de gama de endereços do monitor hex para facilitar a edição de valores</p>
+        <p xml:lang="pl">Ulepszono wejście zakresu adresów monitora heksadecymalnego dla łatwiejszej edycji wartości</p>
+        <p xml:lang="nl">Adresbereik‑invoer van de hexmonitor verbeterd voor eenvoudiger waardebewerking</p>
+        <p xml:lang="ja">16進モニターのアドレス範囲入力を改善し、値の編集を容易に</p>
+        <p xml:lang="id">Meningkatkan input rentang alamat monitor hex agar lebih mudah mengedit nilai</p>
+        <p xml:lang="ia">Meliorate le entrata de rango de adresse de monitor hex pro plus facile edition de valores</p>
+        <p xml:lang="he">שופר בורר תווך־הכתובות במנטר ההקסדצימלי, להקל על שינוי ערכים</p>
+        <p xml:lang="fr">Amélioration de la saisie de la plage d'adresses du moniteur hexadécimal pour faciliter l'édition des valeurs</p>
+        <p xml:lang="fi">Paranneltu heksamonitorin osoitealueen syöttöä arvojen muokkaamisen helpottamiseksi</p>
+        <p xml:lang="es">Mejorada la entrada del rango de direcciones en el monitor hex para facilitar la edición</p>
+        <p xml:lang="de">Verbesserte Eingabe des Adressbereichs im Hex-Monitor</p>
+        
+        <p>Reduced default hex monitor address range for better efficiency</p>
+        <p xml:lang="zh-Hans">缩小十六进制监视器的默认地址范围以提升效率</p>
+        <p xml:lang="vi">Giảm phạm vi địa chỉ màn hình hex mặc định để có hiệu quả tốt hơn</p>
+        <p xml:lang="uk">Зменшено типовий діапазон адрес hex-монітора для кращої ефективності</p>
+        <p xml:lang="ta">சிறந்த செயல்திறனுக்காக குறைக்கப்பட்ட இயல்புநிலை ஃச் மானிட்டர் முகவரி வரம்பு</p>
+        <p xml:lang="pt-BR">Reduzida a faixa de endereços padrão do monitor hex para melhor eficiência</p>
+        <p xml:lang="pt">Reduzida a gama de endereços padrão do monitor hex para melhor eficiência</p>
+        <p xml:lang="pl">Zmniejszono domyślny zakres adresów monitora heksadecymalnego dla lepszej wydajności</p>
+        <p xml:lang="nl">Standaard adresbereik van de hexmonitor verkleind voor betere efficiëntie</p>
+        <p xml:lang="ja">既定の16進モニターのアドレス範囲を縮小し効率を向上</p>
+        <p xml:lang="id">Mengurangi rentang alamat monitor hex default untuk efisiensi yang lebih baik</p>
+        <p xml:lang="ia">Reducite rango de adresse de monitor hex predefinite pro melior efficacia</p>
+        <p xml:lang="he">הוקטן טווח ברירת המחדל של המנטר ההקסדצימלי לשיפור היעילות</p>
+        <p xml:lang="fr">Plage d'adresses du moniteur hexadécimal par défaut réduite pour une meilleure efficacité</p>
+        <p xml:lang="fi">Pienennetty heksamonitorin oletusosoitealuetta paremman tehokkuuden saavuttamiseksi</p>
+        <p xml:lang="es">Rango de direcciones predeterminado del monitor hex reducido para mejorar la eficiencia</p>
+        <p xml:lang="de">Reduzierter Standard-Adressbereich des Hex-Monitors für bessere Effizienz</p>
+        
+        <p>Debugger now only updates when visible, reducing unnecessary processing</p>
+        <p xml:lang="zh-Hans">调试器仅在可见时更新，减少不必要的处理</p>
+        <p xml:lang="vi">Trình gỡ lỗi hiện chỉ cập nhật khi hiển thị, giảm việc xử lý không cần thiết</p>
+        <p xml:lang="uk">Налагоджувач тепер оновлюється лише коли видимий, зменшуючи зайву обробку</p>
+        <p xml:lang="ta">பிழைத்திருத்தம் இப்போது தெரியும் போது மட்டுமே புதுப்பிக்கிறது, தேவையற்ற செயலாக்கத்தைக் குறைக்கிறது</p>
+        <p xml:lang="pt-BR">O depurador agora só atualiza quando visível, reduzindo o processamento desnecessário</p>
+        <p xml:lang="pt">O depurador agora só atualiza quando visível, reduzindo o processamento desnecessário</p>
+        <p xml:lang="pl">Debugger aktualizuje się teraz tylko gdy jest widoczny, zmniejszając niepotrzebne przetwarzanie</p>
+        <p xml:lang="nl">Debugger werkt nu alleen bij wanneer zichtbaar, wat onnodige verwerking vermindert</p>
+        <p xml:lang="ja">デバッガーは表示時のみ更新されるようになり、不要な処理が減りました</p>
+        <p xml:lang="id">Debugger kini hanya diperbarui saat terlihat, mengurangi pemrosesan yang tidak perlu</p>
+        <p xml:lang="ia">Debugger ora solo actualisa quando visibile, reducente processamento non necessari</p>
+        <p xml:lang="he">עכשיו מנפה השגיאות מתעדכן רק כשרואים אותו, וכך חוסך עיבוד מיותר</p>
+        <p xml:lang="fr">Le débogueur ne se met à jour que lorsqu'il est visible, réduisant les traitements inutiles</p>
+        <p xml:lang="fi">Vianjäljitin päivittyy nyt vain näkyvissä ollessaan, mikä vähentää turhaa käsittelyä</p>
+        <p xml:lang="es">El depurador ahora solo se actualiza cuando es visible, reduciendo el procesamiento innecesario</p>
+        <p xml:lang="de">Debugger wird nur noch aktualisiert, wenn er sichtbar ist, reduziert unnötige Verarbeitung</p>
+        
+        <p>Fixed build error on PostmarketOS, improving mobile compatibility</p>
+        <p xml:lang="zh-Hans">修复了 PostmarketOS 上的构建错误，提升了移动端兼容性</p>
+        <p xml:lang="vi">Đã sửa lỗi xây dựng trên PostmarketOS, cải thiện khả năng tương thích với thiết bị di động</p>
+        <p xml:lang="uk">Виправлено помилку збірки на PostmarketOS, покращуючи сумісність з мобільними пристроями</p>
+        <p xml:lang="ta">PostmarketOS இல் நிலையான உருவாக்க பிழை, மொபைல் இணக்கத்தன்மையை மேம்படுத்துகிறது</p>
+        <p xml:lang="pt-BR">Corrigido erro de compilação no PostmarketOS, melhorando a compatibilidade móvel</p>
+        <p xml:lang="pt">Corrigido erro de compilação no PostmarketOS, melhorando a compatibilidade móvel</p>
+        <p xml:lang="pl">Naprawiono błąd kompilacji na PostmarketOS, poprawiając kompatybilność mobilną</p>
+        <p xml:lang="nl">Buildfout op PostmarketOS verholpen, mobiele compatibiliteit verbeterd</p>
+        <p xml:lang="ja">PostmarketOS のビルドエラーを修正し、モバイル互換性を向上</p>
+        <p xml:lang="id">Memperbaiki error build di PostmarketOS, meningkatkan kompatibilitas mobile</p>
+        <p xml:lang="ia">Corrigite error de construction sur PostmarketOS, meliorante compatibilitate mobile</p>
+        <p xml:lang="he">תוקנה שגיאת בנייה ב־PostmarketOS, משפר את התאימות לניידים</p>
+        <p xml:lang="fr">Correction d'une erreur de compilation sur PostmarketOS, améliorant la compatibilité mobile</p>
+        <p xml:lang="fi">Korjattu käännösvirhe PostmarketOS:ssa, mikä parantaa mobiiliyhteensopivuutta</p>
+        <p xml:lang="es">Corregido un error de compilación en PostmarketOS, mejorando la compatibilidad móvil</p>
+        <p xml:lang="de">Build-Fehler unter PostmarketOS behoben, verbessert Kompatibilität mit Mobilgeräten</p>
+      </description>
+    </release>
+    <release version="0.1.0" date="2025-04-02">
+      <description>
+        
+        <p>First release of Learn 6502 Assembly for GNOME</p>
+        <p xml:lang="zh-Hans">Learn 6502 Assembly for GNOME 首次发布</p>
+        <p xml:lang="vi">Bản phát hành đầu tiên của Học Hợp Ngữ 6502cho GNOME</p>
+        <p xml:lang="uk">Перший випуск «Вивчення асемблера 6502» для GNOME</p>
+        <p xml:lang="ta">க்னோமிற்கான 6502 அசெம்பிளியைக் கற்றுக்கொள் இன் முதல் வெளியீடு</p>
+        <p xml:lang="pt-BR">Primeira versão do Learn 6502 Assembly para GNOME</p>
+        <p xml:lang="pt">Primeira versão do Learn 6502 Assembly para GNOME</p>
+        <p xml:lang="pl">Pierwsze wydanie Learn 6502 Assembly dla GNOME</p>
+        <p xml:lang="nl">Eerste release van Learn 6502 Assembly voor GNOME</p>
+        <p xml:lang="ja">6502アセンブリを学ぶ for GNOME の初期リリース</p>
+        <p xml:lang="id">Rilis pertama Learn 6502 Assembly untuk GNOME</p>
+        <p xml:lang="ia">Prime liberation de Learn 6502 Assembly pro GNOME</p>
+        <p xml:lang="he">הגרסה הראשונה של "לימוד סף ל־6502" ל־GNOME</p>
+        <p xml:lang="fr">Première version de Learn 6502 Assembly pour GNOME</p>
+        <p xml:lang="fi">Ensimmäinen julkaisu: Opi 6502 Assembly GNOME:lle</p>
+        <p xml:lang="es">Primera versión de Learn 6502 Assembly para GNOME</p>
+        <p xml:lang="de">Erste Veröffentlichung von Lerne 6502 Assembler für GNOME</p>
+      </description>
+    </release>
+  </releases>
+  <categories>
+    <category>Development</category>
+    <category>Education</category>
+  </categories>
+  <keywords>
+    <keyword>6502</keyword>
+    <keyword xml:lang="zh-Hans">6502</keyword>
+    <keyword xml:lang="vi">6502</keyword>
+    <keyword xml:lang="uk">6502</keyword>
+    <keyword xml:lang="ta">6502</keyword>
+    <keyword xml:lang="pt-BR">6502</keyword>
+    <keyword xml:lang="pt">6502</keyword>
+    <keyword xml:lang="pl">6502</keyword>
+    <keyword xml:lang="nl">6502</keyword>
+    <keyword xml:lang="ja">6502</keyword>
+    <keyword xml:lang="id">6502</keyword>
+    <keyword xml:lang="ia">6502</keyword>
+    <keyword xml:lang="he">6502</keyword>
+    <keyword xml:lang="fr">6502</keyword>
+    <keyword xml:lang="fi">6502</keyword>
+    <keyword xml:lang="es">6502</keyword>
+    <keyword xml:lang="de">6502</keyword>
+    <keyword>Assembly</keyword>
+    <keyword xml:lang="zh-Hans">Assembly</keyword>
+    <keyword xml:lang="vi">Hợp ngữ</keyword>
+    <keyword xml:lang="uk">Асемблер</keyword>
+    <keyword xml:lang="ta">அசெம்பிளி</keyword>
+    <keyword xml:lang="pt-BR">Assembly</keyword>
+    <keyword xml:lang="pt">Assembly</keyword>
+    <keyword xml:lang="pl">Asembler</keyword>
+    <keyword xml:lang="nl">Assembly</keyword>
+    <keyword xml:lang="ja">アセンブリ</keyword>
+    <keyword xml:lang="id">Assembly</keyword>
+    <keyword xml:lang="ia">Assemblage</keyword>
+    <keyword xml:lang="he">הרכב</keyword>
+    <keyword xml:lang="fr">Assembleur</keyword>
+    <keyword xml:lang="fi">Assembly</keyword>
+    <keyword xml:lang="es">Assembly</keyword>
+    <keyword xml:lang="de">Assembler</keyword>
+    <keyword>programming</keyword>
+    <keyword xml:lang="zh-Hans">编程</keyword>
+    <keyword xml:lang="vi">lập trình</keyword>
+    <keyword xml:lang="uk">програмування</keyword>
+    <keyword xml:lang="ta">நிரலாக்கம்</keyword>
+    <keyword xml:lang="pt-BR">programação</keyword>
+    <keyword xml:lang="pt">programação</keyword>
+    <keyword xml:lang="pl">programowanie</keyword>
+    <keyword xml:lang="nl">programmeren</keyword>
+    <keyword xml:lang="ja">プログラミング</keyword>
+    <keyword xml:lang="id">pemrograman</keyword>
+    <keyword xml:lang="ia">programmar</keyword>
+    <keyword xml:lang="he">תכנות</keyword>
+    <keyword xml:lang="fr">programmation</keyword>
+    <keyword xml:lang="fi">ohjelmointi</keyword>
+    <keyword xml:lang="es">programación</keyword>
+    <keyword xml:lang="de">Programmierung</keyword>
+    <keyword>learning</keyword>
+    <keyword xml:lang="zh-Hans">学习</keyword>
+    <keyword xml:lang="vi">học</keyword>
+    <keyword xml:lang="uk">навчання</keyword>
+    <keyword xml:lang="ta">கற்றல்</keyword>
+    <keyword xml:lang="pt-BR">aprendizagem</keyword>
+    <keyword xml:lang="pt">aprendizagem</keyword>
+    <keyword xml:lang="pl">nauka</keyword>
+    <keyword xml:lang="nl">leren</keyword>
+    <keyword xml:lang="ja">学習</keyword>
+    <keyword xml:lang="id">pembelajaran</keyword>
+    <keyword xml:lang="ia">apprender</keyword>
+    <keyword xml:lang="he">לימוד</keyword>
+    <keyword xml:lang="fr">apprentissage</keyword>
+    <keyword xml:lang="fi">opiskelu</keyword>
+    <keyword xml:lang="es">aprendizaje</keyword>
+    <keyword xml:lang="de">lernen</keyword>
+    <keyword>Simulator</keyword>
+    <keyword xml:lang="zh-Hans">模拟器</keyword>
+    <keyword xml:lang="vi">Trình Mô Phỏng</keyword>
+    <keyword xml:lang="uk">Симулятор</keyword>
+    <keyword xml:lang="ta">பாவிப்பி</keyword>
+    <keyword xml:lang="pt-BR">Simulador</keyword>
+    <keyword xml:lang="pt">Simulador</keyword>
+    <keyword xml:lang="pl">Symulator</keyword>
+    <keyword xml:lang="nl">Simulator</keyword>
+    <keyword xml:lang="ja">シミュレーター</keyword>
+    <keyword xml:lang="id">Simulator</keyword>
+    <keyword xml:lang="ia">Simulator</keyword>
+    <keyword xml:lang="he">הדמיה</keyword>
+    <keyword xml:lang="fr">Simulateur</keyword>
+    <keyword xml:lang="fi">Simulaattori</keyword>
+    <keyword xml:lang="es">Simulador</keyword>
+    <keyword xml:lang="de">Simulator</keyword>
+    <keyword>IDE</keyword>
+    <keyword xml:lang="zh-Hans">IDE</keyword>
+    <keyword xml:lang="vi">IDE</keyword>
+    <keyword xml:lang="uk">IDE</keyword>
+    <keyword xml:lang="ta">IDE</keyword>
+    <keyword xml:lang="pt-BR">IDE</keyword>
+    <keyword xml:lang="pt">IDE</keyword>
+    <keyword xml:lang="pl">IDE</keyword>
+    <keyword xml:lang="nl">IDE</keyword>
+    <keyword xml:lang="ja">IDE</keyword>
+    <keyword xml:lang="id">IDE</keyword>
+    <keyword xml:lang="ia">IDE</keyword>
+    <keyword xml:lang="he">IDE</keyword>
+    <keyword xml:lang="fr">IDE</keyword>
+    <keyword xml:lang="fi">IDE</keyword>
+    <keyword xml:lang="es">IDE</keyword>
+    <keyword xml:lang="de">IDE</keyword>
+    <keyword>Debugger</keyword>
+    <keyword xml:lang="zh-Hans">调试器</keyword>
+    <keyword xml:lang="vi">Trình gỡ lỗi</keyword>
+    <keyword xml:lang="uk">Налагоджувач</keyword>
+    <keyword xml:lang="ta">பிழைத்திருத்தி</keyword>
+    <keyword xml:lang="pt-BR">Depurador</keyword>
+    <keyword xml:lang="pt">Depurador</keyword>
+    <keyword xml:lang="pl">Debugger</keyword>
+    <keyword xml:lang="nl">Debugger</keyword>
+    <keyword xml:lang="ja">デバッガー</keyword>
+    <keyword xml:lang="id">Debugger</keyword>
+    <keyword xml:lang="ia">Debugger</keyword>
+    <keyword xml:lang="he">מנפה שגיאות</keyword>
+    <keyword xml:lang="fr">Débogueur</keyword>
+    <keyword xml:lang="fi">Vianjäljitin</keyword>
+    <keyword xml:lang="es">Depurador</keyword>
+    <keyword xml:lang="de">Debugger</keyword>
+    <keyword>Adwaita</keyword>
+    <keyword xml:lang="zh-Hans">Adwaita</keyword>
+    <keyword xml:lang="vi">Adwaita</keyword>
+    <keyword xml:lang="uk">Adwaita</keyword>
+    <keyword xml:lang="ta">அத்வைதா</keyword>
+    <keyword xml:lang="pt-BR">Adwaita</keyword>
+    <keyword xml:lang="pt">Adwaita</keyword>
+    <keyword xml:lang="pl">Adwaita</keyword>
+    <keyword xml:lang="nl">Adwaita</keyword>
+    <keyword xml:lang="ja">Adwaita</keyword>
+    <keyword xml:lang="id">Adwaita</keyword>
+    <keyword xml:lang="ia">Adwaita</keyword>
+    <keyword xml:lang="he">Adwaita</keyword>
+    <keyword xml:lang="fr">Adwaita</keyword>
+    <keyword xml:lang="fi">Adwaita</keyword>
+    <keyword xml:lang="es">Adwaita</keyword>
+    <keyword xml:lang="de">Adwaita</keyword>
+    <keyword>GNOME</keyword>
+    <keyword xml:lang="zh-Hans">GNOME</keyword>
+    <keyword xml:lang="vi">GNOME</keyword>
+    <keyword xml:lang="uk">GNOME</keyword>
+    <keyword xml:lang="ta">க்னோம்</keyword>
+    <keyword xml:lang="pt-BR">GNOME</keyword>
+    <keyword xml:lang="pt">GNOME</keyword>
+    <keyword xml:lang="pl">GNOME</keyword>
+    <keyword xml:lang="nl">GNOME</keyword>
+    <keyword xml:lang="ja">GNOME</keyword>
+    <keyword xml:lang="id">GNOME</keyword>
+    <keyword xml:lang="ia">GNOME</keyword>
+    <keyword xml:lang="he">GNOME</keyword>
+    <keyword xml:lang="fr">GNOME</keyword>
+    <keyword xml:lang="fi">GNOME</keyword>
+    <keyword xml:lang="es">GNOME</keyword>
+    <keyword xml:lang="de">GNOME</keyword>
+  </keywords>
+  <branding>
+    <color type="primary" scheme_preference="light">#84BBFD</color>
+    <color type="primary" scheme_preference="dark">#1A5FB4</color>
+  </branding>
+  <kudos>
+    <kudo>ModernToolkit</kudo>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>TouchscreenSupport</kudo>
+    <kudo>UserDocs</kudo>
+  </kudos>
+  <provides>
+    <binary>eu.jumplink.Learn6502</binary>
+  </provides>
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </supports>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <recommends>
+    <display_length compare="ge">480</display_length>
+  </recommends>
+</component>

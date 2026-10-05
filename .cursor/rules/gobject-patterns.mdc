@@ -1,0 +1,193 @@
+---
+description: High-density GObject + GTK4 patterns for GJS
+globs: packages/*-gnome/**/*.ts,apps/*-gnome/**/*.ts
+alwaysApply: false
+---
+
+> See also: [@blueprint-templates](mdc:.cursor/rules/blueprint-templates.mdc)
+
+# GTK4 + GObject (TL;DR)
+
+**Design:** Declarative UI (Blueprint) + reactive state (GObject properties/signals).  
+**Rendering:** GSK snapshot API; GPU paths first.  
+**Lifecycle:** Map/Unmap/Unroot for hooks; keep Dispose tiny.
+
+## ✅ Do / ❌ Don’t
+
+- ✅ Use `vfunc_snapshot()`; `Gdk.Texture`/`Gdk.Paintable`; `clip+translate` for sprites.
+- ✅ Use `append_scaled_texture()` (GTK ≥ 4.10) with proper `Gsk.ScalingFilter`.
+- ✅ Define state as **Properties**; events as **Signals**; bind via Blueprint.
+- ✅ Manage connects in `vfunc_map()`; disconnect in `vfunc_unmap()` (and `vfunc_unroot()` if global).
+- ✅ Call `super.vfunc_*()` when overriding.
+- ❌ No Cairo/`Gtk.DrawingArea` for perf work (fallback only).
+- ❌ Don’t mutate `Gdk.Texture` (immutable).
+- ❌ Don’t call `destroy()` or use `::destroy`.
+- ❌ No JS work in `dispose/finalize`.
+- ❌ Don’t collide with core vfunc names (e.g. `get_flags`, `dispose`, `constructed`).
+
+---
+
+## Properties & Signals (minimal patterns)
+
+```ts
+// Properties
+export class MyWidget extends Gtk.Widget {
+  static {
+    GObject.registerClass(
+      {
+        GTypeName: "MyWidget",
+        Properties: {
+          value: GObject.ParamSpec.int(
+            "value",
+            "Value",
+            "",
+            GObject.ParamFlags.READWRITE,
+            0,
+            100,
+            0
+          ),
+        },
+        Signals: { done: {} },
+      },
+      this
+    );
+  }
+  set value(v: number) {
+    this.set_property("value", v);
+  } // optional sugar
+  get value() {
+    return this.get_property("value") as number;
+  }
+  _finish() {
+    this.emit("done");
+  }
+}
+```
+
+```blp
+// Bind + signal in Blueprint
+Label { label: bind template.value as <string>; }
+Button { clicked => $_finish(); }
+```
+
+---
+
+## Blueprint Integration (essential)
+
+```ts
+import Template from "./my-widget.blp";
+export class MyWidget extends Gtk.Box {
+  static {
+    GObject.registerClass(
+      {
+        GTypeName: "MyWidget",
+        Template,
+        InternalChildren: ["ok"],
+        Properties: {
+          title: GObject.ParamSpec.string(
+            "title",
+            "Title",
+            "",
+            GObject.ParamFlags.READWRITE,
+            ""
+          ),
+        },
+      },
+      this
+    );
+  }
+  declare _ok: Gtk.Button;
+}
+```
+
+---
+
+## Modern Graphics (GSK-first)
+
+```ts
+vfunc_snapshot(s: Gtk.Snapshot): void {
+  const { x, y, w, h } = this._sprite;
+  s.push_clip(new Graphene.Rect({ x:0, y:0, width:w, height:h }));
+  s.save(); s.translate(new Graphene.Point({ x:-x, y:-y }));
+  s.append_texture(this._sheet, new Graphene.Rect({ x:0, y:0, width:this._sheet.get_width(), height:this._sheet.get_height() }));
+  s.restore(); s.pop();
+}
+```
+
+> Prefer GPU composition. Only use `Gdk.MemoryTexture` + `download()` when you **must** touch pixels.
+
+---
+
+## Lifecycle Hygiene
+
+- `vfunc_map()` → start timers, connect signals, subscribe to models.
+- `vfunc_unmap()` → stop timers, disconnect everything connected in `map`.
+- `vfunc_unroot()` → drop **global/external** refs (bus, singletons).
+- `vfunc_dispose()` → **only** break external references; no UI, no signals, no async.
+- `vfunc_finalize()` → rarely needed in GJS.
+
+```ts
+private _ids: number[] = [];
+vfunc_map() { super.vfunc_map(); if (!this._ids.length) this._ids.push(this._ok.connect('clicked', () => this.emit('done'))); }
+vfunc_unmap() { for (const id of this._ids) this._ok.disconnect(id); this._ids = []; super.vfunc_unmap(); }
+vfunc_dispose() { /* external = null */ super.vfunc_dispose(); }
+```
+
+---
+
+## GC/VFunc Safety — Fix the “JS callback during GC … get_flags()” warning
+
+**Causes:** JS methods colliding with vfuncs; signals/timeouts firing during teardown; JS work in `dispose/finalize`.
+
+**Rules**
+
+- Don’t implement core vfuncs in JS unless trivial & safe. Typical safe set: `vfunc_snapshot`, `vfunc_map/unmap`, `vfunc_unroot`.
+- **Rename** helpers that match vfunc names.
+  - ❌ `get_flags()` → ✅ `computeFlags()` (or `getMyFlags()`).
+
+- Disconnect/stop everything in `unmap` (and `unroot` for globals).
+- No `emit()`, I/O, or async in `dispose/finalize`.
+
+**Quick Checklist**
+
+- [ ] Grep for `get_flags(` and rename.
+- [ ] Move connects → `map`; disconnect → `unmap`.
+- [ ] Strip JS work from `dispose/finalize`.
+- [ ] Clear timeouts/intervals & global subscriptions on `unmap/unroot`.
+
+---
+
+## Micro-Patterns
+
+**Action over click handler**
+
+```blp
+Button { action-name: "app.save"; action-target: bind template.doc_id; }
+```
+
+**Bidirectional form state**
+
+```blp
+Entry { text: bind template.title bidirectional; }
+```
+
+**Scaled texture (GTK ≥ 4.10)**
+
+```ts
+s.append_scaled_texture(
+  tex,
+  Graphene.Rect.zero(),
+  new Graphene.Rect({ x: 0, y: 0, width: w, height: h }),
+  Gsk.ScalingFilter.NEAREST
+);
+```
+
+---
+
+## Checklist (agents)
+
+- Properties/signals defined; UI bound in Blueprint.
+- Map/unmap lifecycle clean; no lingering handlers.
+- Snapshot-only custom drawing; zero-copy sprites.
+- No vfunc name collisions; no JS in `dispose/finalize`.
+- Use Adwaita widgets/styles; keep hierarchies shallow.

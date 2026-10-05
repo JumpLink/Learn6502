@@ -1,0 +1,97 @@
+import { GridLayout, Builder } from "@nativescript/core";
+import { Gtk } from "@gjsify/adwaita-nativescript";
+import type { GamepadKey, GamepadEventMap, GamepadWidget } from "@learn6502/common-ui";
+import { getGamepadKeyCode, getGamepadKeyChar } from "@learn6502/common-ui";
+import { EventDispatcher } from "@learn6502/core";
+import { logger } from "~/utils";
+
+/**
+ * Android implementation of the Gamepad widget.
+ */
+export class Gamepad extends GridLayout implements GamepadWidget {
+  readonly events = new EventDispatcher<GamepadEventMap>();
+
+  // Button references
+  private buttonUp: Gtk.Button | null = null;
+  private buttonDown: Gtk.Button | null = null;
+  private buttonLeft: Gtk.Button | null = null;
+  private buttonRight: Gtk.Button | null = null;
+  private buttonA: Gtk.Button | null = null;
+  private buttonB: Gtk.Button | null = null;
+
+  constructor() {
+    super();
+
+    this.on("loaded", () => {
+      const componentView = Builder.load({
+        path: "~/widgets/game-console",
+        name: "gamepad",
+      });
+
+      this.addChild(componentView);
+
+      this.buttonUp = componentView.getViewById<Gtk.Button>("buttonUp");
+      this.buttonDown = componentView.getViewById<Gtk.Button>("buttonDown");
+      this.buttonLeft = componentView.getViewById<Gtk.Button>("buttonLeft");
+      this.buttonRight = componentView.getViewById<Gtk.Button>("buttonRight");
+      this.buttonA = componentView.getViewById<Gtk.Button>("buttonA");
+      this.buttonB = componentView.getViewById<Gtk.Button>("buttonB");
+      this.buttonUp?.on("tap", () => this.press("Up"));
+      this.buttonDown?.on("tap", () => this.press("Down"));
+      this.buttonLeft?.on("tap", () => this.press("Left"));
+      this.buttonRight?.on("tap", () => this.press("Right"));
+      this.buttonA?.on("tap", () => this.press("A"));
+      this.buttonB?.on("tap", () => this.press("B"));
+    });
+  }
+
+  public press(keyName: GamepadKey): void {
+    const keyCode = getGamepadKeyCode(keyName);
+    const keyChar = getGamepadKeyChar(keyName);
+    logger.debug("Gamepad", `Button ${keyName} pressed, keyCode=${keyCode} (ASCII: ${keyChar})`);
+
+    this.applyPressEffectToButton(keyName);
+
+    this.events.dispatch("keyPressed", {
+      key: keyName,
+      keyCode,
+    });
+  }
+
+  private applyPressEffectToButton(keyName: GamepadKey): void {
+    let button: Gtk.Button | null = null;
+
+    switch (keyName) {
+      case "Up":
+        button = this.buttonUp;
+        break;
+      case "Down":
+        button = this.buttonDown;
+        break;
+      case "Left":
+        button = this.buttonLeft;
+        break;
+      case "Right":
+        button = this.buttonRight;
+        break;
+      case "A":
+        button = this.buttonA;
+        break;
+      case "B":
+        button = this.buttonB;
+        break;
+    }
+
+    if (button) {
+      // Add pressed class
+      button.cssClasses.add("pressed");
+
+      // Remove pressed class after a short delay
+      setTimeout(() => {
+        if (button) {
+          button.cssClasses.delete("pressed");
+        }
+      }, 150);
+    }
+  }
+}

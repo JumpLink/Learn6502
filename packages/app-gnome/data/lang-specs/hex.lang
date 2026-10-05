@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<language id="hex" name="Hex" version="2.0" _section="Other">
+  <metadata>
+    <property name="mimetypes">text/x-hex</property>
+    <property name="globs">*.hex</property>
+  </metadata>
+  <styles>
+    <style id="zero" name="Zero" map-to="def:comment"/>
+  </styles>
+  <definitions>
+    <context id="hex">
+      <include>
+        <context id="zero" style-ref="zero">
+          <match>00</match>
+        </context>
+      </include>
+    </context>
+  </definitions>
+</language>

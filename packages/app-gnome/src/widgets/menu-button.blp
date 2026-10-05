@@ -1,0 +1,99 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MenuButton : Adw.Bin {
+  MenuButton button {
+    icon-name: "open-menu-symbolic";
+    menu-model: buttonRunMenu;
+    primary: true;
+    styles [
+      "flat",
+    ]
+  }
+}
+
+menu buttonRunMenu {
+  section {
+    item {
+      // TRANSLATORS: Menu item to assemble the current code
+      label: _("Assemble");
+      action: 'win.assemble';
+    }
+    item {
+      // TRANSLATORS: Menu item to start running the simulator
+      label: _("Run");
+      action: 'win.run-simulator';
+    }
+    item {
+      // TRANSLATORS: Menu item to resume execution after pause
+      label: _("Continue");
+      action: 'win.resume-simulator';
+    }
+    item {
+      // TRANSLATORS: Menu item to pause the running simulator
+      label: _("Pause");
+      action: 'win.pause-simulator';
+    }
+    item {
+      // TRANSLATORS: Menu item for single-step execution
+      label: _("Step");
+      action: 'win.step-simulator';
+    }
+    item {
+      // TRANSLATORS: Menu item to reset simulator and state
+      label: _("Reset");
+      action: 'win.reset-simulator';
+    }
+  }
+  section {
+    item {
+      // TRANSLATORS: Menu item to share the current code
+      label: _("Share");
+      action: 'win.share';
+    }
+  }
+  section {
+    item {
+      // TRANSLATORS: Menu item to open a file
+      label: _("Open...");
+      action: 'win.open-file';
+    }
+    item {
+      // TRANSLATORS: Menu item to save the current file
+      label: _("Save");
+      action: 'win.save-file';
+    }
+    item {
+      // TRANSLATORS: Menu item to save to a new file (Save As)
+      label: _("Save as...");
+      action: 'win.save-as-file';
+    }
+  }
+  section {
+    item {
+      // TRANSLATORS: Preferences menu item label with underscore for accelerator
+      label: _("_Preferences");
+      action: 'app.preferences';
+    }
+    // TODO: Uncomment when keyboard shortcuts are implemented
+    // item {
+    //   label: _("_Keyboard Shortcuts");
+    //   action: 'win.show-help-overlay';
+    // }
+    item {
+      // TRANSLATORS: Help menu item label
+      label: _("Help");
+      action: 'win.show-help';
+    }
+    item {
+      // TRANSLATORS: About dialog menu item label
+      label: _("About Learn 6502 Assembly");
+      action: 'app.about';
+    }
+    item {
+      // TRANSLATORS: Quit application menu item label
+      label: _("Quit");
+      action: 'app.quit';
+    }
+  }
+}

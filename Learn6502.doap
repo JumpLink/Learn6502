@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Project xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+         xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+         xmlns:foaf="http://xmlns.com/foaf/0.1/"
+         xmlns:gnome="http://api.gnome.org/doap-extensions#"
+         xmlns="http://usefulinc.com/ns/doap#">
+
+  <name xml:lang="en">Learn 6502 Assembly</name>
+  <shortdesc xml:lang="en">Learn to Program Vintage Computers and Game Consoles</shortdesc>
+  <description xml:lang="en">Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II. This modern, native Adwaita application for GNOME provides interactive tutorials, a built-in code editor, real-time debugging tools, and a virtual game console. Built with GJS and TypeScript, featuring a modern Floating Action Button and enhanced debugging interface.</description>
+  <homepage rdf:resource="https://github.com/JumpLink/Learn6502" />
+  <bug-database rdf:resource="https://github.com/JumpLink/Learn6502/issues"/>
+
+  <programming-language>TypeScript</programming-language>
+  <platform>GTK 4</platform>
+  <platform>Libadwaita</platform>
+  <platform>GNOME</platform>
+
+  <maintainer>
+    <foaf:Person>
+      <foaf:name>Pascal Garber</foaf:name>
+      <foaf:mbox rdf:resource="mailto:pascal@jumplink.eu" />
+      <gnome:userid>jumplink</gnome:userid>
+    </foaf:Person>
+  </maintainer>
+
+  <category>Development</category>
+  <category>Education</category>
+
+  <license rdf:resource="https://www.gnu.org/licenses/gpl-3.0" />
+</Project>

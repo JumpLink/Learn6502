@@ -1,0 +1,23 @@
+{
+  "compilerOptions": {
+    "preserveWatchOutput": true,
+    "lib": ["ESNext"],
+    "typeRoots": ["./"],
+    "types": ["./global.d.ts"],
+    "rootDir": "./src",
+    "outDir": "./dist",
+    "module": "NodeNext",
+    "target": "ESNext",
+    "moduleResolution": "NodeNext",
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noImplicitThis": true,
+    "alwaysStrict": true,
+    "diagnostics": true,
+    "verbatimModuleSyntax": true,
+    "isolatedModules": true
+  },
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

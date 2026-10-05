@@ -1,0 +1,13 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $Disassembled: Adw.Bin {
+  $SourceView sourceView {
+    editable: false;
+    copyable: true;
+    vexpand: true;
+    hexpand: false;
+    line-numbers: true;
+    height: 120;
+  }
+}

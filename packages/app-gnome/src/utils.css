@@ -1,0 +1,45 @@
+.rounded-none {
+  border-radius: 0;
+}
+
+.rounded-t-none {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+}
+
+.rounded-s-none {
+  border-bottom-left-radius: 0px;
+  border-top-left-radius: 0px;
+}
+
+.rounded-e-none {
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+.rounded-b-none {
+  border-bottom-left-radius: 0px;
+  border-bottom-right-radius: 0px;
+}
+
+/* Debug Info Widget Styles */
+.monospace {
+  font-family: monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.dim-label {
+  opacity: 0.6;
+}
+
+.flag {
+  font-family: monospace;
+  font-weight: bold;
+  min-width: 1.2em;
+}
+
+.bit {
+  font-family: monospace;
+  font-variant-numeric: tabular-nums;
+  min-width: 0.8em;
+}

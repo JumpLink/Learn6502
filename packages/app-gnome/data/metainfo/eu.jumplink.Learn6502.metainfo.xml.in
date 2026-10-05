@@ -1,0 +1,246 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright 2026 Pascal Garber -->
+<component type="desktop-application">
+  <id>eu.jumplink.Learn6502</id>
+  <metadata_license>CC0-1.0</metadata_license>
+  <project_license>GPL-3.0-or-later</project_license>
+  <name>Learn 6502 Assembly</name>
+  <summary>Program vintage game consoles</summary>
+  <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.5.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
+  <description>
+    <!-- TRANSLATORS: App Store description paragraph introducing the concept and 6502 platforms -->
+    <p>Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.</p>
+    <!-- TRANSLATORS: App Store description paragraph about onboarding for beginners -->
+    <p>No prior programming experience needed. Start with interactive lessons and build your skills step by step.</p>
+    <ul>
+      <!-- TRANSLATORS: Feature list item about interactive tutorials -->
+      <li>Interactive tutorials guide you from beginner to advanced</li>
+      <!-- TRANSLATORS: Feature list item about integrated code editor -->
+      <li>Write and edit code with a built-in code editor</li>
+      <!-- TRANSLATORS: Feature list item about debugging tools -->
+      <li>Debug your programs with real-time inspection tools</li>
+      <!-- TRANSLATORS: Feature list item about virtual game console -->
+      <li>Test your creations on a virtual game console</li>
+      <!-- TRANSLATORS: Feature list item about learning history while coding -->
+      <li>Learn about computer history while coding</li>
+    </ul>
+    <!-- TRANSLATORS: Closing paragraph targeting the audience -->
+    <p>Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!</p>
+  </description>
+  <developer id="eu.jumplink">
+    <name translate="no">Pascal Garber</name>
+    <email>pascal@jumplink.eu</email>
+  </developer>
+  <launchable type="desktop-id">eu.jumplink.Learn6502.desktop</launchable>
+  <screenshots>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/1.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the desktop layout -->
+      <caption>Code editor and virtual game console</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/2.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the appearance settings -->
+      <caption>Appearance settings</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/3.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the snake game running in the virtual console -->
+      <caption>Running Snake game</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.4.0/misc/screenshots/4.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the interactive tutorial view -->
+      <caption>Interactive tutorial</caption>
+    </screenshot>
+  </screenshots>
+  <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
+  <url type="bugtracker">https://github.com/JumpLink/Learn6502/issues</url>
+  <url type="vcs-browser">https://github.com/JumpLink/Learn6502</url>
+  <url type="translate">https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/</url>
+  <content_rating type="oars-1.1">
+    <content_attribute id="social-info">mild</content_attribute>
+    <content_attribute id="language-humor">mild</content_attribute>
+  </content_rating>
+  <releases>
+    <release version="0.8.0" date="2026-09-12">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.8.0 - Windows and macOS builds. "Learn 6502" is the app name: use whatever spelling your catalogue already uses for it (some localise it), and keep "Windows", "macOS" and "Linux" as they are. -->
+        <p>Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that.</p>
+        <ul>
+          <!-- TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name. -->
+          <li>For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for.</li>
+          <!-- TRANSLATORS: Release notes for version 0.8.0 - the first two community examples. Keep the example titles "Dino Run" and "Line Buster 6502" and the names "Jacob" and "edit12" as they are. -->
+          <li>Two new example programs, and both came from you: Dino Run by Jacob, and Line Buster 6502 by edit12. They are the first examples sent in with the share button, and we would love more.</li>
+          <!-- TRANSLATORS: Release notes for version 0.8.0 - Tamil translation. Keep the greeting 'வணக்கம்', the thanks 'நன்றி' and the translator's name 'தமிழ்நேரம்' exactly as they are. -->
+          <li>வணக்கம்! We are happy to welcome Tamil translations, contributed by தமிழ்நேரம். நன்றி!</li>
+          <!-- TRANSLATORS: Release notes for version 0.8.0 - Chinese language code fix -->
+          <li>If your system language is Chinese, the app shows up in Chinese again. It had been falling back to English by mistake.</li>
+        </ul>
+        <!-- TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements -->
+        <p>As always, this release includes many small fixes and improvements.</p>
+      </description>
+    </release>
+    <release version="0.7.0" date="2026-06-12">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.7.0 - Hebrew translation. Keep the greeting 'Shalom!', the thanks 'Toda raba!' and the name 'Menachem (naattxx)' as they are. -->
+        <p>Shalom! We are happy to welcome Hebrew translations, fully contributed by Menachem (naattxx). Toda raba!</p>
+        <!-- TRANSLATORS: Release notes for version 0.7.0 - right-to-left (RTL) support -->
+        <p>Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages.</p>
+        <!-- TRANSLATORS: Release notes for version 0.7.0 - Indonesian translation. Keep the greeting 'Selamat datang!', the thanks 'Terima kasih!' and the name 'Arif Budiman' as they are. -->
+        <p>Selamat datang! We also welcome Indonesian translations, kindly contributed by Arif Budiman. Terima kasih!</p>
+        <!-- TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements -->
+        <p>As always, this release includes many small fixes and improvements.</p>
+      </description>
+    </release>
+    <release version="0.6.5" date="2026-04-01">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update -->
+        <p>Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update.</p>
+        <!-- TRANSLATORS: Release notes for version 0.6.5 - back button fix -->
+        <p>Fixed an issue where the back button in the learn section was always visible in desktop and tablet mode, even when no subpage was open.</p>
+        <!-- TRANSLATORS: Release notes for version 0.6.5 - dependency updates -->
+        <p>Under the hood: updated to TypeScript 6, Vite 8, and other dependency upgrades for improved performance and stability.</p>
+      </description>
+    </release>
+    <release version="0.6.4" date="2026-03-06">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.6.4 - Finnish translation -->
+        <p>Tervetuloa! We are happy to welcome Finnish translations, kindly contributed by Jiri Grönroos. Kiitos!</p>
+      </description>
+    </release>
+    <release version="0.6.3" date="2025-12-24">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.6.3 - Vietnamese translation -->
+        <p>Welcome Vietnamese translation, fully contributed by Loc Huynh (hthienloc).</p>
+      </description>
+    </release>
+    <release version="0.6.2" date="2025-10-10">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.6.2 - Polish translation -->
+        <p>Welcome Polish translation, initially contributed by Micro Wave. Dziękujemy!</p>
+        <!-- TRANSLATORS: Release notes for version 0.6.2 - CC-BY-4.0 license for shared examples -->
+        <p>Shared code examples now include CC-BY-4.0 license information, making it clear how the community can use and build upon your contributions.</p>
+      </description>
+    </release>
+    <release version="0.6.0" date="2025-10-08">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.6.0 - new examples section -->
+        <p>We've added a new Examples section to the Learn tab where you can explore and run fully-commented 6502 programs right in the app. Start with our featured Snake game example and see how those pixels come to life!</p>
+        <!-- TRANSLATORS: Release notes for version 0.6.0 - community contribution feature -->
+        <p>Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you.</p>
+        <!-- TRANSLATORS: Release notes for version 0.6.0 - learning from examples -->
+        <p>Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!</p>
+      </description>
+    </release>
+    <release version="0.5.0" date="2025-10-02">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.5.0 - language selector and new translations -->
+        <p>Say hello to many fresh translations: French, Interlingua, Portuguese, Portuguese (Brazil), Dutch, Spanish, Ukrainian, Japanese and Chinese (Simplified)</p>
+        <!-- TRANSLATORS: Note about validation status - keep it concise and encouraging -->
+        <p>German and Spanish have been validated by contributors. Other languages are AI‑assisted drafts and need human validation.</p>
+        <!-- TRANSLATORS: Call to action for community translation/validation -->
+        <p>If you speak one of the listed languages, please help review or improve the translations. You can contribute via the in‑app links, our translation platform, or by opening an issue.</p>
+      </description>
+    </release>
+    <release version="0.4.0" date="2025-09-24">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.4.0 -->
+        <p>This release brings vibrant handheld-inspired theming with customisable colours. We've introduced adaptive tablet and desktop layouts that keep everything in view, perfect for those marathon coding sessions when learning to develop retro games in assembly. Big thanks to our new contributor @mmartinortiz for the great desktop layout ideas. There are some cool technical improvements too, like TypeScript strictness, custom GtkSourceView style schemes, and enhanced debugger controls for smoother development.</p>
+      </description>
+    </release>
+    <release version="0.3.0" date="2025-09-08">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.3.0 - UI improvements and debugger redesign -->
+        <p>Major UI improvements introducing a modern Floating Action Button with dynamic states for intuitive program control, and a completely redesigned debugger widget using modern Adwaita components.</p>
+        <!-- TRANSLATORS: Release notes for version 0.3.0 - architecture enhancements -->
+        <p>Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms.</p>
+      </description>
+    </release>
+    <release version="0.2.0" date="2025-04-11">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - help feature -->
+        <p>Added help feature to make code editing easier for beginners</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - mobile improvements -->
+        <p>Improved game screen and controls for mobile devices</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - tooling additions -->
+        <p>New tools to examine your code, including disassembler and fast switchable memory viewer</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - bug fixes -->
+        <p>Many minor bugs have been fixed to improve overall usabipty</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - auto pause -->
+        <p>Games now automatically pause when switching between screens</p>
+        <!-- TRANSLATORS: Release notes for version 0.2.0 - file management -->
+        <p>Added file management to save and load your programs</p>
+      </description>
+    </release>
+    <release version="0.1.2" date="2025-04-03">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.1.2 -->
+        <p>Enhanced app presentation and accessibility</p>
+        <!-- TRANSLATORS: Release notes for version 0.1.2 -->
+        <p>Improved descriptions to be more welcoming for non-technical users</p>
+        <!-- TRANSLATORS: Release notes for version 0.1.2 -->
+        <p>Optimized Flatpak configuration by removing unnecessary permissions</p>
+      </description>
+    </release>
+    <release version="0.1.1" date="2025-04-02">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        <p>Improved the game console performance for smoother gameplay</p>
+        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        <p>Enhanced the hex monitor address range input for easier value editing</p>
+        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        <p>Reduced default hex monitor address range for better efficiency</p>
+        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        <p>Debugger now only updates when visible, reducing unnecessary processing</p>
+        <!-- TRANSLATORS: Release notes for version 0.1.1 -->
+        <p>Fixed build error on PostmarketOS, improving mobile compatibility</p>
+      </description>
+    </release>
+    <release version="0.1.0" date="2025-04-02">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.1.0 -->
+        <p>First release of Learn 6502 Assembly for GNOME</p>
+      </description>
+    </release>
+  </releases>
+  <categories>
+    <category>Development</category>
+    <category>Education</category>
+  </categories>
+  <keywords>
+    <keyword>6502</keyword>
+    <keyword>Assembly</keyword>
+    <keyword>programming</keyword>
+    <keyword>learning</keyword>
+    <keyword>Simulator</keyword>
+    <keyword>IDE</keyword>
+    <keyword>Debugger</keyword>
+    <keyword>Adwaita</keyword>
+    <keyword>GNOME</keyword>
+  </keywords>
+  <branding>
+    <color type="primary" scheme_preference="light">#84BBFD</color>
+    <color type="primary" scheme_preference="dark">#1A5FB4</color>
+  </branding>
+  <kudos>
+    <kudo>ModernToolkit</kudo>
+    <kudo>HiDpiIcon</kudo>
+    <kudo>TouchscreenSupport</kudo>
+    <kudo>UserDocs</kudo>
+  </kudos>
+  <provides>
+    <binary>eu.jumplink.Learn6502</binary>
+  </provides>
+  <supports>
+    <control>keyboard</control>
+    <control>pointing</control>
+    <control>touch</control>
+  </supports>
+  <requires>
+    <display_length compare="ge">360</display_length>
+  </requires>
+  <recommends>
+    <display_length compare="ge">480</display_length>
+  </recommends>
+</component>

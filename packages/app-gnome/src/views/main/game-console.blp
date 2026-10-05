@@ -1,0 +1,20 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $GameConsole: Adw.Bin {
+  name: "game-console";
+  Box {
+    halign: center;
+    valign: fill;
+    hexpand: true;
+    vexpand: true;
+    orientation: vertical;
+
+    $Display display {}
+
+    $Gamepad gamePad {
+      margin-top: 30;
+      margin-bottom: 30;
+    }
+  }
+}

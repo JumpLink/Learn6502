@@ -1,0 +1,277 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $MainWindow: Adw.ApplicationWindow {
+  name: "application-window";
+  default-width: 360;
+  default-height: 670;
+  width-request: 360;
+  height-request: 624;
+
+
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("max-width: 799sp or max-height: 599sp")
+
+    setters {
+      layoutHost.visible-child-name: "single";
+      switcherBar.reveal: true;
+      leftSidebar.collapsed: true;
+      leftSidebar.show-sidebar: false;
+      sidebarToggleButton.visible: false;
+
+      titleLabel.visible: false;
+      mainButton.visible: true;
+      runToolbar.visible: false;
+    }
+  }
+
+  // Auto switch between single and three-column layouts
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("min-width: 800sp and min-height: 600sp")
+
+    setters {
+      layoutHost.visible-child-name: "three";
+      switcherBar.reveal: false;
+      leftSidebar.collapsed: true;
+      leftSidebar.show-sidebar: false;
+      leftSidebar.min-sidebar-width: 344;
+      leftSidebar.max-sidebar-width: 344;
+      sidebarToggleButton.visible: true;
+
+      titleLabel.visible: true;
+      mainButton.visible: false;
+      runToolbar.visible: true;
+    }
+  }
+
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("min-width: 1000sp and min-height: 600sp")
+
+    setters {
+      layoutHost.visible-child-name: "three";
+      switcherBar.reveal: false;
+      leftSidebar.collapsed: false;
+      leftSidebar.show-sidebar: true;
+      leftSidebar.min-sidebar-width: 344;
+      leftSidebar.max-sidebar-width: 344;
+      sidebarToggleButton.visible: true;
+
+      titleLabel.visible: true;
+      mainButton.visible: false;
+      runToolbar.visible: true;
+    }
+  }
+
+  // Very wide desktop: increase left column width
+  [breakpoint]
+  Adw.Breakpoint {
+    condition ("min-width: 1600sp and min-height: 600sp")
+
+    setters {
+      layoutHost.visible-child-name: "three";
+      switcherBar.reveal: false;
+      leftSidebar.collapsed: false;
+      leftSidebar.show-sidebar: true;
+      leftSidebar.min-sidebar-width: 344;
+      leftSidebar.max-sidebar-width: 800;
+      sidebarToggleButton.visible: true;
+
+      titleLabel.visible: true;
+      mainButton.visible: false;
+      runToolbar.visible: true;
+    }
+  }
+
+  content: Adw.ToolbarView {
+    [top]
+    Adw.HeaderBar headerBar {
+
+      title-widget: Label titleLabel {
+        // TRANSLATORS: Application title shown in the header bar
+        label: _("Learn 6502 Assembly");
+      };
+
+      [start]
+
+      ToggleButton sidebarToggleButton {
+        icon-name: "sidebar-show-symbolic";
+        // TRANSLATORS: Tooltip text for sidebar toggle button in header bar
+        tooltip-text: _("Toggle Sidebar");
+        active: bind leftSidebar.show-sidebar;
+        visible: false;
+      }
+
+      Button learnBackButton {
+        icon-name: "go-previous-symbolic";
+        // TRANSLATORS: Tooltip text for back button in learn section
+        tooltip-text: _("Back");
+        visible: false;
+        clicked => $_onLearnBackButtonClicked();
+        
+        styles [
+          "flat",
+        ]
+      }
+
+      Button unsavedChangesIndicator {
+        icon-name: "dot-symbolic";
+        // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
+        tooltip-text: _("Unsaved changes");
+        visible: false;
+        styles [
+          "flat",
+          "circular"
+        ]
+      }
+      [end]
+      $MenuButton menuButton {
+        halign: center;
+      }
+
+    }
+
+    content: Overlay mainOverlay {
+      child: Adw.ToastOverlay toastOverlay {
+        Stack layoutHost {
+          name: "layoutHost";
+
+          // Single (mobile) layout: one ViewStack
+          StackPage singlePage {
+            name: "single";
+            child: Adw.Bin singleContainer {
+              child: Adw.ViewStack stack {
+                vexpand: true;
+              };
+            };
+          }
+
+          // Three column (desktop) layout: Learn | Editor | (GameConsole over Debugger)
+          StackPage threePage {
+            name: "three";
+            child: Adw.Bin threeColumnContainer {
+              child: Box threeColumns {
+                orientation: horizontal;
+                spacing: 0;
+
+                // OverlaySplitView splits left (Learn) and center+right
+                Adw.OverlaySplitView leftSidebar {
+                  sidebar-width-fraction: 0.25;
+                  min-sidebar-width: 180;
+                  max-sidebar-width: 600;
+                  show-sidebar: bind sidebarToggleButton.active;
+
+                  sidebar: Box leftColumn {
+                    hexpand: false;
+                    vexpand: true;
+                  };
+
+                  content: Box centerRight {
+                    orientation: horizontal;
+                    hexpand: true;
+                    vexpand: true;
+
+                    // Center column (Editor) with the run toolbar anchored to
+                    // its edge, so it tracks the editor across all breakpoints
+                    // and text directions instead of relying on a fixed margin
+                    Overlay centerOverlay {
+                      hexpand: true;
+                      vexpand: true;
+
+                      child: Box centerColumn {
+                        hexpand: true;
+                        vexpand: true;
+                      };
+
+                      [overlay]
+                      $Toolbar runToolbar {
+                        halign: end;
+                        valign: start;
+                        margin-end: 12;
+                        margin-top: 12;
+                      }
+                    }
+
+                    Separator {}
+
+                    // Right column with scrollable container for GameConsole and Debugger
+                    ScrolledWindow rightColumn {
+                      hexpand: false;
+                      vexpand: true;
+                      width-request: 320;
+                      hscrollbar-policy: never;
+                      vscrollbar-policy: automatic;
+
+                      child: Box rightColumnContent {
+                        orientation: vertical;
+                        spacing: 12;
+                        margin-start: 12;
+                        margin-end: 12;
+                        margin-top: 12;
+                        margin-bottom: 12;
+                        hexpand: true;
+
+                        // GameConsole at the top
+                        Box rightTopBox {
+                          hexpand: false;
+                          vexpand: true;
+                        }
+
+                        Separator {}
+
+                        // Debugger at the bottom
+                        Box rightBottomBox {
+                          hexpand: true;
+                          vexpand: true;
+                        }
+                      };
+                    }
+                  };
+                }
+              };
+            };
+          }
+        }
+      };
+
+      [overlay]
+      $MainButton mainButton {
+        halign: end;
+        valign: end;
+        margin-end: 0;
+        margin-bottom: 0;
+      }
+
+    };
+
+    [bottom]
+    Adw.ViewSwitcherBar switcherBar {
+      reveal: true;
+    }
+
+  };
+}
+
+// Dialog for unsaved changes
+Adw.AlertDialog unsavedChangesDialog {
+  // TRANSLATORS: Alert dialog heading when unsaved changes are present
+  heading: _("Save changes?");
+  // TRANSLATORS: Alert dialog body explaining risk of losing changes
+  body: _("Your file has unsaved changes. Changes will be lost if you don't save them.");
+  close-response: "cancel";
+
+  responses [
+    // TRANSLATORS: Alert dialog button labels
+    cancel: _("Cancel"),
+    discard: _("Discard") destructive,
+    save: _("Save") suggested,
+  ]
+}
+
+// Feature views instantiated as internal children of the template
+$Learn learn {}
+$Editor editor {}
+$Debugger debugger {}
+$GameConsole gameConsole {}

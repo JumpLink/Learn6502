@@ -1,0 +1,209 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  code-quality:
+    name: Code Quality
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      # Content-addressed tarball store: a warm cache lets `gjsify install
+      # --immutable` skip the download phase (reads tarballs by SRI integrity).
+      - name: Cache gjsify tarball store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/gjsify/tarballs
+          key: gjsify-tarballs-${{ hashFiles('gjsify-lock.json') }}
+          restore-keys: gjsify-tarballs-
+
+      # Bootstrap the gjsify CLI globally so `gjsify install` is runnable before
+      # node_modules exists (the chicken-and-egg). Pinned EXACTLY to the version
+      # `gjsify-lock.json` resolves, so bootstrap and locked toolchain are the
+      # same CLI.
+      - name: Install gjsify CLI
+        run: npm install -g @gjsify/cli@0.51.1
+
+      - name: Install dependencies
+        run: gjsify install --immutable
+
+      # From here on `gjsify` resolves to the version `gjsify-lock.json` pins,
+      # not the globally installed bootstrap copy. Without this the two drift:
+      # this workflow ran the bootstrap CLI for every step while the tree
+      # resolved a different one, so a green run measured a toolchain nobody
+      # develops against. Same step as in issue-to-pr.yml.
+      - name: Use the workspace-pinned gjsify CLI
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
+
+      # The PATH step above is silent when it does not take effect, and a CLI
+      # that merely *runs* proves nothing about which one it is. Assert it.
+      - name: Assert the CLI is the locked one
+        run: |
+          set -eu
+          locked=$(node -p "require('./node_modules/@gjsify/cli/package.json').version")
+          actual=$(gjsify --version)
+          echo "gjsify: $(command -v gjsify) -> $actual (lockfile: $locked)"
+          [ "$actual" = "$locked" ] || { echo "::error::gjsify $actual != locked $locked"; exit 1; }
+
+      # One version lives in eleven places — the root manifest `gjsify ship`
+      # stamps into every artifact, the nine package manifests, and the
+      # AppStream release list users see in a store. Nothing keeps them in step
+      # on its own (changesets' `fixed` pattern does not match the private root
+      # package, and the release list is written by hand), so a tag can produce
+      # a `.deb` labelled one version from a tree that says another.
+      - name: Check version consistency
+        run: gjsify run check:versions
+
+      # The Flatpak build has no network: flatpak-builder fills a cache from
+      # `gjsify-sources.json` and Meson then runs `gjsify install --immutable`
+      # against it. A tarball the lockfile pins and the sources array omits is a
+      # download that cannot happen, and the sandbox reports it as
+      # `meson.build:23 … failed with status 1` and nothing else. The two files
+      # are re-cut by different commands, so they come apart whenever a
+      # dependency is added without `gjsify flatpak sources` — which is exactly
+      # how this branch turned the Flatpak job red while every local check
+      # passed.
+      - name: Check the Flatpak offline sources
+        run: gjsify run check:flatpak:sources
+
+      # The About dialog is built from AppStream metadata by hand on Windows and
+      # macOS: `Adw.AboutDialog.new_from_appdata()` does not exist there, because
+      # gvsbuild patches the AppStream entry points out of libadwaita. That
+      # fallback extracts a handful of fields with its own matching, so a
+      # restructured metainfo file empties the About dialog on exactly the two
+      # platforms no CI job opens a window on — while Linux, which uses the
+      # upstream constructor and never runs the fallback, stays green.
+      - name: Check the About dialog metadata
+        run: gjsify run check:about
+
+      # `gjsify workspace <name> <script>` fails hard on a missing script,
+      # unlike `gjsify foreach`, which just skips it — so a caller pointing at
+      # a renamed or never-added script sits broken until someone runs it.
+      # Found twice this way: root `build:android` named a `build` script
+      # `app-android` never had, and `start:web` still named the `start`
+      # script the Jekyll -> Vite rewrite renamed to `dev:app`.
+      - name: Check workspace script references
+        run: gjsify run check:workspace-scripts
+
+      - name: Check formatting
+        run: gjsify format --check
+
+      - name: Lint
+        run: gjsify lint
+
+      # Note: package builds + type-checks run in the `type-check` job below,
+      # which is on Fedora (has `gjs`). `6502`'s build is `gjsify tsc` and
+      # `app-gnome`'s `check` is `gjsify tsc`, both of which spawn `gjs` —
+      # unavailable on ubuntu — so this job stays format + lint only.
+
+  type-check:
+    # The `check` scripts run `gjsify tsc` — a Node-free TypeScript compiler
+    # bundled for GJS (`@gjsify/tsc`, the `dist/tsc.gjs.mjs` GJS bundle). It is
+    # spawned via `gjs`, which ubuntu-latest does not ship, so this job runs in a
+    # Fedora 43 container (GJS 1.86 / SpiderMonkey 140 — the gjsify target). The
+    # gjsify CLI itself (format/lint above) runs on Node and stays on ubuntu.
+    name: Type check (GJS 1.86)
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:43
+
+    steps:
+      - name: Install container prerequisites (incl. gjs)
+        # json-glib + libsoup3 are dlopened by @gjsify/rolldown-native's typelib
+        # since 0.48.0; without them GJS logs a GIRepository warning, the bundler
+        # engine fails to load, and the first script that needs it dies with
+        # "Unsupported type void". Neither ships in the bare fedora image.
+        # The GTK packages are for the LEARN build, not for GTK code. The CLI
+        # auto-bundles the by-name `@mdx-js/rollup` plugin, and that bundle is
+        # always built with `--globals auto` (`bundlePluginForGjs` passes no
+        # globals policy), which since 0.48.0 detects HTMLCanvasElement/document/
+        # navigator in the plugin's graph and injects GTK-backed registers — so
+        # the bundle demands Pango/Gdk/GdkPixbuf typelibs at import. learn's own
+        # `--globals node` does not reach it. This container was deliberately
+        # GTK-less; restoring that needs an upstream fix in gjsify.
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      - name: Cache gjsify tarball store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/gjsify/tarballs
+          key: gjsify-tarballs-${{ hashFiles('gjsify-lock.json') }}
+          restore-keys: gjsify-tarballs-
+
+      - name: Install gjsify CLI
+        run: npm install -g @gjsify/cli@0.51.1
+
+      - name: Install dependencies
+        run: gjsify install --immutable
+
+      # From here on `gjsify` resolves to the version `gjsify-lock.json` pins,
+      # not the globally installed bootstrap copy. Without this the two drift:
+      # this workflow ran the bootstrap CLI for every step while the tree
+      # resolved a different one, so a green run measured a toolchain nobody
+      # develops against. Same step as in issue-to-pr.yml.
+      - name: Use the workspace-pinned gjsify CLI
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
+
+      # The PATH step above is silent when it does not take effect, and a CLI
+      # that merely *runs* proves nothing about which one it is. Assert it.
+      - name: Assert the CLI is the locked one
+        run: |
+          set -eu
+          locked=$(node -p "require('./node_modules/@gjsify/cli/package.json').version")
+          actual=$(gjsify --version)
+          echo "gjsify: $(command -v gjsify) -> $actual (lockfile: $locked)"
+          [ "$actual" = "$locked" ] || { echo "::error::gjsify $actual != locked $locked"; exit 1; }
+
+      # Ahead of the type checks so a broken catalog is reported as itself.
+      # `msgfmt` only asks whether a `msgstr` is non-empty, so this is the only
+      # gate that sees markup Pango cannot parse or a translated code
+      # identifier — both of which have reached `main` before.
+      - name: Validate translation catalogs
+        run: gjsify workspace @learn6502/translations check
+
+      # Build the workspace deps that publish built output (`@learn6502/core`,
+      # `examples`, `learn` ship `dist/*.d.ts`; `common-ui` exports source).
+      # Without this, type-checking common-ui/app-* fails with TS2307 "Cannot
+      # find module '@learn6502/core'" — its types only exist after a build.
+      - name: Build workspace dependencies
+        run: |
+          gjsify workspace @learn6502/core build
+          gjsify workspace @learn6502/examples build
+          gjsify workspace @learn6502/learn build
+
+      # The tutorial is rendered into three unrelated artifacts and only
+      # app-gnome fails loudly on a broken one — at runtime, in whatever
+      # paragraph the reader opens. This validates all three. It rebuilds
+      # `packages/learn/dist` itself rather than trusting the step above:
+      # checking whatever artifact happens to be on disk is the defect that
+      # emptied the catalogs on 2026-09-03.
+      - name: Validate generated tutorial artifacts
+        run: gjsify workspace @learn6502/learn check
+
+      - name: Type check (gjsify tsc under GJS)
+        run: |
+          gjsify workspace @learn6502/core check
+          gjsify workspace @learn6502/common-ui check
+          gjsify workspace @learn6502/app-web check
+          gjsify workspace @learn6502/app-gnome check:typescript
+          gjsify workspace @learn6502/app-android check

@@ -1,0 +1,25 @@
+{
+  "name": "@learn6502/translations",
+  "version": "0.8.0",
+  "private": true,
+  "description": "Translations for Learn 6502 Assembly",
+  "author": "Pascal Garber <pascal@jumplink.eu>",
+  "license": "CC-BY-4.0",
+  "type": "module",
+  "files": [
+    "dist",
+    "po"
+  ],
+  "scripts": {
+    "build": "gjsify workspace @learn6502/learn build && gjsify build build.js --app gjs --outfile dist/build.gen.js && gjsify run dist/build.gen.js",
+    "check": "gjsify build check.js --app gjs --outfile dist/check.gen.js && gjsify run dist/check.gen.js",
+    "clear": "rm -rf dist"
+  },
+  "devDependencies": {
+    "@gjsify/vite-plugin-gettext": "0.54.0",
+    "vite": "^8.0.16"
+  },
+  "dependencies": {
+    "@learn6502/learn": "^0.8.0"
+  }
+}

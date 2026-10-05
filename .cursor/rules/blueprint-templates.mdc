@@ -1,0 +1,144 @@
+---
+description: Guidelines for Blueprint UI templates
+globs: **/*.blp
+alwaysApply: false
+---
+
+> See also:
+
+- [@adwaita-styling](mdc:.cursor/rules/adwaita-styling)
+- [Blueprint documentation](https://gnome.pages.gitlab.gnome.org/blueprint-compiler/)
+
+## Blueprint Templates — Condensed Guide
+
+**Goal:** Declarative UI in `.blp`; logic in TypeScript. Prefer bindings; avoid hardcoded state.
+
+### Core principles
+
+- Use Blueprint for GTK UI; follow GNOME HIG.
+- Keep UIs declarative; avoid constructing widgets in code.
+- Add namespaces first: `using Gtk 4.0; using Adw 1;`.
+- Template names start with `$`; extend correct base class (e.g. `Adw.Window`, `Adw.Bin`).
+- Expose only needed children via `InternalChildren`.
+
+### Template skeleton
+
+```blp
+using Gtk 4.0; using Adw 1;
+
+template $MyWidget : Gtk.Box {
+  Label title { label: bind template.title; hexpand: true; xalign: 0; }
+}
+```
+
+### Binding (default)
+
+- `bind template.prop` for display; `bind template.prop bidirectional` for editable inputs.
+- Use expressions for simple transforms; avoid callbacks for presentation.
+- Prefer bind over magic constants; compute `visible`, `sensitive`, `label` in-place.
+
+```blp
+Label err { label: bind template.error; visible: bind template.has_error as <bool>; styles: ["error"]; }
+Entry edit { text: bind template.title bidirectional; }
+```
+
+### Signals in `.blp`, logic in TS
+
+- Connect in `.blp` (e.g. `clicked => $_onSave();`).
+- Implement in class; annotate with `@Gtk.Template.Callback()` when appropriate.
+- Use consistent `_onXxx` naming.
+
+```blp
+Button save { action-name: "app.save"; clicked => $_onSave(); }
+```
+
+```ts
+@Gtk.Template.Callback()
+_on_save() { this.emit("save-requested"); }
+```
+
+### Minimal TypeScript registration
+
+```ts
+import GObject from "@girs/gobject-2.0";
+import Gtk from "@girs/gtk-4.0";
+import Template from "./my-widget.blp";
+
+export class MyWidget extends Gtk.Box {
+  static {
+    GObject.registerClass(
+      {
+        GTypeName: "MyWidget",
+        Template,
+        InternalChildren: ["title", "save"],
+        Properties: {
+          title: GObject.ParamSpec.string(
+            "title",
+            "Title",
+            "",
+            GObject.ParamFlags.READWRITE,
+            ""
+          ),
+        },
+      },
+      this
+    );
+  }
+  declare _title: Gtk.Label;
+  declare _save: Gtk.Button;
+}
+```
+
+### Actions, menus, and state
+
+- Prefer `GAction`/`action-name` over manual `clicked` where possible.
+- Bind `action-target` to template state.
+- Use `MenuButton.menu-model` for menus; do not build menus in code when declarative works.
+
+```blp
+Button { action-name: "app.export"; action-target: bind template.doc_id; }
+MenuButton { icon-name: "open-menu-symbolic"; menu-model: template.menu; }
+```
+
+### Conditional UI
+
+- Toggle visibility/sensitivity with boolean binds; compute labels inline.
+
+```blp
+Button submit {
+  sensitive: bind template.form_valid;
+  label: bind template.loading ? "Loading…" : "Submit";
+}
+```
+
+### Layout defaults
+
+- Prefer shallow hierarchies; use spacing/margins over nested boxes.
+- Use `hexpand/halign/valign` intentionally for responsiveness.
+
+```blp
+Box root {
+  orientation: vertical; spacing: 12;
+  margin-top: 24; margin-bottom: 24; margin-start: 24; margin-end: 24;
+  Box header {
+    orientation: horizontal; spacing: 6;
+    Label title { label: bind template.title; hexpand: true; xalign: 0; styles: ["title-1"]; }
+    Button close { icon-name: "window-close-symbolic"; clicked => $_on_close(); }
+  }
+}
+```
+
+### Accessibility essentials
+
+- Provide meaningful labels/`accessible-name` for interactives.
+- Preserve keyboard navigation; avoid focus traps.
+- Use tooltips only for non-obvious controls.
+
+### Checklist
+
+- ✅ Bindings > hardcoded values; actions > ad‑hoc handlers.
+- ✅ Split complex UIs into multiple templates; meaningful names.
+- ✅ Only expose `InternalChildren` you must access in code.
+- ✅ Keep margins/spacing consistent; prefer Adwaita styles.
+- ❌ No business logic in `.blp`; avoid deep container nesting.
+- ❌ Don’t connect signals in code when `.blp` can do it.

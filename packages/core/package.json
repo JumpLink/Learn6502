@@ -1,0 +1,32 @@
+{
+  "name": "@learn6502/core",
+  "version": "0.8.0",
+  "description": "6502 assembler and simulator in Javascript",
+  "main": "dist/index.js",
+  "type": "module",
+  "private": false,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "clear": "rm -rf dist",
+    "check": "gjsify tsc --noEmit",
+    "build": "gjsify tsc --declaration"
+  },
+  "author": "Stian Soreng, Nick Morgan, Pascal Garber",
+  "license": "GPL-3.0-only",
+  "devDependencies": {
+    "@gjsify/cli": "0.54.0",
+    "typescript": "^6.0.3"
+  },
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/JumpLink/Learn6502.git",
+    "directory": "packages/core"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}

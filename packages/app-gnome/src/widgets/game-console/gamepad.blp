@@ -1,0 +1,133 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $Gamepad: Adw.Bin {
+  name: "gamepad";
+  halign: center;
+  valign: start;
+  vexpand: true;
+  Box {
+    orientation: horizontal;
+
+    Box {
+      name: "d-pad";
+      orientation: horizontal;
+      halign: start;
+      hexpand: true;
+
+      Button buttonLeft {
+        name: "buttonLeft";
+        icon-name: "dpad-left-symbolic";
+        margin-end: 0;
+        valign: center;
+        height-request: 50;
+        width-request: 50;
+
+        styles [
+          "osd",
+          "rounded-e-none",
+        ]
+      }
+
+      Box {
+        orientation: vertical;
+
+        Button buttonUp {
+          name: "buttonUp";
+          icon-name: "dpad-up-symbolic";
+          valign: center;
+          halign: center;
+          height-request: 50;
+          width-request: 50;
+
+          styles [
+            "osd",
+            "rounded-b-none",
+          ]
+        }
+
+        Button buttonCenter {
+          name: "buttonCenter";
+          valign: center;
+          halign: center;
+          height-request: 50;
+          width-request: 50;
+          sensitive: false;
+
+          styles [
+            "osd",
+            "rounded-none",
+          ]
+        }
+
+        Button buttonDown {
+          name: "buttonDown";
+          icon-name: "dpad-down-symbolic";
+          valign: center;
+          halign: center;
+          height-request: 50;
+          width-request: 50;
+
+          styles [
+            "osd",
+
+            "rounded-t-none",
+          ]
+        }
+      }
+
+      Button buttonRight {
+        name: "buttonRight";
+        icon-name: "dpad-right-symbolic";
+        valign: center;
+        halign: center;
+        height-request: 50;
+        width-request: 50;
+
+        styles [
+          "osd",
+          "rounded-s-none",
+        ]
+      }
+    }
+
+    Box {
+      orientation: horizontal;
+      margin-start: 20;
+      halign: end;
+      hexpand: true;
+
+      Button buttonB {
+        name: "buttonB";
+        label: "B";
+        margin-top: 70;
+        margin-end: 20;
+        margin-start: 10;
+        height-request: 55;
+        width-request: 55;
+        valign: center;
+
+        styles [
+          "osd",
+          "circular",
+        ]
+      }
+
+      Button buttonA {
+        name: "buttonA";
+        label: "A";
+        margin-bottom: 70;
+        margin-end: 5;
+        margin-start: 0;
+        height-request: 55;
+        width-request: 55;
+        valign: center;
+
+        styles [
+          "osd",
+          "circular",
+        ]
+      }
+    }
+  }
+}

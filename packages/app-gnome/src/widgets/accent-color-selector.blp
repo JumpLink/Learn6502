@@ -1,0 +1,156 @@
+using Gtk 4.0;
+using Adw 1;
+
+template $AccentColorSelector : Adw.Bin {
+  css-classes: ["accent-color-selector"];
+  hexpand: true;
+
+  Adw.WrapBox accents {
+    sensitive: bind template.enabled;
+    margin-top: 12;
+    margin-bottom: 12;
+    margin-start: 12;
+    margin-end: 12;
+    hexpand: true;
+    halign: center;
+    orientation: horizontal;
+    child-spacing: 8;
+    line-spacing: 8;
+
+    CheckButton accent_blue {
+      styles [ "accent", "accent-blue" ]
+      halign: center;
+      valign: center;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Blue
+      tooltip-text: _("Blue");
+      toggled => $_onAccentBlueToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Blue
+        label: _("Accent: Blue"); 
+      }
+    }
+
+    CheckButton accent_teal {
+      styles [ "accent", "accent-teal" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Teal
+      tooltip-text: _("Teal");
+      toggled => $_onAccentTealToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Teal
+        label: _("Accent: Teal"); 
+      }
+    }
+
+    CheckButton accent_green {
+      styles [ "accent", "accent-green" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Green
+      tooltip-text: _("Green");
+      toggled => $_onAccentGreenToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Green
+        label: _("Accent: Green"); 
+      }
+    }
+
+    CheckButton accent_yellow {
+      styles [ "accent", "accent-yellow" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Yellow
+      tooltip-text: _("Yellow");
+      toggled => $_onAccentYellowToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Yellow
+        label: _("Accent: Yellow"); 
+      }
+    }
+
+    CheckButton accent_orange {
+      styles [ "accent", "accent-orange" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Orange
+      tooltip-text: _("Orange");
+      toggled => $_onAccentOrangeToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Orange
+        label: _("Accent: Orange"); 
+      }
+    }
+
+    CheckButton accent_red {
+      styles [ "accent", "accent-red" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Red
+      tooltip-text: _("Red");
+      toggled => $_onAccentRedToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Red
+        label: _("Accent: Red"); 
+      }
+    }
+
+    CheckButton accent_pink {
+      styles [ "accent", "accent-pink" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Pink
+      tooltip-text: _("Pink");
+      toggled => $_onAccentPinkToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Pink
+        label: _("Accent: Pink"); 
+      }
+    }
+
+    CheckButton accent_purple {
+      styles [ "accent", "accent-purple" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Purple
+      tooltip-text: _("Purple");
+      toggled => $_onAccentPurpleToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Purple
+        label: _("Accent: Purple"); 
+      }
+    }
+
+    CheckButton accent_slate {
+      styles [ "accent", "accent-slate" ]
+      halign: center;
+      valign: center;
+      group: accent_blue;
+      focus-on-click: false;
+      // TRANSLATORS: Tooltip for accent color option Slate
+      tooltip-text: _("Slate");
+      toggled => $_onAccentSlateToggled();
+      accessibility { 
+        // TRANSLATORS: Accessibility label for accent color option Slate
+        label: _("Accent: Slate"); 
+      }
+    }
+  }
+}
+
+

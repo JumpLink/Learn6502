@@ -1,0 +1,10 @@
+.appearance-page {
+  .custom-color-group {
+    /* Fix `.boxed-list` style for custom widgets */
+    .boxed-list {
+      border-bottom-left-radius: 0px;
+      border-bottom-right-radius: 0px;
+      border-bottom: 1px solid transparent;
+    }
+  }
+}
