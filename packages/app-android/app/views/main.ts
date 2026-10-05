@@ -323,7 +323,7 @@ export class MainController implements MainView {
           setters: [{ object: "title", property: "subtitle", value: _("Program vintage game consoles") }],
         },
       ],
-      { title },
+      { title }
     );
 
     return toolbar;
