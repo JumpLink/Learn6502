@@ -11,6 +11,7 @@ import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
 import { defineNativescriptConfig } from "@gjsify/nativescript-vite";
 
+const GJSIFY_TC = "/home/jumplink/Projekte/.worktrees/gjsify-tc/packages/nativescript-bridge/adwaita/lib/esm";
 const production = process.env.NODE_ENV === "production" || !!process.env.PRODUCTION;
 const devLog = !production && !process.env.NO_DEV_LOG;
 const playStoreBuild = !!process.env.PLAY_STORE_BUILD;
@@ -36,6 +37,14 @@ export default defineNativescriptConfig(
   {},
   {
     plugins: [asmTextLoader()],
+    // LOCAL, not committed: run the ADR 0093 step 5 build of the NativeScript renderer.
+    resolve: {
+      alias: [
+        { find: /^@gjsify\/adwaita-nativescript$/, replacement: `${GJSIFY_TC}/index.js` },
+        { find: /^@gjsify\/adwaita-nativescript\/builder$/, replacement: `${GJSIFY_TC}/builder/index.js` },
+        { find: /^@gjsify\/adwaita-nativescript\/gtk$/, replacement: `${GJSIFY_TC}/namespace/gtk.js` },
+      ],
+    },
     define: {
       DEV_LOG: JSON.stringify(devLog),
       PRODUCTION: JSON.stringify(production),
