@@ -548,6 +548,37 @@ Page.adw-window {
     padding: 0;
 }
 
+/* `button.image-button` — what `Gtk.Button` adds to an icon-only button
+ * (`gtk_button_set_icon_name`). The label padding (16) is replaced by the 9 libadwaita
+ * gives an icon, so a 16px glyph makes the 34-wide rounded square `.adw-image-button`
+ * already is. `.circular` and `.pill` restate their own padding and win by source order. */
+.adw-button.image-button {
+    padding: 5 9 5 9;
+}
+
+.adw-button.image-button.circular {
+    padding: 0;
+}
+
+/* `.osd` on a button — a standalone control over content (_buttons.scss:111-135): a dark
+ * translucent fill and a near-white glyph in BOTH colour schemes, which is why the dark
+ * section restates it below (`.ns-dark .adw-button` is the same specificity and later).
+ * It keeps `.adw-button`'s 9px rounded square; only `.circular` makes it a circle. The
+ * hover tint of libadwaita has no counterpart on a touch screen; the press shade mixes
+ * 25% of the foreground into the fill, as upstream's `:active` does. */
+.adw-button.osd {
+    background-color: rgba(0, 0, 0, 0.65);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.adw-button.osd .adw-button-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.adw-button.osd:highlighted {
+    background-color: rgba(64, 64, 64, 0.65);
+}
+
 /* The button's OWN label, and it exists because the button is a `GridLayout`.
  *
  * `.adw-button` above declares `color` and `font-weight`; a `GridLayout` has no text,
@@ -2046,6 +2077,20 @@ Page.ns-dark.adw-window {
 
 .ns-dark .adw-button.flat:highlighted {
     background-color: rgba(255, 255, 255, 0.22);
+}
+
+/* Dark `.osd`: the same surface as light — see `.adw-button.osd`. */
+.ns-dark .adw-button.osd {
+    background-color: rgba(0, 0, 0, 0.65);
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.ns-dark .adw-button.osd .adw-button-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.ns-dark .adw-button.osd:highlighted {
+    background-color: rgba(64, 64, 64, 0.65);
 }
 
 /* The SHADE, not a lighter press. libadwaita presses an opaque button — which is

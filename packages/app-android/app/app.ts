@@ -6,7 +6,7 @@
 import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { registerAdwaita } from "@gjsify/adwaita-nativescript";
-import { registerLearnIcons } from "~/icons";
+import "~/icons"; // registers the GNOME-named icons as a side effect
 import { systemStates, SystemStates } from "./states";
 import { themeService } from "./services";
 import { appVariables } from "./variables";
@@ -61,7 +61,6 @@ try {
   // Register the native Adwaita widgets (Adw.ToolbarView / Adw.ViewStack / …) as NS
   // XML elements so the Adwaita shell + screens resolve. Idempotent; no-op off NS.
   registerAdwaita();
-  registerLearnIcons();
 
   Application.setResources({ _: localize });
   Application.run({ moduleName: "app-root" });
