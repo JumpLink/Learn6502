@@ -38,8 +38,8 @@ import type { SystemAppearanceChangeEvent } from "~/types";
 import { showError, logger } from "~/utils";
 import { setAppBackHandler } from "~/utils/navigation";
 
-// Adwaita FAB + screen builders
-import { AdwMainButton, type MainButtonAction } from "~/widgets/adw-main-button";
+// Main action button (shared with the GNOME app) + screen builders
+import { MainButton, type MainButtonAction } from "~/widgets/main-button";
 import type { ScreenModule } from "./main/editor";
 import { buildEditorScreen } from "./main/editor";
 import { buildLearnScreen, learnView } from "./main/learn";
@@ -81,7 +81,7 @@ export class MainController implements MainView {
 
   private _stack: Adw.ViewStack | null = null;
   private _learnBackButton: Gtk.Button | null = null;
-  private _fab: AdwMainButton | null = null;
+  private _fab: MainButton | null = null;
   private _toast: Adw.ToastOverlay | null = null;
   private _about: Adw.AboutDialog | null = null;
   private _screens: Record<string, ScreenModule> = {};
@@ -267,14 +267,14 @@ export class MainController implements MainView {
     GridLayout.setColumn(stack, 0);
     overlay.addChild(stack);
 
-    const fab = new AdwMainButton();
-    fab.horizontalAlignment = "right";
-    fab.verticalAlignment = "bottom";
+    const fab = new MainButton();
+    fab.view.horizontalAlignment = "right";
+    fab.view.verticalAlignment = "bottom";
     fab.onAction = (action) => this.onFabAction(action);
     this._fab = fab;
-    GridLayout.setRow(fab, 0);
-    GridLayout.setColumn(fab, 0);
-    overlay.addChild(fab);
+    GridLayout.setRow(fab.view, 0);
+    GridLayout.setColumn(fab.view, 0);
+    overlay.addChild(fab.view);
 
     // About dialog — an in-page modal card painted over everything (last child of
     // the overlay grid), revealed from the app menu. Mirrors the GNOME app's
