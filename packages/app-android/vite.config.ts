@@ -9,6 +9,7 @@
 // `?raw` imports are native in Vite — so neither needs porting here.
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
+import blueprintPlugin from "@gjsify/vite-plugin-blueprint";
 import { defineNativescriptConfig } from "@gjsify/nativescript-vite";
 
 const production = process.env.NODE_ENV === "production" || !!process.env.PRODUCTION;
@@ -35,7 +36,8 @@ function asmTextLoader(): Plugin {
 export default defineNativescriptConfig(
   {},
   {
-    plugins: [asmTextLoader()],
+    // `.blp` files are imported as `?shared-tree`, the same Blueprint the GNOME app compiles.
+    plugins: [asmTextLoader(), blueprintPlugin()],
     define: {
       DEV_LOG: JSON.stringify(devLog),
       PRODUCTION: JSON.stringify(production),
