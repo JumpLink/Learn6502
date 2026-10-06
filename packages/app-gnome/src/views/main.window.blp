@@ -155,9 +155,13 @@ template $MainWindow: Adw.ApplicationWindow {
               child: Box threeColumns {
                 orientation: horizontal;
                 spacing: 0;
+                hexpand: true;
+                vexpand: true;
 
                 // OverlaySplitView splits left (Learn) and center+right
                 Adw.OverlaySplitView leftSidebar {
+                  hexpand: true;
+                  vexpand: true;
                   sidebar-width-fraction: 0.25;
                   min-sidebar-width: 180;
                   max-sidebar-width: 600;

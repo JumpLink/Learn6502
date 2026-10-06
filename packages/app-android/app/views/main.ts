@@ -1,5 +1,5 @@
 import type { Page, EventData, View } from "@nativescript/core";
-import { Application, GridLayout, ItemSpec } from "@nativescript/core";
+import { Application, GridLayout } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 
 import { systemStates, SystemStates } from "~/states";
@@ -7,16 +7,18 @@ import { systemStates, SystemStates } from "~/states";
 // Adwaita native widgets
 import {
   Adw,
+  Gio,
   Gtk,
-  MENU_ITEM_ACTIVATED,
   NOTIFY_VISIBLE_CHILD,
+  insertActionGroup,
   setAdwaitaColorScheme,
 } from "@gjsify/adwaita-nativescript";
-import { openMenuSymbolic, goPreviousSymbolic } from "@gjsify/adwaita-icons/actions";
+import { buildWithSiblings } from "@gjsify/adwaita-nativescript/builder";
 // The tab icons are the GNOME app's own (school / code / bug / nintendo-controller).
 import { schoolSymbolic, codeSymbolic, bugSymbolic, nintendoControllerSymbolic } from "~/icons";
-
-import { applyBreakpoints } from "@gjsify/adwaita-nativescript/builder";
+// The GNOME app's own main window Blueprint, built by the shared-tree builder: its `Adw.Breakpoint`s
+// move the four screens between the view stack and the three columns.
+import mainWindowTree from "../../../app-gnome/src/views/main.window.blp?shared-tree";
 
 // Common interfaces and controllers
 import type { MainView } from "@learn6502/common-ui";
@@ -37,14 +39,18 @@ import { notificationService } from "~/services";
 import type { SystemAppearanceChangeEvent } from "~/types";
 import { showError, logger } from "~/utils";
 import { setAppBackHandler } from "~/utils/navigation";
+import { translate } from "~/utils/translate";
 
-// Main action button (shared with the GNOME app) + screen builders
-import { MainButton, type MainButtonAction } from "~/widgets/main-button";
-import type { ScreenModule } from "./main/editor";
-import { buildEditorScreen } from "./main/editor";
-import { buildLearnScreen, learnView } from "./main/learn";
-import { buildDebuggerScreen, debuggerView } from "./main/debugger";
-import { buildGameConsoleScreen, gameConsoleView } from "./main/game-console";
+// The template classes main.window.blp names; importing a module registers its class.
+import "~/widgets/main-button";
+import "~/widgets/menu-button";
+import "~/widgets/toolbar";
+import type { MainButton } from "~/widgets/main-button";
+import type { MenuButton } from "~/widgets/menu-button";
+import { createScreens, type Screens } from "./main/screens";
+import { learnView } from "./main/learn";
+import { debuggerView } from "./main/debugger";
+import { gameConsoleView } from "./main/game-console";
 
 /** Notification key -> user-facing title. */
 const NOTIFICATION_TITLES: Record<string, string> = {
@@ -56,35 +62,49 @@ const NOTIFICATION_TITLES: Record<string, string> = {
   "program-completed": "Program completed",
 };
 
-/** Adw.ViewStack page name <-> ViewType. */
-const VIEW_TO_NAME: Partial<Record<ViewType, string>> = {
-  [ViewType.LEARN]: "learn",
-  [ViewType.EDITOR]: "code",
-  [ViewType.DEBUGGER]: "debug",
-  [ViewType.GAME_CONSOLE]: "play",
-};
-const NAME_TO_VIEW: Record<string, ViewType> = {
-  learn: ViewType.LEARN,
-  code: ViewType.EDITOR,
-  debug: ViewType.DEBUGGER,
-  play: ViewType.GAME_CONSOLE,
-};
+/** The four screens, in the order the stack lists them, with their tab title and icon. */
+const STACK_PAGES: { id: keyof Screens; view: ViewType; title: () => string; icon: string }[] = [
+  { id: "learn", view: ViewType.LEARN, title: () => _("Learn"), icon: schoolSymbolic },
+  { id: "editor", view: ViewType.EDITOR, title: () => _("Code"), icon: codeSymbolic },
+  { id: "debugger", view: ViewType.DEBUGGER, title: () => _("Debug"), icon: bugSymbolic },
+  { id: "gameConsole", view: ViewType.GAME_CONSOLE, title: () => _("Play"), icon: nintendoControllerSymbolic },
+];
+
+/** Names of the `win` actions, as `main-button.blp` and `toolbar.blp` spell them. */
+const WIN_ACTIONS = [
+  "assemble",
+  "run-simulator",
+  "resume-simulator",
+  "pause-simulator",
+  "reset-simulator",
+  "step-simulator",
+  "share",
+] as const;
+type WinAction = (typeof WIN_ACTIONS)[number];
 
 /**
- * MainController — builds the Adwaita shell (Adw.ToolbarView: header bar + a
- * bottom Adw.ViewSwitcherBar driving an Adw.ViewStack of the four screens, with an
- * Adwaita FAB overlaid). Implements MainView; all 6502 logic stays in the
- * common-ui controllers + event bridges.
+ * MainController — the window shell, built from the GNOME app's `main.window.blp`: header bar, a
+ * view stack with a bottom switcher bar on narrow windows, three columns beside a run toolbar on
+ * wide ones, the main button over it all. Its `Adw.Breakpoint`s decide which; this class moves the
+ * four screens between the stack and the columns when they do, as the GNOME window does. Implements
+ * MainView; all 6502 logic stays in the common-ui controllers + event bridges.
  */
 export class MainController implements MainView {
   private page: Page | null = null;
 
+  private _window: View | null = null;
   private _stack: Adw.ViewStack | null = null;
+  private _layoutHost: Gtk.Stack | null = null;
+  private _switcherBar: Adw.ViewSwitcherBar | null = null;
+  private _leftColumn: Gtk.Box | null = null;
+  private _centerColumn: Gtk.Box | null = null;
+  private _rightTopBox: Gtk.Box | null = null;
+  private _rightBottomBox: Gtk.Box | null = null;
   private _learnBackButton: Gtk.Button | null = null;
-  private _fab: MainButton | null = null;
-  private _toast: Adw.ToastOverlay | null = null;
+  private _mainButton: MainButton | null = null;
   private _about: Adw.AboutDialog | null = null;
-  private _screens: Record<string, ScreenModule> = {};
+  private _screens: Screens | null = null;
+  private readonly _actions = new Map<WinAction, Gio.SimpleAction>();
   private _currentName: string | null = null;
 
   private _activeView: ViewType = ViewType.EDITOR;
@@ -99,6 +119,11 @@ export class MainController implements MainView {
 
   get activeView(): ViewType {
     return this._activeView;
+  }
+
+  /** Whether the breakpoints have put the screens in columns (the GNOME window's `three`). */
+  private get threeColumns(): boolean {
+    return this._layoutHost?.visibleChildName === "three";
   }
 
   constructor() {
@@ -169,15 +194,18 @@ export class MainController implements MainView {
 
     mainStateController.init();
 
-    // Build the Adwaita shell and install it as the page content.
+    // Build the shell from main.window.blp and install it as the page content.
     this.page.content = this.buildShell();
 
-    // Hardware back: let the active screen consume it (e.g. the Learn screen pops
-    // its internal Adw.NavigationView). Registered with the global back handler so
-    // it runs before the default Frame / move-to-background logic.
+    // Hardware back: let the visible screens consume it (e.g. the Learn screen pops its internal
+    // Adw.NavigationView). Registered with the global back handler so it runs before the default
+    // Frame / move-to-background logic.
     setAppBackHandler(() => {
-      const screen = this._currentName ? this._screens[this._currentName] : undefined;
-      return screen?.onBack?.() ?? false;
+      const screens = this._screens;
+      if (!screens) return false;
+      if (this.threeColumns) return screens.learn.onBack?.() ?? false;
+      const current = STACK_PAGES.find((page) => page.id === this._currentName);
+      return current ? (screens[current.id].onBack?.() ?? false) : false;
     });
 
     // Start on the editor, the default screen.
@@ -211,74 +239,65 @@ export class MainController implements MainView {
 
   // --- Shell construction ---
   private buildShell(): View {
-    const toolbar = new Adw.ToolbarView();
+    this._screens = createScreens();
 
-    // Header bar: title + app menu.
-    const header = new Adw.HeaderBar();
-    const title = new Adw.WindowTitle();
-    title.title = "Learn6502";
-    header.set_title_widget(title);
-
-    // Back button for the Learn tab's own navigation stack (Tutorial/Examples
-    // subpages) — the GNOME/Web twins' `learnBackButton`. Hidden until a
-    // subpage is open; see updateLearnBackButtonVisibility().
-    const learnBack = new Gtk.Button();
-    learnBack.iconName = goPreviousSymbolic;
-    learnBack.accessibilityLabel = _("Back");
-    learnBack.visibility = "collapsed";
-    learnBack.addEventListener("tap", () => learnView.navigateBack());
-    this._learnBackButton = learnBack;
-    header.pack_start(learnBack);
-
-    const menu = new Gtk.MenuButton();
-    menu.iconName = openMenuSymbolic;
-    menu.menuTitle = "Learn6502";
-    menu.menuModel = [
-      { id: "about", label: _("About Learn 6502 Assembly") },
-      { id: "help", label: _("Help") },
-      { id: "quit", label: _("Quit") },
-    ];
-    menu.addEventListener(MENU_ITEM_ACTIVATED, (e) => {
-      const id = (e as unknown as { id: string }).id;
-      this.onMenuItem(id);
+    const { root } = buildWithSiblings(mainWindowTree, {
+      // `clicked => $_onLearnBackButtonClicked()` in the blueprint.
+      scope: { _onLearnBackButtonClicked: () => learnView.navigateBack() },
+      translate,
     });
-    header.pack_end(menu);
-    toolbar.add_top_bar(header);
+    this._window = root;
+    const byId = <T>(id: string): T => root.getViewById<View>(id) as unknown as T;
 
-    // Stack of the four screens.
-    const stack = new Adw.ViewStack();
-    this._stack = stack;
-    const learn = buildLearnScreen();
-    const code = buildEditorScreen();
-    const debug = buildDebuggerScreen();
-    const play = buildGameConsoleScreen();
-    this._screens = { learn, code, debug, play };
-    stack.add(learn.view, "learn", _("Learn"), schoolSymbolic);
-    stack.add(code.view, "code", _("Code"), codeSymbolic);
-    stack.add(debug.view, "debug", _("Debug"), bugSymbolic);
-    stack.add(play.view, "play", _("Play"), nintendoControllerSymbolic);
-    stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(stack.visibleChildName));
+    this._stack = byId<Adw.ViewStack>("stack");
+    this._layoutHost = byId<Gtk.Stack>("layoutHost");
+    this._switcherBar = byId<Adw.ViewSwitcherBar>("switcherBar");
+    this._leftColumn = byId<Gtk.Box>("leftColumn");
+    this._centerColumn = byId<Gtk.Box>("centerColumn");
+    this._rightTopBox = byId<Gtk.Box>("rightTopBox");
+    this._rightBottomBox = byId<Gtk.Box>("rightBottomBox");
+    this._learnBackButton = byId<Gtk.Button>("learnBackButton");
+    this._mainButton = byId<MainButton>("mainButton");
 
-    // Content = a toast overlay wrapping [stack + FAB].
-    const overlay = new GridLayout();
-    overlay.addRow(new ItemSpec(1, "star"));
-    overlay.addColumn(new ItemSpec(1, "star"));
-    GridLayout.setRow(stack, 0);
-    GridLayout.setColumn(stack, 0);
-    overlay.addChild(stack);
+    byId<MenuButton>("menuButton").onActivated = (id) => this.onMenuItem(id);
 
-    const fab = new MainButton();
-    fab.view.horizontalAlignment = "right";
-    fab.view.verticalAlignment = "bottom";
-    fab.onAction = (action) => this.onFabAction(action);
-    this._fab = fab;
-    GridLayout.setRow(fab.view, 0);
-    GridLayout.setColumn(fab.view, 0);
-    overlay.addChild(fab.view);
+    this.setupActions(root);
+    this.setupAbout(root);
 
-    // About dialog — an in-page modal card painted over everything (last child of
-    // the overlay grid), revealed from the app menu. Mirrors the GNOME app's
-    // Adw.AboutDialog.new_from_appdata(metainfo, version).
+    this._stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(this._stack!.visibleChildName));
+    this._layoutHost.connect("notify::visible-child-name", () => this.mountLayout());
+    this.mountLayout();
+
+    return root;
+  }
+
+  /** The `win` action group the main button and the run toolbar fire (their `action-name`s). */
+  private setupActions(root: View): void {
+    const group = new Gio.SimpleActionGroup();
+    const handlers: Record<WinAction, () => void> = {
+      assemble: () => mainStateController.emitAssemble(),
+      "run-simulator": () => mainStateController.emitRun(),
+      "resume-simulator": () => mainStateController.emitResume(),
+      "pause-simulator": () => mainStateController.emitPause(),
+      "reset-simulator": () => mainStateController.emitReset(),
+      "step-simulator": () => mainStateController.emitStep(),
+      share: () => this.shareCode(),
+    };
+    for (const name of WIN_ACTIONS) {
+      const action = new Gio.SimpleAction({ name });
+      action.connect("activate", handlers[name]);
+      group.add_action(action);
+      this._actions.set(name, action);
+    }
+    insertActionGroup(root, "win", group);
+  }
+
+  /**
+   * About dialog — an in-page modal card painted over everything (the window's last child),
+   * revealed from the app menu. Mirrors the GNOME app's Adw.AboutDialog.new_from_appdata(metainfo,
+   * version).
+   */
+  private setupAbout(root: View): void {
     const about = new Adw.AboutDialog();
     about.applicationName = _("Learn 6502 Assembly");
     about.version = __APP_VERSION__;
@@ -288,75 +307,87 @@ export class MainController implements MainView {
     this._about = about;
     GridLayout.setRow(about, 0);
     GridLayout.setColumn(about, 0);
-    overlay.addChild(about);
+    (root as GridLayout).addChild(about);
+  }
 
-    const toast = new Adw.ToastOverlay();
-    toast.set_child(overlay);
-    this._toast = toast;
-    toolbar.set_content(toast);
+  // --- Layout: the stack on narrow windows, the columns on wide ones ---
 
-    // Bottom view switcher bar bound to the stack.
-    //
-    // REVEALED, explicitly. `Adw.ViewSwitcherBar:reveal` defaults to FALSE — in a GNOME
-    // window the bar is asked for by an `Adw.Breakpoint` (`setters { bar.reveal: true; }`)
-    // once the window goes narrow, and a desktop-width window keeps it collapsed in favour
-    // of the header-bar switcher. Android has no wide branch: this shell is the narrow
-    // layout, always. Without this line the bar measured THREE PIXELS on the emulator and
-    // the app had no visible way to change page at all.
-    const switcher = new Adw.ViewSwitcherBar();
-    switcher.set_stack(stack);
-    switcher.reveal = true;
-    toolbar.add_bottom_bar(switcher);
+  /** Put the four screens where the current layout wants them, as the GNOME window does. */
+  private mountLayout(): void {
+    if (this.threeColumns) this.mountThreeColumnLayout();
+    else this.mountSingleLayout();
+    this.updateLearnBackButtonVisibility();
+    this.updateMainUiState();
+  }
 
-    // The GNOME window's `Adw.Breakpoint`s (main.window.blp) as the same data a `.blp` projects
-    // to. Phone widths keep the plain header; a tablet gets the subtitle under the title. Last
-    // match wins and the original is restored, as libadwaita does.
-    applyBreakpoints(
-      toolbar,
-      [
-        {
-          condition: "max-width: 799sp or max-height: 599sp",
-          setters: [{ object: "title", property: "subtitle", value: "" }],
-        },
-        {
-          condition: "min-width: 800sp and min-height: 600sp",
-          setters: [{ object: "title", property: "subtitle", value: _("Program vintage game consoles") }],
-        },
-      ],
-      { title }
-    );
+  /** Detach a screen from whichever container holds it, ready for the other layout. */
+  private detach(view: View): void {
+    const parent = view.parent as unknown as { remove?: (child: View) => unknown; removeChild?: (v: View) => void };
+    if (!parent) return;
+    if (parent === (this._stack as unknown)) this._stack!.remove(view);
+    else if (typeof parent.remove === "function") parent.remove(view);
+    else parent.removeChild?.(view);
+  }
 
-    return toolbar;
+  private mountSingleLayout(): void {
+    const stack = this._stack!;
+    const screens = this._screens!;
+    const keep = this._currentName ?? STACK_PAGES[1]!.id;
+    for (const page of STACK_PAGES) this.detach(screens[page.id].view);
+    for (const page of STACK_PAGES) stack.add(screens[page.id].view, page.id, page.title(), page.icon);
+    this._switcherBar!.set_stack(stack);
+    this._currentName = null;
+    stack.visibleChildName = keep;
+    this.onStackChanged(stack.visibleChildName);
+  }
+
+  private mountThreeColumnLayout(): void {
+    const screens = this._screens!;
+    for (const page of STACK_PAGES) this.detach(screens[page.id].view);
+    // A box hands spare space only to a child that asks for it, and the screens are plain views.
+    for (const page of STACK_PAGES) Object.assign(screens[page.id].view, { hexpand: true, vexpand: true });
+    this._leftColumn!.append(screens.learn.view);
+    this._centerColumn!.append(screens.editor.view);
+    this._rightTopBox!.append(screens.gameConsole.view);
+    this._rightBottomBox!.append(screens.debugger.view);
+    // No bottom bar in columns; the screens are all on show.
+    this._switcherBar!.set_stack(null);
+    this._currentName = null;
+    for (const page of STACK_PAGES) screens[page.id].onShow?.();
+    this._activeView = ViewType.EDITOR;
+    mainStateController.setViewType(ViewType.EDITOR);
   }
 
   // --- Navigation ---
   public navigateToView(viewType: ViewType): void {
-    if (!this._stack) return;
-    const name = VIEW_TO_NAME[viewType];
-    if (!name) return;
-    this._stack.visibleChildName = name; // fires notify::visible-child if changed
-    this.onStackChanged(name); // covers the already-on-that-view case
+    // In columns every screen is on show already.
+    if (this.threeColumns || !this._stack) return;
+    const page = STACK_PAGES.find((candidate) => candidate.view === viewType);
+    if (!page) return;
+    this._stack.visibleChildName = page.id; // fires notify::visible-child if changed
+    this.onStackChanged(page.id); // covers the already-on-that-view case
   }
 
   private onStackChanged(name: string): void {
-    const viewType = NAME_TO_VIEW[name] ?? ViewType.EDITOR;
+    const page = STACK_PAGES.find((candidate) => candidate.id === name);
+    if (!page || !this._screens || this.threeColumns) return;
     if (name !== this._currentName) {
-      if (this._currentName) this._screens[this._currentName]?.onHide?.();
-      this._screens[name]?.onShow?.();
+      if (this._currentName) this._screens[this._currentName as keyof Screens]?.onHide?.();
+      this._screens[page.id].onShow?.();
       this._currentName = name;
     }
-    this._activeView = viewType;
-    mainStateController.setViewType(viewType);
+    this._activeView = page.view;
+    mainStateController.setViewType(page.view);
     this.updateMainUiState();
     this.updateLearnBackButtonVisibility();
   }
 
-  /** Show the header back button only while the Learn tab is active AND has a
-   *  subpage open — there is no desktop/three-column mode on Android, so unlike
-   *  the GNOME twin this is the whole condition (mirrors its mobile branch). */
+  /** Show the header back button only while Learn has a subpage open and is on screen: in columns
+   *  always, in the stack only while its tab is the active one (as in the GNOME window). */
   private updateLearnBackButtonVisibility(): void {
     if (!this._learnBackButton) return;
-    const visible = this._activeView === ViewType.LEARN && learnView.hasVisibleSubpage;
+    const learnOnScreen = this.threeColumns || this._activeView === ViewType.LEARN;
+    const visible = learnOnScreen && learnView.hasVisibleSubpage;
     this._learnBackButton.visibility = visible ? "visible" : "collapsed";
   }
 
@@ -397,30 +428,7 @@ export class MainController implements MainView {
     mainStateController.setCodeChanged(false);
   }
 
-  // --- FAB / menu handlers ---
-  private onFabAction(action: MainButtonAction): void {
-    switch (action) {
-      case "assemble":
-        mainStateController.emitAssemble();
-        break;
-      case "run":
-        mainStateController.emitRun();
-        break;
-      case "pause":
-        mainStateController.emitPause();
-        break;
-      case "resume":
-        mainStateController.emitResume();
-        break;
-      case "reset":
-        mainStateController.emitReset();
-        break;
-      case "step":
-        mainStateController.emitStep();
-        break;
-    }
-  }
-
+  // --- Menu / share handlers ---
   private onMenuItem(id: string): void {
     switch (id) {
       case "about":
@@ -435,12 +443,38 @@ export class MainController implements MainView {
     }
   }
 
+  /** Hand the editor's code to the Android share sheet; GNOME opens its own share dialog instead. */
+  private shareCode(): void {
+    const activity = Application.android?.foregroundActivity;
+    const code = editorController.code;
+    if (!activity || !code) return;
+    const intent = new android.content.Intent(android.content.Intent.ACTION_SEND);
+    intent.setType("text/plain");
+    intent.putExtra(android.content.Intent.EXTRA_TEXT, code);
+    activity.startActivity(android.content.Intent.createChooser(intent, _("Share")));
+  }
+
   private updateMainUiState(): void {
-    if (!this._fab) return;
-    let state = mainStateController.updateFromSimulatorState(this.state);
+    if (!this._mainButton) return;
+    const simulatorState = this.state;
+    let state = mainStateController.updateFromSimulatorState(simulatorState);
     // The action button is hidden on the Learn screen (matching the GNOME app).
-    if (this._activeView === ViewType.LEARN) state = MainButtonState.HIDDEN;
-    this._fab.setState(state);
+    if (this._activeView === ViewType.LEARN && !this.threeColumns) state = MainButtonState.HIDDEN;
+    this._mainButton.setState(state);
+
+    // The run toolbar's buttons follow the same enabled states the GNOME window gives its actions.
+    const enabled = mainStateController.getActionEnabledState(
+      simulatorState,
+      editorController.hasCode,
+      mainStateController.getCodeChanged()
+    );
+    this._actions.get("assemble")!.enabled = enabled.assemble;
+    this._actions.get("run-simulator")!.enabled = enabled.run;
+    this._actions.get("resume-simulator")!.enabled = enabled.resume;
+    this._actions.get("pause-simulator")!.enabled = enabled.pause;
+    this._actions.get("reset-simulator")!.enabled = enabled.reset;
+    this._actions.get("step-simulator")!.enabled = enabled.step;
+    this._actions.get("share")!.enabled = enabled.share;
   }
 
   // --- Setup helpers ---
