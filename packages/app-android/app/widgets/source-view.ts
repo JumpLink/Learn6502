@@ -294,6 +294,8 @@ export class SourceView extends ContentView implements SourceViewWidget {
   }
 
   // Instance methods - private
+  // Not yet in gjsify: GtkSource.View has no selectable / cursor-visible mapping, so the
+  // Android EditText is reached directly. Drop this once gjsify maps them.
   private applySelectable() {
     const nativeEditText = this.sourceView?.android as android.widget.EditText | undefined;
     if (!nativeEditText) return;
