@@ -139,34 +139,6 @@ TextView.no-underline {
   margin-right: var(--safeAreaInsetRight, 0) !important;
 }
 
-/* Adwaita floating action button (the main Assemble / Run / … button): a
-   `Gtk.Button` carrying `Adw.ButtonContent`. `height: auto` overrides the fixed 38
-   `.adw-button` sets — the FAB sizes to its icon+label plus this padding, as the old
-   hand-built StackLayout did. */
-.adw-fab {
-  background-color: #3584e4;
-  border-radius: 28;
-  padding: 0 20 0 20;
-  margin: 16;
-  /* 56dp, the Material FAB size, as a MINIMUM width too: a short label ("Run") made the
-     pill narrower than it is tall. Fixed height + radius = height/2 keeps it a full pill. */
-  min-width: 56;
-  height: 56;
-  android-elevation: 0;
-}
-
-/* `Adw.ButtonContent`'s label defaults to Adwaita's dark button text and only turns
-   white for `.suggested-action` or dark mode (`.adw-button-content-label` /
-   `.ns-dark .adw-button-content-label` in the theme) — the FAB's accent background
-   needs it white unconditionally, like the old `.adw-fab-label` did. */
-.adw-fab .adw-button-content-label {
-  color: #ffffff;
-}
-
-.ns-dark .adw-fab {
-  background-color: #3584e4;
-}
-
 /* Gamepad — the GNOME version uses `.osd` (dark translucent) buttons: rounded for
    the d-pad, circular for A/B. */
 .gamepad-dpad-button {
