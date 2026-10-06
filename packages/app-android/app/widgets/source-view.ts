@@ -1,7 +1,7 @@
-import type { View } from "@nativescript/core";
 import { ContentView, Property, booleanConverter } from "@nativescript/core";
 import { EventDispatcher } from "@learn6502/core";
 import type { SourceViewEventMap, SourceViewWidget } from "@learn6502/common-ui";
+import { Gio, Gtk, insertActionGroup } from "@gjsify/adwaita-nativescript";
 import { build } from "@gjsify/adwaita-nativescript/builder";
 import { GtkSource } from "@gjsify/gtksource-nativescript";
 import "@gjsify/gtksource-nativescript/builder";
@@ -81,9 +81,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     defaultValue: "",
     valueChanged(target, oldValue, newValue) {
       target._copyButtonTooltip = newValue;
-      if (target.copyButton) {
-        target.copyButton.accessibilityLabel = newValue;
-      }
+      if (target.copyButton) target.copyButton.tooltipText = newValue;
     },
   });
 
@@ -93,7 +91,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   // Instance properties - private
   private sourceView!: InstanceType<typeof GtkSource.View>;
   private bufferHandler: number | null = null;
-  private copyButton!: View;
+  private copyButton!: Gtk.Button;
   private _editable: boolean = true;
   private _lineNumbers: boolean = true;
   private _lineNumberStart: number = 1;
@@ -225,9 +223,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   set copyButtonTooltip(value: string) {
     if (this._copyButtonTooltip === value) return;
     this._copyButtonTooltip = value;
-    if (this.copyButton) {
-      this.copyButton.accessibilityLabel = value;
-    }
+    if (this.copyButton) this.copyButton.tooltipText = value;
     this.notifyPropertyChange("copyButtonTooltip", value);
   }
 
@@ -242,7 +238,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     const componentView = build(sourceViewTree);
 
     this.sourceView = componentView.getViewById<InstanceType<typeof GtkSource.View>>("sourceView");
-    this.copyButton = componentView.getViewById<View>("copyButton");
+    this.copyButton = componentView.getViewById<Gtk.Button>("copyButton");
 
     if (!this.sourceView) {
       throw new Error("Failed to find sourceView in source-view.blp");
@@ -256,12 +252,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
 
     if (this.copyButton) {
       this.copyButton.visibility = this.copyable ? "visible" : "collapse";
-      if (this.copyButtonTooltip) {
-        this.copyButton.accessibilityLabel = this.copyButtonTooltip;
-      }
-      this.copyButton.on("tap", () => {
-        this.events.dispatch("copy", { code: this.code });
-      });
+      if (this.copyButtonTooltip) this.copyButton.tooltipText = this.copyButtonTooltip;
     } else {
       logger.warn("SourceView", "copyButton not found in source-view.blp");
     }
@@ -275,6 +266,14 @@ export class SourceView extends ContentView implements SourceViewWidget {
       SourceView.codeProperty.nativeValueChange(this, newText);
       this.events.dispatch("changed", { code: newText });
     });
+
+    // The same `source-view.copy` action the GNOME widget registers; the shared .blp button's
+    // `action-name` resolves to it.
+    const actions = new Gio.SimpleActionGroup();
+    const copy = new Gio.SimpleAction({ name: "copy" });
+    copy.connect("activate", () => this.events.dispatch("copy", { code: this.code }));
+    actions.add_action(copy);
+    insertActionGroup(componentView, "source-view", actions);
 
     this.content = componentView;
 
