@@ -1,8 +1,12 @@
 import type { View } from "@nativescript/core";
-import { ContentView, Property, Builder, booleanConverter } from "@nativescript/core";
+import { ContentView, Property, booleanConverter } from "@nativescript/core";
 import { EventDispatcher } from "@learn6502/core";
 import type { SourceViewEventMap, SourceViewWidget } from "@learn6502/common-ui";
+import { build } from "@gjsify/adwaita-nativescript/builder";
 import { GtkSource } from "@gjsify/gtksource-nativescript";
+import "@gjsify/gtksource-nativescript/builder";
+// The GNOME app's own Blueprint, built here by the shared-tree builder (`GtkSource.View` included).
+import sourceViewTree from "../../../app-gnome/src/widgets/source-view.blp?shared-tree";
 import { registerGtkSourceData } from "~/services/gtksource-setup";
 import { logger } from "~/utils";
 
@@ -28,6 +32,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._lineNumbers = newValue;
+      if (target.sourceView) target.sourceView.showLineNumbers = newValue;
     },
   });
 
@@ -67,6 +72,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
     valueConverter: booleanConverter,
     valueChanged(target, oldValue, newValue) {
       target._copyable = newValue;
+      if (target.copyButton) target.copyButton.visibility = newValue ? "visible" : "collapse";
     },
   });
 
@@ -137,6 +143,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   set lineNumbers(value: boolean) {
     if (this._lineNumbers === value) return;
     this._lineNumbers = value;
+    if (this.sourceView) this.sourceView.showLineNumbers = value;
     this.notifyPropertyChange("lineNumbers", value);
   }
 
@@ -216,7 +223,7 @@ export class SourceView extends ContentView implements SourceViewWidget {
   set copyable(value: boolean) {
     if (this._copyable === value) return;
     this._copyable = value;
-    // Visibility is handled by template binding: visibility="{{ copyable ? 'visible' : 'collapsed' }}"
+    if (this.copyButton) this.copyButton.visibility = value ? "visible" : "collapse";
     this.notifyPropertyChange("copyable", value);
   }
 
@@ -251,33 +258,31 @@ export class SourceView extends ContentView implements SourceViewWidget {
     super.onLoaded();
 
     registerGtkSourceData();
-    const componentView = Builder.load({
-      path: "~/widgets",
-      name: "source-view",
-    });
+    const componentView = build(sourceViewTree);
 
     this.sourceView = componentView.getViewById<InstanceType<typeof GtkSource.View>>("sourceView");
     this.copyButton = componentView.getViewById<View>("copyButton");
 
     if (!this.sourceView) {
-      throw new Error("Failed to find sourceView in source-view.xml");
+      throw new Error("Failed to find sourceView in source-view.blp");
     }
 
     const buffer = this.sourceView.buffer;
     buffer.language = GtkSource.LanguageManager.getDefault().getLanguage("6502-assembler");
     buffer.styleScheme = GtkSource.StyleSchemeManager.getDefault().getScheme("Learn6502");
     this.sourceView.editable = this.editable;
+    this.sourceView.showLineNumbers = this.lineNumbers;
 
     if (this.copyButton) {
+      this.copyButton.visibility = this.copyable ? "visible" : "collapse";
       if (this.copyButtonTooltip) {
         this.copyButton.accessibilityLabel = this.copyButtonTooltip;
       }
-      // Visibility is handled by template binding: visibility="{{ copyable ? 'visible' : 'collapsed' }}"
       this.copyButton.on("tap", () => {
         this.events.dispatch("copy", { code: this.code });
       });
     } else {
-      logger.warn("SourceView", "copyButton not found in source-view.xml");
+      logger.warn("SourceView", "copyButton not found in source-view.blp");
     }
 
     // The typed text goes back into the `code` property: `codeProperty.register()` below
@@ -290,8 +295,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
       this.events.dispatch("changed", { code: newText });
     });
 
-    // The `{{ lineNumbers }}` / `{{ copyable }}` bindings in source-view.xml read from this widget.
-    componentView.bindingContext = this;
     this.content = componentView;
 
     // Apply code that was set before the view was loaded
