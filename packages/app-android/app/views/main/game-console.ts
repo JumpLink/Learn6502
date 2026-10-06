@@ -1,6 +1,6 @@
 import type { View } from "@nativescript/core";
 import { GridLayout, ItemSpec, StackLayout } from "@nativescript/core";
-import { Gtk, AdwImageButton } from "@gjsify/adwaita-nativescript";
+import { Gtk } from "@gjsify/adwaita-nativescript";
 import { dpadUpSymbolic, dpadDownSymbolic, dpadLeftSymbolic, dpadRightSymbolic } from "~/icons";
 import type { SimulatorState } from "@learn6502/core";
 import { type Memory, type Labels, type Simulator, type Assembler } from "@learn6502/core";
@@ -107,7 +107,7 @@ export class GameConsole implements GameConsoleView {
     return root;
   }
 
-  /** The on-screen gamepad: a d-pad of Adwaita image-buttons + circular A/B
+  /** The on-screen gamepad: a d-pad of Adwaita `.osd` buttons + circular A/B
    *  buttons, mirroring the GNOME Gamepad. Each press routes to the simulator via
    *  gameConsoleController.gamepadPress. */
   private buildGamepad(): View {
@@ -117,20 +117,9 @@ export class GameConsole implements GameConsoleView {
     // the direction buttons touch and round only their OUTER corners, and a
     // disabled hub fills the centre. `dpad-*-symbolic` are the Learn6502 icons.
     const R = 13;
-    const dirButton = (
-      icon: string,
-      key: GamepadKey,
-      tl: number,
-      tr: number,
-      br: number,
-      bl: number
-    ): AdwImageButton => {
-      const b = new AdwImageButton();
+    const dirButton = (icon: string, key: GamepadKey, tl: number, tr: number, br: number, bl: number): Gtk.Button => {
+      const b = new Gtk.Button();
       b.iconName = icon;
-      // @girs/adwaita-nativescript 0.50.0: iconSize is the enum nick, and a
-      // size in DIPs is pixelSize (gjsify#1584). 22 was always a pixel count.
-      b.pixelSize = 22;
-      b.iconColor = "#ffffff";
       b.width = 52;
       b.height = 52;
       b.margin = 0;
@@ -138,7 +127,8 @@ export class GameConsole implements GameConsoleView {
       b.borderTopRightRadius = tr;
       b.borderBottomRightRadius = br;
       b.borderBottomLeftRadius = bl;
-      b.className = `${b.className} gamepad-dpad-button`.trim();
+      // The shared `.osd` button of the theme, as `gamepad.blp` styles the GNOME d-pad.
+      b.add_css_class("osd");
       b.addEventListener("tap", () => press(key));
       return b;
     };
@@ -158,12 +148,12 @@ export class GameConsole implements GameConsoleView {
     place(dirButton(dpadRightSymbolic, "Right", 0, R, R, 0), 1, 2);
     place(dirButton(dpadDownSymbolic, "Down", 0, 0, R, R), 2, 1);
     // Centre hub — a non-interactive OSD square that joins the cross.
-    const hub = new StackLayout();
+    const hub = new Gtk.Button();
     hub.width = 52;
     hub.height = 52;
     hub.margin = 0;
     hub.borderRadius = 0;
-    hub.className = "gamepad-dpad-button";
+    hub.add_css_class("osd");
     place(hub, 1, 1);
 
     const actButton = (label: string, key: GamepadKey, topMargin: number, bottomMargin: number): Gtk.Button => {
@@ -176,7 +166,8 @@ export class GameConsole implements GameConsoleView {
       // `add_css_class` rather than a `className` concat: the button keeps its style
       // classes in a list `className` is derived from, so appending to `className`
       // directly would leave `styleClasses` reading back empty.
-      b.add_css_class("gamepad-action-button");
+      b.add_css_class("osd");
+      b.add_css_class("circular");
       b.addEventListener("tap", () => press(key));
       return b;
     };
