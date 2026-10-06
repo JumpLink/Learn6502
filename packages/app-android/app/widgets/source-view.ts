@@ -76,14 +76,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
     },
   });
 
-  public static copyButtonIconProperty = new Property<SourceView, string>({
-    name: "copyButtonIcon",
-    defaultValue: "",
-    valueChanged(target, oldValue, newValue) {
-      target._copyButtonIcon = newValue;
-    },
-  });
-
   public static copyButtonTooltipProperty = new Property<SourceView, string>({
     name: "copyButtonTooltip",
     defaultValue: "",
@@ -107,7 +99,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
   private _lineNumberStart: number = 1;
   private _selectable: boolean = true;
   private _copyable: boolean = false;
-  private _copyButtonIcon: string = "";
   private _copyButtonTooltip: string = "";
   private _pendingCode: string = "";
 
@@ -227,16 +218,6 @@ export class SourceView extends ContentView implements SourceViewWidget {
     this.notifyPropertyChange("copyable", value);
   }
 
-  get copyButtonIcon(): string {
-    return this._copyButtonIcon;
-  }
-
-  set copyButtonIcon(value: string) {
-    if (this._copyButtonIcon === value) return;
-    this._copyButtonIcon = value;
-    this.notifyPropertyChange("copyButtonIcon", value);
-  }
-
   get copyButtonTooltip(): string {
     return this._copyButtonTooltip;
   }
@@ -330,5 +311,4 @@ SourceView.editableProperty.register(SourceView);
 SourceView.lineNumberStartProperty.register(SourceView);
 SourceView.selectableProperty.register(SourceView);
 SourceView.copyableProperty.register(SourceView);
-SourceView.copyButtonIconProperty.register(SourceView);
 SourceView.copyButtonTooltipProperty.register(SourceView);

@@ -1,5 +1,6 @@
 import { Component, renderSSR } from "nano-jsx/esm/index.js";
 import * as Examples from "@learn6502/examples";
+import { CodeType } from "../../enums/gtk.enums.ts";
 
 const EXAMPLE_NAMES = Object.keys(Examples);
 
@@ -67,14 +68,17 @@ interface NsCodeProps {
    * The width of the code view.
    */
   width?: number;
-  // Removed Gtk-specific props like 'type', 'heightRequest', 'widthRequest'
+  /**
+   * Block code renders a SourceView; inline code (the default, as in GtkCode) a `<tt>` span.
+   */
+  type?: CodeType;
   // 'height' and 'width' are kept as general layout properties.
 }
 
 export class NsCode extends Component<NsCodeProps> {
   static defaultProps: Partial<NsCodeProps> = {
     // Define NsCode specific defaults if any, or leave empty
-    // GtkCode defaults like type: CodeType.INLINE, fitContentHeight: true are not directly applicable
+    type: CodeType.INLINE,
   };
 
   private static _codeBlockCounter = 0;
@@ -242,6 +246,12 @@ export class NsCode extends Component<NsCodeProps> {
   render() {
     const parsedProps = this.parseAttributes(this.props);
 
+    // Inline code sits inside an HTML text run (`ns-html-view`), where a SourceView tag would
+    // be dropped together with its text — GtkCode emits `<tt>` here too.
+    if (this.props.type !== CodeType.BLOCK) {
+      return <tt>{this.props.children ?? this.props.code}</tt>;
+    }
+
     let codeContent = parsedProps.code || "";
     if (typeof codeContent !== "string") {
       // If codeContent is JSX (e.g. from Examples or children), render it to string
@@ -266,6 +276,9 @@ export class NsCode extends Component<NsCodeProps> {
       selectable,
     };
 
+    if (parsedProps.copyable) {
+      attributes.copyable = "true";
+    }
     if (parsedProps.lineNumberStart !== undefined) {
       attributes.lineNumberStart = parsedProps.lineNumberStart;
     }
