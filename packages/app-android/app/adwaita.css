@@ -1613,17 +1613,23 @@ Page.adw-window {
     border-top-right-radius: 16;
 }
 
+/* The bottom edge is MISSING on purpose: `<adw-bottom-sheet>` writes `paddingBottom` itself,
+   because a sheet whose child scrolls has to put that gap INSIDE the scrolling content and
+   leave the viewport running to the panel's edge (`widgets/bottom-sheet-insets.ts`). A value
+   here would be the second writer, and the one that clips. */
 .adw-bottom-sheet-page {
-    padding: 0 16 16 16;
+    padding: 0 16 0 16;
 }
 
-/* `> sheet > .drag-handle`: a 36 x 4 pill. Its margins are the grip a thumb finds. */
+/* `> sheet > .drag-handle` (_bottom-sheet.scss): `min-width: 54px; min-height: 6px;
+   margin: 15px; border-radius: 99px; background: currentColor @ 25%` — the same numbers
+   `@gjsify/adwaita-web` paints. It was 36 x 4 here, visibly thinner than the GNOME pill. */
 .adw-bottom-sheet-handle {
-    width: 36;
-    height: 4;
-    border-radius: 2;
+    width: 54;
+    height: 6;
+    border-radius: 99;
     background-color: rgba(0, 0, 0, 0.25);
-    margin: 10 0 10 0;
+    margin: 15 0 15 0;
 }
 
 /* The collapsed form the sheet morphs out of, and the only thing a user can tap to
