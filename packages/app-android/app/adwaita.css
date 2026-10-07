@@ -1611,20 +1611,26 @@ Page.adw-window {
     background-color: #ffffff;
     border-top-left-radius: 16;
     border-top-right-radius: 16;
-    padding: 8 16 16 16;
 }
 
+.adw-bottom-sheet-page {
+    padding: 0 16 16 16;
+}
+
+/* `> sheet > .drag-handle`: a 36 x 4 pill. Its margins are the grip a thumb finds. */
 .adw-bottom-sheet-handle {
-    font-size: 18;
-    color: rgba(0, 0, 0, 0.25);
-    margin: 0 0 6 0;
+    width: 36;
+    height: 4;
+    border-radius: 2;
+    background-color: rgba(0, 0, 0, 0.25);
+    margin: 10 0 10 0;
 }
 
 /* The collapsed form the sheet morphs out of, and the only thing a user can tap to
    open it. Flat and radius-less inside the panel, like libadwaita's
    `> sheet > stack > button` (_bottom-sheet.scss). */
 .adw-bottom-sheet-bottom-bar {
-    padding: 8 0;
+    padding: 0;
 }
 
 .adw-bottom-sheet-bottom-bar:highlighted {
@@ -2514,7 +2520,7 @@ Page.ns-dark.adw-window {
 }
 
 .ns-dark .adw-bottom-sheet-handle {
-    color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.3);
 }
 
 .ns-dark .adw-bottom-sheet-bottom-bar:highlighted {
