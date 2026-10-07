@@ -1,4 +1,4 @@
-import { Adw, bottomSheetPanel, padForSystemInsets } from "@gjsify/adwaita-nativescript";
+import { Adw, padSheetForSystemInsets } from "@gjsify/adwaita-nativescript";
 import { buildInto, registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 // The GNOME app's own Blueprint: the source view over an `Adw.BottomSheet` whose bottom bar is "Help".
 import editorTree from "../../../app-gnome/src/views/main/editor.blp?shared-tree";
@@ -33,12 +33,13 @@ export class EditorPane extends Adw.Bin {
   }
 
   /**
-   * Whether the editor sits on the screen's bottom edge, as in the wide layout. The bar and the
-   * open sheet then grow by the gesture area, and keep their own colour under it; the code runs
-   * to the edge. The shared Blueprint says nothing of this — GTK has no insets.
+   * Whether the editor sits on the screen's bottom edge, as in the wide layout. The Help bar
+   * then clears the gesture area while the open sheet scrolls its quick help under it — which
+   * of the two is the shape at the edge is the sheet's own business, so it takes the number
+   * rather than a padding. The shared Blueprint says nothing of this — GTK has no insets.
    */
   set padsSystemInsets(on: boolean) {
     this.releaseInsets?.();
-    this.releaseInsets = on ? padForSystemInsets(bottomSheetPanel(this.bottomSheet)) : null;
+    this.releaseInsets = on ? padSheetForSystemInsets(this.bottomSheet) : null;
   }
 }
