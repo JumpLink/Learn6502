@@ -11,6 +11,7 @@ import {
   Gtk,
   NOTIFY_VISIBLE_CHILD,
   insertActionGroup,
+  padForSystemInsets,
   setAdwaitaColorScheme,
 } from "@gjsify/adwaita-nativescript";
 import { buildWithSiblings } from "@gjsify/adwaita-nativescript/builder";
@@ -100,6 +101,8 @@ export class MainController implements MainView {
   private _centerColumn: Gtk.Box | null = null;
   private _rightTopBox: Gtk.Box | null = null;
   private _rightBottomBox: Gtk.Box | null = null;
+  private _rightColumnContent: Gtk.Box | null = null;
+  private _releaseColumnInsets: (() => void) | null = null;
   private _learnBackButton: Gtk.Button | null = null;
   private _mainButton: MainButton | null = null;
   private _about: Adw.AboutDialog | null = null;
@@ -203,7 +206,7 @@ export class MainController implements MainView {
     setAppBackHandler(() => {
       const screens = this._screens;
       if (!screens) return false;
-      if (this.threeColumns) return screens.learn.onBack?.() ?? false;
+      if (this.threeColumns) return (screens.editor.onBack?.() ?? false) || (screens.learn.onBack?.() ?? false);
       const current = STACK_PAGES.find((page) => page.id === this._currentName);
       return current ? (screens[current.id].onBack?.() ?? false) : false;
     });
@@ -256,6 +259,7 @@ export class MainController implements MainView {
     this._centerColumn = byId<Gtk.Box>("centerColumn");
     this._rightTopBox = byId<Gtk.Box>("rightTopBox");
     this._rightBottomBox = byId<Gtk.Box>("rightBottomBox");
+    this._rightColumnContent = byId<Gtk.Box>("rightColumnContent");
     this._learnBackButton = byId<Gtk.Button>("learnBackButton");
     this._mainButton = byId<MainButton>("mainButton");
 
@@ -336,6 +340,7 @@ export class MainController implements MainView {
     for (const page of STACK_PAGES) this.detach(screens[page.id].view);
     for (const page of STACK_PAGES) stack.add(screens[page.id].view, page.id, page.title(), page.icon);
     this._switcherBar!.set_stack(stack);
+    this.padColumnsForSystemInsets(false);
     this._currentName = null;
     stack.visibleChildName = keep;
     this.onStackChanged(stack.visibleChildName);
@@ -352,10 +357,22 @@ export class MainController implements MainView {
     this._rightBottomBox!.append(screens.debugger.view);
     // No bottom bar in columns; the screens are all on show.
     this._switcherBar!.set_stack(null);
+    this.padColumnsForSystemInsets(true);
     this._currentName = null;
     for (const page of STACK_PAGES) screens[page.id].onShow?.();
     this._activeView = ViewType.EDITOR;
     mainStateController.setViewType(ViewType.EDITOR);
+  }
+
+  /**
+   * The columns run down to the screen's bottom edge, behind the gesture area, with their
+   * backgrounds. What scrolls in them (and the editor's Help bar) clears it instead of the
+   * columns being shortened. In the stack the switcher bar below pays it, so nothing does here.
+   */
+  private padColumnsForSystemInsets(on: boolean): void {
+    this._releaseColumnInsets?.();
+    this._releaseColumnInsets = on ? padForSystemInsets(this._rightColumnContent!) : null;
+    for (const page of STACK_PAGES) this._screens![page.id].padSystemInsets?.(on);
   }
 
   // --- Navigation ---

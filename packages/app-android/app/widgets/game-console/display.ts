@@ -4,12 +4,14 @@ import { GridLayout, Utils, ContentView, CoreTypes } from "@nativescript/core";
 import { isAndroid } from "@nativescript/core";
 import type { Memory } from "@learn6502/core";
 import { DisplayAddressRange } from "@learn6502/core";
+import { withGtkWidgetLayout } from "@gjsify/adwaita-nativescript";
+import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 import { logger } from "~/utils";
 
 /**
  * Android implementation of the DisplayWidget using native canvas.
  */
-export class Display extends GridLayout implements DisplayWidget {
+export class Display extends withGtkWidgetLayout(GridLayout) implements DisplayWidget {
   private memory: Memory | null = null;
   private canvasImageView: android.widget.ImageView | null = null;
   private bitmap: android.graphics.Bitmap | null = null;
@@ -22,6 +24,7 @@ export class Display extends GridLayout implements DisplayWidget {
   private numY: number = DEFAULT_DISPLAY_CONFIG.numY;
   private pixelSize: number = 0;
   private pendingDraw: boolean = false;
+  private imageViewWrapper: ContentView | null = null;
 
   // Queue for pending pixel updates
   private pendingPixelUpdates: Set<number> = new Set<number>();
@@ -107,6 +110,7 @@ export class Display extends GridLayout implements DisplayWidget {
       imageViewWrapper.createNativeView = () => this.canvasImageView!;
 
       this.addChild(imageViewWrapper);
+      this.imageViewWrapper = imageViewWrapper;
 
       // Initial clear
       this.clearCanvas();
@@ -245,6 +249,25 @@ export class Display extends GridLayout implements DisplayWidget {
     }
   }
 
+  /** On-screen size, as the GNOME widget's `displayWidth`: the bitmap is scaled (FIT_XY) to it. */
+  get displayWidth(): number {
+    return Number(this.width);
+  }
+
+  set displayWidth(value: number) {
+    this.width = value;
+    if (this.imageViewWrapper) this.imageViewWrapper.width = value;
+  }
+
+  get displayHeight(): number {
+    return Number(this.height);
+  }
+
+  set displayHeight(value: number) {
+    this.height = value;
+    if (this.imageViewWrapper) this.imageViewWrapper.height = value;
+  }
+
   /**
    * Initializes the display with memory access.
    */
@@ -353,3 +376,6 @@ export class Display extends GridLayout implements DisplayWidget {
     this.refreshCanvas();
   }
 }
+
+// The `$Display` the GNOME `.blp` files name.
+registerTemplateClass("Display", Display);

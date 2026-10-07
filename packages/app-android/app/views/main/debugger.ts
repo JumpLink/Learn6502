@@ -64,7 +64,8 @@ class Debugger implements DebuggerView {
     settings.title = _("Debug Settings");
 
     const enabledRow = new Adw.SwitchRow();
-    enabledRow.title = _("Enable debugger");
+    enabledRow.title = _("Enable Debugger");
+    enabledRow.subtitle = _("Disable to improve performance");
     enabledRow.active = debuggerController.state !== DebuggerState.DISABLED;
     enabledRow.addEventListener(NOTIFY_ACTIVE, () => {
       debuggerController.state = enabledRow.active ? DebuggerState.ACTIVE : DebuggerState.DISABLED;
@@ -72,7 +73,8 @@ class Debugger implements DebuggerView {
     settings.add(enabledRow);
 
     const stepperRow = new Adw.SwitchRow();
-    stepperRow.title = _("Stepping mode");
+    stepperRow.title = _("Enable Stepper Mode");
+    stepperRow.subtitle = _("Execute instructions one by one instead of continuously");
     stepperRow.active = debuggerController.stepperEnabled;
     stepperRow.addEventListener(NOTIFY_ACTIVE, () => {
       debuggerController.stepperEnabled = stepperRow.active;

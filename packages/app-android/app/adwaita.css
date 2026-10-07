@@ -579,6 +579,38 @@ Page.adw-window {
     background-color: rgba(64, 64, 64, 0.65);
 }
 
+/* `.toolbar` (a row or column of controls) and `.toolbar.osd` over content — libadwaita's
+ * `toolbar.osd`: ONE dark translucent rounded bar (_toolbars.scss, _misc.scss `.osd`), not a
+ * pile of separate buttons. The buttons inside paint nothing of their own: a flat glyph on the
+ * bar's fill, pressed shade only (the glyph itself is pinned white by `GtkButton`, which
+ * finds the `osd` above it). */
+.toolbar {
+    padding: 6;
+}
+
+.toolbar.osd {
+    background-color: rgba(0, 0, 0, 0.65);
+    border-radius: 12;
+}
+
+.osd .adw-button {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.osd .adw-button-label {
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.osd .adw-button:highlighted {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.osd .adw-separator {
+    background-color: rgba(255, 255, 255, 0.15);
+    margin: 4 6 4 6;
+}
+
 /* The button's OWN label, and it exists because the button is a `GridLayout`.
  *
  * `.adw-button` above declares `color` and `font-weight`; a `GridLayout` has no text,
@@ -2077,6 +2109,21 @@ Page.ns-dark.adw-window {
 
 .ns-dark .adw-button.flat:highlighted {
     background-color: rgba(255, 255, 255, 0.22);
+}
+
+/* The same for buttons in an `.osd` container: dark `.adw-button` is the same specificity as
+ * the light rule above and later, so it would win without these. */
+.ns-dark .osd .adw-button {
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.ns-dark .osd .adw-button:highlighted {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.ns-dark .osd .adw-separator {
+    background-color: rgba(255, 255, 255, 0.15);
 }
 
 /* Dark `.osd`: the same surface as light — see `.adw-button.osd`. */
