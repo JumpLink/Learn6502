@@ -1,8 +1,8 @@
 import { ContentView, Property, booleanConverter } from "@nativescript/core";
 import { EventDispatcher } from "@learn6502/core";
 import type { SourceViewEventMap, SourceViewWidget } from "@learn6502/common-ui";
-import { Gio, Gtk, insertActionGroup } from "@gjsify/adwaita-nativescript";
-import { build } from "@gjsify/adwaita-nativescript/builder";
+import { Gio, Gtk, insertActionGroup, withGtkWidgetLayout } from "@gjsify/adwaita-nativescript";
+import { build, registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 import { GtkSource } from "@gjsify/gtksource-nativescript";
 import "@gjsify/gtksource-nativescript/builder";
 // The GNOME app's own Blueprint, built here by the shared-tree builder (`GtkSource.View` included).
@@ -10,7 +10,8 @@ import sourceViewTree from "../../../app-gnome/src/widgets/source-view.blp?share
 import { registerGtkSourceData } from "~/services/gtksource-setup";
 import { logger } from "~/utils";
 
-export class SourceView extends ContentView implements SourceViewWidget {
+// `withGtkWidgetLayout`: the `halign`/`hexpand` a `.blp` writes on `$SourceView`.
+export class SourceView extends withGtkWidgetLayout(ContentView) implements SourceViewWidget {
   // Static properties
   public static codeProperty = new Property<SourceView, string>({
     name: "code",
@@ -313,3 +314,6 @@ SourceView.lineNumberStartProperty.register(SourceView);
 SourceView.selectableProperty.register(SourceView);
 SourceView.copyableProperty.register(SourceView);
 SourceView.copyButtonTooltipProperty.register(SourceView);
+
+// The `$SourceView` the GNOME `.blp` files (editor, example list item) name.
+registerTemplateClass("SourceView", SourceView);

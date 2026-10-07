@@ -1,12 +1,11 @@
 import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
-import { Observable, ScrollView } from "@nativescript/core";
-import { Adw } from "@gjsify/adwaita-nativescript";
+import { Observable } from "@nativescript/core";
 import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
 import { editorController } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
-import { SourceView } from "~/widgets/source-view";
-import { QuickHelpView } from "~/mdx/quick-help-view";
+import type { SourceView } from "~/widgets/source-view";
+import { EditorPane } from "~/widgets/editor-pane";
 import { logger } from "~/utils";
 
 /** A built screen: its root view + optional show/hide lifecycle hooks. */
@@ -17,6 +16,8 @@ export interface ScreenModule {
   /** Handle the hardware back button while this screen is active. Return true if
    *  the screen consumed it (e.g. popped an internal navigation stack). */
   onBack?(): boolean;
+  /** Clear (or stop clearing) the gesture area at the screen's bottom edge, as the wide layout needs. */
+  padSystemInsets?(on: boolean): void;
 }
 
 /**
@@ -28,6 +29,7 @@ class Editor extends Observable implements EditorView {
   readonly events: EventDispatcher<EditorEventMap> = new EventDispatcher<EditorEventMap>();
 
   private _sourceView: SourceView | null = null;
+  private _pane: EditorPane | null = null;
   private _initialized = false;
   private log = logger.scoped("Editor");
 
@@ -65,17 +67,15 @@ class Editor extends Observable implements EditorView {
     this.events.dispatch("changed", event);
   };
 
-  /** Build the SourceView wrapped in an Adwaita bottom sheet (the GNOME editor's
-   *  Adw.BottomSheet: the source view as content, the quick-help reference as the
-   *  draggable sheet), and wire it to the controller (once). */
+  /** Build the editor from the GNOME app's `editor.blp` (the source view over the quick-help
+   *  bottom sheet) and wire it to the controller (once). */
   build(): View {
-    const sourceView = new SourceView();
+    const pane = new EditorPane();
+    const sourceView = pane.sourceView;
     sourceView.editable = true;
     sourceView.lineNumbers = true;
-    // Fill the stack cell (NS-idiomatic + properly typed, unlike a "100%" string).
-    sourceView.horizontalAlignment = "stretch";
-    sourceView.verticalAlignment = "stretch";
     this._sourceView = sourceView;
+    this._pane = pane;
 
     if (!this._initialized) {
       this.log.debug("Initializing editor controller");
@@ -84,24 +84,17 @@ class Editor extends Observable implements EditorView {
       this._initialized = true;
     }
 
-    // GNOME wraps the editor in an Adw.BottomSheet whose sheet is the quick help
-    // (a ScrolledWindow > Adw.Clamp > QuickHelpView). The NS Adw.BottomSheet has no
-    // gesture of its own — its drag handle is decorative (`can_target = FALSE`, as in
-    // libadwaita) — so the sheet is revealed only by writing `sheet.open = true`.
-    // TODO: give the editor an affordance that does so; the quick help is currently
-    // unreachable on Android (it has been since this screen was written, not since
-    // the 0.49.0 bump).
-    const sheet = new Adw.BottomSheet();
-    sheet.set_content(sourceView);
+    return asView(pane);
+  }
 
-    const helpClamp = new Adw.Clamp();
-    helpClamp.maximumSize = 600;
-    const helpScroll = new ScrollView();
-    helpScroll.content = new QuickHelpView();
-    helpClamp.set_child(helpScroll);
-    sheet.set_sheet(asView(helpClamp));
+  /** The back button closes the quick-help sheet first. */
+  closeSheet(): boolean {
+    return this._pane?.closeSheet() ?? false;
+  }
 
-    return asView(sheet);
+  /** Whether the editor reaches the screen's bottom edge (the wide layout): see {@link EditorPane}. */
+  set padsSystemInsets(on: boolean) {
+    if (this._pane) this._pane.padsSystemInsets = on;
   }
 
   /** Persist the code (called when leaving the editor screen). */
@@ -117,5 +110,9 @@ export function buildEditorScreen(): ScreenModule {
   return {
     view: editorView.build(),
     onHide: () => editorView.save(),
+    onBack: () => editorView.closeSheet(),
+    padSystemInsets: (on) => {
+      editorView.padsSystemInsets = on;
+    },
   };
 }

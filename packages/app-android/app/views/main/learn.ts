@@ -1,16 +1,15 @@
 import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
-import { ScrollView } from "@nativescript/core";
-import { Adw, Gtk, NOTIFY_VISIBLE_PAGE } from "@gjsify/adwaita-nativescript";
+import { ScrollView, StackLayout } from "@nativescript/core";
+import { Adw, Gtk, NOTIFY_VISIBLE_PAGE, padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import { goNextSymbolic } from "@gjsify/adwaita-icons/actions";
 import { schoolSymbolic, openBookSymbolic, codeSymbolic } from "~/icons";
 import { localize as _ } from "@nativescript/localize";
 import type { LearnView, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { learnController } from "@learn6502/common-ui/src/controller";
 import { EventDispatcher } from "@learn6502/core";
-import * as Examples from "@learn6502/examples/examples";
-import type { ExampleMeta } from "@learn6502/examples";
 import { TutorialView } from "~/mdx/tutorial-view";
+import { ExamplesList } from "~/widgets/examples-list";
 import { logger } from "~/utils";
 import type { ScreenModule } from "./editor";
 
@@ -35,6 +34,9 @@ class Learn implements LearnView {
   private tutorialView: TutorialView | null = null;
   private nav: Adw.NavigationView | null = null;
   private _initialized = false;
+  /** What scrolls on the Tutorial and Examples pages: the part that must clear the gesture area. */
+  private scrollContents: View[] = [];
+  private releaseInsets: (() => void)[] = [];
   private log = logger.scoped("Learn");
 
   /** Build the Learn navigation (mirrors the GNOME Adw.NavigationView): a main
@@ -82,17 +84,13 @@ class Learn implements LearnView {
     const tutorialScroll = new ScrollView();
     tutorialScroll.content = tutorialView;
 
-    // --- Examples page: a boxed list of example programs (ports the GNOME
-    //     ExamplesList). Tapping a row loads it into the editor + switches to the
-    //     Code view, the same path the tutorial's copy buttons use. ---
-    const examplesGroup = new Adw.PreferencesGroup();
-    for (const example of Object.values(Examples) as ExampleMeta[]) {
-      examplesGroup.add(
-        this.exampleRow(example, () => {
-          learnController.dispatch("copy", { code: example.code });
-        })
-      );
-    }
+    // --- Examples page: the GNOME app's ExamplesList, a card per example (title, author,
+    //     description, thumbnail, code preview with its copy button). Copying loads the example
+    //     into the editor + switches to the Code view, the same path the tutorial's copy
+    //     buttons use. ---
+    const examplesList = new ExamplesList();
+    examplesList.onCopy = (code) => learnController.dispatch("copy", { code });
+    const examplesGroup = asView(examplesList);
     const examplesClamp = new Adw.Clamp();
     examplesClamp.maximumSize = 600;
     examplesClamp.set_child(examplesGroup);
@@ -102,19 +100,19 @@ class Learn implements LearnView {
     examples.title = _("Examples");
     examples.description = _("Try out example programs for the 6502 microprocessor.");
     examples.set_child(asView(examplesClamp));
+    // A status page handed to the scroll view directly is measured at the viewport's height, which
+    // clips a list taller than it (the cards of the examples) and leaves nothing to scroll; in a
+    // vertical stack it is measured at its own.
+    const examplesColumn = new StackLayout();
+    examplesColumn.addChild(asView(examples));
     const examplesScroll = new ScrollView();
-    examplesScroll.content = examples;
+    examplesScroll.content = examplesColumn;
+    this.scrollContents = [tutorialView, examplesColumn];
 
     nav.add(mainPage, "main");
     nav.add(tutorialScroll, "tutorial");
     nav.add(examplesScroll, "examples");
     return asView(nav);
-  }
-
-  /** A tappable example row: a code icon, the example title + description, and a
-   *  go-next chevron. Tapping loads the example into the editor. */
-  private exampleRow(example: ExampleMeta, onTap: () => void): Adw.ActionRow {
-    return this.navRow(_(example.title), _(example.description), codeSymbolic, onTap);
   }
 
   /** Whether a subpage (Tutorial/Examples) is open — drives the shell's header
@@ -146,6 +144,13 @@ class Learn implements LearnView {
     return row;
   }
 
+  /** Whether the pages reach the screen's bottom edge (the wide layout): their scrolling content
+   *  then ends a gesture area higher, while the page background runs on to the edge. */
+  padSystemInsets(on: boolean): void {
+    for (const release of this.releaseInsets) release();
+    this.releaseInsets = on ? this.scrollContents.map((view) => padForSystemInsets(view)) : [];
+  }
+
   // --- LearnView interface ---
   saveScrollPosition(): void {
     this.log.debug("saveScrollPosition() - placeholder");
@@ -164,6 +169,7 @@ export function buildLearnScreen(): ScreenModule {
     view: learnView.build(),
     onHide: () => learnView.saveScrollPosition(),
     onBack: () => learnView.navigateBack(),
+    padSystemInsets: (on) => learnView.padSystemInsets(on),
   };
 }
 
