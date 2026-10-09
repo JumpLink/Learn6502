@@ -5,7 +5,8 @@
 - Deciders: Pascal Garber
 - Related: gjsify [ADR 0032 § 9](https://github.com/gjsify/gjsify/blob/main/docs/adr/0032-react-native-on-the-gtk-host.md)
   (platform file resolution), gjsify [ADR 0065](https://github.com/gjsify/gjsify/blob/main/docs/adr/0065-a-development-link-is-an-override-not-a-manifest.md)
-  (`link:`/`file:` and development links)
+  (`link:`/`file:` and development links), gjsify [ADR 0102](https://github.com/gjsify/gjsify/blob/main/docs/adr/0102-install-and-flatpak-sources-take-a-focus.md)
+  (`--focus` for install and Flatpak sources)
 
 ## Context
 
@@ -45,21 +46,29 @@ The plugin resolves relative imports, so the fork has to live inside one package
    - `app-gnome`: entry, Meson, Flatpak, GSchema, `.desktop`, metainfo.
    - `app-web`: entry, `index.html`.
    - `app-android`: entry, NativeScript config, `App_Resources`.
-3. `app-android` is **excluded from the root `workspaces`** (`"!packages/app-android"`) and is its
-   own workspace root. Its `package.json` lists the shared packages in `workspaces`
-   (`../app`, `../core`, `../common-ui`, `../learn`, `../examples`) and it has its own
-   `gjsify-lock.json`. It keeps plain `^x.y.z` ranges. This is the pattern gjsify uses for its
-   NativeScript showcases.
-4. **Enforcement in CI**, as `build-aux/` checks next to `check-workspace-scripts.js`:
-   - platform workspaces contain no app code beyond the declared entry;
-   - the root and `app-android` lockfiles pin the same `@gjsify/*` versions.
+3. **One root lockfile.** `app-android` stays a normal workspace of the root (`packages/*`).
+   Each platform build installs only what it needs with
+   `gjsify install --immutable --focus <workspace>`, and the Flatpak cache comes from
+   `gjsify flatpak sources --focus @learn6502/app-gnome`
+   (gjsify [ADR 0102](https://github.com/gjsify/gjsify/blob/main/docs/adr/0102-install-and-flatpak-sources-take-a-focus.md)).
+4. **Workspaces declare their own build deps.** A package a workspace's build needs is in that
+   workspace's `devDependencies`, not the root's, so a focused install has everything. Example:
+   `@gjsify/rolldown-native` and `@gjsify/lightningcss-native` live in `app-gnome`.
+5. **Enforcement in CI**, as a `build-aux/` check next to `check-workspace-scripts.js`:
+   platform workspaces contain no app code beyond the declared entry. No lockfile pin-sync check:
+   one lockfile has nothing to sync.
 
-### Why `workspaces`, not `link:`
+### Why a focus, not a second workspace root
+
+The NativeScript toolchain is a problem of what an install and the Flatpak cache *select*, not of
+how many lockfiles exist. Measured with a focus probe: Flatpak sources nativescript tarballs
+15 → 0 (483 sources), a focused immutable install exit 0 with the lockfile unchanged, and the
+app-gnome build exit 0. A single lockfile keeps `@gjsify/*` pins identical across platforms by
+construction (a blueprint `?shared-tree` import failed on gjsify 0.55 and passed on 0.56.0).
 
 In the proof of concept, `link:../x` and `file:../x` in `app-android/package.json` made
-`gjsify install` exit 0 but link nothing: no `node_modules/@learn6502/*`, no lockfile entry
-(gjsify ADR 0065 makes development links an override the installer reads, not a manifest edit).
-A nested workspace root links the packages into `app-android/node_modules/@learn6502/*`.
+`gjsify install` exit 0 but link nothing (gjsify ADR 0065 makes development links an override the
+installer reads, not a manifest edit), which is why app-android stays a workspace.
 
 ## Rejected alternatives
 
@@ -67,6 +76,11 @@ A nested workspace root links the packages into `app-android/node_modules/@learn
   lockfile entry set, so the NativeScript toolchain returns to every install and to the Flatpak
   cache. `nativescript.config.ts`, `platforms/` and `hooks/` also collide with the GNOME package
   metadata, and one `gjsify` config block cannot be both `app: gjs` and `app: browser`.
+- **E: `app-android` as its own workspace root with its own lockfile** (excluded from the root
+  `workspaces`, listing the shared packages in its own `workspaces`; the pattern gjsify uses for its
+  NativeScript showcases). It also removes the toolchain from the root install, at the cost of a
+  second lockfile and a CI check to keep `@gjsify/*` pins in sync. Kept only as a **fallback**,
+  needed only until the gjsify release that ships `--focus`.
 - **C: per-platform packages with their own code (today).** Keeps the duplication and the
   toolchain in the root install, and leaves the suffix chain unused.
 - **D: a shared template or runtime package for all apps** is not an alternative but a later
@@ -75,13 +89,11 @@ A nested workspace root links the packages into `app-android/node_modules/@learn
 
 ## Consequences
 
-- The root lockfile and the Flatpak cache lose the NativeScript toolchain. Measured in the proof of
-  concept: `nativescript` mentions 72 → 0 in `gjsify-lock.json`, 14 → 0 in `gjsify-sources.json`;
-  `build-aux/check-flatpak-sources.js` passes.
-- Android installs and builds from `packages/app-android` with its own lockfile and a second
-  `node_modules` (about 790 MB measured).
-- Two lockfiles can drift on shared `@gjsify/*` versions; the CI check above guards that. The pins
-  must match: a blueprint `?shared-tree` import failed on gjsify 0.55 and passed on 0.56.0.
+- The Flatpak cache loses the NativeScript toolchain (nativescript tarballs 15 → 0, 483 sources)
+  without a second lockfile; the root lockfile still contains it.
+- GNOME, web and Android builds each use a focused install; one `node_modules` layout, one lockfile.
+- Needs a gjsify release with `--focus` (ADR 0102). Until then `meson.build` keeps the plain
+  install, and alternative E is the fallback.
 - `appPath` and the `~/` alias stay in `app-android`; its code arrives through `@learn6502/app`.
 
 ## Migration
@@ -89,8 +101,8 @@ A nested workspace root links the packages into `app-android/node_modules/@learn
 1. Prerequisite: `app-android` imports files from `app-gnome` by relative path
    (`*.blp?shared-tree`, language specs). Move them into `@learn6502/app` first.
 2. Do the restructure **after AP 8** (components ported to the shared code), not before.
-3. Then move app code into `packages/app`, add the CI checks, exclude `app-android`, and
-   regenerate both lockfiles and `gjsify-sources.json`.
+3. Then move app code into `packages/app`, add the CI check, switch the platform builds to
+   `--focus` once the gjsify release has it, and regenerate the lockfile and `gjsify-sources.json`.
 
 ## Open and unmeasured
 
