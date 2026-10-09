@@ -1,3 +1,5 @@
+import { platformProbe } from "@learn6502/app";
+print("PLATFORM_PROBE=" + platformProbe);
 import "./types/global.d.ts";
 import "@girs/gjs/dom";
 import "@girs/gjs";

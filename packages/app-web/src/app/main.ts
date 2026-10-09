@@ -1,3 +1,5 @@
+import { platformProbe } from "@learn6502/app";
+console.log("PLATFORM_PROBE=" + platformProbe);
 /**
  * Entry point for the app-web Adwaita SPA shell (Phase 1 of the rewrite).
  *

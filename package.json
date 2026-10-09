@@ -473,7 +473,8 @@
   "author": "Pascal Garber <pascal@jumplink.eu>",
   "license": "GPL-3.0",
   "workspaces": [
-    "packages/*"
+    "packages/*",
+    "!packages/app-android"
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
