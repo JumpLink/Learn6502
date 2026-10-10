@@ -1,12 +1,14 @@
 import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
-import { Observable } from "@nativescript/core";
+import { Application, ApplicationSettings, Observable } from "@nativescript/core";
 import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
 import { editorController } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
 import type { SourceView } from "~/widgets/source-view";
 import { EditorPane } from "~/widgets/editor-pane";
 import { logger } from "~/utils";
+
+const SETTINGS_CODE = "editor.code";
 
 /** A built screen: its root view + optional show/hide lifecycle hooks. */
 export interface ScreenModule {
@@ -77,10 +79,17 @@ class Editor extends Observable implements EditorView {
     this._sourceView = sourceView;
     this._pane = pane;
 
+    // The controller outlives the activity, and every recreation builds a fresh source view: it has
+    // to be handed to the controller each time, or the new editor stays empty.
+    editorController.init(sourceView);
+
     if (!this._initialized) {
       this.log.debug("Initializing editor controller");
-      editorController.init(sourceView);
       editorController.events.on("changed", this.onControllerCodeChanged);
+      // A process killed in the background takes the controller with it; the text is kept in the
+      // app settings when the app leaves the foreground.
+      editorController.setCode(ApplicationSettings.getString(SETTINGS_CODE, ""));
+      Application.on(Application.suspendEvent, () => this.save());
       this._initialized = true;
     }
 
@@ -97,9 +106,10 @@ class Editor extends Observable implements EditorView {
     if (this._pane) this._pane.padsSystemInsets = on;
   }
 
-  /** Persist the code (called when leaving the editor screen). */
+  /** Persist the code (called when leaving the editor screen or the app). */
   save(): void {
     editorController.saveState();
+    ApplicationSettings.setString(SETTINGS_CODE, editorController.code);
   }
 }
 
