@@ -67,7 +67,7 @@ jobs:
         run: gjsify run check:versions
 
       # The Flatpak build has no network: flatpak-builder fills a cache from
-      # `gjsify-sources.json` and Meson then runs `gjsify install --immutable`
+      # `gjsify-sources.json` and Meson then runs `gjsify install --immutable --focus`
       # against it. A tarball the lockfile pins and the sources array omits is a
       # download that cannot happen, and the sandbox reports it as
       # `meson.build:23 … failed with status 1` and nothing else. The two files

@@ -14,15 +14,16 @@ pkgdatadir = datadir / application_id
 # Offline dependency install (Flathub sandbox = no network). Run from the repo
 # root (where gjsify-lock.json lives) via the committed, self-contained gjsify
 # CLI bundle under gjs — no Node, no node_modules needed. `--immutable` pulls
-# every tarball from the cache flatpak-builder pre-populated from
+# every tarball the app-gnome closure needs from the cache flatpak-builder pre-populated from
 # gjsify-sources.json (keyed by SRI integrity), so it makes zero network calls.
-# Replaces the vendored yarn `workspaces focus`.
+# `--focus` is yarn's `workspaces focus`: only app-gnome, the workspaces it
+# depends on and their external deps, so gjsify-sources.json is cut the same way.
 gjs_console = find_program('gjs-console', required: true)
 gjsify_install_env = environment()
 gjsify_install_env.set('XDG_CACHE_HOME', meson.project_source_root() / 'flatpak-gjsify-cache')
 run_command(
   gjs_console, '-m', meson.project_source_root() / 'build-aux' / 'gjsify.gjs.mjs',
-  'install', '--immutable',
+  'install', '--immutable', '--focus', '@learn6502/app-gnome',
   env: gjsify_install_env,
   check: true,
 )

@@ -337,10 +337,10 @@ function codeLiterals(document) {
       block: uiBlockCode(ui).codes,
     },
     ns: {
-      // Inline code is escaped inside the `html` attribute of an `HtmlView`;
-      // block code is a `w:SourceView` element of its own.
+      // Inline code is a `<tt>` span inside the escaped `html` attribute of an
+      // `HtmlView`; block code is a `w:SourceView` element of its own.
       inline: [...ns.matchAll(HTML_ATTRIBUTE)].flatMap((match) =>
-        [...unescapeXml(match[1]).matchAll(SOURCE_VIEW_CODE)].map((code) => unescapeXml(code[1]))
+        [...unescapeXml(match[1]).matchAll(INLINE_CODE_LABEL)].map((code) => unescapeXml(code[1]))
       ),
       block: [...ns.matchAll(SOURCE_VIEW_CODE)].map((match) => unescapeXml(match[1])),
     },
