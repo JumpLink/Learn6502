@@ -38,6 +38,15 @@ export default defineNativescriptConfig(
   {
     // `.blp` files are imported as `?shared-tree`, the same Blueprint the GNOME app compiles.
     plugins: [asmTextLoader(), blueprintPlugin()],
+    // Release minification must leave two things alone, or the app dies on launch:
+    // - the default oxc minifier writes `extend(`com.tns.X`, …)` with a template literal and
+    //   esbuild's syntax pass folds the `__decorate([JavaProxy("…")], t)` statements into comma
+    //   expressions; the NativeScript static binding generator reads neither, so it silently
+    //   skips `com.tns.FragmentClass`, `com.tns.NativeScriptActivity` and
+    //   `org.nativescript.NativeScriptLifecycleCallbacks` and the runtime throws "Class not found".
+    // - mangled class names break the `adw:Bin` → `AdwBin` check in @gjsify/adwaita-nativescript.
+    build: { minify: "esbuild" },
+    esbuild: { minifySyntax: false, keepNames: true },
     define: {
       DEV_LOG: JSON.stringify(devLog),
       PRODUCTION: JSON.stringify(production),
