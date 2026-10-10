@@ -31,9 +31,7 @@ interface LearnNavigationEventMap {
 class Learn implements LearnView {
   readonly events = new EventDispatcher<LearnNavigationEventMap>();
 
-  private tutorialView: TutorialView | null = null;
   private nav: Adw.NavigationView | null = null;
-  private _initialized = false;
   /** What scrolls on the Tutorial and Examples pages: the part that must clear the gesture area. */
   private scrollContents: View[] = [];
   private releaseInsets: (() => void)[] = [];
@@ -43,17 +41,6 @@ class Learn implements LearnView {
    *  page with a boxed-list of Tutorial / Examples rows that push to subpages.
    *  Wires the tutorial copy events (once). */
   build(): View {
-    const tutorialView = new TutorialView();
-    tutorialView.className = "mx-4";
-    this.tutorialView = tutorialView;
-
-    if (!this._initialized) {
-      tutorialView.events.on("copy", (event: SourceViewCopyEvent) => {
-        learnController.dispatch("copy", { code: event.code });
-      });
-      this._initialized = true;
-    }
-
     const nav = new Adw.NavigationView();
     this.nav = nav;
     // Drives the shell's header back button (see main.ts), the same seam the
@@ -63,13 +50,67 @@ class Learn implements LearnView {
       this.events.dispatch("subpage-changed", { hasSubpage: this.hasVisibleSubpage });
     });
 
+    // --- Tutorial page: the MDX TutorialView ---
+    // The two subpages hold about 750 native views between them (the tutorial's HTML blocks and
+    // its 33 source views, the example cards): building them with the window cost ~4 s of a cold
+    // start on a Galaxy S9, for pages nobody has opened yet. Each is built on its first push.
+    const tutorialColumn = new StackLayout();
+    const tutorialScroll = new ScrollView();
+    tutorialScroll.content = tutorialColumn;
+
+    // --- Examples page: the GNOME app's ExamplesList, a card per example (title, author,
+    //     description, thumbnail, code preview with its copy button). Copying loads the example
+    //     into the editor + switches to the Code view, the same path the tutorial's copy
+    //     buttons use. ---
+    // A status page handed to the scroll view directly is measured at the viewport's height, which
+    // clips a list taller than it (the cards of the examples) and leaves nothing to scroll; in a
+    // vertical stack it is measured at its own.
+    const examplesColumn = new StackLayout();
+    const examplesScroll = new ScrollView();
+    examplesScroll.content = examplesColumn;
+    this.scrollContents = [tutorialColumn, examplesColumn];
+
+    const buildTutorial = () => {
+      if (tutorialColumn.getChildrenCount() > 0) return;
+      const tutorialView = new TutorialView();
+      tutorialView.className = "mx-4";
+      tutorialView.events.on("copy", (event: SourceViewCopyEvent) => {
+        learnController.dispatch("copy", { code: event.code });
+      });
+      tutorialColumn.addChild(tutorialView);
+    };
+
+    const buildExamples = () => {
+      if (examplesColumn.getChildrenCount() > 0) return;
+      const examplesList = new ExamplesList();
+      examplesList.onCopy = (code) => learnController.dispatch("copy", { code });
+      const examplesClamp = new Adw.Clamp();
+      examplesClamp.maximumSize = 600;
+      examplesClamp.set_child(asView(examplesList));
+
+      const examples = new Adw.StatusPage();
+      examples.iconName = codeSymbolic;
+      examples.title = _("Examples");
+      examples.description = _("Try out example programs for the 6502 microprocessor.");
+      examples.set_child(asView(examplesClamp));
+      examplesColumn.addChild(asView(examples));
+    };
+
     // --- Main page: an Adw.StatusPage hero (icon + title + description) over a
     //     boxed list of Tutorial + Examples rows, matching the GNOME learn.blp. ---
     const group = new Adw.PreferencesGroup();
     group.add(
-      this.navRow(_("Tutorial"), _("Step-by-step guide to 6502 assembly"), openBookSymbolic, () => nav.push("tutorial"))
+      this.navRow(_("Tutorial"), _("Step-by-step guide to 6502 assembly"), openBookSymbolic, () => {
+        buildTutorial();
+        nav.push("tutorial");
+      })
     );
-    group.add(this.navRow(_("Examples"), _("Try out example programs"), codeSymbolic, () => nav.push("examples")));
+    group.add(
+      this.navRow(_("Examples"), _("Try out example programs"), codeSymbolic, () => {
+        buildExamples();
+        nav.push("examples");
+      })
+    );
     const mainClamp = new Adw.Clamp();
     mainClamp.maximumSize = 600;
     mainClamp.set_child(group);
@@ -79,35 +120,6 @@ class Learn implements LearnView {
     mainPage.title = _("Learn");
     mainPage.description = _("Learn how to program the 6502 microprocessor.");
     mainPage.set_child(asView(mainClamp));
-
-    // --- Tutorial page: the MDX TutorialView ---
-    const tutorialScroll = new ScrollView();
-    tutorialScroll.content = tutorialView;
-
-    // --- Examples page: the GNOME app's ExamplesList, a card per example (title, author,
-    //     description, thumbnail, code preview with its copy button). Copying loads the example
-    //     into the editor + switches to the Code view, the same path the tutorial's copy
-    //     buttons use. ---
-    const examplesList = new ExamplesList();
-    examplesList.onCopy = (code) => learnController.dispatch("copy", { code });
-    const examplesGroup = asView(examplesList);
-    const examplesClamp = new Adw.Clamp();
-    examplesClamp.maximumSize = 600;
-    examplesClamp.set_child(examplesGroup);
-
-    const examples = new Adw.StatusPage();
-    examples.iconName = codeSymbolic;
-    examples.title = _("Examples");
-    examples.description = _("Try out example programs for the 6502 microprocessor.");
-    examples.set_child(asView(examplesClamp));
-    // A status page handed to the scroll view directly is measured at the viewport's height, which
-    // clips a list taller than it (the cards of the examples) and leaves nothing to scroll; in a
-    // vertical stack it is measured at its own.
-    const examplesColumn = new StackLayout();
-    examplesColumn.addChild(asView(examples));
-    const examplesScroll = new ScrollView();
-    examplesScroll.content = examplesColumn;
-    this.scrollContents = [tutorialView, examplesColumn];
 
     nav.add(mainPage, "main");
     nav.add(tutorialScroll, "tutorial");
