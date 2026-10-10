@@ -28,6 +28,9 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
   /** Bit labels p7..p0 (N V - B D I Z C), dimmed when the bit is 0. */
   private readonly bitLabels: Label[] = [];
 
+  /** Bit values currently shown, so a refresh only touches the labels that changed. */
+  private readonly bits: number[] = new Array(8).fill(-1);
+
   constructor() {
     super();
 
@@ -142,13 +145,16 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
     for (let i = 0; i < 8; i++) {
       const value = (regP >> (7 - i)) & 1;
       const label = this.bitLabels[i];
+      if (this.bits[i] === value) continue;
+      this.bits[i] = value;
       label.text = value ? "1" : "0";
       label.opacity = value ? 1 : 0.4;
     }
   }
 
   private setValue(target: RegisterValue, hex: string, dec: number): void {
-    target.hex.text = hex;
-    target.dec.text = `${dec}`;
+    if (target.hex.text !== hex) target.hex.text = hex;
+    const decimal = `${dec}`;
+    if (target.dec.text !== decimal) target.dec.text = decimal;
   }
 }

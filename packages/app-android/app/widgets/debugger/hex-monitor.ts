@@ -34,7 +34,13 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
    */
   private readonly grid: GridLayout;
 
-  private labels: Map<string, Label> = new Map();
+  /** Byte labels in address order, and the value each one currently shows. */
+  private byteLabels: Label[] = [];
+  private values: number[] = [];
+
+  /** Range the grid was last built for; -1 while nothing (or the error label) is shown. */
+  private builtStart = -1;
+  private builtLength = -1;
 
   /** Last memory handed to `update`, so the copy gesture has something to dump. */
   private lastMemory: Memory | null = null;
@@ -83,56 +89,83 @@ export class HexMonitor extends ScrollView implements HexMonitorWidget {
 
   public update(memory: Memory): void {
     this.lastMemory = memory;
-    this.grid.removeChildren();
-    this.labels.clear();
 
     const { start, length } = this._options;
     const end = start + length - 1;
-    let currentRow = 0;
 
     // Check if range is valid
     if (isNaN(start) || isNaN(length) || start < 0 || length <= 0 || end > 0xffff) {
-      this.grid.rows = "auto";
-      const errorLabel = new Label();
-      errorLabel.text = "Cannot monitor this range. Valid ranges are between $0000 and $ffff.";
-      errorLabel.className = "text-sm text-error p-4";
-      errorLabel.textWrap = true;
-      errorLabel.row = 0;
-      errorLabel.col = 0;
-      errorLabel.colSpan = BYTES_PER_ROW + 1;
-      this.grid.addChild(errorLabel);
+      this.showError();
       return;
     }
+
+    // The debugger refreshes several times a second while a program runs. Rebuilding
+    // every label each time churned hundreds of views per refresh and froze the main
+    // thread on slow devices, so the grid is built once per range and refreshes only
+    // touch the bytes whose value changed.
+    if (this.builtStart !== start || this.builtLength !== length) {
+      this.build(start, length);
+    }
+
+    for (let i = 0; i < length; i++) {
+      const value = memory.get(start + i) ?? 0;
+      if (this.values[i] === value) continue;
+      this.values[i] = value;
+      this.byteLabels[i].text = num2hex(value);
+    }
+  }
+
+  private showError(): void {
+    this.grid.removeChildren();
+    this.byteLabels = [];
+    this.values = [];
+    this.builtStart = -1;
+    this.builtLength = -1;
+
+    this.grid.rows = "auto";
+    const errorLabel = new Label();
+    errorLabel.text = "Cannot monitor this range. Valid ranges are between $0000 and $ffff.";
+    errorLabel.className = "text-sm text-error p-4";
+    errorLabel.textWrap = true;
+    errorLabel.row = 0;
+    errorLabel.col = 0;
+    errorLabel.colSpan = BYTES_PER_ROW + 1;
+    this.grid.addChild(errorLabel);
+  }
+
+  private build(start: number, length: number): void {
+    this.grid.removeChildren();
+    this.byteLabels = [];
+    this.values = [];
 
     // A GridLayout with no row specs has a single implicit row, so every label
     // would be clamped into it and stack on top of the first one.
     this.grid.rows = autoTrack(Math.ceil(length / BYTES_PER_ROW));
 
-    for (let addr = start; addr <= end && addr <= 0xffff; addr += BYTES_PER_ROW) {
-      // Address label
+    for (let offset = 0; offset < length; offset += BYTES_PER_ROW) {
+      const row = offset / BYTES_PER_ROW;
+
       const addrLabel = new Label();
-      addrLabel.text = "$" + addr2hex(addr);
+      addrLabel.text = "$" + addr2hex(start + offset);
       addrLabel.className = "text-xs font-mono text-on-surface-variant mr-2";
-      addrLabel.row = currentRow;
+      addrLabel.row = row;
       addrLabel.col = 0;
       this.grid.addChild(addrLabel);
 
-      // Memory bytes
-      for (let i = 0; i < BYTES_PER_ROW && addr + i <= end && addr + i <= 0xffff; i++) {
+      for (let i = 0; i < BYTES_PER_ROW && offset + i < length; i++) {
         const byteLabel = new Label();
-        const value = memory.get(addr + i);
-        byteLabel.text = num2hex(value !== undefined ? value : 0);
         byteLabel.className = "text-xs font-mono text-on-surface mx-1";
-        byteLabel.row = currentRow;
+        byteLabel.row = row;
         byteLabel.col = i + 1;
-
-        const key = `byte_${addr + i}`;
-        this.labels.set(key, byteLabel);
         this.grid.addChild(byteLabel);
+        this.byteLabels.push(byteLabel);
+        // Unset until `update` writes the first value, so every byte gets a text.
+        this.values.push(-1);
       }
-
-      currentRow++;
     }
+
+    this.builtStart = start;
+    this.builtLength = length;
   }
 
   private getHexDump(memory: Memory): string {
