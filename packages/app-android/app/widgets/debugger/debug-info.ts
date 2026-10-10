@@ -29,7 +29,7 @@ export class DebugInfo extends ContentView implements DebugInfoWidget {
   private readonly bitLabels: Label[] = [];
 
   /** Bit values currently shown, so a refresh only touches the labels that changed. */
-  private readonly bits: number[] = new Array(8).fill(-1);
+  private readonly bits: number[] = Array.from({ length: 8 }, () => -1);
 
   constructor() {
     super();
