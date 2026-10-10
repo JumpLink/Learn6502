@@ -9,4 +9,4 @@ Only the maintainer sets `Accepted`.
 
 | ADR | Title | Status |
 |---|---|---|
-| [0001](0001-one-app-package-and-packaging-only-platform-workspaces.md) | One app package, and platform workspaces that only package | Proposed |
+| [0001](0001-one-app-package-and-packaging-only-platform-workspaces.md) | One app package, and platform workspaces that only package | Accepted |

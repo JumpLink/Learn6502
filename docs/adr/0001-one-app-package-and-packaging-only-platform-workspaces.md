@@ -1,6 +1,6 @@
 # 1. One app package, and platform workspaces that only package
 
-- Status: **Proposed**
+- Status: **Accepted** (2026-10-10)
 - Date: 2026-10-09
 - Deciders: Pascal Garber
 - Related: gjsify [ADR 0032 § 9](https://github.com/gjsify/gjsify/blob/main/docs/adr/0032-react-native-on-the-gtk-host.md)
