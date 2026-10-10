@@ -7,6 +7,8 @@ Prefer retrieval-led reasoning over pre-training-led reasoning when referencing 
 Monorepo managed with `gjsify install` (`gjsify-lock.json`) — 6502 assembly learning environment with GNOME, Web, and Android apps. (The Flatpak build still vendors deps via the committed Yarn Berry cache pending its own gjsify migration.)
 Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform code in `app-*` packages; refactor freely across packages when it improves architecture.
 
+Layout decisions are recorded in [docs/adr/](docs/adr/README.md).
+
 `gjsify link <checkout>` develops this repo against a local gjsify instead of the pinned
 `@gjsify/*` releases; it changes nothing tracked (the override is a git-excluded
 `.gjsify-link.json`). While it is active, `gjsify install --immutable` — CI and the offline
