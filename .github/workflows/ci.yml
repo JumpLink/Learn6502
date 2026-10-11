@@ -204,6 +204,7 @@ jobs:
         run: |
           gjsify workspace @learn6502/core check
           gjsify workspace @learn6502/common-ui check
+          gjsify workspace @learn6502/ui check
           gjsify workspace @learn6502/app-web check
           gjsify workspace @learn6502/app-gnome check:typescript
           gjsify workspace @learn6502/app-android check

@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import GtkSource from "@girs/gtksource-5";
 import GLib from "@girs/glib-2.0";
 
-import { GutterRendererMode } from "./types/index.ts";
+import { GutterRendererMode } from "./gutter-renderer-mode.ts";
 
 export namespace GutterRendererLineNumbers {
   export interface ConstructorProps extends GtkSource.GutterRendererText.ConstructorProps {

@@ -61,7 +61,7 @@ class Editor extends Observable implements EditorView {
   }
 
   focus(): boolean {
-    return this._sourceView ? this._sourceView.focus() : false;
+    return this._sourceView ? this._sourceView.grab_focus() : false;
   }
 
   private onControllerCodeChanged = (event: { code: string }): void => {

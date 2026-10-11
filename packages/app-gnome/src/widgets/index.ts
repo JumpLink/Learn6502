@@ -3,7 +3,6 @@ export * from "./game-console/index.ts";
 export * from "./main-button.ts";
 export * from "./menu-button.ts";
 export * from "./toolbar.ts";
-export * from "./source-view.ts";
 export * from "./examples-list.ts";
 export * from "./example-list-item.ts";
 export * from "./share-dialog.ts";

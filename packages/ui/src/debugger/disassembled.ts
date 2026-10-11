@@ -5,7 +5,7 @@ import type { SourceView } from "../source-view.ts";
 import { type Assembler, EventDispatcher } from "@learn6502/core";
 import type { DisassembledEventMap, DisassembledWidget, SourceViewCopyEvent } from "@learn6502/common-ui";
 
-import Template from "./disassembled.blp";
+import Template from "./disassembled.blp?template";
 
 export class Disassembled extends Adw.Bin implements DisassembledWidget {
   readonly events: EventDispatcher<DisassembledEventMap> = new EventDispatcher<DisassembledEventMap>();
@@ -24,7 +24,7 @@ export class Disassembled extends Adw.Bin implements DisassembledWidget {
     );
   }
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps>) {
+  constructor(params?: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
     this.onCopy = this.onCopy.bind(this);

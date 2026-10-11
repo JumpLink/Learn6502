@@ -1,0 +1,29 @@
+{
+  "name": "@learn6502/ui",
+  "private": true,
+  "version": "0.8.0",
+  "description": "Widgets written once as GNOME components and run on GNOME, the web and Android",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "check": "gjsify tsc"
+  },
+  "author": "Pascal Garber",
+  "license": "GPL-3.0",
+  "devDependencies": {
+    "@gjsify/cli": "0.58.0",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "@girs/adw-1": "5.4.0",
+    "@girs/gdk-4.0": "5.4.0",
+    "@girs/gio-2.0": "5.4.0",
+    "@girs/gjs": "5.4.0",
+    "@girs/glib-2.0": "5.4.0",
+    "@girs/gobject-2.0": "5.4.0",
+    "@girs/gtk-4.0": "5.4.0",
+    "@girs/gtksource-5": "5.4.0",
+    "@learn6502/common-ui": "^0.8.0",
+    "@learn6502/core": "^0.8.0"
+  }
+}

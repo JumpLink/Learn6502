@@ -3,7 +3,8 @@ import type { DebuggerView, DisassembledCopyEvent, HexdumpCopyEvent, HexMonitorC
 import { DebuggerState, debuggerController } from "@learn6502/common-ui";
 import type { Assembler, Memory, Simulator } from "@learn6502/core";
 
-import { DebugInfo, Disassembled, HexMonitor, Hexdump, MessageConsole } from "../widgets/debugger/index.js";
+import { Disassembled, Hexdump } from "@learn6502/ui";
+import { DebugInfo, HexMonitor, MessageConsole } from "../widgets/debugger/index.js";
 
 /**
  * AdwDebuggerView — the ADR 0007 spike: `DebuggerView` from
@@ -167,8 +168,8 @@ export class AdwDebuggerView extends HTMLElement implements DebuggerView {
     //     an Adwaita boxed list (its own groups); the rest get a heading. ---
     column.appendChild(this.debugInfo);
     column.appendChild(this.section("Hex Monitor", this.hexMonitor));
-    column.appendChild(this.section("Hexdump", this.hexdump));
-    column.appendChild(this.section("Disassembled", this.disassembled));
+    column.appendChild(this.section("Hexdump", this.hexdump as unknown as HTMLElement));
+    column.appendChild(this.section("Disassembled", this.disassembled as unknown as HTMLElement));
     column.appendChild(this.section("Messages", this.messageConsole));
 
     this.setupWidgetEventListeners();
@@ -179,6 +180,7 @@ export class AdwDebuggerView extends HTMLElement implements DebuggerView {
     this.replaceChildren(clamp);
   }
 
+  // The shared @learn6502/ui widgets are typed as Gtk widgets; under --gi-renderer they are custom elements.
   /** A heading + the widget, matching the Android twin's section helper. */
   private section(title: string, content: HTMLElement): HTMLElement {
     const wrap = document.createElement("div");

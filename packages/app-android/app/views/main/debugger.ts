@@ -2,7 +2,7 @@ import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
 import { Application, Label, ScrollView, StackLayout } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
-import type { DebuggerView } from "@learn6502/common-ui";
+import type { DebuggerView, DisassembledCopyEvent, HexdumpCopyEvent } from "@learn6502/common-ui";
 import {
   debuggerController,
   DebuggerState,
@@ -14,7 +14,9 @@ import type { Memory, Simulator, Assembler } from "@learn6502/core";
 import { Adw, NOTIFY_ACTIVE } from "@gjsify/adwaita-nativescript";
 
 // Import custom widgets
-import { MessageConsole, DebugInfo, HexMonitor, Hexdump, Disassembled } from "~/widgets/debugger";
+import { MessageConsole, DebugInfo, HexMonitor } from "~/widgets/debugger";
+// The same component GNOME and the web run: one .blp + one class, built by --gi-renderer.
+import { Hexdump, Disassembled } from "@learn6502/ui";
 
 import { notificationService } from "~/services";
 import { gameConsoleView } from "./game-console";
@@ -92,8 +94,8 @@ class Debugger implements DebuggerView {
     registersBox.addChild(this.debugInfo);
     column.addChild(registersBox);
     column.addChild(this.section(_("Hex Monitor"), this.hexMonitor)); // HexMonitor is itself a ScrollView
-    column.addChild(this.section(_("Hexdump"), this.scrolled(this.hexdump, 200)));
-    column.addChild(this.section(_("Disassembled"), this.scrolled(this.disassembled, 200)));
+    column.addChild(this.section(_("Hexdump"), this.scrolled(asView(this.hexdump!), 200)));
+    column.addChild(this.section(_("Disassembled"), this.scrolled(asView(this.disassembled!), 200)));
     column.addChild(this.section(_("Messages"), this.scrolled(this.messageConsole, 200)));
 
     // Wire widget + controller events (the copy/changed plumbing from the old Page).
@@ -151,15 +153,13 @@ class Debugger implements DebuggerView {
 
   private setupWidgetEventListeners(): void {
     if (this.disassembled) {
-      this.disassembled.on("copy", (args) => {
-        const e = args as unknown as { code: string };
-        debuggerController.copyToEditor(e.code);
+      this.disassembled.events.on("copy", (event: DisassembledCopyEvent) => {
+        debuggerController.copyToEditor(event.code);
       });
     }
     if (this.hexdump) {
-      this.hexdump.on("copy", (args) => {
-        const e = args as unknown as { content: string };
-        debuggerController.copyToClipboard(e.content);
+      this.hexdump.events.on("copy", (event: HexdumpCopyEvent) => {
+        debuggerController.copyToClipboard(event.content);
       });
     }
     if (this.hexMonitor) {

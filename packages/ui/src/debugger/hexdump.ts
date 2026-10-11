@@ -5,7 +5,7 @@ import type { SourceView } from "../source-view.ts";
 import { type Assembler, EventDispatcher } from "@learn6502/core";
 import { type HexdumpWidget, type HexdumpEventMap, type SourceViewCopyEvent } from "@learn6502/common-ui";
 
-import Template from "./hexdump.blp";
+import Template from "./hexdump.blp?template";
 export class Hexdump extends Adw.Bin implements HexdumpWidget {
   readonly events: EventDispatcher<HexdumpEventMap> = new EventDispatcher<HexdumpEventMap>();
 
@@ -23,7 +23,7 @@ export class Hexdump extends Adw.Bin implements HexdumpWidget {
     );
   }
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps>) {
+  constructor(params?: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
 
     this.onCopy = this.onCopy.bind(this);
