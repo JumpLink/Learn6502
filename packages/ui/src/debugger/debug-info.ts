@@ -4,7 +4,7 @@ import type Gtk from "@girs/gtk-4.0";
 
 import { type Simulator, num2hex, addr2hex } from "@learn6502/core";
 import { type DebugInfoWidget } from "@learn6502/common-ui";
-import Template from "./debug-info.blp";
+import Template from "./debug-info.blp?template";
 
 export class DebugInfo extends Adw.Bin implements DebugInfoWidget {
   // Register value labels (hex)

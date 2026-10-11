@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
 
-import Template from "./message-console.blp";
+import Template from "./message-console.blp?template";
 
 import { type MessageConsoleWidget } from "@learn6502/common-ui";
 

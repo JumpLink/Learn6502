@@ -1,7 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
-import type { SourceView } from "@learn6502/ui";
+import type { SourceView } from "../source-view.ts";
 
 import { EventDispatcher, type Memory } from "@learn6502/core";
 import {
@@ -13,7 +13,7 @@ import {
   type SourceViewCopyEvent,
 } from "@learn6502/common-ui";
 
-import Template from "./hex-monitor.blp";
+import Template from "./hex-monitor.blp?template";
 
 /**
  * A widget that displays a hex monitor.
@@ -25,9 +25,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
   // Child widgets
   declare private _sourceView: SourceView;
   declare private _memoryRegionDropDown: Gtk.DropDown;
-
-  // Signal handler IDs
-  private _handlerIds: number[] = [];
 
   // Memory region definitions
   get memoryRegions(): MemoryRegion[] {
@@ -58,9 +55,6 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
     this.onCopy = this.onCopy.bind(this);
 
     this._sourceView.events.on("copy", this.onCopy);
-
-    // Ensure signal handlers are disconnected when widget is finalized
-    this.connect("destroy", this.disconnectSignals.bind(this));
   }
 
   private setupUI(): void {
@@ -71,17 +65,8 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
 
   private connectSignals(): void {
     // Connect to dropdown changed signal
-    this._handlerIds.push(this._memoryRegionDropDown.connect("notify::selected", this.onRegionChanged.bind(this)));
-  }
-
-  private disconnectSignals(): void {
-    // Disconnect all signal handlers
-    try {
-      this._handlerIds.forEach((id) => this.disconnect(id));
-    } catch (error) {
-      console.error("[HexMonitor] Failed to disconnect signal handlers", error);
-    }
-    this._handlerIds = [];
+    // The dropdown is an internal child, so this handler lives and dies with the widget.
+    this._memoryRegionDropDown.connect("notify::selected", this.onRegionChanged.bind(this));
   }
 
   private onRegionChanged(): void {
