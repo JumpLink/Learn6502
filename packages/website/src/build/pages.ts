@@ -123,6 +123,14 @@ function srcset(files: Array<{ url: string; width: number }>): string {
   return files.map((file) => `${file.url} ${file.width}w`).join(", ");
 }
 
+/** What a phone shows for this screenshot: portrait artwork needs a taller track than a landscape window. */
+function portraitOnPhone(ctx: RenderContext, screenshot: Screenshot): boolean {
+  return (["mobile-light", "mobile-dark"] as const).some((key) => {
+    const image = ctx.images.get(resolveVariant(screenshot.variants, key) as string);
+    return image !== undefined && image.height > image.width * 1.1;
+  });
+}
+
 function picture(ctx: RenderContext, screenshot: Screenshot, alt: string, eager: boolean): string {
   const variants = pictureVariants(screenshot);
   const fallback = variants[variants.length - 1]!;
@@ -161,7 +169,7 @@ function screenshotBand(ctx: RenderContext): string {
     const caption = screenshot.caption ? localized(screenshot.caption, lang) : "";
     const alt = caption || plain(t("Screenshot {number}"), { number: index + 1 });
     const label = plain(t("{number} of {total}"), { number: index + 1, total: ctx.data.screenshots.length });
-    return `<li class="slide" role="group" aria-roledescription="${esc(t("slide"))}" aria-label="${esc(label)}">
+    return `<li${attrs({ class: "slide", "data-portrait": portraitOnPhone(ctx, screenshot) })} role="group" aria-roledescription="${esc(t("slide"))}" aria-label="${esc(label)}">
 <figure>
 ${picture(ctx, screenshot, alt, index === 0)}
 ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ""}
@@ -174,7 +182,7 @@ ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ""}
     (_screenshot, index) => `<li><button class="carousel-dot" type="button" aria-label="${esc(plain(t("Screenshot {number}"), { number: index + 1 }))}"></button></li>`
   );
   return `<section class="band" aria-label="${esc(t("Screenshots"))}">
-<screenshot-carousel class="carousel" role="group" aria-roledescription="${esc(t("carousel"))}" aria-label="${esc(t("Screenshots"))}">
+<screenshot-carousel${attrs({ class: "carousel", "data-portrait": ctx.data.screenshots.some((screenshot) => portraitOnPhone(ctx, screenshot)) })} role="group" aria-roledescription="${esc(t("carousel"))}" aria-label="${esc(t("Screenshots"))}">
 <button class="carousel-arrow carousel-prev" type="button" aria-label="${esc(t("Previous screenshot"))}" hidden>${icon("chevron-left")}</button>
 <ul class="carousel-track" aria-label="${esc(t("Screenshots"))}">
 ${slides.join("\n")}

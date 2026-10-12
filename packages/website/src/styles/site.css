@@ -1000,6 +1000,21 @@ app-download:not([data-enhanced]) .download-toggle {
     --shot-h: 15rem;
   }
 
+  /* A portrait phone shot would be tiny in a 15rem track. When any slide has one, the track is as
+   * tall for all of them (no jump between slides) and landscape slides sit centred in it. */
+  .carousel[data-portrait] {
+    --shot-h: min(70svh, 40rem);
+  }
+
+  .carousel[data-portrait] .slide {
+    display: flex;
+    align-items: center;
+  }
+
+  .carousel[data-portrait] .slide:not([data-portrait]) picture {
+    height: 15rem;
+  }
+
   .hero-inner {
     flex-direction: column;
     gap: 1rem;
