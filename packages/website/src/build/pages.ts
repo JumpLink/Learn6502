@@ -367,12 +367,20 @@ ${icon("external", { class: "link-external" })}
 </li>`;
 }
 
+/** Same address, trailing slash or not. */
+function sameUrl(a: string, b: string): boolean {
+  return a.replace(/\/+$/, "") === b.replace(/\/+$/, "");
+}
+
 function links(ctx: RenderContext): string {
   const { data, t } = ctx;
   const items = LINKS.flatMap(([key, label, glyph]) => {
     const href = data.app.urls[key];
-    return href ? [linkCard(href, label(t), glyph)] : [];
+    // No point linking the page the reader is on: the metainfo's homepage is often this site.
+    if (!href || (key === "homepage" && sameUrl(href, data.config.url))) return [];
+    return [linkCard(href, label(t), glyph)];
   });
+  if (data.config.flathub) items.unshift(linkCard(`https://flathub.org/apps/${data.config.flathub}`, "Flathub", "package"));
   if (items.length === 0) return "";
   return `<section class="links">
 <h2>${esc(t("Links"))}</h2>
