@@ -66,6 +66,10 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          # A `release` event runs on the tag's commit, which can predate the
+          # site; the page must always be built from the default branch.
+          ref: ${{ github.event_name == 'release' && github.event.repository.default_branch || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
