@@ -3,8 +3,8 @@ import type { DebuggerView, DisassembledCopyEvent, HexdumpCopyEvent, HexMonitorC
 import { DebuggerState, debuggerController } from "@learn6502/common-ui";
 import type { Assembler, Memory, Simulator } from "@learn6502/core";
 
-import { Disassembled, Hexdump } from "@learn6502/ui";
-import { DebugInfo, HexMonitor, MessageConsole } from "../widgets/debugger/index.js";
+import { DebugInfo, Disassembled, HexMonitor, Hexdump, MessageConsole } from "@learn6502/ui";
+import "../widgets/debugger/index.js";
 
 /**
  * AdwDebuggerView — the ADR 0007 spike: `DebuggerView` from
@@ -166,11 +166,11 @@ export class AdwDebuggerView extends HTMLElement implements DebuggerView {
     // --- Widget sections, in the GNOME debugger order: registers, hex monitor,
     //     hexdump, disassembled, then messages. The register/flags display is
     //     an Adwaita boxed list (its own groups); the rest get a heading. ---
-    column.appendChild(this.debugInfo);
-    column.appendChild(this.section("Hex Monitor", this.hexMonitor));
+    column.appendChild(this.debugInfo as unknown as HTMLElement);
+    column.appendChild(this.section("Hex Monitor", this.hexMonitor as unknown as HTMLElement));
     column.appendChild(this.section("Hexdump", this.hexdump as unknown as HTMLElement));
     column.appendChild(this.section("Disassembled", this.disassembled as unknown as HTMLElement));
-    column.appendChild(this.section("Messages", this.messageConsole));
+    column.appendChild(this.section("Messages", this.messageConsole as unknown as HTMLElement));
 
     this.setupWidgetEventListeners();
 
