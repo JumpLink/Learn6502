@@ -307,7 +307,10 @@ test("the EPC payload follows EPC069-12 v002", () => {
     epcPayload({ name: "Max Müller", iban: "DE89 3704 0044 0532 0130 00", bic: "COBADEFFXXX", reference: "Spende" }),
     "BCD\n002\n1\nSCT\nCOBADEFFXXX\nMax Müller\nDE89370400440532013000\n\n\n\nSpende"
   );
-  assert.equal(epcPayload({ name: "X", iban: "DE89370400440532013000" }), "BCD\n002\n1\nSCT\n\nX\nDE89370400440532013000\n\n\n\n");
+  assert.equal(
+    epcPayload({ name: "X", iban: "DE89370400440532013000" }),
+    "BCD\n002\n1\nSCT\n\nX\nDE89370400440532013000\n\n\n\n"
+  );
 });
 
 test("support entries: links stay valid, a sepa entry is validated at load", () => {
@@ -315,10 +318,27 @@ test("support entries: links stay valid, a sepa entry is validated at load", () 
     version: "1.0.0",
     gjsify: { site: { metainfo: "m.xml", base: "/x/", url: "https://example.org/x", repository: "o/r", support } },
   });
-  const [link, sepa] = parseSiteConfig(base([{ kind: "Sponsor", url: "https://example.org/s" }, { kind: "sepa", name: "N", iban: "de89 3704 0044 0532 0130 00", bic: "cobadeffxxx" }])).support;
+  const [link, sepa] = parseSiteConfig(
+    base([
+      { kind: "Sponsor", url: "https://example.org/s" },
+      { kind: "sepa", name: "N", iban: "de89 3704 0044 0532 0130 00", bic: "cobadeffxxx" },
+    ])
+  ).support;
   assert.deepEqual(link, { kind: "Sponsor", url: "https://example.org/s" });
-  assert.deepEqual(sepa, { kind: "sepa", name: "N", iban: "DE89370400440532013000", bic: "COBADEFFXXX", reference: undefined });
-  assert.throws(() => parseSiteConfig(base([{ kind: "sepa", name: "N", iban: "DE89370400440532013001" }])), /support\[0\]\.iban is not a valid IBAN/);
+  assert.deepEqual(sepa, {
+    kind: "sepa",
+    name: "N",
+    iban: "DE89370400440532013000",
+    bic: "COBADEFFXXX",
+    reference: undefined,
+  });
+  assert.throws(
+    () => parseSiteConfig(base([{ kind: "sepa", name: "N", iban: "DE89370400440532013001" }])),
+    /support\[0\]\.iban is not a valid IBAN/
+  );
   assert.throws(() => parseSiteConfig(base([{ kind: "sepa", iban: "DE89370400440532013000" }])), /support\[0\]\.name/);
-  assert.throws(() => parseSiteConfig(base([{ kind: "sepa", name: "N", iban: "DE89370400440532013000", bic: "XX" }])), /bic is not a valid BIC/);
+  assert.throws(
+    () => parseSiteConfig(base([{ kind: "sepa", name: "N", iban: "DE89370400440532013000", bic: "XX" }])),
+    /bic is not a valid BIC/
+  );
 });

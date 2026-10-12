@@ -38,5 +38,17 @@ export interface EpcRecipient {
  * LF with no trailing newline, which the spec allows for omitted trailing elements.
  */
 export function epcPayload(recipient: EpcRecipient): string {
-  return ["BCD", "002", "1", "SCT", recipient.bic ?? "", recipient.name, normalizeIban(recipient.iban), "", "", "", recipient.reference ?? ""].join("\n");
+  return [
+    "BCD",
+    "002",
+    "1",
+    "SCT",
+    recipient.bic ?? "",
+    recipient.name,
+    normalizeIban(recipient.iban),
+    "",
+    "",
+    "",
+    recipient.reference ?? "",
+  ].join("\n");
 }
