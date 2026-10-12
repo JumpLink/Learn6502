@@ -1,6 +1,7 @@
-import { isBrowserPlatform, PLATFORM_ORDER, pickByLanguage, resolveVariant, type DescriptionBlock, type DownloadTarget, type Localized, type Release, type Screenshot, type ScreenshotVariantKey, type SiteData, type TargetPlatform } from "../site-data/index.ts";
+import { epcPayload, formatIban, isBrowserPlatform, PLATFORM_ORDER, pickByLanguage, resolveVariant, type DescriptionBlock, type DownloadTarget, type Localized, type Release, type Screenshot, type ScreenshotVariantKey, type SiteData, type SiteSupportEntry, type SiteSupportSepa, type TargetPlatform } from "../site-data/index.ts";
 import { attrs, esc, fmt, plain } from "./html.ts";
 import { icon, type IconName } from "./icons.ts";
+import { qrSvg } from "./qr.ts";
 import type { ImageFormat, ProcessedImage } from "./images.ts";
 
 export interface ClientAssets {
@@ -447,6 +448,33 @@ ${items.join("\n")}
 </section>`;
 }
 
+/** A bank transfer as a card: the details to read or copy, and an EPC QR code that fills them into a banking app. */
+export function sepaCard(entry: SiteSupportSepa, t: Translate): string {
+  const grouped = formatIban(entry.iban);
+  const row = (label: string, value: string, extra = "") =>
+    `<div class="sepa-row"><dt>${esc(label)}</dt><dd>${extra ? `<span class="sepa-value">${esc(value)}</span>${extra}` : esc(value)}</dd></div>`;
+  const copy = `<button class="sepa-copy" type="button" data-copy="${esc(entry.iban)}" data-done="${esc(t("Copied"))}" hidden>${icon("copy")}<span>${esc(t("Copy"))}</span></button>`;
+  return `<li class="sepa">
+<div class="sepa-text">
+<h3>${esc(t("Bank transfer"))}</h3>
+<dl class="sepa-details">
+${row(t("Recipient"), entry.name)}
+${row("IBAN", grouped, copy)}
+${entry.bic ? row("BIC", entry.bic) : ""}
+${entry.reference ? row(t("Reference"), entry.reference) : ""}
+</dl>
+</div>
+<figure class="sepa-qr">
+${qrSvg(epcPayload(entry), t("QR code for a bank transfer"))}
+<figcaption>${esc(t("Scan with your banking app"))}</figcaption>
+</figure>
+</li>`;
+}
+
+function supportItem(entry: SiteSupportEntry, t: Translate): string {
+  return entry.kind === "sepa" ? sepaCard(entry as SiteSupportSepa, t) : linkCard((entry as { url: string }).url, t(entry.kind), "heart");
+}
+
 /**
  * Ways to support the project, if the site configures any. Same no-JavaScript shape as the
  * download dialog: an anchor to a dialog that stays an open panel until the component takes over.
@@ -463,7 +491,7 @@ function support(ctx: RenderContext): string {
 <button class="dialog-close" type="button" aria-label="${esc(t("Close"))}" hidden>${icon("close")}</button>
 </div>
 <ul class="card-list">
-${data.config.support.map((link) => linkCard(link.url, t(link.kind), "heart")).join("\n")}
+${data.config.support.map((entry) => supportItem(entry, t)).join("\n")}
 </ul>
 </dialog>
 </app-support>

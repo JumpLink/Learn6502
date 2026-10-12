@@ -19,6 +19,7 @@ export type IconName =
   | "chevron-left"
   | "chevron-right"
   | "close"
+  | "copy"
   | "expand"
   | "external"
   | "code"
@@ -50,6 +51,7 @@ const PATHS: Record<IconName, string> = {
   "chevron-left": `<path ${STROKE} d="M9.8 3 4.8 8l5 5"/>`,
   "chevron-right": `<path ${STROKE} d="m6.2 3 5 5-5 5"/>`,
   close: `<path ${STROKE} d="m3.8 3.8 8.4 8.4M12.2 3.8 3.8 12.2"/>`,
+  copy: `<g ${STROKE}><rect x="5.4" y="5.4" width="8.2" height="8.2" rx="1.6"/><path d="M10.6 5.4V4c0-.9-.7-1.6-1.6-1.6H4c-.9 0-1.6.7-1.6 1.6v5c0 .9.7 1.6 1.6 1.6h1.4"/></g>`,
   expand: `<path ${STROKE} d="M6 1.9H1.9V6M10 1.9h4.1V6M10 14.1h4.1V10M6 14.1H1.9V10"/>`,
   external: `<g ${STROKE}><path d="M9.2 2.2h4.6v4.6M13.4 2.6 7.6 8.4"/><path d="M12 9.6v2.8c0 .8-.6 1.4-1.4 1.4H4c-.8 0-1.4-.6-1.4-1.4V5.8c0-.8.6-1.4 1.4-1.4h2.8"/></g>`,
   code: `<path ${STROKE} d="M5.6 11.8 2 8l3.6-3.8M10.4 4.2 14 8l-3.6 3.8M9.4 2.6 6.6 13.4"/>`,

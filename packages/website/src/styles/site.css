@@ -1085,3 +1085,94 @@ app-download:not([data-enhanced]) .download-toggle {
     transition: none;
   }
 }
+
+/* Bank transfer card in the support dialog */
+
+.card-list .sepa {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem 1.25rem;
+  padding: 1rem;
+}
+
+.sepa-text {
+  flex: 1 1 14rem;
+  min-width: 0;
+}
+
+.sepa-text h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1rem;
+}
+
+.sepa-details {
+  margin: 0;
+}
+
+.sepa-row {
+  padding-block: 0.3rem;
+}
+
+.sepa-row dt {
+  color: var(--muted);
+  font-size: 0.8rem;
+}
+
+.sepa-row dd {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.25rem 0.5rem;
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.sepa-value {
+  font-family: ui-monospace, "SF Mono", Menlo, monospace;
+  font-size: 0.9rem;
+  user-select: all;
+}
+
+.sepa-copy {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.2rem 0.55rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.sepa-copy[hidden] {
+  display: none;
+}
+
+.sepa-copy:hover {
+  background: color-mix(in srgb, var(--fg) 6%, var(--bg));
+}
+
+.sepa-qr {
+  flex: none;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Scanners need dark modules on a light ground: the SVG carries its own white quiet zone in both themes. */
+.qr {
+  display: block;
+  width: 9.5rem;
+  height: 9.5rem;
+  border-radius: 8px;
+}
+
+.sepa-qr figcaption {
+  margin-top: 0.4rem;
+  color: var(--muted);
+  font-size: 0.78rem;
+}

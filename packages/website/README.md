@@ -34,7 +34,7 @@ Lives in the root `package.json`, next to `ship` and `flatpak`.
 | `icon` | Icon (SVG or PNG) for the header, hero and favicon; overrides the Flatpak/ship icon. Optional. |
 | `downloads` | `[{platform, format, url?, label?, available?}]`: targets the release assets do not cover, e.g. browser stores or a source install. `platform` is an OS or `firefox` / `chromium`; `format` adds `store`, `xpi`, `source`. `url` is required unless `available` is `false`, which lists the target as "Not yet available" and never recommends it. |
 | `releaseAssets` | `false` ignores the GitHub release assets, so `downloads` is the whole list. Default `true`. |
-| `support`, `legal` | `{kind, url}` and `{label, url}` link lists. Empty by default: nothing is invented. |
+| `support`, `legal` | `support`: `{kind, url}` links, or `{kind: "sepa", name, iban, bic?, reference?}`, a bank transfer shown as IBAN plus an EPC QR code (no amount; the IBAN is checked at load). `legal`: `{label, url}` links. Empty by default: nothing is invented. |
 | `screenshots` | `{source, items}`, see below. |
 
 `screenshots.source` is `metainfo` (only the metainfo list), `site` (only `items`) or `merge` (`items`, where `from` borrows the caption of that metainfo screenshot and `caption` is a msgid of the website catalogue). Each item has `variants`: files for `desktop-light`, `desktop-dark`, `mobile-light`, `mobile-dark`, at least one. A missing file fails the build.
