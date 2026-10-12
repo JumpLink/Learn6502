@@ -151,6 +151,22 @@ test("config validation names the offending key", () => {
   assert.equal(config.base, "/x/");
   assert.equal(config.url, "https://x/");
   assert.deepEqual(config.languages, ["en"]);
+  assert.equal(config.sourceLanguage, "en");
+
+  const german = parseSiteConfig({
+    gjsify: {
+      site: {
+        metainfo: "m",
+        base: "x",
+        url: "https://x",
+        repository: "a/b",
+        languages: ["de", "en"],
+        defaultLanguage: "de",
+      },
+    },
+  });
+  assert.equal(german.defaultLanguage, "de");
+  assert.equal(german.sourceLanguage, "en", "the landing language does not change the language of the source text");
 });
 
 test("GitHub and Flathub payloads", () => {

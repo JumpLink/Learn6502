@@ -163,6 +163,7 @@ export function parseSiteConfig(manifest: RootManifest): SiteConfig {
     url: url.endsWith("/") ? url : `${url}/`,
     languages: languages as string[],
     defaultLanguage,
+    sourceLanguage: optionalString(raw, "sourceLanguage") ?? "en",
     repository: requireString(raw, "repository"),
     flathub: optionalString(raw, "flathub"),
     webApp: optionalString(raw, "webApp"),

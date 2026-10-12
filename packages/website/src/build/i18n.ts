@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { DOWNLOAD_LABELS, languageCandidates, parseCatalog, quotePo, type Catalog, type SiteConfig } from "../site-data/index.ts";
+import { DOWNLOAD_LABELS, UI_SOURCE_LANGUAGE, languageCandidates, parseCatalog, quotePo, type Catalog, type SiteConfig } from "../site-data/index.ts";
 
 const T_CALL = /\bt\(\s*"((?:[^"\\]|\\.)*)"\s*\)/g;
 
@@ -63,7 +63,7 @@ export async function syncCatalogs(poDir: string, config: SiteConfig, msgids: re
 
   await write(join(poDir, "website.pot"), renderPo(msgids, undefined), "po/website.pot");
   for (const language of config.languages) {
-    if (language === config.defaultLanguage) continue;
+    if (language === UI_SOURCE_LANGUAGE) continue;
     const file = poPath(poDir, language);
     const known = existsSync(file) ? parseCatalog(await readFile(file, "utf8")) : new Map<string, string>();
     await write(file, renderPo(msgids, language, known), `po/${language}.po`);

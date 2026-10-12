@@ -8,7 +8,7 @@ import { fetchLatestRelease } from "./github.ts";
 import { parseMetainfo } from "./metainfo.ts";
 import type { NetworkOptions } from "./network.ts";
 import { minimumAge } from "./oars.ts";
-import { completeLocalized, languageCandidates, parseCatalog, type Catalog } from "./po.ts";
+import { UI_SOURCE_LANGUAGE, completeLocalized, languageCandidates, parseCatalog, type Catalog } from "./po.ts";
 import { buildScreenshots } from "./screenshots.ts";
 import type {
   DescriptionBlock,
@@ -64,7 +64,7 @@ function warnMissingTranslations(
     ...metainfo.description.flatMap((block) => (block.type === "paragraph" ? [block.text] : block.items)),
   ];
   for (const language of config.languages) {
-    if (language === config.defaultLanguage) continue;
+    if (language === config.sourceLanguage) continue;
     const missing = texts.filter((text) => complete(text).byLanguage[language] === undefined).length;
     if (missing > 0) {
       const hint = config.translations ? "" : ' (set "gjsify.site.translations" to a directory of .po catalogues)';
@@ -93,7 +93,7 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
   const appCatalogs = config.translations
     ? await loadCatalogs(resolve(options.root, config.translations), config.languages)
     : {};
-  const complete = (text: Localized) => completeLocalized(text, config.languages, config.defaultLanguage, appCatalogs);
+  const complete = (text: Localized) => completeLocalized(text, config.languages, config.sourceLanguage, appCatalogs);
   const completeBlocks = (blocks: DescriptionBlock[]): DescriptionBlock[] =>
     blocks.map((block) =>
       block.type === "paragraph"
@@ -105,7 +105,7 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
     const byLanguage: Record<string, string> = {};
     for (const language of config.languages) {
       const translated = options.uiCatalogs?.[language]?.get(msgid);
-      if (translated !== undefined && language !== config.defaultLanguage) byLanguage[language] = translated;
+      if (translated !== undefined && language !== UI_SOURCE_LANGUAGE) byLanguage[language] = translated;
     }
     return { source: msgid, byLanguage };
   };

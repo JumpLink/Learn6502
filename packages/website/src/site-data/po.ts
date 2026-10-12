@@ -120,6 +120,9 @@ export function resolveLocalized(text: Localized, language: string, catalog?: Ca
   return fromCatalog ?? text.source;
 }
 
+/** The page strings are English msgids, so English needs no catalogue. */
+export const UI_SOURCE_LANGUAGE = "en";
+
 /** A translator bound to one catalogue; unknown msgids come back unchanged, which is gettext's contract. */
 export function translator(catalog: Catalog | undefined): (msgid: string) => string {
   return (msgid) => catalog?.get(msgid) ?? msgid;
@@ -132,12 +135,12 @@ export function translator(catalog: Catalog | undefined): (msgid: string) => str
 export function completeLocalized(
   text: Localized,
   languages: readonly string[],
-  defaultLanguage: string,
+  sourceLanguage: string,
   catalogs: Readonly<Record<string, Catalog>>
 ): Localized {
   const byLanguage: Record<string, string> = {};
   for (const language of languages) {
-    if (language === defaultLanguage) continue;
+    if (language === sourceLanguage) continue;
     const fromMetainfo = pickByLanguage(text.byLanguage, language);
     const fromCatalog = catalogs[language]?.get(text.source);
     const resolved = fromMetainfo ?? fromCatalog;

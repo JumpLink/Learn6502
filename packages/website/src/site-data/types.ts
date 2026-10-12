@@ -80,7 +80,10 @@ export interface SiteConfig {
   base: string;
   url: string;
   languages: string[];
+  /** Language `/` falls back to when the visitor's languages match none of `languages`. */
   defaultLanguage: string;
+  /** Language of the metainfo's untranslated text; the other languages are looked up in the catalogues. */
+  sourceLanguage: string;
   repository: string;
   flathub?: string;
   webApp?: string;

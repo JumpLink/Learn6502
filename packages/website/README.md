@@ -26,7 +26,7 @@ Lives in the root `package.json`, next to `ship` and `flatpak`.
 | --- | --- |
 | `metainfo` | AppStream file, relative to the repo root. Source of name, summary, description, releases, URLs, branding, keywords, age rating. |
 | `base` / `url` | URL path the site is served under, and its absolute origin + path (canonical, `hreflang`, `og:image`). |
-| `languages` / `defaultLanguage` | Languages to render (`/en/`, `/de/`); the default is the language of the metainfo's untranslated text. |
+| `languages` / `defaultLanguage` / `sourceLanguage` | Languages to render (`/en/`, `/de/`). `defaultLanguage` is where `/` lands when the visitor's languages match none (default: the first). `sourceLanguage` is the language of the metainfo's untranslated text (default `en`); the others are looked up in `translations`. |
 | `repository` | `owner/name`; release assets and counts come from its latest GitHub release. |
 | `flathub` | Flathub app id: adds the Flathub download and install count. Optional. |
 | `webApp` | Path of the web app below `base`; adds "Try in browser". Optional. |
@@ -54,4 +54,4 @@ The `<picture>` carries one `<source>` per differing variant (`max-width: 600px`
 
 - Page strings are gettext msgids in English: `t("…")` in `src/build/*.ts`, plus the download labels and the configured captions. `gjsify workspace @learn6502/website i18n` regenerates `po/website.pot` and merges it into `po/<lang>.po`; `check` fails when they are stale or a string is untranslated. No `xgettext` needed.
 - App text (name, summary, description, release notes) is looked up per language: the metainfo's own `xml:lang` element, then `packages/translations/<lang>.po` (msgid = the source text), then the source text.
-- `/` picks a language from `navigator.language` and falls back to a plain list of links without JavaScript.
+- `/` picks a language from `navigator.languages`, falls back to `defaultLanguage` and, without JavaScript, to a plain list of links.
