@@ -1,18 +1,19 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import type Gtk from "@girs/gtk-4.0";
 import type GtkSource from "@girs/gtksource-5";
-import type { SourceView } from "@learn6502/ui";
-import type { QuickHelpView } from "../../mdx/quick-help-view.ts";
+import type { SourceView } from "../source-view.ts";
 import { EventDispatcher } from "@learn6502/core";
-import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
+import type { EditorView, EditorEventMap, EditorHelpVisibilityChangedEvent } from "@learn6502/common-ui";
 import { editorController } from "@learn6502/common-ui";
 
-import Template from "./editor.blp";
+import Template from "./editor.blp?template";
 
 /**
  * @class Editor to edit 6502 assembly code
  * Implements EditorView from common-ui
+ *
+ * The template names `$QuickHelpView`, whose content is generated per platform from the same MDX:
+ * the app registers a class of that name before it builds an Editor.
  *
  * @emits changed - Emitted when the buffer's text changes
  */
@@ -24,11 +25,8 @@ export class Editor extends Adw.Bin implements EditorView {
   /** The SourceView that displays the buffer's display */
   declare private _sourceView: SourceView;
 
-  /** The QuickHelp that displays the quick help */
-  declare private _quickHelpView: QuickHelpView;
-
-  /** The ScrolledWindow that contains the quick help */
-  declare private _scrolledWindow: Gtk.ScrolledWindow;
+  /** The sheet that slides the quick help up over the source view */
+  declare private _bottomSheet: Adw.BottomSheet;
 
   // State preservation - now handled by editorController
   private _isInitialized: boolean = false;
@@ -38,7 +36,7 @@ export class Editor extends Adw.Bin implements EditorView {
       {
         GTypeName: "Editor",
         Template,
-        InternalChildren: ["sourceView", "quickHelpView", "scrolledWindow"],
+        InternalChildren: ["sourceView", "bottomSheet"],
         Properties: {
           code: GObject.ParamSpec.string(
             "code",
@@ -86,6 +84,11 @@ export class Editor extends Adw.Bin implements EditorView {
    */
   public get buffer(): GtkSource.Buffer {
     return this._sourceView.buffer;
+  }
+
+  /** The sheet that holds the quick help; a platform may pad it, e.g. for system insets. */
+  public get bottomSheet(): Adw.BottomSheet {
+    return this._bottomSheet;
   }
 
   /**
@@ -138,6 +141,16 @@ export class Editor extends Adw.Bin implements EditorView {
     this.events.dispatch("changed", event);
   };
 
+  /** Mirror the controller's help state onto the sheet (it is opened from the main menu too) */
+  private onHelpVisibilityChanged = (event: EditorHelpVisibilityChangedEvent): void => {
+    if (this._bottomSheet.open !== event.visible) this._bottomSheet.open = event.visible;
+  };
+
+  /** Mirror a user dismissal or the Help bar back onto the controller */
+  private onSheetOpenChanged(): void {
+    editorController.setHelpVisible(this._bottomSheet.open);
+  }
+
   /**
    * Initialize the editor with the controller
    */
@@ -148,12 +161,15 @@ export class Editor extends Adw.Bin implements EditorView {
 
       // Subscribe to controller events
       editorController.events.on("changed", this.onControllerCodeChanged);
+      editorController.events.on("helpVisibilityChanged", this.onHelpVisibilityChanged);
+      this._bottomSheet.connect("notify::open", this.onSheetOpenChanged.bind(this));
 
       this._isInitialized = true;
     }
 
     // Always restore state from controller
     this.restoreState();
+    this._bottomSheet.open = editorController.helpVisible;
   }
 
   /**
@@ -164,7 +180,7 @@ export class Editor extends Adw.Bin implements EditorView {
     this.notify("code");
   }
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps>) {
+  constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
 
     // Initialize with controller after construction

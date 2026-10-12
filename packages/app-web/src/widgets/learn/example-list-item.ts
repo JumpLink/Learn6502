@@ -2,7 +2,7 @@ import type { ExampleMeta } from "@learn6502/examples";
 import { DisplayAddressRange, EventDispatcher, Memory } from "@learn6502/core";
 
 import { Display } from "../game-console/display.js";
-import { SourceView } from "../editor/source-view.js";
+import { SourceView } from "./source-view.js";
 
 /** Events emitted by an example list item. */
 interface ExampleListItemEventMap {

@@ -1,16 +1,16 @@
 // GENERATED from editor.blp — do not edit. ADR 0088 says what these exports mean.
 // Regenerate with `gjsify blueprint types`; `scripts/check-blueprint-sidecars.mjs` holds it.
 
-import type Adw from 'gi://Adw?version=1';
-import type GObject from 'gi://GObject?version=2.0';
-import type Gtk from 'gi://Gtk?version=4.0';
+import type Adw from "gi://Adw?version=1";
+import type GObject from "gi://GObject?version=2.0";
+import type Gtk from "gi://Gtk?version=4.0";
 
 /** The GtkBuilder XML this `.blp` compiles to. */
 declare const xml: string;
 export default xml;
 
 /** The class `template $Editor` defines. */
-export declare const GTypeName: 'Editor';
+export declare const GTypeName: "Editor";
 
 /**
  * Every id inside the template, in source order — what `registerClass` is given.
@@ -22,12 +22,12 @@ export declare const GTypeName: 'Editor';
  * which is the property that matters. `status/open-todos/blueprint.md` carries the
  * upstream half.
  */
-export declare const InternalChildren: ['bottomSheet', 'sourceView', 'scrolledWindow', 'quickHelpView'];
+export declare const InternalChildren: ["bottomSheet", "sourceView", "scrolledWindow", "quickHelpView"];
 
 /** The `_`-prefixed members GJS installs for them. Merge it into the class interface. */
 export interface Children {
-    _bottomSheet: Adw.BottomSheet;
-    _sourceView: GObject.Object;
-    _scrolledWindow: Gtk.ScrolledWindow;
-    _quickHelpView: GObject.Object;
+  _bottomSheet: Adw.BottomSheet;
+  _sourceView: GObject.Object;
+  _scrolledWindow: Gtk.ScrolledWindow;
+  _quickHelpView: GObject.Object;
 }
