@@ -12,7 +12,7 @@ import Template from "./example-list-item.blp?template";
 /**
  * @emits copy - The example's code should be loaded into the editor
  *
- * The template names `$Display`, which each platform registers under that name.
+ * The template names `$Display`, which the shared `Display` registers.
  */
 export class ExampleListItem extends Gtk.Box {
   readonly events = new EventDispatcher<{ copy: LearnCopyEvent }>();

@@ -12,20 +12,3 @@ learn-game-console {
   gap: 24px;
   padding: 24px 12px;
 }
-
-/* The canvas keeps its native 320×320 buffer; CSS scales it to fit the pane
-   with crisp square pixels (no smoothing). */
-.game-console-screen {
-  inline-size: 100%;
-  max-inline-size: 320px;
-  block-size: auto;
-  aspect-ratio: 1 / 1;
-  image-rendering: pixelated;
-  border-radius: 6px;
-  background: #000;
-  outline: none;
-}
-
-.game-console-screen:focus-visible {
-  box-shadow: 0 0 0 2px var(--accent-bg-color, #3584e4);
-}

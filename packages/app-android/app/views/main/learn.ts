@@ -10,9 +10,8 @@ import { Learn as LearnWidget, setTranslator } from "@learn6502/ui";
 import { TutorialView } from "~/mdx/tutorial-view";
 import { logger } from "~/utils";
 import type { ScreenModule } from "./editor";
-// The shared learn view's source views and example displays are `@learn6502/ui`'s; these arms teach NativeScript what they are.
+// The shared learn view's source views are `@learn6502/ui`'s; this arm teaches NativeScript what they are.
 import "~/widgets/source-view";
-import "~/widgets/game-console/display";
 
 const SHARE_URL = "https://github.com/JumpLink/Learn6502";
 

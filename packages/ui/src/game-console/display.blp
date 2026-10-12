@@ -7,9 +7,7 @@ template $Display: Adw.Bin {
   valign: start;
 
   Frame {
-    DrawingArea drawingArea {
-      content-width: bind template.displayWidth;
-      content-height: bind template.displayHeight;
+    $GjsifyCanvas2DBridge canvas {
       focusable: true;
     }
   }

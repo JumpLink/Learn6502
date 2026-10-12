@@ -57,7 +57,8 @@
     "@gjsify/dom-elements@^0.62.0",
     "@mdx-js/rollup@^3.1.1",
     "@types/mdx@^2.0.13",
-    "nano-jsx@^0.2.1"
+    "nano-jsx@^0.2.1",
+    "@gjsify/canvas2d@^0.62.0"
   ],
   "packages": {
     "node_modules/@alloc/quick-lru": {
@@ -2108,6 +2109,38 @@
         "@gjsify/utils": "^0.62.0"
       }
     },
+    "node_modules/@gjsify/canvas2d": {
+      "version": "0.62.0",
+      "resolved": "https://registry.npmjs.org/@gjsify/canvas2d/-/canvas2d-0.62.0.tgz",
+      "integrity": "sha512-ybGfxu4x8aSdqso2ZHOMyH/Ob5DR/pRfgbRBZ5IN4QjyZLWXTsdtI8E6AYjsy5MENLB2/M6Ta/NgnrCcNN3wgw==",
+      "dependencies": {
+        "@girs/gjs": "5.4.0",
+        "@girs/gdk-4.0": "5.4.0",
+        "@girs/gtk-4.0": "5.4.0",
+        "@gjsify/utils": "^0.62.0",
+        "@girs/glib-2.0": "5.4.0",
+        "@girs/pango-1.0": "5.4.0",
+        "@girs/gobject-2.0": "5.4.0",
+        "@gjsify/dom-events": "^0.62.0",
+        "@girs/gdkpixbuf-2.0": "5.4.0",
+        "@girs/pangocairo-1.0": "5.4.0",
+        "@gjsify/dom-elements": "^0.62.0",
+        "@gjsify/event-bridge": "^0.62.0",
+        "@gjsify/canvas2d-core": "^0.62.0"
+      },
+      "peerDependencies": {
+        "@gjsify/adwaita-web": "^0.62.0",
+        "@gjsify/adwaita-nativescript": "^0.62.0"
+      },
+      "peerDependenciesMeta": {
+        "@gjsify/adwaita-web": {
+          "optional": true
+        },
+        "@gjsify/adwaita-nativescript": {
+          "optional": true
+        }
+      }
+    },
     "node_modules/@gjsify/canvas2d-core": {
       "version": "0.62.0",
       "resolved": "https://registry.npmjs.org/@gjsify/canvas2d-core/-/canvas2d-core-0.62.0.tgz",
@@ -2328,6 +2361,19 @@
       "version": "0.62.0",
       "resolved": "https://registry.npmjs.org/@gjsify/empty/-/empty-0.62.0.tgz",
       "integrity": "sha512-gD/7kw6ouhCnsoTgFRKKAjcpjhErpX1vi7+GoVoiEj07Eo7Tflne/kcBt42glNEmcGiipXxCrDURzX1w+Nod/Q=="
+    },
+    "node_modules/@gjsify/event-bridge": {
+      "version": "0.62.0",
+      "resolved": "https://registry.npmjs.org/@gjsify/event-bridge/-/event-bridge-0.62.0.tgz",
+      "integrity": "sha512-8HoUxE43iZpY0bo3iQfoYaA5AytPY8x5opeRa+1Afv7a+KGEFznW/mkj14wTVNtHjJXCCflKTYArATn4h3aqRQ==",
+      "dependencies": {
+        "@girs/gjs": "5.4.0",
+        "@girs/gdk-4.0": "5.4.0",
+        "@girs/gtk-4.0": "5.4.0",
+        "@girs/glib-2.0": "5.4.0",
+        "@girs/graphene-1.0": "5.4.0",
+        "@gjsify/dom-events": "^0.62.0"
+      }
     },
     "node_modules/@gjsify/events": {
       "version": "0.62.0",
