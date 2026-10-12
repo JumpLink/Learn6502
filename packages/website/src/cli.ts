@@ -14,25 +14,36 @@ import { processImage, type ProcessedImage } from "./build/images.ts";
 import { pictureVariants, renderPage, renderRoot, type ClientAssets } from "./build/pages.ts";
 
 const packageDir = resolve(import.meta.dirname, "..");
-const repoRoot = resolve(packageDir, "../..");
 const poDir = join(packageDir, "po");
-const distDir = join(packageDir, "dist");
 const cacheDir = join(packageDir, ".cache");
+
+/** Where the page is built from and into: the repository this package lives in, unless told otherwise. */
+interface Target {
+  /** Repository root: the root package.json, metainfo, screenshots and icon are read from here. */
+  repoRoot: string;
+  distDir: string;
+}
 
 const USAGE = `Usage: node src/cli.ts <command> [options]
 
-  build [--offline] [--no-cache]  Render the static pages into dist/ (run \`vite build\` first)
-  i18n [--check]                  Update po/website.pot and po/<lang>.po from the sources, or only verify them
+  build [options]    Build the client script and render the static pages
+  i18n [--check]     Update po/website.pot and po/<lang>.po from the sources, or only verify them
+
+Options:
+  --root <path>      Repository to build the page for (default: the repository containing this package)
+  --out <dir>        Output directory, emptied first (default: <package>/dist)
+  --offline          Skip every network call
+  --no-cache         Ignore the one-hour response cache in .cache/http
 
 Environment: GITHUB_TOKEN raises the GitHub API rate limit.`;
 
-async function readConfig() {
+async function readConfig({ repoRoot }: Target) {
   const manifest = JSON.parse(await readFile(join(repoRoot, "package.json"), "utf8")) as RootManifest;
   return parseSiteConfig(manifest);
 }
 
-async function i18n(check: boolean): Promise<number> {
-  const config = await readConfig();
+async function i18n(target: Target, check: boolean): Promise<number> {
+  const config = await readConfig(target);
   const msgids = await collectMsgids(join(packageDir, "src/build"), config);
   const { stale, untranslated } = await syncCatalogs(poDir, config, msgids, check);
   for (const file of stale)
@@ -41,12 +52,9 @@ async function i18n(check: boolean): Promise<number> {
   return untranslated.length > 0 || (check && stale.length > 0) ? 1 : 0;
 }
 
-async function readManifest(): Promise<ClientAssets> {
+async function readManifest(distDir: string): Promise<ClientAssets> {
   const file = join(distDir, ".vite/manifest.json");
-  if (!existsSync(file))
-    throw new Error(
-      "dist/.vite/manifest.json is missing; run `vite build` before `build` (the `build` script does both)"
-    );
+  if (!existsSync(file)) throw new Error(`${file} is missing; the client build did not write its manifest`);
   const manifest = JSON.parse(await readFile(file, "utf8")) as Record<
     string,
     { file: string; css?: string[]; isEntry?: boolean }
@@ -56,8 +64,22 @@ async function readManifest(): Promise<ClientAssets> {
   return { js: entry.file, css: entry.css ?? [] };
 }
 
-async function build(options: { offline: boolean; useCache: boolean }): Promise<void> {
-  const config = await readConfig();
+/** Bundles the client script and stylesheet into `distDir`, served from the site's base path. */
+async function buildClient(base: string, distDir: string): Promise<void> {
+  const { build: viteBuild } = await import("vite");
+  await viteBuild({
+    configFile: join(packageDir, "vite.config.ts"),
+    root: packageDir,
+    base,
+    logLevel: "warn",
+    build: { outDir: distDir, emptyOutDir: true },
+  });
+}
+
+async function build(target: Target, options: { offline: boolean; useCache: boolean }): Promise<void> {
+  const { repoRoot, distDir } = target;
+  const config = await readConfig(target);
+  await buildClient(config.base, distDir);
   const catalogs = await loadCatalogs(poDir, config.languages);
   const data = await loadSiteData({
     root: repoRoot,
@@ -69,11 +91,11 @@ async function build(options: { offline: boolean; useCache: boolean }): Promise<
   });
 
   const base = data.config.base;
-  const vite = await readManifest();
+  const vite = await readManifest(distDir);
   const assets: ClientAssets = { js: `${base}${vite.js}`, css: vite.css.map((file) => `${base}${file}`) };
 
-  const images = await processScreenshots(data);
-  const iconUrl = await publishIcon(data);
+  const images = await processScreenshots(data, target);
+  const iconUrl = await publishIcon(data, target);
 
   for (const lang of data.config.languages) {
     const html = renderPage({ data, lang, t: translator(catalogs[lang]), assets, images, iconUrl });
@@ -84,7 +106,7 @@ async function build(options: { offline: boolean; useCache: boolean }): Promise<
   console.log(`Built ${data.config.languages.length} pages and ${images.size} screenshots into ${distDir}`);
 }
 
-async function processScreenshots(data: SiteData): Promise<Map<string, ProcessedImage>> {
+async function processScreenshots(data: SiteData, { repoRoot, distDir }: Target): Promise<Map<string, ProcessedImage>> {
   const paths = new Set(
     data.screenshots.flatMap((screenshot) => pictureVariants(screenshot).map((variant) => variant.path))
   );
@@ -99,20 +121,33 @@ async function processScreenshots(data: SiteData): Promise<Map<string, Processed
   return new Map(entries);
 }
 
-async function publishIcon(data: SiteData): Promise<string | undefined> {
+async function publishIcon(data: SiteData, { repoRoot, distDir }: Target): Promise<string | undefined> {
   if (!data.app.icon) return undefined;
   const name = basename(data.app.icon);
   await copyFile(resolve(repoRoot, data.app.icon), join(distDir, name));
   return `${data.config.base}${name}`;
 }
 
+/** The value after `--name`, or `undefined` when the flag is absent. */
+function flagValue(flags: string[], name: string): string | undefined {
+  const index = flags.indexOf(name);
+  if (index === -1) return undefined;
+  const value = flags[index + 1];
+  if (value === undefined || value.startsWith("--")) throw new Error(`${name} needs a value`);
+  return value;
+}
+
 async function main(argv: string[]): Promise<number> {
   const [command, ...flags] = argv;
+  const target: Target = {
+    repoRoot: resolve(flagValue(flags, "--root") ?? join(packageDir, "../..")),
+    distDir: resolve(flagValue(flags, "--out") ?? join(packageDir, "dist")),
+  };
   if (command === "build") {
-    await build({ offline: flags.includes("--offline"), useCache: !flags.includes("--no-cache") });
+    await build(target, { offline: flags.includes("--offline"), useCache: !flags.includes("--no-cache") });
     return 0;
   }
-  if (command === "i18n") return i18n(flags.includes("--check"));
+  if (command === "i18n") return i18n(target, flags.includes("--check"));
   console.error(USAGE);
   return command === "--help" || command === "-h" ? 0 : 2;
 }

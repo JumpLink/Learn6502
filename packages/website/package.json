@@ -6,7 +6,7 @@
   "private": true,
   "scripts": {
     "clear": "rm -rf dist .cache",
-    "build": "vite build && node src/cli.ts build",
+    "build": "node src/cli.ts build",
     "start": "gjsify run build && vite preview",
     "check": "gjsify tsc --noEmit && node src/cli.ts i18n --check",
     "i18n": "node src/cli.ts i18n",

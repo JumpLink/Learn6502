@@ -2,7 +2,9 @@ import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 import { defineConfig } from "vite";
 
-const root = resolve(import.meta.dirname, "../..");
+// `src/cli.ts build` passes its own base and output directory; these only serve `vite preview`, which
+// follows the same environment variables as the CLI's --root and --out.
+const root = resolve(process.env.WEBSITE_ROOT ?? resolve(import.meta.dirname, "../.."));
 const manifest = JSON.parse(readFileSync(resolve(root, "package.json"), "utf8")) as {
   gjsify?: { site?: { base?: string } };
 };
@@ -14,7 +16,7 @@ export default defineConfig({
   base,
   build: {
     manifest: true,
-    outDir: "dist",
+    outDir: process.env.WEBSITE_OUT ?? "dist",
     emptyOutDir: true,
     rollupOptions: { input: resolve(import.meta.dirname, "src/client/main.ts") },
   },
