@@ -18,20 +18,13 @@
 // widget, add a side-effect import for it here.
 
 // Leaf widgets
-// Shared widgets (@learn6502/ui): SourceView, Hexdump, Disassembled, HexMonitor, DebugInfo, MessageConsole, Gamepad
+// Shared widgets (@learn6502/ui): SourceView, Hexdump, Disassembled, HexMonitor, DebugInfo, MessageConsole, Gamepad, Display, GameConsole, Debugger, Editor, Learn, ExamplesList, ExampleListItem, MainButton, Toolbar
 import "@learn6502/ui";
-import "./widgets/main-button.ts";
 import "./widgets/menu-button.ts";
-import "./widgets/toolbar.ts";
 import "./widgets/accent-color-selector.ts";
 import "./widgets/primary-color-selector.ts";
 import "./widgets/theme-mode-selector.ts";
-import "./widgets/examples-list.ts";
-import "./widgets/example-list-item.ts";
 import "./widgets/share-dialog.ts";
-
-// Game console widgets
-import "./widgets/game-console/display.ts";
 
 // MDX-driven widgets
 import "./mdx/mdx-view.ts";
@@ -39,10 +32,6 @@ import "./mdx/quick-help-view.ts";
 import "./mdx/tutorial-view.ts";
 
 // Composite views and dialogs
-import "./views/main/game-console.ts";
-import "./views/main/debugger.ts";
-import "./views/main/editor.ts";
-import "./views/main/learn.ts";
 import "./views/main.window.ts";
 import "./views/help.window.ts";
 import "./views/preferences.dialog.ts";

@@ -7,9 +7,8 @@ import GLib from "@girs/glib-2.0";
 
 import { SimulatorState, num2hex, debounce } from "@learn6502/core";
 
-import type { Learn, Editor, GameConsole, Debugger } from "./main";
+import type { Editor, Learn, GameConsole, Debugger, MainButton } from "@learn6502/ui";
 import { HelpWindow } from "./help.window.ts";
-import type { MainButton } from "../widgets";
 import { ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
@@ -26,6 +25,7 @@ import {
   editorController,
   learnController,
   GameConsoleEventBridge,
+  createSimulatorStack,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -189,6 +189,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   constructor(application: Adw.Application) {
     super({ application });
 
+    // One simulator stack for the console that runs it and the debugger that shows it.
+    const stack = createSimulatorStack();
+    this._gameConsole.setSimulatorStack(stack);
+    this._debugger.setSimulatorStack(stack);
+
     // Initialize services
     fileService.init(this);
     fileService.setUnsavedChangesIndicator(this._unsavedChangesIndicator);
@@ -236,9 +241,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     // Initialize main state controller
     mainStateController.init();
-
-    // Set game console reference in debugger
-    this._debugger.setGameConsole(this._gameConsole);
 
     // Initialize the previous visible child after all setup is done
     this.previousVisibleChild = this._stack.get_visible_child();
@@ -348,8 +350,13 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
 
     // Update back button visibility when learn navigation changes
-    this._learn.connect("notify::hasVisibleSubpage", () => {
+    this._learn.events.on("subpage-changed", () => {
       this.updateLearnBackButtonVisibility();
+    });
+
+    // The examples page offers to share one's own example
+    this._learn.events.on("share", () => {
+      this.shareAction.activate(null);
     });
   }
 

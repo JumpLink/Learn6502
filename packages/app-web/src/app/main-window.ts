@@ -22,13 +22,7 @@
  * single ⇄ three swap is a `matchMedia` query mirroring its 800×600 / 1000×600
  * thresholds.
  *
- * Phase 1 shipped the Debugger as the first REAL view (the ADR-0007 spike's
- * `AdwDebuggerView`, wired through the shared `GameConsoleEventBridge`).
- * Phase 2 added Learn (`AdwLearnView`, rendering `@learn6502/learn`'s generated
- * tutorial HTML). Phase 3 added the Editor (`AdwEditorView`, the CodeMirror
- * `<adw-source-view>` + quick-help sheet). Phase 4 adds the GameConsole
- * (`AdwGameConsoleView`, the `<canvas>` display + d-pad gamepad), upgrading the
- * shared `gameConsoleController` from assembler-only to full display + input.
+ * All four views are the shared `@learn6502/ui` widgets (Learn, Editor, Debugger, GameConsole).
  */
 
 import { Adw, Gtk } from "@gjsify/adwaita-web";
@@ -46,11 +40,13 @@ import {
 } from "@learn6502/common-ui";
 import { Assembler, Labels, Memory, Simulator, SimulatorState, formatMessage } from "@learn6502/core";
 
-import { AdwDebuggerView } from "../views/adw-debugger.js";
-import { AdwEditorView } from "../widgets/editor/index.js";
-import { AdwGameConsoleView } from "../widgets/game-console/index.js";
-import { AdwLearnView } from "../widgets/learn/index.js";
+import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
+import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
+import { Debugger, Editor, GameConsole, Learn } from "@learn6502/ui";
 import { injectShellStyles } from "./styles.js";
+
+/** Learn6502 project repository — the "share your example" destination. */
+const SHARE_URL = "https://github.com/JumpLink/Learn6502";
 
 /** Notification key → toast title (the GNOME twin's NOTIFICATION_TITLES, English only). */
 const NOTIFICATION_TITLES: Record<string, string> = {
@@ -93,10 +89,10 @@ export class MainWindow implements MainView {
   private readonly assembler = new Assembler(this.memory, this.labels);
 
   // Every view is now real (Learn, Editor, Debugger, GameConsole).
-  private readonly debuggerView = new AdwDebuggerView();
-  private readonly editorView = new AdwEditorView();
-  private readonly gameConsoleView = new AdwGameConsoleView();
-  private readonly learnView = new AdwLearnView();
+  private readonly debuggerView = new Debugger();
+  private readonly editorView = new Editor();
+  private readonly gameConsoleView = new GameConsole();
+  private readonly learnView = new Learn();
 
   // Persistent per-view slot wrappers, re-homed between the two layouts.
   private readonly slots: ViewSlot[];
@@ -251,18 +247,22 @@ export class MainWindow implements MainView {
   }
 
   private buildViews(): void {
-    // All four views are real: Learn, Editor, Debugger and GameConsole.
-    this.learnView.classList.add("shell-view-slot");
-    this.learnSlot.appendChild(this.learnView);
+    // The shared widgets are typed against the GJS bindings; at run time they are custom elements.
+    const learnElement = this.learnView as unknown as HTMLElement;
+    learnElement.classList.add("shell-view-slot");
+    this.learnSlot.appendChild(learnElement);
 
-    this.editorView.classList.add("shell-view-slot");
-    this.editorSlot.appendChild(this.editorView);
+    const editorElement = this.editorView as unknown as HTMLElement;
+    editorElement.classList.add("shell-view-slot");
+    this.editorSlot.appendChild(editorElement);
 
-    this.gameConsoleView.classList.add("shell-view-slot");
-    this.gameConsoleSlot.appendChild(this.gameConsoleView);
+    const gameConsoleElement = this.gameConsoleView as unknown as HTMLElement;
+    gameConsoleElement.classList.add("shell-view-slot");
+    this.gameConsoleSlot.appendChild(gameConsoleElement);
 
-    this.debuggerView.classList.add("shell-view-slot");
-    this.debuggerSlot.appendChild(this.debuggerView);
+    const debuggerElement = this.debuggerView as unknown as HTMLElement;
+    debuggerElement.classList.add("shell-view-slot");
+    this.debuggerSlot.appendChild(debuggerElement);
   }
 
   private buildChrome(): Adw.Window {
@@ -285,9 +285,9 @@ export class MainWindow implements MainView {
     this.learnBackButton.hidden = true; // shown only when a Learn subpage is open
     this.learnBackButton.addEventListener("click", () => this.learnView.navigateBack());
     // The Learn view reports when its visible sub-page changes (Tutorial /
-    // Examples pushed or popped) so the shell can reveal its back button —
-    // the web stand-in for the GNOME twin's `hasVisibleSubpage` property.
-    this.learnView.addEventListener("subpage-changed", () => this.updateLearnBackButton());
+    // Examples pushed or popped) so the shell can reveal its back button.
+    this.learnView.events.on("subpage-changed", () => this.updateLearnBackButton());
+    this.learnView.events.on("share", () => window.open(SHARE_URL, "_blank", "noopener,noreferrer"));
 
     this.runControls.className = "shell-run-controls";
     this.runControls.setAttribute("slot", "start");
@@ -380,15 +380,17 @@ export class MainWindow implements MainView {
   // --- Controller wiring (the shared common-ui pipeline) ---
 
   private setupControllers(): void {
-    // Full GameConsole: the real display + gamepad view over the shared
-    // gameConsoleController (upgrades the shell from the assembler-only
-    // initPartial). The view uses the shell's simulator stack (shared with the
-    // Debugger) rather than owning its own, so pass it in.
-    this.gameConsoleView.initialize(this.memory, this.simulator, this.assembler, this.labels);
-
-    // The real Debugger view over the shared debuggerController.
-    this.debuggerView.initialize(this.assembler, this.simulator);
+    // The shell owns the simulator stack; the console that runs it and the debugger that shows it share it.
+    const stack = { memory: this.memory, labels: this.labels, simulator: this.simulator, assembler: this.assembler };
+    this.gameConsoleView.setSimulatorStack(stack);
+    this.debuggerView.setSimulatorStack(stack);
     this.debuggerView.state = DebuggerState.ACTIVE;
+
+    // A key press only drives the game while the display is focused, so playing never steals the Editor's keys.
+    // The shared Display is typed as the GJS widget; on the web it is the element, and key events bubble up to it.
+    (this.gameConsoleView.display as unknown as HTMLElement).addEventListener("keydown", (event: KeyboardEvent) => {
+      if (gameConsoleController.handleKeyPress(event.keyCode)) event.preventDefault();
+    });
 
     // GameConsole signals → debugger/toast updates (same seam as GNOME/Android).
     this.bridge = new GameConsoleEventBridge({
@@ -408,7 +410,10 @@ export class MainWindow implements MainView {
       this.setEditorCode(code);
       this.showToast("Code copied to editor");
     });
-    debuggerController.on("copyToClipboard", () => this.showToast("Copied to clipboard"));
+    debuggerController.on("copyToClipboard", (content: string) => {
+      void navigator.clipboard?.writeText(content);
+      this.showToast("Copied to clipboard");
+    });
     debuggerController.on("stepperToggled", () => this.updateRunActions(this.simulator.state));
 
     // Learn → Editor seam (ready for the Learn phase; harmless until then).

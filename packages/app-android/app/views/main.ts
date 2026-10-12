@@ -42,11 +42,10 @@ import { showError, logger } from "~/utils";
 import { setAppBackHandler } from "~/utils/navigation";
 import { translate } from "~/utils/translate";
 
-// The template classes main.window.blp names; importing a module registers its class.
-import "~/widgets/main-button";
+// The template classes main.window.blp names; importing a module registers its class (MainButton and
+// Toolbar come from @learn6502/ui).
 import "~/widgets/menu-button";
-import "~/widgets/toolbar";
-import type { MainButton } from "~/widgets/main-button";
+import { MainButton } from "@learn6502/ui";
 import type { MenuButton } from "~/widgets/menu-button";
 import { createScreens, type Screens } from "./main/screens";
 import { learnView } from "./main/learn";
@@ -221,6 +220,7 @@ export class MainController implements MainView {
     setAppBackHandler(null);
     this.gameConsoleBridge.disconnect();
     this.mainBridge.disconnect();
+    this._mainButton?.unbind();
     systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
     learnView.events.off("subpage-changed", this.onLearnSubpageChanged);
   }

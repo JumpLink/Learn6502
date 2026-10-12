@@ -4,9 +4,17 @@ import { Application, ApplicationSettings, Observable } from "@nativescript/core
 import type { EditorView, EditorEventMap } from "@learn6502/common-ui";
 import { editorController } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
-import type { SourceView } from "~/widgets/source-view";
-import { EditorPane } from "~/widgets/editor-pane";
+import type { Adw } from "@gjsify/adwaita-nativescript";
+import { padSheetForSystemInsets } from "@gjsify/adwaita-nativescript";
+import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
+import { Editor as EditorWidget } from "@learn6502/ui";
+import { QuickHelpView } from "~/mdx/quick-help-view";
 import { logger } from "~/utils";
+// The shared editor's source view is `@learn6502/ui`'s; the builder arm teaches NativeScript what `GtkSourceView` is.
+import "~/widgets/source-view";
+
+// The `$QuickHelpView` the shared `editor.blp` names: its content is generated from the MDX per platform.
+registerTemplateClass("QuickHelpView", QuickHelpView);
 
 const SETTINGS_CODE = "editor.code";
 
@@ -30,8 +38,8 @@ export interface ScreenModule {
 class Editor extends Observable implements EditorView {
   readonly events: EventDispatcher<EditorEventMap> = new EventDispatcher<EditorEventMap>();
 
-  private _sourceView: SourceView | null = null;
-  private _pane: EditorPane | null = null;
+  private _pane: EditorWidget | null = null;
+  private releaseInsets: (() => void) | null = null;
   private _initialized = false;
   private log = logger.scoped("Editor");
 
@@ -61,7 +69,7 @@ class Editor extends Observable implements EditorView {
   }
 
   focus(): boolean {
-    return this._sourceView ? this._sourceView.grab_focus() : false;
+    return this._pane ? this._pane.focus() : false;
   }
 
   private onControllerCodeChanged = (event: { code: string }): void => {
@@ -69,20 +77,16 @@ class Editor extends Observable implements EditorView {
     this.events.dispatch("changed", event);
   };
 
-  /** Build the editor from the GNOME app's `editor.blp` (the source view over the quick-help
-   *  bottom sheet) and wire it to the controller (once). */
+  /** Build the shared `@learn6502/ui` editor (the source view over the quick-help bottom sheet)
+   *  and wire it to the controller (once). */
   build(): View {
-    const pane = new EditorPane();
-    const sourceView = pane.sourceView;
-    sourceView.editable = true;
-    sourceView.lineNumbers = true;
-    this._sourceView = sourceView;
+    // The shared `Editor` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+    this._pane?.unbind();
+    const pane = new EditorWidget();
     this._pane = pane;
 
-    // The controller outlives the activity, and every recreation builds a fresh source view: it has
-    // to be handed to the controller each time, or the new editor stays empty.
-    editorController.init(sourceView);
-
+    // The controller outlives the activity: the widget hands it its fresh source view on every
+    // recreation, so nothing is left to re-init here.
     if (!this._initialized) {
       this.log.debug("Initializing editor controller");
       editorController.events.on("changed", this.onControllerCodeChanged);
@@ -98,12 +102,22 @@ class Editor extends Observable implements EditorView {
 
   /** The back button closes the quick-help sheet first. */
   closeSheet(): boolean {
-    return this._pane?.closeSheet() ?? false;
+    if (!editorController.helpVisible) return false;
+    editorController.setHelpVisible(false);
+    return true;
   }
 
-  /** Whether the editor reaches the screen's bottom edge (the wide layout): see {@link EditorPane}. */
+  /**
+   * Whether the editor sits on the screen's bottom edge, as in the wide layout. The Help bar
+   * then clears the gesture area while the open sheet scrolls its quick help under it — which
+   * of the two is the shape at the edge is the sheet's own business, so it takes the number
+   * rather than a padding. The shared Blueprint says nothing of this — GTK has no insets.
+   */
   set padsSystemInsets(on: boolean) {
-    if (this._pane) this._pane.padsSystemInsets = on;
+    this.releaseInsets?.();
+    // `bottomSheet` is typed against the GJS Adw bindings; at run time it is the NativeScript sheet.
+    this.releaseInsets =
+      on && this._pane ? padSheetForSystemInsets(this._pane.bottomSheet as unknown as Adw.BottomSheet) : null;
   }
 
   /** Persist the code (called when leaving the editor screen or the app). */

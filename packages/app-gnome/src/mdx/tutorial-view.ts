@@ -1,6 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import type Adw from "@girs/adw-1";
 import TutorialTemplate from "@learn6502/learn/dist/tutorial.ui";
+import { learnController } from "@learn6502/common-ui";
 import { findIdsInXml } from "../utils.ts";
 import { MdxView } from "./mdx-view.ts";
 
@@ -28,6 +29,8 @@ export class TutorialView extends MdxView {
   constructor(params: Partial<Adw.Bin.ConstructorProps>) {
     super(params);
     this.setupSourceViews(TutorialView.SOURCE_VIEW_IDS);
+    // The shared Learn view only hosts the tutorial; handing its code to the editor is ours
+    this.connect("copy", (_view, code) => learnController.dispatch("copy", { code }));
   }
 }
 
