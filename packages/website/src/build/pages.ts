@@ -577,7 +577,8 @@ ${footer(ctx)}
 export function renderRoot(data: SiteData, assets: ClientAssets, iconUrl: string | undefined): string {
   const { config } = data;
   const name = data.app.name.source;
-  const choose = `var l=${JSON.stringify(config.languages)},d=${JSON.stringify(config.defaultLanguage)},p=(navigator.languages||[navigator.language]).map(function(x){return String(x).toLowerCase()}),c=d;for(var i=0;i<p.length;i++){var m=l.filter(function(x){return p[i]===x.toLowerCase()||p[i].split("-")[0]===x.toLowerCase()})[0];if(m){c=m;break}}location.replace(${JSON.stringify(config.base)}+c+"/")`;
+  const json = (value: unknown) => JSON.stringify(value).replace(/</g, "\\u003c");
+  const choose = `var l=${json(config.languages)},d=${json(config.defaultLanguage)},p=(navigator.languages||[navigator.language]).map(function(x){return String(x).toLowerCase()}),c=d;for(var i=0;i<p.length;i++){var m=l.filter(function(x){return p[i]===x.toLowerCase()||p[i].split("-")[0]===x.toLowerCase()})[0];if(m){c=m;break}}location.replace(${json(config.base)}+c+"/")`;
   const alternates = config.languages.map((code) => `<link rel="alternate" hreflang="${esc(code)}" href="${esc(absolute(data, pageUrl(data, code)))}">`);
   return `<!doctype html>
 <html lang="${esc(config.defaultLanguage)}">
