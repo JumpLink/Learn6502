@@ -138,6 +138,8 @@ export interface Metainfo {
   keywords: Localized[];
   categories: string[];
   projectLicense?: string;
+  /** Licence of the metainfo text itself, which is what the page reproduces. */
+  metadataLicense?: string;
   contentRating?: { type: string; attributes: Record<string, string> };
 }
 
@@ -159,6 +161,8 @@ export interface SiteData {
     developer: { id?: string; name: string };
     description: DescriptionBlock[];
     license?: string;
+    /** Licence of the text this page reproduces, as opposed to the app's own. */
+    contentLicense?: string;
     keywords: Localized[];
     categories: string[];
     urls: AppUrls;

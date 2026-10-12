@@ -134,6 +134,7 @@ export function parseMetainfo(xml: string): Metainfo {
     keywords: groupLocalized(childrenNamed(child(component, "keywords") ?? component, "keyword")),
     categories: childrenNamed(child(component, "categories") ?? component, "category").map((category) => category.text),
     projectLicense: child(component, "project_license")?.text,
+    metadataLicense: child(component, "metadata_license")?.text,
     contentRating: contentRating ? { type: contentRating.attrs.type ?? "", attributes } : undefined,
   };
 }

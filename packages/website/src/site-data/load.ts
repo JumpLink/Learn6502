@@ -130,6 +130,7 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
       developer,
       description: completeBlocks(metainfo.description),
       license: metainfo.projectLicense,
+      contentLicense: metainfo.metadataLicense,
       keywords: metainfo.keywords.map(complete),
       categories: metainfo.categories,
       urls: metainfo.urls,
