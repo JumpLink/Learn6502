@@ -47,7 +47,10 @@ export async function fetchLatestRelease(
   token: string | undefined,
   options: NetworkOptions
 ): Promise<LatestRelease> {
-  const headers: Record<string, string> = { Accept: "application/vnd.github+json", "User-Agent": "learn6502-website" };
+  const headers: Record<string, string> = {
+    Accept: "application/vnd.github+json",
+    "User-Agent": `${repository.replace("/", "-")}-website`,
+  };
   if (token) headers.Authorization = `Bearer ${token}`;
   return parseLatestRelease(
     await fetchJson(`https://api.github.com/repos/${repository}/releases/latest`, headers, options)
