@@ -196,6 +196,15 @@ export class Editor extends Adw.Bin implements EditorView {
   }
 
   /**
+   * Stop listening to the controller, which outlives this widget. A platform that builds a fresh
+   * Editor (Android on activity recreation) unbinds the old one, or it keeps steering a dead sheet.
+   */
+  unbind(): void {
+    editorController.events.off("changed", this.onControllerCodeChanged);
+    editorController.events.off("helpVisibilityChanged", this.onHelpVisibilityChanged);
+  }
+
+  /**
    * Save current state to controller (called before navigation/close)
    */
   saveState(): void {

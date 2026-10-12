@@ -81,6 +81,7 @@ class Editor extends Observable implements EditorView {
    *  and wire it to the controller (once). */
   build(): View {
     // The shared `Editor` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+    this._pane?.unbind();
     const pane = new EditorWidget();
     this._pane = pane;
 
