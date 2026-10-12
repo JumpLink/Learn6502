@@ -1,8 +1,10 @@
 name: Deploy Pages
 
-# Builds the app-web Adwaita SPA (`gjsify build --app browser`) and deploys it to
-# GitHub Pages — the successor to the legacy Jekyll build of the classic tutorial
-# (removed in the app-web rewrite). Point Settings → Pages → Source at
+# Builds the landing page (packages/website, static HTML generated from the
+# AppStream metainfo) and the app-web Adwaita SPA (`gjsify build --app browser`)
+# and deploys both to GitHub Pages: the landing page at /Learn6502/, the web app
+# at /Learn6502/app/. The successor to the legacy Jekyll build of the classic
+# tutorial (removed in the app-web rewrite). Point Settings → Pages → Source at
 # "GitHub Actions" for this workflow to serve the site.
 
 on:
@@ -15,8 +17,16 @@ on:
       - "packages/ui/**"
       - "packages/core/**"
       - "packages/examples/**"
+      - "packages/website/**"
+      - "packages/translations/**"
+      - "packages/app-gnome/data/metainfo/**"
+      - "package.json"
+      - "misc/screenshots/**"
       - "gjsify-lock.json"
       - ".github/workflows/deploy-pages.yml"
+  # New release assets and download counts change what the landing page shows.
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -31,7 +41,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build web app
+    name: Build landing page and web app
     runs-on: ubuntu-latest
     # `gjsify build`/`gjsify tsc` spawn `gjs` (unavailable on ubuntu-latest), so
     # build in a Fedora 43 container (GJS 1.86 / SpiderMonkey 140) — the same
@@ -56,6 +66,10 @@ jobs:
 
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          # A `release` event runs on the tag's commit, which can predate the
+          # site; the page must always be built from the default branch.
+          ref: ${{ github.event_name == 'release' && github.event.repository.default_branch || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -105,10 +119,25 @@ jobs:
       - name: Build web app
         run: gjsify workspace @learn6502/app-web build:app
 
+      # The release list and download counts come from the GitHub API; the token
+      # only lifts the rate limit. A failed lookup warns and the page links to the
+      # releases instead of failing the deploy.
+      - name: Build landing page
+        run: gjsify workspace @learn6502/website build
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # The web app is relative-path only (`./app.js`), so it can sit below the
+      # landing page without a base change.
+      - name: Place the web app below the landing page
+        run: |
+          mkdir -p packages/website/dist/app
+          cp -r packages/app-web/dist-app/. packages/website/dist/app/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/app-web/dist-app
+          path: packages/website/dist
 
   deploy:
     name: Deploy to GitHub Pages

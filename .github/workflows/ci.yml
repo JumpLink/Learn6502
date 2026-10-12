@@ -208,3 +208,5 @@ jobs:
           gjsify workspace @learn6502/app-web check
           gjsify workspace @learn6502/app-gnome check:typescript
           gjsify workspace @learn6502/app-android check
+          gjsify workspace @learn6502/website check
+          gjsify workspace @learn6502/website test
