@@ -21,7 +21,7 @@ export class MessageConsole extends Adw.Bin implements MessageConsoleWidget {
     );
   }
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps>) {
+  constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
   }
 

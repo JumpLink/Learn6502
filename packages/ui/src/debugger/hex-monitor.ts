@@ -47,7 +47,7 @@ export class HexMonitor extends Adw.Bin implements HexMonitorWidget {
     length: 0xff,
   };
 
-  constructor(params: Partial<Adw.Bin.ConstructorProps>) {
+  constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
     super(params);
     this.setupUI();
     this.connectSignals();
