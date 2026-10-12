@@ -410,6 +410,24 @@ h1 {
   box-shadow: none;
 }
 
+/* One slide can pair a desktop window shot with an opaque phone shot: the frame follows the source
+ * the browser picks, which switches at the same width as the <source media> queries. */
+@media (min-width: 601px) {
+  .slide picture[data-frame="none-desktop"] img,
+  .lightbox picture[data-frame="none-desktop"] img {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .slide picture[data-frame="none-mobile"] img,
+  .lightbox picture[data-frame="none-mobile"] img {
+    border-radius: 0;
+    box-shadow: none;
+  }
+}
+
 .slide figcaption {
   margin-top: 0.85rem;
   text-align: center;

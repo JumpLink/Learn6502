@@ -156,9 +156,22 @@ function picture(ctx: RenderContext, screenshot: Screenshot, alt: string, eager:
     loading: eager ? undefined : "lazy",
     decoding: "async",
   })}>`;
-  // A window shot brings its own margin and shadow; ours would draw a second frame around it.
-  const frameless = variants.every((variant) => ctx.images.get(variant.path)!.frameless);
-  return `<picture${attrs({ "data-frame": frameless ? "none" : undefined })}>${[...sources, ...formats, img].join("")}</picture>`;
+  return `<picture${attrs({ "data-frame": frameAttribute(ctx, screenshot) })}>${[...sources, ...formats, img].join("")}</picture>`;
+}
+
+/**
+ * A window shot brings its own margin and shadow; ours would draw a second frame around it. Decided
+ * per viewport, because one slide can pair a desktop window shot with an opaque phone shot.
+ */
+export function frameAttribute(ctx: Pick<RenderContext, "images">, screenshot: Screenshot): "none" | "none-desktop" | "none-mobile" | undefined {
+  const frameless = (keys: ScreenshotVariantKey[]) =>
+    keys.every((key) => ctx.images.get(resolveVariant(screenshot.variants, key) as string)?.frameless === true);
+  const desktop = frameless(["desktop-light", "desktop-dark"]);
+  const mobile = frameless(["mobile-light", "mobile-dark"]);
+  if (desktop && mobile) return "none";
+  if (desktop) return "none-desktop";
+  if (mobile) return "none-mobile";
+  return undefined;
 }
 
 /** The brand-coloured band around the screenshots, the one place the app's own colours take over. */
