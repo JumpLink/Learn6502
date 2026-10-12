@@ -48,10 +48,13 @@ import { Assembler, Labels, Memory, Simulator, SimulatorState, formatMessage } f
 
 import { AdwDebuggerView } from "../views/adw-debugger.js";
 import { AdwGameConsoleView } from "../widgets/game-console/index.js";
-import { AdwLearnView } from "../widgets/learn/index.js";
+import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
 import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
-import { Editor } from "@learn6502/ui";
+import { Editor, Learn } from "@learn6502/ui";
 import { injectShellStyles } from "./styles.js";
+
+/** Learn6502 project repository — the "share your example" destination. */
+const SHARE_URL = "https://github.com/JumpLink/Learn6502";
 
 /** Notification key → toast title (the GNOME twin's NOTIFICATION_TITLES, English only). */
 const NOTIFICATION_TITLES: Record<string, string> = {
@@ -97,7 +100,7 @@ export class MainWindow implements MainView {
   private readonly debuggerView = new AdwDebuggerView();
   private readonly editorView = new Editor();
   private readonly gameConsoleView = new AdwGameConsoleView();
-  private readonly learnView = new AdwLearnView();
+  private readonly learnView = new Learn();
 
   // Persistent per-view slot wrappers, re-homed between the two layouts.
   private readonly slots: ViewSlot[];
@@ -253,10 +256,11 @@ export class MainWindow implements MainView {
 
   private buildViews(): void {
     // All four views are real: Learn, Editor, Debugger and GameConsole.
-    this.learnView.classList.add("shell-view-slot");
-    this.learnSlot.appendChild(this.learnView);
+    // The shared `Editor` and `Learn` are typed against the GJS bindings; at run time they are custom elements.
+    const learnElement = this.learnView as unknown as HTMLElement;
+    learnElement.classList.add("shell-view-slot");
+    this.learnSlot.appendChild(learnElement);
 
-    // The shared `Editor` is typed against the GJS bindings; at run time it is a custom element.
     const editorElement = this.editorView as unknown as HTMLElement;
     editorElement.classList.add("shell-view-slot");
     this.editorSlot.appendChild(editorElement);
@@ -288,9 +292,9 @@ export class MainWindow implements MainView {
     this.learnBackButton.hidden = true; // shown only when a Learn subpage is open
     this.learnBackButton.addEventListener("click", () => this.learnView.navigateBack());
     // The Learn view reports when its visible sub-page changes (Tutorial /
-    // Examples pushed or popped) so the shell can reveal its back button —
-    // the web stand-in for the GNOME twin's `hasVisibleSubpage` property.
-    this.learnView.addEventListener("subpage-changed", () => this.updateLearnBackButton());
+    // Examples pushed or popped) so the shell can reveal its back button.
+    this.learnView.events.on("subpage-changed", () => this.updateLearnBackButton());
+    this.learnView.events.on("share", () => window.open(SHARE_URL, "_blank", "noopener,noreferrer"));
 
     this.runControls.className = "shell-run-controls";
     this.runControls.setAttribute("slot", "start");

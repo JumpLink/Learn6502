@@ -58,6 +58,7 @@ const xgettext = xgettextPlugin({
   sources: [
     "../core/src/**/*.{ts,tsx,js}",
     "../common-ui/src/**/*.{ts,tsx,js}",
+    "../ui/src/**/*.{ts,tsx,js,blp}",
     "../app-gnome/src/**/*.{ts,tsx,js,blp,xml,ui,desktop}",
     "../app-gnome/data/**/*.xml.in",
     "../examples/**/*.ts",

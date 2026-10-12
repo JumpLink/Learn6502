@@ -7,8 +7,8 @@ import GLib from "@girs/glib-2.0";
 
 import { SimulatorState, num2hex, debounce } from "@learn6502/core";
 
-import type { Editor } from "@learn6502/ui";
-import type { Learn, GameConsole, Debugger } from "./main";
+import type { Editor, Learn } from "@learn6502/ui";
+import type { GameConsole, Debugger } from "./main";
 import { HelpWindow } from "./help.window.ts";
 import type { MainButton } from "../widgets";
 import { ShareDialog } from "../widgets";
@@ -349,8 +349,13 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
     });
 
     // Update back button visibility when learn navigation changes
-    this._learn.connect("notify::hasVisibleSubpage", () => {
+    this._learn.events.on("subpage-changed", () => {
       this.updateLearnBackButtonVisibility();
+    });
+
+    // The examples page offers to share one's own example
+    this._learn.events.on("share", () => {
+      this.shareAction.activate(null);
     });
   }
 

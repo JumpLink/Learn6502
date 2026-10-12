@@ -7,7 +7,7 @@ import GLib from "@girs/glib-2.0";
 import type { ExampleMeta } from "@learn6502/examples";
 import type { Memory } from "@learn6502/core";
 import { DisplayAddressRange } from "@learn6502/core";
-import type { ExampleListItem } from "./example-list-item.ts";
+import type { ExampleListItem } from "@learn6502/ui";
 import { copyToClipboard } from "../utils.ts";
 
 import Template from "./share-dialog.blp";

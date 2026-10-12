@@ -17,7 +17,10 @@ export abstract class MdxView extends ContentView {
   // Add events dispatcher
   readonly events = new EventDispatcher<MdxViewEventMap>();
 
-  constructor() {
+  private _built = false;
+
+  /** @param deferred build on the first `build()` call instead of when the view is loaded */
+  constructor(private readonly deferred = false) {
     super();
   }
 
@@ -26,6 +29,13 @@ export abstract class MdxView extends ContentView {
 
   onLoaded() {
     super.onLoaded();
+    if (!this.deferred) this.build();
+  }
+
+  /** Build the MDX content, once. */
+  build(): void {
+    if (this._built) return;
+    this._built = true;
 
     // Load the XML layout using Builder
     const componentView = Builder.load({

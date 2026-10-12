@@ -1,3 +1,4 @@
+import { registerTemplateClass } from "@gjsify/adwaita-web";
 import { DEFAULT_COLOR_PALETTE, DEFAULT_DISPLAY_CONFIG, type DisplayWidget } from "@learn6502/common-ui";
 import { DisplayAddressRange, type Memory, type MemoryChangedEvent } from "@learn6502/core";
 
@@ -28,6 +29,8 @@ export class Display extends HTMLElement implements DisplayWidget {
   private memory: Memory | null = null;
   private built = false;
   private subscribed = false;
+  private _displayWidth = 0;
+  private _displayHeight = 0;
 
   private readonly onMemoryChanged = (event: MemoryChangedEvent): void => {
     if (event.addr >= DisplayAddressRange.START && event.addr <= DisplayAddressRange.END) {
@@ -84,6 +87,30 @@ export class Display extends HTMLElement implements DisplayWidget {
     }
   }
 
+  /**
+   * On-screen size in px, as the GNOME widget's `displayWidth`: the canvas keeps its buffer
+   * resolution and CSS scales it. 0 leaves the size to the stylesheet. A blueprint sets these
+   * (`$Display { displayWidth: 80; }`), e.g. the example cards' thumbnails.
+   */
+  public get displayWidth(): number {
+    return this._displayWidth;
+  }
+
+  public set displayWidth(value: number) {
+    this._displayWidth = value;
+    this.style.width = value > 0 ? `${value}px` : "";
+    if (value > 0) this.style.display = "block"; // an inline host ignores its width
+  }
+
+  public get displayHeight(): number {
+    return this._displayHeight;
+  }
+
+  public set displayHeight(value: number) {
+    this._displayHeight = value;
+    this.style.height = value > 0 ? `${value}px` : "";
+  }
+
   /** The focusable canvas element (the keyboard target — GNOME's `focusable` display). */
   public get element(): HTMLCanvasElement | null {
     return this.canvas;
@@ -109,3 +136,4 @@ export class Display extends HTMLElement implements DisplayWidget {
 }
 
 customElements.define("learn-display", Display);
+registerTemplateClass("Display", "learn-display");
