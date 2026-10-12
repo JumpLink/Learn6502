@@ -157,7 +157,8 @@ function screenshotBand(ctx: RenderContext): string {
   const slides = ctx.data.screenshots.map((screenshot, index) => {
     const caption = screenshot.caption ? localized(screenshot.caption, lang) : "";
     const alt = caption || plain(t("Screenshot {number}"), { number: index + 1 });
-    return `<li class="slide">
+    const label = plain(t("{number} of {total}"), { number: index + 1, total: ctx.data.screenshots.length });
+    return `<li class="slide" role="group" aria-roledescription="${esc(t("slide"))}" aria-label="${esc(label)}">
 <figure>
 ${picture(ctx, screenshot, alt, index === 0)}
 ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ""}
@@ -170,9 +171,9 @@ ${caption ? `<figcaption>${esc(caption)}</figcaption>` : ""}
     (_screenshot, index) => `<li><button class="carousel-dot" type="button" aria-label="${esc(plain(t("Screenshot {number}"), { number: index + 1 }))}"></button></li>`
   );
   return `<section class="band" aria-label="${esc(t("Screenshots"))}">
-<screenshot-carousel class="carousel">
+<screenshot-carousel class="carousel" role="group" aria-roledescription="${esc(t("carousel"))}" aria-label="${esc(t("Screenshots"))}">
 <button class="carousel-arrow carousel-prev" type="button" aria-label="${esc(t("Previous screenshot"))}" hidden>${icon("chevron-left")}</button>
-<ul class="carousel-track">
+<ul class="carousel-track" aria-label="${esc(t("Screenshots"))}">
 ${slides.join("\n")}
 </ul>
 <button class="carousel-arrow carousel-next" type="button" aria-label="${esc(t("Next screenshot"))}" hidden>${icon("chevron-right")}</button>
