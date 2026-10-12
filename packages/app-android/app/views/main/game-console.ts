@@ -4,8 +4,7 @@ import type { SimulatorState } from "@learn6502/core";
 import { type Memory, type Labels, type Simulator, type Assembler } from "@learn6502/core";
 
 // Import child widgets
-import { Display } from "~/widgets/game-console";
-import { Gamepad } from "@learn6502/ui";
+import { Display, Gamepad } from "@learn6502/ui";
 
 // Import common controller
 import {
@@ -61,9 +60,9 @@ export class GameConsole implements GameConsoleView {
     return this._simulator.state;
   }
 
-  /** Build the Display (in an Adwaita card) over the shared Gamepad, wiring the
-   *  controller once the display loads. Mirrors the GNOME GameConsole: a framed
-   *  DrawingArea above a d-pad of icon buttons + circular A/B buttons. */
+  /** Build the shared Display over the shared Gamepad, wiring the controller once
+   *  the display loads. Mirrors the GNOME GameConsole: a framed canvas above a d-pad
+   *  of icon buttons + circular A/B buttons. */
   build(): View {
     const display = new Display();
     const gamePad = new Gamepad();
@@ -75,12 +74,8 @@ export class GameConsole implements GameConsoleView {
     root.horizontalAlignment = "center";
     root.verticalAlignment = "middle";
 
-    // Display in an Adwaita card (GNOME wraps the DrawingArea in a Gtk.Frame).
-    const displayCard = new StackLayout();
-    displayCard.className = "card";
-    displayCard.horizontalAlignment = "center";
-    displayCard.addChild(display);
-    root.addChild(displayCard);
+    // The shared Display carries its own Gtk.Frame.
+    root.addChild(asView(display));
 
     // The shared @learn6502/ui Gamepad: the same .blp + class GNOME and the web run.
     gamePad.marginTop = 30;
@@ -90,7 +85,7 @@ export class GameConsole implements GameConsoleView {
     // The Display needs a native canvas before it can initialise with memory, so
     // wire the controller once it is loaded (the NS counterpart of the old Page
     // `onLoaded`).
-    display.on("loaded", () => {
+    asView(display).on("loaded", () => {
       if (!this._isInitialized) {
         this.log.debug("First initialization");
         this.initialize();

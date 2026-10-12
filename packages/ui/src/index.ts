@@ -6,6 +6,7 @@ export * from "./debugger/hex-monitor.ts";
 export * from "./debugger/hexdump.ts";
 export * from "./debugger/message-console.ts";
 export * from "./editor/editor.ts";
+export * from "./game-console/display.ts";
 export * from "./game-console/gamepad.ts";
 export * from "./learn/example-list-item.ts";
 export * from "./learn/examples-list.ts";

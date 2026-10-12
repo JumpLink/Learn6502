@@ -3,8 +3,7 @@ import type { GameConsoleView, GamepadKey } from "@learn6502/common-ui";
 import { gameConsoleController, gameConsoleStateService } from "@learn6502/common-ui";
 import type { Assembler, Labels, Memory, Simulator } from "@learn6502/core";
 
-import { Display } from "./display.js";
-import { Gamepad } from "@learn6502/ui";
+import { Display, Gamepad } from "@learn6502/ui";
 
 /**
  * AdwGameConsoleView — the `GameConsoleView` from `@learn6502/common-ui`
@@ -25,6 +24,10 @@ import { Gamepad } from "@learn6502/ui";
 export class AdwGameConsoleView extends HTMLElement implements GameConsoleView {
   private readonly displayWidget = new Display();
   private readonly gamepadWidget = new Gamepad();
+
+  // The shared Display is typed as the GJS widget; on the web it is the element, and key
+  // events bubble up to it from the focused canvas.
+  private readonly displayElement = this.displayWidget as unknown as HTMLElement;
 
   private _memory: Memory | null = null;
   private _simulator: Simulator | null = null;
@@ -102,8 +105,8 @@ export class AdwGameConsoleView extends HTMLElement implements GameConsoleView {
   }
 
   public close(): void {
-    this.displayWidget.element?.removeEventListener("keydown", this.onKeyDown);
-    this.displayWidget.close();
+    this.displayElement.removeEventListener("keydown", this.onKeyDown);
+    this.displayWidget.unbind();
     gameConsoleController.close();
   }
 
@@ -133,7 +136,7 @@ export class AdwGameConsoleView extends HTMLElement implements GameConsoleView {
     });
 
     // Keyboard input is scoped to the focused display (see onKeyDown).
-    this.displayWidget.element?.addEventListener("keydown", this.onKeyDown);
+    this.displayElement.addEventListener("keydown", this.onKeyDown);
 
     // Seed the screen with the colour-chart demo pattern so the console shows
     // something before a program runs — the GNOME twin's initialize() does the
@@ -148,7 +151,7 @@ export class AdwGameConsoleView extends HTMLElement implements GameConsoleView {
 
     const column = document.createElement("div");
     column.className = "game-console-column";
-    column.append(this.displayWidget, this.gamepadWidget as unknown as HTMLElement);
+    column.append(this.displayElement, this.gamepadWidget as unknown as HTMLElement);
 
     const clamp = new Adw.Clamp();
     clamp.setAttribute("maximum-size", "400");
