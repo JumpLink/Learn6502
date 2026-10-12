@@ -7,8 +7,7 @@ import GLib from "@girs/glib-2.0";
 
 import { SimulatorState, num2hex, debounce } from "@learn6502/core";
 
-import type { Editor, Learn } from "@learn6502/ui";
-import type { GameConsole, Debugger } from "./main";
+import type { Editor, Learn, GameConsole, Debugger } from "@learn6502/ui";
 import { HelpWindow } from "./help.window.ts";
 import type { MainButton } from "../widgets";
 import { ShareDialog } from "../widgets";
@@ -27,6 +26,7 @@ import {
   editorController,
   learnController,
   GameConsoleEventBridge,
+  createSimulatorStack,
 } from "@learn6502/common-ui";
 
 export class MainWindow extends Adw.ApplicationWindow implements MainView {
@@ -190,6 +190,11 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
   constructor(application: Adw.Application) {
     super({ application });
 
+    // One simulator stack for the console that runs it and the debugger that shows it.
+    const stack = createSimulatorStack();
+    this._gameConsole.setSimulatorStack(stack);
+    this._debugger.setSimulatorStack(stack);
+
     // Initialize services
     fileService.init(this);
     fileService.setUnsavedChangesIndicator(this._unsavedChangesIndicator);
@@ -237,9 +242,6 @@ export class MainWindow extends Adw.ApplicationWindow implements MainView {
 
     // Initialize main state controller
     mainStateController.init();
-
-    // Set game console reference in debugger
-    this._debugger.setGameConsole(this._gameConsole);
 
     // Initialize the previous visible child after all setup is done
     this.previousVisibleChild = this._stack.get_visible_child();

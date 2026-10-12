@@ -2,31 +2,38 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 
-import type { Hexdump, Disassembled, HexMonitor } from "@learn6502/ui";
-
-import Template from "./debugger.blp";
-
-import type { Assembler } from "@learn6502/core";
-import { type Memory, type Simulator } from "@learn6502/core";
+import type { Memory, Simulator, Assembler } from "@learn6502/core";
 import {
   type DebuggerView,
   type MessageConsoleWidget,
   type DebugInfoWidget,
+  type SimulatorStack,
   DebuggerState,
   type DisassembledCopyEvent,
   type HexdumpCopyEvent,
   type HexMonitorCopyEvent,
   debuggerController,
 } from "@learn6502/common-ui";
-import type { GameConsole } from "./game-console.ts";
 
+import type { Hexdump } from "./hexdump.ts";
+import type { Disassembled } from "./disassembled.ts";
+import type { HexMonitor } from "./hex-monitor.ts";
+
+import Template from "./debugger.blp?template";
+
+/**
+ * The debugger page: registers, hex monitor, hexdump, disassembly and messages, the same widget on
+ * GNOME, web and Android.
+ *
+ * It reads the assembler and simulator the platform hands over with `setSimulatorStack`, the stack
+ * the GameConsole beside it plays on.
+ */
 export class Debugger extends Adw.Bin implements DebuggerView {
-  // Properties
   declare private _state: DebuggerState;
   declare private _enabled: boolean;
   declare public scrollable: boolean;
 
-  // Child widgets
+  declare private _scrolledWindow: Gtk.ScrolledWindow;
   declare private _messageConsole: MessageConsoleWidget;
   declare private _hexMonitor: HexMonitor;
   declare private _hexdump: Hexdump;
@@ -35,8 +42,9 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   declare private _stepperSwitch: Adw.SwitchRow;
   declare private _enabledSwitch: Adw.SwitchRow;
 
-  // Reference to game console
-  private gameConsole: GameConsole | null = null;
+  // The last memory update, to refresh when the monitor options change
+  private memory: Memory | null = null;
+  private bound = false;
 
   static {
     GObject.registerClass(
@@ -44,6 +52,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
         GTypeName: "Debugger",
         Template,
         InternalChildren: [
+          "scrolledWindow",
           "messageConsole",
           "hexMonitor",
           "hexdump",
@@ -111,13 +120,8 @@ export class Debugger extends Adw.Bin implements DebuggerView {
       : DebuggerState.DISABLED;
   }
 
-  // No generic handler tracking needed
-
-  // Reference to the last memory update for refreshing when monitor options change
-  private memory: Memory | null = null;
-
-  constructor(binParams: Partial<Adw.Bin.ConstructorProps> = {}) {
-    super(binParams);
+  constructor(params: Partial<Adw.Bin.ConstructorProps> = {}) {
+    super(params);
 
     this.onCopyToClipboard = this.onCopyToClipboard.bind(this);
     this.onCopyToEditor = this.onCopyToEditor.bind(this);
@@ -131,23 +135,44 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this.state = DebuggerState.INITIAL;
     this.enabled = true;
 
-    // Connect to scrollable property changes
     this.connect("notify::scrollable", () => {
       this.updateScrollbarPolicy();
     });
   }
 
-  /**
-   * Set the game console reference for accessing assembler and simulator
-   */
-  public setGameConsole(gameConsole: GameConsole): void {
-    this.gameConsole = gameConsole;
-    this.setupServiceHandlers();
+  /** Hand the debugger the assembler and simulator it shows, and connect the controller to its widgets. */
+  public setSimulatorStack(stack: Pick<SimulatorStack, "assembler" | "simulator">): void {
+    debuggerController.init(
+      this._messageConsole,
+      this._debugInfo,
+      stack.assembler,
+      stack.simulator,
+      this._hexMonitor,
+      this._disassembled,
+      this._hexdump
+    );
+
+    if (!this.bound) {
+      this.bound = true;
+      debuggerController.on("stateChanged", this.onServiceStateChanged);
+      debuggerController.on("stepperToggled", this.onStepperToggled);
+    }
   }
 
-  /** Call this when the MainWindow is closed. */
+  /**
+   * Stop listening to the controller, which outlives this widget. Android calls it before it
+   * rebuilds the debugger, or the old one keeps steering dead switches.
+   */
+  public unbind(): void {
+    this.bound = false;
+    debuggerController.off("stateChanged", this.onServiceStateChanged);
+    debuggerController.off("stepperToggled", this.onStepperToggled);
+  }
+
+  /** Call this when the window is closed. */
   public close(): void {
     this.removeSignalHandlers();
+    this.unbind();
     debuggerController.close();
   }
 
@@ -165,34 +190,18 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     debuggerController.update(memory, simulator);
   }
 
-  /**
-   * Updates the memory monitor display when memory content changes.
-   * @param memory Current state of system memory
-   */
   public updateMonitor(memory: Memory): void {
     debuggerController.updateMonitor(memory);
   }
 
-  /**
-   * Updates debug information like registers and flags.
-   * @param simulator Current state of the 6502 simulator
-   */
   public updateDebugInfo(simulator: Simulator): void {
     debuggerController.updateDebugInfo(simulator);
   }
 
-  /**
-   * Updates the hexdump display of the assembled program.
-   * @param assembler Assembler instance containing the new program code
-   */
   public updateHexdump(assembler: Assembler): void {
     debuggerController.updateHexdump(assembler);
   }
 
-  /**
-   * Updates the disassembled display of the assembled program.
-   * @param assembler Assembler instance containing the new program code
-   */
   public updateDisassembled(assembler: Assembler): void {
     debuggerController.updateDisassembled(assembler);
   }
@@ -202,32 +211,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this.state = DebuggerState.RESET;
   }
 
-  private setupServiceHandlers(): void {
-    if (!this.gameConsole) {
-      console.warn("[Debugger] GameConsole not set, skipping service initialization");
-      return;
-    }
-
-    // Initialize the debugger service with widgets
-    debuggerController.init(
-      this._messageConsole,
-      this._debugInfo,
-      this.gameConsole.assembler,
-      this.gameConsole.simulator,
-      this._hexMonitor,
-      this._disassembled,
-      this._hexdump
-    );
-
-    // Listen for state changes from the service
-    debuggerController.on("stateChanged", this.onServiceStateChanged);
-
-    // Listen for stepper state changes from the service
-    debuggerController.on("stepperToggled", this.onStepperToggled);
-  }
-
   private onServiceStateChanged(newState: DebuggerState): void {
-    // Keep state in sync for service consumers; UI is always the debugger view
     this.state = newState;
     // Reflect enabled state without triggering controller state changes
     const shouldBeEnabled = newState !== DebuggerState.DISABLED;
@@ -238,7 +222,6 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private onHexMonitorChanged(): void {
-    // Refresh the view if we have memory data
     if (this.memory) {
       this.updateMonitor(this.memory);
     }
@@ -254,17 +237,11 @@ export class Debugger extends Adw.Bin implements DebuggerView {
 
   private setupSignalHandlers(): void {
     this._disassembled.events.on("copy", this.onCopyToEditor);
-
     this._hexdump.events.on("copy", this.onCopyToClipboard);
-
     this._hexMonitor.events.on("copy", this.onCopyToClipboard);
-
     this._hexMonitor.events.on("changed", this.onHexMonitorChanged);
 
-    // Connect stepper switch signal
     this._stepperSwitch.connect("notify::active", this.onStepperSwitchActivated);
-
-    // Connect enabled switch
     this._enabledSwitch.connect("notify::active", this.onEnabledSwitchActivated);
   }
 
@@ -273,29 +250,16 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     this._hexdump.events.off("copy", this.onCopyToClipboard);
     this._hexMonitor.events.off("copy", this.onCopyToClipboard);
     this._hexMonitor.events.off("changed", this.onHexMonitorChanged);
-
-    // Remove service event listeners
-    debuggerController.off("stateChanged", this.onServiceStateChanged);
-    debuggerController.off("stepperToggled", this.onStepperToggled);
-    // no-op
   }
 
-  /**
-   * Handle stepper state changes from the service
-   * @param enabled Whether stepper is enabled
-   */
+  /** Mirror the stepper state of the controller without looping back into it. */
   private onStepperToggled(enabled: boolean): void {
-    // Only update if the state actually changed to avoid signal loops
     if (this._stepperSwitch.active !== enabled) {
       this._stepperSwitch.active = enabled;
     }
   }
 
-  /**
-   * Handle stepper switch activation from UI
-   */
   private onStepperSwitchActivated(): void {
-    // The setter will only dispatch events if the state actually changed
     debuggerController.stepperEnabled = this._stepperSwitch.active;
     // Stepping implies debugging; ensure enabled
     if (!this._enabledSwitch.active) {
@@ -308,10 +272,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
   }
 
   private updateScrollbarPolicy(): void {
-    const scrolledWindow = this.get_first_child() as Gtk.ScrolledWindow;
-    if (scrolledWindow) {
-      scrolledWindow.vscrollbar_policy = this.scrollable ? Gtk.PolicyType.AUTOMATIC : Gtk.PolicyType.NEVER;
-    }
+    this._scrolledWindow.vscrollbar_policy = this.scrollable ? Gtk.PolicyType.AUTOMATIC : Gtk.PolicyType.NEVER;
   }
 }
 

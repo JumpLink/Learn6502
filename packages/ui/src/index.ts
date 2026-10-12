@@ -1,6 +1,7 @@
 /// <reference types="@girs/gjs" />
 /// <reference path="./types.d.ts" />
 export * from "./debugger/debug-info.ts";
+export * from "./debugger/debugger.ts";
 export * from "./debugger/disassembled.ts";
 export * from "./debugger/hex-monitor.ts";
 export * from "./debugger/hexdump.ts";
@@ -8,6 +9,7 @@ export * from "./debugger/message-console.ts";
 export * from "./editor/editor.ts";
 export * from "./game-console/display.ts";
 export * from "./game-console/gamepad.ts";
+export * from "./game-console/game-console.ts";
 export * from "./learn/example-list-item.ts";
 export * from "./learn/examples-list.ts";
 export * from "./learn/learn.ts";
