@@ -95,8 +95,9 @@ function prettyUrl(url: string): string {
  * What the primary button says. Installing from a store, opening the web build and downloading a
  * file are three different promises, so each gets its own wording.
  */
-function ctaLabel(target: DownloadTarget, t: Translate): string {
+export function ctaLabel(target: DownloadTarget, t: Translate): string {
   if (target.format === "flathub") return t("Install from Flathub");
+  if (target.format === "source") return t("Build from source");
   if (target.os === "web" && target.format === "web") return t("Try in browser");
   if (isBrowserPlatform(target.os)) {
     return plain(target.format === "store" ? t("Add to {browser}") : t("Install for {browser}"), { browser: osName(target.os, t) });
