@@ -89,6 +89,11 @@ export class Learn extends Adw.Bin implements LearnView {
     this._navigationView.pop();
   }
 
+  /** The scrollers of the tutorial and examples pages, for platform glue such as system insets. */
+  public get scrolledWindows(): Gtk.ScrolledWindow[] {
+    return [this._tutorialScroll, this._examplesScroll];
+  }
+
   /** Scroller of the page that is visible, if it scrolls. */
   private getScrolledWindow(): Gtk.ScrolledWindow | null {
     switch (this._navigationView.get_visible_page_tag()) {

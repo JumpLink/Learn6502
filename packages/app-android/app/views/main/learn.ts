@@ -75,10 +75,9 @@ class Learn implements LearnView {
     for (const release of this.releaseInsets) release();
     this.releaseInsets = [];
     if (!on || !this.widget) return;
-    // The scrollers are the widget's internal children, typed against the GJS bindings; at run time they are NativeScript views.
-    const { _tutorialScroll, _examplesScroll } = this.widget as unknown as Record<string, { get_child(): unknown }>;
-    this.releaseInsets = [_tutorialScroll, _examplesScroll].map((scroll) =>
-      padForSystemInsets(scroll.get_child() as View)
+    // The scrollers are typed against the GJS bindings; at run time their children are NativeScript views.
+    this.releaseInsets = this.widget.scrolledWindows.map((scroll) =>
+      padForSystemInsets(scroll.get_child() as unknown as View)
     );
   }
 
