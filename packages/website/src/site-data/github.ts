@@ -1,4 +1,4 @@
-import { fetchJson, type NetworkOptions } from "./network.ts";
+import { fetchJson, HttpError, type NetworkOptions } from "./network.ts";
 import type { LatestRelease, ReleaseAsset } from "./types.ts";
 
 interface RawAsset {
@@ -41,18 +41,26 @@ export function parseLatestRelease(payload: unknown): LatestRelease {
   };
 }
 
-/** Fetches the latest published (non-draft, non-prerelease) release. `token` raises the rate limit. */
+/**
+ * Fetches the latest published (non-draft, non-prerelease) release; `null` when the repository has
+ * none yet, which is a state and not an error. `token` raises the rate limit.
+ */
 export async function fetchLatestRelease(
   repository: string,
   token: string | undefined,
   options: NetworkOptions
-): Promise<LatestRelease> {
+): Promise<LatestRelease | null> {
   const headers: Record<string, string> = {
     Accept: "application/vnd.github+json",
     "User-Agent": `${repository.replace("/", "-")}-website`,
   };
   if (token) headers.Authorization = `Bearer ${token}`;
-  return parseLatestRelease(
-    await fetchJson(`https://api.github.com/repos/${repository}/releases/latest`, headers, options)
-  );
+  try {
+    return parseLatestRelease(
+      await fetchJson(`https://api.github.com/repos/${repository}/releases/latest`, headers, options)
+    );
+  } catch (error) {
+    if (error instanceof HttpError && error.status === 404) return null;
+    throw error;
+  }
 }

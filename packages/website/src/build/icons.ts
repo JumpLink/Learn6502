@@ -10,6 +10,8 @@ export type IconName =
   | "windows"
   | "android"
   | "web"
+  | "firefox"
+  | "chromium"
   | "package"
   | "download"
   | "license"
@@ -38,6 +40,8 @@ const PATHS: Record<IconName, string> = {
   android: `<path ${STROKE} d="m4.9 3 -.8-1.3M11.1 3l.8-1.3"/><path fill-rule="evenodd" d="M3.9 5.8C4.1 3.7 5.8 2 8 2s3.9 1.7 4.1 3.8H3.9Zm2.4-1.9a.6.6 0 1 1 0 1.2.6.6 0 0 1 0-1.2Zm3.4 0a.6.6 0 1 1 0 1.2.6.6 0 0 1 0-1.2Z"/><path d="M3.9 6.8h8.2v5.4c0 .6-.5 1.1-1.1 1.1H5c-.6 0-1.1-.5-1.1-1.1V6.8Zm-2.9.9a.9.9 0 0 1 1.8 0v3.5a.9.9 0 0 1-1.8 0V7.7Zm12.3 0a.9.9 0 0 1 1.8 0v3.5a.9.9 0 0 1-1.8 0V7.7ZM5.1 13.6a.9.9 0 0 1 1.8 0v1.5a.9.9 0 0 1-1.8 0v-1.5Zm4 0a.9.9 0 0 1 1.8 0v1.5a.9.9 0 0 1-1.8 0v-1.5Z"/>`,
   web: `<g ${STROKE}><circle cx="8" cy="8" r="6.3"/><path d="M1.7 8h12.6"/><path d="M8 1.7c1.7 1.7 2.6 3.9 2.6 6.3S9.7 12.6 8 14.3C6.3 12.6 5.4 10.4 5.4 8s.9-4.6 2.6-6.3Z"/></g>`,
 
+  firefox: `<g ${STROKE}><circle cx="8" cy="8" r="6.3"/><path d="M4.9 7.4a3.3 3.3 0 1 0 5.7-2.5c.2 1-.1 1.8-.9 2.4"/></g>`,
+  chromium: `<g ${STROKE}><circle cx="8" cy="8" r="6.3"/><circle cx="8" cy="8" r="2.4"/><path d="M8 5.6h5.7M5.9 9.2 3.1 14M10.1 9.2 7.3 14.1"/></g>`,
   package: `<g ${STROKE}><path d="M8 1.6 14 4.5v7L8 14.4l-6-2.9v-7L8 1.6Z"/><path d="m2 4.5 6 2.9 6-2.9M8 7.4v7"/></g>`,
   download: `<g ${STROKE}><path d="M8 1.9v7.6M4.8 6.4 8 9.6l3.2-3.2M2.4 13.3h11.2"/></g>`,
   license: `<g ${STROKE}><path d="M4 1.8h5l3.2 3.2v9.2H4V1.8Z"/><path d="M8.8 1.8V5h3.2M6.2 8.2h3.6M6.2 10.8h3.6"/></g>`,

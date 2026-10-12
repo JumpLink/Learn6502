@@ -649,7 +649,8 @@ h1 {
 }
 
 .card-list a,
-.target a {
+.target a,
+.target-link {
   display: flex;
   align-items: center;
   gap: 0.875rem;
@@ -661,6 +662,16 @@ h1 {
 .card-list a:hover,
 .target a:hover {
   background: color-mix(in srgb, var(--fg) 6%, transparent);
+}
+
+/* A target that is announced but cannot be downloaded yet: same row, no hover, muted. */
+.target-link {
+  cursor: default;
+}
+
+.target-link .target-icon,
+.target-link .target-name {
+  opacity: 0.6;
 }
 
 .link-icon,

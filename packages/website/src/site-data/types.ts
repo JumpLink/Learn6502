@@ -1,10 +1,29 @@
 /** Operating systems a download can target. `web` covers the browser build and a self-hosting archive. */
 export type TargetOs = "linux" | "darwin" | "win32" | "web" | "android";
 
+/** Browsers a WebExtension can target; the Chromium family counts as one. */
+export type TargetBrowser = "firefox" | "chromium";
+
+/** What a download group is keyed by: the OS a file runs on, or the browser an extension runs in. */
+export type TargetPlatform = TargetOs | TargetBrowser;
+
 /** `noarch` means one file serves every architecture (Flatpak, `.deb` "all", the web build). */
 export type TargetArch = "x86_64" | "arm64" | "noarch";
 
-export type TargetFormat = "flathub" | "flatpak" | "appimage" | "deb" | "rpm" | "msi" | "zip" | "dmg" | "apk" | "web";
+export type TargetFormat =
+  | "flathub"
+  | "flatpak"
+  | "appimage"
+  | "deb"
+  | "rpm"
+  | "msi"
+  | "zip"
+  | "dmg"
+  | "apk"
+  | "web"
+  | "store"
+  | "xpi"
+  | "source";
 
 /** The four artwork variants a screenshot can ship; at least one is required. */
 export type ScreenshotVariantKey = "desktop-light" | "desktop-dark" | "mobile-light" | "mobile-dark";
@@ -43,6 +62,18 @@ export interface ScreenshotItemConfig {
 
 export type ScreenshotSource = "metainfo" | "site" | "merge";
 
+/** One entry of `gjsify.site.downloads`: a target the release assets cannot supply (a store page, the install docs). */
+export interface SiteDownloadConfig {
+  platform: TargetPlatform;
+  format: TargetFormat;
+  /** Required unless `available` is false. */
+  url?: string;
+  /** English label, translated through the website catalogue; a default exists per platform and format. */
+  label?: string;
+  /** False lists the target as "not yet available" without a link. Default true. */
+  available: boolean;
+}
+
 /** The `gjsify.site` block of the root package.json, with defaults applied. */
 export interface SiteConfig {
   metainfo: string;
@@ -55,6 +86,12 @@ export interface SiteConfig {
   webApp?: string;
   /** Directory holding the app's `<lang>.po` catalogues, used when the metainfo lacks a translation. */
   translations?: string;
+  /** Repo-relative app icon; defaults to the Flatpak or `ship` icon of the root package.json. */
+  icon?: string;
+  /** Extra download targets, added to the ones derived from the latest release. */
+  downloads: SiteDownloadConfig[];
+  /** False ignores the latest release's assets, so `downloads` is the whole list. Default true. */
+  releaseAssets: boolean;
   support: SiteSupportLink[];
   legal: SiteLegalLink[];
   screenshots: { source: ScreenshotSource; items: ScreenshotItemConfig[] };
@@ -74,12 +111,16 @@ export interface Release {
 }
 
 export interface DownloadTarget {
-  os: TargetOs;
+  /** The group the target belongs to: an operating system, or a browser for extensions. */
+  os: TargetPlatform;
   arch: TargetArch;
   format: TargetFormat;
   /** English label; the page translates it through the website catalogue. */
   label: string;
+  /** Empty when the target is not available yet. */
   url: string;
+  /** False for a target announced but not downloadable; it is listed, never recommended. */
+  available: boolean;
   size?: number;
   downloadCount?: number;
   /** The one target to offer first for its OS. */
@@ -178,6 +219,8 @@ export interface SiteData {
     targets: DownloadTarget[];
     /** Always present: the fallback when no asset list could be fetched. */
     releasesUrl: string;
+    /** False when GitHub confirmed there is no release yet; an unreachable API still counts as true. */
+    hasReleases: boolean;
   };
   stats: Stats;
   /** Non-fatal problems met while collecting data, already logged. */

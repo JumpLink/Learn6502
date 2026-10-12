@@ -15,6 +15,7 @@ export async function collectMsgids(buildDir: string, config: SiteConfig): Promi
   }
   for (const label of Object.values(DOWNLOAD_LABELS)) msgids.add(label);
   for (const item of config.screenshots.items) if (item.caption) msgids.add(item.caption);
+  for (const download of config.downloads) if (download.label) msgids.add(download.label);
   return [...msgids];
 }
 

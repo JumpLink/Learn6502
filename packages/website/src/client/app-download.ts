@@ -1,16 +1,17 @@
 import { enhanceDialog } from "./dialog.ts";
-import { detectPlatform, recommendTarget, type Platform, type PlatformHints } from "./platform.ts";
-import type { TargetArch, TargetOs } from "../site-data/types.ts";
+import { detectPlatform, inGroup, recommendTarget, type Platform, type PlatformHints } from "./platform.ts";
+import type { TargetArch, TargetPlatform } from "../site-data/types.ts";
 
 /** The parts of `navigator.userAgentData` this page uses; it is absent outside Chromium. */
 interface UserAgentData {
   platform?: string;
+  brands?: Array<{ brand: string }>;
   getHighEntropyValues?(hints: string[]): Promise<{ architecture?: string; bitness?: string }>;
 }
 
 /** One rendered download row. Everything here was translated at build time. */
 interface Row {
-  os: TargetOs;
+  os: TargetPlatform;
   arch: TargetArch;
   recommended: boolean;
   url: string;
@@ -20,7 +21,11 @@ interface Row {
 
 async function readHints(): Promise<PlatformHints> {
   const data = (navigator as Navigator & { userAgentData?: UserAgentData }).userAgentData;
-  const hints: PlatformHints = { platform: data?.platform, userAgent: navigator.userAgent };
+  const hints: PlatformHints = {
+    platform: data?.platform,
+    userAgent: navigator.userAgent,
+    brands: data?.brands?.map((entry) => entry.brand),
+  };
   if (data?.getHighEntropyValues) {
     try {
       const high = await data.getHighEntropyValues(["architecture", "bitness"]);
@@ -36,7 +41,7 @@ async function readHints(): Promise<PlatformHints> {
 function readRows(host: HTMLElement): Row[] {
   return [...host.querySelectorAll<HTMLElement>("li.target")].flatMap((item) => {
     const link = item.querySelector("a");
-    const os = item.dataset.os as TargetOs | undefined;
+    const os = item.dataset.os as TargetPlatform | undefined;
     const arch = item.dataset.arch as TargetArch | undefined;
     if (!link || !os || !arch) return [];
     return [
@@ -54,7 +59,7 @@ function readRows(host: HTMLElement): Row[] {
 
 /**
  * Enhances the server-rendered download widget: the list of targets becomes a modal with one tab
- * per operating system, and the primary button is swapped for the build that fits this machine.
+ * per operating system (or browser), and the primary button is swapped for the build that fits this machine.
  * Nothing here invents a label — every string was rendered into a data attribute at build time.
  */
 class AppDownload extends HTMLElement {
@@ -72,9 +77,9 @@ class AppDownload extends HTMLElement {
     const grouped = tabs.length > 1;
     if (tabBar && grouped) tabBar.hidden = false;
 
-    let platform: Platform = { os: undefined, arch: undefined, archAssumed: true };
+    let platform: Platform = { os: undefined, arch: undefined, browser: undefined, archAssumed: true };
 
-    const show = (os: TargetOs): void => {
+    const show = (os: TargetPlatform): void => {
       for (const group of groups) group.hidden = grouped && group.dataset.os !== os;
       for (const tab of tabs) {
         const selected = tab.dataset.os === os;
@@ -105,20 +110,20 @@ class AppDownload extends HTMLElement {
       }
     };
 
-    const select = (os: TargetOs): void => {
+    const select = (os: TargetPlatform): void => {
       show(os);
-      const row = recommendTarget(rows, { ...platform, os });
+      const row = recommendTarget(rows, inGroup(platform, os));
       if (row) offer(row);
     };
 
     const preselected = tabs.find((tab) => tab.getAttribute("aria-selected") === "true")?.dataset.os as
-      | TargetOs
+      | TargetPlatform
       | undefined;
     if (preselected) show(preselected);
 
     for (const tab of tabs) {
       tab.addEventListener("click", () => {
-        const os = tab.dataset.os as TargetOs | undefined;
+        const os = tab.dataset.os as TargetPlatform | undefined;
         if (os) select(os);
       });
     }
@@ -136,7 +141,7 @@ class AppDownload extends HTMLElement {
 
     void readHints().then((hints) => {
       platform = detectPlatform(hints);
-      const row = platform.os ? recommendTarget(rows, platform) : undefined;
+      const row = recommendTarget(rows, platform);
       // Nothing matched, or nothing is built for this platform: the server's choice stands.
       if (!row) return;
       show(row.os);

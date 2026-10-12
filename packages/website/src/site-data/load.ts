@@ -10,7 +10,16 @@ import type { NetworkOptions } from "./network.ts";
 import { minimumAge } from "./oars.ts";
 import { completeLocalized, languageCandidates, parseCatalog, type Catalog } from "./po.ts";
 import { buildScreenshots } from "./screenshots.ts";
-import type { DescriptionBlock, LatestRelease, Localized, Release, SiteData, Stats } from "./types.ts";
+import type {
+  DescriptionBlock,
+  LatestRelease,
+  Localized,
+  Metainfo,
+  Release,
+  SiteConfig,
+  SiteData,
+  Stats,
+} from "./types.ts";
 
 export interface LoadOptions {
   /** Repository root: where the root package.json lives and the config's paths start. */
@@ -37,6 +46,31 @@ export async function loadCatalogs(dir: string, languages: readonly string[]): P
     }
   }
   return catalogs;
+}
+
+/**
+ * The page's own strings are always translated; the app's text only when the metainfo or a
+ * catalogue brings a translation. Say so once per language instead of silently showing English.
+ */
+function warnMissingTranslations(
+  config: SiteConfig,
+  metainfo: Metainfo,
+  complete: (text: Localized) => Localized,
+  warn: (message: string) => void
+): void {
+  const texts = [
+    metainfo.name,
+    metainfo.summary,
+    ...metainfo.description.flatMap((block) => (block.type === "paragraph" ? [block.text] : block.items)),
+  ];
+  for (const language of config.languages) {
+    if (language === config.defaultLanguage) continue;
+    const missing = texts.filter((text) => complete(text).byLanguage[language] === undefined).length;
+    if (missing > 0) {
+      const hint = config.translations ? "" : ' (set "gjsify.site.translations" to a directory of .po catalogues)';
+      warn(`${missing} of ${texts.length} app texts have no "${language}" translation and show the source text${hint}`);
+    }
+  }
 }
 
 /** Collects everything the pages need into one object. Network failures degrade to warnings. */
@@ -76,15 +110,18 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
     return { source: msgid, byLanguage };
   };
 
+  warnMissingTranslations(config, metainfo, complete, warn);
+
   const screenshots = buildScreenshots(config, metainfo, options.root, captionFor).map((screenshot) => ({
     ...screenshot,
     caption: screenshot.caption ? complete(screenshot.caption) : null,
   }));
 
-  const icon = manifest.gjsify?.flatpak?.icon ?? manifest.gjsify?.ship?.icon;
+  const icon = config.icon ?? manifest.gjsify?.flatpak?.icon ?? manifest.gjsify?.ship?.icon;
   if (icon && !existsSync(resolve(options.root, icon))) throw new Error(`The app icon "${icon}" does not exist`);
 
   let latestRelease: LatestRelease | null = null;
+  let hasReleases = true;
   let flathubSize: number | undefined;
   const stats: Stats = {};
   if (!options.offline) {
@@ -96,7 +133,10 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
     ]);
     if (release.status === "fulfilled") {
       latestRelease = release.value;
-      stats.githubDownloads = latestRelease.assets.reduce((sum, asset) => sum + asset.downloadCount, 0);
+      hasReleases = latestRelease !== null;
+      if (latestRelease) {
+        stats.githubDownloads = latestRelease.assets.reduce((sum, asset) => sum + asset.downloadCount, 0);
+      }
     } else {
       warn(
         `Could not fetch the latest GitHub release (${String(release.reason)}); linking to the releases page instead`
@@ -150,12 +190,14 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
     latestRelease,
     downloads: {
       targets: buildDownloadTargets({
-        assets: latestRelease?.assets ?? [],
+        assets: config.releaseAssets ? (latestRelease?.assets ?? []) : [],
+        configured: config.downloads,
         flathub: config.flathub,
         flathubSize,
         webAppUrl: config.webApp ? `${config.base}${config.webApp.replace(/^\//, "")}` : undefined,
       }),
       releasesUrl: `https://github.com/${config.repository}/releases`,
+      hasReleases,
     },
     stats,
     warnings,

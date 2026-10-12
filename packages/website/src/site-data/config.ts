@@ -2,7 +2,10 @@ import type {
   ScreenshotItemConfig,
   ScreenshotSource,
   ScreenshotVariants,
+  TargetFormat,
+  TargetPlatform,
   SiteConfig,
+  SiteDownloadConfig,
   SiteLegalLink,
   SiteSupportLink,
 } from "./types.ts";
@@ -88,6 +91,52 @@ function parseScreenshots(raw: unknown): SiteConfig["screenshots"] {
   return { source, items };
 }
 
+const PLATFORMS: readonly TargetPlatform[] = ["linux", "darwin", "win32", "android", "web", "firefox", "chromium"];
+const FORMATS: readonly TargetFormat[] = [
+  "flathub",
+  "flatpak",
+  "appimage",
+  "deb",
+  "rpm",
+  "msi",
+  "zip",
+  "dmg",
+  "apk",
+  "web",
+  "store",
+  "xpi",
+  "source",
+];
+
+function parseDownloads(raw: Raw): SiteDownloadConfig[] {
+  return objectList(raw, "downloads").map((entry, index) => {
+    const where = `gjsify.site.downloads[${index}]`;
+    const platform = stringField(entry, "platform", where) as TargetPlatform;
+    if (!PLATFORMS.includes(platform)) throw new Error(`${where}.platform must be one of ${PLATFORMS.join(", ")}`);
+    const format = stringField(entry, "format", where) as TargetFormat;
+    if (!FORMATS.includes(format)) throw new Error(`${where}.format must be one of ${FORMATS.join(", ")}`);
+    const available = entry.available ?? true;
+    if (typeof available !== "boolean") throw new Error(`${where}.available must be true or false`);
+    const url = entry.url;
+    if (available && (typeof url !== "string" || !/^https?:\/\//.test(url))) {
+      throw new Error(`${where}.url must be an http(s) address unless "available" is false`);
+    }
+    if (url !== undefined && (typeof url !== "string" || !/^https?:\/\//.test(url))) {
+      throw new Error(`${where}.url must be an http(s) address`);
+    }
+    const label = entry.label;
+    if (label !== undefined && (typeof label !== "string" || label === ""))
+      throw new Error(`${where}.label must be a non-empty string`);
+    return { platform, format, url, label, available };
+  });
+}
+
+function parseReleaseAssets(raw: Raw): boolean {
+  const value = raw.releaseAssets ?? true;
+  if (typeof value !== "boolean") throw new Error("gjsify.site.releaseAssets must be true or false");
+  return value;
+}
+
 /** Root-relative directory URL: `/x/` with a leading and trailing slash. */
 export function normalizeBase(base: string): string {
   return `/${base.replace(/^\/+|\/+$/g, "")}/`.replace(/^\/\/$/, "/");
@@ -118,6 +167,9 @@ export function parseSiteConfig(manifest: RootManifest): SiteConfig {
     flathub: optionalString(raw, "flathub"),
     webApp: optionalString(raw, "webApp"),
     translations: optionalString(raw, "translations"),
+    icon: optionalString(raw, "icon"),
+    downloads: parseDownloads(raw),
+    releaseAssets: parseReleaseAssets(raw),
     support: objectList(raw, "support").map(
       (entry, index): SiteSupportLink => ({
         kind: stringField(entry, "kind", `gjsify.site.support[${index}]`),

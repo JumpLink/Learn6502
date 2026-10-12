@@ -6,7 +6,7 @@ import { fileURLToPath } from "node:url";
 import { parseSiteConfig } from "./config.ts";
 import { buildDownloadTargets, classifyAsset } from "./downloads.ts";
 import { parseFlathubStats, parseFlathubSummary } from "./flathub.ts";
-import { parseLatestRelease } from "./github.ts";
+import { fetchLatestRelease, parseLatestRelease } from "./github.ts";
 import { loadSiteData } from "./load.ts";
 import { parseMetainfo } from "./metainfo.ts";
 import { fetchJson } from "./network.ts";
@@ -186,4 +186,78 @@ test("loadSiteData degrades to warnings when the network fails", async () => {
   assert.equal(data.screenshots.length, 6);
   assert.equal(data.screenshots[4]!.caption?.source, "Runs on macOS");
   assert.equal(data.version, "0.8.0");
+});
+
+test("configured downloads: stores and source join the list, unavailable ones are never recommended", () => {
+  const config = parseSiteConfig({
+    gjsify: {
+      site: {
+        metainfo: "m",
+        base: "x",
+        url: "https://x",
+        repository: "a/b",
+        releaseAssets: false,
+        downloads: [
+          { platform: "firefox", format: "store", available: false },
+          { platform: "firefox", format: "source", url: "https://example.org/install" },
+          { platform: "chromium", format: "store", available: false, label: "Chrome Web Store" },
+        ],
+      },
+    },
+  });
+  assert.equal(config.releaseAssets, false);
+  const targets = buildDownloadTargets({ assets: [], configured: config.downloads });
+  assert.deepEqual(
+    targets.map((target) => [target.os, target.format, target.available, target.recommended]),
+    [
+      ["firefox", "store", false, false],
+      ["firefox", "source", true, true],
+      ["chromium", "store", false, false],
+    ]
+  );
+  assert.equal(targets[0]!.label, "Firefox Add-ons");
+  assert.equal(targets[0]!.url, "");
+  assert.throws(
+    () =>
+      parseSiteConfig({
+        gjsify: {
+          site: {
+            metainfo: "m",
+            base: "x",
+            url: "https://x",
+            repository: "a/b",
+            downloads: [{ platform: "firefox", format: "source" }],
+          },
+        },
+      }),
+    /downloads\[0\].url/
+  );
+  assert.throws(
+    () =>
+      parseSiteConfig({
+        gjsify: {
+          site: {
+            metainfo: "m",
+            base: "x",
+            url: "https://x",
+            repository: "a/b",
+            downloads: [{ platform: "beos", format: "zip", url: "https://x" }],
+          },
+        },
+      }),
+    /downloads\[0\].platform/
+  );
+});
+
+test("extension files in a release are classified by browser", () => {
+  assert.deepEqual(classifyAsset(asset("app-1.0-firefox-mv2.zip")), { os: "firefox", format: "zip", arch: "noarch" });
+  assert.deepEqual(classifyAsset(asset("app-1.0.xpi")), { os: "firefox", format: "xpi", arch: "noarch" });
+  assert.equal(classifyAsset(asset("app-1.0-chrome-mv3.zip"))?.os, "chromium");
+});
+
+test("a repository without a release is a state, not an error", async () => {
+  const notFound = async () => ({ ok: false, status: 404, json: async () => ({}) });
+  assert.equal(await fetchLatestRelease("a/b", undefined, { fetch: notFound }), null);
+  const unavailable = async () => ({ ok: false, status: 503, json: async () => ({}) });
+  await assert.rejects(fetchLatestRelease("a/b", undefined, { fetch: unavailable }));
 });

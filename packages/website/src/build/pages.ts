@@ -1,4 +1,4 @@
-import { pickByLanguage, resolveVariant, type DescriptionBlock, type DownloadTarget, type Localized, type Release, type Screenshot, type ScreenshotVariantKey, type SiteData, type TargetOs } from "../site-data/index.ts";
+import { isBrowserPlatform, PLATFORM_ORDER, pickByLanguage, resolveVariant, type DescriptionBlock, type DownloadTarget, type Localized, type Release, type Screenshot, type ScreenshotVariantKey, type SiteData, type TargetPlatform } from "../site-data/index.ts";
 import { attrs, esc, fmt, plain } from "./html.ts";
 import { icon, type IconName } from "./icons.ts";
 import type { ImageFormat, ProcessedImage } from "./images.ts";
@@ -40,10 +40,7 @@ const LINKS: Array<[key: LinkKey, label: (t: Translate) => string, glyph: IconNa
   ["donation", (t) => t("Donate"), "heart"],
 ];
 
-const PLATFORM_ICONS: Record<TargetOs, IconName> = { linux: "linux", darwin: "macos", win32: "windows", android: "android", web: "web" };
-
-/** The order the download dialog lists operating systems in, whatever order the targets arrive in. */
-const OS_ORDER: TargetOs[] = ["linux", "darwin", "win32", "android", "web"];
+const PLATFORM_ICONS: Record<TargetPlatform, IconName> = { linux: "linux", darwin: "macos", win32: "windows", android: "android", web: "web", firefox: "firefox", chromium: "chromium" };
 
 export function localized(text: Localized, lang: string): string {
   return pickByLanguage(text.byLanguage, lang) ?? text.source;
@@ -71,8 +68,8 @@ function blocks(content: DescriptionBlock[], lang: string): string {
     .join("\n");
 }
 
-function osName(os: TargetOs, t: Translate): string {
-  return { linux: t("Linux"), darwin: t("macOS"), win32: t("Windows"), android: t("Android"), web: t("Web") }[os];
+function osName(os: TargetPlatform, t: Translate): string {
+  return { linux: t("Linux"), darwin: t("macOS"), win32: t("Windows"), android: t("Android"), web: t("Web"), firefox: t("Firefox"), chromium: t("Chromium") }[os];
 }
 
 function sizeLabel(bytes: number | undefined, lang: string): string {
@@ -101,6 +98,9 @@ function prettyUrl(url: string): string {
 function ctaLabel(target: DownloadTarget, t: Translate): string {
   if (target.format === "flathub") return t("Install from Flathub");
   if (target.os === "web" && target.format === "web") return t("Try in browser");
+  if (isBrowserPlatform(target.os)) {
+    return plain(target.format === "store" ? t("Add to {browser}") : t("Install for {browser}"), { browser: osName(target.os, t) });
+  }
   return plain(t("Download for {os}"), { os: osName(target.os, t) });
 }
 
@@ -187,8 +187,9 @@ ${slides.join("\n")}
 }
 
 /** The build the page offers before any browser detection: a store install if there is one. */
-function defaultTarget(targets: readonly DownloadTarget[]): DownloadTarget {
-  return targets.find((target) => target.recommended && target.os === "linux") ?? targets.find((target) => target.recommended) ?? targets[0]!;
+function defaultTarget(targets: readonly DownloadTarget[]): DownloadTarget | undefined {
+  const available = targets.filter((target) => target.available);
+  return available.find((target) => target.recommended && target.os === "linux") ?? available.find((target) => target.recommended) ?? available[0];
 }
 
 /**
@@ -198,20 +199,26 @@ function defaultTarget(targets: readonly DownloadTarget[]): DownloadTarget {
 function targetItem(target: DownloadTarget, ctx: RenderContext): string {
   const { t, lang } = ctx;
   const size = sizeLabel(target.size, lang);
-  const meta = [target.arch === "noarch" ? "" : target.arch, target.recommended ? t("Recommended") : ""].filter(Boolean).join(" · ");
+  const meta = [
+    target.arch === "noarch" ? "" : target.arch,
+    target.recommended ? t("Recommended") : "",
+    target.available ? "" : t("Not yet available"),
+  ]
+    .filter(Boolean)
+    .join(" · ");
+  const inner = `<span class="target-icon">${icon(target.format === "flathub" || target.format === "store" ? "package" : "download")}</span>
+<span class="target-text"><span class="target-name">${esc(t(target.label))}</span>${meta ? `<span class="target-meta">${esc(meta)}</span>` : ""}</span>
+${size ? `<span class="target-size">${esc(size)}</span>` : ""}`;
   return `<li${attrs({
     class: "target",
     "data-os": target.os,
     "data-arch": target.arch,
     "data-recommended": target.recommended,
-    "data-cta": ctaLabel(target, t),
+    "data-unavailable": !target.available,
+    "data-cta": target.available ? ctaLabel(target, t) : undefined,
     "data-size": size || undefined,
   })}>
-<a href="${esc(target.url)}">
-<span class="target-icon">${icon(target.format === "flathub" ? "package" : "download")}</span>
-<span class="target-text"><span class="target-name">${esc(t(target.label))}</span>${meta ? `<span class="target-meta">${esc(meta)}</span>` : ""}</span>
-${size ? `<span class="target-size">${esc(size)}</span>` : ""}
-</a>
+${target.available ? `<a href="${esc(target.url)}">\n${inner}\n</a>` : `<span class="target-link">\n${inner}\n</span>`}
 </li>`;
 }
 
@@ -223,13 +230,17 @@ ${size ? `<span class="target-size">${esc(size)}</span>` : ""}
 function downloadWidget(ctx: RenderContext): string {
   const { data, t } = ctx;
   const targets = data.downloads.targets;
-  if (targets.length === 0) {
+  const primary = defaultTarget(targets);
+  if (!primary) {
+    // Nothing downloadable yet: point at the releases, or at the source when there are none.
+    const [href, label] = data.downloads.hasReleases
+      ? [data.downloads.releasesUrl, t("All releases")]
+      : [repositoryUrl(data) ?? data.downloads.releasesUrl, t("Source code")];
     return `<div class="download">
-<a class="button download-cta" href="${esc(data.downloads.releasesUrl)}">${icon("download")}<span class="download-label">${esc(t("All releases"))}</span></a>
+<a class="button download-cta" href="${esc(href)}">${icon("download")}<span class="download-label">${esc(label)}</span></a>
 </div>`;
   }
-  const primary = defaultTarget(targets);
-  const groups = OS_ORDER.flatMap((os) => {
+  const groups = PLATFORM_ORDER.flatMap((os) => {
     const own = targets.filter((target) => target.os === os);
     return own.length > 0 ? [[os, own] as const] : [];
   });
@@ -260,7 +271,7 @@ ${os === "darwin" ? `<p class="os-note">${esc(t("Apple Silicon is assumed. Pick 
 <div class="os-groups">
 ${sections.join("\n")}
 </div>
-<p class="dialog-foot"><a href="${esc(data.downloads.releasesUrl)}">${esc(t("All releases on GitHub"))}${icon("external", { class: "link-external" })}</a></p>
+${data.downloads.hasReleases ? `<p class="dialog-foot"><a href="${esc(data.downloads.releasesUrl)}">${esc(t("All releases on GitHub"))}${icon("external", { class: "link-external" })}</a></p>` : ""}
 </dialog>
 </app-download>`;
 }
@@ -300,19 +311,21 @@ function badges(ctx: RenderContext): string {
   const targets = data.downloads.targets;
   const specs: BadgeSpec[] = [];
 
-  if (targets.length > 0) {
+  const primary = defaultTarget(targets);
+  if (primary) {
     // Not every target reports a size; the client swaps this one as the reader picks another.
-    const size = sizeLabel(defaultTarget(targets).size, lang);
+    const size = sizeLabel(primary.size, lang);
     specs.push({ glyph: "download", value: size, label: t("Download size"), class: "badge-size", hidden: !size });
   }
   if (data.app.license) {
     const short = shortLicense(data.app.license);
     specs.push({ glyph: "license", value: short, label: t("License"), title: short === data.app.license ? undefined : data.app.license });
   }
-  const oses = OS_ORDER.filter((os) => targets.some((target) => target.os === os));
+  const oses = PLATFORM_ORDER.filter((os) => targets.some((target) => target.available && target.os === os));
   if (oses.length > 0) {
     const glyphs = oses.map((os) => icon(PLATFORM_ICONS[os], { title: osName(os, t) })).join("");
-    specs.push({ pill: `<span class="badge-platforms">${glyphs}</span>`, value: "", label: t("Platforms") });
+    const label = oses.every(isBrowserPlatform) ? t("Browsers") : t("Platforms");
+    specs.push({ pill: `<span class="badge-platforms">${glyphs}</span>`, value: "", label });
   }
   if (data.app.ageRating) specs.push({ glyph: "people", value: plain(t("{age}+"), { age: data.app.ageRating.minAge }), label: t("Age rating") });
   if (data.stats.flathubInstalls !== undefined) specs.push({ glyph: "package", value: number.format(data.stats.flathubInstalls), label: t("Installs") });
@@ -338,7 +351,8 @@ function datePill(release: Release, lang: string): string {
  * `<details>` would have hidden instead.
  */
 function releases(ctx: RenderContext): string {
-  const [latest, ...older] = ctx.data.releases;
+  // A release without notes would render an empty card: it only has a version and a date.
+  const [latest, ...older] = ctx.data.releases.filter((release) => release.description.length > 0);
   if (!latest) return "";
   const { t, lang } = ctx;
   return `<section class="releases">

@@ -19,6 +19,16 @@ export interface NetworkOptions {
   timeoutMs?: number;
 }
 
+/** A response outside 2xx; callers that treat a status as an answer (a 404 for "no release yet") read `status`. */
+export class HttpError extends Error {
+  readonly status: number;
+
+  constructor(status: number, url: string) {
+    super(`HTTP ${status} for ${url}`);
+    this.status = status;
+  }
+}
+
 const DEFAULT_TTL_MS = 60 * 60 * 1000;
 const DEFAULT_TIMEOUT_MS = 15_000;
 
@@ -52,7 +62,7 @@ export async function fetchJson(
       headers,
       signal: AbortSignal.timeout(options.timeoutMs ?? DEFAULT_TIMEOUT_MS),
     });
-    if (!response.ok) throw new Error(`HTTP ${response.status} for ${url}`);
+    if (!response.ok) throw new HttpError(response.status, url);
     const data = await response.json();
     if (file && options.cacheDir) {
       await mkdir(options.cacheDir, { recursive: true });

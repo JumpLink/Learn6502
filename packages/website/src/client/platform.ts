@@ -3,13 +3,15 @@
  * plain list, so the decision is a pure function and testable without a DOM — the component in
  * `app-download.ts` only reads `navigator` and the rendered markup and passes the result in.
  */
-import type { TargetArch, TargetOs } from "../site-data/types.ts";
+import type { TargetArch, TargetBrowser, TargetOs, TargetPlatform } from "../site-data/types.ts";
 
 /** What a browser tells us about the machine, as far as this page uses it. */
 export interface PlatformHints {
   /** `navigator.userAgentData.platform` — "Windows", "macOS", "Linux", "Android", "iOS", … */
   platform?: string;
   userAgent?: string;
+  /** Brand names from `navigator.userAgentData.brands` ("Chromium", "Google Chrome", …). */
+  brands?: string[];
   /** `architecture` from `getHighEntropyValues`: "x86", "arm". */
   architecture?: string;
   /** `bitness` from `getHighEntropyValues`: "64", "32". */
@@ -20,6 +22,8 @@ export interface Platform {
   /** `undefined` when nothing matched: the page then keeps the server-rendered recommendation. */
   os: TargetOs | undefined;
   arch: TargetArch | undefined;
+  /** `undefined` for browsers that take neither kind of extension (Safari) or none we recognise. */
+  browser: TargetBrowser | undefined;
   /** True when `arch` is an assumption, because no browser API reported one. */
   archAssumed: boolean;
 }
@@ -58,11 +62,24 @@ export function detectArch(hints: PlatformHints): TargetArch | undefined {
   return undefined;
 }
 
+/**
+ * Firefox, or anything built on Chromium (Chrome, Edge, Brave, Opera, Vivaldi all say so in their
+ * brands or user agent). Safari and the rest take neither kind of extension.
+ */
+export function detectBrowser(hints: PlatformHints): TargetBrowser | undefined {
+  const agent = hints.userAgent ?? "";
+  if (/firefox|fxios/i.test(agent)) return "firefox";
+  if (hints.brands?.some((brand) => /chromium|chrome|edge|opera|brave/i.test(brand))) return "chromium";
+  if (/chrome|chromium|crios|edg(a|ios)?\/|opr\//i.test(agent)) return "chromium";
+  return undefined;
+}
+
 export function detectPlatform(hints: PlatformHints): Platform {
   const os = detectOs(hints);
   const reported = detectArch(hints);
   return {
     os,
+    browser: detectBrowser(hints),
     arch: reported ?? (os ? ASSUMED_ARCH[os] : undefined),
     archAssumed: reported === undefined,
   };
@@ -70,18 +87,35 @@ export function detectPlatform(hints: PlatformHints): Platform {
 
 /** The fields `recommendTarget` looks at; the rendered list carries them as data attributes. */
 export interface TargetChoice {
-  os: TargetOs;
+  os: TargetPlatform;
   arch: TargetArch;
   recommended: boolean;
+  /** Defaults to true; a target that is not available is never offered. */
+  available?: boolean;
+}
+
+const BROWSERS: readonly TargetPlatform[] = ["firefox", "chromium"];
+
+/** A list made only of browser extensions is matched by the visitor's browser, any other by their OS. */
+function isBrowserList(targets: readonly TargetChoice[]): boolean {
+  return targets.length > 0 && targets.every((target) => BROWSERS.includes(target.os));
+}
+
+/** The visitor, as if they had picked `group` themselves: its OS or its browser replaces the detected one. */
+export function inGroup(platform: Platform, group: TargetPlatform): Platform {
+  return BROWSERS.includes(group)
+    ? { ...platform, browser: group as TargetBrowser }
+    : { ...platform, os: group as TargetOs };
 }
 
 /**
- * The build to put on the primary button: the one its own OS recommends, preferring a file that
- * fits the architecture. `undefined` when nothing targets this OS at all.
+ * The build to put on the primary button: the one its own OS (or, for extensions, its own browser)
+ * recommends, preferring a file that fits the architecture. `undefined` when nothing targets it.
  */
 export function recommendTarget<T extends TargetChoice>(targets: readonly T[], platform: Platform): T | undefined {
-  if (!platform.os) return undefined;
-  const mine = targets.filter((target) => target.os === platform.os);
+  const group = isBrowserList(targets) ? platform.browser : platform.os;
+  if (!group) return undefined;
+  const mine = targets.filter((target) => target.os === group && target.available !== false);
   const fits = (target: T) => target.arch === "noarch" || target.arch === platform.arch;
   return (
     mine.find((target) => target.recommended && fits(target)) ??
