@@ -18,7 +18,7 @@
 // widget, add a side-effect import for it here.
 
 // Leaf widgets
-// Shared widgets (@learn6502/ui): SourceView, Hexdump, Disassembled, HexMonitor, DebugInfo, MessageConsole
+// Shared widgets (@learn6502/ui): SourceView, Hexdump, Disassembled, HexMonitor, DebugInfo, MessageConsole, Gamepad
 import "@learn6502/ui";
 import "./widgets/main-button.ts";
 import "./widgets/menu-button.ts";
@@ -32,7 +32,6 @@ import "./widgets/share-dialog.ts";
 
 // Game console widgets
 import "./widgets/game-console/display.ts";
-import "./widgets/game-console/gamepad.ts";
 
 // MDX-driven widgets
 import "./mdx/mdx-view.ts";

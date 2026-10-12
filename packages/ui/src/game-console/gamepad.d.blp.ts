@@ -1,14 +1,14 @@
 // GENERATED from gamepad.blp — do not edit. ADR 0088 says what these exports mean.
 // Regenerate with `gjsify blueprint types`; `scripts/check-blueprint-sidecars.mjs` holds it.
 
-import type Gtk from 'gi://Gtk?version=4.0';
+import type Gtk from "gi://Gtk?version=4.0";
 
 /** The GtkBuilder XML this `.blp` compiles to. */
 declare const xml: string;
 export default xml;
 
 /** The class `template $Gamepad` defines. */
-export declare const GTypeName: 'Gamepad';
+export declare const GTypeName: "Gamepad";
 
 /**
  * Every id inside the template, in source order — what `registerClass` is given.
@@ -21,22 +21,22 @@ export declare const GTypeName: 'Gamepad';
  * upstream half.
  */
 export declare const InternalChildren: [
-    'buttonLeft',
-    'buttonUp',
-    'buttonCenter',
-    'buttonDown',
-    'buttonRight',
-    'buttonB',
-    'buttonA',
+  "buttonLeft",
+  "buttonUp",
+  "buttonCenter",
+  "buttonDown",
+  "buttonRight",
+  "buttonB",
+  "buttonA",
 ];
 
 /** The `_`-prefixed members GJS installs for them. Merge it into the class interface. */
 export interface Children {
-    _buttonLeft: Gtk.Button;
-    _buttonUp: Gtk.Button;
-    _buttonCenter: Gtk.Button;
-    _buttonDown: Gtk.Button;
-    _buttonRight: Gtk.Button;
-    _buttonB: Gtk.Button;
-    _buttonA: Gtk.Button;
+  _buttonLeft: Gtk.Button;
+  _buttonUp: Gtk.Button;
+  _buttonCenter: Gtk.Button;
+  _buttonDown: Gtk.Button;
+  _buttonRight: Gtk.Button;
+  _buttonB: Gtk.Button;
+  _buttonA: Gtk.Button;
 }

@@ -4,7 +4,7 @@ import { gameConsoleController, gameConsoleStateService } from "@learn6502/commo
 import type { Assembler, Labels, Memory, Simulator } from "@learn6502/core";
 
 import { Display } from "./display.js";
-import { Gamepad } from "./gamepad.js";
+import { Gamepad } from "@learn6502/ui";
 
 /**
  * AdwGameConsoleView — the `GameConsoleView` from `@learn6502/common-ui`
@@ -148,7 +148,7 @@ export class AdwGameConsoleView extends HTMLElement implements GameConsoleView {
 
     const column = document.createElement("div");
     column.className = "game-console-column";
-    column.append(this.displayWidget, this.gamepadWidget);
+    column.append(this.displayWidget, this.gamepadWidget as unknown as HTMLElement);
 
     const clamp = new Adw.Clamp();
     clamp.setAttribute("maximum-size", "400");

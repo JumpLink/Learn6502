@@ -5,6 +5,7 @@ export * from "./debugger/disassembled.ts";
 export * from "./debugger/hex-monitor.ts";
 export * from "./debugger/hexdump.ts";
 export * from "./debugger/message-console.ts";
+export * from "./game-console/gamepad.ts";
 export * from "./gutter-renderer-mode.ts";
 export * from "./source-view.ts";
 export * from "./register-source-data.ts";
