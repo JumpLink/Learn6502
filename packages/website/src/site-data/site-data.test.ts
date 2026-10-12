@@ -13,6 +13,7 @@ import { fetchJson } from "./network.ts";
 import { minimumAge } from "./oars.ts";
 import { completeLocalized, parseCatalog, resolveLocalized } from "./po.ts";
 import { resolveVariant, validateVariants } from "./screenshots.ts";
+import { epcPayload, formatIban, isValidBic, isValidIban } from "./sepa.ts";
 import type { ReleaseAsset } from "./types.ts";
 
 const root = resolve(fileURLToPath(import.meta.url), "../../../../..");
@@ -286,4 +287,38 @@ test("defaultLabel: platform wording wins, every other format gets its own label
   assert.equal(defaultLabel("chromium", "xpi"), "Firefox add-on");
   for (const [format, text] of Object.entries(FORMAT_LABELS)) assert.notEqual(text, format);
   for (const key of Object.keys(DOWNLOAD_LABELS)) assert.ok(DOWNLOAD_LABELS[key]);
+});
+
+test("IBAN validation checks format and the mod-97 checksum", () => {
+  assert.equal(isValidIban("DE89370400440532013000"), true);
+  assert.equal(isValidIban("GB82WEST12345698765432"), true);
+  assert.equal(isValidIban("DE89370400440532013001"), false);
+  assert.equal(isValidIban("DE8937040044053201300"), false);
+  assert.equal(isValidIban("de89370400440532013000"), false, "expects a normalised IBAN");
+  assert.equal(isValidIban("1234"), false);
+  assert.equal(formatIban("de89 3704 0044 0532 0130 00"), "DE89 3704 0044 0532 0130 00");
+  assert.equal(isValidBic("COBADEFFXXX"), true);
+  assert.equal(isValidBic("COBADEFF"), true);
+  assert.equal(isValidBic("COBADE"), false);
+});
+
+test("the EPC payload follows EPC069-12 v002", () => {
+  assert.equal(
+    epcPayload({ name: "Max Müller", iban: "DE89 3704 0044 0532 0130 00", bic: "COBADEFFXXX", reference: "Spende" }),
+    "BCD\n002\n1\nSCT\nCOBADEFFXXX\nMax Müller\nDE89370400440532013000\n\n\n\nSpende"
+  );
+  assert.equal(epcPayload({ name: "X", iban: "DE89370400440532013000" }), "BCD\n002\n1\nSCT\n\nX\nDE89370400440532013000\n\n\n\n");
+});
+
+test("support entries: links stay valid, a sepa entry is validated at load", () => {
+  const base = (support: unknown[]) => ({
+    version: "1.0.0",
+    gjsify: { site: { metainfo: "m.xml", base: "/x/", url: "https://example.org/x", repository: "o/r", support } },
+  });
+  const [link, sepa] = parseSiteConfig(base([{ kind: "Sponsor", url: "https://example.org/s" }, { kind: "sepa", name: "N", iban: "de89 3704 0044 0532 0130 00", bic: "cobadeffxxx" }])).support;
+  assert.deepEqual(link, { kind: "Sponsor", url: "https://example.org/s" });
+  assert.deepEqual(sepa, { kind: "sepa", name: "N", iban: "DE89370400440532013000", bic: "COBADEFFXXX", reference: undefined });
+  assert.throws(() => parseSiteConfig(base([{ kind: "sepa", name: "N", iban: "DE89370400440532013001" }])), /support\[0\]\.iban is not a valid IBAN/);
+  assert.throws(() => parseSiteConfig(base([{ kind: "sepa", iban: "DE89370400440532013000" }])), /support\[0\]\.name/);
+  assert.throws(() => parseSiteConfig(base([{ kind: "sepa", name: "N", iban: "DE89370400440532013000", bic: "XX" }])), /bic is not a valid BIC/);
 });

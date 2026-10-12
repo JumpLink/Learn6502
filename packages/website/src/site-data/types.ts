@@ -42,10 +42,22 @@ export interface Localized {
 
 export type DescriptionBlock = { type: "paragraph"; text: Localized } | { type: "list"; items: Localized[] };
 
+/** A plain link to a place that takes donations or sponsorship; `kind` is a msgid of the website catalogue. */
 export interface SiteSupportLink {
   kind: string;
   url: string;
 }
+
+/** A SEPA bank transfer, shown as account details and an EPC QR code. The IBAN is stored normalised. */
+export interface SiteSupportSepa {
+  kind: "sepa";
+  name: string;
+  iban: string;
+  bic?: string;
+  reference?: string;
+}
+
+export type SiteSupportEntry = SiteSupportLink | SiteSupportSepa;
 
 export interface SiteLegalLink {
   label: string;
@@ -95,7 +107,7 @@ export interface SiteConfig {
   downloads: SiteDownloadConfig[];
   /** False ignores the latest release's assets, so `downloads` is the whole list. Default true. */
   releaseAssets: boolean;
-  support: SiteSupportLink[];
+  support: SiteSupportEntry[];
   legal: SiteLegalLink[];
   screenshots: { source: ScreenshotSource; items: ScreenshotItemConfig[] };
 }

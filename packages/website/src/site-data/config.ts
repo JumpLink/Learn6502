@@ -1,3 +1,4 @@
+import { isValidBic, isValidIban, normalizeIban } from "./sepa.ts";
 import type {
   ScreenshotItemConfig,
   ScreenshotSource,
@@ -7,7 +8,7 @@ import type {
   SiteConfig,
   SiteDownloadConfig,
   SiteLegalLink,
-  SiteSupportLink,
+  SiteSupportEntry,
 } from "./types.ts";
 
 /** The slice of the root package.json the site reads. Everything is optional until validated. */
@@ -51,6 +52,26 @@ function stringField(entry: Raw, key: string, where: string): string {
   const value = entry[key];
   if (typeof value !== "string" || value === "") throw new Error(`${where}.${key} must be a non-empty string`);
   return value;
+}
+
+function parseSupport(entry: Raw, where: string): SiteSupportEntry {
+  const kind = stringField(entry, "kind", where);
+  if (kind !== "sepa") return { kind, url: stringField(entry, "url", where) };
+  const optional = (key: string): string | undefined => {
+    if (entry[key] === undefined) return undefined;
+    return stringField(entry, key, where);
+  };
+  const iban = normalizeIban(stringField(entry, "iban", where));
+  if (!isValidIban(iban)) throw new Error(`${where}.iban is not a valid IBAN (format or checksum)`);
+  const bic = optional("bic")?.replace(/\s+/g, "").toUpperCase();
+  if (bic !== undefined && !isValidBic(bic)) throw new Error(`${where}.bic is not a valid BIC (8 or 11 characters)`);
+  const name = stringField(entry, "name", where);
+  if ([...name].length > 70) throw new Error(`${where}.name is longer than the 70 characters an EPC QR code allows`);
+  const reference = optional("reference");
+  if (reference !== undefined && [...reference].length > 140) {
+    throw new Error(`${where}.reference is longer than the 140 characters an EPC QR code allows`);
+  }
+  return { kind: "sepa", name, iban, bic, reference };
 }
 
 const VARIANT_NAMES = ["desktop-light", "desktop-dark", "mobile-light", "mobile-dark"] as const;
@@ -171,12 +192,7 @@ export function parseSiteConfig(manifest: RootManifest): SiteConfig {
     icon: optionalString(raw, "icon"),
     downloads: parseDownloads(raw),
     releaseAssets: parseReleaseAssets(raw),
-    support: objectList(raw, "support").map(
-      (entry, index): SiteSupportLink => ({
-        kind: stringField(entry, "kind", `gjsify.site.support[${index}]`),
-        url: stringField(entry, "url", `gjsify.site.support[${index}]`),
-      })
-    ),
+    support: objectList(raw, "support").map((entry, index) => parseSupport(entry, `gjsify.site.support[${index}]`)),
     legal: objectList(raw, "legal").map(
       (entry, index): SiteLegalLink => ({
         label: stringField(entry, "label", `gjsify.site.legal[${index}]`),
