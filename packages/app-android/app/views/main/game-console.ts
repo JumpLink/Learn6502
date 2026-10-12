@@ -17,6 +17,7 @@ import {
 } from "@learn6502/common-ui";
 import { logger } from "~/utils";
 import type { ScreenModule } from "./editor";
+import { asView } from "~/utils/as-view";
 
 /**
  * Game Console view — implements GameConsoleView. Now a content view (Display +
@@ -84,7 +85,7 @@ export class GameConsole implements GameConsoleView {
     // The shared @learn6502/ui Gamepad: the same .blp + class GNOME and the web run.
     gamePad.marginTop = 30;
     gamePad.marginBottom = 30;
-    root.addChild(gamePad);
+    root.addChild(asView(gamePad));
 
     // The Display needs a native canvas before it can initialise with memory, so
     // wire the controller once it is loaded (the NS counterpart of the old Page
