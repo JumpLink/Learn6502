@@ -48,35 +48,74 @@ msgstr "Android"
 msgid "Web"
 msgstr "Web"
 
+msgid "Install from Flathub"
+msgstr "Über Flathub installieren"
+
+msgid "Try in browser"
+msgstr "Im Browser ausprobieren"
+
+msgid "Download for {os}"
+msgstr "Für {os} herunterladen"
+
 msgid "Screenshot {number}"
 msgstr "Bildschirmfoto {number}"
+
+msgid "View full screen"
+msgstr "Vollbild anzeigen"
 
 msgid "Screenshots"
 msgstr "Bildschirmfotos"
 
-msgid "Get it: {format}"
-msgstr "Herunterladen: {format}"
+msgid "Previous screenshot"
+msgstr "Vorheriges Bildschirmfoto"
+
+msgid "Next screenshot"
+msgstr "Nächstes Bildschirmfoto"
+
+msgid "Close"
+msgstr "Schließen"
+
+msgid "Recommended"
+msgstr "Empfohlen"
 
 msgid "All releases"
 msgstr "Alle Versionen"
 
-msgid "More download options"
-msgstr "Weitere Download-Optionen"
+msgid "Apple Silicon is assumed. Pick the Intel build if your Mac has an Intel processor."
+msgstr "Apple Silicon wird angenommen. Für Macs mit Intel-Prozessor die Intel-Variante wählen."
 
-msgid "installs on Flathub"
-msgstr "Installationen auf Flathub"
+msgid "All download options"
+msgstr "Alle Download-Optionen"
 
-msgid "downloads on GitHub"
-msgstr "Downloads auf GitHub"
+msgid "Operating system"
+msgstr "Betriebssystem"
+
+msgid "All releases on GitHub"
+msgstr "Alle Versionen auf GitHub"
+
+msgid "Download size"
+msgstr "Downloadgröße"
+
+msgid "License"
+msgstr "Lizenz"
+
+msgid "Platforms"
+msgstr "Plattformen"
 
 msgid "{age}+"
 msgstr "ab {age}"
 
-msgid "age rating"
+msgid "Age rating"
 msgstr "Altersfreigabe"
 
-msgid "license"
-msgstr "Lizenz"
+msgid "Installs"
+msgstr "Installationen"
+
+msgid "Show more"
+msgstr "Mehr anzeigen"
+
+msgid "Show less"
+msgstr "Weniger anzeigen"
 
 msgid "Changes in version {version}"
 msgstr "Änderungen in Version {version}"
@@ -87,6 +126,9 @@ msgstr "Ältere Versionen"
 msgid "Links"
 msgstr "Links"
 
+msgid "Support this project"
+msgstr "Dieses Projekt unterstützen"
+
 msgid "Categories"
 msgstr "Kategorien"
 
@@ -96,17 +138,20 @@ msgstr "Stichwörter"
 msgid "Architectures"
 msgstr "Architekturen"
 
-msgid "Downloads"
-msgstr "Downloads"
-
-msgid "All releases on GitHub"
-msgstr "Alle Versionen auf GitHub"
-
 msgid "Language"
 msgstr "Sprache"
 
 msgid "by {developer}"
 msgstr "von {developer}"
+
+msgid "{app} is licensed under {license}."
+msgstr "{app} steht unter der Lizenz {license}."
+
+msgid "This page reproduces text licensed under {license}."
+msgstr "Diese Seite gibt Texte unter der Lizenz {license} wieder."
+
+msgid "Made with {project}"
+msgstr "Gemacht mit {project}"
 
 msgid "Flathub"
 msgstr "Flathub"
@@ -137,9 +182,6 @@ msgstr "macOS-Disk-Image"
 
 msgid "Android package"
 msgstr "Android-Paket"
-
-msgid "Try in browser"
-msgstr "Im Browser ausprobieren"
 
 msgid "Web build"
 msgstr "Web-Version"

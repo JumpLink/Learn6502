@@ -1,5 +1,6 @@
-import { pickByLanguage, resolveVariant, type DescriptionBlock, type DownloadTarget, type Localized, type Screenshot, type ScreenshotVariantKey, type SiteData, type TargetOs } from "../site-data/index.ts";
+import { pickByLanguage, resolveVariant, type DescriptionBlock, type DownloadTarget, type Localized, type Release, type Screenshot, type ScreenshotVariantKey, type SiteData, type TargetOs } from "../site-data/index.ts";
 import { attrs, esc, fmt, plain } from "./html.ts";
+import { icon, type IconName } from "./icons.ts";
 import type { ImageFormat, ProcessedImage } from "./images.ts";
 
 export interface ClientAssets {
@@ -18,22 +19,31 @@ export interface RenderContext {
   iconUrl?: string;
 }
 
+type Translate = (msgid: string) => string;
+
 const MOBILE = "(max-width: 600px)";
 const DARK = "(prefers-color-scheme: dark)";
 const FORMAT_TYPES: Record<ImageFormat, string> = { avif: "image/avif", webp: "image/webp", png: "image/png" };
-const SIZES = "(max-width: 600px) 90vw, 720px";
+const SIZES = "(max-width: 600px) 92vw, (max-width: 1000px) 86vw, 860px";
 
-const LINKS: Array<[key: "homepage" | "help" | "faq" | "vcsBrowser" | "bugtracker" | "contribute" | "translate" | "contact" | "donation", label: (t: (m: string) => string) => string]> = [
-  ["homepage", (t) => t("Website")],
-  ["help", (t) => t("Help")],
-  ["faq", (t) => t("FAQ")],
-  ["vcsBrowser", (t) => t("Source code")],
-  ["bugtracker", (t) => t("Report an issue")],
-  ["contribute", (t) => t("Contribute")],
-  ["translate", (t) => t("Help translate")],
-  ["contact", (t) => t("Contact")],
-  ["donation", (t) => t("Donate")],
+type LinkKey = "homepage" | "help" | "faq" | "vcsBrowser" | "bugtracker" | "contribute" | "translate" | "contact" | "donation";
+
+const LINKS: Array<[key: LinkKey, label: (t: Translate) => string, glyph: IconName]> = [
+  ["homepage", (t) => t("Website"), "web"],
+  ["help", (t) => t("Help"), "help"],
+  ["faq", (t) => t("FAQ"), "help"],
+  ["vcsBrowser", (t) => t("Source code"), "code"],
+  ["bugtracker", (t) => t("Report an issue"), "bug"],
+  ["contribute", (t) => t("Contribute"), "people"],
+  ["translate", (t) => t("Help translate"), "translate"],
+  ["contact", (t) => t("Contact"), "mail"],
+  ["donation", (t) => t("Donate"), "heart"],
 ];
+
+const PLATFORM_ICONS: Record<TargetOs, IconName> = { linux: "linux", darwin: "macos", win32: "windows", android: "android", web: "web" };
+
+/** The order the download dialog lists operating systems in, whatever order the targets arrive in. */
+const OS_ORDER: TargetOs[] = ["linux", "darwin", "win32", "android", "web"];
 
 export function localized(text: Localized, lang: string): string {
   return pickByLanguage(text.byLanguage, lang) ?? text.source;
@@ -61,13 +71,37 @@ function blocks(content: DescriptionBlock[], lang: string): string {
     .join("\n");
 }
 
-function osName(os: TargetOs, t: (m: string) => string): string {
+function osName(os: TargetOs, t: Translate): string {
   return { linux: t("Linux"), darwin: t("macOS"), win32: t("Windows"), android: t("Android"), web: t("Web") }[os];
 }
 
 function sizeLabel(bytes: number | undefined, lang: string): string {
   if (!bytes) return "";
   return `${new Intl.NumberFormat(lang, { maximumFractionDigits: 1 }).format(bytes / (1024 * 1024))} MB`;
+}
+
+/** The second line of a link card: the address without the noise a reader does not need. */
+function prettyUrl(url: string): string {
+  let parsed: URL;
+  try {
+    parsed = new URL(url);
+  } catch {
+    return url;
+  }
+  if (parsed.protocol === "mailto:") return parsed.pathname;
+  const host = parsed.host.replace(/^www\./, "");
+  const path = parsed.pathname.replace(/\/$/, "");
+  return `${host}${path}`;
+}
+
+/**
+ * What the primary button says. Installing from a store, opening the web build and downloading a
+ * file are three different promises, so each gets its own wording.
+ */
+function ctaLabel(target: DownloadTarget, t: Translate): string {
+  if (target.format === "flathub") return t("Install from Flathub");
+  if (target.os === "web" && target.format === "web") return t("Try in browser");
+  return plain(t("Download for {os}"), { os: osName(target.os, t) });
 }
 
 /** The variant files a screenshot needs, deduplicated: the `<picture>` only carries `<source>`s that differ. */
@@ -116,51 +150,161 @@ function picture(ctx: RenderContext, screenshot: Screenshot, alt: string, eager:
   return `<picture>${[...sources, ...formats, img].join("")}</picture>`;
 }
 
+/** The brand-coloured band around the screenshots, the one place the app's own colours take over. */
 function screenshotBand(ctx: RenderContext): string {
   if (ctx.data.screenshots.length === 0) return "";
   const { t, lang } = ctx;
   const slides = ctx.data.screenshots.map((screenshot, index) => {
     const caption = screenshot.caption ? localized(screenshot.caption, lang) : "";
     const alt = caption || plain(t("Screenshot {number}"), { number: index + 1 });
-    return `<li><figure>${picture(ctx, screenshot, alt, index === 0)}${caption ? `<figcaption>${esc(caption)}</figcaption>` : ""}</figure></li>`;
+    return `<li class="slide">
+<figure>
+${picture(ctx, screenshot, alt, index === 0)}
+${caption ? `<figcaption>${esc(caption)}</figcaption>` : ""}
+<button class="slide-expand" type="button" aria-label="${esc(t("View full screen"))}" hidden>${icon("expand")}</button>
+</figure>
+</li>`;
   });
-  return `<section class="screenshots" aria-label="${esc(t("Screenshots"))}">
-<screenshot-carousel><ul>${slides.join("\n")}</ul></screenshot-carousel>
+  // The controls carry translated labels, so they are rendered here and only unhidden by the component.
+  const dots = ctx.data.screenshots.map(
+    (_screenshot, index) => `<li><button class="carousel-dot" type="button" aria-label="${esc(plain(t("Screenshot {number}"), { number: index + 1 }))}"></button></li>`
+  );
+  return `<section class="band" aria-label="${esc(t("Screenshots"))}">
+<screenshot-carousel class="carousel">
+<button class="carousel-arrow carousel-prev" type="button" aria-label="${esc(t("Previous screenshot"))}" hidden>${icon("chevron-left")}</button>
+<ul class="carousel-track">
+${slides.join("\n")}
+</ul>
+<button class="carousel-arrow carousel-next" type="button" aria-label="${esc(t("Next screenshot"))}" hidden>${icon("chevron-right")}</button>
+<ol class="carousel-dots" hidden>${dots.join("")}</ol>
+<dialog class="lightbox" aria-label="${esc(t("Screenshots"))}">
+<button class="dialog-close" type="button" aria-label="${esc(t("Close"))}" hidden>${icon("close")}</button>
+<figure></figure>
+</dialog>
+</screenshot-carousel>
 </section>`;
 }
 
-function targetItem(target: DownloadTarget, ctx: RenderContext): string {
-  const meta = [target.arch === "noarch" ? "" : target.arch, sizeLabel(target.size, ctx.lang)].filter(Boolean).join(" · ");
-  return `<li${attrs({ "data-os": target.os, "data-recommended": target.recommended })}><a href="${esc(target.url)}">${esc(ctx.t(target.label))}</a>${meta ? ` <small>${esc(meta)}</small>` : ""}</li>`;
+/** The build the page offers before any browser detection: a store install if there is one. */
+function defaultTarget(targets: readonly DownloadTarget[]): DownloadTarget {
+  return targets.find((target) => target.recommended && target.os === "linux") ?? targets.find((target) => target.recommended) ?? targets[0]!;
 }
 
-function downloadButton(ctx: RenderContext): string {
+/**
+ * One row of the download dialog. The data attributes carry everything the client needs to put a
+ * row on the primary button, so it never has to build a translated string itself.
+ */
+function targetItem(target: DownloadTarget, ctx: RenderContext): string {
+  const { t, lang } = ctx;
+  const size = sizeLabel(target.size, lang);
+  const meta = [target.arch === "noarch" ? "" : target.arch, target.recommended ? t("Recommended") : ""].filter(Boolean).join(" · ");
+  return `<li${attrs({
+    class: "target",
+    "data-os": target.os,
+    "data-arch": target.arch,
+    "data-recommended": target.recommended,
+    "data-cta": ctaLabel(target, t),
+    "data-size": size || undefined,
+  })}>
+<a href="${esc(target.url)}">
+<span class="target-icon">${icon(target.format === "flathub" ? "package" : "download")}</span>
+<span class="target-text"><span class="target-name">${esc(t(target.label))}</span>${meta ? `<span class="target-meta">${esc(meta)}</span>` : ""}</span>
+${size ? `<span class="target-size">${esc(size)}</span>` : ""}
+</a>
+</li>`;
+}
+
+/**
+ * The split button plus the dialog holding every target. Both are server-rendered: without
+ * JavaScript the dialog stays an open panel below the button (see `site.css`), with it the
+ * component turns the same markup into a modal and swaps the button for the detected platform.
+ */
+function downloadWidget(ctx: RenderContext): string {
   const { data, t } = ctx;
   const targets = data.downloads.targets;
-  const primary = targets.find((target) => target.recommended && target.os === "linux") ?? targets[0];
-  const label = primary ? fmt(t("Get it: {format}"), { format: t(primary.label) }) : esc(t("All releases"));
-  const href = primary?.url ?? data.downloads.releasesUrl;
+  if (targets.length === 0) {
+    return `<div class="download">
+<a class="button download-cta" href="${esc(data.downloads.releasesUrl)}">${icon("download")}<span class="download-label">${esc(t("All releases"))}</span></a>
+</div>`;
+  }
+  const primary = defaultTarget(targets);
+  const groups = OS_ORDER.flatMap((os) => {
+    const own = targets.filter((target) => target.os === os);
+    return own.length > 0 ? [[os, own] as const] : [];
+  });
+  const tabs = groups.map(
+    ([os]) =>
+      `<button class="os-tab" type="button" role="tab" id="os-tab-${esc(os)}" aria-controls="os-group-${esc(os)}" data-os="${esc(os)}" aria-selected="${os === primary.os}">${icon(PLATFORM_ICONS[os])}<span>${esc(osName(os, t))}</span></button>`
+  );
+  const sections = groups.map(
+    ([os, own]) => `<section class="os-group" id="os-group-${esc(os)}" role="tabpanel" aria-labelledby="os-tab-${esc(os)}" data-os="${esc(os)}">
+<h3>${icon(PLATFORM_ICONS[os])}<span>${esc(osName(os, t))}</span></h3>
+<ul>
+${own.map((target) => targetItem(target, ctx)).join("\n")}
+</ul>
+${os === "darwin" ? `<p class="os-note">${esc(t("Apple Silicon is assumed. Pick the Intel build if your Mac has an Intel processor."))}</p>` : ""}
+</section>`
+  );
   return `<app-download class="download">
-<div class="split">
-<a class="button" href="${esc(href)}">${label}</a>
-<details class="more"><summary aria-label="${esc(t("More download options"))}"></summary>
-<ul>${targets.map((target) => targetItem(target, ctx)).join("\n")}
-<li><a href="${esc(data.downloads.releasesUrl)}">${esc(t("All releases"))}</a></li></ul>
-</details>
+<div class="download-split">
+<a class="button download-cta" href="${esc(primary.url)}"${attrs({ "data-os": primary.os, "data-arch": primary.arch })}>${icon("download")}<span class="download-label">${esc(ctaLabel(primary, t))}</span></a>
+<a class="button download-toggle" href="#all-downloads" aria-label="${esc(t("All download options"))}">${icon("chevron-down")}</a>
 </div>
+<dialog id="all-downloads" class="download-dialog" aria-labelledby="all-downloads-title">
+<div class="dialog-head">
+<h2 id="all-downloads-title">${esc(t("All download options"))}</h2>
+<button class="dialog-close" type="button" aria-label="${esc(t("Close"))}" hidden>${icon("close")}</button>
+</div>
+<div class="os-tabs" role="tablist" aria-label="${esc(t("Operating system"))}" hidden>${tabs.join("")}</div>
+<div class="os-groups">
+${sections.join("\n")}
+</div>
+<p class="dialog-foot"><a href="${esc(data.downloads.releasesUrl)}">${esc(t("All releases on GitHub"))}${icon("external", { class: "link-external" })}</a></p>
+</dialog>
 </app-download>`;
 }
 
+interface BadgeSpec {
+  /** Drawn in the pill; `pill` wins when a badge needs more than one glyph. */
+  glyph?: IconName;
+  pill?: string;
+  value: string;
+  label: string;
+  class?: string;
+  hidden?: boolean;
+}
+
+function badge(spec: BadgeSpec): string {
+  return `<li${attrs({ class: spec.class ? `badge ${spec.class}` : "badge", hidden: spec.hidden })}>
+<span class="badge-pill">${spec.pill ?? icon(spec.glyph!)}</span>
+<span class="badge-value">${esc(spec.value)}</span>
+<span class="badge-label">${esc(spec.label)}</span>
+</li>`;
+}
+
+/** The facts row under the hero. A badge whose fact is missing is left out, not faked. */
 function badges(ctx: RenderContext): string {
   const { data, t, lang } = ctx;
   const number = new Intl.NumberFormat(lang, { notation: "compact", maximumFractionDigits: 1 });
-  const items: Array<[value: string, label: string]> = [];
-  if (data.stats.flathubInstalls !== undefined) items.push([number.format(data.stats.flathubInstalls), t("installs on Flathub")]);
-  if (data.stats.githubDownloads) items.push([number.format(data.stats.githubDownloads), t("downloads on GitHub")]);
-  if (data.app.ageRating) items.push([plain(t("{age}+"), { age: data.app.ageRating.minAge }), t("age rating")]);
-  if (data.app.license) items.push([data.app.license, t("license")]);
+  const targets = data.downloads.targets;
+  const items: string[] = [];
+
+  if (targets.length > 0) {
+    // The store install has no file size; the client fills this in when it detects a target that has one.
+    const size = sizeLabel(defaultTarget(targets).size, lang);
+    items.push(badge({ glyph: "download", value: size, label: t("Download size"), class: "badge-size", hidden: !size }));
+  }
+  if (data.app.license) items.push(badge({ glyph: "license", value: data.app.license, label: t("License") }));
+  const oses = OS_ORDER.filter((os) => targets.some((target) => target.os === os));
+  if (oses.length > 0) {
+    const glyphs = oses.map((os) => icon(PLATFORM_ICONS[os], { title: osName(os, t) })).join("");
+    items.push(badge({ pill: `<span class="badge-platforms">${glyphs}</span>`, value: "", label: t("Platforms") }));
+  }
+  if (data.app.ageRating) items.push(badge({ glyph: "people", value: plain(t("{age}+"), { age: data.app.ageRating.minAge }), label: t("Age rating") }));
+  if (data.stats.flathubInstalls !== undefined) items.push(badge({ glyph: "package", value: number.format(data.stats.flathubInstalls), label: t("Installs") }));
+
   if (items.length === 0) return "";
-  return `<ul class="badges">${items.map(([value, label]) => `<li><strong>${esc(value)}</strong><span>${esc(label)}</span></li>`).join("")}</ul>`;
+  return `<ul class="badges">\n${items.join("\n")}\n</ul>`;
 }
 
 function releaseDate(date: string, lang: string): string {
@@ -168,28 +312,97 @@ function releaseDate(date: string, lang: string): string {
   return Number.isNaN(parsed.getTime()) ? date : new Intl.DateTimeFormat(lang, { dateStyle: "long", timeZone: "UTC" }).format(parsed);
 }
 
+function datePill(release: Release, lang: string): string {
+  return `<p class="date-pill"><time datetime="${esc(release.date)}">${esc(releaseDate(release.date, lang))}</time></p>`;
+}
+
+/**
+ * The latest release as a card, older ones folded away. The "show more" button is rendered
+ * hidden and the body unclamped: a reader without JavaScript gets the whole text, which a closed
+ * `<details>` would have hidden instead.
+ */
 function releases(ctx: RenderContext): string {
   const [latest, ...older] = ctx.data.releases;
   if (!latest) return "";
   const { t, lang } = ctx;
-  const article = (release: typeof latest, heading: string) =>
-    `<article><${heading}>${fmt(t("Changes in version {version}"), { version: release.version })}</${heading}>
-<p><time datetime="${esc(release.date)}">${esc(releaseDate(release.date, lang))}</time></p>
-${blocks(release.description, lang)}</article>`;
   return `<section class="releases">
-<details class="card" open><summary>${fmt(t("Changes in version {version}"), { version: latest.version })}</summary>
-<p><time datetime="${esc(latest.date)}">${esc(releaseDate(latest.date, lang))}</time></p>
+<release-notes class="card release"${attrs({ "data-more": t("Show more"), "data-less": t("Show less") })}>
+<div class="release-head">
+<h2>${fmt(t("Changes in version {version}"), { version: latest.version })}</h2>
+${datePill(latest, lang)}
+</div>
+<div class="release-body">
 ${blocks(latest.description, lang)}
-</details>
-${older.length > 0 ? `<details class="older"><summary>${esc(t("Older releases"))}</summary>\n${older.map((release) => article(release, "h3")).join("\n")}</details>` : ""}
+</div>
+<button class="release-more" type="button" hidden>${esc(t("Show more"))}</button>
+</release-notes>
+${
+    older.length > 0
+      ? `<details class="card older">
+<summary>${esc(t("Older releases"))}${icon("chevron-down", { class: "summary-chevron" })}</summary>
+${older
+          .map(
+            (release) => `<article class="release-old">
+<div class="release-head">
+<h3>${fmt(t("Changes in version {version}"), { version: release.version })}</h3>
+${datePill(release, lang)}
+</div>
+${blocks(release.description, lang)}
+</article>`
+          )
+          .join("\n")}
+</details>`
+      : ""
+  }
 </section>`;
+}
+
+function linkCard(href: string, title: string, glyph: IconName): string {
+  return `<li>
+<a href="${esc(href)}">
+<span class="link-icon">${icon(glyph)}</span>
+<span class="link-text"><span class="link-title">${esc(title)}</span><span class="link-url">${esc(prettyUrl(href))}</span></span>
+${icon("external", { class: "link-external" })}
+</a>
+</li>`;
 }
 
 function links(ctx: RenderContext): string {
   const { data, t } = ctx;
-  const items = LINKS.flatMap(([key, label]) => (data.app.urls[key] ? [`<li><a href="${esc(data.app.urls[key])}">${esc(label(t))}</a></li>`] : []));
-  for (const support of data.config.support) items.push(`<li><a href="${esc(support.url)}">${esc(t(support.kind))}</a></li>`);
-  return items.length === 0 ? "" : `<section class="links"><h2>${esc(t("Links"))}</h2><ul>${items.join("")}</ul></section>`;
+  const items = LINKS.flatMap(([key, label, glyph]) => {
+    const href = data.app.urls[key];
+    return href ? [linkCard(href, label(t), glyph)] : [];
+  });
+  if (items.length === 0) return "";
+  return `<section class="links">
+<h2>${esc(t("Links"))}</h2>
+<ul class="card-list">
+${items.join("\n")}
+</ul>
+</section>`;
+}
+
+/**
+ * Ways to support the project, if the site configures any. Same no-JavaScript shape as the
+ * download dialog: an anchor to a dialog that stays an open panel until the component takes over.
+ */
+function support(ctx: RenderContext): string {
+  const { data, t } = ctx;
+  if (data.config.support.length === 0) return "";
+  return `<section class="support">
+<app-support class="support-widget">
+<a class="button support-cta" href="#support-ways">${icon("heart")}<span>${esc(t("Support this project"))}</span></a>
+<dialog id="support-ways" class="support-dialog" aria-labelledby="support-ways-title">
+<div class="dialog-head">
+<h2 id="support-ways-title">${esc(t("Support this project"))}</h2>
+<button class="dialog-close" type="button" aria-label="${esc(t("Close"))}" hidden>${icon("close")}</button>
+</div>
+<ul class="card-list">
+${data.config.support.map((link) => linkCard(link.url, t(link.kind), "heart")).join("\n")}
+</ul>
+</dialog>
+</app-support>
+</section>`;
 }
 
 function tags(ctx: RenderContext): string {
@@ -197,23 +410,82 @@ function tags(ctx: RenderContext): string {
   const keywords = data.app.keywords.map((keyword) => localized(keyword, lang));
   const arches = [...new Set(data.downloads.targets.map((target) => target.arch).filter((arch) => arch !== "noarch"))];
   const list = (label: string, values: string[]) =>
-    values.length === 0 ? "" : `<div><h3>${esc(label)}</h3><ul class="tags">${values.map((value) => `<li>${esc(value)}</li>`).join("")}</ul></div>`;
-  const body = [list(t("Categories"), data.app.categories), list(t("Keywords"), keywords), list(t("Architectures"), arches)].join("");
-  return body ? `<section class="tags-section">${body}</section>` : "";
+    values.length === 0 ? "" : `<div class="tag-group"><h3>${esc(label)}</h3><ul class="tags">${values.map((value) => `<li>${esc(value)}</li>`).join("")}</ul></div>`;
+  const body = [list(t("Categories"), data.app.categories), list(t("Keywords"), keywords), list(t("Architectures"), arches)].join("\n");
+  return body.trim() ? `<section class="tags-section">\n${body}\n</section>` : "";
 }
 
-function downloadList(ctx: RenderContext): string {
-  const { data, t } = ctx;
-  const groups = new Map<TargetOs, DownloadTarget[]>();
-  for (const target of data.downloads.targets) groups.set(target.os, [...(groups.get(target.os) ?? []), target]);
-  const body = [...groups].map(([os, targets]) => `<h3>${esc(osName(os, t))}</h3><ul>${targets.map((target) => targetItem(target, ctx)).join("\n")}</ul>`).join("\n");
-  return `<section id="downloads" class="downloads"><h2>${esc(t("Downloads"))}</h2>
-${body}
-<p><a href="${esc(data.downloads.releasesUrl)}">${esc(t("All releases on GitHub"))}</a></p></section>`;
+function languageSwitch(ctx: RenderContext, className: string, style: "code" | "name"): string {
+  const { data, lang, t } = ctx;
+  const items = data.config.languages.map((code) => {
+    const label = style === "code" ? code.toUpperCase() : languageName(code);
+    return code === lang
+      ? `<li><span aria-current="true">${esc(label)}</span></li>`
+      : `<li><a href="${esc(pageUrl(data, code))}" hreflang="${esc(code)}" lang="${esc(code)}">${esc(label)}</a></li>`;
+  });
+  return `<nav class="${className}" aria-label="${esc(t("Language"))}"><ul>${items.join("")}</ul></nav>`;
+}
+
+function repositoryUrl(data: SiteData): string | undefined {
+  return data.app.urls.vcsBrowser ?? (data.config.repository || undefined);
+}
+
+function topBar(ctx: RenderContext): string {
+  const { data, lang, t } = ctx;
+  const repo = repositoryUrl(data);
+  const onGitHub = repo ? /(^|\.)github\.com$/.test(new URL(repo).host) : false;
+  return `<div class="topbar">
+<div class="bar-inner">
+<a class="bar-brand" href="${esc(pageUrl(data, lang))}">
+${ctx.iconUrl ? `<img src="${esc(ctx.iconUrl)}" alt="" width="24" height="24">` : ""}
+<span>${esc(localized(data.app.name, lang))}</span>
+</a>
+<div class="bar-end">
+${languageSwitch(ctx, "bar-languages", "code")}
+${repo ? `<a class="bar-link" href="${esc(repo)}">${icon("code")}<span>${onGitHub ? "GitHub" : esc(t("Source code"))}</span></a>` : ""}
+</div>
+</div>
+</div>`;
+}
+
+function hero(ctx: RenderContext): string {
+  const { data, lang, t } = ctx;
+  const developer = data.app.developer.name;
+  return `<header class="hero">
+<div class="hero-inner">
+${ctx.iconUrl ? `<div class="hero-icon" style="--icon-url:url(${esc(ctx.iconUrl)})"><img src="${esc(ctx.iconUrl)}" alt="" width="128" height="128"></div>` : ""}
+<div class="hero-text">
+<h1>${esc(localized(data.app.name, lang))}</h1>
+${developer ? `<p class="hero-by">${fmt(t("by {developer}"), { developer })}</p>` : ""}
+</div>
+${downloadWidget(ctx)}
+</div>
+${badges(ctx)}
+</header>`;
+}
+
+function footer(ctx: RenderContext): string {
+  const { data, lang, t } = ctx;
+  const name = localized(data.app.name, lang);
+  const repo = repositoryUrl(data);
+  const legal = data.config.legal.map((link) => `<li><a href="${esc(link.url)}">${esc(link.label)}</a></li>`).join("");
+  const licenses = [
+    data.app.license ? fmt(t("{app} is licensed under {license}."), { app: name, license: data.app.license }) : "",
+    data.app.contentLicense ? fmt(t("This page reproduces text licensed under {license}."), { license: data.app.contentLicense }) : "",
+  ].filter(Boolean);
+  return `<footer class="footer">
+<div class="footer-inner">
+${languageSwitch(ctx, "footer-languages", "name")}
+${repo ? `<p class="footer-source"><a href="${esc(repo)}">${icon("code")}<span>${esc(t("Source code"))}</span></a></p>` : ""}
+${licenses.length > 0 ? `<p class="footer-license">${licenses.join(" ")}</p>` : ""}
+<p class="footer-made"><a href="https://github.com/gjsify/gjsify">${esc(plain(t("Made with {project}"), { project: "gjsify" }))}</a></p>
+${legal ? `<ul class="footer-legal">${legal}</ul>` : ""}
+</div>
+</footer>`;
 }
 
 function head(ctx: RenderContext): string {
-  const { data, lang, t } = ctx;
+  const { data, lang } = ctx;
   const name = localized(data.app.name, lang);
   const summary = localized(data.app.summary, lang);
   const title = `${name} – ${summary}`;
@@ -250,47 +522,29 @@ ${ctx.assets.css.map((href) => `<link rel="stylesheet" href="${esc(href)}">`).jo
 }
 
 export function renderPage(ctx: RenderContext): string {
-  const { data, lang, t } = ctx;
-  const name = localized(data.app.name, lang);
-  const developer = data.app.developer.name;
-  const switcher = data.config.languages
-    .map((code) => (code === lang ? `<li><span aria-current="true">${esc(languageName(code))}</span></li>` : `<li><a href="${esc(pageUrl(data, code))}" hreflang="${esc(code)}" lang="${esc(code)}">${esc(languageName(code))}</a></li>`))
-    .join("");
-  const legal = data.config.legal.map((link) => `<li><a href="${esc(link.url)}">${esc(link.label)}</a></li>`).join("");
-
+  const { data, lang } = ctx;
   return `<!doctype html>
 <html lang="${esc(lang)}">
 <head>
 ${head(ctx)}
 </head>
 <body>
-<header class="hero">
-<nav class="languages" aria-label="${esc(t("Language"))}"><ul>${switcher}</ul></nav>
-<div class="hero-inner">
-${ctx.iconUrl ? `<img class="icon" src="${esc(ctx.iconUrl)}" alt="" width="128" height="128">` : ""}
-<div>
-<h1>${esc(name)}</h1>
-${developer ? `<p class="by">${fmt(t("by {developer}"), { developer })}</p>` : ""}
-</div>
-${downloadButton(ctx)}
-</div>
-${badges(ctx)}
-</header>
+${topBar(ctx)}
+${hero(ctx)}
 <main>
 ${screenshotBand(ctx)}
+<div class="column">
 <section class="about">
 <h2>${esc(localized(data.app.summary, lang))}</h2>
 ${blocks(data.app.description, lang)}
 </section>
 ${releases(ctx)}
-${downloadList(ctx)}
+${support(ctx)}
 ${links(ctx)}
 ${tags(ctx)}
+</div>
 </main>
-<footer>
-<p>${esc(name)}${developer ? ` · ${esc(developer)}` : ""}${data.app.license ? ` · ${esc(data.app.license)}` : ""}</p>
-${legal ? `<ul class="legal">${legal}</ul>` : ""}
-</footer>
+${footer(ctx)}
 </body>
 </html>
 `;
