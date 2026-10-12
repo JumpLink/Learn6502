@@ -90,6 +90,16 @@ test("the real metainfo parses with its German strings and a 3+ age rating", () 
   assert.equal(minimumAge(metainfo.contentRating!.type, metainfo.contentRating!.attributes), 3);
 });
 
+test("metainfo links and brand colours that could break out of their context are dropped", () => {
+  const xml = `<component><id>a.b.C</id><name>C</name>
+<url type="homepage">javascript:alert(1)</url><url type="faq">https://example.org/faq</url>
+<branding><color type="primary" scheme_preference="light">red;}</style><script></color>
+<color type="primary" scheme_preference="dark">#1e1e1e</color></branding></component>`;
+  const metainfo = parseMetainfo(xml);
+  assert.deepEqual(metainfo.urls, { faq: "https://example.org/faq" });
+  assert.deepEqual(metainfo.branding, { dark: "#1e1e1e" });
+});
+
 test("OARS: unknown content rating kinds yield no age", () => {
   assert.equal(minimumAge("oars-2.0", {}), undefined);
   assert.equal(minimumAge("oars-1.1", {}), 0);

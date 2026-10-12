@@ -63,11 +63,14 @@ function parseReleases(releases: XmlElement | undefined): Release[] {
   });
 }
 
+/** The colours land in an inline `<style>`, so only plain hex values pass. */
+const HEX_COLOR = /^#[0-9a-f]{3,8}$/i;
+
 function parseBranding(branding: XmlElement | undefined): Branding {
   const result: Branding = {};
   if (!branding) return result;
   for (const color of childrenNamed(branding, "color")) {
-    if (color.attrs.type !== "primary") continue;
+    if (color.attrs.type !== "primary" || !HEX_COLOR.test(color.text)) continue;
     if (color.attrs.scheme_preference === "light") result.light = color.text;
     else if (color.attrs.scheme_preference === "dark") result.dark = color.text;
   }
@@ -86,11 +89,14 @@ const URL_KEYS: Record<string, keyof AppUrls> = {
   contribute: "contribute",
 };
 
+/** Links are rendered as `href`, so `javascript:` and friends are dropped. */
+const SAFE_URL = /^(https?:|mailto:)/i;
+
 function parseUrls(component: XmlElement): AppUrls {
   const urls: AppUrls = {};
   for (const url of childrenNamed(component, "url")) {
     const key = URL_KEYS[url.attrs.type ?? ""];
-    if (key) urls[key] = url.text;
+    if (key && SAFE_URL.test(url.text)) urls[key] = url.text;
   }
   return urls;
 }
