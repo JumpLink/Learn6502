@@ -6,4 +6,4 @@ declare const xml: string;
 export default xml;
 
 /** The class `template $ExamplesList` defines. */
-export declare const GTypeName: 'ExamplesList';
+export declare const GTypeName: "ExamplesList";

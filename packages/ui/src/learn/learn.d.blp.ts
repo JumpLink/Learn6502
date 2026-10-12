@@ -1,16 +1,16 @@
 // GENERATED from learn.blp — do not edit. ADR 0088 says what these exports mean.
 // Regenerate with `gjsify blueprint types`; `scripts/check-blueprint-sidecars.mjs` holds it.
 
-import type Adw from 'gi://Adw?version=1';
-import type GObject from 'gi://GObject?version=2.0';
-import type Gtk from 'gi://Gtk?version=4.0';
+import type Adw from "gi://Adw?version=1";
+import type GObject from "gi://GObject?version=2.0";
+import type Gtk from "gi://Gtk?version=4.0";
 
 /** The GtkBuilder XML this `.blp` compiles to. */
 declare const xml: string;
 export default xml;
 
 /** The class `template $Learn` defines. */
-export declare const GTypeName: 'Learn';
+export declare const GTypeName: "Learn";
 
 /**
  * Every id inside the template, in source order — what `registerClass` is given.
@@ -23,24 +23,26 @@ export declare const GTypeName: 'Learn';
  * upstream half.
  */
 export declare const InternalChildren: [
-    'navigationView',
-    'navigationList',
-    'tutorialRow',
-    'examplesRow',
-    'statusPage',
-    'tutorialView',
-    'examplesStatusPage',
-    'examplesList',
+  "navigationView",
+  "navigationList",
+  "tutorialRow",
+  "examplesRow",
+  "tutorialScroll",
+  "tutorialView",
+  "examplesScroll",
+  "examplesList",
+  "shareButton",
 ];
 
 /** The `_`-prefixed members GJS installs for them. Merge it into the class interface. */
 export interface Children {
-    _navigationView: Adw.NavigationView;
-    _navigationList: Gtk.ListBox;
-    _tutorialRow: Adw.ActionRow;
-    _examplesRow: Adw.ActionRow;
-    _statusPage: Adw.StatusPage;
-    _tutorialView: GObject.Object;
-    _examplesStatusPage: Adw.StatusPage;
-    _examplesList: GObject.Object;
+  _navigationView: Adw.NavigationView;
+  _navigationList: Gtk.ListBox;
+  _tutorialRow: Adw.ActionRow;
+  _examplesRow: Adw.ActionRow;
+  _tutorialScroll: Gtk.ScrolledWindow;
+  _tutorialView: GObject.Object;
+  _examplesScroll: Gtk.ScrolledWindow;
+  _examplesList: GObject.Object;
+  _shareButton: Gtk.Button;
 }

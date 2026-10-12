@@ -7,9 +7,9 @@
 
 import learnCss from "./styles.css";
 
-if (typeof document !== "undefined" && !document.getElementById("learn-view-style")) {
+if (typeof document !== "undefined" && !document.getElementById("learn-tutorial-style")) {
   const style = document.createElement("style");
-  style.id = "learn-view-style";
+  style.id = "learn-tutorial-style";
   style.textContent = learnCss;
   document.head.appendChild(style);
 }
