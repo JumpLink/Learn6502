@@ -67,6 +67,28 @@ export const DOWNLOAD_LABELS: Record<string, string> = {
   "chromium:source": "Build from source",
 };
 
+/** Fallback for a platform and format pair `DOWNLOAD_LABELS` does not name, e.g. `linux:source`. */
+export const FORMAT_LABELS: Record<TargetFormat, string> = {
+  flathub: "Flathub",
+  flatpak: "Flatpak bundle",
+  appimage: "AppImage",
+  deb: "Debian package",
+  rpm: "RPM package",
+  msi: "Windows installer",
+  zip: "ZIP archive",
+  dmg: "macOS disk image",
+  apk: "Android package",
+  web: "Try in browser",
+  store: "Store",
+  xpi: "Firefox add-on",
+  source: "Source code",
+};
+
+/** English label of a download target: the platform's own wording, else the format's, never the raw id. */
+export function defaultLabel(os: TargetPlatform, format: TargetFormat): string {
+  return DOWNLOAD_LABELS[`${os}:${format}`] ?? FORMAT_LABELS[format];
+}
+
 function detectArch(name: string): TargetArch {
   if (/arm64|aarch64/i.test(name)) return "arm64";
   if (/x86_64|x64|amd64/i.test(name)) return "x86_64";
@@ -95,10 +117,6 @@ export function classifyAsset(
     if (/chrome|chromium|edge/.test(name)) return { os: "chromium", format: "zip", arch: "noarch" };
   }
   return null;
-}
-
-function label(os: TargetPlatform, format: TargetFormat): string {
-  return DOWNLOAD_LABELS[`${os}:${format}`] ?? format;
 }
 
 function rank<T>(order: readonly T[], value: T): number {
@@ -137,7 +155,7 @@ export function buildDownloadTargets(sources: DownloadSources): DownloadTarget[]
       os: "linux",
       arch: "noarch",
       format: "flathub",
-      label: label("linux", "flathub"),
+      label: defaultLabel("linux", "flathub"),
       url: `https://flathub.org/apps/${sources.flathub}`,
       available: true,
       size: storeSize(sources),
@@ -150,7 +168,7 @@ export function buildDownloadTargets(sources: DownloadSources): DownloadTarget[]
     if (!kind) continue;
     targets.push({
       ...kind,
-      label: label(kind.os, kind.format),
+      label: defaultLabel(kind.os, kind.format),
       url: asset.downloadUrl,
       available: true,
       size: asset.size,
@@ -164,7 +182,7 @@ export function buildDownloadTargets(sources: DownloadSources): DownloadTarget[]
       os: "web",
       arch: "noarch",
       format: "web",
-      label: label("web", "web"),
+      label: defaultLabel("web", "web"),
       url: sources.webAppUrl,
       available: true,
       recommended: false,
@@ -176,7 +194,7 @@ export function buildDownloadTargets(sources: DownloadSources): DownloadTarget[]
       os: entry.platform,
       arch: "noarch",
       format: entry.format,
-      label: entry.label ?? label(entry.platform, entry.format),
+      label: entry.label ?? defaultLabel(entry.platform, entry.format),
       url: entry.available ? (entry.url ?? "") : "",
       available: entry.available,
       recommended: false,

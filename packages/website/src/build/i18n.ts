@@ -1,7 +1,7 @@
 import { existsSync } from "node:fs";
 import { readFile, readdir, writeFile } from "node:fs/promises";
 import { join } from "node:path";
-import { DOWNLOAD_LABELS, UI_SOURCE_LANGUAGE, languageCandidates, parseCatalog, quotePo, type Catalog, type SiteConfig } from "../site-data/index.ts";
+import { DOWNLOAD_LABELS, FORMAT_LABELS, UI_SOURCE_LANGUAGE, languageCandidates, parseCatalog, quotePo, type Catalog, type SiteConfig } from "../site-data/index.ts";
 
 const T_CALL = /\bt\(\s*"((?:[^"\\]|\\.)*)"\s*\)/g;
 
@@ -13,7 +13,7 @@ export async function collectMsgids(buildDir: string, config: SiteConfig): Promi
     const source = await readFile(join(buildDir, file), "utf8");
     for (const match of source.matchAll(T_CALL)) msgids.add(JSON.parse(`"${match[1]}"`) as string);
   }
-  for (const label of Object.values(DOWNLOAD_LABELS)) msgids.add(label);
+  for (const label of [...Object.values(DOWNLOAD_LABELS), ...Object.values(FORMAT_LABELS)]) msgids.add(label);
   for (const item of config.screenshots.items) if (item.caption) msgids.add(item.caption);
   for (const download of config.downloads) if (download.label) msgids.add(download.label);
   return [...msgids];

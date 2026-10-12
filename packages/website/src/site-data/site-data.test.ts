@@ -4,7 +4,7 @@ import { join, resolve } from "node:path";
 import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { parseSiteConfig } from "./config.ts";
-import { buildDownloadTargets, classifyAsset } from "./downloads.ts";
+import { DOWNLOAD_LABELS, FORMAT_LABELS, buildDownloadTargets, classifyAsset, defaultLabel } from "./downloads.ts";
 import { parseFlathubStats, parseFlathubSummary } from "./flathub.ts";
 import { fetchLatestRelease, parseLatestRelease } from "./github.ts";
 import { loadSiteData } from "./load.ts";
@@ -276,4 +276,14 @@ test("a repository without a release is a state, not an error", async () => {
   assert.equal(await fetchLatestRelease("a/b", undefined, { fetch: notFound }), null);
   const unavailable = async () => ({ ok: false, status: 503, json: async () => ({}) });
   await assert.rejects(fetchLatestRelease("a/b", undefined, { fetch: unavailable }));
+});
+
+test("defaultLabel: platform wording wins, every other format gets its own label, never the raw id", () => {
+  assert.equal(defaultLabel("firefox", "store"), "Firefox Add-ons");
+  assert.equal(defaultLabel("firefox", "source"), "Build from source");
+  assert.equal(defaultLabel("linux", "source"), "Source code");
+  assert.equal(defaultLabel("android", "store"), "Store");
+  assert.equal(defaultLabel("chromium", "xpi"), "Firefox add-on");
+  for (const [format, text] of Object.entries(FORMAT_LABELS)) assert.notEqual(text, format);
+  for (const key of Object.keys(DOWNLOAD_LABELS)) assert.ok(DOWNLOAD_LABELS[key]);
 });
