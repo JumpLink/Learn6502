@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
 import type GtkSource from "@girs/gtksource-5";
-import type { SourceView } from "../../widgets/source-view.ts";
+import type { SourceView } from "@learn6502/ui";
 import type { QuickHelpView } from "../../mdx/quick-help-view.ts";
 import { EventDispatcher } from "@learn6502/core";
 import type { EditorView, EditorEventMap } from "@learn6502/common-ui";

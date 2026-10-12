@@ -24,9 +24,9 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/school-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/share-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/step-over-symbolic.svg</file>
-    <file preprocess="xml-stripblanks">lang-specs/6502-assembler.lang</file>
-    <file preprocess="xml-stripblanks">lang-specs/hex.lang</file>
-    <file preprocess="xml-stripblanks">schemas/learn6502-style.xml</file>
-    <file preprocess="xml-stripblanks">schemas/learn6502-style-dark.xml</file>
+    <file alias="lang-specs/6502-assembler.lang" preprocess="xml-stripblanks">../../ui/data/lang-specs/6502-assembler.lang</file>
+    <file alias="lang-specs/hex.lang" preprocess="xml-stripblanks">../../ui/data/lang-specs/hex.lang</file>
+    <file alias="schemas/learn6502-style.xml" preprocess="xml-stripblanks">../../ui/data/styles/learn6502-style.xml</file>
+    <file alias="schemas/learn6502-style-dark.xml" preprocess="xml-stripblanks">../../ui/data/styles/learn6502-style-dark.xml</file>
   </gresource>
 </gresources>

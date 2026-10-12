@@ -6,14 +6,16 @@ import Gdk from "@girs/gdk-4.0";
 import GLib from "@girs/glib-2.0";
 import Gio from "@girs/gio-2.0";
 
-import Template from "./source-view.blp";
+import Template from "./source-view.blp?template";
 
-import { GutterRendererLineNumbers } from "../gutter-renderer-line-numbers.ts";
-import { GutterRendererMode } from "../types/index.ts";
+import { GutterRendererLineNumbers } from "./gutter-renderer-line-numbers.ts";
+import { GutterRendererMode } from "./gutter-renderer-mode.ts";
+import { registerSourceViewData } from "./register-source-data.ts";
 import type { SourceViewWidget, SourceViewEventMap } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
 
 GtkSource.init();
+registerSourceViewData();
 
 export namespace SourceView {
   export interface ConstructorProps extends Partial<Adw.Bin.ConstructorProps> {
@@ -553,6 +555,15 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
     this.insert_action_group("source-view", this._actionGroup);
     this._setupActions();
 
+    // The defaults come first: where the template's properties arrive as constructor params (web,
+    // NativeScript) they must override them, where they are set after the constructor (GTK) they do too.
+    this.leftGutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
+    this.language = "6502-assembler";
+    this.setupSignalListeners();
+    this.ensureStyleSearchPaths();
+    this.updateStyle();
+    this.code = "";
+
     if (lineNumberStart !== undefined) {
       this.lineNumberStart = lineNumberStart;
     }
@@ -607,21 +618,6 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
     if (code !== undefined) {
       this.code = code;
     }
-
-    // Get the existing gutter for the left side
-    this.leftGutter = this._sourceView.get_gutter(Gtk.TextWindowType.LEFT);
-
-    // Setup line numbers if enabled
-    if (this.lineNumbers) {
-      this.setupLineNumbers(GutterRendererMode.NORMAL);
-    }
-
-    this.language = "6502-assembler";
-    this.setupSignalListeners();
-    this.ensureStyleSearchPaths();
-    this.updateStyle();
-
-    this.code = "";
   }
 
   private setupScrolledWindow() {

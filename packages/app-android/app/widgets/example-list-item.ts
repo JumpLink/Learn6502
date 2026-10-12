@@ -22,7 +22,8 @@ export class ExampleListItem extends Gtk.Box {
     this.getViewById<Gtk.Label>("authorLabel").label = _("by %s", example.author);
     this.getViewById<Gtk.Label>("descriptionLabel").label = _(example.description);
 
-    const sourceView = this.getViewById<SourceView>("sourceView");
+    // The shared `@learn6502/ui` class is typed against GJS, not `ViewBase` (see EditorPane).
+    const sourceView = this.getViewById("sourceView") as unknown as SourceView;
     sourceView.code = example.code;
     sourceView.events.on("copy", (event) => this.onCopy?.(event.code));
 

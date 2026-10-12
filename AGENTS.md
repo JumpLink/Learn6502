@@ -21,6 +21,7 @@ Flatpak build — **aborts by design**; run `gjsify unlink` first. How-to in
 | --------------------- | --------------------------------- | --------------------------------------------------------------- | --------------------------------------------------- |
 | 6502 (core)           | `packages/core/`                  | Platform-independent assembler, simulator, disassembler         | TypeScript, zero deps, no UI                        |
 | common-ui             | `packages/common-ui/`             | Shared UI logic, controllers, interfaces — 4-layer architecture | TypeScript, no platform deps                        |
+| ui                    | `packages/ui/`                    | Widgets written once as GNOME components (`.blp` + `.ts`), run on GNOME, web and Android | TypeScript, Blueprint, `@gjsify/adwaita-*` (`--gi-renderer`) |
 | app-gnome             | `packages/app-gnome/`             | GNOME desktop app                                               | TypeScript, GJS, GTK 4, Adwaita, Vite, Meson        |
 | app-web               | `packages/app-web/`               | Web app                                                         | TypeScript, HTML, CSS, Vite, `@gjsify/adwaita-web`  |
 | app-android           | `packages/app-android/`           | Android app                                                     | TypeScript, NativeScript, Gradle, `@gjsify/adwaita-nativescript` |
@@ -134,6 +135,13 @@ Applies to all `.ts`/`.tsx` files.
 - Format: `<type>[scope]: <description>` — imperative mood, ≤50 char subject
 - Platform prefixes: `Android:` | `Web:` | `Gnome:` | `Common:` | `Core:` | `Learn:` | `Translations:`
 - Check `git log --oneline -10` to match existing patterns before committing
+
+## ui — one component, three platforms
+
+`packages/ui` holds widgets as GNOME components: a `.blp` template, `GObject.registerClass`, `GObject.type_ensure`. The same file runs on GJS, in the browser and on NativeScript (build with `--gi-renderer`; Android sets `giRenderer: true`). Migrate a widget by moving it from `app-gnome` into `ui`, not by writing a per-platform copy.
+
+When a platform lacks something the component needs (a `Gtk.Widget` member, a `Gio` class), build it into gjsify core with a test, developed against a linked gjsify worktree (`gjsify link`). Never shim it in the component. A per-platform override stays possible: a `.web.ts` sibling or an own driver.
+
 
 ## common-ui — Four-Layer Component Architecture
 

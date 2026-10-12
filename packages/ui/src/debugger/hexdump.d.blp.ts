@@ -1,14 +1,14 @@
 // GENERATED from hexdump.blp — do not edit. ADR 0088 says what these exports mean.
 // Regenerate with `gjsify blueprint types`; `scripts/check-blueprint-sidecars.mjs` holds it.
 
-import type GObject from 'gi://GObject?version=2.0';
+import type GObject from "gi://GObject?version=2.0";
 
 /** The GtkBuilder XML this `.blp` compiles to. */
 declare const xml: string;
 export default xml;
 
 /** The class `template $Hexdump` defines. */
-export declare const GTypeName: 'Hexdump';
+export declare const GTypeName: "Hexdump";
 
 /**
  * Every id inside the template, in source order — what `registerClass` is given.
@@ -20,9 +20,9 @@ export declare const GTypeName: 'Hexdump';
  * which is the property that matters. `status/open-todos/blueprint.md` carries the
  * upstream half.
  */
-export declare const InternalChildren: ['sourceView'];
+export declare const InternalChildren: ["sourceView"];
 
 /** The `_`-prefixed members GJS installs for them. Merge it into the class interface. */
 export interface Children {
-    _sourceView: GObject.Object;
+  _sourceView: GObject.Object;
 }

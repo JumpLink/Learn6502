@@ -3,7 +3,7 @@ import Gtk from "@girs/gtk-4.0";
 
 import type { ExampleMeta } from "@learn6502/examples";
 import { Memory, DisplayAddressRange } from "@learn6502/core";
-import type { SourceView } from "./source-view.ts";
+import type { SourceView } from "@learn6502/ui";
 import type { Display } from "./game-console/display.ts";
 
 import Template from "./example-list-item.blp";

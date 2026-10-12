@@ -1,7 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
-import type { SourceView } from "../source-view.ts";
+import type { SourceView } from "@learn6502/ui";
 
 import { EventDispatcher, type Memory } from "@learn6502/core";
 import {
