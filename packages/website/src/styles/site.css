@@ -331,6 +331,7 @@ h1 {
 
 /* Kept in the flow even when a badge has no value, so every label sits on the same line. */
 .badge-value {
+  line-height: 1.5;
   min-height: 1.5em;
   font-weight: 700;
   font-size: 0.95rem;
@@ -388,7 +389,8 @@ h1 {
 
 /* A fixed track height keeps mixed aspect ratios from resizing the band slide by slide. */
 .slide picture {
-  display: block;
+  display: flex;
+  justify-content: center;
   height: var(--shot-h);
 }
 
