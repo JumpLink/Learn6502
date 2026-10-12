@@ -15,6 +15,8 @@ export interface ProcessedImage {
   width: number;
   height: number;
   formats: Record<ImageFormat, ImageFile[]>;
+  /** The artwork already carries its own transparent margin and shadow (a window shot), so the page adds no frame. */
+  frameless: boolean;
 }
 
 export interface ImageOptions {
@@ -41,6 +43,22 @@ export function renditionWidths(natural: number): number[] {
   const widths = new Set(TARGET_WIDTHS.filter((width) => width < natural));
   widths.add(Math.min(natural, TARGET_WIDTHS[TARGET_WIDTHS.length - 1] as number));
   return [...widths].sort((a, b) => a - b);
+}
+
+const CORNER_ALPHA_MAX = 16;
+
+/**
+ * A window shot cut out of a desktop (GNOME's screenshot tool) keeps a transparent margin with the
+ * window's own shadow, so all four corner pixels are see-through. Opaque screenshots have none.
+ */
+export async function hasTransparentBorder(input: string | Buffer): Promise<boolean> {
+  const { data, info } = await sharp(input).ensureAlpha().raw().toBuffer({ resolveWithObject: true });
+  const alphaAt = (x: number, y: number) => data[(y * info.width + x) * 4 + 3] as number;
+  const right = info.width - 1;
+  const bottom = info.height - 1;
+  return [alphaAt(0, 0), alphaAt(right, 0), alphaAt(0, bottom), alphaAt(right, bottom)].every(
+    (alpha) => alpha < CORNER_ALPHA_MAX
+  );
 }
 
 async function encode(source: string, width: number, format: ImageFormat): Promise<Buffer> {
@@ -79,5 +97,10 @@ export async function processImage(source: string, repoPath: string, options: Im
   for (const format of FORMATS) formats[format].sort((a, b) => a.width - b.width);
 
   const largest = widths[widths.length - 1] as number;
-  return { width: largest, height: Math.round((largest * meta.height) / meta.width), formats };
+  return {
+    width: largest,
+    height: Math.round((largest * meta.height) / meta.width),
+    formats,
+    frameless: await hasTransparentBorder(source),
+  };
 }

@@ -403,6 +403,13 @@ h1 {
   box-shadow: var(--shot-shadow);
 }
 
+/* A window shot carries its own margin and shadow (like on Flathub): show it as it is. */
+.slide picture[data-frame="none"] img,
+.lightbox picture[data-frame="none"] img {
+  border-radius: 0;
+  box-shadow: none;
+}
+
 .slide figcaption {
   margin-top: 0.85rem;
   text-align: center;

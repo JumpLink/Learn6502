@@ -148,7 +148,9 @@ function picture(ctx: RenderContext, screenshot: Screenshot, alt: string, eager:
     loading: eager ? undefined : "lazy",
     decoding: "async",
   })}>`;
-  return `<picture>${[...sources, ...formats, img].join("")}</picture>`;
+  // A window shot brings its own margin and shadow; ours would draw a second frame around it.
+  const frameless = variants.every((variant) => ctx.images.get(variant.path)!.frameless);
+  return `<picture${attrs({ "data-frame": frameless ? "none" : undefined })}>${[...sources, ...formats, img].join("")}</picture>`;
 }
 
 /** The brand-coloured band around the screenshots, the one place the app's own colours take over. */
