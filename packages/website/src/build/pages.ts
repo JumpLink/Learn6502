@@ -328,7 +328,10 @@ function badges(ctx: RenderContext): string {
     const label = oses.every(isBrowserPlatform) ? t("Browsers") : t("Platforms");
     specs.push({ pill: `<span class="badge-platforms">${glyphs}</span>`, value: "", label });
   }
-  if (data.app.ageRating) specs.push({ glyph: "people", value: plain(t("{age}+"), { age: data.app.ageRating.minAge }), label: t("Age rating") });
+  if (data.app.ageRating) {
+    const { minAge } = data.app.ageRating;
+    specs.push({ glyph: "people", value: minAge === 0 ? t("All ages") : plain(t("{age}+"), { age: minAge }), label: t("Age rating") });
+  }
   if (data.stats.flathubInstalls !== undefined) specs.push({ glyph: "package", value: number.format(data.stats.flathubInstalls), label: t("Installs") });
 
   if (specs.length === 0) return "";
