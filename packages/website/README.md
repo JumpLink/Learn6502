@@ -16,7 +16,7 @@ gjsify workspace @learn6502/website check    # typecheck + translation catalogue
 gjsify workspace @learn6502/website test
 ```
 
-`node src/cli.ts build --offline` skips the network, `--no-cache` ignores the response cache in `.cache/http` (one hour; a stale copy also serves when the network is down). `GITHUB_TOKEN` is optional and only raises the API rate limit. When a lookup fails the build warns, links to the releases page and omits the counts.
+`node src/cli.ts build --root <repo> --out <dir>` builds the page of another app: `<repo>` is a checkout whose root `package.json` has `gjsify.site` (default: this repo), `<dir>` the output (default: `dist/`). `i18n` takes `--root` too. `--offline` skips the network, `--no-cache` ignores the response cache in `.cache/http` (one hour; a stale copy also serves when the network is down). `GITHUB_TOKEN` is optional and only raises the API rate limit. When a lookup fails the build warns, links to the releases page and omits the counts.
 
 ## `gjsify.site`
 
@@ -31,6 +31,9 @@ Lives in the root `package.json`, next to `ship` and `flatpak`.
 | `flathub` | Flathub app id: adds the Flathub download and install count. Optional. |
 | `webApp` | Path of the web app below `base`; adds "Try in browser". Optional. |
 | `translations` | Directory of the app's `<lang>.po` catalogues, used when the metainfo lacks a translation. Optional. |
+| `icon` | Icon (SVG or PNG) for the header, hero and favicon; overrides the Flatpak/ship icon. Optional. |
+| `downloads` | `[{platform, format, url?, label?, available?}]`: targets the release assets do not cover, e.g. browser stores or a source install. `platform` is an OS or `firefox` / `chromium`; `format` adds `store`, `xpi`, `source`. `url` is required unless `available` is `false`, which lists the target as "Not yet available" and never recommends it. |
+| `releaseAssets` | `false` ignores the GitHub release assets, so `downloads` is the whole list. Default `true`. |
 | `support`, `legal` | `{kind, url}` and `{label, url}` link lists. Empty by default: nothing is invented. |
 | `screenshots` | `{source, items}`, see below. |
 
