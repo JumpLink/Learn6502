@@ -88,7 +88,7 @@ class Debugger implements DebuggerView {
     //     GNOME's debugInfoBox; the rest get a heading + card frame. ---
     const registersBox = new StackLayout();
     registersBox.className = "mb-16";
-    registersBox.addChild(this.debugInfo);
+    registersBox.addChild(asView(this.debugInfo));
     column.addChild(registersBox);
     column.addChild(this.section(_("Hex Monitor"), asView(this.hexMonitor)));
     column.addChild(this.section(_("Hexdump"), this.scrolled(asView(this.hexdump!), 200)));
