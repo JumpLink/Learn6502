@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 
-import Template from "./toolbar.blp";
+import Template from "./toolbar.blp?template";
 
 export class Toolbar extends Adw.Bin {
   static {

@@ -13,7 +13,8 @@ import {
   buttonStateService,
 } from "@learn6502/common-ui";
 
-import Template from "./main-button.blp";
+import { _ } from "./translate.ts";
+import Template from "./main-button.blp?template";
 
 /**
  * MainButton widget
@@ -175,25 +176,30 @@ export class MainButton extends Adw.Bin implements MainButtonWidget {
     mainStateController.events.on("state-changed", this.onStateChanged);
   }
 
+  /** Stop following the controller, which outlives this widget. Android calls it when the activity is rebuilt. */
+  public unbind(): void {
+    mainStateController.events.off("state-changed", this.onStateChanged);
+  }
+
   protected onStateChanged(state: MainUiState): void {
     console.log("onStateChanged", state);
     if (state.mainButtonState === MainButtonState.HIDDEN) {
       // Hide the button with animation
-      this._revealer.set_reveal_child(false);
+      this._revealer.revealChild = false;
       return;
     }
 
     // Show the button with animation
-    this._revealer.set_reveal_child(true);
+    this._revealer.revealChild = true;
 
     // Update the button icon, tooltip, and action name
     const mode = this.buttonModes[state.mainButtonState];
-    this._button.set_icon_name(mode.iconName);
-    this._button.set_tooltip_text(mode.text);
+    this._button.iconName = mode.iconName;
+    this._button.tooltipText = mode.text;
     // Default Gtk.Button doesn't support labels and icons at the same time,
     // but we could create a box containing both icon and label
     // this._button.set_label(mode.text);
-    this._button.set_action_name(`win.${mode.actionName}`);
+    this._button.actionName = `win.${mode.actionName}`;
   }
 }
 

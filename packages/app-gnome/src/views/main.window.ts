@@ -7,9 +7,8 @@ import GLib from "@girs/glib-2.0";
 
 import { SimulatorState, num2hex, debounce } from "@learn6502/core";
 
-import type { Editor, Learn, GameConsole, Debugger } from "@learn6502/ui";
+import type { Editor, Learn, GameConsole, Debugger, MainButton } from "@learn6502/ui";
 import { HelpWindow } from "./help.window.ts";
-import type { MainButton } from "../widgets";
 import { ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
