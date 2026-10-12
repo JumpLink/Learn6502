@@ -73,8 +73,20 @@ export interface DownloadSources {
   assets: readonly ReleaseAsset[];
   /** Flathub application id, when the app is published there. */
   flathub?: string;
+  /** Bytes the Flathub install transfers, from its summary endpoint. */
+  flathubSize?: number;
   /** Root-relative URL of the live web build. */
   webAppUrl?: string;
+}
+
+/**
+ * What the store install costs to download. Flathub's own number is the honest one; the Flatpak
+ * bundle of the same release is close enough to stand in when the API did not answer.
+ */
+function storeSize(sources: DownloadSources): number | undefined {
+  if (sources.flathubSize !== undefined) return sources.flathubSize;
+  const bundle = sources.assets.find((asset) => classifyAsset(asset)?.format === "flatpak");
+  return bundle?.size;
 }
 
 /** Builds the sorted target list and marks the first target of every OS as recommended. */
@@ -88,6 +100,7 @@ export function buildDownloadTargets(sources: DownloadSources): DownloadTarget[]
       format: "flathub",
       label: label("linux", "flathub"),
       url: `https://flathub.org/apps/${sources.flathub}`,
+      size: storeSize(sources),
       recommended: false,
     });
   }

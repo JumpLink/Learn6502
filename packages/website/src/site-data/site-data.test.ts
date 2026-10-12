@@ -5,7 +5,7 @@ import { test } from "node:test";
 import { fileURLToPath } from "node:url";
 import { parseSiteConfig } from "./config.ts";
 import { buildDownloadTargets, classifyAsset } from "./downloads.ts";
-import { parseFlathubStats } from "./flathub.ts";
+import { parseFlathubStats, parseFlathubSummary } from "./flathub.ts";
 import { parseLatestRelease } from "./github.ts";
 import { loadSiteData } from "./load.ts";
 import { parseMetainfo } from "./metainfo.ts";
@@ -66,6 +66,18 @@ test("download targets: Flathub first on Linux, one recommendation per OS, web l
     targets.filter((target) => target.recommended).map((target) => target.os),
     ["linux", "darwin", "win32", "web"]
   );
+});
+
+test("the store target carries a size: Flathub's own number, else the Flatpak bundle", () => {
+  const bundle = { ...asset("a.flatpak"), size: 400_000 };
+  const fromSummary = buildDownloadTargets({ assets: [bundle], flathub: "eu.example.App", flathubSize: 1_832_624 });
+  assert.equal(fromSummary.find((target) => target.format === "flathub")?.size, 1_832_624);
+  const fromBundle = buildDownloadTargets({ assets: [bundle], flathub: "eu.example.App" });
+  assert.equal(fromBundle.find((target) => target.format === "flathub")?.size, 400_000);
+  const neither = buildDownloadTargets({ assets: [], flathub: "eu.example.App" });
+  assert.equal(neither.find((target) => target.format === "flathub")?.size, undefined);
+  assert.equal(parseFlathubSummary({ download_size: 7, installed_size: 9 }).downloadSize, 7);
+  assert.throws(() => parseFlathubSummary({}), /Unexpected Flathub summary/);
 });
 
 test("the real metainfo parses with its German strings and a 3+ age rating", () => {
@@ -158,7 +170,8 @@ test("loadSiteData degrades to warnings when the network fails", async () => {
   });
   assert.equal(data.latestRelease, null);
   assert.equal(data.stats.githubDownloads, undefined);
-  assert.equal(warnings.length, 2);
+  // One per endpoint: the GitHub release, the Flathub statistics and the Flathub summary.
+  assert.equal(warnings.length, 3);
   assert.ok(data.downloads.targets.some((target) => target.format === "flathub"));
   assert.equal(data.screenshots.length, 6);
   assert.equal(data.screenshots[4]!.caption?.source, "Runs on macOS");

@@ -28,3 +28,33 @@ export async function fetchFlathubStats(appId: string, options: NetworkOptions):
     )
   );
 }
+
+export interface FlathubSummary {
+  /** Bytes the install transfers, which is what a download size means for a store install. */
+  downloadSize: number;
+  installedSize?: number;
+}
+
+/**
+ * Parses `https://flathub.org/api/v2/summary/<appid>`. Verified shape (2026-10): `download_size`,
+ * `installed_size`, `branches`, `arches`, `metadata` and `timestamp`, with the sizes in bytes and
+ * repeated per branch. The top-level pair describes the branch Flathub installs by default.
+ */
+export function parseFlathubSummary(payload: unknown): FlathubSummary {
+  const summary = payload as { download_size?: unknown; installed_size?: unknown };
+  if (typeof summary?.download_size !== "number") throw new Error("Unexpected Flathub summary payload");
+  return {
+    downloadSize: summary.download_size,
+    installedSize: typeof summary.installed_size === "number" ? summary.installed_size : undefined,
+  };
+}
+
+export async function fetchFlathubSummary(appId: string, options: NetworkOptions): Promise<FlathubSummary> {
+  return parseFlathubSummary(
+    await fetchJson(
+      `https://flathub.org/api/v2/summary/${encodeURIComponent(appId)}`,
+      { Accept: "application/json" },
+      options
+    )
+  );
+}

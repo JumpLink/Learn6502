@@ -3,7 +3,7 @@ import { readFile } from "node:fs/promises";
 import { join, resolve } from "node:path";
 import { parseSiteConfig, type RootManifest } from "./config.ts";
 import { buildDownloadTargets } from "./downloads.ts";
-import { fetchFlathubStats } from "./flathub.ts";
+import { fetchFlathubStats, fetchFlathubSummary } from "./flathub.ts";
 import { fetchLatestRelease } from "./github.ts";
 import { parseMetainfo } from "./metainfo.ts";
 import type { NetworkOptions } from "./network.ts";
@@ -85,12 +85,14 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
   if (icon && !existsSync(resolve(options.root, icon))) throw new Error(`The app icon "${icon}" does not exist`);
 
   let latestRelease: LatestRelease | null = null;
+  let flathubSize: number | undefined;
   const stats: Stats = {};
   if (!options.offline) {
     const network = options.network ?? {};
-    const [release, flathub] = await Promise.allSettled([
+    const [release, flathub, summary] = await Promise.allSettled([
       fetchLatestRelease(config.repository, options.githubToken, network),
       config.flathub ? fetchFlathubStats(config.flathub, network) : Promise.resolve(undefined),
+      config.flathub ? fetchFlathubSummary(config.flathub, network) : Promise.resolve(undefined),
     ]);
     if (release.status === "fulfilled") {
       latestRelease = release.value;
@@ -105,6 +107,11 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
       stats.flathubInstallsLastMonth = flathub.value.installsLastMonth;
     } else if (flathub.status === "rejected") {
       warn(`Could not fetch Flathub statistics (${String(flathub.reason)}); omitting install counts`);
+    }
+    if (summary.status === "fulfilled") {
+      flathubSize = summary.value?.downloadSize;
+    } else {
+      warn(`Could not fetch the Flathub summary (${String(summary.reason)}); falling back to the bundle size`);
     }
   }
 
@@ -145,6 +152,7 @@ export async function loadSiteData(options: LoadOptions): Promise<SiteData> {
       targets: buildDownloadTargets({
         assets: latestRelease?.assets ?? [],
         flathub: config.flathub,
+        flathubSize,
         webAppUrl: config.webApp ? `${config.base}${config.webApp.replace(/^\//, "")}` : undefined,
       }),
       releasesUrl: `https://github.com/${config.repository}/releases`,
