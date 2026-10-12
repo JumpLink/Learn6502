@@ -4,9 +4,9 @@
 // but we need the console types.
 
 // Console types
-type ConsoleLog = (message: string) => void;
-type ConsoleWarn = (message: string) => void;
-type ConsoleError = (message: string) => void;
+type ConsoleLog = (...data: unknown[]) => void;
+type ConsoleWarn = (...data: unknown[]) => void;
+type ConsoleError = (...data: unknown[]) => void;
 type ConsoleClear = () => void;
 type ConsolePrompt = (message: string, defaultValue?: string) => string | null;
 
