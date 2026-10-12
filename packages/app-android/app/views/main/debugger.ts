@@ -1,8 +1,4 @@
-import type { View } from "@nativescript/core";
-import { asView } from "~/utils/as-view";
-import { Application, Label, ScrollView, StackLayout } from "@nativescript/core";
-import { localize as _ } from "@nativescript/localize";
-import type { DebuggerView, DisassembledCopyEvent, HexdumpCopyEvent, HexMonitorCopyEvent } from "@learn6502/common-ui";
+import { Application } from "@nativescript/core";
 import {
   debuggerController,
   DebuggerState,
@@ -11,192 +7,49 @@ import {
   ViewType,
 } from "@learn6502/common-ui";
 import type { Memory, Simulator, Assembler } from "@learn6502/core";
-import { Adw, NOTIFY_ACTIVE } from "@gjsify/adwaita-nativescript";
-
-// The same component GNOME and the web run: one .blp + one class, built by --gi-renderer.
-import { Hexdump, Disassembled, HexMonitor, DebugInfo, MessageConsole } from "@learn6502/ui";
+import { Debugger as DebuggerWidget } from "@learn6502/ui";
 
 import { notificationService } from "~/services";
+import { asView } from "~/utils/as-view";
 import { gameConsoleView } from "./game-console";
-import { logger } from "~/utils";
 import type { ScreenModule } from "./editor";
 
 /**
- * Debugger view — implements DebuggerView. Now a scrollable Adwaita content view
- * (a boxed-list settings group + framed sections for the register/monitor/dump
- * widgets) added to the shell's Adw.ViewStack. All logic stays in debuggerController.
+ * Thin Android glue around the shared `@learn6502/ui` Debugger: the clipboard and the hop to the
+ * editor are Android's own; everything else goes through the shared controller.
  */
-class Debugger implements DebuggerView {
-  private messageConsole: MessageConsole | null = null;
-  private debugInfo: DebugInfo | null = null;
-  private hexMonitor: HexMonitor | null = null;
-  private hexdump: Hexdump | null = null;
-  private disassembled: Disassembled | null = null;
+class DebuggerGlue {
+  private widget: DebuggerWidget | null = null;
 
-  private _initialized = false;
-  private log = logger.scoped("Debugger");
-
-  private onCopyToClipboard = (content: string): void => this.handleCopyToClipboard(content);
-  private onCopyToEditor = (code: string): void => this.handleCopyToEditor(code);
+  constructor() {
+    debuggerController.on("copyToClipboard", (content: string) => this.copyToClipboard(content));
+    debuggerController.on("copyToEditor", (code: string) => this.copyToEditor(code));
+  }
 
   get state(): DebuggerState {
     return debuggerController.state;
   }
-
   set state(value: DebuggerState) {
     debuggerController.state = value;
   }
 
-  /** Build the debugger content and wire the controller + widget events (once). */
-  build(): View {
-    this.messageConsole = new MessageConsole();
-    this.debugInfo = new DebugInfo();
-    this.hexMonitor = new HexMonitor();
-    this.hexdump = new Hexdump();
-    this.disassembled = new Disassembled();
-
-    const column = new StackLayout();
-    column.className = "p-4";
-
-    // --- Debug Settings (Adwaita boxed list) ---
-    const settings = new Adw.PreferencesGroup();
-    settings.title = _("Debug Settings");
-
-    const enabledRow = new Adw.SwitchRow();
-    enabledRow.title = _("Enable Debugger");
-    enabledRow.subtitle = _("Disable to improve performance");
-    enabledRow.active = debuggerController.state !== DebuggerState.DISABLED;
-    enabledRow.addEventListener(NOTIFY_ACTIVE, () => {
-      debuggerController.state = enabledRow.active ? DebuggerState.ACTIVE : DebuggerState.DISABLED;
-    });
-    settings.add(enabledRow);
-
-    const stepperRow = new Adw.SwitchRow();
-    stepperRow.title = _("Enable Stepper Mode");
-    stepperRow.subtitle = _("Execute instructions one by one instead of continuously");
-    stepperRow.active = debuggerController.stepperEnabled;
-    stepperRow.addEventListener(NOTIFY_ACTIVE, () => {
-      debuggerController.stepperEnabled = stepperRow.active;
-    });
-    settings.add(stepperRow);
-
-    column.addChild(settings);
-
-    // --- Widget sections, in the GNOME debugger order: registers, hex monitor,
-    //     hexdump, disassembled, then messages. The register/flags display is an
-    //     Adwaita boxed list (its own groups), so it goes in unframed — matching
-    //     GNOME's debugInfoBox; the rest get a heading + card frame. ---
-    const registersBox = new StackLayout();
-    registersBox.className = "mb-16";
-    registersBox.addChild(asView(this.debugInfo));
-    column.addChild(registersBox);
-    column.addChild(this.section(_("Hex Monitor"), asView(this.hexMonitor)));
-    column.addChild(this.section(_("Hexdump"), this.scrolled(asView(this.hexdump!), 200)));
-    column.addChild(this.section(_("Disassembled"), this.scrolled(asView(this.disassembled!), 200)));
-    column.addChild(this.section(_("Messages"), this.scrolled(asView(this.messageConsole), 200)));
-
-    // Wire widget + controller events (the copy/changed plumbing from the old Page).
-    this.setupWidgetEventListeners();
-    if (!this._initialized) {
-      this._initialized = true;
-      debuggerController.on("copyToClipboard", this.onCopyToClipboard);
-      debuggerController.on("copyToEditor", this.onCopyToEditor);
-    }
-
-    debuggerController.init(
-      this.messageConsole,
-      this.debugInfo,
-      gameConsoleView.assembler,
-      gameConsoleView.simulator,
-      this.hexMonitor,
-      this.disassembled,
-      this.hexdump
-    );
-
-    const clamp = new Adw.Clamp();
-    clamp.maximumSize = 700;
-    clamp.set_child(column);
-
-    const scroll = new ScrollView();
-    scroll.content = asView(clamp);
-    return scroll;
+  build(): ScreenModule {
+    // The previous debugger, if the activity was recreated, stops listening to the controller first.
+    this.widget?.unbind();
+    const widget = new DebuggerWidget();
+    widget.setSimulatorStack(gameConsoleView);
+    this.widget = widget;
+    return {
+      // The shared widget is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+      view: asView(widget),
+      onShow: () => {
+        this.state = DebuggerState.ACTIVE;
+      },
+    };
   }
 
-  /** A heading + a `.card`-wrapped widget, matching the GNOME Gtk.Frame sections. */
-  private section(title: string, content: View): View {
-    const wrap = new StackLayout();
-    wrap.className = "mb-16";
-
-    const heading = new Label();
-    heading.text = title;
-    heading.className = "heading text-on-surface mb-8";
-    wrap.addChild(heading);
-
-    const card = new StackLayout();
-    card.className = "card p-8";
-    card.addChild(content);
-    wrap.addChild(card);
-
-    return wrap;
-  }
-
-  /** Wrap a TextView-based widget in a fixed-height ScrollView (as the old XML did). */
-  private scrolled(content: View, height: number): View {
-    const scroll = new ScrollView();
-    scroll.height = height;
-    scroll.content = content;
-    return scroll;
-  }
-
-  private setupWidgetEventListeners(): void {
-    if (this.disassembled) {
-      this.disassembled.events.on("copy", (event: DisassembledCopyEvent) => {
-        debuggerController.copyToEditor(event.code);
-      });
-    }
-    if (this.hexdump) {
-      this.hexdump.events.on("copy", (event: HexdumpCopyEvent) => {
-        debuggerController.copyToClipboard(event.content);
-      });
-    }
-    if (this.hexMonitor) {
-      this.hexMonitor.events.on("copy", (event: HexMonitorCopyEvent) => {
-        debuggerController.copyToClipboard(event.content);
-      });
-      this.hexMonitor.events.on("changed", () => {
-        const memory = (debuggerController as unknown as { memory?: Memory }).memory;
-        if (memory) debuggerController.updateMonitor(memory);
-      });
-    }
-  }
-
-  private handleCopyToClipboard(content: string): void {
-    if (Application.android) {
-      const context = Application.android.context;
-      const clipboardManager = context.getSystemService(
-        android.content.Context.CLIPBOARD_SERVICE
-      ) as android.content.ClipboardManager;
-      const clip = android.content.ClipData.newPlainText("6502 Code", content);
-      clipboardManager.setPrimaryClip(clip);
-      notificationService.showNotification({ title: "Copied to clipboard", timeout: 2 });
-    }
-  }
-
-  private handleCopyToEditor(code: string): void {
-    mainStateController.events.dispatch("navigate-to-view", { viewType: ViewType.EDITOR });
-    editorController.setCode(code);
-    notificationService.showNotification({ title: "Code copied to editor", timeout: 2 });
-  }
-
-  // --- DebuggerView interface ---
   update(memory: Memory, simulator: Simulator): void {
     debuggerController.update(memory, simulator);
-  }
-  updateMonitor(memory: Memory): void {
-    debuggerController.updateMonitor(memory);
-  }
-  updateDebugInfo(simulator: Simulator): void {
-    debuggerController.updateDebugInfo(simulator);
   }
   updateHexdump(assembler: Assembler): void {
     debuggerController.updateHexdump(assembler);
@@ -207,24 +60,26 @@ class Debugger implements DebuggerView {
   reset(): void {
     debuggerController.reset();
   }
-  close(): void {
-    debuggerController.off("copyToClipboard", this.onCopyToClipboard);
-    debuggerController.off("copyToEditor", this.onCopyToEditor);
-    debuggerController.close();
+
+  private copyToClipboard(content: string): void {
+    if (!Application.android) return;
+    const clipboardManager = Application.android.context.getSystemService(
+      android.content.Context.CLIPBOARD_SERVICE
+    ) as android.content.ClipboardManager;
+    clipboardManager.setPrimaryClip(android.content.ClipData.newPlainText("6502 Code", content));
+    notificationService.showNotification({ title: "Copied to clipboard", timeout: 2 });
+  }
+
+  private copyToEditor(code: string): void {
+    mainStateController.events.dispatch("navigate-to-view", { viewType: ViewType.EDITOR });
+    editorController.setCode(code);
+    notificationService.showNotification({ title: "Code copied to editor", timeout: 2 });
   }
 }
 
-// Create a singleton instance
-const debuggerView = new Debugger();
+export const debuggerView = new DebuggerGlue();
 
 /** Build the debugger screen for the shell's Adw.ViewStack. */
 export function buildDebuggerScreen(): ScreenModule {
-  return {
-    view: debuggerView.build(),
-    onShow: () => {
-      debuggerView.state = DebuggerState.ACTIVE;
-    },
-  };
+  return debuggerView.build();
 }
-
-export { debuggerView };
