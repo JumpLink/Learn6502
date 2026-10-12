@@ -3,7 +3,7 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import { type GamepadKey, type GamepadWidget, type GamepadEventMap, getGamepadKeyCode } from "@learn6502/common-ui";
 
-import Template from "./gamepad.blp";
+import Template from "./gamepad.blp?template";
 import { EventDispatcher } from "@learn6502/core";
 
 export class Gamepad extends Adw.Bin implements GamepadWidget {

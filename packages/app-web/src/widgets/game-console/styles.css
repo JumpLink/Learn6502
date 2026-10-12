@@ -29,29 +29,3 @@ learn-game-console {
 .game-console-screen:focus-visible {
   box-shadow: 0 0 0 2px var(--accent-bg-color, #3584e4);
 }
-
-/* D-pad cross on the left, A/B on the right (game-console.blp gamepad layout). */
-.game-console-gamepad {
-  display: grid;
-  grid-template-columns: 44px 44px 44px 16px 48px 48px;
-  grid-template-rows: 44px 44px 44px;
-  gap: 6px;
-  align-items: center;
-  justify-items: center;
-  grid-template-areas:
-    ".    up   .     . .  b"
-    "left .    right . a  ."
-    ".    down .     . .  .";
-}
-
-.game-console-gamepad .gamepad-button {
-  min-inline-size: 44px;
-  min-block-size: 44px;
-}
-
-.game-console-gamepad .gamepad-button--a,
-.game-console-gamepad .gamepad-button--b {
-  min-inline-size: 48px;
-  min-block-size: 48px;
-  font-weight: bold;
-}

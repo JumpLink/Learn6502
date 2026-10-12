@@ -3,7 +3,8 @@ import Adw from "@girs/adw-1";
 
 import type { Memory, Labels, Simulator, Assembler } from "@learn6502/core";
 
-import type { Display, Gamepad } from "../../widgets/game-console/index.ts";
+import type { Gamepad } from "@learn6502/ui";
+import type { Display } from "../../widgets/game-console/index.ts";
 import {
   gameConsoleController,
   gameConsoleStateService,
