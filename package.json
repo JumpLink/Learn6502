@@ -438,6 +438,63 @@
           ]
         }
       ]
+    },
+    "site": {
+      "metainfo": "packages/app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml",
+      "base": "/Learn6502/",
+      "url": "https://jumplink.eu/Learn6502/",
+      "languages": [
+        "en",
+        "de"
+      ],
+      "defaultLanguage": "en",
+      "repository": "JumpLink/Learn6502",
+      "flathub": "eu.jumplink.Learn6502",
+      "webApp": "app/",
+      "translations": "packages/translations",
+      "support": [],
+      "legal": [],
+      "screenshots": {
+        "source": "merge",
+        "items": [
+          {
+            "from": 0,
+            "variants": {
+              "desktop-light": "misc/screenshots/1.png"
+            }
+          },
+          {
+            "from": 1,
+            "variants": {
+              "desktop-light": "misc/screenshots/2.png"
+            }
+          },
+          {
+            "from": 2,
+            "variants": {
+              "mobile-light": "misc/screenshots/3.png"
+            }
+          },
+          {
+            "from": 3,
+            "variants": {
+              "mobile-light": "misc/screenshots/4.png"
+            }
+          },
+          {
+            "caption": "Runs on macOS",
+            "variants": {
+              "desktop-light": "misc/screenshots/0.8.0/macos.png"
+            }
+          },
+          {
+            "caption": "Runs on Windows",
+            "variants": {
+              "desktop-light": "misc/screenshots/0.8.0/windows.png"
+            }
+          }
+        ]
+      }
     }
   },
   "scripts": {
