@@ -280,20 +280,23 @@ h1 {
 
 /* Badges */
 
+/* One equal column per fact, however many facts there are, spread over the hero's width. */
 .badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
+  display: grid;
+  grid-template-columns: repeat(var(--badge-count, 4), minmax(0, 1fr));
+  gap: 0.75rem 1rem;
   list-style: none;
   padding: 0 0 0.5rem;
+  border-block-start: 1px solid var(--line);
+  padding-block-start: 1.25rem;
 }
 
 .badge {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.35rem;
-  min-width: 5.5rem;
+  gap: 0.3rem;
+  min-width: 0;
   text-align: center;
 }
 
@@ -301,23 +304,29 @@ h1 {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.25rem;
-  width: 100%;
-  min-height: 2.75rem;
-  padding-inline: 0.75rem;
-  border: 1px solid var(--line);
-  border-radius: var(--radius);
+  gap: 0.3rem;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 999px;
   background: var(--surface);
   color: var(--muted);
-  font-size: 1.25rem;
+  font-size: 1.15rem;
 }
 
+/* The platform badge draws one glyph per system, so its chip grows into a pill instead. */
 .badge-platforms {
   display: flex;
   gap: 0.35rem;
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
+.badge:has(.badge-platforms) .badge-pill {
+  width: auto;
+  min-width: 2.5rem;
+  padding-inline: 0.7rem;
+}
+
+/* Kept in the flow even when a badge has no value, so every label sits on the same line. */
 .badge-value {
   min-height: 1.5em;
   font-weight: 700;
@@ -967,13 +976,14 @@ app-download:not([data-enhanced]) .download-toggle {
     text-align: center;
   }
 
+  /* Two columns on a phone; an odd last badge takes the whole final row instead of hanging left. */
   .badges {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.1rem 1rem;
   }
 
-  .badge {
-    min-width: 0;
+  .badges[data-odd] .badge:last-child {
+    grid-column: 1 / -1;
   }
 
   .band {

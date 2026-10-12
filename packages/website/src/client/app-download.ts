@@ -95,6 +95,13 @@ class AppDownload extends HTMLElement {
       if (badge && value) {
         value.textContent = row.size;
         badge.hidden = row.size === "";
+        const facts = badge.closest<HTMLElement>(".badges");
+        // Showing or hiding a fact changes how many columns the row needs.
+        if (facts) {
+          const count = [...facts.children].filter((item) => !(item as HTMLElement).hidden).length;
+          facts.style.setProperty("--badge-count", String(count));
+          facts.toggleAttribute("data-odd", count % 2 === 1);
+        }
       }
     };
 

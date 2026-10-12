@@ -270,6 +270,8 @@ interface BadgeSpec {
   pill?: string;
   value: string;
   label: string;
+  /** The unabbreviated fact, when the badge shows a short form of it. */
+  title?: string;
   class?: string;
   hidden?: boolean;
 }
@@ -277,34 +279,47 @@ interface BadgeSpec {
 function badge(spec: BadgeSpec): string {
   return `<li${attrs({ class: spec.class ? `badge ${spec.class}` : "badge", hidden: spec.hidden })}>
 <span class="badge-pill">${spec.pill ?? icon(spec.glyph!)}</span>
-<span class="badge-value">${esc(spec.value)}</span>
+<span${attrs({ class: "badge-value", title: spec.title })}>${esc(spec.value)}</span>
 <span class="badge-label">${esc(spec.label)}</span>
 </li>`;
 }
 
-/** The facts row under the hero. A badge whose fact is missing is left out, not faked. */
+/** `GPL-3.0-or-later` is too long for a badge; the full id stays in the title. */
+function shortLicense(id: string): string {
+  return id.replace(/-or-later$/, "+").replace(/-only$/, "");
+}
+
+/**
+ * The facts row under the hero. A badge whose fact is missing is left out, not faked, and the row
+ * tells CSS how many it ended up with so the columns divide the width evenly.
+ */
 function badges(ctx: RenderContext): string {
   const { data, t, lang } = ctx;
   const number = new Intl.NumberFormat(lang, { notation: "compact", maximumFractionDigits: 1 });
   const targets = data.downloads.targets;
-  const items: string[] = [];
+  const specs: BadgeSpec[] = [];
 
   if (targets.length > 0) {
-    // The store install has no file size; the client fills this in when it detects a target that has one.
+    // Not every target reports a size; the client swaps this one as the reader picks another.
     const size = sizeLabel(defaultTarget(targets).size, lang);
-    items.push(badge({ glyph: "download", value: size, label: t("Download size"), class: "badge-size", hidden: !size }));
+    specs.push({ glyph: "download", value: size, label: t("Download size"), class: "badge-size", hidden: !size });
   }
-  if (data.app.license) items.push(badge({ glyph: "license", value: data.app.license, label: t("License") }));
+  if (data.app.license) {
+    const short = shortLicense(data.app.license);
+    specs.push({ glyph: "license", value: short, label: t("License"), title: short === data.app.license ? undefined : data.app.license });
+  }
   const oses = OS_ORDER.filter((os) => targets.some((target) => target.os === os));
   if (oses.length > 0) {
     const glyphs = oses.map((os) => icon(PLATFORM_ICONS[os], { title: osName(os, t) })).join("");
-    items.push(badge({ pill: `<span class="badge-platforms">${glyphs}</span>`, value: "", label: t("Platforms") }));
+    specs.push({ pill: `<span class="badge-platforms">${glyphs}</span>`, value: "", label: t("Platforms") });
   }
-  if (data.app.ageRating) items.push(badge({ glyph: "people", value: plain(t("{age}+"), { age: data.app.ageRating.minAge }), label: t("Age rating") }));
-  if (data.stats.flathubInstalls !== undefined) items.push(badge({ glyph: "package", value: number.format(data.stats.flathubInstalls), label: t("Installs") }));
+  if (data.app.ageRating) specs.push({ glyph: "people", value: plain(t("{age}+"), { age: data.app.ageRating.minAge }), label: t("Age rating") });
+  if (data.stats.flathubInstalls !== undefined) specs.push({ glyph: "package", value: number.format(data.stats.flathubInstalls), label: t("Installs") });
 
-  if (items.length === 0) return "";
-  return `<ul class="badges">\n${items.join("\n")}\n</ul>`;
+  if (specs.length === 0) return "";
+  const visible = specs.filter((spec) => !spec.hidden).length;
+  const odd = visible % 2 === 1 ? ' data-odd="true"' : "";
+  return `<ul class="badges" style="--badge-count:${visible}"${odd}>\n${specs.map(badge).join("\n")}\n</ul>`;
 }
 
 function releaseDate(date: string, lang: string): string {
