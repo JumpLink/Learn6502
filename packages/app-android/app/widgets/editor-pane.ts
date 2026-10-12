@@ -21,7 +21,9 @@ export class EditorPane extends Adw.Bin {
   constructor() {
     super();
     buildInto(this, editorTree, { translate });
-    this.sourceView = this.getViewById<SourceView>("sourceView");
+    // `SourceView` is the shared `@learn6502/ui` class, typed against the GJS GtkSource bindings, so it
+    // is not a `ViewBase` to the compiler; the NativeScript builder builds it as a view.
+    this.sourceView = this.getViewById("sourceView") as unknown as SourceView;
     this.bottomSheet = this.getViewById<Adw.BottomSheet>("bottomSheet");
   }
 
