@@ -47,9 +47,10 @@ import {
 import { Assembler, Labels, Memory, Simulator, SimulatorState, formatMessage } from "@learn6502/core";
 
 import { AdwDebuggerView } from "../views/adw-debugger.js";
-import { AdwEditorView } from "../widgets/editor/index.js";
 import { AdwGameConsoleView } from "../widgets/game-console/index.js";
 import { AdwLearnView } from "../widgets/learn/index.js";
+import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
+import { Editor } from "@learn6502/ui";
 import { injectShellStyles } from "./styles.js";
 
 /** Notification key → toast title (the GNOME twin's NOTIFICATION_TITLES, English only). */
@@ -94,7 +95,7 @@ export class MainWindow implements MainView {
 
   // Every view is now real (Learn, Editor, Debugger, GameConsole).
   private readonly debuggerView = new AdwDebuggerView();
-  private readonly editorView = new AdwEditorView();
+  private readonly editorView = new Editor();
   private readonly gameConsoleView = new AdwGameConsoleView();
   private readonly learnView = new AdwLearnView();
 
@@ -255,8 +256,10 @@ export class MainWindow implements MainView {
     this.learnView.classList.add("shell-view-slot");
     this.learnSlot.appendChild(this.learnView);
 
-    this.editorView.classList.add("shell-view-slot");
-    this.editorSlot.appendChild(this.editorView);
+    // The shared `Editor` is typed against the GJS bindings; at run time it is a custom element.
+    const editorElement = this.editorView as unknown as HTMLElement;
+    editorElement.classList.add("shell-view-slot");
+    this.editorSlot.appendChild(editorElement);
 
     this.gameConsoleView.classList.add("shell-view-slot");
     this.gameConsoleSlot.appendChild(this.gameConsoleView);
