@@ -1,6 +1,5 @@
 import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
-import { Utils } from "@nativescript/core";
 import { padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 import { localize } from "@nativescript/localize";
@@ -12,8 +11,6 @@ import { logger } from "~/utils";
 import type { ScreenModule } from "./editor";
 // The shared learn view's source views are `@learn6502/ui`'s; this arm teaches NativeScript what they are.
 import "~/widgets/source-view";
-
-const SHARE_URL = "https://github.com/JumpLink/Learn6502";
 
 // The shared widget's strings go through the app's catalogue.
 setTranslator(localize);
@@ -43,7 +40,7 @@ class Learn implements LearnView {
   private releaseInsets: (() => void)[] = [];
   private log = logger.scoped("Learn");
 
-  build(): View {
+  build(): LearnWidget {
     // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     const widget = new LearnWidget();
     this.widget = widget;
@@ -52,8 +49,7 @@ class Learn implements LearnView {
       if (event.tag === "tutorial") tutorialView?.build();
       this.events.dispatch("subpage-changed", event);
     });
-    widget.events.on("share", () => Utils.openUrl(SHARE_URL));
-    return asView(widget);
+    return widget;
   }
 
   /** Whether a subpage (Tutorial/Examples) is open — drives the shell's header back button. */
@@ -93,9 +89,12 @@ class Learn implements LearnView {
 const learnView = new Learn();
 
 /** Build the learn screen for the shell's Adw.ViewStack. */
-export function buildLearnScreen(): ScreenModule {
+export function buildLearnScreen(): ScreenModule<LearnWidget> {
+  const widget = learnView.build();
   return {
-    view: learnView.build(),
+    // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+    view: asView(widget),
+    widget,
     onHide: () => learnView.saveScrollPosition(),
     onBack: () => learnView.navigateBack(),
     padSystemInsets: (on) => learnView.padSystemInsets(on),

@@ -1,11 +1,8 @@
-import type Adw from "@girs/adw-1";
-import type Gtk from "@girs/gtk-4.0";
-import Gio from "@girs/gio-2.0";
-
 import { SimulatorState, formatMessage, num2hex } from "@learn6502/core";
 import {
   type MainButtonState,
   type MainView,
+  type SimulatorStack,
   ViewType,
   GameConsoleEventBridge,
   createSimulatorStack,
@@ -23,28 +20,20 @@ import type { GameConsole } from "../game-console/game-console.ts";
 import type { Learn } from "../learn/learn.ts";
 import type { MainButton } from "../main-button.ts";
 import type { MainWindowServices } from "./services.ts";
+import type { MainWindowShell, ShellAction } from "./shell.ts";
 import { WindowBehaviour } from "./window-behaviour.ts";
 import { persistWindowSize } from "./window-size.ts";
 
-/** The widgets the window's template provides. */
+/** The screens the window shows; the platform builds them and the shell places them. */
 export interface MainWindowParts {
   editor: Editor;
   gameConsole: GameConsole;
   learn: Learn;
   debugger: Debugger;
-  mainButton: MainButton;
-  stack: Adw.ViewStack;
-  switcherBar: Adw.ViewSwitcherBar;
-  layoutHost: Gtk.Stack;
-  leftSidebar: Adw.OverlaySplitView;
-  leftColumn: Gtk.Box;
-  centerColumn: Gtk.Box;
-  rightTopBox: Gtk.Box;
-  rightBottomBox: Gtk.Box;
-  unsavedChangesDialog: Adw.AlertDialog;
-  titleLabel: Gtk.Label;
-  unsavedChangesIndicator: Gtk.Button;
-  learnBackButton: Gtk.Button;
+  /** Only its state follow-up is used, so a platform with a header toolbar instead of a floating button can stand in. */
+  mainButton: Pick<MainButton, "updateFromSimulatorState">;
+  /** A platform that rebuilds its widgets around one process-wide simulator passes it; otherwise a fresh one is made. */
+  simulatorStack?: SimulatorStack;
 }
 
 /** Notification key to translated toast title. */
@@ -63,70 +52,49 @@ const NOTIFICATION_TITLES: Record<string, () => string> = {
 
 /**
  * The main window's logic, written once: navigation, the run/step/assemble flow, file handling and the
- * window's own state. The platform builds the widgets from `main.window.blp` and injects its services.
+ * window's own state. The platform builds the screens and a `MainWindowShell` around them, and injects
+ * its services.
  */
 export class MainWindowController implements MainView {
-  private readonly parts: MainWindowParts;
   private readonly behaviour: WindowBehaviour;
-  private readonly viewWidgetMap = new Map<ViewType, Gtk.Widget>();
   private gameConsoleBridge: GameConsoleEventBridge | null = null;
 
-  private previousVisibleChild: Gtk.Widget | null = null;
-  private pendingDialogAction: "open" | "close" | null = null;
+  private askingAboutUnsavedChanges = false;
   private codeToAssembleChanged = false;
   private focusTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
-  private readonly assembleAction = new Gio.SimpleAction({ name: "assemble" });
-  private readonly runSimulatorAction = new Gio.SimpleAction({ name: "run-simulator" });
-  private readonly resumeSimulatorAction = new Gio.SimpleAction({ name: "resume-simulator" });
-  private readonly pauseSimulatorAction = new Gio.SimpleAction({ name: "pause-simulator" });
-  private readonly resetSimulatorAction = new Gio.SimpleAction({ name: "reset-simulator" });
-  private readonly stepSimulatorAction = new Gio.SimpleAction({ name: "step-simulator" });
-  private readonly shareAction = new Gio.SimpleAction({ name: "share" });
-  private readonly openFileAction = new Gio.SimpleAction({ name: "open-file" });
-  private readonly saveFileAction = new Gio.SimpleAction({ name: "save-file" });
-  private readonly saveAsFileAction = new Gio.SimpleAction({ name: "save-as-file" });
-  private readonly showHelpAction = new Gio.SimpleAction({ name: "show-help" });
+  private readonly actions = new Map<string, ShellAction>();
+  // The controllers outlive the window, so every subscription made on them is undone in `disconnect()`
+  private readonly unsubscribers: (() => void)[] = [];
 
   constructor(
-    private readonly window: Adw.ApplicationWindow,
-    parts: MainWindowParts,
+    private readonly shell: MainWindowShell,
+    private readonly parts: MainWindowParts,
     private readonly services: MainWindowServices
   ) {
-    this.parts = parts;
     this.behaviour = new WindowBehaviour({
-      window,
+      window: shell.window,
       isRunning: () => this.state === SimulatorState.RUNNING,
       pause: () => this.pauseGameConsole(),
-      onCloseRequest: () => this.onCloseRequest(),
-      isDesktopLayout: () => this.isDesktopMode(),
-      isInsideConsole: (widget) => this.widgetIsDescendantOf(widget, this.parts.gameConsole),
+      onCloseRequest: () => (shell.emitsCloseRequest === false ? false : this.onCloseRequest()),
+      isDesktopLayout: () => this.shell.isDesktopLayout(),
+      isInsideConsole: (widget) => this.shell.isInsideConsole(widget),
     });
   }
 
-  /** Wire the window up; call once the template children exist. */
+  /** Wire the window up; call once the shell's widgets exist. */
   init(): void {
-    const { gameConsole, debugger: debuggerView, layoutHost, stack } = this.parts;
+    const { gameConsole, debugger: debuggerView } = this.parts;
 
     // One simulator stack for the console that runs it and the debugger that shows it.
-    const simulatorStack = createSimulatorStack();
+    const simulatorStack = this.parts.simulatorStack ?? createSimulatorStack();
     gameConsole.setSimulatorStack(simulatorStack);
     debuggerView.setSimulatorStack(simulatorStack);
 
-    this.mountLayout();
-    layoutHost.connect("notify::visible-child-name", () => {
-      this.mountLayout();
-      this.updateLearnBackButtonVisibility();
-    });
-
-    this.viewWidgetMap.set(ViewType.LEARN, this.parts.learn);
-    this.viewWidgetMap.set(ViewType.EDITOR, this.parts.editor);
-    this.viewWidgetMap.set(ViewType.DEBUGGER, debuggerView);
-    this.viewWidgetMap.set(ViewType.GAME_CONSOLE, gameConsole);
-
-    stack.connect("notify::visible-child", () => this.onStackVisibleChildChanged());
+    this.shell.onLayoutChanged(() => this.onLayoutChanged());
+    this.shell.onActiveViewChanged((view, previous) => this.onActiveViewChanged(view, previous));
     this.parts.learn.events.on("subpage-changed", () => this.updateLearnBackButtonVisibility());
-    this.parts.learn.events.on("share", () => this.shareAction.activate(null));
+    this.parts.learn.events.on("share", () => this.submitExample());
 
     this.setupActions();
     this.setupGameConsoleBridge();
@@ -135,12 +103,13 @@ export class MainWindowController implements MainView {
     this.setupDebuggerListeners();
     this.setupMainStateListeners();
 
-    this.updateRunActions(this.state);
+    this.shell.mountLayout();
+    this.onLayoutChanged();
     mainStateController.init();
-    this.previousVisibleChild = stack.get_visible_child();
+    this.updateRunActions(this.state);
 
     this.behaviour.attach();
-    persistWindowSize(this.window, this.services.settings);
+    persistWindowSize(this.shell.window, this.services.settings);
   }
 
   // --- MainView ---
@@ -150,22 +119,13 @@ export class MainWindowController implements MainView {
   }
 
   public get activeView(): ViewType {
-    const visibleChild = this.parts.stack.get_visible_child();
-    for (const [viewType, widget] of this.viewWidgetMap.entries()) {
-      if (widget === visibleChild) return viewType;
-    }
-    return ViewType.LEARN;
+    return this.shell.activeView();
   }
 
   public navigateToView(viewType: ViewType): void {
     // In desktop mode, all relevant views are visible. Skip switching the stack.
-    if (this.isDesktopMode()) return;
-    const widget = this.viewWidgetMap.get(viewType);
-    if (widget) {
-      this.parts.stack.set_visible_child(widget);
-    } else {
-      console.error(`navigateToView: Widget not found for view ${viewType}`);
-    }
+    if (this.shell.isDesktopLayout()) return;
+    this.shell.showView(viewType);
   }
 
   public runGameConsole(): void {
@@ -229,40 +189,37 @@ export class MainWindowController implements MainView {
 
   // --- State ---
 
-  private isDesktopMode(): boolean {
-    return this.parts.layoutHost.get_visible_child_name() === "three";
-  }
-
   private set unsavedChanges(unsavedChanges: boolean) {
     this.services.files.setUnsavedChanges(unsavedChanges);
   }
 
   private get unsavedChanges(): boolean {
-    return this.parts.unsavedChangesIndicator.visible;
-  }
-
-  private widgetIsDescendantOf(widget: Gtk.Widget | null, ancestor: Gtk.Widget): boolean {
-    let current: Gtk.Widget | null = widget;
-    while (current) {
-      if (current === ancestor) return true;
-      current = current.get_parent();
-    }
-    return false;
+    return this.services.files.hasUnsavedChanges();
   }
 
   private showToast(title: string, timeout = 2): void {
     this.services.notifier.show({ title, timeout });
   }
 
+  private submitExample(): void {
+    this.services.submitExample(editorController.code, this.parts.gameConsole.memory);
+  }
+
+  public showShareDialog(): void {
+    this.services.showShareDialog(editorController.code, this.parts.gameConsole.memory);
+  }
+
   // --- Listeners ---
 
   private setupLearnListeners(): void {
-    learnController.on("copy", ({ code }: { code: string }) => {
+    const onCopy = ({ code }: { code: string }) => {
       this.setEditorCode(code);
-      this.closeSidebarIfOverlay();
+      this.shell.closeSidebarIfOverlay();
       // TRANSLATORS: Toast message title after copying code snippet into the editor
       this.showToast(_("Code copied to editor"));
-    });
+    };
+    learnController.on("copy", onCopy);
+    this.unsubscribers.push(() => learnController.off("copy", onCopy));
   }
 
   private setupEditorListeners(): void {
@@ -273,7 +230,7 @@ export class MainWindowController implements MainView {
   }
 
   private setupDebuggerListeners(): void {
-    debuggerController.on("copyToClipboard", (code: string) => {
+    const onCopyToClipboard = (code: string) => {
       if (this.services.clipboard.copy(code)) {
         // TRANSLATORS: Toast message title after copying to clipboard
         this.showToast(_("Copied to clipboard"));
@@ -281,31 +238,47 @@ export class MainWindowController implements MainView {
         // TRANSLATORS: Toast message title when clipboard copy fails
         this.showToast(_("Failed to copy to clipboard"));
       }
-    });
-    debuggerController.on("copyToEditor", (code: string) => {
+    };
+    const onCopyToEditor = (code: string) => {
       this.setEditorCode(code);
-      this.closeSidebarIfOverlay();
-    });
-    debuggerController.on("stepperToggled", () => this.updateRunActions(this.state));
+      this.shell.closeSidebarIfOverlay();
+    };
+    const onStepperToggled = () => this.updateRunActions(this.state);
+    debuggerController.on("copyToClipboard", onCopyToClipboard);
+    debuggerController.on("copyToEditor", onCopyToEditor);
+    debuggerController.on("stepperToggled", onStepperToggled);
+    this.unsubscribers.push(
+      () => debuggerController.off("copyToClipboard", onCopyToClipboard),
+      () => debuggerController.off("copyToEditor", onCopyToEditor),
+      () => debuggerController.off("stepperToggled", onStepperToggled)
+    );
   }
 
   private setupMainStateListeners(): void {
-    mainStateController.events.on("state-changed", () => this.updateRunActions(this.state));
-    mainStateController.events.on("state-changed:code-changed", (changed) => {
+    const onStateChanged = () => this.updateRunActions(this.state);
+    const onCodeChanged = (changed: boolean) => {
       this.codeToAssembleChanged = changed;
       this.updateRunActions(this.state);
-    });
+    };
+    mainStateController.events.on("state-changed", onStateChanged);
+    mainStateController.events.on("state-changed:code-changed", onCodeChanged);
+    this.unsubscribers.push(
+      () => mainStateController.events.off("state-changed", onStateChanged),
+      () => mainStateController.events.off("state-changed:code-changed", onCodeChanged)
+    );
 
     // Keep the shared gameplay keys: the platform registers its keycodes, the log is shared
-    gameConsoleController.on("keyPressed", (event) => {
-      const visibleChild = this.parts.stack.get_visible_child();
-      if (visibleChild === this.parts.gameConsole || visibleChild === this.parts.debugger) {
+    const onKeyPressed = (event: { keyCode: number }) => {
+      const view = this.activeView;
+      if (view === ViewType.GAME_CONSOLE || view === ViewType.DEBUGGER) {
         this.parts.debugger.log(
           // TRANSLATORS: Debugger log message when gamepad key is pressed
           _("Gamepad key pressed:") + " $" + num2hex(event.keyCode).toUpperCase()
         );
       }
-    });
+    };
+    gameConsoleController.on("keyPressed", onKeyPressed);
+    this.unsubscribers.push(() => gameConsoleController.off("keyPressed", onKeyPressed));
   }
 
   private setupGameConsoleBridge(): void {
@@ -326,37 +299,35 @@ export class MainWindowController implements MainView {
     this.gameConsoleBridge.connect();
   }
 
+  /** Stop listening to the controllers, which outlive the window. */
+  public disconnect(): void {
+    this.gameConsoleBridge?.disconnect();
+    this.gameConsoleBridge = null;
+    for (const unsubscribe of this.unsubscribers.splice(0)) unsubscribe();
+  }
+
   // --- Actions ---
 
   private setupActions(): void {
-    const bindings: [Gio.SimpleAction, () => unknown][] = [
-      [this.assembleAction, () => this.assembleGameConsole()],
-      [this.runSimulatorAction, () => this.runGameConsole()],
-      [this.resumeSimulatorAction, () => this.runGameConsole()],
-      [this.pauseSimulatorAction, () => this.pauseGameConsole()],
-      [this.resetSimulatorAction, () => this.reset()],
-      [this.stepSimulatorAction, () => this.stepGameConsole()],
-      [this.shareAction, () => this.services.showShareDialog(editorController.code, this.parts.gameConsole.memory)],
-      [this.openFileAction, () => this.openFile()],
-      [this.saveFileAction, () => this.saveFile()],
-      [this.saveAsFileAction, () => this.saveAsFile()],
-      [this.showHelpAction, () => this.services.showHelp()],
+    const bindings: [string, () => unknown, string[]?][] = [
+      ["assemble", () => this.assembleGameConsole()],
+      ["run-simulator", () => this.runGameConsole()],
+      ["resume-simulator", () => this.runGameConsole()],
+      ["pause-simulator", () => this.pauseGameConsole()],
+      ["reset-simulator", () => this.reset()],
+      ["step-simulator", () => this.stepGameConsole()],
+      ["share", () => this.showShareDialog()],
+      ["open-file", () => this.openFile(), ["<Control>o"]],
+      ["save-file", () => this.saveFile(), ["<Control>s"]],
+      ["save-as-file", () => this.saveAsFile(), ["<Control><Shift>s"]],
+      ["show-help", () => this.services.showHelp()],
     ];
-    for (const [action, handler] of bindings) {
-      action.connect("activate", () => handler());
-      this.window.add_action(action);
+    for (const [name, handler, accels] of bindings) {
+      this.actions.set(
+        name,
+        this.shell.addAction(name, () => void handler(), accels)
+      );
     }
-
-    const app = this.window.get_application();
-    if (app) {
-      app.set_accels_for_action(`win.${this.openFileAction.get_name()}`, ["<Control>o"]);
-      app.set_accels_for_action(`win.${this.saveFileAction.get_name()}`, ["<Control>s"]);
-      app.set_accels_for_action(`win.${this.saveAsFileAction.get_name()}`, ["<Control><Shift>s"]);
-    }
-
-    this.parts.unsavedChangesDialog.connect("response", (_dialog: Adw.AlertDialog, response: string) =>
-      this.onUnsavedChangesResponse(response)
-    );
   }
 
   private updateRunActions(state: SimulatorState): MainButtonState {
@@ -366,219 +337,119 @@ export class MainWindowController implements MainView {
       this.codeToAssembleChanged
     );
 
-    this.assembleAction.set_enabled(enabledState.assemble);
-    this.runSimulatorAction.set_enabled(enabledState.run);
-    this.resumeSimulatorAction.set_enabled(enabledState.resume);
-    this.pauseSimulatorAction.set_enabled(enabledState.pause);
-    this.resetSimulatorAction.set_enabled(enabledState.reset);
-    this.stepSimulatorAction.set_enabled(enabledState.step);
-    this.shareAction.set_enabled(enabledState.share);
+    this.actions.get("assemble")?.setEnabled(enabledState.assemble);
+    this.actions.get("run-simulator")?.setEnabled(enabledState.run);
+    this.actions.get("resume-simulator")?.setEnabled(enabledState.resume);
+    this.actions.get("pause-simulator")?.setEnabled(enabledState.pause);
+    this.actions.get("reset-simulator")?.setEnabled(enabledState.reset);
+    this.actions.get("step-simulator")?.setEnabled(enabledState.step);
+    this.actions.get("share")?.setEnabled(enabledState.share);
 
     return this.parts.mainButton.updateFromSimulatorState(state);
   }
 
-  // --- Stack, layout ---
+  // --- Views, layout ---
 
-  private onStackVisibleChildChanged(): void {
-    const { stack, learn, gameConsole, debugger: debuggerView } = this.parts;
-    const currentChild = stack.get_visible_child();
-
+  private onActiveViewChanged(view: ViewType, previous: ViewType): void {
     this.updateLearnBackButtonVisibility();
-
-    if (this.previousVisibleChild === learn && currentChild !== learn) {
-      learn.saveScrollPosition();
-    }
-
-    if (currentChild === learn && this.previousVisibleChild !== learn) {
-      // The Learn widget has to be mapped before its scroll position can be restored
-      if (learn.get_mapped()) {
-        learn.restoreScrollPosition();
-      } else {
-        const handler = learn.connect("map", () => {
-          learn.restoreScrollPosition();
-          learn.disconnect(handler);
-        });
-      }
-    }
 
     // Switching away from the console or debugger pauses a running program
     if (
-      (this.previousVisibleChild === gameConsole || this.previousVisibleChild === debuggerView) &&
+      view !== previous &&
+      (previous === ViewType.GAME_CONSOLE || previous === ViewType.DEBUGGER) &&
       this.state === SimulatorState.RUNNING
     ) {
       this.pauseGameConsole();
     }
 
-    this.previousVisibleChild = currentChild;
-    mainStateController.setViewType(this.activeView);
+    mainStateController.setViewType(view);
+    if (view === ViewType.DEBUGGER) this.updateDebugger();
+  }
 
-    if (currentChild === debuggerView) this.updateDebugger();
+  private onLayoutChanged(): void {
+    this.updateLearnBackButtonVisibility();
+    mainStateController.setViewType(this.activeView);
+    this.updateRunActions(this.state);
   }
 
   private updateDebugger(): void {
     // The debugger updates while visible: the active page on mobile, always on desktop
-    if (this.isDesktopMode() || this.parts.stack.get_visible_child() === this.parts.debugger) {
+    if (this.shell.isDesktopLayout() || this.activeView === ViewType.DEBUGGER) {
       this.parts.debugger.update(this.parts.gameConsole.memory, this.parts.gameConsole.simulator);
     }
   }
 
   private updateLearnBackButtonVisibility(): void {
-    const isLearnVisible = this.parts.stack.get_visible_child() === this.parts.learn;
+    const isLearnVisible = this.activeView === ViewType.LEARN;
     const hasSubpage = this.parts.learn.hasVisibleSubpage;
     // On mobile the button belongs to the Learn tab only
-    this.parts.learnBackButton.visible = hasSubpage && (this.isDesktopMode() || isLearnVisible);
-  }
-
-  private mountLayout(): void {
-    if (this.isDesktopMode()) {
-      this.mountThreeColumnLayout();
-    } else {
-      this.mountSingleLayout();
-    }
-  }
-
-  /** Mobile: all views as pages of one stack. */
-  private mountSingleLayout(): void {
-    const { stack, learn, editor, debugger: debuggerView, gameConsole } = this.parts;
-    for (const view of [learn, editor, debuggerView, gameConsole]) this.detachFromParent(view);
-
-    const pages = stack.get_pages();
-    const toRemove: Gtk.Widget[] = [];
-    for (let i = 0; i < pages.get_n_items(); i++) {
-      const child = (pages.get_item(i) as Gtk.StackPage).get_child();
-      if (child) toRemove.push(child);
-    }
-    for (const child of toRemove) stack.remove(child);
-
-    // TRANSLATORS: ViewSwitcher/tab title for the Learn/Tutorial view
-    stack.add_titled_with_icon(learn, "learn", _("Learn"), "school-symbolic");
-    // TRANSLATORS: ViewSwitcher/tab title for the Editor view
-    stack.add_titled_with_icon(editor, "editor", _("Code"), "code-symbolic");
-    // TRANSLATORS: ViewSwitcher/tab title for the Debugger view
-    stack.add_titled_with_icon(debuggerView, "debugger", _("Debug"), "bug-symbolic");
-    // TRANSLATORS: ViewSwitcher/tab title for the Game Console view
-    stack.add_titled_with_icon(gameConsole, "gameConsole", _("Play"), "nintendo-controller-symbolic");
-
-    this.parts.switcherBar.set_stack(stack);
-    // The debugger scrolls on its own when it fills a whole page
-    debuggerView.scrollable = true;
-  }
-
-  /** Desktop: Learn | Editor | Game Console over Debugger. */
-  private mountThreeColumnLayout(): void {
-    const { learn, editor, gameConsole, debugger: debuggerView } = this.parts;
-    for (const box of [
-      this.parts.leftColumn,
-      this.parts.centerColumn,
-      this.parts.rightTopBox,
-      this.parts.rightBottomBox,
-    ]) {
-      this.clearBoxChildren(box);
-    }
-
-    const placements: [Gtk.Widget, Gtk.Box][] = [
-      [learn, this.parts.leftColumn],
-      [editor, this.parts.centerColumn],
-      [gameConsole, this.parts.rightTopBox],
-      [debuggerView, this.parts.rightBottomBox],
-    ];
-    for (const [view, box] of placements) {
-      this.detachFromParent(view);
-      box.append(view);
-    }
-
-    // The right column scrolls as a whole
-    debuggerView.scrollable = false;
-    this.parts.switcherBar.set_stack(null);
-  }
-
-  private clearBoxChildren(box: Gtk.Box): void {
-    let child = box.get_first_child();
-    while (child) {
-      const next = child.get_next_sibling();
-      box.remove(child);
-      child = next;
-    }
-  }
-
-  private detachFromParent(widget: Gtk.Widget): void {
-    const parent = widget.get_parent() as (Gtk.Widget & { remove?: (child: Gtk.Widget) => void }) | null;
-    parent?.remove?.(widget);
-  }
-
-  /** Close the sidebar when it overlays the content, so copied code is visible at once. */
-  private closeSidebarIfOverlay(): void {
-    if (this.isDesktopMode() && this.parts.leftSidebar.collapsed) {
-      this.parts.leftSidebar.show_sidebar = false;
-    }
+    this.shell.setLearnBackVisible(hasSubpage && (this.shell.isDesktopLayout() || isLearnVisible));
   }
 
   // --- Files, closing ---
 
-  private async openFile(): Promise<void> {
+  public async openFile(): Promise<void> {
     if (this.unsavedChanges) {
-      this.showUnsavedChangesDialog("open");
+      void this.askAboutUnsavedChanges("open");
       return;
     }
 
     const result = await this.services.files.openFile();
     if (result) {
       this.setEditorCode(result.content);
-      this.parts.titleLabel.label = result.filename;
+      this.shell.setFileTitle(result.filename);
       // TRANSLATORS: Toast message title after opening a file, includes filename
       this.showToast(formatMessage(_("Opened %s"), [result.filename]));
     }
   }
 
-  private async saveFile(): Promise<boolean> {
+  public async saveFile(): Promise<boolean> {
     if (this.services.files.hasCurrentFile()) {
       return await this.services.files.saveFile(editorController.code);
     }
     return await this.saveAsFile();
   }
 
-  private async saveAsFile(): Promise<boolean> {
+  public async saveAsFile(): Promise<boolean> {
     const { files } = this.services;
     const success = await files.saveFileAs(
       editorController.code,
       files.hasCurrentFile() ? files.getCurrentFileName() : "untitled.asm"
     );
     if (success) {
-      this.parts.titleLabel.label = files.getCurrentFileName();
+      this.shell.setFileTitle(files.getCurrentFileName());
       // TRANSLATORS: Toast message title after saving file successfully, includes filename
       this.showToast(formatMessage(_("Saved as %s"), [files.getCurrentFileName()]));
     }
     return success;
   }
 
-  private showUnsavedChangesDialog(action: "open" | "close"): void {
-    this.pendingDialogAction = action;
-    this.parts.unsavedChangesDialog.present(this.window);
-  }
-
-  private onUnsavedChangesResponse(response: string): void {
-    const action = this.pendingDialogAction;
-    this.pendingDialogAction = null;
-
-    const proceed = () => {
-      if (action === "open") this.openFile();
-      else if (action === "close") this.window.close();
-    };
-
-    if (response === "save") {
-      this.saveFile().then((success) => {
-        if (success) proceed();
-      });
-    } else if (response === "discard") {
-      this.unsavedChanges = false;
-      proceed();
+  private async askAboutUnsavedChanges(action: "open" | "close"): Promise<void> {
+    if (this.askingAboutUnsavedChanges) return;
+    this.askingAboutUnsavedChanges = true;
+    let answer;
+    try {
+      answer = await this.shell.askUnsavedChanges();
+    } finally {
+      this.askingAboutUnsavedChanges = false;
     }
+
+    if (answer === "save") {
+      if (!(await this.saveFile())) return;
+    } else if (answer === "discard") {
+      this.unsavedChanges = false;
+    } else {
+      return;
+    }
+
+    if (action === "open") void this.openFile();
+    else this.shell.closeWindow();
   }
 
   private onCloseRequest(): boolean {
     if (this.unsavedChanges) {
-      this.showUnsavedChangesDialog("close");
-      return true; // Block the close; the dialog's response decides
+      void this.askAboutUnsavedChanges("close");
+      return true; // Block the close; the dialog's answer decides
     }
 
     this.parts.gameConsole.close();

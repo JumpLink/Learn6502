@@ -1,3 +1,4 @@
+import type { Debugger, GameConsole, Learn, Editor } from "@learn6502/ui";
 import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 import { buildEditorScreen, type ScreenModule } from "./editor";
 import { buildLearnScreen } from "./learn";
@@ -6,10 +7,10 @@ import { buildGameConsoleScreen } from "./game-console";
 
 /** The four screens, by the id `main.window.blp` gives the object that stands for each. */
 export interface Screens {
-  learn: ScreenModule;
-  editor: ScreenModule;
-  debugger: ScreenModule;
-  gameConsole: ScreenModule;
+  learn: ScreenModule<Learn>;
+  editor: ScreenModule<Editor>;
+  debugger: ScreenModule<Debugger>;
+  gameConsole: ScreenModule<GameConsole>;
 }
 
 /**

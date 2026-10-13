@@ -16,6 +16,7 @@ export * from "./learn/learn.ts";
 export * from "./main-button.ts";
 export * from "./main-window/main-window-controller.ts";
 export * from "./main-window/services.ts";
+export * from "./main-window/shell.ts";
 export * from "./main-window/window-behaviour.ts";
 export * from "./toolbar.ts";
 export * from "./gutter-renderer-mode.ts";

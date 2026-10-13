@@ -8,6 +8,7 @@ export interface FileChooser {
   getCurrentFileName(): string;
   /** A file is attached to the editor, so "save" has a target and needs no dialog. */
   hasCurrentFile(): boolean;
+  hasUnsavedChanges(): boolean;
   setUnsavedChanges(hasChanges: boolean): void;
 }
 
@@ -36,6 +37,8 @@ export interface MainWindowServices {
   notifier: Notifier;
   /** Open the help window. */
   showHelp(): void;
-  /** Open the dialog that submits the program as a new example. */
+  /** Share the program (the `share` action). */
   showShareDialog(code: string, memory: Memory): void;
+  /** Learn's "share your example": open the way to submit the program as a new example. */
+  submitExample(code: string, memory: Memory): void;
 }

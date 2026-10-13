@@ -4,6 +4,7 @@ import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 
 import { gameConsoleController } from "@learn6502/common-ui";
+import type { Memory } from "@learn6502/core";
 import {
   MainWindowController,
   type Debugger,
@@ -15,6 +16,7 @@ import {
 } from "@learn6502/ui";
 
 import { HelpWindow } from "./help.window.ts";
+import { GtkMainWindowShell } from "./main.window.shell.ts";
 import { ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
@@ -99,14 +101,15 @@ export class MainWindow extends Adw.ApplicationWindow {
     // Register this window to receive mode/accent classes automatically
     themeService.registerThemedWidget(this);
 
+    const screens = {
+      editor: this._editor,
+      gameConsole: this._gameConsole,
+      learn: this._learn,
+      debugger: this._debugger,
+    };
     new MainWindowController(
-      this,
-      {
-        editor: this._editor,
-        gameConsole: this._gameConsole,
-        learn: this._learn,
-        debugger: this._debugger,
-        mainButton: this._mainButton,
+      new GtkMainWindowShell(this, {
+        ...screens,
         stack: this._stack,
         switcherBar: this._switcherBar,
         layoutHost: this._layoutHost,
@@ -117,9 +120,9 @@ export class MainWindow extends Adw.ApplicationWindow {
         rightBottomBox: this._rightBottomBox,
         unsavedChangesDialog: this._unsavedChangesDialog,
         titleLabel: this._titleLabel,
-        unsavedChangesIndicator: this._unsavedChangesIndicator,
         learnBackButton: this._learnBackButton,
-      },
+      }),
+      { ...screens, mainButton: this._mainButton },
       this.createServices()
     ).init();
 
@@ -134,6 +137,7 @@ export class MainWindow extends Adw.ApplicationWindow {
         saveFileAs: (content, suggestedName) => fileService.saveFileAs(content, suggestedName),
         getCurrentFileName: () => fileService.getCurrentFileName() || "",
         hasCurrentFile: () => fileService.getCurrentGioFile() !== null,
+        hasUnsavedChanges: () => fileService.hasUnsavedChanges(),
         setUnsavedChanges: (hasChanges) => fileService.setUnsavedChanges(hasChanges),
       },
       settings: {
@@ -145,22 +149,25 @@ export class MainWindow extends Adw.ApplicationWindow {
       clipboard: { copy: (text) => copyToClipboard(text, this.get_clipboard()) },
       notifier: { show: (options) => notificationService.showNotification(options) },
       showHelp: () => new HelpWindow().present(),
-      showShareDialog: (code, memory) => {
-        const dialog = new ShareDialog();
-        dialog.setCode(code);
-        dialog.setMemory(memory);
-        dialog.connect("submit", (submitted: ShareDialog) => {
-          console.log("Example submitted:", submitted.submittedExample);
-          // TODO: Implement GitHub PR creation logic here
-          notificationService.showNotification({
-            // TRANSLATORS: Toast message when example is submitted
-            title: _("Example submitted for review"),
-            timeout: 3,
-          });
-        });
-        dialog.present(this);
-      },
+      showShareDialog: (code, memory) => this.presentShareDialog(code, memory),
+      submitExample: (code, memory) => this.presentShareDialog(code, memory),
     };
+  }
+
+  private presentShareDialog(code: string, memory: Memory): void {
+    const dialog = new ShareDialog();
+    dialog.setCode(code);
+    dialog.setMemory(memory);
+    dialog.connect("submit", (submitted: ShareDialog) => {
+      console.log("Example submitted:", submitted.submittedExample);
+      // TODO: Implement GitHub PR creation logic here
+      notificationService.showNotification({
+        // TRANSLATORS: Toast message when example is submitted
+        title: _("Example submitted for review"),
+        timeout: 3,
+      });
+    });
+    dialog.present(this);
   }
 
   private setupKeyboardListener(): void {
