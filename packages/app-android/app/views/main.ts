@@ -1,6 +1,5 @@
 import type { Page, EventData, View } from "@nativescript/core";
 import { Application, GridLayout } from "@nativescript/core";
-import { localize as _ } from "@nativescript/localize";
 
 import { systemStates, SystemStates } from "~/states";
 
@@ -24,7 +23,7 @@ import { setAppBackHandler } from "~/utils/navigation";
 import { translate } from "~/utils/translate";
 
 // The template classes main.window.blp names (MainButton and Toolbar) register with @learn6502/ui.
-import { MainWindowController, addAppActions, createMainMenu, type MainButton } from "@learn6502/ui";
+import { MainWindowController, addAppActions, createMainMenu, getAboutInfo, type MainButton } from "@learn6502/ui";
 import { createScreens } from "./main/screens";
 import { simulatorStack } from "./main/game-console";
 import { NativeMainWindowShell } from "./main/shell";
@@ -166,11 +165,12 @@ export class MainController {
    */
   private setupAbout(root: View): void {
     const about = new Adw.AboutDialog();
-    about.applicationName = _("Learn 6502 Assembly");
+    const info = getAboutInfo();
+    about.applicationName = info.applicationName;
     about.version = __APP_VERSION__;
-    about.developerName = "Pascal Garber";
-    about.comments = _("Program vintage game consoles");
-    about.website = "https://flathub.org/apps/eu.jumplink.Learn6502";
+    about.developerName = info.developerName;
+    about.comments = info.comments;
+    about.website = info.website;
     this.about = about;
     GridLayout.setRow(about, 0);
     GridLayout.setColumn(about, 0);
