@@ -123,6 +123,7 @@ export class MainWindow {
     const about = new Adw.AboutDialog();
     about.applicationName = info.applicationName;
     about.applicationIcon = info.applicationIcon;
+    about.version = __APP_VERSION__;
     about.developerName = info.developerName;
     about.comments = info.comments;
     about.website = info.website;

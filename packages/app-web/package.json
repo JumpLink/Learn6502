@@ -17,6 +17,11 @@
   "author": "Pascal Garber <pascal@jumplink.eu>",
   "license": "GPL-3.0",
   "gjsify": {
+    "defineFromPackageJson": {
+      "__APP_VERSION__": {
+        "field": "version"
+      }
+    },
     "loaders": {
       ".html": "text",
       ".asm": "text",
