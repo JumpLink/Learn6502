@@ -26,6 +26,7 @@ import {
   MainWindowController,
   addAppActions,
   createMainMenu,
+  getAboutInfo,
   type MainWindowServices,
 } from "@learn6502/ui";
 
@@ -109,10 +110,26 @@ export class MainWindow {
     const application = new Adw.Application();
     application.application_id = APPLICATION_ID;
     this.root.application = application;
+    const about = this.createAboutDialog();
     addAppActions(application as unknown as GjsGtk.Application, {
       quit: () => this.shell.closeWindow(),
-      about: () => this.toastOverlay.addToast("About Learn 6502 Assembly (coming soon)", { timeout: 2 }),
+      about: () => about.present(),
     });
+  }
+
+  /** The dialog is an in-page overlay, so it lives in the window like any other child. */
+  private createAboutDialog(): Adw.AboutDialog {
+    const info = getAboutInfo();
+    const about = new Adw.AboutDialog();
+    about.applicationName = info.applicationName;
+    about.applicationIcon = info.applicationIcon;
+    about.developerName = info.developerName;
+    about.comments = info.comments;
+    about.website = info.website;
+    about.issueUrl = info.issueUrl;
+    about.license = info.license;
+    this.root.appendChild(about);
+    return about;
   }
 
   /**
