@@ -1,4 +1,5 @@
 import type { Page, EventData, View } from "@nativescript/core";
+import type GjsGtk from "@girs/gtk-4.0";
 import { Application, GridLayout } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 
@@ -33,7 +34,7 @@ import {
   MainEventBridge,
   MainButtonState,
 } from "@learn6502/common-ui";
-import type { SimulatorState } from "@learn6502/core";
+import { SimulatorState } from "@learn6502/core";
 
 // Services / utils
 import { notificationService } from "~/services";
@@ -45,7 +46,7 @@ import { translate } from "~/utils/translate";
 // The template classes main.window.blp names; importing a module registers its class (MainButton and
 // Toolbar come from @learn6502/ui).
 import "~/widgets/menu-button";
-import { MainButton } from "@learn6502/ui";
+import { MainButton, WindowBehaviour } from "@learn6502/ui";
 import type { MenuButton } from "~/widgets/menu-button";
 import { createScreens, type Screens } from "./main/screens";
 import { learnView } from "./main/learn";
@@ -250,6 +251,7 @@ export class MainController implements MainView {
       translate,
     });
     this._window = root;
+    this.attachWindowBehaviour(root);
     const byId = <T>(id: string): T => root.getViewById<View>(id) as unknown as T;
 
     this._stack = byId<Adw.ViewStack>("stack");
@@ -273,6 +275,23 @@ export class MainController implements MainView {
     this.mountLayout();
 
     return root;
+  }
+
+  /**
+   * Pause a running program when the activity leaves the foreground (`is-active`) and route
+   * `close-request` through the shared behaviour. The Android back button is not mapped to
+   * `close-request` yet, so nothing fires that today.
+   */
+  private attachWindowBehaviour(root: View): void {
+    new WindowBehaviour({
+      // The root is the NativeScript Adw.ApplicationWindow, typed against GJS in the shared package.
+      window: root as unknown as GjsGtk.Window,
+      isRunning: () => this.state === SimulatorState.RUNNING,
+      pause: () => this.pauseGameConsole(),
+      onCloseRequest: () => false,
+      isDesktopLayout: () => this.threeColumns,
+      isInsideConsole: () => false,
+    }).attach();
   }
 
   /** The `win` action group the main button and the run toolbar fire (their `action-name`s). */

@@ -25,6 +25,7 @@
  * All four views are the shared `@learn6502/ui` widgets (Learn, Editor, Debugger, GameConsole).
  */
 
+import type GjsGtk from "@girs/gtk-4.0";
 import { Adw, Gtk } from "@gjsify/adwaita-web";
 import {
   DebuggerState,
@@ -42,7 +43,7 @@ import { Assembler, Labels, Memory, Simulator, SimulatorState, formatMessage } f
 
 import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
 import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
-import { Debugger, Editor, GameConsole, Learn } from "@learn6502/ui";
+import { Debugger, Editor, GameConsole, Learn, WindowBehaviour } from "@learn6502/ui";
 import { injectShellStyles } from "./styles.js";
 
 /** Learn6502 project repository — the "share your example" destination. */
@@ -265,9 +266,26 @@ export class MainWindow implements MainView {
     this.debuggerSlot.appendChild(debuggerElement);
   }
 
+  /** Pause a running program when the tab loses the window focus (`is-active`), as the GNOME window does. */
+  private attachWindowBehaviour(window_: Adw.Window): void {
+    new WindowBehaviour({
+      // The shared package is typed against the GJS bindings; the web element carries the same members.
+      window: window_ as unknown as GjsGtk.Window,
+      isRunning: () => this.simulator.state === SimulatorState.RUNNING,
+      pause: () => this.pauseGameConsole(),
+      onCloseRequest: () => false,
+      isDesktopLayout: () => this.isDesktop(),
+      isInsideConsole: (widget) => {
+        const consoleElement = this.gameConsoleView as unknown as Node;
+        return !!widget && consoleElement.contains(widget as unknown as Node);
+      },
+    }).attach();
+  }
+
   private buildChrome(): Adw.Window {
     const window_ = new Adw.Window();
     window_.id = "application-window";
+    this.attachWindowBehaviour(window_);
 
     const toolbarView = new Adw.ToolbarView();
 
