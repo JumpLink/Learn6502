@@ -1,12 +1,12 @@
 import type GjsGtk from "@girs/gtk-4.0";
-import { Adw, type Gtk } from "@gjsify/adwaita-web";
+import { Adw, Gio, type Gtk } from "@gjsify/adwaita-web";
 import { ViewType, mainStateController } from "@learn6502/common-ui";
 import { _, type Debugger, type Editor, type GameConsole, type Learn } from "@learn6502/ui";
 import type { MainWindowShell, ShellAction, UnsavedChangesAnswer } from "@learn6502/ui";
 
 /** The widgets `MainWindow` builds around the four screens. */
 export interface DomShellParts {
-  window: Adw.Window;
+  window: Adw.ApplicationWindow;
   learn: Learn;
   editor: Editor;
   debugger: Debugger;
@@ -27,17 +27,6 @@ const SCREENS = [
 ] as const;
 
 type ScreenName = (typeof SCREENS)[number]["name"];
-
-/** `<Control><Shift>s` against a key event. */
-function matchesAccelerator(event: KeyboardEvent, accelerator: string): boolean {
-  const key = accelerator.replace(/<[^>]+>/g, "").toLowerCase();
-  return (
-    event.key.toLowerCase() === key &&
-    event.ctrlKey === accelerator.includes("<Control>") &&
-    event.shiftKey === accelerator.includes("<Shift>") &&
-    event.altKey === accelerator.includes("<Alt>")
-  );
-}
 
 /**
  * The slice of `Gtk.Window` the shared window behaviour reads, answered by the document. `close-request`
@@ -94,9 +83,7 @@ export class DomMainWindowShell implements MainWindowShell {
   private onViewChanged: ((view: ViewType, previous: ViewType) => void) | null = null;
   private onLayout: (() => void) | null = null;
 
-  private readonly handlers = new Map<string, () => void>();
-  private readonly enabled = new Map<string, boolean>();
-  private readonly accelerators: { accelerator: string; name: string }[] = [];
+  private readonly actions = new Map<string, Gio.SimpleAction>();
   private actionsChanged: (() => void) | null = null;
   private dialog: Adw.AlertDialog | null = null;
 
@@ -129,7 +116,6 @@ export class DomMainWindowShell implements MainWindowShell {
     });
     this.desktopMq.addEventListener("change", () => this.relayout());
     this.wideMq.addEventListener("change", () => this.relayout());
-    document.addEventListener("keydown", (event) => this.onKeyDown(event));
   }
 
   // --- Layout ---
@@ -289,41 +275,34 @@ export class DomMainWindowShell implements MainWindowShell {
 
   // --- Actions ---
 
-  addAction(name: string, activate: () => void, accels: string[] = []): ShellAction {
-    this.handlers.set(name, activate);
-    this.enabled.set(name, true);
-    for (const accelerator of accels) {
-      this.accelerators.push({ accelerator, name });
-    }
+  addAction(name: string, activate: () => void, accels?: string[]): ShellAction {
+    const action = new Gio.SimpleAction({ name });
+    action.connect("activate", () => activate());
+    this.actions.set(name, action);
+    // The window's application runs the accelerators; it is linked before the controller registers actions.
+    // The element's typings lack the `Gio.ActionMap` and `application` members it has at run time.
+    const window = this.parts.window as unknown as GjsGtk.ApplicationWindow;
+    window.add_action(action as unknown as Parameters<GjsGtk.ApplicationWindow["add_action"]>[0]);
+    if (accels) window.application?.set_accels_for_action(`win.${name}`, accels);
     return {
       setEnabled: (enabled) => {
-        this.enabled.set(name, enabled);
+        action.enabled = enabled;
         this.actionsChanged?.();
       },
     };
   }
 
   isActionEnabled(name: string): boolean {
-    return this.enabled.get(name) ?? false;
+    return this.actions.get(name)?.enabled ?? false;
   }
 
-  /** Fire an action as its button, menu item or shortcut would. */
+  /** Fire an action as its button would. */
   activate(name: string): void {
-    if (this.isActionEnabled(name)) this.handlers.get(name)?.();
+    this.actions.get(name)?.activate(null);
   }
 
   onActionsChanged(handler: () => void): void {
     this.actionsChanged = handler;
-  }
-
-  private onKeyDown(event: KeyboardEvent): void {
-    for (const { accelerator, name } of this.accelerators) {
-      if (!matchesAccelerator(event, accelerator)) continue;
-      // The browser's own Ctrl+S / Ctrl+O would otherwise take the key
-      event.preventDefault();
-      this.activate(name);
-      return;
-    }
   }
 
   // --- Dialog, closing ---

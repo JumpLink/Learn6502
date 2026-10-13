@@ -1,12 +1,12 @@
 import type { Page, EventData, View } from "@nativescript/core";
 import { Application, GridLayout } from "@nativescript/core";
-import { localize as _ } from "@nativescript/localize";
 
 import { systemStates, SystemStates } from "~/states";
 
 // Adwaita native widgets
 import { Adw, setAdwaitaColorScheme } from "@gjsify/adwaita-nativescript";
 import type { Gtk } from "@gjsify/adwaita-nativescript";
+import type GjsGtk from "@girs/gtk-4.0";
 import { buildWithSiblings } from "@gjsify/adwaita-nativescript/builder";
 // The GNOME app's own main window Blueprint, built by the shared-tree builder: its `Adw.Breakpoint`s
 // move the four screens between the view stack and the three columns.
@@ -17,15 +17,13 @@ import { ViewType, gameConsoleController } from "@learn6502/common-ui";
 // Services / utils
 import { createMainWindowServices } from "~/services/main-window.services";
 import type { SystemAppearanceChangeEvent } from "~/types";
+import { APPLICATION_ID } from "~/constants";
 import { showError, logger } from "~/utils";
 import { setAppBackHandler } from "~/utils/navigation";
 import { translate } from "~/utils/translate";
 
-// The template classes main.window.blp names; importing a module registers its class (MainButton and
-// Toolbar come from @learn6502/ui).
-import "~/widgets/menu-button";
-import { MainWindowController, type MainButton } from "@learn6502/ui";
-import type { MenuButton } from "~/widgets/menu-button";
+// The template classes main.window.blp names (MainButton and Toolbar) register with @learn6502/ui.
+import { MainWindowController, addAppActions, createMainMenu, getAboutInfo, type MainButton } from "@learn6502/ui";
 import { createScreens } from "./main/screens";
 import { simulatorStack } from "./main/game-console";
 import { NativeMainWindowShell } from "./main/shell";
@@ -139,11 +137,23 @@ export class MainController {
       createMainWindowServices(() => controller.navigateToView(ViewType.LEARN))
     );
     this.controller = controller;
+    // The shared main menu; its `app.*` items resolve through the application the window is added to.
+    // Never `runAsync`: NativeScript owns the run loop (`Application.run` in app.ts).
+    const application = new Adw.Application();
+    application.application_id = APPLICATION_ID;
+    // `Gtk.Window:application` is typed as the GJS class; at run time this is the NativeScript one.
+    (root as unknown as { application: object }).application = application;
+    addAppActions(application as unknown as GjsGtk.Application, {
+      quit: () => shell.closeWindow(),
+      about: () => this.about?.present(),
+    });
     controller.init();
     shell.insertActions();
 
-    byId<MenuButton>("menuButton").onActivated = (id) => this.onMenuItem(id);
     this.setupAbout(root);
+    // The model is typed against GJS (`Gio.Menu`), the NativeScript button takes its portable twin.
+    const menuButton = byId<Gtk.MenuButton>("menuButton");
+    menuButton.menuModel = createMainMenu() as unknown as typeof menuButton.menuModel;
 
     return root;
   }
@@ -155,30 +165,16 @@ export class MainController {
    */
   private setupAbout(root: View): void {
     const about = new Adw.AboutDialog();
-    about.applicationName = _("Learn 6502 Assembly");
+    const info = getAboutInfo();
+    about.applicationName = info.applicationName;
     about.version = __APP_VERSION__;
-    about.developerName = "Pascal Garber";
-    about.comments = _("Program vintage game consoles");
-    about.website = "https://flathub.org/apps/eu.jumplink.Learn6502";
+    about.developerName = info.developerName;
+    about.comments = info.comments;
+    about.website = info.website;
     this.about = about;
     GridLayout.setRow(about, 0);
     GridLayout.setColumn(about, 0);
     (root as GridLayout).addChild(about);
-  }
-
-  // --- Menu handlers ---
-  private onMenuItem(id: string): void {
-    switch (id) {
-      case "about":
-        this.about?.present();
-        break;
-      case "help":
-        this.controller?.navigateToView(ViewType.LEARN);
-        break;
-      case "quit":
-        this.shell?.closeWindow();
-        break;
-    }
   }
 
   // --- Setup helpers ---

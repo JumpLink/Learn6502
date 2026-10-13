@@ -15,15 +15,29 @@
  *     [bottom]  Adw.ViewSwitcherBar — mobile tab bar bound to the stack
  */
 
+import type GjsGtk from "@girs/gtk-4.0";
 import { Adw, Gtk } from "@gjsify/adwaita-web";
 import { ViewType, editorController, mainStateController } from "@learn6502/common-ui";
-import { Debugger, Editor, GameConsole, Learn, MainWindowController, type MainWindowServices } from "@learn6502/ui";
+import {
+  Debugger,
+  Editor,
+  GameConsole,
+  Learn,
+  MainWindowController,
+  addAppActions,
+  createMainMenu,
+  getAboutInfo,
+  type MainWindowServices,
+} from "@learn6502/ui";
 
 import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
 import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
 import { FileService } from "./file.service.js";
 import { DomMainWindowShell } from "./main-window.shell.js";
 import { injectShellStyles } from "./styles.js";
+
+/** The application id, as in the GNOME app. */
+const APPLICATION_ID = "eu.jumplink.Learn6502";
 
 /** Learn6502 project repository — the "share your example" destination. */
 const SHARE_URL = "https://github.com/JumpLink/Learn6502";
@@ -48,7 +62,7 @@ interface RunButton {
 
 export class MainWindow {
   /** The root element to mount into the document. */
-  public readonly root: Adw.Window;
+  public readonly root: Adw.ApplicationWindow;
 
   private readonly learnView = new Learn();
   private readonly editorView = new Editor();
@@ -70,7 +84,7 @@ export class MainWindow {
   constructor() {
     injectShellStyles();
 
-    this.root = new Adw.Window();
+    this.root = new Adw.ApplicationWindow();
     this.root.id = "application-window";
     this.shell = new DomMainWindowShell({
       window: this.root,
@@ -85,6 +99,38 @@ export class MainWindow {
       titleWidget: this.titleWidget,
     });
     this.buildChrome();
+    this.linkApplication();
+  }
+
+  /**
+   * The application the window belongs to: it resolves the menu's `app.*` actions and runs the
+   * accelerators. Never `runAsync`: the page is already running.
+   */
+  private linkApplication(): void {
+    const application = new Adw.Application();
+    application.application_id = APPLICATION_ID;
+    this.root.application = application;
+    const about = this.createAboutDialog();
+    addAppActions(application as unknown as GjsGtk.Application, {
+      quit: () => this.shell.closeWindow(),
+      about: () => about.present(),
+    });
+  }
+
+  /** The dialog is an in-page overlay, so it lives in the window like any other child. */
+  private createAboutDialog(): Adw.AboutDialog {
+    const info = getAboutInfo();
+    const about = new Adw.AboutDialog();
+    about.applicationName = info.applicationName;
+    about.applicationIcon = info.applicationIcon;
+    about.version = __APP_VERSION__;
+    about.developerName = info.developerName;
+    about.comments = info.comments;
+    about.website = info.website;
+    about.issueUrl = info.issueUrl;
+    about.license = info.license;
+    this.root.appendChild(about);
+    return about;
   }
 
   /**
@@ -181,22 +227,8 @@ export class MainWindow {
     const menuButton = new Gtk.MenuButton();
     menuButton.setAttribute("slot", "end");
     menuButton.menuTitle = "Main Menu";
-    menuButton.menuModel = [
-      { id: "open-file", label: "Open…" },
-      { id: "save-file", label: "Save" },
-      { id: "save-as-file", label: "Save As…" },
-      { id: "show-help", label: "Help" },
-      { id: "shortcuts", label: "Keyboard Shortcuts" },
-      { id: "about", label: "About Learn 6502 Assembly" },
-    ];
-    menuButton.addEventListener("menu-item-activated", (event) => {
-      const id = (event as CustomEvent<{ id: string }>).detail.id;
-      if (id === "shortcuts" || id === "about") {
-        this.toastOverlay.addToast(`Menu: ${id} (coming soon)`, { timeout: 2 });
-        return;
-      }
-      this.shell.activate(id);
-    });
+    // The model is typed against GJS (`Gio.Menu`); the element takes its portable twin.
+    menuButton.menuModel = createMainMenu() as unknown as typeof menuButton.menuModel;
 
     header.append(this.sidebarToggle, this.learnBackButton, this.runControls, this.titleWidget, menuButton);
 
