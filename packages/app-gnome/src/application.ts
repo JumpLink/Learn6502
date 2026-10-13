@@ -3,6 +3,7 @@ import Gio from "@girs/gio-2.0";
 import Adw from "@girs/adw-1";
 import GLib from "@girs/glib-2.0";
 
+import { addAppActions } from "@learn6502/ui";
 import { MainWindow, PreferencesDialog } from "./views/index.ts";
 import { APPLICATION_ID } from "./constants.ts";
 import { initResources } from "./resources.ts";
@@ -49,26 +50,11 @@ export class Application extends Adw.Application {
   }
 
   initActions() {
-    // Quit action
-    const quitAction = new Gio.SimpleAction({ name: "quit" });
-    quitAction.connect("activate", (_action) => {
-      log("quitAction activated");
-      this.quit();
+    addAppActions(this, {
+      quit: () => this.quit(),
+      about: () => this.onShowAboutDialog(),
+      preferences: () => new PreferencesDialog().present(this.active_window),
     });
-    this.add_action(quitAction);
-    this.set_accels_for_action("app.quit", ["<primary>q"]);
-
-    // About action
-    const showAboutAction = new Gio.SimpleAction({ name: "about" });
-    showAboutAction.connect("activate", this.onShowAboutDialog.bind(this));
-    this.add_action(showAboutAction);
-
-    const showPreferencesAction = new Gio.SimpleAction({ name: "preferences" });
-    showPreferencesAction.connect("activate", (_action) => {
-      const preferencesDialog = new PreferencesDialog();
-      preferencesDialog.present(this.active_window);
-    });
-    this.add_action(showPreferencesAction);
   }
 
   private onShowAboutDialog() {

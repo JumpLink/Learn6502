@@ -127,8 +127,13 @@ template $MainWindow: Adw.ApplicationWindow {
         ]
       }
       [end]
-      $MenuButton menuButton {
-        halign: center;
+      // The menu model comes from code: `createMainMenu()` in @learn6502/ui, shared by every platform.
+      MenuButton menuButton {
+        icon-name: "open-menu-symbolic";
+        primary: true;
+        styles [
+          "flat",
+        ]
       }
 
     }

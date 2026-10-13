@@ -7,6 +7,7 @@ import { gameConsoleController } from "@learn6502/common-ui";
 import type { Memory } from "@learn6502/core";
 import {
   MainWindowController,
+  createMainMenu,
   type Debugger,
   type Editor,
   type GameConsole,
@@ -39,6 +40,7 @@ export class MainWindow extends Adw.ApplicationWindow {
   declare private _titleLabel: Gtk.Label;
   declare private _unsavedChangesIndicator: Gtk.Button;
   declare private _learnBackButton: Gtk.Button;
+  declare private _menuButton: Gtk.MenuButton;
   declare private _leftSidebar: Adw.OverlaySplitView;
   declare private _leftColumn: Gtk.Box;
   declare private _centerColumn: Gtk.Box;
@@ -81,6 +83,7 @@ export class MainWindow extends Adw.ApplicationWindow {
           "unsavedChangesIndicator",
           "sidebarToggleButton",
           "learnBackButton",
+          "menuButton",
         ],
       },
       this
@@ -94,6 +97,7 @@ export class MainWindow extends Adw.ApplicationWindow {
   constructor(application: Adw.Application) {
     super({ application });
 
+    this._menuButton.set_menu_model(createMainMenu({ preferences: true }));
     fileService.init(this);
     fileService.setUnsavedChangesIndicator(this._unsavedChangesIndicator);
     themeService.init();

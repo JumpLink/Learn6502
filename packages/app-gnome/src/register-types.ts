@@ -20,7 +20,6 @@
 // Leaf widgets
 // Shared widgets (@learn6502/ui): SourceView, Hexdump, Disassembled, HexMonitor, DebugInfo, MessageConsole, Gamepad, Display, GameConsole, Debugger, Editor, Learn, ExamplesList, ExampleListItem, MainButton, Toolbar
 import "@learn6502/ui";
-import "./widgets/menu-button.ts";
 import "./widgets/accent-color-selector.ts";
 import "./widgets/primary-color-selector.ts";
 import "./widgets/theme-mode-selector.ts";
