@@ -18,9 +18,11 @@ registerTemplateClass("QuickHelpView", QuickHelpView);
 
 const SETTINGS_CODE = "editor.code";
 
-/** A built screen: its root view + optional show/hide lifecycle hooks. */
-export interface ScreenModule {
+/** A built screen: its root view, the shared widget behind it and optional show/hide lifecycle hooks. */
+export interface ScreenModule<W = unknown> {
   view: View;
+  /** The `@learn6502/ui` widget the shared main window controller drives. */
+  widget: W;
   onShow?(): void;
   onHide?(): void;
   /** Handle the hardware back button while this screen is active. Return true if
@@ -79,7 +81,7 @@ class Editor extends Observable implements EditorView {
 
   /** Build the shared `@learn6502/ui` editor (the source view over the quick-help bottom sheet)
    *  and wire it to the controller (once). */
-  build(): View {
+  build(): EditorWidget {
     // The shared `Editor` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     this._pane?.unbind();
     const pane = new EditorWidget();
@@ -97,7 +99,7 @@ class Editor extends Observable implements EditorView {
       this._initialized = true;
     }
 
-    return asView(pane);
+    return pane;
   }
 
   /** The back button closes the quick-help sheet first. */
@@ -130,9 +132,12 @@ class Editor extends Observable implements EditorView {
 export const editorView = new Editor();
 
 /** Build the editor screen for the shell's Adw.ViewStack. */
-export function buildEditorScreen(): ScreenModule {
+export function buildEditorScreen(): ScreenModule<EditorWidget> {
+  const widget = editorView.build();
   return {
-    view: editorView.build(),
+    // The shared widget is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+    view: asView(widget),
+    widget,
     onHide: () => editorView.save(),
     onBack: () => editorView.closeSheet(),
     padSystemInsets: (on) => {
