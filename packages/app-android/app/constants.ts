@@ -7,6 +7,9 @@
  * Note: Type definitions are in `types/`, utility functions in `utils/`
  */
 
+/** The application id, as in nativescript.config.ts */
+export const APPLICATION_ID = "eu.jumplink.Learn6502";
+
 // ============================================================================
 // Application Settings Keys
 // ============================================================================

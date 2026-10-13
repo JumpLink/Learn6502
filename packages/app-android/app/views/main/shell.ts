@@ -113,10 +113,12 @@ export class NativeMainWindowShell implements MainWindowShell {
     return false;
   }
 
-  addAction(name: string, activate: () => void): ShellAction {
+  addAction(name: string, activate: () => void, accels?: string[]): ShellAction {
     const action = new Gio.SimpleAction({ name });
     action.connect("activate", () => activate());
     this.actionGroup.add_action(action);
+    // The window's application keeps the accelerators; it is linked before the controller registers actions.
+    if (accels) this.window.application?.set_accels_for_action(`win.${name}`, accels);
     return {
       setEnabled: (enabled) => {
         action.enabled = enabled;
