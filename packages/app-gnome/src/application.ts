@@ -1,7 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Gio from "@girs/gio-2.0";
 import Adw from "@girs/adw-1";
-import GLib from "@girs/glib-2.0";
 
 import { addAppActions } from "@learn6502/ui";
 import { MainWindow, PreferencesDialog } from "./views/index.ts";
