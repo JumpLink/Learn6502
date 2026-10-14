@@ -76,12 +76,10 @@ class Editor extends Observable implements EditorView {
     this.events.dispatch("changed", event);
   };
 
-  /** Build the shared `@learn6502/ui` editor (the source view over the quick-help bottom sheet)
+  /** Take the shared `@learn6502/ui` editor (the source view over the quick-help bottom sheet)
    *  and wire it to the controller (once). */
-  build(): EditorWidget {
-    // The shared `Editor` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+  adopt(pane: EditorWidget): void {
     this._pane?.unbind();
-    const pane = new EditorWidget();
     this._pane = pane;
 
     // The controller outlives the activity: the widget hands it its fresh source view on every
@@ -95,8 +93,6 @@ class Editor extends Observable implements EditorView {
       Application.on(Application.suspendEvent, () => this.save());
       this._initialized = true;
     }
-
-    return pane;
   }
 
   /**
@@ -122,8 +118,8 @@ class Editor extends Observable implements EditorView {
 export const editorView = new Editor();
 
 /** Build the editor screen for the shell's Adw.ViewStack. */
-export function buildEditorScreen(): ScreenModule<EditorWidget> {
-  const widget = editorView.build();
+export function buildEditorScreen(widget: EditorWidget): ScreenModule<EditorWidget> {
+  editorView.adopt(widget);
   return {
     // The shared widget is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     view: asView(widget),

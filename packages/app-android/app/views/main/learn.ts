@@ -40,16 +40,13 @@ class Learn implements LearnView {
   private releaseInsets: (() => void)[] = [];
   private log = logger.scoped("Learn");
 
-  build(): LearnWidget {
-    // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
-    const widget = new LearnWidget();
+  adopt(widget: LearnWidget): void {
     this.widget = widget;
     widget.events.on("subpage-changed", (event) => {
       // The tutorial's ~750 views are built on its first visit, not with the window.
       if (event.tag === "tutorial") tutorialView?.build();
       this.events.dispatch("subpage-changed", event);
     });
-    return widget;
   }
 
   /** Whether a subpage (Tutorial/Examples) is open — drives the shell's header back button. */
@@ -82,8 +79,8 @@ class Learn implements LearnView {
 const learnView = new Learn();
 
 /** Build the learn screen for the shell's Adw.ViewStack. */
-export function buildLearnScreen(): ScreenModule<LearnWidget> {
-  const widget = learnView.build();
+export function buildLearnScreen(widget: LearnWidget): ScreenModule<LearnWidget> {
+  learnView.adopt(widget);
   return {
     // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     view: asView(widget),

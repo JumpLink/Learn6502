@@ -1,5 +1,4 @@
 import type { Debugger, GameConsole, Learn, Editor } from "@learn6502/ui";
-import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 import { buildEditorScreen, type ScreenModule } from "./editor";
 import { buildLearnScreen } from "./learn";
 import { buildDebuggerScreen } from "./debugger";
@@ -14,38 +13,20 @@ export interface Screens {
 }
 
 /**
- * Builds the screens and registers the classes `main.window.blp` names for them (`$Learn`,
- * `$Editor`, `$Debugger`, `$GameConsole`). Each class is the screen's own view: the blueprint
- * only declares them as objects beside the window, and the shell decides where they sit.
+ * Wraps the screens `main.window.blp` builds beside the window (`$Learn`, `$Editor`, `$Debugger`,
+ * `$GameConsole`): as in GTK, the blueprint names the `@learn6502/ui` classes and the builder
+ * constructs them, and the shell decides where they sit.
  */
-export function createScreens(): Screens {
-  const screens: Screens = {
-    learn: buildLearnScreen(),
-    editor: buildEditorScreen(),
-    debugger: buildDebuggerScreen(),
-    gameConsole: buildGameConsoleScreen(),
+export function createScreens(objects: ReadonlyMap<string, object>): Screens {
+  const widget = <T>(id: keyof Screens): T => {
+    const object = objects.get(id);
+    if (!object) throw new Error(`main.window.blp built no '${id}' screen`);
+    return object as T;
   };
-  current = screens;
-  return screens;
-}
-
-let current: Screens | null = null;
-
-// Registered once, because a class cannot be registered twice and the activity (and with it the
-// screens) is recreated on a configuration change: each class hands out the CURRENT screen's view.
-const SCREEN_CLASSES: Record<string, keyof Screens> = {
-  Learn: "learn",
-  Editor: "editor",
-  Debugger: "debugger",
-  GameConsole: "gameConsole",
-};
-for (const [name, id] of Object.entries(SCREEN_CLASSES)) {
-  registerTemplateClass(
-    name,
-    class {
-      constructor() {
-        return current![id].view;
-      }
-    }
-  );
+  return {
+    learn: buildLearnScreen(widget<Learn>("learn")),
+    editor: buildEditorScreen(widget<Editor>("editor")),
+    debugger: buildDebuggerScreen(widget<Debugger>("debugger")),
+    gameConsole: buildGameConsoleScreen(widget<GameConsole>("gameConsole")),
+  };
 }
