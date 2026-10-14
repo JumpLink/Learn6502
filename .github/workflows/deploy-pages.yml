@@ -1,7 +1,7 @@
 name: Deploy Pages
 
-# Builds the landing page (packages/website, static HTML generated from the
-# AppStream metainfo) and the app-web Adwaita SPA (`gjsify build --app browser`)
+# Builds the landing page (`gjsify site build`, static HTML generated from the
+# AppStream metainfo by @gjsify/site) and the app-web Adwaita SPA (`gjsify build --app browser`)
 # and deploys both to GitHub Pages: the landing page at /Learn6502/, the web app
 # at /Learn6502/app/. The successor to the legacy Jekyll build of the classic
 # tutorial (removed in the app-web rewrite). Point Settings → Pages → Source at
@@ -17,7 +17,6 @@ on:
       - "packages/ui/**"
       - "packages/core/**"
       - "packages/examples/**"
-      - "packages/website/**"
       - "packages/translations/**"
       - "packages/app-gnome/data/metainfo/**"
       - "package.json"
@@ -62,7 +61,7 @@ jobs:
         # the bundle demands Pango/Gdk/GdkPixbuf typelibs at import. learn's own
         # `--globals node` does not reach it. This container was deliberately
         # GTK-less; restoring that needs an upstream fix in gjsify.
-        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 gdk-pixbuf2-modules-extra glycin-loaders
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -121,9 +120,10 @@ jobs:
 
       # The release list and download counts come from the GitHub API; the token
       # only lifts the rate limit. A failed lookup warns and the page links to the
-      # releases instead of failing the deploy.
+      # releases instead of failing the deploy. The output dir mirrors the Pages
+      # base path so `/Learn6502/` resolves the same when served locally.
       - name: Build landing page
-        run: gjsify workspace @learn6502/website build
+        run: gjsify site build --out site
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
@@ -131,13 +131,13 @@ jobs:
       # landing page without a base change.
       - name: Place the web app below the landing page
         run: |
-          mkdir -p packages/website/dist/app
-          cp -r packages/app-web/dist-app/. packages/website/dist/app/
+          mkdir -p site/app
+          cp -r packages/app-web/dist-app/. site/app/
 
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/website/dist
+          path: site
 
   deploy:
     name: Deploy to GitHub Pages
