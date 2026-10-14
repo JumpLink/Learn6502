@@ -129,6 +129,7 @@ export class MainWindow {
     about.website = info.website;
     about.issueUrl = info.issueUrl;
     about.license = info.license;
+    about.add_link(info.supportLink.title, info.supportLink.url);
     this.root.appendChild(about);
     return about;
   }
