@@ -41,9 +41,6 @@ export interface NativeShellParts {
  */
 export class NativeMainWindowShell implements MainWindowShell {
   readonly window: GjsGtk.Window;
-  // The back button is not mapped to `close-request` in gjsify yet (a core gap), so nothing fires
-  // it and the unsaved-changes guard stays unwired here instead of being worked around.
-  readonly emitsCloseRequest = false;
 
   private readonly actionGroup = new Gio.SimpleActionGroup();
   private releaseColumnInsets: (() => void) | null = null;
