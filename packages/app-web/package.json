@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "rm -rf dist-app",
     "build": "gjsify run build:app",
-    "build:app": "gjsify build app.html --app browser --gi-renderer --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty",
+    "build:app": "gjsify build app.html --app browser --channel web --gi-renderer --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty",
     "start": "gjsify run dev:app",
     "dev:app": "vite --config vite.app.config.ts",
     "preview:app": "vite preview --config vite.app.config.ts",

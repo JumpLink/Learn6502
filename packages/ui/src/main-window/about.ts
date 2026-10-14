@@ -1,3 +1,5 @@
+import { donationsAllowed } from "@gjsify/distribution";
+
 import { _ } from "../translate.ts";
 
 /**
@@ -13,15 +15,18 @@ export interface AboutInfo {
   issueUrl: string;
   /** SPDX identifier */
   license: string;
-  /** Link to the landing page's support section; labelled "Support", never "Donate" (business income, no deduction). */
-  supportLink: { title: string; url: string };
+  /**
+   * Link to the landing page's support section; labelled "Support", never "Donate" (business income, no
+   * deduction). `null` on a channel that shows no donation UI at all (the Microsoft and Apple stores).
+   */
+  supportLink: { title: string; url: string } | null;
 }
 
 /** English page; the metainfo `<url type="donation">` points at it. */
 const SUPPORT_URL = "https://jumplink.eu/Learn6502/en/support/";
 
 /** The site renders `en` and `de`; anything else falls back to English. */
-function supportUrl(): string {
+export function supportUrl(): string {
   const locale = new Intl.DateTimeFormat().resolvedOptions().locale;
   return locale.startsWith("de") ? SUPPORT_URL.replace("/en/", "/de/") : SUPPORT_URL;
 }
@@ -35,6 +40,6 @@ export function getAboutInfo(): AboutInfo {
     website: "https://flathub.org/apps/eu.jumplink.Learn6502",
     issueUrl: "https://github.com/JumpLink/Learn6502/issues",
     license: "GPL-3.0-or-later",
-    supportLink: { title: _("Support"), url: supportUrl() },
+    supportLink: donationsAllowed() ? { title: _("Support"), url: supportUrl() } : null,
   };
 }

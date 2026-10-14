@@ -34,6 +34,8 @@ build_env.set('DATADIR', datadir)
 build_env.set('BINDIR', bindir)
 build_env.set('OUTDIR', meson.current_build_dir())
 build_env.set('BUILD_MODE', 'flatpak')
+# Flatpak builds are the Flathub channel; without it @gjsify/distribution reports no donation UI.
+build_env.set('GJSIFY_CHANNEL', 'flathub')
 build_env.set('PKGDATADIR', pkgdatadir)
 build_env.set('RESOURCES_PATH', '/' + application_id.replace('.', '/'))
 
