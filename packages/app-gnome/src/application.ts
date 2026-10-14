@@ -50,7 +50,10 @@ export class Application extends Adw.Application {
 
   initActions() {
     addAppActions(this, {
-      quit: () => this.quit(),
+      // `quit()` skips `close-request`, which is where unsaved changes are asked about
+      quit: () => {
+        for (const window of this.get_windows()) window.close();
+      },
       about: () => this.onShowAboutDialog(),
       preferences: () => new PreferencesDialog().present(this.active_window),
     });
