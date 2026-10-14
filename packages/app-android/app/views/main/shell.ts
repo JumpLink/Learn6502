@@ -137,15 +137,6 @@ export class NativeMainWindowShell implements MainWindowShell {
     Application.android?.foregroundActivity?.finish();
   }
 
-  /** The hardware back button, offered to the screens in view first (the Learn screen pops a page). */
-  handleBack(): boolean {
-    if (this.isDesktopLayout()) {
-      return (this.screens.editor.onBack?.() ?? false) || (this.screens.learn.onBack?.() ?? false);
-    }
-    const page = STACK_PAGES.find((candidate) => candidate.id === this.currentName);
-    return page ? (this.screens[page.id].onBack?.() ?? false) : false;
-  }
-
   private onStackChanged(name: string): void {
     const page = STACK_PAGES.find((candidate) => candidate.id === name);
     if (!page || this.isDesktopLayout()) return;

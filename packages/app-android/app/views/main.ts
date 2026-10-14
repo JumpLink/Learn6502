@@ -19,7 +19,6 @@ import { createMainWindowServices } from "~/services/main-window.services";
 import type { SystemAppearanceChangeEvent } from "~/types";
 import { APPLICATION_ID } from "~/constants";
 import { showError, logger } from "~/utils";
-import { setAppBackHandler } from "~/utils/navigation";
 import { translate } from "~/utils/translate";
 
 // The template classes main.window.blp names (MainButton and Toolbar) register with @learn6502/ui.
@@ -65,17 +64,11 @@ export class MainController {
 
     // Build the shell from main.window.blp and install it as the page content.
     page.content = this.buildShell();
-
-    // Hardware back: let the visible screens consume it (e.g. the Learn screen pops its internal
-    // Adw.NavigationView). Registered with the global back handler so it runs before the default
-    // Frame / move-to-background logic.
-    setAppBackHandler(() => this.shell?.handleBack() ?? false);
   }
 
   public onUnloaded(args: EventData): void {
     const view = args.object as Page;
     this.log.debug("unloaded:", view.id);
-    setAppBackHandler(null);
     this.controller?.disconnect();
     this.mainButton?.unbind();
     systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);

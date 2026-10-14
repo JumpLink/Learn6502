@@ -57,13 +57,6 @@ class Learn implements LearnView {
     return this.widget?.hasVisibleSubpage ?? false;
   }
 
-  /** Pop one level. Returns true if a page was popped, so the caller can consume the back press. */
-  navigateBack(): boolean {
-    if (!this.widget?.hasVisibleSubpage) return false;
-    this.widget.navigateBack();
-    return true;
-  }
-
   /** Whether the pages reach the screen's bottom edge (the wide layout): their scrolling content
    *  then ends a gesture area higher, while the page background runs on to the edge. */
   padSystemInsets(on: boolean): void {
@@ -96,7 +89,6 @@ export function buildLearnScreen(): ScreenModule<LearnWidget> {
     view: asView(widget),
     widget,
     onHide: () => learnView.saveScrollPosition(),
-    onBack: () => learnView.navigateBack(),
     padSystemInsets: (on) => learnView.padSystemInsets(on),
   };
 }

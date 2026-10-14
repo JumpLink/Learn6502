@@ -10,7 +10,6 @@ import "~/icons"; // registers the GNOME-named icons as a side effect
 import { systemStates, SystemStates } from "./states";
 import { themeService } from "./services";
 import { appVariables } from "./variables";
-import { setupBackButtonHandler } from "./utils/navigation";
 import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
 import { logger } from "./utils";
 
@@ -40,9 +39,6 @@ try {
 
       // Initialize services sequentially
       themeService.initialize();
-
-      // Setup navigation handlers
-      setupBackButtonHandler();
 
       servicesInitialized = true;
       logger.debug("App", "Services initialized");

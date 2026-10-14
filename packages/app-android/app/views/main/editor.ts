@@ -25,9 +25,6 @@ export interface ScreenModule<W = unknown> {
   widget: W;
   onShow?(): void;
   onHide?(): void;
-  /** Handle the hardware back button while this screen is active. Return true if
-   *  the screen consumed it (e.g. popped an internal navigation stack). */
-  onBack?(): boolean;
   /** Clear (or stop clearing) the gesture area at the screen's bottom edge, as the wide layout needs. */
   padSystemInsets?(on: boolean): void;
 }
@@ -102,13 +99,6 @@ class Editor extends Observable implements EditorView {
     return pane;
   }
 
-  /** The back button closes the quick-help sheet first. */
-  closeSheet(): boolean {
-    if (!editorController.helpVisible) return false;
-    editorController.setHelpVisible(false);
-    return true;
-  }
-
   /**
    * Whether the editor sits on the screen's bottom edge, as in the wide layout. The Help bar
    * then clears the gesture area while the open sheet scrolls its quick help under it — which
@@ -139,7 +129,6 @@ export function buildEditorScreen(): ScreenModule<EditorWidget> {
     view: asView(widget),
     widget,
     onHide: () => editorView.save(),
-    onBack: () => editorView.closeSheet(),
     padSystemInsets: (on) => {
       editorView.padsSystemInsets = on;
     },
