@@ -8,8 +8,12 @@ import Template from "./display.blp?template";
 
 type Bridge = InstanceType<typeof Canvas2DBridge>;
 
-// The bridge registers its GType on import; the call keeps that import from being tree-shaken.
-const keepBridge = (_bridge: unknown): void => {};
+// The bridge registers its GType on import; holding the class keeps that import from being tree-shaken.
+// fixed upstream in gjsify: @gjsify/canvas2d now lists canvas2d-bridge.js in sideEffects (#2210); drop this once pinned.
+const keptBridges: unknown[] = [];
+const keepBridge = (bridge: unknown): void => {
+  keptBridges.push(bridge);
+};
 
 /**
  * The 6502 console screen: a `Canvas2DBridge` painted with `fillRect`, the
@@ -40,7 +44,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
         InternalChildren: ["canvas"],
         Properties: {
           displayWidth: GObject.ParamSpec.int(
-            "displayWidth",
+            "display-width",
             "Display Width",
             "Width of the display in pixels",
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT,
@@ -49,7 +53,7 @@ export class Display extends Adw.Bin implements DisplayWidget {
             DEFAULT_DISPLAY_CONFIG.width
           ),
           displayHeight: GObject.ParamSpec.int(
-            "displayHeight",
+            "display-height",
             "Display Height",
             "Height of the display in pixels",
             GObject.ParamFlags.READWRITE | GObject.ParamFlags.CONSTRUCT,
