@@ -81,9 +81,10 @@ const buildFromAppdata = (): Adw.AboutDialog => {
  */
 export const createAboutDialog = (): Adw.AboutDialog => {
   const dialog = createFromAppdata();
-  // new_from_appdata() does not map <url type="donation">, so the link is added by hand.
-  const { title, url } = getAboutInfo().supportLink;
-  dialog.add_link(title, url);
+  // new_from_appdata() does not map <url type="donation">, so the link is added by hand — and
+  // only where the distribution channel allows donation UI.
+  const link = getAboutInfo().supportLink;
+  if (link) dialog.add_link(link.title, link.url);
   return dialog;
 };
 

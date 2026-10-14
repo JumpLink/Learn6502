@@ -6,13 +6,16 @@
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "check": "gjsify tsc"
+    "check": "gjsify tsc",
+    "test": "gjsify test"
   },
   "author": "Pascal Garber",
   "license": "GPL-3.0",
   "devDependencies": {
     "@gjsify/cli": "0.63.1-next.237",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "@gjsify/unit": "0.63.1-next.237",
+    "@gjsify/distribution": "0.63.1-next.237"
   },
   "dependencies": {
     "@learn6502/core": "^0.8.0"

@@ -55,6 +55,8 @@
     "esbuild@^0.28.0",
     "lightningcss@^1.32.0",
     "@types/node@^25.9.1",
+    "@gjsify/unit@0.63.1-next.237",
+    "@gjsify/distribution@0.63.1-next.237",
     "@gjsify/dom-elements@^0.63.0",
     "@mdx-js/rollup@^3.1.1",
     "@types/mdx@^2.0.13",
@@ -1985,11 +1987,19 @@
       }
     },
     "node_modules/@gjsify/abort-controller": {
-      "version": "0.63.0",
-      "resolved": "https://registry.npmjs.org/@gjsify/abort-controller/-/abort-controller-0.63.0.tgz",
-      "integrity": "sha512-57mB6xKnL+m3OBGTHMtfR857POgs83a9A/DRuHuQJs/j5vWBBrLO5U+CR/TiNibR1liUoQB/u+2CMtdJ0+cBtw==",
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/abort-controller/-/abort-controller-0.63.1-next.237.tgz",
+      "integrity": "sha512-GpxUDmFqxKS1rwKYfILaz9xLTozlWCfNY7zWg8i5Nsy6DvdcVNOBkV5i25X+wBaUCfmxWA8+y8T/plxfragrsw==",
       "dependencies": {
-        "@gjsify/dom-events": "^0.63.0"
+        "@gjsify/dom-events": "0.63.1-next.237"
+      }
+    },
+    "node_modules/@gjsify/abort-controller/node_modules/@gjsify/dom-events": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/dom-events/-/dom-events-0.63.1-next.237.tgz",
+      "integrity": "sha512-U1v26cGqbez6RGM7C6aibzkviR/ZE2oFMWu2TC3PKnBFDiO9MNl84GZUzbO/9KfNzhR4qOAj4o2785F5VIr35A==",
+      "dependencies": {
+        "@gjsify/dom-exception": "0.63.1-next.237"
       }
     },
     "node_modules/@gjsify/adwaita-app": {
@@ -2349,6 +2359,11 @@
       "resolved": "https://registry.npmjs.org/@gjsify/diagnostics_channel/-/diagnostics_channel-0.63.1-next.237.tgz",
       "integrity": "sha512-UoCNDe/hAWvVThNu1a689qdYVE22iH9n33Ija85neobScxYP2nw6DJqbhLcX9ESgoe3QQfBlX065kl0mHQjx/A=="
     },
+    "node_modules/@gjsify/distribution": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/distribution/-/distribution-0.63.1-next.237.tgz",
+      "integrity": "sha512-/XzYo0Z9OEcFOhveA+1u80aDQsyp+HO2jJiFLpDwRq0UXNYIhEJDBgbfPo9sQUvNwN99hk5U+fFAGaJ4UUWn+w=="
+    },
     "node_modules/@gjsify/dns": {
       "version": "0.63.1-next.237",
       "resolved": "https://registry.npmjs.org/@gjsify/dns/-/dns-0.63.1-next.237.tgz",
@@ -2376,6 +2391,14 @@
         "@gjsify/node-globals": "^0.63.0",
         "@gjsify/canvas2d-core": "^0.63.0",
         "@gjsify/abort-controller": "^0.63.0"
+      }
+    },
+    "node_modules/@gjsify/dom-elements/node_modules/@gjsify/abort-controller": {
+      "version": "0.63.0",
+      "resolved": "https://registry.npmjs.org/@gjsify/abort-controller/-/abort-controller-0.63.0.tgz",
+      "integrity": "sha512-57mB6xKnL+m3OBGTHMtfR857POgs83a9A/DRuHuQJs/j5vWBBrLO5U+CR/TiNibR1liUoQB/u+2CMtdJ0+cBtw==",
+      "dependencies": {
+        "@gjsify/dom-events": "^0.63.0"
       }
     },
     "node_modules/@gjsify/dom-elements/node_modules/@gjsify/node-globals": {
@@ -4029,6 +4052,11 @@
         }
       }
     },
+    "node_modules/@gjsify/runtime": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/runtime/-/runtime-0.63.1-next.237.tgz",
+      "integrity": "sha512-T7SIsjGWTX7DHBBcOSTvtmoy1hmmVPCScumWvTsoGOr8eCdAEKicYsdIINUl6531yCOT+L+971bWVlJCS9+S+A=="
+    },
     "node_modules/@gjsify/sab-native": {
       "version": "0.63.1-next.237",
       "resolved": "https://registry.npmjs.org/@gjsify/sab-native/-/sab-native-0.63.1-next.237.tgz",
@@ -4526,6 +4554,86 @@
         "@gjsify/terminal-native": "0.63.1-next.237"
       }
     },
+    "node_modules/@gjsify/unit": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/unit/-/unit-0.63.1-next.237.tgz",
+      "integrity": "sha512-VI7pZszaa7+IPCaYp8/5gFdW8rkAMvSTYHtgzQhUj6CaDiwdPDc3O78nfi2xVxmuESJ5y2H5bO7xlaDAUsKnBA==",
+      "dependencies": {
+        "@gjsify/utils": "0.63.1-next.237",
+        "@gjsify/assert": "0.63.1-next.237",
+        "@gjsify/buffer": "0.63.1-next.237",
+        "@gjsify/process": "0.63.1-next.237",
+        "@gjsify/runtime": "0.63.1-next.237",
+        "@gjsify/web-globals": "0.63.1-next.237",
+        "@gjsify/web-streams": "0.63.1-next.237",
+        "@gjsify/dom-elements": "0.63.1-next.237",
+        "@gjsify/node-globals": "0.63.1-next.237",
+        "@gjsify/dom-exception": "0.63.1-next.237",
+        "@gjsify/abort-controller": "0.63.1-next.237"
+      }
+    },
+    "node_modules/@gjsify/unit/node_modules/@gjsify/dom-elements": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/dom-elements/-/dom-elements-0.63.1-next.237.tgz",
+      "integrity": "sha512-3mNswHP5QbX7GyNEDXtu4+YICVRsYsYKqaVAr+BpNTdWeqY1rOPtCjK0nUbHJGKgw7IwgmccF4lkas7fC5IqUw==",
+      "dependencies": {
+        "@girs/gjs": "5.4.0",
+        "@girs/gst-1.0": "5.4.0",
+        "@gjsify/fetch": "0.63.1-next.237",
+        "@gjsify/utils": "0.63.1-next.237",
+        "@girs/glib-2.0": "5.4.0",
+        "@gjsify/domparser": "0.63.1-next.237",
+        "@gjsify/dom-events": "0.63.1-next.237",
+        "@girs/gdkpixbuf-2.0": "5.4.0",
+        "@gjsify/node-globals": "0.63.1-next.237",
+        "@gjsify/canvas2d-core": "0.63.1-next.237",
+        "@gjsify/abort-controller": "0.63.1-next.237"
+      }
+    },
+    "node_modules/@gjsify/unit/node_modules/@gjsify/dom-elements/node_modules/@gjsify/canvas2d-core": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/canvas2d-core/-/canvas2d-core-0.63.1-next.237.tgz",
+      "integrity": "sha512-KNvppw/xw2a8kYPO9ogz5Rzzu5whM0Z79ZZE9xxWwHFHk6nal4r2gbRvHcbTpaqlm88g2COTjgFj22SDxkqEaA==",
+      "dependencies": {
+        "@girs/gjs": "5.4.0",
+        "@girs/gdk-4.0": "5.4.0",
+        "@girs/gio-2.0": "5.4.0",
+        "@girs/glib-2.0": "5.4.0",
+        "@girs/pango-1.0": "5.4.0",
+        "@girs/gobject-2.0": "5.4.0",
+        "@girs/gdkpixbuf-2.0": "5.4.0",
+        "@girs/pangocairo-1.0": "5.4.0"
+      }
+    },
+    "node_modules/@gjsify/unit/node_modules/@gjsify/dom-elements/node_modules/@gjsify/dom-events": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/dom-events/-/dom-events-0.63.1-next.237.tgz",
+      "integrity": "sha512-U1v26cGqbez6RGM7C6aibzkviR/ZE2oFMWu2TC3PKnBFDiO9MNl84GZUzbO/9KfNzhR4qOAj4o2785F5VIr35A==",
+      "dependencies": {
+        "@gjsify/dom-exception": "0.63.1-next.237"
+      }
+    },
+    "node_modules/@gjsify/unit/node_modules/@gjsify/dom-elements/node_modules/@gjsify/domparser": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/domparser/-/domparser-0.63.1-next.237.tgz",
+      "integrity": "sha512-Bbm10CLXmWyoPpBydReftEep+XC9oHq6JANMmUHBEmEYwMroMJI1alUowUn5JGuqrI0Aohr6g3hR2KpvVLsJ8g=="
+    },
+    "node_modules/@gjsify/unit/node_modules/@gjsify/dom-elements/node_modules/@gjsify/fetch": {
+      "version": "0.63.1-next.237",
+      "resolved": "https://registry.npmjs.org/@gjsify/fetch/-/fetch-0.63.1-next.237.tgz",
+      "integrity": "sha512-NHera8pLoVRASXa88WaUoT0wmla1/+3CAe4Q1vNgD5rjoiHW2PttazIeS9HtF6bJlcs62MIxR+EUZxRMtXu8Cw==",
+      "dependencies": {
+        "@girs/gjs": "5.4.0",
+        "@gjsify/url": "0.63.1-next.237",
+        "@gjsify/http": "0.63.1-next.237",
+        "@girs/gio-2.0": "5.4.0",
+        "@gjsify/utils": "0.63.1-next.237",
+        "@girs/glib-2.0": "5.4.0",
+        "@girs/soup-3.0": "5.4.0",
+        "@gjsify/formdata": "0.63.1-next.237",
+        "@gjsify/dom-events": "0.63.1-next.237"
+      }
+    },
     "node_modules/@gjsify/url": {
       "version": "0.63.1-next.237",
       "resolved": "https://registry.npmjs.org/@gjsify/url/-/url-0.63.1-next.237.tgz",
@@ -4736,14 +4844,6 @@
         "@gjsify/compression-streams": "0.63.1-next.237"
       }
     },
-    "node_modules/@gjsify/web-globals/node_modules/@gjsify/abort-controller": {
-      "version": "0.63.1-next.237",
-      "resolved": "https://registry.npmjs.org/@gjsify/abort-controller/-/abort-controller-0.63.1-next.237.tgz",
-      "integrity": "sha512-GpxUDmFqxKS1rwKYfILaz9xLTozlWCfNY7zWg8i5Nsy6DvdcVNOBkV5i25X+wBaUCfmxWA8+y8T/plxfragrsw==",
-      "dependencies": {
-        "@gjsify/dom-events": "0.63.1-next.237"
-      }
-    },
     "node_modules/@gjsify/web-globals/node_modules/@gjsify/dom-events": {
       "version": "0.63.1-next.237",
       "resolved": "https://registry.npmjs.org/@gjsify/dom-events/-/dom-events-0.63.1-next.237.tgz",
@@ -4775,14 +4875,6 @@
         "@gjsify/message-channel": "0.63.1-next.237",
         "@gjsify/abort-controller": "0.63.1-next.237",
         "@gjsify/compression-streams": "0.63.1-next.237"
-      }
-    },
-    "node_modules/@gjsify/web-polyfills/node_modules/@gjsify/abort-controller": {
-      "version": "0.63.1-next.237",
-      "resolved": "https://registry.npmjs.org/@gjsify/abort-controller/-/abort-controller-0.63.1-next.237.tgz",
-      "integrity": "sha512-GpxUDmFqxKS1rwKYfILaz9xLTozlWCfNY7zWg8i5Nsy6DvdcVNOBkV5i25X+wBaUCfmxWA8+y8T/plxfragrsw==",
-      "dependencies": {
-        "@gjsify/dom-events": "0.63.1-next.237"
       }
     },
     "node_modules/@gjsify/web-polyfills/node_modules/@gjsify/dom-events": {
