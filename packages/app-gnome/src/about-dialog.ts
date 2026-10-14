@@ -3,6 +3,8 @@ import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
 import Gtk from "@girs/gtk-4.0";
 
+import { getAboutInfo } from "@learn6502/ui";
+
 import { APPLICATION_ID, RESOURCES_PATH, PACKAGE_VERSION } from "./constants.ts";
 import { parseAppdata } from "./appdata.ts";
 
@@ -78,6 +80,14 @@ const buildFromAppdata = (): Adw.AboutDialog => {
  * fallback deliberately does not.
  */
 export const createAboutDialog = (): Adw.AboutDialog => {
+  const dialog = createFromAppdata();
+  // new_from_appdata() does not map <url type="donation">, so the link is added by hand.
+  const { title, url } = getAboutInfo().supportLink;
+  dialog.add_link(title, url);
+  return dialog;
+};
+
+const createFromAppdata = (): Adw.AboutDialog => {
   try {
     return Adw.AboutDialog.new_from_appdata(APPDATA_RESOURCE, PACKAGE_VERSION) as Adw.AboutDialog;
   } catch (error) {

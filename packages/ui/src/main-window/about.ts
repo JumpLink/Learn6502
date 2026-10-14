@@ -13,7 +13,12 @@ export interface AboutInfo {
   issueUrl: string;
   /** SPDX identifier */
   license: string;
+  /** Link to the landing page's support section; labelled "Support", never "Donate" (business income, no deduction). */
+  supportLink: { title: string; url: string };
 }
+
+/** Same URL as `<url type="donation">` in the metainfo. */
+const SUPPORT_URL = "https://jumplink.eu/Learn6502/#support";
 
 export function getAboutInfo(): AboutInfo {
   return {
@@ -24,5 +29,6 @@ export function getAboutInfo(): AboutInfo {
     website: "https://flathub.org/apps/eu.jumplink.Learn6502",
     issueUrl: "https://github.com/JumpLink/Learn6502/issues",
     license: "GPL-3.0-or-later",
+    supportLink: { title: _("Support"), url: SUPPORT_URL },
   };
 }
