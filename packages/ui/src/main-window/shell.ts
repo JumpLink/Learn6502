@@ -17,8 +17,6 @@ export type UnsavedChangesAnswer = "save" | "discard" | "cancel";
 export interface MainWindowShell {
   /** The window, for the behaviour that follows its focus and close request. */
   readonly window: Gtk.Window;
-  /** Set to false where nothing emits `close-request` yet; the unsaved-changes guard then stays unwired. */
-  readonly emitsCloseRequest?: boolean;
 
   /** The screens sit side by side (wide window) instead of one at a time. */
   isDesktopLayout(): boolean;
