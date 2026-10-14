@@ -22,6 +22,7 @@ import { ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
 import { themeService, notificationService, fileService } from "../services";
 import { settings } from "../settings.ts";
+import { watchFirstChapter } from "../support-prompt.ts";
 
 import Template from "./main.window.blp";
 
@@ -131,6 +132,7 @@ export class MainWindow extends Adw.ApplicationWindow {
     ).init();
 
     this.setupKeyboardListener();
+    watchFirstChapter(this, this._learn.scrolledWindows[0]);
   }
 
   private createServices(): MainWindowServices {

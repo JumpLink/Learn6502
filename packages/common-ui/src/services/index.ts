@@ -5,4 +5,5 @@ export * from "./game-console-input.service";
 export * from "./game-console-state.service";
 export * from "./learn-state.service";
 export * from "./notification.service";
+export * from "./support-prompt.service";
 export * from "./theme.service";
