@@ -2,7 +2,7 @@ import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
 import { padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
-import { localize } from "@nativescript/localize";
+import { translate } from "~/utils/translate";
 import type { LearnView, LearnViewEventMap } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
 import { Learn as LearnWidget, setTranslator } from "@learn6502/ui";
@@ -13,7 +13,7 @@ import type { ScreenModule } from "./editor";
 import "~/widgets/source-view";
 
 // The shared widget's strings go through the app's catalogue.
-setTranslator(localize);
+setTranslator(translate);
 
 // The `$TutorialView` the shared `learn.blp` names: its content is generated from the MDX per platform.
 let tutorialView: TutorialView | null = null;
