@@ -222,7 +222,7 @@ export class MainWindow {
     this.shell.onActionsChanged(() => this.updateRunButtons());
 
     this.titleWidget.setAttribute("slot", "center");
-    this.titleWidget.setAttribute("title", "Learn 6502 Assembly");
+    this.titleWidget.setAttribute("title", "Learn 6502");
 
     const menuButton = new Gtk.MenuButton();
     menuButton.setAttribute("slot", "end");

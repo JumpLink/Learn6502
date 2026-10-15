@@ -1,4 +1,4 @@
-# Learn 6502 Assembly
+# Learn 6502
 
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
@@ -9,9 +9,9 @@
 
 <img style="vertical-align: middle;" src="./packages/app-gnome/src/data/eu.jumplink.Learn6502.Source.svg" width="80" height="80" align="left">
 
-Learn 6502 Assembly is a modern, native Adwaita application for the GNOME desktop environment that provides a complete learning environment for 6502 assembly language programming. Built with GJS and TypeScript, this application brings the classic easy6502 tutorial by Nick Morgan to your desktop as a beautiful, integrated experience.
+Learn 6502 is a modern, native Adwaita application for the GNOME desktop environment that provides a complete learning environment for 6502 assembly language programming. Built with GJS and TypeScript, this application brings the classic easy6502 tutorial by Nick Morgan to your desktop as a beautiful, integrated experience.
 
-<img src="./misc/screenshots/1.png" alt="Screenshot of Learn 6502 Assembly GNOME Application" width="482"/>
+<img src="./misc/screenshots/1.png" alt="Screenshot of Learn 6502 GNOME Application" width="482"/>
 
 <a href="https://flathub.org/apps/eu.jumplink.Learn6502">
   <img width="200" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/>

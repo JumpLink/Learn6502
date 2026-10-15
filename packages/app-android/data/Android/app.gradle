@@ -15,9 +15,13 @@ android {
     minSdkVersion 23
     targetSdkVersion 35
 
-    // Version Information
-    versionCode 1
-    versionName "1.0.0"
+    // From package.json, which build-aux/check-versions.js keeps equal to every
+    // other copy. A hardcoded pair here shipped APKs labelled 1.0.0 / code 1.
+    // versionCode must only grow: major*10000 + minor*100 + patch.
+    def pkg = new groovy.json.JsonSlurper().parse(file("$USER_PROJECT_ROOT/package.json"))
+    def (major, minor, patch) = pkg.version.tokenize('.-')[0..2]*.toInteger()
+    versionCode major * 10000 + minor * 100 + patch
+    versionName pkg.version
 
     generatedDensities = []
   }

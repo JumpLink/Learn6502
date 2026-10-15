@@ -60,7 +60,7 @@ export function createMainMenu(options: MainMenuOptions = {}): Gio.Menu {
   // TRANSLATORS: Help menu item label
   app.append(_("Help"), "win.show-help");
   // TRANSLATORS: About dialog menu item label
-  app.append(_("About Learn 6502 Assembly"), "app.about");
+  app.append(_("About Learn 6502"), "app.about");
   // TRANSLATORS: Quit application menu item label
   app.append(_("Quit"), "app.quit");
   menu.append_section(null, app);

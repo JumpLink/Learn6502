@@ -57,6 +57,8 @@
     "@types/node@^25.9.1",
     "@gjsify/unit@0.64.1-next.240",
     "@gjsify/distribution@0.64.1-next.241",
+    "@gjsify/fs@0.64.1-next.241",
+    "@gjsify/path@0.64.1-next.241",
     "@gjsify/dom-elements@0.64.1-next.240",
     "@mdx-js/rollup@^3.1.1",
     "@types/mdx@^2.0.13",
@@ -2099,6 +2101,14 @@
         "@gjsify/events": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/async_hooks/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/blueprint": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/blueprint/-/blueprint-0.64.1-next.240.tgz",
@@ -2197,6 +2207,14 @@
         "@gjsify/events": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/child_process/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/cli": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/cli/-/cli-0.64.1-next.240.tgz",
@@ -2270,6 +2288,14 @@
         "@gjsify/events": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/cluster/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/compression-streams": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/compression-streams/-/compression-streams-0.64.1-next.240.tgz",
@@ -2306,6 +2332,24 @@
         "@gjsify/webcrypto": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/constants/node_modules/@gjsify/crypto/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/constants/node_modules/@gjsify/crypto/node_modules/@gjsify/stream/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/constants/node_modules/@gjsify/fs": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/fs/-/fs-0.64.1-next.240.tgz",
@@ -2319,6 +2363,24 @@
         "@gjsify/events": "0.64.1-next.240",
         "@gjsify/stream": "0.64.1-next.240",
         "@girs/giounix-2.0": "5.4.0"
+      }
+    },
+    "node_modules/@gjsify/constants/node_modules/@gjsify/fs/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/constants/node_modules/@gjsify/fs/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
       }
     },
     "node_modules/@gjsify/constants/node_modules/@gjsify/fs/node_modules/@gjsify/url": {
@@ -2392,45 +2454,6 @@
         "@girs/pangocairo-1.0": "5.4.0"
       }
     },
-    "node_modules/@gjsify/crypto/node_modules/@gjsify/stream": {
-      "version": "0.64.1-next.241",
-      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.241.tgz",
-      "integrity": "sha512-b8Ta4+NGAH3AJg9FMwcbAx8pxxtm2Oi9HKy2He20PnhpkvKZgitEFEB5ohFm9jB5gE48lKCB471Nk+azMlKF/g==",
-      "dependencies": {
-        "@gjsify/utils": "0.64.1-next.241",
-        "@gjsify/events": "0.64.1-next.241",
-        "@gjsify/web-streams": "0.64.1-next.241"
-      }
-    },
-    "node_modules/@gjsify/crypto/node_modules/@gjsify/stream/node_modules/@gjsify/events": {
-      "version": "0.64.1-next.241",
-      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.241.tgz",
-      "integrity": "sha512-YUfynYS5wK4+tPWWO5guWPXqje9KF30zezLNkuP3p9xQfceGL+b5raMo+BBpwJBG2BKYunoYQuvV3Ei08z3P9w==",
-      "dependencies": {
-        "@gjsify/utils": "0.64.1-next.241"
-      }
-    },
-    "node_modules/@gjsify/crypto/node_modules/@gjsify/stream/node_modules/@gjsify/utils": {
-      "version": "0.64.1-next.241",
-      "resolved": "https://registry.npmjs.org/@gjsify/utils/-/utils-0.64.1-next.241.tgz",
-      "integrity": "sha512-/NagRoojjHzf5BFRH2smSOExMjMR6JqbZM7t6JRZmxDFp9yiycQNRCe2mcgUBLHr9IS4fCYvcAgdXn1GZMBeNg==",
-      "dependencies": {
-        "@girs/gjs": "5.4.0",
-        "@girs/gio-2.0": "5.4.0",
-        "@girs/glib-2.0": "5.4.0",
-        "@girs/pango-1.0": "5.4.0",
-        "@girs/giounix-2.0": "5.4.0",
-        "@girs/pangocairo-1.0": "5.4.0"
-      }
-    },
-    "node_modules/@gjsify/crypto/node_modules/@gjsify/stream/node_modules/@gjsify/web-streams": {
-      "version": "0.64.1-next.241",
-      "resolved": "https://registry.npmjs.org/@gjsify/web-streams/-/web-streams-0.64.1-next.241.tgz",
-      "integrity": "sha512-KQBuXdSowGVkrGXqRYopkkFzvuuOSS59xU79/ldCrhNMnlL5W998bpRqddOuPMqfiJqaUcaZAXNyhWq2uhbG2w==",
-      "dependencies": {
-        "@gjsify/utils": "0.64.1-next.241"
-      }
-    },
     "node_modules/@gjsify/crypto/node_modules/@gjsify/webcrypto": {
       "version": "0.64.1-next.241",
       "resolved": "https://registry.npmjs.org/@gjsify/webcrypto/-/webcrypto-0.64.1-next.241.tgz",
@@ -2475,6 +2498,14 @@
         "@girs/glib-2.0": "5.4.0",
         "@gjsify/buffer": "0.64.1-next.240",
         "@gjsify/events": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/dgram/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
       }
     },
     "node_modules/@gjsify/diagnostics_channel": {
@@ -2552,6 +2583,14 @@
         "@gjsify/events": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/domain/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/domparser": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/domparser/-/domparser-0.64.1-next.240.tgz",
@@ -2576,11 +2615,24 @@
       }
     },
     "node_modules/@gjsify/events": {
-      "version": "0.64.1-next.240",
-      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
-      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "version": "0.64.1-next.241",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.241.tgz",
+      "integrity": "sha512-YUfynYS5wK4+tPWWO5guWPXqje9KF30zezLNkuP3p9xQfceGL+b5raMo+BBpwJBG2BKYunoYQuvV3Ei08z3P9w==",
       "dependencies": {
-        "@gjsify/utils": "0.64.1-next.240"
+        "@gjsify/utils": "0.64.1-next.241"
+      }
+    },
+    "node_modules/@gjsify/events/node_modules/@gjsify/utils": {
+      "version": "0.64.1-next.241",
+      "resolved": "https://registry.npmjs.org/@gjsify/utils/-/utils-0.64.1-next.241.tgz",
+      "integrity": "sha512-/NagRoojjHzf5BFRH2smSOExMjMR6JqbZM7t6JRZmxDFp9yiycQNRCe2mcgUBLHr9IS4fCYvcAgdXn1GZMBeNg==",
+      "dependencies": {
+        "@girs/gjs": "5.4.0",
+        "@girs/gio-2.0": "5.4.0",
+        "@girs/glib-2.0": "5.4.0",
+        "@girs/pango-1.0": "5.4.0",
+        "@girs/giounix-2.0": "5.4.0",
+        "@girs/pangocairo-1.0": "5.4.0"
       }
     },
     "node_modules/@gjsify/eventsource": {
@@ -2650,32 +2702,6 @@
       "version": "0.64.1-next.241",
       "resolved": "https://registry.npmjs.org/@gjsify/buffer/-/buffer-0.64.1-next.241.tgz",
       "integrity": "sha512-9ADw6r0kZlzBuQYPPsdG9fbJ2Qb8jjK+ZjbWsWjIJiuQjUskcM9eSawgedy7IC6jBxFOjakZUw2xIPf4kpPEKA==",
-      "dependencies": {
-        "@gjsify/utils": "0.64.1-next.241"
-      }
-    },
-    "node_modules/@gjsify/fs/node_modules/@gjsify/events": {
-      "version": "0.64.1-next.241",
-      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.241.tgz",
-      "integrity": "sha512-YUfynYS5wK4+tPWWO5guWPXqje9KF30zezLNkuP3p9xQfceGL+b5raMo+BBpwJBG2BKYunoYQuvV3Ei08z3P9w==",
-      "dependencies": {
-        "@gjsify/utils": "0.64.1-next.241"
-      }
-    },
-    "node_modules/@gjsify/fs/node_modules/@gjsify/stream": {
-      "version": "0.64.1-next.241",
-      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.241.tgz",
-      "integrity": "sha512-b8Ta4+NGAH3AJg9FMwcbAx8pxxtm2Oi9HKy2He20PnhpkvKZgitEFEB5ohFm9jB5gE48lKCB471Nk+azMlKF/g==",
-      "dependencies": {
-        "@gjsify/utils": "0.64.1-next.241",
-        "@gjsify/events": "0.64.1-next.241",
-        "@gjsify/web-streams": "0.64.1-next.241"
-      }
-    },
-    "node_modules/@gjsify/fs/node_modules/@gjsify/stream/node_modules/@gjsify/web-streams": {
-      "version": "0.64.1-next.241",
-      "resolved": "https://registry.npmjs.org/@gjsify/web-streams/-/web-streams-0.64.1-next.241.tgz",
-      "integrity": "sha512-KQBuXdSowGVkrGXqRYopkkFzvuuOSS59xU79/ldCrhNMnlL5W998bpRqddOuPMqfiJqaUcaZAXNyhWq2uhbG2w==",
       "dependencies": {
         "@gjsify/utils": "0.64.1-next.241"
       }
@@ -3020,6 +3046,24 @@
       ],
       "optional": true
     },
+    "node_modules/@gjsify/http/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/http/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/http/node_modules/@gjsify/url": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/url/-/url-0.64.1-next.240.tgz",
@@ -3158,6 +3202,14 @@
         "x64"
       ],
       "optional": true
+    },
+    "node_modules/@gjsify/http2/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
     },
     "node_modules/@gjsify/https": {
       "version": "0.64.1-next.240",
@@ -3410,6 +3462,24 @@
         "@gjsify/stream": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/net/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/net/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/node-gi": {
       "version": "0.63.0",
       "resolved": "https://registry.npmjs.org/@gjsify/node-gi/-/node-gi-0.63.0.tgz",
@@ -3439,6 +3509,14 @@
         "@gjsify/events": "0.64.1-next.240",
         "@gjsify/string_decoder": "0.64.1-next.240",
         "@gjsify/terminal-native": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/node-globals/node_modules/@gjsify/process/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
       }
     },
     "node_modules/@gjsify/node-globals/node_modules/@gjsify/process/node_modules/@gjsify/terminal-native": {
@@ -3630,6 +3708,14 @@
         "@gjsify/webcrypto": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/node-polyfills/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/node-polyfills/node_modules/@gjsify/fs": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/fs/-/fs-0.64.1-next.240.tgz",
@@ -3791,6 +3877,16 @@
       ],
       "optional": true
     },
+    "node_modules/@gjsify/node-polyfills/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/node-polyfills/node_modules/@gjsify/url": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/url/-/url-0.64.1-next.240.tgz",
@@ -3902,14 +3998,6 @@
         "@gjsify/terminal-native": "0.64.1-next.241"
       }
     },
-    "node_modules/@gjsify/process/node_modules/@gjsify/events": {
-      "version": "0.64.1-next.241",
-      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.241.tgz",
-      "integrity": "sha512-YUfynYS5wK4+tPWWO5guWPXqje9KF30zezLNkuP3p9xQfceGL+b5raMo+BBpwJBG2BKYunoYQuvV3Ei08z3P9w==",
-      "dependencies": {
-        "@gjsify/utils": "0.64.1-next.241"
-      }
-    },
     "node_modules/@gjsify/process/node_modules/@gjsify/string_decoder": {
       "version": "0.64.1-next.241",
       "resolved": "https://registry.npmjs.org/@gjsify/string_decoder/-/string_decoder-0.64.1-next.241.tgz",
@@ -3950,6 +4038,14 @@
       "integrity": "sha512-Rw4eWQah5mxGD2gHf+NffWAQTd50BXsq2k43gDO4dwz9ZNWhiJMXWAz9IX0i3t45YAG75PRNXeAOZ0fQIdISiA==",
       "dependencies": {
         "@gjsify/events": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/readline/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
       }
     },
     "node_modules/@gjsify/resolve-npm": {
@@ -4343,13 +4439,34 @@
       }
     },
     "node_modules/@gjsify/stream": {
-      "version": "0.64.1-next.240",
-      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
-      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "version": "0.64.1-next.241",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.241.tgz",
+      "integrity": "sha512-b8Ta4+NGAH3AJg9FMwcbAx8pxxtm2Oi9HKy2He20PnhpkvKZgitEFEB5ohFm9jB5gE48lKCB471Nk+azMlKF/g==",
       "dependencies": {
-        "@gjsify/utils": "0.64.1-next.240",
-        "@gjsify/events": "0.64.1-next.240",
-        "@gjsify/web-streams": "0.64.1-next.240"
+        "@gjsify/utils": "0.64.1-next.241",
+        "@gjsify/events": "0.64.1-next.241",
+        "@gjsify/web-streams": "0.64.1-next.241"
+      }
+    },
+    "node_modules/@gjsify/stream/node_modules/@gjsify/utils": {
+      "version": "0.64.1-next.241",
+      "resolved": "https://registry.npmjs.org/@gjsify/utils/-/utils-0.64.1-next.241.tgz",
+      "integrity": "sha512-/NagRoojjHzf5BFRH2smSOExMjMR6JqbZM7t6JRZmxDFp9yiycQNRCe2mcgUBLHr9IS4fCYvcAgdXn1GZMBeNg==",
+      "dependencies": {
+        "@girs/gjs": "5.4.0",
+        "@girs/gio-2.0": "5.4.0",
+        "@girs/glib-2.0": "5.4.0",
+        "@girs/pango-1.0": "5.4.0",
+        "@girs/giounix-2.0": "5.4.0",
+        "@girs/pangocairo-1.0": "5.4.0"
+      }
+    },
+    "node_modules/@gjsify/stream/node_modules/@gjsify/web-streams": {
+      "version": "0.64.1-next.241",
+      "resolved": "https://registry.npmjs.org/@gjsify/web-streams/-/web-streams-0.64.1-next.241.tgz",
+      "integrity": "sha512-KQBuXdSowGVkrGXqRYopkkFzvuuOSS59xU79/ldCrhNMnlL5W998bpRqddOuPMqfiJqaUcaZAXNyhWq2uhbG2w==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.241"
       }
     },
     "node_modules/@gjsify/string_decoder": {
@@ -4652,6 +4769,24 @@
         "@gjsify/webcrypto": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/tsc/node_modules/@gjsify/crypto/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/tsc/node_modules/@gjsify/crypto/node_modules/@gjsify/stream/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/tsc/node_modules/@gjsify/fs": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/fs/-/fs-0.64.1-next.240.tgz",
@@ -4665,6 +4800,24 @@
         "@gjsify/events": "0.64.1-next.240",
         "@gjsify/stream": "0.64.1-next.240",
         "@girs/giounix-2.0": "5.4.0"
+      }
+    },
+    "node_modules/@gjsify/tsc/node_modules/@gjsify/fs/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/tsc/node_modules/@gjsify/fs/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
       }
     },
     "node_modules/@gjsify/tsc/node_modules/@gjsify/fs/node_modules/@gjsify/url": {
@@ -4703,6 +4856,24 @@
         "@girs/glib-2.0": "5.4.0",
         "@gjsify/stream": "0.64.1-next.240",
         "@gjsify/terminal-native": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/tty/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/tty/node_modules/@gjsify/stream/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
       }
     },
     "node_modules/@gjsify/tty/node_modules/@gjsify/terminal-native": {
@@ -4838,6 +5009,14 @@
         "@gjsify/events": "0.64.1-next.240",
         "@gjsify/string_decoder": "0.64.1-next.240",
         "@gjsify/terminal-native": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/unit/node_modules/@gjsify/process/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
       }
     },
     "node_modules/@gjsify/unit/node_modules/@gjsify/process/node_modules/@gjsify/terminal-native": {
@@ -5265,6 +5444,14 @@
         "@gjsify/message-channel": "0.64.1-next.240"
       }
     },
+    "node_modules/@gjsify/worker_threads/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
+      }
+    },
     "node_modules/@gjsify/workspace": {
       "version": "0.64.1-next.240",
       "resolved": "https://registry.npmjs.org/@gjsify/workspace/-/workspace-0.64.1-next.240.tgz",
@@ -5292,6 +5479,24 @@
         "@girs/gio-2.0": "5.4.0",
         "@girs/glib-2.0": "5.4.0",
         "@gjsify/stream": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/zlib/node_modules/@gjsify/stream": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/stream/-/stream-0.64.1-next.240.tgz",
+      "integrity": "sha512-JUj7TWnAsbdz5+31lFFPySkf6cPzjjfPCjAvAoaTeChYuBjTu3DfNkWN5ah7CdqveDFy4cCv2scjptaM+6gaVg==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240",
+        "@gjsify/events": "0.64.1-next.240",
+        "@gjsify/web-streams": "0.64.1-next.240"
+      }
+    },
+    "node_modules/@gjsify/zlib/node_modules/@gjsify/stream/node_modules/@gjsify/events": {
+      "version": "0.64.1-next.240",
+      "resolved": "https://registry.npmjs.org/@gjsify/events/-/events-0.64.1-next.240.tgz",
+      "integrity": "sha512-/LuDCy1Vhr3axkKOjUGEysnsLBttfTBNwraN+P8+RgCafG1jGD4QGXChjaKlCrMs4RktEJIqPqUke3SDV7Um+g==",
+      "dependencies": {
+        "@gjsify/utils": "0.64.1-next.240"
       }
     },
     "node_modules/@hookun/parse-animation-shorthand": {
