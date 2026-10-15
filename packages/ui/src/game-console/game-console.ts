@@ -85,6 +85,8 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
     stack.simulator.reset();
     // After the display is bound, so the pattern is painted.
     gameConsoleStateService.initializeMemoryWithTestPattern(stack.memory, "colorChart");
+    // release.yml's node-bundle smoke test waits for exactly this line.
+    console.log("GameConsole: Initialization complete");
   }
 
   public assemble(code: string): void {
