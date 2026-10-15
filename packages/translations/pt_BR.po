@@ -500,6 +500,7 @@ msgid "As stated before, the four directions are represented internally by the n
 msgstr "Como referido anteriormente, as quatro direções são representadas internamente pelos números 1, 2, 4 e 8. Cada um destes números é uma potência de 2, pelo que são representados por um número binário com um único <tt>1</tt>:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
+#. TRANSLATORS: Menu item to assemble the current code
 msgid "Assemble"
 msgstr "Montar"
 
@@ -622,13 +623,13 @@ msgstr "Continuar"
 msgid "Copied to clipboard"
 msgstr "Copiado para a área de transferência"
 
-#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
+#. TRANSLATORS: Button to copy example content to clipboard again
 msgid "Copy to clipboard"
 msgstr "Copiar para a área de transferência"
 
-#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
+#. TRANSLATORS: Tooltip for copy button in example list item
 msgid "Copy to editor"
 msgstr "Copiar para o editor"
 
@@ -725,6 +726,10 @@ msgstr "Melhorada a entrada de faixa de endereços do monitor hex para facilitar
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
 msgstr "Equipado com esse conhecimento, você deve ser capaz de ver que a instrução <tt>LDA #$01</tt> carrega o valor hexadecimal <tt>$01</tt> no registro <tt>A</tt>. Vou entrar em mais detalhes sobre os registros na próxima seção."
+
+#. TRANSLATORS: Example title for Even Odd
+msgid "Even Odd"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
@@ -858,6 +863,10 @@ msgstr ""
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr "Tem sua própria criação 6502 legal? Compartilhe com a comunidade! Agora você pode enviar seus exemplos de código diretamente do aplicativo. Basta apertar o botão de compartilhar e criaremos automaticamente uma issue e pull request no GitHub para você."
 
+#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
+msgid "Great start — you finished the first chapter!"
+msgstr ""
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -867,9 +876,7 @@ msgstr "Verde"
 msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
 msgstr "O hebraico também é nosso primeiro idioma escrito da direita para a esquerda: graças aos testes e contribuições de Menachem, o aplicativo agora oferece suporte a layouts da direita para a esquerda, preparando-o para mais idiomas RTL."
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
-#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Ajuda"
 
@@ -1060,7 +1067,6 @@ msgstr "Falha nos rótulos"
 msgid "Learn"
 msgstr "Aprender"
 
-#. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
 msgstr "Aprenda Assembly 6502"
 
@@ -1165,6 +1171,10 @@ msgstr "Uma vez que os valores foram deslocados para baixo na cobra, temos de de
 msgid "Open Assembly File"
 msgstr "Abrir Arquivo Assembly"
 
+#. TRANSLATORS: Badge in the About dialog, shown by every build of the app
+msgid "Open Source"
+msgstr ""
+
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "Abrir..."
@@ -1204,6 +1214,7 @@ msgid "Overflow Flag: Set when an arithmetic operation produces a result that ca
 msgstr "Flag Overflow: Definida quando uma operação aritmética produz um resultado que não pode ser representado na faixa de 8 bits com sinal (-128 a +127). Usada para detetar erros aritméticos com sinal nos cálculos."
 
 #. TRANSLATORS: Main action button label to pause the running simulator
+#. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
 msgstr "Pausar"
 
@@ -1366,6 +1377,7 @@ msgid "Rendering the game"
 msgstr "Renderizando o jogo"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
+#. TRANSLATORS: Menu item to reset simulator and state
 msgid "Reset"
 msgstr "Reiniciar"
 
@@ -1382,6 +1394,7 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr "Reescreva o primeiro exemplo nesta seção para usar o registro <tt>Y</tt> em vez do registro <tt>X</tt>."
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
+#. TRANSLATORS: Menu item to start running the simulator
 msgid "Run"
 msgstr "Executar"
 
@@ -1431,15 +1444,14 @@ msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by
 msgstr "Shalom! Estamos felizes em dar as boas-vindas à tradução em hebraico, totalmente contribuída por Menachem (naattxx). Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
-#. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
 msgstr "Compartilhar"
 
 msgid "Share Example"
 msgstr "Compartilhar exemplo"
 
-#. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
+#. TRANSLATORS: Title of the share dialog
 msgid "Share Your Example"
 msgstr "Compartilhe seu exemplo"
 
@@ -1523,6 +1535,7 @@ msgid "Status Flags"
 msgstr "Flags de Estado"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#. TRANSLATORS: Menu item for single-step execution
 msgid "Step"
 msgstr "Passo"
 
@@ -1541,6 +1554,13 @@ msgstr "Estilo"
 #. TRANSLATORS: Close button on completion page
 msgid "Submit"
 msgstr "Enviar"
+
+msgid "Support"
+msgstr ""
+
+#. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
+msgid "Supporter"
+msgstr ""
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1568,6 +1588,14 @@ msgstr "Tervetuloa! Temos o prazer de dar as boas-vindas à tradução finlandes
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "Teste suas criações no console de jogos virtual"
+
+#. TRANSLATORS: Example description for Even Odd
+msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
+msgstr ""
+
+#. TRANSLATORS: What the "Open Source" badge in the About dialog means
+msgid "Thank you for using open source software."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1869,6 +1897,10 @@ msgstr "Amarelo"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 msgstr "Você pode pensar na tela como quatro faixas horizontais de 32 × 8 pixels. Estas faixas mapeiam-se para <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> e <tt>$0500-$05ff</tt>. As primeiras linhas de pixels são <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
+
+#. TRANSLATORS: What the "Supporter" badge in the About dialog means
+msgid "You supported this open source project by buying the app. Thank you!"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
