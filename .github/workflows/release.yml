@@ -417,10 +417,12 @@ jobs:
       # The platform and build-tools `app.gradle` names, installed up front: the
       # verify step below runs `apksigner`/`aapt2` from build-tools, and Gradle
       # fetching them lazily is not something to rely on in a container.
+      # `emulator` is never started: NativeScript's doctor runs `emulator -help`
+      # before every build and aborts with exit 127 when it is missing.
       - name: Setup Android SDK
         uses: android-actions/setup-android@v3
         with:
-          packages: "platform-tools platforms;android-35 build-tools;35.0.0"
+          packages: "platform-tools emulator platforms;android-35 build-tools;35.0.0"
 
       - name: Cache gjsify tarball store
         uses: actions/cache@v4
