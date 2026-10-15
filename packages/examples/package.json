@@ -15,8 +15,8 @@
     "build": "gjsify build build.ts --app gjs --outfile dist/build.js && gjsify run dist/build.js"
   },
   "devDependencies": {
-    "@gjsify/fs": "0.64.1-next.241",
-    "@gjsify/path": "0.64.1-next.241",
+    "@gjsify/fs": "0.64.1-next.245",
+    "@gjsify/path": "0.64.1-next.245",
     "@types/node": "^25.9.1",
     "typescript": "^6.0.3"
   },

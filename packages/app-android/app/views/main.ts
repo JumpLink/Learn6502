@@ -93,6 +93,8 @@ export class MainController {
       scope: { _onLearnBackButtonClicked: () => screens?.learn.widget.navigateBack() },
       translate,
     });
+    if (!(root instanceof Adw.ApplicationWindow))
+      throw new Error("The main window tree must build an Adw.ApplicationWindow");
     screens = createScreens(siblings);
     // The widgets are typed against the GJS bindings, but at run time they are NativeScript views.
     const byId = <T>(id: string): T => root.getViewById<View>(id) as unknown as T;
@@ -136,8 +138,7 @@ export class MainController {
     // Never `runAsync`: NativeScript owns the run loop (`Application.run` in app.ts).
     const application = new Adw.Application();
     application.application_id = APPLICATION_ID;
-    // `Gtk.Window:application` is typed as the GJS class; at run time this is the NativeScript one.
-    (root as unknown as { application: object }).application = application;
+    root.application = application;
     addAppActions(application as unknown as GjsGtk.Application, {
       quit: () => shell.closeWindow(),
       about: () => this.about?.present(),

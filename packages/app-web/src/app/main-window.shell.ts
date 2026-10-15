@@ -1,4 +1,3 @@
-import type GjsGtk from "@girs/gtk-4.0";
 import { Adw, Gio, type Gtk } from "@gjsify/adwaita-web";
 import { ViewType, mainStateController } from "@learn6502/common-ui";
 import { _, type Debugger, type Editor, type GameConsole, type Learn } from "@learn6502/ui";
@@ -32,8 +31,8 @@ type ScreenName = (typeof SCREENS)[number]["name"];
  * `MainWindowShell` over the DOM: a view stack on narrow viewports, three columns on wide ones, the
  * switch being the `matchMedia` twin of the GNOME window's `Adw.Breakpoint`s.
  */
-export class DomMainWindowShell implements MainWindowShell {
-  readonly window: GjsGtk.Window;
+export class DomMainWindowShell implements MainWindowShell<Element> {
+  readonly window: Adw.ApplicationWindow;
   /** The element to put into the toast overlay. */
   readonly layoutHost = document.createElement("div");
 
@@ -62,8 +61,7 @@ export class DomMainWindowShell implements MainWindowShell {
   private dialog: Adw.AlertDialog | null = null;
 
   constructor(private readonly parts: DomShellParts) {
-    // The window element speaks GObject (`connect`, `is_active`, `get_focus()`) itself.
-    this.window = parts.window as unknown as GjsGtk.Window;
+    this.window = parts.window;
 
     const slotOf = (screen: unknown): HTMLDivElement => {
       const slot = document.createElement("div");
@@ -243,9 +241,16 @@ export class DomMainWindowShell implements MainWindowShell {
     if (this.isDesktopLayout() && this.splitView.collapsed) this.splitView.showSidebar = false;
   }
 
-  isInsideConsole(widget: GjsGtk.Widget | null): boolean {
-    return !!widget && (this.parts.gameConsole as unknown as Node).contains(widget as unknown as Node);
+  isInsideConsole(widget: Element | null): boolean {
+    return !!widget && (this.parts.gameConsole as unknown as Node).contains(widget);
   }
+
+  onFocusWidgetChanged(handler: () => void): void {
+    this.window.connect("notify::focus-widget", handler);
+  }
+
+  /** The browser tab owns its size. */
+  persistWindowSize(): void {}
 
   // --- Actions ---
 

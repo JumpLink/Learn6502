@@ -22,7 +22,6 @@ import type { MainButton } from "../main-button.ts";
 import type { MainWindowServices } from "./services.ts";
 import type { MainWindowShell, ShellAction } from "./shell.ts";
 import { WindowBehaviour } from "./window-behaviour.ts";
-import { persistWindowSize } from "./window-size.ts";
 
 /** The screens the window shows; the platform builds them and the shell places them. */
 export interface MainWindowParts {
@@ -74,6 +73,7 @@ export class MainWindowController implements MainView {
   ) {
     this.behaviour = new WindowBehaviour({
       window: shell.window,
+      onFocusWidgetChanged: (handler) => this.shell.onFocusWidgetChanged(handler),
       isRunning: () => this.state === SimulatorState.RUNNING,
       pause: () => this.pauseGameConsole(),
       onCloseRequest: () => this.onCloseRequest(),
@@ -109,7 +109,7 @@ export class MainWindowController implements MainView {
     this.updateRunActions(this.state);
 
     this.behaviour.attach();
-    persistWindowSize(this.shell.window, this.services.settings);
+    this.shell.persistWindowSize(this.services.settings);
   }
 
   // --- MainView ---

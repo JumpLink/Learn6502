@@ -1,5 +1,4 @@
 import type { View } from "@nativescript/core";
-import type GjsGtk from "@girs/gtk-4.0";
 import { Application } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 import { Gio, NOTIFY_VISIBLE_CHILD, insertActionGroup, padForSystemInsets } from "@gjsify/adwaita-nativescript";
@@ -19,8 +18,8 @@ const STACK_PAGES: { id: keyof Screens; view: ViewType; title: () => string; ico
 
 /** The widgets `main.window.blp` builds, as the shell places the screens in them. */
 export interface NativeShellParts {
-  /** The built window; the NativeScript `Adw.ApplicationWindow`. */
-  root: View;
+  /** The built window. */
+  root: Adw.ApplicationWindow;
   stack: Adw.ViewStack;
   switcherBar: Adw.ViewSwitcherBar;
   layoutHost: Gtk.Stack;
@@ -39,8 +38,8 @@ export interface NativeShellParts {
  * `MainWindowShell` over the NativeScript Adwaita widgets: the stack on narrow windows, the
  * columns on wide ones, as the GNOME window's `Adw.Breakpoint`s decide.
  */
-export class NativeMainWindowShell implements MainWindowShell {
-  readonly window: GjsGtk.Window;
+export class NativeMainWindowShell implements MainWindowShell<View> {
+  readonly window: Adw.ApplicationWindow;
 
   private readonly actionGroup = new Gio.SimpleActionGroup();
   private releaseColumnInsets: (() => void) | null = null;
@@ -52,8 +51,7 @@ export class NativeMainWindowShell implements MainWindowShell {
     private readonly parts: NativeShellParts,
     private readonly screens: Screens
   ) {
-    // The root is the NativeScript Adw.ApplicationWindow, typed against GJS in the shared package.
-    this.window = parts.root as unknown as GjsGtk.Window;
+    this.window = parts.root;
     parts.stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(parts.stack.visibleChildName));
   }
 
@@ -101,6 +99,12 @@ export class NativeMainWindowShell implements MainWindowShell {
   }
 
   // The focus follow is a desktop-layout matter and nothing here takes the focus.
+  /** NativeScript refuses `notify::focus-widget`, and Android has no in-window focus to follow. */
+  onFocusWidgetChanged(): void {}
+
+  /** The window is always maximized and refuses `unmaximize()`: there is no size to persist. */
+  persistWindowSize(): void {}
+
   isInsideConsole(): boolean {
     return false;
   }
