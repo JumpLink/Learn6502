@@ -62,10 +62,8 @@ export class DomMainWindowShell implements MainWindowShell {
   private dialog: Adw.AlertDialog | null = null;
 
   constructor(private readonly parts: DomShellParts) {
-    // The window element speaks GObject (`connect`, `is_active`) itself; only the `get_focus()` method is missing
-    this.window = Object.assign(parts.window, {
-      get_focus: () => parts.window.focusWidget,
-    }) as unknown as GjsGtk.Window;
+    // The window element speaks GObject (`connect`, `is_active`, `get_focus()`) itself.
+    this.window = parts.window as unknown as GjsGtk.Window;
 
     const slotOf = (screen: unknown): HTMLDivElement => {
       const slot = document.createElement("div");
