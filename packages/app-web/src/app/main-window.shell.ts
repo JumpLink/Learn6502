@@ -29,33 +29,6 @@ const SCREENS = [
 type ScreenName = (typeof SCREENS)[number]["name"];
 
 /**
- * The slice of `Gtk.Window` the shared window behaviour reads, answered by the window element. The
- * element speaks DOM events where GTK has `connect`, and `is_active` is a method there where GTK has a
- * property. `close-request` is cancellable: a handler returning true calls `preventDefault()`, as a GTK
- * handler returning true stops the close.
- */
-class WindowAdapter {
-  constructor(private readonly element: Adw.ApplicationWindow) {}
-
-  get is_active(): boolean {
-    return this.element.isActive;
-  }
-
-  get_focus(): Element | null {
-    return this.element.focusWidget;
-  }
-
-  connect(signal: string, handler: () => unknown): number {
-    this.element.addEventListener(signal, (event) => {
-      // Events of descendants bubble up to the window; its own signals are its alone
-      if (event.target !== this.element) return;
-      if (handler() === true) event.preventDefault();
-    });
-    return 0;
-  }
-}
-
-/**
  * `MainWindowShell` over the DOM: a view stack on narrow viewports, three columns on wide ones, the
  * switch being the `matchMedia` twin of the GNOME window's `Adw.Breakpoint`s.
  */
@@ -89,7 +62,10 @@ export class DomMainWindowShell implements MainWindowShell {
   private dialog: Adw.AlertDialog | null = null;
 
   constructor(private readonly parts: DomShellParts) {
-    this.window = new WindowAdapter(parts.window) as unknown as GjsGtk.Window;
+    // The window element speaks GObject (`connect`, `is_active`) itself; only the `get_focus()` method is missing
+    this.window = Object.assign(parts.window, {
+      get_focus: () => parts.window.focusWidget,
+    }) as unknown as GjsGtk.Window;
 
     const slotOf = (screen: unknown): HTMLDivElement => {
       const slot = document.createElement("div");
