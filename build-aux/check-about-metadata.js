@@ -50,23 +50,27 @@ for (const [key, value] of Object.entries(fields)) {
   console.log(`  ${key.padEnd(16)} ${value === null ? "(none)" : value}`);
 }
 
-// The upstream constructor is localised — a German session gets "Lerne 6502
-// Assembler". A fallback that always returned the untranslated <name> would
-// ship an English title to every non-English user, and only on the platforms
-// where the fallback runs, so nothing here would notice.
+// The upstream constructor is localised. A fallback that always returned the
+// untranslated <name> would ship an English title to every non-English user, and
+// only on the platforms where the fallback runs, so nothing here would notice.
+// The app name itself is not translated any more (Flathub's quality guidelines),
+// so the lookup is probed against a synthetic <name> that does carry translations.
 console.log("");
 const TRANSLATED = ["de", "fr", "es", "nl"];
-const source = parseAppdata(xml, ["C"]).applicationName;
+const probe = `<component><name>Source</name>${TRANSLATED.map(
+  (lang) => `<name xml:lang="${lang}">${lang}-name</name>`
+).join("")}</component>`;
+const source = parseAppdata(probe, ["C"]).applicationName;
 let translations = 0;
 for (const lang of TRANSLATED) {
-  const localised = parseAppdata(xml, [`${lang}_XX.UTF-8`, lang, "C"]).applicationName;
+  const localised = parseAppdata(probe, [`${lang}_XX.UTF-8`, lang, "C"]).applicationName;
   const differs = localised !== null && localised !== source;
   if (differs) translations++;
   console.log(`  name[${lang}]${" ".repeat(9)} ${localised ?? "(none)"}${differs ? "" : "   == source"}`);
 }
-if (translations === 0) {
+if (translations !== TRANSLATED.length) {
   problems.push(
-    `  applicationName is identical in all of ${TRANSLATED.join(", ")} — ` +
+    `  the translated <name> lookup resolved for ${translations} of ${TRANSLATED.length} languages — ` +
       "the translation lookup is not resolving"
   );
 }
