@@ -95,7 +95,7 @@ export function getAboutInfo(): AboutInfo {
     applicationName: _("Learn 6502 Assembly"),
     applicationIcon: "eu.jumplink.Learn6502",
     developerName: "Pascal Garber",
-    comments: _("Program vintage game consoles"),
+    comments: _("Program vintage consoles"),
     website: "https://flathub.org/apps/eu.jumplink.Learn6502",
     issueUrl: "https://github.com/JumpLink/Learn6502/issues",
     license: "GPL-3.0-or-later",
