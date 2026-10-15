@@ -23,7 +23,14 @@ import { setAppBackHandler } from "~/utils/navigation";
 import { translate } from "~/utils/translate";
 
 // The template classes main.window.blp names (MainButton and Toolbar) register with @learn6502/ui.
-import { MainWindowController, addAppActions, createMainMenu, getAboutInfo, type MainButton } from "@learn6502/ui";
+import {
+  MainWindowController,
+  addAppActions,
+  commentsWithEdition,
+  createMainMenu,
+  getAboutInfo,
+  type MainButton,
+} from "@learn6502/ui";
 import { createScreens } from "./main/screens";
 import { simulatorStack } from "./main/game-console";
 import { NativeMainWindowShell } from "./main/shell";
@@ -169,7 +176,7 @@ export class MainController {
     about.applicationName = info.applicationName;
     about.version = __APP_VERSION__;
     about.developerName = info.developerName;
-    about.comments = info.comments;
+    about.comments = commentsWithEdition(info.comments);
     about.website = info.website;
     this.about = about;
     GridLayout.setRow(about, 0);

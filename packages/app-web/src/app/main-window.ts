@@ -26,6 +26,7 @@ import {
   MainWindowController,
   addAppActions,
   createMainMenu,
+  commentsWithEdition,
   getAboutInfo,
   type MainWindowServices,
 } from "@learn6502/ui";
@@ -125,7 +126,7 @@ export class MainWindow {
     about.applicationIcon = info.applicationIcon;
     about.version = __APP_VERSION__;
     about.developerName = info.developerName;
-    about.comments = info.comments;
+    about.comments = commentsWithEdition(info.comments);
     about.website = info.website;
     about.issueUrl = info.issueUrl;
     about.license = info.license;
