@@ -1,5 +1,6 @@
 export * from "./button-state.service";
 export * from "./debugger-state.service";
+export * from "./edition-badge.service";
 export * from "./file.service";
 export * from "./game-console-input.service";
 export * from "./game-console-state.service";

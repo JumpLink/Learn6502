@@ -503,6 +503,7 @@ msgid "As stated before, the four directions are represented internally by the n
 msgstr "如前所述，四个方向在内部用 1、2、4、8 表示。它们都是 2 的幂，因此对应仅含一个 <tt>1</tt> 的二进制数："
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
+#. TRANSLATORS: Menu item to assemble the current code
 msgid "Assemble"
 msgstr "汇编"
 
@@ -625,13 +626,13 @@ msgstr "继续"
 msgid "Copied to clipboard"
 msgstr "已复制到剪贴板"
 
-#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
+#. TRANSLATORS: Button to copy example content to clipboard again
 msgid "Copy to clipboard"
 msgstr "复制到剪贴板"
 
-#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
+#. TRANSLATORS: Tooltip for copy button in example list item
 msgid "Copy to editor"
 msgstr "复制到编辑器"
 
@@ -728,6 +729,10 @@ msgstr "改进十六进制监视器的地址范围输入，便于编辑数值"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
 msgstr "掌握这些知识后，你应该能看出指令 <tt>LDA #$01</tt> 会把十六进制值 <tt>$01</tt> 加载到寄存器 <tt>A</tt> 中。关于寄存器的更多细节将在下一节介绍。"
+
+#. TRANSLATORS: Example title for Even Odd
+msgid "Even Odd"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
@@ -861,6 +866,10 @@ msgstr ""
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr "有自己很酷的6502作品吗？与社区分享吧！您现在可以直接从应用程序内提交代码示例。只需点击分享按钮，我们将自动为您创建GitHub issue和pull request。"
 
+#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
+msgid "Great start — you finished the first chapter!"
+msgstr ""
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -870,9 +879,7 @@ msgstr "绿色"
 msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
 msgstr "希伯来语也是我们首个从右向左书写的语言：得益于 Menachem 的测试和贡献，应用现已支持从右向左的布局，为支持更多 RTL 语言做好了准备。"
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
-#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "帮助"
 
@@ -1063,7 +1070,6 @@ msgstr "标签处理失败"
 msgid "Learn"
 msgstr "学习"
 
-#. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
 msgstr "学习 6502 汇编"
 
@@ -1168,6 +1174,10 @@ msgstr "当值沿着蛇身下移后，需要决定如何处理蛇头。先将方
 msgid "Open Assembly File"
 msgstr "汇编文件"
 
+#. TRANSLATORS: Badge in the About dialog, shown by every build of the app
+msgid "Open Source"
+msgstr ""
+
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "打开…"
@@ -1207,6 +1217,7 @@ msgid "Overflow Flag: Set when an arithmetic operation produces a result that ca
 msgstr "溢出标志：当算术运算结果超出有符号 8 位范围（-128 到 +127）时置位，用于检测带符号运算错误。"
 
 #. TRANSLATORS: Main action button label to pause the running simulator
+#. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
 msgstr "暂停"
 
@@ -1369,6 +1380,7 @@ msgid "Rendering the game"
 msgstr "渲染游戏"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
+#. TRANSLATORS: Menu item to reset simulator and state
 msgid "Reset"
 msgstr "重置"
 
@@ -1385,6 +1397,7 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr "将本节中的第一个示例改为使用 <tt>Y</tt> 寄存器而不是 <tt>X</tt> 寄存器。"
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
+#. TRANSLATORS: Menu item to start running the simulator
 msgid "Run"
 msgstr "运行"
 
@@ -1434,15 +1447,14 @@ msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by
 msgstr "Shalom! 我们很高兴迎来希伯来语翻译，由 Menachem (naattxx) 完整贡献。Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
-#. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
 msgstr "分享"
 
 msgid "Share Example"
 msgstr "分享示例"
 
-#. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
+#. TRANSLATORS: Title of the share dialog
 msgid "Share Your Example"
 msgstr "分享您的示例"
 
@@ -1526,6 +1538,7 @@ msgid "Status Flags"
 msgstr "状态标志"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#. TRANSLATORS: Menu item for single-step execution
 msgid "Step"
 msgstr "单步"
 
@@ -1545,12 +1558,11 @@ msgstr "样式"
 msgid "Submit"
 msgstr "提交"
 
-#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
-msgid "Great start — you finished the first chapter!"
+msgid "Support"
 msgstr ""
 
-#. TRANSLATORS: Link in the About dialog to the project's page about supporting it. Not "Donate".
-msgid "Support"
+#. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
+msgid "Supporter"
 msgstr ""
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
@@ -1579,6 +1591,14 @@ msgstr "Tervetuloa! 我们很高兴迎来芬兰语翻译，由 Jiri Grönroos �
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "在虚拟游戏主机上测试你的作品"
+
+#. TRANSLATORS: Example description for Even Odd
+msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
+msgstr ""
+
+#. TRANSLATORS: What the "Open Source" badge in the About dialog means
+msgid "Thank you for using open source software."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1880,6 +1900,10 @@ msgstr "黄色"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 msgstr "可以将屏幕看作 4 个横向条，每个条 32 × 8 像素。它们映射到 <tt>$0200-$02ff</tt>、<tt>$0300-$03ff</tt>、<tt>$0400-$04ff</tt> 和 <tt>$0500-$05ff</tt>。第一行像素是 <tt>$0200-$021f</tt>、<tt>$0220-$023f</tt>、<tt>$0240-$025f</tt> 等。"
+
+#. TRANSLATORS: What the "Supporter" badge in the About dialog means
+msgid "You supported this open source project by buying the app. Thank you!"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."

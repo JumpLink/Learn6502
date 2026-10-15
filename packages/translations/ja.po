@@ -500,6 +500,7 @@ msgid "As stated before, the four directions are represented internally by the n
 msgstr "前述のとおり、4つの方向は内部的には 1, 2, 4, 8 で表されます。いずれも 2 の冪なので、<tt>1</tt> がひとつだけ立った2進数になります:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
+#. TRANSLATORS: Menu item to assemble the current code
 msgid "Assemble"
 msgstr "アセンブル"
 
@@ -622,13 +623,13 @@ msgstr "続行"
 msgid "Copied to clipboard"
 msgstr "クリップボードにコピーしました"
 
-#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
+#. TRANSLATORS: Button to copy example content to clipboard again
 msgid "Copy to clipboard"
 msgstr "クリップボードにコピー"
 
-#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
+#. TRANSLATORS: Tooltip for copy button in example list item
 msgid "Copy to editor"
 msgstr "エディターにコピー"
 
@@ -725,6 +726,10 @@ msgstr "16進モニターのアドレス範囲入力を改善し、値の編集�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
 msgstr "この知識があれば、命令 <tt>LDA #$01</tt> が 16進の <tt>$01</tt> をレジスタ <tt>A</tt> にロードすることが分かるはずです。レジスタの詳細は次の節で説明します。"
+
+#. TRANSLATORS: Example title for Even Odd
+msgid "Even Odd"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
@@ -858,6 +863,10 @@ msgstr ""
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr "独自のクールな6502作品をお持ちですか？コミュニティと共有しましょう！アプリから直接コード例を投稿できるようになりました。共有ボタンを押すだけで、GitHubのissueとプルリクエストが自動的に作成されます。"
 
+#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
+msgid "Great start — you finished the first chapter!"
+msgstr ""
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -867,9 +876,7 @@ msgstr "緑"
 msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
 msgstr "ヘブライ語は、右から左に書く初めての言語でもあります。Menachem のテストと貢献のおかげで、アプリは右から左へのレイアウトに対応し、さらなるRTL言語への準備が整いました。"
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
-#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -1060,7 +1067,6 @@ msgstr "ラベル処理に失敗しました"
 msgid "Learn"
 msgstr "学習"
 
-#. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
 msgstr "6502アセンブリを学ぶ"
 
@@ -1165,6 +1171,10 @@ msgstr "値がスネークの体に沿ってシフトダウンされた後、頭
 msgid "Open Assembly File"
 msgstr "アセンブリファイルを開く"
 
+#. TRANSLATORS: Badge in the About dialog, shown by every build of the app
+msgid "Open Source"
+msgstr ""
+
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "開く..."
@@ -1204,6 +1214,7 @@ msgid "Overflow Flag: Set when an arithmetic operation produces a result that ca
 msgstr "オーバーフローフラグ: 演算結果が符号付き8ビット（-128〜+127）の範囲に収まらない場合にセット。符号付き演算のエラー検出に使用します。"
 
 #. TRANSLATORS: Main action button label to pause the running simulator
+#. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
 msgstr "一時停止"
 
@@ -1366,6 +1377,7 @@ msgid "Rendering the game"
 msgstr "ゲームの描画"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
+#. TRANSLATORS: Menu item to reset simulator and state
 msgid "Reset"
 msgstr "リセット"
 
@@ -1382,6 +1394,7 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr "このセクションの最初の例を、<tt>X</tt>レジスタの代わりに<tt>Y</tt>レジスタを使用するように書き換えてください。"
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
+#. TRANSLATORS: Menu item to start running the simulator
 msgid "Run"
 msgstr "実行"
 
@@ -1431,15 +1444,14 @@ msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by
 msgstr "Shalom! ヘブライ語の翻訳が加わりました。全文を翻訳してくださった Menachem (naattxx) に感謝します。Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
-#. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
 msgstr "共有"
 
 msgid "Share Example"
 msgstr "例を共有"
 
-#. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
+#. TRANSLATORS: Title of the share dialog
 msgid "Share Your Example"
 msgstr "例を共有"
 
@@ -1523,6 +1535,7 @@ msgid "Status Flags"
 msgstr "ステータスフラグ"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#. TRANSLATORS: Menu item for single-step execution
 msgid "Step"
 msgstr "ステップ実行"
 
@@ -1542,12 +1555,11 @@ msgstr "スタイル"
 msgid "Submit"
 msgstr "送信"
 
-#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
-msgid "Great start — you finished the first chapter!"
+msgid "Support"
 msgstr ""
 
-#. TRANSLATORS: Link in the About dialog to the project's page about supporting it. Not "Donate".
-msgid "Support"
+#. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
+msgid "Supporter"
 msgstr ""
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
@@ -1576,6 +1588,14 @@ msgstr "Tervetuloa! フィンランド語の翻訳が加わりました。Jiri G
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "仮想ゲームコンソールで作品をテスト"
+
+#. TRANSLATORS: Example description for Even Odd
+msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
+msgstr ""
+
+#. TRANSLATORS: What the "Open Source" badge in the About dialog means
+msgid "Thank you for using open source software."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1877,6 +1897,10 @@ msgstr "黄色"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 msgstr "画面は 32×8 ピクセルの水平ストリップ 4 本と考えられます。対応は <tt>$0200-$02ff</tt>、<tt>$0300-$03ff</tt>、<tt>$0400-$04ff</tt>、<tt>$0500-$05ff</tt>。各行の先頭は <tt>$0200-$021f</tt>、<tt>$0220-$023f</tt>、<tt>$0240-$025f</tt>…です。"
+
+#. TRANSLATORS: What the "Supporter" badge in the About dialog means
+msgid "You supported this open source project by buying the app. Thank you!"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
