@@ -730,7 +730,7 @@ msgstr "Được trang bị kiến thức đó, bạn sẽ có thể thấy rằ
 
 #. TRANSLATORS: Example title for Even Odd
 msgid "Even Odd"
-msgstr ""
+msgstr "Chẵn Lẻ"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
@@ -805,7 +805,7 @@ msgstr "Theo phong cách hệ thống"
 
 #. TRANSLATORS: Label of the row that chooses the interface font
 msgid "Font"
-msgstr ""
+msgstr "Phông chữ"
 
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
@@ -866,7 +866,7 @@ msgstr "Bạn có sáng tạo 6502 thú vị của riêng mình không? Hãy chi
 
 #. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
 msgid "Great start — you finished the first chapter!"
-msgstr ""
+msgstr "Khởi đầu tuyệt vời — bạn đã hoàn thành chương đầu tiên!"
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
@@ -1025,7 +1025,7 @@ msgstr "Hướng dẫn tương tác hướng dẫn bạn từ cơ bản đến n
 
 #. TRANSLATORS: Preferences group title for the interface font
 msgid "Interface font"
-msgstr ""
+msgstr "Phông chữ giao diện"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Cờ Ngắt: Khi được đặt, sẽ che dấu (vô hiệu hóa) tất cả các ngắt có thể che được (IRQ). Chỉ các ngắt không thể che giấu (NMI) vẫn có thể xảy ra. Được sử dụng cho các phần mã quan trọng không được bị gián đoạn."
@@ -1174,7 +1174,7 @@ msgstr "Mở Tệp Hợp Ngữ"
 
 #. TRANSLATORS: Badge in the About dialog, shown by every build of the app
 msgid "Open Source"
-msgstr ""
+msgstr "Mã nguồn mở"
 
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
@@ -1557,11 +1557,11 @@ msgid "Submit"
 msgstr "Nộp"
 
 msgid "Support"
-msgstr ""
+msgstr "Ủng hộ"
 
 #. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
 msgid "Supporter"
-msgstr ""
+msgstr "Người ủng hộ"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1570,11 +1570,11 @@ msgstr "Dòng lỗi cú pháp %d: %s"
 
 #. TRANSLATORS: Font option — use the operating system's own font, untouched
 msgid "System font"
-msgstr ""
+msgstr "Mặc định hệ thống"
 
 #. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
 msgid "System font, GNOME size"
-msgstr ""
+msgstr "Phông chữ hệ thống, cỡ GNOME"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1591,11 +1591,11 @@ msgstr "Kiểm tra sự sáng tạo của bạn trên bảng điều khiển tr�
 
 #. TRANSLATORS: Example description for Even Odd
 msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
-msgstr ""
+msgstr "Kiểm tra bit 0 của A bằng LSR và BCC, đặt 1 hoặc 0 vào A làm kết quả"
 
 #. TRANSLATORS: What the "Open Source" badge in the About dialog means
 msgid "Thank you for using open source software."
-msgstr ""
+msgstr "Cảm ơn bạn đã sử dụng phần mềm mã nguồn mở."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1637,7 +1637,7 @@ msgstr "Thanh ghi chỉ số Y tương tự như X và không có chức năng �
 #. from the operating system, and outside GNOME that font is smaller than
 #. the one the app is designed for.
 msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
-msgstr ""
+msgstr "Ứng dụng được thiết kế cho phông chữ giao diện của GNOME. Trên các hệ thống khác, ứng dụng được hiển thị bằng phông chữ của hệ thống đó, thường nhỏ hơn."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1900,7 +1900,7 @@ msgstr "Bạn có thể coi màn hình là bốn dải ngang 32 × 8 pixel. Các
 
 #. TRANSLATORS: What the "Supporter" badge in the About dialog means
 msgid "You supported this open source project by buying the app. Thank you!"
-msgstr ""
+msgstr "Bạn đã ủng hộ dự án mã nguồn mở này bằng cách mua ứng dụng. Cảm ơn bạn!"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."

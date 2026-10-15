@@ -730,7 +730,7 @@ msgstr "Dengan pengetahuan tersebut, Anda seharusnya dapat melihat bahwa instruk
 
 #. TRANSLATORS: Example title for Even Odd
 msgid "Even Odd"
-msgstr ""
+msgstr "Genap Ganjil"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
@@ -805,7 +805,7 @@ msgstr "Ikuti gaya sistem"
 
 #. TRANSLATORS: Label of the row that chooses the interface font
 msgid "Font"
-msgstr ""
+msgstr "Fon"
 
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
@@ -866,7 +866,7 @@ msgstr "Punya kreasi 6502 yang keren? Bagikan kepada komunitas! Kini Anda dapat 
 
 #. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
 msgid "Great start — you finished the first chapter!"
-msgstr ""
+msgstr "Awal yang bagus — Anda telah menyelesaikan bab pertama!"
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
@@ -1025,7 +1025,7 @@ msgstr "Tutorial interaktif memandu Anda dari pemula hingga mahir"
 
 #. TRANSLATORS: Preferences group title for the interface font
 msgid "Interface font"
-msgstr ""
+msgstr "Fon antarmuka"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Flag Interrupt: Saat diset, menutupi (menonaktifkan) semua interrupt yang dapat di-mask (IRQ). Hanya Non-Maskable Interrupt (NMI) yang masih dapat terjadi. Digunakan untuk bagian kode kritis yang tidak boleh diinterupsi."
@@ -1174,7 +1174,7 @@ msgstr "Buka File Assembly"
 
 #. TRANSLATORS: Badge in the About dialog, shown by every build of the app
 msgid "Open Source"
-msgstr ""
+msgstr "Sumber terbuka"
 
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
@@ -1557,11 +1557,11 @@ msgid "Submit"
 msgstr "Kirim"
 
 msgid "Support"
-msgstr ""
+msgstr "Dukung"
 
 #. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
 msgid "Supporter"
-msgstr ""
+msgstr "Pendukung"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1570,11 +1570,11 @@ msgstr "Kesalahan sintaks baris %d: %s"
 
 #. TRANSLATORS: Font option — use the operating system's own font, untouched
 msgid "System font"
-msgstr ""
+msgstr "Bawaan sistem"
 
 #. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
 msgid "System font, GNOME size"
-msgstr ""
+msgstr "Fon sistem, ukuran GNOME"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1591,11 +1591,11 @@ msgstr "Uji kreasi Anda pada konsol permainan virtual"
 
 #. TRANSLATORS: Example description for Even Odd
 msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
-msgstr ""
+msgstr "Menguji bit 0 pada A dengan LSR dan BCC, lalu menaruh 1 atau 0 di A sebagai hasilnya"
 
 #. TRANSLATORS: What the "Open Source" badge in the About dialog means
 msgid "Thank you for using open source software."
-msgstr ""
+msgstr "Terima kasih telah menggunakan perangkat lunak sumber terbuka."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1637,7 +1637,7 @@ msgstr "Register Indeks Y mirip dengan X dan tidak memiliki fungsi khusus. Umumn
 #. from the operating system, and outside GNOME that font is smaller than
 #. the one the app is designed for.
 msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
-msgstr ""
+msgstr "Aplikasi ini dirancang untuk fon antarmuka GNOME. Pada sistem lain, aplikasi ditampilkan dengan fon sistem tersebut, yang biasanya lebih kecil."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1900,7 +1900,7 @@ msgstr "Anda dapat membayangkan layar sebagai empat strip horizontal berukuran 3
 
 #. TRANSLATORS: What the "Supporter" badge in the About dialog means
 msgid "You supported this open source project by buying the app. Thank you!"
-msgstr ""
+msgstr "Anda telah mendukung proyek sumber terbuka ini dengan membeli aplikasi. Terima kasih!"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
