@@ -1,26 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 Achievement draft "game-played", locked state — learn6502.
-Shared base shape across all three apps: a 10-lobe scalloped seal (union of ten discs, so
-the rim waves instead of showing cog teeth), an 8 px front profile like the app icons, and
-a recessed round field. Only the motif is app-specific. No text, no raster, no filters.
+The object is a game cartridge with a label; only the motif changes per achievement. Shared frame across all
+three apps: 192 x 96 (2:1), 2 px grid, drawn for raster heights 48 and 96 logical px, with a
+locked state that keeps the geometry as a muted silhouette. Title and description come from
+gettext and are drawn next to the artwork, never inside it.
+No text, no raster, no filters, no baked shadows.
 -->
-<svg width="128" height="128" viewBox="0 0 128 128" version="1.1"
+<svg width="192" height="96" viewBox="0 0 192 96" version="1.1"
      xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <linearGradient id="rim" x1="0" y1="8" x2="0" y2="116" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#b5b3b0"/><stop offset="1" stop-color="#9a9996"/>
-    </linearGradient>
-    <linearGradient id="field" x1="0" y1="26" x2="0" y2="90" gradientUnits="userSpaceOnUse">
-      <stop offset="0" stop-color="#e6e4e1"/><stop offset="1" stop-color="#d5d3d0"/>
-    </linearGradient>
+    <linearGradient id="body" x1="0" y1="6" x2="0" y2="90" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#a9bad3"/><stop offset="1" stop-color="#8e9fba"/></linearGradient>
+    <linearGradient id="field" x1="0" y1="14" x2="0" y2="82" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#e3e9f2"/><stop offset="1" stop-color="#d2dae7"/></linearGradient>
+    <clipPath id="label"><rect x="52" y="14" width="92" height="68" rx="6"/></clipPath>
   </defs>
-  <path id="seal-profile" d="M103.35 53.21 A13 13 0 0 1 103.35 78.79 A13 13 0 0 1 88.32 99.47 A13 13 0 0 1 64.00 107.38 A13 13 0 0 1 39.68 99.47 A13 13 0 0 1 24.65 78.79 A13 13 0 0 1 24.65 53.21 A13 13 0 0 1 39.68 32.53 A13 13 0 0 1 64.00 24.62 A13 13 0 0 1 88.32 32.53 A13 13 0 0 1 103.35 53.21 Z" fill="#5e5c64"/>
-  <path id="seal" d="M103.35 45.21 A13 13 0 0 1 103.35 70.79 A13 13 0 0 1 88.32 91.47 A13 13 0 0 1 64.00 99.38 A13 13 0 0 1 39.68 91.47 A13 13 0 0 1 24.65 70.79 A13 13 0 0 1 24.65 45.21 A13 13 0 0 1 39.68 24.53 A13 13 0 0 1 64.00 16.62 A13 13 0 0 1 88.32 24.53 A13 13 0 0 1 103.35 45.21 Z" fill="url(#rim)"/>
-  <circle id="field-bezel" cx="64" cy="58" r="34" fill="#5e5c64"/>
-  <circle id="field" cx="64" cy="58" r="32" fill="url(#field)"/>
-  <g id="motif" transform="translate(0,-2)">
-  <path id="dpad" d="M52 30 H76 V48 H94 V72 H76 V90 H52 V72 H34 V48 H52 Z" fill="#5e5c64"/>
-  <circle id="dpad-hub" cx="64" cy="60" r="7" fill="#d5d3d0"/>
-  </g>
+  <path id="shell-edge" d="M18 6 H174 A10 10 0 0 1 184 16 V80 A10 10 0 0 1 174 90 H18 A10 10 0 0 1 8 80 V16 A10 10 0 0 1 18 6 Z" fill="#5d6c84"/>
+  <path id="shell" d="M19 10 H173 A7 7 0 0 1 180 17 V79 A7 7 0 0 1 173 86 H19 A7 7 0 0 1 12 79 V17 A7 7 0 0 1 19 10 Z" fill="url(#body)"/>
+  <rect id="connector" x="16" y="20" width="26" height="56" rx="4" fill="#5d6c84"/>
+  <rect id="pin-1" x="20" y="26" width="18" height="6" rx="3" fill="#c3cfe1"/><rect id="pin-2" x="20" y="38" width="18" height="6" rx="3" fill="#c3cfe1"/><rect id="pin-3" x="20" y="50" width="18" height="6" rx="3" fill="#c3cfe1"/><rect id="pin-4" x="20" y="62" width="18" height="6" rx="3" fill="#c3cfe1"/>
+  <rect id="ridge-1" x="152" y="24" width="6" height="48" rx="3" fill="#c3cfe1"/><rect id="ridge-2" x="162" y="24" width="6" height="48" rx="3" fill="#c3cfe1"/><rect id="ridge-3" x="172" y="24" width="6" height="48" rx="3" fill="#c3cfe1"/>
+  <rect id="label" x="52" y="14" width="92" height="68" rx="6" fill="url(#field)"/>
+  <rect id="label-frame" x="56" y="18" width="84" height="60" rx="4" fill="none" stroke="#5d6c84" stroke-width="4"/>
+  <g id="motif" transform="translate(98,48) scale(1.12)"><path d="M-7 -18 H7 V-7 H18 V7 H7 V18 H-7 V7 H-18 V-7 H-7 Z" fill="#5d6c84"/><circle cx="0" cy="0" r="4" fill="#d2dae7"/></g>
 </svg>
