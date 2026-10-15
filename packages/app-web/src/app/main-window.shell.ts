@@ -20,10 +20,10 @@ export interface DomShellParts {
 
 /** The four screens in stack order, with their tab title and icon. */
 const SCREENS = [
-  { view: ViewType.LEARN, name: "learn", title: () => _("Learn"), icon: "go-home" },
-  { view: ViewType.EDITOR, name: "editor", title: () => _("Code"), icon: "document-edit" },
-  { view: ViewType.DEBUGGER, name: "debugger", title: () => _("Debug"), icon: "system-search" },
-  { view: ViewType.GAME_CONSOLE, name: "gameConsole", title: () => _("Play"), icon: "application-x-executable" },
+  { view: ViewType.LEARN, name: "learn", title: () => _("Learn"), icon: "school-symbolic" },
+  { view: ViewType.EDITOR, name: "editor", title: () => _("Code"), icon: "code-symbolic" },
+  { view: ViewType.DEBUGGER, name: "debugger", title: () => _("Debug"), icon: "bug-symbolic" },
+  { view: ViewType.GAME_CONSOLE, name: "gameConsole", title: () => _("Play"), icon: "nintendo-controller-symbolic" },
 ] as const;
 
 type ScreenName = (typeof SCREENS)[number]["name"];
@@ -62,10 +62,8 @@ export class DomMainWindowShell implements MainWindowShell {
   private dialog: Adw.AlertDialog | null = null;
 
   constructor(private readonly parts: DomShellParts) {
-    // The window element speaks GObject (`connect`, `is_active`) itself; only the `get_focus()` method is missing
-    this.window = Object.assign(parts.window, {
-      get_focus: () => parts.window.focusWidget,
-    }) as unknown as GjsGtk.Window;
+    // The window element speaks GObject (`connect`, `is_active`, `get_focus()`) itself.
+    this.window = parts.window as unknown as GjsGtk.Window;
 
     const slotOf = (screen: unknown): HTMLDivElement => {
       const slot = document.createElement("div");

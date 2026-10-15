@@ -1,6 +1,6 @@
 import type { View } from "@nativescript/core";
 import type GjsGtk from "@girs/gtk-4.0";
-import { Application, GridLayout } from "@nativescript/core";
+import { Application } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 import { Gio, NOTIFY_VISIBLE_CHILD, insertActionGroup, padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import type { Adw, Gtk } from "@gjsify/adwaita-nativescript";
@@ -54,11 +54,6 @@ export class NativeMainWindowShell implements MainWindowShell {
   ) {
     // The root is the NativeScript Adw.ApplicationWindow, typed against GJS in the shared package.
     this.window = parts.root as unknown as GjsGtk.Window;
-    // The unsaved-changes card is an in-page modal painted over everything, as the About dialog is.
-    const dialog = parts.unsavedChangesDialog as unknown as View;
-    GridLayout.setRow(dialog, 0);
-    GridLayout.setColumn(dialog, 0);
-    (parts.root as GridLayout).addChild(dialog);
     parts.stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(parts.stack.visibleChildName));
   }
 
@@ -135,15 +130,6 @@ export class NativeMainWindowShell implements MainWindowShell {
 
   closeWindow(): void {
     Application.android?.foregroundActivity?.finish();
-  }
-
-  /** The hardware back button, offered to the screens in view first (the Learn screen pops a page). */
-  handleBack(): boolean {
-    if (this.isDesktopLayout()) {
-      return (this.screens.editor.onBack?.() ?? false) || (this.screens.learn.onBack?.() ?? false);
-    }
-    const page = STACK_PAGES.find((candidate) => candidate.id === this.currentName);
-    return page ? (this.screens[page.id].onBack?.() ?? false) : false;
   }
 
   private onStackChanged(name: string): void {

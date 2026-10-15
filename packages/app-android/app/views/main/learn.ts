@@ -2,7 +2,7 @@ import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
 import { padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
-import { localize } from "@nativescript/localize";
+import { translate } from "~/utils/translate";
 import type { LearnView, LearnViewEventMap } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
 import { Learn as LearnWidget, setTranslator } from "@learn6502/ui";
@@ -13,7 +13,7 @@ import type { ScreenModule } from "./editor";
 import "~/widgets/source-view";
 
 // The shared widget's strings go through the app's catalogue.
-setTranslator(localize);
+setTranslator(translate);
 
 // The `$TutorialView` the shared `learn.blp` names: its content is generated from the MDX per platform.
 let tutorialView: TutorialView | null = null;
@@ -40,28 +40,18 @@ class Learn implements LearnView {
   private releaseInsets: (() => void)[] = [];
   private log = logger.scoped("Learn");
 
-  build(): LearnWidget {
-    // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
-    const widget = new LearnWidget();
+  adopt(widget: LearnWidget): void {
     this.widget = widget;
     widget.events.on("subpage-changed", (event) => {
       // The tutorial's ~750 views are built on its first visit, not with the window.
       if (event.tag === "tutorial") tutorialView?.build();
       this.events.dispatch("subpage-changed", event);
     });
-    return widget;
   }
 
   /** Whether a subpage (Tutorial/Examples) is open — drives the shell's header back button. */
   get hasVisibleSubpage(): boolean {
     return this.widget?.hasVisibleSubpage ?? false;
-  }
-
-  /** Pop one level. Returns true if a page was popped, so the caller can consume the back press. */
-  navigateBack(): boolean {
-    if (!this.widget?.hasVisibleSubpage) return false;
-    this.widget.navigateBack();
-    return true;
   }
 
   /** Whether the pages reach the screen's bottom edge (the wide layout): their scrolling content
@@ -89,14 +79,13 @@ class Learn implements LearnView {
 const learnView = new Learn();
 
 /** Build the learn screen for the shell's Adw.ViewStack. */
-export function buildLearnScreen(): ScreenModule<LearnWidget> {
-  const widget = learnView.build();
+export function buildLearnScreen(widget: LearnWidget): ScreenModule<LearnWidget> {
+  learnView.adopt(widget);
   return {
     // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     view: asView(widget),
     widget,
     onHide: () => learnView.saveScrollPosition(),
-    onBack: () => learnView.navigateBack(),
     padSystemInsets: (on) => learnView.padSystemInsets(on),
   };
 }

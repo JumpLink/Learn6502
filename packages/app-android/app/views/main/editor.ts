@@ -25,9 +25,6 @@ export interface ScreenModule<W = unknown> {
   widget: W;
   onShow?(): void;
   onHide?(): void;
-  /** Handle the hardware back button while this screen is active. Return true if
-   *  the screen consumed it (e.g. popped an internal navigation stack). */
-  onBack?(): boolean;
   /** Clear (or stop clearing) the gesture area at the screen's bottom edge, as the wide layout needs. */
   padSystemInsets?(on: boolean): void;
 }
@@ -79,12 +76,10 @@ class Editor extends Observable implements EditorView {
     this.events.dispatch("changed", event);
   };
 
-  /** Build the shared `@learn6502/ui` editor (the source view over the quick-help bottom sheet)
+  /** Take the shared `@learn6502/ui` editor (the source view over the quick-help bottom sheet)
    *  and wire it to the controller (once). */
-  build(): EditorWidget {
-    // The shared `Editor` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+  adopt(pane: EditorWidget): void {
     this._pane?.unbind();
-    const pane = new EditorWidget();
     this._pane = pane;
 
     // The controller outlives the activity: the widget hands it its fresh source view on every
@@ -98,15 +93,6 @@ class Editor extends Observable implements EditorView {
       Application.on(Application.suspendEvent, () => this.save());
       this._initialized = true;
     }
-
-    return pane;
-  }
-
-  /** The back button closes the quick-help sheet first. */
-  closeSheet(): boolean {
-    if (!editorController.helpVisible) return false;
-    editorController.setHelpVisible(false);
-    return true;
   }
 
   /**
@@ -132,14 +118,13 @@ class Editor extends Observable implements EditorView {
 export const editorView = new Editor();
 
 /** Build the editor screen for the shell's Adw.ViewStack. */
-export function buildEditorScreen(): ScreenModule<EditorWidget> {
-  const widget = editorView.build();
+export function buildEditorScreen(widget: EditorWidget): ScreenModule<EditorWidget> {
+  editorView.adopt(widget);
   return {
     // The shared widget is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     view: asView(widget),
     widget,
     onHide: () => editorView.save(),
-    onBack: () => editorView.closeSheet(),
     padSystemInsets: (on) => {
       editorView.padsSystemInsets = on;
     },

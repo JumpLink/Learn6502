@@ -19,12 +19,11 @@ import { createMainWindowServices } from "~/services/main-window.services";
 import type { SystemAppearanceChangeEvent } from "~/types";
 import { APPLICATION_ID } from "~/constants";
 import { showError, logger } from "~/utils";
-import { setAppBackHandler } from "~/utils/navigation";
 import { translate } from "~/utils/translate";
 
 // The template classes main.window.blp names (MainButton and Toolbar) register with @learn6502/ui.
 import { MainWindowController, addAppActions, createMainMenu, getAboutInfo, type MainButton } from "@learn6502/ui";
-import { createScreens } from "./main/screens";
+import { createScreens, type Screens } from "./main/screens";
 import { simulatorStack } from "./main/game-console";
 import { NativeMainWindowShell } from "./main/shell";
 
@@ -65,17 +64,11 @@ export class MainController {
 
     // Build the shell from main.window.blp and install it as the page content.
     page.content = this.buildShell();
-
-    // Hardware back: let the visible screens consume it (e.g. the Learn screen pops its internal
-    // Adw.NavigationView). Registered with the global back handler so it runs before the default
-    // Frame / move-to-background logic.
-    setAppBackHandler(() => this.shell?.handleBack() ?? false);
   }
 
   public onUnloaded(args: EventData): void {
     const view = args.object as Page;
     this.log.debug("unloaded:", view.id);
-    setAppBackHandler(null);
     this.controller?.disconnect();
     this.mainButton?.unbind();
     systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
@@ -93,13 +86,14 @@ export class MainController {
 
   // --- Shell construction ---
   private buildShell(): View {
-    const screens = createScreens();
-
-    const { root } = buildWithSiblings(mainWindowTree, {
+    // The blueprint builds the screens, so the back button reaches them only once they exist.
+    let screens: Screens | null = null;
+    const { root, siblings } = buildWithSiblings(mainWindowTree, {
       // `clicked => $_onLearnBackButtonClicked()` in the blueprint.
-      scope: { _onLearnBackButtonClicked: () => screens.learn.widget.navigateBack() },
+      scope: { _onLearnBackButtonClicked: () => screens?.learn.widget.navigateBack() },
       translate,
     });
+    screens = createScreens(siblings);
     // The widgets are typed against the GJS bindings, but at run time they are NativeScript views.
     const byId = <T>(id: string): T => root.getViewById<View>(id) as unknown as T;
 
@@ -115,7 +109,8 @@ export class MainController {
         rightTopBox: byId<Gtk.Box>("rightTopBox"),
         rightBottomBox: byId<Gtk.Box>("rightBottomBox"),
         rightColumnContent: byId<Gtk.Box>("rightColumnContent"),
-        unsavedChangesDialog: byId<Adw.AlertDialog>("unsavedChangesDialog"),
+        // A sibling of the window and not a view: it presents through the platform's dialog.
+        unsavedChangesDialog: siblings.get("unsavedChangesDialog") as Adw.AlertDialog,
         titleLabel: byId<Gtk.Label>("titleLabel"),
         learnBackButton: byId<Gtk.Button>("learnBackButton"),
       },
