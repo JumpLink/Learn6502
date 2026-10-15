@@ -732,7 +732,7 @@ msgstr "掌握这些知识后，你应该能看出指令 <tt>LDA #$01</tt> 会�
 
 #. TRANSLATORS: Example title for Even Odd
 msgid "Even Odd"
-msgstr ""
+msgstr "奇偶判断"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
@@ -868,7 +868,7 @@ msgstr "有自己很酷的6502作品吗？与社区分享吧！您现在可以�
 
 #. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
 msgid "Great start — you finished the first chapter!"
-msgstr ""
+msgstr "开局不错——你已完成第一章！"
 
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
@@ -1176,7 +1176,7 @@ msgstr "汇编文件"
 
 #. TRANSLATORS: Badge in the About dialog, shown by every build of the app
 msgid "Open Source"
-msgstr ""
+msgstr "开源"
 
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
@@ -1559,11 +1559,11 @@ msgid "Submit"
 msgstr "提交"
 
 msgid "Support"
-msgstr ""
+msgstr "支持"
 
 #. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
 msgid "Supporter"
-msgstr ""
+msgstr "支持者"
 
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
@@ -1594,11 +1594,11 @@ msgstr "在虚拟游戏主机上测试你的作品"
 
 #. TRANSLATORS: Example description for Even Odd
 msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
-msgstr ""
+msgstr "用 LSR 和 BCC 测试 A 的第 0 位，并将结果 1 或 0 存入 A"
 
 #. TRANSLATORS: What the "Open Source" badge in the About dialog means
 msgid "Thank you for using open source software."
-msgstr ""
+msgstr "感谢你使用开源软件。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1903,7 +1903,7 @@ msgstr "可以将屏幕看作 4 个横向条，每个条 32 × 8 像素。它们
 
 #. TRANSLATORS: What the "Supporter" badge in the About dialog means
 msgid "You supported this open source project by buying the app. Thank you!"
-msgstr ""
+msgstr "你购买了这款应用，从而支持了这个开源项目。谢谢！"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
