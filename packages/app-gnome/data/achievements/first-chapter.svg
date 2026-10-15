@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Achievement draft "first-chapter" — learn6502.
+Shared base shape across all three apps: a 10-lobe scalloped seal (union of ten discs, so
+the rim waves instead of showing cog teeth), an 8 px front profile like the app icons, and
+a recessed round field. Only the motif is app-specific. No text, no raster, no filters.
+-->
+<svg width="128" height="128" viewBox="0 0 128 128" version="1.1"
+     xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="rim" x1="0" y1="8" x2="0" y2="116" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#62a0ea"/><stop offset="1" stop-color="#3584e4"/>
+    </linearGradient>
+    <linearGradient id="field" x1="0" y1="26" x2="0" y2="90" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#dceafd"/><stop offset="1" stop-color="#a8cdfc"/>
+    </linearGradient>
+  </defs>
+  <path id="seal-profile" d="M103.35 53.21 A13 13 0 0 1 103.35 78.79 A13 13 0 0 1 88.32 99.47 A13 13 0 0 1 64.00 107.38 A13 13 0 0 1 39.68 99.47 A13 13 0 0 1 24.65 78.79 A13 13 0 0 1 24.65 53.21 A13 13 0 0 1 39.68 32.53 A13 13 0 0 1 64.00 24.62 A13 13 0 0 1 88.32 32.53 A13 13 0 0 1 103.35 53.21 Z" fill="#1a5fb4"/>
+  <path id="seal" d="M103.35 45.21 A13 13 0 0 1 103.35 70.79 A13 13 0 0 1 88.32 91.47 A13 13 0 0 1 64.00 99.38 A13 13 0 0 1 39.68 91.47 A13 13 0 0 1 24.65 70.79 A13 13 0 0 1 24.65 45.21 A13 13 0 0 1 39.68 24.53 A13 13 0 0 1 64.00 16.62 A13 13 0 0 1 88.32 24.53 A13 13 0 0 1 103.35 45.21 Z" fill="url(#rim)"/>
+  <circle id="field-bezel" cx="64" cy="58" r="34" fill="#1a5fb4"/>
+  <circle id="field" cx="64" cy="58" r="32" fill="url(#field)"/>
+  <g id="motif" transform="translate(0,-2)">
+  <path id="book" d="M64 46 C57 39 48 37 38 39 V80 C48 78 57 80 64 86
+        C71 80 80 78 90 80 V39 C80 37 71 39 64 46 Z" fill="#1a5fb4"/>
+  <rect id="book-spine" x="60" y="44" width="8" height="42" fill="#a8cdfc"/>
+  </g>
+</svg>
