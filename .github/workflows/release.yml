@@ -289,7 +289,7 @@ jobs:
           mv dist-app "Learn6502-$version-web"
           cd "Learn6502-$version-web"
           cat > README.txt <<'EOF'
-          Learn 6502 Assembly — browser build
+          Learn 6502 — browser build
           
           Serve this directory over HTTP and open it in a browser, for example:
           

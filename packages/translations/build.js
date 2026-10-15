@@ -96,7 +96,7 @@ const po2json = po2jsonPlugin({
   verbose: true,
   additionalTranslations: {
     // 'app.name' is a required key for the Android app
-    "app.name": "Learn 6502 Assembly",
+    "app.name": "Learn 6502",
   },
 });
 

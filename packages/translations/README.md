@@ -1,6 +1,6 @@
-# Learn 6502 Assembly Translations
+# Learn 6502 Translations
 
-This package contains the translations for Learn 6502 Assembly. The project is hosted on [GitHub](https://github.com/JumpLink/Learn6502).
+This package contains the translations for Learn 6502. The project is hosted on [GitHub](https://github.com/JumpLink/Learn6502).
 
 <a href="https://hosted.weblate.org/engage/eu-jumplink-learn6502/">
 <img src="https://hosted.weblate.org/widget/eu-jumplink-learn6502/app/multi-auto.svg" alt="translation status" />
