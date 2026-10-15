@@ -76,7 +76,7 @@ export class MainWindowController implements MainView {
       window: shell.window,
       isRunning: () => this.state === SimulatorState.RUNNING,
       pause: () => this.pauseGameConsole(),
-      onCloseRequest: () => (shell.emitsCloseRequest === false ? false : this.onCloseRequest()),
+      onCloseRequest: () => this.onCloseRequest(),
       isDesktopLayout: () => this.shell.isDesktopLayout(),
       isInsideConsole: (widget) => this.shell.isInsideConsole(widget),
     });

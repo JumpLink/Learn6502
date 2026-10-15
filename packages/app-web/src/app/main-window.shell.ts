@@ -29,37 +29,11 @@ const SCREENS = [
 type ScreenName = (typeof SCREENS)[number]["name"];
 
 /**
- * The slice of `Gtk.Window` the shared window behaviour reads, answered by the document. `close-request`
- * has no listener: `Adw.Window` on the web has no close request to hook (a core gap in gjsify's
- * adwaita-web, not worked around here), so the shell sets `emitsCloseRequest = false`.
- */
-class DocumentWindow {
-  private readonly events: Record<string, string[]> = {
-    "notify::is-active": ["focus", "blur"],
-    "notify::focus-widget": ["focusin", "focusout"],
-  };
-
-  get is_active(): boolean {
-    return document.hasFocus();
-  }
-
-  get_focus(): Element | null {
-    return document.activeElement;
-  }
-
-  connect(signal: string, handler: () => void): number {
-    for (const type of this.events[signal] ?? []) window.addEventListener(type, handler, true);
-    return 0;
-  }
-}
-
-/**
  * `MainWindowShell` over the DOM: a view stack on narrow viewports, three columns on wide ones, the
  * switch being the `matchMedia` twin of the GNOME window's `Adw.Breakpoint`s.
  */
 export class DomMainWindowShell implements MainWindowShell {
   readonly window: GjsGtk.Window;
-  readonly emitsCloseRequest = false;
   /** The element to put into the toast overlay. */
   readonly layoutHost = document.createElement("div");
 
@@ -88,8 +62,10 @@ export class DomMainWindowShell implements MainWindowShell {
   private dialog: Adw.AlertDialog | null = null;
 
   constructor(private readonly parts: DomShellParts) {
-    // Only the members the window behaviour reads exist, hence the cast
-    this.window = new DocumentWindow() as unknown as GjsGtk.Window;
+    // The window element speaks GObject (`connect`, `is_active`) itself; only the `get_focus()` method is missing
+    this.window = Object.assign(parts.window, {
+      get_focus: () => parts.window.focusWidget,
+    }) as unknown as GjsGtk.Window;
 
     const slotOf = (screen: unknown): HTMLDivElement => {
       const slot = document.createElement("div");
@@ -280,9 +256,8 @@ export class DomMainWindowShell implements MainWindowShell {
     action.connect("activate", () => activate());
     this.actions.set(name, action);
     // The window's application runs the accelerators; it is linked before the controller registers actions.
-    // The element's typings lack the `Gio.ActionMap` and `application` members it has at run time.
-    const window = this.parts.window as unknown as GjsGtk.ApplicationWindow;
-    window.add_action(action as unknown as Parameters<GjsGtk.ApplicationWindow["add_action"]>[0]);
+    const window = this.parts.window;
+    window.add_action(action);
     if (accels) window.application?.set_accels_for_action(`win.${name}`, accels);
     return {
       setEnabled: (enabled) => {
@@ -341,6 +316,9 @@ export class DomMainWindowShell implements MainWindowShell {
   }
 
   closeWindow(): void {
-    window.close();
+    // `GtkWindow.close()` would detach the frame and leave a blank page, so only its `close-request` runs
+    const request = new CustomEvent("close-request", { bubbles: true, cancelable: true });
+    this.parts.window.dispatchEvent(request);
+    if (!request.defaultPrevented) window.close();
   }
 }
