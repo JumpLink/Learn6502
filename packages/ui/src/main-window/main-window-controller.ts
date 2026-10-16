@@ -1,3 +1,4 @@
+import Gtk from "@girs/gtk-4.0";
 import { SimulatorState, formatMessage, num2hex } from "@learn6502/core";
 import {
   type MainButtonState,
@@ -59,6 +60,8 @@ export class MainWindowController implements MainView {
   private gameConsoleBridge: GameConsoleEventBridge | null = null;
 
   private askingAboutUnsavedChanges = false;
+  // The `gtk_application_inhibit` cookie held while there are unsaved changes; 0 when none is held
+  private logoutInhibitCookie = 0;
   private codeToAssembleChanged = false;
   private focusTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
@@ -191,10 +194,28 @@ export class MainWindowController implements MainView {
 
   private set unsavedChanges(unsavedChanges: boolean) {
     this.services.files.setUnsavedChanges(unsavedChanges);
+    this.syncLogoutInhibit();
   }
 
   private get unsavedChanges(): boolean {
     return this.services.files.hasUnsavedChanges();
+  }
+
+  /** Ask the session (or the page) to confirm leaving while the code has unsaved changes. */
+  private syncLogoutInhibit(): void {
+    const app = this.shell.window.get_application();
+    const unsaved = this.services.files.hasUnsavedChanges();
+    if (unsaved && this.logoutInhibitCookie === 0 && app) {
+      // TRANSLATORS: Reason shown by the session when logging out with unsaved code
+      this.logoutInhibitCookie = app.inhibit(
+        this.shell.window,
+        Gtk.ApplicationInhibitFlags.LOGOUT,
+        _("Unsaved changes")
+      );
+    } else if (!unsaved && this.logoutInhibitCookie !== 0) {
+      app?.uninhibit(this.logoutInhibitCookie);
+      this.logoutInhibitCookie = 0;
+    }
   }
 
   private showToast(title: string, timeout = 2): void {
@@ -304,6 +325,10 @@ export class MainWindowController implements MainView {
     this.gameConsoleBridge?.disconnect();
     this.gameConsoleBridge = null;
     for (const unsubscribe of this.unsubscribers.splice(0)) unsubscribe();
+    if (this.logoutInhibitCookie !== 0) {
+      this.shell.window.get_application()?.uninhibit(this.logoutInhibitCookie);
+      this.logoutInhibitCookie = 0;
+    }
   }
 
   // --- Actions ---
@@ -405,7 +430,9 @@ export class MainWindowController implements MainView {
 
   public async saveFile(): Promise<boolean> {
     if (this.services.files.hasCurrentFile()) {
-      return await this.services.files.saveFile(editorController.code);
+      const saved = await this.services.files.saveFile(editorController.code);
+      this.syncLogoutInhibit();
+      return saved;
     }
     return await this.saveAsFile();
   }
@@ -416,6 +443,7 @@ export class MainWindowController implements MainView {
       editorController.code,
       files.hasCurrentFile() ? files.getCurrentFileName() : "untitled.asm"
     );
+    this.syncLogoutInhibit();
     if (success) {
       this.shell.setFileTitle(files.getCurrentFileName());
       // TRANSLATORS: Toast message title after saving file successfully, includes filename
