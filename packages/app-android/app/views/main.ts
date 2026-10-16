@@ -22,7 +22,14 @@ import { showError, logger } from "~/utils";
 import { translate } from "~/utils/translate";
 
 // The template classes main.window.blp names (MainButton and Toolbar) register with @learn6502/ui.
-import { MainWindowController, addAppActions, createMainMenu, getAboutInfo, type MainButton } from "@learn6502/ui";
+import {
+  MainWindowController,
+  addAppActions,
+  createMainMenu,
+  getAboutInfo,
+  notificationService,
+  type MainButton,
+} from "@learn6502/ui";
 import { createScreens, type Screens } from "./main/screens";
 import { simulatorStack } from "./main/game-console";
 import { NativeMainWindowShell } from "./main/shell";
@@ -120,6 +127,8 @@ export class MainController {
     );
     this.shell = shell;
     this.mainButton = byId<MainButton>("mainButton");
+    type ToastOverlay = Parameters<typeof notificationService.init>[1];
+    notificationService.init(root as unknown as GjsGtk.Window, byId<ToastOverlay>("toastOverlay"));
 
     const controller = new MainWindowController(
       shell,

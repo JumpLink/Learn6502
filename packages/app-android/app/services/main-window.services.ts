@@ -1,8 +1,7 @@
 import { Application, ApplicationSettings, Utils } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
-import type { MainWindowServices } from "@learn6502/ui";
+import { notificationService, type MainWindowServices } from "@learn6502/ui";
 import { FileService } from "./file.service";
-import { notificationService } from "./notification.service";
 
 /** Learn6502 project repository — the "share your example" destination. */
 const SHARE_URL = "https://github.com/JumpLink/Learn6502";

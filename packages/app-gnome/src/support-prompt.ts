@@ -5,9 +5,8 @@ import Gtk from "@girs/gtk-4.0";
 import { donationsAllowed } from "@gjsify/distribution";
 import { learnController, supportPromptService } from "@learn6502/common-ui";
 import type { SupportPromptStore } from "@learn6502/common-ui";
-import { supportUrl } from "@learn6502/ui";
+import { notificationService, supportUrl } from "@learn6502/ui";
 
-import { notificationService } from "./services";
 import { settings } from "./settings.ts";
 
 const SETTINGS_KEY = "support-prompt-years";

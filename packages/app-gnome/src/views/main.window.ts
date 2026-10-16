@@ -8,6 +8,7 @@ import type { Memory } from "@learn6502/core";
 import {
   MainWindowController,
   createMainMenu,
+  notificationService,
   type Debugger,
   type Editor,
   type GameConsole,
@@ -20,7 +21,7 @@ import { HelpWindow } from "./help.window.ts";
 import { GtkMainWindowShell } from "./main.window.shell.ts";
 import { ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
-import { themeService, notificationService, fileService } from "../services";
+import { themeService, fileService } from "../services";
 import { settings } from "../settings.ts";
 import { watchFirstChapter } from "../support-prompt.ts";
 
