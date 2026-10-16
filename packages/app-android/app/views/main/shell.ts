@@ -127,9 +127,15 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
     insertActionGroup(this.parts.root, "win", this.actionGroup);
   }
 
-  async askUnsavedChanges(): Promise<UnsavedChangesAnswer> {
-    const response = await this.parts.unsavedChangesDialog.present();
-    return response === "save" || response === "discard" ? response : "cancel";
+  askUnsavedChanges(): Promise<UnsavedChangesAnswer> {
+    const { unsavedChangesDialog } = this.parts;
+    return new Promise((resolve) => {
+      const handlerId = unsavedChangesDialog.connect("response", (_dialog: unknown, response: string) => {
+        unsavedChangesDialog.disconnect(handlerId);
+        resolve(response === "save" || response === "discard" ? response : "cancel");
+      });
+      unsavedChangesDialog.present();
+    });
   }
 
   closeWindow(): void {
