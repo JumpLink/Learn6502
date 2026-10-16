@@ -14,6 +14,7 @@ import bugSymbolic from "../../../app-gnome/data/icons/scalable/actions/bug-symb
 import buildAltSymbolic from "../../../app-gnome/data/icons/scalable/actions/build-alt-symbolic.svg";
 import clipboardSymbolic from "../../../app-gnome/data/icons/scalable/actions/clipboard-symbolic.svg";
 import codeSymbolic from "../../../app-gnome/data/icons/scalable/actions/code-symbolic.svg";
+import dotSymbolic from "../../../app-gnome/data/icons/scalable/actions/dot-symbolic.svg";
 import dpadDownSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-down-symbolic.svg";
 import dpadLeftSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-left-symbolic.svg";
 import dpadRightSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-right-symbolic.svg";
@@ -35,6 +36,7 @@ registerIcon("bug-symbolic", bugSymbolic);
 registerIcon("build-alt-symbolic", buildAltSymbolic);
 registerIcon("clipboard-symbolic", clipboardSymbolic);
 registerIcon("code-symbolic", codeSymbolic);
+registerIcon("dot-symbolic", dotSymbolic);
 registerIcon("dpad-down-symbolic", dpadDownSymbolic);
 registerIcon("dpad-left-symbolic", dpadLeftSymbolic);
 registerIcon("dpad-right-symbolic", dpadRightSymbolic);

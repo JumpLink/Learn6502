@@ -1,39 +1,36 @@
 /**
  * MainWindow — the app-web Adwaita SPA shell.
  *
- * Web counterpart of the GNOME `MainWindow` (`app-gnome/src/views/main.window`). The window's logic —
- * navigation, the run/step/assemble flow, files and the unsaved-changes guard — is the shared
- * `MainWindowController`; this file builds the chrome on `@gjsify/adwaita-web` and injects what the
- * browser provides (file pickers, clipboard, toasts). The layout and the actions live in
- * `DomMainWindowShell`.
- *
- * Structure (mapped to app-gnome's `main.window.blp`):
- *   Adw.ToolbarView
- *     [top]    Adw.HeaderBar — window title, sidebar toggle, learn-back button,
- *              run controls, primary Gtk.MenuButton
- *     content  Adw.ToastOverlay > #layout-host (the shell's single / three-column layouts)
- *     [bottom]  Adw.ViewSwitcherBar — mobile tab bar bound to the stack
+ * Web counterpart of the GNOME `MainWindow`: the window is built from the GNOME app's own
+ * `main.window.blp`, whose `Adw.Breakpoint`s move the four screens between the view stack and the
+ * three columns. The window's logic — navigation, the run/step/assemble flow, files and the
+ * unsaved-changes guard — is the shared `MainWindowController`; this file injects what the browser
+ * provides (file pickers, clipboard, toasts). Placing the screens is `DomMainWindowShell`'s.
  */
 
 import type GjsGtk from "@girs/gtk-4.0";
-import { Adw, Gtk } from "@gjsify/adwaita-web";
+import { Adw, buildWithSiblings, type Gtk } from "@gjsify/adwaita-web";
 import { ViewType, editorController, mainStateController } from "@learn6502/common-ui";
+// The template classes main.window.blp names ($Learn, $MainButton, $Toolbar, …) register with @learn6502/ui.
 import {
-  Debugger,
-  Editor,
-  GameConsole,
-  Learn,
   MainWindowController,
   addAppActions,
   createMainMenu,
   getAboutInfo,
+  notificationService,
+  type Debugger,
+  type Editor,
+  type GameConsole,
+  type Learn,
+  type MainButton,
   type MainWindowServices,
 } from "@learn6502/ui";
+import mainWindowTree from "../../../app-gnome/src/views/main.window.blp?shared-tree";
 
 import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
 import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
 import { FileService } from "./file.service.js";
-import { DomMainWindowShell } from "./main-window.shell.js";
+import { DomMainWindowShell, type DomScreens } from "./main-window.shell.js";
 import { injectShellStyles } from "./styles.js";
 
 /** The application id, as in the GNOME app. */
@@ -54,52 +51,78 @@ loop:
   BRK
 `;
 
-/** A header button and the actions it stands for; it is enabled while any of them is. */
-interface RunButton {
-  button: Gtk.Button;
-  actions: string[];
-}
-
 export class MainWindow {
   /** The root element to mount into the document. */
   public readonly root: Adw.ApplicationWindow;
 
-  private readonly learnView = new Learn();
-  private readonly editorView = new Editor();
-  private readonly debuggerView = new Debugger();
-  private readonly gameConsoleView = new GameConsole();
-
   private readonly fileService = new FileService();
-  private readonly toastOverlay = new Adw.ToastOverlay();
-  private readonly switcherBar = new Adw.ViewSwitcherBar();
-  private readonly titleWidget = new Adw.WindowTitle();
-  private readonly runControls = document.createElement("div");
-  private readonly sidebarToggle = new Gtk.Button();
-  private readonly learnBackButton = new Gtk.Button();
-  private readonly runButtons: RunButton[] = [];
-
+  private readonly screens: DomScreens;
+  private readonly objects: ReadonlyMap<string, HTMLElement>;
   private readonly shell: DomMainWindowShell;
   private controller: MainWindowController | null = null;
 
   constructor() {
     injectShellStyles();
 
-    this.root = new Adw.ApplicationWindow();
-    this.root.id = "application-window";
-    this.shell = new DomMainWindowShell({
-      window: this.root,
-      learn: this.learnView,
-      editor: this.editorView,
-      debugger: this.debuggerView,
-      gameConsole: this.gameConsoleView,
-      switcherBar: this.switcherBar,
-      sidebarToggle: this.sidebarToggle,
-      learnBackButton: this.learnBackButton,
-      runControls: this.runControls,
-      titleWidget: this.titleWidget,
+    // The blueprint builds the screens, so the back button reaches them only once they exist.
+    let learn: Learn | null = null;
+    const { root, siblings, objects } = buildWithSiblings(mainWindowTree, {
+      // `clicked => $_onLearnBackButtonClicked()` in the blueprint.
+      scope: { _onLearnBackButtonClicked: () => learn?.navigateBack() },
     });
-    this.buildChrome();
+    if (!(root instanceof Adw.ApplicationWindow))
+      throw new Error("The main window tree must build an Adw.ApplicationWindow");
+    this.root = root;
+    this.objects = objects;
+
+    // The widgets are typed against the GJS bindings, but at run time they are custom elements.
+    const sibling = <T>(id: string): T => {
+      const object = siblings.get(id);
+      if (!object) throw new Error(`main.window.blp built no '${id}' object`);
+      return object as unknown as T;
+    };
+    this.screens = {
+      learn: sibling<Learn>("learn"),
+      editor: sibling<Editor>("editor"),
+      debugger: sibling<Debugger>("debugger"),
+      gameConsole: sibling<GameConsole>("gameConsole"),
+    };
+    learn = this.screens.learn;
+    notificationService.init(
+      root as unknown as GjsGtk.Window,
+      this.byId<Parameters<typeof notificationService.init>[1]>("toastOverlay")
+    );
+
+    const unsavedChangesDialog = sibling<Adw.AlertDialog>("unsavedChangesDialog");
+
+    this.shell = new DomMainWindowShell(
+      {
+        window: root,
+        stack: this.byId<Adw.ViewStack>("stack"),
+        switcherBar: this.byId<Adw.ViewSwitcherBar>("switcherBar"),
+        layoutHost: this.byId<Gtk.Stack>("layoutHost"),
+        leftSidebar: this.byId<Adw.OverlaySplitView>("leftSidebar"),
+        leftColumn: this.byId<Gtk.Box>("leftColumn"),
+        centerColumn: this.byId<Gtk.Box>("centerColumn"),
+        rightTopBox: this.byId<Gtk.Box>("rightTopBox"),
+        rightBottomBox: this.byId<Gtk.Box>("rightBottomBox"),
+        unsavedChangesDialog,
+        titleLabel: this.byId<Gtk.Label>("titleLabel"),
+        learnBackButton: this.byId<Gtk.Button>("learnBackButton"),
+      },
+      this.screens
+    );
+
+    const menuButton = this.byId<Gtk.MenuButton>("menuButton");
+    // The model is typed against GJS (`Gio.Menu`); the element takes its portable twin.
+    menuButton.menuModel = createMainMenu() as unknown as typeof menuButton.menuModel;
     this.linkApplication();
+  }
+
+  private byId<T>(id: string): T {
+    const object = this.objects.get(id);
+    if (!object) throw new Error(`main.window.blp built no '${id}' object`);
+    return object as unknown as T;
   }
 
   /**
@@ -134,11 +157,12 @@ export class MainWindow {
   }
 
   /**
-   * Attach the shell to the document, then wire the controller. The layout MUST be mounted after the
-   * tree is connected: a freshly created Adw.ViewStack rebuilds its pages from declared children on
-   * connect, which would wipe imperatively-added pages.
+   * Attach the window to the document, then wire the controller. The layout MUST be mounted after
+   * the tree is connected: the elements build their internals on connect.
    */
   public mount(parent: HTMLElement): void {
+    // The browser tab is the work area: the window fills it, the blueprint's default size is GNOME's.
+    this.root.maximize();
     parent.appendChild(this.root);
 
     editorController.setCode(DEMO_PROGRAM);
@@ -147,19 +171,17 @@ export class MainWindow {
     const controller = new MainWindowController(
       this.shell,
       {
-        editor: this.editorView,
-        gameConsole: this.gameConsoleView,
-        learn: this.learnView,
-        debugger: this.debuggerView,
-        // The header carries the run controls, so there is no floating main button to update
-        mainButton: { updateFromSimulatorState: (state) => mainStateController.updateFromSimulatorState(state) },
+        editor: this.screens.editor,
+        gameConsole: this.screens.gameConsole,
+        learn: this.screens.learn,
+        debugger: this.screens.debugger,
+        mainButton: this.byId<MainButton>("mainButton"),
       },
       this.createServices()
     );
     this.controller = controller;
     controller.init();
     this.fileService.setUnsavedChanges(false);
-    this.updateRunButtons();
   }
 
   private createServices(): MainWindowServices {
@@ -183,7 +205,7 @@ export class MainWindow {
           return true;
         },
       },
-      notifier: { show: ({ title, timeout }) => this.toastOverlay.addToast(title, { timeout }) },
+      notifier: { show: (options) => notificationService.showNotification(options) },
       // The Editor's 6502 quick-help sheet is the web app's help
       showHelp: () => {
         this.controller?.navigateToView(ViewType.EDITOR);
@@ -192,79 +214,5 @@ export class MainWindow {
       showShareDialog: () => window.open(SHARE_URL, "_blank", "noopener,noreferrer"),
       submitExample: () => window.open(SHARE_URL, "_blank", "noopener,noreferrer"),
     };
-  }
-
-  // --- DOM construction ---
-
-  private buildChrome(): void {
-    const toolbarView = new Adw.ToolbarView();
-
-    // --- Header bar (slot=top) ---
-    const header = new Adw.HeaderBar();
-    header.setAttribute("slot", "top");
-
-    this.configureIconButton(this.sidebarToggle, "sidebar-show", "Toggle Sidebar");
-    this.sidebarToggle.setAttribute("slot", "start");
-    this.sidebarToggle.hidden = true;
-
-    this.configureIconButton(this.learnBackButton, "go-previous", "Back");
-    this.learnBackButton.setAttribute("slot", "start");
-    this.learnBackButton.hidden = true; // shown only when a Learn subpage is open
-    this.learnBackButton.addEventListener("click", () => this.learnView.navigateBack());
-
-    this.runControls.className = "shell-run-controls";
-    this.runControls.setAttribute("slot", "start");
-    this.addRunButton("Assemble", ["assemble"], "suggested");
-    this.addRunButton("Run", ["run-simulator", "resume-simulator"]);
-    this.addRunButton("Pause", ["pause-simulator"]);
-    this.addRunButton("Step", ["step-simulator"]);
-    this.addRunButton("Reset", ["reset-simulator"]);
-    this.shell.onActionsChanged(() => this.updateRunButtons());
-
-    this.titleWidget.setAttribute("slot", "center");
-    this.titleWidget.setAttribute("title", "Learn 6502");
-
-    const menuButton = new Gtk.MenuButton();
-    menuButton.setAttribute("slot", "end");
-    menuButton.menuTitle = "Main Menu";
-    // The model is typed against GJS (`Gio.Menu`); the element takes its portable twin.
-    menuButton.menuModel = createMainMenu() as unknown as typeof menuButton.menuModel;
-
-    header.append(this.sidebarToggle, this.learnBackButton, this.runControls, this.titleWidget, menuButton);
-
-    // --- Content (unslotted): toast overlay > layout host ---
-    this.toastOverlay.appendChild(this.shell.layoutHost);
-
-    // --- Bottom: view switcher bar ---
-    this.switcherBar.setAttribute("slot", "bottom");
-
-    toolbarView.append(header, this.toastOverlay, this.switcherBar);
-    this.root.appendChild(toolbarView);
-  }
-
-  private configureIconButton(button: Gtk.Button, icon: string, tooltip: string): void {
-    button.setAttribute("icon", icon);
-    button.setAttribute("tooltip", tooltip);
-    button.setAttribute("flat", "");
-  }
-
-  private addRunButton(label: string, actions: string[], variant?: "suggested"): void {
-    const button = new Gtk.Button();
-    button.setAttribute("label", label);
-    if (variant) button.setAttribute(variant, "");
-    // The first enabled action wins: run and resume both start the program
-    button.addEventListener("click", () => {
-      const action = actions.find((name) => this.shell.isActionEnabled(name));
-      if (action) this.shell.activate(action);
-    });
-    this.runButtons.push({ button, actions });
-    this.runControls.appendChild(button);
-  }
-
-  private updateRunButtons(): void {
-    for (const { button, actions } of this.runButtons) {
-      if (actions.some((name) => this.shell.isActionEnabled(name))) button.removeAttribute("disabled");
-      else button.setAttribute("disabled", "");
-    }
   }
 }
