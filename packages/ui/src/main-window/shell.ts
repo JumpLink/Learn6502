@@ -39,6 +39,8 @@ export interface MainWindowShell<TWidget = unknown> {
 
   setLearnBackVisible(visible: boolean): void;
   setFileTitle(filename: string): void;
+  /** Show or hide the header bar's unsaved-changes dot, with `tooltip` as its tooltip. */
+  setUnsavedIndicator(visible: boolean, tooltip: string): void;
   /** Close the sidebar when it overlays the content, so copied code is visible at once. */
   closeSidebarIfOverlay(): void;
   isInsideConsole(widget: TWidget | null): boolean;

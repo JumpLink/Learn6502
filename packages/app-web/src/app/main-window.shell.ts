@@ -24,6 +24,7 @@ export interface DomShellParts {
   rightBottomBox: Gtk.Box;
   unsavedChangesDialog: Adw.AlertDialog;
   titleLabel: Gtk.Label;
+  unsavedChangesIndicator: Gtk.Button;
   learnBackButton: Gtk.Button;
 }
 
@@ -144,6 +145,11 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
 
   setFileTitle(filename: string): void {
     this.parts.titleLabel.label = filename;
+  }
+
+  setUnsavedIndicator(visible: boolean, tooltip: string): void {
+    this.parts.unsavedChangesIndicator.visible = visible;
+    this.parts.unsavedChangesIndicator.tooltip_text = tooltip;
   }
 
   closeSidebarIfOverlay(): void {

@@ -101,7 +101,6 @@ export class MainWindow extends Adw.ApplicationWindow {
 
     this._menuButton.set_menu_model(createMainMenu({ preferences: true }));
     fileService.init(this);
-    fileService.setUnsavedChangesIndicator(this._unsavedChangesIndicator);
     themeService.init();
     notificationService.init(this, this._toastOverlay);
     // Register this window to receive mode/accent classes automatically
@@ -126,6 +125,7 @@ export class MainWindow extends Adw.ApplicationWindow {
         rightBottomBox: this._rightBottomBox,
         unsavedChangesDialog: this._unsavedChangesDialog,
         titleLabel: this._titleLabel,
+        unsavedChangesIndicator: this._unsavedChangesIndicator,
         learnBackButton: this._learnBackButton,
       }),
       { ...screens, mainButton: this._mainButton },

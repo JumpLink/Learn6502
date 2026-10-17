@@ -194,17 +194,27 @@ export class MainWindowController implements MainView {
 
   private set unsavedChanges(unsavedChanges: boolean) {
     this.services.files.setUnsavedChanges(unsavedChanges);
-    this.syncLogoutInhibit();
+    this.syncUnsavedState();
   }
 
   private get unsavedChanges(): boolean {
     return this.services.files.hasUnsavedChanges();
   }
 
-  /** Ask the session (or the page) to confirm leaving while the code has unsaved changes. */
-  private syncLogoutInhibit(): void {
+  /** Show the header bar's dot and ask the session (or the page) to confirm leaving while the code has unsaved changes. */
+  private syncUnsavedState(): void {
+    const { files } = this.services;
+    const unsaved = files.hasUnsavedChanges();
+    this.shell.setUnsavedIndicator(
+      unsaved,
+      files.hasCurrentFile()
+        ? // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar, %s is the file name
+          formatMessage(_('File "%s" has unsaved changes'), [files.getCurrentFileName()])
+        : // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
+          _("Unsaved changes")
+    );
+
     const app = this.shell.window.get_application();
-    const unsaved = this.services.files.hasUnsavedChanges();
     if (unsaved && this.logoutInhibitCookie === 0 && app) {
       // TRANSLATORS: Reason shown by the session when logging out with unsaved code
       this.logoutInhibitCookie = app.inhibit(
@@ -431,7 +441,7 @@ export class MainWindowController implements MainView {
   public async saveFile(): Promise<boolean> {
     if (this.services.files.hasCurrentFile()) {
       const saved = await this.services.files.saveFile(editorController.code);
-      this.syncLogoutInhibit();
+      this.syncUnsavedState();
       return saved;
     }
     return await this.saveAsFile();
@@ -443,7 +453,7 @@ export class MainWindowController implements MainView {
       editorController.code,
       files.hasCurrentFile() ? files.getCurrentFileName() : "untitled.asm"
     );
-    this.syncLogoutInhibit();
+    this.syncUnsavedState();
     if (success) {
       this.shell.setFileTitle(files.getCurrentFileName());
       // TRANSLATORS: Toast message title after saving file successfully, includes filename

@@ -108,6 +108,7 @@ export class MainWindow {
         rightBottomBox: this.byId<Gtk.Box>("rightBottomBox"),
         unsavedChangesDialog,
         titleLabel: this.byId<Gtk.Label>("titleLabel"),
+        unsavedChangesIndicator: this.byId<Gtk.Button>("unsavedChangesIndicator"),
         learnBackButton: this.byId<Gtk.Button>("learnBackButton"),
       },
       this.screens

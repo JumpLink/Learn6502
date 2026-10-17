@@ -121,6 +121,7 @@ export class MainController {
         // A sibling of the window and not a view: it presents through the platform's dialog.
         unsavedChangesDialog: siblings.get("unsavedChangesDialog") as Adw.AlertDialog,
         titleLabel: byId<Gtk.Label>("titleLabel"),
+        unsavedChangesIndicator: byId<Gtk.Button>("unsavedChangesIndicator"),
         learnBackButton: byId<Gtk.Button>("learnBackButton"),
       },
       screens
