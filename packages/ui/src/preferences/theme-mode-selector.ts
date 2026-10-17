@@ -1,9 +1,10 @@
-import GObject from "gi://GObject";
-import Adw from "gi://Adw";
-import type Gtk from "gi://Gtk";
+import GObject from "@girs/gobject-2.0";
+import Adw from "@girs/adw-1";
+import type Gtk from "@girs/gtk-4.0";
 
-import Template from "./theme-mode-selector.blp";
-import { themeService } from "../services";
+import type { ThemeMode } from "@learn6502/common-ui";
+import Template from "./theme-mode-selector.blp?template";
+import { themeService } from "./theme.service.ts";
 
 /**
  * ThemeModeSelector
@@ -71,7 +72,7 @@ export class ThemeModeSelector extends Adw.Bin {
     }
   }
 
-  private _setUiSelection(theme: "system" | "light" | "dark"): void {
+  private _setUiSelection(theme: ThemeMode): void {
     this._isUpdatingUi = true;
     try {
       const wantFollow = theme === "system";

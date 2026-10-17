@@ -1,15 +1,13 @@
-import { ThemeService as BaseThemeService } from "@learn6502/common-ui";
-import type { ThemeMode } from "@learn6502/common-ui";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
-import Gio from "@girs/gio-2.0";
-import mainCss from "../main.css";
+import type Gio from "@girs/gio-2.0";
+
+import { ThemeService as BaseThemeService, type ThemeMode } from "@learn6502/common-ui";
 import {
   KEY_COLOR_SCHEME,
   KEY_PRIMARY_COLOR,
   KEY_ACCENT_COLOR,
-  APPLICATION_ID,
   DEFAULT_COLOR_SCHEME,
   DEFAULT_PRIMARY_COLOR,
   DEFAULT_ACCENT_COLOR,
@@ -18,53 +16,45 @@ import {
   DEFAULT_ACCENT_OVERRIDE_KEY,
   ColorScheme,
   PRIMARY_FAMILIES,
-} from "../constants.ts";
-import type { PrimaryFamilyKey } from "../types/theme.ts";
+  isPrimaryFamilyKey,
+  type PrimaryFamilyKey,
+} from "./theme.ts";
+
+/** The part of `Gio.Settings` the theme is stored through. */
+export type ThemeSettings = Pick<Gio.Settings, "get_int" | "set_int" | "get_string" | "set_string" | "connect">;
 
 /**
- * GNOME-specific ThemeService implementation.
+ * ThemeService on top of Adw.StyleManager.
  *
  * - Applies color scheme via Adw.StyleManager
- * - Persists preferences in GSettings (schema: APPLICATION_ID)
+ * - Persists preferences in the settings given to {@link init}, or keeps them in memory
  * - Exposes primary/accent overrides using CSS variables
  * - Adds helper CSS classes to registered widgets for easy styling hooks
  */
 class ThemeService extends BaseThemeService {
   private styleManager: Adw.StyleManager | null = null;
-  private settings: Gio.Settings | null = null;
-  private cssProvider: Gtk.CssProvider | null = null;
+  private settings: ThemeSettings | null = null;
   private variablesProvider: Gtk.CssProvider | null = null;
   /** Widgets that should automatically receive theme-related CSS classes. */
   private themedWidgets: Set<Gtk.Widget> = new Set();
   /** Named primary color key when using predefined color families. */
-  private currentPrimaryKey: PrimaryFamilyKey | "none" | null = DEFAULT_PRIMARY_COLOR;
+  private currentPrimaryKey: PrimaryFamilyKey | typeof DEFAULT_PRIMARY_COLOR = DEFAULT_PRIMARY_COLOR;
   /** Named accent color key when using predefined color families. */
-  private currentAccentKey: PrimaryFamilyKey | "system" = DEFAULT_ACCENT_COLOR;
+  private currentAccentKey: PrimaryFamilyKey | typeof DEFAULT_ACCENT_COLOR = DEFAULT_ACCENT_COLOR;
 
-  constructor() {
-    super();
-  }
-
-  public init(): void {
-    // Load application CSS once
-    if (!this.cssProvider) {
-      this.cssProvider = new Gtk.CssProvider();
-      this.cssProvider.load_from_string(mainCss);
-      const display = this.getDisplay();
-      if (display) {
-        Gtk.StyleContext.add_provider_for_display(display, this.cssProvider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
-      }
-    }
+  public init(settings?: ThemeSettings): void {
+    if (this.styleManager) return;
 
     // Get the StyleManager singleton
     this.styleManager = Adw.StyleManager.get_default();
 
-    // Initialize GSettings for theme settings
-    this.settings = new Gio.Settings({ schema_id: APPLICATION_ID });
-    // Monitor settings changes
-    this.settings.connect(`changed::${KEY_COLOR_SCHEME}`, () => this.loadThemeFromSettings());
-    this.settings.connect(`changed::${KEY_PRIMARY_COLOR}`, () => this.loadPrimaryFromSettings());
-    this.settings.connect(`changed::${KEY_ACCENT_COLOR}`, () => this.loadAccentFromSettings());
+    if (settings) {
+      this.settings = settings;
+      // Monitor settings changes
+      settings.connect(`changed::${KEY_COLOR_SCHEME}`, () => this.loadThemeFromSettings());
+      settings.connect(`changed::${KEY_PRIMARY_COLOR}`, () => this.loadPrimaryFromSettings());
+      settings.connect(`changed::${KEY_ACCENT_COLOR}`, () => this.loadAccentFromSettings());
+    }
 
     // Load initial settings
     this.loadThemeFromSettings();
@@ -90,7 +80,7 @@ class ThemeService extends BaseThemeService {
   }
 
   private clearVariablesCssProvider(): void {
-    const display = this.getDisplay();
+    const display = Gdk.Display.get_default();
     if (!display) return;
     if (this.variablesProvider) {
       Gtk.StyleContext.remove_provider_for_display(display, this.variablesProvider);
@@ -99,7 +89,7 @@ class ThemeService extends BaseThemeService {
   }
 
   private updateVariablesCssProviderFromCss(css: string): void {
-    const display = this.getDisplay();
+    const display = Gdk.Display.get_default();
     if (!display) return;
     if (!css.trim()) {
       this.clearVariablesCssProvider();
@@ -121,7 +111,7 @@ class ThemeService extends BaseThemeService {
     if (this.currentAccentKey !== DEFAULT_ACCENT_COLOR) {
       parts.push(`--learn-accent-color: var(--accent-${this.currentAccentKey});`);
     }
-    if (this.currentPrimaryKey && this.currentPrimaryKey !== DEFAULT_PRIMARY_COLOR) {
+    if (this.currentPrimaryKey !== DEFAULT_PRIMARY_COLOR) {
       parts.push(`--learn-primary-color: var(--accent-${this.currentPrimaryKey});`);
     }
 
@@ -153,15 +143,6 @@ class ThemeService extends BaseThemeService {
     this.saveThemeToSettings(mode);
   }
 
-  public setPrimaryColor(hexOrNull: string | null): void {
-    // Custom hex colors are not supported - only predefined palette keys
-    console.warn("setPrimaryColor: Custom hex colors are not supported. Use setPrimaryByKey() instead.");
-  }
-
-  public clearPrimaryColor(): void {
-    this.setPrimaryColor(null);
-  }
-
   public setPrimaryByKey(key: PrimaryFamilyKey): void {
     if (this.currentPrimaryKey === key) return;
     this.currentPrimaryKey = key;
@@ -187,19 +168,15 @@ class ThemeService extends BaseThemeService {
   }
 
   public setPrimaryDefault(persist: boolean = true): void {
-    if (DEFAULT_PRIMARY_OVERRIDE_KEY) {
-      if (this.currentPrimaryKey === DEFAULT_PRIMARY_OVERRIDE_KEY) return;
-      this.currentPrimaryKey = DEFAULT_PRIMARY_OVERRIDE_KEY;
-      this.applyVariables();
-      if (persist) this.savePrimaryToSettings(DEFAULT_PRIMARY_OVERRIDE_KEY);
-      this.events.dispatch("primary-changed", {
-        color: null,
-        key: DEFAULT_PRIMARY_OVERRIDE_KEY,
-        mode: "custom",
-      });
-      return;
-    }
-    this.setPrimaryNone(persist);
+    if (this.currentPrimaryKey === DEFAULT_PRIMARY_OVERRIDE_KEY) return;
+    this.currentPrimaryKey = DEFAULT_PRIMARY_OVERRIDE_KEY;
+    this.applyVariables();
+    if (persist) this.savePrimaryToSettings(DEFAULT_PRIMARY_OVERRIDE_KEY);
+    this.events.dispatch("primary-changed", {
+      color: null,
+      key: DEFAULT_PRIMARY_OVERRIDE_KEY,
+      mode: "custom",
+    });
   }
 
   public setAccentByKey(key: PrimaryFamilyKey): void {
@@ -234,27 +211,22 @@ class ThemeService extends BaseThemeService {
     const stored = this.settings?.get_string(KEY_ACCENT_COLOR) ?? null;
     const value = stored || DEFAULT_ACCENT_OVERRIDE_KEY;
 
-    if (value === DEFAULT_ACCENT_OVERRIDE_KEY) {
+    if (!isPrimaryFamilyKey(value)) {
       this.setAccentSystem(false);
       return;
     }
 
-    if ((PRIMARY_FAMILIES as readonly string[]).includes(value)) {
-      if (this.currentAccentKey !== (value as PrimaryFamilyKey)) {
-        this.currentAccentKey = value as PrimaryFamilyKey;
-        this.applyVariables();
-        this.events.dispatch("accent-changed", {
-          key: value as PrimaryFamilyKey,
-          mode: "custom",
-        });
-      }
-      return;
+    if (this.currentAccentKey !== value) {
+      this.currentAccentKey = value;
+      this.applyVariables();
+      this.events.dispatch("accent-changed", {
+        key: value,
+        mode: "custom",
+      });
     }
-
-    this.setAccentSystem(false);
   }
 
-  public getAccentState(): { key: string | null; mode: "system" | "custom" } {
+  public getAccentState(): { key: PrimaryFamilyKey | null; mode: "system" | "custom" } {
     if (this.currentAccentKey === DEFAULT_ACCENT_COLOR) return { key: null, mode: "system" };
     return { key: this.currentAccentKey, mode: "custom" };
   }
@@ -269,33 +241,23 @@ class ThemeService extends BaseThemeService {
     const stored = this.settings?.get_string(KEY_PRIMARY_COLOR) ?? null;
     const value = stored || DEFAULT_PRIMARY_COLOR;
 
-    if (value === DEFAULT_PRIMARY_COLOR || value === "auto") {
+    if (!isPrimaryFamilyKey(value)) {
       this.setPrimaryDefault(false);
       return;
     }
 
-    if ((PRIMARY_FAMILIES as readonly string[]).includes(value)) {
-      this.currentPrimaryKey = value as PrimaryFamilyKey;
-      this.applyVariables();
-      this.events.dispatch("primary-changed", {
-        color: null,
-        key: value as PrimaryFamilyKey,
-        mode: "custom",
-      });
-      return;
-    }
-
-    this.setPrimaryDefault(false);
+    this.currentPrimaryKey = value;
+    this.applyVariables();
+    this.events.dispatch("primary-changed", {
+      color: null,
+      key: value,
+      mode: "custom",
+    });
   }
 
-  public getPrimaryState(): { key: string | null; mode: "none" | "custom" } {
-    if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) {
-      return { key: null, mode: "none" };
-    }
-    if (this.currentPrimaryKey) {
-      return { key: this.currentPrimaryKey, mode: "custom" };
-    }
-    return { key: null, mode: "none" };
+  public getPrimaryState(): { key: PrimaryFamilyKey | null; mode: "none" | "custom" } {
+    if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) return { key: null, mode: "none" };
+    return { key: this.currentPrimaryKey, mode: "custom" };
   }
 
   public registerThemedWidget(widget: Gtk.Widget): void {
@@ -315,13 +277,11 @@ class ThemeService extends BaseThemeService {
 
   private applyClasses(widget: Gtk.Widget): void {
     this.clearClasses(widget);
-    const mode = this.currentTheme;
-    const isDark = this.isDarkTheme;
-    widget.add_css_class(`mode-${mode}`);
-    widget.add_css_class(isDark ? "is-dark" : "is-light");
+    widget.add_css_class(`mode-${this.currentTheme}`);
+    widget.add_css_class(this.isDarkTheme ? "is-dark" : "is-light");
     if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) {
       widget.add_css_class("primary-none");
-    } else if (this.currentPrimaryKey) {
+    } else {
       widget.add_css_class("primary-custom");
       widget.add_css_class(`primary-${this.currentPrimaryKey}`);
     }
@@ -352,22 +312,18 @@ class ThemeService extends BaseThemeService {
 
   private saveThemeToSettings(mode: ThemeMode): void {
     if (!this.settings) return;
-    const value = this.themeModeToInt(mode);
-    if (value === null) return;
-    this.settings.set_int(KEY_COLOR_SCHEME, value);
+    this.settings.set_int(KEY_COLOR_SCHEME, this.themeModeToInt(mode));
   }
 
-  private themeModeToInt(mode: ThemeMode): number | null {
+  private themeModeToInt(mode: ThemeMode): ColorScheme {
     switch (mode) {
-      case "system":
-        return ColorScheme.SYSTEM;
       case "light":
         return ColorScheme.LIGHT;
       case "dark":
         return ColorScheme.DARK;
+      case "system":
       default:
-        console.warn(`Unknown theme mode: ${mode}`);
-        return null;
+        return ColorScheme.SYSTEM;
     }
   }
 
@@ -394,10 +350,6 @@ class ThemeService extends BaseThemeService {
 
   public isSystemColorSchemeSupported(): boolean {
     return this.styleManager?.get_system_supports_color_schemes() ?? false;
-  }
-
-  private getDisplay(): Gdk.Display | null {
-    return Gdk.Display.get_default();
   }
 }
 

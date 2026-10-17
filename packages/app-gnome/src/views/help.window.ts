@@ -1,7 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type { QuickHelpView } from "../mdx/quick-help-view.ts";
-import { themeService } from "../services";
+import { themeService } from "@learn6502/ui";
 
 import Template from "./help.window.blp";
 

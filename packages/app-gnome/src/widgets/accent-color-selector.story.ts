@@ -2,7 +2,7 @@ import GObject from "gi://GObject";
 
 import { StoryWidget, type StoryMeta, type StoryModule } from "@gjsify/storybook";
 
-import { AccentColorSelector } from "./accent-color-selector.ts";
+import { AccentColorSelector } from "@learn6502/ui/preferences";
 
 /** Story for the Adwaita accent-colour picker. */
 export class AccentColorSelectorStory extends StoryWidget {

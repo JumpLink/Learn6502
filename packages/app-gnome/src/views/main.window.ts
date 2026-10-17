@@ -15,13 +15,14 @@ import {
   type Learn,
   type MainButton,
   type MainWindowServices,
+  ShareDialog,
+  themeService,
 } from "@learn6502/ui";
 
 import { HelpWindow } from "./help.window.ts";
 import { GtkMainWindowShell } from "./main.window.shell.ts";
-import { ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
-import { themeService, fileService } from "../services";
+import { fileService } from "../services";
 import { settings } from "../settings.ts";
 import { watchFirstChapter } from "../support-prompt.ts";
 
@@ -101,7 +102,6 @@ export class MainWindow extends Adw.ApplicationWindow {
 
     this._menuButton.set_menu_model(createMainMenu({ preferences: true }));
     fileService.init(this);
-    themeService.init();
     notificationService.init(this, this._toastOverlay);
     // Register this window to receive mode/accent classes automatically
     themeService.registerThemedWidget(this);

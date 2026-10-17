@@ -2,15 +2,15 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
-import GLib from "@girs/glib-2.0";
 
 import type { ExampleMeta } from "@learn6502/examples";
 import type { Memory } from "@learn6502/core";
 import { DisplayAddressRange } from "@learn6502/core";
-import type { ExampleListItem } from "@learn6502/ui";
-import { copyToClipboard } from "../utils.ts";
+// The template names `$ExampleListItem`, which this module registers.
+import "./learn/example-list-item.ts";
+import type { ExampleListItem } from "./learn/example-list-item.ts";
 
-import Template from "./share-dialog.blp";
+import Template from "./share-dialog.blp?template";
 
 // GitHub repository configuration
 const GITHUB_OWNER = "JumpLink";
@@ -306,13 +306,6 @@ export class ShareDialog extends Adw.Dialog {
   }
 
   /**
-   * URL-encode a string
-   */
-  private encodeURIComponent(str: string): string {
-    return GLib.uri_escape_string(str, null, false);
-  }
-
-  /**
    * Build the issue body content
    */
   private buildIssueBody(payload: {
@@ -373,8 +366,8 @@ export class ShareDialog extends Adw.Dialog {
 
     // Build URL with query parameters manually
     const baseUrl = `https://github.com/${GITHUB_OWNER}/${GITHUB_REPO}/issues/new`;
-    const encodedTitle = this.encodeURIComponent(title);
-    const encodedBody = this.encodeURIComponent(body);
+    const encodedTitle = encodeURIComponent(title);
+    const encodedBody = encodeURIComponent(body);
 
     const fullUrl = `${baseUrl}?title=${encodedTitle}&body=${encodedBody}`;
 
@@ -386,7 +379,7 @@ export class ShareDialog extends Adw.Dialog {
     if (isTooLong) {
       const helpMessage =
         "Your example is too large to insert automatically. The complete issue content has been automatically copied to your clipboard. Please paste it to replace this message, then submit the issue.";
-      const encodedHelpBody = this.encodeURIComponent(helpMessage);
+      const encodedHelpBody = encodeURIComponent(helpMessage);
       url = `${baseUrl}?title=${encodedTitle}&body=${encodedHelpBody}`;
     } else {
       url = fullUrl;
@@ -426,7 +419,7 @@ export class ShareDialog extends Adw.Dialog {
     // If URL was too long, copy body to clipboard and show copy button
     if (result.isTooLong) {
       this._issueBody = result.body;
-      copyToClipboard(result.body);
+      this.copyToClipboard(result.body);
       console.log(`URL too long (${result.url.length} chars), body copied to clipboard`);
     }
 
@@ -441,9 +434,13 @@ export class ShareDialog extends Adw.Dialog {
 
   private handleCopyToClipboard(): void {
     if (this._issueBody) {
-      copyToClipboard(this._issueBody);
+      this.copyToClipboard(this._issueBody);
       console.log("Issue content copied to clipboard");
     }
+  }
+
+  private copyToClipboard(text: string): void {
+    Gdk.Display.get_default()?.get_clipboard().set(text);
   }
 }
 
