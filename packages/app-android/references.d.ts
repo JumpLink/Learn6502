@@ -1,5 +1,6 @@
 // Android types (no iOS - this app is Android-only)
 /// <reference path="../../node_modules/@nativescript/types-android/lib/android-35.d.ts" />
+/// <reference types="@gjsify/rolldown-plugin-gjsify/types" />
 
 // Raw file imports
 declare module "*?raw" {

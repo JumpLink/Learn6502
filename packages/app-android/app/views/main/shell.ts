@@ -5,15 +5,14 @@ import { Gio, NOTIFY_VISIBLE_CHILD, insertActionGroup, padForSystemInsets } from
 import type { Adw, Gtk } from "@gjsify/adwaita-nativescript";
 import { ViewType, mainStateController } from "@learn6502/common-ui";
 import type { MainWindowShell, ShellAction, UnsavedChangesAnswer } from "@learn6502/ui";
-import { schoolSymbolic, codeSymbolic, bugSymbolic, nintendoControllerSymbolic } from "~/icons";
 import type { Screens } from "./screens";
 
 /** The four screens, in the order the stack lists them, with their tab title and icon. */
 const STACK_PAGES: { id: keyof Screens; view: ViewType; title: () => string; icon: string }[] = [
-  { id: "learn", view: ViewType.LEARN, title: () => _("Learn"), icon: schoolSymbolic },
-  { id: "editor", view: ViewType.EDITOR, title: () => _("Code"), icon: codeSymbolic },
-  { id: "debugger", view: ViewType.DEBUGGER, title: () => _("Debug"), icon: bugSymbolic },
-  { id: "gameConsole", view: ViewType.GAME_CONSOLE, title: () => _("Play"), icon: nintendoControllerSymbolic },
+  { id: "learn", view: ViewType.LEARN, title: () => _("Learn"), icon: "school-symbolic" },
+  { id: "editor", view: ViewType.EDITOR, title: () => _("Code"), icon: "code-symbolic" },
+  { id: "debugger", view: ViewType.DEBUGGER, title: () => _("Debug"), icon: "bug-symbolic" },
+  { id: "gameConsole", view: ViewType.GAME_CONSOLE, title: () => _("Play"), icon: "nintendo-controller-symbolic" },
 ];
 
 /** The widgets `main.window.blp` builds, as the shell places the screens in them. */
