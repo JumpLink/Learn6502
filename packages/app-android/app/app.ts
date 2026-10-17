@@ -3,6 +3,7 @@
  * Pattern from reference projects: direct Application events, minimal setup
  */
 
+import "./engine";
 import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { registerAdwaita } from "@gjsify/adwaita-nativescript";

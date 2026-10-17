@@ -13,8 +13,8 @@
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-	<!-- minSdk 23 (Android 6) is what @nativescript/core and AppCompat require -->
-	<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="35" />
+	<!-- minSdk 24 (Android 7) is what @gjsify/gi-runtime-android, the real GObject engine, requires -->
+	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="35" />
 
 	<application
 		android:name="com.tns.NativeScriptApplication"

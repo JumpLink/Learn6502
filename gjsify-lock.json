@@ -7,17 +7,20 @@
     "oxfmt@^0.53.0",
     "oxlint@^1.68.0",
     "typescript@^6.0.3",
+    "@gjsify/adwaita-gobject-native@^0.64.1",
     "@gjsify/adwaita-icons@0.64.1-next.247",
     "@gjsify/adwaita-nativescript@0.64.1-next.245",
     "@gjsify/app-settings@0.64.1-next.247",
+    "@gjsify/gi-runtime-android@^0.64.1",
     "@gjsify/gtksource-nativescript@0.64.1-next.245",
-    "@nativescript/core@9.1.0-alpha.11",
+    "@gjsify/node-gi@^0.64.1",
+    "@nativescript/core@~9.1.3",
     "@nativescript/localize@^5.2.0",
     "@nativescript/tailwind@^4.0.9",
     "tailwindcss@^4.3.0",
     "@gjsify/nativescript-vite@0.64.1-next.245",
     "@gjsify/vite-plugin-blueprint@0.64.1-next.245",
-    "@nativescript/android@9.1.0-alpha.6",
+    "@nativescript/android@9.1.1",
     "@nativescript/types@~9.0.0",
     "@nativescript/vite@8.0.0-alpha.57",
     "@tailwindcss/postcss@^4.3.0",
@@ -40,7 +43,6 @@
     "@girs/webkit-6.0@5.4.0",
     "@gjsify/storybook@0.64.1-next.245",
     "@gjsify/lightningcss-native@0.64.1-next.245",
-    "@gjsify/node-gi@^0.63.0",
     "@gjsify/rolldown-native@0.64.1-next.245",
     "@gjsify/vite-plugin-gettext@0.64.1-next.247",
     "@gjsify/gtk-host@0.64.1-next.245",
@@ -2029,6 +2031,19 @@
       "resolved": "https://registry.npmjs.org/@gjsify/adwaita-fonts/-/adwaita-fonts-0.64.1-next.245.tgz",
       "integrity": "sha512-99LSiGhvp450l30Hv25bbEffLJB4gcel4/vqu4OBKt3LB+e7FXoAeEDD4xohHvxOJofHG0KJRp71nvm4YEO2mw=="
     },
+    "node_modules/@gjsify/adwaita-gobject-native": {
+      "version": "0.64.1",
+      "resolved": "https://registry.npmjs.org/@gjsify/adwaita-gobject-native/-/adwaita-gobject-native-0.64.1.tgz",
+      "integrity": "sha512-PREafOQ9GUvyBGPK9lHsDPd8eb6v7dLgJLziBMO9WN8deunmB9McC5O6kolJpirmcjpg6fB0XD1fEpqVdH2AVQ==",
+      "dependencies": {
+        "@gjsify/adwaita-core": "^0.64.1"
+      }
+    },
+    "node_modules/@gjsify/adwaita-gobject-native/node_modules/@gjsify/adwaita-core": {
+      "version": "0.64.1",
+      "resolved": "https://registry.npmjs.org/@gjsify/adwaita-core/-/adwaita-core-0.64.1.tgz",
+      "integrity": "sha512-+s2d56glDYKPIq76UQw1QMK1uqEdayO1oXpSl1LVZxITlUr7QAfqdvDUvRdj9cb80mMdTF4X7mF46S06PakeYQ=="
+    },
     "node_modules/@gjsify/adwaita-icons": {
       "version": "0.64.1-next.247",
       "resolved": "https://registry.npmjs.org/@gjsify/adwaita-icons/-/adwaita-icons-0.64.1-next.247.tgz",
@@ -2562,6 +2577,11 @@
         "x64"
       ],
       "optional": true
+    },
+    "node_modules/@gjsify/gi-runtime-android": {
+      "version": "0.64.1",
+      "resolved": "https://registry.npmjs.org/@gjsify/gi-runtime-android/-/gi-runtime-android-0.64.1.tgz",
+      "integrity": "sha512-R0OVOTeSR4C/owUvNRS9pI4GEf/zhjqmyywlFixwIcXQVWPp+KpOdk1lCAWxyq9/sv7yvOVlJaul8kFDU3rLzw=="
     },
     "node_modules/@gjsify/gtk-host": {
       "version": "0.64.1-next.245",
@@ -3161,9 +3181,9 @@
       }
     },
     "node_modules/@gjsify/node-gi": {
-      "version": "0.63.0",
-      "resolved": "https://registry.npmjs.org/@gjsify/node-gi/-/node-gi-0.63.0.tgz",
-      "integrity": "sha512-rBxQ/Oz9oMZC4LOly49HiSpjf5lPxkESZWZ2GLGu++4iwh55DpveeH5PglLTkbEsh5YdBc4XYLxALW4PQM0vww==",
+      "version": "0.64.1",
+      "resolved": "https://registry.npmjs.org/@gjsify/node-gi/-/node-gi-0.64.1.tgz",
+      "integrity": "sha512-DGzJwuUVWTlXUdLbXQJA2NgR6/xxYXCsH7HNbrC9u1iUGK43W1fhumdfQmBhLa7WLTQ8n0BavsyPumuzRhZjWg==",
       "dependencies": {
         "node-addon-api": "^8.0.0"
       }
@@ -4917,17 +4937,18 @@
       "optional": true
     },
     "node_modules/@nativescript/android": {
-      "version": "9.1.0-alpha.6",
-      "resolved": "https://registry.npmjs.org/@nativescript/android/-/android-9.1.0-alpha.6.tgz",
-      "integrity": "sha512-MSAkYZXJCVdggc3I8seCfsR0yMWvPf8SrPaSfUj0LenBhqSqPLuryw9Y23wrM2r2BiAGMg/HXCUL/BxXAsDEqg=="
+      "version": "9.1.1",
+      "resolved": "https://registry.npmjs.org/@nativescript/android/-/android-9.1.1.tgz",
+      "integrity": "sha512-oDWfVnQtgQ0ctbfFWSugqGEZnYVjls82FqlO5UbA9HNwTNqdP4gqWwqHR80WKQngrbxlRHYDIuYv5S9kQfKhcw=="
     },
     "node_modules/@nativescript/core": {
-      "version": "9.1.0-alpha.11",
-      "resolved": "https://registry.npmjs.org/@nativescript/core/-/core-9.1.0-alpha.11.tgz",
-      "integrity": "sha512-i3Oq/v2/JnSSfQ8LNZmM5nDlT4KridmrQBTRpqsqIIz9H5fEww0krBQk3uhgrvAybCOp2o9troKUIFLzN6QKmQ==",
+      "version": "9.1.3",
+      "resolved": "https://registry.npmjs.org/@nativescript/core/-/core-9.1.3.tgz",
+      "integrity": "sha512-Vh6j6z8m0d+NXVzy3ibHxHf+khQ+1Oa+Uil2hBqZKrD3Z+uvULbt9O7WmTiBwoWiJwRe4C8byrCbkHzkrQzk1w==",
       "dependencies": {
         "acorn": "^8.15.0",
         "tslib": "^2.0.0",
+        "semver": "^7.0.0",
         "css-tree": "^3.1.0",
         "css-what": "^7.0.0",
         "source-map": "0.7.6",
