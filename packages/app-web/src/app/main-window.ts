@@ -14,10 +14,12 @@ import { ViewType, editorController, mainStateController } from "@learn6502/comm
 // The template classes main.window.blp names ($Learn, $MainButton, $Toolbar, …) register with @learn6502/ui.
 import {
   MainWindowController,
+  PreferencesDialog,
   addAppActions,
   createMainMenu,
   getAboutInfo,
   notificationService,
+  themeService,
   type Debugger,
   type Editor,
   type GameConsole,
@@ -63,6 +65,8 @@ export class MainWindow {
 
   constructor() {
     injectShellStyles();
+    // The schema's `ai` key has no web settings backend yet, so the theme lives for the session
+    themeService.init();
 
     // The blueprint builds the screens, so the back button reaches them only once they exist.
     let learn: Learn | null = null;
@@ -74,6 +78,7 @@ export class MainWindow {
       throw new Error("The main window tree must build an Adw.ApplicationWindow");
     this.root = root;
     this.objects = objects;
+    themeService.registerThemedWidget(root as unknown as GjsGtk.Widget);
 
     // The widgets are typed against the GJS bindings, but at run time they are custom elements.
     const sibling = <T>(id: string): T => {
@@ -116,7 +121,7 @@ export class MainWindow {
 
     const menuButton = this.byId<Gtk.MenuButton>("menuButton");
     // The model is typed against GJS (`Gio.Menu`); the element takes its portable twin.
-    menuButton.menuModel = createMainMenu() as unknown as typeof menuButton.menuModel;
+    menuButton.menuModel = createMainMenu({ preferences: true }) as unknown as typeof menuButton.menuModel;
     this.linkApplication();
   }
 
@@ -138,6 +143,7 @@ export class MainWindow {
     addAppActions(application as unknown as GjsGtk.Application, {
       quit: () => this.shell.closeWindow(),
       about: () => about.present(),
+      preferences: () => new PreferencesDialog().present(this.root as unknown as GjsGtk.Widget),
     });
   }
 
