@@ -2,7 +2,7 @@ import GObject from "gi://GObject";
 
 import { StoryWidget, type StoryMeta, type StoryModule } from "@gjsify/storybook";
 
-import { PrimaryColorSelector } from "@learn6502/ui/preferences";
+import { PrimaryColorSelector } from "@learn6502/ui";
 
 /** Story for the primary-colour picker. */
 export class PrimaryColorSelectorStory extends StoryWidget {

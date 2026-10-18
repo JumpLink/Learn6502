@@ -2,7 +2,7 @@ import GObject from "gi://GObject";
 
 import { StoryWidget, type StoryMeta, type StoryModule } from "@gjsify/storybook";
 
-import { ThemeModeSelector } from "@learn6502/ui/preferences";
+import { ThemeModeSelector } from "@learn6502/ui";
 
 /** Story for the light / dark / follow-system theme switcher. */
 export class ThemeModeSelectorStory extends StoryWidget {
