@@ -1,10 +1,9 @@
 import type { Page, EventData, View } from "@nativescript/core";
 import { Application, GridLayout } from "@nativescript/core";
 
-import { systemStates, SystemStates } from "~/states";
 
 // Adwaita native widgets
-import { Adw, setAdwaitaColorScheme } from "@gjsify/adwaita-nativescript";
+import { Adw } from "@gjsify/adwaita-nativescript";
 import type { Gtk } from "@gjsify/adwaita-nativescript";
 import type GjsGtk from "@girs/gtk-4.0";
 import { buildWithSiblings } from "@gjsify/adwaita-nativescript/builder";
@@ -16,7 +15,6 @@ import { ViewType, gameConsoleController } from "@learn6502/common-ui";
 
 // Services / utils
 import { createMainWindowServices } from "~/services/main-window.services";
-import type { SystemAppearanceChangeEvent } from "~/types";
 import { APPLICATION_ID } from "~/constants";
 import { showError, logger } from "~/utils";
 import { translate } from "~/utils/translate";
@@ -24,10 +22,12 @@ import { translate } from "~/utils/translate";
 // The template classes main.window.blp names (MainButton and Toolbar) register with @learn6502/ui.
 import {
   MainWindowController,
+  PreferencesDialog,
   addAppActions,
   createMainMenu,
   getAboutInfo,
   notificationService,
+  themeService,
   type MainButton,
 } from "@learn6502/ui";
 import { createScreens, type Screens } from "./main/screens";
@@ -50,22 +50,11 @@ export class MainController {
 
   constructor() {
     this.log.debug("Initialized");
-    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
   }
 
   // --- Lifecycle ---
   public onLoaded(args: EventData): void {
     const page = args.object as Page;
-
-    // Follow the OS color scheme for the symbolic-icon bitmaps (CSS .ns-dark is
-    // handled by NS; this keeps the pre-coloured icons in sync). Seed at mount.
-    try {
-      setAdwaitaColorScheme(Application.systemAppearance() === "dark" ? "dark" : "light");
-    } catch {
-      /* systemAppearance unavailable — default light */
-    }
-
-    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     this.setupAndroidKeyHandling();
 
@@ -78,17 +67,6 @@ export class MainController {
     this.log.debug("unloaded:", view.id);
     this.controller?.disconnect();
     this.mainButton?.unbind();
-    systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
-  }
-
-  private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
-    // NS flips the `ns-dark` class on the root automatically; keep the Adwaita icon
-    // bitmaps in sync with the new scheme.
-    try {
-      setAdwaitaColorScheme(event.newValue === "dark" ? "dark" : "light");
-    } catch {
-      /* ignore */
-    }
   }
 
   // --- Shell construction ---
@@ -127,6 +105,10 @@ export class MainController {
       screens
     );
     this.shell = shell;
+    // The schema's `ai` key keeps the gschema out of the NativeScript build, so the theme lives
+    // for the session
+    themeService.init();
+    themeService.registerThemedWidget(root as unknown as GjsGtk.Widget);
     this.mainButton = byId<MainButton>("mainButton");
     type ToastOverlay = Parameters<typeof notificationService.init>[1];
     notificationService.init(root as unknown as GjsGtk.Window, byId<ToastOverlay>("toastOverlay"));
@@ -152,6 +134,7 @@ export class MainController {
     addAppActions(application as unknown as GjsGtk.Application, {
       quit: () => shell.closeWindow(),
       about: () => this.about?.present(),
+      preferences: () => new PreferencesDialog().present(root as unknown as GjsGtk.Widget),
     });
     controller.init();
     shell.insertActions();
@@ -159,7 +142,7 @@ export class MainController {
     this.setupAbout(root);
     // The model is typed against GJS (`Gio.Menu`), the NativeScript button takes its portable twin.
     const menuButton = byId<Gtk.MenuButton>("menuButton");
-    menuButton.menuModel = createMainMenu() as unknown as typeof menuButton.menuModel;
+    menuButton.menuModel = createMainMenu({ preferences: true }) as unknown as typeof menuButton.menuModel;
 
     return root;
   }

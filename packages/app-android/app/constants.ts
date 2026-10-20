@@ -14,20 +14,6 @@ export const APPLICATION_ID = "eu.jumplink.Learn6502";
 export const RESOURCES_PATH = "/eu/jumplink/Learn6502";
 
 // ============================================================================
-// Application Settings Keys
-// ============================================================================
-
-/** Key for storing theme preference (light/dark/system) */
-export const SETTINGS_THEME = "eu.jumplink.Learn6502.theme";
-
-// ============================================================================
-// Default Values
-// ============================================================================
-
-/** Default theme mode */
-export const DEFAULT_THEME = "system";
-
-// ============================================================================
 // Enums
 // ============================================================================
 

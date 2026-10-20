@@ -9,7 +9,7 @@ import { localize } from "@nativescript/localize";
 import { registerAdwaita } from "@gjsify/adwaita-nativescript";
 import { initResources } from "./resources";
 import { systemStates, SystemStates } from "./states";
-import { themeService } from "./services";
+import { contrastService } from "./services";
 import { appVariables } from "./variables";
 import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
 import { logger } from "./utils";
@@ -39,7 +39,7 @@ try {
       appVariables.initialize();
 
       // Initialize services sequentially
-      themeService.initialize();
+      contrastService.initialize();
 
       servicesInitialized = true;
       logger.debug("App", "Services initialized");
