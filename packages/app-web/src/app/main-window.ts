@@ -17,7 +17,7 @@ import {
   PreferencesDialog,
   addAppActions,
   createMainMenu,
-  getAboutInfo,
+  createAboutDialog,
   notificationService,
   settings,
   themeService,
@@ -149,16 +149,7 @@ export class MainWindow {
 
   /** The dialog is an in-page overlay, so it lives in the window like any other child. */
   private createAboutDialog(): Adw.AboutDialog {
-    const info = getAboutInfo();
-    const about = new Adw.AboutDialog();
-    about.applicationName = info.applicationName;
-    about.applicationIcon = info.applicationIcon;
-    about.version = __APP_VERSION__;
-    about.developerName = info.developerName;
-    about.comments = info.comments;
-    about.website = info.website;
-    about.issueUrl = info.issueUrl;
-    about.license = info.license;
+    const about = createAboutDialog(__APP_VERSION__) as unknown as Adw.AboutDialog;
     this.root.appendChild(about);
     return about;
   }

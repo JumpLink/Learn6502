@@ -25,7 +25,7 @@ import {
   PreferencesDialog,
   addAppActions,
   createMainMenu,
-  getAboutInfo,
+  createAboutDialog,
   notificationService,
   settings,
   themeService,
@@ -152,13 +152,7 @@ export class MainController {
    * version).
    */
   private setupAbout(root: View): void {
-    const about = new Adw.AboutDialog();
-    const info = getAboutInfo();
-    about.applicationName = info.applicationName;
-    about.version = __APP_VERSION__;
-    about.developerName = info.developerName;
-    about.comments = info.comments;
-    about.website = info.website;
+    const about = createAboutDialog(__APP_VERSION__) as unknown as Adw.AboutDialog;
     this.about = about;
     GridLayout.setRow(about, 0);
     GridLayout.setColumn(about, 0);
