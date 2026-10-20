@@ -97,7 +97,7 @@
     "clear:locales": "rm -rf data/locale",
     "build:gjs": "gjsify build src/main.ts --channel \"${GJSIFY_CHANNEL:-web}\" --outfile \"${OUTDIR:-.}/${APPLICATION_ID:-eu.jumplink.Learn6502}\"",
     "build:resources": "gjsify gresource data/eu.jumplink.Learn6502.data.gresource.xml --sourcedir data",
-    "build:schema": "gjsify gsettings data --targetdir data/schemas --strict",
+    "build:schema": "gjsify gsettings ../ui/data --targetdir data/schemas --strict",
     "build:locale": "[ \"${BUILD_MODE:-}\" = \"flatpak\" ] || (rm -rf ${DATADIR:-./data}/locale && cp -r ../translations/dist/locale ${DATADIR:-./data}/locale) 2>/dev/null || true",
     "build:with-deps": "gjsify workspace @learn6502/app-gnome build --with-dependencies",
     "build:ship:gjs": "gjsify build src/main.ts --channel \"${GJSIFY_CHANNEL:-web}\" --app gjs --outfile dist/gjs/${APPLICATION_ID:-eu.jumplink.Learn6502}",

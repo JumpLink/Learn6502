@@ -4,14 +4,13 @@ import Gdk from "@girs/gdk-4.0";
 import Gtk from "@girs/gtk-4.0";
 import Adw from "@girs/adw-1";
 
-import { addAppActions, PreferencesDialog, themeService } from "@learn6502/ui";
+import { addAppActions, PreferencesDialog, settings, themeService } from "@learn6502/ui";
 import { MainWindow } from "./views/index.ts";
 import { APPLICATION_ID } from "./constants.ts";
 import { initResources } from "./resources.ts";
 import { createAboutDialog } from "./about-dialog.ts";
 
 import { uiFontService } from "./services/ui-font.service.ts";
-import { settings } from "./settings.ts";
 import mainCss from "./main.css";
 
 export class Application extends Adw.Application {

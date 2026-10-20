@@ -27,6 +27,7 @@ import {
   createMainMenu,
   getAboutInfo,
   notificationService,
+  settings,
   themeService,
   type MainButton,
 } from "@learn6502/ui";
@@ -105,9 +106,7 @@ export class MainController {
       screens
     );
     this.shell = shell;
-    // The schema's `ai` key keeps the gschema out of the NativeScript build, so the theme lives
-    // for the session
-    themeService.init();
+    themeService.init(settings);
     themeService.registerThemedWidget(root as unknown as GjsGtk.Widget);
     this.mainButton = byId<MainButton>("mainButton");
     type ToastOverlay = Parameters<typeof notificationService.init>[1];

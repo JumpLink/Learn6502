@@ -19,6 +19,7 @@ import {
   createMainMenu,
   getAboutInfo,
   notificationService,
+  settings,
   themeService,
   type Debugger,
   type Editor,
@@ -65,8 +66,7 @@ export class MainWindow {
 
   constructor() {
     injectShellStyles();
-    // The schema's `ai` key has no web settings backend yet, so the theme lives for the session
-    themeService.init();
+    themeService.init(settings);
 
     // The blueprint builds the screens, so the back button reaches them only once they exist.
     let learn: Learn | null = null;

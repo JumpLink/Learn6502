@@ -16,14 +16,16 @@ if desktop_utils.found()
   test('Validate desktop file', desktop_utils, args: [desktop_file])
 endif
 
-install_data('eu.jumplink.Learn6502.gschema.xml',
+# The schema is shared with the web and Android builds, which register it from @learn6502/ui.
+schema_dir = meson.project_source_root() / 'packages' / 'ui' / 'data'
+install_data(schema_dir / 'eu.jumplink.Learn6502.gschema.xml',
   install_dir: get_option('datadir') / 'glib-2.0' / 'schemas'
 )
 
 compile_schemas = find_program('glib-compile-schemas', required: false, disabler: true)
 test('Validate schema file',
      compile_schemas,
-     args: ['--strict', '--dry-run', meson.current_source_dir()])
+     args: ['--strict', '--dry-run', schema_dir])
 
 subdir('icons')
 

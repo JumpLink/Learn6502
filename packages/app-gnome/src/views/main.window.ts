@@ -15,6 +15,7 @@ import {
   type Learn,
   type MainButton,
   type MainWindowServices,
+  settings,
   ShareDialog,
   themeService,
 } from "@learn6502/ui";
@@ -23,7 +24,6 @@ import { HelpWindow } from "./help.window.ts";
 import { GtkMainWindowShell } from "./main.window.shell.ts";
 import { copyToClipboard } from "../utils.ts";
 import { fileService } from "../services";
-import { settings } from "../settings.ts";
 import { watchFirstChapter } from "../support-prompt.ts";
 
 import Template from "./main.window.blp";

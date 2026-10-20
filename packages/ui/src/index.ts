@@ -33,3 +33,4 @@ export * from "./gutter-renderer-mode.ts";
 export * from "./source-view.ts";
 export * from "./translate.ts";
 export * from "./register-source-data.ts";
+export * from "./settings.ts";

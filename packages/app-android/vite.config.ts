@@ -21,14 +21,15 @@ const { version } = JSON.parse(readFileSync(new URL("./package.json", import.met
 // plain-text default exports — the Vite mirror of the GNOME app's `gjsify`
 // `loaders: { ".asm": "text", … }`. The shared `@learn6502/examples` package does
 // `import code from "./snake.asm"`, `@learn6502/ui` does `import lang from "./x.lang"`. `.xml`
-// is limited to the ui data directory: NativeScript's own XML views must keep their pipeline.
+// is limited to the ui GtkSourceView data: NativeScript's own XML views and the `?schema` import
+// must keep their pipelines.
 function asmTextLoader(): Plugin {
   return {
     name: "learn6502-asm-text-loader",
     enforce: "pre",
     load(id) {
       const path = id.split("?")[0];
-      const isUiData = /\/ui\/data\/.*\.xml$/.test(path) || path.endsWith(".lang");
+      const isUiData = /\/ui\/data\/(lang-specs|styles)\/.*\.xml$/.test(path) || path.endsWith(".lang");
       if (!path.endsWith(".asm") && !isUiData) return null;
       return `export default ${JSON.stringify(readFileSync(path, "utf8"))};`;
     },
