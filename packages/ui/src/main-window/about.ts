@@ -1,4 +1,5 @@
 import Adw from "@girs/adw-1";
+import GLib from "@girs/glib-2.0";
 import Gtk from "@girs/gtk-4.0";
 import { donationsAllowed } from "@gjsify/distribution";
 
@@ -26,10 +27,13 @@ export interface AboutInfo {
 /** English page; the metainfo `<url type="donation">` points at it. */
 const SUPPORT_URL = "https://jumplink.eu/Learn6502/en/support/";
 
-/** The site renders `en` and `de`; anything else falls back to English. */
+/**
+ * The site renders `en` and `de`; anything else falls back to English. `GLib.get_language_names()`
+ * rather than `Intl`: NativeScript has no ICU, so `Intl` is undefined there.
+ */
 export function supportUrl(): string {
-  const locale = new Intl.DateTimeFormat().resolvedOptions().locale;
-  return locale.startsWith("de") ? SUPPORT_URL.replace("/en/", "/de/") : SUPPORT_URL;
+  const [preferred] = GLib.get_language_names();
+  return preferred?.startsWith("de") ? SUPPORT_URL.replace("/en/", "/de/") : SUPPORT_URL;
 }
 
 export function getAboutInfo(): AboutInfo {
