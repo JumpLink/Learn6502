@@ -13,6 +13,10 @@ import shellCss from "./styles.css";
 // Styles of the shared @learn6502/ui widgets (GNOME imports the same files in its widgets/index.css).
 import roundedCss from "../../../ui/src/rounded.css";
 import gamepadCss from "../../../ui/src/game-console/gamepad.css";
+import themeModeSelectorCss from "../../../ui/src/preferences/theme-mode-selector.css";
+import primaryColorSelectorCss from "../../../ui/src/preferences/primary-color-selector.css";
+import accentColorSelectorCss from "../../../ui/src/preferences/accent-color-selector.css";
+import preferencesDialogCss from "../../../ui/src/preferences/preferences-dialog.css";
 
 let injected = false;
 
@@ -23,6 +27,14 @@ export function injectShellStyles(): void {
   if (document.getElementById("learn6502-shell-style")) return;
   const style = document.createElement("style");
   style.id = "learn6502-shell-style";
-  style.textContent = roundedCss + gamepadCss + shellCss;
+  style.textContent = [
+    roundedCss,
+    gamepadCss,
+    themeModeSelectorCss,
+    primaryColorSelectorCss,
+    accentColorSelectorCss,
+    preferencesDialogCss,
+    shellCss,
+  ].join("\n");
   document.head.appendChild(style);
 }

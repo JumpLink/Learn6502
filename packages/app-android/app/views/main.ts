@@ -1,10 +1,9 @@
 import type { Page, EventData, View } from "@nativescript/core";
 import { Application, GridLayout } from "@nativescript/core";
 
-import { systemStates, SystemStates } from "~/states";
 
 // Adwaita native widgets
-import { Adw, setAdwaitaColorScheme } from "@gjsify/adwaita-nativescript";
+import { Adw } from "@gjsify/adwaita-nativescript";
 import type { Gtk } from "@gjsify/adwaita-nativescript";
 import type GjsGtk from "@girs/gtk-4.0";
 import { buildWithSiblings } from "@gjsify/adwaita-nativescript/builder";
@@ -16,13 +15,22 @@ import { ViewType, gameConsoleController } from "@learn6502/common-ui";
 
 // Services / utils
 import { createMainWindowServices } from "~/services/main-window.services";
-import type { SystemAppearanceChangeEvent } from "~/types";
 import { APPLICATION_ID } from "~/constants";
 import { showError, logger } from "~/utils";
 import { translate } from "~/utils/translate";
 
 // The template classes main.window.blp names (MainButton and Toolbar) register with @learn6502/ui.
-import { MainWindowController, addAppActions, createMainMenu, getAboutInfo, type MainButton } from "@learn6502/ui";
+import {
+  MainWindowController,
+  PreferencesDialog,
+  addAppActions,
+  createMainMenu,
+  createAboutDialog,
+  notificationService,
+  settings,
+  themeService,
+  type MainButton,
+} from "@learn6502/ui";
 import { createScreens, type Screens } from "./main/screens";
 import { simulatorStack } from "./main/game-console";
 import { NativeMainWindowShell } from "./main/shell";
@@ -43,22 +51,11 @@ export class MainController {
 
   constructor() {
     this.log.debug("Initialized");
-    this.onSystemAppearanceChanged = this.onSystemAppearanceChanged.bind(this);
   }
 
   // --- Lifecycle ---
   public onLoaded(args: EventData): void {
     const page = args.object as Page;
-
-    // Follow the OS color scheme for the symbolic-icon bitmaps (CSS .ns-dark is
-    // handled by NS; this keeps the pre-coloured icons in sync). Seed at mount.
-    try {
-      setAdwaitaColorScheme(Application.systemAppearance() === "dark" ? "dark" : "light");
-    } catch {
-      /* systemAppearance unavailable — default light */
-    }
-
-    systemStates.events.on(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
 
     this.setupAndroidKeyHandling();
 
@@ -71,17 +68,6 @@ export class MainController {
     this.log.debug("unloaded:", view.id);
     this.controller?.disconnect();
     this.mainButton?.unbind();
-    systemStates.events.off(SystemStates.systemAppearanceChangedEvent, this.onSystemAppearanceChanged);
-  }
-
-  private onSystemAppearanceChanged(event: SystemAppearanceChangeEvent): void {
-    // NS flips the `ns-dark` class on the root automatically; keep the Adwaita icon
-    // bitmaps in sync with the new scheme.
-    try {
-      setAdwaitaColorScheme(event.newValue === "dark" ? "dark" : "light");
-    } catch {
-      /* ignore */
-    }
   }
 
   // --- Shell construction ---
@@ -93,6 +79,8 @@ export class MainController {
       scope: { _onLearnBackButtonClicked: () => screens?.learn.widget.navigateBack() },
       translate,
     });
+    if (!(root instanceof Adw.ApplicationWindow))
+      throw new Error("The main window tree must build an Adw.ApplicationWindow");
     screens = createScreens(siblings);
     // The widgets are typed against the GJS bindings, but at run time they are NativeScript views.
     const byId = <T>(id: string): T => root.getViewById<View>(id) as unknown as T;
@@ -112,12 +100,17 @@ export class MainController {
         // A sibling of the window and not a view: it presents through the platform's dialog.
         unsavedChangesDialog: siblings.get("unsavedChangesDialog") as Adw.AlertDialog,
         titleLabel: byId<Gtk.Label>("titleLabel"),
+        unsavedChangesIndicator: byId<Gtk.Button>("unsavedChangesIndicator"),
         learnBackButton: byId<Gtk.Button>("learnBackButton"),
       },
       screens
     );
     this.shell = shell;
+    themeService.init(settings);
+    themeService.registerThemedWidget(root as unknown as GjsGtk.Widget);
     this.mainButton = byId<MainButton>("mainButton");
+    type ToastOverlay = Parameters<typeof notificationService.init>[1];
+    notificationService.init(root as unknown as GjsGtk.Window, byId<ToastOverlay>("toastOverlay"));
 
     const controller = new MainWindowController(
       shell,
@@ -136,11 +129,11 @@ export class MainController {
     // Never `runAsync`: NativeScript owns the run loop (`Application.run` in app.ts).
     const application = new Adw.Application();
     application.application_id = APPLICATION_ID;
-    // `Gtk.Window:application` is typed as the GJS class; at run time this is the NativeScript one.
-    (root as unknown as { application: object }).application = application;
+    root.application = application;
     addAppActions(application as unknown as GjsGtk.Application, {
       quit: () => shell.closeWindow(),
       about: () => this.about?.present(),
+      preferences: () => new PreferencesDialog().present(root as unknown as GjsGtk.Widget),
     });
     controller.init();
     shell.insertActions();
@@ -148,7 +141,7 @@ export class MainController {
     this.setupAbout(root);
     // The model is typed against GJS (`Gio.Menu`), the NativeScript button takes its portable twin.
     const menuButton = byId<Gtk.MenuButton>("menuButton");
-    menuButton.menuModel = createMainMenu() as unknown as typeof menuButton.menuModel;
+    menuButton.menuModel = createMainMenu({ preferences: true }) as unknown as typeof menuButton.menuModel;
 
     return root;
   }
@@ -159,13 +152,7 @@ export class MainController {
    * version).
    */
   private setupAbout(root: View): void {
-    const about = new Adw.AboutDialog();
-    const info = getAboutInfo();
-    about.applicationName = info.applicationName;
-    about.version = __APP_VERSION__;
-    about.developerName = info.developerName;
-    about.comments = info.comments;
-    about.website = info.website;
+    const about = createAboutDialog(__APP_VERSION__) as unknown as Adw.AboutDialog;
     this.about = about;
     GridLayout.setRow(about, 0);
     GridLayout.setColumn(about, 0);

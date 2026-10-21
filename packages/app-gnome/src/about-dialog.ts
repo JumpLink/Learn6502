@@ -3,7 +3,7 @@ import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
 import Gtk from "@girs/gtk-4.0";
 
-import { getAboutInfo } from "@learn6502/ui";
+import { addAboutExtras } from "@learn6502/ui";
 
 import { APPLICATION_ID, RESOURCES_PATH, PACKAGE_VERSION } from "./constants.ts";
 import { parseAppdata } from "./appdata.ts";
@@ -81,10 +81,7 @@ const buildFromAppdata = (): Adw.AboutDialog => {
  */
 export const createAboutDialog = (): Adw.AboutDialog => {
   const dialog = createFromAppdata();
-  // new_from_appdata() does not map <url type="donation">, so the link is added by hand — and
-  // only where the distribution channel allows donation UI.
-  const link = getAboutInfo().supportLink;
-  if (link) dialog.add_link(link.title, link.url);
+  addAboutExtras(dialog);
   return dialog;
 };
 

@@ -17,7 +17,7 @@
         "win32": "node"
       },
       "icon": "packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg",
-      "schemas": "packages/app-gnome/data/eu.jumplink.Learn6502.gschema.xml",
+      "schemas": "packages/ui/data/eu.jumplink.Learn6502.gschema.xml",
       "localeDir": "packages/translations/dist/locale",
       "licenseFile": "LICENSE",
       "extraFiles": {
@@ -27,7 +27,7 @@
     "flatpak": {
       "appId": "eu.jumplink.Learn6502",
       "kind": "app",
-      "name": "Learn 6502 Assembly",
+      "name": "Learn 6502",
       "runtime": "gnome",
       "runtimeVersion": "50",
       "sdkExtensions": [],
@@ -61,7 +61,7 @@
         "email": "pascal@jumplink.eu",
         "nameTranslatable": false
       },
-      "summary": "Program vintage game consoles",
+      "summary": "Program vintage consoles",
       "description": [
         {
           "p": "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.",
@@ -555,8 +555,8 @@
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
-    "@gjsify/cli": "0.64.1-next.240",
-    "@gjsify/site": "0.64.1-next.241",
+    "@gjsify/cli": "0.64.1-next.245",
+    "@gjsify/site": "0.64.1-next.245",
     "oxfmt": "^0.53.0",
     "oxlint": "^1.68.0",
     "typescript": "^6.0.3"

@@ -3,12 +3,13 @@
  * Pattern from reference projects: direct Application events, minimal setup
  */
 
+import "./engine";
 import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
 import { registerAdwaita } from "@gjsify/adwaita-nativescript";
-import "~/icons"; // registers the GNOME-named icons as a side effect
+import { initResources } from "./resources";
 import { systemStates, SystemStates } from "./states";
-import { themeService } from "./services";
+import { contrastService } from "./services";
 import { appVariables } from "./variables";
 import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
 import { logger } from "./utils";
@@ -38,7 +39,7 @@ try {
       appVariables.initialize();
 
       // Initialize services sequentially
-      themeService.initialize();
+      contrastService.initialize();
 
       servicesInitialized = true;
       logger.debug("App", "Services initialized");
@@ -57,6 +58,7 @@ try {
   // Register the native Adwaita widgets (Adw.ToolbarView / Adw.ViewStack / …) as NS
   // XML elements so the Adwaita shell + screens resolve. Idempotent; no-op off NS.
   registerAdwaita();
+  initResources();
 
   Application.setResources({ _: localize });
   Application.run({ moduleName: "app-root" });

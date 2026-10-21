@@ -11,6 +11,7 @@ import {
   type MainWindowShell,
   type ShellAction,
   type UnsavedChangesAnswer,
+  type WindowSettings,
 } from "@learn6502/ui";
 
 /** The widgets the window's template provides for placing the four screens. */
@@ -29,11 +30,12 @@ export interface MainWindowShellParts {
   rightBottomBox: Gtk.Box;
   unsavedChangesDialog: Adw.AlertDialog;
   titleLabel: Gtk.Label;
+  unsavedChangesIndicator: Gtk.Button;
   learnBackButton: Gtk.Button;
 }
 
 /** `MainWindowShell` over the GTK widgets of `main.window.blp`. */
-export class GtkMainWindowShell implements MainWindowShell {
+export class GtkMainWindowShell implements MainWindowShell<Gtk.Widget> {
   private readonly viewWidgets = new Map<ViewType, Gtk.Widget>();
   private previousVisibleChild: Gtk.Widget | null = null;
 
@@ -45,6 +47,39 @@ export class GtkMainWindowShell implements MainWindowShell {
     this.viewWidgets.set(ViewType.EDITOR, parts.editor);
     this.viewWidgets.set(ViewType.DEBUGGER, parts.debugger);
     this.viewWidgets.set(ViewType.GAME_CONSOLE, parts.gameConsole);
+  }
+
+  onFocusWidgetChanged(handler: () => void): void {
+    this.window.connect("notify::focus-widget", handler);
+  }
+
+  persistWindowSize(settings: WindowSettings): void {
+    const { window } = this;
+    try {
+      if (settings.getBoolean("is-maximized")) {
+        window.maximize();
+      } else {
+        window.set_default_size(settings.getInt("window-width"), settings.getInt("window-height"));
+      }
+    } catch (error) {
+      console.warn("Could not load window size from settings:", error);
+      // Fall back to the Blueprint defaults
+    }
+
+    const saveSize = () => {
+      if (window.is_maximized()) return; // A maximized window's size says nothing about the restored one
+      try {
+        const [width, height] = window.get_default_size();
+        settings.setInt("window-width", width);
+        settings.setInt("window-height", height);
+      } catch (error) {
+        console.warn("Could not save window size to settings:", error);
+      }
+    };
+
+    window.connect("notify::default-width", saveSize);
+    window.connect("notify::default-height", saveSize);
+    window.connect("notify::maximized", () => settings.setBoolean("is-maximized", window.is_maximized()));
   }
 
   isDesktopLayout(): boolean {
@@ -106,6 +141,11 @@ export class GtkMainWindowShell implements MainWindowShell {
 
   setFileTitle(filename: string): void {
     this.parts.titleLabel.label = filename;
+  }
+
+  setUnsavedIndicator(visible: boolean, tooltip: string): void {
+    this.parts.unsavedChangesIndicator.visible = visible;
+    this.parts.unsavedChangesIndicator.tooltip_text = tooltip;
   }
 
   closeSidebarIfOverlay(): void {

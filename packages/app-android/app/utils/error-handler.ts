@@ -7,7 +7,7 @@
  */
 
 import { alert } from "@nativescript/core/ui/dialogs";
-import { notificationService } from "../services";
+import { notificationService } from "@learn6502/ui";
 import type { ErrorHandlerOptions, ExtendedError } from "../types";
 import { logger } from "./logger";
 

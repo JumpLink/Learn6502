@@ -1,9 +1,10 @@
-import GObject from "gi://GObject";
-import Adw from "gi://Adw";
-import type Gtk from "gi://Gtk";
+import GObject from "@girs/gobject-2.0";
+import Adw from "@girs/adw-1";
+import type Gtk from "@girs/gtk-4.0";
 
-import Template from "./primary-color-selector.blp";
-import { themeService } from "../services";
+import Template from "./primary-color-selector.blp?template";
+import { themeService } from "./theme.service.ts";
+import type { PrimaryFamilyKey } from "./theme.ts";
 
 /**
  * PrimaryColorSelector
@@ -12,6 +13,7 @@ import { themeService } from "../services";
  * Delegates persistence/apply to themeService.
  */
 export class PrimaryColorSelector extends Adw.Bin {
+  declare enabled: boolean;
   declare private _primary_blue: Gtk.CheckButton;
   declare private _primary_teal: Gtk.CheckButton;
   declare private _primary_green: Gtk.CheckButton;
@@ -22,7 +24,6 @@ export class PrimaryColorSelector extends Adw.Bin {
   declare private _primary_purple: Gtk.CheckButton;
   declare private _primary_slate: Gtk.CheckButton;
   private _isUpdatingUi: boolean = false;
-  private _enabled: boolean = true;
   private _isReady: boolean = false;
 
   static {
@@ -60,42 +61,32 @@ export class PrimaryColorSelector extends Adw.Bin {
     super(params);
 
     // Initial state from service
-    const { key, mode } = themeService.getPrimaryState();
-    const sel = key ?? null;
-    this._setPrimarySelection(sel as any);
+    this._setPrimarySelection(themeService.getPrimaryState().key);
 
     // Sync on map to catch late changes and mark ready
     this.connect("map", () => {
-      const { key, mode } = themeService.getPrimaryState();
-      const sel = key ?? null;
-      this._setPrimarySelection(sel as any);
+      this._setPrimarySelection(themeService.getPrimaryState().key);
       this._isReady = true;
     });
 
     // React to external changes
-    themeService.events.on("primary-changed", ({ key, mode }) => {
-      const sel = key ?? null;
-      this._setPrimarySelection(sel as any);
+    themeService.events.on("primary-changed", ({ key }) => {
+      this._setPrimarySelection(key ?? null);
     });
 
     // Keep primary override cleared when disabled
     this.connect("notify::enabled", () => {
-      const enabled = (this as any).enabled as boolean;
-      this._enabled = enabled;
       if (!this._isReady) return;
-      if (!enabled) {
+      if (!this.enabled) {
         this._setPrimarySelection(null);
         themeService.setPrimaryNone();
         themeService.refreshThemedWidgets();
-      } else {
+      } else if (!this._anyPrimaryActive()) {
         // When enabling, ensure at least one is selected (default to blue)
-        if (!this._anyPrimaryActive()) {
-          const { key } = themeService.getPrimaryState();
-          const useKey = (key as any) || "blue";
-          this._setPrimarySelection(useKey);
-          themeService.setPrimaryByKey(useKey as any);
-          themeService.refreshThemedWidgets();
-        }
+        const useKey = themeService.getPrimaryState().key ?? "blue";
+        this._setPrimarySelection(useKey);
+        themeService.setPrimaryByKey(useKey);
+        themeService.refreshThemedWidgets();
       }
     });
   }
@@ -128,41 +119,44 @@ export class PrimaryColorSelector extends Adw.Bin {
     this._onPrimaryToggled(this._primary_slate, "slate");
   }
 
-  private _onPrimaryToggled(source: Gtk.CheckButton, key: string): void {
+  private _onPrimaryToggled(source: Gtk.CheckButton, key: PrimaryFamilyKey): void {
     if (this._isUpdatingUi) return;
     if (!source.get_active()) {
       if (!this._anyPrimaryActive()) {
-        if (this._enabled) {
+        if (this.enabled) {
           // Enforce one selected when enabled
           this._setPrimarySelection("blue");
-          themeService.setPrimaryByKey("blue" as any);
+          themeService.setPrimaryByKey("blue");
           themeService.refreshThemedWidgets();
         } else {
-          themeService.clearPrimaryColor();
+          themeService.setPrimaryNone();
         }
       }
       return;
     }
     this._setPrimarySelection(key);
-    themeService.setPrimaryByKey(key as any);
+    themeService.setPrimaryByKey(key);
     themeService.refreshThemedWidgets();
   }
 
-  private _setPrimarySelection(key: string | null): void {
+  private get _buttons(): Record<PrimaryFamilyKey, Gtk.CheckButton> {
+    return {
+      blue: this._primary_blue,
+      teal: this._primary_teal,
+      green: this._primary_green,
+      yellow: this._primary_yellow,
+      orange: this._primary_orange,
+      red: this._primary_red,
+      pink: this._primary_pink,
+      purple: this._primary_purple,
+      slate: this._primary_slate,
+    };
+  }
+
+  private _setPrimarySelection(key: PrimaryFamilyKey | null): void {
     this._isUpdatingUi = true;
     try {
-      const map: Record<string, Gtk.CheckButton> = {
-        blue: this._primary_blue,
-        teal: this._primary_teal,
-        green: this._primary_green,
-        yellow: this._primary_yellow,
-        orange: this._primary_orange,
-        red: this._primary_red,
-        pink: this._primary_pink,
-        purple: this._primary_purple,
-        slate: this._primary_slate,
-      };
-      for (const [k, btn] of Object.entries(map)) {
+      for (const [k, btn] of Object.entries(this._buttons)) {
         const want = key === k;
         if (btn.get_active() !== want) btn.set_active(want);
       }
@@ -172,17 +166,7 @@ export class PrimaryColorSelector extends Adw.Bin {
   }
 
   private _anyPrimaryActive(): boolean {
-    return (
-      this._primary_blue.get_active() ||
-      this._primary_teal.get_active() ||
-      this._primary_green.get_active() ||
-      this._primary_yellow.get_active() ||
-      this._primary_orange.get_active() ||
-      this._primary_red.get_active() ||
-      this._primary_pink.get_active() ||
-      this._primary_purple.get_active() ||
-      this._primary_slate.get_active()
-    );
+    return Object.values(this._buttons).some((btn) => btn.get_active());
   }
 }
 

@@ -10,19 +10,8 @@
 /** The application id, as in nativescript.config.ts */
 export const APPLICATION_ID = "eu.jumplink.Learn6502";
 
-// ============================================================================
-// Application Settings Keys
-// ============================================================================
-
-/** Key for storing theme preference (light/dark/system) */
-export const SETTINGS_THEME = "eu.jumplink.Learn6502.theme";
-
-// ============================================================================
-// Default Values
-// ============================================================================
-
-/** Default theme mode */
-export const DEFAULT_THEME = "system";
+/** The prefix of app-gnome's GResource, `resource-base-path` of the application id */
+export const RESOURCES_PATH = "/eu/jumplink/Learn6502";
 
 // ============================================================================
 // Enums

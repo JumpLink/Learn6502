@@ -1,3 +1,4 @@
+import Gtk from "@girs/gtk-4.0";
 import { SimulatorState, formatMessage, num2hex } from "@learn6502/core";
 import {
   type MainButtonState,
@@ -22,7 +23,6 @@ import type { MainButton } from "../main-button.ts";
 import type { MainWindowServices } from "./services.ts";
 import type { MainWindowShell, ShellAction } from "./shell.ts";
 import { WindowBehaviour } from "./window-behaviour.ts";
-import { persistWindowSize } from "./window-size.ts";
 
 /** The screens the window shows; the platform builds them and the shell places them. */
 export interface MainWindowParts {
@@ -60,6 +60,8 @@ export class MainWindowController implements MainView {
   private gameConsoleBridge: GameConsoleEventBridge | null = null;
 
   private askingAboutUnsavedChanges = false;
+  // The `gtk_application_inhibit` cookie held while there are unsaved changes; 0 when none is held
+  private logoutInhibitCookie = 0;
   private codeToAssembleChanged = false;
   private focusTimeoutId: ReturnType<typeof setTimeout> | null = null;
 
@@ -74,6 +76,7 @@ export class MainWindowController implements MainView {
   ) {
     this.behaviour = new WindowBehaviour({
       window: shell.window,
+      onFocusWidgetChanged: (handler) => this.shell.onFocusWidgetChanged(handler),
       isRunning: () => this.state === SimulatorState.RUNNING,
       pause: () => this.pauseGameConsole(),
       onCloseRequest: () => this.onCloseRequest(),
@@ -109,7 +112,7 @@ export class MainWindowController implements MainView {
     this.updateRunActions(this.state);
 
     this.behaviour.attach();
-    persistWindowSize(this.shell.window, this.services.settings);
+    this.shell.persistWindowSize(this.services.settings);
   }
 
   // --- MainView ---
@@ -191,10 +194,38 @@ export class MainWindowController implements MainView {
 
   private set unsavedChanges(unsavedChanges: boolean) {
     this.services.files.setUnsavedChanges(unsavedChanges);
+    this.syncUnsavedState();
   }
 
   private get unsavedChanges(): boolean {
     return this.services.files.hasUnsavedChanges();
+  }
+
+  /** Show the header bar's dot and ask the session (or the page) to confirm leaving while the code has unsaved changes. */
+  private syncUnsavedState(): void {
+    const { files } = this.services;
+    const unsaved = files.hasUnsavedChanges();
+    this.shell.setUnsavedIndicator(
+      unsaved,
+      files.hasCurrentFile()
+        ? // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar, %s is the file name
+          formatMessage(_('File "%s" has unsaved changes'), [files.getCurrentFileName()])
+        : // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
+          _("Unsaved changes")
+    );
+
+    const app = this.shell.window.get_application();
+    if (unsaved && this.logoutInhibitCookie === 0 && app) {
+      // TRANSLATORS: Reason shown by the session when logging out with unsaved code
+      this.logoutInhibitCookie = app.inhibit(
+        this.shell.window,
+        Gtk.ApplicationInhibitFlags.LOGOUT,
+        _("Unsaved changes")
+      );
+    } else if (!unsaved && this.logoutInhibitCookie !== 0) {
+      app?.uninhibit(this.logoutInhibitCookie);
+      this.logoutInhibitCookie = 0;
+    }
   }
 
   private showToast(title: string, timeout = 2): void {
@@ -304,6 +335,10 @@ export class MainWindowController implements MainView {
     this.gameConsoleBridge?.disconnect();
     this.gameConsoleBridge = null;
     for (const unsubscribe of this.unsubscribers.splice(0)) unsubscribe();
+    if (this.logoutInhibitCookie !== 0) {
+      this.shell.window.get_application()?.uninhibit(this.logoutInhibitCookie);
+      this.logoutInhibitCookie = 0;
+    }
   }
 
   // --- Actions ---
@@ -405,7 +440,9 @@ export class MainWindowController implements MainView {
 
   public async saveFile(): Promise<boolean> {
     if (this.services.files.hasCurrentFile()) {
-      return await this.services.files.saveFile(editorController.code);
+      const saved = await this.services.files.saveFile(editorController.code);
+      this.syncUnsavedState();
+      return saved;
     }
     return await this.saveAsFile();
   }
@@ -416,6 +453,7 @@ export class MainWindowController implements MainView {
       editorController.code,
       files.hasCurrentFile() ? files.getCurrentFileName() : "untitled.asm"
     );
+    this.syncUnsavedState();
     if (success) {
       this.shell.setFileTitle(files.getCurrentFileName());
       // TRANSLATORS: Toast message title after saving file successfully, includes filename

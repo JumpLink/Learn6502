@@ -9,7 +9,6 @@ import GLib from "@girs/glib-2.0";
  */
 class FileService extends BaseFileService {
   private window: Gtk.Window | null = null;
-  private unsavedChangesIndicator: Gtk.Button | null = null;
   private currentFile: Gio.File | null = null;
 
   constructor() {
@@ -18,13 +17,6 @@ class FileService extends BaseFileService {
 
   public init(window: Gtk.Window): void {
     this.window = window;
-  }
-
-  /**
-   * Set the unsaved changes indicator
-   */
-  public setUnsavedChangesIndicator(indicator: Gtk.Button): void {
-    this.unsavedChangesIndicator = indicator;
   }
 
   /**
@@ -132,25 +124,6 @@ class FileService extends BaseFileService {
     } catch (error) {
       console.error("Error saving file:", error);
       return false;
-    }
-  }
-
-  /**
-   * Called when unsaved changes state changes
-   */
-  protected onUnsavedChangesChanged(hasChanges: boolean): void {
-    if (this.unsavedChangesIndicator) {
-      this.unsavedChangesIndicator.visible = hasChanges;
-
-      // Update tooltip text
-      if (this.currentFile === null) {
-        // TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar
-        this.unsavedChangesIndicator.tooltip_text = _("Unsaved changes");
-      } else {
-        this.unsavedChangesIndicator.tooltip_text = _('File "%s" has unsaved changes').format(
-          this.getCurrentFileName()
-        );
-      }
     }
   }
 

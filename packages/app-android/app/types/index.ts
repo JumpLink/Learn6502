@@ -3,4 +3,3 @@ export * from "./error-handler";
 export * from "./property-change-event";
 export * from "./system-appearance-change-event";
 export * from "./system-events-map";
-export * from "./theme";

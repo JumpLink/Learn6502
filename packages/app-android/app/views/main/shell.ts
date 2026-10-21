@@ -1,26 +1,24 @@
 import type { View } from "@nativescript/core";
-import type GjsGtk from "@girs/gtk-4.0";
 import { Application } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 import { Gio, NOTIFY_VISIBLE_CHILD, insertActionGroup, padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import type { Adw, Gtk } from "@gjsify/adwaita-nativescript";
 import { ViewType, mainStateController } from "@learn6502/common-ui";
 import type { MainWindowShell, ShellAction, UnsavedChangesAnswer } from "@learn6502/ui";
-import { schoolSymbolic, codeSymbolic, bugSymbolic, nintendoControllerSymbolic } from "~/icons";
 import type { Screens } from "./screens";
 
 /** The four screens, in the order the stack lists them, with their tab title and icon. */
 const STACK_PAGES: { id: keyof Screens; view: ViewType; title: () => string; icon: string }[] = [
-  { id: "learn", view: ViewType.LEARN, title: () => _("Learn"), icon: schoolSymbolic },
-  { id: "editor", view: ViewType.EDITOR, title: () => _("Code"), icon: codeSymbolic },
-  { id: "debugger", view: ViewType.DEBUGGER, title: () => _("Debug"), icon: bugSymbolic },
-  { id: "gameConsole", view: ViewType.GAME_CONSOLE, title: () => _("Play"), icon: nintendoControllerSymbolic },
+  { id: "learn", view: ViewType.LEARN, title: () => _("Learn"), icon: "school-symbolic" },
+  { id: "editor", view: ViewType.EDITOR, title: () => _("Code"), icon: "code-symbolic" },
+  { id: "debugger", view: ViewType.DEBUGGER, title: () => _("Debug"), icon: "bug-symbolic" },
+  { id: "gameConsole", view: ViewType.GAME_CONSOLE, title: () => _("Play"), icon: "nintendo-controller-symbolic" },
 ];
 
 /** The widgets `main.window.blp` builds, as the shell places the screens in them. */
 export interface NativeShellParts {
-  /** The built window; the NativeScript `Adw.ApplicationWindow`. */
-  root: View;
+  /** The built window. */
+  root: Adw.ApplicationWindow;
   stack: Adw.ViewStack;
   switcherBar: Adw.ViewSwitcherBar;
   layoutHost: Gtk.Stack;
@@ -32,6 +30,7 @@ export interface NativeShellParts {
   rightColumnContent: Gtk.Box;
   unsavedChangesDialog: Adw.AlertDialog;
   titleLabel: Gtk.Label;
+  unsavedChangesIndicator: Gtk.Button;
   learnBackButton: Gtk.Button;
 }
 
@@ -39,8 +38,8 @@ export interface NativeShellParts {
  * `MainWindowShell` over the NativeScript Adwaita widgets: the stack on narrow windows, the
  * columns on wide ones, as the GNOME window's `Adw.Breakpoint`s decide.
  */
-export class NativeMainWindowShell implements MainWindowShell {
-  readonly window: GjsGtk.Window;
+export class NativeMainWindowShell implements MainWindowShell<View> {
+  readonly window: Adw.ApplicationWindow;
 
   private readonly actionGroup = new Gio.SimpleActionGroup();
   private releaseColumnInsets: (() => void) | null = null;
@@ -52,8 +51,7 @@ export class NativeMainWindowShell implements MainWindowShell {
     private readonly parts: NativeShellParts,
     private readonly screens: Screens
   ) {
-    // The root is the NativeScript Adw.ApplicationWindow, typed against GJS in the shared package.
-    this.window = parts.root as unknown as GjsGtk.Window;
+    this.window = parts.root;
     parts.stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(parts.stack.visibleChildName));
   }
 
@@ -96,11 +94,22 @@ export class NativeMainWindowShell implements MainWindowShell {
     this.parts.titleLabel.label = filename;
   }
 
+  setUnsavedIndicator(visible: boolean, tooltip: string): void {
+    this.parts.unsavedChangesIndicator.visible = visible;
+    this.parts.unsavedChangesIndicator.tooltip_text = tooltip;
+  }
+
   closeSidebarIfOverlay(): void {
     if (this.isDesktopLayout() && this.parts.leftSidebar.collapsed) this.parts.leftSidebar.showSidebar = false;
   }
 
   // The focus follow is a desktop-layout matter and nothing here takes the focus.
+  /** NativeScript refuses `notify::focus-widget`, and Android has no in-window focus to follow. */
+  onFocusWidgetChanged(): void {}
+
+  /** The window is always maximized and refuses `unmaximize()`: there is no size to persist. */
+  persistWindowSize(): void {}
+
   isInsideConsole(): boolean {
     return false;
   }
@@ -123,9 +132,15 @@ export class NativeMainWindowShell implements MainWindowShell {
     insertActionGroup(this.parts.root, "win", this.actionGroup);
   }
 
-  async askUnsavedChanges(): Promise<UnsavedChangesAnswer> {
-    const response = await this.parts.unsavedChangesDialog.present();
-    return response === "save" || response === "discard" ? response : "cancel";
+  askUnsavedChanges(): Promise<UnsavedChangesAnswer> {
+    const { unsavedChangesDialog } = this.parts;
+    return new Promise((resolve) => {
+      const handlerId = unsavedChangesDialog.connect("response", (_dialog: unknown, response: string) => {
+        unsavedChangesDialog.disconnect(handlerId);
+        resolve(response === "save" || response === "discard" ? response : "cancel");
+      });
+      unsavedChangesDialog.present();
+    });
   }
 
   closeWindow(): void {

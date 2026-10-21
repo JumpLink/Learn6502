@@ -8,20 +8,22 @@ import type { Memory } from "@learn6502/core";
 import {
   MainWindowController,
   createMainMenu,
+  notificationService,
   type Debugger,
   type Editor,
   type GameConsole,
   type Learn,
   type MainButton,
   type MainWindowServices,
+  settings,
+  ShareDialog,
+  themeService,
 } from "@learn6502/ui";
 
 import { HelpWindow } from "./help.window.ts";
 import { GtkMainWindowShell } from "./main.window.shell.ts";
-import { ShareDialog } from "../widgets";
 import { copyToClipboard } from "../utils.ts";
-import { themeService, notificationService, fileService } from "../services";
-import { settings } from "../settings.ts";
+import { fileService } from "../services";
 import { watchFirstChapter } from "../support-prompt.ts";
 
 import Template from "./main.window.blp";
@@ -100,8 +102,6 @@ export class MainWindow extends Adw.ApplicationWindow {
 
     this._menuButton.set_menu_model(createMainMenu({ preferences: true }));
     fileService.init(this);
-    fileService.setUnsavedChangesIndicator(this._unsavedChangesIndicator);
-    themeService.init();
     notificationService.init(this, this._toastOverlay);
     // Register this window to receive mode/accent classes automatically
     themeService.registerThemedWidget(this);
@@ -125,6 +125,7 @@ export class MainWindow extends Adw.ApplicationWindow {
         rightBottomBox: this._rightBottomBox,
         unsavedChangesDialog: this._unsavedChangesDialog,
         titleLabel: this._titleLabel,
+        unsavedChangesIndicator: this._unsavedChangesIndicator,
         learnBackButton: this._learnBackButton,
       }),
       { ...screens, mainButton: this._mainButton },

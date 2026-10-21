@@ -1,19 +1,16 @@
-import { NotificationService as BaseNotificationService } from "@learn6502/common-ui";
-import type { NotificationOptions, DialogOptions } from "@learn6502/common-ui";
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
+import { NotificationService as BaseNotificationService } from "@learn6502/common-ui";
+import type { NotificationOptions, DialogOptions } from "@learn6502/common-ui";
+import { _ } from "./translate.ts";
 
 /**
- * GNOME-specific implementation of the NotificationService
- * Uses Adw.Toast and Adw.AlertDialog
+ * The NotificationService of every platform: toasts through `Adw.Toast` on the window's
+ * `Adw.ToastOverlay`, dialogs through `Adw.AlertDialog`.
  */
 class NotificationService extends BaseNotificationService {
   private window: Gtk.Window | null = null;
   private toastOverlay: Adw.ToastOverlay | null = null;
-
-  constructor() {
-    super();
-  }
 
   public init(window: Gtk.Window, toastOverlay: Adw.ToastOverlay): void {
     this.window = window;
@@ -24,26 +21,21 @@ class NotificationService extends BaseNotificationService {
    * Display a notification using Adw.Toast
    */
   protected displayNotification(options: NotificationOptions): void {
-    // Configure toast properties
     const toastProperties: Partial<Adw.Toast.ConstructorProps> = {
       title: options.title,
       timeout: options.timeout || 2,
     };
 
-    // Add action button if an action is provided
     if (options.action) {
       toastProperties.button_label = options.action.label;
     }
 
-    // Create and display toast
     const toast = new Adw.Toast(toastProperties);
 
-    // Register action callback if provided
     if (options.action) {
       toast.connect("button-clicked", options.action.callback);
     }
 
-    // Add toast to overlay
     this.toastOverlay?.add_toast(toast);
   }
 
@@ -52,7 +44,6 @@ class NotificationService extends BaseNotificationService {
    */
   protected async displayConfirmDialog(options: DialogOptions): Promise<boolean> {
     return new Promise<boolean>((resolve) => {
-      // Create dialog
       const dialog = new Adw.AlertDialog({
         heading: options.title,
         body: options.message,
@@ -60,18 +51,15 @@ class NotificationService extends BaseNotificationService {
         default_response: "confirm",
       });
 
-      // Add response buttons
       // TRANSLATORS: Generic confirmation dialog button label
       dialog.add_response("cancel", options.cancelLabel || _("Cancel"));
       // TRANSLATORS: Generic confirmation dialog button label
       dialog.add_response("confirm", options.confirmLabel || _("Confirm"));
 
-      // Event handler for response
       dialog.connect("response", (_dialog, response) => {
         resolve(response === "confirm");
       });
 
-      // Show dialog
       dialog.present(this.window);
     });
   }
@@ -81,7 +69,6 @@ class NotificationService extends BaseNotificationService {
    */
   protected async displayInfoDialog(options: DialogOptions): Promise<void> {
     return new Promise<void>((resolve) => {
-      // Create dialog
       const dialog = new Adw.AlertDialog({
         heading: options.title,
         body: options.message,
@@ -89,16 +76,13 @@ class NotificationService extends BaseNotificationService {
         default_response: "close",
       });
 
-      // Add OK button
       // TRANSLATORS: Alert dialog response button label to confirm an action
       dialog.add_response("close", options.confirmLabel || _("OK"));
 
-      // Event handler for response
       dialog.connect("response", () => {
         resolve();
       });
 
-      // Show dialog
       dialog.present(this.window);
     });
   }
