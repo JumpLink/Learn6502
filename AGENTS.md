@@ -104,9 +104,12 @@ so one relative step answers on all three. **Anything the app loads at run time
 belongs in that directory**, declared through `gjsify.ship.extraFiles`.
 
 **The macOS and Windows runtimes are os/cpu-gated.** A plain `gjsify install` on
-a Linux runner skips them, and `ship` then stages a bundle with no interpreter
-and no GTK — it says so loudly and still exits 0. `gjsify install --os darwin
---cpu arm64` (and the win32 pair) installs them; `gjsify install` skips its prune
+a Linux runner skips the interpreter, and `ship` then stages a bundle with no
+interpreter — it says so loudly and still exits 0. The GTK closure is never a
+dependency: `ship` fetches `@gjsify/gtk-runtime-<target>` into its cache, because
+an installed copy puts a second GLib beside Homebrew's on a Mac and crashes every
+build there. `gjsify install --os darwin --cpu arm64` (and the win32 pair)
+installs the interpreter; `gjsify install` skips its prune
 step whenever a target is typed, so the Linux prebuilds the CLI itself runs on
 survive.
 
