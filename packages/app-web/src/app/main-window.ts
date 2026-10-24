@@ -130,6 +130,7 @@ export class MainWindow {
     about.website = info.website;
     about.issueUrl = info.issueUrl;
     about.license = info.license;
+    for (const legal of info.legalLinks) about.add_link(legal.title, legal.url);
     this.root.appendChild(about);
     return about;
   }
