@@ -184,7 +184,7 @@ export class MainWindow {
           return true;
         },
       },
-      notifier: { show: ({ title, timeout }) => this.toastOverlay.addToast(title, { timeout }) },
+      notifier: { show: ({ title, timeout }) => this.toastOverlay.add_toast(new Adw.Toast({ title, timeout })) },
       // The Editor's 6502 quick-help sheet is the web app's help
       showHelp: () => {
         this.controller?.navigateToView(ViewType.EDITOR);

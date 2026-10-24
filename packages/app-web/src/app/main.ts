@@ -9,22 +9,13 @@
  * final phase of the rewrite.
  */
 
-import { registerIcon } from "@gjsify/adwaita-web"; // registers the custom elements + self-injects the skin
-import clipboardSymbolic from "../../../app-gnome/data/icons/scalable/actions/clipboard-symbolic.svg";
-import moveToWindowSymbolic from "../../../app-gnome/data/icons/scalable/actions/move-to-window-symbolic.svg";
-import dpadDownSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-down-symbolic.svg";
-import dpadLeftSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-left-symbolic.svg";
-import dpadRightSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-right-symbolic.svg";
-import dpadUpSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-up-symbolic.svg";
+import { Gio } from "@gjsify/adwaita-web"; // registers the custom elements + self-injects the skin
+import resourceBytes from "../../../app-gnome/data/eu.jumplink.Learn6502.data.gresource.xml";
 import { MainWindow } from "./main-window.js";
 
-// The shared @learn6502/ui widgets name these app icons; GNOME resolves them from its gresource.
-registerIcon("clipboard-symbolic", clipboardSymbolic);
-registerIcon("move-to-window-symbolic", moveToWindowSymbolic);
-registerIcon("dpad-down-symbolic", dpadDownSymbolic);
-registerIcon("dpad-left-symbolic", dpadLeftSymbolic);
-registerIcon("dpad-right-symbolic", dpadRightSymbolic);
-registerIcon("dpad-up-symbolic", dpadUpSymbolic);
+// The shared @learn6502/ui widgets name app icons that GNOME resolves from its gresource; the same
+// bytes feed the icon theme here, and GtkApplication adds `<resource-base-path>/icons/` at startup.
+Gio.resources_register(Gio.Resource.new_from_data(resourceBytes));
 
 const mainWindow = new MainWindow();
 mainWindow.mount(document.body);

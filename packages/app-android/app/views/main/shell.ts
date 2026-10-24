@@ -132,8 +132,14 @@ export class NativeMainWindowShell implements MainWindowShell {
   }
 
   async askUnsavedChanges(): Promise<UnsavedChangesAnswer> {
-    const response = await this.parts.unsavedChangesDialog.present();
-    return response === "save" || response === "discard" ? response : "cancel";
+    const dialog = this.parts.unsavedChangesDialog;
+    return new Promise((resolve) => {
+      const id = dialog.connect("response", (_dialog: unknown, response: string) => {
+        dialog.disconnect(id);
+        resolve(response === "save" || response === "discard" ? response : "cancel");
+      });
+      dialog.present();
+    });
   }
 
   closeWindow(): void {
