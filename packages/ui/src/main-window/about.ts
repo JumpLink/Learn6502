@@ -21,6 +21,8 @@ export interface AboutInfo {
    * deduction). `null` on a channel that shows no donation UI at all (the Microsoft and Apple stores).
    */
   supportLink: { title: string; url: string } | null;
+  /** Privacy statement and legal notice on the landing page; shown on every channel. */
+  legalLinks: { title: string; url: string }[];
 }
 
 /** One edition badge: the short name and the sentence that says what it means. */
@@ -90,6 +92,12 @@ export function supportUrl(): string {
   return locale.startsWith("de") ? SUPPORT_URL.replace("/en/", "/de/") : SUPPORT_URL;
 }
 
+/** A landing-page path in the UI language: `de` on a German locale, `en` otherwise (the site renders only those two). */
+function sitePage(page: string): string {
+  const locale = new Intl.DateTimeFormat().resolvedOptions().locale;
+  return `https://jumplink.eu/Learn6502/${locale.startsWith("de") ? "de" : "en"}/${page}/`;
+}
+
 export function getAboutInfo(): AboutInfo {
   return {
     applicationName: _("Learn 6502 Assembly"),
@@ -99,6 +107,10 @@ export function getAboutInfo(): AboutInfo {
     website: "https://flathub.org/apps/eu.jumplink.Learn6502",
     issueUrl: "https://github.com/JumpLink/Learn6502/issues",
     license: "GPL-3.0-or-later",
+    legalLinks: [
+      { title: _("Privacy"), url: sitePage("privacy") },
+      { title: _("Legal Notice"), url: sitePage("legal-notice") },
+    ],
     supportLink: donationsAllowed() ? { title: _("Support"), url: supportUrl() } : null,
   };
 }
