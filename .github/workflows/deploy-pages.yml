@@ -21,6 +21,7 @@ on:
       - "packages/app-gnome/data/metainfo/**"
       - "package.json"
       - "misc/screenshots/**"
+      - "docs/legal-notice*.md"
       - "gjsify-lock.json"
       - ".github/workflows/deploy-pages.yml"
   # New release assets and download counts change what the landing page shows.
