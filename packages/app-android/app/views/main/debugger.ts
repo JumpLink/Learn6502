@@ -1,16 +1,16 @@
 import { DebuggerState, debuggerController } from "@learn6502/common-ui";
-import { Debugger as DebuggerWidget } from "@learn6502/ui";
+import type { Debugger as DebuggerWidget } from "@learn6502/ui";
 
 import { asView } from "~/utils/as-view";
 import type { ScreenModule } from "./editor";
 
-let widget: DebuggerWidget | null = null;
+let previous: DebuggerWidget | null = null;
 
-/** Build the debugger screen; the shared main window controller hands it the stack. */
-export function buildDebuggerScreen(): ScreenModule<DebuggerWidget> {
+/** Wrap the `$Debugger` the window built; the shared main window controller hands it the stack. */
+export function buildDebuggerScreen(widget: DebuggerWidget): ScreenModule<DebuggerWidget> {
   // The previous debugger, if the activity was recreated, stops listening to the controller first.
-  widget?.unbind();
-  widget = new DebuggerWidget();
+  previous?.unbind();
+  previous = widget;
   return {
     // The shared widget is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     view: asView(widget),

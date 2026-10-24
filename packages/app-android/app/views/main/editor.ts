@@ -7,7 +7,7 @@ import { EventDispatcher } from "@learn6502/core";
 import type { Adw } from "@gjsify/adwaita-nativescript";
 import { padSheetForSystemInsets } from "@gjsify/adwaita-nativescript";
 import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
-import { Editor as EditorWidget } from "@learn6502/ui";
+import type { Editor as EditorWidget } from "@learn6502/ui";
 import { QuickHelpView } from "~/mdx/quick-help-view";
 import { logger } from "~/utils";
 // The shared editor's source view is `@learn6502/ui`'s; the builder arm teaches NativeScript what `GtkSourceView` is.
@@ -79,12 +79,10 @@ class Editor extends Observable implements EditorView {
     this.events.dispatch("changed", event);
   };
 
-  /** Build the shared `@learn6502/ui` editor (the source view over the quick-help bottom sheet)
-   *  and wire it to the controller (once). */
-  build(): EditorWidget {
-    // The shared `Editor` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+  /** Adopt the shared `@learn6502/ui` editor the window built (the source view over the
+   *  quick-help bottom sheet) and wire it to the controller (once). */
+  build(pane: EditorWidget): EditorWidget {
     this._pane?.unbind();
-    const pane = new EditorWidget();
     this._pane = pane;
 
     // The controller outlives the activity: the widget hands it its fresh source view on every
@@ -131,9 +129,9 @@ class Editor extends Observable implements EditorView {
 
 export const editorView = new Editor();
 
-/** Build the editor screen for the shell's Adw.ViewStack. */
-export function buildEditorScreen(): ScreenModule<EditorWidget> {
-  const widget = editorView.build();
+/** Wrap the `$Editor` the window built for the shell's Adw.ViewStack. */
+export function buildEditorScreen(built: EditorWidget): ScreenModule<EditorWidget> {
+  const widget = editorView.build(built);
   return {
     // The shared widget is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     view: asView(widget),

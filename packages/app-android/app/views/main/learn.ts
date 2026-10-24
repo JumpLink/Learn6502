@@ -5,7 +5,7 @@ import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 import { localize } from "@nativescript/localize";
 import type { LearnView, LearnViewEventMap } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
-import { Learn as LearnWidget, setTranslator } from "@learn6502/ui";
+import { type Learn as LearnWidget, setTranslator } from "@learn6502/ui";
 import { TutorialView } from "~/mdx/tutorial-view";
 import { logger } from "~/utils";
 import type { ScreenModule } from "./editor";
@@ -40,9 +40,7 @@ class Learn implements LearnView {
   private releaseInsets: (() => void)[] = [];
   private log = logger.scoped("Learn");
 
-  build(): LearnWidget {
-    // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
-    const widget = new LearnWidget();
+  build(widget: LearnWidget): LearnWidget {
     this.widget = widget;
     widget.events.on("subpage-changed", (event) => {
       // The tutorial's ~750 views are built on its first visit, not with the window.
@@ -88,9 +86,9 @@ class Learn implements LearnView {
 
 const learnView = new Learn();
 
-/** Build the learn screen for the shell's Adw.ViewStack. */
-export function buildLearnScreen(): ScreenModule<LearnWidget> {
-  const widget = learnView.build();
+/** Wrap the `$Learn` the window built for the shell's Adw.ViewStack. */
+export function buildLearnScreen(built: LearnWidget): ScreenModule<LearnWidget> {
+  const widget = learnView.build(built);
   return {
     // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     view: asView(widget),

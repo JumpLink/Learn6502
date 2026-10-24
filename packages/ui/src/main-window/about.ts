@@ -1,7 +1,7 @@
 import { donationsAllowed, purchased } from "@gjsify/distribution";
 import { editionBadgeService, type EditionBadgeId } from "@learn6502/common-ui";
 
-import { _ } from "../translate.ts";
+import { _, uiLanguage } from "../translate.ts";
 
 /**
  * What the About dialog shows where the platform cannot read the AppStream metainfo (Android, web).
@@ -88,14 +88,12 @@ const SUPPORT_URL = "https://jumplink.eu/Learn6502/en/support/";
 
 /** The site renders `en` and `de`; anything else falls back to English. */
 export function supportUrl(): string {
-  const locale = new Intl.DateTimeFormat().resolvedOptions().locale;
-  return locale.startsWith("de") ? SUPPORT_URL.replace("/en/", "/de/") : SUPPORT_URL;
+  return uiLanguage().startsWith("de") ? SUPPORT_URL.replace("/en/", "/de/") : SUPPORT_URL;
 }
 
 /** A landing-page path in the UI language: `de` on a German locale, `en` otherwise (the site renders only those two). */
 function sitePage(page: string): string {
-  const locale = new Intl.DateTimeFormat().resolvedOptions().locale;
-  return `https://jumplink.eu/Learn6502/${locale.startsWith("de") ? "de" : "en"}/${page}/`;
+  return `https://jumplink.eu/Learn6502/${uiLanguage().startsWith("de") ? "de" : "en"}/${page}/`;
 }
 
 export function getAboutInfo(): AboutInfo {
