@@ -63,7 +63,7 @@ jobs:
         # the bundle demands Pango/Gdk/GdkPixbuf typelibs at import. learn's own
         # `--globals node` does not reach it. This container was deliberately
         # GTK-less; restoring that needs an upstream fix in gjsify.
-        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 gdk-pixbuf2-modules-extra glycin-loaders
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 gdk-pixbuf2-modules-extra glycin-loaders glib2-devel
 
       - name: Checkout repository
         uses: actions/checkout@v6
@@ -85,7 +85,7 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.63.0
+        run: npm install -g @gjsify/cli@0.64.7
 
       - name: Install dependencies
         run: gjsify install --immutable
