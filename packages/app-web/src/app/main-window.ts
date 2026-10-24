@@ -130,6 +130,7 @@ export class MainWindow {
     about.website = info.website;
     about.issueUrl = info.issueUrl;
     about.license = info.license;
+    for (const legal of info.legalLinks) about.add_link(legal.title, legal.url);
     this.root.appendChild(about);
     return about;
   }
@@ -184,7 +185,7 @@ export class MainWindow {
           return true;
         },
       },
-      notifier: { show: ({ title, timeout }) => this.toastOverlay.addToast(title, { timeout }) },
+      notifier: { show: ({ title, timeout }) => this.toastOverlay.add_toast(new Adw.Toast({ title, timeout })) },
       // The Editor's 6502 quick-help sheet is the web app's help
       showHelp: () => {
         this.controller?.navigateToView(ViewType.EDITOR);

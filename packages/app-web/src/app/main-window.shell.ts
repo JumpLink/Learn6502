@@ -329,11 +329,11 @@ export class DomMainWindowShell implements MainWindowShell {
     // TRANSLATORS: Alert dialog body explaining risk of losing changes
     dialog.body = _("Your file has unsaved changes. Changes will be lost if you don't save them.");
     // TRANSLATORS: Alert dialog button labels
-    dialog.addResponse("cancel", _("Cancel"));
-    dialog.addResponse("discard", _("Discard"));
-    dialog.addResponse("save", _("Save"));
-    dialog.setResponseAppearance("discard", "destructive");
-    dialog.setResponseAppearance("save", "suggested");
+    dialog.add_response("cancel", _("Cancel"));
+    dialog.add_response("discard", _("Discard"));
+    dialog.add_response("save", _("Save"));
+    dialog.set_response_appearance("discard", "destructive");
+    dialog.set_response_appearance("save", "suggested");
     dialog.closeResponse = "cancel";
     this.parts.window.appendChild(dialog);
     this.dialog = dialog;

@@ -5,8 +5,8 @@
 
 import { Application, isAndroid } from "@nativescript/core";
 import { localize } from "@nativescript/localize";
-import { registerAdwaita } from "@gjsify/adwaita-nativescript";
-import "~/icons"; // registers the GNOME-named icons as a side effect
+import { Gio, registerAdwaita } from "@gjsify/adwaita-nativescript";
+import resourceBytes from "../../app-gnome/data/eu.jumplink.Learn6502.data.gresource.xml";
 import { systemStates, SystemStates } from "./states";
 import { themeService } from "./services";
 import { appVariables } from "./variables";
@@ -61,6 +61,8 @@ try {
   // Register the native Adwaita widgets (Adw.ToolbarView / Adw.ViewStack / …) as NS
   // XML elements so the Adwaita shell + screens resolve. Idempotent; no-op off NS.
   registerAdwaita();
+  // The icons the shared templates name come from the app's GResource, as on GNOME.
+  Gio.resources_register(Gio.Resource.new_from_data(resourceBytes));
 
   Application.setResources({ _: localize });
   Application.run({ moduleName: "app-root" });

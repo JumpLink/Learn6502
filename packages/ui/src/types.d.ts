@@ -8,7 +8,12 @@ declare module "*.lang" {
   const content: string;
   export default content;
 }
-declare module "*.xml" {
+// Narrower than `*.xml`: that would also type `*.gresource.xml` (bytes) as a string.
+declare module "*-style.xml" {
+  const content: string;
+  export default content;
+}
+declare module "*-style-dark.xml" {
   const content: string;
   export default content;
 }
