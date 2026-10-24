@@ -1,6 +1,6 @@
 import type { View } from "@nativescript/core";
 import type GjsGtk from "@girs/gtk-4.0";
-import { Application, GridLayout } from "@nativescript/core";
+import { Application } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
 import { Gio, NOTIFY_VISIBLE_CHILD, insertActionGroup, padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import type { Adw, Gtk } from "@gjsify/adwaita-nativescript";
@@ -57,11 +57,9 @@ export class NativeMainWindowShell implements MainWindowShell {
   ) {
     // The root is the NativeScript Adw.ApplicationWindow, typed against GJS in the shared package.
     this.window = parts.root as unknown as GjsGtk.Window;
-    // The unsaved-changes card is an in-page modal painted over everything, as the About dialog is.
-    const dialog = parts.unsavedChangesDialog as unknown as View;
-    GridLayout.setRow(dialog, 0);
-    GridLayout.setColumn(dialog, 0);
-    (parts.root as GridLayout).addChild(dialog);
+    // Unlike the About dialog, which is an in-page card and so a view, `Adw.AlertDialog` presents
+    // Android's own dialog from `present()`. It is an Observable, not a view: parenting it into the
+    // window is what "[object Object] is not a valid View instance" means.
     parts.stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(parts.stack.visibleChildName));
   }
 

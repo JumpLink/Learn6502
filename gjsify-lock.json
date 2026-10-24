@@ -7,17 +7,20 @@
     "oxfmt@^0.53.0",
     "oxlint@^1.68.0",
     "typescript@^6.0.3",
+    "@gjsify/adwaita-gobject-native@^0.64.7",
     "@gjsify/adwaita-icons@^0.64.7",
     "@gjsify/adwaita-nativescript@^0.64.7",
     "@gjsify/app-settings@^0.64.7",
+    "@gjsify/gi-runtime-android@^0.64.7",
     "@gjsify/gtksource-nativescript@^0.64.7",
+    "@gjsify/node-gi@^0.64.7",
     "@nativescript/core@9.1.0-alpha.11",
     "@nativescript/localize@^5.2.0",
     "@nativescript/tailwind@^4.0.9",
     "tailwindcss@^4.3.0",
     "@gjsify/nativescript-vite@^0.64.7",
     "@gjsify/vite-plugin-blueprint@^0.64.7",
-    "@nativescript/android@9.1.0-alpha.6",
+    "@nativescript/android@9.1.1",
     "@nativescript/types@~9.0.0",
     "@nativescript/vite@8.0.0-alpha.57",
     "@tailwindcss/postcss@^4.3.0",
@@ -40,7 +43,6 @@
     "@girs/webkit-6.0@5.4.0",
     "@gjsify/storybook@^0.64.7",
     "@gjsify/lightningcss-native@^0.64.7",
-    "@gjsify/node-gi@^0.64.7",
     "@gjsify/rolldown-native@^0.64.7",
     "@gjsify/vite-plugin-gettext@^0.64.7",
     "@gjsify/gtk-host@^0.64.7",
@@ -2021,6 +2023,22 @@
       "resolved": "https://registry.npmjs.org/@gjsify/adwaita-fonts/-/adwaita-fonts-0.64.7.tgz",
       "integrity": "sha512-c6D2a5QtgCh4J+RvMDgI1NeSX6MpJXVE/A0L5OdT3dfoymoWr08z6CjqwZlRwmdLSmqYiWa6GKwSQN65Hvg+GA=="
     },
+    "node_modules/@gjsify/adwaita-gobject-native": {
+      "version": "0.64.7",
+      "resolved": "https://registry.npmjs.org/@gjsify/adwaita-gobject-native/-/adwaita-gobject-native-0.64.7.tgz",
+      "integrity": "sha512-o35dEneYJ/ChVjYm+1u827JMaBSILxG7x7zeqPvUh9pcPGvnA9lhrrm17m8/hEknbLZyGviGNv23g0ZIHUydvA==",
+      "dependencies": {
+        "@gjsify/adwaita-core": "^0.64.7"
+      },
+      "peerDependencies": {
+        "@gjsify/app-settings": "^0.64.7"
+      },
+      "peerDependenciesMeta": {
+        "@gjsify/app-settings": {
+          "optional": true
+        }
+      }
+    },
     "node_modules/@gjsify/adwaita-icons": {
       "version": "0.64.7",
       "resolved": "https://registry.npmjs.org/@gjsify/adwaita-icons/-/adwaita-icons-0.64.7.tgz",
@@ -2537,6 +2555,11 @@
         "x64"
       ],
       "optional": true
+    },
+    "node_modules/@gjsify/gi-runtime-android": {
+      "version": "0.64.7",
+      "resolved": "https://registry.npmjs.org/@gjsify/gi-runtime-android/-/gi-runtime-android-0.64.7.tgz",
+      "integrity": "sha512-ffVnM5YHAdXKuOtMSTX8oWkU5vJnAxHYiaYg42k82vHH854Jcc7If2CI/gIdP1ni8hHRpSZdNVcynutHJDmgGQ=="
     },
     "node_modules/@gjsify/gtk-host": {
       "version": "0.64.7",
@@ -4872,9 +4895,9 @@
       "optional": true
     },
     "node_modules/@nativescript/android": {
-      "version": "9.1.0-alpha.6",
-      "resolved": "https://registry.npmjs.org/@nativescript/android/-/android-9.1.0-alpha.6.tgz",
-      "integrity": "sha512-MSAkYZXJCVdggc3I8seCfsR0yMWvPf8SrPaSfUj0LenBhqSqPLuryw9Y23wrM2r2BiAGMg/HXCUL/BxXAsDEqg=="
+      "version": "9.1.1",
+      "resolved": "https://registry.npmjs.org/@nativescript/android/-/android-9.1.1.tgz",
+      "integrity": "sha512-oDWfVnQtgQ0ctbfFWSugqGEZnYVjls82FqlO5UbA9HNwTNqdP4gqWwqHR80WKQngrbxlRHYDIuYv5S9kQfKhcw=="
     },
     "node_modules/@nativescript/core": {
       "version": "9.1.0-alpha.11",
