@@ -1,11 +1,15 @@
-import Gio from "@girs/gio-2.0";
+import Gdk from "@girs/gdk-4.0";
 import GLib from "@girs/glib-2.0";
 import Graphene from "@girs/graphene-1.0";
 import Gtk from "@girs/gtk-4.0";
 import { donationsAllowed } from "@gjsify/distribution";
 import { learnController, supportPromptService } from "@learn6502/common-ui";
 import type { SupportPromptStore } from "@learn6502/common-ui";
-import { notificationService, settings, supportUrl } from "@learn6502/ui";
+
+import { notificationService } from "../notification.service.ts";
+import { settings } from "../settings.ts";
+import { _ } from "../translate.ts";
+import { supportUrl } from "./about.ts";
 
 const SETTINGS_KEY = "support-prompt-years";
 const FIRST_CHAPTER = "introduction";
@@ -38,7 +42,7 @@ function reachedSecondChapter(scroll: Gtk.ScrolledWindow, headings: Gtk.Label[])
 }
 
 /** Show the support toast, unless the channel forbids it or this year already had one. */
-export function promptSupport(window: Gtk.Window): void {
+export function promptSupport(scroll: Gtk.Widget): void {
   if (!supportPromptService.claim(store, donationsAllowed(), new Date().getFullYear())) return;
   notificationService.showNotification({
     // TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
@@ -47,18 +51,15 @@ export function promptSupport(window: Gtk.Window): void {
     action: {
       label: _("Support"),
       callback: () => {
-        try {
-          Gio.AppInfo.launch_default_for_uri(supportUrl(), window.get_display().get_app_launch_context());
-        } catch (error) {
-          console.error(`Could not open the support page: ${error}`);
-        }
+        const root = scroll.get_root();
+        if (root instanceof Gtk.Window) Gtk.show_uri(root, supportUrl(), Gdk.CURRENT_TIME);
       },
     },
   });
 }
 
-/** Watch the tutorial's scroller and call `onDone` once, when the first chapter is finished. */
-export function watchFirstChapter(window: Gtk.Window, scroll: Gtk.ScrolledWindow): void {
+/** Watch the tutorial's scroller and show the support prompt once, when the first chapter is finished. */
+export function watchFirstChapter(scroll: Gtk.ScrolledWindow): void {
   if (!donationsAllowed()) return;
   const adjustment = scroll.get_vadjustment();
   let headings: Gtk.Label[] = [];
@@ -67,6 +68,6 @@ export function watchFirstChapter(window: Gtk.Window, scroll: Gtk.ScrolledWindow
     if (!reachedSecondChapter(scroll, headings)) return;
     adjustment.disconnect(id);
     learnController.markSectionCompleted(FIRST_CHAPTER);
-    promptSupport(window);
+    promptSupport(scroll);
   });
 }

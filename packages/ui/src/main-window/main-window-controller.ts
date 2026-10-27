@@ -22,6 +22,7 @@ import type { Learn } from "../learn/learn.ts";
 import type { MainButton } from "../main-button.ts";
 import type { MainWindowServices } from "./services.ts";
 import type { MainWindowShell, ShellAction } from "./shell.ts";
+import { watchFirstChapter } from "./support-prompt.ts";
 import { WindowBehaviour } from "./window-behaviour.ts";
 
 /** The screens the window shows; the platform builds them and the shell places them. */
@@ -102,6 +103,7 @@ export class MainWindowController implements MainView {
     this.setupActions();
     this.setupGameConsoleBridge();
     this.setupLearnListeners();
+    watchFirstChapter(this.parts.learn.scrolledWindows[0]);
     this.setupEditorListeners();
     this.setupDebuggerListeners();
     this.setupMainStateListeners();
