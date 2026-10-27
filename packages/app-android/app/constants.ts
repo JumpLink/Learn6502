@@ -12,17 +12,3 @@ export const APPLICATION_ID = "eu.jumplink.Learn6502";
 
 /** The prefix of app-gnome's GResource, `resource-base-path` of the application id */
 export const RESOURCES_PATH = "/eu/jumplink/Learn6502";
-
-// ============================================================================
-// Enums
-// ============================================================================
-
-/**
- * Describes the system contrast mode
- * Values match Android UiModeManager contrast levels
- */
-export enum ContrastMode {
-  NORMAL = "normal",
-  MEDIUM = "medium",
-  HIGH = "high",
-}

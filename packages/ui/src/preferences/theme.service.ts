@@ -73,6 +73,9 @@ class ThemeService extends BaseThemeService {
       });
     });
 
+    // The StyleManager repaints the system accent itself; only the style hook follows high contrast
+    this.styleManager.connect("notify::high-contrast", () => this.refreshThemedWidgets());
+
     // Sync classes on theme/primary/accent changes
     this.events.on("theme-changed", () => this.refreshThemedWidgets());
     this.events.on("primary-changed", () => this.refreshThemedWidgets());
@@ -117,6 +120,10 @@ class ThemeService extends BaseThemeService {
 
     const css = parts.length ? `:root { ${parts.join(" ")} }` : "";
     this.updateVariablesCssProviderFromCss(css);
+  }
+
+  public get isHighContrast(): boolean {
+    return this.styleManager?.get_high_contrast() || false;
   }
 
   protected isCurrentlyDarkTheme(): boolean {
@@ -279,6 +286,7 @@ class ThemeService extends BaseThemeService {
     this.clearClasses(widget);
     widget.add_css_class(`mode-${this.currentTheme}`);
     widget.add_css_class(this.isDarkTheme ? "is-dark" : "is-light");
+    if (this.isHighContrast) widget.add_css_class("is-high-contrast");
     if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) {
       widget.add_css_class("primary-none");
     } else {
@@ -296,6 +304,7 @@ class ThemeService extends BaseThemeService {
     widget.remove_css_class("mode-dark");
     widget.remove_css_class("is-dark");
     widget.remove_css_class("is-light");
+    widget.remove_css_class("is-high-contrast");
     widget.remove_css_class("primary-custom");
     widget.remove_css_class("primary-none");
     for (const family of PRIMARY_FAMILIES) {

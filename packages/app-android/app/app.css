@@ -1,10 +1,6 @@
 @import 'tailwindcss';
 @import 'css/_light.css';
-@import 'css/_light-mc.css';
-@import 'css/_light-hc.css';
 @import 'css/_dark.css';
-@import 'css/_dark-mc.css';
-@import 'css/_dark-hc.css';
 
 /* The Libadwaita look for the @gjsify/adwaita-nativescript widgets (rows / groups
    / header bar / view switcher / …). Copied from
@@ -20,8 +16,7 @@ Page {
 }
 
 @custom-variant dark (&:is(.ns-dark *));
-@custom-variant high (&:is(.ns-contrast-high *));
-@custom-variant medium (&:is(.ns-contrast-medium *));
+@custom-variant high (&:is(.is-high-contrast *));
 
 .ns-root {
   --safeAreaInsetTop: 0;

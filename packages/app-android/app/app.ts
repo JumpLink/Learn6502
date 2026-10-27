@@ -5,11 +5,9 @@
 
 import "./engine";
 import { Application, isAndroid } from "@nativescript/core";
-import { localize } from "@nativescript/localize";
+import { androidLaunchEventLocalizationHandler, localize, overrideLocale } from "@nativescript/localize";
 import { registerAdwaita } from "@gjsify/adwaita-nativescript";
 import { initResources } from "./resources";
-import { systemStates, SystemStates } from "./states";
-import { contrastService } from "./services";
 import { appVariables } from "./variables";
 import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
 import { logger } from "./utils";
@@ -38,9 +36,6 @@ try {
       // Initialize app variables first (synchronous)
       appVariables.initialize();
 
-      // Initialize services sequentially
-      contrastService.initialize();
-
       servicesInitialized = true;
       logger.debug("App", "Services initialized");
     } catch (error) {
@@ -51,7 +46,10 @@ try {
     }
   }
 
-  systemStates.events.on(SystemStates.launchEvent, async () => {
+  Application.once(Application.launchEvent, async () => {
+    androidLaunchEventLocalizationHandler();
+    // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
+    overrideLocale("de-DE");
     await initializeServices();
   });
 

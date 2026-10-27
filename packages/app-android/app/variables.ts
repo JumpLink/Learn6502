@@ -11,7 +11,6 @@
  */
 
 import { Application, Screen, Utils } from "@nativescript/core";
-import { systemStates } from "./states";
 import { logger } from "./utils";
 
 /**
