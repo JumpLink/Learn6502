@@ -11,6 +11,7 @@ import {
   notificationService,
   type Debugger,
   type Editor,
+  FileService,
   type GameConsole,
   type Learn,
   type MainButton,
@@ -23,7 +24,6 @@ import {
 import { HelpWindow } from "./help.window.ts";
 import { GtkMainWindowShell } from "./main.window.shell.ts";
 import { copyToClipboard } from "../utils.ts";
-import { fileService } from "../services";
 import { watchFirstChapter } from "../support-prompt.ts";
 
 import Template from "./main.window.blp";
@@ -97,11 +97,12 @@ export class MainWindow extends Adw.ApplicationWindow {
     this._learn.navigateBack();
   }
 
+  private readonly fileService = new FileService({ parent: () => this });
+
   constructor(application: Adw.Application) {
     super({ application });
 
     this._menuButton.set_menu_model(createMainMenu({ preferences: true }));
-    fileService.init(this);
     notificationService.init(this, this._toastOverlay);
     // Register this window to receive mode/accent classes automatically
     themeService.registerThemedWidget(this);
@@ -139,13 +140,13 @@ export class MainWindow extends Adw.ApplicationWindow {
   private createServices(): MainWindowServices {
     return {
       files: {
-        openFile: () => fileService.openFile(),
-        saveFile: async (content) => (await fileService.saveFile(content)) || false,
-        saveFileAs: (content, suggestedName) => fileService.saveFileAs(content, suggestedName),
-        getCurrentFileName: () => fileService.getCurrentFileName() || "",
-        hasCurrentFile: () => fileService.getCurrentGioFile() !== null,
-        hasUnsavedChanges: () => fileService.hasUnsavedChanges(),
-        setUnsavedChanges: (hasChanges) => fileService.setUnsavedChanges(hasChanges),
+        openFile: () => this.fileService.openFile(),
+        saveFile: async (content) => (await this.fileService.saveFile(content)) || false,
+        saveFileAs: (content, suggestedName) => this.fileService.saveFileAs(content, suggestedName),
+        getCurrentFileName: () => this.fileService.getCurrentFileName() || "",
+        hasCurrentFile: () => this.fileService.hasCurrentFile(),
+        hasUnsavedChanges: () => this.fileService.hasUnsavedChanges(),
+        setUnsavedChanges: (hasChanges) => this.fileService.setUnsavedChanges(hasChanges),
       },
       settings: {
         getInt: (key) => settings.get_int(key),

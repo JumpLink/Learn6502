@@ -1,12 +1,14 @@
 import { Application, ApplicationSettings, Utils } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
-import { notificationService, type MainWindowServices } from "@learn6502/ui";
-import { FileService } from "./file.service";
+import { FileService, notificationService, type MainWindowServices } from "@learn6502/ui";
+import { showError } from "~/utils";
 
 /** Learn6502 project repository — the "share your example" destination. */
 const SHARE_URL = "https://github.com/JumpLink/Learn6502";
 
-const fileService = new FileService();
+const fileService = new FileService({
+  onError: (message, error) => showError(error, { forcedMessage: message, showAsNotification: true }),
+});
 
 function copyToClipboard(text: string): boolean {
   if (!Application.android) return false;
@@ -35,7 +37,7 @@ export function createMainWindowServices(showHelp: () => void): MainWindowServic
       saveFile: (content) => fileService.saveFile(content),
       saveFileAs: (content, suggestedName) => fileService.saveFileAs(content, suggestedName),
       getCurrentFileName: () => fileService.getCurrentFileName(),
-      hasCurrentFile: () => fileService.getCurrentFileUri() !== null,
+      hasCurrentFile: () => fileService.hasCurrentFile(),
       hasUnsavedChanges: () => fileService.hasUnsavedChanges(),
       setUnsavedChanges: (hasChanges) => fileService.setUnsavedChanges(hasChanges),
     },

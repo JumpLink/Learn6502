@@ -23,6 +23,7 @@ import {
   themeService,
   type Debugger,
   type Editor,
+  FileService,
   type GameConsole,
   type Learn,
   type MainButton,
@@ -32,7 +33,6 @@ import mainWindowTree from "../../../app-gnome/src/views/main.window.blp?shared-
 
 import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
 import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
-import { FileService } from "./file.service.js";
 import { DomMainWindowShell, type DomScreens } from "./main-window.shell.js";
 import { injectShellStyles } from "./styles.js";
 
