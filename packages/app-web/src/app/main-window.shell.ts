@@ -53,7 +53,7 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
     this.window = parts.window;
     // `notify::*` bubbles in the DOM, so a nested stack's must not count as this one's
     parts.stack.addEventListener("notify::visible-child-name", (event) => {
-      if (event.target === parts.stack) this.onStackChanged(parts.stack.visibleChildName);
+      if (event.target === parts.stack) this.onStackChanged(parts.stack.get_visible_child_name() ?? "");
     });
   }
 
@@ -65,7 +65,7 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
   // --- Layout ---
 
   isDesktopLayout(): boolean {
-    return this.parts.layoutHost.visibleChildName === "three";
+    return this.parts.layoutHost.get_visible_child_name() === "three";
   }
 
   onLayoutChanged(handler: () => void): void {
@@ -85,25 +85,29 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
   private mountSingleLayout(): void {
     const { stack, switcherBar } = this.parts;
     const keep = STACK_PAGES.find((page) => page.view === this.current)?.id ?? "editor";
-    for (const page of stack.pages.map((candidate) => candidate.name)) stack.removePage(page);
-    for (const page of STACK_PAGES) stack.add(this.element(page.id), page.id, page.title(), page.icon);
-    switcherBar.setStack(stack);
+    this.removeStackPages();
+    for (const page of STACK_PAGES) stack.add_titled_with_icon(this.element(page.id), page.id, page.title(), page.icon);
+    switcherBar.set_stack(stack);
     this.screens.debugger.scrollable = true;
-    stack.visibleChildName = keep;
-    this.onStackChanged(stack.visibleChildName);
+    stack.set_visible_child_name(keep);
+    this.onStackChanged(stack.get_visible_child_name() ?? "");
+  }
+
+  private removeStackPages(): void {
+    for (const page of STACK_PAGES) this.parts.stack.remove(this.element(page.id));
   }
 
   private mountThreeColumnLayout(): void {
-    const { stack, switcherBar } = this.parts;
-    for (const page of stack.pages.map((candidate) => candidate.name)) stack.removePage(page);
+    const { switcherBar } = this.parts;
+    this.removeStackPages();
     this.parts.leftColumn.replaceChildren(this.element("learn"));
     this.parts.centerColumn.replaceChildren(this.element("editor"));
     this.parts.rightTopBox.replaceChildren(this.element("gameConsole"));
     this.parts.rightBottomBox.replaceChildren(this.element("debugger"));
-    for (const page of STACK_PAGES) this.element(page.id).hidden = false;
+    for (const page of STACK_PAGES) this.screens[page.id].visible = true;
     this.screens.debugger.scrollable = false;
     // No bottom bar in columns; the screens are all on show.
-    switcherBar.setStack(null);
+    switcherBar.set_stack(null);
     this.current = ViewType.EDITOR;
     mainStateController.setViewType(ViewType.EDITOR);
   }
@@ -117,7 +121,7 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
   showView(view: ViewType): void {
     const page = STACK_PAGES.find((candidate) => candidate.view === view);
     if (!page) return;
-    this.parts.stack.visibleChildName = page.id; // notifies if it changed
+    this.parts.stack.set_visible_child_name(page.id); // notifies if it changed
     this.onStackChanged(page.id); // covers the already-on-that-view case
   }
 
@@ -140,7 +144,7 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
   }
 
   setLearnBackVisible(visible: boolean): void {
-    this.parts.learnBackButton.hidden = !visible;
+    this.parts.learnBackButton.visible = visible;
   }
 
   setFileTitle(filename: string): void {
@@ -154,7 +158,7 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
 
   closeSidebarIfOverlay(): void {
     const { leftSidebar } = this.parts;
-    if (this.isDesktopLayout() && leftSidebar.collapsed) leftSidebar.showSidebar = false;
+    if (this.isDesktopLayout() && leftSidebar.collapsed) leftSidebar.set_show_sidebar(false);
   }
 
   isInsideConsole(widget: Element | null): boolean {
@@ -175,7 +179,7 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
     action.connect("activate", () => activate());
     this.window.add_action(action);
     // The window's application runs the accelerators; it is linked before the controller registers actions.
-    if (accels) this.window.application?.set_accels_for_action(`win.${name}`, accels);
+    if (accels) this.window.get_application()?.set_accels_for_action(`win.${name}`, accels);
     return {
       setEnabled: (enabled) => {
         action.enabled = enabled;

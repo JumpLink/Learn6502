@@ -52,11 +52,11 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
     private readonly screens: Screens
   ) {
     this.window = parts.root;
-    parts.stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(parts.stack.visibleChildName));
+    parts.stack.addEventListener(NOTIFY_VISIBLE_CHILD, () => this.onStackChanged(parts.stack.get_visible_child_name() ?? ""));
   }
 
   isDesktopLayout(): boolean {
-    return this.parts.layoutHost.visibleChildName === "three";
+    return this.parts.layoutHost.get_visible_child_name() === "three";
   }
 
   onLayoutChanged(handler: () => void): void {
@@ -78,7 +78,7 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
   showView(view: ViewType): void {
     const page = STACK_PAGES.find((candidate) => candidate.view === view);
     if (!page) return;
-    this.parts.stack.visibleChildName = page.id; // fires notify::visible-child if changed
+    this.parts.stack.set_visible_child_name(page.id); // fires notify::visible-child if changed
     this.onStackChanged(page.id); // covers the already-on-that-view case
   }
 
@@ -87,7 +87,7 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
   }
 
   setLearnBackVisible(visible: boolean): void {
-    this.parts.learnBackButton.visibility = visible ? "visible" : "collapsed";
+    this.parts.learnBackButton.visible = visible;
   }
 
   setFileTitle(filename: string): void {
@@ -100,7 +100,7 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
   }
 
   closeSidebarIfOverlay(): void {
-    if (this.isDesktopLayout() && this.parts.leftSidebar.collapsed) this.parts.leftSidebar.showSidebar = false;
+    if (this.isDesktopLayout() && this.parts.leftSidebar.collapsed) this.parts.leftSidebar.set_show_sidebar(false);
   }
 
   // The focus follow is a desktop-layout matter and nothing here takes the focus.
@@ -119,7 +119,7 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
     action.connect("activate", () => activate());
     this.actionGroup.add_action(action);
     // The window's application keeps the accelerators; it is linked before the controller registers actions.
-    if (accels) this.window.application?.set_accels_for_action(`win.${name}`, accels);
+    if (accels) this.window.get_application()?.set_accels_for_action(`win.${name}`, accels);
     return {
       setEnabled: (enabled) => {
         action.enabled = enabled;
@@ -173,12 +173,12 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
     const { stack, switcherBar } = this.parts;
     const keep = this.currentName ?? STACK_PAGES[1]!.id;
     for (const page of STACK_PAGES) this.detach(this.screens[page.id].view);
-    for (const page of STACK_PAGES) stack.add(this.screens[page.id].view, page.id, page.title(), page.icon);
+    for (const page of STACK_PAGES) stack.add_titled_with_icon(this.screens[page.id].view, page.id, page.title(), page.icon);
     switcherBar.set_stack(stack);
     this.padColumnsForSystemInsets(false);
     this.currentName = null;
-    stack.visibleChildName = keep;
-    this.onStackChanged(stack.visibleChildName);
+    stack.set_visible_child_name(keep);
+    this.onStackChanged(stack.get_visible_child_name() ?? "");
   }
 
   private mountThreeColumnLayout(): void {

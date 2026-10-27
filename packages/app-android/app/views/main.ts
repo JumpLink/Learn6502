@@ -127,7 +127,7 @@ export class MainController {
     this.setupAbout(root);
     // The model is typed against GJS (`Gio.Menu`), the NativeScript button takes its portable twin.
     const menuButton = byId<Gtk.MenuButton>("menuButton");
-    menuButton.menuModel = createMainMenu({ preferences: true }) as unknown as typeof menuButton.menuModel;
+    menuButton.menu_model = createMainMenu({ preferences: true }) as unknown as typeof menuButton.menu_model;
 
     return root;
   }

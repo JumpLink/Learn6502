@@ -121,7 +121,7 @@ export class MainWindow {
 
     const menuButton = this.byId<Gtk.MenuButton>("menuButton");
     // The model is typed against GJS (`Gio.Menu`); the element takes its portable twin.
-    menuButton.menuModel = createMainMenu({ preferences: true }) as unknown as typeof menuButton.menuModel;
+    menuButton.menu_model = createMainMenu({ preferences: true }) as unknown as typeof menuButton.menu_model;
     this.linkApplication();
   }
 
