@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "preserveWatchOutput": true,
-    "lib": ["ESNext"],
+    "lib": ["ESNext", "DOM"],
     "types": ["@learn6502/common-ui/global.d.ts"],
     "target": "ESNext",
     "module": "ESNext",
