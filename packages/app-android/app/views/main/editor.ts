@@ -1,6 +1,7 @@
 import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
 import { Application, ApplicationSettings } from "@nativescript/core";
+import { editorController } from "@learn6502/common-ui";
 import type { Adw } from "@gjsify/adwaita-nativescript";
 import { padSheetForSystemInsets } from "@gjsify/adwaita-nativescript";
 import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
@@ -31,7 +32,8 @@ let restored = false;
 
 /** Persist the code (called when leaving the editor screen or the app). */
 function save(): void {
-  if (current) ApplicationSettings.setString(SETTINGS_CODE, current.buffer.text);
+  editorController.saveState();
+  ApplicationSettings.setString(SETTINGS_CODE, editorController.code);
 }
 
 /**
@@ -55,7 +57,7 @@ export function buildEditorScreen(widget: EditorWidget): ScreenModule<EditorWidg
   if (!restored) {
     // A process killed in the background takes the text with it; it is kept in the app settings
     // when the app leaves the foreground.
-    widget.buffer.text = ApplicationSettings.getString(SETTINGS_CODE, "");
+    editorController.setCode(ApplicationSettings.getString(SETTINGS_CODE, ""));
     Application.on(Application.suspendEvent, save);
     restored = true;
   }
