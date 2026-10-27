@@ -1,4 +1,4 @@
-import type { Page, EventData, View } from "@nativescript/core";
+import type { View } from "@nativescript/core";
 import { Application, GridLayout } from "@nativescript/core";
 
 
@@ -15,7 +15,6 @@ import { ViewType, gameConsoleController } from "@learn6502/common-ui";
 
 // Services / utils
 import { createMainWindowServices } from "~/services/main-window.services";
-import { APPLICATION_ID } from "~/constants";
 import { showError, logger } from "~/utils";
 import { translate } from "~/utils/translate";
 
@@ -54,24 +53,14 @@ export class MainController {
   }
 
   // --- Lifecycle ---
-  public onLoaded(args: EventData): void {
-    const page = args.object as Page;
-
+  /** Build the window from main.window.blp for the application's `activate`. */
+  public build(application: Adw.Application): Adw.ApplicationWindow {
     this.setupAndroidKeyHandling();
-
-    // Build the shell from main.window.blp and install it as the page content.
-    page.content = this.buildShell();
-  }
-
-  public onUnloaded(args: EventData): void {
-    const view = args.object as Page;
-    this.log.debug("unloaded:", view.id);
-    this.controller?.disconnect();
-    this.mainButton?.unbind();
+    return this.buildShell(application);
   }
 
   // --- Shell construction ---
-  private buildShell(): View {
+  private buildShell(application: Adw.Application): Adw.ApplicationWindow {
     // The blueprint builds the screens, so the back button reaches them only once they exist.
     let screens: Screens | null = null;
     const { root, siblings } = buildWithSiblings(mainWindowTree, {
@@ -126,9 +115,6 @@ export class MainController {
     );
     this.controller = controller;
     // The shared main menu; its `app.*` items resolve through the application the window is added to.
-    // Never `runAsync`: NativeScript owns the run loop (`Application.run` in app.ts).
-    const application = new Adw.Application();
-    application.application_id = APPLICATION_ID;
     root.application = application;
     addAppActions(application as unknown as GjsGtk.Application, {
       quit: () => shell.closeWindow(),
@@ -192,7 +178,3 @@ export class MainController {
   }
 }
 
-// Singleton + bound exports for the XML.
-const mainController = new MainController();
-export const onLoaded = mainController.onLoaded.bind(mainController);
-export const onUnloaded = mainController.onUnloaded.bind(mainController);

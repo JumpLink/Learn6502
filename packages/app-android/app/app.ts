@@ -6,11 +6,13 @@
 import "./engine";
 import { Application, isAndroid } from "@nativescript/core";
 import { androidLaunchEventLocalizationHandler, localize, overrideLocale } from "@nativescript/localize";
-import { registerAdwaita } from "@gjsify/adwaita-nativescript";
+import { Adw, registerAdwaita } from "@gjsify/adwaita-nativescript";
 import { initResources } from "./resources";
 import { appVariables } from "./variables";
 import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
 import { logger } from "./utils";
+import { APPLICATION_ID } from "./constants";
+import { MainController } from "./views/main";
 
 if (!isAndroid) {
   throw new Error("This app is only supported on Android");
@@ -46,20 +48,24 @@ try {
     }
   }
 
-  Application.once(Application.launchEvent, async () => {
-    androidLaunchEventLocalizationHandler();
-    // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
-    overrideLocale("de-DE");
-    await initializeServices();
-  });
-
   // Register the native Adwaita widgets (Adw.ToolbarView / Adw.ViewStack / …) as NS
   // XML elements so the Adwaita shell + screens resolve. Idempotent; no-op off NS.
   registerAdwaita();
   initResources();
 
   Application.setResources({ _: localize });
-  Application.run({ moduleName: "app-root" });
+
+  const application = new Adw.Application({ application_id: APPLICATION_ID });
+  application.connect("startup", () => {
+    androidLaunchEventLocalizationHandler();
+    // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
+    overrideLocale("de-DE");
+    void initializeServices();
+  });
+  application.connect("activate", () => {
+    new MainController().build(application);
+  });
+  void application.runAsync([]).catch((error) => logger.error("App", "Application failed:", error));
 } catch (error) {
   // Note: Cannot use showError here as services may not be initialized
   logger.error("App", "Fatal startup error:", error);
