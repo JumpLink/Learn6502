@@ -1,7 +1,7 @@
 import type { View } from "@nativescript/core";
 import { Application } from "@nativescript/core";
 import { localize as _ } from "@nativescript/localize";
-import { Gio, NOTIFY_VISIBLE_CHILD, insertActionGroup, padForSystemInsets } from "@gjsify/adwaita-nativescript";
+import { Gio, NOTIFY_VISIBLE_CHILD, padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import type { Adw, Gtk } from "@gjsify/adwaita-nativescript";
 import { ViewType, mainStateController } from "@learn6502/common-ui";
 import type { MainWindowShell, ShellAction, UnsavedChangesAnswer } from "@learn6502/ui";
@@ -41,7 +41,6 @@ export interface NativeShellParts {
 export class NativeMainWindowShell implements MainWindowShell<View> {
   readonly window: Adw.ApplicationWindow;
 
-  private readonly actionGroup = new Gio.SimpleActionGroup();
   private releaseColumnInsets: (() => void) | null = null;
   private currentName: string | null = null;
   private current: ViewType = ViewType.EDITOR;
@@ -117,7 +116,7 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
   addAction(name: string, activate: () => void, accels?: string[]): ShellAction {
     const action = new Gio.SimpleAction({ name });
     action.connect("activate", () => activate());
-    this.actionGroup.add_action(action);
+    this.window.add_action(action);
     // The window's application keeps the accelerators; it is linked before the controller registers actions.
     if (accels) this.window.get_application()?.set_accels_for_action(`win.${name}`, accels);
     return {
@@ -125,11 +124,6 @@ export class NativeMainWindowShell implements MainWindowShell<View> {
         action.enabled = enabled;
       },
     };
-  }
-
-  /** The `win` action group the main button and the run toolbar fire (their `action-name`s). */
-  insertActions(): void {
-    insertActionGroup(this.parts.root, "win", this.actionGroup);
   }
 
   askUnsavedChanges(): Promise<UnsavedChangesAnswer> {

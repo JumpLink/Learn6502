@@ -122,7 +122,6 @@ export class MainController {
       preferences: () => new PreferencesDialog().present(root as unknown as GjsGtk.Widget),
     });
     controller.init();
-    shell.insertActions();
 
     this.setupAbout(root);
     // The model is typed against GJS (`Gio.Menu`), the NativeScript button takes its portable twin.
