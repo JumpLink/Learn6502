@@ -53,9 +53,8 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
     this.window = parts.window;
     // so `close()` hides the frame instead of detaching it and leaving a blank page
     parts.window.hide_on_close = true;
-    // `notify::*` bubbles in the DOM, so a nested stack's must not count as this one's
-    parts.stack.addEventListener("notify::visible-child-name", (event) => {
-      if (event.target === parts.stack) this.onStackChanged(parts.stack.get_visible_child_name() ?? "");
+    parts.stack.connect("notify::visible-child-name", () => {
+      this.onStackChanged(parts.stack.get_visible_child_name() ?? "");
     });
   }
 
@@ -72,8 +71,7 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
 
   onLayoutChanged(handler: () => void): void {
     const { layoutHost } = this.parts;
-    layoutHost.addEventListener("notify::visible-child-name", (event) => {
-      if (event.target !== layoutHost) return;
+    layoutHost.connect("notify::visible-child-name", () => {
       this.mountLayout();
       handler();
     });
