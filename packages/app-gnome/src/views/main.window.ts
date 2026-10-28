@@ -19,10 +19,10 @@ import {
   settings,
   ShareDialog,
   themeService,
+  WindowShell,
 } from "@learn6502/ui";
 
 import { HelpWindow } from "./help.window.ts";
-import { GtkMainWindowShell } from "./main.window.shell.ts";
 import { copyToClipboard } from "../utils.ts";
 
 import Template from "./main.window.blp";
@@ -48,6 +48,7 @@ export class MainWindow extends Adw.ApplicationWindow {
   declare private _centerColumn: Gtk.Box;
   declare private _rightTopBox: Gtk.Box;
   declare private _rightBottomBox: Gtk.Box;
+  declare private _rightColumnContent: Gtk.Box;
 
   static {
     GObject.registerClass(
@@ -113,7 +114,7 @@ export class MainWindow extends Adw.ApplicationWindow {
       debugger: this._debugger,
     };
     new MainWindowController(
-      new GtkMainWindowShell(this, {
+      new WindowShell(this, {
         ...screens,
         stack: this._stack,
         switcherBar: this._switcherBar,
@@ -123,6 +124,7 @@ export class MainWindow extends Adw.ApplicationWindow {
         centerColumn: this._centerColumn,
         rightTopBox: this._rightTopBox,
         rightBottomBox: this._rightBottomBox,
+        rightColumnContent: this._rightColumnContent,
         unsavedChangesDialog: this._unsavedChangesDialog,
         titleLabel: this._titleLabel,
         unsavedChangesIndicator: this._unsavedChangesIndicator,

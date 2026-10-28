@@ -1,4 +1,5 @@
-import type { Debugger, GameConsole, Learn, Editor } from "@learn6502/ui";
+import { ViewType } from "@learn6502/common-ui";
+import type { Debugger, GameConsole, Learn, Editor, WindowShell } from "@learn6502/ui";
 import { buildEditorScreen, type ScreenModule } from "./editor";
 import { buildLearnScreen } from "./learn";
 import { buildDebuggerScreen } from "./debugger";
@@ -10,6 +11,36 @@ export interface Screens {
   editor: ScreenModule<Editor>;
   debugger: ScreenModule<Debugger>;
   gameConsole: ScreenModule<GameConsole>;
+}
+
+const SCREEN_OF_VIEW: Partial<Record<ViewType, keyof Screens>> = {
+  [ViewType.LEARN]: "learn",
+  [ViewType.EDITOR]: "editor",
+  [ViewType.DEBUGGER]: "debugger",
+  [ViewType.GAME_CONSOLE]: "gameConsole",
+};
+
+/**
+ * Tell each screen when it comes on show and when it leaves: one at a time in the stack, all of
+ * them at once in the columns.
+ */
+export function bindScreenLifecycle(shell: WindowShell, screens: Screens): void {
+  let shown: ViewType | null = null;
+
+  const screenOf = (view: ViewType | null) => (view ? screens[SCREEN_OF_VIEW[view] ?? "learn"] : null);
+
+  shell.onActiveViewChanged((view) => {
+    if (view === shown) return;
+    screenOf(shown)?.onHide?.();
+    screenOf(view)?.onShow?.();
+    shown = view;
+  });
+
+  shell.onLayoutChanged(() => {
+    if (!shell.isDesktopLayout()) return;
+    shown = null;
+    for (const screen of Object.values(screens)) screen.onShow?.();
+  });
 }
 
 /**

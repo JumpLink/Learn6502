@@ -1,6 +1,4 @@
-import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
-import { padForSystemInsets } from "@gjsify/adwaita-nativescript";
 import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 import { translate } from "~/utils/translate";
 import type { LearnView, LearnViewEventMap } from "@learn6502/common-ui";
@@ -30,14 +28,12 @@ function setTutorialView(view: TutorialView): void {
 registerTemplateClass("TutorialView", LearnTutorialView);
 
 /**
- * Learn view — implements LearnView. Thin glue around the shared `@learn6502/ui` Learn: the
- * shell's back button and the system insets are Android's own.
+ * Learn view — implements LearnView. Thin glue around the shared `@learn6502/ui` Learn.
  */
 class Learn implements LearnView {
   readonly events = new EventDispatcher<LearnViewEventMap>();
 
   private widget: LearnWidget | null = null;
-  private releaseInsets: (() => void)[] = [];
   private log = logger.scoped("Learn");
 
   adopt(widget: LearnWidget): void {
@@ -52,18 +48,6 @@ class Learn implements LearnView {
   /** Whether a subpage (Tutorial/Examples) is open — drives the shell's header back button. */
   get hasVisibleSubpage(): boolean {
     return this.widget?.hasVisibleSubpage ?? false;
-  }
-
-  /** Whether the pages reach the screen's bottom edge (the wide layout): their scrolling content
-   *  then ends a gesture area higher, while the page background runs on to the edge. */
-  padSystemInsets(on: boolean): void {
-    for (const release of this.releaseInsets) release();
-    this.releaseInsets = [];
-    if (!on || !this.widget) return;
-    // The scrollers are typed against the GJS bindings; at run time their children are NativeScript views.
-    this.releaseInsets = this.widget.scrolledWindows.map((scroll) =>
-      padForSystemInsets(scroll.get_child() as unknown as View)
-    );
   }
 
   // --- LearnView interface ---
@@ -85,8 +69,7 @@ export function buildLearnScreen(widget: LearnWidget): ScreenModule<LearnWidget>
     // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
     view: asView(widget),
     widget,
-    onHide: () => learnView.saveScrollPosition(),
-    padSystemInsets: (on) => learnView.padSystemInsets(on),
+
   };
 }
 

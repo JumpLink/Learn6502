@@ -1,10 +1,11 @@
 import type { View } from "@nativescript/core";
-import { Application, GridLayout } from "@nativescript/core";
+import { Application } from "@nativescript/core";
 
 
 // Adwaita native widgets
 import { Adw } from "@gjsify/adwaita-nativescript";
 import type { Gtk } from "@gjsify/adwaita-nativescript";
+import type GjsAdw from "@girs/adw-1";
 import type GjsGtk from "@girs/gtk-4.0";
 import { buildWithSiblings } from "@gjsify/adwaita-nativescript/builder";
 // The GNOME app's own main window Blueprint, built by the shared-tree builder: its `Adw.Breakpoint`s
@@ -29,10 +30,10 @@ import {
   settings,
   themeService,
   type MainButton,
+  WindowShell,
 } from "@learn6502/ui";
-import { createScreens, type Screens } from "./main/screens";
+import { bindScreenLifecycle, createScreens, type Screens } from "./main/screens";
 import { simulatorStack } from "./main/game-console";
-import { NativeMainWindowShell } from "./main/shell";
 
 /**
  * The Android shell around the shared `MainWindowController`: the window built from the GNOME app's
@@ -43,10 +44,9 @@ import { NativeMainWindowShell } from "./main/shell";
 export class MainController {
   private log = logger.scoped("MainController");
 
-  private shell: NativeMainWindowShell | null = null;
+  private shell: WindowShell | null = null;
   private controller: MainWindowController | null = null;
   private mainButton: MainButton | null = null;
-  private about: Adw.AboutDialog | null = null;
 
   constructor() {
     this.log.debug("Initialized");
@@ -74,27 +74,33 @@ export class MainController {
     // The widgets are typed against the GJS bindings, but at run time they are NativeScript views.
     const byId = <T>(id: string): T => root.getViewById<View>(id) as unknown as T;
 
-    const shell = new NativeMainWindowShell(
+    const shell = new WindowShell(
+      root as unknown as GjsAdw.ApplicationWindow,
       {
-        root,
-        stack: byId<Adw.ViewStack>("stack"),
-        switcherBar: byId<Adw.ViewSwitcherBar>("switcherBar"),
-        layoutHost: byId<Gtk.Stack>("layoutHost"),
-        leftSidebar: byId<Adw.OverlaySplitView>("leftSidebar"),
-        leftColumn: byId<Gtk.Box>("leftColumn"),
-        centerColumn: byId<Gtk.Box>("centerColumn"),
-        rightTopBox: byId<Gtk.Box>("rightTopBox"),
-        rightBottomBox: byId<Gtk.Box>("rightBottomBox"),
-        rightColumnContent: byId<Gtk.Box>("rightColumnContent"),
+        learn: screens.learn.widget,
+        editor: screens.editor.widget,
+        debugger: screens.debugger.widget,
+        gameConsole: screens.gameConsole.widget,
+        stack: byId<GjsAdw.ViewStack>("stack"),
+        switcherBar: byId<GjsAdw.ViewSwitcherBar>("switcherBar"),
+        layoutHost: byId<GjsGtk.Stack>("layoutHost"),
+        leftSidebar: byId<GjsAdw.OverlaySplitView>("leftSidebar"),
+        leftColumn: byId<GjsGtk.Box>("leftColumn"),
+        centerColumn: byId<GjsGtk.Box>("centerColumn"),
+        rightTopBox: byId<GjsGtk.Box>("rightTopBox"),
+        rightBottomBox: byId<GjsGtk.Box>("rightBottomBox"),
+        rightColumnContent: byId<GjsGtk.Box>("rightColumnContent"),
         // A sibling of the window and not a view: it presents through the platform's dialog.
-        unsavedChangesDialog: siblings.get("unsavedChangesDialog") as Adw.AlertDialog,
-        titleLabel: byId<Gtk.Label>("titleLabel"),
-        unsavedChangesIndicator: byId<Gtk.Button>("unsavedChangesIndicator"),
-        learnBackButton: byId<Gtk.Button>("learnBackButton"),
+        unsavedChangesDialog: siblings.get("unsavedChangesDialog") as unknown as GjsAdw.AlertDialog,
+        titleLabel: byId<GjsGtk.Label>("titleLabel"),
+        unsavedChangesIndicator: byId<GjsGtk.Button>("unsavedChangesIndicator"),
+        learnBackButton: byId<GjsGtk.Button>("learnBackButton"),
       },
-      screens
+      { initialView: ViewType.EDITOR }
     );
     this.shell = shell;
+    // Before the controller's own handlers, so a screen is shown before the window reacts to it.
+    bindScreenLifecycle(shell, screens);
     themeService.init(settings);
     themeService.registerThemedWidget(root as unknown as GjsGtk.Widget);
     this.mainButton = byId<MainButton>("mainButton");
@@ -116,32 +122,20 @@ export class MainController {
     this.controller = controller;
     // The shared main menu; its `app.*` items resolve through the application the window is added to.
     root.application = application;
+    // Presented over the window, which hosts it and so lets the hardware back button close it.
+    const about = createAboutDialog(__APP_VERSION__);
     addAppActions(application as unknown as GjsGtk.Application, {
       quit: () => shell.closeWindow(),
-      about: () => this.about?.present(),
+      about: () => about.present(root as unknown as GjsGtk.Widget),
       preferences: () => new PreferencesDialog().present(root as unknown as GjsGtk.Widget),
     });
     controller.init();
 
-    this.setupAbout(root);
     // The model is typed against GJS (`Gio.Menu`), the NativeScript button takes its portable twin.
     const menuButton = byId<Gtk.MenuButton>("menuButton");
     menuButton.menu_model = createMainMenu({ preferences: true }) as unknown as typeof menuButton.menu_model;
 
     return root;
-  }
-
-  /**
-   * About dialog — an in-page modal card painted over everything (the window's last child),
-   * revealed from the app menu. Mirrors the GNOME app's Adw.AboutDialog.new_from_appdata(metainfo,
-   * version).
-   */
-  private setupAbout(root: View): void {
-    const about = createAboutDialog(__APP_VERSION__) as unknown as Adw.AboutDialog;
-    this.about = about;
-    GridLayout.setRow(about, 0);
-    GridLayout.setColumn(about, 0);
-    (root as GridLayout).addChild(about);
   }
 
   // --- Setup helpers ---

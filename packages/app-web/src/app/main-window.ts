@@ -5,9 +5,10 @@
  * `main.window.blp`, whose `Adw.Breakpoint`s move the four screens between the view stack and the
  * three columns. The window's logic — navigation, the run/step/assemble flow, files and the
  * unsaved-changes guard — is the shared `MainWindowController`; this file injects what the browser
- * provides (file pickers, clipboard, toasts). Placing the screens is `DomMainWindowShell`'s.
+ * provides (file pickers, clipboard, toasts). Placing the screens is the shared `WindowShell`'s.
  */
 
+import type GjsAdw from "@girs/adw-1";
 import type GjsGtk from "@girs/gtk-4.0";
 import { Adw, buildWithSiblings, type Gtk } from "@gjsify/adwaita-web";
 import { ViewType, editorController, mainStateController } from "@learn6502/common-ui";
@@ -28,12 +29,12 @@ import {
   type Learn,
   type MainButton,
   type MainWindowServices,
+  WindowShell,
 } from "@learn6502/ui";
 import mainWindowTree from "../../../app-gnome/src/views/main.window.blp?shared-tree";
 
 import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
 import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
-import { DomMainWindowShell, type DomScreens } from "./main-window.shell.js";
 import { injectShellStyles } from "./styles.js";
 
 /** The application id, as in the GNOME app. */
@@ -59,9 +60,9 @@ export class MainWindow {
   public readonly root: Adw.ApplicationWindow;
 
   private readonly fileService = new FileService();
-  private readonly screens: DomScreens;
+  private readonly screens: { learn: Learn; editor: Editor; debugger: Debugger; gameConsole: GameConsole };
   private readonly objects: ReadonlyMap<string, HTMLElement>;
-  private readonly shell: DomMainWindowShell;
+  private readonly shell: WindowShell;
   private controller: MainWindowController | null = null;
 
   constructor() {
@@ -98,25 +99,28 @@ export class MainWindow {
       this.byId<Parameters<typeof notificationService.init>[1]>("toastOverlay")
     );
 
-    const unsavedChangesDialog = sibling<Adw.AlertDialog>("unsavedChangesDialog");
-
-    this.shell = new DomMainWindowShell(
+    // so `close()` hides the frame instead of detaching it and leaving a blank page
+    root.hide_on_close = true;
+    // The shell is typed against the GJS bindings; at run time these are custom elements.
+    this.shell = new WindowShell(
+      root as unknown as GjsAdw.ApplicationWindow,
       {
-        window: root,
-        stack: this.byId<Adw.ViewStack>("stack"),
-        switcherBar: this.byId<Adw.ViewSwitcherBar>("switcherBar"),
-        layoutHost: this.byId<Gtk.Stack>("layoutHost"),
-        leftSidebar: this.byId<Adw.OverlaySplitView>("leftSidebar"),
-        leftColumn: this.byId<Gtk.Box>("leftColumn"),
-        centerColumn: this.byId<Gtk.Box>("centerColumn"),
-        rightTopBox: this.byId<Gtk.Box>("rightTopBox"),
-        rightBottomBox: this.byId<Gtk.Box>("rightBottomBox"),
-        unsavedChangesDialog,
-        titleLabel: this.byId<Gtk.Label>("titleLabel"),
-        unsavedChangesIndicator: this.byId<Gtk.Button>("unsavedChangesIndicator"),
-        learnBackButton: this.byId<Gtk.Button>("learnBackButton"),
+        ...this.screens,
+        stack: this.byId<GjsAdw.ViewStack>("stack"),
+        switcherBar: this.byId<GjsAdw.ViewSwitcherBar>("switcherBar"),
+        layoutHost: this.byId<GjsGtk.Stack>("layoutHost"),
+        leftSidebar: this.byId<GjsAdw.OverlaySplitView>("leftSidebar"),
+        leftColumn: this.byId<GjsGtk.Box>("leftColumn"),
+        centerColumn: this.byId<GjsGtk.Box>("centerColumn"),
+        rightTopBox: this.byId<GjsGtk.Box>("rightTopBox"),
+        rightBottomBox: this.byId<GjsGtk.Box>("rightBottomBox"),
+        rightColumnContent: this.byId<GjsGtk.Box>("rightColumnContent"),
+        unsavedChangesDialog: sibling<GjsAdw.AlertDialog>("unsavedChangesDialog"),
+        titleLabel: this.byId<GjsGtk.Label>("titleLabel"),
+        unsavedChangesIndicator: this.byId<GjsGtk.Button>("unsavedChangesIndicator"),
+        learnBackButton: this.byId<GjsGtk.Button>("learnBackButton"),
       },
-      this.screens
+      { initialView: ViewType.EDITOR }
     );
 
     const menuButton = this.byId<Gtk.MenuButton>("menuButton");

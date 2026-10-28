@@ -29,6 +29,7 @@ export * from "./main-window/menu.ts";
 export * from "./main-window/services.ts";
 export * from "./main-window/shell.ts";
 export * from "./main-window/window-behaviour.ts";
+export * from "./main-window/window-shell.ts";
 export * from "./toolbar.ts";
 export * from "./gutter-renderer-mode.ts";
 export * from "./source-view.ts";
