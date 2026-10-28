@@ -51,6 +51,8 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
     private readonly screens: DomScreens
   ) {
     this.window = parts.window;
+    // so `close()` hides the frame instead of detaching it and leaving a blank page
+    parts.window.hide_on_close = true;
     // `notify::*` bubbles in the DOM, so a nested stack's must not count as this one's
     parts.stack.addEventListener("notify::visible-child-name", (event) => {
       if (event.target === parts.stack) this.onStackChanged(parts.stack.get_visible_child_name() ?? "");
@@ -100,10 +102,10 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
   private mountThreeColumnLayout(): void {
     const { switcherBar } = this.parts;
     this.removeStackPages();
-    this.parts.leftColumn.replaceChildren(this.element("learn"));
-    this.parts.centerColumn.replaceChildren(this.element("editor"));
-    this.parts.rightTopBox.replaceChildren(this.element("gameConsole"));
-    this.parts.rightBottomBox.replaceChildren(this.element("debugger"));
+    this.parts.leftColumn.append(this.element("learn"));
+    this.parts.centerColumn.append(this.element("editor"));
+    this.parts.rightTopBox.append(this.element("gameConsole"));
+    this.parts.rightBottomBox.append(this.element("debugger"));
     for (const page of STACK_PAGES) this.screens[page.id].visible = true;
     this.screens.debugger.scrollable = false;
     // No bottom bar in columns; the screens are all on show.
@@ -201,9 +203,6 @@ export class DomMainWindowShell implements MainWindowShell<Element> {
   }
 
   closeWindow(): void {
-    // `GtkWindow.close()` would detach the frame and leave a blank page, so only its `close-request` runs
-    const request = new CustomEvent("close-request", { bubbles: true, cancelable: true });
-    this.window.dispatchEvent(request);
-    if (!request.defaultPrevented) window.close();
+    this.window.close();
   }
 }
