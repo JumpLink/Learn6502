@@ -45,7 +45,10 @@ export default defineNativescriptConfig(
   {
     giRenderer: true,
     // The shared UI's gettext catalogues, staged as `.mo` for the Android GLib gettext.
-    locale: { poDirectory: fileURLToPath(new URL("../translations", import.meta.url)), domain: "eu.jumplink.Learn6502" },
+    locale: {
+      poDirectory: fileURLToPath(new URL("../translations", import.meta.url)),
+      domain: "eu.jumplink.Learn6502",
+    },
   },
   {
     // `.blp` files are imported as `?shared-tree` (the editor widget) or `?template` (the shared
