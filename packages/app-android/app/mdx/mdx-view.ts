@@ -1,7 +1,7 @@
 import type { View } from "@nativescript/core";
 import { ContentView, Builder, HtmlView } from "@nativescript/core";
-import { localize } from "@nativescript/localize";
 import { EventDispatcher } from "@learn6502/core";
+import { _ } from "@learn6502/ui";
 import type { SourceViewEventMap, SourceViewCopyEvent } from "@learn6502/common-ui";
 import { SourceView } from "~/widgets/source-view";
 import { logger } from "~/utils";
@@ -101,7 +101,7 @@ export abstract class MdxView extends ContentView {
       let html: string | undefined;
       const originalHtml = htmlView.html;
       try {
-        html = localize(htmlView.html);
+        html = _(htmlView.html);
       } catch (error) {
         logger.error("MdxView", `Error localizing HTML string "${originalHtml}":`, error);
       }

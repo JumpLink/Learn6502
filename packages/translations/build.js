@@ -1,4 +1,4 @@
-import { gettextPlugin, xgettextPlugin, po2jsonPlugin } from "@gjsify/vite-plugin-gettext";
+import { gettextPlugin, xgettextPlugin } from "@gjsify/vite-plugin-gettext";
 import { existsSync, readFileSync } from "node:fs";
 
 const APPLICATION_ID = "eu.jumplink.Learn6502";
@@ -88,24 +88,10 @@ const gettext = gettextPlugin({
   verbose: true,
 });
 
-// Convert PO files to JSON files
-const po2json = po2jsonPlugin({
-  poDirectory: ".",
-  jsonDirectory: "../app-android/app/i18n",
-  defaultLanguage: "en",
-  verbose: true,
-  additionalTranslations: {
-    // 'app.name' is a required key for the Android app
-    "app.name": "Learn 6502",
-  },
-});
-
 // Start the extraction process
 await xgettext.buildStart();
 // Start the compilation process
 await gettext.buildStart();
-// Start the conversion process
-await po2json.buildStart();
 
 // Force a clean exit. Under GJS the gettext plugins' `Gio.Subprocess` calls
 // (xgettext/msgfmt) leave the GLib main loop armed, so this one-shot generator

@@ -1,6 +1,5 @@
 import { Application, ApplicationSettings, Utils } from "@nativescript/core";
-import { localize as _ } from "@nativescript/localize";
-import { FileService, notificationService, type MainWindowServices } from "@learn6502/ui";
+import { _, FileService, notificationService, type MainWindowServices } from "@learn6502/ui";
 import { showError } from "~/utils";
 
 /** Learn6502 project repository — the "share your example" destination. */

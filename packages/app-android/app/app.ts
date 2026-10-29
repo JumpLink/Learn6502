@@ -4,8 +4,7 @@
  */
 
 import "./engine";
-import { Application, isAndroid } from "@nativescript/core";
-import { androidLaunchEventLocalizationHandler, localize } from "@nativescript/localize";
+import { isAndroid } from "@nativescript/core";
 import { initLocale } from "@gjsify/adwaita-app/locale";
 import { Adw, registerAdwaita } from "@gjsify/adwaita-nativescript";
 import type GjsAdw from "@girs/adw-1";
@@ -60,11 +59,8 @@ try {
   registerAdwaita();
   initResources();
 
-  Application.setResources({ _: localize });
-
   const application = new Adw.Application({ application_id: APPLICATION_ID });
   application.connect("startup", () => {
-    androidLaunchEventLocalizationHandler();
     void initializeServices();
   });
   application.connect("activate", () => {

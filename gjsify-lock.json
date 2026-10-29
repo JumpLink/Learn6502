@@ -15,7 +15,6 @@
     "@gjsify/gtksource-nativescript@0.64.1-next.245",
     "@gjsify/node-gi@^0.64.1",
     "@nativescript/core@~9.1.3",
-    "@nativescript/localize@^5.2.0",
     "@nativescript/tailwind@^4.0.9",
     "tailwindcss@^4.3.0",
     "@gjsify/nativescript-vite@0.64.1-next.245",
@@ -4990,17 +4989,6 @@
       "version": "3.0.5",
       "resolved": "https://registry.npmjs.org/@nativescript/hook/-/hook-3.0.5.tgz",
       "integrity": "sha512-MzL7R/nPZU2qnvDWWuJ8RB7H3luEwANgFX/d/ILdg7bSYxl6uANCfzlueHnWgrQmBxu6dTkvPsFW2WNVUxlhUg=="
-    },
-    "node_modules/@nativescript/localize": {
-      "version": "5.2.0",
-      "resolved": "https://registry.npmjs.org/@nativescript/localize/-/localize-5.2.0.tgz",
-      "integrity": "sha512-tXuC4d+bFLVDfDpRVd2E0IwjHxsTqKDHDWlc0B5+DpWF7vXlhvVrOI2oSpwM+Zo4GLOY+6XvJ1crwdPvpT4Lpg==",
-      "dependencies": {
-        "mkdirp": "^1.0.4",
-        "shorthash": "0.0.2",
-        "sprintf-js": "^1.1.1",
-        "simple-plist": "^1.1.0"
-      }
     },
     "node_modules/@nativescript/tailwind": {
       "version": "4.0.10",
@@ -10992,11 +10980,11 @@
       }
     },
     "node_modules/mkdirp": {
-      "version": "1.0.4",
-      "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-1.0.4.tgz",
-      "integrity": "sha512-vVqVZQyf3WLx2Shd0qJ9xuvqgAyKPLAiqITEtqW0oIUjzo3PePDd6fW9iFz30ef7Ysp/oiWqbhszeGWW2T6Gzw==",
+      "version": "3.0.1",
+      "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-3.0.1.tgz",
+      "integrity": "sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==",
       "bin": {
-        "mkdirp": "bin/cmd.js"
+        "mkdirp": "dist/cjs/src/bin.js"
       }
     },
     "node_modules/mri": {
@@ -11142,14 +11130,6 @@
       "integrity": "sha512-PyJxiNtA5T2PlLIeBot4lbp7rj4OadzjnMZD/G5zuBNt8ei/yCU7+wW0h2bag9vr8c+/WuRWmSxbqAl9hL1rBA==",
       "dependencies": {
         "big-integer": "1.6.x"
-      }
-    },
-    "node_modules/nativescript/node_modules/mkdirp": {
-      "version": "3.0.1",
-      "resolved": "https://registry.npmjs.org/mkdirp/-/mkdirp-3.0.1.tgz",
-      "integrity": "sha512-+NsyUUAZDmo6YVHzL/stxSu3t9YS1iljliy3BSDrXJ/dkn1KYdmtZODGGjLcc9XLgVVpH4KshHB8XmZgMhaBXg==",
-      "bin": {
-        "mkdirp": "dist/cjs/src/bin.js"
       }
     },
     "node_modules/nativescript/node_modules/semver": {
@@ -12483,11 +12463,6 @@
         "sprintf-js": "~1.0.2"
       }
     },
-    "node_modules/read-yaml-file/node_modules/js-yaml/node_modules/argparse/node_modules/sprintf-js": {
-      "version": "1.0.3",
-      "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz",
-      "integrity": "sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g=="
-    },
     "node_modules/readable-stream": {
       "version": "2.3.8",
       "resolved": "https://registry.npmjs.org/readable-stream/-/readable-stream-2.3.8.tgz",
@@ -13126,11 +13101,6 @@
       "resolved": "https://registry.npmjs.org/strip-final-newline/-/strip-final-newline-2.0.0.tgz",
       "integrity": "sha512-BrpvfNAE3dcvq7ll3xVumzjKjZQ5tI1sEUIKr3Uoks0XUl45St3FlatVqef9prk4jRDzhW6WZg+3bk93y6pLjA=="
     },
-    "node_modules/shorthash": {
-      "version": "0.0.2",
-      "resolved": "https://registry.npmjs.org/shorthash/-/shorthash-0.0.2.tgz",
-      "integrity": "sha512-L/QRElsfTaCCzA7AJPXuin6/jgWjgmTfjdaXucQ5PauPypmqAZ7t4GueaCv+Jti0M8S2Iv1C/ryD+aWY/KUGCA=="
-    },
     "node_modules/signal-exit": {
       "version": "4.1.0",
       "resolved": "https://registry.npmjs.org/signal-exit/-/signal-exit-4.1.0.tgz",
@@ -13292,9 +13262,9 @@
       "integrity": "sha512-cLS9TtWkIQFyLkJ3/5aFQAOHOSKTlOs/7WDut/XPSdjom1fJhUdkepeJAKXa9Y05+FabHd0sti+Et559vDtkpQ=="
     },
     "node_modules/sprintf-js": {
-      "version": "1.1.3",
-      "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.1.3.tgz",
-      "integrity": "sha512-Oo+0REFV59/rz3gfJNKQiBlwfHaSESl1pcGyABQsnnIfWOFt6JNj5gCog2U6MLZ//IGYD+nA8nI+mTShREReaA=="
+      "version": "1.0.3",
+      "resolved": "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz",
+      "integrity": "sha512-D9cPgkvLlV3t3IzL0D0YLvGA9Ahk4PcvVwUbN0dSGr1aP0Nrt4AEnTUbuGvquEC0mA64Gqt1fzirlRs5ibXx8g=="
     },
     "node_modules/ssri": {
       "version": "13.0.1",
