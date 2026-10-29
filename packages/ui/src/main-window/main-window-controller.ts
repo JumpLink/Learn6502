@@ -133,6 +133,13 @@ export class MainWindowController implements MainView {
     this.shell.showView(viewType);
   }
 
+  /** Back on any other screen of the single-column layout returns to the editor; false lets Back do what it does otherwise. */
+  public backToEditor(): boolean {
+    if (this.shell.isDesktopLayout() || this.activeView === ViewType.EDITOR) return false;
+    this.navigateToView(ViewType.EDITOR);
+    return true;
+  }
+
   public runGameConsole(): void {
     const targetView = mainStateController.getNavigationTarget("run");
     if (targetView && targetView !== this.activeView) this.navigateToView(targetView);

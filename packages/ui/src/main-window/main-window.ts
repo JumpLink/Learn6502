@@ -9,6 +9,7 @@ import type { Learn } from "../learn/learn.ts";
 import type { MainButton } from "../main-button.ts";
 import { notificationService } from "../notification.service.ts";
 import { themeService } from "../preferences/theme.service.ts";
+import { registerBackKey } from "./back-key.ts";
 import { registerGameKeys } from "./game-keys.ts";
 import { createMainMenu } from "./menu.ts";
 import { MainWindowController } from "./main-window-controller.ts";
@@ -142,6 +143,7 @@ export class MainWindow extends Adw.ApplicationWindow {
       platform.services
     );
     this.controller = controller;
+    registerBackKey(this, () => controller.backToEditor());
     platform.whenReady(() => {
       controller.init();
       platform.started?.();
