@@ -8,6 +8,7 @@
 // `__IOS__` are already provided by gjsifyNativescript()'s platform defines, and
 // `?raw` imports are native in Vite — so neither needs porting here.
 import { readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 import type { Plugin } from "vite";
 import blueprintPlugin from "@gjsify/vite-plugin-blueprint";
 import { defineNativescriptConfig } from "@gjsify/nativescript-vite";
@@ -41,7 +42,11 @@ function asmTextLoader(): Plugin {
 }
 
 export default defineNativescriptConfig(
-  { giRenderer: true },
+  {
+    giRenderer: true,
+    // The shared UI's gettext catalogues, staged as `.mo` for the Android GLib gettext.
+    locale: { poDirectory: fileURLToPath(new URL("../translations", import.meta.url)), domain: "eu.jumplink.Learn6502" },
+  },
   {
     // `.blp` files are imported as `?shared-tree` (the editor widget) or `?template` (the shared
     // `@learn6502/ui` components, whose GObject classes `--gi-renderer` runs on NativeScript).

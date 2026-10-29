@@ -5,7 +5,8 @@
 
 import "./engine";
 import { Application, isAndroid } from "@nativescript/core";
-import { androidLaunchEventLocalizationHandler, localize, overrideLocale } from "@nativescript/localize";
+import { androidLaunchEventLocalizationHandler, localize } from "@nativescript/localize";
+import { initLocale } from "@gjsify/adwaita-app/locale";
 import { Adw, registerAdwaita } from "@gjsify/adwaita-nativescript";
 import type GjsAdw from "@girs/adw-1";
 import { initResources } from "./resources";
@@ -13,7 +14,7 @@ import { appVariables } from "./variables";
 import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
 import { logger } from "./utils";
 import { APPLICATION_ID } from "./constants";
-import { MainWindow, settings, themeService } from "@learn6502/ui";
+import { MainWindow, setTranslator, settings, themeService } from "@learn6502/ui";
 import { registerMainWindowPlatform } from "./views/main-window-platform";
 
 if (!isAndroid) {
@@ -50,6 +51,10 @@ try {
     }
   }
 
+  // The shared UI strings: GLib gettext over the staged `.mo`, following the system locale.
+  // Before anything asks GLib for a string: it decides once whether the default domain translates.
+  setTranslator(initLocale(APPLICATION_ID));
+
   // Register the native Adwaita widgets (Adw.ToolbarView / Adw.ViewStack / …) as NS
   // XML elements so the Adwaita shell + screens resolve. Idempotent; no-op off NS.
   registerAdwaita();
@@ -60,8 +65,6 @@ try {
   const application = new Adw.Application({ application_id: APPLICATION_ID });
   application.connect("startup", () => {
     androidLaunchEventLocalizationHandler();
-    // Set the default locale for testing, see https://docs.nativescript.org/plugins/localize#changing-the-language-dynamically-at-runtime
-    overrideLocale("de-DE");
     void initializeServices();
   });
   application.connect("activate", () => {
