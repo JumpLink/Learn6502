@@ -276,14 +276,14 @@ jobs:
         run: |
           set -eu
           gjsify install --os darwin --cpu arm64 --immutable
-          gjsify ship darwin --arch arm64 --skip-build --stage --target macos-app-zip --out ship/stage-arm64
+          gjsify ship darwin --arch arm64 --skip-build --stage --target macos-app-zip,macos-app-dmg --out ship/stage-arm64
           tar -C ship/stage-arm64 -cf macos-stage-arm64.tar stage
 
       - name: Stage macOS (x64)
         run: |
           set -eu
           gjsify install --os darwin --cpu x64 --immutable
-          gjsify ship darwin --arch x64 --skip-build --stage --target macos-app-zip --out ship/stage-x64
+          gjsify ship darwin --arch x64 --skip-build --stage --target macos-app-zip,macos-app-dmg --out ship/stage-x64
           tar -C ship/stage-x64 -cf macos-stage-x64.tar stage
 
       # Not under `release-*`: `publish` attaches everything it matches to the
@@ -457,7 +457,7 @@ jobs:
             --key "$RUNNER_TEMP/notary.p8" --key-id "$NOTARY_KEY_ID" --issuer "$NOTARY_ISSUER_ID"
           rm -f "$RUNNER_TEMP/notary.p8"
 
-      - name: Pack the macOS zips
+      - name: Pack the macOS zips and dmgs
         run: |
           set -eu
           if [ -z "${SIGN_IDENTITY:-}" ]; then
@@ -471,15 +471,15 @@ jobs:
             tar -C "pack-$arch" -xf "macos-stage-$arch.tar"
             # shellcheck disable=SC2086
             gjsify ship --from-stage "pack-$arch/stage" --expect-target "darwin-$arch" \
-              --target macos-app-zip --out "ship-$arch" $sign
+              --target macos-app-zip,macos-app-dmg --out "ship-$arch" $sign
           done
           mkdir -p ship/out
-          cp ship-*/out/*.zip ship/out/
+          cp ship-*/out/*.zip ship-*/out/*.dmg ship-*/out/*.gjsify-release.json ship/out/
           ls -la ship/out
 
       # macOS labels x64 as `x86_64` (`MACOS_ARCH`). Asserted by name because
       # `ship` exits 0 after writing nothing when every target is filtered away.
-      - name: Assert and check the zips
+      - name: Assert and check the zips and dmgs
         run: |
           set -eu
           cd ship/out
@@ -507,6 +507,25 @@ jobs:
               }
               rm -rf "check-$arch" "check-$arch.log"
             fi
+            d=$(ls eu.jumplink.Learn6502-*-1.$arch.dmg 2>/dev/null | head -n 1 || true)
+            if [ -z "$d" ] || [ ! -s "$d" ]; then
+              echo "::error::missing or empty macOS $arch dmg"
+              missing=1
+              continue
+            fi
+            if [ -n "${SIGN_IDENTITY:-}" ]; then
+              # The dmg is what a browser downloads, so it is the file Gatekeeper
+              # judges first; its stapled ticket is what lets it open offline.
+              xcrun stapler validate "$d"
+              xattr -w com.apple.quarantine "0083;$(printf %x "$(date +%s)");Safari;" "$d"
+              spctl --assess --type open --context context:primary-signature -vv "$d" 2>&1 | tee "check-$arch.log"
+              grep -q "source=Notarized Developer ID" "check-$arch.log" || {
+                echo "::error::the $arch dmg is not seen as notarised"
+                missing=1
+              }
+              rm -f "check-$arch.log"
+            fi
+            [ -s "$d.gjsify-release.json" ] || { echo "::error::no release record beside $d"; missing=1; }
           done
           [ "$missing" -eq 0 ]
 
@@ -516,11 +535,14 @@ jobs:
           security default-keychain -d user -s login.keychain-db || true
           security delete-keychain "$RUNNER_TEMP/build.keychain-db" || true
 
-      - name: Upload the macOS zips
+      - name: Upload the macOS zips and dmgs
         uses: actions/upload-artifact@v4
         with:
           name: release-macos
-          path: ship/out/*.zip
+          path: |
+            ship/out/*.zip
+            ship/out/*.dmg
+            ship/out/*.gjsify-release.json
           compression-level: 0
           if-no-files-found: error
 
