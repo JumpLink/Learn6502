@@ -9,6 +9,7 @@ import type { Learn } from "../learn/learn.ts";
 import type { MainButton } from "../main-button.ts";
 import { notificationService } from "../notification.service.ts";
 import { themeService } from "../preferences/theme.service.ts";
+import { registerGameKeys } from "./game-keys.ts";
 import { createMainMenu } from "./menu.ts";
 import { MainWindowController } from "./main-window-controller.ts";
 import { createMainWindowPlatform } from "./main-window.services.ts";
@@ -97,6 +98,7 @@ export class MainWindow extends Adw.ApplicationWindow {
     super({ application });
 
     this._menuButton.menu_model = createMainMenu({ preferences: true });
+    registerGameKeys(this);
     notificationService.init(this, this._toastOverlay);
     // Register this window to receive mode/accent classes automatically
     themeService.registerThemedWidget(this);
