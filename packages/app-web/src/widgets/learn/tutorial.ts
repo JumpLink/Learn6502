@@ -1,5 +1,5 @@
 import { registerTemplateClass } from "@gjsify/adwaita-web";
-import { learnController } from "@learn6502/common-ui";
+import { learnController } from "@learn6502/ui";
 import tutorialHtml from "@learn6502/learn/dist/tutorial.html";
 
 /**

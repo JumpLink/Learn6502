@@ -1,6 +1,7 @@
 import type Adw from "@girs/adw-1";
 
-import { ViewType, editorController, mainStateController } from "@learn6502/common-ui";
+import { ViewType } from "../views/index.ts";
+import { editorController, mainStateController } from "../controller/index.ts";
 
 import { FileService } from "../file.service.ts";
 import { notificationService } from "../notification.service.ts";

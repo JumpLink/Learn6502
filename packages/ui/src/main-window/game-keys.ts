@@ -1,7 +1,7 @@
 import Gdk from "@girs/gdk-4.0";
 import Gtk from "@girs/gtk-4.0";
 
-import { gameConsoleController } from "@learn6502/common-ui";
+import { gameConsoleController } from "../controller/index.ts";
 
 /** The game console's keys on every platform: GTK's key controller, which gjsify forwards Android and DOM keys into. */
 export function registerGameKeys(window: Gtk.Window): void {

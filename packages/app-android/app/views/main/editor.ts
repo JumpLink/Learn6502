@@ -1,5 +1,5 @@
 import { Application, ApplicationSettings } from "@nativescript/core";
-import { editorController } from "@learn6502/common-ui";
+import { editorController } from "@learn6502/ui";
 import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
 import { QuickHelpView } from "~/mdx/quick-help-view";
 // The shared editor's source view is `@learn6502/ui`'s; the builder arm teaches NativeScript what `GtkSourceView` is.

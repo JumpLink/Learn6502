@@ -1,6 +1,6 @@
 import type { WindowCommon } from "@gjsify/adwaita-core";
 
-import type { ViewType } from "@learn6502/common-ui";
+import type { ViewType } from "../views/index.ts";
 
 import type { WindowSettings } from "./services.ts";
 

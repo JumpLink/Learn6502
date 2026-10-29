@@ -2,7 +2,8 @@ import type Adw from "@girs/adw-1";
 import Gio from "@girs/gio-2.0";
 import type Gtk from "@girs/gtk-4.0";
 
-import { ViewType, mainStateController } from "@learn6502/common-ui";
+import { ViewType } from "../views/index.ts";
+import { mainStateController } from "../controller/index.ts";
 
 import type { Debugger } from "../debugger/debugger.ts";
 import type { Editor } from "../editor/editor.ts";

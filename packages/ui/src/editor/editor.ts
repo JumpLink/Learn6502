@@ -3,14 +3,15 @@ import Adw from "@girs/adw-1";
 import type GtkSource from "@girs/gtksource-5";
 import type { SourceView } from "../source-view.ts";
 import { EventDispatcher } from "@learn6502/core";
-import type { EditorView, EditorEventMap, EditorHelpVisibilityChangedEvent } from "@learn6502/common-ui";
-import { editorController } from "@learn6502/common-ui";
+import type { EditorView } from "../views/index.ts";
+import type { EditorEventMap, EditorHelpVisibilityChangedEvent } from "../types/index.ts";
+import { editorController } from "../controller/index.ts";
 
 import Template from "./editor.blp?template";
 
 /**
  * @class Editor to edit 6502 assembly code
- * Implements EditorView from common-ui
+ * Implements EditorView
  *
  * The template names `$QuickHelpView`, whose content is generated per platform from the same MDX:
  * the app registers a class of that name before it builds an Editor.

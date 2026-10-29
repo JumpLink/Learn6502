@@ -1,6 +1,7 @@
 import type GjsGtk from "@girs/gtk-4.0";
 
-import { ViewType, createSimulatorStack } from "@learn6502/common-ui";
+import { ViewType } from "@learn6502/ui";
+import { createSimulatorStack } from "@learn6502/core";
 import {
   PreferencesDialog,
   addAppActions,

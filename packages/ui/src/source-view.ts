@@ -11,7 +11,8 @@ import Template from "./source-view.blp?template";
 import { GutterRendererLineNumbers } from "./gutter-renderer-line-numbers.ts";
 import { GutterRendererMode } from "./gutter-renderer-mode.ts";
 import { registerSourceViewData } from "./register-source-data.ts";
-import type { SourceViewWidget, SourceViewEventMap } from "@learn6502/common-ui";
+import type { SourceViewWidget } from "./widgets/index.ts";
+import type { SourceViewEventMap } from "./types/index.ts";
 import { EventDispatcher } from "@learn6502/core";
 
 GtkSource.init();

@@ -1,7 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import type Adw from "@girs/adw-1";
 import TutorialTemplate from "@learn6502/learn/dist/tutorial.ui";
-import { learnController } from "@learn6502/common-ui";
+import { learnController } from "@learn6502/ui";
 import { findIdsInXml } from "../utils.ts";
 import { MdxView } from "./mdx-view.ts";
 

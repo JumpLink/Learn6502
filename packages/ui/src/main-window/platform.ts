@@ -1,6 +1,6 @@
 import type Adw from "@girs/adw-1";
 
-import type { ViewType } from "@learn6502/common-ui";
+import type { ViewType } from "../views/index.ts";
 
 import type { Debugger } from "../debugger/debugger.ts";
 import type { Editor } from "../editor/editor.ts";

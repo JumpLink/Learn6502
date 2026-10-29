@@ -4,7 +4,7 @@ import type Gtk from "@girs/gtk-4.0";
 
 import Template from "./message-console.blp?template";
 
-import { type MessageConsoleWidget } from "@learn6502/common-ui";
+import { type MessageConsoleWidget } from "../widgets/index.ts";
 
 export class MessageConsole extends Adw.Bin implements MessageConsoleWidget {
   // Child widgets

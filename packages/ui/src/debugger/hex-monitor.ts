@@ -6,12 +6,12 @@ import type { SourceView } from "../source-view.ts";
 import { EventDispatcher, type Memory } from "@learn6502/core";
 import {
   type HexMonitorOptions,
-  type HexMonitorWidget,
   type MemoryRegion,
-  memoryRegions,
   type HexMonitorEventMap,
   type SourceViewCopyEvent,
-} from "@learn6502/common-ui";
+} from "../types/index.ts";
+import { type HexMonitorWidget } from "../widgets/index.ts";
+import { memoryRegions } from "../data/index.ts";
 
 import Template from "./hex-monitor.blp?template";
 

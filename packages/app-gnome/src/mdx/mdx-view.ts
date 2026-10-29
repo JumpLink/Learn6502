@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 import { SourceView } from "@learn6502/ui";
-import type { SourceViewCopyEvent } from "@learn6502/common-ui";
+import type { SourceViewCopyEvent } from "@learn6502/ui";
 
 /** RIGHT-TO-LEFT MARK (U+200F) — an invisible character with strong RTL directionality. */
 const RLM = "\u200F";

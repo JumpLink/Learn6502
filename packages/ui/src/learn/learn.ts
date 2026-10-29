@@ -3,8 +3,9 @@ import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
 import GLib from "@girs/glib-2.0";
 import { EventDispatcher } from "@learn6502/core";
-import type { LearnView, LearnViewEventMap } from "@learn6502/common-ui";
-import { learnController } from "@learn6502/common-ui";
+import type { LearnView } from "../views/index.ts";
+import type { LearnViewEventMap } from "../types/index.ts";
+import { learnController } from "../controller/index.ts";
 
 import type { ExamplesList } from "./examples-list.ts";
 
@@ -14,7 +15,7 @@ const MAIN_PAGE = "main";
 
 /**
  * @class Learn, the landing page that opens the tutorial and the examples
- * Implements LearnView from common-ui
+ * Implements LearnView
  *
  * The template names `$TutorialView`, whose content is generated per platform from the same MDX:
  * the app registers a class of that name before it builds a Learn. That class is also the one that

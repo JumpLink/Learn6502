@@ -1,18 +1,16 @@
 import Gtk from "@girs/gtk-4.0";
 import { SimulatorState, formatMessage, num2hex } from "@learn6502/core";
+import { type MainButtonState } from "../data/index.ts";
+import { type MainView, ViewType } from "../views/index.ts";
+import { type SimulatorStack, createSimulatorStack } from "@learn6502/core";
 import {
-  type MainButtonState,
-  type MainView,
-  type SimulatorStack,
-  ViewType,
   GameConsoleEventBridge,
-  createSimulatorStack,
   debuggerController,
   editorController,
   gameConsoleController,
   learnController,
   mainStateController,
-} from "@learn6502/common-ui";
+} from "../controller/index.ts";
 
 import { _ } from "../translate.ts";
 import type { Debugger } from "../debugger/debugger.ts";

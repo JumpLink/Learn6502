@@ -3,8 +3,9 @@ import GLib from "@girs/glib-2.0";
 import Graphene from "@girs/graphene-1.0";
 import Gtk from "@girs/gtk-4.0";
 import { donationsAllowed } from "@gjsify/distribution";
-import { learnController, supportPromptService } from "@learn6502/common-ui";
-import type { SupportPromptStore } from "@learn6502/common-ui";
+import { learnController } from "../controller/index.ts";
+import { supportPromptService } from "../services/index.ts";
+import type { SupportPromptStore } from "../services/index.ts";
 
 import { notificationService } from "../notification.service.ts";
 import { settings } from "../settings.ts";

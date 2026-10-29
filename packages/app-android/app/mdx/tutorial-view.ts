@@ -1,4 +1,4 @@
-import { learnController } from "@learn6502/common-ui";
+import { learnController } from "@learn6502/ui";
 import { MdxView } from "./mdx-view";
 
 /**

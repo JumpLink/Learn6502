@@ -3,7 +3,8 @@ import Adw from "@girs/adw-1";
 import type { SourceView } from "../source-view.ts";
 
 import { type Assembler, EventDispatcher } from "@learn6502/core";
-import { type HexdumpWidget, type HexdumpEventMap, type SourceViewCopyEvent } from "@learn6502/common-ui";
+import { type HexdumpWidget } from "../widgets/index.ts";
+import { type HexdumpEventMap, type SourceViewCopyEvent } from "../types/index.ts";
 
 import Template from "./hexdump.blp?template";
 export class Hexdump extends Adw.Bin implements HexdumpWidget {

@@ -3,7 +3,8 @@ import Gtk from "@girs/gtk-4.0";
 import Gdk from "@girs/gdk-4.0";
 import type Gio from "@girs/gio-2.0";
 
-import { ThemeService as BaseThemeService, type ThemeMode } from "@learn6502/common-ui";
+import { ThemeService as BaseThemeService } from "../services/index.ts";
+import { type ThemeMode } from "../types/index.ts";
 import {
   KEY_COLOR_SCHEME,
   KEY_PRIMARY_COLOR,

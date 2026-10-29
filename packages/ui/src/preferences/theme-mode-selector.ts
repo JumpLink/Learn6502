@@ -2,7 +2,7 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
 
-import type { ThemeMode } from "@learn6502/common-ui";
+import type { ThemeMode } from "../types/index.ts";
 import Template from "./theme-mode-selector.blp?template";
 import { themeService } from "./theme.service.ts";
 

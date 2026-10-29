@@ -1,7 +1,7 @@
 {
   "name": "@learn6502/cli",
   "version": "0.8.0",
-  "description": "Headless 6502 assembler / simulator — the command-line frontend built on the shared core + common-ui",
+  "description": "Headless 6502 assembler / simulator — the command-line frontend built on the shared core",
   "type": "module",
   "private": true,
   "bin": {
@@ -23,7 +23,6 @@
     "typescript": "^6.0.3"
   },
   "dependencies": {
-    "@learn6502/common-ui": "^0.8.0",
     "@learn6502/core": "^0.8.0"
   }
 }

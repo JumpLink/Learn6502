@@ -3,17 +3,12 @@ import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 
 import type { Memory, Simulator, Assembler } from "@learn6502/core";
-import {
-  type DebuggerView,
-  type MessageConsoleWidget,
-  type DebugInfoWidget,
-  type SimulatorStack,
-  DebuggerState,
-  type DisassembledCopyEvent,
-  type HexdumpCopyEvent,
-  type HexMonitorCopyEvent,
-  debuggerController,
-} from "@learn6502/common-ui";
+import { type DebuggerView } from "../views/index.ts";
+import { type MessageConsoleWidget, type DebugInfoWidget } from "../widgets/index.ts";
+import { type SimulatorStack } from "@learn6502/core";
+import { DebuggerState } from "../data/index.ts";
+import { type DisassembledCopyEvent, type HexdumpCopyEvent, type HexMonitorCopyEvent } from "../types/index.ts";
+import { debuggerController } from "../controller/index.ts";
 
 import type { Hexdump } from "./hexdump.ts";
 import type { Disassembled } from "./disassembled.ts";

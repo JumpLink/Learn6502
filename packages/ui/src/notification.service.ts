@@ -1,7 +1,7 @@
 import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
-import { NotificationService as BaseNotificationService } from "@learn6502/common-ui";
-import type { NotificationOptions, DialogOptions } from "@learn6502/common-ui";
+import { NotificationService as BaseNotificationService } from "./services/index.ts";
+import type { NotificationOptions, DialogOptions } from "./types/index.ts";
 import { _ } from "./translate.ts";
 
 /**

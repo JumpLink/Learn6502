@@ -1,7 +1,7 @@
 import Gtk from "@girs/gtk-4.0";
 import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
-import { FileService as BaseFileService } from "@learn6502/common-ui";
+import { FileService as BaseFileService } from "./services/file.service.ts";
 import { _ } from "./translate.ts";
 
 Gio._promisify(Gio.OutputStream.prototype, "write_bytes_async", "write_bytes_finish");
