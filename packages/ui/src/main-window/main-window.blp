@@ -20,7 +20,6 @@ template $MainWindow: Adw.ApplicationWindow {
       leftSidebar.show-sidebar: false;
       sidebarToggleButton.visible: false;
 
-      titleLabel.visible: false;
       mainButton.visible: true;
       runToolbar.visible: false;
     }
@@ -40,7 +39,6 @@ template $MainWindow: Adw.ApplicationWindow {
       leftSidebar.max-sidebar-width: 344;
       sidebarToggleButton.visible: true;
 
-      titleLabel.visible: true;
       mainButton.visible: false;
       runToolbar.visible: true;
     }
@@ -59,7 +57,6 @@ template $MainWindow: Adw.ApplicationWindow {
       leftSidebar.max-sidebar-width: 344;
       sidebarToggleButton.visible: true;
 
-      titleLabel.visible: true;
       mainButton.visible: false;
       runToolbar.visible: true;
     }
@@ -79,7 +76,6 @@ template $MainWindow: Adw.ApplicationWindow {
       leftSidebar.max-sidebar-width: 800;
       sidebarToggleButton.visible: true;
 
-      titleLabel.visible: true;
       mainButton.visible: false;
       runToolbar.visible: true;
     }
@@ -92,6 +88,7 @@ template $MainWindow: Adw.ApplicationWindow {
       title-widget: Label titleLabel {
         // TRANSLATORS: Application title shown in the header bar
         label: _("Learn 6502");
+        ellipsize: end;
       };
 
       [start]
