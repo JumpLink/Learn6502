@@ -8,8 +8,33 @@
 
 import { alert } from "@nativescript/core/ui/dialogs";
 import { notificationService } from "@learn6502/ui";
-import type { ErrorHandlerOptions, ExtendedError } from "../types";
-import { logger } from "./logger";
+
+export interface ErrorHandlerOptions {
+  /**
+   * Show error as snack/notification instead of dialog
+   */
+  showAsNotification?: boolean;
+  /**
+   * Forced error message (overrides error message)
+   */
+  forcedMessage?: string;
+  /**
+   * Silent mode - don't show any UI, just log
+   */
+  silent?: boolean;
+  /**
+   * Title for error dialog
+   */
+  title?: string;
+}
+
+/**
+ * Extended Error interface for custom error properties
+ */
+export interface ExtendedError extends Error {
+  customErrorConstructorName?: string;
+  showAsSnack?: boolean;
+}
 
 /**
  * Check if an error should be ignored
@@ -56,9 +81,9 @@ export async function showError(err: unknown, options: ErrorHandlerOptions = {})
     // Log error using logger (automatically handles Error objects with stack traces)
     // If we have a forced message, log it separately; otherwise let logger format the error
     if (forcedMessage) {
-      logger.error("ErrorHandler", forcedMessage, error);
+      console.error("[ErrorHandler]", forcedMessage, error);
     } else {
-      logger.error("ErrorHandler", error);
+      console.error("[ErrorHandler]", error);
     }
 
     // Show as notification if requested
@@ -83,7 +108,7 @@ export async function showError(err: unknown, options: ErrorHandlerOptions = {})
     });
   } catch (error) {
     // Fallback if error handling itself fails
-    logger.error("ErrorHandler", "Error in showError:", error);
+    console.error("[ErrorHandler]", "Error in showError:", error);
   }
 }
 
@@ -95,11 +120,11 @@ export function setupGlobalErrorHandler(): void {
   (globalThis as any).__errorHandler = function (error: Error | null | undefined, nativeError?: unknown): boolean {
     // Log error using logger (automatically handles Error objects)
     if (error) {
-      logger.error("GlobalErrorHandler", "Global error caught:", error);
+      console.error("[GlobalErrorHandler]", "Global error caught:", error);
     }
 
     if (nativeError) {
-      logger.error("GlobalErrorHandler", "Native error:", nativeError);
+      console.error("[GlobalErrorHandler]", "Native error:", nativeError);
     }
 
     // Show error to user (non-blocking)
