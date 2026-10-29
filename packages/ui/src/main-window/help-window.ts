@@ -1,12 +1,12 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import type { QuickHelpView } from "../mdx/quick-help-view.ts";
-import { themeService } from "@learn6502/ui";
+import type Gtk from "@girs/gtk-4.0";
+import { themeService } from "../preferences/theme.service.ts";
 
-import Template from "./help.window.blp";
+import Template from "./help-window.blp?template";
 
 export class HelpWindow extends Adw.Window {
-  declare private _quickHelpView: QuickHelpView;
+  declare private _quickHelpView: Gtk.Widget;
 
   static {
     GObject.registerClass(

@@ -25,6 +25,8 @@ export * from "./preferences/preferences-dialog.ts";
 export * from "./share-dialog.ts";
 export * from "./main-window/about.ts";
 export * from "./main-window/main-window-controller.ts";
+export * from "./main-window/main-window.ts";
+export * from "./main-window/platform.ts";
 export * from "./main-window/menu.ts";
 export * from "./main-window/services.ts";
 export * from "./main-window/shell.ts";

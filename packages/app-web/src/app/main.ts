@@ -9,11 +9,26 @@
  * final phase of the rewrite.
  */
 
-import "@gjsify/adwaita-web"; // registers the custom elements + self-injects the skin
-import { MainWindow } from "./main-window.js";
+import { Adw } from "@gjsify/adwaita-web";
+import type GjsAdw from "@girs/adw-1";
+// The template classes main-window.blp names ($Learn, $MainButton, $Toolbar, …) register with @learn6502/ui.
+import { MainWindow, settings, themeService } from "@learn6502/ui";
+
+import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
+import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
 import { initResources } from "./resources.js";
+import { injectShellStyles } from "./styles.js";
+
+/** The application id, as in the GNOME app. */
+const APPLICATION_ID = "eu.jumplink.Learn6502";
 
 initResources();
+injectShellStyles();
+themeService.init(settings);
 
-const mainWindow = new MainWindow();
-mainWindow.mount(document.body);
+// It resolves the menu's `app.*` actions and runs the accelerators. Never `runAsync`: the page is already running.
+const application = new Adw.Application();
+application.application_id = APPLICATION_ID;
+
+const mainWindow = new MainWindow(application as unknown as GjsAdw.Application);
+document.body.appendChild(mainWindow as unknown as Node);

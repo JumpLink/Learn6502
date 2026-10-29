@@ -7,12 +7,14 @@ import "./engine";
 import { Application, isAndroid } from "@nativescript/core";
 import { androidLaunchEventLocalizationHandler, localize, overrideLocale } from "@nativescript/localize";
 import { Adw, registerAdwaita } from "@gjsify/adwaita-nativescript";
+import type GjsAdw from "@girs/adw-1";
 import { initResources } from "./resources";
 import { appVariables } from "./variables";
 import { setupGlobalErrorHandler, showError } from "./utils/error-handler";
 import { logger } from "./utils";
 import { APPLICATION_ID } from "./constants";
-import { MainController } from "./views/main";
+import { MainWindow, settings, themeService } from "@learn6502/ui";
+import { registerMainWindowPlatform } from "./views/main-window-platform";
 
 if (!isAndroid) {
   throw new Error("This app is only supported on Android");
@@ -63,7 +65,9 @@ try {
     void initializeServices();
   });
   application.connect("activate", () => {
-    new MainController().build(application);
+    registerMainWindowPlatform();
+    themeService.init(settings);
+    new MainWindow(application as unknown as GjsAdw.Application);
   });
   void application.runAsync([]).catch((error) => logger.error("App", "Application failed:", error));
 } catch (error) {

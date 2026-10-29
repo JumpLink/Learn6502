@@ -28,5 +28,3 @@ import "./mdx/quick-help-view.ts";
 import "./mdx/tutorial-view.ts";
 
 // Composite views and dialogs
-import "./views/main.window.ts";
-import "./views/help.window.ts";

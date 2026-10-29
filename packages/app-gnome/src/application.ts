@@ -4,8 +4,7 @@ import Gdk from "@girs/gdk-4.0";
 import Gtk from "@girs/gtk-4.0";
 import Adw from "@girs/adw-1";
 
-import { addAppActions, PreferencesDialog, settings, themeService } from "@learn6502/ui";
-import { MainWindow } from "./views/index.ts";
+import { addAppActions, MainWindow, PreferencesDialog, settings, themeService } from "@learn6502/ui";
 import { APPLICATION_ID } from "./constants.ts";
 import { initResources } from "./resources.ts";
 import { createAboutDialog } from "./about-dialog.ts";

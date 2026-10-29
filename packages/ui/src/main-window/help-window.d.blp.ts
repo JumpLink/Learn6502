@@ -1,15 +1,15 @@
-// GENERATED from help.window.blp — do not edit. ADR 0088 says what these exports mean.
+// GENERATED from help-window.blp — do not edit. ADR 0088 says what these exports mean.
 // Regenerate with `gjsify blueprint types`; `scripts/check-blueprint-sidecars.mjs` holds it.
 
-import type GObject from 'gi://GObject?version=2.0';
-import type Gtk from 'gi://Gtk?version=4.0';
+import type GObject from "gi://GObject?version=2.0";
+import type Gtk from "gi://Gtk?version=4.0";
 
 /** The GtkBuilder XML this `.blp` compiles to. */
 declare const xml: string;
 export default xml;
 
 /** The class `template $HelpWindow` defines. */
-export declare const GTypeName: 'HelpWindow';
+export declare const GTypeName: "HelpWindow";
 
 /**
  * Every id inside the template, in source order — what `registerClass` is given.
@@ -21,10 +21,10 @@ export declare const GTypeName: 'HelpWindow';
  * which is the property that matters. `status/open-todos/blueprint.md` carries the
  * upstream half.
  */
-export declare const InternalChildren: ['scrolledWindow', 'quickHelpView'];
+export declare const InternalChildren: ["scrolledWindow", "quickHelpView"];
 
 /** The `_`-prefixed members GJS installs for them. Merge it into the class interface. */
 export interface Children {
-    _scrolledWindow: Gtk.ScrolledWindow;
-    _quickHelpView: GObject.Object;
+  _scrolledWindow: Gtk.ScrolledWindow;
+  _quickHelpView: GObject.Object;
 }
