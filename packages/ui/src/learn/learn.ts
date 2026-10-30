@@ -83,7 +83,11 @@ export class Learn extends Adw.Bin implements LearnView {
     // The cards and the tutorial are built on first visit: a page nobody opens costs nothing
     if (tag === "examples") this._examplesList.populate();
     if (tag === "tutorial" && this._tutorialHost.get_child() === null) {
-      this._tutorialHost.set_child(new TutorialView());
+      const view = new TutorialView();
+      // Below the first screen nothing is on show yet, so it does not have to be laid out
+      // before the page appears: `MdxView` reveals the rest once the view is mapped.
+      view.deferBelowFold();
+      this._tutorialHost.set_child(view);
     }
     this.events.dispatch("subpage-changed", { hasSubpage: this.hasVisibleSubpage, tag });
   };

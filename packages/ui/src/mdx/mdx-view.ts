@@ -14,6 +14,13 @@ const FSI = "\u2068";
 /** POP DIRECTIONAL ISOLATE (U+2069) — ends a bidi-isolated run. */
 const PDI = "\u2069";
 
+/** How many top-level sections stay visible through {@link MdxView.deferBelowFold} — a phone screenful. */
+const EAGER_SECTIONS = 4;
+
+/** Sections revealed per tick, and the gap between ticks: one frame at 60 Hz. */
+const REVEAL_BATCH = 16;
+const REVEAL_INTERVAL_MS = 16;
+
 /**
  * The signals this widget registers, on top of Adw.Bin's.
  *
@@ -66,6 +73,9 @@ export class MdxView extends Adw.Bin {
   /** Whether {@link wire} has seen a built tree; its walk is a no-op from then on. */
   private wired = false;
 
+  /** What {@link deferBelowFold} hid, in document order, until {@link revealDeferred} runs. */
+  private deferred: Gtk.Widget[] = [];
+
   static {
     GObject.registerClass(
       {
@@ -89,7 +99,58 @@ export class MdxView extends Adw.Bin {
     // host. The web attaches the built children at the first `connectedCallback` instead, so
     // the walk finds nothing yet and `map` is where it runs — see {@link wire}.
     this.wire();
-    this.connect("map", () => this.wire());
+    this.connect("map", () => {
+      this.wire();
+      this.revealDeferred();
+    });
+  }
+
+  /**
+   * Hides every section below the first screenful, for {@link revealDeferred} to bring back once
+   * the view is on screen.
+   *
+   * CALLED BY THE HOST, between constructing the view and attaching it, because that is the only
+   * point at which all three platforms have a tree AND have not laid it out yet: a template
+   * builds inside the constructor on GTK, right after it returns on NativeScript, and only at the
+   * first `connectedCallback` on the web. Where the tree is not there yet this finds no children
+   * and does nothing, which is the web — whose layout engine does not need the help.
+   *
+   * WHY IT PAYS: a hidden widget is not measured, and measuring is what the first visit spends
+   * its time on. The tutorial is 195 widgets in one vertical box, of which four fit a phone
+   * screen; the other 163 only have to exist by the time the reader scrolls to them. Nothing
+   * about the visible result changes — the sections come back in document order, below the fold,
+   * so no pixel the reader is looking at moves.
+   */
+  deferBelowFold(keep = EAGER_SECTIONS): void {
+    const content = this.get_first_child();
+    if (content === null) return;
+    let index = 0;
+    for (let section = content.get_first_child(); section !== null; section = section.get_next_sibling()) {
+      // Only what this hid may be revealed again: a section the document itself hides is not ours
+      if (index++ >= keep && section.visible) {
+        section.visible = false;
+        this.deferred.push(section);
+      }
+    }
+  }
+
+  /**
+   * Reveals what {@link deferBelowFold} hid, a batch per frame, starting after the current one.
+   *
+   * In batches rather than all at once because each reveal costs the layout of those sections,
+   * and one pass over 163 of them is the very freeze the deferral exists to avoid — spreading it
+   * keeps the frames the reader scrolls through within budget.
+   */
+  private revealDeferred(): void {
+    if (this.deferred.length === 0) return;
+    const sections = this.deferred;
+    this.deferred = [];
+    let next = 0;
+    const step = (): void => {
+      for (let n = 0; n < REVEAL_BATCH && next < sections.length; n++, next++) sections[next].visible = true;
+      if (next < sections.length) setTimeout(step, REVEAL_INTERVAL_MS);
+    };
+    setTimeout(step, REVEAL_INTERVAL_MS);
   }
 
   /**
