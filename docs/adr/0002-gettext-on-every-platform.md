@@ -4,7 +4,7 @@
 - Date: 2026-10-29
 - Deciders: Pascal Garber
 - Related: [ADR 0001](0001-one-app-package-and-packaging-only-platform-workspaces.md) (one app
-  package), gjsify [ADR 0125](https://github.com/gjsify/gjsify/pull/2467) (the platform decision:
+  package), gjsify [ADR 0125](https://github.com/gjsify/gjsify/blob/main/docs/adr/0125-glib-gettext-is-the-translation-api-on-every-target.md) (the platform decision:
   GLib gettext on every target; link to the file on `main` once merged), gjsify
   [#2438](https://github.com/gjsify/gjsify/pull/2438), [#2447](https://github.com/gjsify/gjsify/pull/2447),
   [#2449](https://github.com/gjsify/gjsify/issues/2449) (live locale switch)
