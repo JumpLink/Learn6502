@@ -13,6 +13,7 @@ export * from "./game-console/game-console.ts";
 export * from "./learn/example-list-item.ts";
 export * from "./learn/examples-list.ts";
 export * from "./learn/learn.ts";
+export * from "./mdx/index.ts";
 export * from "./file.service.ts";
 export * from "./main-button.ts";
 export * from "./notification.service.ts";

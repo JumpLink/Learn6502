@@ -13,7 +13,6 @@ import {
 
 import { createMainWindowServices } from "~/services/main-window.services";
 import { persistEditorCode } from "./main/editor";
-import { buildTutorialOnFirstVisit } from "./main/learn";
 
 /** One simulator stack for the process: the activity, and the widgets with it, are rebuilt around it. */
 const simulatorStack = createSimulatorStack();
@@ -22,8 +21,8 @@ const simulatorStack = createSimulatorStack();
 let previous: { unbind(): void }[] = [];
 
 /**
- * What the shared `MainWindow` takes from Android: the services (SAF files, share sheet, settings), the
- * persisted editor code and the tutorial. Navigation, the run/step/assemble flow and the files are the
+ * What the shared `MainWindow` takes from Android: the services (SAF files, share sheet, settings) and
+ * the persisted editor code. Navigation, the run/step/assemble flow and the files are the
  * shared controller's. Call before the window is built; `@learn6502/ui` hands it on through
  * `main-window.services.android.ts`.
  */
@@ -33,7 +32,6 @@ export function registerMainWindowPlatform(): void {
       for (const widget of previous) widget.unbind();
       previous = [screens.editor, screens.debugger, screens.gameConsole];
       persistEditorCode();
-      buildTutorialOnFirstVisit(screens.learn);
       return {
         services: createMainWindowServices(() => navigateToView(ViewType.LEARN)),
         initialView: ViewType.EDITOR,

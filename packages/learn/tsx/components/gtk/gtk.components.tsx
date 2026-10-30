@@ -15,7 +15,6 @@ export const GtkComponents: MDXComponents = {
       {...props}
       use-markup
       wrap
-      hexpand-set
       hexpand
       halign={Align.FILL}
       xalign={0}
@@ -31,7 +30,6 @@ export const GtkComponents: MDXComponents = {
       {...props}
       use-markup
       wrap
-      hexpand-set
       hexpand
       halign={Align.FILL}
       xalign={0}
@@ -47,7 +45,6 @@ export const GtkComponents: MDXComponents = {
       {...props}
       use-markup
       wrap
-      hexpand-set
       hexpand
       halign={Align.FILL}
       xalign={0}
@@ -63,7 +60,6 @@ export const GtkComponents: MDXComponents = {
       {...props}
       use-markup
       wrap
-      hexpand-set
       hexpand
       halign={Align.FILL}
       xalign={0}
@@ -79,7 +75,6 @@ export const GtkComponents: MDXComponents = {
       {...props}
       use-markup
       wrap
-      hexpand-set
       hexpand
       halign={Align.FILL}
       xalign={0}

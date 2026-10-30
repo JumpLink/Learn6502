@@ -11,11 +11,9 @@
 
 import { Adw } from "@gjsify/adwaita-web";
 import type GjsAdw from "@girs/adw-1";
-// The template classes main-window.blp names ($Learn, $MainButton, $Toolbar, …) register with @learn6502/ui.
+// The template classes the .blp files name ($Learn, $MainButton, $Toolbar, $QuickHelpView, …) register with @learn6502/ui.
 import { MainWindow, settings, themeService } from "@learn6502/ui";
 
-import "../widgets/learn/index.js"; // registers `$TutorialView` for the shared learn.blp
-import "../widgets/quick-help.js"; // registers `$QuickHelpView` for the shared editor.blp
 import { initResources } from "./resources.js";
 import { injectShellStyles } from "./styles.js";
 

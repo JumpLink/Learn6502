@@ -56,18 +56,25 @@ export class GtkTextList extends Component {
         margin-start={24}
         {...filterProperties(this.props, GtkTextList.propertyNames)}
       >
+        {/*
+          The marker and the item share a font, so `START` puts the marker on
+          the first line exactly where a baseline would. `BASELINE` is what
+          stood here; it is deprecated in GTK since 4.12, and the NativeScript
+          port refuses it along with `BASELINE_FILL` because its layout has no
+          baseline to align to — a stated absence, not a gap to fill.
+        */}
         {listItems.map((item) => (
           <GtkBox orientation={Orientation.HORIZONTAL}>
             <GtkLabel
               use-markup
               wrap
-              valign={Align.BASELINE}
+              valign={Align.START}
               label={this.props.type === TextListType.ORDERED ? `${item.index}. ` : "• "}
             />
             {item.isGtkNode ? (
               item.child
             ) : (
-              <GtkLabel use-markup wrap valign={Align.BASELINE}>
+              <GtkLabel use-markup wrap valign={Align.START}>
                 {item.content}
               </GtkLabel>
             )}

@@ -9,8 +9,7 @@ export class GtkRoot extends Component {
         <requires lib="gtk" version="4.0" />
         <template class={this.props.class} parent="MdxView">
           <property name="vexpand">true</property>
-          <property name="vexpand-set">true</property>
-          <GtkBox vexpand vexpand-set orientation={Orientation.VERTICAL}>
+          <GtkBox vexpand orientation={Orientation.VERTICAL}>
             {this.props.children}
           </GtkBox>
         </template>

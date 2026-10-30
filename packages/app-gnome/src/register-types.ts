@@ -19,12 +19,7 @@
 
 // Leaf widgets
 // Shared widgets (@learn6502/ui): SourceView, Hexdump, Disassembled, HexMonitor, DebugInfo, MessageConsole, Gamepad, Display, GameConsole, Debugger, Editor, Learn, ExamplesList, ExampleListItem, MainButton, Toolbar, ShareDialog,
-// ThemeModeSelector, PrimaryColorSelector, AccentColorSelector, PreferencesDialog
+// ThemeModeSelector, PrimaryColorSelector, AccentColorSelector, PreferencesDialog, MdxView, TutorialView, QuickHelpView
 import "@learn6502/ui";
-
-// MDX-driven widgets
-import "./mdx/mdx-view.ts";
-import "./mdx/quick-help-view.ts";
-import "./mdx/tutorial-view.ts";
 
 // Composite views and dialogs
