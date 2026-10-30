@@ -9,6 +9,10 @@ import { type SimulatorStack } from "@learn6502/core";
 import { DebuggerState } from "../data/index.ts";
 import { type DisassembledCopyEvent, type HexdumpCopyEvent, type HexMonitorCopyEvent } from "../types/index.ts";
 import { debuggerController } from "../controller/index.ts";
+import { settings } from "../settings.ts";
+
+/** The GSettings key holding whether the learner turned the debugger on. */
+const KEY_DEBUGGER_ENABLED = "debugger-enabled";
 
 import type { Hexdump } from "./hexdump.ts";
 import type { Disassembled } from "./disassembled.ts";
@@ -72,7 +76,7 @@ export class Debugger extends Adw.Bin implements DebuggerView {
             "Enabled",
             "Debugger enabled",
             GObject.ParamFlags.READWRITE,
-            true
+            false
           ),
           scrollable: GObject.ParamSpec.boolean(
             "scrollable",
@@ -106,9 +110,19 @@ export class Debugger extends Adw.Bin implements DebuggerView {
     if (this._enabled === value) return;
     this._enabled = value;
     this.notify("enabled");
+    settings.set_boolean(KEY_DEBUGGER_ENABLED, value);
+    this.syncControllerState();
+  }
 
-    // Sync with controller state
-    debuggerController.state = value
+  /**
+   * Put the controller into the state `enabled` asks for.
+   *
+   * Separate from the setter because the setter early-returns when the value already matches, and
+   * at construction it already does: the property defaults to `false` while the controller starts
+   * at `INITIAL`, so the disabled case would never reach the controller.
+   */
+  private syncControllerState(): void {
+    debuggerController.state = this._enabled
       ? this.state === DebuggerState.RESET
         ? DebuggerState.RESET
         : DebuggerState.ACTIVE
@@ -128,7 +142,9 @@ export class Debugger extends Adw.Bin implements DebuggerView {
 
     this.setupSignalHandlers();
     this.state = DebuggerState.INITIAL;
-    this.enabled = true;
+    // Off unless the learner turned it on before: watching costs a callback per instruction.
+    this.enabled = settings.get_boolean(KEY_DEBUGGER_ENABLED);
+    this.syncControllerState();
 
     this.connect("notify::scrollable", () => {
       this.updateScrollbarPolicy();

@@ -75,6 +75,16 @@
             <description>Whether to enable auto indentation in the editor</description>
         </key>
 
+        <!-- Debugger settings -->
+        <key name="debugger-enabled" type="b">
+            <default>false</default>
+            <summary>Debugger enabled</summary>
+            <description>Whether the debugger watches the simulator. Watching costs
+            a callback per executed instruction, which is noticeable on slow devices,
+            so it starts off and the switch on the debugger page turns it on. A
+            learner's own choice is stored here and wins over this default.</description>
+        </key>
+
         <!-- Support prompt -->
         <key name="support-prompt-years" type="ai">
             <default>[]</default>
