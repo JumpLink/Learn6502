@@ -74,7 +74,16 @@ export class GtkTextList extends Component {
             {item.isGtkNode ? (
               item.child
             ) : (
-              <GtkLabel use-markup wrap valign={Align.START}>
+              /*
+                `hexpand` + `halign: FILL` + `xalign: 0`, exactly as a paragraph gets them
+                (`gtk.components.tsx`): the item text is the part of the row that takes the
+                leftover width, and a wrapping label only wraps once something has told it
+                how wide it is. GTK happened to wrap it anyway — a box shrinks its children
+                to fit and a wrapping label's minimum width is one word — but the port's
+                GridLayout measures an `auto` cell at its natural width, so on Android every
+                item drew as one clipped line while GNOME and the web looked right.
+              */
+              <GtkLabel use-markup wrap valign={Align.START} hexpand halign={Align.FILL} xalign={0}>
                 {item.content}
               </GtkLabel>
             )}
