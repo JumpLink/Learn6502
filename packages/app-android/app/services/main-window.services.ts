@@ -6,7 +6,7 @@ import { showError } from "~/utils";
 const SHARE_URL = "https://github.com/JumpLink/Learn6502";
 
 const fileService = new FileService({
-  onError: (message, error) => showError(error, { forcedMessage: message, showAsNotification: true }),
+  onError: (message, error) => showError(error, { forcedMessage: message }),
 });
 
 function copyToClipboard(text: string): boolean {
