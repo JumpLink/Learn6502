@@ -1,6 +1,6 @@
 # 2. gettext on every platform
 
-- Status: **Proposed**
+- Status: **Accepted** (2026-10-30)
 - Date: 2026-10-29
 - Deciders: Pascal Garber
 - Related: [ADR 0001](0001-one-app-package-and-packaging-only-platform-workspaces.md) (one app
@@ -92,9 +92,9 @@ platform only decides where the catalogue comes from.
 
 - The launcher label generator (decision 5) is not built yet. Until it is, the 16
   `values[-<lang>]/strings.xml` were written once from `po/` and are kept by hand.
-- The tutorial's title line stays English on Android: the Android MDX output writes `<small>`
-  where the msgid (from the GNOME `.ui`) has `<sub>`. It did under `@nativescript/localize` too;
-  sharing the MDX views (Phase 5) removes the second rendering.
+- The tutorial's title line is translated on Android since the MDX views are shared (`bbd7e340`),
+  but draws at full size: the NativeScript label markup applies no font scale to `<sub>`/`<sup>`
+  (a gjsify gap).
 - Web re-creation: own gjsify ADR when it starts.
 - APK size with `.mo` versus string resources: unmeasured.
 
