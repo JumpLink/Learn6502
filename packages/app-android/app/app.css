@@ -8,6 +8,14 @@
    resolution; keep in sync with the package on a widget bump. Light + .ns-dark. */
 @import '~/adwaita.css';
 
+/* The app's own shared stylesheets, the same two app-gnome pulls into
+   src/widgets/index.css. Without them the `rounded-*-none` classes on the d-pad
+   and the #buttonCenter padding override are dead here, so the cross keeps the
+   rounded corners of five separate buttons. postcss-import inlines them at build
+   time, so a wrong path fails the build rather than going unnoticed. */
+@import '../../ui/src/rounded.css';
+@import '../../ui/src/game-console/gamepad.css';
+
 /* Adwaita Sans (the GNOME UI font). Android resolves the family by the TTF file
    name in app/fonts/ (AdwaitaSans-Regular.ttf); iOS resolves by the PostScript
    name ("Adwaita Sans"). Listing both keeps one rule cross-platform. */
