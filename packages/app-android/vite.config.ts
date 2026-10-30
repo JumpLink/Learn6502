@@ -44,6 +44,11 @@ function asmTextLoader(): Plugin {
 export default defineNativescriptConfig(
   {
     giRenderer: true,
+    // GI namespaces beyond the ones every runtime carries (GLib, GObject, Gio, Graphene).
+    // Learn6502 needs none — the one `requireGi("Gtk")` left is the file chooser, which is meant
+    // to throw on Android. The empty set still composes the gate, so a future chunk that imports
+    // a namespace fails the build instead of `dlopen`ing on the device.
+    giNamespaces: [],
     // The shared UI's gettext catalogues, staged as `.mo` for the Android GLib gettext.
     locale: {
       poDirectory: fileURLToPath(new URL("../translations", import.meta.url)),
