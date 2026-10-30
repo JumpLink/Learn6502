@@ -130,6 +130,14 @@ export class MdxView extends Adw.Bin {
    * bridge's box re-plans its tracks per child, which is the cost that dominates. A removed child
    * is not in that plan at all.
    *
+   * STILL NEEDED once that re-planning became incremental in the bridge (gjsify #2474), and
+   * measured again with the fix in rather than assumed: dropping this one call moves first content
+   * from 0.43–0.49 s to 1.92–1.98 s and skipped frames from 0 to 71. The two fixes do not overlap
+   * — the bridge made each track cheap, this keeps 163 sections out of the frame that has to be on
+   * screen — which is also why the mechanism stays here instead of moving into the bridge: all it
+   * asks of the toolkit is `remove` and `append`, and what is left is this document's policy (where
+   * the fold is, how big a batch is), which no box can know.
+   *
    * FROM THE END BACKWARDS, which is not interchangeable with forwards: the bridge diffs the
    * track list as a SUFFIX, so dropping the last child is O(1) and dropping the first renumbers
    * every track behind it. {@link revealDeferred} appends forwards for the same reason.
