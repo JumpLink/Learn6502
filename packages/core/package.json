@@ -6,7 +6,7 @@
   "type": "module",
   "private": false,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "gjsify test",
     "clear": "rm -rf dist",
     "check": "gjsify tsc --noEmit",
     "build": "gjsify tsc --declaration"
@@ -15,6 +15,7 @@
   "license": "GPL-3.0-only",
   "devDependencies": {
     "@gjsify/cli": "0.64.14",
+    "@gjsify/unit": "0.64.14",
     "typescript": "^6.0.3"
   },
   "types": "dist/index.d.ts",
