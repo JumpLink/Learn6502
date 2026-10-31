@@ -347,7 +347,7 @@ msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.
 msgstr "רשימה מלאה של אוסף פקודות ה־6502 <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">זמינה כאן</a> ו<a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">כאן</a> (אני בדרך כלל מציין לשני האתרים כי יש להם חוזקות וחולשות). האתרים האלה מפרטים את הארגומנטים לכל הפקודות, באיזה אוגרים הם משתמשים, ואיזה דגלים הם מגדירים. הם התנ&quot;ך שלכם."
 
 #. TRANSLATORS: About dialog menu item label
-msgid "About Learn 6502"
+msgid "About Learn 6502 Assembly"
 msgstr "אודות \"לימוד שפת הסף של 6502\""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -487,6 +487,7 @@ msgstr "הגדרות מראה"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "שיפורי ארכיטקטורה שמאפשרים שיתוף קוד טוב יותר בין פלטפורמות GNOME, הרשת, ואנדרואיד."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -501,6 +502,7 @@ msgid "As stated before, the four directions are represented internally by the n
 msgstr "כנזכר לעיל, ארבעת הכיוונים מיוצגים אצלנו עם המספרים 1, 2, 4 ו־8. כל אחד מהמספרים האלה הוא חזקה של 2, לכן הם מייוצגים על ידי מספר בינרי עם <tt>1</tt> בודד:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
+#. TRANSLATORS: Menu item to assemble the current code
 msgid "Assemble"
 msgstr "הַרְכֵּב"
 
@@ -623,13 +625,13 @@ msgstr "המשך"
 msgid "Copied to clipboard"
 msgstr "הועתק ללוח"
 
-#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
+#. TRANSLATORS: Button to copy example content to clipboard again
 msgid "Copy to clipboard"
 msgstr "העתק ללוח"
 
-#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
+#. TRANSLATORS: Tooltip for copy button in example list item
 msgid "Copy to editor"
 msgstr "העתק לעורך"
 
@@ -727,9 +729,17 @@ msgstr "שופר בורר תווך־הכתובות במנטר ההקסדצימל
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
 msgstr "עם הידע הזה, אתם תוכלו לראות שהפקודה <tt>LDA #$01</tt> טוענת את הערך ההקסדצימלי <tt>$01</tt> לאוגר <tt>A</tt>. בקטע הבא אני ארחיב יותר על אוגרים."
 
+#. TRANSLATORS: Example title for Even Odd
+msgid "Even Odd"
+msgstr "זוגי או אי־זוגי"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "למרות שזו תהיה גרסה פשוטה, הקוד יהיה גדול משמעותית מכל הדוגמאות הקודמות. אנחנו נצתרך לעקוב אחר כמה נקודות זיכרון ביחד בשביל שלל חלקי המשחק. אנחנו עדיין יכולים לרשום ולסדר בעצמינו את כל הפרטים החשובים במהלך התוכנה כמו קודם, אבל בקנה מידה גדול, זה מהר מאוד נהיה מעייף ועלול לגרום לבאגים קשים לאיתור. במקום, אנחנו ניתן עכשיו למאסף לעשות חלק מהעבודה הקשה בשבילנו."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -800,7 +810,7 @@ msgstr "השתמש בסגנון המערכת"
 
 #. TRANSLATORS: Label of the row that chooses the interface font
 msgid "Font"
-msgstr ""
+msgstr "גופן"
 
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
@@ -859,6 +869,10 @@ msgstr ""
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr "יצרתם משהו מגניב עם 6502? שתפו אותו עם הקהילה! עכשיו אתם יכולים לשתף את דוגמאות הקוד שלכם ישר מהיישום. פשוט הקישו על כפתור השיתוף, ואנחנו ניצור אוטומטית סוגיה ובקשת שילוב ב־Github בשבילכם."
 
+#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
+msgid "Great start — you finished the first chapter!"
+msgstr "התחלה מצוינת – סיימתם את הפרק הראשון!"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -868,9 +882,7 @@ msgstr "ירוק"
 msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
 msgstr "עברית היא גם שפת הימין-לשמאל הראשונה שלנו: הודות לבדיקות ולתרומות של מנחם, היישום תומך כעת בפריסות מימין לשמאל ומוכן לשפות RTL נוספות."
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
-#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "עזרה"
 
@@ -1018,7 +1030,7 @@ msgstr "מדריכים אינטראקטיבים יובילו אתכם ממתחי
 
 #. TRANSLATORS: Preferences group title for the interface font
 msgid "Interface font"
-msgstr ""
+msgstr "גופן הממשק"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "דגל הפסיקה: כאשר מוגדר, ממסך (מבטל) כל פסיקה שניתנת למיסוך (IRQ). רק פסיקות שאינם ניתנות למיסוך (NMI) יכולים עדיין לקרות. משמש לקטעי קוד חשובים שאין להפסיק במהלכם."
@@ -1061,9 +1073,8 @@ msgstr "כשל תוויות"
 msgid "Learn"
 msgstr "למידה"
 
-#. TRANSLATORS: Application title shown in the header bar
-msgid "Learn 6502"
-msgstr "לימוד שפת הסף של 6502"
+msgid "Learn 6502 Assembly"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
@@ -1088,6 +1099,9 @@ msgstr "לימדו איך להשתמש במחסנית עם הפקודות PHA ו
 #. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
 msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
 msgstr "לימוד עם דוגמאות מעולם לא היה קל יותר. תצללו אל תוך קוד עובד, תשנו אותו, תהרסו אותו, תתקנו אותו שוב - כך למדו המתכנתים הטובים ביותר באותם ימים!"
+
+msgid "Legal Notice"
+msgstr ""
 
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
@@ -1166,6 +1180,10 @@ msgstr "לאחר שהערכים זזו במורד הנחש, אנחנו צריכ�
 msgid "Open Assembly File"
 msgstr "פתח קובץ קוד סף"
 
+#. TRANSLATORS: Badge in the About dialog, shown by every build of the app
+msgid "Open Source"
+msgstr "קוד פתוח"
+
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "פתיחה..."
@@ -1205,6 +1223,7 @@ msgid "Overflow Flag: Set when an arithmetic operation produces a result that ca
 msgstr "דגל הגלישה: מוגדר כשפעולה אריטמטית מניבה תוצאה שאי אפשר להציג בטווח 8־ביט מסומן (-128 עד +127). משמש לזיהוי שגיאות בחישובים אריטמטים מסומנים."
 
 #. TRANSLATORS: Main action button label to pause the running simulator
+#. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
 msgstr "הפסקה"
 
@@ -1280,6 +1299,9 @@ msgstr "מרכזי: טורקיז"
 msgid "Primary: Yellow"
 msgstr "מרכזי: צהוב"
 
+msgid "Privacy"
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
 msgstr "דגלי המעבד"
@@ -1314,7 +1336,7 @@ msgid "Program paused"
 msgstr "התוכנית עצרה"
 
 msgid "Program vintage consoles"
-msgstr "תכנתו קונסולות משחק ישנות"
+msgstr "תכנתו קונסולות ישנות"
 
 #. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
@@ -1367,6 +1389,7 @@ msgid "Rendering the game"
 msgstr "ציור המשחק"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
+#. TRANSLATORS: Menu item to reset simulator and state
 msgid "Reset"
 msgstr "איפוס"
 
@@ -1383,6 +1406,7 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr "שכתבו את הדוגמה הראשונה בקטע הזה להשתמש באוגר <tt>Y</tt> במקום באוגר <tt>X</tt>."
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
+#. TRANSLATORS: Menu item to start running the simulator
 msgid "Run"
 msgstr "להריץ"
 
@@ -1432,15 +1456,14 @@ msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by
 msgstr "שלום! אנחנו שמחים לקבל בברכה את התרגום לעברית, שנתרם במלואו על ידי מנחם (naattxx). תודה רבה!"
 
 #. TRANSLATORS: Menu item to share the current code
-#. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
 msgstr "שיתוף"
 
 msgid "Share Example"
 msgstr "שתף דוגמה"
 
-#. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
+#. TRANSLATORS: Title of the share dialog
 msgid "Share Your Example"
 msgstr "שתפו את הדוגמה שלכם"
 
@@ -1524,6 +1547,7 @@ msgid "Status Flags"
 msgstr "דגלי מצב"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#. TRANSLATORS: Menu item for single-step execution
 msgid "Step"
 msgstr "צעד"
 
@@ -1543,6 +1567,13 @@ msgstr "עיצוב"
 msgid "Submit"
 msgstr "שלח"
 
+msgid "Support"
+msgstr "תמיכה"
+
+#. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
+msgid "Supporter"
+msgstr "תומך"
+
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
@@ -1550,11 +1581,11 @@ msgstr "שגיאת תחביר בשורה %d: %s"
 
 #. TRANSLATORS: Font option — use the operating system's own font, untouched
 msgid "System font"
-msgstr ""
+msgstr "ברירת המחדל של המערכת"
 
 #. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
 msgid "System font, GNOME size"
-msgstr ""
+msgstr "גופן המערכת, בגודל של GNOME"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1568,6 +1599,14 @@ msgstr "Tervetuloa! אנחנו שמחים להזמין את התרגום לפי�
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "בידקו את היצירות שלכם על קונסולת משחק ווירטואלית"
+
+#. TRANSLATORS: Example description for Even Odd
+msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
+msgstr "בודק את ביט 0 של A באמצעות LSR ו-BCC, ומציב 1 או 0 ב-A בהתאם לתוצאה"
+
+#. TRANSLATORS: What the "Open Source" badge in the About dialog means
+msgid "Thank you for using open source software."
+msgstr "תודה שאתם משתמשים בתוכנה בקוד פתוח."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1589,6 +1628,10 @@ msgstr "התהליך <tt>loop</tt> עצמו פשוט קורא ברצף למספ�
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "הסוכם (Accumulator, A) הוא האוגר הראשי לפעולות אריתמטיות ולוגיות. כל החישובים הבסיסיים כמו ADD, SUBTRACT, AND, OR, וכו'. משתמשים באוגר הזה. הוא האוגר הכי נפוץ בשפת הסף 6502."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "מונה התוכנה מכיל את הכתובת של הפקודה הבאה שעומדת לרוץ. הוא גדל אוטומטית אחרי כל פקודה ואפשר לשנות אותו עם קפיצות, הסתעפויות, קריאות, וחזרות. חיוני לפיקוד על מהלך התוכנה, ולניפוי שגיאות."
@@ -1609,7 +1652,7 @@ msgstr "אוגר האינדוּקס Y דומה ל־X ואין לו שום יכו
 #. from the operating system, and outside GNOME that font is smaller than
 #. the one the app is designed for.
 msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
-msgstr ""
+msgstr "האפליקציה מעוצבת עבור גופן הממשק של GNOME. במערכות אחרות היא מוצגת בגופן של אותה מערכת, שבדרך כלל קטן יותר."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1715,6 +1758,10 @@ msgstr "המחסנית"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "המחסנית במעבד 6502 היא בדיוק כמו כל מחסנית אחרת - ערכים נדחפים אל תוכה ומוצאים (\"נמשכים\" בשפה של 6502) ממנה. עומקה הנוכחי של המחסנית נמדד באמצעות מצביע המחסנית, אוגר מיוחד. המחסנית שוכנת בזיכרון בין <tt>$0100</tt> ו־<tt>$01ff</tt>. בהתחלה מצביע המחסנית שווה ל־<tt>$ff</tt>, כך שמצביע על נקודת הזיכרון <tt>$01ff</tt>. כאשר בייט נדחף אל תוך המחסנית, מצביע המחסנית הופך ל־<tt>$fe</tt>, ומצביע על נקודת הזיכרון <tt>$01fe</tt>, וכן הלאה."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "דף האפס של הזיכרון משמש לשמירת מספר משתנים של מצב המשחק, כמצויין בההערה בתחילה המשחק. הכל ב־<tt>$00</tt>, <tt>$01</tt> ו־<tt>$10</tt> ומעלה מורכב מזוגות בתים שמייצגים נקודות זיכרון בנות שתי בתים שיגשו אליהן במיעון עקיף. כל נקודות הזיכרון האלו יהיו בין <tt>$0200</tt> ו־<tt>$05ff</tt> - קטע הזיכרון שמחובר למסך המשחק. לדוגמה, אם <tt>$00</tt> ו־<tt>$01</tt> יכילו את הערכים <tt>$01</tt> ו־<tt>$02</tt>, הכוונה בהם היא לפיקסל השני של המסך (<tt>$0201</tt> – זיכרו, הבייט השולי מגיע ראשון במיעון עקיף)."
@@ -1722,6 +1769,10 @@ msgstr "דף האפס של הזיכרון משמש לשמירת מספר משת�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "אז למה 6502? למה לא שפת סף <i>שימושית</i>, כמו <a href=\"https://he.wikipedia.org/wiki/X86\">x86</a>? ובכן, אני לא חושב שזה שימושי ללמוד x86. אני לא חושב שתצטרכו אי פעם <i>לכתוב</i> שפת סף בעבודה היום יומית ‐ למספר אנשים זה תרגיל אקדמי, משהו לפתח את הראש והמחשבה. 6502 נכתב מלכתחילה בדור אחר, בזמן שבו רוב המתכנתים היו כותבים ישירות בשפת סף, ולא בשפות התכנות הגבוהות החדשות־מעורפלות. לכן היא עוצבה להכתב על ידי בני־אדם. שפות סף יותר מודרניות נועדו להכתב על ידי תוכנות הידור, אז נשאיר אותם להם. בנוסף, 6502 היא <i>כֵּפִית</i>. אף אחד מעולם לא קרא ל־x86 <i>כיף</i>."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1870,6 +1921,10 @@ msgstr "צהוב"
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 msgstr "אתם יכולים לחשוב המסך כארבע רצועות אופקיות של 32 × 8 פיקסלים. הרצועות האלה מותאמות ל־<tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> ו־<tt>$0500-$05ff</tt>. שורות הפיקסלים הראשונות הם <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, וכו'."
 
+#. TRANSLATORS: What the "Supporter" badge in the About dialog means
+msgid "You supported this open source project by buying the app. Thank you!"
+msgstr "תמכתם בפרויקט קוד פתוח זה על ידי רכישת האפליקציה. תודה!"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
 msgstr "ראיתם את <tt>TAX</tt>. בטח תוכלו לנחש מה עושים <tt>TAY</tt>, <tt>TXA</tt> ו־<tt>TYA</tt>, אבל תכתבו קצת קוד לבדוק אם נחשתם נכון."
@@ -1930,10 +1985,6 @@ msgid "வணக்கம்! We are happy to welcome Tamil translations, contri
 msgstr "வணக்கம்! אנחנו שמחים לקבל בברכה את התרגום לטמילית, שנתרם על ידי தமிழ்நேரம். நன்றி!"
 
 #, javascript-format
-#. TRANSLATORS: Replace with your names, one per line, e.g. "Jane Doe <jane@example.com>"
-msgid "translator-credits"
-msgstr "Menachem"
-
 #~ msgid ""
 #~ "Disassembly:\n"
 #~ "%s"

@@ -4,7 +4,7 @@
   <id>eu.jumplink.Learn6502</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  <name>Learn 6502</name>
+  <name>Learn 6502 Assembly</name>
   <summary>Program vintage consoles</summary>
   <icon type="remote">https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.5.0/packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</icon>
   <description>
@@ -54,18 +54,49 @@
       <caption>Interactive tutorial</caption>
     </screenshot>
   </screenshots>
-  <url type="homepage">https://flathub.org/apps/eu.jumplink.Learn6502</url>
+  <url type="homepage">https://jumplink.eu/Learn6502/</url>
   <url type="bugtracker">https://github.com/JumpLink/Learn6502/issues</url>
   <url type="vcs-browser">https://github.com/JumpLink/Learn6502</url>
   <url type="contribute">https://github.com/JumpLink/Learn6502</url>
   <url type="contact">https://github.com/JumpLink/Learn6502/issues</url>
   <url type="donation">https://jumplink.eu/Learn6502/en/support/</url>
   <url type="translate">https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/</url>
-  <content_rating type="oars-1.1">
-    <content_attribute id="social-info">mild</content_attribute>
-    <content_attribute id="language-humor">mild</content_attribute>
-  </content_rating>
+  <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.8.3" date="2026-10-31">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.8.3 - the examples page shows the example programs again -->
+        <p>The examples page lists the example programs again.</p>
+        <!-- TRANSLATORS: Release notes for version 0.8.3 - GNOME 51 runtime. Keep "Learn 6502" and "GNOME" as they are. -->
+        <p>Learn 6502 now runs on GNOME 51.</p>
+        <!-- TRANSLATORS: Release notes for version 0.8.3 - SBC fix by a contributor. Keep "SBC" and "jeremyw-gh" as they are. -->
+        <p>The SBC instruction now subtracts correctly with zero page addressing. Thanks to jeremyw-gh for the fix.</p>
+      </description>
+    </release>
+    <release version="0.8.2" date="2026-10-31">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.8.2 - signed macOS disk images. Keep "macOS", "Apple silicon" and "Intel" as they are. -->
+        <p>The macOS version is now signed and notarised by Apple and comes as a disk image for Apple silicon and Intel Macs, so it opens without a security warning.</p>
+        <!-- TRANSLATORS: Release notes for version 0.8.2 - fixes and improvements -->
+        <p>As always, this release includes many small fixes and improvements.</p>
+      </description>
+    </release>
+    <release version="0.8.1" date="2026-10-24">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are. -->
+        <p>The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version.</p>
+        <ul>
+          <!-- TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it. -->
+          <li>The web version has a proper About dialog now, and its app icon shows up where it was missing before.</li>
+          <!-- TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification. -->
+          <li>There is a privacy page and a legal notice, reachable from inside the app.</li>
+          <!-- TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog. -->
+          <li>Every build says in About that it is open source, and where to support the project if you would like to.</li>
+        </ul>
+        <!-- TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements -->
+        <p>As always, this release includes many small fixes and improvements.</p>
+      </description>
+    </release>
     <release version="0.8.0" date="2026-09-12">
       <description>
         <!-- TRANSLATORS: Release notes for version 0.8.0 - Windows and macOS builds. "Learn 6502" is the app name: use whatever spelling your catalogue already uses for it (some localise it), and keep "Windows", "macOS" and "Linux" as they are. -->

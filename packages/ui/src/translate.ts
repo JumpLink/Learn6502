@@ -16,3 +16,21 @@ export function _(msgid: string): string {
   const global = (globalThis as { _?: Translator })._;
   return global ? global(msgid) : msgid;
 }
+
+export type LanguageSource = () => string;
+
+let languageSource: LanguageSource | null = null;
+
+/**
+ * Let a platform whose engine carries no `Intl` say what the UI language is. NativeScript's V8 is
+ * built without ICU, so `Intl` is simply absent there and reading it throws a ReferenceError.
+ */
+export function setLanguageSource(fn: LanguageSource): void {
+  languageSource = fn;
+}
+
+/** The UI language as a BCP 47 tag (`de`, `de-DE`, …), empty where no platform can say. */
+export function uiLanguage(): string {
+  if (languageSource) return languageSource();
+  return typeof Intl === "undefined" ? "" : new Intl.DateTimeFormat().resolvedOptions().locale;
+}

@@ -347,7 +347,7 @@ msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.
 msgstr "Danh sách đầy đủ của tập lệnh 6502 <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">có tại đây</a> và <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">tại đây</a> (Tôi thường tham khảo cả hai trang vì chúng có điểm mạnh và điểm yếu). Các trang này trình bày chi tiết các đối số cho từng lệnh, các thanh ghi chúng sử dụng và các cờ nào chúng đặt. Chúng là kinh thánh của bạn."
 
 #. TRANSLATORS: About dialog menu item label
-msgid "About Learn 6502"
+msgid "About Learn 6502 Assembly"
 msgstr "Giới Thiệu Về Học Hợp Ngữ 6502"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -487,6 +487,7 @@ msgstr "Cài đặt giao diện"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Những cải tiến về kiến trúc cho phép chia sẻ mã tốt hơn giữa các nền tảng Gnome, Web và Android."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -501,6 +502,7 @@ msgid "As stated before, the four directions are represented internally by the n
 msgstr "Như đã nêu trước đó, bốn hướng được thể hiện bên trong bằng các số 1, 2, 4 và 8. Mỗi số này là lũy thừa của 2, do đó chúng được biểu thị bằng số nhị phân có một <tt>1</tt> duy nhất:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
+#. TRANSLATORS: Menu item to assemble the current code
 msgid "Assemble"
 msgstr "Tập Hợp"
 
@@ -623,13 +625,13 @@ msgstr "Tiếp Tục"
 msgid "Copied to clipboard"
 msgstr "Đã sao chép vào bộ nhớ tạm"
 
-#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
+#. TRANSLATORS: Button to copy example content to clipboard again
 msgid "Copy to clipboard"
 msgstr "Sao chép vào bộ nhớ tạm"
 
-#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
+#. TRANSLATORS: Tooltip for copy button in example list item
 msgid "Copy to editor"
 msgstr "Sao chép vào trình chỉnh sửa"
 
@@ -727,9 +729,17 @@ msgstr "Cải tiến đầu vào phạm vi địa chỉ màn hình hex để ch�
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
 msgstr "Được trang bị kiến thức đó, bạn sẽ có thể thấy rằng lệnh <tt>LDA #$01</tt> tải giá trị hex <tt>$01</tt> vào thanh ghi <tt>A</tt>. Tôi sẽ đi vào chi tiết hơn về sổ đăng ký trong phần tiếp theo."
 
+#. TRANSLATORS: Example title for Even Odd
+msgid "Even Odd"
+msgstr "Chẵn Lẻ"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "Mặc dù đây sẽ là một phiên bản đơn giản nhưng mã sẽ lớn hơn đáng kể so với tất cả các ví dụ trước đó. Chúng ta sẽ cần phải theo dõi nhiều vị trí bộ nhớ cùng nhau cho các khía cạnh khác nhau của trò chơi. Chúng tôi vẫn có thể tự mình thực hiện các công việc ghi sổ cần thiết trong suốt chương trình như trước đây, nhưng ở quy mô lớn hơn, việc này nhanh chóng trở nên tẻ nhạt và cũng có thể dẫn đến các lỗi khó phát hiện. Thay vào đó, bây giờ chúng ta sẽ để trình biên dịch mã thực hiện một số công việc tầm thường cho chúng ta."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -800,7 +810,7 @@ msgstr "Theo phong cách hệ thống"
 
 #. TRANSLATORS: Label of the row that chooses the interface font
 msgid "Font"
-msgstr ""
+msgstr "Phông chữ"
 
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
@@ -859,6 +869,10 @@ msgstr ""
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr "Bạn có sáng tạo 6502 thú vị của riêng mình không? Hãy chia sẻ nó với cộng đồng! Bây giờ bạn có thể gửi ví dụ mã của mình trực tiếp từ trong ứng dụng. Chỉ cần nhấn nút chia sẻ và chúng tôi sẽ tự động tạo issue GitHub và pull request cho bạn."
 
+#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
+msgid "Great start — you finished the first chapter!"
+msgstr "Khởi đầu tuyệt vời — bạn đã hoàn thành chương đầu tiên!"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -868,9 +882,7 @@ msgstr "Xanh lá"
 msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
 msgstr "Tiếng Do Thái cũng là ngôn ngữ viết từ phải sang trái đầu tiên của chúng tôi: nhờ việc kiểm thử và những đóng góp của Menachem, ứng dụng hiện đã hỗ trợ bố cục từ phải sang trái, sẵn sàng cho nhiều ngôn ngữ RTL khác."
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
-#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Trợ giúp"
 
@@ -1018,7 +1030,7 @@ msgstr "Hướng dẫn tương tác hướng dẫn bạn từ cơ bản đến n
 
 #. TRANSLATORS: Preferences group title for the interface font
 msgid "Interface font"
-msgstr ""
+msgstr "Phông chữ giao diện"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Cờ Ngắt: Khi được đặt, sẽ che dấu (vô hiệu hóa) tất cả các ngắt có thể che được (IRQ). Chỉ các ngắt không thể che giấu (NMI) vẫn có thể xảy ra. Được sử dụng cho các phần mã quan trọng không được bị gián đoạn."
@@ -1061,9 +1073,8 @@ msgstr "Lỗi nhãn"
 msgid "Learn"
 msgstr "Học"
 
-#. TRANSLATORS: Application title shown in the header bar
-msgid "Learn 6502"
-msgstr "Học Hợp Ngữ 6502"
+msgid "Learn 6502 Assembly"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
@@ -1088,6 +1099,9 @@ msgstr "Tìm hiểu cách sử dụng ngăn xếp với hướng dẫn PHA và P
 #. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
 msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
 msgstr "Học bằng ví dụ chưa bao giờ dễ dàng hơn thế. Đi sâu vào mã đang hoạt động, chỉnh sửa, phá vỡ nó, sửa lại - đó là cách các lập trình viên giỏi nhất đã học ngày xưa!"
+
+msgid "Legal Notice"
+msgstr ""
 
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
@@ -1166,6 +1180,10 @@ msgstr "Khi các giá trị đã được chuyển xuống con rắn, chúng ta 
 msgid "Open Assembly File"
 msgstr "Mở Tệp Hợp Ngữ"
 
+#. TRANSLATORS: Badge in the About dialog, shown by every build of the app
+msgid "Open Source"
+msgstr "Mã nguồn mở"
+
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "Mở..."
@@ -1205,6 +1223,7 @@ msgid "Overflow Flag: Set when an arithmetic operation produces a result that ca
 msgstr "Cờ Tràn: Đặt khi một phép toán số học tạo ra kết quả không thể biểu thị trong phạm vi 8 bit có dấu (-128 đến +127). Được sử dụng để phát hiện các lỗi số học có dấu trong phép tính."
 
 #. TRANSLATORS: Main action button label to pause the running simulator
+#. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
 msgstr "Tạm dừng"
 
@@ -1280,6 +1299,9 @@ msgstr "Cơ Bản: Xanh Mòng Két"
 msgid "Primary: Yellow"
 msgstr "Cơ Bản: Vàng"
 
+msgid "Privacy"
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
 msgstr "Cờ Bộ Xử Lý"
@@ -1314,7 +1336,7 @@ msgid "Program paused"
 msgstr "Chương trình đã tạm dừng"
 
 msgid "Program vintage consoles"
-msgstr "Chương trình máy chơi game cổ điển"
+msgstr "Lập trình game retro"
 
 #. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
@@ -1367,6 +1389,7 @@ msgid "Rendering the game"
 msgstr "Kết xuất trò chơi"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
+#. TRANSLATORS: Menu item to reset simulator and state
 msgid "Reset"
 msgstr "Đặt Lại"
 
@@ -1383,6 +1406,7 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr "Viết lại ví dụ đầu tiên trong phần này để sử dụng thanh ghi <tt>Y</tt> thay vì thanh ghi <tt>X</tt>."
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
+#. TRANSLATORS: Menu item to start running the simulator
 msgid "Run"
 msgstr "Chạy"
 
@@ -1432,15 +1456,14 @@ msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by
 msgstr "Shalom! Chúng tôi vui mừng chào đón bản dịch tiếng Do Thái, được đóng góp hoàn toàn bởi Menachem (naattxx). Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
-#. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
 msgstr "Chia Sẻ"
 
 msgid "Share Example"
 msgstr "Chia Sẻ Ví Dụ"
 
-#. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
+#. TRANSLATORS: Title of the share dialog
 msgid "Share Your Example"
 msgstr "Chia Sẻ Ví Dụ Của Bạn"
 
@@ -1524,6 +1547,7 @@ msgid "Status Flags"
 msgstr "Cờ Trạng Thái"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#. TRANSLATORS: Menu item for single-step execution
 msgid "Step"
 msgstr "Bước"
 
@@ -1543,6 +1567,13 @@ msgstr "Phong Cách"
 msgid "Submit"
 msgstr "Nộp"
 
+msgid "Support"
+msgstr "Ủng hộ"
+
+#. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
+msgid "Supporter"
+msgstr "Người ủng hộ"
+
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
@@ -1550,11 +1581,11 @@ msgstr "Dòng lỗi cú pháp %d: %s"
 
 #. TRANSLATORS: Font option — use the operating system's own font, untouched
 msgid "System font"
-msgstr ""
+msgstr "Mặc định hệ thống"
 
 #. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
 msgid "System font, GNOME size"
-msgstr ""
+msgstr "Phông chữ hệ thống, cỡ GNOME"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1568,6 +1599,14 @@ msgstr "Tervetuloa! Chúng tôi vui mừng chào đón bản dịch tiếng Ph�
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "Kiểm tra sự sáng tạo của bạn trên bảng điều khiển trò chơi ảo"
+
+#. TRANSLATORS: Example description for Even Odd
+msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
+msgstr "Kiểm tra bit 0 của A bằng LSR và BCC, đặt 1 hoặc 0 vào A làm kết quả"
+
+#. TRANSLATORS: What the "Open Source" badge in the About dialog means
+msgid "Thank you for using open source software."
+msgstr "Cảm ơn bạn đã sử dụng phần mềm mã nguồn mở."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1589,6 +1628,10 @@ msgstr "Bản thân chương trình con <tt>loop</tt> chỉ gọi một số ch�
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "Bộ tích lũy (A) là thanh ghi chính cho các phép toán số học và logic. Tất cả các phép tính cơ bản như THÊM, TRỪ, VÀ, HOẶC, v.v. đều sử dụng thanh ghi này. Đây là thanh ghi được sử dụng thường xuyên nhất trong lập trình hợp ngữ 6502."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "Bộ Đếm Chương Trình chứa địa chỉ bộ nhớ của lệnh tiếp theo sẽ thực thi. Nó tự động tăng sau mỗi lệnh và có thể được sửa đổi bằng cách nhảy, rẽ nhánh, gọi và trả về. Cần thiết cho việc kiểm soát và gỡ lỗi luồng chương trình."
@@ -1609,7 +1652,7 @@ msgstr "Thanh ghi chỉ số Y tương tự như X và không có chức năng �
 #. from the operating system, and outside GNOME that font is smaller than
 #. the one the app is designed for.
 msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
-msgstr ""
+msgstr "Ứng dụng được thiết kế cho phông chữ giao diện của GNOME. Trên các hệ thống khác, ứng dụng được hiển thị bằng phông chữ của hệ thống đó, thường nhỏ hơn."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1715,6 +1758,10 @@ msgstr "Ngăn xếp"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "Ngăn xếp trong bộ xử lý 6502 cũng giống như bất kỳ ngăn xếp nào khác - các giá trị được đẩy lên nó và bật ra (\"kéo\" theo cách nói của 6502). Độ sâu hiện tại của ngăn xếp được đo bằng con trỏ ngăn xếp, một thanh ghi đặc biệt. Ngăn xếp tồn tại trong bộ nhớ giữa <tt>$0100</tt> và <tt>$01ff</tt>. Con trỏ ngăn xếp ban đầu là <tt>$ff</tt>, trỏ đến vị trí bộ nhớ <tt>$01ff</tt>. Khi một byte được đẩy lên ngăn xếp, con trỏ ngăn xếp sẽ trở thành <tt>$fe</tt> hoặc vị trí bộ nhớ <tt>$01fe</tt>, v.v."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "Trang không của bộ nhớ được sử dụng để lưu trữ một số biến trạng thái trò chơi, như được ghi chú trong khối nhận xét ở đầu trò chơi. Mọi thứ trong <tt>$00</tt>, <tt>$01</tt> và <tt>$10</tt> trở lên là một cặp byte biểu thị vị trí bộ nhớ hai byte sẽ được tra cứu bằng cách sử dụng địa chỉ gián tiếp. Tất cả các vị trí bộ nhớ này sẽ nằm trong khoảng từ <tt>$0200</tt> đến <tt>$05ff</tt> - phần bộ nhớ tương ứng với bảng điều khiển trò chơi. Ví dụ: nếu <tt>$00</tt> và <tt>$01</tt> chứa các giá trị <tt>$01</tt> và <tt>$02</tt>, thì chúng sẽ đề cập đến pixel thứ hai của màn hình ( <tt>$0201</tt> - hãy nhớ, byte ít quan trọng nhất sẽ xuất hiện trước trong cách đánh địa chỉ gián tiếp)."
@@ -1722,6 +1769,10 @@ msgstr "Trang không của bộ nhớ được sử dụng để lưu trữ mộ
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "Vậy tại sao lại là 6502? Tại sao không phải là một ngôn ngữ hợp ngữ <i>hữu ích</i>, như <a href=\"https://vi.wikipedia.org/wiki/X86\">x86</a>? Chà, tôi không nghĩ việc học x86 là hữu ích. Tôi không nghĩ bạn sẽ phải <i>viết</i> ngôn ngữ hợp ngữ trong công việc hàng ngày của mình - đối với một số người, đây là một bài tập học thuật, một thứ giúp mở rộng trí óc và suy nghĩ của bạn. 6502 ban đầu được viết ở một thời đại khác, thời điểm mà phần lớn các nhà phát triển đang viết hợp ngữ một cách trực tiếp, thay vì bằng các ngôn ngữ lập trình cấp cao mới mẻ này. Vì vậy, nó được thiết kế để được viết bởi con người. Các ngôn ngữ hợp ngữ hiện đại hơn được viết bởi các trình biên dịch, vì vậy hãy để việc đó cho chúng. Ngoài ra, 6502 còn <i>thú vị</i>. Chưa có ai gọi x86 là <i>vui</i>."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1870,6 +1921,10 @@ msgstr "Vàng"
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 msgstr "Bạn có thể coi màn hình là bốn dải ngang 32 × 8 pixel. Các dải này ánh xạ tới <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> và <tt>$0500-$05ff</tt>. Các hàng pixel đầu tiên là <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, v.v."
 
+#. TRANSLATORS: What the "Supporter" badge in the About dialog means
+msgid "You supported this open source project by buying the app. Thank you!"
+msgstr "Bạn đã ủng hộ dự án mã nguồn mở này bằng cách mua ứng dụng. Cảm ơn bạn!"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
 msgstr "Bạn đã xem <tt>TAX</tt>. Bạn có thể đoán <tt>TAY</tt>, <tt>TXA</tt> và <tt>TYA</tt> làm gì, nhưng hãy viết một số mã để kiểm tra giả định của bạn."
@@ -1930,10 +1985,6 @@ msgid "வணக்கம்! We are happy to welcome Tamil translations, contri
 msgstr "வணக்கம்! Chúng tôi vui mừng chào đón bản dịch tiếng Tamil, được đóng góp bởi தமிழ்நேரம். நன்றி!"
 
 #, javascript-format
-#. TRANSLATORS: Replace with your names, one per line, e.g. "Jane Doe <jane@example.com>"
-msgid "translator-credits"
-msgstr "Loc Huynh"
-
 #~ msgid ""
 #~ "Disassembly:\n"
 #~ "%s"

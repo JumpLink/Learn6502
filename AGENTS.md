@@ -86,6 +86,18 @@ Everything but the Flatpak comes from `gjsify ship`, configured in the **root**
 `gjsify.flatpak`, which lives in the root, and one manifest means the AppStream
 data has one home rather than two that drift.
 
+**macOS is signed and notarised in its own job.** The Linux job only *stages* the two macOS
+payloads; the `macos` job (`macos-latest`) packs them with `--from-stage --sign --notarize`,
+because `codesign` and `notarytool` exist on macOS alone. A release without the five
+`APPLE_*` secrets (listed above that job) fails on purpose; a branch dry run packs unsigned
+zips. Both jobs run the same pinned gjsify version.
+
+**Flathub needs two files per release.** In `flathub/eu.jumplink.Learn6502`, the manifest's
+git source takes the new `tag` + `commit`, and `gjsify-sources.json` is replaced with the
+tag's copy (the offline npm sources). flathubbot opens an update PR from the
+`x-checker-data`, but it bumps only the manifest, so push the sources onto its branch, or
+open the PR with both files yourself before the bot does. The maintainer merges.
+
 **Two bundles, one source.** Linux runs `--app gjs`. macOS and Windows have no
 GJS host at all, so they run `--app node` through `@gjsify/node-gi`.
 `gjsify workspace @learn6502/app-gnome build:ship` builds both, into `dist/gjs/`

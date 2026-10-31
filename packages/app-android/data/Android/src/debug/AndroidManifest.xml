@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+	Debug-only manifest additions. Gradle's manifest merger applies this source set to the
+	debug build type only, so the released app keeps requesting no network access at all.
+
+	A debug build links the `nativescript-optimized-with-inspector` runtime, and
+	`RuntimeHelper.initRuntime()` unconditionally starts `AndroidJsV8Inspector` — a NanoHTTPD
+	server socket. Without INTERNET permission Android denies the socket with
+	`EPERM (Operation not permitted)`, the inspector never installs its globals, and the dev
+	bundle (which imports `@nativescript/core/inspector_modules`) dies at module evaluation with
+	`ReferenceError: __registerDomainDispatcher is not defined` before any app code runs.
+-->
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
+	<uses-permission android:name="android.permission.INTERNET" />
+</manifest>

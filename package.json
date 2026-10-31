@@ -1,6 +1,6 @@
 {
   "name": "learn6502",
-  "version": "0.8.0",
+  "version": "0.8.3",
   "type": "module",
   "private": true,
   "gjsify": {
@@ -27,9 +27,9 @@
     "flatpak": {
       "appId": "eu.jumplink.Learn6502",
       "kind": "app",
-      "name": "Learn 6502",
+      "name": "Learn 6502 Assembly",
       "runtime": "gnome",
-      "runtimeVersion": "50",
+      "runtimeVersion": "51",
       "sdkExtensions": [],
       "modules": [
         {
@@ -51,7 +51,7 @@
         "--socket=fallback-x11",
         "--socket=wayland"
       ],
-      "ciContainer": "ghcr.io/flathub-infra/flatpak-github-actions:gnome-50",
+      "ciContainer": "ghcr.io/flathub-infra/flatpak-github-actions:gnome-51",
       "ciBranches": [
         "main"
       ],
@@ -104,7 +104,7 @@
         "metadata": "CC0-1.0",
         "project": "GPL-3.0-or-later"
       },
-      "homepageUrl": "https://flathub.org/apps/eu.jumplink.Learn6502",
+      "homepageUrl": "https://jumplink.eu/Learn6502/",
       "bugtrackerUrl": "https://github.com/JumpLink/Learn6502/issues",
       "vcsBrowserUrl": "https://github.com/JumpLink/Learn6502",
       "translateUrl": "https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/",
@@ -131,10 +131,7 @@
       "icon": "packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg",
       "contentRating": {
         "type": "oars-1.1",
-        "attributes": {
-          "social-info": "mild",
-          "language-humor": "mild"
-        }
+        "attributes": {}
       },
       "kudos": [
         "ModernToolkit",
@@ -186,6 +183,68 @@
         }
       ],
       "releases": [
+        {
+          "version": "0.8.3",
+          "date": "2026-10-31",
+          "description": [
+            {
+              "p": "The examples page lists the example programs again.",
+              "translatorHint": "Release notes for version 0.8.3 - the examples page shows the example programs again"
+            },
+            {
+              "p": "Learn 6502 now runs on GNOME 51.",
+              "translatorHint": "Release notes for version 0.8.3 - GNOME 51 runtime. Keep \"Learn 6502\" and \"GNOME\" as they are."
+            },
+            {
+              "p": "The SBC instruction now subtracts correctly with zero page addressing. Thanks to jeremyw-gh for the fix.",
+              "translatorHint": "Release notes for version 0.8.3 - SBC fix by a contributor. Keep \"SBC\" and \"jeremyw-gh\" as they are."
+            }
+          ]
+        },
+        {
+          "version": "0.8.2",
+          "date": "2026-10-31",
+          "description": [
+            {
+              "p": "The macOS version is now signed and notarised by Apple and comes as a disk image for Apple silicon and Intel Macs, so it opens without a security warning.",
+              "translatorHint": "Release notes for version 0.8.2 - signed macOS disk images. Keep \"macOS\", \"Apple silicon\" and \"Intel\" as they are."
+            },
+            {
+              "p": "As always, this release includes many small fixes and improvements.",
+              "translatorHint": "Release notes for version 0.8.2 - fixes and improvements"
+            }
+          ]
+        },
+        {
+          "version": "0.8.1",
+          "date": "2026-10-24",
+          "description": [
+            {
+              "p": "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version.",
+              "translatorHint": "Release notes for version 0.8.1 - the Android startup crash. Keep \"Android\" and \"Adwaita\" as they are."
+            },
+            {
+              "ul": [
+                {
+                  "item": "The web version has a proper About dialog now, and its app icon shows up where it was missing before.",
+                  "translatorHint": "Release notes for version 0.8.1 - the web About dialog and the app icon. \"About\" is the standard dialog name: use the wording your platform already uses for it."
+                },
+                {
+                  "item": "There is a privacy page and a legal notice, reachable from inside the app.",
+                  "translatorHint": "Release notes for version 0.8.1 - privacy page and legal notice. \"Legal notice\" is the German \"Impressum\"; use whatever your language calls the legally required site identification."
+                },
+                {
+                  "item": "Every build says in About that it is open source, and where to support the project if you would like to.",
+                  "translatorHint": "Release notes for version 0.8.1 - the open source badge and support link in the About dialog."
+                }
+              ]
+            },
+            {
+              "p": "As always, this release includes many small fixes and improvements.",
+              "translatorHint": "Release notes for version 0.8.1 - fixes and improvements"
+            }
+          ]
+        },
         {
           "version": "0.8.0",
           "date": "2026-09-12",
@@ -451,7 +510,6 @@
       "defaultLanguage": "en",
       "repository": "JumpLink/Learn6502",
       "flathub": "eu.jumplink.Learn6502",
-      "webApp": "app/",
       "translations": "packages/translations",
       "support": [
         {
@@ -473,6 +531,27 @@
         }
       ],
       "legal": [],
+      "legalNotice": {
+        "statements": {
+          "en": "docs/legal-notice.md",
+          "de": "docs/legal-notice.de.md"
+        }
+      },
+      "privacy": {
+        "statements": {
+          "en": "docs/privacy.md",
+          "de": "docs/privacy.de.md"
+        }
+      },
+      "developerUrl": "https://jumplink.eu/",
+      "relatedApps": [
+        {
+          "url": "https://jumplink.eu/beifahrer/"
+        },
+        {
+          "url": "https://jumplink.eu/steuererklaerung/"
+        }
+      ],
       "screenshots": {
         "source": "merge",
         "items": [

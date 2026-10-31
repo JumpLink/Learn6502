@@ -3,7 +3,7 @@ import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
 import Gtk from "@girs/gtk-4.0";
 
-import { addAboutExtras } from "@learn6502/ui";
+import { addAboutExtras, commentsWithEdition, editionBadges } from "@learn6502/ui";
 
 import { APPLICATION_ID, RESOURCES_PATH, PACKAGE_VERSION } from "./constants.ts";
 import { parseAppdata } from "./appdata.ts";
@@ -75,6 +75,56 @@ const buildFromAppdata = (): Adw.AboutDialog => {
   return dialog;
 };
 
+/** The first descendant carrying `cssClass`, depth first — null if the tree has none. */
+const findByCssClass = (widget: Gtk.Widget, cssClass: string): Gtk.Widget | null => {
+  for (let child = widget.get_first_child(); child; child = child.get_next_sibling()) {
+    if (child.has_css_class(cssClass)) return child;
+    const found = findByCssClass(child, cssClass);
+    if (found) return found;
+  }
+  return null;
+};
+
+/** One badge: the name as a pill, the sentence that explains it underneath. */
+const buildEditionBadges = (): Gtk.Box => {
+  const box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 12, marginTop: 6 });
+  for (const badge of editionBadges()) {
+    const group = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, spacing: 3 });
+    const pill = new Gtk.Label({ label: badge.title, halign: Gtk.Align.CENTER });
+    pill.add_css_class("edition-badge");
+    const detail = new Gtk.Label({
+      label: badge.detail,
+      halign: Gtk.Align.CENTER,
+      justify: Gtk.Justification.CENTER,
+      wrap: true,
+      maxWidthChars: 30,
+    });
+    detail.add_css_class("caption");
+    detail.add_css_class("dim-label");
+    group.append(pill);
+    group.append(detail);
+    box.append(group);
+  }
+  return box;
+};
+
+/**
+ * Put the badges on the About dialog's main page, under the version pill.
+ *
+ * `Adw.AboutDialog` has no API for this: `comments` and `add_link()` both land on the Details
+ * subpage, and `add_other_app()` means a different thing entirely. A badge nobody sees without
+ * first clicking "Details" is not a badge, so the version pill is looked up in libadwaita's
+ * template and the badges are inserted after it. Should that template ever change, nothing is
+ * found and the caller falls back to the comments, where the same text stays readable.
+ */
+const addEditionBadges = (dialog: Adw.AboutDialog): boolean => {
+  const version = findByCssClass(dialog, "app-version");
+  const page = version?.get_parent();
+  if (!version || !(page instanceof Gtk.Box)) return false;
+  page.insert_child_after(buildEditionBadges(), version);
+  return true;
+};
+
 /**
  * Prefer the upstream constructor — it also reads the release notes, which the
  * fallback deliberately does not.
@@ -82,6 +132,12 @@ const buildFromAppdata = (): Adw.AboutDialog => {
 export const createAboutDialog = (): Adw.AboutDialog => {
   const dialog = createFromAppdata();
   addAboutExtras(dialog);
+  // An Adw.Dialog has no widget tree at all until it is mapped — `get_first_child()` answers null
+  // here — so the badges go in on the first map, when the template's pages actually exist.
+  const mapped = dialog.connect("map", () => {
+    dialog.disconnect(mapped);
+    if (!addEditionBadges(dialog)) dialog.comments = commentsWithEdition(dialog.comments ?? "");
+  });
   return dialog;
 };
 

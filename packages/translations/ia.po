@@ -345,7 +345,7 @@ msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.
 msgstr "Un lista complete del collection de instructiones 6502 es <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">disponibile hic</a> e <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">hic</a> (io usualmente refere a ambe paginas proque illes ha lor fortessas e debilitates). Iste paginas detalia le argumentos a cata instruction, qual registros illes usa, e qual bandieras illes defini. Illes es tu biblia."
 
 #. TRANSLATORS: About dialog menu item label
-msgid "About Learn 6502"
+msgid "About Learn 6502 Assembly"
 msgstr "A proposito de Learn 6502 Assembly"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -485,6 +485,7 @@ msgstr "Configurationes de apparentia"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Meliorationes de architectura habilita melior participation de codice inter plataformas GNOME, Web, e Android."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -499,6 +500,7 @@ msgid "As stated before, the four directions are represented internally by the n
 msgstr "Como state antea, le quatro directiones es representate internemente per le numeros 1, 2, 4 e 8. Cata un de iste numeros es un potentia de 2, assi illes es representate per un numero binari con un sol <tt>1</tt>:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
+#. TRANSLATORS: Menu item to assemble the current code
 msgid "Assemble"
 msgstr "Assemblar"
 
@@ -621,13 +623,13 @@ msgstr "Continuar"
 msgid "Copied to clipboard"
 msgstr "Copiate al portafolio"
 
-#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
+#. TRANSLATORS: Button to copy example content to clipboard again
 msgid "Copy to clipboard"
 msgstr "Copiar al portafolio"
 
-#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
+#. TRANSLATORS: Tooltip for copy button in example list item
 msgid "Copy to editor"
 msgstr "Copiar al editor"
 
@@ -725,9 +727,17 @@ msgstr "Meliorate le entrata de rango de adresse de monitor hex pro plus facile 
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
 msgstr "Equipate con ille cognoscentia, tu deberea poter vider que le instruction <tt>LDA #$01</tt> carga le valor hex <tt>$01</tt> in le registro <tt>A</tt>. Io entrara in plus detalios sur registros in le section sequente."
 
+#. TRANSLATORS: Example title for Even Odd
+msgid "Even Odd"
+msgstr "Par o impar"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "Ben que iste sera un version simple, le codice sera substantialmente plus grande que tote le exemplos previe. Nos habera besonio de traciar plure locationes de memoria insimul pro le varie aspectos del joco. Nos pote ancora facer le comptabilitate necessari per tote le programma nos mesme, como antea, ma sur un scala plus grande que rapidemente deveni tediose e pote tamben ducer a bugs que es difficile de deteger. In vice nos ora lassara le assemblator facer alcun del labor mundane pro nos."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -798,7 +808,7 @@ msgstr "Sequer stilo de systema"
 
 #. TRANSLATORS: Label of the row that chooses the interface font
 msgid "Font"
-msgstr ""
+msgstr "Typo de litteras"
 
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
@@ -857,6 +867,10 @@ msgstr ""
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr "Ha tu un proprie creation 6502 interessante? Comparti lo con le communitate! Tu pote ora submitter tu exemplos de codice directemente desde le application. Simplemente preme le button de compartir e nos creara automaticamente un issue e pull request de GitHub pro te."
 
+#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
+msgid "Great start — you finished the first chapter!"
+msgstr "Bon initio – tu ha finite le prime capitulo!"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -866,9 +880,7 @@ msgstr "Verde"
 msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
 msgstr "Le hebreo es etiam nostre prime lingua scribite de dextra a sinistra: gratias al tests e contributiones de Menachem, le application ora supporta dispositiones de dextra a sinistra e es preparate pro plus linguas RTL."
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
-#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "Adjuta"
 
@@ -1016,7 +1028,7 @@ msgstr "Tutoriales interactive te guia de initiator a avantiate"
 
 #. TRANSLATORS: Preferences group title for the interface font
 msgid "Interface font"
-msgstr ""
+msgstr "Typo de litteras del interfacie"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "Bandiera de interruption: Quando definite, mascara (dishabilita) tote interruptiones mascabile (IRQ). Solo interruptiones non mascabile (NMI) pote ancora occurer. Usate pro sectiones critical de codice que non debe esser interruptite."
@@ -1059,9 +1071,8 @@ msgstr "Fallimento de etiquettas"
 msgid "Learn"
 msgstr "Apprender"
 
-#. TRANSLATORS: Application title shown in the header bar
-msgid "Learn 6502"
-msgstr "Apprender Assemblage 6502"
+msgid "Learn 6502 Assembly"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
@@ -1086,6 +1097,9 @@ msgstr "Apprende como usar le pila con instructiones PHA e PLA"
 #. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
 msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
 msgstr "Apprender per exemplos nunquam ha essite plus facile. Immerse te in codice functionante, modifica lo, rumpe lo, repara lo de novo - assi apprendeva le melior programmatores in le passato!"
+
+msgid "Legal Notice"
+msgstr ""
 
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
@@ -1164,6 +1178,10 @@ msgstr "Un vice que le valores ha essite cambiate bassum le serpente, nos debe l
 msgid "Open Assembly File"
 msgstr "Aperir file de assemblage"
 
+#. TRANSLATORS: Badge in the About dialog, shown by every build of the app
+msgid "Open Source"
+msgstr "Codice aperte"
+
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "Aperir..."
@@ -1203,6 +1221,7 @@ msgid "Overflow Flag: Set when an arithmetic operation produces a result that ca
 msgstr "Bandiera de transbordo: Definite quando un operation arithmetic produce un resultato que non pote esser representate in rango signate 8-bit (-128 a +127). Usate pro deteger errores arithmetic signate in calculos."
 
 #. TRANSLATORS: Main action button label to pause the running simulator
+#. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
 msgstr "Pausar"
 
@@ -1278,6 +1297,9 @@ msgstr "Primari: Turquoise"
 msgid "Primary: Yellow"
 msgstr "Primari: Jalne"
 
+msgid "Privacy"
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
 msgstr "Bandieras del processor"
@@ -1312,7 +1334,7 @@ msgid "Program paused"
 msgstr "Programma pausate"
 
 msgid "Program vintage consoles"
-msgstr "Programmar consolas de joco vintage"
+msgstr "Programmar consolas retro"
 
 #. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
@@ -1365,6 +1387,7 @@ msgid "Rendering the game"
 msgstr "Render le joco"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
+#. TRANSLATORS: Menu item to reset simulator and state
 msgid "Reset"
 msgstr "Reinitialisar"
 
@@ -1381,6 +1404,7 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr "Rescribe le prime exemplo in iste section pro usar le registro <tt>Y</tt> in vice del registro <tt>X</tt>."
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
+#. TRANSLATORS: Menu item to start running the simulator
 msgid "Run"
 msgstr "Executar"
 
@@ -1430,15 +1454,14 @@ msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by
 msgstr "Shalom! Nos es felice de dar le benvenita al traduction hebree, integremente contribuite per Menachem (naattxx). Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
-#. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
 msgstr "Compartir"
 
 msgid "Share Example"
 msgstr "Compartir exemplo"
 
-#. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
+#. TRANSLATORS: Title of the share dialog
 msgid "Share Your Example"
 msgstr "Compartir tu exemplo"
 
@@ -1522,6 +1545,7 @@ msgid "Status Flags"
 msgstr "Bandieras de stato"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#. TRANSLATORS: Menu item for single-step execution
 msgid "Step"
 msgstr "Passo"
 
@@ -1541,6 +1565,13 @@ msgstr "Stilo"
 msgid "Submit"
 msgstr "Submitter"
 
+msgid "Support"
+msgstr "Supportar"
+
+#. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
+msgid "Supporter"
+msgstr "Supportator"
+
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
@@ -1553,7 +1584,7 @@ msgstr "Predefinition del systema"
 
 #. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
 msgid "System font, GNOME size"
-msgstr ""
+msgstr "Typo de litteras del systema, dimension de GNOME"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1567,6 +1598,14 @@ msgstr "Tervetuloa! Nos es felice de dar le benvenita al traduction finnese, gen
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "Testa tu creationes sur un consola de joco virtual"
+
+#. TRANSLATORS: Example description for Even Odd
+msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
+msgstr "Proba le bit 0 de A con LSR e BCC e pone 1 o 0 in A como resultato"
+
+#. TRANSLATORS: What the "Open Source" badge in the About dialog means
+msgid "Thank you for using open source software."
+msgstr "Gratias pro usar software de codice aperte."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1588,6 +1627,10 @@ msgstr "Le subrutina <tt>loop</tt> mesme solo appella un numero de subrutinas se
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "Le Accumulator (A) es le registro primari pro operationes arithmetic e logic. Tote calculos basic como ADDER, SUBTRAHER, AND, OR, etc. usa iste registro. Illo es le registro plus frequentemente usate in programmation de assemblage 6502."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "Le Contator de programma contine le adresse de memoria del proxime instruction a executar. Illo automaticamente incrementa post cata instruction e pote esser modificate per saltos, ramificationes, appellos, e retornos. Essential pro controlo de fluxo de programma e debugging."
@@ -1608,7 +1651,7 @@ msgstr "Le Registro de indice Y es simile a X e ha nulle functiones special. Com
 #. from the operating system, and outside GNOME that font is smaller than
 #. the one the app is designed for.
 msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
-msgstr ""
+msgstr "Le app es designate pro le typo de litteras de interfacie de GNOME. Sur altere systemas, illo es displicate con le typo de litteras de ille systema, que es generalmente plus parve."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1714,6 +1757,10 @@ msgstr "Le pila"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "Le pila in un processor 6502 es justo como qualcunque altere pila - valores es pushate sur illo e poppate (\"pullate\" in parlar 6502) del illo. Le profunditate currente del pila es mesurate per le punctator de pila, un registro special. Le pila vive in memoria inter <tt>$0100</tt> e <tt>$01ff</tt>. Le punctator de pila es initialmente <tt>$ff</tt>, que punta a location de memoria <tt>$01ff</tt>. Quando un byte es pushate sur le pila, le punctator de pila deveni <tt>$fe</tt>, o location de memoria <tt>$01fe</tt>, e assi via."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "Le pagina zero de memoria es usate pro immagazinar un numero de variabiles de stato de joco, como notate in le bloco de commentos al initio del joco. Toto in <tt>$00</tt>, <tt>$01</tt> e <tt>$10</tt> in avante es un par de bytes representante un location de memoria de duo bytes que sera recercate usante adressage indirecte. Iste locationes de memoria sera tote inter <tt>$0200</tt> e <tt>$05ff</tt> - le section de memoria correspondente al consola de joco. Pro exemplo, si <tt>$00</tt> e <tt>$01</tt> contineva le valores <tt>$01</tt> e <tt>$02</tt>, illes refererea al secunde pixel del schermo ( <tt>$0201</tt> - recorda, le byte minus significante veni prime in adressage indirecte)."
@@ -1721,6 +1768,10 @@ msgstr "Le pagina zero de memoria es usate pro immagazinar un numero de variabil
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "Alora proque 6502? Proque non un lingua de assemblage <i>utile</i>, como <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Ben, io non pensa que apprender x86 es utile. Io non pensa que tu jammais habera besonio de <i>scriber</i> lingua de assemblage in tu labor diurne - pro alcun personas isto es un exercitio academic, alcun cosa pro expander tu mente e tu pensata. 6502 esseva originalmente scribite in un etate differente, un tempore quando le majoritate de disveloppatores scribeva assemblage directemente, plus tosto que in iste nove linguas de programmation de alte nivello. Assi, illo esseva designate pro esser scribite per humanos. Plus moderne linguas de assemblage es designate pro esser scribite per compilatores, assi lassiamo lo a illes. Plus, 6502 es <i>divertente</i>. Nemo jammais appella x86 <i>divertente</i>."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1869,6 +1920,10 @@ msgstr "Jalne"
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 msgstr "Tu pote pensar le schermo como quatro bandas horizontal de 32 × 8 pixeles. Iste bandas se mappa a <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> e <tt>$0500-$05ff</tt>. Le prime lineas de pixeles es <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 
+#. TRANSLATORS: What the "Supporter" badge in the About dialog means
+msgid "You supported this open source project by buying the app. Thank you!"
+msgstr "Tu ha supportate iste projecto de codice aperte per comprar le app. Gratias!"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."
 msgstr "Tu ha vidite <tt>TAX</tt>. Tu pote probablement divinar que <tt>TAY</tt>, <tt>TXA</tt> e <tt>TYA</tt> face, ma scribe alcun codice pro testar tu assumptiones."
@@ -1929,10 +1984,6 @@ msgid "வணக்கம்! We are happy to welcome Tamil translations, contri
 msgstr "வணக்கம்! Nos es felice de dar le benvenita al traduction tamil, contribuite per தமிழ்நேரம். நன்றி!"
 
 #, javascript-format
-#. TRANSLATORS: Replace with your names, one per line, e.g. "Jane Doe <jane@example.com>"
-msgid "translator-credits"
-msgstr "Emilio S."
-
 #~ msgid ""
 #~ "Disassembly:\n"
 #~ "%s"
