@@ -41,7 +41,7 @@ build_env.set('RESOURCES_PATH', '/' + application_id.replace('.', '/'))
 
 # Find all source files
 ts_files = run_command('sh', '-c', 'ls src/*/*.ts && ls src/**/*.ts', check: true).stdout().strip().split('\n')
-blueprint_files = run_command('sh', '-c', 'ls src/**/*.blp', check: true).stdout().strip().split('\n')
+blueprint_files = run_command('sh', '-c', 'ls ../ui/src/*.blp ../ui/src/*/*.blp', check: true).stdout().strip().split('\n')
 # ui_files = run_command('sh', '-c', 'ls ../learn/dist/**/*.ui', check: true).stdout().strip().split('\n')
 src_files = files(ts_files, blueprint_files)
 
