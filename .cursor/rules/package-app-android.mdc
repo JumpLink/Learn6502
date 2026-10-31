@@ -10,7 +10,7 @@ Android app with deep platform integration.
 **Stack:** TypeScript + NativeScript (no Angular/Vue).
 **UI:** Custom TypeScript components wrapping native Android widgets (e.g., `fab.ts` → `ExtendedFloatingActionButton`), Material Design 3, native look/feel.
 **Events:** Use `packages/core/event-dispatcher.ts` for cross-platform consistency.
-**Focus:** Platform integration, touch-friendly UI, mobile performance, reuse `6502` core + `common-ui`.
+**Focus:** Platform integration, touch-friendly UI, mobile performance, reuse `6502` core + `ui`.
 **APIs:** Direct Android SDK via NativeScript.
 **Build:** NativeScript + Gradle.
 
@@ -44,7 +44,7 @@ Android app with deep platform integration.
 
 - **Services:** Centralized services in `app/services/` (lifecycle, theme, notification)
 - **State Management:** Reactive state with `EventDispatcher` from `@learn6502/core`
-- **Views:** Implement interfaces from `@learn6502/common-ui` (e.g., `MainView`, `GameConsoleView`, `DebuggerView`)
+- **Views:** Implement interfaces from `@learn6502/ui` (e.g., `MainView`, `GameConsoleView`, `DebuggerView`)
 - **Widgets:** Reusable UI components in `app/widgets/` wrapping native Android widgets
 - **Utils:** Platform-specific utilities in `app/utils/` (system, navigation, logger, resource helpers)
 - **Android Integration:** Custom activity in `app/android/activity.android.ts` extending `AppCompatActivity`

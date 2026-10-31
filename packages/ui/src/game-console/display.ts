@@ -1,6 +1,6 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
-import { DEFAULT_COLOR_PALETTE, DEFAULT_DISPLAY_CONFIG, type DisplayWidget } from "@learn6502/common-ui";
+import { DEFAULT_COLOR_PALETTE, DEFAULT_DISPLAY_CONFIG, type DisplayWidget } from "@learn6502/core";
 import { DisplayAddressRange, type Memory, type MemoryChangedEvent } from "@learn6502/core";
 
 import { Canvas2DBridge } from "./canvas2d.ts";

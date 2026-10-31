@@ -26,7 +26,7 @@ export class GtkPre extends GtkWidget {
     }
     // TODO: add support for preformatted text blocks, e.g. monospace text with line breaks and spaces
     return (
-      <GtkLabel use-markup wrap vexpand-set vexpand justify={Justification.FILL} margin-top={12} margin-bottom={12}>
+      <GtkLabel use-markup wrap vexpand justify={Justification.FILL} margin-top={12} margin-bottom={12}>
         {this.props.children}
       </GtkLabel>
     );

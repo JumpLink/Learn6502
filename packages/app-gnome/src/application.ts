@@ -1,16 +1,16 @@
 import GObject from "@girs/gobject-2.0";
 import Gio from "@girs/gio-2.0";
+import Gdk from "@girs/gdk-4.0";
+import Gtk from "@girs/gtk-4.0";
 import Adw from "@girs/adw-1";
 
-import { addAppActions } from "@learn6502/ui";
-import { MainWindow, PreferencesDialog } from "./views/index.ts";
+import { addAppActions, MainWindow, PreferencesDialog, settings, themeService } from "@learn6502/ui";
 import { APPLICATION_ID } from "./constants.ts";
 import { initResources } from "./resources.ts";
 import { createAboutDialog } from "./about-dialog.ts";
 
-import { themeService } from "./services";
 import { uiFontService } from "./services/ui-font.service.ts";
-import { settings } from "./settings.ts";
+import mainCss from "./main.css";
 
 export class Application extends Adw.Application {
   static {
@@ -33,7 +33,8 @@ export class Application extends Adw.Application {
   }
 
   protected onStartup(): void {
-    themeService.init();
+    this.loadCss();
+    themeService.init(settings);
     // The interface font, before anything draws — and NOT before this point.
     //
     // `Gtk.Settings.get_default()` answers null until the toolkit is
@@ -48,11 +49,22 @@ export class Application extends Adw.Application {
     initResources();
   }
 
+  private loadCss(): void {
+    const display = Gdk.Display.get_default();
+    if (!display) return;
+    const provider = new Gtk.CssProvider();
+    provider.load_from_string(mainCss);
+    Gtk.StyleContext.add_provider_for_display(display, provider, Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION);
+  }
+
   initActions() {
     addAppActions(this, {
-      quit: () => this.quit(),
+      // `quit()` skips `close-request`, which is where unsaved changes are asked about
+      quit: () => {
+        for (const window of this.get_windows()) window.close();
+      },
       about: () => this.onShowAboutDialog(),
-      preferences: () => new PreferencesDialog().present(this.active_window),
+      preferences: () => new PreferencesDialog({ uiFont: uiFontService }).present(this.active_window),
     });
   }
 

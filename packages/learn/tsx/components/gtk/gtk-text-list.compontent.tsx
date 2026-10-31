@@ -56,18 +56,34 @@ export class GtkTextList extends Component {
         margin-start={24}
         {...filterProperties(this.props, GtkTextList.propertyNames)}
       >
+        {/*
+          The marker and the item share a font, so `START` puts the marker on
+          the first line exactly where a baseline would. `BASELINE` is what
+          stood here; it is deprecated in GTK since 4.12, and the NativeScript
+          port refuses it along with `BASELINE_FILL` because its layout has no
+          baseline to align to — a stated absence, not a gap to fill.
+        */}
         {listItems.map((item) => (
           <GtkBox orientation={Orientation.HORIZONTAL}>
             <GtkLabel
               use-markup
               wrap
-              valign={Align.BASELINE}
+              valign={Align.START}
               label={this.props.type === TextListType.ORDERED ? `${item.index}. ` : "• "}
             />
             {item.isGtkNode ? (
               item.child
             ) : (
-              <GtkLabel use-markup wrap valign={Align.BASELINE}>
+              /*
+                `hexpand` + `halign: FILL` + `xalign: 0`, exactly as a paragraph gets them
+                (`gtk.components.tsx`): the item text is the part of the row that takes the
+                leftover width, and a wrapping label only wraps once something has told it
+                how wide it is. GTK happened to wrap it anyway — a box shrinks its children
+                to fit and a wrapping label's minimum width is one word — but the port's
+                GridLayout measures an `auto` cell at its natural width, so on Android every
+                item drew as one clipped line while GNOME and the web looked right.
+              */
+              <GtkLabel use-markup wrap valign={Align.START} hexpand halign={Align.FILL} xalign={0}>
                 {item.content}
               </GtkLabel>
             )}

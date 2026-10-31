@@ -3,7 +3,7 @@ import { assemble, disasm, hexdump, run } from "./commands.js";
 const USAGE = `learn6502 — headless 6502 assembler / simulator
 
 The command-line frontend of Learn6502, built on the SAME @learn6502/core
-(assembler + simulator) and @learn6502/common-ui (the DisplayWidget contract)
+(assembler + simulator) and @learn6502/core (the DisplayWidget contract)
 that the GNOME, web and Android apps use.
 
 Usage:

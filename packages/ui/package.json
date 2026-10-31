@@ -1,17 +1,20 @@
 {
   "name": "@learn6502/ui",
   "private": true,
-  "version": "0.8.3",
+  "version": "0.9.0",
   "description": "Widgets written once as GNOME components and run on GNOME, the web and Android",
   "type": "module",
   "main": "src/index.ts",
   "scripts": {
-    "check": "gjsify tsc"
+    "check": "gjsify tsc",
+    "test": "gjsify test"
   },
   "author": "Pascal Garber",
   "license": "GPL-3.0",
   "devDependencies": {
-    "@gjsify/cli": "0.64.14",
+    "@gjsify/cli": "0.64.15",
+    "@gjsify/rolldown-plugin-gjsify": "^0.64.1",
+    "@gjsify/unit": "0.64.15",
     "typescript": "^6.0.3"
   },
   "dependencies": {
@@ -23,10 +26,12 @@
     "@girs/gobject-2.0": "5.4.0",
     "@girs/gtk-4.0": "5.4.0",
     "@girs/gtksource-5": "5.4.0",
-    "@gjsify/canvas2d": "^0.64.14",
-    "@gjsify/distribution": "0.64.14",
-    "@learn6502/common-ui": "^0.8.0",
-    "@learn6502/core": "^0.8.0",
-    "@learn6502/examples": "^0.8.0"
+    "@gjsify/adwaita-core": "0.64.15",
+    "@gjsify/adwaita-nativescript": "0.64.15",
+    "@gjsify/canvas2d": "0.64.15",
+    "@gjsify/distribution": "0.64.15",
+    "@learn6502/core": "^0.9.0",
+    "@learn6502/examples": "^0.9.0",
+    "@learn6502/learn": "^0.9.0"
   }
 }

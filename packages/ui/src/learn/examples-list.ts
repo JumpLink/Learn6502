@@ -1,7 +1,7 @@
 import GObject from "@girs/gobject-2.0";
 import Gtk from "@girs/gtk-4.0";
 import { EventDispatcher } from "@learn6502/core";
-import type { LearnCopyEvent } from "@learn6502/common-ui";
+import type { LearnCopyEvent } from "../types/index.ts";
 
 import * as Examples from "@learn6502/examples/examples";
 import type { ExampleMeta } from "@learn6502/examples";

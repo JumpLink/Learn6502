@@ -10,8 +10,10 @@
 
 	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+	<uses-permission android:name="android.permission.INTERNET" />
+	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
-	<!-- minSdk 24 (Android 7): the GI runtime in @gjsify/gi-runtime-android requires it -->
+	<!-- minSdk 24 (Android 7) is what @gjsify/gi-runtime-android, the real GObject engine, requires -->
 	<uses-sdk android:minSdkVersion="24" android:targetSdkVersion="35" />
 
 	<application

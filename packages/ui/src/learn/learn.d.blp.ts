@@ -28,7 +28,7 @@ export declare const InternalChildren: [
   "tutorialRow",
   "examplesRow",
   "tutorialScroll",
-  "tutorialView",
+  "tutorialHost",
   "examplesScroll",
   "examplesList",
   "shareButton",
@@ -41,7 +41,7 @@ export interface Children {
   _tutorialRow: Adw.ActionRow;
   _examplesRow: Adw.ActionRow;
   _tutorialScroll: Gtk.ScrolledWindow;
-  _tutorialView: GObject.Object;
+  _tutorialHost: Adw.Bin;
   _examplesScroll: Gtk.ScrolledWindow;
   _examplesList: GObject.Object;
   _shareButton: Gtk.Button;

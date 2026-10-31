@@ -1,6 +1,6 @@
 {
   "name": "@learn6502/app-gnome",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "description": "Learn 6502 assembly by developing games on a virtual console",
   "main": "dist/main.js",
   "type": "module",
@@ -37,7 +37,6 @@
       ]
     },
     "loaders": {
-      ".ui": "text",
       ".asm": "text",
       ".lang": "text",
       ".xml": "text"
@@ -97,7 +96,7 @@
     "clear:locales": "rm -rf data/locale",
     "build:gjs": "gjsify build src/main.ts --channel \"${GJSIFY_CHANNEL:-web}\" --outfile \"${OUTDIR:-.}/${APPLICATION_ID:-eu.jumplink.Learn6502}\"",
     "build:resources": "gjsify gresource data/eu.jumplink.Learn6502.data.gresource.xml --sourcedir data",
-    "build:schema": "gjsify gsettings data --targetdir data/schemas --strict",
+    "build:schema": "gjsify gsettings ../ui/data --targetdir data/schemas --strict",
     "build:locale": "[ \"${BUILD_MODE:-}\" = \"flatpak\" ] || (rm -rf ${DATADIR:-./data}/locale && cp -r ../translations/dist/locale ${DATADIR:-./data}/locale) 2>/dev/null || true",
     "build:with-deps": "gjsify workspace @learn6502/app-gnome build --with-dependencies",
     "build:ship:gjs": "gjsify build src/main.ts --channel \"${GJSIFY_CHANNEL:-web}\" --app gjs --outfile dist/gjs/${APPLICATION_ID:-eu.jumplink.Learn6502}",
@@ -115,21 +114,21 @@
   "author": "Pascal Garber <pascal@jumplink.eu>",
   "license": "GPL-3.0",
   "optionalDependencies": {
-    "@gjsify/gtk-host": "^0.64.14",
-    "@gjsify/gtk-runtime-darwin-arm64": "^0.64.14",
-    "@gjsify/gtk-runtime-darwin-x64": "^0.64.14",
-    "@gjsify/gtk-runtime-win32-x64": "^0.64.14",
-    "@gjsify/node-runtime-darwin-arm64": "^0.64.14",
-    "@gjsify/node-runtime-darwin-x64": "^0.64.14",
-    "@gjsify/node-runtime-win32-x64": "^0.64.14"
+    "@gjsify/gtk-host": "0.64.15",
+    "@gjsify/gtk-runtime-darwin-arm64": "^0.63.0",
+    "@gjsify/gtk-runtime-darwin-x64": "^0.63.0",
+    "@gjsify/gtk-runtime-win32-x64": "^0.63.0",
+    "@gjsify/node-runtime-darwin-arm64": "^0.63.0",
+    "@gjsify/node-runtime-darwin-x64": "^0.63.0",
+    "@gjsify/node-runtime-win32-x64": "^0.63.0"
   },
   "devDependencies": {
-    "@gjsify/cli": "0.64.14",
-    "@gjsify/lightningcss-native": "^0.64.14",
-    "@gjsify/node-gi": "^0.64.14",
-    "@gjsify/rolldown-native": "^0.64.14",
-    "@gjsify/vite-plugin-blueprint": "^0.64.14",
-    "@gjsify/vite-plugin-gettext": "^0.64.14",
+    "@gjsify/cli": "0.64.15",
+    "@gjsify/lightningcss-native": "0.64.15",
+    "@gjsify/node-gi": "^0.64.1",
+    "@gjsify/rolldown-native": "0.64.15",
+    "@gjsify/vite-plugin-blueprint": "0.64.15",
+    "@gjsify/vite-plugin-gettext": "0.64.15",
     "typescript": "^6.0.3"
   },
   "dependencies": {
@@ -145,11 +144,10 @@
     "@girs/javascriptcore-6.0": "5.4.0",
     "@girs/pango-1.0": "5.4.0",
     "@girs/webkit-6.0": "5.4.0",
-    "@gjsify/storybook": "^0.64.14",
-    "@learn6502/core": "^0.8.0",
-    "@learn6502/common-ui": "^0.8.0",
-    "@learn6502/learn": "^0.8.0",
-    "@learn6502/translations": "^0.8.0",
-    "@learn6502/ui": "^0.8.0"
+    "@gjsify/storybook": "0.64.15",
+    "@learn6502/core": "^0.9.0",
+    "@learn6502/learn": "^0.9.0",
+    "@learn6502/translations": "^0.9.0",
+    "@learn6502/ui": "^0.9.0"
   }
 }

@@ -347,7 +347,8 @@ msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.
 msgstr "Täydellinen luettelo 6502:n käskyjoukosta löytyy <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">täältä</a> ja <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">täältä</a> (käytän yleensä molempia sivuja, sillä kummallakin on vahvuutensa ja heikkoutensa). Nämä sivut kertovat jokaisen käskyn argumentit, mitä rekistereitä ne käyttävät ja mitä lippuja ne asettavat. Ne ovat raamattusi."
 
 #. TRANSLATORS: About dialog menu item label
-msgid "About Learn 6502 Assembly"
+#, fuzzy
+msgid "About Learn 6502"
 msgstr "Tietoja - Opi 6502 Assembly"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
@@ -487,6 +488,8 @@ msgstr "Ulkoasun asetukset"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Arkkitehtuuriparannukset mahdollistavat paremman koodin jakamisen GNOME-, web- ja Android-alustojen välillä."
 
+#. TRANSLATORS: Release notes for version 0.9.0 - generic closing sentence
+#. TRANSLATORS: Release notes for version 0.8.2 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
@@ -553,8 +556,8 @@ msgstr "Takaisin"
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
 msgstr "Koska pelin tila tallennetaan pikselisijainteina, pelin renderöinti on hyvin suoraviivaista. Ensimmäinen aliohjelma, <tt>drawApple</tt>, on äärimmäisen yksinkertainen. Se asettaa <tt>Y</tt>:n nollaan, lataa satunnaisen värin akkumulaattoriin ja tallentaa tämän arvon <tt>($00),y</tt>:hyn. <tt>$00</tt> on paikka, johon omenan sijainti on tallennettu, joten <tt>($00),y</tt> viittaa tähän muistiosoitteeseen. Lue lisätietoja \"Epäsuora indeksoitu\" -kohdasta <a href=\"#addressing\">Osoitteistuksen tilat</a> -osiossa."
 
-#. TRANSLATORS: Tooltip for accent color option Blue
 #. TRANSLATORS: Tooltip for primary color option Blue
+#. TRANSLATORS: Tooltip for accent color option Blue
 msgid "Blue"
 msgstr "Sininen"
 
@@ -573,7 +576,6 @@ msgstr "Riko palikat mailalla ja pallolla."
 msgid "By submitting, you agree that your example will be licensed under <a href=\"https://creativecommons.org/licenses/by/4.0/\">CC BY 4.0</a>."
 msgstr "Lähettämällä hyväksyt, että esimerkin lisenssinä käytetään  <a href=\"https://creativecommons.org/licenses/by/4.0/deed.fi\">CC BY 4.0 (Nimeä 4.0 Kansainvälinen)</a>"
 
-#. Add response buttons
 #. TRANSLATORS: Generic confirmation dialog button label
 msgid "Cancel"
 msgstr "Peru"
@@ -602,6 +604,11 @@ msgstr "Koodi kopioitu muokkaimeen"
 msgid "Code editor and virtual game console"
 msgstr "Koodimuokkain ja virtuaalipelikonsoli"
 
+#. TRANSLATORS: Screenshot caption for the code editor in the phone layout
+#, fuzzy
+msgid "Code editor on a phone"
+msgstr "Koodimuokkain ja virtuaalipelikonsoli"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
 msgstr "Väripaletti"
@@ -625,8 +632,8 @@ msgstr "Jatka"
 msgid "Copied to clipboard"
 msgstr "Kopioitu leikepöydälle"
 
-#. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 #. TRANSLATORS: Button to copy example content to clipboard again
+#. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
 msgid "Copy to clipboard"
 msgstr "Kopioi leikepöydälle"
 
@@ -767,6 +774,14 @@ msgstr "Harjoitukset"
 msgid "Failed to copy to clipboard"
 msgstr "Leikepöydälle kopiointi epäonnistui"
 
+#, fuzzy
+msgid "Failed to open file"
+msgstr "Leikepöydälle kopiointi epäonnistui"
+
+msgid "Failed to save file"
+msgstr ""
+
+#. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar, %s is the file name
 #, javascript-format
 msgid "File \"%s\" has unsaved changes"
 msgstr "Tiedostossa \"%s\" on tallentamattomia muutoksia"
@@ -873,8 +888,8 @@ msgstr "Onko sinulla oma hieno 6502-luomus? Jaa se yhteisön kanssa! Voit nyt l�
 msgid "Great start — you finished the first chapter!"
 msgstr "Hyvä alku – olet suorittanut ensimmäisen luvun!"
 
-#. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
+#. TRANSLATORS: Tooltip for accent color option Green
 msgid "Green"
 msgstr "Vihreä"
 
@@ -1024,6 +1039,11 @@ msgstr "Assemblykielen konekäskyt ovat kuin pieni joukko ennalta määriteltyj�
 msgid "Interactive tutorial"
 msgstr "Vuorovaikutteinen opas"
 
+#. TRANSLATORS: Screenshot caption for the interactive tutorial in the phone layout
+#, fuzzy
+msgid "Interactive tutorial on a phone"
+msgstr "Vuorovaikutteinen opas"
+
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
 msgstr "Vuorovaikutteiset oppaat ohjaavat sinut aloittelijasta edistyneeksi"
@@ -1073,12 +1093,25 @@ msgstr "Otsikoiden käsittely epäonnistui"
 msgid "Learn"
 msgstr "Opi"
 
+#. TRANSLATORS: Application title shown in the header bar
+#, fuzzy
+msgid "Learn 6502"
+msgstr "Opi"
+
 msgid "Learn 6502 Assembly"
+msgstr ""
+
+#. TRANSLATORS: Release notes for version 0.9.0 - Android release. Keep "Learn 6502", "Android" and "APK" as they are.
+msgid "Learn 6502 now runs on Android. Download the APK from the release page and learn 6502 assembly on your phone, with the same tutorial, editor and game console as on the desktop."
 msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
 msgstr "Learn 6502 toimii nyt GNOME 50:llä! Kiitos Sabri Ünalille ajonympäristön päivityksen tekemisestä."
+
+#. TRANSLATORS: Release notes for version 0.8.3 - GNOME 51 runtime. Keep "Learn 6502" and "GNOME" as they are.
+msgid "Learn 6502 now runs on GNOME 51."
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.8.0 - Windows and macOS builds. "Learn 6502" is the app name: use whatever spelling your catalogue already uses for it (some localise it), and keep "Windows", "macOS" and "Linux" as they are.
 msgid "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that."
@@ -1132,6 +1165,22 @@ msgstr "Muistiosoitteet <tt>$01</tt> ja <tt>$02</tt> sisältävät arvot <tt>$05
 msgid "Messages"
 msgstr "Viestit"
 
+#. TRANSLATORS: Screen reader name for the icon-only d-pad button
+msgid "Move down"
+msgstr ""
+
+#. TRANSLATORS: Screen reader name for the icon-only d-pad button
+msgid "Move left"
+msgstr ""
+
+#. TRANSLATORS: Screen reader name for the icon-only d-pad button
+msgid "Move right"
+msgstr ""
+
+#. TRANSLATORS: Screen reader name for the icon-only d-pad button
+msgid "Move up"
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Nearly all games have at their heart a game loop. All game loops have the same basic form: accept user input, update the game state, and render the game state. This loop is no different."
 msgstr "Lähes kaikkien pelien ytimessä on pelisilmukka. Kaikissa pelisilmukoissa on sama perusmuoto: vastaanota käyttäjän syöte, päivitä pelin tila ja renderöi pelin tila. Tämä silmukka ei ole poikkeus."
@@ -1163,7 +1212,6 @@ msgstr "Aiempaa ohjelmointikokemusta ei tarvita. Aloita vuorovaikutteisin oppitu
 msgid "Now, let's put all this knowledge to good use, and make a game! We're going to be making a really simple version of the classic game 'Snake'."
 msgstr "Laitetaan nyt kaikki tämä tieto hyötykäyttöön ja tehdään peli! Teemme todella yksinkertaisen version klassisesta matopelista."
 
-#. Add OK button
 #. TRANSLATORS: Alert dialog response button label to confirm an action
 msgid "OK"
 msgstr "OK"
@@ -1176,7 +1224,6 @@ msgstr "Nollauksen yhteydessä (simulaattori): <tt>P = $30</tt> (bitti 5 ja <tt>
 msgid "Once the values have been shifted down the snake, we have to work out what to do with the head. The direction is first loaded into <tt>A</tt>. <tt>LSR</tt> means \"logical shift right\", or \"shift all the bits one position to the right\". The least significant bit is shifted into the carry flag, so if the accumulator is <tt>1</tt>, after <tt>LSR</tt> it is <tt>0</tt>, with the carry flag set."
 msgstr "Kun arvot on siirretty madon suuntaan, meidän täytyy selvittää, mitä tehdä päälle. Suunta ladataan ensin <tt>A</tt>:han. <tt>LSR</tt> tarkoittaa \"logical shift right\" eli \"siirrä kaikki bitit yhden paikan oikealle\". Vähiten merkitsevä bitti siirtyy siirtolippuun, joten jos akkumulaattori on <tt>1</tt>, <tt>LSR</tt>:n jälkeen se on <tt>0</tt> ja siirtolippu on asetettu."
 
-#. TRANSLATORS: File dialog title when choosing an assembly source file
 msgid "Open Assembly File"
 msgstr "Avaa Assembly-tiedosto"
 
@@ -1197,8 +1244,8 @@ msgstr "Avattu %s"
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr "Optimoitu Flatpak-konfiguraatio poistamalla tarpeettomat käyttöoikeudet"
 
-#. TRANSLATORS: Tooltip for accent color option Orange
 #. TRANSLATORS: Tooltip for primary color option Orange
+#. TRANSLATORS: Tooltip for accent color option Orange
 msgid "Orange"
 msgstr "Oranssi"
 
@@ -1231,8 +1278,8 @@ msgstr "Keskeytä"
 msgid "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!"
 msgstr "Täydellinen harrastelijoille, opiskelijoille ja kaikille tietokoneen toiminnasta konepellin alla kiinnostuneille!"
 
-#. TRANSLATORS: Tooltip for accent color option Pink
 #. TRANSLATORS: Tooltip for primary color option Pink
+#. TRANSLATORS: Tooltip for accent color option Pink
 msgid "Pink"
 msgstr "Pinkki"
 
@@ -1338,8 +1385,8 @@ msgstr "Ohjelma keskeytetty"
 msgid "Program vintage consoles"
 msgstr "Ohjelmoi retrokonsoleita"
 
-#. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
+#. TRANSLATORS: Tooltip for accent color option Purple
 msgid "Purple"
 msgstr "Liila"
 
@@ -1359,8 +1406,8 @@ msgstr "Satunnaisluku/syöte ($FE-$FF)"
 msgid "Reading the input"
 msgstr "Syötteen lukeminen"
 
-#. TRANSLATORS: Tooltip for accent color option Red
 #. TRANSLATORS: Tooltip for primary color option Red
+#. TRANSLATORS: Tooltip for accent color option Red
 msgid "Red"
 msgstr "Punainen"
 
@@ -1369,6 +1416,7 @@ msgid "Reduced default hex monitor address range for better efficiency"
 msgstr "Pienennetty heksamonitorin oletusosoitealuetta paremman tehokkuuden saavuttamiseksi"
 
 #. TRANSLATORS: Section heading title on Debugger page for registers
+#. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Registers"
 msgstr "Rekisterit"
 
@@ -1418,7 +1466,6 @@ msgstr "Suoritetaan matopeli"
 msgid "Save"
 msgstr "Tallenna"
 
-#. TRANSLATORS: File dialog title for saving a new assembly file
 msgid "Save Assembly File"
 msgstr "Tallenna Assembly-tiedosto"
 
@@ -1443,6 +1490,10 @@ msgstr "Monet tuoreet käännökset: ranska, interlingua, portugali, brasilianpo
 msgid "Screen maps to memory range <tt>$0200</tt>-<tt>$05FF</tt>"
 msgstr "Näyttö vastaa muistialuetta <tt>$0200</tt>-<tt>$05FF</tt>"
 
+#. TRANSLATORS: Release notes for version 0.9.0 - accessibility labels for screen readers
+msgid "Screen readers announce the toolbar, header and gamepad buttons."
+msgstr ""
+
 #. TRANSLATORS: Release notes for version 0.7.0 - Indonesian translation. Keep the greeting 'Selamat datang!', the thanks 'Terima kasih!' and the name 'Arif Budiman' as they are.
 msgid "Selamat datang! We also welcome Indonesian translations, kindly contributed by Arif Budiman. Terima kasih!"
 msgstr "Selamat datang! Toivotamme tervetulleeksi myös indonesiankieliset käännökset, jotka Arif Budiman on ystävällisesti toimittanut. Terima kasih!"
@@ -1462,8 +1513,8 @@ msgstr "Jaa"
 msgid "Share Example"
 msgstr "Jaa esimerkki"
 
-#. TRANSLATORS: Button to share your own example
 #. TRANSLATORS: Title of the share dialog
+#. TRANSLATORS: Button to share your own example
 msgid "Share Your Example"
 msgstr "Jaa oma esimerkki"
 
@@ -1478,8 +1529,8 @@ msgstr "Simulaattori"
 msgid "Simulator failure"
 msgstr "Simulaattorivirhe"
 
-#. TRANSLATORS: Tooltip for accent color option Slate
 #. TRANSLATORS: Tooltip for primary color option Slate
+#. TRANSLATORS: Tooltip for accent color option Slate
 msgid "Slate"
 msgstr "Liuskekivi"
 
@@ -1587,8 +1638,8 @@ msgstr "Järjestelmän oletus"
 msgid "System font, GNOME size"
 msgstr "Järjestelmän fontti, GNOMEn koko"
 
-#. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
+#. TRANSLATORS: Tooltip for accent color option Teal
 msgid "Teal"
 msgstr "Sinivihreä"
 
@@ -1603,6 +1654,10 @@ msgstr "Testaa luomuksiasi virtuaalisella pelikonsolilla"
 #. TRANSLATORS: Example description for Even Odd
 msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
 msgstr "Testaa A:n bitin 0 komennoilla LSR ja BCC ja tallentaa tuloksen, 1 tai 0, A:han"
+
+#. TRANSLATORS: Release notes for version 0.9.0 - respects the system text scale
+msgid "Text follows the system font size."
+msgstr ""
 
 #. TRANSLATORS: What the "Open Source" badge in the About dialog means
 msgid "Thank you for using open source software."
@@ -1624,6 +1679,10 @@ msgstr "<tt>init</tt>-aliohjelma kutsuu kahta aliohjelmaa: <tt>initSnake</tt> ja
 msgid "The <tt>loop</tt> subroutine itself just calls a number of subroutines sequentially, before looping back on itself:"
 msgstr "<tt>loop</tt>-aliohjelma itsessään kutsuu vain joukon aliohjelmia peräkkäin ja palaa sitten alkuun:"
 
+#. TRANSLATORS: Release notes for version 0.9.0 - translator credits in the About dialog
+msgid "The About dialog names the translators."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Accumulator register
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "Akkumulaattori (A) on ensisijainen rekisteri aritmeettisille ja loogisille operaatioille. Kaikki peruslaskelmat kuten yhteenlasku, vähennyslasku, AND, OR jne. käyttävät tätä rekisteriä. Se on 6502-assembly-ohjelmoinnin useimmin käytetty rekisteri."
@@ -1635,6 +1694,10 @@ msgstr ""
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "Ohjelmalaskuri sisältää seuraavan suoritettavan käskyn muistiosoitteen. Se kasvaa automaattisesti jokaisen käskyn jälkeen ja sitä voivat muuttaa hypyt, haarautumiset, kutsut ja paluut. Välttämätön ohjelman kulun hallintaan ja vianjäljitykseen."
+
+#. TRANSLATORS: Release notes for version 0.8.3 - SBC fix by a contributor. Keep "SBC" and "jeremyw-gh" as they are.
+msgid "The SBC instruction now subtracts correctly with zero page addressing. Thanks to jeremyw-gh for the fix."
+msgstr ""
 
 #. TRANSLATORS: Detailed description of Stack Pointer register
 msgid "The Stack Pointer manages the call stack for subroutines and interrupts. It starts at $FF (top of stack) and grows downward. Used for PUSH/PULL operations, JSR/RTS calls, and interrupt handling. Critical for nested function calls."
@@ -1662,9 +1725,17 @@ msgstr "Mustan pelikonsolin näytön pitäisi nyt näyttää kolme värillistä 
 msgid "The code block below contains the entire source code of the game. I'll explain how it works in the following sections."
 msgstr "Alla oleva koodilohko sisältää pelin koko lähdekoodin. Selitän sen toiminnan seuraavissa osioissa."
 
+#. TRANSLATORS: Release notes for version 0.9.0 - the debugger panel is hidden until switched on
+msgid "The debugger is off by default."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The effect of this is to mask out the least significant two bits of the accumulator, setting the others to zero. This converts a number in the range of 0–255 to a number in the range of 0–3."
 msgstr "Tämän vaikutus on peittää akkumulaattorin kaksi vähiten merkitsevää bittiä ja nollata muut. Tämä muuntaa luvun väliltä 0–255 luvuksi väliltä 0–3."
+
+#. TRANSLATORS: Release notes for version 0.8.3 - the examples page shows the example programs again
+msgid "The examples page lists the example programs again."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first instruction causes execution to jump to the <tt>init</tt> label. This sets <tt>X</tt>, then returns to the next instruction, <tt>JSR loop</tt>. This jumps to the <tt>loop</tt> label, which increments <tt>X</tt> until it is equal to <tt>$05</tt>. After that we return to the next instruction, <tt>JSR end</tt>, which jumps to the end of the file. This illustrates how <tt>JSR</tt> and <tt>RTS</tt> can be used together to create modular code."
@@ -1705,6 +1776,10 @@ msgstr "Viimeinen aliohjelma, <tt>spinWheels</tt>, on olemassa vain siksi, että
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The length is initialized to <tt>4</tt>, so <tt>X</tt> starts off as <tt>3</tt>. <tt>LDA $10,x</tt> loads the value of <tt>$13</tt> into <tt>A</tt>, then <tt>STA $12,x</tt> stores this value into <tt>$15</tt>. <tt>X</tt> is decremented, and we loop. Now <tt>X</tt> is <tt>2</tt>, so we load <tt>$12</tt> and store it into <tt>$14</tt>. This loops while <tt>X</tt> is positive (<tt>BPL</tt> means \"branch if positive\")."
 msgstr "Pituus alustetaan arvoon <tt>4</tt>, joten <tt>X</tt> alkaa arvosta <tt>3</tt>. <tt>LDA $10,x</tt> lataa osoitteen <tt>$13</tt> arvon <tt>A</tt>:han, sitten <tt>STA $12,x</tt> tallentaa tämän arvon osoitteeseen <tt>$15</tt>. <tt>X</tt>:ää vähennetään ja palataan silmukkaan. Nyt <tt>X</tt> on <tt>2</tt>, joten ladataan <tt>$12</tt> ja tallennetaan se osoitteeseen <tt>$14</tt>. Silmukka jatkuu niin kauan kuin <tt>X</tt> on positiivinen (<tt>BPL</tt> tarkoittaa \"haaraudu, jos positiivinen\")."
+
+#. TRANSLATORS: Release notes for version 0.8.2 - signed macOS disk images. Keep "macOS", "Apple silicon" and "Intel" as they are.
+msgid "The macOS version is now signed and notarised by Apple and comes as a disk image for Apple silicon and Intel Macs, so it opens without a security warning."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next bit updates the head of the snake depending on the direction. This is probably the most complicated part of the code, and it's all reliant on how memory locations map to the screen, so let's look at that in more detail."
@@ -1757,6 +1832,10 @@ msgstr "Pino eli \"stack\""
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "Pino 6502-suorittimessa on kuin mikä tahansa pino – arvoja työnnetään siihen ja vedetään (\"pulled\" 6502-kielellä) siitä. Pinon nykyistä syvyyttä mitataan pino-osoittimella, erityisellä rekisterillä. Pino sijaitsee muistissa välillä <tt>$0100</tt> – <tt>$01ff</tt>. Pino-osoitin on aluksi <tt>$ff</tt>, joka osoittaa muistiosoitteeseen <tt>$01ff</tt>. Kun tavu työnnetään pinoon, pino-osoittimesta tulee <tt>$fe</tt> eli muistiosoite <tt>$01fe</tt>, ja niin edelleen."
+
+#. TRANSLATORS: Release notes for version 0.9.0 - faster tutorial start
+msgid "The tutorial opens much faster."
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
 msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
@@ -1912,8 +1991,8 @@ msgstr "Kaikkien näiden esimerkkien kanssa voi olla hyödyllistä käyttää vi
 msgid "Write and edit code with a built-in code editor"
 msgstr "Kirjoita ja muokkaa koodia sisäänrakennetulla koodimuokkaimella"
 
-#. TRANSLATORS: Tooltip for accent color option Yellow
 #. TRANSLATORS: Tooltip for primary color option Yellow
+#. TRANSLATORS: Tooltip for accent color option Yellow
 msgid "Yellow"
 msgstr "Keltainen"
 
@@ -1971,6 +2050,10 @@ msgstr "opiskelu"
 
 msgid "programming"
 msgstr "ohjelmointi"
+
+#. TRANSLATORS: Replace with your names, one per line, e.g. "Jane Doe <jane@example.com>"
+msgid "translator-credits"
+msgstr ""
 
 #. TRANSLATORS: Internal simulator pseudo-op name used when outputting A as a character
 msgid "wdm-output"

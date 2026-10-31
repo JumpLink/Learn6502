@@ -3,7 +3,8 @@ import Gtk from "@girs/gtk-4.0";
 
 import type { ExampleMeta } from "@learn6502/examples";
 import { Memory, DisplayAddressRange, EventDispatcher } from "@learn6502/core";
-import type { DisplayWidget, LearnCopyEvent } from "@learn6502/common-ui";
+import type { DisplayWidget } from "@learn6502/core";
+import type { LearnCopyEvent } from "../types/index.ts";
 import type { SourceView } from "../source-view.ts";
 import { _ } from "../translate.ts";
 

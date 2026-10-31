@@ -3,7 +3,7 @@ import Gio from "@girs/gio-2.0";
 import GLib from "@girs/glib-2.0";
 import Gtk from "@girs/gtk-4.0";
 
-import { commentsWithEdition, editionBadges, getAboutInfo } from "@learn6502/ui";
+import { addAboutExtras, commentsWithEdition, editionBadges } from "@learn6502/ui";
 
 import { APPLICATION_ID, RESOURCES_PATH, PACKAGE_VERSION } from "./constants.ts";
 import { parseAppdata } from "./appdata.ts";
@@ -131,11 +131,7 @@ const addEditionBadges = (dialog: Adw.AboutDialog): boolean => {
  */
 export const createAboutDialog = (): Adw.AboutDialog => {
   const dialog = createFromAppdata();
-  // new_from_appdata() does not map <url type="donation">, so the link is added by hand — and
-  // only where the distribution channel allows donation UI.
-  const { supportLink: link, legalLinks } = getAboutInfo();
-  if (link) dialog.add_link(link.title, link.url);
-  for (const legal of legalLinks) dialog.add_link(legal.title, legal.url);
+  addAboutExtras(dialog);
   // An Adw.Dialog has no widget tree at all until it is mapped — `get_first_child()` answers null
   // here — so the badges go in on the first map, when the template's pages actually exist.
   const mapped = dialog.connect("map", () => {

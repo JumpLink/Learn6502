@@ -34,7 +34,7 @@ jobs:
       # `gjsify-lock.json` resolves, so bootstrap and locked toolchain are the
       # same CLI.
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.64.14
+        run: npm install -g @gjsify/cli@0.64.15
 
       - name: Install dependencies
         run: gjsify install --immutable
@@ -151,7 +151,7 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.64.14
+        run: npm install -g @gjsify/cli@0.64.15
 
       - name: Install dependencies
         run: gjsify install --immutable
@@ -182,8 +182,8 @@ jobs:
         run: gjsify workspace @learn6502/translations check
 
       # Build the workspace deps that publish built output (`@learn6502/core`,
-      # `examples`, `learn` ship `dist/*.d.ts`; `common-ui` exports source).
-      # Without this, type-checking common-ui/app-* fails with TS2307 "Cannot
+      # `examples`, `learn` ship `dist/*.d.ts`; `ui` exports source).
+      # Without this, type-checking ui/app-* fails with TS2307 "Cannot
       # find module '@learn6502/core'" — its types only exist after a build.
       - name: Build workspace dependencies
         run: |
@@ -203,7 +203,6 @@ jobs:
       - name: Type check (gjsify tsc under GJS)
         run: |
           gjsify workspace @learn6502/core check
-          gjsify workspace @learn6502/common-ui check
           gjsify workspace @learn6502/ui check
           gjsify workspace @learn6502/app-web check
           gjsify workspace @learn6502/app-gnome check:typescript

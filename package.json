@@ -1,6 +1,6 @@
 {
   "name": "learn6502",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "type": "module",
   "private": true,
   "gjsify": {
@@ -17,7 +17,7 @@
         "win32": "node"
       },
       "icon": "packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg",
-      "schemas": "packages/app-gnome/data/eu.jumplink.Learn6502.gschema.xml",
+      "schemas": "packages/ui/data/eu.jumplink.Learn6502.gschema.xml",
       "localeDir": "packages/translations/dist/locale",
       "licenseFile": "LICENSE",
       "extraFiles": {
@@ -180,9 +180,55 @@
           "caption": "Interactive tutorial",
           "captionTranslatorHint": "Screenshot caption for the interactive tutorial view",
           "type": "default"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-code.png",
+          "caption": "Code editor on a phone",
+          "captionTranslatorHint": "Screenshot caption for the code editor in the phone layout",
+          "type": "default"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-tutorial.png",
+          "caption": "Interactive tutorial on a phone",
+          "captionTranslatorHint": "Screenshot caption for the interactive tutorial in the phone layout",
+          "type": "default"
         }
       ],
       "releases": [
+        {
+          "version": "0.9.0",
+          "date": "2026-10-31",
+          "description": [
+            {
+              "p": "Learn 6502 now runs on Android. Download the APK from the release page and learn 6502 assembly on your phone, with the same tutorial, editor and game console as on the desktop.",
+              "translatorHint": "Release notes for version 0.9.0 - Android release. Keep \"Learn 6502\", \"Android\" and \"APK\" as they are."
+            },
+            {
+              "p": "The tutorial opens much faster.",
+              "translatorHint": "Release notes for version 0.9.0 - faster tutorial start"
+            },
+            {
+              "p": "The debugger is off by default.",
+              "translatorHint": "Release notes for version 0.9.0 - the debugger panel is hidden until switched on"
+            },
+            {
+              "p": "Screen readers announce the toolbar, header and gamepad buttons.",
+              "translatorHint": "Release notes for version 0.9.0 - accessibility labels for screen readers"
+            },
+            {
+              "p": "Text follows the system font size.",
+              "translatorHint": "Release notes for version 0.9.0 - respects the system text scale"
+            },
+            {
+              "p": "The About dialog names the translators.",
+              "translatorHint": "Release notes for version 0.9.0 - translator credits in the About dialog"
+            },
+            {
+              "p": "As always, this release includes many small fixes and improvements.",
+              "translatorHint": "Release notes for version 0.9.0 - generic closing sentence"
+            }
+          ]
+        },
         {
           "version": "0.8.3",
           "date": "2026-10-31",
@@ -582,6 +628,18 @@
             }
           },
           {
+            "from": 4,
+            "variants": {
+              "mobile-light": "misc/screenshots/0.9.0/mobile-code.png"
+            }
+          },
+          {
+            "from": 5,
+            "variants": {
+              "mobile-light": "misc/screenshots/0.9.0/mobile-tutorial.png"
+            }
+          },
+          {
             "caption": "Runs on macOS",
             "variants": {
               "desktop-light": "misc/screenshots/0.8.0/macos.png"
@@ -634,8 +692,8 @@
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
-    "@gjsify/cli": "0.64.14",
-    "@gjsify/site": "0.64.14",
+    "@gjsify/cli": "0.64.15",
+    "@gjsify/site": "0.64.15",
     "oxfmt": "^0.53.0",
     "oxlint": "^1.68.0",
     "typescript": "^6.0.3"

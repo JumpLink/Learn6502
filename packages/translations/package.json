@@ -1,8 +1,8 @@
 {
   "name": "@learn6502/translations",
-  "version": "0.8.3",
+  "version": "0.9.0",
   "private": true,
-  "description": "Translations for Learn 6502 Assembly",
+  "description": "Translations for Learn 6502",
   "author": "Pascal Garber <pascal@jumplink.eu>",
   "license": "CC-BY-4.0",
   "type": "module",
@@ -16,10 +16,11 @@
     "clear": "rm -rf dist"
   },
   "devDependencies": {
-    "@gjsify/vite-plugin-gettext": "^0.64.14",
+    "@gjsify/fs": "0.64.15",
+    "@gjsify/vite-plugin-gettext": "0.64.15",
     "vite": "^8.0.16"
   },
   "dependencies": {
-    "@learn6502/learn": "^0.8.0"
+    "@learn6502/learn": "^0.9.0"
   }
 }

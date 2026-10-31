@@ -260,6 +260,16 @@
       <caption xml:lang="es">Tutorial interactivo</caption>
       <caption xml:lang="de">Interaktives Tutorial</caption>
     </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-code.png</image>
+      
+      <caption>Code editor on a phone</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-tutorial.png</image>
+      
+      <caption>Interactive tutorial on a phone</caption>
+    </screenshot>
   </screenshots>
   <url type="homepage">https://jumplink.eu/Learn6502/</url>
   <url type="bugtracker">https://github.com/JumpLink/Learn6502/issues</url>
@@ -270,6 +280,106 @@
   <url type="translate">https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/</url>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.9.0" date="2026-10-31">
+      <description>
+        
+        <p>Learn 6502 now runs on Android. Download the APK from the release page and learn 6502 assembly on your phone, with the same tutorial, editor and game console as on the desktop.</p>
+        
+        <p>The tutorial opens much faster.</p>
+        
+        <p>The debugger is off by default.</p>
+        
+        <p>Screen readers announce the toolbar, header and gamepad buttons.</p>
+        
+        <p>Text follows the system font size.</p>
+        
+        <p>The About dialog names the translators.</p>
+        
+        <p>As always, this release includes many small fixes and improvements.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
+        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
+        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
+        <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
+        <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
+        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
+        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
+      </description>
+    </release>
+    <release version="0.8.3" date="2026-10-31">
+      <description>
+        
+        <p>The examples page lists the example programs again.</p>
+        
+        <p>Learn 6502 now runs on GNOME 51.</p>
+        
+        <p>The SBC instruction now subtracts correctly with zero page addressing. Thanks to jeremyw-gh for the fix.</p>
+      </description>
+    </release>
+    <release version="0.8.2" date="2026-10-31">
+      <description>
+        
+        <p>The macOS version is now signed and notarised by Apple and comes as a disk image for Apple silicon and Intel Macs, so it opens without a security warning.</p>
+        
+        <p>As always, this release includes many small fixes and improvements.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
+        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
+        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
+        <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
+        <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
+        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
+        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
+      </description>
+    </release>
+    <release version="0.8.1" date="2026-10-24">
+      <description>
+        
+        <p>The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version.</p>
+        <ul>
+          
+          <li>The web version has a proper About dialog now, and its app icon shows up where it was missing before.</li>
+          
+          <li>There is a privacy page and a legal notice, reachable from inside the app.</li>
+          
+          <li>Every build says in About that it is open source, and where to support the project if you would like to.</li>
+        </ul>
+        
+        <p>As always, this release includes many small fixes and improvements.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
+        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
+        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
+        <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
+        <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
+        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
+        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
+      </description>
+    </release>
     <release version="0.8.0" date="2026-09-12">
       <description>
         

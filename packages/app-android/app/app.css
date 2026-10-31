@@ -1,16 +1,21 @@
 @import 'tailwindcss';
 @import 'css/_light.css';
-@import 'css/_light-mc.css';
-@import 'css/_light-hc.css';
 @import 'css/_dark.css';
-@import 'css/_dark-mc.css';
-@import 'css/_dark-hc.css';
 
 /* The Libadwaita look for the @gjsify/adwaita-nativescript widgets (rows / groups
    / header bar / view switcher / …). Copied from
    @gjsify/adwaita-nativescript/theme/adwaita.css for reliable NS @import
    resolution; keep in sync with the package on a widget bump. Light + .ns-dark. */
 @import '~/adwaita.css';
+
+/* The app's own shared stylesheets, the same two app-gnome pulls into
+   src/widgets/index.css. Without them the `rounded-*-none` classes on the d-pad
+   and the #buttonCenter padding override are dead here, so the cross keeps the
+   rounded corners of five separate buttons. postcss-import inlines them at build
+   time, so a wrong path fails the build rather than going unnoticed. */
+@import '../../ui/src/rounded.css';
+@import '../../ui/src/game-console/gamepad.css';
+@import '../../ui/src/main-button.css';
 
 /* Adwaita Sans (the GNOME UI font). Android resolves the family by the TTF file
    name in app/fonts/ (AdwaitaSans-Regular.ttf); iOS resolves by the PostScript
@@ -20,8 +25,7 @@ Page {
 }
 
 @custom-variant dark (&:is(.ns-dark *));
-@custom-variant high (&:is(.ns-contrast-high *));
-@custom-variant medium (&:is(.ns-contrast-medium *));
+@custom-variant high (&:is(.is-high-contrast *));
 
 .ns-root {
   --safeAreaInsetTop: 0;
@@ -30,11 +34,22 @@ Page {
   --safeAreaInsetRight: 0;
 }
 
-/* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss */
+/* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss
+ *
+ * THE SIZES ARE UPSTREAM'S PERCENTAGES OF THE 15 dip BASE, NOT FREE NUMBERS. libadwaita states
+ * the ramp relatively — 181 % / 136 % / 136 % / 118 % of the document font — and the bridge's
+ * base is 15 (`.adw-window-title`, `.adw-button-label`), which is GTK's 11pt read at 96 dpi:
+ * 11 × 96/72 = 14.67. Absolute pixel sizes here replaced that ramp with a flatter, larger one.
+ *
+ * MEASURED against GeopJr's GTK4Android Adwaita Demo on the same phone at the same font scale
+ * (Galaxy S9, density 3.5, font_scale 1.0), cap heights in device px: real GTK draws its window
+ * title, row titles and body all at 33 and `.title-1` at 61 — a ratio of 1.85. This file drew
+ * body at 35 (right) but `.title-1` at 75 and `.title-2` at 70, ratios of 2.14 and 2.00. So the
+ * base was never the problem and is left alone; the ramp on top of it is what is restated. */
 
 HtmlView,
 .body {
-  font-size: 18;
+  font-size: 15;
   font-weight: 400;
   margin-bottom: 12;
   margin-top: 12;
@@ -42,34 +57,34 @@ HtmlView,
 
 .title-1 {
   font-weight: 800;
-  font-size: 30;
+  font-size: 27;
   margin-bottom: 12;
   margin-top: 12;
 }
 
 .title-2 {
   font-weight: 800;
-  font-size: 28;
+  font-size: 20;
   margin-bottom: 12;
   margin-top: 12;
 }
 
 .title-3 {
   font-weight: 700;
-  font-size: 26;
+  font-size: 20;
   margin-bottom: 12;
   margin-top: 12;
 }
 
 .title-4 {
-  font-size: 24;
+  font-size: 18;
   font-weight: 700;
   margin-bottom: 12;
   margin-top: 12;
 }
 
 .list {
-  font-size: 18;
+  font-size: 15;
 }
 
 /* Remove underline from TextViews */

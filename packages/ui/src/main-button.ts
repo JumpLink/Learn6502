@@ -3,15 +3,12 @@ import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
 
 import type { SimulatorState } from "@learn6502/core";
-import {
-  MainButtonState,
-  type MainButtonMode,
-  type MainButtonWidget,
-  mainStateController,
-  ViewType,
-  type MainUiState,
-  buttonStateService,
-} from "@learn6502/common-ui";
+import { MainButtonState } from "./data/index.ts";
+import { type MainButtonMode, type MainUiState } from "./types/index.ts";
+import { type MainButtonWidget } from "./widgets/index.ts";
+import { mainStateController } from "./controller/index.ts";
+import { ViewType } from "./views/index.ts";
+import { buttonStateService } from "./services/index.ts";
 
 import { _ } from "./translate.ts";
 import Template from "./main-button.blp?template";
@@ -22,7 +19,7 @@ import Template from "./main-button.blp?template";
  * A button widget that changes its appearance and functionality based on
  * the current state of the simulator.
  *
- * Implements MainButtonWidget from common-ui
+ * Implements MainButtonWidget
  */
 export class MainButton extends Adw.Bin implements MainButtonWidget {
   // Internal child widgets

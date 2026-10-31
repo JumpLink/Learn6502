@@ -2,7 +2,8 @@
 <gresources>
   <gresource prefix="/eu/jumplink/Learn6502">
     <file preprocess="xml-stripblanks">metainfo/eu.jumplink.Learn6502.metainfo.xml</file>
-    <file alias="icons/scalable/apps/eu.jumplink.Learn6502.svg" preprocess="xml-stripblanks">icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg</file>
+    <file>icons/128x128/apps/eu.jumplink.Learn6502.png</file>
+    <file>icons/128x128@2/apps/eu.jumplink.Learn6502.png</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/brush-monitor-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/bug-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/build-alt-symbolic.svg</file>
@@ -24,9 +25,6 @@
     <file preprocess="xml-stripblanks">icons/scalable/actions/resume-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/school-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/share-symbolic.svg</file>
-    <!-- Stock Adwaita, shipped because the NativeScript port's compiled icon subset does not
-         carry it and a name it cannot resolve draws `image-missing`. Harmless on GNOME and the
-         web: a resource path feeds hicolor, which is searched after the current icon theme. -->
     <file preprocess="xml-stripblanks">icons/scalable/actions/sidebar-show-symbolic.svg</file>
     <file preprocess="xml-stripblanks">icons/scalable/actions/step-over-symbolic.svg</file>
     <file alias="lang-specs/6502-assembler.lang" preprocess="xml-stripblanks">../../ui/data/lang-specs/6502-assembler.lang</file>

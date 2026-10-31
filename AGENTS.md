@@ -5,7 +5,7 @@ Prefer retrieval-led reasoning over pre-training-led reasoning when referencing 
 ## Project
 
 Monorepo managed with `gjsify install` (`gjsify-lock.json`) — 6502 assembly learning environment with GNOME, Web, and Android apps. (The Flatpak build still vendors deps via the committed Yarn Berry cache pending its own gjsify migration.)
-Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform code in `app-*` packages; refactor freely across packages when it improves architecture.
+Principles: maximize code reuse via `ui`/`core` packages; keep platform code in `app-*` packages; refactor freely across packages when it improves architecture.
 
 Layout decisions are recorded in [docs/adr/](docs/adr/README.md).
 
@@ -20,7 +20,6 @@ Flatpak build — **aborts by design**; run `gjsify unlink` first. How-to in
 | Package               | Path                              | Purpose                                                         | Stack                                               |
 | --------------------- | --------------------------------- | --------------------------------------------------------------- | --------------------------------------------------- |
 | 6502 (core)           | `packages/core/`                  | Platform-independent assembler, simulator, disassembler         | TypeScript, zero deps, no UI                        |
-| common-ui             | `packages/common-ui/`             | Shared UI logic, controllers, interfaces — 4-layer architecture | TypeScript, no platform deps                        |
 | ui                    | `packages/ui/`                    | Widgets written once as GNOME components (`.blp` + `.ts`), run on GNOME, web and Android | TypeScript, Blueprint, `@gjsify/adwaita-*` (`--gi-renderer`) |
 | app-gnome             | `packages/app-gnome/`             | GNOME desktop app                                               | TypeScript, GJS, GTK 4, Adwaita, Vite, Meson        |
 | app-web               | `packages/app-web/`               | Web app                                                         | TypeScript, HTML, CSS, Vite, `@gjsify/adwaita-web`  |
@@ -155,10 +154,10 @@ Applies to all `.ts`/`.tsx` files.
 When a platform lacks something the component needs (a `Gtk.Widget` member, a `Gio` class), build it into gjsify core with a test, developed against a linked gjsify worktree (`gjsify link`). Never shim it in the component. A per-platform override stays possible: a `.web.ts` sibling or an own driver.
 
 
-## common-ui — Four-Layer Component Architecture
+## ui — Four-Layer Component Architecture
 
-Applies to TypeScript files in `packages/common-ui/src/`.
-No platform-specific or UI-framework-specific dependencies allowed — pure TypeScript only.
+Applies to the platform-free TypeScript in `packages/ui/src/{controller,services,data,types,views}/` (the former `common-ui`, dissolved into `ui` and `core`).
+No platform-specific or UI-framework-specific dependencies allowed there — pure TypeScript only. Platform code goes in `*.android.ts` / `*.web.ts` next to the shared file.
 
 ### Layers
 
@@ -400,7 +399,7 @@ Required for R8/ProGuard code shrinking. Missing entries cause **runtime crashes
 
 - Services: `app/services/` (lifecycle, theme, notification)
 - State: reactive with `EventDispatcher` from `@learn6502/core`
-- Views: implement interfaces from `@learn6502/common-ui`
+- Views: implement interfaces from `@learn6502/ui`
 - Widgets: `app/widgets/` (Adwaita `Gtk.*`/`Adw.*` composites) + `app/gtk.ts` XML barrel
 - Utils: `app/utils/` (system, navigation, logger, resources)
 - Theme: `data/Android/.../styles.xml` is AppCompat `NoActionBar` plumbing only; colours come from CSS
@@ -419,11 +418,11 @@ Required for R8/ProGuard code shrinking. Missing entries cause **runtime crashes
 Applies to all files in `packages/app-web/`.
 
 Web app version. An Adwaita single-page app on `@gjsify/adwaita-web`, sharing the
-`common-ui` controllers + `core` with app-gnome (the four views are the web twins
+`ui` controllers + `core` with app-gnome (the four views are the web twins
 of the GNOME views). Production build = `gjsify build --app browser` (→ `dist-app/`,
 deployed to GitHub Pages); dev = Vite + HMR (`vite.app.config.ts`). The classic
 skilldrick Jekyll tutorial was removed in the app-web rewrite.
-Focus: browser compatibility, responsive design, leverage `core` + `common-ui`.
+Focus: browser compatibility, responsive design, leverage `core` + `ui`.
 
 ## Learn — tutorial content
 

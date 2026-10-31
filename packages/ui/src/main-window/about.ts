@@ -1,6 +1,9 @@
+import Adw from "@girs/adw-1";
+import GLib from "@girs/glib-2.0";
+import Gtk from "@girs/gtk-4.0";
 import { donationsAllowed, purchased } from "@gjsify/distribution";
-import { editionBadgeService, type EditionBadgeId } from "@learn6502/common-ui";
 
+import { editionBadgeService, type EditionBadgeId } from "../services/edition-badge.service.ts";
 import { _, uiLanguage } from "../translate.ts";
 
 /**
@@ -14,8 +17,7 @@ export interface AboutInfo {
   comments: string;
   website: string;
   issueUrl: string;
-  /** SPDX identifier */
-  license: string;
+  licenseType: Gtk.License;
   /**
    * Link to the landing page's support section; labelled "Support", never "Donate" (business income, no
    * deduction). `null` on a channel that shows no donation UI at all (the Microsoft and Apple stores).
@@ -86,14 +88,22 @@ export function commentsWithEdition(comments: string): string {
 /** English page; the metainfo `<url type="donation">` points at it. */
 const SUPPORT_URL = "https://jumplink.eu/Learn6502/en/support/";
 
+/**
+ * The UI language, `GLib.get_language_names()` where the engine has no `Intl` to read it from
+ * (NativeScript is built without ICU).
+ */
+function language(): string {
+  return uiLanguage() || GLib.get_language_names()[0] || "";
+}
+
 /** The site renders `en` and `de`; anything else falls back to English. */
 export function supportUrl(): string {
-  return uiLanguage().startsWith("de") ? SUPPORT_URL.replace("/en/", "/de/") : SUPPORT_URL;
+  return language().startsWith("de") ? SUPPORT_URL.replace("/en/", "/de/") : SUPPORT_URL;
 }
 
 /** A landing-page path in the UI language: `de` on a German locale, `en` otherwise (the site renders only those two). */
 function sitePage(page: string): string {
-  return `https://jumplink.eu/Learn6502/${uiLanguage().startsWith("de") ? "de" : "en"}/${page}/`;
+  return `https://jumplink.eu/Learn6502/${language().startsWith("de") ? "de" : "en"}/${page}/`;
 }
 
 export function getAboutInfo(): AboutInfo {
@@ -104,11 +114,39 @@ export function getAboutInfo(): AboutInfo {
     comments: _("Program vintage consoles"),
     website: "https://flathub.org/apps/eu.jumplink.Learn6502",
     issueUrl: "https://github.com/JumpLink/Learn6502/issues",
-    license: "GPL-3.0-or-later",
+    licenseType: Gtk.License.GPL_3_0,
     legalLinks: [
       { title: _("Privacy"), url: sitePage("privacy") },
       { title: _("Legal Notice"), url: sitePage("legal-notice") },
     ],
     supportLink: donationsAllowed() ? { title: _("Support"), url: supportUrl() } : null,
   };
+}
+
+/**
+ * What `Adw.AboutDialog.new_from_appdata()` does not map: the translator credits, the support
+ * link (`<url type="donation">` is not read) and the legal links.
+ */
+export function addAboutExtras(dialog: Adw.AboutDialog): void {
+  // TRANSLATORS: Replace with your names, one per line, e.g. "Jane Doe <jane@example.com>"
+  dialog.translatorCredits = _("translator-credits");
+  const { supportLink: link, legalLinks } = getAboutInfo();
+  if (link) dialog.add_link(link.title, link.url);
+  for (const legal of legalLinks) dialog.add_link(legal.title, legal.url);
+}
+
+/** The About dialog where the metainfo cannot be read: the same fields, from {@link getAboutInfo}. */
+export function createAboutDialog(version: string): Adw.AboutDialog {
+  const info = getAboutInfo();
+  const dialog = new Adw.AboutDialog();
+  dialog.applicationName = info.applicationName;
+  dialog.applicationIcon = info.applicationIcon;
+  dialog.version = version;
+  dialog.developerName = info.developerName;
+  dialog.comments = commentsWithEdition(info.comments);
+  dialog.website = info.website;
+  dialog.issueUrl = info.issueUrl;
+  dialog.licenseType = info.licenseType;
+  addAboutExtras(dialog);
+  return dialog;
 }

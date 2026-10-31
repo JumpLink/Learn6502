@@ -9,15 +9,24 @@
  * final phase of the rewrite.
  */
 
-import { Gio, Gtk } from "@gjsify/adwaita-web"; // registers the custom elements + self-injects the skin
-import resourceBytes from "../../../app-gnome/data/eu.jumplink.Learn6502.data.gresource.xml";
-import { MainWindow } from "./main-window.js";
+import { Adw } from "@gjsify/adwaita-web";
+import type GjsAdw from "@girs/adw-1";
+// The template classes the .blp files name ($Learn, $MainButton, $Toolbar, $QuickHelpView, …) register with @learn6502/ui.
+import { MainWindow, settings, themeService } from "@learn6502/ui";
 
-// The shared @learn6502/ui widgets name app icons that GNOME resolves from its gresource; the same
-// bytes feed the icon theme here. GtkApplication would add `<resource-base-path>/icons/` itself, but
-// the web shell has no GtkApplication, so the path is added by hand (as app-gnome/resources.ts does).
-Gio.resources_register(Gio.Resource.new_from_data(resourceBytes));
-Gtk.IconTheme.get_for_display(null).add_resource_path("/eu/jumplink/Learn6502/icons");
+import { initResources } from "./resources.js";
+import { injectShellStyles } from "./styles.js";
 
-const mainWindow = new MainWindow();
-mainWindow.mount(document.body);
+/** The application id, as in the GNOME app. */
+const APPLICATION_ID = "eu.jumplink.Learn6502";
+
+initResources();
+injectShellStyles();
+themeService.init(settings);
+
+// It resolves the menu's `app.*` actions and runs the accelerators. Never `runAsync`: the page is already running.
+const application = new Adw.Application();
+application.application_id = APPLICATION_ID;
+
+const mainWindow = new MainWindow(application as unknown as GjsAdw.Application);
+document.body.appendChild(mainWindow as unknown as Node);

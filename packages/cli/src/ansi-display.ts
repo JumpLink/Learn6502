@@ -1,4 +1,4 @@
-import { DEFAULT_COLOR_PALETTE, DEFAULT_DISPLAY_CONFIG, type DisplayWidget } from "@learn6502/common-ui";
+import { DEFAULT_COLOR_PALETTE, DEFAULT_DISPLAY_CONFIG, type DisplayWidget } from "@learn6502/core";
 import { DisplayAddressRange, type Memory } from "@learn6502/core";
 
 const RESET = "\x1b[0m";
@@ -12,7 +12,7 @@ function hexToRgb(hex: string): [number, number, number] {
 /**
  * AnsiDisplay — the 6502 console screen rendered to a terminal.
  *
- * It implements the SAME `DisplayWidget` interface from `@learn6502/common-ui`
+ * It implements the SAME `DisplayWidget` interface from `@learn6502/core`
  * that the GTK (`Gtk.DrawingArea` + cairo), web (`<canvas>`) and Android
  * displays implement — the terminal is just another platform. The 32×32 grid of
  * memory `$0200-$05FF` is drawn with the shared 16-entry `DEFAULT_COLOR_PALETTE`
