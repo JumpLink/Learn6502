@@ -107,7 +107,5 @@ export class FileService extends BaseFileService {
 }
 
 function isDismissed(error: unknown): boolean {
-  return (
-    error instanceof GLib.Error && error.matches(Gtk.DialogError, Gtk.DialogError.DISMISSED)
-  );
+  return error instanceof GLib.Error && error.matches(Gtk.DialogError, Gtk.DialogError.DISMISSED);
 }

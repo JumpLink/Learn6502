@@ -66,7 +66,8 @@
     "nano-jsx@^0.2.1",
     "@gjsify/adwaita-core@0.64.15",
     "@gjsify/canvas2d@0.64.15",
-    "@gjsify/distribution@0.64.15"
+    "@gjsify/distribution@0.64.15",
+    "@gjsify/unit@0.64.15"
   ],
   "packages": {
     "node_modules/@alloc/quick-lru": {
@@ -3413,6 +3414,11 @@
         }
       }
     },
+    "node_modules/@gjsify/runtime": {
+      "version": "0.64.15",
+      "resolved": "https://registry.npmjs.org/@gjsify/runtime/-/runtime-0.64.15.tgz",
+      "integrity": "sha512-COeMctk+7SbLvVag8IdinPs7cOVvXpeWMh2UWEm7tXblqhCsh3oYwxiqxU5Un4HlxFpVaIf+wGO8xUEIsKS3gw=="
+    },
     "node_modules/@gjsify/sab-native": {
       "version": "0.64.15",
       "resolved": "https://registry.npmjs.org/@gjsify/sab-native/-/sab-native-0.64.15.tgz",
@@ -4012,6 +4018,24 @@
         "@girs/glib-2.0": "5.4.0",
         "@gjsify/stream": "^0.64.15",
         "@gjsify/terminal-native": "^0.64.15"
+      }
+    },
+    "node_modules/@gjsify/unit": {
+      "version": "0.64.15",
+      "resolved": "https://registry.npmjs.org/@gjsify/unit/-/unit-0.64.15.tgz",
+      "integrity": "sha512-lTAFh1jwSR/ZeT6WXYFnGwj54lCNKcEww6NRx9+TdMNDx4VYuspEC2b4s8G/iHfS5I9HRm6HFzZ1mES0gIqk9w==",
+      "dependencies": {
+        "@gjsify/utils": "^0.64.15",
+        "@gjsify/assert": "^0.64.15",
+        "@gjsify/buffer": "^0.64.15",
+        "@gjsify/process": "^0.64.15",
+        "@gjsify/runtime": "^0.64.15",
+        "@gjsify/web-globals": "^0.64.15",
+        "@gjsify/web-streams": "^0.64.15",
+        "@gjsify/dom-elements": "^0.64.15",
+        "@gjsify/node-globals": "^0.64.15",
+        "@gjsify/dom-exception": "^0.64.15",
+        "@gjsify/abort-controller": "^0.64.15"
       }
     },
     "node_modules/@gjsify/url": {

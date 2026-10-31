@@ -218,8 +218,7 @@ function emitProperty(element: UiElement, depth: number): string[] {
     // type is an enum, and blueprint would be right to stop reading one day.
     const nicks = ENUM_PROPERTIES[name];
     if (nicks) {
-      if (!nicks.has(text))
-        throw new Error(`${text} is not a ${name} member — the nicks are ${[...nicks].join(", ")}`);
+      if (!nicks.has(text)) throw new Error(`${text} is not a ${name} member — the nicks are ${[...nicks].join(", ")}`);
       return [`${pad}${name}: ${text};`];
     }
     if (!SCALAR.test(text))
