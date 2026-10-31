@@ -487,6 +487,7 @@ msgstr "הגדרות מראה"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "שיפורי ארכיטקטורה שמאפשרים שיתוף קוד טוב יותר בין פלטפורמות GNOME, הרשת, ואנדרואיד."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -735,6 +736,10 @@ msgstr "זוגי או אי־זוגי"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "למרות שזו תהיה גרסה פשוטה, הקוד יהיה גדול משמעותית מכל הדוגמאות הקודמות. אנחנו נצתרך לעקוב אחר כמה נקודות זיכרון ביחד בשביל שלל חלקי המשחק. אנחנו עדיין יכולים לרשום ולסדר בעצמינו את כל הפרטים החשובים במהלך התוכנה כמו קודם, אבל בקנה מידה גדול, זה מהר מאוד נהיה מעייף ועלול לגרום לבאגים קשים לאיתור. במקום, אנחנו ניתן עכשיו למאסף לעשות חלק מהעבודה הקשה בשבילנו."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -1217,9 +1222,6 @@ msgstr "מבנה כללי"
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
 msgstr "דגל הגלישה: מוגדר כשפעולה אריטמטית מניבה תוצאה שאי אפשר להציג בטווח 8־ביט מסומן (-128 עד +127). משמש לזיהוי שגיאות בחישובים אריטמטים מסומנים."
 
-msgid "Privacy"
-msgstr ""
-
 #. TRANSLATORS: Main action button label to pause the running simulator
 #. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
@@ -1296,6 +1298,9 @@ msgstr "מרכזי: טורקיז"
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
 msgstr "מרכזי: צהוב"
+
+msgid "Privacy"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
@@ -1623,6 +1628,10 @@ msgstr "התהליך <tt>loop</tt> עצמו פשוט קורא ברצף למספ�
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "הסוכם (Accumulator, A) הוא האוגר הראשי לפעולות אריתמטיות ולוגיות. כל החישובים הבסיסיים כמו ADD, SUBTRACT, AND, OR, וכו'. משתמשים באוגר הזה. הוא האוגר הכי נפוץ בשפת הסף 6502."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "מונה התוכנה מכיל את הכתובת של הפקודה הבאה שעומדת לרוץ. הוא גדל אוטומטית אחרי כל פקודה ואפשר לשנות אותו עם קפיצות, הסתעפויות, קריאות, וחזרות. חיוני לפיקוד על מהלך התוכנה, ולניפוי שגיאות."
@@ -1749,6 +1758,10 @@ msgstr "המחסנית"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "המחסנית במעבד 6502 היא בדיוק כמו כל מחסנית אחרת - ערכים נדחפים אל תוכה ומוצאים (\"נמשכים\" בשפה של 6502) ממנה. עומקה הנוכחי של המחסנית נמדד באמצעות מצביע המחסנית, אוגר מיוחד. המחסנית שוכנת בזיכרון בין <tt>$0100</tt> ו־<tt>$01ff</tt>. בהתחלה מצביע המחסנית שווה ל־<tt>$ff</tt>, כך שמצביע על נקודת הזיכרון <tt>$01ff</tt>. כאשר בייט נדחף אל תוך המחסנית, מצביע המחסנית הופך ל־<tt>$fe</tt>, ומצביע על נקודת הזיכרון <tt>$01fe</tt>, וכן הלאה."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "דף האפס של הזיכרון משמש לשמירת מספר משתנים של מצב המשחק, כמצויין בההערה בתחילה המשחק. הכל ב־<tt>$00</tt>, <tt>$01</tt> ו־<tt>$10</tt> ומעלה מורכב מזוגות בתים שמייצגים נקודות זיכרון בנות שתי בתים שיגשו אליהן במיעון עקיף. כל נקודות הזיכרון האלו יהיו בין <tt>$0200</tt> ו־<tt>$05ff</tt> - קטע הזיכרון שמחובר למסך המשחק. לדוגמה, אם <tt>$00</tt> ו־<tt>$01</tt> יכילו את הערכים <tt>$01</tt> ו־<tt>$02</tt>, הכוונה בהם היא לפיקסל השני של המסך (<tt>$0201</tt> – זיכרו, הבייט השולי מגיע ראשון במיעון עקיף)."
@@ -1756,6 +1769,10 @@ msgstr "דף האפס של הזיכרון משמש לשמירת מספר משת�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "אז למה 6502? למה לא שפת סף <i>שימושית</i>, כמו <a href=\"https://he.wikipedia.org/wiki/X86\">x86</a>? ובכן, אני לא חושב שזה שימושי ללמוד x86. אני לא חושב שתצטרכו אי פעם <i>לכתוב</i> שפת סף בעבודה היום יומית ‐ למספר אנשים זה תרגיל אקדמי, משהו לפתח את הראש והמחשבה. 6502 נכתב מלכתחילה בדור אחר, בזמן שבו רוב המתכנתים היו כותבים ישירות בשפת סף, ולא בשפות התכנות הגבוהות החדשות־מעורפלות. לכן היא עוצבה להכתב על ידי בני־אדם. שפות סף יותר מודרניות נועדו להכתב על ידי תוכנות הידור, אז נשאיר אותם להם. בנוסף, 6502 היא <i>כֵּפִית</i>. אף אחד מעולם לא קרא ל־x86 <i>כיף</i>."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."

@@ -487,6 +487,7 @@ msgstr "Cài đặt giao diện"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Những cải tiến về kiến trúc cho phép chia sẻ mã tốt hơn giữa các nền tảng Gnome, Web và Android."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -735,6 +736,10 @@ msgstr "Chẵn Lẻ"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "Mặc dù đây sẽ là một phiên bản đơn giản nhưng mã sẽ lớn hơn đáng kể so với tất cả các ví dụ trước đó. Chúng ta sẽ cần phải theo dõi nhiều vị trí bộ nhớ cùng nhau cho các khía cạnh khác nhau của trò chơi. Chúng tôi vẫn có thể tự mình thực hiện các công việc ghi sổ cần thiết trong suốt chương trình như trước đây, nhưng ở quy mô lớn hơn, việc này nhanh chóng trở nên tẻ nhạt và cũng có thể dẫn đến các lỗi khó phát hiện. Thay vào đó, bây giờ chúng ta sẽ để trình biên dịch mã thực hiện một số công việc tầm thường cho chúng ta."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -1217,9 +1222,6 @@ msgstr "Cấu trúc tổng thể"
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
 msgstr "Cờ Tràn: Đặt khi một phép toán số học tạo ra kết quả không thể biểu thị trong phạm vi 8 bit có dấu (-128 đến +127). Được sử dụng để phát hiện các lỗi số học có dấu trong phép tính."
 
-msgid "Privacy"
-msgstr ""
-
 #. TRANSLATORS: Main action button label to pause the running simulator
 #. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
@@ -1296,6 +1298,9 @@ msgstr "Cơ Bản: Xanh Mòng Két"
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
 msgstr "Cơ Bản: Vàng"
+
+msgid "Privacy"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
@@ -1623,6 +1628,10 @@ msgstr "Bản thân chương trình con <tt>loop</tt> chỉ gọi một số ch�
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "Bộ tích lũy (A) là thanh ghi chính cho các phép toán số học và logic. Tất cả các phép tính cơ bản như THÊM, TRỪ, VÀ, HOẶC, v.v. đều sử dụng thanh ghi này. Đây là thanh ghi được sử dụng thường xuyên nhất trong lập trình hợp ngữ 6502."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "Bộ Đếm Chương Trình chứa địa chỉ bộ nhớ của lệnh tiếp theo sẽ thực thi. Nó tự động tăng sau mỗi lệnh và có thể được sửa đổi bằng cách nhảy, rẽ nhánh, gọi và trả về. Cần thiết cho việc kiểm soát và gỡ lỗi luồng chương trình."
@@ -1749,6 +1758,10 @@ msgstr "Ngăn xếp"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "Ngăn xếp trong bộ xử lý 6502 cũng giống như bất kỳ ngăn xếp nào khác - các giá trị được đẩy lên nó và bật ra (\"kéo\" theo cách nói của 6502). Độ sâu hiện tại của ngăn xếp được đo bằng con trỏ ngăn xếp, một thanh ghi đặc biệt. Ngăn xếp tồn tại trong bộ nhớ giữa <tt>$0100</tt> và <tt>$01ff</tt>. Con trỏ ngăn xếp ban đầu là <tt>$ff</tt>, trỏ đến vị trí bộ nhớ <tt>$01ff</tt>. Khi một byte được đẩy lên ngăn xếp, con trỏ ngăn xếp sẽ trở thành <tt>$fe</tt> hoặc vị trí bộ nhớ <tt>$01fe</tt>, v.v."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "Trang không của bộ nhớ được sử dụng để lưu trữ một số biến trạng thái trò chơi, như được ghi chú trong khối nhận xét ở đầu trò chơi. Mọi thứ trong <tt>$00</tt>, <tt>$01</tt> và <tt>$10</tt> trở lên là một cặp byte biểu thị vị trí bộ nhớ hai byte sẽ được tra cứu bằng cách sử dụng địa chỉ gián tiếp. Tất cả các vị trí bộ nhớ này sẽ nằm trong khoảng từ <tt>$0200</tt> đến <tt>$05ff</tt> - phần bộ nhớ tương ứng với bảng điều khiển trò chơi. Ví dụ: nếu <tt>$00</tt> và <tt>$01</tt> chứa các giá trị <tt>$01</tt> và <tt>$02</tt>, thì chúng sẽ đề cập đến pixel thứ hai của màn hình ( <tt>$0201</tt> - hãy nhớ, byte ít quan trọng nhất sẽ xuất hiện trước trong cách đánh địa chỉ gián tiếp)."
@@ -1756,6 +1769,10 @@ msgstr "Trang không của bộ nhớ được sử dụng để lưu trữ mộ
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "Vậy tại sao lại là 6502? Tại sao không phải là một ngôn ngữ hợp ngữ <i>hữu ích</i>, như <a href=\"https://vi.wikipedia.org/wiki/X86\">x86</a>? Chà, tôi không nghĩ việc học x86 là hữu ích. Tôi không nghĩ bạn sẽ phải <i>viết</i> ngôn ngữ hợp ngữ trong công việc hàng ngày của mình - đối với một số người, đây là một bài tập học thuật, một thứ giúp mở rộng trí óc và suy nghĩ của bạn. 6502 ban đầu được viết ở một thời đại khác, thời điểm mà phần lớn các nhà phát triển đang viết hợp ngữ một cách trực tiếp, thay vì bằng các ngôn ngữ lập trình cấp cao mới mẻ này. Vì vậy, nó được thiết kế để được viết bởi con người. Các ngôn ngữ hợp ngữ hiện đại hơn được viết bởi các trình biên dịch, vì vậy hãy để việc đó cho chúng. Ngoài ra, 6502 còn <i>thú vị</i>. Chưa có ai gọi x86 là <i>vui</i>."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
