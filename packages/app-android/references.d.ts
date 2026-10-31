@@ -14,6 +14,13 @@ declare module "*.asm" {
   export default content;
 }
 
+// A Blueprint file as the tree `@gjsify/vite-plugin-blueprint` projects it (`?shared-tree`)
+declare module "*.blp?shared-tree" {
+  import type { build } from "@gjsify/adwaita-nativescript/builder";
+  const tree: Parameters<typeof build>[0];
+  export default tree;
+}
+
 // Global build-time constants (set by Vite `define` in vite.config.ts; __ANDROID__/
 // __IOS__ are provided by gjsifyNativescript()'s platform defines)
 

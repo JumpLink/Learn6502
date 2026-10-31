@@ -8,6 +8,28 @@ import { SETTINGS_THEME, DEFAULT_THEME } from "../constants";
 import type { ContrastChangeEvent } from "~/types";
 import { logger } from "~/utils";
 
+// Plain reflection: on API 24 NativeScript's MethodResolver NPEs on null args after getDeclaredMethods() throws NoClassDefFoundError (see upstream issue in the PR)
+function getAppCompatDelegate(
+  activity: androidx.appcompat.app.AppCompatActivity
+): androidx.appcompat.app.AppCompatDelegate {
+  const getDelegate = java.lang.Class.forName("androidx.appcompat.app.AppCompatActivity").getMethod("getDelegate", []);
+  return getDelegate.invoke(activity, []) as androidx.appcompat.app.AppCompatDelegate;
+}
+
+function delegateClass(): java.lang.Class<any> {
+  return java.lang.Class.forName("androidx.appcompat.app.AppCompatDelegate");
+}
+
+function applyDayNight(activity: androidx.appcompat.app.AppCompatActivity): void {
+  delegateClass().getDeclaredMethod("applyDayNight", []).invoke(getAppCompatDelegate(activity), []);
+}
+
+function setLocalNightMode(activity: androidx.appcompat.app.AppCompatActivity, mode: number): void {
+  delegateClass()
+    .getDeclaredMethod("setLocalNightMode", [java.lang.Integer.TYPE])
+    .invoke(getAppCompatDelegate(activity), [new java.lang.Integer(mode)]);
+}
+
 /**
  * Android-specific implementation of the ThemeManager
  * Uses Android's AppCompatDelegate for theming
@@ -87,7 +109,7 @@ export class ThemeService extends BaseThemeService {
       if (event?.activity) {
         this.log.debug("Activity started, updating theme colors");
         // Ensure theme is applied
-        event.activity.getDelegate().applyDayNight();
+        applyDayNight(event.activity);
       }
     });
   }
@@ -116,21 +138,21 @@ export class ThemeService extends BaseThemeService {
       switch (mode) {
         case "light":
           // Use AppCompatDelegate constants for light mode (MODE_NIGHT_NO)
-          activity.getDelegate().setLocalNightMode(1); // AppCompatDelegate.MODE_NIGHT_NO
+          setLocalNightMode(activity, 1); // AppCompatDelegate.MODE_NIGHT_NO
           break;
         case "dark":
           // Use AppCompatDelegate constants for dark mode (MODE_NIGHT_YES)
-          activity.getDelegate().setLocalNightMode(2); // AppCompatDelegate.MODE_NIGHT_YES
+          setLocalNightMode(activity, 2); // AppCompatDelegate.MODE_NIGHT_YES
           break;
         case "system":
         default:
           // Use AppCompatDelegate constants for system mode (MODE_NIGHT_FOLLOW_SYSTEM)
-          activity.getDelegate().setLocalNightMode(-1); // AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+          setLocalNightMode(activity, -1); // AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
           break;
       }
 
       // Apply day/night mode like reference projects do
-      activity.getDelegate().applyDayNight();
+      applyDayNight(activity);
 
       // Save theme to settings
       this.saveThemeToSettings(mode);
@@ -194,7 +216,7 @@ export class ThemeService extends BaseThemeService {
       try {
         const activity = Application.android.startActivity as androidx.appcompat.app.AppCompatActivity;
         if (activity) {
-          activity.getDelegate().applyDayNight();
+          applyDayNight(activity);
         }
       } catch (error) {
         // Silent error - theme changes are non-critical

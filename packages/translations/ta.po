@@ -487,6 +487,7 @@ msgstr "தோற்ற அமைப்புகள்"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "கட்டிடக்கலை மேம்பாடுகள் க்னோம், வெப் மற்றும் ஆண்ட்ராய்டு இயங்குதளங்களுக்கு இடையே சிறந்த குறியீடு பகிர்வை செயல்படுத்துகின்றன."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -501,6 +502,7 @@ msgid "As stated before, the four directions are represented internally by the n
 msgstr "முன்பு கூறியது போல், நான்கு திசைகளும் 1, 2, 4 மற்றும் 8 ஆகிய எண்களால் உள்நாட்டில் குறிப்பிடப்படுகின்றன. இந்த எண்கள் ஒவ்வொன்றும் 2 இன் சக்தியாகும், எனவே அவை ஒற்றை <tt>1</tt> கொண்ட பைனரி எண்ணால் குறிப்பிடப்படுகின்றன:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
+#. TRANSLATORS: Menu item to assemble the current code
 msgid "Assemble"
 msgstr "அசெம்பிள்"
 
@@ -623,13 +625,13 @@ msgstr "தொடரவும்"
 msgid "Copied to clipboard"
 msgstr "இடைநிலைப்பலகைக்கு நகலெடுக்கப்பட்டது"
 
-#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
+#. TRANSLATORS: Button to copy example content to clipboard again
 msgid "Copy to clipboard"
 msgstr "இடைநிலைப்பலகைக்கு நகலெடுக்கவும்"
 
-#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
+#. TRANSLATORS: Tooltip for copy button in example list item
 msgid "Copy to editor"
 msgstr "எடிட்டருக்கு நகலெடுக்கவும்"
 
@@ -727,9 +729,17 @@ msgstr "எளிதாக மதிப்பு திருத்துதல�
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
 msgstr "அந்த அறிவைப் பெற்றிருந்தால், <tt>LDA #$01</tt> என்ற ஃச் மதிப்பை <tt>$01</tt> பதிவேட்டில் <tt>A</tt> ஏற்றுகிறது என்பதை நீங்கள் பார்க்க முடியும். அடுத்த பகுதியில் பதிவேடுகளைப் பற்றி மேலும் விரிவாகப் பேசுகிறேன்."
 
+#. TRANSLATORS: Example title for Even Odd
+msgid "Even Odd"
+msgstr "இரட்டை ஒற்றை"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "இது ஒரு எளிய பதிப்பாக இருந்தாலும், குறியீடு முந்தைய எல்லா எடுத்துக்காட்டுகளையும் விட கணிசமாக பெரியதாக இருக்கும். விளையாட்டின் பல்வேறு அம்சங்களுக்காக நாம் பல நினைவக இருப்பிடங்களை ஒன்றாகக் கண்காணிக்க வேண்டும். முன்பைப் போலவே, நிரல் முழுவதும் தேவையான புத்தக பராமரிப்பை நாமே இன்னும் செய்யலாம், ஆனால் பெரிய அளவில் அது விரைவாக சோர்வாக மாறும் மற்றும் கண்டறிய கடினமாக இருக்கும் பிழைகளுக்கு வழிவகுக்கும். அதற்கு பதிலாக, அசெம்பிளரை நமக்காக சில சாதாரண வேலைகளைச் செய்ய அனுமதிப்போம்."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -800,7 +810,7 @@ msgstr "கணினி பாணியைப் பின்பற்றவு�
 
 #. TRANSLATORS: Label of the row that chooses the interface font
 msgid "Font"
-msgstr ""
+msgstr "எழுத்துரு"
 
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
@@ -859,6 +869,10 @@ msgstr ""
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr "உங்களுடைய சொந்த 6502 படைப்பு ஏதேனும் உள்ளதா? அதைச் சமூகத்துடன் பகிருங்கள்! இப்போது உங்கள் குறியீட்டு எடுத்துக்காட்டுகளை நேரடியாகப் பயன்பாட்டிற்குள்ளிருந்தே சமர்ப்பிக்கலாம். பகிர் பொத்தானை அழுத்தினால் போதும் — உங்களுக்காக GitHub சிக்கலையும் இழுக்கக் கோரிக்கையையும் நாங்கள் தானாகவே உருவாக்கிவிடுவோம்."
 
+#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
+msgid "Great start — you finished the first chapter!"
+msgstr "சிறந்த தொடக்கம் — முதல் அத்தியாயத்தை முடித்துவிட்டீர்கள்!"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -868,9 +882,7 @@ msgstr "பச்சை"
 msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
 msgstr "எங்களின் முதல் வலமிருந்து இடமாக ஈப்ரு மொழியும் உள்ளது: மெனாகெமின் சோதனை மற்றும் பங்களிப்புகளுக்கு நன்றி, ஆப்ச் இப்போது வலமிருந்து இடமாக தளவமைப்புகளை ஆதரிக்கிறது, மேலும் RTL மொழிகளுக்கு அதை ஆயத்தம் செய்கிறது."
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
-#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "உதவி"
 
@@ -1018,7 +1030,7 @@ msgstr "இன்டராக்டிவ் டுடோரியல்கள�
 
 #. TRANSLATORS: Preferences group title for the interface font
 msgid "Interface font"
-msgstr ""
+msgstr "இடைமுக எழுத்துரு"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "குறுக்கீடு கொடி: அமைக்கப்படும் போது, அனைத்து மாச்க் செய்யக்கூடிய குறுக்கீடுகளையும் (IRQ) முகமூடிகள் (முடக்குகிறது). மாச்கபிள் அல்லாத குறுக்கீடுகள் (NMI) மட்டுமே இன்னும் ஏற்படலாம். குறுக்கீடு செய்யாத குறியீட்டின் முக்கியமான பிரிவுகளுக்குப் பயன்படுத்தப்படுகிறது."
@@ -1061,9 +1073,8 @@ msgstr "லேபிள்கள் தோல்வி"
 msgid "Learn"
 msgstr "கற்றுக்கொள்ளுங்கள்"
 
-#. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
-msgstr "6502 அசெம்பிளியைக் கற்றுக்கொள்"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
@@ -1088,6 +1099,9 @@ msgstr "PHA மற்றும் PLA வழிமுறைகளுடன் �
 #. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
 msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
 msgstr "சான்று மூலம் கற்றல் எப்போதும் எளிதாக இருந்ததில்லை. வேலை செய்யும் குறியீட்டில் மூழ்கி, அதை மாற்றவும், அதை உடைக்கவும், அதை மீண்டும் சரிசெய்யவும் - அந்த நாளில் சிறந்த புரோகிராமர்கள் கற்றுக்கொண்டது இதுதான்!"
+
+msgid "Legal Notice"
+msgstr ""
 
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
@@ -1166,6 +1180,10 @@ msgstr "மதிப்புகள் பாம்புக்கு கீழ�
 msgid "Open Assembly File"
 msgstr "அசெம்பிளி கோப்பைத் திறக்கவும்"
 
+#. TRANSLATORS: Badge in the About dialog, shown by every build of the app
+msgid "Open Source"
+msgstr "திறந்த மூல"
+
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "திற..."
@@ -1205,6 +1223,7 @@ msgid "Overflow Flag: Set when an arithmetic operation produces a result that ca
 msgstr "ஓவர்ஃப்ளோ ஃபிளாக்: எண்கணித செயல்பாடு கையொப்பமிடப்பட்ட 8-பிட் வரம்பில் (-128 முதல் +127 வரை) குறிப்பிட முடியாத முடிவை உருவாக்கும் போது அமைக்கவும். கணக்கீடுகளில் கையொப்பமிடப்பட்ட எண்கணிதப் பிழைகளைக் கண்டறியப் பயன்படுகிறது."
 
 #. TRANSLATORS: Main action button label to pause the running simulator
+#. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
 msgstr "இடைநிறுத்தம்"
 
@@ -1280,6 +1299,9 @@ msgstr "முதன்மை: டீல்"
 msgid "Primary: Yellow"
 msgstr "முதன்மை: மஞ்சள்"
 
+msgid "Privacy"
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
 msgstr "செயலி கொடிகள்"
@@ -1313,8 +1335,8 @@ msgstr "திட்டம் முடிந்தது. நிரலை ம�
 msgid "Program paused"
 msgstr "நிரல் இடைநிறுத்தப்பட்டது"
 
-msgid "Program vintage game consoles"
-msgstr "நிரல் விண்டேச் கேம் கன்சோல்கள்"
+msgid "Program vintage consoles"
+msgstr ""
 
 #. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
@@ -1367,6 +1389,7 @@ msgid "Rendering the game"
 msgstr "விளையாட்டை வழங்குதல்"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
+#. TRANSLATORS: Menu item to reset simulator and state
 msgid "Reset"
 msgstr "மீட்டமை"
 
@@ -1383,6 +1406,7 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr "<tt>X</tt> பதிவிற்குப் பதிலாக <tt>Y</tt> பதிவேட்டைப் பயன்படுத்த இந்தப் பிரிவில் முதல் உதாரணத்தை மீண்டும் எழுதவும்."
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
+#. TRANSLATORS: Menu item to start running the simulator
 msgid "Run"
 msgstr "ஓடு"
 
@@ -1432,15 +1456,14 @@ msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by
 msgstr "சாலோம்! Menachem (naattxx) மூலம் முழுமையாகப் பங்களித்த ஈப்ரு மொழிபெயர்ப்புகளை வரவேற்பதில் நாங்கள் மகிழ்ச்சியடைகிறோம். தோடா ரபா!"
 
 #. TRANSLATORS: Menu item to share the current code
-#. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
 msgstr "பங்கு"
 
 msgid "Share Example"
 msgstr "பகிர் சான்று"
 
-#. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
+#. TRANSLATORS: Title of the share dialog
 msgid "Share Your Example"
 msgstr "உங்கள் உதாரணத்தைப் பகிரவும்"
 
@@ -1524,6 +1547,7 @@ msgid "Status Flags"
 msgstr "நிலை கொடிகள்"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#. TRANSLATORS: Menu item for single-step execution
 msgid "Step"
 msgstr "படி"
 
@@ -1543,6 +1567,13 @@ msgstr "சூல் தண்டு"
 msgid "Submit"
 msgstr "சமர்ப்பிக்கவும்"
 
+msgid "Support"
+msgstr "ஆதரவு"
+
+#. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
+msgid "Supporter"
+msgstr "ஆதரவாளர்"
+
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
@@ -1550,11 +1581,11 @@ msgstr "தொடரியல் பிழை வரி %d: %s"
 
 #. TRANSLATORS: Font option — use the operating system's own font, untouched
 msgid "System font"
-msgstr ""
+msgstr "கணினி இயல்புநிலை"
 
 #. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
 msgid "System font, GNOME size"
-msgstr ""
+msgstr "கணினி எழுத்துரு, GNOME அளவு"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1568,6 +1599,14 @@ msgstr "வருக! பின்னிச் மொழிபெயர்ப்
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "உங்கள் படைப்புகளை மெய்நிகர் கேம் கன்சோலில் சோதிக்கவும்"
+
+#. TRANSLATORS: Example description for Even Odd
+msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
+msgstr "LSR மற்றும் BCC மூலம் A இன் பிட் 0-ஐ சோதித்து, முடிவாக A-இல் 1 அல்லது 0-ஐ வைக்கிறது"
+
+#. TRANSLATORS: What the "Open Source" badge in the About dialog means
+msgid "Thank you for using open source software."
+msgstr "திறந்த மூல மென்பொருளைப் பயன்படுத்தியதற்கு நன்றி."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1589,6 +1628,10 @@ msgstr "<tt>loop</tt> சப்ரூட்டின், தன்னைத்�
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "திரட்டி (A) என்பது எண்கணித மற்றும் தருக்கச் செயல்பாடுகளுக்கான முதன்மைப் பதிவு. ADD, SUBTRACT, AND, OR போன்ற அனைத்து அடிப்படைக் கணக்கீடுகளும் இந்தப் பதிவைப் பயன்படுத்துகின்றன. 6502 அசெம்பிளி நிரலாக்கத்தில் மிக அடிக்கடி பயன்படுத்தப்படும் பதிவு இதுவே."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "நிரல் கவுண்டரில் அடுத்த இயக்க வழிமுறையின் நினைவக முகவரி உள்ளது. ஒவ்வொரு அறிவுறுத்தலுக்குப் பிறகும் இது தானாகவே அதிகரிக்கிறது மற்றும் தாவல்கள், கிளைகள், அழைப்புகள் மற்றும் வருமானம் மூலம் மாற்றியமைக்கப்படலாம். நிரல் ஓட்டம் கட்டுப்பாடு மற்றும் பிழைத்திருத்தத்திற்கு தேவை."
@@ -1609,7 +1652,7 @@ msgstr "ஒய் குறியீட்டுப் பதிவு ஃச்
 #. from the operating system, and outside GNOME that font is smaller than
 #. the one the app is designed for.
 msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
-msgstr ""
+msgstr "இந்தப் பயன்பாடு GNOME இடைமுக எழுத்துருவுக்காக வடிவமைக்கப்பட்டுள்ளது. பிற அமைப்புகளில் அந்த அமைப்பின் எழுத்துருவில் வரையப்படும், அது பொதுவாகச் சிறியதாக இருக்கும்."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1715,6 +1758,10 @@ msgstr "ச்டாக்"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "6502 செயலியில் உள்ள ச்டாக் மற்ற ச்டாக் போன்றது - மதிப்புகள் அதன் மீது தள்ளப்பட்டு பாப் (6502 மொழியில் \"இழுக்கப்பட்டது\"). அடுக்கின் தற்போதைய ஆழம் ச்டாக் பாயிண்டரால் அளவிடப்படுகிறது, ஒரு சிறப்பு பதிவேடு. <tt>$0100</tt> மற்றும் <tt>$01ff</tt> இடையே ச்டாக் நினைவகத்தில் உள்ளது. ச்டாக் பாயிண்டர் ஆரம்பத்தில் <tt>$ff</tt> ஆகும், இது நினைவக இருப்பிடத்தை <tt>$01ff</tt> குறிக்கிறது. ஒரு பைட்டை அடுக்கின் மீது தள்ளும் போது, ச்டாக் பாயிண்டர் <tt>$fe</tt> அல்லது நினைவக இருப்பிடம் <tt>$01fe</tt>, மற்றும் பல."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "நினைவகத்தின் பூச்சியப் பக்கம் பல விளையாட்டு நிலை மாறிகளைச் சேமிக்கப் பயன்படுகிறது, இது விளையாட்டின் மேற்பகுதியில் உள்ள கருத்துத் தொகுதியில் குறிப்பிடப்பட்டுள்ளது. <tt>$00</tt>, <tt>$01</tt> மற்றும் <tt>$10</tt> மேலே உள்ள அனைத்தும் இரண்டு பைட் நினைவக இருப்பிடத்தைக் குறிக்கும் ஒரு இணை பைட்டுகள், அவை மறைமுக முகவரிகளைப் பயன்படுத்தி பார்க்கப்படும். இந்த நினைவக இருப்பிடங்கள் அனைத்தும் <tt>$0200</tt> மற்றும் <tt>$05ff</tt> - கேம் கன்சோலுடன் தொடர்புடைய நினைவகப் பகுதி. எடுத்துக்காட்டாக, <tt>$00</tt> மற்றும் <tt>$01</tt> <tt>$01</tt> மற்றும் <tt>$02</tt> மதிப்புகளைக் கொண்டிருந்தால், அவை காட்சியின் இரண்டாவது பிக்சலைக் குறிக்கும் (<tt>$0201</tt> - நினைவில் கொள்ளுங்கள், மறைமுக முகவரியில் குறைந்தபட்சம் குறிப்பிடத்தக்க பைட் முதலில் வருகிறது)."
@@ -1722,6 +1769,10 @@ msgstr "நினைவகத்தின் பூச்சியப் பக�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "பிறகு ஏன் 6502? <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a> போன்ற <i>பயனுள்ள</i> அசெம்பிளி மொழி ஏன் இல்லை? சரி, x86 கற்பது பயனுள்ளது என்று நான் நினைக்கவில்லை. உங்கள் அன்றாட வேலையில் நீங்கள் எப்போதாவது அசெம்பிளி மொழியை <i>எழுத</i> வேண்டியிருக்கும் என்றும் நான் நினைக்கவில்லை — சிலருக்கு இது ஒரு கல்விப் பயிற்சி, மனதையும் சிந்தனையையும் விரிவுபடுத்தும் ஒன்று. 6502 வேறொரு காலகட்டத்தில் உருவாக்கப்பட்டது; அப்போது பெரும்பாலான உருவாக்குநர்கள் இந்தப் புதிய உயர்நிலை நிரலாக்க மொழிகளில் அல்லாமல், நேரடியாக அசெம்பிளி எழுதிக்கொண்டிருந்தார்கள். எனவே இது மனிதர்கள் எழுதுவதற்கென வடிவமைக்கப்பட்டது. நவீன அசெம்பிளி மொழிகள் தொகுப்பிகள் எழுதுவதற்கானவை; எனவே அதை அவற்றிடமே விட்டுவிடுவோம். மேலும், 6502 <i>வேடிக்கையானது</i>. x86 ஐ <i>வேடிக்கையானது</i> என்று யாரும் சொன்னதில்லை."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1869,6 +1920,10 @@ msgstr "மஞ்சள்"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 msgstr "திரையை 32 × 8 படப்புள்ளிகள் கொண்ட நான்கு கிடைமட்ட பட்டைகளாக நீங்கள் நினைக்கலாம். இந்த கீற்றுகள் <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> மற்றும் <tt>$0500-$05ff</tt>. பிக்சல்களின் முதல் வரிசைகள் <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt> போன்றவை."
+
+#. TRANSLATORS: What the "Supporter" badge in the About dialog means
+msgid "You supported this open source project by buying the app. Thank you!"
+msgstr "பயன்பாட்டை வாங்குவதன் மூலம் இந்தத் திறந்த மூலத் திட்டத்தை ஆதரித்துள்ளீர்கள். நன்றி!"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."

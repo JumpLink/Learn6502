@@ -7,6 +7,8 @@ Prefer retrieval-led reasoning over pre-training-led reasoning when referencing 
 Monorepo managed with `gjsify install` (`gjsify-lock.json`) — 6502 assembly learning environment with GNOME, Web, and Android apps. (The Flatpak build still vendors deps via the committed Yarn Berry cache pending its own gjsify migration.)
 Principles: maximize code reuse via `common-ui`/`6502` packages; keep platform code in `app-*` packages; refactor freely across packages when it improves architecture.
 
+Layout decisions are recorded in [docs/adr/](docs/adr/README.md).
+
 `gjsify link <checkout>` develops this repo against a local gjsify instead of the pinned
 `@gjsify/*` releases; it changes nothing tracked (the override is a git-excluded
 `.gjsify-link.json`). While it is active, `gjsify install --immutable` — CI and the offline
@@ -19,6 +21,7 @@ Flatpak build — **aborts by design**; run `gjsify unlink` first. How-to in
 | --------------------- | --------------------------------- | --------------------------------------------------------------- | --------------------------------------------------- |
 | 6502 (core)           | `packages/core/`                  | Platform-independent assembler, simulator, disassembler         | TypeScript, zero deps, no UI                        |
 | common-ui             | `packages/common-ui/`             | Shared UI logic, controllers, interfaces — 4-layer architecture | TypeScript, no platform deps                        |
+| ui                    | `packages/ui/`                    | Widgets written once as GNOME components (`.blp` + `.ts`), run on GNOME, web and Android | TypeScript, Blueprint, `@gjsify/adwaita-*` (`--gi-renderer`) |
 | app-gnome             | `packages/app-gnome/`             | GNOME desktop app                                               | TypeScript, GJS, GTK 4, Adwaita, Vite, Meson        |
 | app-web               | `packages/app-web/`               | Web app                                                         | TypeScript, HTML, CSS, Vite, `@gjsify/adwaita-web`  |
 | app-android           | `packages/app-android/`           | Android app                                                     | TypeScript, NativeScript, Gradle, `@gjsify/adwaita-nativescript` |
@@ -84,6 +87,18 @@ Everything but the Flatpak comes from `gjsify ship`, configured in the **root**
 `gjsify.flatpak`, which lives in the root, and one manifest means the AppStream
 data has one home rather than two that drift.
 
+**macOS is signed and notarised in its own job.** The Linux job only *stages* the two macOS
+payloads; the `macos` job (`macos-latest`) packs them with `--from-stage --sign --notarize`,
+because `codesign` and `notarytool` exist on macOS alone. A release without the five
+`APPLE_*` secrets (listed above that job) fails on purpose; a branch dry run packs unsigned
+zips. Both jobs run the same pinned gjsify version.
+
+**Flathub needs two files per release.** In `flathub/eu.jumplink.Learn6502`, the manifest's
+git source takes the new `tag` + `commit`, and `gjsify-sources.json` is replaced with the
+tag's copy (the offline npm sources). flathubbot opens an update PR from the
+`x-checker-data`, but it bumps only the manifest, so push the sources onto its branch, or
+open the PR with both files yourself before the bot does. The maintainer merges.
+
 **Two bundles, one source.** Linux runs `--app gjs`. macOS and Windows have no
 GJS host at all, so they run `--app node` through `@gjsify/node-gi`.
 `gjsify workspace @learn6502/app-gnome build:ship` builds both, into `dist/gjs/`
@@ -132,6 +147,13 @@ Applies to all `.ts`/`.tsx` files.
 - Format: `<type>[scope]: <description>` — imperative mood, ≤50 char subject
 - Platform prefixes: `Android:` | `Web:` | `Gnome:` | `Common:` | `Core:` | `Learn:` | `Translations:`
 - Check `git log --oneline -10` to match existing patterns before committing
+
+## ui — one component, three platforms
+
+`packages/ui` holds widgets as GNOME components: a `.blp` template, `GObject.registerClass`, `GObject.type_ensure`. The same file runs on GJS, in the browser and on NativeScript (build with `--gi-renderer`; Android sets `giRenderer: true`). Migrate a widget by moving it from `app-gnome` into `ui`, not by writing a per-platform copy.
+
+When a platform lacks something the component needs (a `Gtk.Widget` member, a `Gio` class), build it into gjsify core with a test, developed against a linked gjsify worktree (`gjsify link`). Never shim it in the component. A per-platform override stays possible: a `.web.ts` sibling or an own driver.
+
 
 ## common-ui — Four-Layer Component Architecture
 
@@ -344,13 +366,15 @@ s.append_scaled_texture(
 
 Applies to all files in `packages/app-android/`.
 
-Stack: TypeScript + NativeScript (no Angular/Vue). UI: custom TS components wrapping native Android widgets, Material Design 3.
+Stack: TypeScript + NativeScript (no Angular/Vue). UI: native Adwaita widgets from `@gjsify/adwaita-nativescript` (`Gtk.*`/`Adw.*`, XML barrels in `app/gtk.ts` and `app/widgets/`), styled by `app/adwaita.css`. No Material/MDC.
 Events: `packages/core/event-dispatcher.ts`. Build: NativeScript + Gradle.
+
+Screens are built in code today (TS classes). They are migrating to the shared `.blp` templates from app-gnome, imported through the `.blp?shared-tree` exit of `@gjsify/vite-plugin-blueprint` — prefer that over hand-written view trees for anything with a GNOME twin.
 
 ### Reference projects
 
 Git submodules in `references/nativescript/`:
-`alpimaps` (offline maps) | `conty` (interactive stories) | `oss-weather` (Svelte+TS, MD patterns) | `ui-material-components` (MD2/MD3 wrappers) | `nativescript` (framework core) | `nativescript-app-utils` (helpers) | `systemui` (status/nav bar)
+`alpimaps` (offline maps) | `conty` (interactive stories) | `oss-weather` (Svelte+TS) | `nativescript` (framework core) | `nativescript-app-utils` (helpers) | `systemui` (status/nav bar)
 
 ### NativeScript internals
 
@@ -362,19 +386,11 @@ Read `references/nativescript/nativescript/` for framework internals. Key areas:
 
 Utils: `import { Utils } from "@nativescript/core"` — threading, native helpers, Android resources, system UI, input, layout, path/URI, async. Full API in `references/nativescript/nativescript/packages/core/utils/index.d.ts`.
 
-### Missing Android/Material types
-
-When `@nativescript/types-android` lacks types (esp. MD3 components):
-
-1. Search `references/nativescript/ui-material-components/src/typings/mdc.android.d.ts` (~22k lines)
-2. Extract needed declarations → `app/typings/material.android.d.ts`
-3. Ensure `references.d.ts` includes `/// <reference path="app/typings/material.android.d.ts" />`
-
 ### Native API whitelist — CRITICAL
 
-Any direct Android SDK/AndroidX/Material API usage (`new android.*`, `androidx.*`, `com.google.android.material.*`) **MUST** be added to `packages/app-android/data/Android/native-api-usage.json`.
+Any direct Android SDK/AndroidX API usage (`new android.*`, `androidx.*`) **MUST** be added to `packages/app-android/data/Android/native-api-usage.json`.
 
-Format: `"package:Class"` — e.g. `"android.view:View"`, `"com.google.android.material.button:MaterialButton"`
+Format: `"package:Class"` — e.g. `"android.view:View"`, `"androidx.appcompat.app:AppCompatActivity"`
 Inner classes: `"package:Outer.Inner"` — e.g. `"android.view:View.OnClickListener"`
 Static fields: `"package:Class.Field"` — e.g. `"android.view:View.VISIBLE"`
 
@@ -385,9 +401,9 @@ Required for R8/ProGuard code shrinking. Missing entries cause **runtime crashes
 - Services: `app/services/` (lifecycle, theme, notification)
 - State: reactive with `EventDispatcher` from `@learn6502/core`
 - Views: implement interfaces from `@learn6502/common-ui`
-- Widgets: `app/widgets/` wrapping native Android widgets
+- Widgets: `app/widgets/` (Adwaita `Gtk.*`/`Adw.*` composites) + `app/gtk.ts` XML barrel
 - Utils: `app/utils/` (system, navigation, logger, resources)
-- Activity: `app/android/activity.android.ts` extending `AppCompatActivity`
+- Theme: `data/Android/.../styles.xml` is AppCompat `NoActionBar` plumbing only; colours come from CSS
 
 ### Common patterns
 

@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
-    "types": [],
+    "types": ["@gjsify/rolldown-plugin-gjsify/types"],
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "bundler",
@@ -18,6 +18,8 @@
     "src/app/main.ts",
     "src/types/html-module.d.ts",
     "src/types/asm-module.d.ts",
-    "src/types/css.d.ts"
+    "src/types/css.d.ts",
+    "src/types/svg-module.d.ts",
+    "src/types/version.d.ts"
   ]
 }

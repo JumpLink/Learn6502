@@ -1,169 +1,101 @@
 import type { View } from "@nativescript/core";
 import { asView } from "~/utils/as-view";
-import { ScrollView } from "@nativescript/core";
-import { Adw, Gtk, NOTIFY_VISIBLE_PAGE } from "@gjsify/adwaita-nativescript";
-import { goNextSymbolic } from "@gjsify/adwaita-icons/actions";
-import { schoolSymbolic, openBookSymbolic, codeSymbolic } from "~/icons";
-import { localize as _ } from "@nativescript/localize";
-import type { LearnView, SourceViewCopyEvent } from "@learn6502/common-ui";
-import { learnController } from "@learn6502/common-ui/src/controller";
+import { padForSystemInsets } from "@gjsify/adwaita-nativescript";
+import { registerTemplateClass } from "@gjsify/adwaita-nativescript/builder";
+import { localize } from "@nativescript/localize";
+import type { LearnView, LearnViewEventMap } from "@learn6502/common-ui";
 import { EventDispatcher } from "@learn6502/core";
-import * as Examples from "@learn6502/examples/examples";
-import type { ExampleMeta } from "@learn6502/examples";
+import { type Learn as LearnWidget, setTranslator } from "@learn6502/ui";
 import { TutorialView } from "~/mdx/tutorial-view";
 import { logger } from "~/utils";
 import type { ScreenModule } from "./editor";
+// The shared learn view's source views are `@learn6502/ui`'s; this arm teaches NativeScript what they are.
+import "~/widgets/source-view";
 
-/**
- * Learn's own navigation state (mirrors app-gnome's GObject
- * `notify::hasVisibleSubpage` and app-web's `subpage-changed` CustomEvent) — not
- * part of the shared `LearnView` interface, since it is UI-shell plumbing rather
- * than 6502 domain state.
- */
-interface LearnNavigationEventMap {
-  "subpage-changed": { hasSubpage: boolean };
+// The shared widget's strings go through the app's catalogue.
+setTranslator(localize);
+
+// The `$TutorialView` the shared `learn.blp` names: its content is generated from the MDX per platform.
+let tutorialView: TutorialView | null = null;
+class LearnTutorialView extends TutorialView {
+  constructor() {
+    super();
+    this.className = "mx-4";
+    setTutorialView(this);
+  }
 }
+function setTutorialView(view: TutorialView): void {
+  tutorialView = view;
+}
+registerTemplateClass("TutorialView", LearnTutorialView);
 
 /**
- * Learn view — implements LearnView. Now a scrollable content view (the MDX
- * TutorialView) added to the shell's Adw.ViewStack. Copy-to-editor events are still
- * routed through learnController.
+ * Learn view — implements LearnView. Thin glue around the shared `@learn6502/ui` Learn: the
+ * shell's back button and the system insets are Android's own.
  */
 class Learn implements LearnView {
-  readonly events = new EventDispatcher<LearnNavigationEventMap>();
+  readonly events = new EventDispatcher<LearnViewEventMap>();
 
-  private tutorialView: TutorialView | null = null;
-  private nav: Adw.NavigationView | null = null;
-  private _initialized = false;
+  private widget: LearnWidget | null = null;
+  private releaseInsets: (() => void)[] = [];
   private log = logger.scoped("Learn");
 
-  /** Build the Learn navigation (mirrors the GNOME Adw.NavigationView): a main
-   *  page with a boxed-list of Tutorial / Examples rows that push to subpages.
-   *  Wires the tutorial copy events (once). */
-  build(): View {
-    const tutorialView = new TutorialView();
-    tutorialView.className = "mx-4";
-    this.tutorialView = tutorialView;
-
-    if (!this._initialized) {
-      tutorialView.events.on("copy", (event: SourceViewCopyEvent) => {
-        learnController.dispatch("copy", { code: event.code });
-      });
-      this._initialized = true;
-    }
-
-    const nav = new Adw.NavigationView();
-    this.nav = nav;
-    // Drives the shell's header back button (see main.ts), the same seam the
-    // GNOME twin's `notify::visible-page` and the web twin's `subpage-changed`
-    // event fill.
-    nav.addEventListener(NOTIFY_VISIBLE_PAGE, () => {
-      this.events.dispatch("subpage-changed", { hasSubpage: this.hasVisibleSubpage });
+  build(widget: LearnWidget): LearnWidget {
+    this.widget = widget;
+    widget.events.on("subpage-changed", (event) => {
+      // The tutorial's ~750 views are built on its first visit, not with the window.
+      if (event.tag === "tutorial") tutorialView?.build();
+      this.events.dispatch("subpage-changed", event);
     });
-
-    // --- Main page: an Adw.StatusPage hero (icon + title + description) over a
-    //     boxed list of Tutorial + Examples rows, matching the GNOME learn.blp. ---
-    const group = new Adw.PreferencesGroup();
-    group.add(
-      this.navRow(_("Tutorial"), _("Step-by-step guide to 6502 assembly"), openBookSymbolic, () => nav.push("tutorial"))
-    );
-    group.add(this.navRow(_("Examples"), _("Try out example programs"), codeSymbolic, () => nav.push("examples")));
-    const mainClamp = new Adw.Clamp();
-    mainClamp.maximumSize = 600;
-    mainClamp.set_child(group);
-
-    const mainPage = new Adw.StatusPage();
-    mainPage.iconName = schoolSymbolic;
-    mainPage.title = _("Learn");
-    mainPage.description = _("Learn how to program the 6502 microprocessor.");
-    mainPage.set_child(asView(mainClamp));
-
-    // --- Tutorial page: the MDX TutorialView ---
-    const tutorialScroll = new ScrollView();
-    tutorialScroll.content = tutorialView;
-
-    // --- Examples page: a boxed list of example programs (ports the GNOME
-    //     ExamplesList). Tapping a row loads it into the editor + switches to the
-    //     Code view, the same path the tutorial's copy buttons use. ---
-    const examplesGroup = new Adw.PreferencesGroup();
-    for (const example of Object.values(Examples) as ExampleMeta[]) {
-      examplesGroup.add(
-        this.exampleRow(example, () => {
-          learnController.dispatch("copy", { code: example.code });
-        })
-      );
-    }
-    const examplesClamp = new Adw.Clamp();
-    examplesClamp.maximumSize = 600;
-    examplesClamp.set_child(examplesGroup);
-
-    const examples = new Adw.StatusPage();
-    examples.iconName = codeSymbolic;
-    examples.title = _("Examples");
-    examples.description = _("Try out example programs for the 6502 microprocessor.");
-    examples.set_child(asView(examplesClamp));
-    const examplesScroll = new ScrollView();
-    examplesScroll.content = examples;
-
-    nav.add(mainPage, "main");
-    nav.add(tutorialScroll, "tutorial");
-    nav.add(examplesScroll, "examples");
-    return asView(nav);
+    return widget;
   }
 
-  /** A tappable example row: a code icon, the example title + description, and a
-   *  go-next chevron. Tapping loads the example into the editor. */
-  private exampleRow(example: ExampleMeta, onTap: () => void): Adw.ActionRow {
-    return this.navRow(_(example.title), _(example.description), codeSymbolic, onTap);
-  }
-
-  /** Whether a subpage (Tutorial/Examples) is open — drives the shell's header
-   *  back button (mirrors the GNOME/Web twins' `hasVisibleSubpage`). */
+  /** Whether a subpage (Tutorial/Examples) is open — drives the shell's header back button. */
   get hasVisibleSubpage(): boolean {
-    const tag = this.nav?.visiblePageTag ?? null;
-    return tag !== null && tag !== "main";
+    return this.widget?.hasVisibleSubpage ?? false;
   }
 
-  /** Pop the navigation stack one level. Returns true if a page was popped
-   *  (i.e. we were on a subpage) so the caller can consume the back press. */
+  /** Pop one level. Returns true if a page was popped, so the caller can consume the back press. */
   navigateBack(): boolean {
-    return this.nav?.pop() ?? false;
+    if (!this.widget?.hasVisibleSubpage) return false;
+    this.widget.navigateBack();
+    return true;
   }
 
-  /** An activatable boxed-list row: a leading symbolic icon, title + subtitle,
-   *  and a trailing go-next chevron (matches the GNOME Adw.ActionRow). */
-  private navRow(title: string, subtitle: string, iconSvg: string, onTap: () => void): Adw.ActionRow {
-    const row = new Adw.ActionRow();
-    row.title = title;
-    row.subtitle = subtitle;
-    const prefix = new Gtk.Image();
-    prefix.iconName = iconSvg;
-    row.add_prefix(prefix);
-    const chevron = new Gtk.Image();
-    chevron.iconName = goNextSymbolic;
-    row.add_suffix(chevron);
-    row.addEventListener("tap", onTap);
-    return row;
+  /** Whether the pages reach the screen's bottom edge (the wide layout): their scrolling content
+   *  then ends a gesture area higher, while the page background runs on to the edge. */
+  padSystemInsets(on: boolean): void {
+    for (const release of this.releaseInsets) release();
+    this.releaseInsets = [];
+    if (!on || !this.widget) return;
+    // The scrollers are typed against the GJS bindings; at run time their children are NativeScript views.
+    this.releaseInsets = this.widget.scrolledWindows.map((scroll) =>
+      padForSystemInsets(scroll.get_child() as unknown as View)
+    );
   }
 
   // --- LearnView interface ---
   saveScrollPosition(): void {
-    this.log.debug("saveScrollPosition() - placeholder");
+    this.widget?.saveScrollPosition();
   }
 
   restoreScrollPosition(): void {
-    this.log.debug("restoreScrollPosition() - placeholder");
+    this.widget?.restoreScrollPosition();
   }
 }
 
 const learnView = new Learn();
 
-/** Build the learn screen for the shell's Adw.ViewStack. */
-export function buildLearnScreen(): ScreenModule {
+/** Wrap the `$Learn` the window built for the shell's Adw.ViewStack. */
+export function buildLearnScreen(built: LearnWidget): ScreenModule<LearnWidget> {
+  const widget = learnView.build(built);
   return {
-    view: learnView.build(),
+    // The shared `Learn` is typed against the GJS bindings, so it is not a NativeScript view to the compiler.
+    view: asView(widget),
+    widget,
     onHide: () => learnView.saveScrollPosition(),
     onBack: () => learnView.navigateBack(),
+    padSystemInsets: (on) => learnView.padSystemInsets(on),
   };
 }
 

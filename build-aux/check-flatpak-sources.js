@@ -1,11 +1,12 @@
 /**
- * `gjsify-sources.json` has to cover `gjsify-lock.json`, or the Flatpak build
+ * `gjsify-sources.json` has to cover what `gjsify install --focus` takes from
+ * `gjsify-lock.json`, or the Flatpak build
  * fails inside the sandbox where nobody is watching.
  *
  * The Flathub build has no network. `flatpak-builder` pre-populates a cache
  * from the `sources` array, and the root `meson.build` then runs
- * `gjsify install --immutable` against that cache. `--immutable` installs
- * exactly what the lockfile pins, so a tarball the lockfile names and the
+ * `gjsify install --immutable --focus` against that cache. `--immutable` installs
+ * exactly what the lockfile pins, so a tarball the focused install names and the
  * sources array does not is a download that cannot happen — the build dies at
  * `meson.build:23` with nothing but "failed with status 1", because Meson
  * captures the output of a `run_command` it declared `check: true`.
@@ -25,31 +26,48 @@
  * sources array is deduplicated. What the cache is addressed by is the tarball.
  */
 
-import { readFileSync } from "node:fs";
+import { spawnSync } from "node:child_process";
+import { mkdtempSync, readFileSync, rmSync } from "node:fs";
+import { tmpdir } from "node:os";
+import { join } from "node:path";
 
-const lock = JSON.parse(readFileSync("gjsify-lock.json", "utf8"));
+// The Flatpak build installs with `--focus`, so the cache only has to hold what
+// that workspace needs. Ask the same command that cut the sources what it
+// would pick today, rather than re-deriving the closure here.
+const FOCUS = "@learn6502/app-gnome";
+
 const sources = JSON.parse(readFileSync("gjsify-sources.json", "utf8"));
 
 const available = new Set(
   sources.filter((entry) => entry && typeof entry === "object").map((entry) => entry.url),
 );
 
+const dir = mkdtempSync(join(tmpdir(), "flatpak-sources-"));
+const fresh = join(dir, "sources.json");
+const cut = spawnSync("gjsify", ["flatpak", "sources", "--focus", FOCUS, "--out", fresh], {
+  encoding: "utf8",
+});
+if (cut.status !== 0) {
+  console.error(cut.stderr || cut.error?.message || "gjsify flatpak sources failed");
+  process.exit(1);
+}
+const needed = JSON.parse(readFileSync(fresh, "utf8"));
+rmSync(dir, { recursive: true, force: true });
+
 const missing = new Map();
-for (const [path, meta] of Object.entries(lock.packages ?? {})) {
-  const tarball = meta?.resolved;
-  if (!tarball || available.has(tarball)) continue;
-  // Report each tarball once, named by the first path that wants it.
-  if (!missing.has(tarball)) missing.set(tarball, path.replace(/^.*node_modules\//, ""));
+for (const entry of needed) {
+  if (!entry || typeof entry !== "object" || available.has(entry.url)) continue;
+  if (!missing.has(entry.url)) missing.set(entry.url, entry.url.replace(/^https:\/\/registry\.npmjs\.org\//, "").replace(/\/-\/.*$/, ""));
 }
 
 if (missing.size) {
-  console.error(`gjsify-sources.json is missing ${missing.size} tarball(s) the lockfile pins:`);
+  console.error(`gjsify-sources.json is missing ${missing.size} tarball(s) the focused install needs:`);
   for (const [tarball, name] of missing) {
     console.error(`  ${name} — ${tarball}`);
   }
-  console.error("\nRe-cut it: `gjsify flatpak sources`. Both files are generated, and only");
+  console.error(`\nRe-cut it: \`gjsify flatpak sources --focus ${FOCUS}\`. Both files are generated, and only`);
   console.error("that command rewrites the sources — a `gjsify install` alone leaves them behind.");
   process.exitCode = 1;
 } else {
-  console.log(`gjsify-sources.json covers all ${available.size} tarball(s) the lockfile pins.`);
+  console.log(`gjsify-sources.json covers all ${needed.length} tarball(s) ${FOCUS} needs.`);
 }

@@ -1,8 +1,10 @@
 name: Deploy Pages
 
-# Builds the app-web Adwaita SPA (`gjsify build --app browser`) and deploys it to
-# GitHub Pages — the successor to the legacy Jekyll build of the classic tutorial
-# (removed in the app-web rewrite). Point Settings → Pages → Source at
+# Builds the landing page (`gjsify site build`, static HTML generated from the
+# AppStream metainfo by @gjsify/site) and the app-web Adwaita SPA (`gjsify build --app browser`)
+# and deploys both to GitHub Pages: the landing page at /Learn6502/, the web app
+# at /Learn6502/app/. The successor to the legacy Jekyll build of the classic
+# tutorial (removed in the app-web rewrite). Point Settings → Pages → Source at
 # "GitHub Actions" for this workflow to serve the site.
 
 on:
@@ -12,10 +14,20 @@ on:
       - "packages/app-web/**"
       - "packages/learn/**"
       - "packages/common-ui/**"
+      - "packages/ui/**"
       - "packages/core/**"
       - "packages/examples/**"
+      - "packages/translations/**"
+      - "packages/app-gnome/data/metainfo/**"
+      - "package.json"
+      - "misc/screenshots/**"
+      - "docs/legal-notice*.md"
+      - "docs/privacy*.md"
       - "gjsify-lock.json"
       - ".github/workflows/deploy-pages.yml"
+  # New release assets and download counts change what the landing page shows.
+  release:
+    types: [published]
   workflow_dispatch:
 
 permissions:
@@ -30,7 +42,7 @@ concurrency:
 
 jobs:
   build:
-    name: Build web app
+    name: Build landing page and web app
     runs-on: ubuntu-latest
     # `gjsify build`/`gjsify tsc` spawn `gjs` (unavailable on ubuntu-latest), so
     # build in a Fedora 43 container (GJS 1.86 / SpiderMonkey 140) — the same
@@ -51,10 +63,14 @@ jobs:
         # the bundle demands Pango/Gdk/GdkPixbuf typelibs at import. learn's own
         # `--globals node` does not reach it. This container was deliberately
         # GTK-less; restoring that needs an upstream fix in gjsify.
-        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2
+        run: dnf install -y git tar xz findutils gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 gdk-pixbuf2-modules-extra glycin-loaders glib2-devel
 
       - name: Checkout repository
         uses: actions/checkout@v6
+        with:
+          # A `release` event runs on the tag's commit, which can predate the
+          # site; the page must always be built from the default branch.
+          ref: ${{ github.event_name == 'release' && github.event.repository.default_branch || github.ref }}
 
       - name: Setup Node.js
         uses: actions/setup-node@v6
@@ -69,7 +85,7 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.51.1
+        run: npm install -g @gjsify/cli@0.64.14
 
       - name: Install dependencies
         run: gjsify install --immutable
@@ -104,10 +120,26 @@ jobs:
       - name: Build web app
         run: gjsify workspace @learn6502/app-web build:app
 
+      # The release list and download counts come from the GitHub API; the token
+      # only lifts the rate limit. A failed lookup warns and the page links to the
+      # releases instead of failing the deploy. The output dir mirrors the Pages
+      # base path so `/Learn6502/` resolves the same when served locally.
+      - name: Build landing page
+        run: gjsify site build --out site
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      # The web app is relative-path only (`./app.js`), so it can sit below the
+      # landing page without a base change.
+      - name: Place the web app below the landing page
+        run: |
+          mkdir -p site/app
+          cp -r packages/app-web/dist-app/. site/app/
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: packages/app-web/dist-app
+          path: site
 
   deploy:
     name: Deploy to GitHub Pages

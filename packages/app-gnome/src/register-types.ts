@@ -18,27 +18,12 @@
 // widget, add a side-effect import for it here.
 
 // Leaf widgets
-import "./widgets/source-view.ts";
-import "./widgets/main-button.ts";
-import "./widgets/menu-button.ts";
-import "./widgets/toolbar.ts";
+// Shared widgets (@learn6502/ui): SourceView, Hexdump, Disassembled, HexMonitor, DebugInfo, MessageConsole, Gamepad, Display, GameConsole, Debugger, Editor, Learn, ExamplesList, ExampleListItem, MainButton, Toolbar
+import "@learn6502/ui";
 import "./widgets/accent-color-selector.ts";
 import "./widgets/primary-color-selector.ts";
 import "./widgets/theme-mode-selector.ts";
-import "./widgets/examples-list.ts";
-import "./widgets/example-list-item.ts";
 import "./widgets/share-dialog.ts";
-
-// Game console widgets
-import "./widgets/game-console/display.ts";
-import "./widgets/game-console/gamepad.ts";
-
-// Debugger widgets
-import "./widgets/debugger/debug-info.ts";
-import "./widgets/debugger/disassembled.ts";
-import "./widgets/debugger/hexdump.ts";
-import "./widgets/debugger/hex-monitor.ts";
-import "./widgets/debugger/message-console.ts";
 
 // MDX-driven widgets
 import "./mdx/mdx-view.ts";
@@ -46,10 +31,6 @@ import "./mdx/quick-help-view.ts";
 import "./mdx/tutorial-view.ts";
 
 // Composite views and dialogs
-import "./views/main/game-console.ts";
-import "./views/main/debugger.ts";
-import "./views/main/editor.ts";
-import "./views/main/learn.ts";
 import "./views/main.window.ts";
 import "./views/help.window.ts";
 import "./views/preferences.dialog.ts";

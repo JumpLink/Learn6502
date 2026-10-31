@@ -1,10 +1,11 @@
 {
   "name": "learn6502",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "type": "module",
   "private": true,
   "gjsify": {
     "ship": {
+      "channel": "web",
       "binaryName": "eu.jumplink.Learn6502",
       "bundle": {
         "linux": "packages/app-gnome/dist/gjs/eu.jumplink.Learn6502",
@@ -60,7 +61,7 @@
         "email": "pascal@jumplink.eu",
         "nameTranslatable": false
       },
-      "summary": "Program vintage game consoles",
+      "summary": "Program vintage consoles",
       "description": [
         {
           "p": "Discover the fascinating world of programming classic computers and game consoles! Learn 6502 assembly language - the same code that powered iconic systems like the NES, Commodore 64, and Apple II.",
@@ -103,7 +104,7 @@
         "metadata": "CC0-1.0",
         "project": "GPL-3.0-or-later"
       },
-      "homepageUrl": "https://flathub.org/apps/eu.jumplink.Learn6502",
+      "homepageUrl": "https://jumplink.eu/Learn6502/",
       "bugtrackerUrl": "https://github.com/JumpLink/Learn6502/issues",
       "vcsBrowserUrl": "https://github.com/JumpLink/Learn6502",
       "translateUrl": "https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/",
@@ -130,10 +131,7 @@
       "icon": "packages/app-gnome/data/icons/hicolor/scalable/apps/eu.jumplink.Learn6502.svg",
       "contentRating": {
         "type": "oars-1.1",
-        "attributes": {
-          "social-info": "mild",
-          "language-humor": "mild"
-        }
+        "attributes": {}
       },
       "kudos": [
         "ModernToolkit",
@@ -185,6 +183,50 @@
         }
       ],
       "releases": [
+        {
+          "version": "0.8.2",
+          "date": "2026-10-31",
+          "description": [
+            {
+              "p": "The macOS version is now signed and notarised by Apple and comes as a disk image for Apple silicon and Intel Macs, so it opens without a security warning.",
+              "translatorHint": "Release notes for version 0.8.2 - signed macOS disk images. Keep \"macOS\", \"Apple silicon\" and \"Intel\" as they are."
+            },
+            {
+              "p": "As always, this release includes many small fixes and improvements.",
+              "translatorHint": "Release notes for version 0.8.2 - fixes and improvements"
+            }
+          ]
+        },
+        {
+          "version": "0.8.1",
+          "date": "2026-10-24",
+          "description": [
+            {
+              "p": "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version.",
+              "translatorHint": "Release notes for version 0.8.1 - the Android startup crash. Keep \"Android\" and \"Adwaita\" as they are."
+            },
+            {
+              "ul": [
+                {
+                  "item": "The web version has a proper About dialog now, and its app icon shows up where it was missing before.",
+                  "translatorHint": "Release notes for version 0.8.1 - the web About dialog and the app icon. \"About\" is the standard dialog name: use the wording your platform already uses for it."
+                },
+                {
+                  "item": "There is a privacy page and a legal notice, reachable from inside the app.",
+                  "translatorHint": "Release notes for version 0.8.1 - privacy page and legal notice. \"Legal notice\" is the German \"Impressum\"; use whatever your language calls the legally required site identification."
+                },
+                {
+                  "item": "Every build says in About that it is open source, and where to support the project if you would like to.",
+                  "translatorHint": "Release notes for version 0.8.1 - the open source badge and support link in the About dialog."
+                }
+              ]
+            },
+            {
+              "p": "As always, this release includes many small fixes and improvements.",
+              "translatorHint": "Release notes for version 0.8.1 - fixes and improvements"
+            }
+          ]
+        },
         {
           "version": "0.8.0",
           "date": "2026-09-12",
@@ -438,6 +480,103 @@
           ]
         }
       ]
+    },
+    "site": {
+      "metainfo": "packages/app-gnome/data/metainfo/eu.jumplink.Learn6502.metainfo.xml",
+      "base": "/Learn6502/",
+      "url": "https://jumplink.eu/Learn6502/",
+      "languages": [
+        "en",
+        "de"
+      ],
+      "defaultLanguage": "en",
+      "repository": "JumpLink/Learn6502",
+      "flathub": "eu.jumplink.Learn6502",
+      "translations": "packages/translations",
+      "support": [
+        {
+          "kind": "GitHub Sponsors",
+          "url": "https://github.com/sponsors/JumpLink"
+        },
+        {
+          "kind": "Liberapay",
+          "url": "https://liberapay.com/JumpLink"
+        },
+        {
+          "kind": "PayPal",
+          "url": "https://paypal.me/JumpLink"
+        },
+        {
+          "kind": "sepa",
+          "name": "JumpLink - Pascal Garber",
+          "iban": "DE94100101232090324020"
+        }
+      ],
+      "legal": [],
+      "legalNotice": {
+        "statements": {
+          "en": "docs/legal-notice.md",
+          "de": "docs/legal-notice.de.md"
+        }
+      },
+      "privacy": {
+        "statements": {
+          "en": "docs/privacy.md",
+          "de": "docs/privacy.de.md"
+        }
+      },
+      "developerUrl": "https://jumplink.eu/",
+      "relatedApps": [
+        {
+          "url": "https://jumplink.eu/beifahrer/"
+        },
+        {
+          "url": "https://jumplink.eu/steuererklaerung/"
+        }
+      ],
+      "screenshots": {
+        "source": "merge",
+        "items": [
+          {
+            "from": 0,
+            "variants": {
+              "desktop-light": "misc/screenshots/1.png",
+              "mobile-light": "misc/screenshots/site/mobile-console-light.png",
+              "mobile-dark": "misc/screenshots/site/mobile-console-dark.png"
+            }
+          },
+          {
+            "from": 1,
+            "variants": {
+              "desktop-light": "misc/screenshots/2.png"
+            }
+          },
+          {
+            "from": 2,
+            "variants": {
+              "mobile-light": "misc/screenshots/3.png"
+            }
+          },
+          {
+            "from": 3,
+            "variants": {
+              "mobile-light": "misc/screenshots/4.png"
+            }
+          },
+          {
+            "caption": "Runs on macOS",
+            "variants": {
+              "desktop-light": "misc/screenshots/0.8.0/macos.png"
+            }
+          },
+          {
+            "caption": "Runs on Windows",
+            "variants": {
+              "desktop-light": "misc/screenshots/0.8.0/windows.png"
+            }
+          }
+        ]
+      }
     }
   },
   "scripts": {
@@ -477,9 +616,8 @@
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
-    "@gjsify/cli": "0.54.0",
-    "@gjsify/lightningcss-native": "0.54.0",
-    "@gjsify/rolldown-native": "0.54.0",
+    "@gjsify/cli": "0.64.14",
+    "@gjsify/site": "0.64.14",
     "oxfmt": "^0.53.0",
     "oxlint": "^1.68.0",
     "typescript": "^6.0.3"

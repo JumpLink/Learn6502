@@ -1,6 +1,6 @@
 {
   "name": "@learn6502/app-web",
-  "version": "0.8.0",
+  "version": "0.8.2",
   "description": "A one-stop accessible tutorial on 6502 assembly language programming in the browser",
   "type": "module",
   "private": true,
@@ -8,7 +8,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "clear": "rm -rf dist-app",
     "build": "gjsify run build:app",
-    "build:app": "gjsify build app.html --app browser --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty",
+    "build:app": "gjsify build app.html --app browser --channel web --gi-renderer --outfile dist-app/app.js --alias @gjsify/adwaita-fonts=@gjsify/empty",
     "start": "gjsify run dev:app",
     "dev:app": "vite --config vite.app.config.ts",
     "preview:app": "vite preview --config vite.app.config.ts",
@@ -17,23 +17,33 @@
   "author": "Pascal Garber <pascal@jumplink.eu>",
   "license": "GPL-3.0",
   "gjsify": {
+    "defineFromPackageJson": {
+      "__APP_VERSION__": {
+        "field": "version"
+      }
+    },
     "loaders": {
       ".html": "text",
-      ".asm": "text"
+      ".asm": "text",
+      ".lang": "text",
+      ".xml": "text",
+      ".svg": "text"
     }
   },
   "devDependencies": {
-    "@gjsify/cli": "0.54.0",
-    "@gjsify/vite-plugin-gjsify": "0.54.0",
+    "@gjsify/cli": "0.64.14",
+    "@gjsify/vite-plugin-gjsify": "^0.64.14",
+    "esbuild": "^0.28.0",
     "lightningcss": "^1.32.0",
     "typescript": "^6.0.3",
     "vite": "^8.0.16"
   },
   "dependencies": {
-    "@gjsify/adwaita-web": "0.54.0",
+    "@gjsify/adwaita-web": "^0.64.14",
     "@learn6502/common-ui": "^0.8.0",
     "@learn6502/core": "^0.8.0",
     "@learn6502/examples": "^0.8.0",
-    "@learn6502/learn": "^0.8.0"
+    "@learn6502/learn": "^0.8.0",
+    "@learn6502/ui": "^0.8.0"
   }
 }

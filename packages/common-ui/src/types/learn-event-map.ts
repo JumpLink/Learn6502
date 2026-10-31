@@ -14,3 +14,24 @@ export interface LearnCopyEvent {
    */
   code: string;
 }
+
+/**
+ * Event map of the Learn view itself, for the shell that hosts it
+ */
+export interface LearnViewEventMap {
+  /**
+   * Triggered when the Learn view opens or closes a subpage, so the shell can show a back button
+   */
+  "subpage-changed": LearnSubpageChangedEvent;
+
+  /**
+   * Triggered when the user asks to share their own example
+   */
+  share: Record<string, never>;
+}
+
+export interface LearnSubpageChangedEvent {
+  hasSubpage: boolean;
+  /** Tag of the page that is now visible */
+  tag: string | null;
+}

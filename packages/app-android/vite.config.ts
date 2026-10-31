@@ -9,6 +9,7 @@
 // `?raw` imports are native in Vite — so neither needs porting here.
 import { readFileSync } from "node:fs";
 import type { Plugin } from "vite";
+import blueprintPlugin from "@gjsify/vite-plugin-blueprint";
 import { defineNativescriptConfig } from "@gjsify/nativescript-vite";
 
 const production = process.env.NODE_ENV === "production" || !!process.env.PRODUCTION;
@@ -16,26 +17,30 @@ const devLog = !production && !process.env.NO_DEV_LOG;
 const playStoreBuild = !!process.env.PLAY_STORE_BUILD;
 const { version } = JSON.parse(readFileSync(new URL("./package.json", import.meta.url), "utf8")) as { version: string };
 
-// Load `.asm` example sources as plain-text default exports — the Vite mirror of
-// the GNOME app's `gjsify` `loaders: { ".asm": "text" }`. The shared
-// `@learn6502/examples` package does `import code from "./snake.asm"` to populate
-// each example's `code`, so the Android build needs the same string loader.
+// Load `.asm` example sources and `@learn6502/ui`'s GtkSourceView `.lang` / `.xml` data as
+// plain-text default exports — the Vite mirror of the GNOME app's `gjsify`
+// `loaders: { ".asm": "text", … }`. The shared `@learn6502/examples` package does
+// `import code from "./snake.asm"`, `@learn6502/ui` does `import lang from "./x.lang"`. `.xml`
+// is limited to the ui data directory: NativeScript's own XML views must keep their pipeline.
 function asmTextLoader(): Plugin {
   return {
     name: "learn6502-asm-text-loader",
     enforce: "pre",
     load(id) {
       const path = id.split("?")[0];
-      if (!path.endsWith(".asm")) return null;
+      const isUiData = /\/ui\/data\/.*\.xml$/.test(path) || path.endsWith(".lang");
+      if (!path.endsWith(".asm") && !isUiData) return null;
       return `export default ${JSON.stringify(readFileSync(path, "utf8"))};`;
     },
   };
 }
 
 export default defineNativescriptConfig(
-  {},
+  { giRenderer: true },
   {
-    plugins: [asmTextLoader()],
+    // `.blp` files are imported as `?shared-tree` (the editor widget) or `?template` (the shared
+    // `@learn6502/ui` components, whose GObject classes `--gi-renderer` runs on NativeScript).
+    plugins: [asmTextLoader(), blueprintPlugin({ template: { renderer: "adwaita-nativescript" } })],
     define: {
       DEV_LOG: JSON.stringify(devLog),
       PRODUCTION: JSON.stringify(production),

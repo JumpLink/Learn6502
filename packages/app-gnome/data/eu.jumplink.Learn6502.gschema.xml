@@ -74,5 +74,14 @@
             <summary>Auto indent</summary>
             <description>Whether to enable auto indentation in the editor</description>
         </key>
+
+        <!-- Support prompt -->
+        <key name="support-prompt-years" type="ai">
+            <default>[]</default>
+            <summary>Years the support prompt was shown</summary>
+            <description>The calendar years in which the note inviting learners to
+            support the project was already shown. It appears at most once per year,
+            and the year is recorded when the note appears.</description>
+        </key>
 	</schema>
 </schemalist>

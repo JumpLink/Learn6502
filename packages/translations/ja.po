@@ -486,6 +486,7 @@ msgstr "外観設定"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "アーキテクチャを強化し、GNOME・Web・Android 間のコード共有を改善"
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -500,6 +501,7 @@ msgid "As stated before, the four directions are represented internally by the n
 msgstr "前述のとおり、4つの方向は内部的には 1, 2, 4, 8 で表されます。いずれも 2 の冪なので、<tt>1</tt> がひとつだけ立った2進数になります:"
 
 #. TRANSLATORS: Main action button label and menu item to assemble current code
+#. TRANSLATORS: Menu item to assemble the current code
 msgid "Assemble"
 msgstr "アセンブル"
 
@@ -622,13 +624,13 @@ msgstr "続行"
 msgid "Copied to clipboard"
 msgstr "クリップボードにコピーしました"
 
-#. TRANSLATORS: Button to copy example content to clipboard again
 #. TRANSLATORS: Tooltip for button that copies the hex monitor content to clipboard
+#. TRANSLATORS: Button to copy example content to clipboard again
 msgid "Copy to clipboard"
 msgstr "クリップボードにコピー"
 
-#. TRANSLATORS: Tooltip for copy button in example list item
 #. TRANSLATORS: Tooltip for button that copies the snippet into the editor
+#. TRANSLATORS: Tooltip for copy button in example list item
 msgid "Copy to editor"
 msgstr "エディターにコピー"
 
@@ -726,9 +728,17 @@ msgstr "16進モニターのアドレス範囲入力を改善し、値の編集�
 msgid "Equipped with that knowledge, you should be able to see that the instruction <tt>LDA #$01</tt> loads the hex value <tt>$01</tt> into register <tt>A</tt>. I'll go into more detail on registers in the next section."
 msgstr "この知識があれば、命令 <tt>LDA #$01</tt> が 16進の <tt>$01</tt> をレジスタ <tt>A</tt> にロードすることが分かるはずです。レジスタの詳細は次の節で説明します。"
 
+#. TRANSLATORS: Example title for Even Odd
+msgid "Even Odd"
+msgstr "偶数・奇数"
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "簡易版とはいえ、コード量はこれまでの例より大幅に増えます。ゲームの様々な要素のために複数のメモリアドレスをまとめて管理する必要があります。従来どおり手作業で管理することもできますが、規模が大きくなると煩雑で見落としやすい不具合の原因になります。そこで、単純作業はアセンブラに任せることにします。"
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -799,7 +809,7 @@ msgstr "システムのスタイルに従う"
 
 #. TRANSLATORS: Label of the row that chooses the interface font
 msgid "Font"
-msgstr ""
+msgstr "フォント"
 
 #. TRANSLATORS: Release notes for version 0.8.0 - AppImage. Keep "AppImage" as is, it is a format name.
 msgid "For Linux there is also an AppImage now: one file, no installation, useful on a distribution we do not package for."
@@ -858,6 +868,10 @@ msgstr ""
 msgid "Got your own cool 6502 creation? Share it with the community! You can now submit your code examples directly from within the app. Just hit the share button, and we'll automatically create a GitHub issue and pull request for you."
 msgstr "独自のクールな6502作品をお持ちですか？コミュニティと共有しましょう！アプリから直接コード例を投稿できるようになりました。共有ボタンを押すだけで、GitHubのissueとプルリクエストが自動的に作成されます。"
 
+#. TRANSLATORS: Toast shown once a year after the learner finishes the first tutorial chapter
+msgid "Great start — you finished the first chapter!"
+msgstr "好スタートです！最初の章を修了しました！"
+
 #. TRANSLATORS: Tooltip for accent color option Green
 #. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
@@ -867,9 +881,7 @@ msgstr "緑"
 msgid "Hebrew is also our first right-to-left language: thanks to Menachem's testing and contributions, the app now supports right-to-left layouts, preparing it for more RTL languages."
 msgstr "ヘブライ語は、右から左に書く初めての言語でもあります。Menachem のテストと貢献のおかげで、アプリは右から左へのレイアウトに対応し、さらなるRTL言語への準備が整いました。"
 
-#. TRANSLATORS: Help window title
 #. TRANSLATORS: Help menu item label
-#. TRANSLATORS: Button label to open the help window
 msgid "Help"
 msgstr "ヘルプ"
 
@@ -1017,7 +1029,7 @@ msgstr "インタラクティブチュートリアルで初心者から上級者
 
 #. TRANSLATORS: Preferences group title for the interface font
 msgid "Interface font"
-msgstr ""
+msgstr "インターフェースフォント"
 
 msgid "Interrupt Flag: When set, masks (disables) all maskable interrupts (IRQ). Only Non-Maskable Interrupts (NMI) can still occur. Used for critical sections of code that must not be interrupted."
 msgstr "割り込み禁止フラグ: セット時はマスク可能な割り込み（IRQ）をすべて無効化します。NMI（不可マスク割り込み）のみ発生します。割り込み不可のクリティカル区間で使用します。"
@@ -1060,9 +1072,8 @@ msgstr "ラベル処理に失敗しました"
 msgid "Learn"
 msgstr "学習"
 
-#. TRANSLATORS: Application title shown in the header bar
 msgid "Learn 6502 Assembly"
-msgstr "6502アセンブリを学ぶ"
+msgstr ""
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
@@ -1087,6 +1098,9 @@ msgstr "PHA命令とPLA命令でスタックを扱う方法を学びましょう
 #. TRANSLATORS: Release notes for version 0.6.0 - learning from examples
 msgid "Learning by example has never been easier. Dive into working code, tweak it, break it, fix it again - that's how the best programmers learned back in the day!"
 msgstr "例から学ぶことがこれほど簡単になったことはありません。動作するコードに飛び込んで、調整し、壊して、また直す――かつて最高のプログラマーたちはそうやって学んだのです！"
+
+msgid "Legal Notice"
+msgstr ""
 
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
@@ -1165,6 +1179,10 @@ msgstr "値がスネークの体に沿ってシフトダウンされた後、頭
 msgid "Open Assembly File"
 msgstr "アセンブリファイルを開く"
 
+#. TRANSLATORS: Badge in the About dialog, shown by every build of the app
+msgid "Open Source"
+msgstr "オープンソース"
+
 #. TRANSLATORS: Menu item to open a file
 msgid "Open..."
 msgstr "開く..."
@@ -1204,6 +1222,7 @@ msgid "Overflow Flag: Set when an arithmetic operation produces a result that ca
 msgstr "オーバーフローフラグ: 演算結果が符号付き8ビット（-128〜+127）の範囲に収まらない場合にセット。符号付き演算のエラー検出に使用します。"
 
 #. TRANSLATORS: Main action button label to pause the running simulator
+#. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
 msgstr "一時停止"
 
@@ -1279,6 +1298,9 @@ msgstr "プライマリ: ティール"
 msgid "Primary: Yellow"
 msgstr "プライマリ: 黄色"
 
+msgid "Privacy"
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
 msgstr "プロセッサフラグ"
@@ -1312,8 +1334,8 @@ msgstr "プログラムが完了しました。もう一度ステップ実行す
 msgid "Program paused"
 msgstr "プログラムを一時停止しました"
 
-msgid "Program vintage game consoles"
-msgstr "レトロなゲーム機をプログラミング"
+msgid "Program vintage consoles"
+msgstr "レトロゲーム機をプログラミング"
 
 #. TRANSLATORS: Tooltip for accent color option Purple
 #. TRANSLATORS: Tooltip for primary color option Purple
@@ -1366,6 +1388,7 @@ msgid "Rendering the game"
 msgstr "ゲームの描画"
 
 #. TRANSLATORS: Main action button label to reset simulator and state
+#. TRANSLATORS: Menu item to reset simulator and state
 msgid "Reset"
 msgstr "リセット"
 
@@ -1382,6 +1405,7 @@ msgid "Rewrite the first example in this section to use the <tt>Y</tt> register 
 msgstr "このセクションの最初の例を、<tt>X</tt>レジスタの代わりに<tt>Y</tt>レジスタを使用するように書き換えてください。"
 
 #. TRANSLATORS: Main action button label to start continuous execution of the simulator
+#. TRANSLATORS: Menu item to start running the simulator
 msgid "Run"
 msgstr "実行"
 
@@ -1431,15 +1455,14 @@ msgid "Shalom! We are happy to welcome Hebrew translations, fully contributed by
 msgstr "Shalom! ヘブライ語の翻訳が加わりました。全文を翻訳してくださった Menachem (naattxx) に感謝します。Toda raba!"
 
 #. TRANSLATORS: Menu item to share the current code
-#. TRANSLATORS: Toolbar button tooltip to share the current code
 msgid "Share"
 msgstr "共有"
 
 msgid "Share Example"
 msgstr "例を共有"
 
-#. TRANSLATORS: Title of the share dialog
 #. TRANSLATORS: Button to share your own example
+#. TRANSLATORS: Title of the share dialog
 msgid "Share Your Example"
 msgstr "例を共有"
 
@@ -1523,6 +1546,7 @@ msgid "Status Flags"
 msgstr "ステータスフラグ"
 
 #. TRANSLATORS: Main action button label for single-step execution when debugger is enabled
+#. TRANSLATORS: Menu item for single-step execution
 msgid "Step"
 msgstr "ステップ実行"
 
@@ -1542,6 +1566,13 @@ msgstr "スタイル"
 msgid "Submit"
 msgstr "送信"
 
+msgid "Support"
+msgstr "支援する"
+
+#. TRANSLATORS: Badge in the About dialog, shown only in builds bought from an app store
+msgid "Supporter"
+msgstr "サポーター"
+
 #. TRANSLATORS: Assembly syntax error with line number and offending line
 #, javascript-format
 msgid "Syntax error line %d: %s"
@@ -1554,7 +1585,7 @@ msgstr "システムデフォルト"
 
 #. TRANSLATORS: Font option — keep the system's typeface, use GNOME's size
 msgid "System font, GNOME size"
-msgstr ""
+msgstr "システムフォント（GNOMEのサイズ）"
 
 #. TRANSLATORS: Tooltip for accent color option Teal
 #. TRANSLATORS: Tooltip for primary color option Teal
@@ -1568,6 +1599,14 @@ msgstr "Tervetuloa! フィンランド語の翻訳が加わりました。Jiri G
 #. TRANSLATORS: Feature list item about virtual game console
 msgid "Test your creations on a virtual game console"
 msgstr "仮想ゲームコンソールで作品をテスト"
+
+#. TRANSLATORS: Example description for Even Odd
+msgid "Tests bit 0 of A with LSR and BCC, places 1 or 0 in A on result"
+msgstr "LSRとBCCでAのビット0を調べ、結果として1または0をAに格納します"
+
+#. TRANSLATORS: What the "Open Source" badge in the About dialog means
+msgid "Thank you for using open source software."
+msgstr "オープンソースソフトウェアをご利用いただきありがとうございます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The 6502 uses a 16-bit address bus, meaning that there are 65536 bytes of memory available to the processor. Remember that a byte is represented by two hex characters, so the memory locations are generally represented as <tt>$0000 - $ffff</tt>. There are various ways to refer to these memory locations, as detailed below."
@@ -1589,6 +1628,10 @@ msgstr "<tt>loop</tt> サブルーチンは複数のサブルーチンを順に�
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "アキュムレータ（A）は算術・論理演算の主レジスタです。ADD、SUBTRACT、AND、OR などの基本計算で使用され、6502 アセンブリで最も頻用されます。"
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "プログラムカウンタは次に実行する命令のアドレスを保持します。各命令後に自動インクリメントされ、ジャンプや分岐、呼び出しや復帰で変更されます。フロー制御やデバッグに不可欠です。"
@@ -1609,7 +1652,7 @@ msgstr "Y インデックスレジスタは X と同様で特別な機能はあ�
 #. from the operating system, and outside GNOME that font is smaller than
 #. the one the app is designed for.
 msgid "The app is designed for the GNOME interface font. On other systems it is drawn with that system's font, which is usually smaller."
-msgstr ""
+msgstr "このアプリはGNOMEのインターフェースフォント向けに設計されています。他のシステムではそのシステムのフォントで描画されるため、通常は小さく表示されます。"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The black game console screen now should show three coloured \"pixels\" at the top left."
@@ -1715,6 +1758,10 @@ msgstr "スタック"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "6502 のスタックは一般的なスタックと同じで、値をプッシュし、（6502 では「プル」と呼ぶ）ポップします。深さはスタックポインタという特別なレジスタで管理されます。スタックは <tt>$0100</tt>〜<tt>$01ff</tt> にあり、スタックポインタの初期値は <tt>$ff</tt>（<tt>$01ff</tt> を指す）です。1 バイトをプッシュすると <tt>$fe</tt>（<tt>$01fe</tt>）になり…と続きます。"
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "ゼロページには、ゲーム状態の変数がいくつか格納されます。<tt>$00</tt>、<tt>$01</tt>、<tt>$10</tt> 以降にあるものは、間接アドレッシングで参照される 2 バイトのアドレスを表します。これらは表示用の <tt>$0200</tt>〜<tt>$05ff</tt> の範囲に対応します。例えば <tt>$00</tt>=<tt>$01</tt>、<tt>$01</tt>=<tt>$02</tt> なら、表示の2番目のピクセル <tt>$0201</tt> を指します（間接では下位バイトが先）。"
@@ -1722,6 +1769,10 @@ msgstr "ゼロページには、ゲーム状態の変数がいくつか格納さ
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "ではなぜ 6502 なのか？<a href=\"https://ja.wikipedia.org/wiki/X86\">x86</a> のような<i>実用的</i>なアセンブリでは？私は x86 を学ぶ必要性は高くないと思います。仕事でアセンブリを<i>書く</i>機会はほぼありません。これは思考を広げる学術的な練習でもあります。6502 は多くの開発者が高級言語ではなく直接アセンブリを書いていた時代に、人間が書く前提で設計されました。現代のアセンブリはコンパイラが出力するためのものです。しかも 6502 は<i>楽しい</i>。x86 を<i>楽しい</i>と言う人はいません。"
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1869,6 +1920,10 @@ msgstr "黄色"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You can think of the screen as four horizontal strips of 32 × 8 pixels. These strips map to <tt>$0200-$02ff</tt>, <tt>$0300-$03ff</tt>, <tt>$0400-$04ff</tt> and <tt>$0500-$05ff</tt>. The first rows of pixels are <tt>$0200-$021f</tt>, <tt>$0220-$023f</tt>, <tt>$0240-$025f</tt>, etc."
 msgstr "画面は 32×8 ピクセルの水平ストリップ 4 本と考えられます。対応は <tt>$0200-$02ff</tt>、<tt>$0300-$03ff</tt>、<tt>$0400-$04ff</tt>、<tt>$0500-$05ff</tt>。各行の先頭は <tt>$0200-$021f</tt>、<tt>$0220-$023f</tt>、<tt>$0240-$025f</tt>…です。"
+
+#. TRANSLATORS: What the "Supporter" badge in the About dialog means
+msgid "You supported this open source project by buying the app. Thank you!"
+msgstr "アプリを購入して、このオープンソースプロジェクトを支援していただきました。ありがとうございます！"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "You've seen <tt>TAX</tt>. You can probably guess what <tt>TAY</tt>, <tt>TXA</tt> and <tt>TYA</tt> do, but write some code to test your assumptions."

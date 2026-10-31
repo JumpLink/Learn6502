@@ -1,27 +1,3 @@
-.rounded-none {
-  border-radius: 0;
-}
-
-.rounded-t-none {
-  border-top-left-radius: 0px;
-  border-top-right-radius: 0px;
-}
-
-.rounded-s-none {
-  border-bottom-left-radius: 0px;
-  border-top-left-radius: 0px;
-}
-
-.rounded-e-none {
-  border-top-right-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
-.rounded-b-none {
-  border-bottom-left-radius: 0px;
-  border-bottom-right-radius: 0px;
-}
-
 /* Debug Info Widget Styles */
 .monospace {
   font-family: monospace;
@@ -30,6 +6,16 @@
 
 .dim-label {
   opacity: 0.6;
+}
+
+/* Edition badge in the About dialog — the version pill's quieter sibling, same shape */
+.edition-badge {
+  padding: 2px 12px;
+  border-radius: 999px;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: var(--accent-color);
+  background-color: color-mix(in oklab, var(--accent-color) 15%, transparent);
 }
 
 .flag {
