@@ -487,6 +487,7 @@ msgstr "தோற்ற அமைப்புகள்"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "கட்டிடக்கலை மேம்பாடுகள் க்னோம், வெப் மற்றும் ஆண்ட்ராய்டு இயங்குதளங்களுக்கு இடையே சிறந்த குறியீடு பகிர்வை செயல்படுத்துகின்றன."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -735,6 +736,10 @@ msgstr "இரட்டை ஒற்றை"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "இது ஒரு எளிய பதிப்பாக இருந்தாலும், குறியீடு முந்தைய எல்லா எடுத்துக்காட்டுகளையும் விட கணிசமாக பெரியதாக இருக்கும். விளையாட்டின் பல்வேறு அம்சங்களுக்காக நாம் பல நினைவக இருப்பிடங்களை ஒன்றாகக் கண்காணிக்க வேண்டும். முன்பைப் போலவே, நிரல் முழுவதும் தேவையான புத்தக பராமரிப்பை நாமே இன்னும் செய்யலாம், ஆனால் பெரிய அளவில் அது விரைவாக சோர்வாக மாறும் மற்றும் கண்டறிய கடினமாக இருக்கும் பிழைகளுக்கு வழிவகுக்கும். அதற்கு பதிலாக, அசெம்பிளரை நமக்காக சில சாதாரண வேலைகளைச் செய்ய அனுமதிப்போம்."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -1217,9 +1222,6 @@ msgstr "ஒட்டுமொத்த அமைப்பு"
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
 msgstr "ஓவர்ஃப்ளோ ஃபிளாக்: எண்கணித செயல்பாடு கையொப்பமிடப்பட்ட 8-பிட் வரம்பில் (-128 முதல் +127 வரை) குறிப்பிட முடியாத முடிவை உருவாக்கும் போது அமைக்கவும். கணக்கீடுகளில் கையொப்பமிடப்பட்ட எண்கணிதப் பிழைகளைக் கண்டறியப் பயன்படுகிறது."
 
-msgid "Privacy"
-msgstr ""
-
 #. TRANSLATORS: Main action button label to pause the running simulator
 #. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
@@ -1296,6 +1298,9 @@ msgstr "முதன்மை: டீல்"
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
 msgstr "முதன்மை: மஞ்சள்"
+
+msgid "Privacy"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
@@ -1623,6 +1628,10 @@ msgstr "<tt>loop</tt> சப்ரூட்டின், தன்னைத்�
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "திரட்டி (A) என்பது எண்கணித மற்றும் தருக்கச் செயல்பாடுகளுக்கான முதன்மைப் பதிவு. ADD, SUBTRACT, AND, OR போன்ற அனைத்து அடிப்படைக் கணக்கீடுகளும் இந்தப் பதிவைப் பயன்படுத்துகின்றன. 6502 அசெம்பிளி நிரலாக்கத்தில் மிக அடிக்கடி பயன்படுத்தப்படும் பதிவு இதுவே."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "நிரல் கவுண்டரில் அடுத்த இயக்க வழிமுறையின் நினைவக முகவரி உள்ளது. ஒவ்வொரு அறிவுறுத்தலுக்குப் பிறகும் இது தானாகவே அதிகரிக்கிறது மற்றும் தாவல்கள், கிளைகள், அழைப்புகள் மற்றும் வருமானம் மூலம் மாற்றியமைக்கப்படலாம். நிரல் ஓட்டம் கட்டுப்பாடு மற்றும் பிழைத்திருத்தத்திற்கு தேவை."
@@ -1749,6 +1758,10 @@ msgstr "ச்டாக்"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "6502 செயலியில் உள்ள ச்டாக் மற்ற ச்டாக் போன்றது - மதிப்புகள் அதன் மீது தள்ளப்பட்டு பாப் (6502 மொழியில் \"இழுக்கப்பட்டது\"). அடுக்கின் தற்போதைய ஆழம் ச்டாக் பாயிண்டரால் அளவிடப்படுகிறது, ஒரு சிறப்பு பதிவேடு. <tt>$0100</tt> மற்றும் <tt>$01ff</tt> இடையே ச்டாக் நினைவகத்தில் உள்ளது. ச்டாக் பாயிண்டர் ஆரம்பத்தில் <tt>$ff</tt> ஆகும், இது நினைவக இருப்பிடத்தை <tt>$01ff</tt> குறிக்கிறது. ஒரு பைட்டை அடுக்கின் மீது தள்ளும் போது, ச்டாக் பாயிண்டர் <tt>$fe</tt> அல்லது நினைவக இருப்பிடம் <tt>$01fe</tt>, மற்றும் பல."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "நினைவகத்தின் பூச்சியப் பக்கம் பல விளையாட்டு நிலை மாறிகளைச் சேமிக்கப் பயன்படுகிறது, இது விளையாட்டின் மேற்பகுதியில் உள்ள கருத்துத் தொகுதியில் குறிப்பிடப்பட்டுள்ளது. <tt>$00</tt>, <tt>$01</tt> மற்றும் <tt>$10</tt> மேலே உள்ள அனைத்தும் இரண்டு பைட் நினைவக இருப்பிடத்தைக் குறிக்கும் ஒரு இணை பைட்டுகள், அவை மறைமுக முகவரிகளைப் பயன்படுத்தி பார்க்கப்படும். இந்த நினைவக இருப்பிடங்கள் அனைத்தும் <tt>$0200</tt> மற்றும் <tt>$05ff</tt> - கேம் கன்சோலுடன் தொடர்புடைய நினைவகப் பகுதி. எடுத்துக்காட்டாக, <tt>$00</tt> மற்றும் <tt>$01</tt> <tt>$01</tt> மற்றும் <tt>$02</tt> மதிப்புகளைக் கொண்டிருந்தால், அவை காட்சியின் இரண்டாவது பிக்சலைக் குறிக்கும் (<tt>$0201</tt> - நினைவில் கொள்ளுங்கள், மறைமுக முகவரியில் குறைந்தபட்சம் குறிப்பிடத்தக்க பைட் முதலில் வருகிறது)."
@@ -1756,6 +1769,10 @@ msgstr "நினைவகத்தின் பூச்சியப் பக�
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "பிறகு ஏன் 6502? <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a> போன்ற <i>பயனுள்ள</i> அசெம்பிளி மொழி ஏன் இல்லை? சரி, x86 கற்பது பயனுள்ளது என்று நான் நினைக்கவில்லை. உங்கள் அன்றாட வேலையில் நீங்கள் எப்போதாவது அசெம்பிளி மொழியை <i>எழுத</i> வேண்டியிருக்கும் என்றும் நான் நினைக்கவில்லை — சிலருக்கு இது ஒரு கல்விப் பயிற்சி, மனதையும் சிந்தனையையும் விரிவுபடுத்தும் ஒன்று. 6502 வேறொரு காலகட்டத்தில் உருவாக்கப்பட்டது; அப்போது பெரும்பாலான உருவாக்குநர்கள் இந்தப் புதிய உயர்நிலை நிரலாக்க மொழிகளில் அல்லாமல், நேரடியாக அசெம்பிளி எழுதிக்கொண்டிருந்தார்கள். எனவே இது மனிதர்கள் எழுதுவதற்கென வடிவமைக்கப்பட்டது. நவீன அசெம்பிளி மொழிகள் தொகுப்பிகள் எழுதுவதற்கானவை; எனவே அதை அவற்றிடமே விட்டுவிடுவோம். மேலும், 6502 <i>வேடிக்கையானது</i>. x86 ஐ <i>வேடிக்கையானது</i> என்று யாரும் சொன்னதில்லை."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."

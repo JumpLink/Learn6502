@@ -486,6 +486,7 @@ msgstr "Configurações de aparência"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "Melhorias de arquitetura permitem uma melhor partilha de código entre as plataformas GNOME, Web e Android."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -734,6 +735,10 @@ msgstr "Par ou Ímpar"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "Embora esta seja uma versão simples, o código será substancialmente maior do que todos os exemplos anteriores. Teremos de acompanhar várias endereços de memória em conjunto para os vários aspetos do jogo. Podemos ainda fazer a contabilidade necessária ao longo do programa nós mesmos, como antes, mas numa escala maior isso torna-se rapidamente tedioso e também pode levar a bugs difíceis de detetar. Em vez disso, vamos agora deixar o assembler fazer parte do trabalho mundano por nós."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -1216,9 +1221,6 @@ msgstr "Estrutura geral"
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
 msgstr "Flag Overflow: Definida quando uma operação aritmética produz um resultado que não pode ser representado na faixa de 8 bits com sinal (-128 a +127). Usada para detetar erros aritméticos com sinal nos cálculos."
 
-msgid "Privacy"
-msgstr ""
-
 #. TRANSLATORS: Main action button label to pause the running simulator
 #. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
@@ -1295,6 +1297,9 @@ msgstr "Primária: Azul-petróleo"
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
 msgstr "Primária: Amarelo"
+
+msgid "Privacy"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
@@ -1623,6 +1628,10 @@ msgstr "A própria sub-rotina <tt>loop</tt> apenas chama um número de sub-rotin
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "O Acumulador (A) é o registro principal para operações aritméticas e lógicas. Todos os cálculos básicos como ADD, SUBTRACT, AND, OR, etc. usam este registro. É o registro mais frequentemente usado na programação assembly 6502."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "O Contador de Programa contém o endereço de memória da próxima instrução a executar. Incrementa automaticamente após cada instrução e pode ser modificado por saltos, ramificações, chamadas e retornos. Essencial para controle do fluxo do programa e depuração."
@@ -1749,6 +1758,10 @@ msgstr "A pilha"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "A pilha num processador 6502 é como qualquer outra pilha - os valores são empurrados para ela e retirados (\"puxados\" na terminologia 6502) dela. A profundidade atual da pilha é medida pelo ponteiro da pilha, um registro especial. A pilha vive na memória entre <tt>$0100</tt> e <tt>$01ff</tt>. O ponteiro da pilha é inicialmente <tt>$ff</tt>, que aponta para a endereço de memória <tt>$01ff</tt>. Quando um byte é empurrado para a pilha, o ponteiro da pilha torna-se <tt>$fe</tt>, ou endereço de memória <tt>$01fe</tt>, e assim por diante."
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "A página zero da memória é usada para armazenar um número de variáveis de estado do jogo, conforme observado no bloco de comentários no topo do jogo. Tudo em <tt>$00</tt>, <tt>$01</tt> e <tt>$10</tt> para cima é um par de bytes que representa uma endereço de memória de dois bytes que será procurada usando endereçamento indireto. Estas endereços de memória serão todas entre <tt>$0200</tt> e <tt>$05ff</tt> - a seção de memória correspondente à console de jogo. Por exemplo, se <tt>$00</tt> e <tt>$01</tt> contivessem os valores <tt>$01</tt> e <tt>$02</tt>, estariam a referir-se ao segundo pixel da tela (<tt>$0201</tt> - lembre-se, o byte menos significativo vem primeiro no endereçamento indireto)."
@@ -1756,6 +1769,10 @@ msgstr "A página zero da memória é usada para armazenar um número de variáv
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "Então porquê 6502? Porque não uma linguagem assembly <i>útil</i>, como <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Bem, não acho que aprender x86 seja útil. Não acho que alguma vez tenha de <i>escrever</i> linguagem assembly no trabalho diário — para algumas pessoas é um exercício académico, algo para expandir a mente e o pensamento. O 6502 foi originalmente escrito numa era diferente, numa altura em que a maioria dos programadores escrevia assembly diretamente, em vez destas novas linguagens de alto nível. Por isso, foi concebido para ser escrito por humanos. As linguagens assembly mais modernas destinam-se a ser escritas por compiladores, então deixemos isso para eles. Além disso, o 6502 é <i>divertido</i>. Ninguém alguma vez chamou ao x86 <i>divertido</i>."
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."

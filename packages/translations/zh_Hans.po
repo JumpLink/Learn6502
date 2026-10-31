@@ -489,6 +489,7 @@ msgstr "外观设置"
 msgid "Architecture enhancements enable better code sharing between GNOME, Web, and Android platforms."
 msgstr "架构增强改进了 GNOME、Web 与 Android 平台之间的代码共享。"
 
+#. TRANSLATORS: Release notes for version 0.8.1 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
@@ -737,6 +738,10 @@ msgstr "奇偶判断"
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Even though this will be a simple version, the code will be substantially larger than all the previous examples. We will need to keep track of several memory locations together for the various aspects of the game. We can still do the necessary bookkeeping throughout the program ourselves, as before, but on a larger scale that quickly becomes tedious and can also lead to bugs that are difficult to spot. Instead we'll now let the assembler do some of the mundane work for us."
 msgstr "虽然这将是一个简单版本，代码会比以往示例大得多。我们需要同时跟踪游戏各方面的多个内存位置。我们也可以像之前那样自己在程序中做必要的“簿记”，但规模变大后会很繁琐且易出错。相反，我们现在让汇编器替我们处理一部分琐事。"
+
+#. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
+msgid "Every build says in About that it is open source, and where to support the project if you would like to."
+msgstr ""
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -1219,9 +1224,6 @@ msgstr "整体结构"
 msgid "Overflow Flag: Set when an arithmetic operation produces a result that cannot be represented in signed 8-bit range (-128 to +127). Used for detecting signed arithmetic errors in calculations."
 msgstr "溢出标志：当算术运算结果超出有符号 8 位范围（-128 到 +127）时置位，用于检测带符号运算错误。"
 
-msgid "Privacy"
-msgstr ""
-
 #. TRANSLATORS: Main action button label to pause the running simulator
 #. TRANSLATORS: Menu item to pause the running simulator
 msgid "Pause"
@@ -1298,6 +1300,9 @@ msgstr "主色：青色"
 #. TRANSLATORS: Accessibility label for primary color option Yellow
 msgid "Primary: Yellow"
 msgstr "主色：黄色"
+
+msgid "Privacy"
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
@@ -1626,6 +1631,10 @@ msgstr "<tt>loop</tt> 子程序本身只是按顺序调用多个子程序，然�
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
 msgstr "累加器（A）是算术与逻辑运算的主要寄存器。ADD、SUBTRACT、AND、OR 等基本计算都使用该寄存器。它是 6502 汇编中最常用的寄存器。"
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
+msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
+msgstr ""
+
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
 msgstr "程序计数器包含下一条待执行指令的内存地址。每条指令后自动递增，可被跳转、分支、调用与返回修改。对程序流程控制与调试至关重要。"
@@ -1752,6 +1761,10 @@ msgstr "调用栈"
 msgid "The stack in a 6502 processor is just like any other stack - values are pushed onto it and popped (\"pulled\" in 6502 parlance) off it. The current depth of the stack is measured by the stack pointer, a special register. The stack lives in memory between <tt>$0100</tt> and <tt>$01ff</tt>. The stack pointer is initially <tt>$ff</tt>, which points to memory location <tt>$01ff</tt>. When a byte is pushed onto the stack, the stack pointer becomes <tt>$fe</tt>, or memory location <tt>$01fe</tt>, and so on."
 msgstr "6502 处理器中的栈与其他栈一样——值被压入栈，然后弹出（6502 术语中称为\"拉出\"）。栈的当前深度由栈指针（一个特殊寄存器）测量。栈位于内存的 <tt>$0100</tt> 到 <tt>$01ff</tt> 之间。栈指针初始为 <tt>$ff</tt>，指向内存位置 <tt>$01ff</tt>。当有字节压入栈时，栈指针变为 <tt>$fe</tt>，即内存位置 <tt>$01fe</tt>，依此类推。"
 
+#. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
+msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
+msgstr ""
+
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
 msgstr "零页内存用于存储若干游戏状态变量，如游戏顶部注释所示。从 <tt>$00</tt>、<tt>$01</tt> 与 <tt>$10</tt> 起的内容均为表示两字节内存位置的字节对，将通过间接寻址查找。这些内存位置都在 <tt>$0200</tt> 到 <tt>$05ff</tt> 之间——对应游戏主机的显示区。例如，若 <tt>$00</tt> 与 <tt>$01</tt> 的值分别为 <tt>$01</tt> 与 <tt>$02</tt>，则它们指向显示的第二个像素（<tt>$0201</tt>——记住，间接寻址低位在前）。"
@@ -1759,6 +1772,10 @@ msgstr "零页内存用于存储若干游戏状态变量，如游戏顶部注释
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Then why 6502? Why not a <i>useful</i> assembly language, like <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a>? Well, I don't think learning x86 is useful. I don't think you'll ever have to <i>write</i> assembly language in your day job - for some people this is an academic exercise, something to expand your mind and your thinking. 6502 was originally written in a different age, a time when the majority of developers were writing assembly directly, rather than in these new-fangled high-level programming languages. So, it was designed to be written by humans. More modern assembly languages are meant to written by compilers, so let's leave it to them. Plus, 6502 is <i>fun</i>. Nobody ever called x86 <i>fun</i>."
 msgstr "那么为什么选择 6502？为什么不是像 <a href=\"https://en.wikipedia.org/wiki/X86\">x86</a> 这样<i>有用的</i>汇编语言？其实我认为学习 x86 并不那么有用。你的日常工作中可能永远不需要<i>编写</i>汇编语言——对某些人来说这是学术练习，是拓展思维的方式。6502 诞生于不同的时代，那时大多数开发者直接编写汇编，而非使用这些新兴的高级编程语言。因此它被设计为对人类友好。更现代的汇编语言是为编译器设计的，所以交给它们吧。而且，6502 很<i>有趣</i>。从来没人说过 x86<i>有趣</i>。"
+
+#. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
+msgid "There is a privacy page and a legal notice, reachable from inside the app."
+msgstr ""
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
