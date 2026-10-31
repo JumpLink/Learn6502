@@ -682,6 +682,9 @@ jobs:
             echo "\"commit\": \"$COMMIT\""
             echo '```'
             echo
+            echo "and replace \`gjsify-sources.json\` with this tag's copy. flathubbot's"
+            echo "update PR bumps only the manifest, so it needs that file pushed onto it."
+            echo
             echo "Until that lands, Flathub serves the PREVIOUS release."
           } >> "$GITHUB_STEP_SUMMARY"
           echo "::warning::Flathub manifest not bumped — no FLATHUB_TOKEN; see the job summary"
