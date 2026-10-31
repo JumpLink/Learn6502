@@ -10,6 +10,10 @@
     "start:clean": "ns run android --clean",
     "start:debug": "ns debug android",
     "start:emulator": "../../../../scripts/android_emulator.sh start Tablet_API_36",
+    "build:ios": "ns build ios",
+    "start:ios": "ns run ios",
+    "start:ios:clean": "ns run ios --clean",
+    "start:ios:debug": "ns debug ios",
     "check": "gjsify tsc --noEmit"
   },
   "dependencies": {
@@ -33,6 +37,7 @@
     "@gjsify/nativescript-vite": "0.64.15",
     "@gjsify/vite-plugin-blueprint": "0.64.15",
     "@nativescript/android": "9.1.1",
+    "@nativescript/ios": "9.1.0",
     "@nativescript/types": "~9.0.0",
     "@nativescript/vite": "8.0.0-alpha.57",
     "@tailwindcss/postcss": "^4.3.0",
