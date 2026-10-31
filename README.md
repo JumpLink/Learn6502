@@ -17,6 +17,13 @@ Learn 6502 is a modern, native Adwaita application for the GNOME desktop environ
   <img width="200" alt="Download on Flathub" src="https://flathub.org/assets/badges/flathub-badge-en.png"/>
 </a>
 
+### Android
+
+Learn 6502 also runs on Android. Download `eu.jumplink.Learn6502-<version>.apk` from the
+[latest release](https://github.com/JumpLink/Learn6502/releases/latest) and open it on your
+phone. The app is not in the Play Store or on F-Droid yet, so Android asks you once to allow
+installing apps from your browser or file manager.
+
 ## Features
 
 - **Interactive Tutorial**: A comprehensive step-by-step guide to learning 6502 assembly language, with explanations of all core concepts
