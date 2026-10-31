@@ -54,7 +54,8 @@
     "@gjsify/dom-elements@0.54.0",
     "@mdx-js/rollup@^3.1.1",
     "@types/mdx@^2.0.13",
-    "nano-jsx@^0.2.1"
+    "nano-jsx@^0.2.1",
+    "@gjsify/unit@0.54.0"
   ],
   "packages": {
     "node_modules/@alloc/quick-lru": {
@@ -12457,6 +12458,29 @@
       "version": "2.0.4",
       "resolved": "https://registry.npmjs.org/zwitch/-/zwitch-2.0.4.tgz",
       "integrity": "sha512-bXE4cR/kVZhKZX/RjPEflHaKVhUVl85noU3v6b8apfQEc1x4A+zBxjZ4lN8LqGd6WZ3dl98pY4o717VFmoPp+A=="
+    },
+    "node_modules/@gjsify/unit": {
+      "version": "0.54.0",
+      "resolved": "https://registry.npmjs.org/@gjsify/unit/-/unit-0.54.0.tgz",
+      "integrity": "sha512-zH+FvNG3xKDqT2N8U+0JyX9wF37DB+utm16Cv7RjkTgdKCCCEwd0nMsDVA2RpvBg63IHJJ8zsNuWy+TP4XpXww==",
+      "dependencies": {
+        "@gjsify/utils": "^0.54.0",
+        "@gjsify/assert": "^0.54.0",
+        "@gjsify/buffer": "^0.54.0",
+        "@gjsify/process": "^0.54.0",
+        "@gjsify/runtime": "^0.54.0",
+        "@gjsify/web-globals": "^0.54.0",
+        "@gjsify/web-streams": "^0.54.0",
+        "@gjsify/dom-elements": "^0.54.0",
+        "@gjsify/node-globals": "^0.54.0",
+        "@gjsify/dom-exception": "^0.54.0",
+        "@gjsify/abort-controller": "^0.54.0"
+      }
+    },
+    "node_modules/@gjsify/runtime": {
+      "version": "0.54.0",
+      "resolved": "https://registry.npmjs.org/@gjsify/runtime/-/runtime-0.54.0.tgz",
+      "integrity": "sha512-pmB5Cuchvp0Xac9NcZgXOqhFbPEfPBUmr/iSRStm70Q8j4EwBAnermk02BtibLfhGUDwpbmeFwDrco0ziv07vw=="
     }
   }
 }
