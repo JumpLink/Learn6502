@@ -29,7 +29,7 @@
       "kind": "app",
       "name": "Learn 6502 Assembly",
       "runtime": "gnome",
-      "runtimeVersion": "50",
+      "runtimeVersion": "51",
       "sdkExtensions": [],
       "modules": [
         {
@@ -51,7 +51,7 @@
         "--socket=fallback-x11",
         "--socket=wayland"
       ],
-      "ciContainer": "ghcr.io/flathub-infra/flatpak-github-actions:gnome-50",
+      "ciContainer": "ghcr.io/flathub-infra/flatpak-github-actions:gnome-51",
       "ciBranches": [
         "main"
       ],
