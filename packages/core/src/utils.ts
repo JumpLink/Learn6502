@@ -110,9 +110,8 @@ export const _ = (str: string) => str;
 /**
  * Replaces printf-style placeholders (%s, %d, %%) in a message with the given parameters.
  *
- * Used by platforms without their own message formatting: the GNOME app
- * translates with gettext and formats with GJS's String.format instead,
- * the Android app with localize() from @nativescript/localize.
+ * Shared code formats with it after `_()`, so a msgid keeps its placeholders on
+ * every platform; GLib gettext, like GJS's `_()`, never formats.
  * Placeholders without a matching parameter are left untouched.
  *
  * @param message - Message containing printf-style placeholders.

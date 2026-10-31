@@ -1,6 +1,8 @@
-import type Gtk from "@girs/gtk-4.0";
+import type { WindowCommon } from "@gjsify/adwaita-core";
 
-import type { ViewType } from "@learn6502/common-ui";
+import type { ViewType } from "../views/index.ts";
+
+import type { WindowSettings } from "./services.ts";
 
 /** One of the window's `win` actions, as the buttons and the menu see it. */
 export interface ShellAction {
@@ -12,11 +14,16 @@ export type UnsavedChangesAnswer = "save" | "discard" | "cancel";
 /**
  * What the shared `MainWindowController` needs from the widgets that hold the four screens. Each
  * platform implements it over its own toolkit (GTK, NativeScript, the DOM), so the controller
- * names no widget API of its own.
+ * names no widget API of its own. `TWidget` is what holds the focus: a `Gtk.Widget`, a DOM
+ * `Element` or a NativeScript `View`.
  */
-export interface MainWindowShell {
+export interface MainWindowShell<TWidget = unknown> {
   /** The window, for the behaviour that follows its focus and close request. */
-  readonly window: Gtk.Window;
+  readonly window: WindowCommon<TWidget>;
+  /** Call `handler` whenever the focused widget inside the window changes, where the platform can tell. */
+  onFocusWidgetChanged(handler: () => void): void;
+  /** Restore the saved window geometry and keep saving it, where the platform owns a window size. */
+  persistWindowSize(settings: WindowSettings): void;
 
   /** The screens sit side by side (wide window) instead of one at a time. */
   isDesktopLayout(): boolean;
@@ -32,9 +39,11 @@ export interface MainWindowShell {
 
   setLearnBackVisible(visible: boolean): void;
   setFileTitle(filename: string): void;
+  /** Show or hide the header bar's unsaved-changes dot, with `tooltip` as its tooltip. */
+  setUnsavedIndicator(visible: boolean, tooltip: string): void;
   /** Close the sidebar when it overlays the content, so copied code is visible at once. */
   closeSidebarIfOverlay(): void;
-  isInsideConsole(widget: Gtk.Widget | null): boolean;
+  isInsideConsole(widget: TWidget | null): boolean;
 
   /** Register an action; `accels` are keyboard shortcuts where the platform has them. */
   addAction(name: string, activate: () => void, accels?: string[]): ShellAction;

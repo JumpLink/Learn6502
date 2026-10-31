@@ -1,4 +1,4 @@
-import { gettextPlugin, xgettextPlugin, po2jsonPlugin } from "@gjsify/vite-plugin-gettext";
+import { gettextPlugin, xgettextPlugin } from "@gjsify/vite-plugin-gettext";
 import { existsSync, readFileSync } from "node:fs";
 
 const APPLICATION_ID = "eu.jumplink.Learn6502";
@@ -7,7 +7,7 @@ const VERSION = JSON.parse(readFileSync("./package.json", "utf8")).version;
 /**
  * Extraction sources that are another package's build output, not source.
  *
- * `../learn/dist/*.ui` holds the tutorial rendered from `tutorial.mdx`, and it
+ * `../learn/dist/*.blp` holds the tutorial rendered from `tutorial.mdx`, and it
  * carries 219 of the 457 strings in the POT — every paragraph of the tutorial.
  * Because it is a build artifact, `xgettext` reads whatever the last run of
  * `@learn6502/learn` happened to leave behind: with the directory missing the
@@ -22,20 +22,27 @@ const VERSION = JSON.parse(readFileSync("./package.json", "utf8")).version;
  * for anyone who runs the extraction on its own, instead of silently emptying
  * the catalogs.
  *
- * The assertion is on content, not on the file being there. A `.ui` that exists
- * but carries no `translatable="yes"` property reproduces the 2026-09-03
- * collapse exactly — measured: with both files truncated to zero bytes the POT
- * goes from 457 msgids to 238 and 259 strings go obsolete in `de.po`, and an
- * existence check passes over it. Freshness is not what is being asserted here
- * (an mtime would only say when a file was written, which a CI cache restores
- * anyway); what is asserted is that the extraction has something to extract.
+ * The assertion is on content, not on the file being there. A `.blp` that
+ * exists but carries no marked string reproduces the 2026-09-03 collapse
+ * exactly — measured: with both files truncated to zero bytes the POT goes from
+ * 457 msgids to 238 and 259 strings go obsolete in `de.po`, and an existence
+ * check passes over it. Freshness is not what is being asserted here (an mtime
+ * would only say when a file was written, which a CI cache restores anyway);
+ * what is asserted is that the extraction has something to extract.
  */
 const GENERATED_SOURCES = {
-  "@learn6502/learn": ["../learn/dist/tutorial.ui", "../learn/dist/quick-help.ui"],
+  "@learn6502/learn": ["../learn/dist/tutorial.blp", "../learn/dist/quick-help.blp"],
 };
 
-/** The attribute `xgettext` keys on when it reads a GtkBuilder file. */
-const TRANSLATABLE = 'translatable="yes"';
+/**
+ * The keyword `xgettext` keys on when it reads a Blueprint file.
+ *
+ * `@gjsify/vite-plugin-gettext` scans a `.blp` as JavaScript — gettext 0.26
+ * has no Blueprint language — so what it takes from the file is the `_("…")`
+ * the blueprint spells its translatable properties with, not the
+ * `translatable="yes"` of the XML those compile to.
+ */
+const TRANSLATABLE = '_("';
 
 for (const [workspace, artifacts] of Object.entries(GENERATED_SOURCES)) {
   const unusable = artifacts
@@ -57,12 +64,11 @@ for (const [workspace, artifacts] of Object.entries(GENERATED_SOURCES)) {
 const xgettext = xgettextPlugin({
   sources: [
     "../core/src/**/*.{ts,tsx,js}",
-    "../common-ui/src/**/*.{ts,tsx,js}",
     "../ui/src/**/*.{ts,tsx,js,blp}",
     "../app-gnome/src/**/*.{ts,tsx,js,blp,xml,ui,desktop}",
     "../app-gnome/data/**/*.xml.in",
     "../examples/**/*.ts",
-    "../learn/dist/**/*.ui",
+    "../learn/dist/**/*.blp",
   ],
   output: `./${APPLICATION_ID}.pot`,
   domain: APPLICATION_ID,
@@ -88,24 +94,10 @@ const gettext = gettextPlugin({
   verbose: true,
 });
 
-// Convert PO files to JSON files
-const po2json = po2jsonPlugin({
-  poDirectory: ".",
-  jsonDirectory: "../app-android/app/i18n",
-  defaultLanguage: "en",
-  verbose: true,
-  additionalTranslations: {
-    // 'app.name' is a required key for the Android app
-    "app.name": "Learn 6502 Assembly",
-  },
-});
-
 // Start the extraction process
 await xgettext.buildStart();
 // Start the compilation process
 await gettext.buildStart();
-// Start the conversion process
-await po2json.buildStart();
 
 // Force a clean exit. Under GJS the gettext plugins' `Gio.Subprocess` calls
 // (xgettext/msgfmt) leave the GLib main loop armed, so this one-shot generator

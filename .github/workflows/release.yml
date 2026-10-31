@@ -289,7 +289,7 @@ jobs:
           mv dist-app "Learn6502-$version-web"
           cd "Learn6502-$version-web"
           cat > README.txt <<'EOF'
-          Learn 6502 Assembly — browser build
+          Learn 6502 — browser build
           
           Serve this directory over HTTP and open it in a browser, for example:
           
@@ -378,9 +378,133 @@ jobs:
           artifact-name: flatpak-bundle
           cache-key: flatpak-builder-${{ github.sha }}
 
+  # The APK cannot come out of `gjsify ship`: it is a Gradle build through the
+  # NativeScript CLI, and it needs a JDK and the Android SDK that the artifacts
+  # job has no use for. Fedora still, because the workspace dependencies it
+  # bundles (`@learn6502/learn` renders the tutorial XML the app reads) are
+  # built by `gjsify build`/`gjsify run`, which spawn `gjs`.
+  android:
+    name: Android APK
+    runs-on: ubuntu-latest
+    container:
+      image: fedora:43
+
+    steps:
+      - name: Install container prerequisites
+        run: |
+          dnf install -y git tar xz findutils unzip gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 \
+                         glib2 gettext
+
+      - name: Checkout repository
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ inputs.tag || github.ref }}
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: "24"
+
+      # Not from dnf: Fedora's JDK 17 package is on its way out, and this
+      # action exports the JAVA_HOME the NativeScript CLI looks `javac` up by.
+      # 17 is what the generated Gradle project compiles for.
+      - name: Setup JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+
+      # The platform and build-tools `app.gradle` names, installed up front: the
+      # verify step below runs `apksigner`/`aapt2` from build-tools, and Gradle
+      # fetching them lazily is not something to rely on in a container.
+      # `emulator` is never started: NativeScript's doctor runs `emulator -help`
+      # before every build and aborts with exit 127 when it is missing.
+      - name: Setup Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages: "platform-tools emulator platforms;android-35 build-tools;35.0.0"
+
+      - name: Cache gjsify tarball store
+        uses: actions/cache@v4
+        with:
+          path: ~/.cache/gjsify/tarballs
+          key: gjsify-tarballs-${{ hashFiles('gjsify-lock.json') }}
+          restore-keys: gjsify-tarballs-
+
+      - name: Install gjsify CLI
+        run: npm install -g @gjsify/cli@${{ env.GJSIFY_CLI_VERSION }}
+
+      - name: Install dependencies
+        run: gjsify install --immutable
+
+      - name: Use the workspace-pinned gjsify CLI
+        run: echo "$GITHUB_WORKSPACE/node_modules/.bin" >> "$GITHUB_PATH"
+
+      - name: Resolve the version
+        id: version
+        run: echo "version=$(node -p "require('./package.json').version")" >> "$GITHUB_OUTPUT"
+
+      - name: Build workspace dependencies
+        run: |
+          gjsify workspace @learn6502/core build
+          gjsify workspace @learn6502/examples build
+          gjsify workspace @learn6502/learn build
+
+      # The keystore lives only in the two secrets; it is written to the
+      # runner's temp directory and nowhere the upload step could pick it up.
+      # A fork or a repository without the secrets fails here, by name, rather
+      # than shipping an unsigned or debug-signed APK under a release tag.
+      - name: Build the signed release APK
+        working-directory: packages/app-android
+        env:
+          ANDROID_KEYSTORE_BASE64: ${{ secrets.ANDROID_KEYSTORE_BASE64 }}
+          ANDROID_KEYSTORE_PASSWORD: ${{ secrets.ANDROID_KEYSTORE_PASSWORD }}
+        run: |
+          set -eu
+          [ -n "$ANDROID_KEYSTORE_BASE64" ] && [ -n "$ANDROID_KEYSTORE_PASSWORD" ] || {
+            echo "::error::ANDROID_KEYSTORE_BASE64 / ANDROID_KEYSTORE_PASSWORD are not set"
+            exit 1
+          }
+          keystore="$RUNNER_TEMP/learn6502-release.p12"
+          printf '%s' "$ANDROID_KEYSTORE_BASE64" | base64 -d > "$keystore"
+          version='${{ steps.version.outputs.version }}'
+          mkdir -p "$GITHUB_WORKSPACE/ship/android"
+          ns build android --release --env.production \
+            --key-store-path "$keystore" \
+            --key-store-password "$ANDROID_KEYSTORE_PASSWORD" \
+            --key-store-alias learn6502 \
+            --key-store-alias-password "$ANDROID_KEYSTORE_PASSWORD" \
+            --copy-to "$GITHUB_WORKSPACE/ship/android/eu.jumplink.Learn6502-$version.apk"
+          rm -f "$keystore"
+
+      # A signature that does not verify, or an APK still labelled with some
+      # other version, installs nowhere useful — checked before it is uploaded.
+      - name: Verify signature and version
+        working-directory: ship/android
+        run: |
+          set -eu
+          version='${{ steps.version.outputs.version }}'
+          apk="eu.jumplink.Learn6502-$version.apk"
+          tools=$(ls -d "$ANDROID_HOME"/build-tools/* | sort -V | tail -1)
+          "$tools/apksigner" verify --print-certs "$apk" | head -2
+          badging=$("$tools/aapt2" dump badging "$apk" | head -1)
+          echo "$badging"
+          echo "$badging" | grep -q "versionName='$version'" || {
+            echo "::error::the APK is not labelled $version"
+            exit 1
+          }
+
+      - name: Upload the APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: android-apk
+          path: ship/android/*.apk
+          compression-level: 0
+          if-no-files-found: error
+
   publish:
     name: Attach to the release
-    needs: [artifacts, flatpak]
+    needs: [artifacts, flatpak, android]
     # A branch dry run produces artifacts and stops: `inputs.publish` alone is not
     # enough, because the name it would upload to is a branch, not a release.
     if: ${{ startsWith(github.ref, 'refs/tags/v') || (inputs.publish && inputs.tag != '') }}

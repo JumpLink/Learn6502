@@ -9,46 +9,24 @@
  * final phase of the rewrite.
  */
 
-import { registerIcon } from "@gjsify/adwaita-web"; // registers the custom elements + self-injects the skin
-import bugSymbolic from "../../../app-gnome/data/icons/scalable/actions/bug-symbolic.svg";
-import buildAltSymbolic from "../../../app-gnome/data/icons/scalable/actions/build-alt-symbolic.svg";
-import clipboardSymbolic from "../../../app-gnome/data/icons/scalable/actions/clipboard-symbolic.svg";
-import codeSymbolic from "../../../app-gnome/data/icons/scalable/actions/code-symbolic.svg";
-import dpadDownSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-down-symbolic.svg";
-import dpadLeftSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-left-symbolic.svg";
-import dpadRightSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-right-symbolic.svg";
-import dpadUpSymbolic from "../../../app-gnome/data/icons/scalable/actions/dpad-up-symbolic.svg";
-import moveToWindowSymbolic from "../../../app-gnome/data/icons/scalable/actions/move-to-window-symbolic.svg";
-import nintendoControllerSymbolic from "../../../app-gnome/data/icons/scalable/actions/nintendo-controller-symbolic.svg";
-import openBookSymbolic from "../../../app-gnome/data/icons/scalable/actions/open-book-symbolic.svg";
-import pauseSymbolic from "../../../app-gnome/data/icons/scalable/actions/pause-symbolic.svg";
-import playSymbolic from "../../../app-gnome/data/icons/scalable/actions/play-symbolic.svg";
-import resetSymbolic from "../../../app-gnome/data/icons/scalable/actions/reset-symbolic.svg";
-import resumeSymbolic from "../../../app-gnome/data/icons/scalable/actions/resume-symbolic.svg";
-import schoolSymbolic from "../../../app-gnome/data/icons/scalable/actions/school-symbolic.svg";
-import shareSymbolic from "../../../app-gnome/data/icons/scalable/actions/share-symbolic.svg";
-import stepOverSymbolic from "../../../app-gnome/data/icons/scalable/actions/step-over-symbolic.svg";
-import { MainWindow } from "./main-window.js";
+import { Adw } from "@gjsify/adwaita-web";
+import type GjsAdw from "@girs/adw-1";
+// The template classes the .blp files name ($Learn, $MainButton, $Toolbar, $QuickHelpView, …) register with @learn6502/ui.
+import { MainWindow, settings, themeService } from "@learn6502/ui";
 
-// The shared @learn6502/ui widgets name these app icons; GNOME resolves them from its gresource.
-registerIcon("bug-symbolic", bugSymbolic);
-registerIcon("build-alt-symbolic", buildAltSymbolic);
-registerIcon("clipboard-symbolic", clipboardSymbolic);
-registerIcon("code-symbolic", codeSymbolic);
-registerIcon("dpad-down-symbolic", dpadDownSymbolic);
-registerIcon("dpad-left-symbolic", dpadLeftSymbolic);
-registerIcon("dpad-right-symbolic", dpadRightSymbolic);
-registerIcon("dpad-up-symbolic", dpadUpSymbolic);
-registerIcon("move-to-window-symbolic", moveToWindowSymbolic);
-registerIcon("nintendo-controller-symbolic", nintendoControllerSymbolic);
-registerIcon("open-book-symbolic", openBookSymbolic);
-registerIcon("pause-symbolic", pauseSymbolic);
-registerIcon("play-symbolic", playSymbolic);
-registerIcon("reset-symbolic", resetSymbolic);
-registerIcon("resume-symbolic", resumeSymbolic);
-registerIcon("school-symbolic", schoolSymbolic);
-registerIcon("share-symbolic", shareSymbolic);
-registerIcon("step-over-symbolic", stepOverSymbolic);
+import { initResources } from "./resources.js";
+import { injectShellStyles } from "./styles.js";
 
-const mainWindow = new MainWindow();
-mainWindow.mount(document.body);
+/** The application id, as in the GNOME app. */
+const APPLICATION_ID = "eu.jumplink.Learn6502";
+
+initResources();
+injectShellStyles();
+themeService.init(settings);
+
+// It resolves the menu's `app.*` actions and runs the accelerators. Never `runAsync`: the page is already running.
+const application = new Adw.Application();
+application.application_id = APPLICATION_ID;
+
+const mainWindow = new MainWindow(application as unknown as GjsAdw.Application);
+document.body.appendChild(mainWindow as unknown as Node);

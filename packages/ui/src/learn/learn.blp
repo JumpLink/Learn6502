@@ -94,7 +94,13 @@ template $Learn: Adw.Bin {
               margin-start: 0;
               margin-end: 0;
 
-              $TutorialView tutorialView {}
+              // Empty on purpose: `Learn` puts a `TutorialView` here on the first visit.
+              // The class `mx-4` is NativeScript's margin utility and nothing on GTK.
+              Adw.Bin tutorialHost {
+                styles [
+                  "mx-4",
+                ]
+              }
             }
           }
         }

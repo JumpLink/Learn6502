@@ -2,13 +2,11 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 
 import type { Memory, Labels, Simulator, Assembler } from "@learn6502/core";
-import {
-  gameConsoleController,
-  gameConsoleStateService,
-  type GameConsoleView,
-  type GamepadKey,
-  type SimulatorStack,
-} from "@learn6502/common-ui";
+import { gameConsoleController } from "../controller/index.ts";
+import { gameConsoleStateService } from "../services/index.ts";
+import { type GameConsoleView } from "../views/index.ts";
+import { type GamepadKey } from "../types/index.ts";
+import { type SimulatorStack } from "@learn6502/core";
 
 import type { Display } from "./display.ts";
 import type { Gamepad } from "./gamepad.ts";
@@ -85,6 +83,8 @@ export class GameConsole extends Adw.Bin implements GameConsoleView {
     stack.simulator.reset();
     // After the display is bound, so the pattern is painted.
     gameConsoleStateService.initializeMemoryWithTestPattern(stack.memory, "colorChart");
+    // release.yml's node-bundle smoke test waits for exactly this line.
+    console.log("GameConsole: Initialization complete");
   }
 
   public assemble(code: string): void {

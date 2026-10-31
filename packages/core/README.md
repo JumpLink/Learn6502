@@ -2,7 +2,7 @@
 
 A standalone **6502 assembler, simulator and disassembler** written in TypeScript.
 
-This is the engine behind [Learn 6502 Assembly](https://github.com/JumpLink/Learn6502) — the
+This is the engine behind [Learn 6502](https://github.com/JumpLink/Learn6502) — the
 GNOME / Web / Android learning app — extracted as a dependency-free, runtime-agnostic library. It
 has **no runtime dependencies** and runs anywhere modern JavaScript does: Node.js, [GJS](https://gjs.guide/)
 (GNOME / SpiderMonkey) and the browser.
@@ -150,7 +150,7 @@ A few helpers used throughout the engine are exported for convenience:
 
 - Original implementation by **Stian Søreng** (2006–2010) — www.6502asm.com
 - Adapted by **Nick Morgan** for the easy6502 tutorial — https://github.com/skilldrick/6502js
-- Further adapted for [Learn 6502 Assembly](https://github.com/JumpLink/Learn6502), refactored into
+- Further adapted for [Learn 6502](https://github.com/JumpLink/Learn6502), refactored into
   a typed, dependency-free, cross-runtime library and split into this `@learn6502/core` package.
 
 ## License

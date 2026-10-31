@@ -1,6 +1,6 @@
 import { readFileSync } from "node:fs";
 
-import { createSimulatorStack } from "@learn6502/common-ui";
+import { createSimulatorStack } from "@learn6502/core";
 import { formatMessage } from "@learn6502/core";
 
 import { AnsiDisplay } from "./ansi-display.js";

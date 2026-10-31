@@ -1,6 +1,6 @@
-# Learn 6502 Assembly for GNOME
+# Learn 6502 for GNOME
 
-This package contains the source code for the Learn 6502 Assembly GNOME app.
+This package contains the source code for the Learn 6502 GNOME app.
 
 ## Development
 

@@ -3,10 +3,12 @@ import Adw from "@girs/adw-1";
 import type Gtk from "@girs/gtk-4.0";
 import GLib from "@girs/glib-2.0";
 import { EventDispatcher } from "@learn6502/core";
-import type { LearnView, LearnViewEventMap } from "@learn6502/common-ui";
-import { learnController } from "@learn6502/common-ui";
+import type { LearnView } from "../views/index.ts";
+import type { LearnViewEventMap } from "../types/index.ts";
+import { learnController } from "../controller/index.ts";
 
 import type { ExamplesList } from "./examples-list.ts";
+import { TutorialView } from "../mdx/index.ts";
 
 import Template from "./learn.blp?template";
 
@@ -14,11 +16,13 @@ const MAIN_PAGE = "main";
 
 /**
  * @class Learn, the landing page that opens the tutorial and the examples
- * Implements LearnView from common-ui
+ * Implements LearnView
  *
- * The template names `$TutorialView`, whose content is generated per platform from the same MDX:
- * the app registers a class of that name before it builds a Learn. That class is also the one that
- * hands the tutorial's code to `learnController`, as the examples do here.
+ * The tutorial page starts EMPTY and gets its `TutorialView` on the first visit, as the examples
+ * list is populated on its first visit: the generated tutorial is a few hundred widgets, and a page
+ * nobody opens should cost nothing. `TutorialView` is the shared one from `../mdx/`, built from the
+ * same generated Blueprint on all three platforms, and it hands the tutorial's code to
+ * `learnController` exactly as the examples do here.
  *
  * @emits subpage-changed - A page was opened or closed, so the shell can show a back button
  * @emits share - The user asked to share their own example
@@ -31,6 +35,7 @@ export class Learn extends Adw.Bin implements LearnView {
   declare private _tutorialRow: Adw.ActionRow;
   declare private _examplesRow: Adw.ActionRow;
   declare private _tutorialScroll: Gtk.ScrolledWindow;
+  declare private _tutorialHost: Adw.Bin;
   declare private _examplesScroll: Gtk.ScrolledWindow;
   declare private _examplesList: ExamplesList;
   declare private _shareButton: Gtk.Button;
@@ -48,6 +53,7 @@ export class Learn extends Adw.Bin implements LearnView {
           "tutorialRow",
           "examplesRow",
           "tutorialScroll",
+          "tutorialHost",
           "examplesScroll",
           "examplesList",
           "shareButton",
@@ -74,8 +80,15 @@ export class Learn extends Adw.Bin implements LearnView {
 
   private onVisiblePageChanged = (): void => {
     const tag = this._navigationView.get_visible_page_tag();
-    // The cards are built on first visit: a page nobody opens costs nothing
+    // The cards and the tutorial are built on first visit: a page nobody opens costs nothing
     if (tag === "examples") this._examplesList.populate();
+    if (tag === "tutorial" && this._tutorialHost.get_child() === null) {
+      const view = new TutorialView();
+      // Below the first screen nothing is on show yet, so it does not have to be laid out
+      // before the page appears: `MdxView` reveals the rest once the view is mapped.
+      view.deferBelowFold();
+      this._tutorialHost.set_child(view);
+    }
     this.events.dispatch("subpage-changed", { hasSubpage: this.hasVisibleSubpage, tag });
   };
 

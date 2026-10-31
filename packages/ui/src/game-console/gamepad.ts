@@ -1,7 +1,9 @@
 import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
-import { type GamepadKey, type GamepadWidget, type GamepadEventMap, getGamepadKeyCode } from "@learn6502/common-ui";
+import { type GamepadKey, type GamepadEventMap } from "../types/index.ts";
+import { type GamepadWidget } from "../widgets/index.ts";
+import { getGamepadKeyCode } from "../data/index.ts";
 
 import Template from "./gamepad.blp?template";
 import { EventDispatcher } from "@learn6502/core";

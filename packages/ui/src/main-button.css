@@ -2,9 +2,9 @@
   revealer {
     /* Horizontal spacing lives on the revealer's logical margin-end (set in
        main-button.blp) so it mirrors in RTL; padding-right would not. */
-    padding-bottom: 16;
+    padding-bottom: 16px;
     button {
-      padding: 12;
+      padding: 12px;
     }
   }
 }

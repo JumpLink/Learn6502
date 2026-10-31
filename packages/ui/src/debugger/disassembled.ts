@@ -3,7 +3,8 @@ import Adw from "@girs/adw-1";
 import type { SourceView } from "../source-view.ts";
 
 import { type Assembler, EventDispatcher } from "@learn6502/core";
-import type { DisassembledEventMap, DisassembledWidget, SourceViewCopyEvent } from "@learn6502/common-ui";
+import type { DisassembledEventMap, SourceViewCopyEvent } from "../types/index.ts";
+import type { DisassembledWidget } from "../widgets/index.ts";
 
 import Template from "./disassembled.blp?template";
 

@@ -1,18 +1,21 @@
 /**
  * Structural validation for the generated tutorial artifacts.
  *
- * One MDX source is rendered into three unrelated targets — `dist/*.ui` for
- * app-gnome, `dist/*.ns.xml` for app-android, `dist/*.html` for app-web — and
- * nothing downstream reads all three. A renderer change that breaks only one of
- * them therefore reaches `main` looking green: the GNOME app is the only
- * consumer that fails loudly, and it fails at runtime, in whatever paragraph
- * the reader happens to open.
+ * One MDX source used to be rendered into three unrelated targets — `.ui` for
+ * app-gnome, `.ns.xml` for app-android, `.html` for app-web — and nothing
+ * downstream read all three, so a renderer change that broke only one of them
+ * reached `main` looking green. There is one target now: `dist/*.blp`, which
+ * all three platforms compile through `@gjsify/vite-plugin-blueprint`. That
+ * removes the class of bug the cross-target rules existed for, and removes the
+ * independent witness they were made of — so what is checked here is the
+ * blueprint against the GtkBuilder XML it compiles to, and that XML against
+ * what its consumers can actually resolve.
  *
- * The rules below are structural on purpose. A byte snapshot of a 136 KB
+ * The rules below are structural on purpose. A byte snapshot of a 150 KB
  * generated file is a diff nobody reads and everybody regenerates, so it stops
  * being evidence the first time someone reformats the emitter. What is asserted
- * here is what the three consumers actually require, and every rule names the
- * damage it prevents.
+ * here is what the consumers actually require, and every rule names the damage
+ * it prevents.
  *
  * Every markup verdict was measured rather than inferred: `Pango.parse_markup`
  * on GTK 4 / Pango 1.57 rejects `&ndash;` and `&times;` as unknown entities,
@@ -27,6 +30,8 @@
  */
 
 import { existsSync, readFileSync } from "node:fs";
+import { emitGtkBuilderXml, parseBlueprint } from "@gjsify/blueprint";
+import { uiToBlueprint } from "./tsx/ui-to-blueprint.ts";
 
 // The package directory, which is where `gjsify workspace` runs a script from.
 // Deliberately not derived from `import.meta.url`: the `--app gjs` target runs
@@ -34,33 +39,25 @@ import { existsSync, readFileSync } from "node:fs";
 // directory too deep and the run would report success having read nothing.
 const DIST = "dist";
 
-/** The MDX documents rendered by `tsx/index.tsx`, each into all three targets. */
+/** The MDX documents rendered by `tsx/index.tsx`, each into one `.blp`. */
 const DOCUMENTS = ["tutorial", "quick-help"];
 
 /**
- * The element vocabulary each target may contain.
+ * The element vocabulary the compiled GtkBuilder XML may contain.
  *
- * These are allow-lists, not descriptions: a new element in a generated file is
- * a claim that the consumer can render it, and that claim only becomes true
- * once someone has taught the consumer about it. app-gnome loads the `.ui`
- * through `Gtk.Builder`, which fails the whole view on an object class it
- * cannot resolve, and NativeScript's `Builder.load` does the same for the
- * `.ns.xml`. So growing this list is a deliberate act, paired with the widget
- * that handles the new element.
+ * An allow-list, not a description: a new element in a generated file is a
+ * claim that the consumer can render it, and that claim only becomes true once
+ * someone has taught the consumer about it. All three platforms load the
+ * compiled XML through a builder that refuses the whole document on an element
+ * or GType it cannot resolve, so growing this list is a deliberate act, paired
+ * with the widget that handles the new element.
  */
 const VOCABULARY = {
-  ui: {
-    root: "interface",
-    elements: new Set(["interface", "requires", "template", "child", "object", "property", "style", "class"]),
-    // `SourceView` is app-gnome's own widget (`packages/app-gnome/src/widgets`),
-    // not a GTK class — it resolves because the app registers its GType before
-    // the builder runs.
-    objectClasses: new Set(["GtkBox", "GtkLabel", "SourceView"]),
-  },
-  ns: {
-    root: "StackLayout",
-    elements: new Set(["StackLayout", "HtmlView", "w:SourceView"]),
-  },
+  root: "interface",
+  elements: new Set(["interface", "requires", "template", "child", "object", "property", "style", "class"]),
+  // `SourceView` is the apps' own widget, not a GTK class — it resolves because
+  // each platform registers its type before the builder runs.
+  objectClasses: new Set(["GtkBox", "GtkLabel", "SourceView"]),
 };
 
 /**
@@ -90,17 +87,9 @@ const TRANSLATABLE_LABEL = /<property name="label" translatable="yes"([^>]*)>([\
 // The whole `SourceView` element, not `<property name="code">` pinned to the
 // front of it: property order carries no meaning in XML and `Gtk.Builder`
 // ignores it, so an extractor that depends on it turns a legitimate emitter
-// refactor into a red build — and, worse, reports the loss against the *other*
-// targets, which are the ones that did not change.
+// refactor into a red build.
 const BLOCK_CODE_UI_OBJECT = /<object class="SourceView"[^>]*>([\s\S]*?)<\/object>/g;
 const CODE_PROPERTY = /<property name="code">([\s\S]*?)<\/property>/;
-const INLINE_CODE_LABEL = /<tt>([\s\S]*?)<\/tt>/g;
-const INLINE_CODE_HTML = /<code[^>]*>([\s\S]*?)<\/code>/g;
-const BLOCK_CODE_HTML = /<adw-source-view\b[^>]*?\scode="([^"]*)"/g;
-/** The elements `html.components.tsx` renders prose into, each a `.ui` label. */
-const HTML_TEXT_BLOCK = /<(p|h1|h2|h3|h4|li)\b[^>]*>([\s\S]*?)<\/\1>/g;
-const HTML_ATTRIBUTE = /\bhtml="([^"]*)"/g;
-const SOURCE_VIEW_CODE = /<w:SourceView\b[^>]*?\scode="([^"]*)"/g;
 
 /** Resolves the five predefined entities and numeric character references. */
 function unescapeXml(text) {
@@ -268,12 +257,9 @@ function read(name) {
   return readFileSync(`${DIST}/${name}`, "utf8");
 }
 
-/** The translatable labels of one `.ui`, with their xgettext comment. */
+/** The translatable labels of one GtkBuilder document. */
 function translatableLabels(ui) {
-  return [...ui.matchAll(TRANSLATABLE_LABEL)].map(([, attributes, body]) => ({
-    comment: /comments="([^"]*)"/.exec(attributes)?.[1] ?? null,
-    markup: unescapeXml(body),
-  }));
+  return [...ui.matchAll(TRANSLATABLE_LABEL)].map(([, , body]) => unescapeXml(body));
 }
 
 /**
@@ -289,20 +275,13 @@ function labelMarkupErrors(markup) {
   return scanMarkup(markup, { tags: LABEL_TAGS, tagAttributes: LABEL_TAG_ATTRIBUTES, fragment: true }).errors;
 }
 
-/** Readable text of a markup fragment, normalised for comparison across targets. */
-function plainText(markup) {
-  return unescapeXml(markup.replace(/<[^>]*>/g, ""))
-    .replace(/\s+/g, " ")
-    .trim();
-}
-
 /**
- * Block-code literals of a `.ui`, with the number of `SourceView` objects they
- * came from.
+ * Block-code literals of a GtkBuilder document, with the number of
+ * `SourceView` objects they came from.
  *
- * The two numbers are reported separately because an editor widget with no code
- * in it is a defect the comparison against the other targets cannot see: it
- * removes the literal from both sides at once.
+ * The two numbers are reported separately because an editor widget with no
+ * code in it is a defect no comparison can see: it removes the literal from
+ * both sides at once.
  */
 function uiBlockCode(ui) {
   const objects = [...ui.matchAll(BLOCK_CODE_UI_OBJECT)];
@@ -313,42 +292,36 @@ function uiBlockCode(ui) {
   return { objects: objects.length, codes };
 }
 
-/** The prose of a `.ui`, one entry per translatable label. */
-function uiProse(ui) {
-  return translatableLabels(ui).map((label) => plainText(label.markup));
-}
-
-/** The prose of an `.html`, one entry per rendered text block. */
-function htmlProse(html) {
-  return [...html.matchAll(HTML_TEXT_BLOCK)].map((match) => plainText(match[2])).filter(Boolean);
-}
-
-/** Inline and block code literals as they reach each of the three targets. */
-function codeLiterals(document) {
-  const ui = read(`${document}.ui`);
-  const ns = read(`${document}.ns.xml`);
-  const html = read(`${document}.html`);
-
-  return {
-    ui: {
-      inline: translatableLabels(ui).flatMap((label) =>
-        [...label.markup.matchAll(INLINE_CODE_LABEL)].map((match) => unescapeXml(match[1]))
-      ),
-      block: uiBlockCode(ui).codes,
-    },
-    ns: {
-      // Inline code is a `<tt>` span inside the escaped `html` attribute of an
-      // `HtmlView`; block code is a `w:SourceView` element of its own.
-      inline: [...ns.matchAll(HTML_ATTRIBUTE)].flatMap((match) =>
-        [...unescapeXml(match[1]).matchAll(INLINE_CODE_LABEL)].map((code) => unescapeXml(code[1]))
-      ),
-      block: [...ns.matchAll(SOURCE_VIEW_CODE)].map((match) => unescapeXml(match[1])),
-    },
-    html: {
-      inline: [...html.matchAll(INLINE_CODE_HTML)].map((match) => unescapeXml(match[1])),
-      block: [...html.matchAll(BLOCK_CODE_HTML)].map((match) => unescapeXml(match[1])),
-    },
-  };
+/**
+ * What `xgettext` takes from a `.blp`: every marked string, in source order,
+ * with the line above it that becomes its translator comment.
+ *
+ * Deliberately a separate reader from the blueprint compiler's: what reaches
+ * the catalogs is what the extractor's JavaScript scanner sees in the file,
+ * not what the compiler understood. `--language=JavaScript` is what
+ * `@gjsify/vite-plugin-gettext` passes for a `.blp` (0.26 rejects
+ * `--language=Blueprint`), so a `_("…")` the compiler ignores would still be
+ * extracted, and a string the compiler translates through some other spelling
+ * would not be.
+ *
+ * `comment` is the whole previous line rather than the text after `//`,
+ * because that is the granularity `--add-comments` works at: a comment is
+ * attached only when it sits on its own line directly above the keyword.
+ */
+function blueprintTranslations(blueprint) {
+  const found = [];
+  for (const match of blueprint.matchAll(/\b_\(("(?:[^"\\]|\\.)*")\)/g)) {
+    // The slice ends mid-line, at `label: _(`, so the last entry is the
+    // keyword's own line and the one before it is the candidate comment.
+    const above = blueprint.slice(0, match.index).split("\n");
+    found.push({
+      msgid: match[1]
+        .slice(1, -1)
+        .replace(/\\(n|t|r|\\|")/g, (_, escape) => ({ n: "\n", t: "\t", r: "\r", "\\": "\\", '"': '"' })[escape]),
+      comment: above[above.length - 2]?.trim() ?? "",
+    });
+  }
+  return found;
 }
 
 /**
@@ -409,14 +382,75 @@ const EXTRACTION_TEST = [
       return found.objects === 1 && found.codes.length === 0;
     },
   ],
-  ["a label's prose survives its markup", () => plainText("Use <tt>LDA</tt>\n and <b>Step</b>") === "Use LDA and Step"],
   [
-    "prose is found under every element the html target renders text into",
+    "the msgid reader resolves the escapes a blueprint literal may carry",
     () =>
-      htmlProse('<h2 class="t">Registers</h2><p>The <code>A</code> register</p><ul><li>one</li></ul>').join("|") ===
-      "Registers|The A register|one",
+      blueprintTranslations('label: _("a \\"q\\" \\\\ b\\nc");')
+        .map((translation) => translation.msgid)
+        .join("|") === 'a "q" \\ b\nc' && blueprintTranslations('code: "not translatable";').length === 0,
+  ],
+  [
+    // The keyword sits mid-line, after `label: `, so a reader that takes the
+    // last line before it reads the string's own line and never sees a
+    // comment — which reports every label in both documents as uncommented.
+    "the comment is read from the line above the keyword, not from its own line",
+    () =>
+      blueprintTranslations('  // TRANSLATORS: from the MDX\n  label: _("Introduction");')[0]?.comment ===
+        "// TRANSLATORS: from the MDX" && blueprintTranslations('  label: _("Introduction");')[0]?.comment === "",
   ],
 ];
+
+/**
+ * Conversions `uiToBlueprint` must get right, run before any artifact is read.
+ *
+ * The converter is the one piece of this pipeline with no second implementation
+ * to disagree with it: `tsx/index.tsx` checks each document against the XML it
+ * was rendered from, but only for the shapes that document happens to contain.
+ * These are the shapes that cost a paragraph when they go wrong and that the
+ * two MDX files do not necessarily exercise.
+ */
+const CONVERSION_TEST = [
+  [
+    "a label that talks about markup keeps its escaped entity",
+    // `&amp;lt;` is what the tutorial's prose about `<` renders to. Resolving
+    // the entities in two passes would turn it into a literal `<` and Pango
+    // would read the paragraph as a malformed tag.
+    '<property name="label" translatable="yes">write &amp;lt; as &amp;amp;lt;</property>',
+    'label: _("write &lt; as &amp;lt;");',
+  ],
+  ["a non-translatable label is a plain string", '<property name="label">1. </property>', 'label: "1. ";'],
+  // The nick, not the member's number: GtkBuilder resolves both, the
+  // NativeScript port only the nick. Bare, not quoted — an enum value is an
+  // identifier in blueprint, and quoting it would claim the property is a
+  // string. `tsx/enums/gtk.enums.ts` records the blank screen that proved it.
+  ["an enum value is the GTK nick, spelled bare", '<property name="valign">baseline</property>', "valign: baseline;"],
+  [
+    "a value that is not a member of the enum stops the build",
+    '<property name="halign">5</property>',
+    { refuses: "not a halign member" },
+  ],
+  ["a boolean stays a boolean", '<property name="wrap">true</property>', "wrap: true;"],
+  [
+    "a code literal keeps its newlines as escapes",
+    '<property name="code">LDA #$01\nSTA $0200</property>',
+    'code: "LDA #$01\\nSTA $0200";',
+  ],
+  [
+    "a widget blueprint has no introspection for is an extern type",
+    '<child><object class="SourceView" id="sourceView0"><property name="language">6502</property></object></child>',
+    "$SourceView sourceView0 {",
+  ],
+  ["a known GTK class is named, not externed", '<child><object class="GtkBox"></object></child>', "Gtk.Box {"],
+];
+
+/** A minimal rendered document with `body` inside the template's box. */
+function conversionFixture(body) {
+  return (
+    '<?xml version="1.0" encoding="UTF-8"?><interface><requires lib="gtk" version="4.0"/>' +
+    '<template class="TutorialView" parent="MdxView"><child><object class="GtkBox">' +
+    `${body}</object></child></template></interface>`
+  );
+}
 
 /** Self-test results that came out the wrong way round. */
 function selfTestFailures() {
@@ -426,6 +460,24 @@ function selfTestFailures() {
     const verdict = errors.length ? "reject" : "accept";
     if (verdict !== expected)
       wrong.push(`expected to ${expected}: ${clip(source)} (${errors.join("; ") || "no problem reported"})`);
+  }
+  for (const [what, body, expected] of CONVERSION_TEST) {
+    // A string `expected` has to appear in the blueprint; a `{ refuses }` one
+    // has to appear in the error instead, because a shape the converter must
+    // not guess at is as much a rule as a shape it must emit.
+    const refusal = typeof expected === "string" ? undefined : expected.refuses;
+    let produced;
+    try {
+      produced = uiToBlueprint(conversionFixture(body));
+    } catch (error) {
+      if (!refusal) wrong.push(`conversion threw on ${what}: ${error.message}`);
+      else if (!error.message.includes(refusal))
+        wrong.push(`conversion refused ${what} for the wrong reason: ${error.message}`);
+      continue;
+    }
+    if (refusal) wrong.push(`conversion no longer refuses ${what}`);
+    else if (!produced.includes(expected))
+      wrong.push(`conversion no longer holds — ${what}: expected ${clip(expected)}`);
   }
   return wrong;
 }
@@ -441,10 +493,10 @@ function check() {
     return 1;
   }
 
-  // Rule 1 — the emitter wrote every artifact its three consumers import.
+  // Rule 1 — the emitter wrote every artifact its consumers import.
   // A missing file is the one failure that would let every rule below pass by
   // reading nothing, so it is checked first and aborts the run.
-  const artifacts = DOCUMENTS.flatMap((document) => [`${document}.ui`, `${document}.ns.xml`, `${document}.html`]);
+  const artifacts = DOCUMENTS.map((document) => `${document}.blp`);
   const absent = artifacts.filter((name) => !existsSync(`${DIST}/${name}`));
   if (absent.length) {
     console.error(`${DIST}/ is missing ${absent.length} artifact(s): ${absent.join(", ")}`);
@@ -458,98 +510,92 @@ function check() {
   };
 
   for (const document of DOCUMENTS) {
-    const ui = read(`${document}.ui`);
-    const ns = read(`${document}.ns.xml`);
+    const blueprint = read(`${document}.blp`);
 
-    // Rule 2 — the `.ui` and `.ns.xml` are well-formed XML with the expected
-    // root, and contain only elements their consumer can resolve. `Gtk.Builder`
-    // and NativeScript's `Builder.load` both refuse the whole document on a
-    // parse error, so this is the difference between one broken paragraph and a
+    // The compiled XML, not the `.blp`, is what every rule below reads: it is
+    // what the three platforms hand to their builder, and the step that
+    // produces it is the one the apps cannot check for themselves. A blueprint
+    // that no longer compiles fails the whole document, which is exactly what
+    // it would do at import time on all three platforms at once.
+    let ui;
+    try {
+      ui = emitGtkBuilderXml(parseBlueprint(blueprint, { path: `${DIST}/${document}.blp` }));
+    } catch (error) {
+      report(`${document}.blp`, [`does not compile: ${error.message}`]);
+      continue;
+    }
+
+    // Rule 2 — the compiled XML is well-formed, has the expected root, and
+    // contains only elements its consumer can resolve. `Gtk.Builder` and the
+    // web and NativeScript builders all refuse the whole document on a parse
+    // error, so this is the difference between one broken paragraph and a
     // blank screen.
-    for (const [name, source, vocabulary] of [
-      [`${document}.ui`, ui, VOCABULARY.ui],
-      [`${document}.ns.xml`, ns, VOCABULARY.ns],
-    ]) {
-      const scan = scanMarkup(source, { tags: vocabulary.elements });
-      report(name, scan.errors);
-      if (scan.elements[0]?.name !== vocabulary.root)
-        report(name, [`root element is <${scan.elements[0]?.name}>, expected <${vocabulary.root}>`]);
+    const scan = scanMarkup(ui, { tags: VOCABULARY.elements });
+    report(`${document}.blp`, scan.errors);
+    if (scan.elements[0]?.name !== VOCABULARY.root)
+      report(`${document}.blp`, [`root element is <${scan.elements[0]?.name}>, expected <${VOCABULARY.root}>`]);
 
-      // Rule 3 — every object class the `.ui` names is one app-gnome can
-      // resolve. `Gtk.Builder` fails on an unknown GType, and it is not the
-      // emitter that finds out: the app is.
-      for (const element of scan.elements) {
-        const objectClass = element.name === "object" ? element.attributes.get("class") : null;
-        if (objectClass && !vocabulary.objectClasses?.has(objectClass))
-          report(name, [`unknown object class: ${objectClass}`]);
-      }
+    // Rule 3 — every object class the compiled XML names is one the apps can
+    // resolve. A builder fails on an unknown GType, and it is not the emitter
+    // that finds out: the app is.
+    for (const element of scan.elements) {
+      const objectClass = element.name === "object" ? element.attributes.get("class") : null;
+      if (objectClass && !VOCABULARY.objectClasses.has(objectClass))
+        report(`${document}.blp`, [`unknown object class: ${objectClass}`]);
     }
 
     const labels = translatableLabels(ui);
-    if (!labels.length) report(`${document}.ui`, ["no translatable labels — the renderer produced no text"]);
+    if (!labels.length) report(`${document}.blp`, ["no translatable labels — the renderer produced no text"]);
 
-    // Rule 4 — the `.ui` carries every paragraph the `.html` does.
-    // The `.ui` is what `xgettext` extracts the catalogs from, so prose that
-    // stops reaching it is a string that stops existing for every translator,
-    // and neither the catalogs nor any other rule here can miss what is no
-    // longer there. The `.html` is the independent witness: it is rendered from
-    // the same MDX in the same run, so the two have to agree paragraph for
-    // paragraph. (The `.ns.xml` is not usable for this — it groups list items
-    // into one `HtmlView`, so it has no per-paragraph structure to compare.)
-    const prose = { ui: count(uiProse(ui)), html: count(htmlProse(read(`${document}.html`))) };
+    // Rule 4 — the strings the catalogs get are the strings the apps render.
+    // The two halves of a translated label travel separately: `xgettext` reads
+    // the `.blp` to build the POT, while the apps look up the compiled XML's
+    // `translatable="yes"` text at runtime. A spelling that shifts one without
+    // the other is not a broken build — it is a msgid that no catalog has a
+    // translation for, so the string renders in English for all 16 languages
+    // and the POT shows nothing wrong. This is what the old cross-target
+    // comparison protected by accident; here it is the rule.
+    const translations = blueprintTranslations(blueprint);
+    const msgids = { blp: count(translations.map((translation) => translation.msgid)), ui: count(labels) };
     report(
       document,
-      missing(prose.html, prose.ui).map((text) => `paragraph rendered to html but not to the .ui: ${clip(text)}`)
+      missing(msgids.blp, msgids.ui).map((text) => `extracted for translation but not in the view: ${clip(text)}`)
     );
     report(
       document,
-      missing(prose.ui, prose.html).map((text) => `paragraph rendered to the .ui but not to html: ${clip(text)}`)
+      missing(msgids.ui, msgids.blp).map((text) => `translated at runtime but never extracted: ${clip(text)}`)
     );
 
-    for (const label of labels) {
-      // Rule 5 — every translatable string carries its translator comment.
-      // xgettext copies `comments=` into the POT as the `#.` line, which is the
-      // only context a translator gets: the catalogs are generated with
-      // `noLocation`, so without it the string arrives with no provenance at
-      // all.
-      if (!label.comment?.startsWith("TRANSLATORS:"))
-        report(`${document}.ui`, [`translatable label without a TRANSLATORS comment: ${clip(label.markup)}`]);
-
-      // Rule 6 — the label markup parses as Pango markup.
-      for (const error of labelMarkupErrors(label.markup))
-        report(`${document}.ui`, [`unrenderable label markup — ${error}: ${clip(label.markup)}`]);
+    // Rule 5 — every translatable string carries its translator comment.
+    // `comments=` is a GtkBuilder attribute blueprint does not carry into its
+    // output, so the comment has to be a `//` line directly above the `_()`
+    // for bare `--add-comments` to attach it. It is the only context a
+    // translator gets: the catalogs are generated with `noLocation`, so
+    // without it the string arrives with no provenance at all. Read off the
+    // `.blp` in source order — the file and the order the extractor works in —
+    // rather than looked up by msgid, because the same text may legitimately
+    // appear twice and a lookup would then check one occurrence twice.
+    for (const { msgid, comment } of translations) {
+      if (!comment.startsWith("// TRANSLATORS:"))
+        report(`${document}.blp`, [`translatable label without a TRANSLATORS comment: ${clip(msgid)}`]);
     }
 
-    // Rule 7 — the same code literals reach all three targets.
-    // They are what the reader retypes into the editor, and each target encodes
-    // them differently (`<tt>` on GTK, an escaped `w:SourceView` on
-    // NativeScript, `<code>` on the web), so a renderer change that drops or
-    // mangles one of them shows up nowhere else.
-    const literals = codeLiterals(document);
+    // Rule 6 — the label markup parses as Pango markup. Against the compiled
+    // XML, because that is the string `Gtk.Label` is handed.
+    for (const label of labels) {
+      for (const error of labelMarkupErrors(label))
+        report(`${document}.blp`, [`unrenderable label markup — ${error}: ${clip(label)}`]);
+    }
 
-    // An editor widget with no code in it is invisible to the comparison below,
-    // because it removes the literal from the `.ui` reference set and from the
-    // target at the same time.
+    // Rule 7 — every editor widget carries the code it is there to show.
+    // The literals are what the reader retypes into the emulator, and an empty
+    // `SourceView` is the one loss no other rule here can see: it takes the
+    // literal out of every set that would be compared against it.
     const editors = uiBlockCode(ui);
     if (editors.objects !== editors.codes.length)
-      report(`${document}.ui`, [
+      report(`${document}.blp`, [
         `${editors.objects - editors.codes.length} SourceView object(s) without a code property`,
       ]);
-
-    for (const kind of ["inline", "block"]) {
-      const reference = count(literals.ui[kind]);
-      for (const target of ["ns", "html"]) {
-        const actual = count(literals[target][kind]);
-        report(
-          `${document} (${kind} code)`,
-          missing(reference, actual).map((literal) => `missing from the ${target} target: ${clip(literal)}`)
-        );
-        report(
-          `${document} (${kind} code)`,
-          missing(actual, reference).map((literal) => `only in the ${target} target: ${clip(literal)}`)
-        );
-      }
-    }
   }
 
   for (const { where, problem } of failures) console.error(`${where}: ${problem}`);
@@ -560,8 +606,8 @@ function check() {
   }
 
   console.log(
-    `All generated artifacts passed structural validation (${DOCUMENTS.length} documents × 3 targets, ` +
-      `${SELF_TEST.length + EXTRACTION_TEST.length} self-test cases).`
+    `All generated artifacts passed structural validation (${DOCUMENTS.length} documents, ` +
+      `${SELF_TEST.length + EXTRACTION_TEST.length + CONVERSION_TEST.length} self-test cases).`
   );
   return 0;
 }

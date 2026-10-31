@@ -6,3 +6,7 @@ export * from "./labels.js";
 export * from "./memory.js";
 export * from "./simulator.js";
 export * from "./utils.js";
+export * from "./display-config.js";
+export * from "./display-constants.js";
+export * from "./display-widget.js";
+export * from "./simulator-factory.js";

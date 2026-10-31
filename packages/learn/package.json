@@ -6,8 +6,7 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
-    "build": "gjsify build tsx/index.tsx --app gjs --globals node --outfile dist/index.js && gjsify run dist/index.js && gjsify run build:copy",
-    "build:copy": "cp -r dist/tutorial.ns.xml ../app-android/app/mdx/tutorial.xml && cp -r dist/quick-help.ns.xml ../app-android/app/mdx/quick-help.xml",
+    "build": "gjsify build tsx/index.tsx --app gjs --globals node --outfile dist/index.js && gjsify run dist/index.js",
     "check": "gjsify run clear && gjsify run build && gjsify build check.js --app gjs --outfile dist/check.gen.js && gjsify run dist/check.gen.js",
     "clear": "rm -rf dist"
   },
@@ -38,8 +37,10 @@
     }
   },
   "devDependencies": {
-    "@gjsify/cli": "0.64.1-next.240",
-    "@gjsify/dom-elements": "0.64.1-next.240",
+    "@gjsify/blueprint": "^0.64.12",
+    "@gjsify/cli": "0.64.1-next.245",
+    "@gjsify/dom-elements": "0.64.1-next.245",
+    "@gjsify/fs": "0.64.1-next.245",
     "@mdx-js/rollup": "^3.1.1",
     "@types/mdx": "^2.0.13",
     "@types/node": "^25.9.1",

@@ -1,11 +1,11 @@
-# Learn 6502 Assembly — Web App
+# Learn 6502 — Web App
 
 [![License: CC BY 4.0](https://img.shields.io/badge/License-CC%20BY%204.0-lightgrey.svg)](https://creativecommons.org/licenses/by/4.0/)
 
-The web version of [Learn 6502 Assembly](../../README.md), built as an Adwaita
+The web version of [Learn 6502](../../README.md), built as an Adwaita
 single-page app on [`@gjsify/adwaita-web`](https://www.npmjs.com/package/@gjsify/adwaita-web).
 It looks and behaves like the native GNOME desktop app (`../app-gnome`), sharing
-the same `@learn6502/common-ui` controllers and `@learn6502/core` assembler /
+the same `@learn6502/ui` controllers and `@learn6502/core` assembler /
 simulator — the four views (Learn, Editor, Debugger, Game Console) are the web
 twins of the GNOME views.
 

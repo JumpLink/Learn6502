@@ -469,13 +469,34 @@ Page.adw-window {
  * a 32 tap target it never got. `color` and `font-size` were dead for the other
  * reason: it is an `Image` of a pre-coloured bitmap.
  *
- * The tap target is a separate matter, filed as #1155 — libadwaita toggles from
- * the HEADER ROW ("must be activatable to toggle expansion by clicking or
- * tapping anywhere on it", adw-expander-row.ui:25-27), and this port listens on
- * the chevron alone. */
+ * The tap target is NOT this rule's business either (#1155): the row listens on the
+ * title/subtitle stack as well as the chevron, which is how libadwaita's activatable
+ * header row reads ("tapping anywhere on it", adw-expander-row.ui:25-27). The
+ * chevron's own 16 is upstream's minimum and stays it.
+ *
+ * `opacity` here is the RESTING 70%; the chevron's second opacity — the disabled
+ * 50% of `sensitive` — is assigned by the widget, because the NS CSS subset has no
+ * widget states to select on (`NS_EXPANDER_ARROW_DISABLED_OPACITY`). NS multiplies
+ * neither: a local `opacity` write wins over this one outright. */
 .adw-expander-toggle {
     opacity: 0.7;
     margin: 0;
+}
+
+/* The trailing cluster, in the `.ui`'s order: the suffixes box, the enable switch,
+ * the chevron. `> .suffixes { border-spacing: 6px }` (_lists.scss:155-161) is the 6
+ * between them — a `StackLayout` has no spacing, so it is a leading margin on each
+ * part instead. The suffixes BOX carries none of its own: it collapses while empty
+ * (`adw_expander_row_add_suffix` is what makes it visible), and a margin on a
+ * collapsed view would still be a gap. */
+.adw-expander-row-cluster {
+    vertical-align: center;
+}
+
+.adw-expander-row-cluster .adw-switch,
+.adw-expander-row-cluster .adw-expander-toggle,
+.adw-expander-row-suffixes .adw-row-suffix {
+    margin: 0 0 0 6;
 }
 
 .adw-expander-disclosure {
@@ -485,13 +506,22 @@ Page.adw-window {
 
 /* ===== Button (variants) ===== */
 
+/* A FLOOR AND NOT A BOX. 38 is libadwaita's `min-height: 24px` plus its 5px of vertical
+ * padding twice (_buttons.scss, pin 42f647ff) — a MINIMUM there, and GTK has no CSS
+ * `height` at all. Writing it as NativeScript's `height`, which is exact, made every
+ * button in the port exactly 38 tall and silently swallowed `height-request`, which the
+ * bridge maps to `minHeight` and which GTK treats as a second floor: Learn6502's d-pad
+ * asks each of its five cells for 50×50 and got 50×38, so the cross came out as a row of
+ * flattened buttons. `min-height` is the property that means what the SCSS means, it
+ * composes with `height-request` the way GTK composes its two floors — the larger wins —
+ * and a caller that really wants an exact box can still write `height` itself. */
 .adw-button {
     background-color: rgba(0, 0, 0, 0.08);
     color: rgba(0, 0, 0, 0.8);
     border-radius: 9;
     font-weight: 700;
     padding: 5 16 5 16;
-    height: 38;
+    min-height: 38;
 }
 
 .adw-button.suggested-action {
@@ -513,10 +543,10 @@ Page.adw-window {
  * pin 42f647ff). The padding is the whole variant, and it is why this rule HAS to
  * restate the height.
  *
- * `.adw-button` above pins `height: 38`, and a NativeScript `height` is an EXACT box
- * where GTK's `min-height` is a floor — the same non-equivalence ADR 0034 measured for
- * `adw-spinner.size`. So a variant that doubles the vertical padding cannot grow the
- * box it sits in: the base budgets 38 − (5 + 5) = 28 for the label, and this one left
+ * `.adw-button` above pins a 38 floor, and this variant doubles the vertical padding
+ * inside it. While that floor was written as an EXACT NativeScript `height` — the
+ * non-equivalence ADR 0034 measured for `adw-spinner.size` — the variant could not grow
+ * the box it sat in: the base budgets 38 − (5 + 5) = 28 for the label, and this one left
  * 38 − (10 + 10) = 18 for a `.adw-button-label` at `font-size: 15`, whose line box does
  * not fit in 18. The pill was clipped, and every consumer that wanted one had to
  * override the height itself — which is how the defect surfaced, in Learn6502.
@@ -526,13 +556,17 @@ Page.adw-window {
  * 34, + 10px twice is 44 — so the pill is taller than the plain button there too.
  *
  * THE RULE THIS VARIANT BROKE, stated because the next variant will meet it: in this
- * stylesheet a class that changes vertical padding on a widget whose base pins an exact
- * `height` must restate that height. `.adw-button.circular` does (34), and both split
- * button halves do (38) beside their own padding. This one did not, and nothing said so. */
+ * stylesheet a class that changes vertical padding on a widget whose base states a
+ * `min-height` must restate that floor at its own padding. `.adw-button.circular` does
+ * (34), and both split button halves do (38) beside their own padding. This one did not,
+ * and nothing said so. The floors are `min-*` rather than `height` / `width` since the
+ * d-pad incident above, so a `height-request` larger than the floor now wins as it does
+ * in GTK — but a floor that is too SMALL for its own padding still clips, which is the
+ * half this comment is about and the reason the number is restated here. */
 .adw-button.pill {
     border-radius: 9999;
     padding: 10 32 10 32;
-    height: 48;
+    min-height: 48;
 }
 
 /* `%circular_button` — the explicit exception to the 9px rounded square: a full
@@ -542,8 +576,8 @@ Page.adw-window {
  * at all", and a class with no rule would have drawn a rounded rectangle instead. The
  * 34 is the same number `.adw-image-button` above carries, from the same line. */
 .adw-button.circular {
-    width: 34;
-    height: 34;
+    min-width: 34;
+    min-height: 34;
     border-radius: 9999;
     padding: 0;
 }
@@ -1671,6 +1705,11 @@ Page.adw-window {
     background-color: #3584e4;
 }
 
+/* A grouped check button draws the round radio (`radio { border-radius: 100% }`). */
+.adw-check-indicator.radio {
+    border-radius: 10;
+}
+
 .adw-check-label {
     font-size: 15;
     color: rgba(0, 0, 0, 0.8);
@@ -1763,13 +1802,25 @@ Page.adw-window {
     background-color: #fafafb;
     border-radius: 16;
     padding: 24;
-    width: 320;
     margin: 24;
 }
 
+/* The about card has no `content-width`; the preferences card's comes from AdwDialog. */
+.adw-about-dialog-card {
+    width: 320;
+}
+
 .adw-about-dialog-icon {
-    font-size: 48;
     margin: 0 0 8 0;
+}
+
+.adw-about-dialog-link,
+.adw-about-dialog-links-item {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.8);
+    text-decoration: underline;
+    font-size: 13;
+    margin: 2 0 2 0;
 }
 
 .adw-about-dialog-name {
@@ -1788,12 +1839,20 @@ Page.adw-window {
 .adw-about-dialog-developer,
 .adw-about-dialog-comments,
 .adw-about-dialog-website,
-.adw-about-dialog-copyright {
+.adw-about-dialog-support,
+.adw-about-dialog-issue,
+.adw-about-dialog-credits,
+.adw-about-dialog-acknowledgements,
+.adw-about-dialog-legal,
+.adw-about-dialog-release-notes,
+.adw-about-dialog-links,
+.adw-about-dialog-debug-info {
     font-size: 13;
     color: rgba(0, 0, 0, 0.6);
     margin: 2 0 2 0;
 }
 
+.adw-about-dialog-copy,
 .adw-about-dialog-close {
     background-color: rgba(0, 0, 0, 0.08);
     color: rgba(0, 0, 0, 0.8);
@@ -2622,10 +2681,23 @@ Page.ns-dark.adw-window {
 .ns-dark .adw-about-dialog-developer,
 .ns-dark .adw-about-dialog-comments,
 .ns-dark .adw-about-dialog-website,
-.ns-dark .adw-about-dialog-copyright {
+.ns-dark .adw-about-dialog-support,
+.ns-dark .adw-about-dialog-issue,
+.ns-dark .adw-about-dialog-credits,
+.ns-dark .adw-about-dialog-acknowledgements,
+.ns-dark .adw-about-dialog-legal,
+.ns-dark .adw-about-dialog-release-notes,
+.ns-dark .adw-about-dialog-links,
+.ns-dark .adw-about-dialog-debug-info {
     color: rgba(255, 255, 255, 0.6);
 }
 
+.ns-dark .adw-about-dialog-link,
+.ns-dark .adw-about-dialog-links-item {
+    color: #ffffff;
+}
+
+.ns-dark .adw-about-dialog-copy,
 .ns-dark .adw-about-dialog-close {
     background-color: rgba(255, 255, 255, 0.1);
     color: #ffffff;
