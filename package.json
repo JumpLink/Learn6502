@@ -1,6 +1,6 @@
 {
   "name": "learn6502",
-  "version": "0.8.1",
+  "version": "0.8.2",
   "type": "module",
   "private": true,
   "gjsify": {
@@ -183,6 +183,20 @@
         }
       ],
       "releases": [
+        {
+          "version": "0.8.2",
+          "date": "2026-10-31",
+          "description": [
+            {
+              "p": "The macOS version is now signed and notarised by Apple and comes as a disk image for Apple silicon and Intel Macs, so it opens without a security warning.",
+              "translatorHint": "Release notes for version 0.8.2 - signed macOS disk images. Keep \"macOS\", \"Apple silicon\" and \"Intel\" as they are."
+            },
+            {
+              "p": "As always, this release includes many small fixes and improvements.",
+              "translatorHint": "Release notes for version 0.8.2 - fixes and improvements"
+            }
+          ]
+        },
         {
           "version": "0.8.1",
           "date": "2026-10-24",
