@@ -53,6 +53,16 @@
       <!-- TRANSLATORS: Screenshot caption for the interactive tutorial view -->
       <caption>Interactive tutorial</caption>
     </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-code.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the code editor in the phone layout -->
+      <caption>Code editor on a phone</caption>
+    </screenshot>
+    <screenshot type="default">
+      <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-tutorial.png</image>
+      <!-- TRANSLATORS: Screenshot caption for the interactive tutorial in the phone layout -->
+      <caption>Interactive tutorial on a phone</caption>
+    </screenshot>
   </screenshots>
   <url type="homepage">https://jumplink.eu/Learn6502/</url>
   <url type="bugtracker">https://github.com/JumpLink/Learn6502/issues</url>
@@ -63,6 +73,24 @@
   <url type="translate">https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/</url>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.9.0" date="2026-10-31">
+      <description>
+        <!-- TRANSLATORS: Release notes for version 0.9.0 - Android release. Keep "Learn 6502", "Android" and "APK" as they are. -->
+        <p>Learn 6502 now runs on Android. Download the APK from the release page and learn 6502 assembly on your phone, with the same tutorial, editor and game console as on the desktop.</p>
+        <!-- TRANSLATORS: Release notes for version 0.9.0 - faster tutorial start -->
+        <p>The tutorial opens much faster.</p>
+        <!-- TRANSLATORS: Release notes for version 0.9.0 - the debugger panel is hidden until switched on -->
+        <p>The debugger is off by default.</p>
+        <!-- TRANSLATORS: Release notes for version 0.9.0 - accessibility labels for screen readers -->
+        <p>Screen readers announce the toolbar, header and gamepad buttons.</p>
+        <!-- TRANSLATORS: Release notes for version 0.9.0 - respects the system text scale -->
+        <p>Text follows the system font size.</p>
+        <!-- TRANSLATORS: Release notes for version 0.9.0 - translator credits in the About dialog -->
+        <p>The About dialog names the translators.</p>
+        <!-- TRANSLATORS: Release notes for version 0.9.0 - generic closing sentence -->
+        <p>As always, this release includes many small fixes and improvements.</p>
+      </description>
+    </release>
     <release version="0.8.3" date="2026-10-31">
       <description>
         <!-- TRANSLATORS: Release notes for version 0.8.3 - the examples page shows the example programs again -->
