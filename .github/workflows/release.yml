@@ -588,7 +588,7 @@ jobs:
       - name: Install container prerequisites
         run: |
           dnf install -y git tar xz findutils unzip gjs json-glib libsoup3 pango gtk4 gdk-pixbuf2 \
-                         glib2 gettext
+                         glib2 glib2-devel gettext
 
       - name: Checkout repository
         uses: actions/checkout@v6
