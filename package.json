@@ -1,6 +1,6 @@
 {
   "name": "learn6502",
-  "version": "0.8.2",
+  "version": "0.8.3",
   "type": "module",
   "private": true,
   "gjsify": {
@@ -183,6 +183,24 @@
         }
       ],
       "releases": [
+        {
+          "version": "0.8.3",
+          "date": "2026-10-31",
+          "description": [
+            {
+              "p": "The examples page lists the example programs again.",
+              "translatorHint": "Release notes for version 0.8.3 - the examples page shows the example programs again"
+            },
+            {
+              "p": "Learn 6502 now runs on GNOME 51.",
+              "translatorHint": "Release notes for version 0.8.3 - GNOME 51 runtime. Keep \"Learn 6502\" and \"GNOME\" as they are."
+            },
+            {
+              "p": "The SBC instruction now subtracts correctly with zero page addressing. Thanks to jeremyw-gh for the fix.",
+              "translatorHint": "Release notes for version 0.8.3 - SBC fix by a contributor. Keep \"SBC\" and \"jeremyw-gh\" as they are."
+            }
+          ]
+        },
         {
           "version": "0.8.2",
           "date": "2026-10-31",
