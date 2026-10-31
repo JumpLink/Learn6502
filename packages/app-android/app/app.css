@@ -15,6 +15,7 @@
    time, so a wrong path fails the build rather than going unnoticed. */
 @import '../../ui/src/rounded.css';
 @import '../../ui/src/game-console/gamepad.css';
+@import '../../ui/src/main-button.css';
 
 /* Adwaita Sans (the GNOME UI font). Android resolves the family by the TTF file
    name in app/fonts/ (AdwaitaSans-Regular.ttf); iOS resolves by the PostScript
