@@ -93,20 +93,6 @@ template $MainWindow: Adw.ApplicationWindow {
 
       [start]
 
-      Button openButton {
-        icon-name: "document-open-symbolic";
-        action-name: "win.open-file";
-        // TRANSLATORS: Tooltip text for the open-file button in header bar
-        tooltip-text: _("Open...");
-        accessibility {
-          // TRANSLATORS: Accessibility label for the open-file button in header bar
-          label: _("Open...");
-        }
-        styles [
-          "flat",
-        ]
-      }
-
       ToggleButton sidebarToggleButton {
         icon-name: "sidebar-show-symbolic";
         // TRANSLATORS: Tooltip text for sidebar toggle button in header bar
