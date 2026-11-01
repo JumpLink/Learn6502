@@ -347,7 +347,6 @@ msgid "A full list of the 6502 instruction set is <a href=\"https://web.archive.
 msgstr "Een volledige lijst van de 6502‑instructieset is <a href=\"https://web.archive.org/web/20250915114440/http://www.6502.org/tutorials/6502opcodes.html\">hier</a> en <a href=\"https://web.archive.org/web/20210626042844/http://www.obelisk.me.uk/6502/reference.html\">hier</a> beschikbaar (ik raadpleeg meestal beide pagina's, omdat ze hun sterke en zwakke punten hebben). Deze pagina's geven de argumenten van elke instructie, welke registers ze gebruiken en welke vlaggen ze zetten. Dit zijn je bijbels."
 
 #. TRANSLATORS: About dialog menu item label
-#, fuzzy
 msgid "About Learn 6502"
 msgstr "Over Learn 6502 Assembly"
 
@@ -494,7 +493,7 @@ msgstr "Architectuurverbeteringen maken betere code‑deling tussen GNOME‑, we
 #. TRANSLATORS: Release notes for version 0.8.0 - fixes and improvements
 #. TRANSLATORS: Release notes for version 0.7.0 - fixes and improvements
 msgid "As always, this release includes many small fixes and improvements."
-msgstr "Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen."
+msgstr "Zoals altijd bevat deze release veel kleine fixes en verbeteringen."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "As long as you're moving within one of these horizontal strips, things are simple. For example, to move right, just increment the least significant byte (e.g. <tt>$0200</tt> becomes <tt>$0201</tt>). To go down, add <tt>$20</tt> (e.g. <tt>$0200</tt> becomes <tt>$0220</tt>). Left and up are the reverse."
@@ -556,8 +555,8 @@ msgstr "Terug"
 msgid "Because the game state is stored in terms of pixel locations, rendering the game is very straightforward. The first subroutine, <tt>drawApple</tt>, is extremely simple. It sets <tt>Y</tt> to zero, loads a random colour into the accumulator, then stores this value into <tt>($00),y</tt>. <tt>$00</tt> is where the location of the apple is stored, so <tt>($00),y</tt> dereferences to this memory location. Read the \"Indirect indexed\" section in <a href=\"#addressing\">Addressing modes</a> for more details."
 msgstr "Omdat de spelstatus wordt opgeslagen als pixellocaties, is het renderen van het spel heel eenvoudig. De eerste subroutine, <tt>drawApple</tt>, is extreem simpel. Deze zet <tt>Y</tt> op nul, laadt een willekeurige kleur in de accumulator en slaat deze waarde vervolgens op in <tt>($00),y</tt>. <tt>$00</tt> is waar de positie van de appel is opgeslagen, dus <tt>($00),y</tt> dereferentieert naar deze geheugenlocatie. Lees de sectie \"Indirect geïndexeerd\" in <a href=\"#addressing\">Adresseringsmodi</a> voor meer details."
 
-#. TRANSLATORS: Tooltip for primary color option Blue
 #. TRANSLATORS: Tooltip for accent color option Blue
+#. TRANSLATORS: Tooltip for primary color option Blue
 msgid "Blue"
 msgstr "Blauw"
 
@@ -605,9 +604,8 @@ msgid "Code editor and virtual game console"
 msgstr "Code-editor en virtuele spelconsole"
 
 #. TRANSLATORS: Screenshot caption for the code editor in the phone layout
-#, fuzzy
 msgid "Code editor on a phone"
-msgstr "Code-editor"
+msgstr "Code-editor op een telefoon"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Color Palette"
@@ -746,7 +744,7 @@ msgstr "Ook al wordt dit een eenvoudige versie, de code zal aanzienlijk groter z
 
 #. TRANSLATORS: Release notes for version 0.8.1 - the open source badge and support link in the About dialog.
 msgid "Every build says in About that it is open source, and where to support the project if you would like to."
-msgstr ""
+msgstr "Elke build geeft in Info aan dat het open source is en waar je het project kunt steunen."
 
 #. TRANSLATORS: Toast message when example is submitted
 msgid "Example submitted for review"
@@ -774,12 +772,11 @@ msgstr "Oefeningen"
 msgid "Failed to copy to clipboard"
 msgstr "Kopiëren naar klembord mislukt"
 
-#, fuzzy
 msgid "Failed to open file"
 msgstr "Kopiëren naar klembord mislukt"
 
 msgid "Failed to save file"
-msgstr ""
+msgstr "Kon bestand niet opslaan"
 
 #. TRANSLATORS: Tooltip text for unsaved-changes indicator button in header bar, %s is the file name
 #, javascript-format
@@ -852,7 +849,6 @@ msgid "GNOME"
 msgstr "GNOME"
 
 #. TRANSLATORS: Font option — the GNOME typeface shipped with the app
-#, fuzzy
 msgid "GNOME font"
 msgstr "GNOME"
 
@@ -888,8 +884,8 @@ msgstr "Heb je je eigen coole 6502-creatie? Deel het met de gemeenschap! Je kunt
 msgid "Great start — you finished the first chapter!"
 msgstr "Goed begin – je hebt het eerste hoofdstuk afgerond!"
 
-#. TRANSLATORS: Tooltip for primary color option Green
 #. TRANSLATORS: Tooltip for accent color option Green
+#. TRANSLATORS: Tooltip for primary color option Green
 msgid "Green"
 msgstr "Groen"
 
@@ -1040,9 +1036,8 @@ msgid "Interactive tutorial"
 msgstr "Interactieve tutorial"
 
 #. TRANSLATORS: Screenshot caption for the interactive tutorial in the phone layout
-#, fuzzy
 msgid "Interactive tutorial on a phone"
-msgstr "Interactieve tutorial"
+msgstr "Interactieve tutorial op een telefoon"
 
 #. TRANSLATORS: Feature list item about interactive tutorials
 msgid "Interactive tutorials guide you from beginner to advanced"
@@ -1094,16 +1089,15 @@ msgid "Learn"
 msgstr "Leren"
 
 #. TRANSLATORS: Application title shown in the header bar
-#, fuzzy
 msgid "Learn 6502"
 msgstr "Leren"
 
 msgid "Learn 6502 Assembly"
-msgstr ""
+msgstr "Leer 6502-assembler"
 
 #. TRANSLATORS: Release notes for version 0.9.0 - Android release. Keep "Learn 6502", "Android" and "APK" as they are.
 msgid "Learn 6502 now runs on Android. Download the APK from the release page and learn 6502 assembly on your phone, with the same tutorial, editor and game console as on the desktop."
-msgstr ""
+msgstr "Learn 6502 draait nu op Android. Download de APK van de releasepagina en leer 6502-assembler op je telefoon, met dezelfde tutorial, editor en spelconsole als op desktop."
 
 #. TRANSLATORS: Release notes for version 0.6.5 - GNOME 50 runtime update
 msgid "Learn 6502 now runs on GNOME 50! Thanks to Sabri Ünal for contributing the runtime update."
@@ -1111,7 +1105,7 @@ msgstr "Learn 6502 draait nu op GNOME 50! Met dank aan Sabri Ünal voor het bijd
 
 #. TRANSLATORS: Release notes for version 0.8.3 - GNOME 51 runtime. Keep "Learn 6502" and "GNOME" as they are.
 msgid "Learn 6502 now runs on GNOME 51."
-msgstr ""
+msgstr "Learn 6502 draait nu op GNOME 51."
 
 #. TRANSLATORS: Release notes for version 0.8.0 - Windows and macOS builds. "Learn 6502" is the app name: use whatever spelling your catalogue already uses for it (some localise it), and keep "Windows", "macOS" and "Linux" as they are.
 msgid "Learn 6502 now runs on Windows and macOS too. If you have been wanting to point a friend at it who is not on Linux, you can now do that."
@@ -1134,7 +1128,7 @@ msgid "Learning by example has never been easier. Dive into working code, tweak 
 msgstr "Leren aan de hand van voorbeelden is nog nooit zo eenvoudig geweest. Duik in werkende code, pas het aan, maak het kapot, repareer het weer - zo leerden de beste programmeurs vroeger!"
 
 msgid "Legal Notice"
-msgstr ""
+msgstr "Juridische mededeling"
 
 #. TRANSLATORS: Tooltip for light theme option
 #. TRANSLATORS: Accessibility label for light theme option
@@ -1167,19 +1161,19 @@ msgstr "Berichten"
 
 #. TRANSLATORS: Screen reader name for the icon-only d-pad button
 msgid "Move down"
-msgstr ""
+msgstr "Omlaag bewegen"
 
 #. TRANSLATORS: Screen reader name for the icon-only d-pad button
 msgid "Move left"
-msgstr ""
+msgstr "Naar links bewegen"
 
 #. TRANSLATORS: Screen reader name for the icon-only d-pad button
 msgid "Move right"
-msgstr ""
+msgstr "Naar rechts bewegen"
 
 #. TRANSLATORS: Screen reader name for the icon-only d-pad button
 msgid "Move up"
-msgstr ""
+msgstr "Omhoog bewegen"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "Nearly all games have at their heart a game loop. All game loops have the same basic form: accept user input, update the game state, and render the game state. This loop is no different."
@@ -1244,8 +1238,8 @@ msgstr "%s geopend"
 msgid "Optimized Flatpak configuration by removing unnecessary permissions"
 msgstr "Flatpak‑configuratie geoptimaliseerd door onnodige permissies te verwijderen"
 
-#. TRANSLATORS: Tooltip for primary color option Orange
 #. TRANSLATORS: Tooltip for accent color option Orange
+#. TRANSLATORS: Tooltip for primary color option Orange
 msgid "Orange"
 msgstr "Oranje"
 
@@ -1278,8 +1272,8 @@ msgstr "Pauzeren"
 msgid "Perfect for hobbyists, students, and anyone curious about how computers really work under the hood!"
 msgstr "Perfect voor hobbyisten, studenten en iedereen die nieuwsgierig is hoe computers onder de motorkap echt werken!"
 
-#. TRANSLATORS: Tooltip for primary color option Pink
 #. TRANSLATORS: Tooltip for accent color option Pink
+#. TRANSLATORS: Tooltip for primary color option Pink
 msgid "Pink"
 msgstr "Roze"
 
@@ -1347,7 +1341,7 @@ msgid "Primary: Yellow"
 msgstr "Primair: Geel"
 
 msgid "Privacy"
-msgstr ""
+msgstr "Privacy"
 
 #. TRANSLATORS: MDX-derived text from packages/learn/quick-help.mdx
 msgid "Processor Flags"
@@ -1385,8 +1379,8 @@ msgstr "Programma gepauzeerd"
 msgid "Program vintage consoles"
 msgstr "Programmeer retroconsoles"
 
-#. TRANSLATORS: Tooltip for primary color option Purple
 #. TRANSLATORS: Tooltip for accent color option Purple
+#. TRANSLATORS: Tooltip for primary color option Purple
 msgid "Purple"
 msgstr "Paars"
 
@@ -1406,8 +1400,8 @@ msgstr "Willekeurig/Invoer ($FE-$FF)"
 msgid "Reading the input"
 msgstr "De invoer lezen"
 
-#. TRANSLATORS: Tooltip for primary color option Red
 #. TRANSLATORS: Tooltip for accent color option Red
+#. TRANSLATORS: Tooltip for primary color option Red
 msgid "Red"
 msgstr "Rood"
 
@@ -1492,7 +1486,7 @@ msgstr "Scherm komt overeen met geheugenbereik <tt>$0200</tt>-<tt>$05FF</tt>"
 
 #. TRANSLATORS: Release notes for version 0.9.0 - accessibility labels for screen readers
 msgid "Screen readers announce the toolbar, header and gamepad buttons."
-msgstr ""
+msgstr "Schermlezers kondigen de werkbalk, kop en gamepadknoppen aan."
 
 #. TRANSLATORS: Release notes for version 0.7.0 - Indonesian translation. Keep the greeting 'Selamat datang!', the thanks 'Terima kasih!' and the name 'Arif Budiman' as they are.
 msgid "Selamat datang! We also welcome Indonesian translations, kindly contributed by Arif Budiman. Terima kasih!"
@@ -1529,8 +1523,8 @@ msgstr "Simulator"
 msgid "Simulator failure"
 msgstr "Simulatorfout"
 
-#. TRANSLATORS: Tooltip for primary color option Slate
 #. TRANSLATORS: Tooltip for accent color option Slate
+#. TRANSLATORS: Tooltip for primary color option Slate
 msgid "Slate"
 msgstr "Leisteen"
 
@@ -1631,7 +1625,6 @@ msgid "Syntax error line %d: %s"
 msgstr "Syntaxisfout regel %d: %s"
 
 #. TRANSLATORS: Font option — use the operating system's own font, untouched
-#, fuzzy
 msgid "System font"
 msgstr "Systeemstandaard"
 
@@ -1639,8 +1632,8 @@ msgstr "Systeemstandaard"
 msgid "System font, GNOME size"
 msgstr "Systeemlettertype, GNOME-grootte"
 
-#. TRANSLATORS: Tooltip for primary color option Teal
 #. TRANSLATORS: Tooltip for accent color option Teal
+#. TRANSLATORS: Tooltip for primary color option Teal
 msgid "Teal"
 msgstr "Teal"
 
@@ -1658,7 +1651,7 @@ msgstr "Test bit 0 van A met LSR en BCC en zet 1 of 0 in A als resultaat"
 
 #. TRANSLATORS: Release notes for version 0.9.0 - respects the system text scale
 msgid "Text follows the system font size."
-msgstr ""
+msgstr "Tekst volgt de systeemlettergrootte."
 
 #. TRANSLATORS: What the "Open Source" badge in the About dialog means
 msgid "Thank you for using open source software."
@@ -1682,7 +1675,7 @@ msgstr "De subroutine <tt>loop</tt> roept zelf achtereenvolgens een aantal subro
 
 #. TRANSLATORS: Release notes for version 0.9.0 - translator credits in the About dialog
 msgid "The About dialog names the translators."
-msgstr ""
+msgstr "Het venster Over noemt de vertalers."
 
 #. TRANSLATORS: Detailed description of Accumulator register
 msgid "The Accumulator (A) is the primary register for arithmetic and logic operations. All basic calculations like ADD, SUBTRACT, AND, OR, etc. use this register. It's the most frequently used register in 6502 assembly programming."
@@ -1690,7 +1683,7 @@ msgstr "De Accumulator (A) is het primaire register voor rekenkundige en logisch
 
 #. TRANSLATORS: Release notes for version 0.8.1 - the Android startup crash. Keep "Android" and "Adwaita" as they are.
 msgid "The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version."
-msgstr ""
+msgstr "De Android-app start opnieuw. Eerder crashte hij bij opstarten voordat er een scherm verscheen, nu draait hij met dezelfde Adwaita-widgets als de desktopversie."
 
 #. TRANSLATORS: Detailed description of Program Counter register
 msgid "The Program Counter contains the memory address of the next instruction to execute. It automatically increments after each instruction and can be modified by jumps, branches, calls, and returns. Essential for program flow control and debugging."
@@ -1698,7 +1691,7 @@ msgstr "De Programmateller bevat het geheugenadres van de volgende uit te voeren
 
 #. TRANSLATORS: Release notes for version 0.8.3 - SBC fix by a contributor. Keep "SBC" and "jeremyw-gh" as they are.
 msgid "The SBC instruction now subtracts correctly with zero page addressing. Thanks to jeremyw-gh for the fix."
-msgstr ""
+msgstr "De SBC-instructie trekt nu correct af met zero-page-adressering. Dank aan jeremyw-gh voor de fix."
 
 #. TRANSLATORS: Detailed description of Stack Pointer register
 msgid "The Stack Pointer manages the call stack for subroutines and interrupts. It starts at $FF (top of stack) and grows downward. Used for PUSH/PULL operations, JSR/RTS calls, and interrupt handling. Critical for nested function calls."
@@ -1728,7 +1721,7 @@ msgstr "Het onderstaande codeblok bevat de volledige broncode van het spel. In d
 
 #. TRANSLATORS: Release notes for version 0.9.0 - the debugger panel is hidden until switched on
 msgid "The debugger is off by default."
-msgstr ""
+msgstr "De debugger is standaard uitgeschakeld."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The effect of this is to mask out the least significant two bits of the accumulator, setting the others to zero. This converts a number in the range of 0–255 to a number in the range of 0–3."
@@ -1736,7 +1729,7 @@ msgstr "Het effect hiervan is dat de twee minst significante bits van de accumul
 
 #. TRANSLATORS: Release notes for version 0.8.3 - the examples page shows the example programs again
 msgid "The examples page lists the example programs again."
-msgstr ""
+msgstr "De voorbeeldden pagina toont weer de voorbeeldprogramma's."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The first instruction causes execution to jump to the <tt>init</tt> label. This sets <tt>X</tt>, then returns to the next instruction, <tt>JSR loop</tt>. This jumps to the <tt>loop</tt> label, which increments <tt>X</tt> until it is equal to <tt>$05</tt>. After that we return to the next instruction, <tt>JSR end</tt>, which jumps to the end of the file. This illustrates how <tt>JSR</tt> and <tt>RTS</tt> can be used together to create modular code."
@@ -1780,7 +1773,7 @@ msgstr "De lengte wordt geïnitialiseerd op <tt>4</tt>, dus <tt>X</tt> begint al
 
 #. TRANSLATORS: Release notes for version 0.8.2 - signed macOS disk images. Keep "macOS", "Apple silicon" and "Intel" as they are.
 msgid "The macOS version is now signed and notarised by Apple and comes as a disk image for Apple silicon and Intel Macs, so it opens without a security warning."
-msgstr ""
+msgstr "De macOS-versie is nu ondertekend en genotariseerd door Apple en wordt geleverd als schijfimage voor Apple Silicon- en Intel-Macs, zodat deze zonder veiligheidswaarschuwing opent."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The next bit updates the head of the snake depending on the direction. This is probably the most complicated part of the code, and it's all reliant on how memory locations map to the screen, so let's look at that in more detail."
@@ -1836,11 +1829,11 @@ msgstr "De stack in een 6502‑processor is zoals elke andere stack: waarden wor
 
 #. TRANSLATORS: Release notes for version 0.9.0 - faster tutorial start
 msgid "The tutorial opens much faster."
-msgstr ""
+msgstr "De tutorial opent veel sneller."
 
 #. TRANSLATORS: Release notes for version 0.8.1 - the web About dialog and the app icon. "About" is the standard dialog name: use the wording your platform already uses for it.
 msgid "The web version has a proper About dialog now, and its app icon shows up where it was missing before."
-msgstr ""
+msgstr "De webversie heeft nu een goed Over-dialoogvenster en het app-pictogram wordt weergegeven waar het voorheen ontbrak."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "The zero page of memory is used to store a number of game state variables, as noted in the comment block at the top of the game. Everything in <tt>$00</tt>, <tt>$01</tt> and <tt>$10</tt> upwards is a pair of bytes representing a two-byte memory location that will be looked up using indirect addressing. These memory locations will all be between <tt>$0200</tt> and <tt>$05ff</tt> - the section of memory corresponding to the game console. For example, if <tt>$00</tt> and <tt>$01</tt> contained the values <tt>$01</tt> and <tt>$02</tt>, they would be referring to the second pixel of the display ( <tt>$0201</tt> - remember, the least significant byte comes first in indirect addressing)."
@@ -1852,7 +1845,7 @@ msgstr "Waarom dan 6502? Waarom niet een <i>nuttige</i> assembleertaal, zoals <a
 
 #. TRANSLATORS: Release notes for version 0.8.1 - privacy page and legal notice. "Legal notice" is the German "Impressum"; use whatever your language calls the legally required site identification.
 msgid "There is a privacy page and a legal notice, reachable from inside the app."
-msgstr ""
+msgstr "Er is een privacypagina en een juridische mededeling die vanuit de app toegankelijk zijn."
 
 #. TRANSLATORS: MDX-derived text from packages/learn/tutorial.mdx
 msgid "There's also a very practical reason: retro game development. The homebrew scene is alive and well—new games are still <a href=\"https://www.youtube.com/watch?v=1KLhFNmmgUo\">released for the NES</a> (some even as physical cartridges) and for many other classic systems; the NES is just an example. Even if your target is something like the SNES, starting with 6502 pays off: the SNES CPU (65C816) is backward-compatible with the 6502, so the fundamentals you learn here—registers, addressing modes, and the core instruction set—carry straight over."
@@ -1992,8 +1985,8 @@ msgstr "Bij al deze voorbeelden kan het handig zijn om de <b>Hexmonitor</b> in d
 msgid "Write and edit code with a built-in code editor"
 msgstr "Schrijf en bewerk code met een ingebouwde code‑editor"
 
-#. TRANSLATORS: Tooltip for primary color option Yellow
 #. TRANSLATORS: Tooltip for accent color option Yellow
+#. TRANSLATORS: Tooltip for primary color option Yellow
 msgid "Yellow"
 msgstr "Geel"
 
