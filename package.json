@@ -192,6 +192,12 @@
           "caption": "Interactive tutorial on a phone",
           "captionTranslatorHint": "Screenshot caption for the interactive tutorial in the phone layout",
           "type": "default"
+        },
+        {
+          "url": "https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-play.png",
+          "caption": "Game console on a phone",
+          "captionTranslatorHint": "Screenshot caption for the game console in the phone layout",
+          "type": "default"
         }
       ],
       "releases": [
@@ -637,6 +643,12 @@
             "from": 5,
             "variants": {
               "mobile-light": "misc/screenshots/0.9.0/mobile-tutorial.png"
+            }
+          },
+          {
+            "from": 6,
+            "variants": {
+              "mobile-light": "misc/screenshots/0.9.0/mobile-play.png"
             }
           },
           {
