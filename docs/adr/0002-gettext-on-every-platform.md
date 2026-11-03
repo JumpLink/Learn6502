@@ -29,7 +29,7 @@ decision and lives in gjsify ADR 0125. This ADR records what Learn6502 does with
    `app/i18n/*.json`, the `po2json` step in `translations/build.js`, `utils/translate.ts`,
    `nativescript.config.ts` `i18n`, and the generated `values-*/strings.xml` content.
 3. **The launcher label stays a committed Android string resource.** `res/values[-<lang>]/strings.xml`
-   keep only `app_name` and `title_activity_kimera`. The English default is "Learn 6502 Assembly".
+   keep only `app_name` and `title_activity_kimera`. The name is "Learn 6502" in every language.
    The files are kept by hand, written once from the `po/` translation of the msgid `Learn 6502`,
    until the gjsify generator (ADR 0125, not built yet) exists. Then the app drops them from
    hand-keeping.
