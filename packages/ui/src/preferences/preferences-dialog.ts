@@ -69,6 +69,12 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
     else this._fontGroup.set_visible(false);
   }
 
+  private _onResetColors(): void {
+    themeService.setTheme("system");
+    themeService.setPrimaryDefault();
+    themeService.setAccentSystem();
+  }
+
   /**
    * The interface-font chooser.
    *
