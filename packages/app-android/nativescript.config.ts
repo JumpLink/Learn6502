@@ -22,11 +22,6 @@ export default {
   bundler: "vite",
   bundlerConfigPath: "vite.config.ts",
 
-  // Internationalization
-  i18n: {
-    defaultLanguage: "en",
-  },
-
   android: {
     v8Flags: "--expose_gc",
     gradleVersion: "8.14.3",
