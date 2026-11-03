@@ -37,7 +37,7 @@ This project is a fork of the [original web-based easy6502 tutorial](https://git
 ## Packages
 
 - [app-gnome](./packages/app-gnome/): Main GNOME desktop application with Adwaita styling
-- [app-android](./packages/app-android/): Android application with NativeScript
+- [app-android](./packages/app-android/): Android and iOS application with NativeScript (iOS builds from source only: `gjsify run start:ios`)
 - [app-web](./packages/app-web/): Web application version
 - [core](./packages/core/): Core 6502 assembler, simulator, and disassembler (published as `@learn6502/core`)
 - [ui](./packages/ui/): Shared widgets, controllers and services
