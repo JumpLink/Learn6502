@@ -4,6 +4,9 @@
   "type": "module",
   "private": true,
   "gjsify": {
+    "credits": {
+      "output": "packages/ui/src/credits.json"
+    },
     "ship": {
       "channel": "web",
       "binaryName": "eu.jumplink.Learn6502",
