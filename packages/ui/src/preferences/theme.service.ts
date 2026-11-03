@@ -5,6 +5,7 @@ import type Gio from "@girs/gio-2.0";
 
 import { ThemeService as BaseThemeService } from "../services/index.ts";
 import { type ThemeMode } from "../types/index.ts";
+import { computePalette, paletteToCss } from "./palette.ts";
 import {
   KEY_COLOR_SCHEME,
   KEY_PRIMARY_COLOR,
@@ -15,6 +16,7 @@ import {
   DEFAULT_COLOR_SCHEME_OVERRIDE,
   DEFAULT_PRIMARY_OVERRIDE_KEY,
   DEFAULT_ACCENT_OVERRIDE_KEY,
+  PRIMARY_OFF_VALUE,
   ColorScheme,
   PRIMARY_FAMILIES,
   isPrimaryFamilyKey,
@@ -29,7 +31,7 @@ export type ThemeSettings = Pick<Gio.Settings, "get_int" | "set_int" | "get_stri
  *
  * - Applies color scheme via Adw.StyleManager
  * - Persists preferences in the settings given to {@link init}, or keeps them in memory
- * - Exposes primary/accent overrides using CSS variables
+ * - Exposes primary/accent overrides as literal libadwaita colors (see palette.ts)
  * - Adds helper CSS classes to registered widgets for easy styling hooks
  */
 class ThemeService extends BaseThemeService {
@@ -76,6 +78,8 @@ class ThemeService extends BaseThemeService {
 
     // The StyleManager repaints the system accent itself; only the style hook follows high contrast
     this.styleManager.connect("notify::high-contrast", () => this.refreshThemedWidgets());
+    // The tint is a different set of literals in light and dark
+    this.styleManager.connect("notify::dark", () => this.applyVariables());
 
     // Sync classes on theme/primary/accent changes
     this.events.on("theme-changed", () => this.refreshThemedWidgets());
@@ -111,16 +115,8 @@ class ThemeService extends BaseThemeService {
   }
 
   private applyVariables(): void {
-    const parts: string[] = [];
-    if (this.currentAccentKey !== DEFAULT_ACCENT_COLOR) {
-      parts.push(`--learn-accent-color: var(--accent-${this.currentAccentKey});`);
-    }
-    if (this.currentPrimaryKey !== DEFAULT_PRIMARY_COLOR) {
-      parts.push(`--learn-primary-color: var(--accent-${this.currentPrimaryKey});`);
-    }
-
-    const css = parts.length ? `:root { ${parts.join(" ")} }` : "";
-    this.updateVariablesCssProviderFromCss(css);
+    const palette = computePalette(this.currentPrimaryKey, this.currentAccentKey, this.isCurrentlyDarkTheme());
+    this.updateVariablesCssProviderFromCss(paletteToCss(palette));
   }
 
   public get isHighContrast(): boolean {
@@ -167,7 +163,7 @@ class ThemeService extends BaseThemeService {
     if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) return;
     this.currentPrimaryKey = DEFAULT_PRIMARY_COLOR;
     this.applyVariables();
-    if (persist) this.savePrimaryToSettings(DEFAULT_PRIMARY_COLOR);
+    if (persist) this.savePrimaryToSettings(PRIMARY_OFF_VALUE);
     this.events.dispatch("primary-changed", {
       color: null,
       key: null,
@@ -247,6 +243,13 @@ class ThemeService extends BaseThemeService {
 
   private loadPrimaryFromSettings(): void {
     const stored = this.settings?.get_string(KEY_PRIMARY_COLOR) ?? null;
+
+    // "off" is the user's explicit choice; anything else that is not a family (the schema
+    // default 'none', unset) means "never chosen" and gets the default tint
+    if (stored === PRIMARY_OFF_VALUE) {
+      this.setPrimaryNone(false);
+      return;
+    }
     const value = stored || DEFAULT_PRIMARY_COLOR;
 
     if (!isPrimaryFamilyKey(value)) {
@@ -288,15 +291,7 @@ class ThemeService extends BaseThemeService {
     widget.add_css_class(`mode-${this.currentTheme}`);
     widget.add_css_class(this.isDarkTheme ? "is-dark" : "is-light");
     if (this.isHighContrast) widget.add_css_class("is-high-contrast");
-    if (this.currentPrimaryKey === DEFAULT_PRIMARY_COLOR) {
-      widget.add_css_class("primary-none");
-    } else {
-      widget.add_css_class("primary-custom");
-      widget.add_css_class(`primary-${this.currentPrimaryKey}`);
-    }
-    if (this.currentAccentKey !== DEFAULT_ACCENT_COLOR) {
-      widget.add_css_class("accent-custom");
-    }
+    if (this.currentPrimaryKey !== DEFAULT_PRIMARY_COLOR) widget.add_css_class(`primary-${this.currentPrimaryKey}`);
   }
 
   private clearClasses(widget: Gtk.Widget): void {
@@ -306,12 +301,9 @@ class ThemeService extends BaseThemeService {
     widget.remove_css_class("is-dark");
     widget.remove_css_class("is-light");
     widget.remove_css_class("is-high-contrast");
-    widget.remove_css_class("primary-custom");
-    widget.remove_css_class("primary-none");
     for (const family of PRIMARY_FAMILIES) {
       widget.remove_css_class(`primary-${family}`);
     }
-    widget.remove_css_class("accent-custom");
   }
 
   private loadThemeFromSettings(): void {

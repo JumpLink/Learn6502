@@ -23,7 +23,7 @@
             <default>'none'</default>
             <summary>Primary color preference</summary>
             <description>
-                Selected primary color key. Allowed values: 'none' for no override,
+                Selected primary color key. Allowed values: 'none' (never chosen, the app default tint applies), 'off' for no tint,
                 or one of 'blue','teal','green','yellow','orange','red','pink','purple','slate'.
             </description>
         </key>

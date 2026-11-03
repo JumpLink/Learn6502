@@ -1,0 +1,98 @@
+/* NativeScript twin of primary-color-selector.css / accent-color-selector.css.
+ * The GTK files use nesting, var() and checkbutton selectors, none of which NS parses, so
+ * this one is flat with literal colors (same values as PALETTE_FAMILIES in palette.ts).
+ * The bridge's GtkCheckButton wears `adw-check-button`, its style classes and `checked`. */
+.adw-check-button.primary,
+.adw-check-button.accent {
+    width: 36;
+    height: 36;
+    padding: 0;
+    margin: 4;
+    border-radius: 18;
+    border-width: 3;
+    border-color: transparent;
+}
+
+.adw-check-button.primary .adw-check-indicator,
+.adw-check-button.accent .adw-check-indicator {
+    background-color: transparent;
+    margin: 0;
+    horizontal-align: center;
+}
+
+.adw-check-button.primary.checked,
+.adw-check-button.accent.checked {
+    border-color: #3584e4;
+}
+
+.adw-check-button.primary-blue {
+    background-color: #3584e4;
+}
+
+.adw-check-button.primary-teal {
+    background-color: #2190a4;
+}
+
+.adw-check-button.primary-green {
+    background-color: #3a944a;
+}
+
+.adw-check-button.primary-yellow {
+    background-color: #c88800;
+}
+
+.adw-check-button.primary-orange {
+    background-color: #ed5b00;
+}
+
+.adw-check-button.primary-red {
+    background-color: #e01b24;
+}
+
+.adw-check-button.primary-pink {
+    background-color: #d56199;
+}
+
+.adw-check-button.primary-purple {
+    background-color: #9141ac;
+}
+
+.adw-check-button.primary-slate {
+    background-color: #6f8396;
+}
+
+.adw-check-button.accent-blue {
+    background-color: #3584e4;
+}
+
+.adw-check-button.accent-teal {
+    background-color: #2190a4;
+}
+
+.adw-check-button.accent-green {
+    background-color: #3a944a;
+}
+
+.adw-check-button.accent-yellow {
+    background-color: #c88800;
+}
+
+.adw-check-button.accent-orange {
+    background-color: #ed5b00;
+}
+
+.adw-check-button.accent-red {
+    background-color: #e01b24;
+}
+
+.adw-check-button.accent-pink {
+    background-color: #d56199;
+}
+
+.adw-check-button.accent-purple {
+    background-color: #9141ac;
+}
+
+.adw-check-button.accent-slate {
+    background-color: #6f8396;
+}
