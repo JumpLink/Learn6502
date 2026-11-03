@@ -23,7 +23,7 @@ export class HelpWindow extends Adw.Window {
     super(params);
   }
 
-  // Register/unregister for theme classes so variables.css styles apply
+  // Register/unregister for theme classes so theme classes apply
   vfunc_map(): void {
     super.vfunc_map();
     themeService.registerThemedWidget(this);
