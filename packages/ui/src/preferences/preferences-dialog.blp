@@ -77,5 +77,17 @@ template $PreferencesDialog: Adw.PreferencesDialog {
         title: _("Font");
       }
     }
+
+    Adw.PreferencesGroup resetGroup {
+      // TRANSLATORS: Preferences group title for resetting appearance settings
+      title: _("Reset");
+
+      Adw.ButtonRow resetButton {
+        // TRANSLATORS: Button label to reset colors to default
+        title: _("Reset to default");
+        start-icon-name: "view-refresh-symbolic";
+        activated => $_onResetColors();
+      }
+    }
   }
 }
