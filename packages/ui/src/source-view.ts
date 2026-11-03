@@ -698,10 +698,9 @@ export class SourceView extends Adw.Bin implements SourceViewWidget {
       width_request: width,
       focus_on_click: true,
       focusable: true,
+      mode,
     });
 
-    // Set properties
-    this.renderer.mode = mode;
     if (this._lineNumberStart !== undefined) {
       this.renderer.startValue = this._lineNumberStart;
     }
