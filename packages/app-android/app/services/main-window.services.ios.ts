@@ -1,10 +1,5 @@
-import { ApplicationSettings, Utils } from "@nativescript/core";
-import { FileService, notificationService, type MainWindowServices } from "@learn6502/ui";
-
-/** Learn6502 project repository — the "share your example" destination. */
-const SHARE_URL = "https://github.com/JumpLink/Learn6502";
-
-const fileService = new FileService();
+import type { MainWindowServices } from "@learn6502/ui";
+import { createNativeScriptServices } from "./main-window.services.common";
 
 /** iOS counterpart of main-window.services.ts's `copyToClipboard`. */
 function copyToClipboard(text: string): boolean {
@@ -12,7 +7,7 @@ function copyToClipboard(text: string): boolean {
   return true;
 }
 
-/** iOS counterpart of `shareCode`: the Files-app-style activity sheet instead of Android's chooser. */
+/** iOS counterpart of `shareCode`: the share sheet instead of Android's chooser. */
 function shareCode(code: string): void {
   const rootController = UIApplication.sharedApplication.keyWindow?.rootViewController;
   if (!rootController || !code) return;
@@ -32,26 +27,5 @@ function shareCode(code: string): void {
 
 /** What the shared main window asks of iOS: the shared file dialog, the share sheet, app settings. */
 export function createMainWindowServices(showHelp: () => void): MainWindowServices {
-  return {
-    files: {
-      openFile: () => fileService.openFile(),
-      saveFile: (content) => fileService.saveFile(content),
-      saveFileAs: (content, suggestedName) => fileService.saveFileAs(content, suggestedName),
-      getCurrentFileName: () => fileService.getCurrentFileName(),
-      hasCurrentFile: () => fileService.hasCurrentFile(),
-      hasUnsavedChanges: () => fileService.hasUnsavedChanges(),
-      setUnsavedChanges: (hasChanges) => fileService.setUnsavedChanges(hasChanges),
-    },
-    settings: {
-      getInt: (key) => ApplicationSettings.getNumber(key, 0),
-      setInt: (key, value) => ApplicationSettings.setNumber(key, value),
-      getBoolean: (key) => ApplicationSettings.getBoolean(key, false),
-      setBoolean: (key, value) => ApplicationSettings.setBoolean(key, value),
-    },
-    clipboard: { copy: copyToClipboard },
-    notifier: { show: (options) => notificationService.showNotification(options) },
-    showHelp,
-    showShareDialog: (code) => shareCode(code),
-    submitExample: () => Utils.openUrl(SHARE_URL),
-  };
+  return createNativeScriptServices(showHelp, { copyToClipboard, shareCode });
 }

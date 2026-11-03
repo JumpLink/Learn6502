@@ -1,13 +1,6 @@
-import { Application, ApplicationSettings, Utils } from "@nativescript/core";
-import { _, FileService, notificationService, type MainWindowServices } from "@learn6502/ui";
-import { showError } from "~/utils";
-
-/** Learn6502 project repository — the "share your example" destination. */
-const SHARE_URL = "https://github.com/JumpLink/Learn6502";
-
-const fileService = new FileService({
-  onError: (message, error) => showError(error, { forcedMessage: message }),
-});
+import { Application } from "@nativescript/core";
+import { _, type MainWindowServices } from "@learn6502/ui";
+import { createNativeScriptServices } from "./main-window.services.common";
 
 function copyToClipboard(text: string): boolean {
   if (!Application.android) return false;
@@ -30,26 +23,5 @@ function shareCode(code: string): void {
 
 /** What the shared main window asks of Android: SAF for files, the share sheet, app settings. */
 export function createMainWindowServices(showHelp: () => void): MainWindowServices {
-  return {
-    files: {
-      openFile: () => fileService.openFile(),
-      saveFile: (content) => fileService.saveFile(content),
-      saveFileAs: (content, suggestedName) => fileService.saveFileAs(content, suggestedName),
-      getCurrentFileName: () => fileService.getCurrentFileName(),
-      hasCurrentFile: () => fileService.hasCurrentFile(),
-      hasUnsavedChanges: () => fileService.hasUnsavedChanges(),
-      setUnsavedChanges: (hasChanges) => fileService.setUnsavedChanges(hasChanges),
-    },
-    settings: {
-      getInt: (key) => ApplicationSettings.getNumber(key, 0),
-      setInt: (key, value) => ApplicationSettings.setNumber(key, value),
-      getBoolean: (key) => ApplicationSettings.getBoolean(key, false),
-      setBoolean: (key, value) => ApplicationSettings.setBoolean(key, value),
-    },
-    clipboard: { copy: copyToClipboard },
-    notifier: { show: (options) => notificationService.showNotification(options) },
-    showHelp,
-    showShareDialog: (code) => shareCode(code),
-    submitExample: () => Utils.openUrl(SHARE_URL),
-  };
+  return createNativeScriptServices(showHelp, { copyToClipboard, shareCode });
 }
