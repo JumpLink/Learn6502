@@ -109,7 +109,7 @@ function sitePage(page: string): string {
 
 export function getAboutInfo(): AboutInfo {
   return {
-    applicationName: _("Learn 6502 Assembly"),
+    applicationName: "Learn 6502",
     applicationIcon: "eu.jumplink.Learn6502",
     developerName: "Pascal Garber",
     comments: _("Program vintage consoles"),

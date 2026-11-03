@@ -1,6 +1,6 @@
 # Datenschutzerklärung
 
-Learn 6502 Assembly (Learn6502) ist eine freie App zum Lernen von 6502-Assembler. Diese Erklärung gilt für die GNOME-App, die Web-App, die Android-App und die Windows- und macOS-Builds.
+Learn 6502 (Learn6502) ist eine freie App zum Lernen von 6502-Assembler. Diese Erklärung gilt für die GNOME-App, die Web-App, die Android-App und die Windows- und macOS-Builds.
 
 **Kontakt:** Pascal Garber, JumpLink, pascal@jumplink.eu. Die Postanschrift steht im [Impressum](../legal-notice/).
 
