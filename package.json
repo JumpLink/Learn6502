@@ -677,6 +677,7 @@
     "build:gnome:flatpak": "gjsify flatpak build eu.jumplink.Learn6502.json --install --repo repo --bundle eu.jumplink.Learn6502.flatpak --tarball eu.jumplink.Learn6502.tar.gz --install-deps-from flathub",
     "build:gnome:meson": "meson compile -C _build",
     "build:android": "gjsify workspace @learn6502/app-android build --with-dependencies",
+    "build:ios": "gjsify workspace @learn6502/app-android build:ios --with-dependencies",
     "check": "gjsify foreach -v -t check",
     "check:flatpak:repo": "flatpak run --command=flatpak-builder-lint org.flatpak.Builder repo repo",
     "check:format": "gjsify format --check",
@@ -690,6 +691,7 @@
     "start:gnome:flatpak": "flatpak run eu.jumplink.Learn6502",
     "start:web": "gjsify workspace @learn6502/app-web start",
     "start:android": "gjsify workspace @learn6502/app-android build --with-dependencies && gjsify workspace @learn6502/app-android start",
+    "start:ios": "gjsify workspace @learn6502/app-android build:ios --with-dependencies && gjsify workspace @learn6502/app-android start:ios",
     "clear": "gjsify foreach -v -p clear && gjsify run _clear",
     "_clear": "rm -rf builddir build-dir .flatpak-builder flatpak-build repo eu.jumplink.Learn6502.tar.gz",
     "format": "gjsify format --write",
@@ -707,8 +709,8 @@
   ],
   "devDependencies": {
     "@changesets/cli": "^2.27.0",
-    "@gjsify/cli": "0.64.15",
-    "@gjsify/site": "0.64.15",
+    "@gjsify/cli": "0.64.19",
+    "@gjsify/site": "0.64.19",
     "oxfmt": "^0.53.0",
     "oxlint": "^1.68.0",
     "typescript": "^6.0.3"

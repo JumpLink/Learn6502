@@ -1,5 +1,5 @@
-// Android types (no iOS - this app is Android-only)
 /// <reference path="../../node_modules/@nativescript/types-android/lib/android-35.d.ts" />
+/// <reference path="../../node_modules/@nativescript/types-ios/index.d.ts" />
 /// <reference types="@gjsify/rolldown-plugin-gjsify/types" />
 
 // Raw file imports
@@ -31,10 +31,10 @@ declare const DEV_LOG: boolean;
 /** Production build flag */
 declare const PRODUCTION: boolean;
 
-/** Platform detection - always true in this Android-only app */
+/** Platform detection - true on the Android build */
 declare const __ANDROID__: boolean;
 
-/** Platform detection - always false in this Android-only app */
+/** Platform detection - true on the iOS build */
 declare const __IOS__: boolean;
 
 /** Play Store build flag - used for conditional features */

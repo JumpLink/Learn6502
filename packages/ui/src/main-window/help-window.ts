@@ -21,17 +21,15 @@ export class HelpWindow extends Adw.Window {
 
   constructor(params: Partial<Adw.Window.ConstructorProps> = {}) {
     super(params);
-  }
-
-  // Register/unregister for theme classes so theme classes apply
-  vfunc_map(): void {
-    super.vfunc_map();
+    // Register/unregister for theme classes so theme classes apply. `vfunc_map`/`vfunc_unmap`
+    // are real GObject vfuncs the pure-JS engine (web, iOS) never dispatches — construction and
+    // `close-request` fire identically on every engine, and a fresh HelpWindow is created and
+    // presented on each use (main-window.services.ts), so they are an exact substitute here.
     themeService.registerThemedWidget(this);
-  }
-
-  vfunc_unmap(): void {
-    themeService.unregisterThemedWidget(this);
-    super.vfunc_unmap();
+    this.connect("close-request", () => {
+      themeService.unregisterThemedWidget(this);
+      return false;
+    });
   }
 }
 

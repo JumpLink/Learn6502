@@ -4,7 +4,7 @@
  */
 
 import "./engine";
-import { isAndroid } from "@nativescript/core";
+import { isAndroid, isIOS } from "@nativescript/core";
 import { initLocale } from "@gjsify/adwaita-app/locale";
 import { Adw, registerAdwaita } from "@gjsify/adwaita-nativescript";
 import type GjsAdw from "@girs/adw-1";
@@ -14,8 +14,8 @@ import { APPLICATION_ID } from "./constants";
 import { MainWindow, setTranslator, settings, themeService } from "@learn6502/ui";
 import { registerMainWindowPlatform } from "./views/main-window-platform";
 
-if (!isAndroid) {
-  throw new Error("This app is only supported on Android");
+if (!isAndroid && !isIOS) {
+  throw new Error("This app is only supported on Android and iOS");
 }
 
 try {

@@ -1,5 +1,5 @@
 /**
- * NativeScript configuration — Android-only.
+ * NativeScript configuration — Android and iOS.
  *
  * Built with Vite 8 / Rolldown via @gjsify/nativescript-vite (vite.config.ts).
  * `@nativescript/vite` requires this file to be `nativescript.config.ts`.
@@ -22,7 +22,6 @@ export default {
   bundler: "vite",
   bundlerConfigPath: "vite.config.ts",
 
-  // Android-specific configuration (no iOS - this is Android-only)
   android: {
     v8Flags: "--expose_gc",
     gradleVersion: "8.14.3",
