@@ -73,6 +73,9 @@ export class MdxView extends Adw.Bin {
   /** Whether {@link wire} has seen a built tree; its walk is a no-op from then on. */
   private wired = false;
 
+  /** The code blocks whose copy button is already re-emitted, so a repeated walk skips them. */
+  private wiredBlocks = new WeakSet<SourceView>();
+
   /** What {@link deferBelowFold} detached, in document order, until {@link revealDeferred} re-attaches it. */
   private deferred: Gtk.Widget[] = [];
 
@@ -177,7 +180,10 @@ export class MdxView extends Adw.Bin {
     this.deferredParent = null;
     let next = 0;
     const step = (): void => {
-      for (let n = 0; n < REVEAL_BATCH && next < sections.length; n++, next++) parent.append(sections[next]);
+      for (let n = 0; n < REVEAL_BATCH && next < sections.length; n++, next++) {
+        parent.append(sections[next]);
+        this.wireSubtree(sections[next]);
+      }
       if (next < sections.length) setTimeout(step, REVEAL_INTERVAL_MS);
     };
     setTimeout(step, REVEAL_INTERVAL_MS);
@@ -195,18 +201,31 @@ export class MdxView extends Adw.Bin {
    */
   protected wire(): void {
     if (this.wired) return;
+    this.wired = this.wireSubtree(this);
+  }
+
+  /**
+   * Wires everything under `root`, and returns whether there was anything. Re-runnable: the RTL
+   * pass is idempotent and a code block is connected once however often it is walked.
+   *
+   * Needed past {@link wire}'s one walk because {@link revealDeferred} attaches sections AFTER
+   * it: those were never under the walk, so their copy buttons reached nobody.
+   */
+  private wireSubtree(root: Gtk.Widget): boolean {
     const rtl = this.get_direction() === Gtk.TextDirection.RTL;
     let found = false;
-    for (const child of descendants(this)) {
+    for (const child of descendants(root)) {
       found = true;
       if (child instanceof SourceView) {
+        if (this.wiredBlocks.has(child)) continue;
+        this.wiredBlocks.add(child);
         // TODO: Disconnect the signal when the source view is destroyed
         child.events.on("copy", (event: SourceViewCopyEvent) => this.emit("copy", event.code));
       } else if (rtl && child instanceof Gtk.Label && child.label) {
         child.label = applyRtlBaseDirection(child.label);
       }
     }
-    this.wired = found;
+    return found;
   }
 }
 
