@@ -205,8 +205,11 @@ Page.adw-window {
 
 /* ===== Switch ===== */
 
+/* NativeScript tints the thumb with `color` and the track with `background-color`, so the
+ * accent goes on the track (as in libadwaita) and the thumb stays white. */
 .adw-switch {
-    color: #3584e4;
+    color: #ffffff;
+    background-color: #3584e4;
 }
 
 /* NativeScript's `color` tints the thumb in BOTH states, so an off switch kept its
@@ -215,6 +218,7 @@ Page.adw-window {
  * row (the Android thumb overhangs the track), so it is a mid grey. */
 .adw-switch.off {
     color: #9a9996;
+    background-color: #deddda;
 }
 
 /* ===== Preferences page (ScrollView wrapper) ===== */
@@ -2021,11 +2025,13 @@ Page.ns-dark.adw-window {
 }
 
 .ns-dark .adw-switch {
-    color: #78aeed;
+    color: #ffffff;
+    background-color: #78aeed;
 }
 
 .ns-dark .adw-switch.off {
     color: #9a9996;
+    background-color: #5e5c64;
 }
 
 /* ===== Dark: preferences page ===== */

@@ -18,11 +18,14 @@
     background-color: transparent;
     margin: 0;
     horizontal-align: center;
+    vertical-align: center;
 }
 
 .adw-check-button.primary.checked,
 .adw-check-button.accent.checked {
-    border-color: #3584e4;
+    /* NS cannot read var(--accent-bg-color) and the bridge only retints listed rules, so the
+     * ring is the neutral foreground instead of a blue that clashes with any other accent. */
+    border-color: #33333a;
 }
 
 .adw-check-button.primary-blue {
