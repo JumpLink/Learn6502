@@ -4,11 +4,12 @@
   <id>eu.jumplink.Learn6502</id>
   <metadata_license>CC0-1.0</metadata_license>
   <project_license>GPL-3.0-or-later</project_license>
-  <name>Learn 6502</name>
+  <name translate="no">Learn 6502</name>
   <summary>Program vintage consoles</summary>
   <summary xml:lang="zh-Hans">为复古游戏主机编写程序</summary>
   <summary xml:lang="vi">Lập trình game retro</summary>
   <summary xml:lang="uk">Програмуйте ретроконсолі</summary>
+  <summary xml:lang="ta">பழைய கன்சோல்களை நிரலாக்குங்கள்</summary>
   <summary xml:lang="pt-BR">Programe consoles retrô</summary>
   <summary xml:lang="pt">Programe consolas retro</summary>
   <summary xml:lang="pl">Programuj konsole retro</summary>
@@ -264,16 +265,64 @@
       <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-code.png</image>
       
       <caption>Code editor on a phone</caption>
+      <caption xml:lang="zh-Hans">手机上的代码编辑器</caption>
+      <caption xml:lang="vi">Trình soạn thảo mã trên điện thoại</caption>
+      <caption xml:lang="uk">Редактор коду на телефоні</caption>
+      <caption xml:lang="ta">தொலைபேசியில் குறியீடு திருத்தி</caption>
+      <caption xml:lang="pt-BR">Editor de código no celular</caption>
+      <caption xml:lang="pt">Editor de código num telemóvel</caption>
+      <caption xml:lang="pl">Edytor kodu na telefonie</caption>
+      <caption xml:lang="nl">Code-editor op een telefoon</caption>
+      <caption xml:lang="ja">スマートフォン上のコードエディター</caption>
+      <caption xml:lang="id">Editor kode di ponsel</caption>
+      <caption xml:lang="ia">Editor de codice sur un telephono</caption>
+      <caption xml:lang="he">עורך קוד בטלפון</caption>
+      <caption xml:lang="fr">Éditeur de code sur un téléphone</caption>
+      <caption xml:lang="fi">Koodieditori puhelimessa</caption>
+      <caption xml:lang="es">Editor de código en un teléfono</caption>
+      <caption xml:lang="de">Code-Editor auf dem Handy</caption>
     </screenshot>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-tutorial.png</image>
       
       <caption>Interactive tutorial on a phone</caption>
+      <caption xml:lang="zh-Hans">手机上的交互式教程</caption>
+      <caption xml:lang="vi">Hướng dẫn tương tác trên điện thoại</caption>
+      <caption xml:lang="uk">Інтерактивний посібник на телефоні</caption>
+      <caption xml:lang="ta">தொலைபேசியில் ஊடாடும் பயிற்சி</caption>
+      <caption xml:lang="pt-BR">Tutorial interativo no celular</caption>
+      <caption xml:lang="pt">Tutorial interativo num telemóvel</caption>
+      <caption xml:lang="pl">Interaktywny samouczek na telefonie</caption>
+      <caption xml:lang="nl">Interactieve tutorial op een telefoon</caption>
+      <caption xml:lang="ja">スマートフォン上のインタラクティブチュートリアル</caption>
+      <caption xml:lang="id">Tutorial interaktif di ponsel</caption>
+      <caption xml:lang="ia">Tutorial interactive sur un telephono</caption>
+      <caption xml:lang="he">מדריך אינטראקטיבי בטלפון</caption>
+      <caption xml:lang="fr">Tutoriel interactif sur un téléphone</caption>
+      <caption xml:lang="fi">Interaktiivinen opetusohjelma puhelimessa</caption>
+      <caption xml:lang="es">Tutorial interactivo en un teléfono</caption>
+      <caption xml:lang="de">Interaktives Tutorial auf dem Handy</caption>
     </screenshot>
     <screenshot type="default">
       <image>https://raw.githubusercontent.com/JumpLink/Learn6502/refs/tags/v0.9.0/misc/screenshots/0.9.0/mobile-play.png</image>
       
       <caption>Game console on a phone</caption>
+      <caption xml:lang="zh-Hans">手机上的游戏主机</caption>
+      <caption xml:lang="vi">Bảng điều khiển trò chơi trên điện thoại</caption>
+      <caption xml:lang="uk">Ігрова консоль на телефоні</caption>
+      <caption xml:lang="ta">தொலைபேசியில் கேம் கன்சோல்</caption>
+      <caption xml:lang="pt-BR">Console de jogo no celular</caption>
+      <caption xml:lang="pt">Consola de jogo num telemóvel</caption>
+      <caption xml:lang="pl">Konsola gry na telefonie</caption>
+      <caption xml:lang="nl">Spelconsole op een telefoon</caption>
+      <caption xml:lang="ja">スマートフォン上のゲームコンソール</caption>
+      <caption xml:lang="id">Konsol permainan di ponsel</caption>
+      <caption xml:lang="ia">Consola de joco sur un telephono</caption>
+      <caption xml:lang="he">קונסולת משחקים בטלפון</caption>
+      <caption xml:lang="fr">Console de jeu sur un téléphone</caption>
+      <caption xml:lang="fi">Pelikonsoli puhelimessa</caption>
+      <caption xml:lang="es">Consola de juegos en un teléfono</caption>
+      <caption xml:lang="de">Spielkonsole auf dem Handy</caption>
     </screenshot>
   </screenshots>
   <url type="homepage">https://jumplink.eu/Learn6502/</url>
@@ -285,37 +334,165 @@
   <url type="translate">https://hosted.weblate.org/projects/eu-jumplink-learn6502/app/</url>
   <content_rating type="oars-1.1"/>
   <releases>
+    <release version="0.9.1" date="2026-11-06">
+      <description>
+        
+        <p>Android: choosing an accent colour in Preferences works again.</p>
+        
+        <p>The About dialog on Android looks like on the desktop.</p>
+        
+        <p>Switches follow the accent colour.</p>
+        
+        <p>Code blocks in the examples have a maximum height.</p>
+        
+        <p>The copy buttons in the tutorial work everywhere.</p>
+        
+        <p>As always, this release includes many small fixes and improvements.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小修复和改进。</p>
+        <p xml:lang="vi">Như mọi khi, phiên bản này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей реліз містить багато дрібних виправлень та покращень.</p>
+        <p xml:lang="ta">எப்போதும் போலவே, இந்த வெளியீடு பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகளைக் கொண்டுள்ளது.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão traz muitas correções e melhorias pequenas.</p>
+        <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i ulepszeń.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze release veel kleine fixes en verbeteringen.</p>
+        <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
+        <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
+        <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
+        <p xml:lang="he">כרגיל, גרסה זו כוללת תיקונים ושיפורים קטנים רבים.</p>
+        <p xml:lang="fr">Comme toujours, cette version comprend de nombreuses petites corrections et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää monia pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas correcciones y mejoras menores.</p>
+        <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
+      </description>
+    </release>
     <release version="0.9.0" date="2026-10-31">
       <description>
         
         <p>Learn 6502 now runs on Android. Download the APK from the release page and learn 6502 assembly on your phone, with the same tutorial, editor and game console as on the desktop.</p>
+        <p xml:lang="zh-Hans">Learn 6502 现已支持 Android。可从发布页面下载 APK，在手机上学习 6502 汇编语言，使用与桌面版相同的教程、编辑器和游戏控制台。</p>
+        <p xml:lang="vi">Learn 6502 đã có mặt trên Android. Tải APK từ trang phát hành và học hợp ngữ 6502 trên điện thoại với cùng hướng dẫn, trình soạn thảo và bảng điều khiển trò chơi như trên máy tính.</p>
+        <p xml:lang="uk">Learn 6502 тепер працює на Android. Завантажте APK зі сторінки релізів та вивчайте асемблер 6502 на телефоні з тим самим посібником, редактором та ігровою консоллю, що й на комп'ютері.</p>
+        <p xml:lang="ta">Learn 6502 இப்போது Android இல் இயங்குகிறது. வெளியீட்டு பக்கத்திலிருந்து APK ஐப் பதிவிறக்கி, டெஸ்க்டாப்பில் உள்ள அதே பயிற்சி, திருத்தி மற்றும் விளையாட்டு கன்சோலுடன் உங்கள் தொலைபேசியில் 6502 அசெம்பிளியை கற்றுக்கொள்ளுங்கள்.</p>
+        <p xml:lang="pt-BR">O Learn 6502 agora está disponível no Android. Baixe o APK na página de releases e aprenda assembly 6502 no seu celular, com o mesmo tutorial, editor e console de jogos do computador.</p>
+        <p xml:lang="pt">O Learn 6502 já está disponível no Android. Transfira o APK da página de versões e aprenda assembly 6502 no seu telemóvel, com o mesmo tutorial, editor e consola de jogos do desktop.</p>
+        <p xml:lang="pl">Learn 6502 działa teraz na Androidzie. Pobierz APK ze strony wydań i ucz się asemblera 6502 na swoim telefonie z tym samym samouczkiem, edytorem i konsolą gier co na komputerze.</p>
+        <p xml:lang="nl">Learn 6502 draait nu op Android. Download de APK van de releasepagina en leer 6502-assembler op je telefoon, met dezelfde tutorial, editor en spelconsole als op desktop.</p>
+        <p xml:lang="ja">Learn 6502 が Android で動作するようになりました。リリースページから APK をダウンロードして、デスクトップと同じチュートリアル、エディター、ゲームコンソールでスマートフォン上で 6502 アセンブリを学べます。</p>
+        <p xml:lang="id">Learn 6502 kini tersedia di Android. Unduh APK dari halaman rilis dan pelajari rakitan 6502 di ponsel Anda dengan tutorial, editor, dan konsol permainan yang sama seperti di desktop.</p>
+        <p xml:lang="ia">Learn 6502 nunc functiona sur Android. Discarga le APK del pagina de version e apprende assemblea 6502 sur tu telephono, con le mesme tutorial, editor e console de joco como sur le scriptorio.</p>
+        <p xml:lang="he">Learn 6502 פועל כעת על Android. הורד את ה-APK מדף ההשקה ולמד שפת סף 6502 בטלפון שלך, עם אותו מדריך, עורך וקונסולת משחק כמו במחשב.</p>
+        <p xml:lang="fr">Learn 6502 est désormais disponible sur Android. Téléchargez l'APK depuis la page des versions et apprenez l'assembleur 6502 sur votre téléphone, avec le même tutoriel, éditeur et console de jeu que sur ordinateur.</p>
+        <p xml:lang="fi">Learn 6502 toimii nyt Androidilla. Lataa APK julkaistus-sivulta ja opettele 6502-konekieltä puhelimellasi samalla opetusohjelmalla, editorilla ja pelikonsolilla kuin työpöydällä.</p>
+        <p xml:lang="es">Learn 6502 ya está disponible en Android. Descarga el APK desde la página de versiones y aprende ensamblador 6502 en tu teléfono, con el mismo tutorial, editor y consola de juegos que en el escritorio.</p>
+        <p xml:lang="de">Learn 6502 läuft jetzt auf Android. Lade die APK von der Release-Seite herunter und lerne 6502-Assembler auf deinem Telefon mit demselben Tutorial, Editor und Konsolenspiel wie auf dem Desktop.</p>
         
         <p>The tutorial opens much faster.</p>
+        <p xml:lang="zh-Hans">教程打开速度大幅提升。</p>
+        <p xml:lang="vi">Hướng dẫn mở nhanh hơn rất nhiều.</p>
+        <p xml:lang="uk">Посібник відкривається набагато швидше.</p>
+        <p xml:lang="ta">பயிற்சி மிக வேகமாக திறக்கிறது.</p>
+        <p xml:lang="pt-BR">O tutorial abre muito mais rápido.</p>
+        <p xml:lang="pt">O tutorial abre muito mais depressa.</p>
+        <p xml:lang="pl">Samouczek otwiera się znacznie szybciej.</p>
+        <p xml:lang="nl">De tutorial opent veel sneller.</p>
+        <p xml:lang="ja">チュートリアルの起動が大幅に高速化されました。</p>
+        <p xml:lang="id">Tutorial terbuka jauh lebih cepat.</p>
+        <p xml:lang="ia">Le tutorial se aperi multo plus rapide.</p>
+        <p xml:lang="he">המדריך נפתח מהר יותר בהרבה.</p>
+        <p xml:lang="fr">Le tutoriel s'ouvre beaucoup plus rapidement.</p>
+        <p xml:lang="fi">Opetusohjelma avautuu paljon nopeammin.</p>
+        <p xml:lang="es">El tutorial se abre mucho más rápido.</p>
+        <p xml:lang="de">Das Tutorial öffnet sich viel schneller.</p>
         
         <p>The debugger is off by default.</p>
+        <p xml:lang="zh-Hans">调试器默认关闭。</p>
+        <p xml:lang="vi">Trình gỡ lỗi mặc định tắt.</p>
+        <p xml:lang="uk">Налагоджувач вимкнено за замовчуванням.</p>
+        <p xml:lang="ta">பிழைத்திருத்தி இயல்பாக அணைக்கப்பட்டுள்ளது.</p>
+        <p xml:lang="pt-BR">O depurador fica desativado por padrão.</p>
+        <p xml:lang="pt">O depurador está desativado por predefinição.</p>
+        <p xml:lang="pl">Debuger jest domyślnie wyłączony.</p>
+        <p xml:lang="nl">De debugger is standaard uitgeschakeld.</p>
+        <p xml:lang="ja">デバッガーはデフォルトでオフになっています。</p>
+        <p xml:lang="id">Debugger dinonaktifkan secara default.</p>
+        <p xml:lang="ia">Le depurator es disactivate per predefinition.</p>
+        <p xml:lang="he">מנקה הבאגים כבוי כברירת מחדל.</p>
+        <p xml:lang="fr">Le débogueur est désactivé par défaut.</p>
+        <p xml:lang="fi">Virheenjäljitin on oletuksena pois päältä.</p>
+        <p xml:lang="es">El depurador está desactivado por defecto.</p>
+        <p xml:lang="de">Der Debugger ist standardmäßig deaktiviert.</p>
         
         <p>Screen readers announce the toolbar, header and gamepad buttons.</p>
+        <p xml:lang="zh-Hans">屏幕阅读器会朗读工具栏、标题和游戏手柄按钮。</p>
+        <p xml:lang="vi">Trình đọc màn hình thông báo thanh công cụ, tiêu đề và các nút tay cầm.</p>
+        <p xml:lang="uk">Програми читання з екрану озвучують панель інструментів, заголовок та кнопки геймпада.</p>
+        <p xml:lang="ta">திரை வாசிப்பான்கள் கருவிப்பட்டியை, தலைப்பை மற்றும் கேம்பேட் பொத்தான்களை அறிவிக்கின்றன.</p>
+        <p xml:lang="pt-BR">Leitores de tela anunciam a barra de ferramentas, o cabeçalho e os botões do controle.</p>
+        <p xml:lang="pt">Os leitores de ecrã anunciam a barra de ferramentas, o cabeçalho e os botões do gamepad.</p>
+        <p xml:lang="pl">Czytniki ekranu ogłaszają pasek narzędzi, nagłówek i przyciski gamepada.</p>
+        <p xml:lang="nl">Schermlezers kondigen de werkbalk, kop en gamepadknoppen aan.</p>
+        <p xml:lang="ja">スクリーンリーダーがツールバー、ヘッダー、ゲームパッドボタンを読み上げます。</p>
+        <p xml:lang="id">Pembaca layar mengumumkan bilah alat, header, dan tombol gamepad.</p>
+        <p xml:lang="ia">Lectores de schermo annuncia le barra de instrumentos, capite e buttones del gamepad.</p>
+        <p xml:lang="he">קוראי מסך מכריזים על סרגל הכלים, הכותרת וכפתורי הבקר.</p>
+        <p xml:lang="fr">Les lecteurs d'écran annoncent la barre d'outils, l'en-tête et les boutons de la manette.</p>
+        <p xml:lang="fi">Näytönlukijat ilmoittavat työkalupalkin, otsikon ja peliohjaimen painikkeet.</p>
+        <p xml:lang="es">Los lectores de pantalla anuncian la barra de herramientas, el encabezado y los botones del gamepad.</p>
+        <p xml:lang="de">Screenreader geben die Toolbar, den Header und die Gamepad-Tasten bekannt.</p>
         
         <p>Text follows the system font size.</p>
+        <p xml:lang="zh-Hans">文本遵循系统字体大小。</p>
+        <p xml:lang="vi">Văn bản theo cỡ phông chữ hệ thống.</p>
+        <p xml:lang="uk">Текст відповідає розміру шрифту системи.</p>
+        <p xml:lang="ta">உரை கணினி எழுத்துரு அளவைப் பின்பற்றுகிறது.</p>
+        <p xml:lang="pt-BR">O texto segue o tamanho da fonte do sistema.</p>
+        <p xml:lang="pt">O texto segue o tamanho da fonte do sistema.</p>
+        <p xml:lang="pl">Tekst dostosowuje się do rozmiaru czcionki systemowej.</p>
+        <p xml:lang="nl">Tekst volgt de systeemlettergrootte.</p>
+        <p xml:lang="ja">テキストはシステムのフォントサイズに従います。</p>
+        <p xml:lang="id">Teks mengikuti ukuran font sistem.</p>
+        <p xml:lang="ia">Le texto seque le dimension del typo de litteras del systema.</p>
+        <p xml:lang="he">הטקסט עוקב אחר גודל הגופן של המערכת.</p>
+        <p xml:lang="fr">Le texte suit la taille de police du système.</p>
+        <p xml:lang="fi">Teksti seuraa järjestelmän fonttikokoa.</p>
+        <p xml:lang="es">El texto sigue el tamaño de fuente del sistema.</p>
+        <p xml:lang="de">Der Text folgt der Systemschriftgröße.</p>
         
         <p>The About dialog names the translators.</p>
+        <p xml:lang="zh-Hans">“关于”对话框显示翻译者名单。</p>
+        <p xml:lang="vi">Hộp thoại Giới thiệu ghi tên người dịch.</p>
+        <p xml:lang="uk">Діалог «Про програму» вказує перекладачів.</p>
+        <p xml:lang="ta">பற்றி உரையாடல் மொழிபெயர்ப்பாளர்களின் பெயர்களைக் குறிப்பிடுகிறது.</p>
+        <p xml:lang="pt-BR">A caixa Sobre exibe os nomes dos tradutores.</p>
+        <p xml:lang="pt">A janela Acerca de menciona os tradutores.</p>
+        <p xml:lang="pl">Okno dialogowe O programie wymienia tłumaczy.</p>
+        <p xml:lang="nl">Het venster Over noemt de vertalers.</p>
+        <p xml:lang="ja">バージョン情報ダイアログに翻訳者が表示されます。</p>
+        <p xml:lang="id">Dialog Tentang mencantumkan nama penerjemah.</p>
+        <p xml:lang="ia">Le dialogo A proposito nomina le traductores.</p>
+        <p xml:lang="he">תיבת הדו-שיח אודות מציינת את המתרגמים.</p>
+        <p xml:lang="fr">La boîte de dialogue À propos indique les traducteurs.</p>
+        <p xml:lang="fi">Tietoja-valintaikkunassa mainitaan kääntäjät.</p>
+        <p xml:lang="es">El diálogo Acerca de muestra los nombres de los traductores.</p>
+        <p xml:lang="de">Der Dialog „Über“ nennt die Übersetzer.</p>
         
         <p>As always, this release includes many small fixes and improvements.</p>
-        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
-        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
-        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
-        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
-        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小修复和改进。</p>
+        <p xml:lang="vi">Như mọi khi, phiên bản này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей реліз містить багато дрібних виправлень та покращень.</p>
+        <p xml:lang="ta">எப்போதும் போலவே, இந்த வெளியீடு பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகளைக் கொண்டுள்ளது.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão traz muitas correções e melhorias pequenas.</p>
         <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
-        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
-        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i ulepszeń.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze release veel kleine fixes en verbeteringen.</p>
         <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
         <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
         <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
-        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
-        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
-        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
-        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="he">כרגיל, גרסה זו כוללת תיקונים ושיפורים קטנים רבים.</p>
+        <p xml:lang="fr">Comme toujours, cette version comprend de nombreuses petites corrections et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää monia pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas correcciones y mejoras menores.</p>
         <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
       </description>
     </release>
@@ -323,33 +500,97 @@
       <description>
         
         <p>The examples page lists the example programs again.</p>
+        <p xml:lang="zh-Hans">示例页面再次列出示例程序。</p>
+        <p xml:lang="vi">Trang ví dụ hiển thị lại các chương trình ví dụ.</p>
+        <p xml:lang="uk">Сторінка прикладів знову показує приклади програм.</p>
+        <p xml:lang="ta">எடுத்துக்காட்டு பக்கம் மீண்டும் எடுத்துக்காட்டு நிரல்களை பட்டியலிடுகிறது.</p>
+        <p xml:lang="pt-BR">A página de exemplos lista novamente os programas exemplo.</p>
+        <p xml:lang="pt">A página de exemplos lista novamente os programas de exemplo.</p>
+        <p xml:lang="pl">Strona przykładów ponownie wyświetla programy przykładowe.</p>
+        <p xml:lang="nl">De voorbeeldden pagina toont weer de voorbeeldprogramma's.</p>
+        <p xml:lang="ja">サンプルページにサンプルプログラムが再び表示されます。</p>
+        <p xml:lang="id">Halaman contoh menampilkan kembali program contoh.</p>
+        <p xml:lang="ia">Le pagina de exemplos lista de novo le programmas de exemplo.</p>
+        <p xml:lang="he">דף הדוגמאות מציג שוב את תוכניות הדוגמה.</p>
+        <p xml:lang="fr">La page des exemples liste à nouveau les programmes d'exemple.</p>
+        <p xml:lang="fi">Esimerkkisivu listaa esimerkkiohjelmat uudelleen.</p>
+        <p xml:lang="es">La página de ejemplos vuelve a mostrar los programas de ejemplo.</p>
+        <p xml:lang="de">Die Beispielseite listet die Beispielprogramme wieder auf.</p>
         
         <p>Learn 6502 now runs on GNOME 51.</p>
+        <p xml:lang="zh-Hans">Learn 6502 现已支持 GNOME 51。</p>
+        <p xml:lang="vi">Learn 6502 hiện chạy trên GNOME 51.</p>
+        <p xml:lang="uk">Learn 6502 тепер працює на GNOME 51.</p>
+        <p xml:lang="ta">Learn 6502 இப்போது GNOME 51 இல் இயங்குகிறது.</p>
+        <p xml:lang="pt-BR">O Learn 6502 agora roda no GNOME 51.</p>
+        <p xml:lang="pt">O Learn 6502 já funciona no GNOME 51.</p>
+        <p xml:lang="pl">Learn 6502 działa teraz na GNOME 51.</p>
+        <p xml:lang="nl">Learn 6502 draait nu op GNOME 51.</p>
+        <p xml:lang="ja">Learn 6502 が GNOME 51 で動作するようになりました。</p>
+        <p xml:lang="id">Learn 6502 kini berjalan di GNOME 51.</p>
+        <p xml:lang="ia">Learn 6502 nunc functiona sur GNOME 51.</p>
+        <p xml:lang="he">Learn 6502 פועל כעת ב-GNOME 51.</p>
+        <p xml:lang="fr">Learn 6502 fonctionne désormais sur GNOME 51.</p>
+        <p xml:lang="fi">Learn 6502 toimii nyt GNOME 51:llä.</p>
+        <p xml:lang="es">Learn 6502 ya funciona en GNOME 51.</p>
+        <p xml:lang="de">Learn 6502 läuft jetzt auf GNOME 51.</p>
         
         <p>The SBC instruction now subtracts correctly with zero page addressing. Thanks to jeremyw-gh for the fix.</p>
+        <p xml:lang="zh-Hans">SBC指令现在可以使用零页寻址正确减法。感谢 jeremyw-gh 的修复。</p>
+        <p xml:lang="vi">Lệnh SBC giờ trừ chính xác với địa chỉ trang zero. Cảm ơn jeremyw-gh đã sửa.</p>
+        <p xml:lang="uk">Інструкція SBC тепер правильно віднімає з адресацією нульової сторінки. Дякую jeremyw-gh за виправлення.</p>
+        <p xml:lang="ta">SBC அறிவுறுத்தல் இப்போது பூஜ்ஜிய பக்க முகவரியுடன் சரியாகக் கழிக்கிறது. திருத்தத்திற்கு jeremyw-ghக்கு நன்றி.</p>
+        <p xml:lang="pt-BR">A instrução SBC subtrai corretamente com endereçamento de página zero. Obrigado a jeremyw-gh pela correção.</p>
+        <p xml:lang="pt">A instrução SBC subtrai corretamente com endereçamento de página zero. Obrigado a jeremyw-gh pela correção.</p>
+        <p xml:lang="pl">Instrukcja SBC teraz poprawnie odejmuje przy adresowaniu strony zerowej. Dzięki jeremyw-gh za poprawkę.</p>
+        <p xml:lang="nl">De SBC-instructie trekt nu correct af met zero-page-adressering. Dank aan jeremyw-gh voor de fix.</p>
+        <p xml:lang="ja">SBC命令がゼロページアドレッシングで正しく減算するようになりました。jeremyw-gh に感謝します。</p>
+        <p xml:lang="id">Instruksi SBC sekarang mengurangi dengan benar menggunakan pengalamatan halaman nol. Terima kasih kepada jeremyw-gh atas perbaikannya.</p>
+        <p xml:lang="ia">Le instruction SBC nunc subtrahe correctemente con adressamento de pagina zero. Gratias a jeremyw-gh pro le correction.</p>
+        <p xml:lang="he">פקודת SBC כעת מחסירה כראוי עם כתובות בדף אפס. תודה ל-jeremyw-gh על התיקון.</p>
+        <p xml:lang="fr">L'instruction SBC soustrait correctement avec l'adressage page zéro. Merci à jeremyw-gh pour cette correction.</p>
+        <p xml:lang="fi">SBC-käsky vähentää nyt oikein nollasivun osoituksella. Kiitos jeremyw-gh korjauksesta.</p>
+        <p xml:lang="es">La instrucción SBC ahora resta correctamente con direccionamiento de página cero. Gracias a jeremyw-gh por la corrección.</p>
+        <p xml:lang="de">Der SBC-Befehl subtrahiert jetzt korrekt mit Zero-Page-Adressierung. Dank an jeremyw-gh für die Korrektur.</p>
       </description>
     </release>
     <release version="0.8.2" date="2026-10-31">
       <description>
         
         <p>The macOS version is now signed and notarised by Apple and comes as a disk image for Apple silicon and Intel Macs, so it opens without a security warning.</p>
+        <p xml:lang="zh-Hans">macOS版本现已由Apple签名和公证，以适用于Apple Silicon和Intel Mac的磁盘映像形式提供，无需安全警告即可打开。</p>
+        <p xml:lang="vi">Phiên bản macOS hiện được Apple ký và chứng thực, dưới dạng ảnh đĩa cho Mac Apple silicon và Intel, mở ra mà không có cảnh báo bảo mật.</p>
+        <p xml:lang="uk">Версія macOS тепер підписана та нотаріально завірена Apple і постачається у вигляді образу диска для Mac з Apple Silicon та Intel, тому відкривається без попередження безпеки.</p>
+        <p xml:lang="ta">macOS பதிப்பு இப்போது Apple ஆல் கையொப்பமிட்டு சான்றளிக்கப்பட்டுள்ளது மற்றும் Apple silicon மற்றும் Intel Macகளுக்கான வட்டு படமாக வழங்கப்படுகிறது, எனவே பாதுகாப்பு எச்சரிக்கை இல்லாமல் திறக்கலாம்.</p>
+        <p xml:lang="pt-BR">A versão para macOS agora está assinada e autenticada pela Apple e vem como imagem de disco para Macs com Apple Silicon e Intel, abrindo sem aviso de segurança.</p>
+        <p xml:lang="pt">A versão macOS está agora assinada e notarizada pela Apple e vem como imagem de disco para Macs com Apple silicon e Intel, abrindo sem aviso de segurança.</p>
+        <p xml:lang="pl">Wersja macOS jest teraz podpisana i notarialnie poświadczona przez Apple i dostarczana jako obraz dysku dla Maców z Apple Silicon i Intel, więc otwiera się bez ostrzeżenia bezpieczeństwa.</p>
+        <p xml:lang="nl">De macOS-versie is nu ondertekend en genotariseerd door Apple en wordt geleverd als schijfimage voor Apple Silicon- en Intel-Macs, zodat deze zonder veiligheidswaarschuwing opent.</p>
+        <p xml:lang="ja">macOS版はAppleによって署名および公証され、AppleシリコンおよびIntel Mac用のディスクイメージとして提供されるため、セキュリティ警告なしで開けます。</p>
+        <p xml:lang="id">Versi macOS kini ditandatangani dan dinotarisasi oleh Apple serta tersedia sebagai image disk untuk Mac Apple silicon dan Intel, sehingga dapat dibuka tanpa peringatan keamanan.</p>
+        <p xml:lang="ia">Le version de macOS es nunc signate e notariate per Apple e veni como imagine de disco pro Macs con Apple silicon e Intel, assi que illo se aperi sin aviso de securitate.</p>
+        <p xml:lang="he">גרסת macOS חתומה ומאומתת כעת על ידי Apple ומגיעה כתמונת דיסק עבור Mac עם Apple silicon ו-Intel, כך שהיא נפתחת ללא אזהרת אבטחה.</p>
+        <p xml:lang="fr">La version macOS est désormais signée et certifiée par Apple et fournie sous forme d'image disque pour les Mac Apple Silicon et Intel, afin qu'elle s'ouvre sans avertissement de sécurité.</p>
+        <p xml:lang="fi">macOS-versio on nyt Applen allekirjoittama ja notarisoitu ja toimitetaan levykuvana Apple Silicon- ja Intel-Maceille, joten se avautuu ilman turvavaroitusta.</p>
+        <p xml:lang="es">La versión para macOS ahora está firmada y notarizada por Apple y viene como imagen de disco para Macs con Apple silicon e Intel, para que se abra sin advertencia de seguridad.</p>
+        <p xml:lang="de">Die macOS-Version ist jetzt von Apple signiert und notariell beglaubigt und wird als Disk-Image für Apple Silicon und Intel Macs ausgeliefert, sodass sie ohne Sicherheitswarnung geöffnet werden kann.</p>
         
         <p>As always, this release includes many small fixes and improvements.</p>
-        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
-        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
-        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
-        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
-        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小修复和改进。</p>
+        <p xml:lang="vi">Như mọi khi, phiên bản này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей реліз містить багато дрібних виправлень та покращень.</p>
+        <p xml:lang="ta">எப்போதும் போலவே, இந்த வெளியீடு பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகளைக் கொண்டுள்ளது.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão traz muitas correções e melhorias pequenas.</p>
         <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
-        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
-        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i ulepszeń.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze release veel kleine fixes en verbeteringen.</p>
         <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
         <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
         <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
-        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
-        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
-        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
-        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="he">כרגיל, גרסה זו כוללת תיקונים ושיפורים קטנים רבים.</p>
+        <p xml:lang="fr">Comme toujours, cette version comprend de nombreuses petites corrections et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää monia pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas correcciones y mejoras menores.</p>
         <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
       </description>
     </release>
@@ -357,31 +598,95 @@
       <description>
         
         <p>The Android app starts again. It had been crashing on launch before a single screen appeared, and it now runs on the same Adwaita widgets as the desktop version.</p>
+        <p xml:lang="zh-Hans">Android应用再次启动。之前在启动时会在显示任何屏幕前崩溃，现在使用与桌面版相同的Adwaita小部件运行。</p>
+        <p xml:lang="vi">Ứng dụng Android khởi động lại. Trước đây nó bị crash khi khởi động trước khi màn hình xuất hiện, giờ chạy với cùng widget Adwaita như phiên bản desktop.</p>
+        <p xml:lang="uk">Додаток Android знову запускається. Раніше він аварійно завершував роботу при запуску до появи екрану, тепер працює з тими ж віджетами Adwaita, що й десктопна версія.</p>
+        <p xml:lang="ta">Android பயன்பாடு மீண்டும் தொடங்குகிறது. முன்பு திரை தோன்றுவதற்கு முன்பே செயலிழந்தது, இப்போது டெஸ்க்டாப் பதிப்பின் அதே Adwaita விட்ஜெட்களுடன் இயங்குகிறது.</p>
+        <p xml:lang="pt-BR">O app Android inicia novamente. Antes travava na inicialização antes de aparecer qualquer tela e agora roda com os mesmos widgets Adwaita da versão desktop.</p>
+        <p xml:lang="pt">A aplicação Android volta a arrancar. Anteriormente bloqueava ao iniciar antes de aparecer qualquer ecrã e agora funciona com os mesmos widgets Adwaita da versão para desktop.</p>
+        <p xml:lang="pl">Aplikacja Android ponownie się uruchamia. Wcześniej crashowała przy starcie przed wyświetleniem ekranu, teraz działa z tymi samymi widżetami Adwaita co wersja desktopowa.</p>
+        <p xml:lang="nl">De Android-app start opnieuw. Eerder crashte hij bij opstarten voordat er een scherm verscheen, nu draait hij met dezelfde Adwaita-widgets als de desktopversie.</p>
+        <p xml:lang="ja">Androidアプリが再び起動します。以前は画面が表示される前にクラッシュしていましたが、デスクトップ版と同じAdwaitaウィジェットで動作するようになりました。</p>
+        <p xml:lang="id">Aplikasi Android bisa berjalan lagi. Sebelumnya crash saat peluncuran sebelum layar muncul, kini berjalan dengan widget Adwaita yang sama seperti versi desktop.</p>
+        <p xml:lang="ia">Le app Android initia de novo. Ille cadeva al lanceamento ante un singule schermo apparer, e nunc functiona con le mesme widgets Adwaita que le version de scriptorio.</p>
+        <p xml:lang="he">אפליקציית Android מתחילה שוב. היא קרסה בעת ההפעלה לפני שהופיע מסך כלשהו, וכעת היא פועלת עם אותם רכיבי Adwaita כמו גרסת שולחן העבודה.</p>
+        <p xml:lang="fr">L'application Android redémarre. Elle plantait au lancement avant l'affichage de l'écran et fonctionne désormais avec les mêmes widgets Adwaita que la version de bureau.</p>
+        <p xml:lang="fi">Android-sovellus käynnistyy uudelleen. Se kaatui aiemmin käynnistyksessä ennen kuin näyttö ilmestyi, ja nyt se käyttää samoja Adwaita-widgettejä kuin työpöytäversio.</p>
+        <p xml:lang="es">La app Android vuelve a iniciarse. Antes se bloqueaba al arrancar antes de mostrar cualquier pantalla, ahora funciona con los mismos widgets Adwaita que la versión de escritorio.</p>
+        <p xml:lang="de">Die Android-App startet wieder. Sie stürzte früher vor dem Erscheinen eines Bildschirms ab und läuft jetzt mit denselben Adwaita-Widgets wie die Desktop-Version.</p>
         <ul>
           
           <li>The web version has a proper About dialog now, and its app icon shows up where it was missing before.</li>
+          <li xml:lang="zh-Hans">Web版现在有了合适的“关于”对话框，应用图标也会在之前缺失的地方显示。</li>
+          <li xml:lang="vi">Phiên bản web giờ có hộp thoại Giới thiệu phù hợp và biểu tượng ứng dụng hiển thị ở nơi trước đây bị thiếu.</li>
+          <li xml:lang="uk">Веб-версія тепер має належний діалог «Про програму», а піктограма додатка відображається там, де раніше її не було.</li>
+          <li xml:lang="ta">வெப் பதிப்பில் இப்போது பொருத்தமான பற்றி உரையாடல் உள்ளது மற்றும் பயன்பாட்டு ஐகான் முன்பு காணாமல் இருந்த இடத்தில் தற்போது காணப்படுகிறது.</li>
+          <li xml:lang="pt-BR">A versão web agora tem uma caixa de diálogo Sobre adequada e o ícone do aplicativo aparece onde antes faltava.</li>
+          <li xml:lang="pt">A versão web agora tem um diálogo Sobre adequado e o ícone da aplicação aparece onde antes faltava.</li>
+          <li xml:lang="pl">Wersja internetowa ma teraz odpowiednie okno O programie, a ikona aplikacji pojawia się tam, gdzie wcześniej jej brakowało.</li>
+          <li xml:lang="nl">De webversie heeft nu een goed Over-dialoogvenster en het app-pictogram wordt weergegeven waar het voorheen ontbrak.</li>
+          <li xml:lang="ja">Web版には適切な「バージョン情報」ダイアログが追加され、以前欠落していたアプリアイコンが表示されるようになりました。</li>
+          <li xml:lang="id">Versi web kini memiliki dialog Tentang yang tepat dan ikon aplikasi muncul di tempat yang sebelumnya kosong.</li>
+          <li xml:lang="ia">Le version web ha nunc un dialogo A proposito appropriate e su icone de app appare ubi illo mancante antea.</li>
+          <li xml:lang="he">גרסת האינטרנט כוללת כעת תיבת דיאלוג 'אודות' מתאימה וסמל האפליקציה מופיע במקום שבו הוא חסר קודם לכן.</li>
+          <li xml:lang="fr">La version web dispose désormais d'une boîte de dialogue À propos appropriée et son icône d'application s'affiche là où elle manquait auparavant.</li>
+          <li xml:lang="fi">Verkkoversiossa on nyt asianmukainen Tietoja-valintaikkuna ja sovelluskuvake näkyy siellä, missä se puuttui aiemmin.</li>
+          <li xml:lang="es">La versión web ahora tiene un diálogo Acerca de adecuado y su icono de aplicación aparece donde antes faltaba.</li>
+          <li xml:lang="de">Die Webversion hat jetzt einen ordentlichen Über-Dialog und das App-Symbol wird dort angezeigt, wo es vorher fehlte.</li>
           
           <li>There is a privacy page and a legal notice, reachable from inside the app.</li>
+          <li xml:lang="zh-Hans">可从应用内访问隐私页面和法律声明。</li>
+          <li xml:lang="vi">Có thể truy cập trang riêng tư và thông báo pháp lý từ bên trong ứng dụng.</li>
+          <li xml:lang="uk">Зсередини додатка доступні сторінка конфіденційності та правове зауваження.</li>
+          <li xml:lang="ta">பயன்பாட்டின் உள்ளிருந்து தனியுரிமை பக்கம் மற்றும் சட்ட அறிவிப்பை அணுகலாம்.</li>
+          <li xml:lang="pt-BR">Há uma página de privacidade e um aviso legal acessíveis de dentro do aplicativo.</li>
+          <li xml:lang="pt">Há uma página de privacidade e um aviso legal acessíveis a partir da aplicação.</li>
+          <li xml:lang="pl">Z poziomu aplikacji dostępne są strona prywatności i informacje prawne.</li>
+          <li xml:lang="nl">Er is een privacypagina en een juridische mededeling die vanuit de app toegankelijk zijn.</li>
+          <li xml:lang="ja">アプリ内からプライバシーポリシーと法的通知にアクセスできます。</li>
+          <li xml:lang="id">Halaman privasi dan pemberitahuan hukum dapat diakses dari dalam aplikasi.</li>
+          <li xml:lang="ia">Il ha un pagina de privatessa e un aviso legal accessibile desde dentro le application.</li>
+          <li xml:lang="he">ניתן לגשת מעמוד הפרטיות וההודעה המשפטית מתוך האפליקציה.</li>
+          <li xml:lang="fr">Il y a une page de confidentialité et des mentions légales accessibles depuis l'application.</li>
+          <li xml:lang="fi">Sovelluksesta on löydettävissä tietosuojasivu ja oikeudellinen huomautus.</li>
+          <li xml:lang="es">Hay una página de privacidad y un aviso legal accesibles desde dentro de la aplicación.</li>
+          <li xml:lang="de">Es gibt eine Datenschutzseite und einen rechtlichen Hinweis, die aus der App heraus erreichbar sind.</li>
           
           <li>Every build says in About that it is open source, and where to support the project if you would like to.</li>
+          <li xml:lang="zh-Hans">每个构建版本都会在“关于”中说明它是开源的，以及如果您愿意可以在哪里支持该项目。</li>
+          <li xml:lang="vi">Mỗi bản dựng đều nêu trong Giới thiệu rằng nó là mã nguồn mở và nơi hỗ trợ dự án nếu bạn muốn.</li>
+          <li xml:lang="uk">Кожна збірка вказує в діалозі «Про програму», що це відкрите ПЗ та де можна підтримати проект.</li>
+          <li xml:lang="ta">ஒவ்வொரு உருவாக்கமும் பற்றி உரையில் இது திறந்த மூல மென்பொருள் என்றும், விரும்பினால் திட்டத்தை எங்கே ஆதரிக்கலாம் என்றும் கூறுகிறது.</li>
+          <li xml:lang="pt-BR">Cada build informa em Sobre que é código aberto e onde apoiar o projeto, se desejar.</li>
+          <li xml:lang="pt">Cada compilação indica em Acerca de que é open source e onde apoiar o projeto, se desejar.</li>
+          <li xml:lang="pl">Każda wersja informuje w oknie O programie, że jest otwartym oprogramowaniem i gdzie można wesprzeć projekt.</li>
+          <li xml:lang="nl">Elke build geeft in Info aan dat het open source is en waar je het project kunt steunen.</li>
+          <li xml:lang="ja">各ビルドは「バージョン情報」でオープンソースであることと、支援方法を示します。</li>
+          <li xml:lang="id">Setiap build menyatakan di Tentang bahwa ini open source dan tempat mendukung proyek jika diinginkan.</li>
+          <li xml:lang="ia">Cata compilation indica in A proposito que illo es open source e ubi sustener le projecto si tu vole.</li>
+          <li xml:lang="he">כל גרסה מציינת בתיבת אודות שהיא קוד פתוח ואיפה ניתן לתמוך בפרויקט.</li>
+          <li xml:lang="fr">Chaque version indique dans À propos qu'elle est open source et où soutenir le projet si vous le souhaitez.</li>
+          <li xml:lang="fi">Jokainen koontiversio kertoo Tietoja-valintaikkunassa, että se on avointa lähdekoodia ja mistä projektia voi tukea.</li>
+          <li xml:lang="es">Cada compilación indica en Acerca de que es de código abierto y dónde apoyar el proyecto si lo deseas.</li>
+          <li xml:lang="de">Jeder Build weist im Über-Dialog auf den Open-Source-Charakter und die Möglichkeit zur Unterstützung hin.</li>
         </ul>
         
         <p>As always, this release includes many small fixes and improvements.</p>
-        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
-        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
-        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
-        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
-        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小修复和改进。</p>
+        <p xml:lang="vi">Như mọi khi, phiên bản này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей реліз містить багато дрібних виправлень та покращень.</p>
+        <p xml:lang="ta">எப்போதும் போலவே, இந்த வெளியீடு பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகளைக் கொண்டுள்ளது.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão traz muitas correções e melhorias pequenas.</p>
         <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
-        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
-        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i ulepszeń.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze release veel kleine fixes en verbeteringen.</p>
         <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
         <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
         <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
-        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
-        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
-        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
-        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="he">כרגיל, גרסה זו כוללת תיקונים ושיפורים קטנים רבים.</p>
+        <p xml:lang="fr">Comme toujours, cette version comprend de nombreuses petites corrections et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää monia pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas correcciones y mejoras menores.</p>
         <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
       </description>
     </release>
@@ -481,21 +786,21 @@
         </ul>
         
         <p>As always, this release includes many small fixes and improvements.</p>
-        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
-        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
-        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
-        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
-        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小修复和改进。</p>
+        <p xml:lang="vi">Như mọi khi, phiên bản này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей реліз містить багато дрібних виправлень та покращень.</p>
+        <p xml:lang="ta">எப்போதும் போலவே, இந்த வெளியீடு பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகளைக் கொண்டுள்ளது.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão traz muitas correções e melhorias pequenas.</p>
         <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
-        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
-        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i ulepszeń.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze release veel kleine fixes en verbeteringen.</p>
         <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
         <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
         <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
-        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
-        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
-        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
-        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="he">כרגיל, גרסה זו כוללת תיקונים ושיפורים קטנים רבים.</p>
+        <p xml:lang="fr">Comme toujours, cette version comprend de nombreuses petites corrections et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää monia pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas correcciones y mejoras menores.</p>
         <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
       </description>
     </release>
@@ -557,21 +862,21 @@
         <p xml:lang="de">Selamat datang! Wir freuen uns auch über die indonesische Übersetzung, freundlicherweise beigesteuert von Arif Budiman. Terima kasih!</p>
         
         <p>As always, this release includes many small fixes and improvements.</p>
-        <p xml:lang="zh-Hans">一如既往，此版本包含许多小的修复和改进。</p>
-        <p xml:lang="vi">Như thường lệ, bản phát hành này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
-        <p xml:lang="uk">Як завжди, цей випуск містить багато дрібних виправлень і вдосконалень.</p>
-        <p xml:lang="ta">எப்போதும் போல, இந்த வெளியீட்டில் பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகள் உள்ளன.</p>
-        <p xml:lang="pt-BR">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
+        <p xml:lang="zh-Hans">一如既往，此版本包含许多小修复和改进。</p>
+        <p xml:lang="vi">Như mọi khi, phiên bản này bao gồm nhiều sửa lỗi và cải tiến nhỏ.</p>
+        <p xml:lang="uk">Як завжди, цей реліз містить багато дрібних виправлень та покращень.</p>
+        <p xml:lang="ta">எப்போதும் போலவே, இந்த வெளியீடு பல சிறிய திருத்தங்கள் மற்றும் மேம்பாடுகளைக் கொண்டுள்ளது.</p>
+        <p xml:lang="pt-BR">Como sempre, esta versão traz muitas correções e melhorias pequenas.</p>
         <p xml:lang="pt">Como sempre, esta versão inclui muitas pequenas correções e melhorias.</p>
-        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i usprawnień.</p>
-        <p xml:lang="nl">Zoals altijd bevat deze versie veel kleine foutoplossingen en verbeteringen.</p>
+        <p xml:lang="pl">Jak zawsze, to wydanie zawiera wiele drobnych poprawek i ulepszeń.</p>
+        <p xml:lang="nl">Zoals altijd bevat deze release veel kleine fixes en verbeteringen.</p>
         <p xml:lang="ja">いつものように、このリリースには多くの小さな修正と改善が含まれています。</p>
         <p xml:lang="id">Seperti biasa, rilis ini mencakup banyak perbaikan dan peningkatan kecil.</p>
         <p xml:lang="ia">Como sempre, iste version include multe parve correctiones e meliorationes.</p>
-        <p xml:lang="he">כמו תמיד, גרסה זו כוללת הרבה תיקונים ושיפורים קטנים.</p>
-        <p xml:lang="fr">Comme toujours, cette version inclut de nombreux petits correctifs et améliorations.</p>
-        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää paljon pieniä korjauksia ja parannuksia.</p>
-        <p xml:lang="es">Como siempre, esta versión incluye muchas pequeñas correcciones y mejoras.</p>
+        <p xml:lang="he">כרגיל, גרסה זו כוללת תיקונים ושיפורים קטנים רבים.</p>
+        <p xml:lang="fr">Comme toujours, cette version comprend de nombreuses petites corrections et améliorations.</p>
+        <p xml:lang="fi">Kuten aina, tämä julkaisu sisältää monia pieniä korjauksia ja parannuksia.</p>
+        <p xml:lang="es">Como siempre, esta versión incluye muchas correcciones y mejoras menores.</p>
         <p xml:lang="de">Wie immer enthält diese Version viele kleine Fehlerbehebungen und Verbesserungen.</p>
       </description>
     </release>
