@@ -121,6 +121,8 @@ and no GTK — it says so loudly and still exits 0. `gjsify install --os darwin
 step whenever a target is typed, so the Linux prebuilds the CLI itself runs on
 survive.
 
+**After editing the metainfo `.xml.in`, run `gjsify run metainfo:regen` and commit the `.xml`** — the site, Meson and Flathub read the generated file, and `check:metainfo:fresh` fails CI when it is stale (0.9.1 shipped without it). Not the copy `gjsify link` rewrites.
+
 **One version, eleven places.** `gjsify run check:versions` holds the root
 manifest, the nine package manifests and the AppStream release list to a single
 value, and CI runs it on every push. Changesets' `fixed: [["@learn6502/*"]]` does
