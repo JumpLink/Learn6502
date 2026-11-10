@@ -48,7 +48,7 @@ Page.adw-window {
 }
 
 .adw-preferences-group-title {
-    font-size: 11;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.55);
     margin: 0;
@@ -61,7 +61,7 @@ Page.adw-window {
  * — the labels box carries nothing else, and the NS subset has no property for a
  * spacing, so the gap rides on the second child. It was 2. */
 .adw-preferences-group-description {
-    font-size: 12;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.55);
     margin: 6 0 0 0;
 }
@@ -127,11 +127,77 @@ Page.adw-window {
  * (_colors.scss:319) is the same number in both. The scoped rule below still adds the
  * separator's size, colour and padding on top of it, at higher specificity.
  *
- * It is also the first of `_labels.scss`'s utility set to land here; the rest
- * (`.title-1`…`.title-4`, `.accent`/`.success`/`.warning`, `.heading`, `.numeric`, …)
- * is an open entry in status/open-todos/README.md. */
+ * It is also the first of `_labels.scss`'s utility set to land here; the TYPOGRAPHY
+ * half follows directly below. The COLOUR half (`.accent`/`.success`/`.warning`/
+ * `.error`) stays an open entry in status/open-todos/README.md — upstream derives
+ * those from `oklab(from var(--…-bg-color) …)` (_colors.scss:168-193), and the
+ * standalone colour that comes out is not a literal anywhere in the tree, so porting
+ * it means doing the oklab conversion per scheme rather than copying a number. */
 .dimmed {
     opacity: 0.55;
+}
+
+/* `_labels.scss`'s typography ramp (lines 33-84). The percentages are upstream's,
+ * stated against the DOCUMENT font; NativeScript has no document-level font size to
+ * inherit from — every rule in this file carries its own — so they are resolved here
+ * against the same 14.67 base the rest of the theme uses (`.adw-window-title`,
+ * `.adw-button-label`): GTK's 11pt read at 96 dpi, 11 × 96/72 = 14.67.
+ *
+ *   .title-1  181 %  →  26.55      .title-4         118 %  →  17.31
+ *   .title-2  136 %  →  19.95      .caption          82 %  →  12.03
+ *   .title-3  136 %  →  19.95      .caption-heading  82 %  →  12.03
+ *
+ * The products are written UNROUNDED on purpose. `.adw-status-page-title` below is
+ * 26.55, not 27, and a utility class that rounds is a second ramp that drifts from
+ * the first one hundredth at a time. `scripts/check-nativescript-font-sizes.mjs`
+ * recomputes each product from its percentage, so a hand-typed one fails the build.
+ *
+ * NOT PORTED, because the NativeScript CSS subset has no such property: upstream's
+ * `line-height: 140%` on `.body`/`.caption`, and `font-variant-numeric: tabular-nums`
+ * on `.numeric`. A `.numeric` that sets nothing would be a lie, so it is absent
+ * rather than empty. `.document`/`.monospace` are font-family tokens the embedder
+ * supplies (Android resolves a family by the TTF file name), not theme constants.
+ *
+ * `.body` and `.heading` are weight-only upstream; `.body` gains the explicit base
+ * size here for the same reason the percentages are resolved — there is nothing to
+ * inherit it from. */
+.title-1 {
+    font-size: 26.55;
+    font-weight: 800;
+}
+
+.title-2 {
+    font-size: 19.95;
+    font-weight: 800;
+}
+
+.title-3 {
+    font-size: 19.95;
+    font-weight: 700;
+}
+
+.title-4 {
+    font-size: 17.31;
+    font-weight: 700;
+}
+
+.heading {
+    font-weight: 700;
+}
+
+.body {
+    font-size: 14.67;
+    font-weight: 400;
+}
+
+.caption {
+    font-size: 12.03;
+    font-weight: 400;
+}
+
+.caption-heading {
+    font-size: 12.03;
+    font-weight: 700;
 }
 
 /* ===== Rows ===== */
@@ -193,7 +259,7 @@ Page.adw-window {
 }
 
 .adw-row-subtitle {
-    font-size: 13;
+    font-size: 12.22;
     color: rgba(0, 0, 0, 0.55);
     margin: 2 0 0 0;
 }
@@ -236,7 +302,7 @@ Page.adw-window {
 
 /* The title shrinks to a small dim floating label above the field. */
 .adw-entry-title {
-    font-size: 12;
+    font-size: 12.22;
     color: rgba(0, 0, 0, 0.55);
     margin: 0;
 }
@@ -811,7 +877,7 @@ Page.adw-window {
 }
 
 .adw-window-title-subtitle {
-    font-size: 12;
+    font-size: 12.22;
     color: rgba(0, 0, 0, 0.55);
     margin: 0;
 }
@@ -977,7 +1043,7 @@ Page.adw-window {
 /* AdwIndicatorBin's badge — the unread count, or (with .needs-attention and no
  * count) a bare dot. Reference: refs/libadwaita/src/adw-indicator-bin.c */
 .adw-viewswitcherbar-button-badge {
-    font-size: 10;
+    font-size: 8.8;
     font-weight: 700;
     color: #ffffff;
     background-color: #3584e4;
@@ -1060,7 +1126,7 @@ Page.adw-window {
 }
 
 .adw-data-grid-cell.header-cell {
-    font-size: 12;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.55);
 }
@@ -1149,14 +1215,14 @@ Page.adw-window {
 }
 
 .adw-status-page-title {
-    font-size: 20;
+    font-size: 26.55;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
     margin: 0 0 6 0;
 }
 
 .adw-status-page-description {
-    font-size: 14;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.55);
     margin: 0;
 }
@@ -1171,7 +1237,7 @@ Page.adw-window {
 }
 
 .adw-status-page.compact .adw-status-page-title {
-    font-size: 15;
+    font-size: 19.95;
 }
 
 /* ===== Button row (full-width tappable row) ===== */
@@ -1232,7 +1298,7 @@ Page.adw-window {
 }
 
 .adw-button-content-icon {
-    font-size: 14.67;
+    font-size: 15;
     color: rgba(0, 0, 0, 0.8);
     margin: 0 6 0 0;
 }
@@ -1325,7 +1391,7 @@ Page.adw-window {
 }
 
 .adw-toggle-label {
-    font-size: 14;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
     vertical-align: center;
@@ -1395,7 +1461,7 @@ Page.adw-window {
 
 /* AdwIndicatorBin's badge on the classic switcher's buttons. */
 .adw-view-switcher-button-badge {
-    font-size: 10;
+    font-size: 8.8;
     font-weight: 700;
     color: #ffffff;
     background-color: #3584e4;
@@ -1449,7 +1515,7 @@ Page.adw-window {
 
 /* AdwIndicatorBin's badge on the inline switcher's toggles. */
 .adw-inline-view-switcher-button-badge {
-    font-size: 10;
+    font-size: 8.8;
     font-weight: 700;
     color: #ffffff;
     background-color: #3584e4;
@@ -1779,7 +1845,7 @@ Page.adw-window {
 }
 
 .adw-toast-title {
-    font-size: 14;
+    font-size: 14.67;
     color: #ffffff;
     margin: 0;
 }
@@ -1818,40 +1884,55 @@ Page.adw-window {
     margin: 0 0 8 0;
 }
 
-.adw-about-dialog-link,
-.adw-about-dialog-links-item {
+.adw-about-dialog-page-bar {
+    margin: 0 0 12 0;
+}
+
+.adw-about-dialog-back {
     background-color: transparent;
     color: rgba(0, 0, 0, 0.8);
-    text-decoration: underline;
-    font-size: 13;
-    margin: 2 0 2 0;
+    font-size: 24;
+    font-weight: 700;
+    padding: 0 12 0 4;
+}
+
+.adw-about-dialog-page-title {
+    font-size: 14.67;
+    font-weight: 700;
+    color: rgba(0, 0, 0, 0.85);
+}
+
+.adw-about-dialog-card .adw-preferences-group {
+    margin: 0 0 12 0;
 }
 
 .adw-about-dialog-name {
-    font-size: 20;
+    font-size: 26.55;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.85);
     margin: 0 0 2 0;
 }
 
 .adw-about-dialog-version {
-    font-size: 13;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.55);
     margin: 0 0 8 0;
 }
 
 .adw-about-dialog-developer,
 .adw-about-dialog-comments,
-.adw-about-dialog-website,
-.adw-about-dialog-support,
-.adw-about-dialog-issue,
 .adw-about-dialog-credits,
 .adw-about-dialog-acknowledgements,
 .adw-about-dialog-legal,
-.adw-about-dialog-release-notes,
-.adw-about-dialog-links,
+.adw-about-dialog-release-notes {
+    font-size: 14.67;
+    color: rgba(0, 0, 0, 0.6);
+    margin: 2 0 2 0;
+}
+
+/* monospace font, 10pt (adw-style-manager.c) */
 .adw-about-dialog-debug-info {
-    font-size: 13;
+    font-size: 13.33;
     color: rgba(0, 0, 0, 0.6);
     margin: 2 0 2 0;
 }
@@ -1871,7 +1952,7 @@ Page.adw-window {
 }
 
 .adw-preferences-dialog-title {
-    font-size: 17;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.85);
     margin: 0;
@@ -1954,7 +2035,7 @@ Page.adw-window {
 
 .adw-shortcut-label-cap-text {
     color: rgba(0, 0, 0, 0.8);
-    font-size: 14;
+    font-size: 14.67;
     text-align: center;
 }
 
@@ -1962,7 +2043,7 @@ Page.adw-window {
  * smaller and bold, and rides inside its keycap rather than beside it. */
 .adw-shortcut-label-side {
     color: rgba(0, 0, 0, 0.8);
-    font-size: 11;
+    font-size: 12.22;
     font-weight: 700;
     margin-left: 2;
 }
@@ -1970,7 +2051,7 @@ Page.adw-window {
 /* `dim_label` — `--dim-opacity: 55%` (`_colors.scss:319`). */
 .adw-shortcut-label .dimmed {
     color: rgba(0, 0, 0, 0.8);
-    font-size: 14;
+    font-size: 14.67;
     opacity: 0.55;
     padding: 6 0 6 0;
 }
@@ -2686,20 +2767,16 @@ Page.ns-dark.adw-window {
 .ns-dark .adw-about-dialog-version,
 .ns-dark .adw-about-dialog-developer,
 .ns-dark .adw-about-dialog-comments,
-.ns-dark .adw-about-dialog-website,
-.ns-dark .adw-about-dialog-support,
-.ns-dark .adw-about-dialog-issue,
 .ns-dark .adw-about-dialog-credits,
 .ns-dark .adw-about-dialog-acknowledgements,
 .ns-dark .adw-about-dialog-legal,
 .ns-dark .adw-about-dialog-release-notes,
-.ns-dark .adw-about-dialog-links,
 .ns-dark .adw-about-dialog-debug-info {
     color: rgba(255, 255, 255, 0.6);
 }
 
-.ns-dark .adw-about-dialog-link,
-.ns-dark .adw-about-dialog-links-item {
+.ns-dark .adw-about-dialog-back,
+.ns-dark .adw-about-dialog-page-title {
     color: #ffffff;
 }
 
