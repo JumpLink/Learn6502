@@ -37,9 +37,9 @@ Page {
 
 /* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss
  *
- * THE SIZES ARE UPSTREAM'S PERCENTAGES OF THE 15 dip BASE, NOT FREE NUMBERS. libadwaita states
+ * THE SIZES ARE UPSTREAM'S PERCENTAGES OF THE 14.67 dip BASE, NOT FREE NUMBERS. libadwaita states
  * the ramp relatively — 181 % / 136 % / 136 % / 118 % of the document font — and the bridge's
- * base is 15 (`.adw-window-title`, `.adw-button-label`), which is GTK's 11pt read at 96 dpi:
+ * base is 14.67 (`.adw-window-title`, `.adw-button-label`), which is GTK's 11pt read at 96 dpi:
  * 11 × 96/72 = 14.67. Absolute pixel sizes here replaced that ramp with a flatter, larger one.
  *
  * MEASURED against GeopJr's GTK4Android Adwaita Demo on the same phone at the same font scale
@@ -50,7 +50,7 @@ Page {
 
 HtmlView,
 .body {
-  font-size: 15;
+  font-size: 14.67;
   font-weight: 400;
   margin-bottom: 12;
   margin-top: 12;
@@ -85,7 +85,7 @@ HtmlView,
 }
 
 .list {
-  font-size: 15;
+  font-size: 14.67;
 }
 
 /* Remove underline from TextViews */

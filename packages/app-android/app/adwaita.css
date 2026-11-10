@@ -187,7 +187,7 @@ Page.adw-window {
 }
 
 .adw-row-title {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
     margin: 0;
 }
@@ -248,7 +248,7 @@ Page.adw-window {
  * they are restated here so the rule is readable from the stylesheet.) */
 .adw-entry-field,
 .adw-entry-input {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
     background-color: transparent;
     /* No Material underline — no Adwaita entry has a field border. */
@@ -342,7 +342,7 @@ Page.adw-window {
 }
 
 .adw-combo-value {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.55);
     margin: 0 4 0 0;
 }
@@ -373,7 +373,7 @@ Page.adw-window {
 /* `button { font-weight: bold }` (_buttons.scss:24). The label carries the
  * colour because NS does not inherit `color` to a child Label. */
 .adw-drop-down-label {
-    font-size: 15;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
     vertical-align: center;
@@ -417,7 +417,7 @@ Page.adw-window {
 }
 
 .adw-spin-value {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
     margin: 0 6 0 4;
     vertical-align: center;
@@ -442,13 +442,13 @@ Page.adw-window {
 }
 
 .adw-slider-title {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
     margin: 0;
 }
 
 .adw-slider-value {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.55);
     margin: 0;
 }
@@ -663,7 +663,7 @@ Page.adw-window {
  * text button has neither, and one selector for both would give every text button
  * `image-text-button` spacing. */
 .adw-button-label {
-    font-size: 15;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
 }
@@ -758,7 +758,7 @@ Page.adw-window {
 }
 
 .adw-banner-title {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
     margin: 0;
 }
@@ -804,7 +804,7 @@ Page.adw-window {
 }
 
 .adw-window-title-title {
-    font-size: 15;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
     margin: 0;
@@ -1019,7 +1019,7 @@ Page.adw-window {
  * --spacing-s / --spacing-m, 9 and 12). Single-line is set on the widget: a
  * wrapped figure column stops being a column of figures. */
 .adw-data-grid-cell {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
     padding: 9 12 9 12;
     vertical-align: center;
@@ -1185,7 +1185,7 @@ Page.adw-window {
 }
 
 .adw-button-row-title {
-    font-size: 15;
+    font-size: 14.67;
     font-weight: 700;
     color: #3584e4;
     margin: 0;
@@ -1232,13 +1232,13 @@ Page.adw-window {
 }
 
 .adw-button-content-icon {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
     margin: 0 6 0 0;
 }
 
 .adw-button-content-label {
-    font-size: 15;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
     margin: 0;
@@ -1266,7 +1266,7 @@ Page.adw-window {
 }
 
 .adw-split-button-label {
-    font-size: 15;
+    font-size: 14.67;
     font-weight: 700;
     color: rgba(0, 0, 0, 0.8);
     vertical-align: center;
@@ -1632,7 +1632,7 @@ Page.adw-window {
 }
 
 .adw-sidebar-row-title {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
     margin: 0;
 }
@@ -1715,7 +1715,7 @@ Page.adw-window {
 }
 
 .adw-check-label {
-    font-size: 15;
+    font-size: 14.67;
     color: rgba(0, 0, 0, 0.8);
 }
 
@@ -1759,7 +1759,7 @@ Page.adw-window {
 
 .adw-text-view-input {
     color: rgba(0, 0, 0, 0.8);
-    font-size: 15;
+    font-size: 14.67;
 }
 
 .adw-text-view.monospace .adw-text-view-input {
