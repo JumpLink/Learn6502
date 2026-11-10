@@ -84,7 +84,7 @@ jobs:
           restore-keys: gjsify-tarballs-
 
       - name: Install gjsify CLI
-        run: npm install -g @gjsify/cli@0.64.25
+        run: npm install -g @gjsify/cli@0.64.27
 
       - name: Install dependencies
         run: gjsify install --immutable
@@ -123,10 +123,14 @@ jobs:
       # only lifts the rate limit. A failed lookup warns and the page links to the
       # releases instead of failing the deploy. The output dir mirrors the Pages
       # base path so `/Learn6502/` resolves the same when served locally.
+      # A release event pins the page to its own tag: `releases/latest` can still
+      # name the previous release for a moment after publishing. Push and dispatch
+      # runs have an empty tag_name, which the CLI treats as unset.
       - name: Build landing page
         run: gjsify site build --out site
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GJSIFY_SITE_RELEASE_TAG: ${{ github.event.release.tag_name }}
 
       # The web app is relative-path only (`./app.js`), so it can sit below the
       # landing page without a base change.
