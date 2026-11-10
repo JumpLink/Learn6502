@@ -17,7 +17,7 @@
     "@nativescript/core@~9.1.3",
     "@nativescript/tailwind@^4.0.9",
     "tailwindcss@^4.3.0",
-    "@gjsify/rolldown-plugin-gjsify@^0.64.1",
+    "@gjsify/rolldown-plugin-gjsify@0.64.27",
     "@gjsify/nativescript-vite@0.64.27",
     "@gjsify/vite-plugin-blueprint@0.64.27",
     "@nativescript/android@9.1.1",
@@ -60,7 +60,7 @@
     "@types/node@^25.9.1",
     "@gjsify/fs@0.64.27",
     "@gjsify/path@0.64.27",
-    "@gjsify/blueprint@^0.64.12",
+    "@gjsify/blueprint@0.64.27",
     "@gjsify/dom-elements@0.64.27",
     "@mdx-js/rollup@^3.1.1",
     "@types/mdx@^2.0.13",
@@ -2096,6 +2096,22 @@
         "@gjsify/events": "^0.64.27"
       }
     },
+    "node_modules/@gjsify/blueprint": {
+      "version": "0.64.27",
+      "resolved": "https://registry.npmjs.org/@gjsify/blueprint/-/blueprint-0.64.27.tgz",
+      "integrity": "sha512-hpoeBF5faCA35IQrd8uveXujvjWxTUbMrcI/xzeCW/Cb57Avz9XPTjICr7mLZO06uASEyTCr+wtHA/33JdVKjg==",
+      "dependencies": {
+        "@girs/adw-1": "5.4.0",
+        "@girs/gdk-4.0": "5.4.0",
+        "@girs/gio-2.0": "5.4.0",
+        "@girs/gtk-4.0": "5.4.0",
+        "@girs/pango-1.0": "5.4.0",
+        "@girs/webkit-6.0": "5.4.0",
+        "@girs/gobject-2.0": "5.4.0",
+        "@girs/gtksource-5": "5.4.0",
+        "@girs/shumate-1.0": "5.4.0"
+      }
+    },
     "node_modules/@gjsify/buffer": {
       "version": "0.64.27",
       "resolved": "https://registry.npmjs.org/@gjsify/buffer/-/buffer-0.64.27.tgz",
@@ -2207,72 +2223,6 @@
       },
       "bin": {
         "gjsify": "./lib/index.js"
-      }
-    },
-    "node_modules/@gjsify/cli/node_modules/@gjsify/blueprint": {
-      "version": "0.64.27",
-      "resolved": "https://registry.npmjs.org/@gjsify/blueprint/-/blueprint-0.64.27.tgz",
-      "integrity": "sha512-hpoeBF5faCA35IQrd8uveXujvjWxTUbMrcI/xzeCW/Cb57Avz9XPTjICr7mLZO06uASEyTCr+wtHA/33JdVKjg==",
-      "dependencies": {
-        "@girs/adw-1": "5.4.0",
-        "@girs/gdk-4.0": "5.4.0",
-        "@girs/gio-2.0": "5.4.0",
-        "@girs/gtk-4.0": "5.4.0",
-        "@girs/pango-1.0": "5.4.0",
-        "@girs/webkit-6.0": "5.4.0",
-        "@girs/gobject-2.0": "5.4.0",
-        "@girs/gtksource-5": "5.4.0",
-        "@girs/shumate-1.0": "5.4.0"
-      }
-    },
-    "node_modules/@gjsify/cli/node_modules/@gjsify/rolldown-plugin-gjsify": {
-      "version": "0.64.27",
-      "resolved": "https://registry.npmjs.org/@gjsify/rolldown-plugin-gjsify/-/rolldown-plugin-gjsify-0.64.27.tgz",
-      "integrity": "sha512-Ka5f0H9M1uIzjdv5K90DsqpGqFi+rxCFFcZ90hkYiCS/PW+sLv+aj2bnZWIX2wS7Nrh7F1gHbEUBFSGu54tdLA==",
-      "dependencies": {
-        "sass": "^1.101.0",
-        "acorn": "^8.17.0",
-        "fast-glob": "^3.3.3",
-        "acorn-walk": "^8.3.5",
-        "lightningcss": "^1.32.0",
-        "@gjsify/utils": "^0.64.27",
-        "@gjsify/console": "^0.64.27",
-        "acorn-typescript": "^1.4.13",
-        "@gjsify/resolve-npm": "^0.64.27",
-        "@rollup/pluginutils": "^5.4.0",
-        "@gjsify/rolldown-plugin-pnp": "^0.64.27",
-        "@gjsify/vite-plugin-gettext": "^0.64.27",
-        "@gjsify/vite-plugin-blueprint": "^0.64.27",
-        "@gjsify/rolldown-plugin-deepkit": "^0.64.27"
-      },
-      "peerDependencies": {
-        "rolldown": "^1.1.4",
-        "@gjsify/lightningcss-native": "^0.64.27"
-      },
-      "peerDependenciesMeta": {
-        "rolldown": {
-          "optional": true
-        },
-        "@gjsify/lightningcss-native": {
-          "optional": true
-        }
-      }
-    },
-    "node_modules/@gjsify/cli/node_modules/@gjsify/rolldown-plugin-gjsify/node_modules/@gjsify/rolldown-plugin-deepkit": {
-      "version": "0.64.27",
-      "resolved": "https://registry.npmjs.org/@gjsify/rolldown-plugin-deepkit/-/rolldown-plugin-deepkit-0.64.27.tgz",
-      "integrity": "sha512-lWyVwDKHGP95b/6vmOtB9H5WLMmhrGqCANdWkH9sLB9yTZQ75LNTrzi8+/amDcMsTGqxH861d1zMtKDA/hDAvQ==",
-      "dependencies": {
-        "typescript": "^6.0.3",
-        "@deepkit/type-compiler": "^1.0.19"
-      },
-      "peerDependencies": {
-        "rolldown": "^1.1.4"
-      },
-      "peerDependenciesMeta": {
-        "rolldown": {
-          "optional": true
-        }
       }
     },
     "node_modules/@gjsify/cluster": {
@@ -3417,6 +3367,56 @@
       ],
       "optional": true
     },
+    "node_modules/@gjsify/rolldown-plugin-deepkit": {
+      "version": "0.64.27",
+      "resolved": "https://registry.npmjs.org/@gjsify/rolldown-plugin-deepkit/-/rolldown-plugin-deepkit-0.64.27.tgz",
+      "integrity": "sha512-lWyVwDKHGP95b/6vmOtB9H5WLMmhrGqCANdWkH9sLB9yTZQ75LNTrzi8+/amDcMsTGqxH861d1zMtKDA/hDAvQ==",
+      "dependencies": {
+        "typescript": "^6.0.3",
+        "@deepkit/type-compiler": "^1.0.19"
+      },
+      "peerDependencies": {
+        "rolldown": "^1.1.4"
+      },
+      "peerDependenciesMeta": {
+        "rolldown": {
+          "optional": true
+        }
+      }
+    },
+    "node_modules/@gjsify/rolldown-plugin-gjsify": {
+      "version": "0.64.27",
+      "resolved": "https://registry.npmjs.org/@gjsify/rolldown-plugin-gjsify/-/rolldown-plugin-gjsify-0.64.27.tgz",
+      "integrity": "sha512-Ka5f0H9M1uIzjdv5K90DsqpGqFi+rxCFFcZ90hkYiCS/PW+sLv+aj2bnZWIX2wS7Nrh7F1gHbEUBFSGu54tdLA==",
+      "dependencies": {
+        "sass": "^1.101.0",
+        "acorn": "^8.17.0",
+        "fast-glob": "^3.3.3",
+        "acorn-walk": "^8.3.5",
+        "lightningcss": "^1.32.0",
+        "@gjsify/utils": "^0.64.27",
+        "@gjsify/console": "^0.64.27",
+        "acorn-typescript": "^1.4.13",
+        "@gjsify/resolve-npm": "^0.64.27",
+        "@rollup/pluginutils": "^5.4.0",
+        "@gjsify/rolldown-plugin-pnp": "^0.64.27",
+        "@gjsify/vite-plugin-gettext": "^0.64.27",
+        "@gjsify/vite-plugin-blueprint": "^0.64.27",
+        "@gjsify/rolldown-plugin-deepkit": "^0.64.27"
+      },
+      "peerDependencies": {
+        "rolldown": "^1.1.4",
+        "@gjsify/lightningcss-native": "^0.64.27"
+      },
+      "peerDependenciesMeta": {
+        "rolldown": {
+          "optional": true
+        },
+        "@gjsify/lightningcss-native": {
+          "optional": true
+        }
+      }
+    },
     "node_modules/@gjsify/rolldown-plugin-pnp": {
       "version": "0.64.27",
       "resolved": "https://registry.npmjs.org/@gjsify/rolldown-plugin-pnp/-/rolldown-plugin-pnp-0.64.27.tgz",
@@ -4114,22 +4114,6 @@
         }
       }
     },
-    "node_modules/@gjsify/vite-plugin-blueprint/node_modules/@gjsify/blueprint": {
-      "version": "0.64.27",
-      "resolved": "https://registry.npmjs.org/@gjsify/blueprint/-/blueprint-0.64.27.tgz",
-      "integrity": "sha512-hpoeBF5faCA35IQrd8uveXujvjWxTUbMrcI/xzeCW/Cb57Avz9XPTjICr7mLZO06uASEyTCr+wtHA/33JdVKjg==",
-      "dependencies": {
-        "@girs/adw-1": "5.4.0",
-        "@girs/gdk-4.0": "5.4.0",
-        "@girs/gio-2.0": "5.4.0",
-        "@girs/gtk-4.0": "5.4.0",
-        "@girs/pango-1.0": "5.4.0",
-        "@girs/webkit-6.0": "5.4.0",
-        "@girs/gobject-2.0": "5.4.0",
-        "@girs/gtksource-5": "5.4.0",
-        "@girs/shumate-1.0": "5.4.0"
-      }
-    },
     "node_modules/@gjsify/vite-plugin-gettext": {
       "version": "0.64.27",
       "resolved": "https://registry.npmjs.org/@gjsify/vite-plugin-gettext/-/vite-plugin-gettext-0.64.27.tgz",
@@ -4168,56 +4152,6 @@
       },
       "peerDependenciesMeta": {
         "vite": {
-          "optional": true
-        }
-      }
-    },
-    "node_modules/@gjsify/vite-plugin-gjsify/node_modules/@gjsify/rolldown-plugin-deepkit": {
-      "version": "0.64.27",
-      "resolved": "https://registry.npmjs.org/@gjsify/rolldown-plugin-deepkit/-/rolldown-plugin-deepkit-0.64.27.tgz",
-      "integrity": "sha512-lWyVwDKHGP95b/6vmOtB9H5WLMmhrGqCANdWkH9sLB9yTZQ75LNTrzi8+/amDcMsTGqxH861d1zMtKDA/hDAvQ==",
-      "dependencies": {
-        "typescript": "^6.0.3",
-        "@deepkit/type-compiler": "^1.0.19"
-      },
-      "peerDependencies": {
-        "rolldown": "^1.1.4"
-      },
-      "peerDependenciesMeta": {
-        "rolldown": {
-          "optional": true
-        }
-      }
-    },
-    "node_modules/@gjsify/vite-plugin-gjsify/node_modules/@gjsify/rolldown-plugin-gjsify": {
-      "version": "0.64.27",
-      "resolved": "https://registry.npmjs.org/@gjsify/rolldown-plugin-gjsify/-/rolldown-plugin-gjsify-0.64.27.tgz",
-      "integrity": "sha512-Ka5f0H9M1uIzjdv5K90DsqpGqFi+rxCFFcZ90hkYiCS/PW+sLv+aj2bnZWIX2wS7Nrh7F1gHbEUBFSGu54tdLA==",
-      "dependencies": {
-        "sass": "^1.101.0",
-        "acorn": "^8.17.0",
-        "fast-glob": "^3.3.3",
-        "acorn-walk": "^8.3.5",
-        "lightningcss": "^1.32.0",
-        "@gjsify/utils": "^0.64.27",
-        "@gjsify/console": "^0.64.27",
-        "acorn-typescript": "^1.4.13",
-        "@gjsify/resolve-npm": "^0.64.27",
-        "@rollup/pluginutils": "^5.4.0",
-        "@gjsify/rolldown-plugin-pnp": "^0.64.27",
-        "@gjsify/vite-plugin-gettext": "^0.64.27",
-        "@gjsify/vite-plugin-blueprint": "^0.64.27",
-        "@gjsify/rolldown-plugin-deepkit": "^0.64.27"
-      },
-      "peerDependencies": {
-        "rolldown": "^1.1.4",
-        "@gjsify/lightningcss-native": "^0.64.27"
-      },
-      "peerDependenciesMeta": {
-        "rolldown": {
-          "optional": true
-        },
-        "@gjsify/lightningcss-native": {
           "optional": true
         }
       }
