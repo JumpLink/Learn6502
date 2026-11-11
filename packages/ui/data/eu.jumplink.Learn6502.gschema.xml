@@ -14,6 +14,17 @@
             map. On Linux the host font is already GNOME's, so all three agree.</description>
         </key>
 
+        <key name="interface-scale" type="s">
+            <default>'auto'</default>
+            <summary>Interface scale</summary>
+            <description>How large the whole interface is drawn on the phone
+            ports, as one factor over every length: 'auto' derives it from the
+            screen (its shortest edge over the 360 logical pixels the Adwaita
+            stylesheet is authored for, held to 1.0–1.5), a number sets it by
+            hand. Separate from the system font size, which the platform still
+            applies on top. Ignored where the interface is drawn by GTK itself.</description>
+        </key>
+
         <key name="color-scheme" type="i">
             <default>0</default>
             <summary>Color scheme preference</summary>

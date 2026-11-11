@@ -78,6 +78,22 @@ template $PreferencesDialog: Adw.PreferencesDialog {
       }
     }
 
+    Adw.PreferencesGroup scaleGroup {
+      // TRANSLATORS: Preferences group title for how large the whole interface is drawn
+      title: _("Interface scale");
+      // TRANSLATORS: Explains the interface scale setting. The app's layout is
+      // drawn for a window about 360 points wide, which is narrower than a
+      // phone screen, so everything reads small unless it is enlarged. The last
+      // sentence says what a change does right away: texts, paddings and row
+      // heights follow at once, icon sizes only when a page is rebuilt.
+      description: _("The app is designed for a narrow window. On a wider screen every size is enlarged by one factor so the interface reads as it does on the desktop. This is separate from the system font size, which still applies. Text and spacing change immediately, icons after a restart.");
+
+      Adw.ComboRow rowInterfaceScale {
+        // TRANSLATORS: Label of the row that chooses the interface scale
+        title: _("Scale");
+      }
+    }
+
     Adw.PreferencesGroup resetGroup {
       // TRANSLATORS: Preferences group title for resetting appearance settings
       title: _("Reset");

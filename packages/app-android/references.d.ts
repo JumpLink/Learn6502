@@ -8,6 +8,14 @@ declare module "*?raw" {
   export default src;
 }
 
+// The PROCESSED stylesheet as a string — Tailwind expanded, `@import`s inlined, `px` dropped.
+// `?raw` would hand over the authored file instead, which is neither. app.ts gives it to
+// `@gjsify/adwaita-nativescript/app-scale` so the interface scale reaches the app's own rules.
+declare module "*?inline" {
+  const src: string;
+  export default src;
+}
+
 // 6502 assembly example sources (loaded as text by the asmTextLoader Vite plugin;
 // see vite.config.ts). Mirrors @learn6502/examples' own ambient declaration.
 declare module "*.asm" {

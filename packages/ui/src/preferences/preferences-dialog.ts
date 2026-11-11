@@ -2,6 +2,8 @@ import GObject from "@girs/gobject-2.0";
 import Adw from "@girs/adw-1";
 import Gtk from "@girs/gtk-4.0";
 
+import { formatMessage } from "@learn6502/core";
+
 import { _ } from "../translate.ts";
 import Template from "./preferences-dialog.blp?template";
 // Ensure custom widgets referenced in Blueprint are registered
@@ -19,9 +21,29 @@ export interface UiFontSetting {
   policy: UiFontPolicy;
 }
 
+/** What the interface scale is set to: a factor, or `"auto"` for the host's derived one. */
+export type InterfaceScaleValue = "auto" | number;
+
+/**
+ * The interface-scale setting of a host that has one — the phone ports.
+ *
+ * The derivation, the clamp and the appliers live in `@gjsify/adwaita-core/app-scale`; what
+ * crosses into the shared UI is this much, so that `@learn6502/ui` keeps building for GNOME and
+ * the web, where the setting does not exist and the group stays hidden.
+ */
+export interface InterfaceScaleSetting {
+  /** The factor `"auto"` resolves to on THIS screen, so the automatic entry can name it. */
+  readonly automatic: number;
+  /** The factors offered next to automatic, ascending. */
+  readonly choices: readonly number[];
+  value: InterfaceScaleValue;
+}
+
 export interface PreferencesDialogOptions {
   /** Without one the interface-font group is hidden. */
   uiFont?: UiFontSetting;
+  /** Without one the interface-scale group is hidden — it exists on the phone ports only. */
+  interfaceScale?: InterfaceScaleSetting;
 }
 
 export class PreferencesDialog extends Adw.PreferencesDialog {
@@ -29,22 +51,30 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
   declare _rowAccent: Adw.SwitchRow;
   declare _fontGroup: Adw.PreferencesGroup;
   declare _rowUiFont: Adw.ComboRow;
+  declare _scaleGroup: Adw.PreferencesGroup;
+  declare _rowInterfaceScale: Adw.ComboRow;
 
   /** The policies this host can actually honour, in the order they are shown. */
   private fontChoices: UiFontPolicy[] = [];
+
+  /** The scale values in the order they are shown, `"auto"` first. */
+  private scaleChoices: InterfaceScaleValue[] = [];
 
   static {
     GObject.registerClass(
       {
         GTypeName: "PreferencesDialog",
         Template,
-        InternalChildren: ["rowPrimary", "rowAccent", "fontGroup", "rowUiFont"],
+        InternalChildren: ["rowPrimary", "rowAccent", "fontGroup", "rowUiFont", "scaleGroup", "rowInterfaceScale"],
       },
       this
     );
   }
 
-  constructor({ uiFont }: PreferencesDialogOptions = {}, params: Partial<Adw.PreferencesDialog.ConstructorProps> = {}) {
+  constructor(
+    { uiFont, interfaceScale }: PreferencesDialogOptions = {},
+    params: Partial<Adw.PreferencesDialog.ConstructorProps> = {}
+  ) {
     super(params);
 
     // Initialize switches after map
@@ -67,6 +97,9 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
 
     if (uiFont) this.setupUiFontRow(uiFont);
     else this._fontGroup.set_visible(false);
+
+    if (interfaceScale) this.setupInterfaceScaleRow(interfaceScale);
+    else this._scaleGroup.set_visible(false);
   }
 
   private _onResetColors(): void {
@@ -108,6 +141,52 @@ export class PreferencesDialog extends Adw.PreferencesDialog {
       const chosen = this.fontChoices[this._rowUiFont.get_selected()];
       if (chosen && chosen !== uiFont.policy) uiFont.policy = chosen;
     });
+  }
+
+  /**
+   * The interface-scale chooser.
+   *
+   * Automatic is the first entry and names the factor it resolves to on this screen, so picking
+   * it again is the way back — the row needs no reset button of its own. A stored factor the
+   * host no longer offers (a narrower device, a changed clamp) is shown as its nearest entry
+   * rather than as nothing selected.
+   */
+  private setupInterfaceScaleRow(interfaceScale: InterfaceScaleSetting): void {
+    this.scaleChoices = ["auto", ...interfaceScale.choices];
+
+    const percent = (factor: number) => `${Math.round(factor * 100)}%`;
+    const labels = this.scaleChoices.map((choice) =>
+      choice === "auto"
+        ? // TRANSLATORS: Interface scale option — the factor derived from the
+          // screen; %s is that factor as a percentage, e.g. "114%"
+          formatMessage(_("Automatic (%s)"), [percent(interfaceScale.automatic)])
+        : percent(choice)
+    );
+    this._rowInterfaceScale.set_model(Gtk.StringList.new(labels));
+
+    const current = this.scaleChoices.indexOf(interfaceScale.value);
+    this._rowInterfaceScale.set_selected(current >= 0 ? current : this.nearestScaleIndex(interfaceScale.value));
+
+    this._rowInterfaceScale.connect("notify::selected", () => {
+      const chosen = this.scaleChoices[this._rowInterfaceScale.get_selected()];
+      if (chosen !== undefined && chosen !== interfaceScale.value) interfaceScale.value = chosen;
+    });
+  }
+
+  /** The entry closest to a stored factor that is not offered; automatic when it is not one. */
+  private nearestScaleIndex(value: InterfaceScaleValue): number {
+    if (value === "auto") return 0;
+    let best = 0;
+    let distance = Number.POSITIVE_INFINITY;
+    this.scaleChoices.forEach((choice, index) => {
+      if (choice === "auto") return;
+      const d = Math.abs(choice - value);
+      if (d < distance) {
+        distance = d;
+        best = index;
+      }
+    });
+    return best;
   }
 }
 
