@@ -58,6 +58,25 @@ HtmlView {
   font-weight: 400;
 }
 
+.gtksource-view {
+  /* The class `GtkSourceView` puts on itself (@gjsify/gtksource-nativescript). Its driver
+     applies the resolved CSS `font-size` to the native EditText, and with nothing declared it
+     falls back to its own DEFAULT_FONT_SIZE constant — a size no stylesheet can reach, so the
+     interface scale would skip the editor. Stated here, the editor follows the one scale. The
+     line-number gutter paints with `view.getTextSize()`, so it follows along. */
+  font-size: 14.67;
+}
+
+.paragraph {
+  /* The class the MDX compiler puts on every prose block (packages/learn/dist/*.blp). It is not
+     an Adwaita class, so the theme does not declare it, and on GTK an undeclared label simply
+     inherits the document font. On NativeScript it fell through to the Android default text
+     size instead — a size no stylesheet reaches, so the tutorial's body text was the one surface
+     the interface scale skipped while its headings grew. Same size as `.body`. */
+  font-size: 14.67;
+  font-weight: 400;
+}
+
 HtmlView,
 .body,
 .title-1,
