@@ -35,57 +35,60 @@ Page {
   --safeAreaInsetRight: 0;
 }
 
-/* Inspired by https://gitlab.gnome.org/GNOME/libadwaita/-/blob/98643bce8edf94d50add0b72fff2024742390507/src/stylesheet/widgets/_labels.scss
+/* THE RAMP ITSELF NOW COMES FROM adwaita.css, imported above — `.title-1`…`.title-4`, `.body`,
+ * `.heading` and `.caption` are libadwaita's `_labels.scss` utilities, ported into the bridge's
+ * theme with the percentages they are derived from and a CI gate holding the two together
+ * (gjsify: scripts/check-nativescript-typography.mjs). What is left here is this app's VERTICAL
+ * RHYTHM: the 12 above and below every block, which is a document-flow decision and not part of
+ * the type scale.
  *
- * THE SIZES ARE UPSTREAM'S PERCENTAGES OF THE 15 dip BASE, NOT FREE NUMBERS. libadwaita states
- * the ramp relatively — 181 % / 136 % / 136 % / 118 % of the document font — and the bridge's
- * base is 15 (`.adw-window-title`, `.adw-button-label`), which is GTK's 11pt read at 96 dpi:
- * 11 × 96/72 = 14.67. Absolute pixel sizes here replaced that ramp with a flatter, larger one.
- *
+ * What used to stand here were absolute sizes, a flatter and larger ramp than upstream's.
  * MEASURED against GeopJr's GTK4Android Adwaita Demo on the same phone at the same font scale
  * (Galaxy S9, density 3.5, font_scale 1.0), cap heights in device px: real GTK draws its window
  * title, row titles and body all at 33 and `.title-1` at 61 — a ratio of 1.85. This file drew
  * body at 35 (right) but `.title-1` at 75 and `.title-2` at 70, ratios of 2.14 and 2.00. So the
- * base was never the problem and is left alone; the ramp on top of it is what is restated. */
+ * base was never the problem; the ramp on top of it was, and restating it per-app is what let it
+ * drift in the first place. Re-declaring a size here would take precedence over the theme (equal
+ * specificity, imported first) and quietly reopen that gap. */
+
+HtmlView {
+  /* Not a utility class, so the theme cannot carry it: `HtmlView` is the NS view type
+     the tutorial renders into, and it needs the document size stated explicitly. */
+  font-size: 14.67;
+  font-weight: 400;
+}
+
+.gtksource-view {
+  /* The class `GtkSourceView` puts on itself (@gjsify/gtksource-nativescript). Its driver
+     applies the resolved CSS `font-size` to the native EditText, and with nothing declared it
+     falls back to its own DEFAULT_FONT_SIZE constant — a size no stylesheet can reach, so the
+     interface scale would skip the editor. Stated here, the editor follows the one scale. The
+     line-number gutter paints with `view.getTextSize()`, so it follows along. */
+  font-size: 14.67;
+}
+
+.paragraph {
+  /* The class the MDX compiler puts on every prose block (packages/learn/dist/*.blp). It is not
+     an Adwaita class, so the theme does not declare it, and on GTK an undeclared label simply
+     inherits the document font. On NativeScript it fell through to the Android default text
+     size instead — a size no stylesheet reaches, so the tutorial's body text was the one surface
+     the interface scale skipped while its headings grew. Same size as `.body`. */
+  font-size: 14.67;
+  font-weight: 400;
+}
 
 HtmlView,
-.body {
-  font-size: 15;
-  font-weight: 400;
-  margin-bottom: 12;
-  margin-top: 12;
-}
-
-.title-1 {
-  font-weight: 800;
-  font-size: 27;
-  margin-bottom: 12;
-  margin-top: 12;
-}
-
-.title-2 {
-  font-weight: 800;
-  font-size: 20;
-  margin-bottom: 12;
-  margin-top: 12;
-}
-
-.title-3 {
-  font-weight: 700;
-  font-size: 20;
-  margin-bottom: 12;
-  margin-top: 12;
-}
-
+.body,
+.title-1,
+.title-2,
+.title-3,
 .title-4 {
-  font-size: 18;
-  font-weight: 700;
   margin-bottom: 12;
   margin-top: 12;
 }
 
 .list {
-  font-size: 15;
+  font-size: 14.67;
 }
 
 /* Remove underline from TextViews */

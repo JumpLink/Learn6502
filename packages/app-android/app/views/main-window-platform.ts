@@ -12,6 +12,7 @@ import {
 } from "@learn6502/ui";
 
 import { createMainWindowServices } from "~/services/main-window.services";
+import { interfaceScaleService } from "~/services/interface-scale.service";
 import { persistEditorCode } from "./main/editor";
 
 /** One simulator stack for the process: the activity, and the widgets with it, are rebuilt around it. */
@@ -42,7 +43,12 @@ export function registerMainWindowPlatform(): void {
           addAppActions(application as unknown as GjsGtk.Application, {
             quit: () => shell.closeWindow(),
             about: () => about.present(window as unknown as GjsGtk.Widget),
-            preferences: () => new PreferencesDialog().present(window as unknown as GjsGtk.Widget),
+            preferences: () =>
+              // The interface scale exists here and not on GNOME, where GTK draws at the
+              // desktop's own scale; passing it is what shows the group.
+              new PreferencesDialog({ interfaceScale: interfaceScaleService }).present(
+                window as unknown as GjsGtk.Widget
+              ),
           });
         },
         whenReady: (init) => init(),
