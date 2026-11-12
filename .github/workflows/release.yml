@@ -390,7 +390,11 @@ jobs:
   macos:
     name: Sign and notarise macOS
     needs: [artifacts]
-    runs-on: macos-latest
+    # Intel, not `macos-latest`: on 2026-11-12 GitHub's macOS arm64 pool had no
+    # capacity and the job was never acquired (three attempts, 15 min each).
+    # Nothing here needs arm64 hardware: the stages are assembled on Linux, and
+    # codesign, notarytool and hdiutil pack and sign both architectures from x64.
+    runs-on: macos-15-intel
     env:
       P12_BASE64: ${{ secrets.APPLE_DEVELOPER_ID_P12_BASE64 }}
       P12_PASSWORD: ${{ secrets.APPLE_DEVELOPER_ID_P12_PASSWORD }}
