@@ -205,25 +205,34 @@ export class MdxView extends Adw.Bin {
   }
 
   /**
-   * Wires everything under `root`, and returns whether there was anything. Re-runnable: the RTL
+   * Wires `root` and everything under it, and returns whether there was anything. Re-runnable: the RTL
    * pass is idempotent and a code block is connected once however often it is walked.
    *
    * Needed past {@link wire}'s one walk because {@link revealDeferred} attaches sections AFTER
-   * it: those were never under the walk, so their copy buttons reached nobody.
+   * it: those were never under the walk, so their copy buttons reached nobody. `root` itself is
+   * walked too: a deferred section that is just a code block IS the `SourceView`, with nothing
+   * above it for {@link descendants} to yield.
    */
   private wireSubtree(root: Gtk.Widget): boolean {
     const rtl = this.get_direction() === Gtk.TextDirection.RTL;
     let found = false;
-    for (const child of descendants(root)) {
-      found = true;
+    const walk = (child: Gtk.Widget): void => {
       if (child instanceof SourceView) {
-        if (this.wiredBlocks.has(child)) continue;
+        if (this.wiredBlocks.has(child)) return;
         this.wiredBlocks.add(child);
         // TODO: Disconnect the signal when the source view is destroyed
         child.events.on("copy", (event: SourceViewCopyEvent) => this.emit("copy", event.code));
       } else if (rtl && child instanceof Gtk.Label && child.label) {
         child.label = applyRtlBaseDirection(child.label);
       }
+    };
+    if (root instanceof SourceView) {
+      walk(root);
+      return true;
+    }
+    for (const child of descendants(root)) {
+      found = true;
+      walk(child);
     }
     return found;
   }
