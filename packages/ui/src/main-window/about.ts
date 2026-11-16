@@ -1,7 +1,7 @@
 import Adw from "@girs/adw-1";
 import GLib from "@girs/glib-2.0";
 import Gtk from "@girs/gtk-4.0";
-import { donationsAllowed, purchased } from "@gjsify/distribution";
+import { donationsAllowed, pricing } from "@gjsify/distribution";
 
 import { editionBadgeService, type EditionBadgeId } from "../services/edition-badge.service.ts";
 import credits from "../credits.json";
@@ -44,8 +44,8 @@ const escapeMarkup = (text: string): string => text.replace(/&/g, "&amp;").repla
 
 /**
  * The badges this build shows, in display order. Which ones exist is decided by
- * `EditionBadgeService` from the `purchased` capability of the distribution channel — never from
- * the channel name, and never from anything the user could set.
+ * `EditionBadgeService` from the build's `pricing()` in `@gjsify/distribution` — never from
+ * the channel name (a free store download is no purchase), and never from anything the user could set.
  */
 export function editionBadges(): EditionBadge[] {
   const badges: Record<EditionBadgeId, EditionBadge> = {
@@ -64,7 +64,7 @@ export function editionBadges(): EditionBadge[] {
       detail: _("You supported this open source project by buying the app. Thank you!"),
     },
   };
-  return editionBadgeService.badges(purchased()).map((id) => badges[id]);
+  return editionBadgeService.badges(pricing() === "paid").map((id) => badges[id]);
 }
 
 /** The badges as one Pango markup block, each on its own line. */

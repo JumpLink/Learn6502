@@ -3,7 +3,7 @@
  *
  * Every build of this app is open source and says so. A build the user bought in a store says one
  * thing more: that the purchase supported the open source project. A free build must never claim a
- * purchase, so the decision is the `purchased` capability of `@gjsify/distribution` — never a
+ * purchase, so the decision is the `pricing()` of `@gjsify/distribution` (`paid` listing) — never a
  * comparison of the channel name, and never anything the user could toggle.
  *
  * Wording is "Support" and "supported … by buying the app"; never "donation", and no claim about
@@ -14,7 +14,7 @@ export type EditionBadgeId = "open-source" | "purchased";
 
 export class EditionBadgeService {
   /**
-   * The badges to show, in display order. `isPurchased` is `purchased()` from
+   * The badges to show, in display order. `isPurchased` is `pricing() === "paid"` from
    * `@gjsify/distribution`; the open-source badge is unconditional.
    */
   public badges(isPurchased: boolean): EditionBadgeId[] {
